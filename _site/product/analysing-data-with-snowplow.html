@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Introduction to data analysis with SnowPlow - SnowPlow Analytics</title>
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', '']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li  class="active" ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='introduction_to_data_analysis_with_snowplow'>Introduction to data analysis with SnowPlow</h1>
+
+<p>Analysing data in SnowPlow is surprisingly straightforward for anyone with a basic knkowledge of SQL to write queries in Apache Hive.</p>
+
+<p>It is possible to perform complete analyses using nothing but Hive. In practice, however, most users prefer to use Hive to extract a &#8220;cut&#8221; of SnowPlow data that they can then analyse in their favorite / preferred analytics tool, be that Excel, R, Tableau, Microstrategy or something else all together.</p>
+
+<h2 id='getting_started_with_hive'>Getting started with Hive</h2>
+
+<p>SnowPlow data is stored in a single Hive table called <code>events</code>. Each line of data in the table represents a single user event e.g. a page view, add-to-basket etc.</p>
+
+<p>A full description of the events table in Hive can be found <a href='/?'>here</a>. We wont cover all the fields in the table here, rather, we&#8217;ll explore some of the main ones used to perform analyses.</p>
+
+<h3 id='counting_visitors'>Counting visitors</h3>
+
+<p>Two fields are particularly useful for identifying visitors to your site:</p>
+
+<ol>
+<li>The <strong>user_id</strong>. This uniquely identifies each visitor to your website</li>
+
+<li>The <strong>visit_id</strong>. This identifies each visit this particular user is on. the first time the user visits your website it is set to &#8216;1&#8217;, the 2nd time to &#8216;2&#8217; etc.</li>
+</ol>
+
+<p>Each line of event data in Hive is time stamped, with a <code>dt</code> field indicating the date and a <code>tm</code> field indicating the time that an event took place.</p>
+
+<p>To count the number of users that visited your website on August 11th 2012, for example, we simply execute the following query:</p>
+
+<pre><code>select count(distinct (user_id)) as uniques
+from events
+where dt=&#39;2012-08-11&#39; ;</code></pre>
+
+<h2 id='zooming_in_on_a_particular_visitors'>Zooming in on a particular visitor(s)</h2>
+
+<p>Sometimes, we may want to look at the behaviour of a particular visitor, or group of visitors. To do this, we can simply execute the following query to pull up the complete browsing history of user_id = &#8216;1234&#8217;</p>
+
+<pre><code>SELECT * FROM events
+WHERE user_id = &#39;1234&#39; ;</code></pre>
+
+<p>We may want to identify the last 100 users who visited our site:</p>
+
+<pre><code>SELECT DISTINCT user_id 
+FROM events
+WHERE dt=&#39;2012-08-11&#39;
+ORDER BY tm DESC 
+LIMIT 100;</code></pre>
+
+<p>Alternatively, we may want to identify the last 100 users who purchased on our site:</p>
+
+<pre><code>SELECT DISTINCT user_id
+FROM events
+WHERE dt=&#39;2012-08-11&#39;
+AND ev_action = &#39;order-complete&#39;
+ORDER BY tm DESC
+LIMIT 100;</code></pre>
+
+<p>Note: the <code>ev_action</code> field represented in the above query is the &#8216;event-action&#8217;. The text in this field represents the different types of action a user can take on your site e.g. &#8216;add-to-basket&#8217; (on an ecommerce site) or &#8216;pause-video&#8217; (on a media site).</p>
+
+<h2 id='exporting_data_out_of_hive'>Exporting data out of Hive</h2>
+
+<p>Generally, analysts use Hive to extract a cut of data that they then process in their preferred analytics tool.</p>
+
+<p>Typically, generating the &#8216;cut&#8217; of data involves executing a SQL query where:</p>
+
+<ol>
+<li>
+<p>The &#8216;SELECT&#8217; statement includes all the fields they would like in their output, aggreagted as appropriate. (Using the SUM, COUNT, MAX functions etc.)</p>
+</li>
+
+<li>
+<p>The &#8216;WHERE&#8217; statement filters results to just the customers / actions they are interested in analysing</p>
+</li>
+
+<li>
+<p>The &#8216;GROUP BY&#8217; statement rolls the data up to the required level of aggregation. To take a comman example, analysts often roll the data up so that there is one line of data for each visit. In that case, they would:</p>
+
+<p>GROUP BY user_id, visit_id</p>
+</li>
+</ol>
+
+<p>Once an analyst has pulled the cut of data she requires from SnowPlow, the next step is to import it into her analytics / statistical / visualisation tool of choice. It is straightforward to write the outputs of a Hive analysis to a tab delimited or comma delimited file. This is achieved by creating an &#8216;external table&#8217; (i.e. one that is saved on S3 rather than in Hive itself) and formatting it to be e.g. a CSV:</p>
+
+<pre><code>CREATE EXTERNAL TABLE data_for_export (
+	field_1 field_1_type, 
+	field_2 field_2_type,
+	...
+	field_n field_n_type
+) ROW FORMAT DELIMITED
+FIELDS TERMINATED BY &#39;,&#39;
+LINES TERMINATED BY &#39;\n&#39;
+LOCATION &#39;s3:///{path}/&#39; ;</code></pre>
+
+<p>Once created, the analyst needs to populate the table with the data from their Hive query:</p>
+
+<pre><code>INSERT OVERWRITE TABLE data_for_export
+SELECT
+	field_1, 
+	field_2,
+	...
+	field_n
+FROM events
+WHERE 
+GROUP BY  ;</code></pre>
+
+<p>The query will execute, but instead of writing the results to the screen, they&#8217;ll be saved in S3, where the analyst can download them and import them into their the appropriate tool to continue the analysis.</p>
+
+<p>Want to <a href='/analytics/index.html'>learn more</a> about the different analyses that are possible with Hive. Then visit the <a href='/analytics/index.html'>analyst-cookbook</a>.</p>
+
+<p><a href='get-started.html'>Get started</a> with SnowPlow <a href='get-started.html'>here</a>.</p>
+</div>
+
+ <div id="sidebar">
+	<strong>About SnowPlow web analytics</strong>
+	<ul>
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+						
+						<li><a href="/product/index.html">Overview</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/why-snowplow.html">Why SnowPlow?</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/snowplow-usps.html">SnowPlow USPs</a></li>
+						
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/technical-architecture.html">SnowPlow technical architecture</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li class="active"><a href="/product/analysing-data-with-snowplow.html" class="active">Introduction to data analysis with SnowPlow</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/get-started.html">Get started with SnowPlow today</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+	</ul>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

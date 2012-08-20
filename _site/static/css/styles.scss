@@ -1,0 +1,176 @@
+/*
+ * Variables:
+ */
+
+$lightblue: #00679D;
+$darkblue: #162B4F;
+$lightgrey: #ECECEC;
+$darkgrey: #DCDCE9;
+$white: #FFFFFF;
+
+/* 
+ * General page layout 
+ */
+
+#container {
+	width: 960px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	clear: both;
+
+	font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif";
+	color: $darkblue;
+	font-size: 13px;
+	
+	h1 { font-size: 18px; }
+	h2 { font-size: 16px; }
+	h3 { font-size: 14px; }
+	p  { font-size: 13px; }
+}
+
+#sidebar {
+	width: 200px;
+	min-height: 400px;
+	display: inline;
+	float: right;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 10px 10px 10px 10px;
+	background-color: $lightgrey;
+	font-size: 12px;
+
+	ul {
+		margin-left: 15px;
+		padding-left: 0px;
+	}
+
+	a {
+		text-decoration: none;
+		font-weight: normal;
+
+		&:hover { font-weight: bold; }
+
+		&.active { font-weight: bold; }
+	}
+
+}
+
+#contents {
+	width: 720px;
+	display: inline;
+	float: left;
+}
+
+#header {
+	display: block;
+	width: 100%;
+	float: left;
+	clear: both;
+	height: 50px;
+	border-bottom-style: solid ;
+	border-bottom-width: 1px;	
+	border-right-color: $darkgrey;
+	margin-bottom: 20px;
+
+	#logo {
+		display: inline;
+		float: left;
+		width: 200px;
+		height: 50px;
+
+		h1 {
+			margin-bottom: 0px;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		p {
+			margin-top: 0px;
+			font-size: 8px;
+		}
+	}
+
+	#menu {
+		display: inline;
+		float: right;
+		width: 750px;
+		
+		ul {
+			list-style-type: none;
+			margin-top: 28px;
+		}
+
+		li {
+			display: inline;
+			width: 100px;
+			height: 20px;
+			float: left;
+			margin-left: 10px;
+			background-color: $lightgrey;
+			text-align: center;
+			font-size: 13px;
+			border-width: 1px; 
+			border-style: solid; 
+			border-color: $darkgrey;
+			&:hover { 
+				background: $lightblue;
+				a {
+					color: $white;
+					font-weight: bold;
+				}
+			}
+			a {
+				color: $darkblue;
+				text-decoration: none;
+			}
+		}
+
+		li.active {
+			background-color: $darkblue;
+			border-color: $darkblue; 
+			
+			a {
+				color: $white;		
+			}
+		}
+
+	}
+}
+
+#footer {
+	display: block;
+	width: 100%;
+	float: left;
+	height: 30px;
+	border-top-style: solid ;
+	border-top-width: 1px;	
+	border-top-color: $darkblue;
+	margin-top: 40px;
+	text-align: center;
+
+	p {
+		font-size: 10px;
+	}
+
+}
+
+/* Blog */
+
+.post
+{
+	display: block;
+	width: 90%;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	background-color: $lightgrey;
+	padding: 20px 20px 20px 20px;
+	/*
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: $darkblue;
+	*/
+
+}

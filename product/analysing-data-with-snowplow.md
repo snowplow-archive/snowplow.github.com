@@ -1,7 +1,7 @@
 ---
 layout: section
 category: product
-title: Introduction to data analysis with SnowPlow
+title: Data analytics 
 weight: 5
 ---
 

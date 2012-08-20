@@ -47,6 +47,23 @@
   width: 720px;
   display: inline;
   float: left; }
+  #contents img {
+    max-width: 100%; }
+  #contents table {
+    margin-top: 10px;
+    margin-bottom: 10px; }
+    #contents table thead {
+      background-color: #ececec; }
+      #contents table thead th {
+        font-size: 12px;
+        text-align: left;
+        padding-left: 10px;
+        padding-right: 10px; }
+    #contents table td {
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 12px; }
 
 #header {
   display: block;

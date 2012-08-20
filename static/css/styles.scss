@@ -60,6 +60,29 @@ $white: #FFFFFF;
 	width: 720px;
 	display: inline;
 	float: left;
+
+	img { max-width: 100%; }
+
+	table {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		thead {
+			background-color: $lightgrey;
+			th {
+				font-size: 12px;
+				text-align: left;
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+		}
+		td {
+			text-align: left;
+			padding-left: 10px;
+			padding-right: 10px;
+			font-size: 12px;
+		}
+	}
+				
 }
 
 #header {

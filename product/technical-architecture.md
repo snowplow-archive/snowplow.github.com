@@ -1,7 +1,7 @@
 ---
 layout: section
 category: product
-title: SnowPlow technical architecture
+title: Technical Architecture
 weight: 4
 ---
 

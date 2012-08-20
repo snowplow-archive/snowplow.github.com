@@ -1,7 +1,7 @@
 ---
 layout: section
 category: services
-title: Custom development of SnowPlow
+title: Custom Development
 weight: 5
 ---
 

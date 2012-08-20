@@ -15,7 +15,7 @@ Learn more about our approach to analytics projects below:
 2. [Approach](#approach)
 3. [Project output](#output)
 4. [Examples of our work](#examples)
-5. [Prices](#prices)s
+5. [Prices](#prices)
 
 <a name="context" />
 ## Context 
@@ -41,7 +41,11 @@ However, there are often barriers to using data to drive decision making:
 <a name="output" />
 ## Project output
 
-Blah
+The primary output of any analytics project is a Powerpoint deck that directly addresses the business question posed, and weaves the different analyses performed into a coherent narrative in support of a specific recommendation for the client.
+
+Some illustrateive analyses from past projects are shown below, to give a flavour of the analyses we produce:
+
+
 
 <a name="examples" />
 ## Examples of our work

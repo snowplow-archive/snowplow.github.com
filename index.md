@@ -30,6 +30,7 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 
 ## The most powerful, scalable and robust web analytics platform in the world
 
+* **Hadoop-powered** web analytics
 * Scales to **billions of events** (rows of data) per day
 * Data is stored in **Amazon S3**
 * Data is made available for analysis in [Apache Hive] [apache-hive] via [EMR] [amazon-emr] and/or [Infobright] [infobright] columnar database
@@ -59,7 +60,7 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 [problems-built-to-solve]: /product/why-snowplow.html
 [more-sources-of-support]: /services/index.html#other-sources
 [technical-architecture]: /product/technical-architecture.html
-[snowplow-roadmap]: 
+[professional-services]: /services/index.html
 [blog]: /blog.html
 [Twitter]: http://twitter.com/snowplowdata
 [r-project]: http://www.r-project.org/
@@ -67,5 +68,5 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 [microstrategy]: http://www.microstrategy.co.uk/
 [mahout]: http://mahout.apache.org/
 [weka]: http://weka.pentaho.com/
-
+[snowplow-roadmap]: 
 

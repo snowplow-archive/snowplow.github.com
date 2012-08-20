@@ -16,6 +16,7 @@ Learn more about our approach to analytics projects below:
 3. [Project output](#output)
 4. [Examples of our work](#examples)
 5. [Prices](#prices)
+6. [Learn more](#learn-more)
 
 <a name="context" />
 ## Context 
@@ -81,6 +82,15 @@ Analytics projects are done for clients on a fixed fee basis, where the fee will
 
 Man-days are charged out based on our [rate card] [rate-card]. However, once these have been estimated, they are fixed. 
 
+<a name="learn-more" />
+## Learn more
+
+[Get in touch] [get-in-touch] with the SnowPlow team to discuss your project. Find out about our other professional services, including [report design and implementation] [reporting], [SnowPlow implementations] [implementation] and [custom development] [custom-dev].
+
 
 [product-performance-example]: img/pvs-by-unique-purchaes-by-product-2011.jpg
 [rate-card]: rate-card.html
+[get-in-touch]: /contact/index.html
+[reporting]: reporting.html
+[implementation]: implementation.html
+[custom-dev]: custom-development.html

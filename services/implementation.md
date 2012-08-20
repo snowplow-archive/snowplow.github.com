@@ -16,7 +16,7 @@ We offer two, fixed fee services for standard SnowPlow imeplmentations to help c
 1. [Producing Javascript implementation guides](#implementation-guide)
 2. [Setting up and running the SnowPlow infrastructure on your behalf](#infrastructure)
 
-In addition we offer custom integration for clients, which may involve some [bespoke report design and delivery] [bespoke-reports] and [custom development] [custom-dev]
+In addition we offer custom integration for clients, which may involve some [bespoke report design and delivery] [bespoke-reports] and [custom development] [custom-dev].
 
 <a name="implementation-guide" />
 ### 1. Producing Javascript implementation guides
@@ -42,6 +42,16 @@ We can setup and run the Amazon Web Services and associated infrastructure neces
 As part of this service we roll out any upgrades to SnowPlow.
 
 **Price**: we do this on a fixed fee basis of £1000 to setup, then £100 per month. 
+
+## Learn more
+
+* [Get in touch] [get-in-touch] with the SnowPlow team to discuss your project
+* Find out about our other professional services, including [analytics services] [analytics], [SnowPlow implementations] [implementation] and [custom development] [custom-dev].
+
+[get-in-touch]: /contact/index.html
+[analytics]: analytics.html
+[implementation]: implementation.html
+[custom-dev]: custom-development.html
 
 [event-tracking]: https://github.com/snowplow/snowplow/wiki/Integrating-SnowPlow-into-your-website#wiki-events
 [bespoke-reports]: reporting.html

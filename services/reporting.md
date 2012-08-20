@@ -15,6 +15,7 @@ Learn more about our approach to report design and implementation below:
 2. [Approach](#approach)
 3. [Project output](#output)
 4. [Prices](#prices)
+5. [Learn more](#learn-more)
 
 <a name="context" />
 ## Context
@@ -57,6 +58,14 @@ We generally estimate the complete project cost and do the first part on a fixed
 
 The fixed fees we quote will be based on our [rate card] [rate-card].
 
+<a name="learn-more" />
+## Learn more
 
+* [Get in touch] [get-in-touch] with the SnowPlow team 
+* Find out about our other professional services, including [analytics services] [analytics], [SnowPlow implementations] [implementation] and [custom development] [custom-dev].
+
+[get-in-touch]: /contact/index.html
 [rate-card]: rate-card.html
-
+[analytics]: analytics.html
+[implementation]: implementation.html
+[custom-dev]: custom-development.html

@@ -14,7 +14,7 @@ The SnowPlow team works with clients on three different types of SnowPlow-relate
 3. [SnowPlow implementation] [implementation]. We can help you implement SnowPlow, by identifying all the relevant actions you should be tracking (and capturing via the SnowPlow tags), and working with your technical team to implement the SnowPlow infrastructure
 4. [Custom development] [custom-dev]. Require an extension to the core SnowPlow features set? We work with clients to extend SnowPlow to meet their specific needs
 
-View our [rate card] [rate-card].
+[Get in touch] [get-in-touch] with the SnowPlow team to discuss your project needs. View our [rate card] [rate-card] for pricing details. 
 
 ### Other sources of SnowPlow support
 
@@ -32,3 +32,4 @@ As well as supporting clients through our professional services team, we provide
 [rate-card]: rate-card.html
 [google-group]: https://groups.google.com/forum/#!forum/snowplow-user
 [github-repo]: http://github.com/snowplow/snowplow
+[get-in-touch]: /contact/index.html 

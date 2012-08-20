@@ -50,9 +50,19 @@ Some illustrateive analyses from past projects are shown below, to give a flavou
 <a name="examples" />
 ## Examples of our work
 
-Blah
+### Example consumer analytics: engagement levels over time
+
+[COMING SOON]
+
+### Example catalogue analysis: conversion rate by product
+
+The following graph was part of a catalogue analysis performed for an online retailer with a diverse set of more than 5000 SKUs across multiple categories.
+
+![example-catalogue-analysis][product-performance-example]
+
+
 
 <a name="prices" />
 ## Prices
 
-
+[product-performance-example]: img/pvs-by-unique-purchases-by-product-2011.jpg

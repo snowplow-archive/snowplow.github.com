@@ -107,13 +107,15 @@
       border-style: solid;
       border-color: #dcdce9; }
       #header #menu li:hover {
-        background: #00679d; }
+        background: #162b4f; }
         #header #menu li:hover a {
-          color: white;
-          font-weight: bold; }
+          color: white; }
       #header #menu li a {
         color: #162b4f;
-        text-decoration: none; }
+        text-decoration: none;
+        float: left;
+        width: 100px;
+        /* Mqke the clickable area as wide as possible */ }
     #header #menu li.active {
       background-color: #162b4f;
       border-color: #162b4f; }

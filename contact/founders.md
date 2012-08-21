@@ -1,7 +1,7 @@
 ---
 layout: section
 category: contact
-title: The SnowPlow founders
+title: Founders
 weight: 2
 ---
 

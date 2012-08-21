@@ -27,9 +27,9 @@ What will you do with your web analytics data? [Get started with SnowPlow today]
 * The [SnowPlow roadmap] [roadmap]
 
 [why-snowplow]: why-snowplow.html
-[snowplow-usps]: [snowplow-usps.html]
-[technical-architecture]: [technical-architecture.html]
-[intro-to-snowplow-analysis]: [intro-to-snowplow-analysis.html]
-[roadmap]: [roadmap.html]
-[get-started]: [get-started.html]
-[learn-more]: [learn-more.html]
+[snowplow-usps]: snowplow-usps.html
+[technical-architecture]: technical-architecture.html
+[intro-to-snowplow-analysis]: analysing-data-with-snowplow.html
+[roadmap]: roadmap.html
+[get-started]: get-started.html
+[learn-more]: learn-more.html

@@ -9,13 +9,15 @@ weight: 5
 
 Analysing data in SnowPlow is surprisingly straightforward for anyone with a basic knkowledge of SQL to write queries in Apache Hive. 
 
-It is possible to perform complete analyses using nothing but Hive. In practice, however, most users prefer to use Hive to extract a "cut" of SnowPlow data that they can then analyse in their favorite / preferred analytics tool, be that Excel, R, Tableau, Microstrategy or something else all together.
+SnowPlow data is stored either in [Apache Hive][hive] or [Infobright][infobright]. In both cases, all the data is kept in a single 'events' table, where each line of data in the table represents a single event.
 
-## Getting started with Hive
+It is possible to perform complete analyses using nothing but Hive / Infobright. In practice, however, most users prefer to use Hive / Infobright to extract a "cut" of SnowPlow data that they can then analyse in their favorite / preferred analytics tool, be that Excel, R, Tableau, Microstrategy or something else all together.
 
-SnowPlow data is stored in a single Hive table called `events`. Each line of data in the table represents a single user event e.g. a page view, add-to-basket etc.
+## Getting started with Hive / Infobright
 
-A full description of the events table in Hive can be found [here] [Hive-events-table-definition]. We wont cover all the fields in the table here, rather, we'll explore some of the main ones used to perform analyses.
+SnowPlow data is stored in a single table called `events`. Each line of data in the table represents a single user event e.g. a page view, add-to-basket etc.
+
+A full description of the events table can be found [here] [Hive-events-table-definition]. We wont cover all the fields in the table here, rather, we'll explore some of the main ones used to perform analyses.
 
 ### Counting visitors
 
@@ -60,7 +62,9 @@ Note: the `ev_action` field represented in the above query is the 'event-action'
 
 ## Exporting data out of Hive
 
-Generally, analysts use Hive to extract a cut of data that they then process in their preferred analytics tool.
+If you are using Infobright rather than Hive, exporting data is straightforward: you can use any programme that works with MySQL. (Infobright is based on MySQL.)
+
+If you are using Hive, exporting data is a little more involved. Generating the cut of data by building the query is exactly the same, but then running the export takes several steps:
 
 Typically, generating the 'cut' of data involves executing a SQL query where:
 
@@ -69,6 +73,8 @@ Typically, generating the 'cut' of data involves executing a SQL query where:
 3. The 'GROUP BY' statement rolls the data up to the required level of aggregation. To take a comman example, analysts often roll the data up so that there is one line of data for each visit. In that case, they would:
 
 	GROUP BY user_id, visit_id 
+
+So far so good - same process for Hive and Infobright.
 
 Once an analyst has pulled the cut of data she requires from SnowPlow, the next step is to import it into her analytics / statistical / visualisation tool of choice. It is straightforward to write the outputs of a Hive analysis to a tab delimited or comma delimited file. This is achieved by creating an 'external table' (i.e. one that is saved on S3 rather than in Hive itself) and formatting it to be e.g. a CSV:
 
@@ -96,10 +102,12 @@ Once created, the analyst needs to populate the table with the data from their H
 
 The query will execute, but instead of writing the results to the screen, they'll be saved in S3, where the analyst can download them and import them into their the appropriate tool to continue the analysis.
 
-Want to [learn more] [analyst-cookbook] about the different analyses that are possible with Hive. Then visit the [analyst-cookbook] [analyst-cookbook].
+Want to [learn more] [analyst-cookbook] about the different analyses that are possible with Hive? Then visit the [Analytics Cookbook] [analyst-cookbook].
 
 [Get started] [get-started] with SnowPlow [here] [get-started].
 
-[Hive-events-table-definition]: /?
+[Hive-events-table-definition]: /analytics/snowplow-table-structure.html
 [analyst-cookbook]: /analytics/index.html
 [get-started]: get-started.html
+[hive]: http://hive.apache.org/
+[infobright]: http://www.infobright.org/

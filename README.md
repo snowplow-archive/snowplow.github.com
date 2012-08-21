@@ -8,6 +8,6 @@ This is the content for the SnowPlow Analytics website (http://snowplowanalytics
 
 We welcome fixes and improvements! In particular on the analysis side, there are a wide range of ways SnowPlow can be used, and we can't possibly hope to cover them all ourselves. If you've used it for a specific type of analysis, we'd love you to share it here. Please fork the repo, make your changes and then create a pull request.
 
-All content copyright 2012 SnowPlow Analytics Ltd and not to be reused without permission. 
+All content is copyright (c) 2012 SnowPlow Analytics Ltd and not to be reused without permission. 
 
 The SnowPlow repo itself can be found [here](http://github.com/snowplow/snowplow)

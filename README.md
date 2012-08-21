@@ -1,4 +1,4 @@
-This is the SnowPlow Analytics website. The content covers:
+This is the content for the SnowPlow Analytics website (http://snowplowanalytics.com). The content covers:
 
 1. What SnowPlow is, including why we developed SnowPlow, and how SnowPlow differs from other approaches to web analytics
 2. How SnowPlow works, from a technical standpoint

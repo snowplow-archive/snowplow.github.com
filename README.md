@@ -6,7 +6,7 @@ This is the content for the SnowPlow Analytics website (http://snowplowanalytics
 4. How to perform analyses using SnowPlow
 5. Overview of the Professional Services we offer around SnowPlow
 
-We welcome fixes and improvements! In particular on the analysis side, there are a wide range of ways SnowPlow can be used, and we can't possibly hope to cover them all ourselves. If you've used it for a specific type of analysis, we'd love you to share it here. Please fork the repo, make your changes and then create a pull request.
+We welcome fixes and improvements! In particular on the analysis side, there is a wide range of ways SnowPlow can be used, and we can't possibly hope to cover them all ourselves. If you've used it for a specific type of analysis, we'd love you to share it here. Please fork the repo, make your changes and then create a pull request.
 
 All content is copyright (c) 2012 SnowPlow Analytics Ltd and not to be reused without permission. 
 

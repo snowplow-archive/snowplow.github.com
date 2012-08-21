@@ -1,9 +1,10 @@
 ---
 layout: blog-post
-shortenedlink: Amazon Glacier launch
-title: Amazon announces Glacier: lowers cost of running SnowPlow
+shortenedlink: Amazon announces Glacier
+title: Amazon announces Glacier - lowers the cost of running SnowPlow
 tags: snowplow
 ---
+
 
 Today Amazon announced the launch of [Amazon Glacier] [glacier], which is a low-cost data archiving service designed for rarely accessed data.
 

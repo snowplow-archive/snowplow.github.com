@@ -32,16 +32,25 @@
   padding: 10px 10px 10px 10px;
   background-color: #ececec;
   font-size: 12px; }
+  #sidebar h1 {
+    font-size: 13px;
+    font-weight: bold; }
   #sidebar ul {
     margin-left: 15px;
-    padding-left: 0px; }
+    padding-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px; }
   #sidebar a {
+    font-size: 12px;
     text-decoration: none;
     font-weight: normal; }
     #sidebar a:hover {
       font-weight: bold; }
     #sidebar a.active {
       font-weight: bold; }
+  #sidebar p {
+    margin-top: 5px;
+    margin-bottom: 2px; }
 
 #contents {
   width: 720px;
@@ -64,6 +73,8 @@
       padding-left: 10px;
       padding-right: 10px;
       font-size: 12px; }
+  #contents code {
+    max-width: 720px; }
 
 #header {
   display: block;

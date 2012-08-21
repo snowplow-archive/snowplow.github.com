@@ -9,4 +9,4 @@ One of the key elements in the SnowPlow technology stack is the Hive SerDe. This
 A number of improvements have been made in the new versions. However, the most significant is that the 5 utm_marketing fields have been added, so that campaign attributes are now available for analytics.
 
 
-[hive-table-structure]: [https://github.com/snowplow/snowplow/wiki/Hive-data-structure]
+[hive-table-structure]: https://github.com/snowplow/snowplow/wiki/Hive-data-structure

@@ -31,5 +31,6 @@ There are two costing models that we apply for custom-development:
 [analytics]: analytics.html
 [implementation]: implementation.html
 [custom-dev]: custom-development.html
+[rate-card]: rate-card.html
 
 [technical-architecture]: /product/technical-architecture.html 

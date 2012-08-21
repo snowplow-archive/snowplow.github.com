@@ -1,18 +1,83 @@
 <div id="sidebar">
-	<strong>Analysts Cookbook</strong>
-	<ul>
-		{% for weight in (1..10) %}
-			{% for p in site.pages %}
-				{% if p.category == 'analytics' %}
-					{% if p.weight == weight %}
-						{% if page.url == p.url %}
-						<li class="active"><a href="{{ p.url }}" class="active">{{ p.title }}</a></li>
-						{% else %}
-						<li><a href="{{ p.url }}">{{ p.title }}</a></li>
-						{% endif %}
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" {% if page.analytics_category == 'overview' %}class="active"{% endif %}>Overview</a>
+		{% if page.analytics_category == 'overview' %}
+		<ul>
+			{% for weight in (1..10) %}
+				{% for p in site.pages %}
+					{% if p.analytics_category == 'overview' %}
+						{% if p.weight == weight %}
+							{% if page.url == p.url %}
+							<li class="active"><a href="{{ p.url }}" class="active">{{ p.title }}</a></li>
+							{% else %}
+							<li><a href="{{ p.url }}">{{ p.title }}</a></li>
+							{% endif %}		
+						{% endif %}			
 					{% endif %}
-				{% endif %}
+				{% endfor %}
 			{% endfor %}
-		{% endfor %}
-	</ul>
+		</ul>
+		{% endif %}
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" {% if page.analytics_category == 'customer' %}class="active"{% endif %}>Customer analytics</a>
+		{% if page.analytics_category == 'customer' %}
+		<ul>
+			{% for weight in (1..10) %}
+				{% for p in site.pages %}
+					{% if p.analytics_category == 'customer' %}
+						{% if p.weight == weight %}
+							{% if page.url == p.url %}
+							<li class="active"><a href="{{ p.url }}" class="active">{{ p.title }}</a></li>
+							{% else %}
+							<li><a href="{{ p.url }}">{{ p.title }}</a></li>
+							{% endif %}		
+						{% endif %}			
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</ul>		
+		{% endif %}
+	</p>
+	<p>
+		<a href="/analytics/product-analytics/overview.html" {% if page.analytics_category == 'product' %}class="active"{% endif %}>Product analytics</a>
+		{% if page.analytics_category == 'product' %}
+		<ul>
+			{% for weight in (1..10) %}
+				{% for p in site.pages %}
+					{% if p.analytics_category == 'product' %}
+						{% if p.weight == weight %}
+							{% if page.url == p.url %}
+							<li class="active"><a href="{{ p.url }}" class="active">{{ p.title }}</a></li>
+							{% else %}
+							<li><a href="{{ p.url }}">{{ p.title }}</a></li>
+							{% endif %}		
+						{% endif %}			
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</ul>		
+		{% endif %}
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" {% if page.analytics_category == 'catalogue' %}class="active"{% endif %}>Catalogue analytics</a>
+		{% if page.analytics_category == 'catalogue' %}
+		<ul>
+			{% for weight in (1..10) %}
+				{% for p in site.pages %}
+					{% if p.analytics_category == 'catalogue' %}
+						{% if p.weight == weight %}
+							{% if page.url == p.url %}
+							<li class="active"><a href="{{ p.url }}" class="active">{{ p.title }}</a></li>
+							{% else %}
+							<li><a href="{{ p.url }}">{{ p.title }}</a></li>
+							{% endif %}		
+						{% endif %}			
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+		</ul>		
+		{% endif %}
+	</p>
 </div>

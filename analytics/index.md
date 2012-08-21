@@ -1,8 +1,35 @@
 ---
 layout: section
 category: analytics
-title: Overview
+analytics_category: overview
+title: Introduction
 weight: 1
 ---
 
-Please be patient! The site is currently being built: content for this section will be coming soon
+# The SnowPlow Analytics Cookbook
+
+SnowPlow enables analysts to perform a wide variety of both simple and sophisticated analytics on your web analytics data.
+
+In this section of the website (which we are building out to include more and more analyses), we provide a step-by-step guide to performing the different analyses including documenting the actual queries themselves.
+
+## Background to data analysis in SnowPlow
+Learn about how SnowPlow data is
+
+1. [produced] [production]
+2. [stored] [stored]
+3. [structured] [structured]
+
+## Performing analysis in SnowPlow
+
+1. [Basic recipes][basic-recipes]
+2. [Customer analytics][customer-analytics]
+3. [Product analytics][product-analytics]
+4. [Catalogue analytics][catalogue-analytics]
+
+[production]: snowplow-data-production.html
+[stored]: snowplow-data-storage.html
+[structured]: snowplow-table-structure.html
+[basic-recipes]: basic-recipes.html
+[customer-analytics]: customer-analytics/overview.html
+[product-analytics]: product-analytics/overview.html
+[catalogue-analytics]: catalogue-analytics/overview.html

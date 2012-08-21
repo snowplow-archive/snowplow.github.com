@@ -9,7 +9,7 @@ weight: 6
 
 Whilst we work wherever possible on a **fixed fee** basis, the fixed fees we quote are based on estimates on the number of man-days required, and the following daily rates:
 
-| Resource                | Day rate (2012)* | Effective hourly rate* |
+| Resource                | Day rate (2012)\*| Effective hourly rate\*|
 |:------------------------|-----------------:|-----------------------:|
 | **Analyst Resourcex**   |                  |                        |
 | Analytics Director      | £1,200           | £150                   |

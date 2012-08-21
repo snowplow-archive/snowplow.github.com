@@ -40,12 +40,20 @@ $white: #FFFFFF;
 	background-color: $lightgrey;
 	font-size: 12px;
 
+	h1 {
+		font-size: 13px;
+		font-weight: bold;
+	}
+
 	ul {
 		margin-left: 15px;
 		padding-left: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
 	}
 
 	a {
+		font-size: 12px;
 		text-decoration: none;
 		font-weight: normal;
 
@@ -54,6 +62,10 @@ $white: #FFFFFF;
 		&.active { font-weight: bold; }
 	}
 
+	p {
+		margin-top: 5px;
+		margin-bottom: 2px;
+	}
 }
 
 #contents {
@@ -81,6 +93,10 @@ $white: #FFFFFF;
 			padding-right: 10px;
 			font-size: 12px;
 		}
+	}
+
+	code {
+		max-width: 720px;
 	}
 				
 }

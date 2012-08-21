@@ -53,7 +53,7 @@ Some illustrateive analyses from past projects are shown below, to give a flavou
 
 ### Example consumer analytics: engagement levels over time
 
-[COMING SOON]
+COMING SOON
 
 ### Example catalogue and product analysis: conversion rate by product
 

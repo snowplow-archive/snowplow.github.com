@@ -20,10 +20,11 @@ What will you do with your web analytics data? [Get started with SnowPlow today]
 ## Learn more about SnowPlow:
 
 * [Why we built SnowPlow] [why-snowplow]. What is wrong with the approach taken by traditional web analytics products, and how SnowPlow fixes it
-* [SnowPlow USPs] [usps]. What makes SnowPlow different?
+* [SnowPlow USPs] [snowplow-usps]. What makes SnowPlow different?
 * [SnowPlow technical architecture] [technical-architecture]. How does SnowPlow work, to deliver you **all** your data?
 * [Analysing your data with SnowPlow] [intro-to-snowplow-analysis]. An overview of how to query your data using Apache Hive
 * [Get started with SnowPlow] [get-started]. How to get up and running with SnowPlow, today
+* The [SnowPlow roadmap] [roadmap]
 
 [why-snowplow]: why-snowplow.html
 [snowplow-usps]: [snowplow-usps.html]

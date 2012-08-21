@@ -43,14 +43,15 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 
 ## Learn more
 
+* Find out more about the [SnowPlow product][product]
 * [Setup SnowPlow] [setup-snopwlow] today
 * Learn more about SnowPlow: what problems we [built SnowPlow to solve] [problems-built-to-solve], how it is [architected] [technical-architecture], what developments are on the [roadmap] [snowplow-roadmap]
 * Want help with SnowPlow? Find out about our [professional services] [professional-services] and [other sources of support] [more-sources-of-support]
 * Keep up to date with the latest SnowPlow developments on [Github] [github-repo], the [blog] [blog] and [Twitter] [Twitter]
 
-[customer-analytics]: /analytics/customer-analytics.html
-[product-analytics]: /analytics/product-analytics.html
-[catalogue-analytics]: /analytics/catalogue-analytics.html
+[customer-analytics]: /analytics/customer-analytics/overview.html
+[product-analytics]: /analytics/product-analytics/overview.html
+[catalogue-analytics]: /analytics/catalogue-analytics/overview.html
 [analytics-cookbook]: /analytics/index.html
 [apache-hive]: http://hive.apache.org/
 [amazon-emr]: http://aws.amazon.com/elasticmapreduce/
@@ -68,5 +69,5 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 [microstrategy]: http://www.microstrategy.co.uk/
 [mahout]: http://mahout.apache.org/
 [weka]: http://weka.pentaho.com/
-[snowplow-roadmap]: 
-
+[product]: /product/index.html
+[snowplow-roadmap]: /product/roadmap.html

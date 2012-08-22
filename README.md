@@ -81,10 +81,9 @@ Adding a page to the rest of the site is reasonably straightforward.
 
 2. Add a [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter) to the top of the Markdown file e.g.
 
-
 	---
 	layout: section
-	category: {{e.g. 'product', 'services', 'analytics'. 'contact'}}
+	category: {{e.g. 'product', 'services', 'analytics', 'contact'}}
 	title: {{PAGE TITLE (used in side menu)}} 
 	weight: {{INTEGER INDICATING WHERE ON THE SIDE MENU THIS SHOULD APPEAR i.e. 1 = top spot}}
 	---

@@ -53,7 +53,17 @@ Some illustrateive analyses from past projects are shown below, to give a flavou
 
 ### Example consumer analytics: engagement levels over time
 
-COMING SOON
+A SnowPlow client wanted to understand how their user engagement levels were changing over time. One of the measures we experimented with using as a proxy for engagement was the number of days per month that each user that month had logged in for. We then compared the distribution of users each month by the number of days they had logged in that month:
+
+![example-user-engagement-over-time-relative][engagement-graph-1]
+
+A large fraction of users (almost half of them) had only logged in once per month. A large proportion of them represented drive-by-traffic that never returned to the site. Understanding what events happen on that initial customer journey, to turn a "drive by visitor" into a "signed up user" was critical to driving sustained growth for the business over time.
+
+The graph suggested that the fraction of drive by traffic had increased over time, and that as a consequance, overall engagement levels had dropped, since April 2010. It was important to understand whether existin gusers were getting less engaged (which would indicate a long-term, structural problem with the business) or the company was getting better at driving new users to the site, and that these user's inexperience with the site was what was driving down the overall average for engagement.
+
+![example-user-engagement-over-time-absolute][engagement-graph-2]
+
+A look at the absolute number of users in each category showed that it was, indeed, the large number of new users that was driving down the average. Further analysis was then conducted to compare what happened on the user journeys for new users who went on to return to the site with those that did not, to understand what were the events on that journey that were predictive of a user returning. Encouraging these events became a product development priority.
 
 ### Example catalogue and product analysis: conversion rate by product
 
@@ -87,7 +97,8 @@ Man-days are charged out based on our [rate card] [rate-card]. However, once the
 
 [Get in touch] [get-in-touch] with the SnowPlow team to discuss your project. Find out about our other professional services, including [report design and implementation] [reporting], [SnowPlow implementations] [implementation] and [custom development] [custom-dev].
 
-
+[engagement-graph-1]: img/user-dist-by-days-used-service-by-month-perc-breakdown.jpg
+[engagement-graph-2]: img/user-dist-by-days-used-service-by-month-actual-figs.jpg
 [product-performance-example]: img/pvs-by-unique-purchaes-by-product-2011.jpg
 [rate-card]: rate-card.html
 [get-in-touch]: /contact/index.html

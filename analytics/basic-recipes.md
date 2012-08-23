@@ -9,7 +9,7 @@ weight: 5
 <a name="top" />
 # Bread and butter web analytics queries
 
-The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are *not* the queries that SnowPlow was designed to perform: we built SnowPlow to enable analysts to run queries on web analytics data that are **not** possible with other web analytics programs. These queries return the results that **all** web analytics queries return. However, running them can be useful for an analyst to validate SnowPlow has been setup correctly (by comparing the output against e.g. Google Analtyics), and help her get familiar with writing queries in SnowPlow.
+The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are *not* the queries that SnowPlow was designed to perform: we built SnowPlow to enable analysts to run queries on web analytics data that are **not** possible with other web analytics programs. These queries return the results that **all** web analytics queries return. However, running them can be useful for an analyst to validate SnowPlow has been setup correctly (by comparing the output against e.g. Google Analytics), and help her get familiar with writing queries in SnowPlow.
 
 The following queries will work with both Hive and Infobright.
 
@@ -249,6 +249,23 @@ AVG(pages)
 FROM pages_per_visit
 GROUP BY dt ;
 {% endhighlight %}
+
+In both Hive and Infobright the query can be performed in a single step, using a sub-select: 
+
+SELECT
+t.dt, 
+AVG(t.pages)
+FROM (
+	SELECT
+	dt,
+	user_id,
+	visit_id,
+	COUNT(txn_id) AS pages
+	FROM events
+	WHERE page_title IS NOT NULL
+	GROUP BY dt, user_id, visit_id 
+) t
+GROUP BY t.dt ;
 
 [Back to top](#top)
 

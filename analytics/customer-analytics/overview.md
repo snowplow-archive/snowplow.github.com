@@ -22,6 +22,8 @@ SnowPlow makes it straightforward to use web analytics data to do customer analy
 5. [Attribution modelling][attribution]. A perennial problem in digital marketing is working out how much value to ascribe to different marketing channels in a world in which customers are exposed to multiple creatives on different channels and are monetized over multiple sessions. SnowPlow provides you with granular data so you can unpick how much value you should attribute to each of your marketing channels: in this section we outline how to do this
 6. [Segmenting audience by behaviour][behavioural-segmentation]. The granular data provided by SnowPlow creates new opportunities to use machine learning tools e.g. [Apache Mahout][mahout] to segment your audience by how they behave, building customer intelligence and opening up new possibilities to tailor products and services to specific audience segments.
 
+Start off by [learning how to use SnowPlow to reliably identify users][user-id].
+
 [user-id]: /analytics/customer-analytics/identifying-users.html
 [joining-customer-data]: /analytics/customer-analytics/joining-customer-data.html
 [clv]: /analytics/customer-analytics/customer-lifetime-value.html

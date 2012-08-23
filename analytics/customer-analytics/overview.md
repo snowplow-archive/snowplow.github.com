@@ -28,3 +28,4 @@ SnowPlow makes it straightforward to use web analytics data to do customer analy
 [cohort-analysis]: /analytics/customer-analytics/cohort-analysis.html
 [attribution]: /analytics/customer-analytics/attribution.html
 [behavioural-segmentation]: /analytics/customer-analytics/behavioural-segmentation.html
+[mahout]: http://mahout.apache.org/

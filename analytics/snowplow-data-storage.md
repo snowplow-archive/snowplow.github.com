@@ -68,72 +68,84 @@ Once the cluster has been setup, you should be SSHed in, and see something like 
 
 You are in the cluster. Launch Hive by typing:
 
-	hive
+{% highlight mysql %}
+hive
+{% endhighlight %}
 
 We now need to create a table in Hive based on the Cloudfront logs. To do that, we first need to let Hive know where the SnowPlow deserializer is, so that Hive can read the raw log files. To do that, execute the following command:
 
-	ADD JAR s3://{{JARS-BUCKET-NAME}}/snowplow-log-deserializers-0.4.7.jar;
+{% highlight mysql %}
+ADD JAR s3://{{JARS-BUCKET-NAME}}/snowplow-log-deserializers-0.4.7.jar;
+{% endhighlight %}
 
 (Substitute the S3 bucket you use to store the deserializer JAR.) Now you can create the table:
 
-	CREATE EXTERNAL TABLE views_events 
-	ROW FORMAT 
-	  SERDE 'com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer'
-	LOCATION 's3://{{LOGS-BUCKET-NAME}}/';
+{% highlight mysql %}
+CREATE EXTERNAL TABLE views_events 
+ROW FORMAT 
+  SERDE 'com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer'
+LOCATION 's3://{{LOGS-BUCKET-NAME}}/';
+{% endhighlight %}
 
 You wll need to replace the 'LOGS-BUCKET-NAME' with the name of the S3 bucket where your Cloudfront logs are stored.
 
 Hive now knows where your Cloudfront logs are stored, and it knows from the deserializer how to translate those individual logs into a tidy table. We can inspect the tidy table created prior to querying it:
 
-	DESCRIBE views_events ;
+{% highlight mysql %}
+DESCRIBE views_events ;
+{% endhighlight %}
 
 Hive will respond by listing all the different fields:
 
-	hive> DESCRIBE views_events ;
-	OK
-	dt	string	from deserializer
-	tm	string	from deserializer
-	txn_id	string	from deserializer
-	user_id	string	from deserializer
-	user_ipaddress	string	from deserializer
-	visit_id	int	from deserializer
-	page_url	string	from deserializer
-	page_title	string	from deserializer
-	page_referrer	string	from deserializer
-	mkt_medium	string	from deserializer
-	mkt_source	string	from deserializer
-	mkt_term	string	from deserializer
-	mkt_content	string	from deserializer
-	mkt_campaign	string	from deserializer
-	ev_category	string	from deserializer
-	ev_action	string	from deserializer
-	ev_label	string	from deserializer
-	ev_property	string	from deserializer
-	ev_value	string	from deserializer
-	br_name	string	from deserializer
-	br_family	string	from deserializer
-	br_version	string	from deserializer
-	br_type	string	from deserializer
-	br_renderengine	string	from deserializer
-	br_lang	string	from deserializer
-	br_features	array<string>	from deserializer
-	br_cookies	boolean	from deserializer
-	os_name	string	from deserializer
-	os_family	string	from deserializer
-	os_manufacturer	string	from deserializer
-	dvce_type	string	from deserializer
-	dvce_ismobile	boolean	from deserializer
-	dvce_screenwidth	int	from deserializer
-	dvce_screenheight	int	from deserializer
-	Time taken: 1.425 seconds
+{% highlight mysql %}
+hive> DESCRIBE views_events ;
+OK
+dt	string	from deserializer
+tm	string	from deserializer
+txn_id	string	from deserializer
+user_id	string	from deserializer
+user_ipaddress	string	from deserializer
+visit_id	int	from deserializer
+page_url	string	from deserializer
+page_title	string	from deserializer
+page_referrer	string	from deserializer
+mkt_medium	string	from deserializer
+mkt_source	string	from deserializer
+mkt_term	string	from deserializer
+mkt_content	string	from deserializer
+mkt_campaign	string	from deserializer
+ev_category	string	from deserializer
+ev_action	string	from deserializer
+ev_label	string	from deserializer
+ev_property	string	from deserializer
+ev_value	string	from deserializer
+br_name	string	from deserializer
+br_family	string	from deserializer
+br_version	string	from deserializer
+br_type	string	from deserializer
+br_renderengine	string	from deserializer
+br_lang	string	from deserializer
+br_features	array<string>	from deserializer
+br_cookies	boolean	from deserializer
+os_name	string	from deserializer
+os_family	string	from deserializer
+os_manufacturer	string	from deserializer
+dvce_type	string	from deserializer
+dvce_ismobile	boolean	from deserializer
+dvce_screenwidth	int	from deserializer
+dvce_screenheight	int	from deserializer
+Time taken: 1.425 seconds
+{% endhighlight %}
 
 You as an analyst can now query the "views_events" table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:
 
-	SELECT
-	dt,
-	COUNT(DISTINCT(user_id))
-	FROM views_events
-	GROUP BY dt;
+{% highlight mysql %}
+SELECT
+dt,
+COUNT(DISTINCT(user_id))
+FROM views_events
+GROUP BY dt;
+{% endhighlight %}
 
 <a name="optimised-hive" />
 ### Querying the data in a format optimsied for Hive
@@ -149,42 +161,44 @@ Querying this table is very similar to querying the raw Cloudfront logs. The big
 
 To perform the queries, we need to start off by defining our table, and telling Hive where the data lives:
 
-	CREATE EXTERNAL TABLE IF NOT EXISTS `events` (
-	tm STRING,
-	txn_id STRING,
-	user_id STRING,
-	user_ipaddress string,
-	visit_id INT,
-	page_url string,
-	page_title string,
-	page_referrer string,
-	mkt_source string,
-	mkt_medium string,
-	mkt_term string,
-	mkt_content string,
-	mkt_campaign string,
-	ev_category string,
-	ev_action string,
-	ev_label string,
-	ev_property string,
-	ev_value string,
-	br_name string,
-	br_family string,
-	br_version string,
-	br_type string,
-	br_renderengine string,
-	br_lang string,
-	br_features array<string>,
-	br_cookies boolean,
-	os_name string,
-	os_family string,
-	os_manufacturer string,
-	dvce_type string,
-	dvce_ismobile boolean,
-	dvce_screenwidth int,
-	dvce_screenheight int)
-	PARTITIONED BY (dt STRING)
-	LOCATION 's3://{{SNOWPLOW-DATA-BUCKET}}/' ;
+{% highlight mysql %}
+CREATE EXTERNAL TABLE IF NOT EXISTS `events` (
+tm STRING,
+txn_id STRING,
+user_id STRING,
+user_ipaddress string,
+visit_id INT,
+page_url string,
+page_title string,
+page_referrer string,
+mkt_source string,
+mkt_medium string,
+mkt_term string,
+mkt_content string,
+mkt_campaign string,
+ev_category string,
+ev_action string,
+ev_label string,
+ev_property string,
+ev_value string,
+br_name string,
+br_family string,
+br_version string,
+br_type string,
+br_renderengine string,
+br_lang string,
+br_features array<string>,
+br_cookies boolean,
+os_name string,
+os_family string,
+os_manufacturer string,
+dvce_type string,
+dvce_ismobile boolean,
+dvce_screenwidth int,
+dvce_screenheight int)
+PARTITIONED BY (dt STRING)
+LOCATION 's3://{{SNOWPLOW-DATA-BUCKET}}/' ;
+{% endhighlight %}
 
 Some things to note when comparing the above CREATE TABLE statement with the one for Cloudfront earlier:
 
@@ -194,12 +208,13 @@ Some things to note when comparing the above CREATE TABLE statement with the one
 
 Once the table is setup, querying it is exactly like querying the raw logs table, however. For example, to calculate the number of uniques by day, enter:
 
-	SELECT
-	dt,
-	COUNT(DISTINCT(user_id))
-	FROM events
-	GROUP BY dt;
-
+{% highlight mysql %}
+SELECT
+dt,
+COUNT(DISTINCT(user_id))
+FROM events
+GROUP BY dt;
+{% endhighlight %}
 
 <a name="infobright" />
 ## Infobright
@@ -214,18 +229,24 @@ Enter [Infobright] [infobright-website]. Infobright is an open source analytics 
 
 Connecting to your data stored in Infobright is straightforward. If you're connecting via the command-line, you'll need to SSH onto the server running your Infobright instance, and then connect to Infobright:
 
-	mysql-ib -u {{USERNAME}} -p
+{% highlight mysql %}
+mysql-ib -u {{USERNAME}} -p
+{% endhighlight %}
 
 Substitute your username for 'USERNAME' and enter your password when prompted. Once in Infobright, you can connect to the SnowPlow database:
 
-	use snowplow;
+{% highlight mysql %}
+USE snowplow;
+{% endhighlight %}
 
 In the SnowPlow database is the events table. You can query it as normal, so, for example, to find out the number of unique visitors by day:
 
-	SELECT dt, 
-	COUNT(DISTINCT(user_id))
-	FROM events
-	GROUP BY dt;
+{% highlight mysql %}
+SELECT dt, 
+COUNT(DISTINCT(user_id))
+FROM events
+GROUP BY dt;
+{% endhighlight %}
 
 Note that the query is identical to that executed in Hive. In general, queries in the two datawarehousing platforms are very similar.
 

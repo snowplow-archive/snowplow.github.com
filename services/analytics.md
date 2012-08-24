@@ -7,7 +7,7 @@ weight: 2
 
 # Analytics Projects
 
-We help you use your customer, catalogue and web analytics data to drive product development and marketing decisions. 
+We help you use your customer, catalogue and web analytics data to drive platform development and marketing decisions. 
 
 Learn more about our approach to analytics projects below:
 
@@ -21,7 +21,7 @@ Learn more about our approach to analytics projects below:
 <a name="context" />
 ## Context 
 
-The profliferation of data (especially customer data) means there are more opportunities to use it to make the right product development and marketing decisions.
+The profliferation of data (especially customer data) means there are more opportunities to use it to make the right platform development and marketing decisions.
 
 However, there are often barriers to using data to drive decision making:
 
@@ -63,9 +63,9 @@ The graph suggested that the fraction of drive by traffic had increased over tim
 
 ![example-user-engagement-over-time-absolute][engagement-graph-2]
 
-A look at the absolute number of users in each category showed that it was, indeed, the large number of new users that was driving down the average. Further analysis was then conducted to compare what happened on the user journeys for new users who went on to return to the site with those that did not, to understand what were the events on that journey that were predictive of a user returning. Encouraging these events became a product development priority.
+A look at the absolute number of users in each category showed that it was, indeed, the large number of new users that was driving down the average. Further analysis was then conducted to compare what happened on the user journeys for new users who went on to return to the site with those that did not, to understand what were the events on that journey that were predictive of a user returning. Encouraging these events became a platform development priority.
 
-### Example catalogue and product analysis: conversion rate by product
+### Example catalogue and platform analysis: conversion rate by product
 
 The following graph was part of a catalogue analysis performed for an online retailer with a diverse set of more than 5000 SKUs across multiple categories.
 

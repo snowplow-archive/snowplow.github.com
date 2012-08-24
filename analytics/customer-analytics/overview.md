@@ -21,11 +21,11 @@ All customer analytics starts with a solid understanding of what constitutes a c
 
 ### 2. [Joining SnowPlow data with other data sources][joining-customer-data]
 
-Other web analytics packages make it very difficult to join web analytics data with other customer data a single customer view to drive commercial decision making, marketing and product development. SnowPlow makes doing this join easy: in [this section][joining-customer-data] we explain how.
+Other web analytics packages make it very difficult to join web analytics data with other customer data a single customer view to drive commercial decision making, marketing and platform development. SnowPlow makes doing this join easy: in [this section][joining-customer-data] we explain how.
 
 ### 3. [Customer lifetime value][clv]
 
-Developing a reliable model of customer value is a necessary prerequisite to calculating the return on ad spend, product development, or service delivery. In [this section][clv], we describe how to use SnowPlow to measure your customer lifetime value
+Developing a reliable model of customer value is a necessary prerequisite to calculating the return on ad spend, platform development, or service delivery. In [this section][clv], we describe how to use SnowPlow to measure your customer lifetime value
 
 ### 4. [Cohort analysis][cohort-analysis]
 

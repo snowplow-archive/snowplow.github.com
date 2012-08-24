@@ -1,7 +1,7 @@
 ---
 layout: homepage
 category: homepage
-title: The SnowPlow product
+title: SnowPlow Analytics - your web analytics data in your hands
 permalink: index.html
 ---
 
@@ -22,7 +22,7 @@ Direct access to every line of your web analytics data
 Because you have direct access to your data, you have the flexibility to perform **any** analysis you'd like, using any of the tools you like
 
 * [Customer analytics] [customer-analytics] e.g. cohort analysis, customer lifetime value, attribution modelling
-* [Product analytics] [product-analytics] e.g. event stream analysis, flexible funnels, ROI in development milestones
+* [Platform analytics] [platform-analytics] e.g. event stream analysis, flexible funnels, ROI in development milestones
 * [Catalogue analytics] [catalogue-analytics] e.g. compare the performance of different media items (for content sites) or products (for retailers) over time and by customer segment 
 * Perform analysis in your favourite analytics tools including [R] [r-project], [Tableau] [tableau], [Microstrategy] [microstrategy], [Mahout] [mahout], [Weka] [weka]
 
@@ -50,7 +50,7 @@ Explore the [Analytics Cookbook] [analytics-cookbook] to get a taste for what is
 * Keep up to date with the latest SnowPlow developments on [Github] [github-repo], the [blog] [blog] and [Twitter] [Twitter]
 
 [customer-analytics]: /analytics/customer-analytics/overview.html
-[product-analytics]: /analytics/product-analytics/overview.html
+[platform-analytics]: /analytics/platform-analytics/overview.html
 [catalogue-analytics]: /analytics/catalogue-analytics/overview.html
 [analytics-cookbook]: /analytics/index.html
 [apache-hive]: http://hive.apache.org/

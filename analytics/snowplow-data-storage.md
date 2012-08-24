@@ -29,7 +29,7 @@ In the case of Infobright, the data lives in a table on your Infobright instance
 3. Writing queries in Hive is straightforward for anyone with knowledge of SQL and the SnowPlow [data structure] [table-structure]
 4. Hive is incredibly scalable. It was built by the folks at Facebook to enable analysts there to comb over **all** Facebook's Petabytes of user data. Hive scales linearly: to speed up querying of big data sets, you simply throw additional servers at the query. Amazon [Elastic Mapreduce] [emr] makes it  easy to setup clusters of as many servers as you'd like in minutes, and add additional servers to your analytics cluster as you need them
 
-Using Hive, it is possible to run analyses against your raw Cloudfront logs directly, as described [below] [analyse-cloudfront-logs-directly]. More often, though, analysts choose to transfer the data into a format that enables faster querying in Hive, as described [here] [#optimised-hive].
+Using Hive, it is possible to run analyses against your raw Cloudfront logs directly, as described [below] (#analyse-cloudfront-logs-directly). More often, though, analysts choose to transfer the data into a format that enables faster querying in Hive, as described [here] (#optimised-hive).
 
 <a name="analyse-cloudfront-logs-directly" />
 ### Querying Cloudfront logs directly in Hive

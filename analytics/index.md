@@ -23,7 +23,7 @@ Learn about how SnowPlow data is
 
 1. [Basic recipes][basic-recipes]
 2. [Customer analytics][customer-analytics]
-3. [Product analytics][product-analytics]
+3. [Platform analytics][platform-analytics]
 4. [Catalogue analytics][catalogue-analytics]
 
 [production]: snowplow-data-production.html
@@ -31,5 +31,5 @@ Learn about how SnowPlow data is
 [structured]: snowplow-table-structure.html
 [basic-recipes]: basic-recipes.html
 [customer-analytics]: customer-analytics/overview.html
-[product-analytics]: product-analytics/overview.html
+[platform-analytics]: platform-analytics/overview.html
 [catalogue-analytics]: catalogue-analytics/overview.html

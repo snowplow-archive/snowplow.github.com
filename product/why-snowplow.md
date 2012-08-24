@@ -11,7 +11,7 @@ weight: 2
 
 * Focus on **marketing-related analytics** (visits, click-throughs, conversions)
 * Focus on **e-commerce sites**. (Limited number of goals limited related to clearly defined workflows e.g. *email signup*, *product purchase*)
-* No analytics suitable for **SaaS businesses**, exploration of the drivers of **customer value** or **product analytics**
+* No analytics suitable for **SaaS businesses**, exploration of the drivers of **customer value** or **platform analytics**
 
 ### Inflexible
 

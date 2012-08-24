@@ -8,9 +8,12 @@ weight: 2
 
 # Identifying users and customers using SnowPlow
 
-All customer analytics starts with a solid understanding of what constitutes a customer and a user: this is missing in traditional web analytics. In this section, we explain how to use SnowPlow to reliably identify customers and users. 
+All customer analytics starts with a solid understanding of what constitutes a customer and a user: this is missing in traditional web analytics. In this section, we explain how to use SnowPlow to reliably identify customers and users:
 
-We start by looking at [how SnowPlow sets `user_id`s](#user_id), and what [benefits](#benefits_of_user_id) exposing the `user_id` has for analysts. We then explore [more robust approaches to identifying users](#login-events) through [login events](#login-events). 
+1. [Understanding `user_id`s](#user_id). An overview of how SnowPlow sets and exposes `user_id`s
+2. [The benefits of exposing `user_id`s](#benefits_of_user_id). The value that aggregating and filtering on `user_id`s provides data analysts
+3. [More robust approaches to identifying customers through tracking login events] (#login-events). A guide to a more reliable approach to identifying users, based on using SnowPlow to track login events
+
 
 <a name="user_id" />
 ## 1. Understanding `user_id`s

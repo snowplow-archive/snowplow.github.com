@@ -30,6 +30,7 @@ This approach to identifying users is in line with that employed all tag-based w
 Analysts can quickly zoom in on a user's complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT * from events
 WHERE user_id = {{USER_ID}}
 {% endhighlight %}
@@ -41,6 +42,7 @@ Often a user will visit a website several times before completing a particular g
 Each time a user visits a site, SnowPlow sets a visit counter (`visit_id`): this is set to 1 on the user's first visit, 2 on the user's second visit etc. So to calculate the average number of visits required before a customer purchases, we can execute the following query:
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT 
 AVERAGE(visit_id) AS avg_visits_to_purchase
 FROM events
@@ -50,6 +52,7 @@ WHERE ev_action LIKE 'order-confirmation'
 On websites where users make multiple purchases, we need to divide the number of visits by number of orders, filtering out users who have not made a purchase: 
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT user_id,
 COUNT(txn_id) AS number_of_purchases,
 MAX(visit_id) AS number_of_visits,
@@ -62,6 +65,7 @@ GROUP BY user_id
 We can then average across the results:
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT
 AVG(visits_to_purchases)
 FROM (
@@ -81,6 +85,7 @@ FROM (
 Because we can easily slice data by user_id (rather than session), it is easy to define [cohorts][cohort-analysis] to use in [cohort-analysis][cohort-analysis]. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT
 CONCAT(YEAR(MIN(dt),"-", MONTH(MIN(dt)) AS cohort,
 user_id
@@ -108,6 +113,7 @@ When a user logs in to a website, the [SnowPlow event tracker][event-tracking] s
 where the `login_id` is the `user_id` as defined on the login system, rather than SnowPlow's own `user_id`. These fields then become available in SnowPlow in the `ev_action` and `ev_value` fields. So, to create a map of SnowPlow `user_id`s to the `login_id`s employed in your login, you can run the following query:
 
 {% highlight mysql %}
+/* HiveQL / MySQL */
 SELECT
 user_id AS snowplow_user_id,
 ev_value AS login_id

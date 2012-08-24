@@ -72,7 +72,7 @@ FROM (
 ) t
 {% endhighlight %}
 
-<br />
+
 ### 2c. Ability to categorise users by cohorts
 
 Because we can easily slice data by user_id (rather than session), it is easy to define [cohorts][cohort-analysis] to use in [cohort-analysis][cohort-analysis]. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:

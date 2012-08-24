@@ -14,11 +14,14 @@
   color: #162b4f;
   font-size: 13px; }
   #container h1 {
-    font-size: 18px; }
+    font-size: 18px;
+    margin-top: 14px; }
   #container h2 {
-    font-size: 16px; }
+    font-size: 16px;
+    margin-top: 40px; }
   #container h3 {
-    font-size: 14px; }
+    font-size: 14px;
+    margin-top: 20px; }
   #container p {
     font-size: 13px; }
 

@@ -99,7 +99,7 @@ CREATE EXTERNAL TABLE {{table_name}}
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
-LOCATION 's3://LOCATION-BUCKET/LOCATION-PATH/'
+LOCATION 's3://LOCATION-BUCKET/LOCATION-PATH/';
 {% endhighlight %}
 
 To check that your data has been successfully uploaded, you can run some sample queries within Hive e.g. to view the first 10 rows:
@@ -127,7 +127,7 @@ user_id,
 ev_value AS customer_id
 FROM events
 WHERE ev_action LIKE 'login'
-GROUP BY user_id, ev_value
+GROUP BY user_id, ev_value;
 {% endhighlight %}
 
 You can then perform queries that join both data tables, the SnowPlow `events` table and your 2nd table of imported customer data:
@@ -142,7 +142,7 @@ e.field_1,
 e.field_2
 FROM events s
 JOIN 2nd-table e
-ON s.user_id = e.customer_id
+ON s.user_id = e.customer_id;
 {% endhighlight %}
 
 You will likely want to aggregate your data by customer, in which case you would `GROUP BY e.customer_id`. (I.e. the ID used in your customer database, which is likely to be more robust than the cookie-based SnowPlow `user_id` for the reasons described in the [identifying users][identifying-users] section).

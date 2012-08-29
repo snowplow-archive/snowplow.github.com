@@ -4,7 +4,7 @@ shortenedlink: snowcannon
 title: SnowCannon - a node.js collector for SnowPlow
 ---
 
-We are hugely excited to introduce [SnowCannon] ([)snowcannon-on-github), a Node.js collector for SnowPlow, authored by [@shermozle] (http://twitter.com/shermozle).
+We are hugely excited to introduce [SnowCannon] [snowcannon-on-github], a Node.js collector for SnowPlow, authored by [@shermozle] (http://twitter.com/shermozle).
 
 SnowCannon is an alternative collector to the default cloudfront collector included with SnowPlow. It offers a number of significant advantages over the Cloudfront connector:
 

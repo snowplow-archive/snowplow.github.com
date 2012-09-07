@@ -6,7 +6,17 @@ title: User engagement
 weight: 5
 ---
 
-# What is user engagement?
+# Measuring user engagement with SnowPlow
+
+1. [What is user engagement?](#what)
+2. [Different proxies for measuring user engagement](#proxies)
+3. [Measuring the number of days per week / month that users visit the site](#days-per-time-period)
+4. [Measuring the number of visits by each user per day / week / month](#visits-per-time-period)
+5. [Measuring the number of events per visit](#events-per-visit)
+6. [Weighting events by value](#weighted-events-per-visit)
+
+<a name="what" />
+## What is user engagement?
 
 User engagement is a critical metric to understand for every business with an online component. What constitutes "successful engagement" depends very much on the specific business: if you are a content business, you should be interested in getting users to engage either frequently (e.g. every day for newspapers) and deeply (e.g. view several articles per session). For a search engine, successful engagement might look completely different however: a successful engagement might mean finding the right link in as short a time as possible and then disappearing from the site. In that case, shorter visitor duration might indicate a better user experience.
 
@@ -14,16 +24,17 @@ We can differentiate different levels of sophistication of approach when it come
 
 Because what constitutes "successful engagement" varies depending on the type of business and type of website, we cannot offer a definitive guide to measuring engagement. Instead, we give a number of different queries, which reflect a number of different approaches to measuring engagement. SnowPlow is flexible enough that most businesses should be able to develop robust engagement metrics and use SnowPlow to report on those metrics.
 
-Note: for a more in-depth discussion of measuring user engagement, particularly with respect to performing cohort analyses, see [this post][user-engagement-keplar-blog-post] on the Keplar blog covering [different approaches to measuring user engagement][user-engagement-keplar-blog-post]on the [Keplar blog][keplar-blog].
+Note: for a more in-depth discussion of measuring user engagement, particularly with respect to performing cohort analyses, see [this post][user-engagement-keplar-blog-post] on the Keplar blog covering [different approaches to measuring user engagement][user-engagement-keplar-blog-post] on the [Keplar blog][keplar-blog].
 
-# Different proxies for measuring user engagement
+<a name="proxies" />
+## Different proxies for measuring user engagement
 
 ### Measuring engagement breadth i.e. how often a user visits a site
 
 1. [Number of days per time week / month that user visits site](#days-per-time-period) 
 2. [Number of visits by each user per day / week / month](#visits-per-time-period)
 
-#### Measuring engagement depth
+### Measuring engagement depth
 
 3. [Number of events per visit](#events-per-visit)
 4. [Weighting events by value](#weighted-events-per-visit)
@@ -177,9 +188,13 @@ GROUP BY dt, engagement ;
 {% endhighlight %}
 
 <a name="weighted-events-per-visit" />
-## 4. Weighting events by value
+### 4. Weighting events by value
 
-[TO WRITE]
+TO WRITE
+
+## Want to learn more?
+
+Find out [how to perform cohort analysis][cohort-analysis] using SnowPlow.
 
 [user-engagement-keplar-blog-post]: http://www.keplarllp.com/blog/2012/05/different-approaches-to-measuring-user-engagement-with-snowplow
 [keplar-blog]: http://www.keplarllp.com/blog

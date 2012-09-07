@@ -181,9 +181,10 @@ The resulting `future_value` by `user_id` would be added to the past value calcu
 
 ## Want to learn more?
 
-Read this [Keplar blog post][keplar-clv] on calculating customer lifetime value, or find out about [how to perform cohort analysis][cohort] using SnowPlow.
+Read this [Keplar blog post][keplar-clv] on calculating customer lifetime value, find out [how to measure user engagement][user-engagement] using SnowPlow find out about [how to perform cohort analysis][cohort] using SnowPlow.
 
 [clv-img-1]: img/lifetime-value-segmentation.jpg
 [joining-snowplow-data]: /analytics/customer-analytics/joining-customer-data.html
 [keplar-clv]: http://www.keplarllp.com/blog/2012/06/different-approaches-to-measuring-customer-lifetime-value-with-snowplow
+[user-engagement]: /analytics/customer-analytics/user-engagement.html
 [cohort]: /analytics/customer-analytics/cohort-analysis.html

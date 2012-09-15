@@ -38,7 +38,7 @@ For users who are self hosting their own SnowPlow instance, a few more steps are
 
 
 [pro-services]: /services/index.html
-[contact-us]: http://www.infobright.org/
+[contact-us]: /contact/index.html
 [implement-javascript-tracking]: https://github.com/snowplow/snowplow/wiki/Integrating-SnowPlow-into-your-website
 [emr-cli-tools]: http://aws.amazon.com/developertools/2264
 [self-hosting-tracking-pixel]: https://github.com/snowplow/snowplow/wiki/Self-hosting-the-tracking-pixel

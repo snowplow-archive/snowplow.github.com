@@ -3,6 +3,7 @@ layout: blog-post
 shortenedlink: new-setup-guide
 title: The setup guide has been overhauled
 tags: snowplow
+author: Yali
 ---
 
 Following a lot of invaluable feedback from users setting up SnowPlow for the first time, we've updated the SnowPlow setup documentation.

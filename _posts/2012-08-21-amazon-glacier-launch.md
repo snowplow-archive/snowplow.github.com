@@ -3,6 +3,7 @@ layout: blog-post
 shortenedlink: Amazon announces Glacier
 title: Amazon announces Glacier - lowers the cost of running SnowPlow
 tags: snowplow
+author: Alex
 ---
 
 

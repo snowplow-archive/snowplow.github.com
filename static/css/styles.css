@@ -24,6 +24,12 @@
     margin-top: 20px; }
   #container p {
     font-size: 13px; }
+  #container #comments {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #dcdce9; }
 
 #sidebar {
   width: 200px;

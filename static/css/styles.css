@@ -50,6 +50,9 @@
     padding-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px; }
+    #sidebar ul li {
+      margin-top: 1px;
+      margin-bottom: 1px; }
   #sidebar a {
     font-size: 12px;
     text-decoration: none;

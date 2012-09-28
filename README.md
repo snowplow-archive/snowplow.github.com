@@ -32,7 +32,17 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 <a name="website-update" />
 ### Updating the website
 
-#### A note about plugins and Github pages
+1. [A note about plugins and Github pages](#1-a-note-about-plugins-and-github-pages)
+2. [Making changes locally](#2-making-changes-locally)
+3. [Adding a new blog post](#3-adding-a-new-blog-post)
+4. [Adding pages to the website (not the blog)](#4-adding-pages-to-the-website-not-the-blog)
+5. [Embedding images](#5-embedding-images)
+6. [Links between pages](#6-links-between-pages)
+7. [Side menus](#7-side-menus)
+8. [Previewing changes locally](#8-previewing-the-changes-locally)
+9. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
+
+#### 1. A note about plugins and Github pages
 
 The SnowPlow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker] (http://arademaker.github.com/) [here] (http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html):
 
@@ -50,7 +60,7 @@ As all the Jekyll processing is performed locally, you need to make sure that Je
 
 More explanation on how to update the site is given below:
 
-#### 1. Making changes locally
+#### 2. Making changes locally
 
 First, on your local repository, switch to the source branch to update the source files
 
@@ -58,7 +68,7 @@ First, on your local repository, switch to the source branch to update the sourc
 
 Make the relevant changes to the site. To add a new blog post, for example, see the next section: 
 
-#### 2. Adding a new blog post
+#### 3. Adding a new blog post
 
 This is straightforward. Create a new markdown file in the _posts directory, with the filename format `YYYY-MM--DD-title.md`.
 
@@ -73,7 +83,7 @@ In the file add the following [YAML Front Matter](https://github.com/mojombo/jek
 
 Then type in the rest of the post, in markdown, as normal.
 
-#### 3. Adding pages to the website (not the blog)
+#### 4. Adding pages to the website (not the blog)
 
 Adding a page to the rest of the site is reasonably straightforward.
 
@@ -90,24 +100,24 @@ Second, add a [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Fr
 
 Note that if you're adding content to the Analytics section, you'll need to specify the 'analytics_category' you want the page to belong to e.g. 'product', 'catalogue' etc, as pages are currently divided into these subsections
 
-#### 4. Embedding images
+#### 5. Embedding images
 
 Images are committed to the appropriate /img folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
 	
-#### 5. Links between pages
+#### 6. Links between pages
 
 When adding links to between pages on the site:
 
 1. Always use relative URLs e.g. `/analytics/catalogue-analytics/overview.html`
 2. Remember all URLs end in `.html`
 
-#### 6. Side menus
+#### 7. Side menus
 
 Side menus should automatically update with new blog posts / web pages as appropriate.
 
 When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/sidebar_analytics`, `_sidebar_contact.html` etc. files. (There is one file for each side menu.)
 
-#### 7. Previewing the changes locally
+#### 8. Previewing the changes locally
 
 This is advisable before performing any commits :-). To preview the site on your local machine, navigate to the repo:
 
@@ -129,7 +139,7 @@ Remember, if you don't like what you see, and modify the site, to preview the ch
 
 from the repo directory, (which will recompile it).
 
-#### 8. Committing your changes and deploying them to Github Pages
+#### 9. Committing your changes and deploying them to Github Pages
 
 Once you are happy with the updates you've made to the website, you need to deploy them to production.
 

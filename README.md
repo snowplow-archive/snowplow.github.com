@@ -30,33 +30,33 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 
 
 <a name="website-update" />
-### Updating the website: pointers / tips
+### Updating the website
 
-#### 1. Previewing updates locally 
+#### A note about plugins and Github pages
 
-This is advisable before performing any commits :-). To preview the site on your local machine, you'll need to install [Jekyll](https://github.com/mojombo/jekyll), which requires Ruby. Instructions on installing Jekyll can be found [here] (https://github.com/mojombo/jekyll/wiki/install). The easiest way to install it is via use the RubyGem:
+The SnowPlow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker] (http://arademaker.github.com/) [here] (http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html):
 
-	gem install jekyll
+1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch. This is where **all** modifications to the website should be made.
+2. Jekyll should be run locally to generate the static html files locally
+3. These static files (saved in the `_site` folder) should be copied to the root directory on the master branch
+4. These static files are the ones that are then served on Github pages
+5. As a result, **does not** need to process the files in Github pages. That is why the `.nojekyll` file is included in the master branch
 
-Once you have Jekyll installed, navigate to the repo:
+As all the Jekyll processing is performed locally, you need to make sure that Jekyll and all the plugins used are installed on your local machine. Because Jekyll runs on top of Ruby, you'll need a copy of Ruby locally, and then you'll need to install:
 
-	cd snowplow.github.com
+1. [jekyll](https://github.com/mojombo/jekyll). To install the gem execute `sudo gem install jekyll`.
+2. [jekyll-pagination](https://github.com/blackwinter/jekyll-pagination). To install the gem execute `sudo gem install jekyll-pagination`.
+3. ... (no other plugins used currently)
 
-And run Jekyll
+More explanation on how to update the site is given below:
 
-	jekyll --server
+#### 1. Making changes locally
 
-This will compile the website to the _site directory. to view the website, enter
+First, on your local repository, switch to the source branch to update the source files
 
-	localhost:4000
+	git checkout source
 
-In your browser URL window.
-
-Remember, if you don't like what you see, and modify the site, to preview the changes, you'll need to CTRL-C out of Jekyll, then re-run 
-
-	jekyll --server
-
-from the repo directory, (which will recompile it).
+Make the relevant changes to the site. To add a new blog post, for example, see the next section: 
 
 #### 2. Adding a new blog post
 
@@ -101,9 +101,61 @@ When adding links to between pages on the site:
 1. Always use relative URLs e.g. `/analytics/catalogue-analytics/overview.html`
 2. Remember all URLs end in `.html`
 
-
 #### 6. Side menus
 
 Side menus should automatically update with new blog posts / web pages as appropriate.
 
 When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/sidebar_analytics`, `_sidebar_contact.html` etc. files. (There is one file for each side menu.)
+
+#### 7. Previewing the changes locally
+
+This is advisable before performing any commits :-). To preview the site on your local machine, navigate to the repo:
+
+	cd snowplow.github.com
+
+And run Jekyll
+
+	jekyll --server
+
+This will compile the website to the _site directory. to view the website, enter
+
+	localhost:4000
+
+In your browser URL window.
+
+Remember, if you don't like what you see, and modify the site, to preview the changes, you'll need to CTRL-C out of Jekyll, then re-run 
+
+	jekyll --server
+
+from the repo directory, (which will recompile it).
+
+#### 8. Committing your changes and deploying them to Github Pages
+
+Once you are happy with the updates you've made to the website, you need to deploy them to production.
+
+Remember: source files are stored in the `source` branch. (Which you have been editting.) To deploy, we need to get Jekyll to generate the static html pages, copy them to our master repo and then push them to Github. To do this:
+
+1. Firstly add and commit the changes made to the source repo
+
+	git checkout source
+	// make relevant changes and updates to the site
+	git add .
+	git commit -m "{{enter description of changes made}}"
+
+2. Now run Jekyll locally to generate the static pages into the `_site` folder
+
+	jekyll
+
+3. Now switch to the master branch
+
+	git checkout master
+
+4. Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.)
+
+	cp -r _site/* . && rm -rf _site/ && touch .nojekyll
+
+5. Now push both the source and master branches to origin
+
+	git push --all origin
+
+All done!

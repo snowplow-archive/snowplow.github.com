@@ -27,14 +27,6 @@ $white: #FFFFFF;
 	h2 { font-size: 16px; margin-top: 20px;}
 	h3 { font-size: 14px; margin-top: 20px;}
 	p  { font-size: 13px; }
-
-	#comments {
-		margin-top: 15px;
-		padding-top: 15px;
-		border-top-style: solid ;
-		border-top-width: 1px;	
-		border-top-color: $darkgrey;
-	}
 }
 
 #sidebar {
@@ -59,10 +51,6 @@ $white: #FFFFFF;
 		padding-left: 0px;
 		margin-top: 0px;
 		margin-bottom: 0px;
-		li {
-			margin-top: 1px;
-			margin-bottom: 1px;
-		}
 	}
 
 	a {

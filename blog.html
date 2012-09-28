@@ -1,36 +1,440 @@
----
-layout: default
-category: blog
----
-<div id="contents">
-	{% for post in paginator.posts %}
-		<a name="{{ post.shortenedlink }}" />
-		<div class="post">
-			{{ post.date | date_to_string }}
-			<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-			{{ post.content }}
-			<span class="comments-link"><a href="{{ post.url }}#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	{% endfor %}
+<!DOCTYPE html>
+<html>
+<head>
 	
-	<!-- Pagination links -->
-	<div class="pagination">
-		{% if paginator.previous_page %}
-			{% if paginator.previous_page == 1 %}
-			<a href="/blog.html">Previous</a>
-			{% else %}
-			<a href="/page{{paginator.previous_page}}" class="previous">Previous</a>
-			{% endif %}
-		{% else %}
-			<span class="previous">Previous</span>
-		{% endif %}
-		<span class="page_number">Page: {{paginator.page}} of {{paginator.total_pages}}</span>
-		{% if paginator.next_page %}
-			<a href="/page{{paginator.next_page}}" class="next">Next</a>
-		{% else %}
-			<span class="next">Next</span>
-		{% endif %}
-	</div>
+	<title>The SnowPlow blog - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+	
+		<a name="Why set your data free?" />
+		<div class="post">
+			24 Sep 2012
+			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
+			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce SnowPlow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+
+<p>With each person, I started by explaining that SnowPlow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+
+<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
+
+<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
+<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
+</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
+</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
+</tr></tbody></table>
+<p>SnowPlow makes integrating web analytics data with other data sources easier in a two ways:</p>
+
+<ol>
+<li>All your SnowPlow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
+
+<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
+</ol>
+
+<p>For more details on how to perform <code>JOIN</code>s between SnowPlow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining SnowPlow engagement data with other sources of customer data</a></p>
+
+<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
+
+<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
+
+<ol>
+<li>Number of unique visitors by product page</li>
+
+<li>Different sources of traffic by product page (and how this changes over time)</li>
+
+<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
+
+<li>Improvements to conversion rates over time</li>
+</ol>
+
+<p>In contrast, because SnowPlow gives you access to the underlying data, it is possible to use BI tools like <a href='http://www.tableausoftware.com/'>Tableau</a> and <a href='http://www.microsoft.com/en-us/bi/powerpivot.aspx'>PowerPivot</a> to quickly slice and dice web analytics data by any dimensions / metrics you want. We&#8217;ll be posting examples of how to do this in the next few days.</p>
+
+<h3 id='3_use_machine_learning_tools_on_your_web_analytics_data'>3. Use machine learning tools on your web analytics data</h3>
+
+<p>Machine learning tools, and <a href='http://mahout.apache.org/'>Mahout</a> in particular, have created some new and exciting opportunities to:</p>
+
+<ol>
+<li>Develop product and content recommendation engines, based on user web behaviour. (E.g. users who viewed these content items, also viewed&#8230;)</li>
+
+<li>Segment your audience by online behaviour</li>
+</ol>
+
+<p>SnowPlow makes it easy to extract the core input data you would need to feed a machine learning algorithm in a single query. (E.g. a matrix mapping users to products by page views / add to baskets / purchases etc.) We will be exploring ways to integrate SnowPlow with <a href='http://mahout.apache.org/'>Mahout</a> in a future blog post.</p>
+
+<h3 id='4_view_data_for_individual_users_over_their_entire_lives'>4. View data for individual users over their entire lives</h3>
+
+<p>Whereas reports on Google Analytics tend to be about visits, page views or transactions, SnowPlow lets you slice data by users over multiple visits, opening up a wide range of possibilities:</p>
+
+<ol>
+<li>Develop accurate models of customer lifetime value</li>
+
+<li>Develop more rigorous approaches to attribution modelling, by capturing in granular detail which channels touched a user at different points in their lifecycle</li>
+</ol>
+
+<h3 id='5_interested_in_any__all_of_the_above'>5. Interested in any / all of the above?</h3>
+
+<p>Then <a href='/product/get-started.html'>get started</a> with SnowPlow, or <a href='/contact/index.html'>get in touch</a> to find out more!</p>
+		</div>
+	
+		<a name="SnowPlow 0.4.8 released with Hive deserializer improvements" />
+		<div class="post">
+			14 Sep 2012
+			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></h1>
+			<p>We have just released SnowPlow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+
+<ol>
+<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+
+<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+
+<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+
+<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+</ol>
+
+<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+
+<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+
+<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+
+<ul>
+<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+
+<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+
+<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
+</ul>
+
+<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields.</p>
+
+<p>As part of this new <strong>0.4.8</strong> SnowPlow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.</p>
+
+<h2 id='support_for__as_the_tracking_pixel'>Support for <code>i</code> as the tracking pixel</h2>
+
+<p>Currently the SnowPlow JavaScript tracker fires a GET request to a tracking pixel called <code>ice.png</code>. This works fine, but it makes more sense to call the pixel <code>i</code>, for two reasons:</p>
+
+<ol>
+<li>We free up 5 extra characters to use for sending data</li>
+
+<li>A transparent GIF is smaller to send than a transparent PNG</li>
+</ol>
+
+<p>Thanks to <a href='https://github.com/shermozle/'>Simon Rumble</a> (author of <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>) for pointing this out! In due course we will update the JavaScript tracker and CloudFront collector to implement this change (see issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/25'>#25</a>), but to start off we have added support for <code>i</code> to the new version of the Hive deserializer.</p>
+
+<p>This is a small change, but highlights a wider point for SnowPlow development: in general, whenever we have a &#8220;breaking change&#8221; coming upstream, we will try to prepare for this change downstream first, to prevent any disruption to your use of SnowPlow.</p>
+
+<h2 id='support_for_forward_query_string__yes'>Support for Forward Query String = yes</h2>
+
+<p>Thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for spotting that the Hive deserializer does not work if your CloudFront distribution has Forward Query String set to Yes; Michael not only raised the issue but also provided a fix, many thanks Michael!</p>
+
+<p>Most SnowPlow users will have Forward Query String in their CloudFront distribution set to No, so this issue will not arise for them; however this fix will be invaluable for anyone who does have it set to Yes. If you want to read more about this, please check out <a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>.</p>
+
+<p>We&#8217;re aware that our guide for setting up the CloudFront distribution is a bit out of date (which is how this issue can arise) - we will be refreshing the tracking pixel guide soon (<a href='https://github.com/snowplow/snowplow/issues/25'>issue #25</a>)! Many thanks for your patience.</p>
+
+<h2 id='more_robust_querystring_handling'>More robust querystring handling</h2>
+
+<p>A small change - we have made the code for extracting marketing attribution more robust. Specifically, the Hive deserializer no longer dies (i.e. throws a non-recoverable <code>SerDeException</code>) if the calling page&#8217;s URL has a malformed querystring.</p>
+
+<p>An example of a malformed querystring would be something like:</p>
+
+<pre><code>http://www.psychicbazaar.com/2-tarot-cards?n=48?utmsource=GoogleSearch&amp;...</code></pre>
+
+<p>Note the two <code>?</code> questionmarks (the second one should be an <code>&amp;</code> ampersand). In the case of a malformed querystring like this, the five marketing attribution fields in the Hive output format for this row will all be set to null.</p>
+
+<h2 id='deploying_the_new_version'>Deploying the new version</h2>
+
+<p>The new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.8.jar</strong>. If you have any problems running it, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
+		</div>
+	
+		<a name="SnowPlow 0.4.7 released with additional JavaScript tracking options" />
+		<div class="post">
+			06 Sep 2012
+			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></h1>
+			<p>We have just released SnowPlow version <strong>0.4.7</strong>. This release bumps the SnowPlow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+
+<ol>
+<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+
+<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
+</ol>
+
+<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
+
+<p>We&#8217;ll take a look at both of these new features in turn:</p>
+
+<h2 id='site_id'>Site ID</h2>
+
+<p>The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
+<p>The querystring passed to your SnowPlow collector will now include the following parameter:</p>
+
+<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
+
+<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well.</p>
+
+<p>This new feature should be helpful for anyone running multiple sites (or perhaps clients) against the same SnowPlow collector - it means that you can easily partition your SnowPlow events by site, whilst still being able to run cross-site analyses should you so wish.</p>
+
+<p>Note that we haven&#8217;t yet added extracting <code>said</code> to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/33'>open ticket for this</a>.</p>
+
+<h2 id='ecommerce_transactions'>Ecommerce transactions</h2>
+
+<p>To date, we have been analysing e-commerce transactions using SnowPlow by:</p>
+
+<ul>
+<li>Logging every <em>product add to basket</em> event</li>
+
+<li>Logging every <em>product remove from basket</em> event</li>
+
+<li>Netting these events off to determine the final contents of the order</li>
+</ul>
+
+<p>This approach works, but it adds complexity in the analysis step. Happily community member Simon Andersson has contributed an alternative solution: dedicated SnowPlow e-commerce transaction tracking, similar to the functionality found in the Google Analytics JavaScript API.</p>
+
+<p>The idea is that you add the new tracking code to your shop&#8217;s checkout confirmation page, so that the completed order can be sent to SnowPlow. A complete example of the new tracking code looks like this:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>var</span> <span class='nx'>orderId</span> <span class='o'>=</span> <span class='s1'>&#39;order-123&#39;</span><span class='p'>;</span>
+
+<span class='c1'>// addTrans sets up the transaction, should be called first.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addTrans&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// affiliation or store name</span>
+  <span class='s1'>&#39;8000&#39;</span><span class='p'>,</span>                 <span class='c1'>// total - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// tax</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// shipping</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// city</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// state or province</span>
+  <span class='s1'>&#39;&#39;</span>                      <span class='c1'>// country</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// addItem is called for each item in the shopping cart.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1001&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Blue t-shirt&#39;</span><span class='p'>,</span>         <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;2000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;2&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1002&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Red shoes&#39;</span><span class='p'>,</span>            <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;4000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;1&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// trackTrans sends the transaction to SnowPlow tracking servers.</span>
+<span class='c1'>// Must be called last to commit the transaction.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackTrans&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
+<p>The above example creates an order (aka &#8220;transaction&#8221;) with ID <code>order-123</code> and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final <code>trackTrans</code> call sends this complete order to SnowPlow as three separate events - one each for the order and its line items.</p>
+
+<p>This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.</p>
+
+<p>Note that we haven&#8217;t yet added extracting these e-commerce orders to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/34'>open ticket for this</a>.</p>
+
+<h2 id='upgrading'>Upgrading</h2>
+
+<p>We have made the minified JavaScript tracker version 0.6 available on this URL:</p>
+
+<pre><code>http://d1fc8wv8zag5ca.cloudfront.net/0.6/sp.js</code></pre>
+
+<p>There are no breaking changes with the previous version 0.5, so you can upgrade your existing SnowPlow JavaScript tracker without issue.</p>
+
+<p>Note that we have now added versioning to the JavaScript tracker&#8217;s URL. This is because we have &#8220;breaking changes&#8221; to the JavaScript tracker in the pipeline (see e.g. issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/32'>#32</a>).</p>
+
+<h2 id='thanks'>Thanks</h2>
+
+<p>A final note to say thanks again to <a href='https://github.com/ramn'>Simon Andersson</a> for contributing the ecommerce tracking functionality! Community contributors like Simon A and Simon R(umble) are helping us to quickly make the SnowPlow vision a reality.</p>
+
+<p>And of course, we welcome contributions across the five SnowPlow sub-systems. If you would like help implementing a new tracker, trying a different ETL approach or loading SnowPlow events into an alternative database, please <a href='mailto:contribute@snowplowanalytics.com'>get in touch</a>!</p>
+		</div>
+	
+		<a name="Amazon announces Glacier" />
+		<div class="post">
+			21 Aug 2012
+			<h1><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></h1>
+			<p>Today Amazon announced the launch of <a href='http://aws.amazon.com/glacier/'>Amazon Glacier</a>, which is a low-cost data archiving service designed for rarely accessed data.</p>
+
+<p>As Werner Vogels described it in his <a href='http://www.allthingsdistributed.com/2012/08/amazon-glacier.html'>blog post</a> this morning:</p>
+
+<blockquote>
+<p>Amazon Glacier provides the same high durability guarantee as Amazon S3 but relaxes the access times to a few hours. This is the right service for customers who have archival data that requires highly reliable storage but for which immediate access is not needed.</p>
+</blockquote>
+
+<p>At first sight, Amazon Glacier looks to be a fantastic fit for archiving the raw event logs generated by the SnowPlow collector (whether the CloudFront collector or alternatives such as <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>). Once the nightly SnowPlow ETL has been run on your raw event logs, you shouldn&#8217;t need to access those raw logs frequently. However, we would always recommend retaining them, as there may well be a reason to revisit them in the future. We never recommend throwing away atomic source data!</p>
+
+<p>This is where Amazon Glacier comes in - at the proposed pricing levels for Glacier, you could archive 2 terabytes of raw SnowPlow data for around $20 a month; this would be significantly cheaper than storing your raw logs in Amazon S3, which is the current SnowPlow approach.</p>
+
+<p>Moreover, Werner has indicated that:</p>
+
+<blockquote>
+<p>In the coming months, Amazon S3 will introduce an option that will allow customers to seamlessly move data between Amazon S3 and Amazon Glacier based on data lifecycle policies.</p>
+</blockquote>
+
+<p>Once Amazon has launched this feature, we&#8217;ll get this automatic S3-&gt;Glacier archiving process working internally, and then release a howto for SnowPlow users so you can do the same, and start running your SnowPlow over Amazon Glacier!</p>
+
+<p>Exciting times for everybody who likes storing atomic event data cheaply and safely - stay tuned!</p>
+		</div>
+	
+		<a name="SnowPlow 0.4.6 released!" />
+		<div class="post">
+			20 Aug 2012
+			<h1><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></h1>
+			<p>Over the weekend we released SnowPlow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the SnowPlow JavaScript tracker.</p>
+
+<p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
+
+<p>You can use this feature in your JavaScript invocation code like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>SnowPlow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
+<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
+<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
+
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+
+<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='p'>...</span>
+</code></pre>
+</div>
+<p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
+
+<p>We added this capability to SnowPlow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.</p>
+
+<p>Anyway I hope you like the feature and let us know how you get on with it!</p>
+		</div>
+	
+		<a name="updated-serde" />
+		<div class="post">
+			14 Aug 2012
+			<h1><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></h1>
+			<p>One of the key elements in the SnowPlow technology stack is the Hive SerDe. This is what makes it possible for Elastic MapReduce to read the Cloudfront log files generated by the SnowPlow javascript trackings tags, extarct the relevant fields and make these available in Hive as a nice, clean query table. (The structure of the Hive table is documented <a href='https://github.com/snowplow/snowplow/wiki/Hive-data-structure'>here</a>).</p>
+
+<p>A number of improvements have been made in the new versions. However, the most significant is that the 5 utm_marketing fields have been added, so that campaign attributes are now available for analytics.</p>
+		</div>
+	
+		<a name="snowcannon" />
+		<div class="post">
+			13 Aug 2012
+			<h1><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></h1>
+			<p>We are hugely excited to introduce <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, a Node.js collector for SnowPlow, authored by <a href='http://twitter.com/shermozle'>@shermozle</a>.</p>
+
+<p>SnowCannon is an alternative collector to the default cloudfront collector included with SnowPlow. It offers a number of significant advantages over the Cloudfront connector:</p>
+
+<ol>
+<li>It allows the use of 3rd party cookies. In particular, this makes it possible to track usage across multiple domains</li>
+
+<li>It enables real-time analytics. (This is not possible with the Cloudfront-enabled collector, where there&#8217;s a 20-30 minute delay between the javascript tracking event and the associated log being written to S3.)</li>
+</ol>
+
+<p>To learn more about SnowCannon, visit the <a href='https://github.com/shermozle/SnowCannon'>Github repo</a>.</p>
+
+<p>SnowCannon is the first user-contributed module for SnowPlow, and we are delighted to see community members working to build out the SnowPlow platform. There are other contributions in the works, including a SnowPlow IOS client, that we hope to be announcing shortly.</p>
+
+<p>To encourage users to extend SnowPlow, we&#8217;ve architected SnowPlow in a module way, to enable developers to swap out elements in the SnowPlow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the SnowPlow architecture <a href='/product/technical-architecture.html'>here</a>.</p>
+		</div>
+	
+		<a name="new-setup-guide" />
+		<div class="post">
+			02 Aug 2012
+			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
+			<p>Following a lot of invaluable feedback from users setting up SnowPlow for the first time, we&#8217;ve updated the SnowPlow setup documentation.</p>
+
+<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/SnowPlow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for SnowPlow newbies to get up and running&#8230;</p>
+		</div>
+	
 </div>
 
-{% include sidebar_blog.html %}
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<strong>Tags</strong>
+</div>
+
+
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

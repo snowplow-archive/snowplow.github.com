@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Joining SnowPlow data to other customer data - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='joining_snowplow_engagement_data_with_other_sources_of_customer_data'>Joining SnowPlow engagement data with other sources of customer data</h1>
+
+<p>The value of data sets increases when they are joined with other, complimentary data sets. No where is this more true than in the case of customer data. Busiensses have for years spend huge sums of money integrating multiple customer data sets (incl. CRM data, financial data, offline sales data, email marketing data etc.) into single datawarehouses and customer views to provide a complete picture of their userbase. Until SnowPlow, however, integrating web analytics with other customer data sources has always been difficult if not impossible.</p>
+
+<p>In this section, we walk through the process of integrating SnowPlow data with other data sources:</p>
+
+<ol>
+<li><a href='#why'>Why integrate web analytics data with other customer data sources</a></li>
+
+<li><a href='#ingredients'>Necessary ingredients for successful integration</a></li>
+
+<li><a href='#upload'>Uploading customer data into SnowPlow</a></li>
+
+<li><a href='#join'>Joining customer data with SnowPlow</a></li>
+</ol>
+<a name='why' />
+<h2 id='1_why_integrate_web_analytics_data_with_other_customer_data_sources'>1. Why integrate web analytics data with other customer data sources?</h2>
+
+<p>To date many companies have become very good at using CRM, loyalty and sales data to understand, segment and serve their customer base. Typically, however, they have <strong>not</strong> used web analytics data to understand their customers, even though how users engage with brands and companies through their website and applications provides some of the most revealing data about who a person is, there motivation for engaging with a brand / product / service and how happy they are with that brand / product and service. To illustrate how revealing web analytics data can be, consider:</p>
+
+<ul>
+<li>Data from online retail sites can reveal what products a user is interested in purchasing, before they potentially visit a store</li>
+
+<li>Purchase data can also reveal lifestyle interests: for example, someone shoppingi for nappies is most likely to have a young family</li>
+
+<li>Data from a content or media site can reveal what specific interests a user has</li>
+
+<li>If a user repeatedly visits a particular product page, but does not buy, it suggests that something is going wrong with the purchase flow, and the user is likely to become frustrated with the service provider. (And potentially stop being a customer)</li>
+
+<li>Web analytics data might reveal how price sensitive a user is i.e. does their propensity to buy increase dramatically during promotions?</li>
+
+<li>Web analytics data can be used to distinguish focused buyers (who come on a website looking for a specific product, and zoom in on it quickly) from those who are interested in browsing and then end up buying</li>
+</ul>
+
+<p>By integrating SnowPlow data with other customer data, it is possible learn additional things about your customers, and use that to drive your marketing and platform development decisions.</p>
+
+<p>Potential sources of customer data to integrate with:</p>
+
+<ul>
+<li>CRM incl. loyalty (e.g. generated by point-of-sale systems, or loyalty cards)</li>
+
+<li>Marketing databases (e.g. email, direct mail)</li>
+
+<li>Social media (e.g. Facebook, Twitter)</li>
+</ul>
+<a name='ingredients' />
+<h2 id='2_necessary_ingredients_for_successful_integration'>2. Necessary ingredients for successful integration</h2>
+
+<p>Integrating any two data sources requires that:</p>
+
+<ul>
+<li>Both sources can be queried via a single interface. (In practice, this often means <em>moving</em> one or both source)</li>
+
+<li>Ability able to join lines of data based on a customer_id</li>
+</ul>
+
+<p>Given the two above requirements, it becomes clear why web analytics data has not been integrated with other customer data sources:</p>
+
+<ul>
+<li>Web analytics data volumes are typically enormous, making <em>moving</em> the data hard. (SnowPlow <em>fixes</em> this problem by enabling you to import your data into SnowPlow, rather than export your web analytics data out of it.)</li>
+
+<li>Web analytics programs are typically bad at reliably identifying users. (SnowPlow <em>fixes</em> this problem by exposing a <code>user_id</code> and making it striaghtforward to map <code>user_id</code>s with <code>login_id</code>s from other systems as described in the <a href='identifying-users.html'>identifying-users</a> section.)</li>
+</ul>
+<a name='upload' />
+<h2 id='3_uploading_data_into_snowplow'>3. Uploading data into SnowPlow</h2>
+
+<p>In order two join two data sets, you need to be able to run a query across both of them. Typically, this means getting copies of them in the same system. There are three options:</p>
+
+<ol>
+<li>Export data out of SnowPlow and into the system that the data you want to integrate it with lives e.g. your CRM system</li>
+
+<li>Import the data you want to integrate with SnowPlow out the system it usually lives (e.g. your CRM system) and import it into SnowPlow</li>
+
+<li>Export data out of SnowPlow and out of the system you want to integrate it with, and import both data sets into a third system to run the join</li>
+</ol>
+
+<p>Whilst all three options are possible, more often then not we recommend companies use option 2 i.e. import the customer data they want to join with SnowPlow into SnowPlow. (Or more specifically, if they are querying SnowPlow data in Hive, import the data into Hive. If they are querying SnowPlow data in Infobright, import the data into Infobright.) The reason is relatively straightforward: SnowPlow data sets tend to be very large: that is why we use either Hive or Infobright to store and query the data, as both these platforms are built for scale. Other sources of customer data e.g. CRM data are typically much smaller scale, so moving them into Hive / Infobright is usually more straightforward then moving SnowPlow data into a non-Hive / non-Infobright data store.</p>
+
+<h3 id='importing_data_into_hive'>Importing data into Hive</h3>
+
+<p>If you are running SnowPlow using Hive on Amazon&#8217;s S3 / EMR infrastructure, uploading data into Hive is a three step process:</p>
+
+<ol>
+<li>Export the data from your system in a format suitable for Hive. (In practice, this generally means some kind of text-delimited format e.g. tab-delimited or comma-delimited)</li>
+
+<li>Upload the data into S3</li>
+
+<li>Create an external table in Hive that references the data, with the correct field definitions</li>
+</ol>
+
+<h4 id='1_exporting_your_data_in_a_format_suitable_for_hive'>1. Exporting your data in a format suitable for Hive</h4>
+
+<p>How you export customer data out of your systems will vary depending on the system. In general, however, nearly all cutomer-data applications will enable you to export customer records as CSV files.</p>
+
+<p>Some useful things to note about the format of the exported CSV file. (If the CSV file is not in the appropriate format, it will need to be transformed before being uploaded into S3):</p>
+
+<ol>
+<li>It is important you know the structure of the CSV file, including the column names and data types. This information will be used when you define a new table in Hive that points at this data</li>
+
+<li>At least one of the columns should be a user identifier that will be used to do the join</li>
+
+<li>If possible, the CSV should not contain the column titles themselves, as this will make importing them into Hive more straightforward</li>
+</ol>
+
+<h4 id='2_uploading_data_into_s3'>2. Uploading data into S3</h4>
+
+<p>Uploading data into S3 is reasonably straight forward: this can be done via the <a href='http://console.aws.amazon.com'>Amazon Web Services UI</a> or an S3 interface tool like <a href='http://www.bucketexplorer.com/'>Bucket Explorer</a>.</p>
+
+<h4 id='3_defining_your_data_in_hive'>3. Defining your data in Hive</h4>
+
+<p>Once your data is on S3, you need to tell Hive about it, so you can query it. To do that, you&#8217;ll need to define a Hive table for it:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL pseudo-code */</span>
+<span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> 
+<span class='p'>(</span>
+	<span class='n'>field_1</span> <span class='n'>data_type</span><span class='p'>,</span>
+	<span class='n'>field_2</span> <span class='n'>data_type</span><span class='p'>,</span>
+	<span class='p'>...</span>
+	<span class='n'>field_n</span> <span class='n'>data_type</span>
+<span class='p'>)</span>
+<span class='n'>ROW</span> <span class='n'>FORMAT</span> <span class='n'>DELIMITED</span>
+<span class='n'>FIELDS</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;,&#39;</span>
+<span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3://LOCATION-BUCKET/LOCATION-PATH/&#39;</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>To check that your data has been successfully uploaded, you can run some sample queries within Hive e.g. to view the first 10 rows:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>from</span>  <span class='k'>LIMIT</span> <span class='mi'>10</span><span class='p'>;</span>
+</code></pre>
+</div>
+<h3 id='importing_your_data_into_infobright'>Importing your data into Infobright</h3>
+
+<p>If you are using Infobright to store and query your SnowPlow data, uploading data into Infobright is easier: you can use any database administration tool that interfaces with MySQL (on which Infobright is based) to create a new table in Infobright and import the CSV in. If the data you are importing lives in another relational database, it may be possible to use a tool like <a href='http://www.navicat.com/'>Navicat</a> to move the data directly between one database and the other, or use an ETL tool like <a href='http://www.jitterbit.com/'>Jitterbit</a> to manage a regular transfer of data from one database to the other.</p>
+<a name='join' />
+<p>Now that both your data sets are available in Hive or Infobright, you are in a position to run an analysis across both set of data.</p>
+
+<p>To do so, however, you need to <code>join</code> the two data sets. This requires mapping users, as identified in SnowPlow by the <code>user_id</code>, with customers as identified by a <code>customer_id</code> in your second data set. This requires firing a SnowPlow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be matched against the SnowPlow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href='identifying-users.html#login-events'>identifying users with SnowPlow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>ev_value</span> <span class='k'>AS</span> <span class='n'>customer_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_value</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>You can then perform queries that join both data tables, the SnowPlow <code>events</code> table and your 2nd table of imported customer data:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL pseudo-code */</span>
+<span class='k'>SELECT</span>
+<span class='n'>s</span><span class='p'>.</span><span class='n'>field_1</span><span class='p'>,</span>
+<span class='n'>s</span><span class='p'>.</span><span class='n'>field_2</span><span class='p'>,</span>
+<span class='p'>...</span>
+<span class='n'>e</span><span class='p'>.</span><span class='n'>field_1</span><span class='p'>,</span>
+<span class='n'>e</span><span class='p'>.</span><span class='n'>field_2</span>
+<span class='k'>FROM</span> <span class='n'>events</span> <span class='n'>s</span>
+<span class='k'>JOIN</span> <span class='mi'>2</span><span class='n'>nd</span><span class='o'>-</span><span class='k'>table</span> <span class='n'>e</span>
+<span class='k'>ON</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>customer_id</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>You will likely want to aggregate your data by customer, in which case you would <code>GROUP BY e.customer_id</code>. (I.e. the ID used in your customer database, which is likely to be more robust than the cookie-based SnowPlow <code>user_id</code> for the reasons described in the <a href='identifying-users.html#login-events'>identifying users</a> section).</p>
+
+<h2 id='happy_integrating_snowplow_data_with_other_sources_of_customer_data'>Happy integrating SnowPlow data with other sources of customer data?</h2>
+
+<p>Find out <a href='customer-lifetime-value.html'>how to calculate customer lifetime value</a> using SnowPlow</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" class="active">Customer analytics</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/identifying-users.html">Identifying users</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/customer-analytics/joining-customer-data.html" class="active">Joining SnowPlow data to other customer data</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/customer-lifetime-value.html">Customer Lifetime Value</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/user-engagement.html">User engagement</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/cohort-analysis.html">Cohort Analysis</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/behavioural-segmentation.html">Behavioral segmentation</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

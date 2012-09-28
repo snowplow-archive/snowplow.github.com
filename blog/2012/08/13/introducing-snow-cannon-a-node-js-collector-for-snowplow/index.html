@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>SnowCannon - a node.js collector for SnowPlow - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			13 Aug 2012
+			<h1>SnowCannon - a node.js collector for SnowPlow</h1>
+			<p>We are hugely excited to introduce <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, a Node.js collector for SnowPlow, authored by <a href='http://twitter.com/shermozle'>@shermozle</a>.</p>
+
+<p>SnowCannon is an alternative collector to the default cloudfront collector included with SnowPlow. It offers a number of significant advantages over the Cloudfront connector:</p>
+
+<ol>
+<li>It allows the use of 3rd party cookies. In particular, this makes it possible to track usage across multiple domains</li>
+
+<li>It enables real-time analytics. (This is not possible with the Cloudfront-enabled collector, where there&#8217;s a 20-30 minute delay between the javascript tracking event and the associated log being written to S3.)</li>
+</ol>
+
+<p>To learn more about SnowCannon, visit the <a href='https://github.com/shermozle/SnowCannon'>Github repo</a>.</p>
+
+<p>SnowCannon is the first user-contributed module for SnowPlow, and we are delighted to see community members working to build out the SnowPlow platform. There are other contributions in the works, including a SnowPlow IOS client, that we hope to be announcing shortly.</p>
+
+<p>To encourage users to extend SnowPlow, we&#8217;ve architected SnowPlow in a module way, to enable developers to swap out elements in the SnowPlow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the SnowPlow architecture <a href='/product/technical-architecture.html'>here</a>.</p>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<strong>Tags</strong>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Identifying users - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='identifying_users_and_customers_using_snowplow'>Identifying users and customers using SnowPlow</h1>
+
+<p>All customer analytics starts with a solid understanding of what constitutes a customer and a user: this is missing in traditional web analytics. In this section, we explain how to use SnowPlow to reliably identify customers and users:</p>
+
+<ol>
+<li><a href='#user_id'>Understanding <code>user_id</code>s</a>. An overview of how SnowPlow sets and exposes <code>user_id</code>s</li>
+
+<li><a href='#benefits_of_user_id'>The benefits of exposing <code>user_id</code>s</a>. The value that aggregating and filtering on <code>user_id</code>s provides data analysts</li>
+
+<li><a href='#login-events'>More robust approaches to identifying customers through tracking login events</a>. A guide to a more reliable approach to identifying users, based on using SnowPlow to track login events</li>
+</ol>
+<a name='user_id' />
+<h2 id='1_understanding_s'>1. Understanding <code>user_id</code>s</h2>
+
+<p>When a user visits a website with SnowPlow tracking, SnowPlow checks the users browser to see if a SnowPlow cookie has been set. If it has not, SnowPlow creates a new <code>user_id</code> and drops a browser cookie containing it. Then when the user returns to the site, SnowPlow will recognise the user from the <code>user_id</code> stored in the cookie on her browser.</p>
+
+<p>This approach to identifying users is in line with that employed all tag-based web analytics programs. What is unique about SnowPlow is that it exposes the user_id on every line of SnowPlow data to analysts crunching SnowPlow data.</p>
+<a name='benefits_of_user_id' />
+<h2 id='2_benefits_of_exposing_the__for_analysis'>2. Benefits of exposing the <code>user_id</code> for analysis</h2>
+
+<h3 id='2a_ability_to_view_a_users_complete_engagement_record'>2a. Ability to view a user&#8217;s complete engagement record</h3>
+
+<p>Analysts can quickly zoom in on a user&#8217;s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> 
+</code></pre>
+</div>
+<h3 id='2b_ability_to_track_users_over_multiple_customer_journeys'>2b. Ability to track users over multiple customer journeys</h3>
+
+<p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, SnowPlow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using SnowPlow for <a href='/analytics/customer-analytics/attributino.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attributino.html'>attribution section</a> of this documentation.)</p>
+
+<p>Each time a user visits a site, SnowPlow sets a visit counter (<code>visit_id</code>): this is set to 1 on the user&#8217;s first visit, 2 on the user&#8217;s second visit etc. So to calculate the average number of visits required before a customer purchases, we can execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
+<span class='nf'>AVERAGE</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>avg_visits_to_purchase</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
+</code></pre>
+</div>
+<p>On websites where users make multiple purchases, we need to divide the number of visits by number of orders, filtering out users who have not made a purchase:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> <span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_purchases</span><span class='p'>,</span>
+<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_visits</span><span class='p'>,</span>
+<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>visits_to_purchases</span>
+<span class='k'>FROM</span> <span class='n'>events</span> 
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>We can then average across the results:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>visits_to_purchases</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span> <span class='n'>user_id</span><span class='p'>,</span>
+	<span class='k'>FROM</span> <span class='n'>events</span> 
+	<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_purchases</span><span class='p'>,</span>
+	<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_visits</span><span class='p'>,</span>
+	<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>visits_to_purchases</span>
+	<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>t</span>
+</code></pre>
+</div>
+<h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
+
+<p>Because we can easily slice data by user_id (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
+<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
+<a name='login-events' />
+<h2 id='3_more_sophisticated_approaches_to_user_identification_login_events'>3. More sophisticated approaches to user identification: login events</h2>
+
+<p>Whilst exposing the <code>user_id</code> makes slicing data by user easy for an analyst, relying on cookies to reliably identify users is risky for a number of reasons:</p>
+
+<ol>
+<li>Users may delete cookies between sessions: in which case two or more <code>user_id</code>s really represent the same user</li>
+
+<li>Users may access your website from different browsers (e.g. a home computer and a work computer, or a mobile device and a desktop): in which case again, two or more <code>user_id</code>&#8217;s really represent one user</li>
+</ol>
+
+<p>Websites where users login, however, have the opportunity to identify users much more reliably. It is straightforward to incorporate this additional data into SnowPlow, to make customer identification more robust:</p>
+
+<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/Integrating-SnowPlow-into-your-website#wiki-events'>SnowPlow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured in the SnowPlow event tracker. The values should be set as follows:</p>
+
+<pre><code>event_action: &#39;login&#39;
+event_value: login_id</code></pre>
+
+<p>where the <code>login_id</code> is the <code>user_id</code> as defined on the login system, rather than SnowPlow&#8217;s own <code>user_id</code>. These fields then become available in SnowPlow in the <code>ev_action</code> and <code>ev_value</code> fields. So, to create a map of SnowPlow <code>user_id</code>s to the <code>login_id</code>s employed in your login, you can run the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span> <span class='k'>AS</span> <span class='n'>snowplow_user_id</span><span class='p'>,</span>
+<span class='n'>ev_value</span> <span class='k'>AS</span> <span class='n'>login_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_value</span>
+</code></pre>
+</div>
+<p>When a user logs in to a service from multiple computers, each SnowPlow <code>user_id</code>, associated with each computer, will be matched against their single <code>login_id</code>. (I.e. there will be a many-to-one relationship between Snowplow <code>user_id</code> and <code>login_id</code>.) To perform customer analytics using the more robust method of user identification, we simply aggregate over (<code>GROUP BY</code>) <code>login_id</code> rather than SnowPlow <code>user_id</code>.</p>
+
+<h2 id='4_understand_how_to_use_snowplow_to_reliably_identify_users_and_customers'>4. Understand how to use SnowPlow to reliably identify users and customers?</h2>
+
+<p><a href='/analytics/customer-analytics/joining-customer-data.html'>Read on</a> to learn how to join SnowPlow customer data with <a href='/analytics/customer-analytics/joining-customer-data.html'>other sources of customer data</a>.</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" class="active">Customer analytics</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/customer-analytics/identifying-users.html" class="active">Identifying users</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining SnowPlow data to other customer data</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/customer-lifetime-value.html">Customer Lifetime Value</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/user-engagement.html">User engagement</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/cohort-analysis.html">Cohort Analysis</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/behavioural-segmentation.html">Behavioral segmentation</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

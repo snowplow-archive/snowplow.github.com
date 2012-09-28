@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>User engagement - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='measuring_user_engagement_with_snowplow'>Measuring user engagement with SnowPlow</h1>
+
+<ol>
+<li><a href='#what'>What is user engagement?</a></li>
+
+<li><a href='#proxies'>Different proxies for measuring user engagement</a></li>
+
+<li><a href='#days-per-time-period'>Measuring the number of days per week / month that users visit the site</a></li>
+
+<li><a href='#visits-per-time-period'>Measuring the number of visits by each user per day / week / month</a></li>
+
+<li><a href='#events-per-visit'>Measuring the number of events per visit</a></li>
+
+<li><a href='#weighted-events-per-visit'>Weighting events by value</a></li>
+</ol>
+<a name='what' />
+<h2 id='what_is_user_engagement'>What is user engagement?</h2>
+
+<p>User engagement is a critical metric to understand for every business with an online component. What constitutes &#8220;successful engagement&#8221; depends very much on the specific business: if you are a content business, you should be interested in getting users to engage either frequently (e.g. every day for newspapers) and deeply (e.g. view several articles per session). For a search engine, successful engagement might look completely different however: a successful engagement might mean finding the right link in as short a time as possible and then disappearing from the site. In that case, shorter visitor duration might indicate a better user experience.</p>
+
+<p>We can differentiate different levels of sophistication of approach when it comes to measuring user engagement. To take the example of a media website, an analyst who distinguishes the breadth of engagement (how wide a variety of content a user engages with) with the depth of engagement (i.e. how deeply a user engages with each article) is more engagement than one who simply looks at the time spent on the website, or the number of page views. However, we might want to be even more sophisticated in our approach: distinguishing users who have to look through a number of articles to find the one they want (which is not a good user experience) with those that engage with multiple articles because the website is good at recommending related content to them every time they finish one article. Learning how to spot the difference between the two cases, one &#8220;successful&#8221; and one &#8220;unsuccessful&#8221;, takes some care.</p>
+
+<p>Because what constitutes &#8220;successful engagement&#8221; varies depending on the type of business and type of website, we cannot offer a definitive guide to measuring engagement. Instead, we give a number of different queries, which reflect a number of different approaches to measuring engagement. SnowPlow is flexible enough that most businesses should be able to develop robust engagement metrics and use SnowPlow to report on those metrics.</p>
+
+<p>Note: for a more in-depth discussion of measuring user engagement, particularly with respect to performing cohort analyses, see <a href='http://www.keplarllp.com/blog/2012/05/different-approaches-to-measuring-user-engagement-with-snowplow'>this post</a> on the Keplar blog covering <a href='http://www.keplarllp.com/blog/2012/05/different-approaches-to-measuring-user-engagement-with-snowplow'>different approaches to measuring user engagement</a> on the <a href='http://www.keplarllp.com/blog'>Keplar blog</a>.</p>
+<a name='proxies' />
+<h2 id='different_proxies_for_measuring_user_engagement'>Different proxies for measuring user engagement</h2>
+
+<h3 id='measuring_engagement_breadth_ie_how_often_a_user_visits_a_site'>Measuring engagement breadth i.e. how often a user visits a site</h3>
+
+<ol>
+<li><a href='#days-per-time-period'>Number of days per time week / month that user visits site</a></li>
+
+<li><a href='#visits-per-time-period'>Number of visits by each user per day / week / month</a></li>
+</ol>
+
+<h3 id='measuring_engagement_depth'>Measuring engagement depth</h3>
+
+<ol>
+<li><a href='#events-per-visit'>Number of events per visit</a></li>
+
+<li><a href='#weighted-events-per-visit'>Weighting events by value</a></li>
+</ol>
+<a name='days-per-time-period' />
+<h3 id='1_measuring_the_number_of_days_per_week__month_that_users_visit_the_site'>1. Measuring the number of days per week / month that users visit the site</h3>
+
+<p>This is a key metric employed by the social network Facebook, amongst others.</p>
+
+<p>To calculate it, we first calculate the figure per user_id per time period (e.g. month):</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>days_visited_per_user_per_month</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>	
+<span class='n'>yr</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>mnth</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>visits</span> <span class='kt'>INT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>days_visited_per_user_per_month</span> 
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>month</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>We can then look at the distribution of users by the number of days per month they have logged in, for any month in particular:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>visits</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
+<span class='k'>WHERE</span> <span class='n'>yr</span><span class='o'>=</span><span class='mi'>12</span> <span class='k'>AND</span> <span class='n'>mnth</span><span class='o'>=</span><span class='mi'>5</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>visits</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>We might also want to see how the distribution evolves by month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>yr</span><span class='p'>,</span>
+<span class='n'>mnth</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Note: as well as looking at how the distribution of users by engagement level changes over time, we might also want to look at how it changes for a fixed group of users. This is normally performed as part of a <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a>.</p>
+<a name='visits-per-time-period' />
+<h3 id='2_number_of_visits_by_each_user_per_day__week__month'>2. Number of visits by each user per day / week / month</h3>
+
+<p>A similar metric is calculated by countint the number of visits that each user makes in a given time period. The difference here, is that if a user visits a site more than once a day, each individual visit contributes to the &#8220;engagement&#8221; value assigned to that user. When we look at the number of days per month a user visits a website, by contrast, we do not distinguish users who&#8217;ve visited once from users who&#8217;ve visited twice.</p>
+
+<p>Which approach is better depends on the type of product / service you offer online and the way users engage with it. If users typically open your service in a browser window, and then leave it on (but in the background), distinguishing users who visit once and twice a day may not be meaningful. If each visit is distinct, however, this metric might be preferable.</p>
+
+<p>To calculate it, we first calculate the number of visits performed per user per time period. (In the below example we use a month as a time period):</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_by_user_by_month</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>yr</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>mnth</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>visits</span> <span class='kt'>INT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits_by_user_by_month</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>))</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Now we can look at the distribution of users, by numbers of visits per time period, in each time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>yr</span><span class='p'>,</span>
+<span class='n'>mnth</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>visits_by_user_by_month</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>mnth</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
+</code></pre>
+</div><a name='events-per-visit' />
+<h3 id='3_number_of_events_per_visit'>3. Number of events per visit</h3>
+
+<p>We can take the number of &#8220;events&#8221; that occur on each visit as a proxy for how &#8220;engaged&#8221; the user was during that visit. (With more events indicating a deeper level of engagement.)</p>
+
+<p>Counting the number of events per user per visit is straightforward:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>engagement_by_visit</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>engagement</span> <span class='kt'>INT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>engagement_by_visit</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>We can then look at the distribution of visits by engagement level:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>engagement</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>engagement</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>If we want to see whether this metric is improving over time, we can repeat the above, but this time note the date of each visit, and aggregate by time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>engagement_by_visit</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>engagement</span> <span class='kt'>INT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>engagement_by_visit</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>	
+
+<span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='n'>engagement</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>engagement</span> <span class='p'>;</span>
+</code></pre>
+</div><a name='weighted-events-per-visit' />
+<h3 id='4_weighting_events_by_value'>4. Weighting events by value</h3>
+
+<p>TO WRITE</p>
+
+<h2 id='want_to_learn_more'>Want to learn more?</h2>
+
+<p>Find out <a href='/analytics/customer-analytics/cohort-analysis.html'>how to perform cohort analysis</a> using SnowPlow.</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" class="active">Customer analytics</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/identifying-users.html">Identifying users</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining SnowPlow data to other customer data</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/customer-lifetime-value.html">Customer Lifetime Value</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/customer-analytics/user-engagement.html" class="active">User engagement</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/cohort-analysis.html">Cohort Analysis</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/behavioural-segmentation.html">Behavioral segmentation</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

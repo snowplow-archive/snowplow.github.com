@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Customer Lifetime Value - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='measuring_customer_lifetime_value_with_snowplow'>Measuring customer lifetime value with SnowPlow</h1>
+
+<ol>
+<li><a href='#what-is-customer-lifetime-value'>What is customer lifetime value?</a></li>
+
+<li><a href='#why-is-it-important'>Why is calculating customer lifetime value so important?</a></li>
+
+<li><a href='#why-competitors-suck'>Why traditional web analytics tools suck at customer lifetime value</a></li>
+
+<li><a href='#calculating-clv'>Calculating customer lifetime value with SnowPlow</a></li>
+</ol>
+<a name='what-is-customer-lifetime-value' />
+<h2 id='what_is_customer_lifetime_value'>What is customer lifetime value?</h2>
+
+<p>The idea behind <strong>customer lifetime value</strong>* (CLV) is simple: it is the total amount of value derived by a business from a customer over the customer&#8217;s complete <em>lifetime</em> engaging with the business / product / company. Calculating and maximizing a customer&#8217;s lifetime value contrasts with other approaches to increasing value e.g.:</p>
+
+<ol>
+<li>Optimizing <strong>basket size</strong>: where we optimize a specific &#8220;shopping visit&#8221;, rather than <em>all</em> the shopping visits performed by the customer. Amazon Prime is a great example of an initiative that reduces basket size (by encouraging members to place single item orders) but grows customer value nevertheless (by driving increased number of purchases by customer).</li>
+
+<li>Optimizing <strong>occupancy</strong>: where we optimize the revenue / profit per room or per seat rather than per customer.</li>
+
+<li>Optimizing <strong>sell-through rates</strong>: where we optimize either the fraction of something that is sold (where we do not control the total volume available e.g. ad inventory), or the volume produced to maximize profit (e.g. physical CDs: the more we cut the more we can sell, but the more are likely to remain unsold and therefore a net cost to the business)</li>
+</ol>
+<a name='why-is-it-important' />
+<h2 id='why_is_customer_lifetime_value_important'>Why is customer lifetime value important?</h2>
+
+<p>Maximizing customer lifetime value is generally the most sustainable way to drive value growth for any consumer-facing business, because:</p>
+
+<ol>
+<li>It forces the business to take a long term approach to value creation rather than e.g. short term promotions that maximize revenue on a particular shopping trip, or particular product line, at the expense of eroding brand value.</li>
+
+<li>It emphasizes customer loyalty, which has repeatedly been shown to be an intangible asset that successful companies can monetize over long periods of time.</li>
+
+<li>It generally points to bigger opportunities for value creation (e.g. moving into new markets / complimentary services) rather than smaller opportunities (e.g. <em>produce less of this particular CD because we do not think it will sell well in this market</em>). In general, that is because the upper limit to the value you can generate from each customer will be much higher than the upper limit for a basket of goods or bed in a hotel, for example.</li>
+</ol>
+
+<p>Maximizing customer lifetime value is only possible if you can measure it (and therefore track improvements over time). So measuring customer lifetime value is critical to driving long term growth for consumer-facing businesses.</p>
+<a name='why-competitors-suck' />
+<h2 id='why_traditional_web_analytics_tools_suck_at_customer_lifetime_value'>Why traditional web analytics tools suck at customer lifetime value</h2>
+
+<p>Traditionally, web analytics tools have sucked at enabling analysts to calculate customer lifetime value:</p>
+
+<ol>
+<li>They don&#8217;t make it easy to capture value outside of transaction-based businesses e.g. ecommerce</li>
+
+<li>They don&#8217;t make it easy (or often possible) to slice all historical data by customer</li>
+
+<li>They don&#8217;t integrate with other systems used in other channels, to enable a holistic view of customer behaviour and value across online and offline channels</li>
+
+<li>They don&#8217;t provide the granular data required to build sophisticated models to forecast customer value going forwards</li>
+</ol>
+
+<p>Fortunately, SnowPlow addresses the above limitations, enabling analysts to calculate customer lifetime value as detailed below.</p>
+<a name='calculating-clv' />
+<h2 id='calculating_customer_lifetime_value_with_snowplow'>Calculating customer lifetime value with SnowPlow</h2>
+
+<p>There are diffent levels of sophistication to calculate customer lifetime value. The diagram below illustrates some different approaches:</p>
+<p style='text-align:center'><img src='img/lifetime-value-segmentation.jpg' title='clv-segmentation' /></p>
+<p>We can distinguish different levels of sophistication when measuring customer lifetime value:</p>
+
+<ol>
+<li>The simplest approach: defining customer lifetime value as the total revenue earned from this customer to date.</li>
+
+<li>A more sophisticated approach: estimating the total lifetime value of the customer (past and future) based on their data to date. For example, a mobile telco business may assume an average length of contract for each customer, and project forward the amount of expected revenue earned from each customer based on their expected contract length. This figure could then be included as part of the total customer lifetime value.</li>
+
+<li>We can be more sophisticated about how we model future revenue, for example, by using different figures for different customers based on what customer segment they belong to.</li>
+
+<li>Further to projecting revenues going forwards, we might want to discount future revenue to net present value in our calculation.</li>
+
+<li>Instead of measuring the revenue earned for each customer, we might want to look at profit. This prevents a business focusing unnecessarily on high revenue but unprofitable customer segments.</li>
+
+<li>Instead of looking at the revenue / profit directly attributable to each customer, we might want to value the other activities that a customer engages with that create value but do not directly result in revenue. This is important for social networks / community sites where users contribute content, for example.</li>
+</ol>
+
+<p>Which approach you adopt will depend on your own circumstances, data quality and customer understanding: a cruder approach will often suffice and a more sophisticated approach may be misleading if there isn&#8217;t the customer understanding in place to justify the assumptions an analyst uses in predicting future revenue / profits per customer.</p>
+
+<p>In all cases, however, SnowPlow provides a solid foundation for doing the customer-lifetime value calculations. Below, we detail how to calculate customer lifetime value using a number of approaches:</p>
+
+<ol>
+<li><a href='#direct-historical-revenue-by-customer'>Summing historical revenue by customers over time</a></li>
+
+<li><a href='#cross-channel'>Including all revenue per customer across multiple channels</a></li>
+
+<li><a href='#indirect'>Including indirect value as well as direct revenue / profit</a></li>
+
+<li><a href='#future-value'>Include expected future value</a></li>
+</ol>
+<a name='direct-historical-revenue-by-customer' />
+<h3 id='1_summing_historical_revenue_by_customer_over_time'>1. Summing historical revenue by customer over time</h3>
+
+<p>SnowPlow makes it easy to sum the amount of direct revenue attributable to each customer over their entire user history.</p>
+
+<p>Let&#8217;s start with the example of an online retailer, that has implemented SnowPlow so that every time an order is completed, an event is fired where:</p>
+
+<pre><code>ev_category = &#39;ecommerce&#39;
+ev_action = &#39;order-complete&#39;
+ev_label = *ORDER_ID* (for joining data with transaction system)
+ev_value = *total revenue*</code></pre>
+
+<p>Then to calculate the total revenue by customer over time, we&#8217;d simply execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_value</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-complete&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>If there are several different types of events where revenue is directly attributable (e.g. customer submits a lead form as well as buys a product), we simply add the additional event types to our <code>WHERE</code> clause:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_value</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-complete&#39;</span>
+<span class='k'>OR</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;submit-lead-form&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div><a name='cross-channel' />
+<h3 id='2_including_all_revenue_per_customer_across_multiple_channels'>2. Including all revenue per customer across multiple channels</h3>
+
+<p>Many businesses monetize customers on multiple channels, not just web. To sum revenues across all those channels, you will need to join your web analytics data with your offline sales data on a per-customer basis. Details of how to do this is documented <a href='/analytics/customer-analytics/joining-customer-data.html'>here</a>.</p>
+<a name='indirect' />
+<h3 id='3_including_indirect_value_as_well_as_direct_revenue__profit'>3. Including indirect value as well as direct revenue / profit</h3>
+
+<p>For many online businesses, customers engage in multiple value-generating activities that only generates revenue indirectly. To give some examples:</p>
+
+<ol>
+<li>Inviting a friend to use a service. (E.g. on a social network, community site or group buying site.)</li>
+
+<li>Writing user-generated content e.g. a review</li>
+
+<li>Viewing a web page. (If there is ad content on the page.)</li>
+
+<li>Signing up for email marketing</li>
+
+<li>Signing up to a new freemium service</li>
+</ol>
+
+<p>How you ascribe to actions like the ones listed above will be subject to a blog post in the future. (There are wide range of possible techniques: because SnowPlow gives you access to granular event-level detail, it enables you to use a wide range of techniques to analyse the associated value.) The important thing to understand from the perspective of this guide is that there is a value that you ascribe at the time you perform the analysis. When you perform the anaysis, you create a table with the different values:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>events_by_value</span> <span class='p'>(</span>
+	<span class='n'>ev_action</span> <span class='n'>STRING</span><span class='p'>,</span>
+	<span class='n'>value</span> <span class='kt'>FLOAT</span><span class='p'>)</span>
+</code></pre>
+</div>
+<p>Populate the above table with each different type of event and the value you want to ascribe it. You can then add up the value of actions that indirectly drive revenue by joining the above table with the SnowPlow events table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>v</span><span class='p'>.</span><span class='n'>value</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span> <span class='n'>e</span>
+<span class='k'>JOIN</span> <span class='n'>events_by_value</span> <span class='n'>v</span>
+<span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>ev_action</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>ev_action</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>You would then sum the indirect value by <code>user_id</code> generated by the above query with the direct revenue attributable to each user calculated in the <a href='#direct-historical-revenue-by-customer'>previous section</a></p>
+<a name='future-value' />
+<h3 id='4_include_expected_future_value'>4. Include expected future value</h3>
+
+<p>Like ascribing value to actions that only indirectly generate revenue, documenting all the different approaches to estimating future value from each customer is beyond the scope of this guide, it&#8217;s something we will cover in a blog post in due course.</p>
+
+<p>Here, we assume that you have a process of segmenting your customers, and have a future value you assign to customers in each of those segments. In this circumstance, you will need to create a two tables in Hive / Infobright - the first records each segment and the future value ascribed to people in each segment:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>future_value_by_segment</span> <span class='p'>(</span>
+	<span class='n'>segment</span> <span class='n'>STRING</span><span class='p'>,</span>
+	<span class='n'>value</span> <span class='kt'>FLOAT</span> <span class='p'>)</span>
+</code></pre>
+</div>
+<p>And another table that maps <code>user_id</code>s to each segment:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>user_ids_by_segment</span> <span class='p'>(</span>
+	<span class='n'>segment</span> <span class='n'>STRING</span><span class='p'>,</span>
+	<span class='n'>user_id</span> <span class='n'>STRING</span>
+<span class='p'>)</span>
+</code></pre>
+</div>
+<p>You would populate the above 2 tables and then execute a query like the following, to calculate estimated future value for each customer:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>value</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>future_value</span>
+<span class='k'>FROM</span> <span class='n'>future_value_by_segment</span> <span class='n'>f</span>
+<span class='k'>JOIN</span> <span class='n'>user_ids_by_segment</span> <span class='n'>u</span>
+<span class='k'>ON</span> <span class='n'>f</span><span class='p'>.</span><span class='n'>segment</span> <span class='o'>=</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>segment</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>The resulting <code>future_value</code> by <code>user_id</code> would be added to the past value calculated for each user (including both direct revenue and indirect value, as desired) to derive an overall figure for customer lifetime value for each <code>user_id</code>.</p>
+
+<h2 id='want_to_learn_more'>Want to learn more?</h2>
+
+<p>Read this <a href='http://www.keplarllp.com/blog/2012/06/different-approaches-to-measuring-customer-lifetime-value-with-snowplow'>Keplar blog post</a> on calculating customer lifetime value, find out <a href='/analytics/customer-analytics/user-engagement.html'>how to measure user engagement</a> using SnowPlow find out about <a href='/analytics/customer-analytics/cohort-analysis.html'>how to perform cohort analysis</a> using SnowPlow.</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" class="active">Customer analytics</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/identifying-users.html">Identifying users</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining SnowPlow data to other customer data</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/customer-analytics/customer-lifetime-value.html" class="active">Customer Lifetime Value</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/user-engagement.html">User engagement</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/cohort-analysis.html">Cohort Analysis</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/customer-analytics/behavioural-segmentation.html">Behavioral segmentation</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

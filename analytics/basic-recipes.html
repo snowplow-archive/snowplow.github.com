@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Basic recipes - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<a name='top' />
+<h1 id='bread_and_butter_web_analytics_queries'>Bread and butter web analytics queries</h1>
+
+<p>The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are <em>not</em> the queries that SnowPlow was designed to perform: we built SnowPlow to enable analysts to run queries on web analytics data that are <strong>not</strong> possible with other web analytics programs. These queries return the results that <strong>all</strong> web analytics queries return. However, running them can be useful for an analyst to validate SnowPlow has been setup correctly (by comparing the output against e.g. Google Analytics), and help her get familiar with writing queries in SnowPlow.</p>
+
+<p>The following queries will work with both Hive and Infobright.</p>
+
+<ol>
+<li><a href='#counting-unique-visitors'>Number of unique visitors</a></li>
+
+<li><a href='#counting-visits'>Number visits</a></li>
+
+<li><a href='#counting-pageviews'>Number of pageviews</a></li>
+
+<li><a href='#counting-events'>Number of events</a></li>
+
+<li><a href='#pages-per-visit'>Pages per visit</a></li>
+
+<li><a href='#bounce-rate'>Bounce rate</a></li>
+
+<li><a href='#new-visits'>% New visits</a></li>
+
+<li><a href='#duration'>Average visitor duration</a></li>
+
+<li><a href='#efficiency'>Repeating queries: a note about efficiency</a></li>
+
+<li><a href='#language'>Demographics: language</a></li>
+
+<li><a href='#location'>Demographics: location</a></li>
+
+<li><a href='#new-vs-returning'>Behaviour: new vs returning</a></li>
+
+<li><a href='#frequency'>Behaviour: frequency</a></li>
+
+<li><a href='#recency'>Behaviour: recency</a></li>
+
+<li><a href='#engagement'>Behaviour: engagement</a></li>
+
+<li><a href='#browser'>Technology: browser</a></li>
+
+<li><a href='#os'>Technology: operating system</a></li>
+
+<li><a href='#mobile'>Technology: mobile</a></li>
+</ol>
+<a name='counting-unique-visitors' />
+<h2 id='1_number_of_unique_visitors'>1. Number of unique visitors</h2>
+
+<p>The number of unique visitors can be calculated by summing the number of distinct <code>user_id</code>s in a specified time period e.g. day. (Because each user is assigned a unique user_id, based on a lack of SnowPlow tracking cookies on their browser):</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='counting-visits' />
+<h2 id='2_number_of_visits'>2. Number of visits</h2>
+
+<p>Because each user might visit a site more than once, summing the number of <code>user_id</code>s returns the number if <em>visitors</em>, NOT the number of <em>visits</em>. Every time a user visits the site, however, SnowPlow assigns that session with a <code>visit_id</code> (e.g. <code>1</code> for their first visit, <code>2</code> for their second.) Hence, to count the number of visits in a time period, we concatenate the unique <code>user_id</code> with the <code>visit_id</code> and then count the number of distinct concatenated entry in the events table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='nf'>CONCAT</span><span class='p'>(</span> <span class='n'>user_id</span><span class='p'>,</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='n'>visit_id</span> <span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Again, we can group by week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='counting-pageviews' />
+<h2 id='3_number_of_page_views'>3. Number of page views</h2>
+
+<p>Page views are one type of event that are stored in the SnowPlow events table. Their defining feature is that the <code>page_title</code> contain values (are not <code>NULL</code>). In the case of an <em>event</em> that is not a page view (e.g. an <em>add to basket</em>) these fields would all be <code>NULL</code>, and the event fields (<code>ev_category</code>, <code>ev_action</code>, <code>ev_label</code> etc.) would contain values. For details, see the <a href='https://github.com/snowplow/snowplow/blog/master/docs/07_snowplow_hive_tables_introduction.md'>Introduction to the SnowPlow events table</a>.</p>
+
+<p>To count the number of page views by day, then we simply execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>By week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>By month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='counting-events' />
+<h2 id='4_number_of_events__transactions'>4. Number of events / transactions</h2>
+
+<p>Although the number of page views is a standard metric in web analytics, this reflects the web&#8217;s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
+
+<p>As a result, counting the total number of events (including page views but also other AJAX events) is actually a more meaningful thing to do than to count the number of page views, as we have done above. We recommend setting up SnowPlow so that <em>all</em> events / actions that a user takes are tracked. Hence, running the below queries should return a total sum of events on the site by time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>By week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>By month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>As well as looking at page views by time period, we can also look by <code>user_id</code>. This gives a good impression of the engagement level of each of our users: how does this vary across our user population, how it varies for a particular user over time, for example.</p>
+
+<p>For example, to examine the engagement by user by month, we execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='n'>user_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>There is scope to taking a progressively more nuanced approach to measuring user engagement levels. Some of the approaches are described in <a href='http://www.keplarllp.com/blog/2012/05/different-approaches-to-measuring-user-engagement-with-snowplow'>this blog post</a></p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='pages-per-visit' />
+<h2 id='5_pages_per_visit'>5. Pages per visit</h2>
+
+<p>The number of pages per visit can be calculated by visit very straightforwardly:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>pages_per_visit</span>
+<span class='k'>FROM</span>
+<span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>To calculate the average page views per day we average over the results in the above query. This can be performed in Hive in two steps:</p>
+
+<ol>
+<li>Performing the above query, but storing the results in a new table</li>
+
+<li>Averaging over that table values</li>
+</ol>
+
+<p>The queries are given below:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>pages_per_visit</span> <span class='p'>(</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>pages</span> <span class='kt'>INT</span> <span class='p'>);</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>pages_per_visit</span>
+<span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+
+<span class='k'>SELECT</span> 
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>pages</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>pages_per_visit</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>In both Hive and Infobright the query can be performed in a single step, using a sub-select:</p>
+
+<p>SELECT t.dt, AVG(t.pages) FROM ( SELECT dt, user_id, visit_id, COUNT(txn_id) AS pages FROM events WHERE page_title IS NOT NULL GROUP BY dt, user_id, visit_id ) t GROUP BY t.dt ;</p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='bounce-rate' />
+<h2 id='6_bounce_rate'>6. Bounce rate</h2>
+
+<p>First we need to look at all the website visits, and flag which of those visits are <em>bounces</em>: these are visits where there is only one page view. (So one &#8220;event&#8221; i.e. only one <code>txn_id</code>):</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_with_bounce_info</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>events</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>bounce</span> <span class='n'>BOOLEAN</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits_with_bounce_info</span>
+<span class='k'>SELECT</span> 
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>),</span>
+<span class='k'>IF</span><span class='p'>(</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Then we need to calculate the fraction of visits by time period that are <em>bounces</em> e.g. by day:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>total_visits</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounces</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
+<span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>total_visits</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounces</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
+<span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>total_visits</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounces</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
+<span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTHS</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='new-visits' />
+<h2 id='7__new_visits'>7. % New visits</h2>
+
+<p>A new visit is easily identified as a visit where the visit_id = 1. Hence, to calculate the % of new visits, we need to sum all the visits where <code>visit_id</code> = 1 and divide by the total number of visits, in the time period.</p>
+
+<p>First, we calculate the number of new visits in the time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>new_visits_by_day</span> <span class='p'>(</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>number_new_visits</span> <span class='kt'>INT</span><span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>new_visits_by_day</span>
+<span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span> <span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>visit_id</span><span class='o'>=</span><span class='mi'>1</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Secondly, we calculate the total number of visits in the time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_by_day</span> <span class='p'>(</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>number_of_visits</span> <span class='kt'>INT</span><span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits_by_day</span>
+<span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span><span class='n'>visit_id</span><span class='p'>))</span> <span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Lastly, we take the number of new visits per time period, and divide by the total number of visits</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>n</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span>
+<span class='n'>n</span><span class='p'>.</span><span class='n'>number_new_visits</span> <span class='o'>/</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>number_of_visits</span> <span class='k'>AS</span> <span class='n'>percentage_new_visits</span>
+<span class='k'>FROM</span> <span class='n'>new_visits_by_day</span> <span class='n'>n</span> <span class='k'>JOIN</span> <span class='n'>visits_by_day</span> <span class='n'>v</span> <span class='k'>ON</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>dt</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='duration' />
+<h2 id='8_average_visitor_duration'>8. Average visitor duration</h2>
+
+<p>To calculate this, 1st we need to calculate the duration of every visit:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>start_time</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>end_time</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>duration</span> <span class='kt'>DOUBLE</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)),</span>
+<span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)),</span>
+<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>visits</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by week:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>visits</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Or by month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>visits</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='efficiency' />
+<h2 id='9_a_note_about_efficiency'>9. A note about efficiency</h2>
+
+<p>Hive and Hadoop more generally are very powerful tools to process large volumes of data. However, data processing is an expensive task, in the sense that every time you execute the query, you have to pay EMR fees to crunch through your data. As a result, where possible, it is advisable not to repeat the same analysis multiple times: for repeated analyses you should save the results of the analysis, and only perform subsequent analysis on new data.</p>
+
+<p>To take the example of logging the number of unique visitors by day: we could run a query to fetch calculate this data up to and included yesterday:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span> <span class='o'>&lt;</span> <span class='s1'>&#39;&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>We would then save this data in a suitable database / Excel spreadsheet, and add to it by querying just <em>new</em> data e.g.</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>At the moment, the analyst has to manually append the new data to the old. Going forwards, we will build out the SnowPlow functionality so that it is straightforward to build ETL processes to migrate useful cuts of data into analytics databases for further analysis, where Hadoop / Hive is not required for that additional analysis.</p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='language' />
+<h2 id='10_demographics_language'>10. Demographics: language</h2>
+
+<p>For each event the browser language is stored in the <code>br_language</code> field. As a result, counting the number of visits in a time period by language is trivial:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>br_language</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>visits</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_language</span> 
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span> <span class='k'>DESC</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='location' />
+<h2 id='11_demographics_location'>11. Demographics: location</h2>
+
+<p>THIS NEEDS TO BE DONE IN CONJUNCTION WITH MAXIMIND DATABASE OR OTHER GEOIP DATABASE, BASED ON IP - TO WRITE</p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='new-vs-returning' />
+<h2 id='12_behaviour_new_vs_returning'>12. Behaviour: new vs returning</h2>
+
+<p>Within a given time period, we can compare the number of new visitors (for whom <code>visit_id</code> = 1) with returning visitors (for whom <code>visit_id</code> &gt; 1). First we create a visits table, and differentiate new visits from returning visits</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_with_new_vs_returning_info</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>new</span> <span class='kt'>TINYINT</span><span class='p'>,</span>
+<span class='n'>returning</span> <span class='kt'>TINYINT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits_with_new_vs_returning_info</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='k'>IF</span><span class='p'>((</span><span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>=</span><span class='mi'>1</span><span class='p'>),</span><span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>),</span>
+<span class='k'>IF</span><span class='p'>((</span><span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>),</span><span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Now we can sum over the table to calculate the number of new visits vs returning visits</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>total_visits</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>new</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>new_visitors</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>returning</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visitors</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>new</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_new</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>returning</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_returning</span>
+<span class='k'>FROM</span> <span class='n'>visits_with_new_vs_returning_info</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='frequency' />
+<h2 id='13_behaviour_frequency'>13. Behaviour: frequency</h2>
+
+<p>We can look at the distribution of users by number of visits they have performed in a given time period. First, we count the number of visits each user has performed in the specific time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>users_by_frequency</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>visit_count</span> <span class='kt'>INT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>users_by_frequency</span> 
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>visit_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Now we need to categorise each user by the number of visits performed in the time period, and sum the number of users in each category:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>visit_count</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>users_by_frequency</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>visit_count</span> <span class='p'>;</span>	
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='recency' />
+<h2 id='14_behaviour_recency'>14. Behaviour: recency</h2>
+
+<p>We can look in a specific time period at each user who has visited, and see how many days it has been since they last visited. First, we identify all the users who have visited in our time frame, and grab the timestamp for their last event for each:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>users_by_recency</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>last_action_timestamp</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>days_from_today</span> <span class='kt'>BIGINT</span>
+<span class='p'>)</span> <span class='p'>;</span>
+
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>users_by_recency</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>last_action_timestamp</span><span class='p'>,</span>
+<span class='nf'>CEILING</span><span class='p'>((</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>()</span> <span class='o'>-</span> <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>tm</span><span class='p'>))))</span><span class='o'>/</span><span class='p'>(</span><span class='mi'>60</span><span class='o'>*</span><span class='mi'>60</span><span class='o'>*</span><span class='mi'>24</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>days_from_today</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>&gt;</span><span class='s1'>&#39;&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Now we categorise the users by the number of days since they last visited, and sum the number in each category:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>days_from_today</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>user_id</span> <span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>users_by_recency</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>days_from_today</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='engagement' />
+<h2 id='15_behaviour_engagement'>15. Behaviour: engagement</h2>
+
+<p>Google Analytics provides two sets of metrics to indicate <em>engagement</em>. We think that both are weak (the duration of each visit and the number of page views per visit). Nonetheless, they are both easy to measure using SnowPlow. To start with the duration per visit, we simply execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>In the same way, we can look at the number of page views per visit:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>visit_id</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='browser' />
+<h2 id='16_technology_browser'>16. Technology: browser</h2>
+
+<p>Browser details are stored in the events table in the <code>br_name</code>, <code>br_family</code>, <code>br_version</code>, <code>br_type</code>, <code>br_renderingengine</code>, <code>br_features</code> and <code>br_cookies</code> fields.</p>
+
+<p>Looking at the distribution of visits by browser is straightforward:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>br_name</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_name</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>If you didn&#8217;t want to distinguish between different versions of the same browser in the results, replace <code>br_name</code> in the query with <code>br_family</code>.</p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='os' />
+<h2 id='17_technology_operating_system'>17. Technology: operating system</h2>
+
+<p>Operating system details are stored in the events table in the <code>os_name</code>, <code>os_family</code> and <code>os_manufacturer</code> fields.</p>
+
+<p>Looking at the distribution of visits by operating system is straightforward:</p>
+<div class='highlight'><pre><code class='mysql'>	<span class='k'>SELECT</span>
+	<span class='n'>os_name</span><span class='p'>,</span>
+	<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+	<span class='k'>FROM</span> <span class='n'>events</span>
+	<span class='k'>WHERE</span> 
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>os_name</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+<a name='mobile' />
+<h2 id='18_technology_mobile'>18. Technology: mobile</h2>
+
+<p>Mobile technology details are stored in the 4 device/hardware fields: <code>dvce_type</code>, <code>dvce_ismobile</code>, <code>dvce_screenwidth</code>, <code>dvce_screenheight</code>.</p>
+
+<p>To work out how the number of visits in a given time period splits between visitors on mobile and those not, simply execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dvce_ismobile</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_ismobile</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>To break down the number of visits from mobile users by device type execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dvce_type</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span>  <span class='k'>AND</span> <span class='n'>dvce_ismobile</span> <span class='o'>=</span> <span class='no'>TRUE</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_type</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p><a href='#top'>Back to top</a></p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" class="active">Overview</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/index.html">Introduction</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/snowplow-data-production.html">Data production</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/snowplow-data-storage.html">Data storage</a></li>
+									
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/snowplow-table-structure.html">Data structure</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/basic-recipes.html" class="active">Basic recipes</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

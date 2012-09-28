@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Data analytics - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li  class="active" ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='introduction_to_data_analysis_with_snowplow'>Introduction to data analysis with SnowPlow</h1>
+
+<p>Analysing data in SnowPlow is surprisingly straightforward for anyone with a basic knkowledge of SQL to write queries in Apache Hive.</p>
+
+<p>SnowPlow data is stored either in <a href='http://hive.apache.org/'>Apache Hive</a> or <a href='http://www.infobright.org/'>Infobright</a>. In both cases, all the data is kept in a single &#8216;events&#8217; table, where each line of data in the table represents a single event.</p>
+
+<p>It is possible to perform complete analyses using nothing but Hive / Infobright. In practice, however, most users prefer to use Hive / Infobright to extract a &#8220;cut&#8221; of SnowPlow data that they can then analyse in their favorite / preferred analytics tool, be that Excel, R, Tableau, Microstrategy or something else all together.</p>
+
+<h2 id='getting_started_with_hive__infobright'>Getting started with Hive / Infobright</h2>
+
+<p>SnowPlow data is stored in a single table called <code>events</code>. Each line of data in the table represents a single user event e.g. a page view, add-to-basket etc.</p>
+
+<p>A full description of the events table can be found <a href='/analytics/snowplow-table-structure.html'>here</a>. We wont cover all the fields in the table here, rather, we&#8217;ll explore some of the main ones used to perform analyses.</p>
+
+<h3 id='counting_visitors'>Counting visitors</h3>
+
+<p>Two fields are particularly useful for identifying visitors to your site:</p>
+
+<ol>
+<li>The <strong>user_id</strong>. This uniquely identifies each visitor to your website</li>
+
+<li>The <strong>visit_id</strong>. This identifies each visit this particular user is on. the first time the user visits your website it is set to &#8216;1&#8217;, the 2nd time to &#8216;2&#8217; etc.</li>
+</ol>
+
+<p>Each line of event data in Hive is time stamped, with a <code>dt</code> field indicating the date and a <code>tm</code> field indicating the time that an event took place.</p>
+
+<p>To count the number of users that visited your website on August 11th 2012, for example, we simply execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>as</span> <span class='n'>uniques</span>
+<span class='k'>from</span> <span class='n'>EVENTS</span>
+<span class='k'>where</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<h2 id='zooming_in_on_a_particular_visitors'>Zooming in on a particular visitor(s)</h2>
+
+<p>Sometimes, we may want to look at the behaviour of a particular visitor, or group of visitors. To do this, we can simply execute the following query to pull up the complete browsing history of user_id = &#8216;1234&#8217;</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> <span class='s1'>&#39;1234&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>We may want to identify the last 100 users who visited our site:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='k'>DISTINCT</span> <span class='n'>user_id</span> 
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>tm</span> <span class='k'>DESC</span> 
+<span class='k'>LIMIT</span> <span class='mi'>100</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>Alternatively, we may want to identify the last 100 users who purchased on our site:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='k'>DISTINCT</span> <span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span>
+<span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;order-complete&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>tm</span> <span class='k'>DESC</span>
+<span class='k'>LIMIT</span> <span class='mi'>100</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>Note: the <code>ev_action</code> field represented in the above query is the &#8216;event-action&#8217;. The text in this field represents the different types of action a user can take on your site e.g. &#8216;add-to-basket&#8217; (on an ecommerce site) or &#8216;pause-video&#8217; (on a media site).</p>
+
+<h2 id='exporting_data_out_of_hive'>Exporting data out of Hive</h2>
+
+<p>If you are using Infobright rather than Hive, exporting data is straightforward: you can use any programme that works with MySQL. (Infobright is based on MySQL.)</p>
+
+<p>If you are using Hive, exporting data is a little more involved. Generating the cut of data by building the query is exactly the same, but then running the export takes several steps:</p>
+
+<p>Typically, generating the &#8216;cut&#8217; of data involves executing a SQL query where:</p>
+
+<ol>
+<li>The &#8216;SELECT&#8217; statement includes all the fields they would like in their output, aggreagted as appropriate. (Using the SUM, COUNT, MAX functions etc.)</li>
+
+<li>The &#8216;WHERE&#8217; statement filters results to just the customers / actions they are interested in analysing</li>
+
+<li>The &#8216;GROUP BY&#8217; statement rolls the data up to the required level of aggregation. To take a comman example, analysts often roll the data up so that there is one line of data for each visit. In that case, they would:</li>
+</ol>
+<div class='highlight'><pre><code class='mysql'><span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> 
+</code></pre>
+</div>
+<p>So far so good - same process for Hive and Infobright.</p>
+
+<p>Once an analyst has pulled the cut of data she requires from SnowPlow, the next step is to import it into her analytics / statistical / visualisation tool of choice. It is straightforward to write the outputs of a Hive analysis to a tab delimited or comma delimited file. This is achieved by creating an &#8216;external table&#8217; (i.e. one that is saved on S3 rather than in Hive itself) and formatting it to be e.g. a CSV:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='nf'>data_for_export</span> <span class='p'>(</span>
+	<span class='n'>field_1</span> <span class='n'>field_1_type</span><span class='p'>,</span> 
+	<span class='n'>field_2</span> <span class='n'>field_2_type</span><span class='p'>,</span>
+	<span class='p'>...</span>
+	<span class='n'>field_n</span> <span class='n'>field_n_type</span>
+<span class='p'>)</span> <span class='n'>ROW</span> <span class='n'>FORMAT</span> <span class='n'>DELIMITED</span>
+<span class='n'>FIELDS</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;,&#39;</span>
+<span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///{path}/&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Once created, the analyst needs to populate the table with the data from their Hive query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>data_for_export</span>
+<span class='k'>SELECT</span>
+	<span class='n'>field_1</span><span class='p'>,</span> 
+	<span class='n'>field_2</span><span class='p'>,</span>
+	<span class='p'>...</span>
+	<span class='n'>field_n</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span>  <span class='p'>;</span>
+</code></pre>
+</div>
+<p>The query will execute, but instead of writing the results to the screen, they&#8217;ll be saved in S3, where the analyst can download them and import them into their the appropriate tool to continue the analysis.</p>
+
+<p>Want to <a href='/analytics/index.html'>learn more</a> about the different analyses that are possible with Hive? Then visit the <a href='/analytics/index.html'>Analytics Cookbook</a>.</p>
+
+<p><a href='get-started.html'>Get started</a> with SnowPlow <a href='get-started.html'>here</a>.</p>
+</div>
+
+ <div id="sidebar">
+	<h1>About SnowPlow web analytics</h1>
+	<ul>
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+						
+						<li><a href="/product/index.html">Overview</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/why-snowplow.html">Why SnowPlow?</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/snowplow-usps.html">SnowPlow USPs</a></li>
+						
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/technical-architecture.html">Technical Architecture</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li class="active"><a href="/product/analysing-data-with-snowplow.html" class="active">Data analytics</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/get-started.html">Get started!</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+						
+						<li><a href="/product/roadmap.html">Roadmap</a></li>
+						
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+		
+	</ul>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

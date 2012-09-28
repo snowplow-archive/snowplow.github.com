@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Why set your data free? - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			24 Sep 2012
+			<h1>Why set your data free?</h1>
+			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce SnowPlow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+
+<p>With each person, I started by explaining that SnowPlow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+
+<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
+
+<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
+<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
+</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
+</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
+</tr></tbody></table>
+<p>SnowPlow makes integrating web analytics data with other data sources easier in a two ways:</p>
+
+<ol>
+<li>All your SnowPlow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
+
+<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
+</ol>
+
+<p>For more details on how to perform <code>JOIN</code>s between SnowPlow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining SnowPlow engagement data with other sources of customer data</a></p>
+
+<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
+
+<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
+
+<ol>
+<li>Number of unique visitors by product page</li>
+
+<li>Different sources of traffic by product page (and how this changes over time)</li>
+
+<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
+
+<li>Improvements to conversion rates over time</li>
+</ol>
+
+<p>In contrast, because SnowPlow gives you access to the underlying data, it is possible to use BI tools like <a href='http://www.tableausoftware.com/'>Tableau</a> and <a href='http://www.microsoft.com/en-us/bi/powerpivot.aspx'>PowerPivot</a> to quickly slice and dice web analytics data by any dimensions / metrics you want. We&#8217;ll be posting examples of how to do this in the next few days.</p>
+
+<h3 id='3_use_machine_learning_tools_on_your_web_analytics_data'>3. Use machine learning tools on your web analytics data</h3>
+
+<p>Machine learning tools, and <a href='http://mahout.apache.org/'>Mahout</a> in particular, have created some new and exciting opportunities to:</p>
+
+<ol>
+<li>Develop product and content recommendation engines, based on user web behaviour. (E.g. users who viewed these content items, also viewed&#8230;)</li>
+
+<li>Segment your audience by online behaviour</li>
+</ol>
+
+<p>SnowPlow makes it easy to extract the core input data you would need to feed a machine learning algorithm in a single query. (E.g. a matrix mapping users to products by page views / add to baskets / purchases etc.) We will be exploring ways to integrate SnowPlow with <a href='http://mahout.apache.org/'>Mahout</a> in a future blog post.</p>
+
+<h3 id='4_view_data_for_individual_users_over_their_entire_lives'>4. View data for individual users over their entire lives</h3>
+
+<p>Whereas reports on Google Analytics tend to be about visits, page views or transactions, SnowPlow lets you slice data by users over multiple visits, opening up a wide range of possibilities:</p>
+
+<ol>
+<li>Develop accurate models of customer lifetime value</li>
+
+<li>Develop more rigorous approaches to attribution modelling, by capturing in granular detail which channels touched a user at different points in their lifecycle</li>
+</ol>
+
+<h3 id='5_interested_in_any__all_of_the_above'>5. Interested in any / all of the above?</h3>
+
+<p>Then <a href='/product/get-started.html'>get started</a> with SnowPlow, or <a href='/contact/index.html'>get in touch</a> to find out more!</p>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<strong>Tags</strong>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

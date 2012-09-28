@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>SnowPlow 0.4.8 released - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			14 Sep 2012
+			<h1>SnowPlow 0.4.8 released</h1>
+			<p>We have just released SnowPlow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+
+<ol>
+<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+
+<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+
+<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+
+<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+</ol>
+
+<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+
+<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+
+<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+
+<ul>
+<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+
+<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+
+<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
+</ul>
+
+<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields.</p>
+
+<p>As part of this new <strong>0.4.8</strong> SnowPlow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.</p>
+
+<h2 id='support_for__as_the_tracking_pixel'>Support for <code>i</code> as the tracking pixel</h2>
+
+<p>Currently the SnowPlow JavaScript tracker fires a GET request to a tracking pixel called <code>ice.png</code>. This works fine, but it makes more sense to call the pixel <code>i</code>, for two reasons:</p>
+
+<ol>
+<li>We free up 5 extra characters to use for sending data</li>
+
+<li>A transparent GIF is smaller to send than a transparent PNG</li>
+</ol>
+
+<p>Thanks to <a href='https://github.com/shermozle/'>Simon Rumble</a> (author of <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>) for pointing this out! In due course we will update the JavaScript tracker and CloudFront collector to implement this change (see issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/25'>#25</a>), but to start off we have added support for <code>i</code> to the new version of the Hive deserializer.</p>
+
+<p>This is a small change, but highlights a wider point for SnowPlow development: in general, whenever we have a &#8220;breaking change&#8221; coming upstream, we will try to prepare for this change downstream first, to prevent any disruption to your use of SnowPlow.</p>
+
+<h2 id='support_for_forward_query_string__yes'>Support for Forward Query String = yes</h2>
+
+<p>Thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for spotting that the Hive deserializer does not work if your CloudFront distribution has Forward Query String set to Yes; Michael not only raised the issue but also provided a fix, many thanks Michael!</p>
+
+<p>Most SnowPlow users will have Forward Query String in their CloudFront distribution set to No, so this issue will not arise for them; however this fix will be invaluable for anyone who does have it set to Yes. If you want to read more about this, please check out <a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>.</p>
+
+<p>We&#8217;re aware that our guide for setting up the CloudFront distribution is a bit out of date (which is how this issue can arise) - we will be refreshing the tracking pixel guide soon (<a href='https://github.com/snowplow/snowplow/issues/25'>issue #25</a>)! Many thanks for your patience.</p>
+
+<h2 id='more_robust_querystring_handling'>More robust querystring handling</h2>
+
+<p>A small change - we have made the code for extracting marketing attribution more robust. Specifically, the Hive deserializer no longer dies (i.e. throws a non-recoverable <code>SerDeException</code>) if the calling page&#8217;s URL has a malformed querystring.</p>
+
+<p>An example of a malformed querystring would be something like:</p>
+
+<pre><code>http://www.psychicbazaar.com/2-tarot-cards?n=48?utmsource=GoogleSearch&amp;...</code></pre>
+
+<p>Note the two <code>?</code> questionmarks (the second one should be an <code>&amp;</code> ampersand). In the case of a malformed querystring like this, the five marketing attribution fields in the Hive output format for this row will all be set to null.</p>
+
+<h2 id='deploying_the_new_version'>Deploying the new version</h2>
+
+<p>The new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.8.jar</strong>. If you have any problems running it, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<strong>Tags</strong>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Data storage - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<h1 id='understanding_how_your_snowplow_data_is_stored'>Understanding how your SnowPlow data is stored</h1>
+
+<p>SnowPlow data is warehoused using either:</p>
+
+<ol>
+<li><a href='#apachehive'>Apache Hive</a></li>
+
+<li><a href='#infobright'>Infobright</a></li>
+</ol>
+
+<p>In both cases, the SnowPlow data is stored in a single table with a simple structure (documented <a href='snowplow-table-structure.html'>here</a>).</p>
+
+<p>If the data is warehoused using Hive, it physically lives in Amazon S3. When you fire up Elastic Mapreduce, you define a table for the data and point it at the relevant location in S3, where the physical data lives.</p>
+
+<p>In the case of Infobright, the data lives in a table on your Infobright instance, where it is queried just like any table in a database.</p>
+<a name='apachehive' />
+<h2 id='apache_hive'>Apache Hive</h2>
+
+<p><a href='http://hive.apache.org/'>Apache Hive</a> is a datawarehousing platform developed by the techies at Facebook and built on top of Hadoop. It lets analysts run SQL-like queries against large volumes of data stored in flat files. (The syntax is especially close to MySQL, in particular.) From a SnowPlow analytics perspective, the important things to understand about Hive are:</p>
+
+<ol>
+<li>Hive has been incorporated by the clever folks at Amazon into their <a href='http://aws.amazon.com/elasticmapreduce/'>Elastic Mapreduce</a> service. This makes it easy to setup a Hive cluster and use it to analyse data stored in <a href='http://aws.amazon.com/s3/'>S3</a> directly</li>
+
+<li>Because Hive is built to process large volumes of data stored in flatfiles, it is perfect for querying the the Cloudfront logs. Through a <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive/snowplow-log-deserializers'>custom deserializer</a> developed by the SnowPlow team, Hive can read the Cloudfront logs directly and make the data stored in them available as a table so that analysts can query on one of more of the fields stored in them. (The structure of the table is documented <a href='snowplow-table-structure.html'>here</a>.)</li>
+
+<li>Writing queries in Hive is straightforward for anyone with knowledge of SQL and the SnowPlow <a href='snowplow-table-structure.html'>data structure</a></li>
+
+<li>Hive is incredibly scalable. It was built by the folks at Facebook to enable analysts there to comb over <strong>all</strong> Facebook&#8217;s Petabytes of user data. Hive scales linearly: to speed up querying of big data sets, you simply throw additional servers at the query. Amazon <a href='http://aws.amazon.com/elasticmapreduce/'>Elastic Mapreduce</a> makes it easy to setup clusters of as many servers as you&#8217;d like in minutes, and add additional servers to your analytics cluster as you need them</li>
+</ol>
+
+<p>Using Hive, it is possible to run analyses against your raw Cloudfront logs directly, as described <a href='#analyse-cloudfront-logs-directly'>below</a>. More often, though, analysts choose to transfer the data into a format that enables faster querying in Hive, as described <a href='#optimised-hive'>here</a>.</p>
+<a name='analyse-cloudfront-logs-directly' />
+<h3 id='querying_cloudfront_logs_directly_in_hive'>Querying Cloudfront logs directly in Hive</h3>
+
+<p>Querying the Cloudfront log data directly in Hive is straightforward. First, from the terminal, navigate to the directory with your <a href='http://aws.amazon.com/developertools/2264'>Elastic Mapreduce command line tools</a> and launch a Hive interactive session:</p>
+
+<pre><code>./elastic-mapreduce --create --alive --hive-interactive</code></pre>
+
+<p>This command instructs Elastic Mapreduce to fire up an analytics cluster including both Hadoop and Hive. (It will include the default number of servers, which is two. More can be added by specifying additional arguments.) The command line tools will respond with a jobflow ID e.g.:</p>
+
+<pre><code>Created job flow j-EHXD14TNGXI8</code></pre>
+
+<p>Give Amazon a few minutes to get your cluster up and running, then SSH in by typing:</p>
+
+<pre><code>./elastic-mapreduce --ssh --jobflow j-EHXD14TNGXI8</code></pre>
+
+<p>Once the cluster has been setup, you should be SSHed in, and see something like this:</p>
+
+<pre><code>ssh -o ServerAliveInterval=10 -o StrictHostKeyChecking=no -i /home/alex/.emr/pbz-hive-nasqueron.pem hadoop@ec2-176-34-64-73.eu-west-1.compute.amazonaws.com 
+Warning: Permanently added &#39;ec2-176-34-64-73.eu-west-1.compute.amazonaws.com,176.34.64.73&#39; (RSA) to the list of known hosts.
+Linux (none) 2.6.35.11-83.9.amzn1.i686 #1 SMP Sat Feb 19 23:41:56 UTC 2011 i686
+--------------------------------------------------------------------------------
+
+Welcome to Amazon Elastic MapReduce running Hadoop and Debian/Squeeze.
+ 
+Hadoop is installed in /home/hadoop. Log files are in /mnt/var/log/hadoop. Check
+/mnt/var/log/hadoop/steps for diagnosing step failures.
+
+The Hadoop UI can be accessed via the following commands: 
+
+  JobTracker    lynx http://localhost:9100/
+  NameNode      lynx http://localhost:9101/
+ 
+--------------------------------------------------------------------------------
+hadoop@ip-10-234-109-57:~$ </code></pre>
+
+<p>You are in the cluster. Launch Hive by typing:</p>
+<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span>
+</code></pre>
+</div>
+<p>We now need to create a table in Hive based on the Cloudfront logs. To do that, we first need to let Hive know where the SnowPlow deserializer is, so that Hive can read the raw log files. To do that, execute the following command:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>ADD</span> <span class='n'>JAR</span> <span class='n'>s3</span><span class='p'>:</span><span class='o'>///</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>log</span><span class='o'>-</span><span class='n'>deserializers</span><span class='o'>-</span><span class='mi'>0</span><span class='p'>.</span><span class='mi'>4</span><span class='p'>.</span><span class='mi'>7</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>(Substitute the S3 bucket you use to store the deserializer JAR.) Now you can create the table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='n'>views_events</span> 
+<span class='n'>ROW</span> <span class='n'>FORMAT</span> 
+  <span class='n'>SERDE</span> <span class='s1'>&#39;com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer&#39;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>You wll need to replace the &#8216;LOGS-BUCKET-NAME&#8217; with the name of the S3 bucket where your Cloudfront logs are stored.</p>
+
+<p>Hive now knows where your Cloudfront logs are stored, and it knows from the deserializer how to translate those individual logs into a tidy table. We can inspect the tidy table created prior to querying it:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Hive will respond by listing all the different fields:</p>
+<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span><span class='o'>&gt;</span> <span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+<span class='n'>OK</span>
+<span class='n'>dt</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tm</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>txn_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>user_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>user_ipaddress</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>visit_id</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_url</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_title</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_referrer</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_medium</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_source</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_term</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_content</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_campaign</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_category</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_action</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_label</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_property</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_value</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_version</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_type</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_renderengine</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_lang</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features</span>	<span class='n'>array</span><span class='o'>&lt;</span><span class='n'>string</span><span class='o'>&gt;</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_cookies</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_manufacturer</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_type</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_ismobile</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_screenwidth</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_screenheight</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='kt'>Time</span> <span class='n'>taken</span><span class='p'>:</span> <span class='mi'>1</span><span class='p'>.</span><span class='mi'>425</span> <span class='n'>seconds</span>
+</code></pre>
+</div>
+<p>You as an analyst can now query the &#8220;views_events&#8221; table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>views_events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div><a name='optimised-hive' />
+<h3 id='querying_the_data_in_a_format_optimsied_for_hive'>Querying the data in a format optimsied for Hive</h3>
+
+<p>Whilst it is possible to query the Cloudfront logs directly, this is inefficient for a number of reasons:</p>
+
+<ol>
+<li>When Hive uses custom deserializers to read custom data formats, it slows down dramatically</li>
+
+<li>The Cloudfront logs are not partitioned. That means that every time you run a query, Hive has to chunk through the complete data sets, which may run into Terabytes of data for a big website.</li>
+</ol>
+
+<p>As a result, SnowPlow offers a daily ETL process that takes identifies the new records in the Cloudfront logs and writes this data into another bucket on S3 into a partitioned format that Hive can read directly without the custom deserializer.</p>
+
+<p>Querying this table is very similar to querying the raw Cloudfront logs. The biggest difference notable to the analyst will be that results are returned much faster.</p>
+
+<p>To perform the queries, we need to start off by defining our table, and telling Hive where the data lives:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='k'>IF</span> <span class='k'>NOT</span> <span class='k'>EXISTS</span> <span class='ss'>`events`</span> <span class='p'>(</span>
+<span class='n'>tm</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>txn_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>user_ipaddress</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>page_url</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>page_title</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>page_referrer</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_source</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_medium</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_term</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_content</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_campaign</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_category</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_action</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_label</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_property</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_value</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_name</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_family</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_version</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_type</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_renderengine</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_lang</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_features</span> <span class='n'>array</span><span class='o'>&lt;</span><span class='n'>string</span><span class='o'>&gt;</span><span class='p'>,</span>
+<span class='n'>br_cookies</span> <span class='n'>boolean</span><span class='p'>,</span>
+<span class='n'>os_name</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>os_family</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>os_manufacturer</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>dvce_type</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>dvce_ismobile</span> <span class='n'>boolean</span><span class='p'>,</span>
+<span class='n'>dvce_screenwidth</span> <span class='kt'>int</span><span class='p'>,</span>
+<span class='n'>dvce_screenheight</span> <span class='kt'>int</span><span class='p'>)</span>
+<span class='n'>PARTITIONED</span> <span class='k'>BY</span> <span class='p'>(</span><span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>)</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
+<p>Some things to note when comparing the above CREATE TABLE statement with the one for Cloudfront earlier:</p>
+
+<ol>
+<li>We have to specify every field in the table. When we created a table for the raw Cloudfront logs, this wasn&#8217;t necessary, as it was performed implicitly by the deserializer used.</li>
+
+<li>We have not had to specify a deserializer or table format: the default Hive settings are used</li>
+
+<li>The data is partitioned by date. This means that if we only want to query data in a particular time period, we do <strong>not</strong> need to process the complete data set, only the data for the relevant time period.</li>
+</ol>
+
+<p>Once the table is setup, querying it is exactly like querying the raw logs table, however. For example, to calculate the number of uniques by day, enter:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div><a name='infobright' />
+<h2 id='infobright'>Infobright</h2>
+
+<p>Whilst Hive has a number of features that make it well suited to performing analytics (especially horizontal scaling and direct integration to Amazon S3 via EMR), there are two disadvantages to using Hive:</p>
+
+<ol>
+<li>Analysis is not instant. Even with a large cluster, chunking through large volumes of data in Hive typically takes minutes. Whilst that is fast, it is not fast enough for <em>train of thought analytics</em></li>
+
+<li>Amazon charges for <a href='http://aws.amazon.com/elasticmapreduce/'>emr</a> based on the number of servers used and the number of hours they are run. This can make analysts reluctant to run big jobs.</li>
+
+<li>Because it is <strong>not</strong> a standard RDBMS database, it is not trivial to integrate Hive with standard analytics tools including <a href='http://www.r-project.org/'>R</a> or BI tools like <a href='http://www.tableausoftware.com/'>Tableau</a> or <a href='http://www.microstrategy.co.uk/'>Microstrategy</a></li>
+</ol>
+
+<p>Enter <a href='http://www.infobright.org/'>Infobright</a>. Infobright is an open source analytics columnar database that is optimised around enabling analysts to run ad hoc queries against large data sets very quickly. Most of the query functionality available in MySQL (on which Infobright is based) is available in Infobright, making writing queries easy. Infobright scales to Terabytes of data, which is enough for all but the largest websites / networks, who will have to stick with Hive. Further, because it is based on MySQL, it integrates easily with any BI tool built to work with MySQL, which is pretty much all of them.</p>
+
+<p>Connecting to your data stored in Infobright is straightforward. If you&#8217;re connecting via the command-line, you&#8217;ll need to SSH onto the server running your Infobright instance, and then connect to Infobright:</p>
+<div class='highlight'><pre><code class='mysql'><span class='n'>mysql</span><span class='o'>-</span><span class='n'>ib</span> <span class='o'>-</span><span class='n'>u</span>  <span class='o'>-</span><span class='n'>p</span>
+</code></pre>
+</div>
+<p>Substitute your username for &#8216;USERNAME&#8217; and enter your password when prompted. Once in Infobright, you can connect to the SnowPlow database:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>USE</span> <span class='n'>snowplow</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>In the SnowPlow database is the events table. You can query it as normal, so, for example, to find out the number of unique visitors by day:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='n'>dt</span><span class='p'>,</span> 
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>Note that the query is identical to that executed in Hive. In general, queries in the two datawarehousing platforms are very similar.</p>
+
+<h2 id='understand_how_snowplow_data_is_warehoused_in_hive__infobright'>Understand how SnowPlow data is warehoused in Hive / Infobright?</h2>
+
+<p><a href='snowplow-table-structure.html'>Learn more</a> about how data is structured in Hive / Infobright</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" class="active">Overview</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/index.html">Introduction</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/snowplow-data-production.html">Data production</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/snowplow-data-storage.html" class="active">Data storage</a></li>
+									
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/snowplow-table-structure.html">Data structure</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/basic-recipes.html">Basic recipes</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

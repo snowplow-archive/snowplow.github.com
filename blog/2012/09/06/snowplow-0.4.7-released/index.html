@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>SnowPlow 0.4.7 released - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			06 Sep 2012
+			<h1>SnowPlow 0.4.7 released</h1>
+			<p>We have just released SnowPlow version <strong>0.4.7</strong>. This release bumps the SnowPlow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+
+<ol>
+<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+
+<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
+</ol>
+
+<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
+
+<p>We&#8217;ll take a look at both of these new features in turn:</p>
+
+<h2 id='site_id'>Site ID</h2>
+
+<p>The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
+<p>The querystring passed to your SnowPlow collector will now include the following parameter:</p>
+
+<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
+
+<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well.</p>
+
+<p>This new feature should be helpful for anyone running multiple sites (or perhaps clients) against the same SnowPlow collector - it means that you can easily partition your SnowPlow events by site, whilst still being able to run cross-site analyses should you so wish.</p>
+
+<p>Note that we haven&#8217;t yet added extracting <code>said</code> to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/33'>open ticket for this</a>.</p>
+
+<h2 id='ecommerce_transactions'>Ecommerce transactions</h2>
+
+<p>To date, we have been analysing e-commerce transactions using SnowPlow by:</p>
+
+<ul>
+<li>Logging every <em>product add to basket</em> event</li>
+
+<li>Logging every <em>product remove from basket</em> event</li>
+
+<li>Netting these events off to determine the final contents of the order</li>
+</ul>
+
+<p>This approach works, but it adds complexity in the analysis step. Happily community member Simon Andersson has contributed an alternative solution: dedicated SnowPlow e-commerce transaction tracking, similar to the functionality found in the Google Analytics JavaScript API.</p>
+
+<p>The idea is that you add the new tracking code to your shop&#8217;s checkout confirmation page, so that the completed order can be sent to SnowPlow. A complete example of the new tracking code looks like this:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>var</span> <span class='nx'>orderId</span> <span class='o'>=</span> <span class='s1'>&#39;order-123&#39;</span><span class='p'>;</span>
+
+<span class='c1'>// addTrans sets up the transaction, should be called first.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addTrans&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// affiliation or store name</span>
+  <span class='s1'>&#39;8000&#39;</span><span class='p'>,</span>                 <span class='c1'>// total - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// tax</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// shipping</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// city</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// state or province</span>
+  <span class='s1'>&#39;&#39;</span>                      <span class='c1'>// country</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// addItem is called for each item in the shopping cart.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1001&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Blue t-shirt&#39;</span><span class='p'>,</span>         <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;2000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;2&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1002&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Red shoes&#39;</span><span class='p'>,</span>            <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;4000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;1&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// trackTrans sends the transaction to SnowPlow tracking servers.</span>
+<span class='c1'>// Must be called last to commit the transaction.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackTrans&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
+<p>The above example creates an order (aka &#8220;transaction&#8221;) with ID <code>order-123</code> and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final <code>trackTrans</code> call sends this complete order to SnowPlow as three separate events - one each for the order and its line items.</p>
+
+<p>This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.</p>
+
+<p>Note that we haven&#8217;t yet added extracting these e-commerce orders to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/34'>open ticket for this</a>.</p>
+
+<h2 id='upgrading'>Upgrading</h2>
+
+<p>We have made the minified JavaScript tracker version 0.6 available on this URL:</p>
+
+<pre><code>http://d1fc8wv8zag5ca.cloudfront.net/0.6/sp.js</code></pre>
+
+<p>There are no breaking changes with the previous version 0.5, so you can upgrade your existing SnowPlow JavaScript tracker without issue.</p>
+
+<p>Note that we have now added versioning to the JavaScript tracker&#8217;s URL. This is because we have &#8220;breaking changes&#8221; to the JavaScript tracker in the pipeline (see e.g. issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/32'>#32</a>).</p>
+
+<h2 id='thanks'>Thanks</h2>
+
+<p>A final note to say thanks again to <a href='https://github.com/ramn'>Simon Andersson</a> for contributing the ecommerce tracking functionality! Community contributors like Simon A and Simon R(umble) are helping us to quickly make the SnowPlow vision a reality.</p>
+
+<p>And of course, we welcome contributions across the five SnowPlow sub-systems. If you would like help implementing a new tracker, trying a different ETL approach or loading SnowPlow events into an alternative database, please <a href='mailto:contribute@snowplowanalytics.com'>get in touch</a>!</p>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<strong>Tags</strong>
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+</body>
+</html>

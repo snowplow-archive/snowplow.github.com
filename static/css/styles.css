@@ -24,12 +24,6 @@
     margin-top: 20px; }
   #container p {
     font-size: 13px; }
-  #container #comments {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: #dcdce9; }
 
 #sidebar {
   width: 200px;
@@ -50,9 +44,6 @@
     padding-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px; }
-    #sidebar ul li {
-      margin-top: 1px;
-      margin-bottom: 1px; }
   #sidebar a {
     font-size: 12px;
     text-decoration: none;

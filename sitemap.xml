@@ -1,43 +1,387 @@
----
-layout: nil
----
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!--  Homepage -->
   <url>
-    <loc>{{ site.url }}/</loc>
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
+    <loc>http://snowplowanalytics.com/</loc>
+    <lastmod>2012-09-24</lastmod>
     <changefreq>daily</changefreq>
 		<priority>1.0</priority>
   </url>
 
-  {% for page in site.posts %}
+  
   <url>
-    <loc>{{ site.url }}{{ page.url }}</loc>
-    {% if page.last_updated %}
-    <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
-    {% elsif page.date %}
-    <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
-    {% else %}
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    {% endif %}
+    <loc>http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
   </url>
-  {% endfor %}
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released</loc>
+    
+    <lastmod>2012-09-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released</loc>
+    
+    <lastmod>2012-09-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch</loc>
+    
+    <lastmod>2012-08-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released</loc>
+    
+    <lastmod>2012-08-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released</loc>
+    
+    <lastmod>2012-08-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow</loc>
+    
+    <lastmod>2012-08-13</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled</loc>
+    
+    <lastmod>2012-08-02</lastmod>
+    
+  </url>
+  
 
-  {% for page in site.html_pages %}
+  
   <url>
-    <loc>{{ site.url }}{{ page.url }}</loc>
-    {% if page.last_updated %}
-    <lastmod>{{ page.last_updated | date: "%Y-%m-%d" }}</lastmod>
-    {% elsif page.date %}
-    <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
-    {% else %}
-    <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-    {% endif %}
-    {% if page.changefreq %}<changefreq>{{ page.changefreq }}</changefreq>{% endif %}
-    {% if page.priority %}<priority>{{ page.priority }}</priority>{% endif %}
+    <loc>http://snowplowanalytics.com/services/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
   </url>
-  {% endfor %}
+  
+  <url>
+    <loc>http://snowplowanalytics.com/services/implementation.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/services/analytics.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/services/custom-development.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/services/rate-card.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/services/reporting.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/cohort-analysis.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/overview.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/behavioural-segmentation.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/user-engagement.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/joining-customer-data.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/attribution.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/customer-lifetime-value.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/customer-analytics/identifying-users.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/platform-analytics/overview.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/snowplow-data-storage.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/catalogue-analytics/overview.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/basic-recipes.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/snowplow-data-production.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/analytics/snowplow-table-structure.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/technology/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/blog.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/contact/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/contact/founders.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/index.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/get-started.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/roadmap.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/technical-architecture.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/product.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/analysing-data-with-snowplow.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/product2.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/why-snowplow.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
+  <url>
+    <loc>http://snowplowanalytics.com/product/snowplow-usps.html</loc>
+    
+    <lastmod>2012-09-24</lastmod>
+    
+    
+    
+  </url>
+  
 
 </urlset>

@@ -135,26 +135,26 @@ Once you are happy with the updates you've made to the website, you need to depl
 
 Remember: source files are stored in the `source` branch. (Which you have been editting.) To deploy, we need to get Jekyll to generate the static html pages, copy them to our master repo and then push them to Github. To do this:
 
-1. Firstly add and commit the changes made to the source repo
+Firstly add and commit the changes made to the source repo
 
 	git checkout source
 	// make relevant changes and updates to the site
 	git add .
 	git commit -m "{{enter description of changes made}}"
 
-2. Now run Jekyll locally to generate the static pages into the `_site` folder
+Now run Jekyll locally to generate the static pages into the `_site` folder
 
 	jekyll
 
-3. Now switch to the master branch
+Now switch to the master branch
 
 	git checkout master
 
-4. Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.)
+Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.)
 
 	cp -r _site/* . && rm -rf _site/ && touch .nojekyll
 
-5. Now push both the source and master branches to origin
+Now push both the source and master branches to origin
 
 	git push --all origin
 

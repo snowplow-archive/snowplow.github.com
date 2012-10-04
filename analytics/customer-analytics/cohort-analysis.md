@@ -118,7 +118,7 @@ WHERE visit_id=1
 GROUP BY mkt_source, mkt_medium, user_id ;
 {% endhighlight %}
 
-By including the other marketing fields (`mkt_term`, `mkt_content`, `mkt_name`) we can define cohorts more precisely e.g. to compare users acquired with different keyword combinations, or who had seen different ad versions.
+By including the other marketing fields (`mkt_term`, `mkt_content`, `mkt_campaign`) we can define cohorts more precisely e.g. to compare users acquired with different keyword combinations, or who had seen different ad versions.
 
 ### 1d. Other ways to define cohorts
 

@@ -91,7 +91,7 @@ The Infobright table looks like this:
 | mkt_medium               | varchar(255)  |
 | mkt_term                 | varchar(255)  |
 | mkt_content              | varchar(2083) |
-| mkt_name                 | varchar(255)  |
+| mkt_campaign             | varchar(255)  |
 | ev_category              | varchar(255)  |
 | ev_action                | varchar(255)  |
 | ev_label                 | varchar(255)  |

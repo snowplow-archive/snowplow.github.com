@@ -80,7 +80,11 @@
 <h2 id='site_id'>Site ID</h2>
 
 <p>The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
-
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
 <p>The querystring passed to your SnowPlow collector will now include the following parameter:</p>
 
 <pre><code>...&amp;said=CFe23a&amp;...</code></pre>
@@ -106,7 +110,43 @@
 <p>This approach works, but it adds complexity in the analysis step. Happily community member Simon Andersson has contributed an alternative solution: dedicated SnowPlow e-commerce transaction tracking, similar to the functionality found in the Google Analytics JavaScript API.</p>
 
 <p>The idea is that you add the new tracking code to your shop&#8217;s checkout confirmation page, so that the completed order can be sent to SnowPlow. A complete example of the new tracking code looks like this:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>var</span> <span class='nx'>orderId</span> <span class='o'>=</span> <span class='s1'>&#39;order-123&#39;</span><span class='p'>;</span>
 
+<span class='c1'>// addTrans sets up the transaction, should be called first.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addTrans&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// affiliation or store name</span>
+  <span class='s1'>&#39;8000&#39;</span><span class='p'>,</span>                 <span class='c1'>// total - required</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// tax</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// shipping</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// city</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// state or province</span>
+  <span class='s1'>&#39;&#39;</span>                      <span class='c1'>// country</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// addItem is called for each item in the shopping cart.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1001&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Blue t-shirt&#39;</span><span class='p'>,</span>         <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;2000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;2&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
+  <span class='s1'>&#39;1002&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
+  <span class='s1'>&#39;Red shoes&#39;</span><span class='p'>,</span>            <span class='c1'>// product name</span>
+  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
+  <span class='s1'>&#39;4000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
+  <span class='s1'>&#39;1&#39;</span>                     <span class='c1'>// quantity - required</span>
+  <span class='p'>]);</span>
+
+<span class='c1'>// trackTrans sends the transaction to SnowPlow tracking servers.</span>
+<span class='c1'>// Must be called last to commit the transaction.</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackTrans&#39;</span><span class='p'>]);</span>
+</code></pre>
+</div>
 <p>The above example creates an order (aka &#8220;transaction&#8221;) with ID <code>order-123</code> and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final <code>trackTrans</code> call sends this complete order to SnowPlow as three separate events - one each for the order and its line items.</p>
 
 <p>This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.</p>

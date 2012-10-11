@@ -97,13 +97,26 @@
 <h2 id='1_cohort_definition'>1. Cohort definition</h2>
 
 <p>Regardless of the type of cohort analysis we want to perform, we start by creating a table that maps user_ids to cohorts:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>user_cohort_map</span> <span class='p'>(</span>
+	<span class='n'>cohort</span> <span class='n'>STRING</span><span class='p'>,</span>
+	<span class='n'>user_id</span> <span class='n'>STRING</span>
+<span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <h3 id='1a_defining_cohorts_by_when_a_user_first_visits_the_website'>1a. Defining cohorts by when a user first visits the website</h3>
 
 <p>In this case we want to compare users who first visited us in January with those that first visited us in February, March, April etc.</p>
 
 <p>To do this, we need to lookup the date that a user first visited the site (i.e. when <code>visit_id</code>=1, check <code>dt</code>) and then group users by month:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>user_cohort_map</span>
+<span class='k'>SELECT</span>
+<span class='nf'>SUBSTRING</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>7</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>visit_id</span><span class='o'>=</span><span class='mi'>1</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>The query applies a filter <code>visit_id=1</code> so that we only look at first visits. We then group all the results by user_id, so we have one line of data for user. We take the minimum <code>dt</code> logged (in case a visit spanned two days) and take a substring of the data to fetch just the month and year. (So <code>SUBSTRING(&#39;2012-05-23&#39;,7)=&#39;2012-05&#39;</code>, which is one of our cohorts.)</p>
 
 <h3 id='1b_definine_a_cohort_by_when_a_user_first_performed_a_specific_action'>1b. Definine a cohort by when a user first performed a specific action</h3>
@@ -111,17 +124,50 @@
 <p>For many SaaS providers, it is not when a user first visits the site that is really important, but when a user actually signed up for a service, or performed some other specific action for the first time.</p>
 
 <p>In this case we use a variation of the above query:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>user_cohort_map</span>
+<span class='k'>SELECT</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>SUBSTRING</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>7</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='n'>ev_category</span> <span class='k'>LIKE</span> <span class='s1'>&#39;&lt;INSERT RELEVANT CATEGORY e.g. subscription&gt;&#39;</span>
+<span class='k'>AND</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;&lt;INSERT RELEVANT ACTION e.g. signup&gt;&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Alternatively we may want to define our cohorts based on the first date a user visited a specific page:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>user_cohort_map</span>
+<span class='k'>SELECT</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>SUBSTRING</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>7</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='n'>pageurl</span> <span class='k'>LIKE</span><span class='o'>=</span> <span class='s1'>&#39;&#39;</span> <span class='p'>;</span> 
+</code></pre>
+</div>
 <h3 id='1c_definine_a_cohort_by_the_channel_a_user_was_acquired_on'>1c. Definine a cohort by the channel a user was acquired on</h3>
 
 <p>This is important if we want to e.g. compare the lifetime value of customers acquired from different channels.</p>
 
 <p>In this case, we need to look again at the first time a user visited the site, see how they were referred to the site, and then classify them by cohort accordingly. If we were interested in compare users who&#8217;d found the site organically, vs those from CPC campaigns, vs those referred from 3rd party sites, for example, we&#8217;d look at the <code>mkt_medium</code> field:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>user_cohort_map</span>
+<span class='k'>SELECT</span>
+<span class='n'>mkt_medium</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>visit_id</span><span class='o'>=</span><span class='mi'>1</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>mkt_medium</span><span class='p'>,</span> <span class='n'>user_id</span> <span class='p'>;</span> 
+</code></pre>
+</div>
 <p>Alternatively, we might want to distinguish between CPC traffic from Google with other PPC sources. In this case we would use a combination of <code>mkt_source</code> and <code>mkt_medium</code> to define our cohorts:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>user_cohort_map</span>
+<span class='k'>SELECT</span>
+<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>mkt_source</span><span class='p'>,</span> <span class='s2'>&quot; / &quot;</span><span class='p'>,</span> <span class='n'>mkt_medium</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>visit_id</span><span class='o'>=</span><span class='mi'>1</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>mkt_source</span><span class='p'>,</span> <span class='n'>mkt_medium</span><span class='p'>,</span> <span class='n'>user_id</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>By including the other marketing fields (<code>mkt_term</code>, <code>mkt_content</code>, <code>mkt_name</code>) we can define cohorts more precisely e.g. to compare users acquired with different keyword combinations, or who had seen different ad versions.</p>
 
 <h3 id='1d_other_ways_to_define_cohorts'>1d. Other ways to define cohorts</h3>
@@ -131,7 +177,13 @@
 <h2 id='2_metric_definitions'>2. Metric definitions</h2>
 
 <p>As a second step, we need to define a query that measure the <em>thing</em> we want to compare between our cohorts. We therefore need to populate a table like the one below:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>metric_by_user</span> <span class='p'>(</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>time_period</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>metric_value</span> <span class='kt'>INT</span> <span class='cm'>/* May also be FLOAT / DOUBLE */</span>
+<span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>There is a wide range <code>metric_value</code>s we might want to compare between cohorts: most either get at how engaged a particular cohort is, or how valuable a particular cohort is.</p>
 
 <h3 id='2a_measuring_user_engagement'>2a. Measuring user engagement</h3>
@@ -139,13 +191,39 @@
 <p>There are a <a href='/analytics/customer-analytics/user-engagement.html'>wide variety of ways to measure user engagement</a>. Here we give just a couple of examples:</p>
 
 <p>To start with, we could look at the number of actions / events performed by each user each month:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>metric_by_user</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>time_period</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>metric_value</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Alternatively, we might want to just look at the average number of visits per month. (Maybe we&#8217;re doing the analysis for a search or affiliate site, that aims to build a loyal base of repeat users who visit the site frequently but then get off it quickly onto other sites where they make purchases.)</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>metric_by_user</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>time_period</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>metric_value</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <h3 id='2b_measuring_customer_value'>2b. Measuring customer value</h3>
 
 <p>There are a <a href='/analytics/customer-analytics/customer-lifetime-value.html'>wide variety of ways to measure customer value and lifetime value</a>. Here we give just one example - for a retailer that wants to compare purchase value per month:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>metric_by_user</span>
+<span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>time_period</span><span class='p'>,</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_value</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>metric_value</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>ev_category</span> <span class='k'>LIKE</span> <span class='s1'>&#39;ecomm&#39;</span>
+<span class='k'>AND</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;buy&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span>
+</code></pre>
+</div>
 <h3 id='2c_other_metrics_to_compare'>2c. Other metrics to compare</h3>
 
 <p>SnowPlow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
@@ -153,7 +231,24 @@
 <h2 id='3_combining_the_results_in_the_final_cohort_analysis'>3. Combining the results in the final cohort analysis</h2>
 
 <p>To perform the actual cohort analysis, all we have to do is to <code>JOIN</code> our two tables <code>user_cohort_map</code> and <code>metric_by_user</code> to aggregate results by cohort by time period so that we can compare them alongside each other:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>cohort_analysis_results</span> <span class='p'>(</span>
+<span class='n'>cohort</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>time_period</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>metric_value</span> <span class='kt'>FLOAT</span> <span class='cm'>/* Can be DOUBLE */</span>
+<span class='p'>)</span> <span class='p'>;</span>
 
+<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>cohort_analysis_results</span>
+<span class='k'>SELECT</span>
+<span class='n'>c</span><span class='p'>.</span><span class='n'>cohort</span><span class='p'>,</span>
+<span class='n'>m</span><span class='p'>.</span><span class='n'>time_period</span><span class='p'>,</span>
+<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>metric_value</span><span class='p'>)</span>
+<span class='k'>FROM</span>
+<span class='n'>user_cohort_map</span> <span class='n'>c</span>
+<span class='k'>JOIN</span> <span class='n'>metric_by_user</span> <span class='n'>m</span>
+<span class='k'>ON</span> <span class='n'>c</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>c</span><span class='p'>.</span><span class='n'>cohort</span><span class='p'>,</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>time_period</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Note: this is the same query <em>regardless</em> of what cohort definition was chosen in step 1, or what metric definition was chosen in step 2.</p>
 
 <p>In the above case, we&#8217;ve used the <code>AVG()</code> function to aggregate the metric over all users in each cohort. This is the most common aggregation function to use with SnowPlow. To use a more unusual function (e.g. a percentile), it may be necessary to write a user-defined-function (UDF) to perform the required aggregation.</p>

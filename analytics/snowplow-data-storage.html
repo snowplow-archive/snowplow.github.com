@@ -129,19 +129,74 @@ The Hadoop UI can be accessed via the following commands:
 hadoop@ip-10-234-109-57:~$ </code></pre>
 
 <p>You are in the cluster. Launch Hive by typing:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span>
+</code></pre>
+</div>
 <p>We now need to create a table in Hive based on the Cloudfront logs. To do that, we first need to let Hive know where the SnowPlow deserializer is, so that Hive can read the raw log files. To do that, execute the following command:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>ADD</span> <span class='n'>JAR</span> <span class='n'>s3</span><span class='p'>:</span><span class='o'>///</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>log</span><span class='o'>-</span><span class='n'>deserializers</span><span class='o'>-</span><span class='mi'>0</span><span class='p'>.</span><span class='mi'>4</span><span class='p'>.</span><span class='mi'>7</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>(Substitute the S3 bucket you use to store the deserializer JAR.) Now you can create the table:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='n'>views_events</span> 
+<span class='n'>ROW</span> <span class='n'>FORMAT</span> 
+  <span class='n'>SERDE</span> <span class='s1'>&#39;com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer&#39;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>You wll need to replace the &#8216;LOGS-BUCKET-NAME&#8217; with the name of the S3 bucket where your Cloudfront logs are stored.</p>
 
 <p>Hive now knows where your Cloudfront logs are stored, and it knows from the deserializer how to translate those individual logs into a tidy table. We can inspect the tidy table created prior to querying it:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Hive will respond by listing all the different fields:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span><span class='o'>&gt;</span> <span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+<span class='n'>OK</span>
+<span class='n'>dt</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tm</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>txn_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>user_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>user_ipaddress</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>visit_id</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_url</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_title</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>page_referrer</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_medium</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_source</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_term</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_content</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>mkt_campaign</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_category</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_action</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_label</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_property</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ev_value</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_version</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_type</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_renderengine</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_lang</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features</span>	<span class='n'>array</span><span class='o'>&lt;</span><span class='n'>string</span><span class='o'>&gt;</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_cookies</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_manufacturer</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_type</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_ismobile</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_screenwidth</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_screenheight</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='kt'>Time</span> <span class='n'>taken</span><span class='p'>:</span> <span class='mi'>1</span><span class='p'>.</span><span class='mi'>425</span> <span class='n'>seconds</span>
+</code></pre>
+</div>
 <p>You as an analyst can now query the &#8220;views_events&#8221; table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:</p>
-<a name='optimised-hive' />
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>views_events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div><a name='optimised-hive' />
 <h3 id='querying_the_data_in_a_format_optimsied_for_hive'>Querying the data in a format optimsied for Hive</h3>
 
 <p>Whilst it is possible to query the Cloudfront logs directly, this is inefficient for a number of reasons:</p>
@@ -157,7 +212,44 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <p>Querying this table is very similar to querying the raw Cloudfront logs. The biggest difference notable to the analyst will be that results are returned much faster.</p>
 
 <p>To perform the queries, we need to start off by defining our table, and telling Hive where the data lives:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='k'>IF</span> <span class='k'>NOT</span> <span class='k'>EXISTS</span> <span class='ss'>`events`</span> <span class='p'>(</span>
+<span class='n'>tm</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>txn_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>user_ipaddress</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>page_url</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>page_title</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>page_referrer</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_source</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_medium</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_term</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_content</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>mkt_campaign</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_category</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_action</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_label</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_property</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ev_value</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_name</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_family</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_version</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_type</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_renderengine</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_lang</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_features</span> <span class='n'>array</span><span class='o'>&lt;</span><span class='n'>string</span><span class='o'>&gt;</span><span class='p'>,</span>
+<span class='n'>br_cookies</span> <span class='n'>boolean</span><span class='p'>,</span>
+<span class='n'>os_name</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>os_family</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>os_manufacturer</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>dvce_type</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>dvce_ismobile</span> <span class='n'>boolean</span><span class='p'>,</span>
+<span class='n'>dvce_screenwidth</span> <span class='kt'>int</span><span class='p'>,</span>
+<span class='n'>dvce_screenheight</span> <span class='kt'>int</span><span class='p'>)</span>
+<span class='n'>PARTITIONED</span> <span class='k'>BY</span> <span class='p'>(</span><span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>)</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Some things to note when comparing the above CREATE TABLE statement with the one for Cloudfront earlier:</p>
 
 <ol>
@@ -169,7 +261,13 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 </ol>
 
 <p>Once the table is setup, querying it is exactly like querying the raw logs table, however. For example, to calculate the number of uniques by day, enter:</p>
-<a name='infobright' />
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>dt</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div><a name='infobright' />
 <h2 id='infobright'>Infobright</h2>
 
 <p>Whilst Hive has a number of features that make it well suited to performing analytics (especially horizontal scaling and direct integration to Amazon S3 via EMR), there are two disadvantages to using Hive:</p>
@@ -185,11 +283,20 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <p>Enter <a href='http://www.infobright.org/'>Infobright</a>. Infobright is an open source analytics columnar database that is optimised around enabling analysts to run ad hoc queries against large data sets very quickly. Most of the query functionality available in MySQL (on which Infobright is based) is available in Infobright, making writing queries easy. Infobright scales to Terabytes of data, which is enough for all but the largest websites / networks, who will have to stick with Hive. Further, because it is based on MySQL, it integrates easily with any BI tool built to work with MySQL, which is pretty much all of them.</p>
 
 <p>Connecting to your data stored in Infobright is straightforward. If you&#8217;re connecting via the command-line, you&#8217;ll need to SSH onto the server running your Infobright instance, and then connect to Infobright:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='n'>mysql</span><span class='o'>-</span><span class='n'>ib</span> <span class='o'>-</span><span class='n'>u</span>  <span class='o'>-</span><span class='n'>p</span>
+</code></pre>
+</div>
 <p>Substitute your username for &#8216;USERNAME&#8217; and enter your password when prompted. Once in Infobright, you can connect to the SnowPlow database:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>USE</span> <span class='n'>snowplow</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>In the SnowPlow database is the events table. You can query it as normal, so, for example, to find out the number of unique visitors by day:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='n'>dt</span><span class='p'>,</span> 
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>Note that the query is identical to that executed in Hive. In general, queries in the two datawarehousing platforms are very similar.</p>
 
 <h2 id='understand_how_snowplow_data_is_warehoused_in_hive__infobright'>Understand how SnowPlow data is warehoused in Hive / Infobright?</h2>

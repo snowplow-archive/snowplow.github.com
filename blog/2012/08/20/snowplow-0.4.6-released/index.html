@@ -70,7 +70,17 @@
 <p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
 
 <p>You can use this feature in your JavaScript invocation code like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>SnowPlow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
+<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
+<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
 
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+
+<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='p'>...</span>
+</code></pre>
+</div>
 <p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
 
 <p>We added this capability to SnowPlow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.</p>

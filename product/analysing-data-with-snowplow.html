@@ -89,15 +89,35 @@
 <p>Each line of event data in Hive is time stamped, with a <code>dt</code> field indicating the date and a <code>tm</code> field indicating the time that an event took place.</p>
 
 <p>To count the number of users that visited your website on August 11th 2012, for example, we simply execute the following query:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>as</span> <span class='n'>uniques</span>
+<span class='k'>from</span> <span class='n'>EVENTS</span>
+<span class='k'>where</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <h2 id='zooming_in_on_a_particular_visitors'>Zooming in on a particular visitor(s)</h2>
 
 <p>Sometimes, we may want to look at the behaviour of a particular visitor, or group of visitors. To do this, we can simply execute the following query to pull up the complete browsing history of user_id = &#8216;1234&#8217;</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> <span class='s1'>&#39;1234&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>We may want to identify the last 100 users who visited our site:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='k'>DISTINCT</span> <span class='n'>user_id</span> 
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>tm</span> <span class='k'>DESC</span> 
+<span class='k'>LIMIT</span> <span class='mi'>100</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>Alternatively, we may want to identify the last 100 users who purchased on our site:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='k'>DISTINCT</span> <span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>=</span><span class='s1'>&#39;2012-08-11&#39;</span>
+<span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;order-complete&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>tm</span> <span class='k'>DESC</span>
+<span class='k'>LIMIT</span> <span class='mi'>100</span><span class='p'>;</span>
+</code></pre>
+</div>
 <p>Note: the <code>ev_action</code> field represented in the above query is the &#8216;event-action&#8217;. The text in this field represents the different types of action a user can take on your site e.g. &#8216;add-to-basket&#8217; (on an ecommerce site) or &#8216;pause-video&#8217; (on a media site).</p>
 
 <h2 id='exporting_data_out_of_hive'>Exporting data out of Hive</h2>
@@ -115,13 +135,35 @@
 
 <li>The &#8216;GROUP BY&#8217; statement rolls the data up to the required level of aggregation. To take a comman example, analysts often roll the data up so that there is one line of data for each visit. In that case, they would:</li>
 </ol>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> 
+</code></pre>
+</div>
 <p>So far so good - same process for Hive and Infobright.</p>
 
 <p>Once an analyst has pulled the cut of data she requires from SnowPlow, the next step is to import it into her analytics / statistical / visualisation tool of choice. It is straightforward to write the outputs of a Hive analysis to a tab delimited or comma delimited file. This is achieved by creating an &#8216;external table&#8217; (i.e. one that is saved on S3 rather than in Hive itself) and formatting it to be e.g. a CSV:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='nf'>data_for_export</span> <span class='p'>(</span>
+	<span class='n'>field_1</span> <span class='n'>field_1_type</span><span class='p'>,</span> 
+	<span class='n'>field_2</span> <span class='n'>field_2_type</span><span class='p'>,</span>
+	<span class='p'>...</span>
+	<span class='n'>field_n</span> <span class='n'>field_n_type</span>
+<span class='p'>)</span> <span class='n'>ROW</span> <span class='n'>FORMAT</span> <span class='n'>DELIMITED</span>
+<span class='n'>FIELDS</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;,&#39;</span>
+<span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///{path}/&#39;</span> <span class='p'>;</span>
+</code></pre>
+</div>
 <p>Once created, the analyst needs to populate the table with the data from their Hive query:</p>
-
+<div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>data_for_export</span>
+<span class='k'>SELECT</span>
+	<span class='n'>field_1</span><span class='p'>,</span> 
+	<span class='n'>field_2</span><span class='p'>,</span>
+	<span class='p'>...</span>
+	<span class='n'>field_n</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>WHERE</span> 
+<span class='k'>GROUP</span> <span class='k'>BY</span>  <span class='p'>;</span>
+</code></pre>
+</div>
 <p>The query will execute, but instead of writing the results to the screen, they&#8217;ll be saved in S3, where the analyst can download them and import them into their the appropriate tool to continue the analysis.</p>
 
 <p>Want to <a href='/analytics/index.html'>learn more</a> about the different analyses that are possible with Hive? Then visit the <a href='/analytics/index.html'>Analytics Cookbook</a>.</p>

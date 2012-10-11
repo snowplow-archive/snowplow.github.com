@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-11T15:17:54+01:00</updated>
+  <updated>2012-10-11T15:53:24+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -55,7 +55,7 @@
 &lt;li&gt;The ecommerce tracking functionality is now extracted to a set of &lt;code&gt;tr_&lt;/code&gt; and &lt;code&gt;ti_&lt;/code&gt; fields&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;For details on the new fields, please review our latest &lt;a href='xxx'&gt;Hive events table definition&lt;/a&gt; - there is now a column indicating in which version a given field was added.&lt;/p&gt;
+&lt;p&gt;For details on the new fields, please review our latest &lt;a href='/analytics/snowplow-table-structure.html'&gt;Hive events table definition&lt;/a&gt; - there is now a column indicating in which version a given field was added.&lt;/p&gt;
 
 &lt;h2 id='how_to_get_the_new_version'&gt;How to get the new version&lt;/h2&gt;
 

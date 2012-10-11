@@ -84,15 +84,7 @@
 <h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
 
 <p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referrer URL: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
-<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
-
-<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
-
-<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
-</code></pre>
-</div><a name='install' />
+<a name='install' />
 <h3 id='installing_attlib'>Installing Attlib</h3>
 
 <p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
@@ -108,28 +100,7 @@
 <p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master/data'>data</a> in the repo.</p>
 
 <p>The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>Babylon</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>parameters</span><span class='p-Indicator'>:</span> 
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>q</span>
-  <span class='l-Scalar-Plain'>domains</span><span class='p-Indicator'>:</span> 
-   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>search.babylon.com</span>
-   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>searchassist.babylon.com</span>
 
-<span class='l-Scalar-Plain'>Baidu</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>parameters</span><span class='p-Indicator'>:</span> 
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>wd</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>word</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>kw</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>k</span>
-  <span class='l-Scalar-Plain'>domains</span><span class='p-Indicator'>:</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>www.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>www1.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>zhidao.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>tieba.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>news.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>web.gougou.com</span>
-</code></pre>
-</div>
 <p>Keeping this file up to date is a big job: one of our hopes releasing Attlib as an open source, standalone library, is that the community contributes to the file. We are enormously grateful to our friends at <a href='http://piwik.org/'>Piwik</a> as our initial version of the file is based on the Piwik equivalent <a href='https://github.com/piwik/piwik/blob/master/core/DataFiles/SearchEngines.php'>SearchEngines.php</a>, for the hard work they put into this version.</p>
 <a name='snowplow_stack' />
 <h3 id='attlib_as_part_of_the_snowplow_stack'>Attlib as part of the SnowPlow stack</h3>
@@ -179,6 +150,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2012/10/11/snowplow-0.4.10-released">SnowPlow 0.4.10 released</a></li>
 		
 			<li><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></li>
 		

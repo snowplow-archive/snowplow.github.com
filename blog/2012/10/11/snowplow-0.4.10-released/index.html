@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>SnowPlow 0.4.10 released - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			11 Oct 2012
+			<h1>SnowPlow 0.4.10 released</h1>
+			<p>We have just released version <strong>0.4.10</strong> of SnowPlow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+
+<ol>
+<li>snowplow.js to version 0.7.0</li>
+
+<li>the Hive deserializer to version 0.4.9</li>
+</ol>
+
+<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
+
+<h2 id='main_changes'>Main changes</h2>
+
+<p>The main changes are as follows:</p>
+
+<ul>
+<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
+
+<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
+
+<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even a critical error was found in the row (a null row is now returned instead)</li>
+</ul>
+
+<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!).</p>
+
+<h2 id='new_event_table_fields'>New event table fields</h2>
+
+<p>The new fields in the event table all relate directly to additional tracking functionality which was added to the JavaScript tracker in <a href='/blog/2012/09/06/snowplow-0.4.7-released/'>SnowPlow 0.4.7</a>. Specifically:</p>
+
+<ol>
+<li>The <code>setSiteId()</code> functionality is now extracted to the <code>app_id</code> field (short for application ID)</li>
+
+<li>The ecommerce tracking functionality is now extracted to a set of <code>tr_</code> and <code>ti_</code> fields</li>
+</ol>
+
+<p>For details on the new fields, please review our latest <a href='xxx'>Hive events table definition</a> - there is now a column indicating in which version a given field was added.</p>
+
+<h2 id='how_to_get_the_new_version'>How to get the new version</h2>
+
+<p>As usual, the new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.9.jar</strong>.</p>
+
+<p>The updated snowplow.js is <a href='https://raw.github.com/snowplow/snowplow/master/1-trackers/javascript-tracker/js/snowplow.js'>available in our GitHub repository</a> for you to minify and upload, or alternatively you can use the one on our CDN:</p>
+
+<pre><code>https://d1fc8wv8zag5ca.cloudfront.net/0.7.0/sp.js</code></pre>
+
+<p>If you have any problems with either of these components, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
+
+<h2 id='a_note_on_backwards_compatibility_for_the_events_table'>A note on backwards compatibility for the events table</h2>
+
+<p>We will continue to add extra fields to the SnowPlow events table as we add extra capabilities to the ETL process - for example, we are working on functionality to extract geo-location information from IP addresses via MaxMind.</p>
+
+<p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don&#8217;t explicitly query a new field.</p>
+
+<p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we&#8217;ll take advantage of this to improve backwards compatibility for our events table!</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/10/11/snowplow-0.4.10-released">SnowPlow 0.4.10 released</a></li>
+		
+			<li><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></li>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

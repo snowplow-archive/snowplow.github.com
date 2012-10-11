@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-11T16:17:52+01:00</updated>
+  <updated>2012-10-11T16:25:09+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -40,7 +40,7 @@
 
 &lt;li&gt;The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table&lt;/li&gt;
 
-&lt;li&gt;We fixed a bug in the Hive deserializer where a partially-processed row was returned even a critical error was found in the row (a null row is now returned instead)&lt;/li&gt;
+&lt;li&gt;We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;The rest of the changes were all enhancements to the Hive deserializer&amp;#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!).&lt;/p&gt;

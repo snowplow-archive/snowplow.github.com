@@ -163,3 +163,8 @@
   border-bottom-width: 1px;
   border-bottom-color: $darkblue;
   */ }
+
+/* Pygments for code highlighting */
+.highlight pre {
+  overflow: auto;
+  /* Show a scrollbar when code extends beyond box */ }

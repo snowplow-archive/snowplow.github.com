@@ -4,13 +4,110 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-04T14:01:33+01:00</updated>
+  <updated>2012-10-11T12:17:38+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released"/>
+    <title>Attlib - an open source library for extracting search marketing attribution data from referrer URLs</title>
+    <updated>2012-10-11T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last night we published &lt;a href='https://github.com/snowplow/attlib'&gt;Attlib&lt;/a&gt;, an open source Ruby library for extracting search marketing attribution data from referrer URLs. In this post we talk through:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='#what_attlib_does'&gt;What Attlib does, and how to use it&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#install'&gt;Installing Attlib&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#search_engine_yaml'&gt;The search_engine.yml file&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#snowplow_stack'&gt;Attlib as part of the SnowPlow stack&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#other_languages'&gt;Attlib in other languages&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#snowplow_components_as_standalone_projects'&gt;Making components of SnowPlow available as standalone open source projects&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='what_attlib_does' /&gt;
+&lt;h3 id='what_attlib_does_and_how_to_use_it'&gt;What Attlib does, and how to use it&lt;/h3&gt;
+
+&lt;p&gt;Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referrer URL: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented &lt;a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'&gt;here&lt;/a&gt;.)&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='nb'&gt;require&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;attlib&amp;#39;&lt;/span&gt;
+
+&lt;span class='n'&gt;r&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;Referrer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;amp;hl=en&amp;amp;biw=1189&amp;amp;bih=521&amp;amp;tbm=isch&amp;amp;tbnid=BuQ_IyUbc25usM:&amp;amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;amp;w=1064&amp;amp;h=1551&amp;amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;amp;zoom=1&amp;amp;iact=hc&amp;amp;vpx=107&amp;amp;vpy=48&amp;amp;dur=2477&amp;amp;hovh=271&amp;amp;hovw=186&amp;amp;tx=133&amp;amp;ty=157&amp;amp;sig=115588264602219115047&amp;amp;page=4&amp;amp;tbnh=162&amp;amp;tbnw=120&amp;amp;start=57&amp;amp;ndsp=19&amp;amp;ved=1t:429,r:12,s:57,i:291&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;is_search_engine?&lt;/span&gt; &lt;span class='c1'&gt;# True&lt;/span&gt;
+&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;search_engine&lt;/span&gt; &lt;span class='c1'&gt;# &amp;#39;Google Images&amp;#39;&lt;/span&gt;
+&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;keywords&lt;/span&gt; 	&lt;span class='c1'&gt;# &amp;#39;hermetic tarot&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;a name='install' /&gt;
+&lt;h3 id='installing_attlib'&gt;Installing Attlib&lt;/h3&gt;
+
+&lt;p&gt;Attlib is available via a Ruby Gem. To install, simply run the following at the command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo gem install attlib&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The sourcecode is available on &lt;a href='https://github.com/snowplow/attlib'&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;a name='search_engine_yaml' /&gt;
+&lt;h3 id='the_search_enginesyml_file'&gt;The search_engines.yml file&lt;/h3&gt;
+
+&lt;p&gt;Extracting search engine names and keywords from a referrer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.&lt;/p&gt;
+
+&lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo.&lt;/p&gt;
+
+&lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item is the name of the search engine. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;Babylon&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;parameters&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;q&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;domains&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
+   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;search.babylon.com&lt;/span&gt;
+   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;searchassist.babylon.com&lt;/span&gt;
+
+&lt;span class='l-Scalar-Plain'&gt;Baidu&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;parameters&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;wd&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;word&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;kw&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;k&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;domains&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;www.baidu.com&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;www1.baidu.com&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;zhidao.baidu.com&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;tieba.baidu.com&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;news.baidu.com&lt;/span&gt;
+    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;web.gougou.com&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Keeping this file up to date is a big job: one of our hopes releasing Attlib as an open source, standalone library, is that the community contributes to the file. We are enormously grateful to our friends at &lt;a href='http://piwik.org/'&gt;Piwik&lt;/a&gt; as our initial version of the file is based on the Piwik equivalent &lt;a href='https://github.com/piwik/piwik/blob/master/core/DataFiles/SearchEngines.php'&gt;SearchEngines.php&lt;/a&gt;, for the hard work they put into this version.&lt;/p&gt;
+&lt;a name='snowplow_stack' /&gt;
+&lt;h3 id='attlib_as_part_of_the_snowplow_stack'&gt;Attlib as part of the SnowPlow stack&lt;/h3&gt;
+
+&lt;p&gt;Our intention is to port &lt;a href='https://github.com/snowplow/attlib'&gt;Attlib&lt;/a&gt; into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file.&lt;/p&gt;
+&lt;a name='other_languages' /&gt;
+&lt;h3 id='attlib_in_other_languages'&gt;Attlib in other languages&lt;/h3&gt;
+
+&lt;p&gt;As well as contributing to the search &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.&lt;/p&gt;
+&lt;a name='snowplow_components_as_standalone_projects' /&gt;
+&lt;h3 id='making_components_of_snowplow_available_as_standalone_open_source_projects'&gt;Making components of SnowPlow available as standalone open source projects&lt;/h3&gt;
+
+&lt;p&gt;Attlib is the first component in the SnowPlow stack that we have released as a standalone library. There are many more in the pipeline. (More on this in future blog posts :-) ). For us, this is a key part of the SnowPlow strategy:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Keeping the SnowPlow architecture as loosely coupled as possible. We believe this makes SnowPlow robust, scalable and extendable&lt;/li&gt;
+
+&lt;li&gt;Grow the userbase of people using and contributing to each component. Processing web analytics data is a big job: there are many individual components involved, and each of them needs to evolve with the changing marketplace. Attlib is concerned today with extracting useful data from search engine referrers: but it is likely that as time goes on, we&amp;#8217;ll want to extend it to capture data from other types of referrers e.g. social networks or affiliate sites. The bigger the community of people on top of those developments, the better for everyone in the web analytics community. Releasing each component as a standalone open source library should help grow that community.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;p&gt;Any questions about Attlib, or anything else in this post? Then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt; with the SnowPlow team.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do</id>

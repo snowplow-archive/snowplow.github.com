@@ -215,3 +215,10 @@ $white: #FFFFFF;
 	*/
 
 }
+
+/* Pygments for code highlighting */
+.highlight {
+	pre {
+		overflow: auto;		/* Show a scrollbar when code extends beyond box */ 
+	}
+}

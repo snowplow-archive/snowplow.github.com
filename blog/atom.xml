@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-11T12:17:38+01:00</updated>
+  <updated>2012-10-11T12:32:09+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -63,7 +63,7 @@
 
 &lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo.&lt;/p&gt;
 
-&lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item is the name of the search engine. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
+&lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;Babylon&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
   &lt;span class='l-Scalar-Plain'&gt;parameters&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
     &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;q&lt;/span&gt;

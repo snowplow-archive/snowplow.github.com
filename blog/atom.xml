@@ -4,13 +4,36 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-12T08:50:56+01:00</updated>
+  <updated>2012-10-12T09:12:34+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow"/>
+    <title>How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</title>
+    <updated>2012-10-12T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last night I gave a presentation to the clever folks at Hive London covering three things:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;How big data technologies like Apache Hive are transforming web analytics&lt;/li&gt;
+
+&lt;li&gt;Howe we&amp;#8217;ve used Hive in SnowPlow development&lt;/li&gt;
+
+&lt;li&gt;How the role of Hive has changed at SnowPlow over time, including a comparison of Hive against other technologies.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
+&lt;iframe height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' width='427' marginheight='0' scrolling='no' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456'&gt;  &lt;/iframe&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released</id>

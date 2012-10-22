@@ -4,13 +4,55 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-22T09:10:03+01:00</updated>
+  <updated>2012-10-22T16:34:53+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released"/>
+    <title>Infobright Ruby Loader Released</title>
+    <updated>2012-10-21T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re pleased to start the week with the release of a new Ruby gem, our &lt;a href='https://github.com/snowplow/infobright-ruby-loader'&gt;Infobright Ruby Loader&lt;/a&gt; (IRL).&lt;/p&gt;
+
+&lt;p&gt;At SnowPlow we&amp;#8217;re committed to supporting multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is &lt;a href='http://www.infobright.org/'&gt;Infobright&lt;/a&gt;, a columnar database which is available in open source and commercial versions.&lt;/p&gt;
+
+&lt;p&gt;For all but the largest SnowPlow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Scale to terabytes (although not petabytes, unlike Hive)&lt;/li&gt;
+
+&lt;li&gt;Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR&lt;/li&gt;
+
+&lt;li&gt;Significantly faster query times – typically seconds, not minutes&lt;/li&gt;
+
+&lt;li&gt;Plug in to many analytics front ends e.g. Tableau, Qlikview, R&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for SnowPlow analytics. Unfortunately, when we started to load SnowPlow event logs into ICE, we realised that there wasn&amp;#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)&lt;/p&gt;
+
+&lt;p&gt;Our freshly minted &lt;a href='https://github.com/snowplow/infobright-ruby-loader'&gt;Infobright Ruby Loader&lt;/a&gt; (IRL) can be used in two different ways:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;As a command-line tool&lt;/strong&gt; - for manual loading of data into Infobright at the command-line. No Ruby expertise required&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;As part of another application&lt;/strong&gt; - because it&amp;#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will be using IRL at SnowPlow as part of our larger ETL process to load SnowPlow events into ICE for analysis - we hope to roll this out within the next few weeks.&lt;/p&gt;
+
+&lt;p&gt;In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by &lt;a href='http://www.infobright.org/Blog/Entry/unscripted/'&gt;ParaFlex&lt;/a&gt;, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.&lt;/p&gt;
+
+&lt;p&gt;To find out more about our Infobright Ruby Loader, please check out the detailed &lt;a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'&gt;README&lt;/a&gt; in the GitHub repository. And please direct any questions through the &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;usual channels&lt;/a&gt;!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow</id>
@@ -32,7 +74,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

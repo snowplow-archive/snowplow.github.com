@@ -163,6 +163,8 @@
   border-bottom-width: 1px;
   border-bottom-color: $darkblue;
   */ }
+  .post p.note {
+    font-size: 8px; }
 
 /* Pygments for code highlighting */
 .highlight pre {

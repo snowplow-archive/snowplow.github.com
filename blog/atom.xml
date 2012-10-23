@@ -4,13 +4,146 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-22T16:34:53+01:00</updated>
+  <updated>2012-10-23T17:03:49+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow"/>
+    <title>Performing web analytics on SnowPlow data using Tableau - a video demo</title>
+    <updated>2012-10-24T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;One of the things people we introduce SnowPlow to often ask us is to &lt;i&gt;&quot;show us SnowPlow in action&quot;&lt;/i&gt;. It is one thing to tell someone that having access to their customer and event level data will open up whole new analysis possibilities. It is another thing to demonstrate those possibilities.&lt;/p&gt;
+
+&lt;p&gt;Demonstrating SnowPlow is tricky because ultimately, SnowPlow only gives you access to data. We have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing faster, more powerful and easy-to-use reporting tools. One such tool is Tableau, which is brilliant because it's fast and intuitive, making it easy for analysts to perform train-of-thought analyses. Because SnowPlow gives you access to underlying customer and event level data, it is easy to analyse SnowPlow data in nearly all the data analytics, visualisation and processing tools available, including Tableau. (More on how to plug Tableau into SnowPlow data in a future blog post.&lt;/p&gt;
+
+&lt;p&gt;In the following series of videos, we start to show how SnowPlow can enable you to perform use &lt;a href=&quot;http://www.tableausoftware.com/&quot;&gt;Tableau&lt;/a&gt; to perform web analytics. In the first video, we introduce Tableau and talk through the Tableau worksheet created with SnowPlow data for an online retailer:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt; 
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the second video, we show how to perform an analysis of the drivers of growth of traffic on a website. The video serves to highlight how effective Tableau is at performing train-of-thought analysis:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt; 
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-2.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the third video, we show how to perform an analysis comparing the relative performance of different products in an online retailer's catalogue. This is an example of &lt;strong&gt;catalogue analytics&lt;/strong&gt;, a very important branch of analytics - where we analyse how different products on a retailers site perform relative to one another, or different media items (e.g. articles / videos) on a media site. Very surprisingly, it is something that is not supported by traditional web analytics packages like Google Analytics:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt;
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-3.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the fourth video, we analyse improvements in conversion rates over time for the retailer. This is a core measure to track in order to understand how improvements to the website and marketing strategy drive increased conversion rates. Yet again, it is one thing that is not supported by Google Analytics out-of-the-box. We show how easy it is with SnowPlow and Tableau to identify trends in conversion rates over time:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt;
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-4.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the fifth video, we show how to visualise patterns of individual user visits over time. This is an interesting starting point to begin to unpick the patterns that make up successful user engagement:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt;
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the sixth video, we show how to visualise the range of product pages visited by each user. This is a useful starting point to understand how successful the retailer is at driving users interested in one product to consider buying other products (cross selling), and to develop recommendation algorithms (users who liked &lt;i&gt;this&lt;/i&gt; product also liked &lt;i&gt;this&lt;/i&gt; product:&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt;
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-6.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the final video in the series, we perform a sample cohort analysis, with a view to understanding how 'sticky' the online retailer site is, and how stickiness has improved over time. In this example, we use &lt;i&gt;stickiness&lt;/i&gt; to refer to how good the website is at driving repeat visits.&lt;/p&gt;
+
+&lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
+
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
+	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.swf&quot;&gt;
+		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.swf&quot; /&gt;
+		&lt;param name=&quot;flashvars&quot; value=&quot;controlbar=over&amp;amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7-thumb.jpg&amp;amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.mp4&quot; /&gt;
+		&lt;img src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7-thumb.jpg&quot; width=&quot;648&quot; height=&quot;563&quot; alt=&quot;Web analytics with Tableau and SnowPlow introductory video&quot;
+		     title=&quot;No video playback capabilities, please download the video below&quot; /&gt;
+	&lt;/object&gt;
+&lt;/video&gt;
+
+&lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released</id>
@@ -74,7 +207,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginheight='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe scrolling='no' marginwidth='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

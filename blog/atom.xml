@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-23T17:03:49+01:00</updated>
+  <updated>2012-10-24T11:04:49+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -23,7 +23,7 @@
     </author>
     <content type="html">&lt;p&gt;One of the things people we introduce SnowPlow to often ask us is to &lt;i&gt;&quot;show us SnowPlow in action&quot;&lt;/i&gt;. It is one thing to tell someone that having access to their customer and event level data will open up whole new analysis possibilities. It is another thing to demonstrate those possibilities.&lt;/p&gt;
 
-&lt;p&gt;Demonstrating SnowPlow is tricky because ultimately, SnowPlow only gives you access to data. We have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing faster, more powerful and easy-to-use reporting tools. One such tool is Tableau, which is brilliant because it's fast and intuitive, making it easy for analysts to perform train-of-thought analyses. Because SnowPlow gives you access to underlying customer and event level data, it is easy to analyse SnowPlow data in nearly all the data analytics, visualisation and processing tools available, including Tableau. (More on how to plug Tableau into SnowPlow data in a future blog post.&lt;/p&gt;
+&lt;p&gt;Demonstrating SnowPlow is tricky because ultimately, SnowPlow only gives you access to data. We have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing faster, more powerful and easy-to-use reporting tools. One such tool is &lt;a href=&quot;http://www.tableausoftware.com/&quot;&gt;Tableau&lt;/a&gt;, which is brilliant because it's fast and intuitive, making it easy for analysts to perform train-of-thought analyses. Because SnowPlow gives you access to underlying customer and event level data, it is easy to analyse SnowPlow data in nearly all the data analytics, visualisation and processing tools available, including Tableau. (More on how to plug Tableau into SnowPlow data in a future blog post.&lt;/p&gt;
 
 &lt;p&gt;In the following series of videos, we start to show how SnowPlow can enable you to perform use &lt;a href=&quot;http://www.tableausoftware.com/&quot;&gt;Tableau&lt;/a&gt; to perform web analytics. In the first video, we introduce Tableau and talk through the Tableau worksheet created with SnowPlow data for an online retailer:&lt;/p&gt;
 
@@ -41,6 +41,8 @@
 &lt;/video&gt;
 
 &lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
 
 &lt;p&gt;In the second video, we show how to perform an analysis of the drivers of growth of traffic on a website. The video serves to highlight how effective Tableau is at performing train-of-thought analysis:&lt;/p&gt;
 
@@ -110,7 +112,7 @@
 
 &lt;p class=&quot;note&quot;&gt;&lt;i&gt;Having trouble viewing the video above? You may download the videos in your format of choice:&lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.mp4&quot;&gt;&quot;MP4&quot;&lt;/a&gt;, &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.ogv&quot;&gt;&quot;Ogg&quot;&lt;/a&gt; or &lt;a href=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-5.webm&quot;&gt;WebM&lt;/a&gt; formats.&lt;/i&gt;&lt;/p&gt;
 
-&lt;p&gt;In the sixth video, we show how to visualise the range of product pages visited by each user. This is a useful starting point to understand how successful the retailer is at driving users interested in one product to consider buying other products (cross selling), and to develop recommendation algorithms (users who liked &lt;i&gt;this&lt;/i&gt; product also liked &lt;i&gt;this&lt;/i&gt; product:&lt;/p&gt;
+&lt;p&gt;In the sixth video, we show how to visualise the range of product pages visited by each user. This is a useful starting point to understand how successful the retailer is at driving users interested in one product to consider buying other products (cross selling), and to develop recommendation algorithms (users who liked &lt;i&gt;this&lt;/i&gt; product also liked &lt;i&gt;this&lt;/i&gt; product).&lt;/p&gt;
 
 &lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
 
@@ -207,7 +209,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe scrolling='no' marginwidth='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe height='356' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' marginheight='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>
@@ -241,7 +243,7 @@
 &lt;li&gt;We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The rest of the changes were all enhancements to the Hive deserializer&amp;#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!).&lt;/p&gt;
+&lt;p&gt;The rest of the changes were all enhancements to the Hive deserializer&amp;#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id='new_event_table_fields'&gt;New event table fields&lt;/h2&gt;
 
@@ -323,7 +325,7 @@
 
 &lt;p&gt;Extracting search engine names and keywords from a referrer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.&lt;/p&gt;
 
-&lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo.&lt;/p&gt;
+&lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;Babylon&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
@@ -414,7 +416,7 @@
 
 &lt;li&gt;Improvements to conversion rates over time&lt;/li&gt;
 &lt;/ol&gt;
-
+&lt;!--more--&gt;
 &lt;p&gt;In contrast, because SnowPlow gives you access to the underlying data, it is possible to use BI tools like &lt;a href='http://www.tableausoftware.com/'&gt;Tableau&lt;/a&gt; and &lt;a href='http://www.microsoft.com/en-us/bi/powerpivot.aspx'&gt;PowerPivot&lt;/a&gt; to quickly slice and dice web analytics data by any dimensions / metrics you want. We&amp;#8217;ll be posting examples of how to do this in the next few days.&lt;/p&gt;
 
 &lt;h3 id='3_use_machine_learning_tools_on_your_web_analytics_data'&gt;3. Use machine learning tools on your web analytics data&lt;/h3&gt;
@@ -479,7 +481,7 @@
 &lt;li&gt;&lt;strong&gt;x-edge-request-id&lt;/strong&gt;, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;As always, please consult the Amazon CloudFront &lt;a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'&gt;Developer Guide&lt;/a&gt; for more information on these fields.&lt;/p&gt;
+&lt;p&gt;As always, please consult the Amazon CloudFront &lt;a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'&gt;Developer Guide&lt;/a&gt; for more information on these fields. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;As part of this new &lt;strong&gt;0.4.8&lt;/strong&gt; SnowPlow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.&lt;/p&gt;
 
@@ -553,7 +555,7 @@
 
 &lt;pre&gt;&lt;code&gt;...&amp;amp;said=CFe23a&amp;amp;...&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;where &lt;code&gt;said&lt;/code&gt; stands for &lt;em&gt;Site or App ID&lt;/em&gt; - because we plan on using the same parameter for mobile and desktop app tracking as well.&lt;/p&gt;
+&lt;p&gt;where &lt;code&gt;said&lt;/code&gt; stands for &lt;em&gt;Site or App ID&lt;/em&gt; - because we plan on using the same parameter for mobile and desktop app tracking as well. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;This new feature should be helpful for anyone running multiple sites (or perhaps clients) against the same SnowPlow collector - it means that you can easily partition your SnowPlow events by site, whilst still being able to run cross-site analyses should you so wish.&lt;/p&gt;
 

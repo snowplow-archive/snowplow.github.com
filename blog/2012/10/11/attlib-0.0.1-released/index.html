@@ -104,7 +104,7 @@
 
 <p>Extracting search engine names and keywords from a referrer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
 
-<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master/data'>data</a> in the repo.</p>
+<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master/data'>data</a> in the repo. <!--more--></p>
 
 <p>The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>Babylon</span><span class='p-Indicator'>:</span>

@@ -4,13 +4,45 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-10-24T11:28:44+01:00</updated>
+  <updated>2012-10-24T16:12:54+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released"/>
+    <title>SnowPlow 0.5.0 released, now with a Ruby gem to run SnowPlow's ETL process on Amazon EMR</title>
+    <updated>2012-10-25T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We have just released SnowPlow &lt;strong&gt;0.5.0&lt;/strong&gt;, with an all-new component, the SnowPlow EmrEtlRunner. EmrEtlRunner is a Ruby application to run SnowPlow&amp;#8217;s Hive-based ETL (extract, transform, load) process on &lt;a href='http://aws.amazon.com/elasticmapreduce/'&gt;Amazon Elastic MapReduce&lt;/a&gt; with minimum fuss.&lt;/p&gt;
+
+&lt;p&gt;We are hugely grateful to community member &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; from &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt; for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!&lt;/p&gt;
+
+&lt;h2 id='using_emretlrunner'&gt;Using EmrEtlRunner&lt;/h2&gt;
+
+&lt;p&gt;EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw SnowPlow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using &lt;a href='http://aws.amazon.com/elasticmapreduce/'&gt;Amazon Elastic MapReduce&lt;/a&gt;. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our &lt;a href='http://snowplowanalytics.com/analytics/index.html'&gt;Analyst&amp;#8217;s Cookbook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the &lt;a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'&gt;Deploying EmrEtlRunner&lt;/a&gt; guide on the SnowPlow Analytics wiki.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='the_codebase'&gt;The codebase&lt;/h2&gt;
+
+&lt;p&gt;If you want to take a look at the code, you can find it in the main repository here: &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'&gt;&lt;code&gt;3-etl/emr-etl-runner/&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;If you have any problems getting EmrEtlRunner working, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id='in_the_pipeline'&gt;In the pipeline&lt;/h2&gt;
+
+&lt;p&gt;At SnowPlow we want to support multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. Our first priority is supporting &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition&lt;/a&gt; (ICE) as for event storage and querying; extending the current ETL process to load SnowPlow events into ICE will be the focus of our next few releases, so please stay tuned!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow</id>
@@ -209,7 +241,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' marginheight='0' scrolling='no' frameborder='0' marginwidth='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' marginwidth='0' height='356' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

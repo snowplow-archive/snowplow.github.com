@@ -168,7 +168,6 @@ Now we want to copy the static html files for the website into the root folder o
 
 Now commit your changes:
 
-	git add .
     git commit -a
 
 And finally push both the source and master branches to origin

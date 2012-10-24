@@ -57,6 +57,7 @@ As all the Jekyll processing is performed locally, you need to make sure that Je
 1. [jekyll](https://github.com/mojombo/jekyll). To install the gem execute `sudo gem install jekyll`.
 2. [jekyll-pagination](https://github.com/blackwinter/jekyll-pagination). To install the gem execute `sudo gem install jekyll-pagination`.
 3. [Pygments](http://pygments.org/). To install, `sudo apt-get install python-pygments`
+4. [Sass](http://sass-lang.com/). (If you want to edit the CSS.) To install, `sudo gem install sass`. To use, edit `static/css/styles.scss` and then execute `sass static/css/styles.scss:static/css/styles.css` to generate the geniune CSS from the SCSS.
 
 More explanation on how to update the site is given below:
 

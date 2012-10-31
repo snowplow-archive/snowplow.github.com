@@ -62,6 +62,33 @@
 	
 		<div id="contents">
 	
+		<a name="New version of GA - what it means for SnowPlow adoption" />
+		<div class="post">
+			31 Oct 2012
+			<h1><a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption">The SnowPlow proposition in a Universal Analytics world. (What the new version of Google Analytics means for companies and SnowPlow adoption.)</a></h1>
+			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
+
+<ol>
+<li><a href='#what'>What changes Google has announced</a></li>
+
+<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption/#whysnowplow'>How those advances change the case for companies considering using SnowPlow</a></li>
+</ol>
+<a name='what' />
+<h2 id='what_changes_has_google_announced'>What changes has Google announced?</h2>
+
+<p>Google has significantly increased the scope and power of Google Analytics, by enabling businesses that use it to capture much more data in it. Below, we list the new data points that Google will enable businesses to collect, before considering the impact of these new data points on the scope and value of reports that can be generated from GA.</p>
+
+<h3 id='custom_user_identifiers'>Custom user identifiers</h3>
+
+<p>Google has launched <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, a new, more flexible and easier way to send data into Google Analytics. One new data points that businesses can feed into Google Analytics is a user&#8217;s <code>customer_id</code> as defined on the business&#8217;s own systems.</p>
+
+<p>There are a number of benefits to feeding GA with your own user identifiers. For starters, it should make linking GA data with your user data in other systems easier (e.g. CRM systems). However, this was already possible using custom variables. The real benefit is that if you run an online property that lets users login, for example, you can identify if the same user is logging in on multiple devices. Now Google can use that information to link up the data based on the user&#8217;s browsing on each device independently. (Previously it was possible to pass in <code>customer_id</code> as a custom variable, but GA wasn&#8217;t able to use this data to inform the reports it put together.)</p>
+
+<p>Google itself is in a good position to identify if the same user is woring across multiple devices using his / her Gmail login. (Especially for users with Android phones, for example.) So this ability to join the dots between sessions on different devices, combined with the businesses own ability, is pretty powerful way of accurately identifying and tracking users across multiple devices.</p>
+<p class='more'><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.5.0 released with EmrEtlRunner" />
 		<div class="post">
 			25 Oct 2012
@@ -161,38 +188,8 @@
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' frameborder='0' marginwidth='0' scrolling='no' marginheight='0'>  </iframe>
+<iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' marginwidth='0' scrolling='no' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
 			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="SnowPlow 0.4.10 released with Hive deserializer improvements" />
-		<div class="post">
-			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/snowplow-0.4.10-released">SnowPlow 0.4.10 released</a></h1>
-			<p>We have just released version <strong>0.4.10</strong> of SnowPlow - people using 0.4.8 can jump straight to this version. This version updates:</p>
-
-<ol>
-<li>snowplow.js to version 0.7.0</li>
-
-<li>the Hive deserializer to version 0.4.9</li>
-</ol>
-
-<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
-
-<h2 id='main_changes'>Main changes</h2>
-
-<p>The main changes are as follows:</p>
-
-<ul>
-<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
-
-<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
-
-<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
-</ul>
-
-<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <p class='more'><a href='/blog/2012/10/11/snowplow-0.4.10-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/11/snowplow-0.4.10-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 
@@ -211,6 +208,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption">The SnowPlow proposition in a Universal Analytics world. (What the new version of Google Analytics means for companies and SnowPlow adoption.)</a></li>
 		
 			<li><a href="/blog/2012/10/25/snowplow-0.5.0-released">SnowPlow 0.5.0 released, now with a Ruby gem to run SnowPlow's ETL process on Amazon EMR</a></li>
 		

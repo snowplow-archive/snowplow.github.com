@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>The SnowPlow proposition in a Universal Analytics world. (What the new version of Google Analytics means for companies and SnowPlow adoption.) - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+
+	<!-- SnowPlow starts plowing -->
+	<script type="text/javascript">
+	var _snaq = _snaq || [];
+
+	_snaq.push(['setAccount', 'd3v6ndkyapxc2w']);
+	_snaq.push(['trackPageView']);
+	_snaq.push(['enableLinkTracking']);
+
+	(function() {
+	var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/sp.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+	})();
+	 </script>
+	<!-- SnowPlow stops plowing -->	
+
+	<!--Google Analytics tracking-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34290195-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!--Finish Google Analytics tracking-->
+</head>
+<body>
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			31 Oct 2012
+			<h1>The SnowPlow proposition in a Universal Analytics world. (What the new version of Google Analytics means for companies and SnowPlow adoption.)</h1>
+			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
+
+<ol>
+<li><a href='#what'>What changes Google has announced</a></li>
+
+<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption/#whysnowplow'>How those advances change the case for companies considering using SnowPlow</a></li>
+</ol>
+<a name='what' />
+<h2 id='what_changes_has_google_announced'>What changes has Google announced?</h2>
+
+<p>Google has significantly increased the scope and power of Google Analytics, by enabling businesses that use it to capture much more data in it. Below, we list the new data points that Google will enable businesses to collect, before considering the impact of these new data points on the scope and value of reports that can be generated from GA.</p>
+
+<h3 id='custom_user_identifiers'>Custom user identifiers</h3>
+
+<p>Google has launched <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, a new, more flexible and easier way to send data into Google Analytics. One new data points that businesses can feed into Google Analytics is a user&#8217;s <code>customer_id</code> as defined on the business&#8217;s own systems.</p>
+
+<p>There are a number of benefits to feeding GA with your own user identifiers. For starters, it should make linking GA data with your user data in other systems easier (e.g. CRM systems). However, this was already possible using custom variables. The real benefit is that if you run an online property that lets users login, for example, you can identify if the same user is logging in on multiple devices. Now Google can use that information to link up the data based on the user&#8217;s browsing on each device independently. (Previously it was possible to pass in <code>customer_id</code> as a custom variable, but GA wasn&#8217;t able to use this data to inform the reports it put together.)</p>
+
+<p>Google itself is in a good position to identify if the same user is woring across multiple devices using his / her Gmail login. (Especially for users with Android phones, for example.) So this ability to join the dots between sessions on different devices, combined with the businesses own ability, is pretty powerful way of accurately identifying and tracking users across multiple devices.</p>
+<!--more-->
+<h3 id='capturing_events_across_a_users_entire_customer_journey'>Capturing events across a user&#8217;s entire customer journey.</h3>
+
+<p>We have long argued that web analytics is just one data source - and that analysts looking at performing customer analytics crunch data related to the customer&#8217;s online journey and offline journey together. That means joining data sets from different digital products and offline data sets to generate a single customer view.</p>
+
+<p>Google has taken a significant step towards enabling businesses to capture much more of their customer&#8217;s journeys in Google Analytics. The <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a> makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her <code>customer_id</code> could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase.</p>
+
+<p>The same event firing could also be used to capture events on digital platforms that are not so well suited to traditional web analytics solution e.g. mobile applications, set top box applications, games consoles etc. It thus opens the door for Google Analytics to capture and report on event data from a range of devices, not just those that are web based.</p>
+
+<p>This should make it possible for Google Analytics to offer reports detailing customer behaviour and lifetime value (if the value of different events was passed in with the events), and provide reports that aggregate and analyse customers over their entire user journeys. This is a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.</p>
+
+<h3 id='capturing_customeracquisition_cost_data'>Capturing customer-acquisition cost data</h3>
+
+<p>One of the most common types of analytics performed on web data is working out the return on marketing investment on different customer-acquisition channels. To perform this data, we need to combine:</p>
+
+<ol>
+<li>Data on what was spent on each channel. (Typically from those channels themselves, e.g. display, PPC, affiliate, social etc.)</li>
+
+<li>Web analytics data on how many people visited the website in response to those ads, and how they behaved on arrival to see what fraction of them went on to become customers</li>
+
+<li>Financial data on the revenue / profits generated by those customers, to compare those figures against their acquisition costs</li>
+</ol>
+
+<p>Now that Google lets businesses reliably track their users over their entire lifecycles (on and offline), it becomes possible to calculate the user&#8217;s lifetime value. In addition, Google also lets you send the cost data into Google Analytics, so that the ROI of each campaign can be accurately calculated.</p>
+
+<h3 id='custom_dimensions_and_metrics'>Custom dimensions and metrics</h3>
+
+<p>In addition to capturing addition <code>user_id</code> and customer acquisition data, the <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a> also lets you capture your own dimensions and metrics for each event that is tracked. Google also lets you bulk upload multiple dimensions at a time into the GA, if a relationship between those custom dimensions and dimensions already in GA can be defined. (So that GA knows what values to ascribe events already in it to those new dimensions, based on the defined relationship.) To give an example: you could upload the product names / SKUs associated with each web page, enabling reporting page views by SKU. Or you could upload a range of product meta data (e.g. book titles and authors) and associate that with an ISBN custom field.</p>
+
+<h3 id='what_does_all_this_new_functionality_add_up_to_when_taken_together'>What does all this new functionality add up to, when taken together?</h3>
+
+<p>Taken together, the additional data that businesses can feed Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:</p>
+
+<ol>
+<li><strong>Customer analytics</strong>. We have long argued that web analytics packages including GA are too focused on sessions, page views and bounces, and neglect the valuable customer analytics that underpin the most successful businesses in the world. With the new data points, GA has the raw data to produce useful customer reports including customer lifetime value and event analytics over user&#8217;s web journeys over time .</li>
+
+<li><strong>Event analytics</strong> across platforms, on and offline. GA can now report on user&#8217;s complete behaviour, not just what they do on websites, but also other digital platforms (esp. mobile) and offline.</li>
+</ol>
+<a name='whysnowplow' />
+<h2 id='how_do_the_advances_in_ga_change_the_case_for_adopting_snowplow'>How do the advances in GA change the case for adopting SnowPlow</h2>
+
+<p>Prior to the latest announcement, the case for adopting SnowPlow alongside your GA implementation was clear:</p>
+
+<ul>
+<li>The reporting provided by Google Analytics is very limited, with little / no customer analytics, catalogue analytics and platform analytics supported</li>
+
+<li>SnowPlow enables you to perform all those three types of analytics, by providing you with acces to your raw customer-level and event-level clickstream data, so you can use whatever analytics tool you like to crunch the data and perform that analysis</li>
+
+<li>SnowPlow makes it easier to join your web analytics data sets with other data sets (e.g. marketing data sets, CRM and offline data sets) so that you can perform the above analytics across multiple data sets</li>
+
+<li>SnowPlow makes it easy to warehouse your customer data, which is only likely to grow in value over time</li>
+</ul>
+
+<p>Following the latest announcement, the case for adopting SnowPlow is less clear:</p>
+
+<ul>
+<li>Google has significantly beefed up its customer analytics capability. (To what extent is not clear - we only know at this stage what extra data points Google will, hypothetically, let you collect - not what additional reporting UIs it will provide to process that data.)</li>
+
+<li>It is possible that the additional data points will also improve GA&#8217;s platform and catalogue analytics capabilities</li>
+
+<li>Therefore the gap between what is possible with GA, and what is possible with SnowPlow, has shrunk</li>
+</ul>
+
+<p>Nevertheless, we are confident that the case for implementing SnowPlow alongside GA is still compelling:</p>
+
+<ul>
+<li>Google still does not give you access to your customer-level and event-level data. Therefore, for maximum reporting flexibility, you should still implement SnowPlow</li>
+
+<li>There are a range of advanced analytics techniques that are hard to imagine Google implementing at all. (Or to a sophisticated level.) Anyone who wants to perform these should implement SnowPlow. To give just two examples: 1. Using machine learning techniques (e.g. <a href='http://mahout.apache.org/'>Mahout</a>) to segment audience by behaviour. 2. Performing event analytics / pathing in a way that takes into account the structure of the website. (As described brilliantly by <a href='http://semphonic.blogs.com/about.html'>Gary Angel</a> on the <a href='http://semphonic.blogs.com/semangel/2011/01/statistical-analysis-functionalism-and-how-web-analytics-works.html'>Semphonic blog</a>). This includes identifying those events that are predictive of customer lifetime value. 3. Building and testing models that predict customer lifetime value ahead of time, so that you can quickly (and robustly) calculate the ROI on marketing campaigns, and adjust your spend accordingly.</li>
+
+<li>There are a range of ways companies might want to use web analytics data in live, data-driven products e.g. product / content recommendation and personalisation engines and internal search algorithms. Because GA doesn&#8217;t provide the granular customer-level and event-level data, GA data cannot be used to drive these data-driven products</li>
+
+<li>There are limitations to Google Analytics architecture. (Where you are essentially feeding data into a SaaS solution, with no scope to sense check and modify the data once loaded.) What happens if you load inaccurate data into Google? What scope do you have to sense check and cleanse it once it&#8217;s there?</li>
+
+<li>The more data you feed GA, the more useful the reports you will be able to run. But you can only ever &#8220;get that data back&#8221; through the reporting UI, or via the API, in aggregate form. That means that Google will always understand your customers better than you do. And, you rely on Google&#8217;s good will to keep making that data available to you.</li>
+
+<li>A final limitation to Google&#8217;s architecture is that loading big data sets (e.g. large loyalty scheme data, CRM databases etc.) into GA may be inefficient because of the enormous data volumes. If you have those data sets on your hardware, and you have your web analytics on your own hardware (thanks to SnowPlow), it is more efficient to join those data sets, rather than passing one of them in it&#8217;s entirity into Google&#8217;s black box.</li>
+</ul>
+
+<p>We at SnowPlow are enormously excited by the progress Google are making with analytics, and especially the good work Google are doing educating the market into the value of customer-centric analytics. But to unleash the full power of that type of customer, platform and catalogue analytics, the serious analyst needs access to the customer-level and event-level data: ideally on infrastructure that is totally under your own control. SnowPlow is the best way of getting hold and storing that data.</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption">The SnowPlow proposition in a Universal Analytics world. (What the new version of Google Analytics means for companies and SnowPlow adoption.)</a></li>
+		
+			<li><a href="/blog/2012/10/25/snowplow-0.5.0-released">SnowPlow 0.5.0 released, now with a Ruby gem to run SnowPlow's ETL process on Amazon EMR</a></li>
+		
+			<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+		
+			<li><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></li>
+		
+			<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+		
+			<li><a href="/blog/2012/10/11/snowplow-0.4.10-released">SnowPlow 0.4.10 released</a></li>
+		
+			<li><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></li>
+		
+			<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+		
+			<li><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></li>
+		
+			<li><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></li>
+		
+			<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></li>
+		
+			<li><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></li>
+		
+			<li><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></li>
+		
+			<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+		
+	</ul>
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

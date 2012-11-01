@@ -4,13 +4,98 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-01T13:54:12+00:00</updated>
+  <updated>2012-11-01T17:03:30+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released"/>
+    <title>SnowPlow 0.5.1 released, with lots of small improvements</title>
+    <updated>2012-11-01T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We have just released SnowPlow &lt;strong&gt;0.5.1&lt;/strong&gt;! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Improving the robustness of the ETL process&lt;/li&gt;
+
+&lt;li&gt;Laying the foundations for loading SnowPlow events into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition&lt;/a&gt; (ICE)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To take each of these themes in turn:&lt;/p&gt;
+
+&lt;h2 id='1_a_more_robust_etl_process'&gt;1. A more robust ETL process&lt;/h2&gt;
+
+&lt;p&gt;The Hive deserializer now has improved error handling - many thanks to community member &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; from &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt; for his help here!&lt;/p&gt;
+
+&lt;p&gt;Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.&lt;/p&gt;
+
+&lt;p&gt;Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&amp;#8217;s &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'&gt;configuration file&lt;/a&gt; to support this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:etl:
+  :continue_on_unexpected_error: false&lt;/code&gt;&lt;/pre&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Switch this to &amp;#8216;true&amp;#8217; to continue processing on unexpected row-level errors.&lt;/p&gt;
+
+&lt;h2 id='2_groundwork_for_infobright_compatibility'&gt;2. Groundwork for Infobright compatibility&lt;/h2&gt;
+
+&lt;p&gt;We have added a table definition (and supporting scripts) for setting up a SnowPlow events table in Infobright - you can find these in the main repository under &lt;a href='https://github.com/snowplow/snowplow/tree/master/4-storage/infobright-storage'&gt;&lt;code&gt;snowplow/4-storage/infobright-storage&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Some early ETL design decisions meant that the SnowPlow event files being generated before 0.5.1 were not compatible with being loaded into Infobright (or similar relational databases like Postgres or MySQL). We have made some updates to the ETL process in 0.5.1 to fix this:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;In the Hive deserializer, we now convert tabs to 4 spaces to prevent a stray tab from breaking our load into Infobright&lt;/li&gt;
+
+&lt;li&gt;Databases like Infobright don&amp;#8217;t support Hive&amp;#8217;s &lt;code&gt;ARRAY&amp;lt;STRING&amp;gt;&lt;/code&gt; syntax, so we have updated the Hive deserializer to also output individual booleans for the browser features, alongside the browser features array&lt;/li&gt;
+
+&lt;li&gt;We have created a new HiveQL script which outputs SnowPlow event files in a format which can be easily loaded into Infobright - this is called &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-etl/hive-etl/hiveql/non-hive-rolling-etl.q'&gt;&lt;code&gt;non-hive-rolling-etl.q&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;We have added a configuration option to the EmrEtlRunner&amp;#8217;s &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'&gt;configuration file&lt;/a&gt; so that you can choose whether to output Hive-format or non-Hive-format event files&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;On point 4: we believe that most people will want to load their SnowPlow event files into other database systems, such as Infobright (or eventually, Postgres, Google BigQuery, SkyDB etc). Therefore, the default setting for the &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'&gt;configuration option&lt;/a&gt; in the EmrEtlRunner is to output your SnowPlow event files in the non-Hive-format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:etl:
+  :storage_format: non-hive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As the comment says, if you will &lt;strong&gt;only&lt;/strong&gt; be doing analysis in Hive, you could switch this setting to &amp;#8216;hive&amp;#8217; and benefit from the slightly-tweaked, Hive-friendly file format.&lt;/p&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;If you have any problems getting version 0.5.1 working, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id='in_the_pipeline'&gt;In the pipeline&lt;/h2&gt;
+
+&lt;p&gt;At SnowPlow we want to support multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We&amp;#8217;ll keep you posted on our progress here!&lt;/p&gt;
+
+&lt;h2 id='changelog'&gt;Changelog&lt;/h2&gt;
+
+&lt;p&gt;Strictly for the completists, the full &lt;a href='https://github.com/snowplow/snowplow/blob/master/CHANGELOG'&gt;changelog&lt;/a&gt; for version 0.5.1 follows below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Data model: stubbed new event_name and platform fields
+Infobright: added setup scripts and docs into 4-storage/infobright (fixes #57)
+Infobright: added version handling (v_tracker, v_collector, v_etl)
+HiveQL: removed hive-exact-etl.q as no longer supported
+HiveQL: added non-hive-rolling-etl.q for Infobright- (and other db-)friendly event file format
+HiveQL: added version handling (v_tracker, v_collector, v_etl) (fixes #42)
+Serde: bumped to 0.5.0
+Serde: updated to avoid throwing exceptions on a bad field, fixes #52 (thanks @mtibben!)
+Serde: moved some exception handling closer to the throw point, pull req #66 (thanks @mtibben!)
+Serde: added continue_on_unexpected_error (thanks @mtibben!)
+Serde: tabs are changed to 4 spaces, fixes #61
+Serde: browser features are now also available as individual fields, for non-hive-rolling-etl.q to use
+Serde: added version handling (v_tracker, v_collector, v_etl)
+EmrEtlRunner: bumped to 0.0.3
+EmrEtlRunner: moved 3 .rb files in lib/ into lib/snowplow-emr-etl-runner
+EmrEtlRunner: added/updated configuration options (:etl: section and hiveql versioning params)&lt;/code&gt;&lt;/pre&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow</id>
@@ -29,7 +114,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -397,7 +482,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe height='356' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' scrolling='no' marginheight='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginheight='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' width='427' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

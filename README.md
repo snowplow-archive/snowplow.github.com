@@ -166,9 +166,9 @@ Now we want to copy the static html files for the website into the root folder o
 
 	cp -r _site/* . && rm -rf _site/
 
-Now commit your changes:
+Now add and commit your changes:
 
-    git commit -a
+    git add . && git commit -a
 
 And finally push both the source and master branches to origin
 

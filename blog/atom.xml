@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-01T17:03:30+00:00</updated>
+  <updated>2012-11-01T17:29:22+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -73,28 +73,7 @@
 
 &lt;h2 id='in_the_pipeline'&gt;In the pipeline&lt;/h2&gt;
 
-&lt;p&gt;At SnowPlow we want to support multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We&amp;#8217;ll keep you posted on our progress here!&lt;/p&gt;
-
-&lt;h2 id='changelog'&gt;Changelog&lt;/h2&gt;
-
-&lt;p&gt;Strictly for the completists, the full &lt;a href='https://github.com/snowplow/snowplow/blob/master/CHANGELOG'&gt;changelog&lt;/a&gt; for version 0.5.1 follows below:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Data model: stubbed new event_name and platform fields
-Infobright: added setup scripts and docs into 4-storage/infobright (fixes #57)
-Infobright: added version handling (v_tracker, v_collector, v_etl)
-HiveQL: removed hive-exact-etl.q as no longer supported
-HiveQL: added non-hive-rolling-etl.q for Infobright- (and other db-)friendly event file format
-HiveQL: added version handling (v_tracker, v_collector, v_etl) (fixes #42)
-Serde: bumped to 0.5.0
-Serde: updated to avoid throwing exceptions on a bad field, fixes #52 (thanks @mtibben!)
-Serde: moved some exception handling closer to the throw point, pull req #66 (thanks @mtibben!)
-Serde: added continue_on_unexpected_error (thanks @mtibben!)
-Serde: tabs are changed to 4 spaces, fixes #61
-Serde: browser features are now also available as individual fields, for non-hive-rolling-etl.q to use
-Serde: added version handling (v_tracker, v_collector, v_etl)
-EmrEtlRunner: bumped to 0.0.3
-EmrEtlRunner: moved 3 .rb files in lib/ into lib/snowplow-emr-etl-runner
-EmrEtlRunner: added/updated configuration options (:etl: section and hiveql versioning params)&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;p&gt;At SnowPlow we want to support multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We&amp;#8217;ll keep you posted on our progress here!&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -482,7 +461,7 @@ EmrEtlRunner: added/updated configuration options (:etl: section and hiveql vers
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' width='427' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

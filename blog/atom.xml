@@ -4,13 +4,58 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-05T12:19:38+00:00</updated>
+  <updated>2012-11-06T17:10:29+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice"/>
+    <title>SnowPlow 0.5.2 released, and introducing the Sluice Ruby gem</title>
+    <updated>2012-11-06T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Another week, another release: SnowPlow &lt;strong&gt;0.5.2&lt;/strong&gt;! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we&amp;#8217;ll also use this post to introduce our new Ruby gem, called Sluice.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community member &lt;a href='https://github.com/testower'&gt;Tom Erik Støwer&lt;/a&gt; for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:&lt;/p&gt;
+
+&lt;h2 id='bugs_fixed'&gt;Bugs fixed&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href='https://github.com/snowplow/snowplow/issues/71'&gt;Issue 71&lt;/a&gt;&lt;/strong&gt;: the template &lt;code&gt;config.yml&lt;/code&gt; (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version &lt;strong&gt;0.5.0&lt;/strong&gt; of the serde, like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+:snowplow:
+  :serde_version: 0.4.9
+...&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href='https://github.com/snowplow/snowplow/issues/72'&gt;Issue 72&lt;/a&gt;&lt;/strong&gt;: Tom&amp;#8217;s testing also identified a bug in EmrEtlRunner&amp;#8217;s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.&lt;/p&gt;
+
+&lt;h2 id='a_new_feature_skip'&gt;A new feature: &amp;#8211;skip&lt;/h2&gt;
+
+&lt;p&gt;A new release which only contains bug fixes is a boring release, so we have also implemented a new &lt;code&gt;--skip&lt;/code&gt; option for EmrEtlRunner (&lt;a href='https://github.com/snowplow/snowplow/issues/58'&gt;issue #58&lt;/a&gt;). You can use this when you call EmrEtlRunner like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bundle exec snowplow-emr-etl-runner &amp;lt;...&amp;gt; --skip staging OR --skip emr&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This option skips the work steps &lt;strong&gt;up to and including&lt;/strong&gt; the specified step. To give an example: &lt;code&gt;--skip emr&lt;/code&gt; skips both moving the raw logs to the Staging Bucket &lt;strong&gt;and&lt;/strong&gt; running the ETL process on Amazon EMR, i.e. EmrEtlRunner will &lt;strong&gt;only&lt;/strong&gt;* perform the final archiving step.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--skip&lt;/code&gt; is useful if you encounter a problem midway through your ETL process: you can fix the problem and then skip the steps which ran okay, rather than re-processing from the start. We find it especially helpful when we&amp;#8217;re testing new versions of EmrEtlRunner.&lt;/p&gt;
+
+&lt;h2 id='and_introducing_sluice'&gt;And introducing Sluice&lt;/h2&gt;
+
+&lt;p&gt;At SnowPlow Analytics we are committed to making our software as modular and loosely-coupled as possible. Where we have functionality which could be more widely used, we aim to extract it into standalone modules for developers to use even if they are not implementing SnowPlow.&lt;/p&gt;
+
+&lt;p&gt;We have followed this approach with the parallel file-copy code for Amazon S3 added to EmrEtlRunner by community member &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; from &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt;: we have moved this code out of EmrEtlRunner into a new Ruby gem, called Sluice. Sluice now has its own &lt;a href='https://github.com/snowplow/sluice'&gt;GitHub repository&lt;/a&gt;, and has been published on &lt;a href='http://rubygems.org/gems/sluice'&gt;RubyGems.org&lt;/a&gt;. It&amp;#8217;s called Sluice because, like &lt;a href='https://github.com/cwensel'&gt;Chris Wensel&lt;/a&gt; (Cascading), we believe in flowing-water metaphors for ETL tools :-)&lt;/p&gt;
+
+&lt;p&gt;Sluice is used by our EmrEtlRunner, and is also a dependency for the StorageLoader Ruby application which we are currently developing.&lt;/p&gt;
+
+&lt;p&gt;We hope to build out Sluice as a general-purpose Ruby toolkit for cloud-friendly ETL over the coming months - and would love contributors! Our view is that, in a world of cloud services like Amazon S3, Google BigQuery and Elastic MapReduce, it makes most sense to take a programmatic approach to ETL, rather than contort the historic, application-based approach of &lt;a href='http://www.talend.com'&gt;Talend&lt;/a&gt;, &lt;a href='http://www.pentaho.com/explore/pentaho-data-integration/'&gt;Pentaho DI&lt;/a&gt; et al. We see Sluice as part of that toolkit for programmatic ETL, alongside great tools such as &lt;a href='http://www.cascading.org'&gt;Cascading&lt;/a&gt;, Rob Slifka&amp;#8217;s &lt;a href='https://github.com/rslifka/elasticity'&gt;Elasticity&lt;/a&gt; and &lt;a href='http://palletops.com'&gt;Pallet&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released</id>
@@ -461,7 +506,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' frameborder='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' width='427' marginheight='0' frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

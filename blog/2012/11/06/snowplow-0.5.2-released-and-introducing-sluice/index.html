@@ -83,7 +83,7 @@
 
 <p>A new release which only contains bug fixes is a boring release, so we have also implemented a new <code>--skip</code> option for EmrEtlRunner (<a href='https://github.com/snowplow/snowplow/issues/58'>issue #58</a>). You can use this when you call EmrEtlRunner like so:</p>
 
-<pre><code>bundle exec snowplow-emr-etl-runner &lt;...&gt; --skip staging OR --skip emr</code></pre>
+<pre><code>$ bundle exec snowplow-emr-etl-runner &lt;...&gt; --skip staging OR --skip emr</code></pre>
 
 <p>This option skips the work steps <strong>up to and including</strong> the specified step. To give an example: <code>--skip emr</code> skips both moving the raw logs to the Staging Bucket <strong>and</strong> running the ETL process on Amazon EMR, i.e. EmrEtlRunner will <strong>only</strong>* perform the final archiving step.</p>
 

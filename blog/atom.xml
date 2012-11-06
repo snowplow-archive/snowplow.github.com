@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-06T17:12:45+00:00</updated>
+  <updated>2012-11-06T17:27:19+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -40,7 +40,7 @@
 
 &lt;p&gt;A new release which only contains bug fixes is a boring release, so we have also implemented a new &lt;code&gt;--skip&lt;/code&gt; option for EmrEtlRunner (&lt;a href='https://github.com/snowplow/snowplow/issues/58'&gt;issue #58&lt;/a&gt;). You can use this when you call EmrEtlRunner like so:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;bundle exec snowplow-emr-etl-runner &amp;lt;...&amp;gt; --skip staging OR --skip emr&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;$ bundle exec snowplow-emr-etl-runner &amp;lt;...&amp;gt; --skip staging OR --skip emr&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This option skips the work steps &lt;strong&gt;up to and including&lt;/strong&gt; the specified step. To give an example: &lt;code&gt;--skip emr&lt;/code&gt; skips both moving the raw logs to the Staging Bucket &lt;strong&gt;and&lt;/strong&gt; running the ETL process on Amazon EMR, i.e. EmrEtlRunner will &lt;strong&gt;only&lt;/strong&gt;* perform the final archiving step.&lt;/p&gt;
 
@@ -506,7 +506,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' marginheight='0' height='356' src='http://www.slideshare.net/slideshow/embed_code/14696456' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe height='356' scrolling='no' frameborder='0' width='427' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

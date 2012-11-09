@@ -27,6 +27,59 @@ $white: #FFFFFF;
 	h2 { font-size: 16px; margin-top: 20px;}
 	h3 { font-size: 14px; margin-top: 20px;}
 	p  { font-size: 13px; }
+	a  { text-decoration: none; }
+	a:hover { text-decoration: underline; }
+
+	.shortcolumn {
+		display: inline;
+		float: left;
+		width: 276px;
+		height: 260px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		margin-right: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		background-color: $lightgrey;
+
+		h2 {
+			margin-top: 10px;
+		}
+
+		li {
+			margin-bottom: 3px;
+		}
+	}
+
+	.column {
+		display: inline;
+		float: left;
+		width: 276px;
+		height: 400px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 10px;
+		margin-right: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		background-color: $lightgrey;
+
+
+		h2 {
+			margin-top: 10px;
+		}
+
+
+		li {
+			margin-bottom: 3px;
+		}
+	}
+			
 }
 
 #sidebar {
@@ -51,6 +104,10 @@ $white: #FFFFFF;
 		padding-left: 0px;
 		margin-top: 0px;
 		margin-bottom: 0px;
+
+		li {
+			margin-bottom: 3px;
+		}
 	}
 
 	a {
@@ -58,9 +115,9 @@ $white: #FFFFFF;
 		text-decoration: none;
 		font-weight: normal;
 
-		&:hover { font-weight: bold; }
+		&:hover { text-decoration: underline; }
 
-		&.active { font-weight: bold; }
+		&.active { text-decoration: underline; }
 	}
 
 	p {
@@ -99,7 +156,10 @@ $white: #FFFFFF;
 	code {
 		max-width: 720px;
 	}
-				
+	
+	p  { font-size: 13px; }
+	a  { text-decoration: none; }
+	
 }
 
 #header {

@@ -24,6 +24,46 @@
     margin-top: 20px; }
   #container p {
     font-size: 13px; }
+  #container a {
+    text-decoration: none; }
+  #container a:hover {
+    text-decoration: underline; }
+  #container .shortcolumn {
+    display: inline;
+    float: left;
+    width: 276px;
+    height: 260px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ececec; }
+    #container .shortcolumn h2 {
+      margin-top: 10px; }
+    #container .shortcolumn li {
+      margin-bottom: 3px; }
+  #container .column {
+    display: inline;
+    float: left;
+    width: 276px;
+    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ececec; }
+    #container .column h2 {
+      margin-top: 10px; }
+    #container .column li {
+      margin-bottom: 3px; }
 
 #sidebar {
   width: 200px;
@@ -44,14 +84,16 @@
     padding-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px; }
+    #sidebar ul li {
+      margin-bottom: 3px; }
   #sidebar a {
     font-size: 12px;
     text-decoration: none;
     font-weight: normal; }
     #sidebar a:hover {
-      font-weight: bold; }
+      text-decoration: underline; }
     #sidebar a.active {
-      font-weight: bold; }
+      text-decoration: underline; }
   #sidebar p {
     margin-top: 5px;
     margin-bottom: 2px; }
@@ -79,6 +121,10 @@
       font-size: 12px; }
   #contents code {
     max-width: 720px; }
+  #contents p {
+    font-size: 13px; }
+  #contents a {
+    text-decoration: none; }
 
 #header {
   display: block;

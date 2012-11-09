@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-06T17:27:19+00:00</updated>
+  <updated>2012-11-09T16:51:23+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -138,7 +138,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -506,7 +506,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe height='356' scrolling='no' frameborder='0' width='427' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' frameborder='0' marginwidth='0' scrolling='no' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

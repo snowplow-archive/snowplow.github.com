@@ -4,13 +4,71 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-12T09:54:51+00:00</updated>
+  <updated>2012-11-12T18:01:02+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader"/>
+    <title>SnowPlow 0.6.0 released, with the new StorageLoader</title>
+    <updated>2012-11-12T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re very pleased to start the week by releasing a new version of SnowPlow - version &lt;strong&gt;0.6.0&lt;/strong&gt;. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing SnowPlow components, but let&amp;#8217;s start by introducing StorageLoader:&lt;/p&gt;
+
+&lt;h2 id='introducing_storageloader'&gt;Introducing StorageLoader&lt;/h2&gt;
+
+&lt;p&gt;StorageLoader is a Ruby application to download your SnowPlow event files from Amazon S3 and load them into databases for querying and analysis. We are launching StorageLoader with support for one database: &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition&lt;/a&gt;, a high-performance columnar database based on MySQL.&lt;/p&gt;
+
+&lt;p&gt;The idea is that you configure StorageLoader with the details of the Infobright table to insert your SnowPlow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your SnowPlow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;With this setup, you will have your SnowPlow events easily accessible and queryable in a local Infobright instance - but you will can still fall back to querying the data in Hive if you wish.&lt;/p&gt;
+
+&lt;p&gt;The following resources should be helpful in terms of setting up StorageLoader:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'&gt;StorageLoader setup guide&lt;/a&gt; - taking you through installing and configuring StorageLoader&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'&gt;Infobright storage setup guide&lt;/a&gt; - explaining how to setup ICE and create the events table&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'&gt;Choosing a storage module&lt;/a&gt; - introduces the options and compares the merits of Infobright and Hive&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id='other_fixes_in_060'&gt;Other fixes in 0.6.0&lt;/h2&gt;
+
+&lt;p&gt;We have made a number of other fixes across SnowPlow to prepare the ground for StorageLoader:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;EmrEtlRunner&lt;/strong&gt; has been bumped to 0.0.5, including upgrading it to Sluice 0.0.4 (which has some bug fixes around S3 path handling).&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;Hive deserializer&lt;/strong&gt; has been bumped to 0.5.1, and now outputs booleans such as &lt;code&gt;br_cookies&lt;/code&gt; as 0 or 1 (instead of true or false) for the non-Hive output.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;non-Hive format HiveQL script&lt;/strong&gt; has been bumped to 0.0.2 and now uses the new 0 or 1 approach to booleans. This is necessary so that true/false values can be successfully loaded into Infobright.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;setup_infobright.sql&lt;/strong&gt; script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates &amp;#8216;boolean&amp;#8217; columns as tinyint(1)s anyway.&lt;/p&gt;
+
+&lt;h2 id='roadmap'&gt;Roadmap&lt;/h2&gt;
+
+&lt;p&gt;We are hugely excited about extending StorageLoader to support loading into other database and big data stores, including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='http://www.postgresql.org'&gt;PostgreSQL&lt;/a&gt; - for companies without enormous volumes&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://developers.google.com/bigquery'&gt;Google Big Query&lt;/a&gt; - for fast analysis of massive data sets&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='http://skydb.io'&gt;SkyDB&lt;/a&gt; - for event path analysis&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='http://www.mysql.com'&gt;MySQL&lt;/a&gt; - for companies without enormous volumes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We will keep you posted as we roll out support for additional database options in StorageLoader!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice</id>
@@ -138,7 +196,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -506,7 +564,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' width='427' frameborder='0' height='356' marginheight='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0' marginheight='0' height='356' src='http://www.slideshare.net/slideshow/embed_code/14696456' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

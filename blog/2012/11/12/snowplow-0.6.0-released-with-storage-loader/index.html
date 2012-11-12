@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.4.6 released - SnowPlow Analytics</title>
+	<title>SnowPlow 0.6.0 released, with the new StorageLoader - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -62,29 +62,55 @@
 	
 		<div id="contents">
 		<div class="post">
-			20 Aug 2012
-			<h1>SnowPlow 0.4.6 released</h1>
-			<p>Over the weekend we released SnowPlow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the SnowPlow JavaScript tracker.</p>
+			12 Nov 2012
+			<h1>SnowPlow 0.6.0 released, with the new StorageLoader</h1>
+			<p>We&#8217;re very pleased to start the week by releasing a new version of SnowPlow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing SnowPlow components, but let&#8217;s start by introducing StorageLoader:</p>
 
-<p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
+<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
 
-<p>You can use this feature in your JavaScript invocation code like so:</p>
-<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>SnowPlow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
-<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
-<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
+<p>StorageLoader is a Ruby application to download your SnowPlow event files from Amazon S3 and load them into databases for querying and analysis. We are launching StorageLoader with support for one database: <a href='http://www.infobright.org/'>Infobright Community Edition</a>, a high-performance columnar database based on MySQL.</p>
 
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+<p>The idea is that you configure StorageLoader with the details of the Infobright table to insert your SnowPlow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your SnowPlow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
+<!--more-->
+<p>With this setup, you will have your SnowPlow events easily accessible and queryable in a local Infobright instance - but you will can still fall back to querying the data in Hive if you wish.</p>
 
-<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
-<span class='p'>...</span>
-</code></pre>
-</div>
-<p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
+<p>The following resources should be helpful in terms of setting up StorageLoader:</p>
 
-<p>We added this capability to SnowPlow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.</p>
+<ul>
+<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> - taking you through installing and configuring StorageLoader</li>
 
-<p>Anyway I hope you like the feature and let us know how you get on with it!</p>
+<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> - explaining how to setup ICE and create the events table</li>
+
+<li><a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'>Choosing a storage module</a> - introduces the options and compares the merits of Infobright and Hive</li>
+</ul>
+
+<h2 id='other_fixes_in_060'>Other fixes in 0.6.0</h2>
+
+<p>We have made a number of other fixes across SnowPlow to prepare the ground for StorageLoader:</p>
+
+<p><strong>EmrEtlRunner</strong> has been bumped to 0.0.5, including upgrading it to Sluice 0.0.4 (which has some bug fixes around S3 path handling).</p>
+
+<p>The <strong>Hive deserializer</strong> has been bumped to 0.5.1, and now outputs booleans such as <code>br_cookies</code> as 0 or 1 (instead of true or false) for the non-Hive output.</p>
+
+<p>The <strong>non-Hive format HiveQL script</strong> has been bumped to 0.0.2 and now uses the new 0 or 1 approach to booleans. This is necessary so that true/false values can be successfully loaded into Infobright.</p>
+
+<p>The <strong>setup_infobright.sql</strong> script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates &#8216;boolean&#8217; columns as tinyint(1)s anyway.</p>
+
+<h2 id='roadmap'>Roadmap</h2>
+
+<p>We are hugely excited about extending StorageLoader to support loading into other database and big data stores, including:</p>
+
+<ul>
+<li><a href='http://www.postgresql.org'>PostgreSQL</a> - for companies without enormous volumes</li>
+
+<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> - for fast analysis of massive data sets</li>
+
+<li><a href='http://skydb.io'>SkyDB</a> - for event path analysis</li>
+
+<li><a href='http://www.mysql.com'>MySQL</a> - for companies without enormous volumes</li>
+</ul>
+
+<p>We will keep you posted as we roll out support for additional database options in StorageLoader!</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

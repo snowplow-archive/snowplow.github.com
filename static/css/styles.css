@@ -10,7 +10,8 @@
   margin-right: auto;
   margin-left: auto;
   clear: both;
-  font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif";
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  /* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
   color: #162b4f;
   font-size: 13px; }
   #container h1 {

@@ -41,6 +41,54 @@
 	
 		<div id="contents">
 	
+		<a name="Attlib launched" />
+		<div class="post">
+			11 Oct 2012
+			<h1><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></h1>
+			<p>Last night we published <a href='https://github.com/snowplow/attlib'>Attlib</a>, an open source Ruby library for extracting search marketing attribution data from referrer URLs. In this post we talk through:</p>
+
+<ol>
+<li><a href='#what_attlib_does'>What Attlib does, and how to use it</a></li>
+
+<li><a href='#install'>Installing Attlib</a></li>
+
+<li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
+
+<li><a href='#snowplow_stack'>Attlib as part of the SnowPlow stack</a></li>
+
+<li><a href='#other_languages'>Attlib in other languages</a></li>
+
+<li><a href='#snowplow_components_as_standalone_projects'>Making components of SnowPlow available as standalone open source projects</a></li>
+</ol>
+<a name='what_attlib_does' />
+<h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
+
+<p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referrer URL: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
+<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
+
+<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
+
+<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
+</code></pre>
+</div><a name='install' />
+<h3 id='installing_attlib'>Installing Attlib</h3>
+
+<p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
+
+<pre><code>sudo gem install attlib</code></pre>
+
+<p>The sourcecode is available on <a href='https://github.com/snowplow/attlib'>Github</a></p>
+<a name='search_engine_yaml' />
+<h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
+
+<p>Extracting search engine names and keywords from a referrer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
+
+<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master/data'>data</a> in the repo. <p class='more'><a href='/blog/2012/10/11/attlib-0.0.1-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/11/attlib-0.0.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Why set your data free?" />
 		<div class="post">
 			24 Sep 2012
@@ -177,34 +225,6 @@
 			<span class="comments-link"><a href="/blog/2012/08/21/amazon-glacier-launch#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.6 released!" />
-		<div class="post">
-			20 Aug 2012
-			<h1><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></h1>
-			<p>Over the weekend we released SnowPlow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the SnowPlow JavaScript tracker.</p>
-
-<p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
-
-<p>You can use this feature in your JavaScript invocation code like so:</p>
-<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>SnowPlow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
-<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
-<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
-
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-
-<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
-<span class='p'>...</span>
-</code></pre>
-</div>
-<p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
-
-<p>We added this capability to SnowPlow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.</p>
-
-<p>Anyway I hope you like the feature and let us know how you get on with it!</p>
-			<span class="comments-link"><a href="/blog/2012/08/20/snowplow-0.4.6-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -223,6 +243,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating SnowPlow with Google Tag Manager</a></li>
 		
 			<li><a href="/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader">SnowPlow 0.6.0 released, with the new StorageLoader</a></li>
 		

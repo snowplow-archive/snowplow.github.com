@@ -4,13 +4,51 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-16T09:35:54+00:00</updated>
+  <updated>2012-11-16T15:49:07+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager"/>
+    <title>Integrating SnowPlow with Google Tag Manager</title>
+    <updated>2012-11-16T00:00:00+00:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
+
+&lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Setting up a Tag Management System is a big and complicated job. Much of the literature (especially around Google Tag Manager), and discussion (especially amongst members of the web analytics community) suggests it is very easy. Whilst Google Tag Manager is a straightforward product to use, the process of setting it up is difficult, because it involves thinking through, in a very rigorous way, exactly what data should be passed between the website and GTM. If this is not done properly, GTM will not have the relevant data to pass on to the tags it manages, including SnowPlow.&lt;/li&gt;
+
+&lt;li&gt;Exacerbating the above, there is a lack of detailed literature on how to go about identifying all the data points that should be passed between your website and tag management solution. Nearly all the guides to setting up GTM that we reviewed covered only the most basic of GTM setups, which is just enough to enable page tracking. Clearly, that is not going to be sufficient for anything but the simplest blogs and brochureware sites.&lt;/li&gt;
+
+&lt;li&gt;One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As a step towards addressing the above issues, we have produced a step-by-step guide to both &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'&gt;setting up Google Tag Manager&lt;/a&gt; and &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;setting up SnowPlow within GTM&lt;/a&gt;. We hope you find it useful. We plan to produce a similar guide to setting up SnowPlow within &lt;a href='http://www.opentag.qubitproducts.com/'&gt;Qubit&amp;#8217;s OpenTag solution&lt;/a&gt; in due course.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#8217;re very excited by Google&amp;#8217;s launch of Tag Manager, and recommend all new SnowPlow users who are not currently using a tag management system integrate one as part of their SnowPlow setup. Specifically:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup SnowPlow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable&lt;/li&gt;
+
+&lt;li&gt;The processing of mapping that data from the structure defined in the tag management system to one which works with SnowPlow&amp;#8217;s data structure is the exact reverse of the analysis process that takes SnowPlow data and transforms it back into the structure that&amp;#8217;s most natural for the company performing the analysis.&lt;/li&gt;
+
+&lt;li&gt;Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our &lt;a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'&gt;Javascript tracker&lt;/a&gt;, and having a tag management program will make it easier for companies to take advantage of those upgrades.&lt;/li&gt;
+&lt;/ol&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader</id>
@@ -27,7 +65,7 @@
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -214,7 +252,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -582,7 +620,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' width='427' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' frameborder='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' scrolling='no' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

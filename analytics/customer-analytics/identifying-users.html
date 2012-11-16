@@ -51,15 +51,11 @@
 
 <li><a href='#login-events'>More robust approaches to identifying customers through tracking login events</a>. A guide to a more reliable approach to identifying users, based on using SnowPlow to track login events</li>
 </ol>
-<a name='user_id' />
-<h2 id='1_understanding_s'>1. Understanding <code>user_id</code>s</h2>
-
+<h2><a name='user_id'>1. Understanding `user_id`s</a></h2>
 <p>When a user visits a website with SnowPlow tracking, SnowPlow checks the users browser to see if a SnowPlow cookie has been set. If it has not, SnowPlow creates a new <code>user_id</code> and drops a browser cookie containing it. Then when the user returns to the site, SnowPlow will recognise the user from the <code>user_id</code> stored in the cookie on her browser.</p>
 
 <p>This approach to identifying users is in line with that employed all tag-based web analytics programs. What is unique about SnowPlow is that it exposes the user_id on every line of SnowPlow data to analysts crunching SnowPlow data.</p>
-<a name='benefits_of_user_id' />
-<h2 id='2_benefits_of_exposing_the__for_analysis'>2. Benefits of exposing the <code>user_id</code> for analysis</h2>
-
+<h2><a name='benefits_of_user_id'>2. Benefits of exposing the `user_id` for analysis</a></h2>
 <h3 id='2a_ability_to_view_a_users_complete_engagement_record'>2a. Ability to view a user&#8217;s complete engagement record</h3>
 
 <p>Analysts can quickly zoom in on a user&#8217;s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
@@ -118,9 +114,7 @@
 </code></pre>
 </div>
 <p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
-<a name='login-events' />
-<h2 id='3_more_sophisticated_approaches_to_user_identification_login_events'>3. More sophisticated approaches to user identification: login events</h2>
-
+<h2><a name='login-events'>3. More sophisticated approaches to user identification: login events</a></h2>
 <p>Whilst exposing the <code>user_id</code> makes slicing data by user easy for an analyst, relying on cookies to reliably identify users is risky for a number of reasons:</p>
 
 <ol>
@@ -131,19 +125,21 @@
 
 <p>Websites where users login, however, have the opportunity to identify users much more reliably. It is straightforward to incorporate this additional data into SnowPlow, to make customer identification more robust:</p>
 
-<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/Integrating-SnowPlow-into-your-website#wiki-events'>SnowPlow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured in the SnowPlow event tracker. The values should be set as follows:</p>
+<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>SnowPlow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured in the SnowPlow event tracker. The values should be set as follows:</p>
 
 <pre><code>event_action: &#39;login&#39;
-event_value: login_id</code></pre>
+event_label: login_id</code></pre>
 
-<p>where the <code>login_id</code> is the <code>user_id</code> as defined on the login system, rather than SnowPlow&#8217;s own <code>user_id</code>. These fields then become available in SnowPlow in the <code>ev_action</code> and <code>ev_value</code> fields. So, to create a map of SnowPlow <code>user_id</code>s to the <code>login_id</code>s employed in your login, you can run the following query:</p>
+<p>where the <code>login_id</code> is the <code>user_id</code> as defined on the login system, rather than SnowPlow&#8217;s own <code>user_id</code>. This can be accomplished using the following Javascript to execute the event tracker. (Full documentation on the SnowPlow evene tracker can be found <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>here</a>).</p>
+
+<p>These fields then become available in SnowPlow in the <code>ev_action</code> and <code>ev_label</code> fields. So, to create a map of SnowPlow <code>user_id</code>s to the <code>login_id</code>s employed in your login, you can run the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
 <span class='n'>user_id</span> <span class='k'>AS</span> <span class='n'>snowplow_user_id</span><span class='p'>,</span>
-<span class='n'>ev_value</span> <span class='k'>AS</span> <span class='n'>login_id</span>
+<span class='n'>ev_label</span> <span class='k'>AS</span> <span class='n'>login_id</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_value</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_label</span>
 </code></pre>
 </div>
 <p>When a user logs in to a service from multiple computers, each SnowPlow <code>user_id</code>, associated with each computer, will be matched against their single <code>login_id</code>. (I.e. there will be a many-to-one relationship between Snowplow <code>user_id</code> and <code>login_id</code>.) To perform customer analytics using the more robust method of user identification, we simply aggregate over (<code>GROUP BY</code>) <code>login_id</code> rather than SnowPlow <code>user_id</code>.</p>

@@ -43,14 +43,26 @@
 		<div class="post">
 			27 Nov 2012
 			<h1>SnowPlow 0.6.1 released, with lots of small improvements</h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.1</strong>. This is a release with lots of small improvements and bug fixes, plus some neat new features (especially in terms of new data being tracked). We&#8217;ll start by going through the updates to the JavaScript tracker, because most of the changes in the rest of the system flow through from those tracker improvements.</p>
+			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.1</strong>. This release includes updates:</p>
+
+<ol>
+<li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
+
+<li><strong>Javascript tracker updates</strong>. A number of updates have been made to make the Javascript tracker more robust</li>
+
+<li><strong>Updates to the ETL flow</strong> so that the <code>user_agent</code> string and <code>platform</code> captured and stored in Hive / Infobright</li>
+
+<li><strong>Improved EmrEtlRunner command line options</strong> now provide more flexibility when writing your data to storage</li>
+
+<li><strong>Bug fixes</strong> related to loading SnowPlow data into Infobright</li>
+</ol>
 
 <p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
 
 <ul>
 <li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
 
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='www.over-blog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
 
 <li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
 </ul>
@@ -79,7 +91,7 @@
 
 <h3 id='new_tracking_data'>New tracking data</h3>
 
-<p>Version 0.8.0 of the JavaScript tracker now passes some additional data along to the SnowPlow collector. This additional data is as follows:</p>
+<p>Version 0.8.0 of the JavaScript tracker now passes additional data along to the SnowPlow collector. This additional data is as follows:</p>
 
 <ul>
 <li><strong>Tracker version</strong> - so you will always know which version of the JavaScript tracker generated a given SnowPlow event</li>

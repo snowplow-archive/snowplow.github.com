@@ -4,13 +4,157 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-16T15:49:07+00:00</updated>
+  <updated>2012-11-28T10:40:14+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released"/>
+    <title>SnowPlow 0.6.1 released, with lots of small improvements</title>
+    <updated>2012-11-27T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re happy to announce our next SnowPlow release - version &lt;strong&gt;0.6.1&lt;/strong&gt;. This is a release with lots of small improvements and bug fixes, plus some neat new features (especially in terms of new data being tracked). We&amp;#8217;ll start by going through the updates to the JavaScript tracker, because most of the changes in the rest of the system flow through from those tracker improvements.&lt;/p&gt;
+
+&lt;p&gt;Before we start - a big thanks to the community members who helped out on this release in a big way:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://github.com/ramn'&gt;Simon Andersson&lt;/a&gt; @ &lt;a href='http://www.qwaya.com'&gt;Qwaya&lt;/a&gt; substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/moncaubeig'&gt;Gilles Moncaubeig&lt;/a&gt; @ &lt;a href='www.over-blog.com/'&gt;OverBlog&lt;/a&gt; contributed the user fingerprinting code - thanks Gilles!&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; @ &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt; continued his great work on EmrEtlRunner with improved command line options&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--more--&gt;
+&lt;h2 id='javascript_tracker_updates'&gt;JavaScript tracker updates&lt;/h2&gt;
+
+&lt;p&gt;We have released a new version of the JavaScript tracker, &lt;strong&gt;0.8.0&lt;/strong&gt;. As always, we are hosting this new version on CloudFront if you don&amp;#8217;t want to host it yourself:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But before you update your tags, we need to share a few important things about this new version, including a &lt;strong&gt;breaking change&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;h3 id='changes_to_the_javascript_api'&gt;Changes to the JavaScript API&lt;/h3&gt;
+
+&lt;p&gt;Three main changes have been made to the JavaScript tracker&amp;#8217;s API - please note that the first is a &lt;strong&gt;breaking change&lt;/strong&gt;, while the other two deprecate some existing functions (and introduce new ones):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The tracker now GETs &lt;code&gt;i&lt;/code&gt; not &lt;code&gt;ice.png&lt;/code&gt; &lt;strong&gt;(BREAKING CHANGE)&lt;/strong&gt; - version 0.8.0 of the JavaScript tracker now GETs a transparent 1x1 GIF called &lt;code&gt;i&lt;/code&gt;, no longer &lt;code&gt;ice.png&lt;/code&gt;. If you are using the CloudFront Collector, you &lt;strong&gt;must&lt;/strong&gt; upload our &lt;a href='https://github.com/snowplow/snowplow/blob/master/2-collectors/cloudfront-collector/static/i?raw=true'&gt;&lt;code&gt;i&lt;/code&gt;&lt;/a&gt; pixel to sit in your S3 bucket alongside &lt;code&gt;ice.png&lt;/code&gt;. Don&amp;#8217;t forget to make it publically readable. &lt;a href='https://github.com/shermozle/SnowCannon'&gt;SnowCannon&lt;/a&gt;, the node.js collector, already supports &lt;code&gt;i&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;The &lt;code&gt;setAccount()&lt;/code&gt; function was badly named. We have added a new function, &lt;code&gt;setCollectorCf()&lt;/code&gt;, which does the exact same thing, and we will remove &lt;code&gt;setAccount()&lt;/code&gt; in a future version. If you continue to use &lt;code&gt;setAccount()&lt;/code&gt;, then a warning message will be printed to &lt;code&gt;console.log&lt;/code&gt;, but it will still work&lt;/li&gt;
+
+&lt;li&gt;The &lt;code&gt;getTracker()&lt;/code&gt; function (which not many people need to use) was badly named. As wth point 2 above: we have added &lt;code&gt;getTrackerCf()&lt;/code&gt; and &lt;code&gt;getTrackerUrl()&lt;/code&gt;, and deprecated &lt;code&gt;getTracker()&lt;/code&gt; for now&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As always, our JavaScript tracker&amp;#8217;s current API is fully documented on our Wiki, on the &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker'&gt;JavaScript Tracker&lt;/a&gt; page.&lt;/p&gt;
+
+&lt;h3 id='new_tracking_data'&gt;New tracking data&lt;/h3&gt;
+
+&lt;p&gt;Version 0.8.0 of the JavaScript tracker now passes some additional data along to the SnowPlow collector. This additional data is as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Tracker version&lt;/strong&gt; - so you will always know which version of the JavaScript tracker generated a given SnowPlow event&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;User fingerprint&lt;/strong&gt; - we are still working on a new collector which supports cross-domain user tracking. In the meantime, we are releasing an experimental feature: a &amp;#8216;user fingerprint&amp;#8217; based on various (hopefully unique) attributes of the user&amp;#8217;s browser. Many thanks to &lt;a href='https://github.com/moncaubeig'&gt;Gilles&lt;/a&gt; for contributing this feature; to read more about this, please take a look at &lt;a href='https://github.com/snowplow/snowplow/issues/70'&gt;issue #70&lt;/a&gt; in GitHub&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Timezone&lt;/strong&gt; - tells you what timezone the user in, recording the &lt;a href='http://en.wikipedia.org/wiki/Tz_database'&gt;Olsen key&lt;/a&gt; for the user&amp;#8217;s timezone&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Color depth&lt;/strong&gt; - the bit depth of the browser&amp;#8217;s color palette for displaying images (in bits per pixel)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We have updated the ETL and storage systems (e.g. Hive and Infobright table definitions) to extract and store these new fields.&lt;/p&gt;
+
+&lt;p&gt;We have updated the &lt;a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'&gt;SnowPlow Tracker Protocol&lt;/a&gt; page on our Wiki with these additions.&lt;/p&gt;
+
+&lt;h2 id='etl_and_storage_improvements'&gt;ETL and storage improvements&lt;/h2&gt;
+
+&lt;p&gt;This release includes various improvements to SnowPlow ETL and storage which are unrelated to the JavaScript tracker changes above. To break these down:&lt;/p&gt;
+
+&lt;h3 id='additional_data_being_saved'&gt;Additional data being saved&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Useragent&lt;/strong&gt; - the raw browser useragent is now being logged in a new &lt;code&gt;useragent&lt;/code&gt; field. Previously we were throwing this useful data away&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Platform&lt;/strong&gt; - the tracker&amp;#8217;s &lt;code&gt;platform&lt;/code&gt; type is now extracted and stored. The JavaScript tracker always sets this field to &lt;code&gt;web&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id='bug_fixes'&gt;Bug fixes&lt;/h3&gt;
+
+&lt;p&gt;Just one bug fix - in the StorageLoader, we changed the field encloser for Infobright to &lt;code&gt;NULL&lt;/code&gt;, where previously it was &lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt; (two empty quotes). This was to fix &lt;a href='https://github.com/snowplow/snowplow/issues/88'&gt;issue #88&lt;/a&gt;, where Infobright was throwing an error and dying if a field&amp;#8217;s value started with a double-quote.&lt;/p&gt;
+
+&lt;h3 id='improved_emretlrunner_commandline_options'&gt;Improved EmrEtlRunner command-line options&lt;/h3&gt;
+
+&lt;p&gt;EmrEtlRunner now has some improved command-line options:&lt;/p&gt;
+
+&lt;p&gt;Firstly, the &lt;code&gt;--skip&lt;/code&gt; argument now can take a list of individual steps to skip. So for example you could run &lt;strong&gt;only&lt;/strong&gt; the Hive job with the command-line option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec snowplow-emr-etl-runner --skip staging,archive --config ./config.yml &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Secondly, there is now a new option, &lt;code&gt;--process-bucket&lt;/code&gt;. This runs the Hive job only on the contents of the specified bucket. This implies &lt;code&gt;--skip staging,archive&lt;/code&gt; as well. An example of usage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec snowplow-emr-etl-runner --process-bucket s3n://my-logs-to-process --config ./config.yml&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Many thanks to &lt;a href='https://github.com/mtibben'&gt;Mike Tibben&lt;/a&gt; for contributing these new options!&lt;/p&gt;
+
+&lt;h3 id='placeholders_for_event_and_event_id'&gt;Placeholders for event and event_id&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Event&lt;/strong&gt; - we have renamed the &lt;code&gt;event_name&lt;/code&gt; field in Infobright to simply &lt;code&gt;event&lt;/code&gt;. This is still a placeholder (it will be populated in a future version of SnowPlow)&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Event ID&lt;/strong&gt; - there has been some confusion over the uniqueness of the current &lt;code&gt;txn_id&lt;/code&gt; field - see &lt;a href='https://github.com/snowplow/snowplow/issues/89'&gt;issue #89&lt;/a&gt; for the discussion. We plan on adding a properly unique &lt;code&gt;event_id&lt;/code&gt; for each event in the ETL layer; in the meantime we have added the &lt;code&gt;event_id&lt;/code&gt; field in as a placeholder&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id='upgrading_to_the_new_version'&gt;Upgrading to the new version&lt;/h2&gt;
+
+&lt;h3 id='tracker_and_collector'&gt;Tracker and collector&lt;/h3&gt;
+
+&lt;p&gt;We have discussed above how to update your JavaScript tracker and CloudFront collector to support this new version 0.6.1. If you are using &lt;a href='https://github.com/shermozle/SnowCannon'&gt;SnowCannon&lt;/a&gt;, the node.js collector, you don&amp;#8217;t have to modify it - it already supports the new &lt;code&gt;i&lt;/code&gt; pixel.&lt;/p&gt;
+
+&lt;h3 id='etl'&gt;ETL&lt;/h3&gt;
+
+&lt;p&gt;To upgrade your ETL system, first re-deploy EmrEtlRunner from GitHub as per the &lt;a href='https://github.com/snowplow/snowplow/wiki/deploying-emretlrunner'&gt;EmrEtlRunner Setup Guide&lt;/a&gt;, and then update the ETL dependencies at the bottom of your &lt;code&gt;config.yml&lt;/code&gt; file like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  :serde_version: 0.5.2
+  :hive_hiveql_version: 0.5.1
+  :non_hive_hiveql_version: 0.0.3&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='storage'&gt;Storage&lt;/h3&gt;
+
+&lt;h4 id='hive'&gt;Hive&lt;/h4&gt;
+
+&lt;p&gt;If you are only using Hive for storage and analytics, you do not need to do anything to support this new release - because we add all new fields to the end of the file format, and field renames (like &lt;code&gt;event_name&lt;/code&gt; to &lt;code&gt;event&lt;/code&gt;) don&amp;#8217;t affect Hive on Amazon EMR.&lt;/p&gt;
+
+&lt;h4 id='infobright'&gt;Infobright&lt;/h4&gt;
+
+&lt;p&gt;If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4-storage/infobright-storage/migrate_to_003.sh&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this script will create a new table, &lt;code&gt;events_003&lt;/code&gt; (version 0.0.3 of the table definition) in your &lt;code&gt;snowplow&lt;/code&gt; database, copying across all your data from your existing &lt;code&gt;events&lt;/code&gt; table, which will not be modified in any way.&lt;/p&gt;
+
+&lt;p&gt;Once you have run this, don&amp;#8217;t forget to update your StorageLoader&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; to load into the new &lt;code&gt;events_003&lt;/code&gt; table, not your old &lt;code&gt;events&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage:
+  :type: infobright
+  :database: snowplow
+  :table:    events_003 # NOT &amp;quot;events&amp;quot; any more&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;If you have any problems with version 0.6.1, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And do let us know if the new features - such as user fingerprinting - are useful!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager</id>
@@ -620,7 +764,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' scrolling='no' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' width='427' frameborder='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

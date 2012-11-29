@@ -4,13 +4,39 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-28T16:48:58+00:00</updated>
+  <updated>2012-11-29T12:32:23+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released"/>
+    <title>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes</title>
+    <updated>2012-11-28T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Today we are releasing SnowPlow version &lt;strong&gt;0.6.2&lt;/strong&gt; - a clean-up release after yesterday&amp;#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This release fixes two bugs:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/pull/101'&gt;Issue #101&lt;/a&gt; - we had left in a &lt;code&gt;console.log()&lt;/code&gt; in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; @ &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt; for spotting this so quickly and fixing&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/issues/102'&gt;Issue #102&lt;/a&gt; - there was a trailing space in our initialization code, &lt;a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'&gt;&lt;code&gt;init.js&lt;/code&gt;&lt;/a&gt;, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The JavaScript Tracker&amp;#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.&lt;/p&gt;
+
+&lt;p&gt;Finally, if you haven&amp;#8217;t yet read our tutorial on &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'&gt;Integrating the JavaScript Tracker with Google Tag Manager&lt;/a&gt;, we would recommend taking a look - it makes these sorts of upgrades much easier.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released</id>
@@ -179,7 +205,7 @@
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -221,7 +247,7 @@
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -408,7 +434,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -776,7 +802,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' height='356' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' height='356' marginwidth='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

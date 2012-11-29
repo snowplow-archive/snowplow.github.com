@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.) - SnowPlow Analytics</title>
+	<title>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,20 +41,23 @@
 	
 		<div id="contents">
 		<div class="post">
-			12 Oct 2012
-			<h1>How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</h1>
-			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
+			28 Nov 2012
+			<h1>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes</h1>
+			<p>Today we are releasing SnowPlow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
+
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
+
+<p>This release fixes two bugs:</p>
 
 <ol>
-<li>How big data technologies like Apache Hive are transforming web analytics</li>
+<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
 
-<li>Howe we&#8217;ve used Hive in SnowPlow development</li>
-
-<li>How the role of Hive has changed at SnowPlow over time, including a comparison of Hive against other technologies.</li>
+<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
 </ol>
 
-<p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' height='356' marginwidth='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'>  </iframe>
+<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
+
+<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

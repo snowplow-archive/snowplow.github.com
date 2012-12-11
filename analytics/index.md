@@ -25,6 +25,7 @@ Learn about how SnowPlow data is
 2. [Customer analytics][customer-analytics]
 3. [Platform analytics][platform-analytics]
 4. [Catalogue analytics][catalogue-analytics]
+5. [Tools and techniques][tools-and-techniques]
 
 [production]: snowplow-data-production.html
 [stored]: snowplow-data-storage.html
@@ -33,3 +34,4 @@ Learn about how SnowPlow data is
 [customer-analytics]: customer-analytics/overview.html
 [platform-analytics]: platform-analytics/overview.html
 [catalogue-analytics]: catalogue-analytics/overview.html
+[tools-and-techniques]: tools-and-techniques/overview.html

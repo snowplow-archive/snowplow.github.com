@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Introduction - SnowPlow Analytics</title>
+	<title>Overview - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,43 +40,41 @@
 </div>
 	
 		<div id="contents">
-<h1 id='the_snowplow_analytics_cookbook'>The SnowPlow Analytics Cookbook</h1>
+<h1 id='tools_and_techniques'>Tools and techniques</h1>
 
-<p>SnowPlow enables analysts to perform a wide variety of both simple and sophisticated analytics on your web analytics data.</p>
+<p>Rather than focus on specific types of business analysis, this section describes general purpose analytic techniques that can be used across many types of end-user analysis, including custom, catalogue and platform analytics.</p>
 
-<p>In this section of the website (which we are building out to include more and more analyses), we provide a step-by-step guide to performing the different analyses including documenting the actual queries themselves.</p>
+<h3 id='1_converting_snowplow_data_into_a_format_suitable_for_olap_reporting_tools_eg_tableau_qlikview'>1. <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>Converting SnowPlow data into a format suitable for OLAP reporting tools e.g. Tableau, Qlikview</a></h3>
 
-<h2 id='background_to_data_analysis_in_snowplow'>Background to data analysis in SnowPlow</h2>
+<p>Many business intelligence tools treat data as a cube and enable analysts to slice, dice, drill down, roll up and pivot data sets across different dimensions. This type of analysis is typically called <a href='http://en.wikipedia.org/wiki/OLAP_cube'>OLAP</a>, and is the main approach to reporting taken by a range of business intelligence tools including Tableau, Qlikview, Pentaho and Microstrategy.</p>
 
-<p>Learn about how SnowPlow data is</p>
+<p>In order to use OLAP reporting tools like Tableau and Qlikview, you need to restructure SnowPlow data from what is effectively a log file format (where each line represents one event that occured in a specific point of time) into a format suitable for OLAP analysis. (For this reason, you cannot run tools like Tableau and Qlikview directly on top of SnowPlow data.) In <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>this guide</a>, we explain what data structure is necessary for OLAP analysis, and how to quickly restructure SnowPlow data to enable the use of these tools.</p>
 
-<ol>
-<li><a href='snowplow-data-production.html'>produced</a></li>
+<h3 id='2_using_mahout_recommendation_engines_to_deliver_content_or_product_recommendations_with_snowplow'>2. <a href='/analytics/tools-and-techniques/using-mahout-recommendation-engines-to-deliver-content-or-product-recommendations-with-snowplow.html'>Using Mahout recommendation engines to deliver content or product recommendations with SnowPlow</a></h3>
 
-<li><a href='snowplow-data-storage.html'>stored</a></li>
-
-<li><a href='snowplow-table-structure.html'>structured</a></li>
-</ol>
-
-<h2 id='performing_analysis_in_snowplow'>Performing analysis in SnowPlow</h2>
-
-<ol>
-<li><a href='basic-recipes.html'>Basic recipes</a></li>
-
-<li><a href='customer-analytics/overview.html'>Customer analytics</a></li>
-
-<li><a href='platform-analytics/overview.html'>Platform analytics</a></li>
-
-<li><a href='catalogue-analytics/overview.html'>Catalogue analytics</a></li>
-
-<li><a href='tools-and-techniques/overview.html'>Tools and techniques</a></li>
-</ol>
+<p>Coming soon.</p>
 </div>
 
  <div id="sidebar">
 	<h1>Analysts Cookbook</h1>
 	<p>
-		<a href="/analytics/index.html" class="active">Overview</a>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/tools-and-techniques/overview.html" class="active">Tools and techniques</a>
 		
 		<ul>
 			
@@ -114,9 +112,17 @@
 					
 				
 					
+				
+					
+				
+					
+									
+					
+				
+					
 						
 							
-							<li class="active"><a href="/analytics/index.html" class="active">Introduction</a></li>
+							<li class="active"><a href="/analytics/tools-and-techniques/overview.html" class="active">Overview</a></li>
 									
 									
 					
@@ -131,18 +137,6 @@
 				
 					
 				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -207,218 +201,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-production.html">Data production</a></li>
-									
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-storage.html">Data storage</a></li>
-									
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -440,9 +222,17 @@
 					
 						
 							
-							<li><a href="/analytics/snowplow-table-structure.html">Data structure</a></li>
+							<li><a href="/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html">Converting SnowPlow data into a format suitable for OLAP</a></li>
 									
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -507,18 +297,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -532,7 +310,7 @@
 					
 						
 							
-							<li><a href="/analytics/basic-recipes.html">Basic recipes</a></li>
+							<li><a href="/analytics/tools-and-techniques/using-mahout-recommendation-engines-to-deliver-content-or-product-recommendations-with-snowplow.html">Using Mahout recommendation engines to deliver content or product recommendations with SnowPlow</a></li>
 									
 									
 					
@@ -543,6 +321,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -614,18 +400,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -639,6 +413,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -710,18 +492,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -735,6 +505,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -806,18 +584,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -831,6 +597,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -902,18 +676,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -927,6 +689,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -998,18 +768,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1023,6 +781,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1060,23 +826,191 @@
 					
 				
 			
-		</ul>
-		
-	</p>
-	<p>
-		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/tools-and-techniques/overview.html" >Tools and techniques</a>
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
 		
 	</p>
 </div>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Introduction - SnowPlow Analytics</title>
+	<title>Converting SnowPlow data into a format suitable for OLAP - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -40,43 +40,116 @@
 </div>
 	
 		<div id="contents">
-<h1 id='the_snowplow_analytics_cookbook'>The SnowPlow Analytics Cookbook</h1>
+<h1 id='converting_snowplow_data_into_a_format_suitable_for_olap'>Converting SnowPlow data into a format suitable for OLAP</h1>
 
-<p>SnowPlow enables analysts to perform a wide variety of both simple and sophisticated analytics on your web analytics data.</p>
+<p>SnowPlow data is stored effectively in a log file format, where each line of data represents one &#8220;event&#8221; on a particular user journey. This data structure is unsuitable for traditional BI / analysis tools like Tableau or Pentaho. In this section of the cookbook, we describe how to restructure SnowPlow event data into a format suitable for OLAP analysis, so that it can be visualised using tools like Tableau and Pentaho.</p>
 
-<p>In this section of the website (which we are building out to include more and more analyses), we provide a step-by-step guide to performing the different analyses including documenting the actual queries themselves.</p>
+<p>Although this guide is written specifically for SnowPlow data, the basic approach to converting log format data into a structure suitable for OLAP data should work for other data sets as well.</p>
 
-<h2 id='background_to_data_analysis_in_snowplow'>Background to data analysis in SnowPlow</h2>
-
-<p>Learn about how SnowPlow data is</p>
+<h3 id='contents'>Contents</h3>
 
 <ol>
-<li><a href='snowplow-data-production.html'>produced</a></li>
+<li><a href='#why'>Why use OLAP?</a></li>
 
-<li><a href='snowplow-data-storage.html'>stored</a></li>
+<li><a href='#what'>What is OLAP exactly?</a></li>
 
-<li><a href='snowplow-table-structure.html'>structured</a></li>
+<li><a href='#structure'>What structure does the data need to be in to support an OLAP cube?</a></li>
+
+<li><a href='#practical'>Some practical considerations related to databases and tables</a></li>
+
+<li><a href='#conversion'>Converting SnowPlow event log data into dimensional OLAP structure: step by step guide</a></li>
+
+<li><a href='#tableau-test'>Testing the results with Tableau</a></li>
+
+<li><a href='#qlikview-test'>Testing the results with Qlikview</a></li>
+
+<li><a href='#limitations'>Limitations in OLAP analysis</a></li>
 </ol>
-
-<h2 id='performing_analysis_in_snowplow'>Performing analysis in SnowPlow</h2>
+<a name='why'><h3>1. Why use OLAP?</h3> </a>
+<p>OLAP tools like Tableau, Pentaho and Microstrategy are very popular amongst data analysts because they</p>
 
 <ol>
-<li><a href='basic-recipes.html'>Basic recipes</a></li>
+<li>Make it easy to slice data along different dimensions, exploring different relationships over time</li>
 
-<li><a href='customer-analytics/overview.html'>Customer analytics</a></li>
+<li>They do not require much technical knowledge to use. (E.g. no need to know SQL or Python).</li>
 
-<li><a href='platform-analytics/overview.html'>Platform analytics</a></li>
-
-<li><a href='catalogue-analytics/overview.html'>Catalogue analytics</a></li>
-
-<li><a href='tools-and-techniques/overview.html'>Tools and techniques</a></li>
+<li>They are well suited to &#8220;train of thought analysis&#8221; i.e. moving quickly between one view of the data and another, as insights derived from the first immediately lead to questions that are answered by the second.</li>
 </ol>
+
+<p>OLAP tools are especially well suited for SnowPlow web analytics data:</p>
+
+<ol>
+<li>There are a wide range of dimensions we might want to slice and dice web analytics data by, including time, user, visit, geography, device, browser, type of web page, web page, content and/or product, acquisition channel&#8230;</li>
+
+<li>There are a wide variety of metrics we might want to compare between dimension combinations e.g. unique users, visits, page views, events, purchases, conversion rates, revenue</li>
+</ol>
+<a name='what'><h3>2. What is OLAP exactly?</h3> </a>
+<h4 id='21_olap_overview'>2.1 OLAP overview</h4>
+
+<p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for &#8220;online analytics processing&#8221;, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
+
+<p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they&#8217;re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
+
+<p>When we say OLAP cube, then, we visualise a &#8220;cube&#8221; of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a &#8220;hyper-cube&#8221;, but it doens&#8217;t really matter.)</p>
+
+<h4 id='22_olap_operations'>2.2 OLAP operations</h4>
+
+<h5 id='221_slicing_data'>2.2.1 Slicing data</h5>
+
+<p>We &#8220;slice&#8221; data when we pick two dimensions to view a particular metric by. The analogy is to take a &#8220;slice&#8221; through an OLAP cube to produce a 2D data set.</p>
+
+<h5 id='222_dice_data'>2.2.2. Dice data</h5>
+
+<p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called &#8220;dice&#8221;.</p>
+
+<h4 id='223_drill_up_and_drill_down'>2.2.3. Drill up and drill down</h4>
+
+<p>OLAP dimensions are often organised in a hierarchy. To gives some examples:</p>
+
+<pre><code>Year -&gt; Quarter -&gt; Month -&gt; Day -&gt; Hour -&gt; Minute -&gt; Second
+
+Organic referrers -&gt; Google -&gt; specific keywords
+
+Browser -&gt; browser version
+
+Category -&gt; Subcategory -&gt; Product</code></pre>
+
+<p>TO COMPLETE</p>
+
+<p>&#8230;</p>
+<a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
+<p>TO WRITE</p>
+<a name='practical'><h3>4. Some practical considerations related to databases and tables</h3></a>
+<p>TO WRITE</p>
+<a name='conversion'><h3>5. Converting SnowPlow event log data into dimensional OLAP structure: step by step guide</h3></a>
+<p>TO WRITE</p>
+<a name='tableau-test'><h3>6. Testing the results with Tableau</h3></a>
+<p>TO WRITE</p>
+<a name='qlikview-test'><h3>7. Testing the results with Qlikview</h3></a>
+<p>TO WRITE</p>
+<a name='limitations'><h3>8. Limitations in OLAP analysis</h3></a>
 </div>
 
  <div id="sidebar">
 	<h1>Analysts Cookbook</h1>
 	<p>
-		<a href="/analytics/index.html" class="active">Overview</a>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/tools-and-techniques/overview.html" class="active">Tools and techniques</a>
 		
 		<ul>
 			
@@ -114,9 +187,17 @@
 					
 				
 					
+				
+					
+				
+					
+									
+					
+				
+					
 						
 							
-							<li class="active"><a href="/analytics/index.html" class="active">Introduction</a></li>
+							<li><a href="/analytics/tools-and-techniques/overview.html">Overview</a></li>
 									
 									
 					
@@ -131,18 +212,6 @@
 				
 					
 				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -207,218 +276,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-production.html">Data production</a></li>
-									
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-storage.html">Data storage</a></li>
-									
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -440,9 +297,17 @@
 					
 						
 							
-							<li><a href="/analytics/snowplow-table-structure.html">Data structure</a></li>
+							<li class="active"><a href="/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html" class="active">Converting SnowPlow data into a format suitable for OLAP</a></li>
 									
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -507,18 +372,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -532,7 +385,7 @@
 					
 						
 							
-							<li><a href="/analytics/basic-recipes.html">Basic recipes</a></li>
+							<li><a href="/analytics/tools-and-techniques/using-mahout-recommendation-engines-to-deliver-content-or-product-recommendations-with-snowplow.html">Using Mahout recommendation engines to deliver content or product recommendations with SnowPlow</a></li>
 									
 									
 					
@@ -543,6 +396,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -614,18 +475,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -639,6 +488,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -710,18 +567,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -735,6 +580,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -806,18 +659,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -831,6 +672,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -902,18 +751,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -927,6 +764,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -998,18 +843,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1023,6 +856,14 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1060,23 +901,191 @@
 					
 				
 			
-		</ul>
-		
-	</p>
-	<p>
-		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/tools-and-techniques/overview.html" >Tools and techniques</a>
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
 		
 	</p>
 </div>

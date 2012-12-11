@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-11-29T12:32:23+00:00</updated>
+  <updated>2012-12-11T12:33:58+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -802,7 +802,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' height='356' marginwidth='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' marginheight='0' width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' marginwidth='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

@@ -90,7 +90,7 @@
 <p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for &#8220;online analytics processing&#8221;, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
 
 <p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they&#8217;re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
-
+<p style='text-align:center;'><img width='250' src='/static/img/olap/example-cube.png' alt='olap cube' /></p>
 <p>When we say OLAP cube, then, we visualise a &#8220;cube&#8221; of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a &#8220;hyper-cube&#8221;, but it doens&#8217;t really matter.)</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -100,11 +100,11 @@
 <h4 id='221_slicing_data'>2.2.1 Slicing data</h4>
 
 <p>We &#8220;slice&#8221; data when we pick two dimensions to view a particular metric by. The analogy is to take a &#8220;slice&#8221; through an OLAP cube to produce a 2D data set.</p>
-
+<p style='text-align:center;'><img width='180' src='/static/img/olap/slice.png' alt='slice olap cube' /></p>
 <h4 id='222_dice_data'>2.2.2. Dice data</h4>
 
 <p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called &#8220;dice&#8221;.</p>
-
+<p style='text-align:center;'><img width='140' src='/static/img/olap/dice.png' alt='dice olap cube' /></p>
 <h4 id='223_drill_up_and_drill_down'>2.2.3. Drill up and drill down</h4>
 
 <p>OLAP dimensions are often organised in a hierarchy. To gives some examples:</p>
@@ -130,7 +130,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <li>To better understand a relationship once one has been spotted. (Does product mix <em>only</em> vary by city? Or is it actually that user segments vary by city, and it is user segment that is predictive of product mix?)</li>
 </ol>
-
+<p style='text-align:center;'><img width='140' src='/static/img/olap/pivot.png' alt='pivot olap cube' /></p>
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
 <p>In traditional OLAP parlance, at the heart of OLAP data is a &#8220;fact table&#8221;. In SnowPlow paralance, that fact table is really an &#8220;events&#8221; table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:</p>
@@ -149,7 +149,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <p>With OLAP analysis, increased granularity doesn&#8217;t just support better drill down facilities. It also enables more pivotting possibilities - as you can slice and dice more combinations of metrics against one another.</p>
 
-<p>So granularity is good. The good news is that SnowPlow data is very granular: at least one line of data per event. If we wanted (and it&#8217;s perfectly legitimate to), we could feed SnowPlow data into our OLAP reporting tool without aggregating it at all. However, there is a cost associated with this level of granularity: it means that the data volumes are greater, and so it is likely that the reporting tool will work more slowly. This used to be a much more important consideration (when RAM wasn&#8217;t so cheap, and before columnar databases like Infobright and SSD drives). However, it is still a reasonable consideration today.</p>
+<p>So granularity is good. The good news is that SnowPlow data is very granular: at least one line of data per event. If we wanted (and it&#8217;s perfectly legitimate to), we could feed SnowPlow data into our OLAP reporting tool without aggregating it at all. However, there is a cost associated with this level of granularity: it means that the data volumes are greater, and so it is likely that the reporting tool will work more slowly. This used to be a much more important consideration (when RAM wasn&#8217;t so cheap, and before columnar databases like Infobright, in-memory databases and SSD drives). However, it is still a reasonable consideration today.</p>
 
 <p>One example of an approach to aggregating SnowPlow data: we could aggregate it at the level of the user, session and event. (Be it a particular page load, product add to basket etc.) In this case, if we had a user who had visited a particular page 3x in one session, we would only have one line of data representing those three page views. (As opposed to having three in our original SnowPlow events data set.) This would reduce our volume of data somewhat (likely by a factor of 0.1 - 0.25), but still give us a lot of reporting flexibility. (We&#8217;d be able to drill down to the user and action level.) We would not, however, be able to perform any path analysis. (I.e. look at the sequence of events in a particular user session.) In any case, this type of analysis isn&#8217;t well supported by OLAP tools like Tableau.</p>
 
@@ -166,6 +166,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> 
 <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s2'>&quot;signup&quot;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
 </code></pre>
 </div>
 <p>However, to derive the cohort by user, we&#8217;ve had to scan all the rows of data for each of our users. When we feed our data into an OLAP reporting tool like Tableau, we need a column in it called &#8220;cohort&#8221;, and for each event for each user, that column needs to be populated with the results from the above query.</p>
@@ -189,7 +190,11 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <p>In both the above cases, we take data that we deduce about a dimension by scanning multiple rows of events data (in each case, about the &#8220;user&#8221; dimension), and add it into an additional column so that it is available on every row. This means that it is straightforward for the OLAP tool to identify events that should be aggregated together when slicing and dicing by that dimension, without having to scan multiple lines of data.</p>
 <a name='practical'><h3>4. Some practical considerations related to databases and tables</h3></a>
-<p>TO WRITE</p>
+<p>OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central &#8220;fact table&#8221; of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.</p>
+<p style='text-align:center;'><img src='/static/img/olap/star-schema.png' alt='pivot olap cube' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
+<p>Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single &#8220;fat&#8221; fact table with all the relevant dimensions:</p>
+<p style='text-align:center;'><img width='500' src='/static/img/olap/desired-structure-for-olap.png' alt='desired structure' /></p>
+<p>Columnar databases make this possible because they make &#8220;columns cheap&#8221;: query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves.</p>
 <a name='conversion'><h3>5. Converting SnowPlow event log data into dimensional OLAP structure: step by step guide</h3></a>
 <p>TO WRITE</p>
 <a name='tableau-test'><h3>6. Testing the results with Tableau</h3></a>

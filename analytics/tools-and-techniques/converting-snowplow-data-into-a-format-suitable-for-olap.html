@@ -90,7 +90,7 @@
 <p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for &#8220;online analytics processing&#8221;, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
 
 <p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they&#8217;re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
-<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube.png' width='250' /></p>
+<p style='text-align:center;'><img alt='olap cube' width='250' src='/static/img/olap/example-cube.png' /></p>
 <p>When we say OLAP cube, then, we visualise a &#8220;cube&#8221; of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a &#8220;hyper-cube&#8221;, but it doens&#8217;t really matter.)</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -100,11 +100,11 @@
 <h4 id='221_slicing_data'>2.2.1 Slicing data</h4>
 
 <p>We &#8220;slice&#8221; data when we pick two dimensions to view a particular metric by. The analogy is to take a &#8220;slice&#8221; through an OLAP cube to produce a 2D data set.</p>
-<p style='text-align:center;'><img alt='slice olap cube' src='/static/img/olap/slice.png' width='180' /></p>
+<p style='text-align:center;'><img alt='slice olap cube' width='180' src='/static/img/olap/slice.png' /></p>
 <h4 id='222_dice_data'>2.2.2. Dice data</h4>
 
 <p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called &#8220;dice&#8221;.</p>
-<p style='text-align:center;'><img alt='dice olap cube' src='/static/img/olap/dice.png' width='140' /></p>
+<p style='text-align:center;'><img alt='dice olap cube' width='140' src='/static/img/olap/dice.png' /></p>
 <h4 id='223_drill_up_and_drill_down'>2.2.3. Drill up and drill down</h4>
 
 <p>OLAP dimensions are often organised in a hierarchy. To gives some examples:</p>
@@ -130,7 +130,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <li>To better understand a relationship once one has been spotted. (Does product mix <em>only</em> vary by city? Or is it actually that user segments vary by city, and it is user segment that is predictive of product mix?)</li>
 </ol>
-<p style='text-align:center;'><img alt='pivot olap cube' src='/static/img/olap/pivot.png' width='140' /></p>
+<p style='text-align:center;'><img alt='pivot olap cube' width='140' src='/static/img/olap/pivot.png' /></p>
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
 <p>In traditional OLAP parlance, at the heart of OLAP data is a &#8220;fact table&#8221;. In SnowPlow paralance, that fact table is really an &#8220;events&#8221; table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:</p>
@@ -174,32 +174,351 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <p>To take another example: say we want to bucket users again, but this time by the channel that drove them to our website in the first place. Again, to work this out, we need to look at the first event for each of those users, and see what drove him / her there. Our SQL query would look like:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
-<span class='n'>mkt_source</span> <span class='k'>AS</span> <span class='n'>first_referer</span>
-<span class='k'>FROM</span> <span class='n'>events_pbz</span> <span class='n'>e</span>
+<span class='n'>mkt_source</span> <span class='k'>AS</span> <span class='n'>first_referrer</span>
+<span class='k'>FROM</span> <span class='n'>events</span> <span class='n'>e</span>
 <span class='k'>INNER</span> <span class='k'>JOIN</span>
 <span class='p'>(</span> 	<span class='k'>SELECT</span> 
 	<span class='n'>user_id</span><span class='p'>,</span>
 	<span class='nf'>min</span><span class='p'>(</span><span class='nf'>concat</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)</span> <span class='p'>)</span> <span class='k'>as</span> <span class='n'>first_touch_timestamp</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_pbz`</span>
+	<span class='k'>FROM</span> <span class='ss'>`events`</span>
 	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>user_id</span> <span class='p'>)</span> <span class='n'>users</span>
 <span class='k'>ON</span> <span class='n'>users</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>first_touch_timestamp</span>
 </code></pre>
 </div>
-<p>In our modified data set for our OLAP reporting tool, we&#8217;d want a column for this data (maybe called &#8220;first referrer&#8221;) that was populated with the <code>first_referer</code> field generated by the above query.</p>
+<p>In our modified data set for our OLAP reporting tool, we&#8217;d want a column for this data (maybe called &#8220;first referrer&#8221;) that was populated with the <code>first_referrer</code> field generated by the above query.</p>
 
 <p>In both the above cases, we take data that we deduce about a dimension by scanning multiple rows of events data (in each case, about the &#8220;user&#8221; dimension), and add it into an additional column so that it is available on every row. This means that it is straightforward for the OLAP tool to identify events that should be aggregated together when slicing and dicing by that dimension, without having to scan multiple lines of data.</p>
 <a name='practical'><h3>4. Some practical considerations related to star schemas and columnar databases</h3></a>
 <p>OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central &#8220;fact table&#8221; of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.</p>
 <p style='text-align:center;'><img alt='pivot olap cube' src='/static/img/olap/star-schema.png' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
 <p>Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single &#8220;fat&#8221; fact table with all the relevant dimensions:</p>
-<p style='text-align:center;'><img alt='desired structure' src='/static/img/olap/desired-structure-for-olap.png' width='500' /></p>
+<p style='text-align:center;'><img alt='desired structure' width='500' src='/static/img/olap/desired-structure-for-olap.png' /></p>
 <p>Columnar databases make this possible because they make &#8220;columns cheap&#8221;: query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves. (Which is generally a time consuming operation.)</p>
 <a name='conversion'><h3>5. Converting SnowPlow event log data into dimensional OLAP structure: step by step guide</h3></a>
-<p>Now that we know how we need to restructure SnowPlow data, we&#8217;re in a position to define the table that will house our OLAP data.</p>
+<p>Converting SnowPlow event log data into a dimensional OLAP struture is a four step process</p>
 
-<p>TO WRITE</p>
-<a name='tableau-test'><h3>6. Testing the results with Tableau</h3></a>
+<ol>
+<li><a href='#structure-2'>Define the structure of our OLAP data table</a>, including both metric and dimension columns</li>
+
+<li><a href='#granularity'>Work out what level of granularity to use</a> i.e. what each line of data reprents (one event or a higher level of aggregation)?</li>
+
+<li><a href='#define'>Define our table</a></li>
+
+<li><a href='#compute'>Work out how to compute each line of data</a></li>
+
+<li><a href='#generate'>Generate the OLAP data</a></li>
+</ol>
+<h3><a name='structure-2'>5.1 Define the structure of our OLAP data table, including both metric and dimension columns</a></h3>
+<h3 id='511_metrics'>5.1.1 Metrics</h3>
+
+<p>Let us start with the metrics we want to include, and make sure we have all the basics we&#8217;d expect for any website:</p>
+
+<ul>
+<li>Uniques</li>
+
+<li>Visits</li>
+
+<li>Page views</li>
+</ul>
+
+<p>There are a large number of other metrics we could include, depending on the type of website / web app running SnowPlow. For example, an ecommerce site might want to log:</p>
+
+<ul>
+<li>Number of purchases (transactions)</li>
+
+<li>Number of products sold</li>
+
+<li>Value of sales (revenue)</li>
+
+<li>Number of add-to-baskets</li>
+
+<li>Number of remove-from-baskets</li>
+
+<li>Value of goods added-to-basket</li>
+
+<li>Value of goods removed-from-basket</li>
+</ul>
+
+<p>A content site might want to include:</p>
+
+<ul>
+<li>Number of articles consumed</li>
+
+<li>Time spent consuming articles</li>
+
+<li>Number of articles shared</li>
+
+<li>Number of articles liked</li>
+
+<li>Number of articles tweeted</li>
+
+<li>Number of articles commented on</li>
+
+<li>Number of videos watched</li>
+
+<li>Minutes spent streaming media</li>
+
+<li>Number of videos completed watching</li>
+
+<li>Number of subscription signups</li>
+
+<li>Subscription spend</li>
+
+<li>Number of ad units shown</li>
+
+<li>Number of ad untis engaged with</li>
+
+<li>Ad revenue</li>
+</ul>
+
+<p>These are just basic metrics. Later on (once the cube has been created), it should be possible to define more sophisticated metrics e.g.</p>
+
+<ul>
+<li>Breadth of engagement. (Which we might define as the number of articles read)</li>
+
+<li>Deptch of engagement. (Which we might define based on the time spent reading articles, or decide that a more engaged user is one who has liked / commented / shared an article.)</li>
+</ul>
+
+<p>A social network might want to include:</p>
+
+<ul>
+<li>Number of connections initiated</li>
+
+<li>Number of connections accepted</li>
+
+<li>Number of posts</li>
+
+<li>Number of comments</li>
+
+<li>Number of direct messages</li>
+
+<li>Number of X way conversations</li>
+
+<li>Number of shares</li>
+</ul>
+
+<p>To keep this tutorial a manageable length, we&#8217;ll only include the first three metrics (uniques, visits and page views) in our example. However, extending our OLAP data table to include many more metrics is possible (and recommended): one of the explicit aims of SnowPlow, after all, is to enable you to report the metrics that matter to your business, however particular those metrics are.</p>
+
+<h3 id='512_dimensions'>5.1.2 Dimensions</h3>
+
+<p>When deciding which dimensions to include, we need to think about all the entities that matter to our business. Some common entities that all website / webapp owners should be interested in:</p>
+
+<ul>
+<li>Users (or visitors)</li>
+
+<li>Visits (or sessions)</li>
+
+<li>Pages</li>
+</ul>
+
+<p>Depending on the type of website / webapp we run, however, there are many more we might want to include. For example, an online retailer would be interested in :</p>
+
+<ul>
+<li>Products</li>
+
+<li>Orders</li>
+
+<li>Stage in customer funnel (e.g. window shopping vs add to basket vs checkout vs purchase)</li>
+</ul>
+
+<p>A content site would be interested in:</p>
+
+<ul>
+<li>Articles</li>
+
+<li>Authors</li>
+
+<li>Topics</li>
+</ul>
+
+<p>A social network would be interested in:</p>
+
+<ul>
+<li>Friends</li>
+
+<li>Groups</li>
+</ul>
+
+<p>Again, to keep this tutorial manageable, we&#8217;ll concentrate on just the first three entities identified i.e. users, visits, pages. However, we do recommend including <strong>all</strong> the entities in your OLAP data structure that matter to you business. Now, for each entity, we should list what data points we want to capture. Some suggestions:</p>
+
+<p><strong>User</strong></p>
+
+<ul>
+<li><code>user_id</code></li>
+
+<li><code>cohort</code> (where maybe we define cohort as the month-year in which he / she started first visited our website)</li>
+
+<li>The traffic source for the user based on his / her first visit i.e. <code>mkt_source</code>, <code>mkt_medium</code>, <code>mkt_term</code>, <code>mkt_content</code>, <code>mkt_campaign</code> for the first visit and <code>page_referrer</code> for the very first page view of that first visit</li>
+</ul>
+
+<p><strong>Visit</strong></p>
+
+<ul>
+<li><code>visit_id</code></li>
+
+<li>Visit date i.e. <code>dt</code></li>
+
+<li>Visit time e.g. time of initial event or page view</li>
+
+<li>Traffic source for teh visit i.e. <code>mkt_source</code>, <code>mkt_medium</code>, <code>mkt_term</code>, <code>mkt_content</code>, <code>mkt_campaign</code> for the first visit and <code>page_referrer</code> for the very first page view of that visit</li>
+</ul>
+
+<p><strong>Page</strong></p>
+
+<ul>
+<li>page_url</li>
+
+<li>page_title</li>
+</ul>
+
+<p>We should recognise that there is a hierarchy in the three entities we&#8217;ve identified: users may visit our website once or more, and on each visit view one or more pages. This will be important when we generate our OLAP data.</p>
+
+<p>Remember - we&#8217;re only including a handful of dimensions to keep this tutorial manageable. We recommend including as many dimensions as possible, to support as wide a range of OLAP analyses as possible.</p>
+<h3><a name='granularity'>5.2 Work out what level of granularity to use i.e. what each line of data reprents (one event or a higher level of aggregation)?</a></h3>
+<p>We discussed the merits and costs or keeping more granular data in your OLAP cube. For the sakes of this example, we&#8217;re going aggregate data by page by visit. That means we will be able to look at the number of page views and number of unique page views by visit, but not analyse e.g. for users who look at a particular web page twice in one session e.g. how many page views they viewed in between the two of the same page.</p>
+<h3><a name='define'>5.3 Define our table</a></h3>
+<p>To return to our example, we are now in a position to define the structure of the OLAP data as it would look in Infobright:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='k'>IF</span> <span class='k'>NOT</span> <span class='k'>EXISTS</span> <span class='nf'>demo_cube</span> <span class='p'>(</span>
+<span class='c1'># DIMENSIONS</span>
+	<span class='c1'># User</span>
+		<span class='ss'>`user_id`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>16</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`cohort`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>16</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`first_visit_referrer_source`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`first_visit_referrer_medium`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`first_visit_referrer_term`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`first_visit_referrer_content`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>),</span>
+		<span class='ss'>`first_visit_referrer_campaign`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`first_visit_page_referrer`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>),</span>
+
+	<span class='c1'># Visit</span>
+		<span class='ss'>`visit_id`</span> <span class='kt'>int</span><span class='p'>,</span>
+ 		<span class='ss'>`dt`</span> <span class='kt'>date</span><span class='p'>,</span>
+		<span class='ss'>`tm`</span> <span class='kt'>time</span><span class='p'>,</span>
+		<span class='ss'>`visit_referrer_source`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`visit_referrer_medium`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`visit_referrer_term`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`visit_referrer_content`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>),</span>
+		<span class='ss'>`visit_referrer_campaign`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>255</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`visit_page_referrer`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>),</span>
+
+	<span class='c1'># Page</span>
+		<span class='ss'>`page_url`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+		<span class='ss'>`page_title`</span> <span class='kt'>varchar</span><span class='p'>(</span><span class='mi'>2083</span><span class='p'>)</span> <span class='n'>comment</span> <span class='s1'>&#39;lookup&#39;</span><span class='p'>,</span>
+
+<span class='c1'># METRICS</span>
+		<span class='ss'>`page_views`</span> <span class='kt'>int</span>
+
+<span class='p'>)</span> <span class='kp'>ENGINE</span> <span class='n'>BRIGHTHOUSE</span> <span class='k'>DEFAULT</span> <span class='kp'>CHARSET</span><span class='o'>=</span><span class='n'>utf8</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>Note: only one of our three metrics is defined in our table: <code>page_views</code>. We do not have a column for <code>uniques</code> or <code>visits</code>. The reason is that both of these can be <em>derived</em> from the data above: we can work out how many uniques on a particular day by counting the number of distinct <code>user_id</code>s. Similarly, we can calculate the number of visits based on the number of distinct <code>CONCAT(user_id, &quot;-&quot;, visit_id)</code> in a time period.</p>
+
+<p>If we were aggregating our data to a the visit level (so we have one line of data for each visit), we could have an additional metric column called <code>visits</code> and set the value to <code>1</code> for each line of data. (Because each line of data would represent one visit.) Then summing this value over e.g. time would have given us a visit count. However, in our case, where each line of data represents one page view, there is no way to sum across page views to get visits. (Because we don&#8217;t know in advance how many page views in a visit.) Instead, we count distinct effective visit identifiers, where our visit identifier is created by concatenating the <code>user_id</code> with the <code>visit_id</code>.</p>
+
+<p>Similarly, if we were to aggregate our data to the user level (so we have one line of data for each user), we could have a column for both the uniques and visits metrics, where the uniques column would be set to <code>1</code> on every data line and the value of <code>visits</code> would vary depending on the number of visits by user. However, we would not be able to perform any page level analysis with our data set.</p>
+<h3><a name='compute'>5.4 Work out how to compute each line of data</a></h3>
+<p>There are a number of tools we can use to generate out OLAP data set from our SnowPlow data set. In this example, we&#8217;re going to assume our events data is in Infobright, and we&#8217;ll generate our OLAP data set using just SQL. Note: the same SQL should work equally well to generate an output data set in Hive. However, we would <strong>not</strong> want our OLAP data to live in Hive, as querying it would be much slower than if that data lived in a columnar database like Infobright. Train-of-thought analysis (which OLAP reporting tools excel at) is only possible if querying is fast, and Hive/ map reduce is not fast.</p>
+
+<p>We&#8217;ve decided that we want a line of data for every web page on every visit. We can generate a line of data at this granularity using the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='n'>visit_id</span><span class='p'>,</span>
+	<span class='n'>page_url</span><span class='p'>,</span>
+	<span class='n'>page_title</span><span class='p'>,</span>
+	<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+<span class='k'>FROM</span>
+	<span class='n'>events</span> <span class='n'>e</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> 
+	<span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>,</span> <span class='n'>page_url</span><span class='p'>,</span> <span class='n'>page_title</span>
+</code></pre>
+</div>
+<p>So far so good, we now have a number of the desired columns in our OLAP data set. We&#8217;re still missing a number of dimensions, however, that relate to the visit (i.e. <code>dt</code>, <code>tm</code>, and source of traffic) and user (i.e. cohort and source of traffic).</p>
+
+<p>Let us first generate the missing visit data. We want the date, time and traffic source data fields that are stored in the first line of event data for each visit. We can pull that data from our SnowPlow events table by executing the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>v</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>v</span><span class='p'>.</span><span class='n'>visit_id</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_source</span> <span class='k'>AS</span> <span class='n'>visit_mkt_source</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_medium</span> <span class='k'>AS</span> <span class='n'>visit_mkt_medium</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_term</span> <span class='k'>AS</span> <span class='n'>visit_mkt_term</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_content</span> <span class='k'>AS</span> <span class='n'>visit_mkt_content</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_campaign</span> <span class='k'>AS</span> <span class='n'>visit_mkt_campaign</span><span class='p'>,</span>
+<span class='n'>e2</span><span class='p'>.</span><span class='n'>page_referrer</span> <span class='k'>AS</span> <span class='n'>visit_page_referrer</span>
+<span class='k'>FROM</span> <span class='n'>events</span> <span class='n'>e2</span>
+<span class='k'>INNER</span> <span class='k'>JOIN</span>
+<span class='p'>(</span>	<span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='n'>visit_id</span><span class='p'>,</span>
+	<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>first_touch_timestamp</span>
+	<span class='k'>FROM</span> <span class='n'>events</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>visit_id</span> <span class='o'>=</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>visit_id</span>
+<span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e2</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>first_touch_timestamp</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span>
+</code></pre>
+</div>
+<p>And then join it with our original data set to populate the missing visit dimension fields:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>.</span><span class='n'>visit_id</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_mkt_source</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_mkt_medium</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_mkt_content</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_mkt_campaign</span><span class='p'>,</span>
+<span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_page_referrer</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>.</span><span class='n'>page_url</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>.</span><span class='n'>page_title</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>.</span><span class='n'>page_views</span>
+
+<span class='k'>FROM</span>
+
+<span class='p'>(</span>	<span class='k'>SELECT</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='n'>visit_id</span><span class='p'>,</span>
+		<span class='n'>page_url</span><span class='p'>,</span>
+		<span class='n'>page_title</span><span class='p'>,</span>
+		<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+	<span class='k'>FROM</span>
+		<span class='n'>events_pbz</span> <span class='n'>e</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> 
+		<span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>,</span> <span class='n'>page_url</span><span class='p'>,</span> <span class='n'>page_title</span>
+<span class='p'>)</span> <span class='n'>page_views</span>
+
+<span class='k'>LEFT</span> <span class='k'>JOIN</span>
+
+	<span class='p'>(</span>	<span class='k'>SELECT</span>
+		<span class='n'>v</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+		<span class='n'>v</span><span class='p'>.</span><span class='n'>visit_id</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_source</span> <span class='k'>AS</span> <span class='n'>visit_mkt_source</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_medium</span> <span class='k'>AS</span> <span class='n'>visit_mkt_medium</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_term</span> <span class='k'>AS</span> <span class='n'>visit_mkt_term</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_content</span> <span class='k'>AS</span> <span class='n'>visit_mkt_content</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>mkt_campaign</span> <span class='k'>AS</span> <span class='n'>visit_mkt_campaign</span><span class='p'>,</span>
+		<span class='n'>e2</span><span class='p'>.</span><span class='n'>page_referrer</span> <span class='k'>AS</span> <span class='n'>visit_page_referrer</span>
+		<span class='k'>FROM</span> <span class='n'>events_pbz</span> <span class='n'>e2</span>
+		<span class='k'>INNER</span> <span class='k'>JOIN</span>
+		<span class='p'>(</span>	<span class='k'>SELECT</span>
+			<span class='n'>user_id</span><span class='p'>,</span>
+			<span class='n'>visit_id</span><span class='p'>,</span>
+			<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>first_touch_timestamp</span>
+			<span class='k'>FROM</span> <span class='n'>events_pbz</span>
+			<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)</span> <span class='n'>v</span>
+		<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>user_id</span>
+		<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>visit_id</span> <span class='o'>=</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>visit_id</span>
+		<span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e2</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>first_touch_timestamp</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span>
+<span class='p'>)</span> <span class='n'>visits</span>
+
+<span class='k'>ON</span> <span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>visits</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>AND</span> <span class='n'>page_views</span><span class='p'>.</span><span class='n'>visit_id</span> <span class='o'>=</span> <span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_id</span>
+</code></pre>
+</div><h3><a name='generate'>5.5 Generate the OLAP data</a></h3><a name='tableau-test'><h3>6. Testing the results with Tableau</h3></a>
 <p>TO WRITE</p>
 <a name='qlikview-test'><h3>7. Testing the results with Qlikview</h3></a>
 <p>TO WRITE</p>

@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Integrating SnowPlow with Google Tag Manager - SnowPlow Analytics</title>
+	<title>Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,35 +41,34 @@
 	
 		<div id="contents">
 		<div class="post">
-			16 Nov 2012
-			<h1>Integrating SnowPlow with Google Tag Manager</h1>
-			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
+			17 Dec 2012
+			<h1>Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</h1>
+			<p>Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.</p>
+<p style='text-align:center;'><img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /></p>
+<p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
+<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
+</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
+</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Shoes</td><td style='text-align: left;'>15</td><td style='text-align: right;'>1125.00</td>
+</tr><tr><td style='text-align: left;'>France</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>288</td><td style='text-align: right;'>2877.12</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
+<p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
 
-<p><img src='/static/img/gtm.JPG' alt='gtm' /></p>
+<p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
+<!--more-->
+<p>SnowPlow data is in a log file format. Whilst each line does include metrics (e.g. revenue) and dimensions (e.g. browser features or operating system details), there are a large number of dimensions that we might want to slice and dice the data on that are not included in each line: these data points have to be inferred by reading across several lines of data. To give just one example: the source of traffic i.e. <code>mkt_source</code> for a particular visit is only given on the <strong>first line</strong> of data for that visit. Hence, in order to enable users to analyse page views, customer lifetime value and other metrics by different marketing sources (e.g. to do attribution analysis), we need to work out which source of traffic to attribute that visit to, and label every line of data associated with that visit with that source of traffic.</p>
 
-<p>We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>wiki</a>.</p>
+<p>So in order to use a BI tool like Tableau or Qlikview to interrogate SnowPlow data, you need to transform the data first. We&#8217;ve documented how to perform the transformation in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>. We hope it provides a useful guide for anyone interested in interrogating or visualising SnowPlow data using BI tools.</p>
 
-<p>In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:</p>
+<p>We also wonder whether the documentation will be of interest to the wider community of analysts and data scientists interested in using tools like Tableau to query log data. One of the things that surprised us, going in to this exercise, was the lack of material we could find on the internet that covered transforming log data so that it could be analysed using BI tools. We expected this to be well-covered territory: especially given the fact that the vast majority of data processed by Hadoop is log files, and nearly all the BI vendors are working hard to integrate their products with Hadoop. (For example, Tableau now integrates with MapR Hadoop distributions, so you can analyse Hive tables directly in Tableau.) Without the transformation step covered in our <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>guide</a> however, this type of integration is useless.</p>
 
-<ol>
-<li>Setting up a Tag Management System is a big and complicated job. Much of the literature (especially around Google Tag Manager), and discussion (especially amongst members of the web analytics community) suggests it is very easy. Whilst Google Tag Manager is a straightforward product to use, the process of setting it up is difficult, because it involves thinking through, in a very rigorous way, exactly what data should be passed between the website and GTM. If this is not done properly, GTM will not have the relevant data to pass on to the tags it manages, including SnowPlow.</li>
+<p>If we&#8217;ve missed any online literature on the topic, or if there are other people who&#8217;ve looked at this particular problem and come up with different approaches - we&#8217;d love to debate them here. Get in touch! For everyone else, we hope you find our <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>guide</a> helpful&#8230;</p>
 
-<li>Exacerbating the above, there is a lack of detailed literature on how to go about identifying all the data points that should be passed between your website and tag management solution. Nearly all the guides to setting up GTM that we reviewed covered only the most basic of GTM setups, which is just enough to enable page tracking. Clearly, that is not going to be sufficient for anything but the simplest blogs and brochureware sites.</li>
+<p>References:</p>
 
-<li>One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.</li>
-</ol>
-
-<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'>setting up Google Tag Manager</a> and <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>setting up SnowPlow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up SnowPlow within <a href='http://www.opentag.qubitproducts.com/'>Qubit&#8217;s OpenTag solution</a> in due course.</p>
-
-<p>We&#8217;re very excited by Google&#8217;s launch of Tag Manager, and recommend all new SnowPlow users who are not currently using a tag management system integrate one as part of their SnowPlow setup. Specifically:</p>
-
-<ol>
-<li>The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup SnowPlow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable</li>
-
-<li>The processing of mapping that data from the structure defined in the tag management system to one which works with SnowPlow&#8217;s data structure is the exact reverse of the analysis process that takes SnowPlow data and transforms it back into the structure that&#8217;s most natural for the company performing the analysis.</li>
-
-<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
-</ol>
+<ul>
+<li>SnowPlow data <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>canonical data structure</a>.</li>
+</ul>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

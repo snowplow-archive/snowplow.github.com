@@ -94,7 +94,7 @@
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' scrolling='no' width='427' frameborder='0' marginwidth='0' marginheight='0'>  </iframe>
+<iframe marginheight='0' scrolling='no' marginwidth='0' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356'>  </iframe>
 			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
@@ -153,7 +153,15 @@
 <h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
 
 <p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
-<a name='install' />
+<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
+
+<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
+
+<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
+</code></pre>
+</div><a name='install' />
 <h3 id='installing_attlib'>Installing Attlib</h3>
 
 <p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>

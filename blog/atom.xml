@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-12-18T12:06:48+02:00</updated>
+  <updated>2012-12-18T12:11:01+02:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -22,7 +22,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img width='250' src='/static/img/olap/example-cube-2.png' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -839,7 +839,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' height='356' frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' scrolling='no' width='427' frameborder='0' marginwidth='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>
@@ -943,13 +943,13 @@
 
 &lt;pre&gt;&lt;code&gt;sudo gem install attlib&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The sourcecode is available on &lt;a href='https://github.com/snowplow/attlib'&gt;Github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The sourcecode is available on &lt;a href='https://github.com/snowplow/referer-parser'&gt;Github&lt;/a&gt;&lt;/p&gt;
 &lt;a name='search_engine_yaml' /&gt;
 &lt;h3 id='the_search_enginesyml_file'&gt;The search_engines.yml file&lt;/h3&gt;
 
 &lt;p&gt;Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.&lt;/p&gt;
 
-&lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo. &lt;!--more--&gt;&lt;/p&gt;
+&lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master'&gt;data&lt;/a&gt; in the repo. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
 
@@ -957,11 +957,11 @@
 &lt;a name='snowplow_stack' /&gt;
 &lt;h3 id='attlib_as_part_of_the_snowplow_stack'&gt;Attlib as part of the SnowPlow stack&lt;/h3&gt;
 
-&lt;p&gt;Our intention is to port &lt;a href='https://github.com/snowplow/referer-parser'&gt;Attlib&lt;/a&gt; into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file.&lt;/p&gt;
+&lt;p&gt;Our intention is to port &lt;a href='https://github.com/snowplow/referer-parser'&gt;Attlib&lt;/a&gt; into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same &lt;a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'&gt;search_engines.yml&lt;/a&gt; file.&lt;/p&gt;
 &lt;a name='other_languages' /&gt;
 &lt;h3 id='attlib_in_other_languages'&gt;Attlib in other languages&lt;/h3&gt;
 
-&lt;p&gt;As well as contributing to the search &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.&lt;/p&gt;
+&lt;p&gt;As well as contributing to the search &lt;a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'&gt;search_engines.yml&lt;/a&gt; file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.&lt;/p&gt;
 &lt;a name='snowplow_components_as_standalone_projects' /&gt;
 &lt;h3 id='making_components_of_snowplow_available_as_standalone_open_source_projects'&gt;Making components of SnowPlow available as standalone open source projects&lt;/h3&gt;
 

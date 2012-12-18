@@ -71,13 +71,13 @@
 
 <pre><code>sudo gem install attlib</code></pre>
 
-<p>The sourcecode is available on <a href='https://github.com/snowplow/attlib'>Github</a></p>
+<p>The sourcecode is available on <a href='https://github.com/snowplow/referer-parser'>Github</a></p>
 <a name='search_engine_yaml' />
 <h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
 
 <p>Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
 
-<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master/data'>data</a> in the repo. <!--more--></p>
+<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <!--more--></p>
 
 <p>The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:</p>
 
@@ -85,11 +85,11 @@
 <a name='snowplow_stack' />
 <h3 id='attlib_as_part_of_the_snowplow_stack'>Attlib as part of the SnowPlow stack</h3>
 
-<p>Our intention is to port <a href='https://github.com/snowplow/referer-parser'>Attlib</a> into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file.</p>
+<p>Our intention is to port <a href='https://github.com/snowplow/referer-parser'>Attlib</a> into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file.</p>
 <a name='other_languages' />
 <h3 id='attlib_in_other_languages'>Attlib in other languages</h3>
 
-<p>As well as contributing to the search <a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'>search_engines.yml</a> file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.</p>
+<p>As well as contributing to the search <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.</p>
 <a name='snowplow_components_as_standalone_projects' />
 <h3 id='making_components_of_snowplow_available_as_standalone_open_source_projects'>Making components of SnowPlow available as standalone open source projects</h3>
 

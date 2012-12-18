@@ -4,13 +4,65 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-12-18T13:30:13+02:00</updated>
+  <updated>2012-12-18T19:09:36+02:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released"/>
+    <title>SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes</title>
+    <updated>2012-12-18T00:00:00+02:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Today we are releasing SnowPlow version &lt;strong&gt;0.6.3&lt;/strong&gt; - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to the community members who contributed bug fixes to this release: &lt;a href='https://github.com/mmoulton'&gt;Mike Moulton&lt;/a&gt; @ &lt;a href='http://meltmedia.com/'&gt;meltmedia&lt;/a&gt;, &lt;a href='https://github.com/ramn'&gt;Simon Andersson&lt;/a&gt; @ &lt;a href='http://www.qwaya.com'&gt;Qwaya&lt;/a&gt; and &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; @ &lt;a href='http://99designs.com'&gt;99designs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#8217;ll take a look at both fixes below:&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='javascript_tracker_fixes'&gt;JavaScript tracker fixes&lt;/h2&gt;
+
+&lt;p&gt;This release fixes the issues in the JavaScript tracker raised in &lt;a href='https://github.com/snowplow/snowplow/issues/103'&gt;issue 103&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;These issues stemmed from the splitting of the JavaScript into multiple files in SnowPlow version 0.6.1 (JavaScript tracker version 0.8.0). We do not believe these bugs affected SnowPlow data collection, but they are well worth fixing.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to &lt;a href='https://github.com/mtibben'&gt;Michael Tibben&lt;/a&gt; and &lt;a href='https://github.com/ramn'&gt;Simon Andersson&lt;/a&gt; for their help in squashing these bugs!&lt;/p&gt;
+
+&lt;p&gt;With these fixes we have bumped the JavaScript Tracker to version 0.8.2; the updated minified tracker is available as always here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.2/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id='hiveql_script_fix'&gt;HiveQL script fix&lt;/h2&gt;
+
+&lt;p&gt;This release also fixes a bug (&lt;a href='https://github.com/snowplow/snowplow/pull/112'&gt;issue 112&lt;/a&gt;) in the HiveQL file used to generate the &lt;strong&gt;Hive-format&lt;/strong&gt; SnowPlow event files.&lt;/p&gt;
+
+&lt;p&gt;This bug prevented the ETL from running if you were using EmrEtlRunner to generate Hive-format SnowPlow event files - in other words if you had set:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage_format: non-hive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in your EmrEtlRunner&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to &lt;a href='https://github.com/mmoulton'&gt;Mike Moulton&lt;/a&gt; for spotting and fixing this one!&lt;/p&gt;
+
+&lt;p&gt;With this fix we have bumped the Hive-format HiveQL file to version 0.5.2. To start using the new file, all you need to do is update your EmrEtlRunner&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; file by changing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:hive_hiveql_version: 0.5.1&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:hive_hiveql_version: 0.5.2&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;If you have any problems with SnowPlow version 0.6.3, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau</id>
@@ -22,7 +74,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img width='250' src='/static/img/olap/example-cube-2.png' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -839,7 +891,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' scrolling='no' marginwidth='0' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' scrolling='no' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

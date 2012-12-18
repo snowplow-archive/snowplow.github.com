@@ -41,6 +41,35 @@
 	
 		<div id="contents">
 	
+		<a name="Analysing SnowPlow data with Tableau" />
+		<div class="post">
+			24 Oct 2012
+			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></h1>
+			<p>People who see SnowPlow for the first time often ask us to <i>"show SnowPlow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
+
+<p>Demonstrating SnowPlow is tricky because currently, SnowPlow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because SnowPlow gives you access to underlying customer- and event-level data, it is easy to analyse SnowPlow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on SnowPlow data. (We will explain more on how to connect Tableau to SnowPlow data in a future blog post.)</p>
+
+<p>In the following series of videos, we start to show how SnowPlow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with SnowPlow data for an online retailer:</p>
+
+<video width="648" height="563" controls>
+
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4"  type="video/mp4" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm" type="video/webm" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv"  type="video/ogg" />
+	<object width="648" height="563" type="application/x-shockwave-flash" data="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf">
+		<param name="movie" value="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf" />
+		<param name="flashvars" value="controlbar=over&amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4" />
+		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and SnowPlow introductory video"
+		     title="No video playback capabilities, please download the video below" />
+	</object> 
+</video>
+
+<p class="note"><i>Having trouble viewing the video above? You may download the videos in your format of choice:<a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4">"MP4"</a>, <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv">"Ogg"</a> or <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm">WebM</a> formats.</i></p>
+
+<p class='more'><a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="infobright-ruby-loader-released" />
 		<div class="post">
 			21 Oct 2012
@@ -94,7 +123,7 @@
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe marginheight='0' scrolling='no' marginwidth='0' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356'>  </iframe>
+<iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' scrolling='no' marginheight='0'>  </iframe>
 			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
@@ -178,48 +207,6 @@
 			<span class="comments-link"><a href="/blog/2012/10/11/attlib-0.0.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Why set your data free?" />
-		<div class="post">
-			24 Sep 2012
-			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
-			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce SnowPlow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
-
-<p>With each person, I started by explaining that SnowPlow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
-
-<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
-
-<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
-<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
-</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
-</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
-</tr></tbody></table>
-<p>SnowPlow makes integrating web analytics data with other data sources easier in a two ways:</p>
-
-<ol>
-<li>All your SnowPlow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
-
-<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
-</ol>
-
-<p>For more details on how to perform <code>JOIN</code>s between SnowPlow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining SnowPlow engagement data with other sources of customer data</a></p>
-
-<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
-
-<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
-
-<ol>
-<li>Number of unique visitors by product page</li>
-
-<li>Different sources of traffic by product page (and how this changes over time)</li>
-
-<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
-
-<li>Improvements to conversion rates over time</li>
-</ol>
-<p class='more'><a href='/blog/2012/09/24/what-does-snowplow-let-you-do'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/09/24/what-does-snowplow-let-you-do#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -238,6 +225,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2012/12/18/snowplow-0.6.3-released">SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></li>
 		
 			<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 		

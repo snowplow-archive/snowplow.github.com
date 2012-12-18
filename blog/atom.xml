@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-12-17T14:50:41+00:00</updated>
+  <updated>2012-12-18T12:06:48+02:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -16,13 +16,13 @@
     <id>http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau"/>
     <title>Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</title>
-    <updated>2012-12-17T00:00:00+00:00</updated>
+    <updated>2012-12-17T00:00:00+02:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img width='250' src='/static/img/olap/example-cube-2.png' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -53,7 +53,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released"/>
     <title>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes</title>
-    <updated>2012-11-28T00:00:00+00:00</updated>
+    <updated>2012-11-28T00:00:00+02:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -79,7 +79,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released"/>
     <title>SnowPlow 0.6.1 released, with lots of small improvements</title>
-    <updated>2012-11-27T00:00:00+00:00</updated>
+    <updated>2012-11-27T00:00:00+02:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -235,7 +235,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager"/>
     <title>Integrating SnowPlow with Google Tag Manager</title>
-    <updated>2012-11-16T00:00:00+00:00</updated>
+    <updated>2012-11-16T00:00:00+02:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -273,7 +273,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader"/>
     <title>SnowPlow 0.6.0 released, with the new StorageLoader</title>
-    <updated>2012-11-12T00:00:00+00:00</updated>
+    <updated>2012-11-12T00:00:00+02:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -349,7 +349,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice"/>
     <title>SnowPlow 0.5.2 released, and introducing the Sluice Ruby gem</title>
-    <updated>2012-11-06T00:00:00+00:00</updated>
+    <updated>2012-11-06T00:00:00+02:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -394,7 +394,7 @@
     <id>http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released"/>
     <title>SnowPlow 0.5.1 released, with lots of small improvements</title>
-    <updated>2012-11-01T00:00:00+00:00</updated>
+    <updated>2012-11-01T00:00:00+02:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -458,7 +458,7 @@
     <id>http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow"/>
     <title>SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</title>
-    <updated>2012-10-31T00:00:00+00:00</updated>
+    <updated>2012-10-31T00:00:00+02:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -614,7 +614,7 @@
     <id>http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released"/>
     <title>SnowPlow 0.5.0 released, now with a Ruby gem to run SnowPlow's ETL process on Amazon EMR</title>
-    <updated>2012-10-25T00:00:00+01:00</updated>
+    <updated>2012-10-25T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -646,7 +646,7 @@
     <id>http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow"/>
     <title>Performing web analytics on SnowPlow data using Tableau - a video demo</title>
-    <updated>2012-10-24T00:00:00+01:00</updated>
+    <updated>2012-10-24T00:00:00+03:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -781,7 +781,7 @@
     <id>http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released"/>
     <title>Infobright Ruby Loader Released</title>
-    <updated>2012-10-21T00:00:00+01:00</updated>
+    <updated>2012-10-21T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -823,7 +823,7 @@
     <id>http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow"/>
     <title>How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</title>
-    <updated>2012-10-12T00:00:00+01:00</updated>
+    <updated>2012-10-12T00:00:00+03:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -839,14 +839,14 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' marginheight='0' height='356' marginwidth='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' height='356' frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released"/>
     <title>SnowPlow 0.4.10 released</title>
-    <updated>2012-10-11T00:00:00+01:00</updated>
+    <updated>2012-10-11T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -910,12 +910,14 @@
     <id>http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released"/>
     <title>Attlib - an open source library for extracting search marketing attribution data from referrer URLs</title>
-    <updated>2012-10-11T00:00:00+01:00</updated>
+    <updated>2012-10-11T00:00:00+03:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;Last night we published &lt;a href='https://github.com/snowplow/attlib'&gt;Attlib&lt;/a&gt;, an open source Ruby library for extracting search marketing attribution data from referrer URLs. In this post we talk through:&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;strong&gt;Update 17-Dec-12&lt;/strong&gt;: We have renamed Attlib to &lt;a href='https://github.com/snowplow/referer-parser'&gt;referer-parser&lt;/a&gt;, to make it clearer what Attlib does: parse referer URLs. The repository has been updated accordingly. Some of the example code below is out-of-date now: we recommend checking out the &lt;a href='https://github.com/snowplow/referer-parser'&gt;repository&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;p&gt;Last night we published &lt;a href='https://github.com/snowplow/referer-parser'&gt;Attlib&lt;/a&gt;, an open source Ruby library for extracting search marketing attribution data from referer (sic) URLs. In this post we talk through:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href='#what_attlib_does'&gt;What Attlib does, and how to use it&lt;/a&gt;&lt;/li&gt;
@@ -933,16 +935,8 @@
 &lt;a name='what_attlib_does' /&gt;
 &lt;h3 id='what_attlib_does_and_how_to_use_it'&gt;What Attlib does, and how to use it&lt;/h3&gt;
 
-&lt;p&gt;Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referrer URL: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented &lt;a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'&gt;here&lt;/a&gt;.)&lt;/p&gt;
-&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='nb'&gt;require&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;attlib&amp;#39;&lt;/span&gt;
-
-&lt;span class='n'&gt;r&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='no'&gt;Referrer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;amp;hl=en&amp;amp;biw=1189&amp;amp;bih=521&amp;amp;tbm=isch&amp;amp;tbnid=BuQ_IyUbc25usM:&amp;amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;amp;w=1064&amp;amp;h=1551&amp;amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;amp;zoom=1&amp;amp;iact=hc&amp;amp;vpx=107&amp;amp;vpy=48&amp;amp;dur=2477&amp;amp;hovh=271&amp;amp;hovw=186&amp;amp;tx=133&amp;amp;ty=157&amp;amp;sig=115588264602219115047&amp;amp;page=4&amp;amp;tbnh=162&amp;amp;tbnw=120&amp;amp;start=57&amp;amp;ndsp=19&amp;amp;ved=1t:429,r:12,s:57,i:291&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
-
-&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;is_search_engine?&lt;/span&gt; &lt;span class='c1'&gt;# True&lt;/span&gt;
-&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;search_engine&lt;/span&gt; &lt;span class='c1'&gt;# &amp;#39;Google Images&amp;#39;&lt;/span&gt;
-&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;keywords&lt;/span&gt; 	&lt;span class='c1'&gt;# &amp;#39;hermetic tarot&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;a name='install' /&gt;
+&lt;p&gt;Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented &lt;a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'&gt;here&lt;/a&gt;.)&lt;/p&gt;
+&lt;a name='install' /&gt;
 &lt;h3 id='installing_attlib'&gt;Installing Attlib&lt;/h3&gt;
 
 &lt;p&gt;Attlib is available via a Ruby Gem. To install, simply run the following at the command line:&lt;/p&gt;
@@ -953,38 +947,17 @@
 &lt;a name='search_engine_yaml' /&gt;
 &lt;h3 id='the_search_enginesyml_file'&gt;The search_engines.yml file&lt;/h3&gt;
 
-&lt;p&gt;Extracting search engine names and keywords from a referrer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.&lt;/p&gt;
+&lt;p&gt;Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.&lt;/p&gt;
 
 &lt;p&gt;Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file, in the &lt;a href='https://github.com/snowplow/attlib/tree/master/data'&gt;data&lt;/a&gt; in the repo. &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&amp;#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:&lt;/p&gt;
-&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;Babylon&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
-  &lt;span class='l-Scalar-Plain'&gt;parameters&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;q&lt;/span&gt;
-  &lt;span class='l-Scalar-Plain'&gt;domains&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
-   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;search.babylon.com&lt;/span&gt;
-   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;searchassist.babylon.com&lt;/span&gt;
 
-&lt;span class='l-Scalar-Plain'&gt;Baidu&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
-  &lt;span class='l-Scalar-Plain'&gt;parameters&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; 
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;wd&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;word&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;kw&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;k&lt;/span&gt;
-  &lt;span class='l-Scalar-Plain'&gt;domains&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;www.baidu.com&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;www1.baidu.com&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;zhidao.baidu.com&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;tieba.baidu.com&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;news.baidu.com&lt;/span&gt;
-    &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;web.gougou.com&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
 &lt;p&gt;Keeping this file up to date is a big job: one of our hopes releasing Attlib as an open source, standalone library, is that the community contributes to the file. We are enormously grateful to our friends at &lt;a href='http://piwik.org/'&gt;Piwik&lt;/a&gt; as our initial version of the file is based on the Piwik equivalent &lt;a href='https://github.com/piwik/piwik/blob/master/core/DataFiles/SearchEngines.php'&gt;SearchEngines.php&lt;/a&gt;, for the hard work they put into this version.&lt;/p&gt;
 &lt;a name='snowplow_stack' /&gt;
 &lt;h3 id='attlib_as_part_of_the_snowplow_stack'&gt;Attlib as part of the SnowPlow stack&lt;/h3&gt;
 
-&lt;p&gt;Our intention is to port &lt;a href='https://github.com/snowplow/attlib'&gt;Attlib&lt;/a&gt; into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file.&lt;/p&gt;
+&lt;p&gt;Our intention is to port &lt;a href='https://github.com/snowplow/referer-parser'&gt;Attlib&lt;/a&gt; into Scala and integrate it into the SnowPlow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same &lt;a href='https://github.com/snowplow/attlib/blob/master/data/search_engines.yml'&gt;search_engines.yml&lt;/a&gt; file.&lt;/p&gt;
 &lt;a name='other_languages' /&gt;
 &lt;h3 id='attlib_in_other_languages'&gt;Attlib in other languages&lt;/h3&gt;
 
@@ -1007,7 +980,7 @@
     <id>http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do"/>
     <title>Why set your data free?</title>
-    <updated>2012-09-24T00:00:00+01:00</updated>
+    <updated>2012-09-24T00:00:00+03:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1080,7 +1053,7 @@
     <id>http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released"/>
     <title>SnowPlow 0.4.8 released</title>
-    <updated>2012-09-14T00:00:00+01:00</updated>
+    <updated>2012-09-14T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1156,7 +1129,7 @@
     <id>http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released"/>
     <title>SnowPlow 0.4.7 released</title>
-    <updated>2012-09-06T00:00:00+01:00</updated>
+    <updated>2012-09-06T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1176,11 +1149,7 @@
 &lt;h2 id='site_id'&gt;Site ID&lt;/h2&gt;
 
 &lt;p&gt;The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called &lt;code&gt;setSiteId()&lt;/code&gt; - it takes one argument, the identifier you have assigned to this site. For example:&lt;/p&gt;
-&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setAccount&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;d3rkrsqld9gmqf&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setSiteId&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;CFe23a&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+
 &lt;p&gt;The querystring passed to your SnowPlow collector will now include the following parameter:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;...&amp;amp;said=CFe23a&amp;amp;...&lt;/code&gt;&lt;/pre&gt;
@@ -1206,43 +1175,7 @@
 &lt;p&gt;This approach works, but it adds complexity in the analysis step. Happily community member Simon Andersson has contributed an alternative solution: dedicated SnowPlow e-commerce transaction tracking, similar to the functionality found in the Google Analytics JavaScript API.&lt;/p&gt;
 
 &lt;p&gt;The idea is that you add the new tracking code to your shop&amp;#8217;s checkout confirmation page, so that the completed order can be sent to SnowPlow. A complete example of the new tracking code looks like this:&lt;/p&gt;
-&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='kd'&gt;var&lt;/span&gt; &lt;span class='nx'&gt;orderId&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;order-123&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 
-&lt;span class='c1'&gt;// addTrans sets up the transaction, should be called first.&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;addTrans&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
-  &lt;span class='nx'&gt;orderId&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                &lt;span class='c1'&gt;// order ID - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// affiliation or store name&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;8000&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                 &lt;span class='c1'&gt;// total - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// tax&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// shipping&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// city&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// state or province&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;                      &lt;span class='c1'&gt;// country&lt;/span&gt;
-  &lt;span class='p'&gt;]);&lt;/span&gt;
-
-&lt;span class='c1'&gt;// addItem is called for each item in the shopping cart.&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;addItem&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
-  &lt;span class='nx'&gt;orderId&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                &lt;span class='c1'&gt;// order ID - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;1001&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                 &lt;span class='c1'&gt;// SKU - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;Blue t-shirt&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;         &lt;span class='c1'&gt;// product name&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// category&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;2000&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                 &lt;span class='c1'&gt;// unit price - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;2&amp;#39;&lt;/span&gt;                     &lt;span class='c1'&gt;// quantity - required&lt;/span&gt;
-  &lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;addItem&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
-  &lt;span class='nx'&gt;orderId&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                &lt;span class='c1'&gt;// order ID - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;1002&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                 &lt;span class='c1'&gt;// SKU - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;Red shoes&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;            &lt;span class='c1'&gt;// product name&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// category&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;4000&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                 &lt;span class='c1'&gt;// unit price - required&lt;/span&gt;
-  &lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt;                     &lt;span class='c1'&gt;// quantity - required&lt;/span&gt;
-  &lt;span class='p'&gt;]);&lt;/span&gt;
-
-&lt;span class='c1'&gt;// trackTrans sends the transaction to SnowPlow tracking servers.&lt;/span&gt;
-&lt;span class='c1'&gt;// Must be called last to commit the transaction.&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackTrans&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
 &lt;p&gt;The above example creates an order (aka &amp;#8220;transaction&amp;#8221;) with ID &lt;code&gt;order-123&lt;/code&gt; and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final &lt;code&gt;trackTrans&lt;/code&gt; call sends this complete order to SnowPlow as three separate events - one each for the order and its line items.&lt;/p&gt;
 
 &lt;p&gt;This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.&lt;/p&gt;
@@ -1270,7 +1203,7 @@
     <id>http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch"/>
     <title>Amazon announces Glacier - lowers the cost of running SnowPlow</title>
-    <updated>2012-08-21T00:00:00+01:00</updated>
+    <updated>2012-08-21T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1302,7 +1235,7 @@
     <id>http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released"/>
     <title>SnowPlow 0.4.6 released</title>
-    <updated>2012-08-20T00:00:00+01:00</updated>
+    <updated>2012-08-20T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1312,17 +1245,7 @@
 &lt;p&gt;Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.&lt;/p&gt;
 
 &lt;p&gt;You can use this feature in your JavaScript invocation code like so:&lt;/p&gt;
-&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='c'&gt;&amp;lt;!--&lt;/span&gt; &lt;span class='nx'&gt;SnowPlow&lt;/span&gt; &lt;span class='nx'&gt;starts&lt;/span&gt; &lt;span class='nx'&gt;plowing&lt;/span&gt; &lt;span class='o'&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class='o'&gt;&amp;lt;&lt;/span&gt;&lt;span class='nx'&gt;script&lt;/span&gt; &lt;span class='nx'&gt;type&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s2'&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt;
-&lt;span class='kd'&gt;var&lt;/span&gt; &lt;span class='nx'&gt;_snaq&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nx'&gt;_snaq&lt;/span&gt; &lt;span class='o'&gt;||&lt;/span&gt; &lt;span class='p'&gt;[];&lt;/span&gt;
 
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setCollectorUrl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;collector.mydomain.com&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-
-&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='kd'&gt;function&lt;/span&gt;&lt;span class='p'&gt;()&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
-&lt;span class='p'&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
 &lt;p&gt;Where &lt;code&gt;collector.mydomain.com&lt;/code&gt; is the URL to your own collector.&lt;/p&gt;
 
 &lt;p&gt;We added this capability to SnowPlow in support of Simon Rumble&amp;#8217;s excellent &lt;a href='https://github.com/shermozle/SnowCannon'&gt;SnowCannon&lt;/a&gt; prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.&lt;/p&gt;
@@ -1334,7 +1257,7 @@
     <id>http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released"/>
     <title>Updated Hive SerDe released</title>
-    <updated>2012-08-14T00:00:00+01:00</updated>
+    <updated>2012-08-14T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1348,7 +1271,7 @@
     <id>http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow"/>
     <title>SnowCannon - a node.js collector for SnowPlow</title>
-    <updated>2012-08-13T00:00:00+01:00</updated>
+    <updated>2012-08-13T00:00:00+03:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1374,7 +1297,7 @@
     <id>http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled"/>
     <title>The setup guide has been overhauled</title>
-    <updated>2012-08-02T00:00:00+01:00</updated>
+    <updated>2012-08-02T00:00:00+03:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>

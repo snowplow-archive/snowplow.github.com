@@ -92,7 +92,7 @@
 <p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for &#8220;online analytics processing&#8221;, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
 
 <p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they&#8217;re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
-<p style='text-align:center;'><img src='/static/img/olap/example-cube.png' alt='olap cube' width='250' /></p>
+<p style='text-align:center;'><img alt='olap cube' width='250' src='/static/img/olap/example-cube.png' /></p>
 <p>When we say OLAP cube, then, we visualise a &#8220;cube&#8221; of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a &#8220;hyper-cube&#8221;, but it doens&#8217;t really matter.)</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -102,11 +102,11 @@
 <h4 id='221_slicing_data'>2.2.1 Slicing data</h4>
 
 <p>We &#8220;slice&#8221; data when we pick two dimensions to view a particular metric by. The analogy is to take a &#8220;slice&#8221; through an OLAP cube to produce a 2D data set.</p>
-<p style='text-align:center;'><img src='/static/img/olap/slice.png' alt='slice olap cube' width='180' /></p>
+<p style='text-align:center;'><img alt='slice olap cube' width='180' src='/static/img/olap/slice.png' /></p>
 <h4 id='222_dice_data'>2.2.2. Dice data</h4>
 
 <p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called &#8220;dice&#8221;.</p>
-<p style='text-align:center;'><img src='/static/img/olap/dice.png' alt='dice olap cube' width='140' /></p>
+<p style='text-align:center;'><img alt='dice olap cube' width='140' src='/static/img/olap/dice.png' /></p>
 <h4 id='223_drill_up_and_drill_down'>2.2.3. Drill up and drill down</h4>
 
 <p>OLAP dimensions are often organised in a hierarchy. To gives some examples:</p>
@@ -132,7 +132,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <li>To better understand a relationship once one has been spotted. (Does product mix <em>only</em> vary by city? Or is it actually that user segments vary by city, and it is user segment that is predictive of product mix?)</li>
 </ol>
-<p style='text-align:center;'><img src='/static/img/olap/pivot.png' alt='pivot olap cube' width='140' /></p>
+<p style='text-align:center;'><img alt='pivot olap cube' width='140' src='/static/img/olap/pivot.png' /></p>
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
 <p>In traditional OLAP parlance, at the heart of OLAP data is a &#8220;fact table&#8221;. In SnowPlow paralance, that fact table is really an &#8220;events&#8221; table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:</p>
@@ -198,9 +198,9 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='practical'><h3>4. Some practical considerations related to star schemas and columnar databases</h3></a>
 <p>OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central &#8220;fact table&#8221; of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.</p>
-<p style='text-align:center;'><img src='/static/img/olap/star-schema.png' alt='pivot olap cube' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
+<p style='text-align:center;'><img alt='pivot olap cube' src='/static/img/olap/star-schema.png' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
 <p>Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single &#8220;fat&#8221; fact table with all the relevant dimensions:</p>
-<p style='text-align:center;'><img src='/static/img/olap/desired-structure-for-olap.png' alt='desired structure' width='500' /></p>
+<p style='text-align:center;'><img alt='desired structure' width='500' src='/static/img/olap/desired-structure-for-olap.png' /></p>
 <p>Columnar databases make this possible because they make &#8220;columns cheap&#8221;: query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves. (Which is generally a time consuming operation.)</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -657,19 +657,19 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <p>Connecting Tableau desktop edition to Infobright is a bit fiddly: in most cases, your data will be on a remote Infobright instance and you&#8217;ll want to establish an SSH connection between the PC running Tableau and that instance. Instructions on how to do this is beyond the scope of this tutorial, but a decent explanation of how to setup a tunnel using <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/'>Putty</a> can be found <a href='http://oldsite.precedence.co.uk/nc/putty.html'>here</a>.</p>
 
 <p>Once you have setup your tunnel, launch Tableau and select <strong>connect to data</strong>. Select <strong>MySQL</strong> from the list of options:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-1.JPG' alt='connect tableau to data' width='350' /></p>
+<p style='text-align:center;'><img alt='connect tableau to data' width='350' src='/static/img/olap/tableau-1.JPG' /></p>
 <p>In our case I&#8217;ve setup Putty to forward requests to <code>localhost:1234</code> to my remote Infobright instance. The server name and port number you&#8217;ll need to enter will be determined by the nature of the tunnel you&#8217;ve established.</p>
 
 <p>Enter the username and password to log into your Infobright instance and click <strong>Connect</strong>. Select the database you created the table in: your table should be visible:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-2.JPG' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-2.JPG' /></p>
 <p>You&#8217;ll be given an option as to how much of the data you want imported into Tableau&#8217;s fast data engine. If your data set isn&#8217;t too large, you can try importing all of it. Otherwise, select &#8220;import some data&#8221; or &#8220;Connect live&#8221;&#8220;. Your workbook should launch:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-3.JPG' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-3.JPG' /></p>
 <p>Tableau&#8217;s made some guesses as to which one of our columns are dimensions and which are metrics. If the field is numeric, Tableau assumes it is a metric. If it&#8217;s not, it assumes it&#8217;s a dimension. That works for <em>most</em> of our fields, but not for <code>visit_id</code> (which is a dimension). Simply drag <code>visit_id</code> from the <strong>Measures</strong> pane to the <strong>Dimensions pane</strong>:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-4.JPG' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-4.JPG' /></p>
 <p>Now we need to add our two missing metrics: <code>uniques</code> and <code>visits</code>. To add <code>uniques</code>, right click on <code>user_id</code> (in the dimensions pane) and select <strong>Create calculated field</strong>. Tableau gives us the opportunity to create a new, calcultaed field. Fill in the name and formula as below:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-5.JPG' alt='calculated field - uniques' width='550' /></p>
+<p style='text-align:center;'><img alt='calculated field - uniques' width='550' src='/static/img/olap/tableau-5.JPG' /></p>
 <p>Click <strong>OK</strong>: <code>Uniques</code> will now be listed as a <strong>Measure</strong>. Now we need to create a new calculated field for <strong>Visits</strong>:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-6.JPG' alt='calculated field - visits' width='550' /></p>
+<p style='text-align:center;'><img alt='calculated field - visits' width='550' src='/static/img/olap/tableau-6.JPG' /></p>
 <p>Now we&#8217;re all set! We can drag and drop our fields and metrics to our heart&#8217;s content, to explore our data set. To see a video demonstration of how to do this (including with a cube with more dimensions and metrics than in this tutorial) see our blog post on <a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow/'>analysing SnowPlow data with Tableau</a>.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>

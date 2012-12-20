@@ -4,13 +4,82 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-12-18T19:09:36+02:00</updated>
+  <updated>2012-12-20T16:28:12+02:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released"/>
+    <title>SnowPlow 0.6.4 released, with Infobright improvements</title>
+    <updated>2012-12-20T00:00:00+02:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re happy to announce our next SnowPlow release - version &lt;strong&gt;0.6.4&lt;/strong&gt;. This release includes updates:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;An upgraded Infobright table definition which scales to millions of pageviews easily&lt;/li&gt;
+
+&lt;li&gt;Clarified Hive table definitions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Before we start - a big thanks to the community members who helped out on this release:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://github.com/moncaubeig'&gt;Gilles Moncaubeig&lt;/a&gt; @ &lt;a href='http://en.overblog.com/'&gt;OverBlog&lt;/a&gt; worked closely with us on the updated Infobright table definition&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/mmoulton'&gt;Mike Moulton&lt;/a&gt; @ &lt;a href='http://meltmedia.com/'&gt;meltmedia&lt;/a&gt; for flagging the missing Hive table definition&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We&amp;#8217;ll take a look at both updates below:&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='upgraded_infobright_table_definition'&gt;Upgraded Infobright table definition&lt;/h2&gt;
+
+&lt;p&gt;With help from &lt;a href='https://github.com/moncaubeig'&gt;Gilles Moncaubeig&lt;/a&gt; we have upgraded the Infobright table definition so that it can easily scale to loading millions of new SnowPlow events per day. It also supports much longer &lt;code&gt;br_lang&lt;/code&gt; and &lt;code&gt;page_url&lt;/code&gt; fields, which should prevent you from occasional load errors.&lt;/p&gt;
+
+&lt;p&gt;If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4-storage/infobright-storage/migrate_to_004.sh&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this script will create a new table, &lt;code&gt;events_004&lt;/code&gt; (version 0.0.4 of the table definition) in your &lt;code&gt;snowplow&lt;/code&gt; database, copying across all your data from your existing &lt;code&gt;events&lt;/code&gt; table, which will not be modified in any way.&lt;/p&gt;
+
+&lt;p&gt;Once you have run this, don&amp;#8217;t forget to update your StorageLoader&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; to load into the new &lt;code&gt;events_004&lt;/code&gt; table, not your old &lt;code&gt;events&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage:
+  :type: infobright
+  :database: snowplow
+  :table:    events_004 # NOT &amp;quot;events_003&amp;quot; any more&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+
+&lt;h2 id='clarified_hive_table_definitions'&gt;Clarified Hive table definitions&lt;/h2&gt;
+
+&lt;p&gt;We have clarified the two different Hive table definitions, available in this folder:&lt;/p&gt;
+
+&lt;p&gt;4-storage/hive-storage&lt;/p&gt;
+
+&lt;p&gt;Which format your SnowPlow event files are in will depend on how your EmrEtlRunner is configured. If your &lt;code&gt;config.yml&lt;/code&gt; contains:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage_format: non-hive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;then your SnowPlow events will be stored in the format shown in &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'&gt;&lt;code&gt;non-hive-format-table-def.q&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Whereas if your &lt;code&gt;config.yml&lt;/code&gt; contains:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage_format: non-hive&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;then your SnowPlow events will be stored in the format shown in &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'&gt;&lt;code&gt;hive-format-table-def.q&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#8217;s it! If you have any problems with SnowPlow version 0.6.4, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released</id>
@@ -74,7 +143,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' width='250' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -891,7 +960,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' scrolling='no' marginheight='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe width='427' marginwidth='0' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

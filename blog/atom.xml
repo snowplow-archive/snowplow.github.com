@@ -4,13 +4,179 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2012-12-20T16:28:12+02:00</updated>
+  <updated>2012-12-26T18:39:13+02:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released"/>
+    <title>SnowPlow 0.6.5 released, with improved event tracking</title>
+    <updated>2012-12-26T00:00:00+02:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re excited to announce our next SnowPlow release - version &lt;strong&gt;0.6.5&lt;/strong&gt;, a Boxing Day release for SnowPlow!&lt;/p&gt;
+
+&lt;p&gt;This is a big release for us, as it introduces the idea of &lt;strong&gt;event types&lt;/strong&gt; - every event sent by the JavaScript tracker to the collector now has an &lt;code&gt;event&lt;/code&gt; field which specifies what type of event it is. This should be really helpful for a couple of things:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It should make querying SnowPlow events much easier&lt;/li&gt;
+
+&lt;li&gt;It should make SnowPlow event data a better fit for JSON-oriented datastores such as MongoDB and Riak&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As well as event types, in this release we are also introducing &lt;strong&gt;event IDs&lt;/strong&gt;. With this, the ETL phase adds an &lt;code&gt;event_id&lt;/code&gt; UUID (universally unique ID) to each event row, which should help with subsequent querying.&lt;/p&gt;
+
+&lt;p&gt;Here is a taster of how SnowPlow event data looks with the new event types and event IDs:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
+
+&lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have cleaned up the code for on-page activity tracking (&amp;#8220;page pings&amp;#8221;)&lt;/li&gt;
+
+&lt;li&gt;We have fixed a bug that affected ad impression tracking - thanks &lt;a href='https://github.com/talkspoon'&gt;Alan Z&lt;/a&gt;!&lt;/li&gt;
+
+&lt;li&gt;The ETL no longer dies if a raw event has a corrupted querystring (e.g. the &lt;code&gt;&amp;amp;refr=&lt;/code&gt; parameter was not escaped)&lt;/li&gt;
+
+&lt;li&gt;The JavaScript tracker&amp;#8217;s build script, &lt;code&gt;snowpak.sh&lt;/code&gt;, now has a combine-only option (no minification), which is helpful for testing purposes&lt;/li&gt;
+
+&lt;li&gt;The JavaScript tracker has a new method, &lt;code&gt;attachUserId(boolean)&lt;/code&gt;, which can be used to stop the tracker sending a &lt;code&gt;&amp;amp;uid=xxx&lt;/code&gt; parameter&lt;/li&gt;
+
+&lt;li&gt;We have added the ability to override the IP address by passing in an &lt;code&gt;&amp;amp;ip=&lt;/code&gt; parameter on the querystring&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Below, we first explain how to upgrade, before taking a brief tour through these updates:&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='0_upgrading'&gt;0. Upgrading&lt;/h2&gt;
+
+&lt;p&gt;Upgrading is a two-step process:&lt;/p&gt;
+
+&lt;h3 id='javascript_tracker'&gt;JavaScript tracker&lt;/h3&gt;
+
+&lt;p&gt;Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.9.0. As always, the updated minified tracker is available here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.9.0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='etl'&gt;ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to use the latest versions of the Hive serde and HiveQL scripts:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  :serde_version: 0.5.3
+  :hive_hiveql_version: 0.5.3
+  :non_hive_hiveql_version: 0.0.4&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#8217;s it! You don&amp;#8217;t need to make any changes to your Infobright setup, assuming you are up-to-date with previous releases.&lt;/p&gt;
+
+&lt;h2 id='1_event_types'&gt;1. Event types&lt;/h2&gt;
+
+&lt;p&gt;To recap, every event sent by the JavaScript tracker now has an &lt;code&gt;event&lt;/code&gt; field which specifies what type of event it is. Currently we have six different types of events, which are set out in the table below:&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Type of event&lt;/th&gt;&lt;th&gt;JavaScript tracker function&lt;/th&gt;&lt;th&gt;Value of SnowPlow &lt;code&gt;event&lt;/code&gt; field&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Page view&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;trackPageView()&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;page_view&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Page ping&lt;/td&gt;&lt;td style='text-align: left;'&gt;None (automatic)*&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;page_ping&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Custom event&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;trackEvent()&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;custom&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Ad impression&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;trackImpression()&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;ad_impression&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Transaction&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;addTrans&lt;/code&gt; &amp;amp; &lt;code&gt;trackTrans()&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;transaction&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Transaction item&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;addItem&lt;/code&gt; &amp;amp; &lt;code&gt;trackTrans()&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;transaction_item&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;* for more information on on-page activity tracking, please see the relevant section later in this blog post.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This new event field should make it much easier to query SnowPlow data by the type of event. For example, to retrieve the number of e-commerce transactions per day:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='k'&gt;COUNT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;event_id&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt; &lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We will be updating our &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; to use the &lt;code&gt;event&lt;/code&gt; field to simplify queries where possible.&lt;/p&gt;
+
+&lt;h2 id='2_event_ids'&gt;2. Event IDs&lt;/h2&gt;
+
+&lt;p&gt;As stated above, the SnowPlow ETL now attaches a unique ID to each event - specifically a &lt;a href='http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29'&gt;type 4 UUID&lt;/a&gt;. This new &lt;code&gt;event_id&lt;/code&gt; is much more unique than the existing &lt;code&gt;txn_id&lt;/code&gt; field, which is a short random number set in the JavaScript tracker (&lt;code&gt;txn_id&lt;/code&gt; is currently unused, but we may eventually use it to check for duplicate events &lt;code&gt;txn_id&lt;/code&gt; introduced prior to the ETL, see &lt;a href='https://github.com/snowplow/snowplow/issues/24'&gt;issue 24&lt;/a&gt; for more details).&lt;/p&gt;
+
+&lt;p&gt;You can use the new &lt;code&gt;event_id&lt;/code&gt; field to uniquely identify individual events in your event store, and of course to count distinct events. For example, to count the number of page views by day, we simply execute the following query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='k'&gt;COUNT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;event_id&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt; &lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We will be updating our &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; to use &lt;code&gt;event_id&lt;/code&gt; in any examples which currently (erroneously) use &lt;code&gt;txn_id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id='3_onpage_activity_tracking'&gt;3. On-page activity tracking&lt;/h2&gt;
+
+&lt;p&gt;In this release of the JavaScript tracker we have deprecated the old (undocumented) &lt;code&gt;setHeartBeatTimer()&lt;/code&gt; inherited from &lt;code&gt;piwik.js&lt;/code&gt;, and introduced a new function, &lt;code&gt;enableActivityTracking(minimumVisitLength, heartBeatDelay)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With activity tracking enabled, &amp;#8220;page pings&amp;#8221; are sent to SnowPlow every &lt;code&gt;heartBeatDelay&lt;/code&gt; seconds, as long as the visitor remains active (moving the mouse, clicking etc) on the page. Page pings are not sent until the &lt;code&gt;minimumVisitLength&lt;/code&gt; seconds have elapsed.&lt;/p&gt;
+
+&lt;p&gt;Here is an example configuration:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;enableActivityTracking&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; &lt;span class='c1'&gt;// Ping every 10 seconds after 10 seconds&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This is still an experimental feature - but it should provide some interesting data to start to explore page residency, true bounce rates and so on.&lt;/p&gt;
+
+&lt;p&gt;Please note that enabling activity tracking can &lt;strong&gt;significantly&lt;/strong&gt; increase the number of SnowPlow events generated, especially with a short &lt;code&gt;heartBeatDelay&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id='4_and_the_rest'&gt;4. And the rest&lt;/h2&gt;
+
+&lt;p&gt;The rest of the changes in this release are much smaller, being either bug fixes or small preparatory features for future releases:&lt;/p&gt;
+
+&lt;h3 id='ad_impression_tracking_bug_fix'&gt;Ad impression tracking bug fix&lt;/h3&gt;
+
+&lt;p&gt;Many thanks to &lt;a href='https://github.com/talkspoon'&gt;Alan Z&lt;/a&gt; @ &lt;a href='http://www.verycd.com'&gt;VeryCD&lt;/a&gt; for spotting a bug in the &lt;code&gt;trackImpression()&lt;/code&gt; method, which was stopping ad impressions from being logged. This is now fixed.&lt;/p&gt;
+
+&lt;h3 id='etl_resilient_against_corrupted_querystrings'&gt;ETL resilient against corrupted querystrings&lt;/h3&gt;
+
+&lt;p&gt;We had a problem with two historic versions of the JavaScript tracker, 0.8.0 and 0.8.1, where querystrings were being transmitted to the SnowPlow collector unescaped. These &amp;#8220;corrupted&amp;#8221; querystrings caused the ETL process to error and die.&lt;/p&gt;
+
+&lt;p&gt;We have updated the ETL process so that events with corrupted querystrings can be processed without error: these rows are stored as SnowPlow events, but of course with most of the standard fields empty.&lt;/p&gt;
+
+&lt;h3 id='snowpaksh_combineonly_option'&gt;snowpak.sh combine-only option&lt;/h3&gt;
+
+&lt;p&gt;To make it easier to hack on the JavaScript tracker, we have updated the build script, &lt;code&gt;snowpak.sh&lt;/code&gt;, so that it has a &amp;#8220;combine-only&amp;#8221; option. If you set the combine-only flag on the command line, then the minification step will &lt;strong&gt;not&lt;/strong&gt; be run, and debug code will left in. This is helpful for local testing when you want to debug the JavaScript in its pre-minified form.&lt;/p&gt;
+
+&lt;p&gt;Here are the updated usage options for the &lt;code&gt;snowpak.sh&lt;/code&gt; script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Usage: ./snowpak.sh [options]
+
+Specific options:
+  -y PATH             path to YUICompressor 2.4.2 *
+  -c                  combine only (no minification or removing debug)
+
+* or set env variable YUI_COMPRESSOR_PATH instead
+
+Common options:
+  -h                  Show this message&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='attachuseridboolean'&gt;attachUserId(boolean)&lt;/h3&gt;
+
+&lt;p&gt;The JavaScript tracker has a new method, &lt;code&gt;attachUserId(boolean)&lt;/code&gt;, which can be used to stop the tracker from sending a &lt;code&gt;&amp;amp;uid=xxx&lt;/code&gt; parameter. By default, the JavaScript tracker sends the user ID to the collector via this &lt;code&gt;uid&lt;/code&gt; parameter; you can now disable this by calling &lt;code&gt;attachUserId()&lt;/code&gt; like so:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;attachUserId&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='kc'&gt;false&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; &lt;span class='c1'&gt;// Don&amp;#39;t attach &amp;amp;uid=xxx to the querystring&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This function is not of immediate use - but it will be an important part of the setup for using the new Clojure Collector, which we are currently working on.&lt;/p&gt;
+
+&lt;h3 id='ip_address_override'&gt;IP address override&lt;/h3&gt;
+
+&lt;p&gt;Finally, we have added the ability to override the IP address by passing in an &lt;code&gt;ip=&lt;/code&gt; parameter on the querystring.&lt;/p&gt;
+
+&lt;p&gt;This one is a little confusing, as there is no capability in the JavaScript tracker to attach an IP address to the querystring (because JavaScript cannot know the user&amp;#8217;s IP address). Rather, we have added this IP address override ability to cater for future server-side trackers and collectors which &lt;em&gt;do&lt;/em&gt; know the user&amp;#8217;s IP address and want to append it to the querystring themselves.&lt;/p&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#8217;s it! If you have any problems with SnowPlow version 0.6.5, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released</id>
@@ -143,7 +309,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' width='250' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -363,7 +529,7 @@
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -405,7 +571,7 @@
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -592,7 +758,7 @@
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -960,7 +1126,7 @@
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe width='427' marginwidth='0' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' scrolling='no' width='427' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

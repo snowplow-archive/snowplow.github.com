@@ -49,7 +49,7 @@
 
 <p>Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
 
-<p><img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /></p>
+<p><img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /></p>
 
 <p>StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
 
@@ -136,6 +136,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
 		
 			<li><a href="/blog/2012/12/20/snowplow-0.6.4-released">SnowPlow 0.6.4 released, with Infobright improvements</a></li>
 		

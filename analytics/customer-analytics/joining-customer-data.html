@@ -55,9 +55,7 @@
 
 <li><a href='#join'>Joining customer data with SnowPlow</a></li>
 </ol>
-<a name='why' />
-<h2 id='1_why_integrate_web_analytics_data_with_other_customer_data_sources'>1. Why integrate web analytics data with other customer data sources?</h2>
-
+<a name='why'><h2>1. Why integrate web analytics data with other customer data sources?</h2></a>
 <p>To date many companies have become very good at using CRM, loyalty and sales data to understand, segment and serve their customer base. Typically, however, they have <strong>not</strong> used web analytics data to understand their customers, even though how users engage with brands and companies through their website and applications provides some of the most revealing data about who a person is, there motivation for engaging with a brand / product / service and how happy they are with that brand / product and service. To illustrate how revealing web analytics data can be, consider:</p>
 
 <ul>
@@ -85,9 +83,7 @@
 
 <li>Social media (e.g. Facebook, Twitter)</li>
 </ul>
-<a name='ingredients' />
-<h2 id='2_necessary_ingredients_for_successful_integration'>2. Necessary ingredients for successful integration</h2>
-
+<a name='ingredients'><h2>2. Necessary ingredients for successful integration</h2></a>
 <p>Integrating any two data sources requires that:</p>
 
 <ul>
@@ -103,9 +99,7 @@
 
 <li>Web analytics programs are typically bad at reliably identifying users. (SnowPlow <em>fixes</em> this problem by exposing a <code>user_id</code> and making it striaghtforward to map <code>user_id</code>s with <code>login_id</code>s from other systems as described in the <a href='identifying-users.html'>identifying-users</a> section.)</li>
 </ul>
-<a name='upload' />
-<h2 id='3_uploading_data_into_snowplow'>3. Uploading data into SnowPlow</h2>
-
+<a name='upload'><h2>3. Uploading data into SnowPlow</h2></a>
 <p>In order two join two data sets, you need to be able to run a query across both of them. Typically, this means getting copies of them in the same system. There are three options:</p>
 
 <ol>
@@ -173,16 +167,14 @@
 <h3 id='importing_your_data_into_infobright'>Importing your data into Infobright</h3>
 
 <p>If you are using Infobright to store and query your SnowPlow data, uploading data into Infobright is easier: you can use any database administration tool that interfaces with MySQL (on which Infobright is based) to create a new table in Infobright and import the CSV in. If the data you are importing lives in another relational database, it may be possible to use a tool like <a href='http://www.navicat.com/'>Navicat</a> to move the data directly between one database and the other, or use an ETL tool like <a href='http://www.jitterbit.com/'>Jitterbit</a> to manage a regular transfer of data from one database to the other.</p>
-<a name='join' />
-<p>Now that both your data sets are available in Hive or Infobright, you are in a position to run an analysis across both set of data.</p>
-
+<a name='join'>Now that both your data sets are available in Hive or Infobright, you are in a position to run an analysis across both set of data.</a>
 <p>To do so, however, you need to <code>join</code> the two data sets. This requires mapping users, as identified in SnowPlow by the <code>user_id</code>, with customers as identified by a <code>customer_id</code> in your second data set. This requires firing a SnowPlow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be matched against the SnowPlow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href='identifying-users.html#login-events'>identifying users with SnowPlow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
 <span class='n'>ev_value</span> <span class='k'>AS</span> <span class='n'>customer_id</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='n'>fLIKE</span> <span class='s1'>&#39;login&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_value</span><span class='p'>;</span>
 </code></pre>
 </div>
@@ -237,30 +229,30 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 						
 							
 							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
 									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -336,6 +328,22 @@
 				
 					
 				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -359,22 +367,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 				
 					
 				
@@ -442,10 +434,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -481,6 +469,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -548,6 +540,30 @@
 				
 					
 				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -563,30 +579,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 				
 					
 				
@@ -654,10 +646,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -693,6 +681,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -760,10 +752,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -799,6 +787,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -889,18 +881,18 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
 						
 							
 							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
 									
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -1274,6 +1266,10 @@
 	</p>
 	<p>
 		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
 		
 	</p>
 	<p>

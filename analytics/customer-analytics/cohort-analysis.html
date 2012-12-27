@@ -47,9 +47,7 @@
 
 <li><a href='#steps'>Steps to performing a cohort analysis</a></li>
 </ol>
-<a name='what' />
-<h2 id='what_is_a_cohort_analysis'>What is a cohort analysis?</h2>
-
+<a name='what '><h2>What is a cohort analysis?</h2></a>
 <p>A cohort analysis is a longitudal study that compares two or more groups of customers / users (cohorts) over a period of time. The term cohort analysis therefore encompasses a wide variety of analyses:</p>
 
 <ol>
@@ -59,9 +57,7 @@
 </ol>
 
 <p>For more detail on the variations possible with cohort analyses, see <a href='http://www.keplarllp.com/blog/2012/05/on-the-wide-variety-of-different-cohort-analyses-possible-with-snowplow'>this Keplar blog post</a>.</p>
-<a name='steps' />
-<h2 id='steps_to_performing_a_cohort_analysis'>Steps to performing a cohort analysis</h2>
-
+<a name='steps '><h2>Steps to performing a cohort analysis</h2></a>
 <p>All cohort analyses can be performed with the following steps:</p>
 
 <ol>
@@ -71,9 +67,7 @@
 
 <li><a href='#combinetheresults'>Combine the results</a> from the above two queries to calculate an aggregated metric for each cohort</li>
 </ol>
-<a name='cohort-definition' />
-<h2 id='1_cohort_definition'>1. Cohort definition</h2>
-
+<a name='cohort-definition '><h2>1. Cohort definition</h2></a>
 <p>Regardless of the type of cohort analysis we want to perform, we start by creating a table that maps user_ids to cohorts:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>user_cohort_map</span> <span class='p'>(</span>
 	<span class='n'>cohort</span> <span class='n'>STRING</span><span class='p'>,</span>
@@ -151,9 +145,7 @@
 <h3 id='1d_other_ways_to_define_cohorts'>1d. Other ways to define cohorts</h3>
 
 <p>SnowPlow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of SnowPlow. (This data will need to be uploaded to SnowPlow before it can be used.) For more information, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a></p>
-<a name='metric-definition' />
-<h2 id='2_metric_definitions'>2. Metric definitions</h2>
-
+<a name='metric-definition'><h2>2. Metric definitions</h2></a>
 <p>As a second step, we need to define a query that measure the <em>thing</em> we want to compare between our cohorts. We therefore need to populate a table like the one below:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>metric_by_user</span> <span class='p'>(</span>
 <span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
@@ -173,7 +165,7 @@
 <span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>time_period</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>metric_value</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>metric_value</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
 </code></pre>
@@ -205,9 +197,7 @@
 <h3 id='2c_other_metrics_to_compare'>2c. Other metrics to compare</h3>
 
 <p>SnowPlow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
-<a name='combinetheresults' />
-<h2 id='3_combining_the_results_in_the_final_cohort_analysis'>3. Combining the results in the final cohort analysis</h2>
-
+<a name='combinetheresults'><h2>3. Combining the results in the final cohort analysis</h2></a>
 <p>To perform the actual cohort analysis, all we have to do is to <code>JOIN</code> our two tables <code>user_cohort_map</code> and <code>metric_by_user</code> to aggregate results by cohort by time period so that we can compare them alongside each other:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>cohort_analysis_results</span> <span class='p'>(</span>
 <span class='n'>cohort</span> <span class='n'>STRING</span><span class='p'>,</span>
@@ -265,30 +255,30 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 						
 							
 							<li><a href="/analytics/customer-analytics/overview.html">Overview</a></li>
 									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -364,6 +354,22 @@
 				
 					
 				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -387,22 +393,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 				
 					
 				
@@ -470,10 +460,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -509,6 +495,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -576,6 +566,30 @@
 				
 					
 				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -591,30 +605,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 				
 					
 				
@@ -682,10 +672,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -721,6 +707,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -788,10 +778,6 @@
 				
 					
 				
-					
-				
-					
-									
 					
 				
 					
@@ -827,6 +813,10 @@
 					
 				
 					
+									
+					
+				
+					
 				
 					
 				
@@ -917,18 +907,18 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
 						
 							
 							<li><a href="/analytics/customer-analytics/attribution.html">Attribution</a></li>
 									
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -1302,6 +1292,10 @@
 	</p>
 	<p>
 		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
 		
 	</p>
 	<p>

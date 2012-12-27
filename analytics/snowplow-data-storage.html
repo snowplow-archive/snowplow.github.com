@@ -55,9 +55,7 @@
 <p>If the data is warehoused using Hive, it physically lives in Amazon S3. When you fire up Elastic Mapreduce, you define a table for the data and point it at the relevant location in S3, where the physical data lives.</p>
 
 <p>In the case of Infobright, the data lives in a table on your Infobright instance, where it is queried just like any table in a database.</p>
-<a name='apachehive' />
-<h2 id='apache_hive'>Apache Hive</h2>
-
+<a name='apachehive '><h2>Apache Hive</h2></a>
 <p><a href='http://hive.apache.org/'>Apache Hive</a> is a datawarehousing platform developed by the techies at Facebook and built on top of Hadoop. It lets analysts run SQL-like queries against large volumes of data stored in flat files. (The syntax is especially close to MySQL, in particular.) From a SnowPlow analytics perspective, the important things to understand about Hive are:</p>
 
 <ol>
@@ -71,9 +69,7 @@
 </ol>
 
 <p>Using Hive, it is possible to run analyses against your raw Cloudfront logs directly, as described <a href='#analyse-cloudfront-logs-directly'>below</a>. More often, though, analysts choose to transfer the data into a format that enables faster querying in Hive, as described <a href='#optimised-hive'>here</a>.</p>
-<a name='analyse-cloudfront-logs-directly' />
-<h3 id='querying_cloudfront_logs_directly_in_hive'>Querying Cloudfront logs directly in Hive</h3>
-
+<a name='analyse-cloudfront-logs-directly '><h2>Querying Cloudfront logs directly in Hive</h2></a>
 <p>Querying the Cloudfront log data directly in Hive is straightforward. First, from the terminal, navigate to the directory with your <a href='http://aws.amazon.com/developertools/2264'>Elastic Mapreduce command line tools</a> and launch a Hive interactive session:</p>
 
 <pre><code>./elastic-mapreduce --create --alive --hive-interactive</code></pre>
@@ -111,30 +107,35 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 </code></pre>
 </div>
 <p>We now need to create a table in Hive based on the Cloudfront logs. To do that, we first need to let Hive know where the SnowPlow deserializer is, so that Hive can read the raw log files. To do that, execute the following command:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>ADD</span> <span class='n'>JAR</span> <span class='n'>s3</span><span class='p'>:</span><span class='o'>///</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>log</span><span class='o'>-</span><span class='n'>deserializers</span><span class='o'>-</span><span class='mi'>0</span><span class='p'>.</span><span class='mi'>4</span><span class='p'>.</span><span class='mi'>7</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='k'>ADD</span> <span class='n'>JAR</span> <span class='n'>s3</span><span class='p'>:</span><span class='o'>//</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>emr</span><span class='o'>-</span><span class='n'>assets</span><span class='o'>/</span><span class='n'>hive</span><span class='o'>/</span><span class='n'>serdes</span><span class='o'>/</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>log</span><span class='o'>-</span><span class='n'>deserializers</span><span class='o'>-</span><span class='mi'>0</span><span class='p'>.</span><span class='mi'>5</span><span class='p'>.</span><span class='mi'>3</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
 </code></pre>
 </div>
-<p>(Substitute the S3 bucket you use to store the deserializer JAR.) Now you can create the table:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='n'>views_events</span> 
+<p>(The S3 address given above is for the version of the deserializer <a href='https://github.com/snowplow/snowplow/wiki/Hosted-assets'>hosted by us</a>. You may want to substitute the address to point to your own copy of the Hive serde.) Now you can create the table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='n'>events</span> 
 <span class='n'>ROW</span> <span class='n'>FORMAT</span> 
   <span class='n'>SERDE</span> <span class='s1'>&#39;com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer&#39;</span>
-<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span><span class='p'>;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3://[[LOGS-BUCKET-NAME]]/&#39;</span><span class='p'>;</span>
 </code></pre>
 </div>
 <p>You wll need to replace the &#8216;LOGS-BUCKET-NAME&#8217; with the name of the S3 bucket where your Cloudfront logs are stored.</p>
 
 <p>Hive now knows where your Cloudfront logs are stored, and it knows from the deserializer how to translate those individual logs into a tidy table. We can inspect the tidy table created prior to querying it:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='k'>DESCRIBE</span> <span class='n'>events</span> <span class='p'>;</span>
 </code></pre>
 </div>
 <p>Hive will respond by listing all the different fields:</p>
-<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span><span class='o'>&gt;</span> <span class='k'>DESCRIBE</span> <span class='n'>views_events</span> <span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='n'>hive</span><span class='o'>&gt;</span> <span class='k'>DESCRIBE</span> <span class='n'>events</span> <span class='p'>;</span>
 <span class='n'>OK</span>
+<span class='n'>app_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>platform</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>dt</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>tm</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>event</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>event_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>txn_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>user_id</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>user_ipaddress</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>user_fingerprint</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>visit_id</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>page_url</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>page_title</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
@@ -149,6 +150,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='n'>ev_label</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>ev_property</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>ev_value</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>useragent</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_version</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
@@ -156,27 +158,55 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='n'>br_renderengine</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_lang</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_features</span>	<span class='n'>array</span><span class='o'>&lt;</span><span class='n'>string</span><span class='o'>&gt;</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_pdf</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_flash</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_java</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_director</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_quicktime</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_realplayer</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_windowsmedia</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_gears</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_features_silverlight</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>br_cookies</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_cookies_bt</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>br_colordepth</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>os_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>os_family</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>os_manufacturer</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>os_timezone</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>dvce_type</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>dvce_ismobile</span>	<span class='n'>boolean</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>dvce_ismobile_bt</span>	<span class='kt'>tinyint</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>dvce_screenwidth</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>dvce_screenheight</span>	<span class='kt'>int</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
-<span class='kt'>Time</span> <span class='n'>taken</span><span class='p'>:</span> <span class='mi'>1</span><span class='p'>.</span><span class='mi'>425</span> <span class='n'>seconds</span>
+<span class='n'>tr_orderid</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_affiliation</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_total</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_tax</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_shipping</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_city</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_state</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>tr_country</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_orderid</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_sku</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_name</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_category</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_price</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>ti_quantity</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>v_tracker</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>v_collector</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='n'>v_etl</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
+<span class='kt'>Time</span> <span class='n'>taken</span><span class='p'>:</span> <span class='mi'>0</span><span class='p'>.</span><span class='mi'>574</span> <span class='n'>seconds</span>
 </code></pre>
 </div>
-<p>You as an analyst can now query the &#8220;views_events&#8221; table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:</p>
+<p>You as an analyst can now query the &#8220;events&#8221; table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>dt</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
-<span class='k'>FROM</span> <span class='n'>views_events</span>
+<span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
 </code></pre>
-</div><a name='optimised-hive' />
-<h3 id='querying_the_data_in_a_format_optimsied_for_hive'>Querying the data in a format optimsied for Hive</h3>
-
+</div><a name='optimised-hive '><h3>Querying the data in a format optimsied for Hive</h3></a>
 <p>Whilst it is possible to query the Cloudfront logs directly, this is inefficient for a number of reasons:</p>
 
 <ol>
@@ -185,17 +215,19 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <li>The Cloudfront logs are not partitioned. That means that every time you run a query, Hive has to chunk through the complete data sets, which may run into Terabytes of data for a big website.</li>
 </ol>
 
-<p>As a result, SnowPlow offers a daily ETL process that takes identifies the new records in the Cloudfront logs and writes this data into another bucket on S3 into a partitioned format that Hive can read directly without the custom deserializer.</p>
+<p>As a result, SnowPlow offers a <a href='https://github.com/snowplow/snowplow/wiki/hive-etl-setup'>daily ETL process</a> that takes identifies the new records in the raw logs and writes this data into another bucket on S3 into a partitioned format that Hive can read directly without the custom deserializer.</p>
 
-<p>Querying this table is very similar to querying the raw Cloudfront logs. The biggest difference notable to the analyst will be that results are returned much faster.</p>
+<p>In addition, we are developing the ETL process so that it enriches the data stored in the original logs: for example, by inferring the location of the user on the basis of the IP address, inferring keywords from the search engine referrer string and breaking up referrer strings into hosts, domains and queries.</p>
+
+<p>Querying this table is very similar to querying the raw logs. The fields are the same. The custom serde is not required when creating the table definition. The biggest difference notable to the analyst will be that results are returned much faster.</p>
 
 <p>To perform the queries, we need to start off by defining our table, and telling Hive where the data lives:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='k'>IF</span> <span class='k'>NOT</span> <span class='k'>EXISTS</span> <span class='ss'>`events`</span> <span class='p'>(</span>
-<span class='n'>tm</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>txn_id</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>user_id</span> <span class='n'>STRING</span><span class='p'>,</span>
+<span class='n'>tm</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>txn_id</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>user_id</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>user_ipaddress</span> <span class='n'>string</span><span class='p'>,</span>
-<span class='n'>visit_id</span> <span class='kt'>INT</span><span class='p'>,</span>
+<span class='n'>visit_id</span> <span class='kt'>int</span><span class='p'>,</span>
 <span class='n'>page_url</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>page_title</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>page_referrer</span> <span class='n'>string</span><span class='p'>,</span>
@@ -209,6 +241,20 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='n'>ev_label</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>ev_property</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>ev_value</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_orderid</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_affiliation</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_total</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_tax</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_shipping</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_city</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_state</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>tr_country</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_orderid</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_sku</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_name</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_category</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_price</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>ti_quantity</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>br_name</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>br_family</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>br_version</span> <span class='n'>string</span><span class='p'>,</span>
@@ -223,9 +269,21 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='n'>dvce_type</span> <span class='n'>string</span><span class='p'>,</span>
 <span class='n'>dvce_ismobile</span> <span class='n'>boolean</span><span class='p'>,</span>
 <span class='n'>dvce_screenwidth</span> <span class='kt'>int</span><span class='p'>,</span>
-<span class='n'>dvce_screenheight</span> <span class='kt'>int</span><span class='p'>)</span>
+<span class='n'>dvce_screenheight</span> <span class='kt'>int</span><span class='p'>,</span>
+<span class='n'>app_id</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>platform</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>event</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>v_tracker</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>v_collector</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>v_etl</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>event_id</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>user_fingerprint</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>useragent</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>br_colordepth</span> <span class='n'>string</span><span class='p'>,</span>
+<span class='n'>os_timezone</span> <span class='n'>string</span>
+<span class='p'>)</span>
 <span class='n'>PARTITIONED</span> <span class='k'>BY</span> <span class='p'>(</span><span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>)</span>
-<span class='n'>LOCATION</span> <span class='s1'>&#39;s3:///&#39;</span> <span class='p'>;</span>
+<span class='n'>LOCATION</span> <span class='s1'>&#39;s3://[[EVENTS_TABLE_PATH]]/&#39;</span> <span class='p'>;</span>
 </code></pre>
 </div>
 <p>Some things to note when comparing the above CREATE TABLE statement with the one for Cloudfront earlier:</p>
@@ -245,9 +303,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
 </code></pre>
-</div><a name='infobright' />
-<h2 id='infobright'>Infobright</h2>
-
+</div><a name='infobright'><h2>Infobright</h2></a>
 <p>Whilst Hive has a number of features that make it well suited to performing analytics (especially horizontal scaling and direct integration to Amazon S3 via EMR), there are two disadvantages to using Hive:</p>
 
 <ol>
@@ -297,6 +353,32 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 						
 							
 							<li><a href="/analytics/index.html">Introduction</a></li>
@@ -309,24 +391,6 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -339,19 +403,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -389,6 +445,48 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
 				
 					
 				
@@ -413,48 +511,6 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -497,7 +553,29 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -513,20 +591,6 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -539,19 +603,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -597,6 +653,32 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -605,29 +687,19 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
 									
 					
 				
 					
 									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -672,22 +744,6 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 			
 				
 					
@@ -697,7 +753,29 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -706,6 +784,14 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -717,41 +803,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -797,19 +853,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -835,7 +883,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
@@ -847,7 +895,15 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+									
+					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -893,19 +949,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -931,7 +979,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
@@ -943,7 +991,15 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+									
+					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -989,19 +1045,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1027,7 +1075,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
@@ -1039,7 +1087,15 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+									
+					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1085,19 +1141,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1123,7 +1171,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
@@ -1135,7 +1183,15 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+									
+					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1181,19 +1237,11 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1219,7 +1267,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
-				
+									
 					
 				
 					
@@ -1231,7 +1279,15 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 					
 				
 					
+									
+					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1278,6 +1334,10 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 	</p>
 	<p>
 		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalogue-analytics/overview.html" >Catalogue analytics</a>
 		
 	</p>
 	<p>

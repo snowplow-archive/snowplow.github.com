@@ -59,7 +59,7 @@
 
 <p>Here is a taster of how SnowPlow event data looks with the new event types and event IDs:</p>
 
-<p><img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /></p>
+<p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
 
 <p>These are not the only improvements in this version - here are the rest:</p>
 
@@ -125,7 +125,7 @@
 			17 Dec 2012
 			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
 			<p>Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.</p>
-<p style='text-align:center;'><img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' width='250' src='/static/img/olap/example-cube-2.png' /></p>
 <p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
 <table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
 </tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>

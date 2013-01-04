@@ -4,13 +4,108 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-02T17:09:27+00:00</updated>
+  <updated>2013-01-04T18:15:57+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released"/>
+    <title>SnowPlow 0.7.0 released, with new Clojure-based collector</title>
+    <updated>2013-01-03T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Today we are hugely excited to announce the release of SnowPlow version &lt;strong&gt;0.7.0&lt;/strong&gt;, which includes an experimental new &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'&gt;Clojure-based collector&lt;/a&gt; designed to run on &lt;a href='http://aws.amazon.com/elasticbeanstalk/'&gt;Amazon Elastic Beanstalk&lt;/a&gt;. This release allows you to use SnowPlow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community member &lt;a href='https://github.com/shermozle'&gt;Simon Rumble&lt;/a&gt; for developing many of the ideas underpinning the new collector in &lt;a href='https://github.com/shermozle/SnowCannon'&gt;SnowCannon&lt;/a&gt;, his node.js-based collector for SnowPlow.&lt;/p&gt;
+
+&lt;p&gt;To date, the primary collector for SnowPlow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.&lt;/p&gt;
+
+&lt;p&gt;The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your SnowPlow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, &lt;a href='http://maven.snplow.com'&gt;maven.snplow.com&lt;/a&gt; will be the same as user=123 on &lt;a href='http://snowplowanalytics.com'&gt;snowplowanalytics.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And the other good news is that our Clojure collector automatically logs the raw SnowPlow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!&lt;/p&gt;
+
+&lt;p&gt;Read on below the fold for installation instructions and some additional information on this release.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='installation_instructions'&gt;Installation instructions&lt;/h2&gt;
+
+&lt;h3 id='clojurebased_collector'&gt;Clojure-based collector&lt;/h3&gt;
+
+&lt;p&gt;You will find full instructions on setting up the new Clojure-based collector on our Wiki, &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-the-clojure-collector'&gt;Setting up the Clojure collector&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id='etl'&gt;ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update to the latest version, which is 0.0.7 - this is available by checking out the master branch of the &lt;a href='https://github.com/snowplow/snowplow'&gt;SnowPlow repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You will also need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to use the latest versions of the HiveQL scripts:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  # ...
+  :hive_hiveql_version: 0.5.4
+  :non_hive_hiveql_version: 0.0.5&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='storage'&gt;Storage&lt;/h3&gt;
+
+&lt;p&gt;If you are using StorageLoader, you need to update to the latest version, which is 0.0.3 - this is available by checking out the master branch of the &lt;a href='https://github.com/snowplow/snowplow'&gt;SnowPlow repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are using Infobright Community Edition, you will need to update your table definition. This is because the &lt;code&gt;user_id&lt;/code&gt; field was not wide enough to store the new user IDs (UUIDs) set by the Clojure collector. To make this easier for you, we have created a script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4-storage/infobright-storage/migrate_to_005.sh&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this script will create a new table, &lt;code&gt;events_005&lt;/code&gt; (version 0.0.5 of the table definition) in your &lt;code&gt;snowplow&lt;/code&gt; database, copying across all your data from your existing &lt;code&gt;events_004&lt;/code&gt; table, which will not be modified in any way.&lt;/p&gt;
+
+&lt;p&gt;Once you have run this, don&amp;#8217;t forget to update your StorageLoader&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; to load into the new &lt;code&gt;events_005&lt;/code&gt; table, not your old &lt;code&gt;events_004&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage:
+  # ...
+  :table:    events_005 # NOT &amp;quot;events_004&amp;quot; any more&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#8217;s it! Your Clojure collector should be ready to run now. However, please read on for an important note about its experimental nature.&lt;/p&gt;
+
+&lt;h2 id='warning_experimental'&gt;Warning: Experimental!&lt;/h2&gt;
+
+&lt;p&gt;We want to stress that the new Clojure-based collector is a piece of experimental technology - we are looking to the community to try it out and feedback to us on how it&amp;#8217;s working for you, especially at scale.&lt;/p&gt;
+
+&lt;p&gt;In particular, we would recommend running the Clojure-based collector alongside the CloudFront collector to be confident that it is performing under load and that no events are being dropped. We have run both collectors alongside each other for the &lt;a href='http://snowplowanalytics.com'&gt;SnowPlow Analytics&lt;/a&gt; website for four complete days, and total event counts are as follows:&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;CloudFront&lt;/th&gt;&lt;th&gt;Clojure&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;2013-01-02&lt;/td&gt;&lt;td style='text-align: left;'&gt;275&lt;/td&gt;&lt;td style='text-align: left;'&gt;274&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;2013-01-01&lt;/td&gt;&lt;td style='text-align: left;'&gt;116&lt;/td&gt;&lt;td style='text-align: left;'&gt;108&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;2012-12-31&lt;/td&gt;&lt;td style='text-align: left;'&gt;107&lt;/td&gt;&lt;td style='text-align: left;'&gt;109&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;2012-12-30&lt;/td&gt;&lt;td style='text-align: left;'&gt;142&lt;/td&gt;&lt;td style='text-align: left;'&gt;141&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Overall for the result set, the absolute percentage difference between results for the Cloudfront and Clojure collectors is less than 2% (1.9%). Possible reasons for this discrepancy include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Differences in datestamps - possibly an event fell on either side of a date boundary for each collector&lt;/li&gt;
+
+&lt;li&gt;Duplicate rows - the two collectors may be occassionally duplicating different rows (see &lt;a href='https://github.com/snowplow/snowplow/issues/24'&gt;issue 24&lt;/a&gt;)&lt;/li&gt;
+
+&lt;li&gt;Browsing behaviour - it may be that the user navigates away from the page before one or other collector can register the event&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We plan on testing all of this further with larger datasets; we also intend to explore the Clojure collector&amp;#8217;s duplicate rows to check there are no particular issues there.&lt;/p&gt;
+
+&lt;h2 id='other_features_in_this_release'&gt;Other features in this release&lt;/h2&gt;
+
+&lt;p&gt;There are two minor changes in this release not related to the Clojure-based collector:&lt;/p&gt;
+
+&lt;p&gt;Both EmrEtlRunner and StorageLoader now print &amp;#8220;Completed successfully&amp;#8221; to &lt;code&gt;stdout&lt;/code&gt; on completion. This should help to make it clearer (e.g. in logs) that these Ruby programs have completed successfully.&lt;/p&gt;
+
+&lt;p&gt;StorageLoader has been updated so that its &lt;code&gt;--skip&lt;/code&gt; argument works the same way as it does in EmrEtlRunner:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Specific options:
+    ...
+    -s, --skip download,load,archive   skip work step(s)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#8217;s it! If you have any problems with SnowPlow version 0.7.0, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/02/referer-parser-ported-to-3-more-languages</id>
@@ -113,7 +208,7 @@
 
 &lt;p&gt;Here is a taster of how SnowPlow event data looks with the new event types and event IDs:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /&gt;&lt;/p&gt;
 
 &lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
 
@@ -387,7 +482,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -607,7 +702,7 @@ Common options:
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -649,7 +744,7 @@ Common options:
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -836,7 +931,7 @@ Common options:
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -1204,7 +1299,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0' frameborder='0' height='356' marginheight='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe height='356' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

@@ -4,13 +4,111 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-04T18:15:57+00:00</updated>
+  <updated>2013-01-07T13:20:53+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail"/>
+    <title>Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</title>
+    <updated>2013-01-07T00:00:00+00:00</updated>
+    <author>
+      <name>yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week we released &lt;a href='/blog/2013/01/03/snowplow-0.7.0-released/'&gt;SnowPlow 0.7.0&lt;/a&gt;: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.&lt;/p&gt;
+
+&lt;p&gt;This is the first in a series of posts we write where we plan to describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /&gt;&lt;/p&gt;
+
+&lt;h2 id='contents'&gt;Contents&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'&gt;The business case for a new collector: understanding the limitations of the Cloudfront Collector&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'&gt;Under the hood: the design decisions behind the Clojure Collector&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'&gt;Moving forwards: short term Clojure Collector roadmap&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'&gt;Looking ahead: long term collector roadmap&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='biz-case'&gt;1. The business case for a new collector: understanding the limitations of the Cloudfront Collector&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We launched SnowPlow with the &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-the-cloudfront-collector'&gt;Cloudfront Collector&lt;/a&gt;. The Cloudfront Collector is simple:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The SnowPlow tracking pixel from Amazon Cloudfront&lt;/li&gt;
+
+&lt;li&gt;Cloudfront logging is switched on (so that every time the pixel is fetched by a SnowPlow tracking tag, the request is logged).&lt;/li&gt;
+
+&lt;li&gt;Events and associated data points we want to capture are stored as name / value pairs and appended to the query string for the tracking pixel, so that they are automatically logged.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The Cloudfront Collector is so simple that many people express surprise that there are so few files in the appropriate section of the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'&gt;SnowPlow repo&lt;/a&gt;. (It&amp;#8217;s just a &lt;code&gt;readme&lt;/code&gt; and the tracking pixel.) In spite of that simplicity, however, the Cloudfront Collector boasts two key strengths:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Simplicity&lt;/strong&gt;. Simplicity is a strength: because it has no moving parts, the Cloudfront Collector is incredibly robust. It provides absolutely no intelligence or enrichment and it makes no decisions. All it does is faithfully log requests made to the tracking pixel.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Scalability&lt;/strong&gt;. By using Amazon&amp;#8217;s content distribution network (CDN) to serve the tracking pixel and log requests for the tracking pixel, we can be confident that businesses using the Cloudfront Collector will be able to comfortably track millions of requests per hour. Amazon&amp;#8217;s CDN has been designed to be elastic: it responds automatically to spikes in demand, so you can be confident that even in during peak demand periods, all your data will successfully be captured and stored.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Nonetheless, there are two major limitations to the Cloudfront Collector:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Unable to track users across domains&lt;/strong&gt;. Because SnowPlow has been designed to be scalable, we&amp;#8217;ve had a lot of interest in it from media groups, content networks and ad networks. Nearly all of these companies have wanted to track individual users across multiple websites. This is not directly supported by the Cloudfront Collector: because it has no moving parts, user identification has to be performed client side, by the &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker-setup'&gt;Javascript tracker&lt;/a&gt; using first party cookies. As a result, &lt;code&gt;user_id&lt;/code&gt;s that are set on one domain cannot be accessed on another domain, even if both domains are owned and operated by the same company.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Not real-time&lt;/strong&gt;. Cloudfront log files typically appear in S3 3-4 hours after the requests logged were made. As a result, if you rely on the Cloudfront cCollector for your web analytics data, you will always be looking at data that is at least 3-4 hours old.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The Clojure Collector explicitly addresses the first issue identified above: it has a single moving part, which checks if a &lt;code&gt;user_id&lt;/code&gt; has been set for this user: if so, it logs that &lt;code&gt;user_id&lt;/code&gt;. If not, it sets a &lt;code&gt;user_id&lt;/code&gt; (server side), and stores that &lt;code&gt;user_id&lt;/code&gt; in a cookie on the collectors own domain, accessible from any website running SnowPlow that uses the same collector.&lt;/p&gt;
+
+&lt;p&gt;The Clojure Collector does not explicitly address the second issue related to the speed at which data is logged for analysis. Although it logs data faster than the Cloudfront Collector (logs are rotated to S3 hourly), this is still not fast enough for real time analysis. However, it is fast enough that the processing bottleneck shifts from the collector to the ETL step: this is something we plan on addressing in the near future. (More on this &lt;a href='#long-term-roadmap'&gt;later&lt;/a&gt;.)&lt;/p&gt;
+&lt;h2&gt;&lt;a name='under-the-hood'&gt;2. Under the hood: the design decisions behind the Clojure Collector&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We made three important design decisions when building the Clojure Collector:&lt;/p&gt;
+
+&lt;h3 id='1_built_for_elastic_beanstalk'&gt;1. Built for Elastic Beanstalk&lt;/h3&gt;
+
+&lt;p&gt;We built the Clojure Collector specifically for Elastic Beanstalk. This has a number of important advantages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Comfortably scales to handle spikes in demand&lt;/strong&gt;. Elastic Beanstalk is &lt;strong&gt;elastic&lt;/strong&gt; in the same way as Cloudfront is &lt;strong&gt;elastic&lt;/strong&gt;. It makes it easy to scale services to handle spikes in demand, which is crucial if we&amp;#8217;re going to continue to track events data during spikes in service usage.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Automatic logging to S3&lt;/strong&gt;. Elastic Beanstalk supports a configuration option that automatically rotates Tomcat access logs to Elastic Beanstalk hourly. By using this feature, we were able to save ourselves having to build build a process to manage that log rotation, and save our users the hassle of installing and maintaining the process.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Amazon Elastic Beanstalk supports open source applications built for the JVM, or PHP, Python and Ruby web apps. Of the four, it was clear that JVM was the most performative platform to build a Collector in.&lt;/p&gt;
+
+&lt;h3 id='2_minimal_moving_parts'&gt;2. Minimal moving parts&lt;/h3&gt;
+
+&lt;p&gt;The Clojure collector &lt;em&gt;only&lt;/em&gt; sets &lt;code&gt;user_id&lt;/code&gt;s and expiry dates on those &lt;code&gt;user_id&lt;/code&gt;s. It does &lt;em&gt;nothing&lt;/em&gt; else: keeping it as simple as possible.&lt;/p&gt;
+
+&lt;h3 id='3_log_files_formats_match_those_produced_by_cloudfront'&gt;3. Log files formats match those produced by Cloudfront&lt;/h3&gt;
+
+&lt;p&gt;The least wieldy part of the SnowPlow stack today is the &lt;a href='https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module'&gt;ETL step&lt;/a&gt;. This parses the log files produced by the collector, extracts the relevant data points and loads them into S3 for processing by Hadoop/Hive and/or Infobright for processing in a wide range of tools e.g. &lt;a href='http://chartio.com'&gt;ChartIO&lt;/a&gt; or &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We have plans to replace the current &lt;a href='https://github.com/snowplow/snowplow/wiki/hive-etl-setup'&gt;Hive-based ETL process&lt;/a&gt; with an all new process based on &lt;a href='https://github.com/twitter/scalding'&gt;Scalding&lt;/a&gt;. (More on this in the next blog post in this series.) In the meantime, however, we did not want to have to write a new Hive deserializer to parse log files that match a new format: instead, we customised Tomcat in the Clojure Collector to output log files that matched the Cloudfront logging format. (This involved writing a custom &lt;a href='[tomcat-cf-access-valve]'&gt;Tomact Access Valve&lt;/a&gt; and tailoring &lt;a href='https://github.com/snowplow/snowplow/blob/master/2-collectors/clojure-collector/war-resources/.ebextensions/server.xml'&gt;Tomcat&amp;#8217;s server.xml&lt;/a&gt;.) As a result, the new Clojure Collector plays well with the existing ETL process.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='short-term-roadmap'&gt;3. Moving forwards: short term Clojure Collector roadmap&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This is the initial release of the Clojure Collector. If it will be deployed by large media companies, content networks and ad networks, it is important that we learn how to configure it to function well at scale. To this end, we are looking for help, from members of the SnowPlow community (particularly those with an interest in tracking users across domains), to help with the following:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Load testing the collector. Test how fast the collector responds to increasing number of requests per second, and how this varies by the size of instance offered by Amazon. (E.g. how does the curve differ for an m1.small instance than an m1.large instance?) It should be possible to use a tool like &lt;a href='http://www.joedog.org/siege-home/'&gt;Siege&lt;/a&gt; or &lt;a href='http://httpd.apache.org/docs/2.2/programs/ab.html'&gt;Apache Bench&lt;/a&gt; to test response levels and response times at increasing levels of request concurrency, and plot one against the other.&lt;/li&gt;
+
+&lt;li&gt;On the basis of the above, working out the optimal way of setting up the Clojure Collector on Elastic Beanstalk. It would be good to answer two questions in particular: what size instance is it most cost effective to use, and what should trigger the starting up of an additional instance to cope with a spike in traffic? Amazon makes it possible to specify custom KPI to use to trigger scaling of services on Elastic Beanstalk, and it may be that doing so results in much improved performance and reliability from the Collector.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Because we haven&amp;#8217;t been able to perform the above tests to date, we&amp;#8217;re still calling the Clojure Collector an experimental release, adn recommend that companies using it in production run it alongside the Cloudfront Collector.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='long-term-roadmap'&gt;4. Looking ahead: long term collector roadmap&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Long term we need to move the whole SnowPlow so that it&amp;#8217;s processing data faster, closer to real-time. This primarily means moving the &lt;a href='https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module'&gt;ETL&lt;/a&gt; process from a Hadoop, batch-based process that is run at regular intervals to a stream-based, always on process, using a technology like &lt;a href='http://storm-project.net/'&gt;Storm&lt;/a&gt;. In the next post in this blog post series, we will elaborate further on our proposed developments for this part of the SnowPlow stack. When the time comes, however, we will need to build a new collector, or modify an existing collector, to work in a stream-based system. (So that rather than rely on the processing of logs, each new event logged generates a message in a queue that kicks of a set of analytic processing tasks that end with the data being stored in S3 / Infobright.)&lt;/p&gt;
+
+&lt;h2 id='want_to_get_involved'&gt;Want to get involved?&lt;/h2&gt;
+
+&lt;p&gt;Want to help us develop the Clojure Collector, or some other part of the SnowPlow stack? Have an idea about what we should be doing better, or differently? Then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt;. We&amp;#8217;d love to hear from you.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released</id>
@@ -208,7 +306,7 @@
 
 &lt;p&gt;Here is a taster of how SnowPlow event data looks with the new event types and event IDs:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
 
 &lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
 
@@ -482,7 +580,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -702,7 +800,7 @@ Common options:
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -744,7 +842,7 @@ Common options:
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -931,7 +1029,7 @@ Common options:
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -1299,7 +1397,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe height='356' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' width='427' height='356' marginheight='0' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

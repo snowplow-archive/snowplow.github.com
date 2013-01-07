@@ -41,6 +41,31 @@
 	
 		<div id="contents">
 	
+		<a name="SnowPlow 0.6.0 released with the new StorageLoader" />
+		<div class="post">
+			12 Nov 2012
+			<h1><a href="/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader">SnowPlow 0.6.0 released, with the new StorageLoader</a></h1>
+			<p>We&#8217;re very pleased to start the week by releasing a new version of SnowPlow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing SnowPlow components, but let&#8217;s start by introducing StorageLoader:</p>
+
+<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
+
+<p>Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
+
+<p><img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /></p>
+
+<p>StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+
+<ul>
+<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across SnowPlow&#8217;s granular data)</li>
+
+<li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
+
+<li><a href='http://www.postgresql.org'>PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
+</ul>
+<p class='more'><a href='/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.5.2 released and introducing Sluice" />
 		<div class="post">
 			06 Nov 2012
@@ -103,7 +128,7 @@
 <li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting SnowPlow</a></li>
 </ol>
 
-<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
+<p><img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /></p>
 <a name='what' />
 <h2 id='1_what_changes_has_google_announced'>1. What changes has Google announced?</h2>
 
@@ -143,35 +168,6 @@
 			<span class="comments-link"><a href="/blog/2012/10/25/snowplow-0.5.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Analysing SnowPlow data with Tableau" />
-		<div class="post">
-			24 Oct 2012
-			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></h1>
-			<p>People who see SnowPlow for the first time often ask us to <i>"show SnowPlow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
-
-<p>Demonstrating SnowPlow is tricky because currently, SnowPlow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because SnowPlow gives you access to underlying customer- and event-level data, it is easy to analyse SnowPlow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on SnowPlow data. (We will explain more on how to connect Tableau to SnowPlow data in a future blog post.)</p>
-
-<p>In the following series of videos, we start to show how SnowPlow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with SnowPlow data for an online retailer:</p>
-
-<video width="648" height="563" controls>
-
-	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4"  type="video/mp4" />
-	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm" type="video/webm" />
-	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv"  type="video/ogg" />
-	<object width="648" height="563" type="application/x-shockwave-flash" data="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf">
-		<param name="movie" value="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf" />
-		<param name="flashvars" value="controlbar=over&amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4" />
-		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and SnowPlow introductory video"
-		     title="No video playback capabilities, please download the video below" />
-	</object> 
-</video>
-
-<p class="note"><i>Having trouble viewing the video above? You may download the videos in your format of choice:<a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4">"MP4"</a>, <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv">"Ogg"</a> or <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm">WebM</a> formats.</i></p>
-
-<p class='more'><a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -190,6 +186,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 		
 			<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
 		

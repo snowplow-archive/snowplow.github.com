@@ -4,13 +4,415 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-08T10:16:59+00:00</updated>
+  <updated>2013-01-08T16:27:35+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data"/>
+    <title>Using ChartIO to visualise and interrogate SnowPlow data</title>
+    <updated>2013-01-08T00:00:00+00:00</updated>
+    <author>
+      <name>yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;In the last couple of weeks, we have been experimenting with &lt;a href='http://chartio.com/'&gt;ChartIO&lt;/a&gt; - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this post we cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'&gt;Why is ChartIO so good?&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'&gt;Setting up ChartIO to work with SnowPlow&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'&gt;Tutorial: using ChartIO to unpick the drivers of engagement with a site&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a name='why'&gt;Why is ChartIO so good?&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;ChartIO is great for two reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Fast&lt;/strong&gt;. ChartIO is quick to setup. (Because it is a hosted product, with a very nice script for establishing an SSH connection between your database and the ChartIO web application.) At the same time, it is very quick, once a data connection is established, to create new graphs and charts and embed them in dashboards.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Easy&lt;/strong&gt;. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;ChartIO has one enormous advantage that makes it especially well suited to querying SnowPlow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for &lt;a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'&gt;OLAP analysis&lt;/a&gt; before they can be used. (We covered how to convert SnowPlow data into that format in the &lt;a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'&gt;analytics cookbook&lt;/a&gt;.) ChartIO &lt;strong&gt;does&lt;/strong&gt; work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, &lt;strong&gt;ChartIO is, we believe, the easiest way to build graphs and dashboards on top of SnowPlow data&lt;/strong&gt;.&lt;/p&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='setup'&gt;Setting up ChartIO to work with SnowPlow&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You can get started with ChartIO by signing up to a free 30 day trial. Connecting it to SnowPlow data is straightforward: full instructions can be found &lt;a href='https://github.com/snowplow/snowplow/wiki/ChartIO-setup'&gt;on the setup guide&lt;/a&gt;, including how to create your first graph using SnowPlow data in ChartIO.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='engagement'&gt;Tutorial: using ChartIO to unpick the drivers of engagement with a site&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id='before_we_get_started_how_will_we_measure_engagement'&gt;Before we get started: how will we measure engagement?&lt;/h3&gt;
+
+&lt;p&gt;As we discuss in detail in the &lt;a href='/analytics/customer-analytics/user-engagement.html'&gt;analytics cookbook&lt;/a&gt;, there are many possible ways to measure engagement, and SnowPlow supports all of them. We need to pick one or two to use in this tutorial, although it would be possible to perform the analyses described with any measure that suits your business.&lt;/p&gt;
+
+&lt;p&gt;For this tutorial we&amp;#8217;re going to use data from &lt;a href='http://www.psychicbazaar.com/'&gt;Psychic Bazaar&lt;/a&gt;, an online retailer of esoteric products. For an online retailer, whether a visitors makes a purchase is generally more interesting than whether they &amp;#8216;engage&amp;#8217; in vaguer terms. So we will use conversion rate as our first measure of engagement. However, to keep our tutorial interesting to people who want to perform the analysis on non-retail sites, we will also look at number of page views over a period of time as a measure of engagement.&lt;/p&gt;
+
+&lt;h3 id='establishing_the_baseline_measuring_engagement_over_time'&gt;Establishing the baseline: measuring engagement over time&lt;/h3&gt;
+
+&lt;p&gt;Lets start by looking out how engagement has changed over time on Psychic Bazaar. Let&amp;#8217;s create a new dashboard to explore this issue in particular. Log into ChartIO and click on the &lt;strong&gt;+Dashboard&lt;/strong&gt; link on the left hand menu to create a new dashboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-1' src='/static/img/blog/2013/01/chartio-1.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Give the dashboard a suitable name and description and then click the relevant button to craete it. Now we need to add a chart to it. Click on the &lt;strong&gt;+Chart&lt;/strong&gt; link on the right hand menu. The Chart Creator opens in &lt;strong&gt;interactive mode&lt;/strong&gt;, with your database on the top left, a list of tables under it (including the SnowPlow events table) and under the table, a list of fields split by which ChartIO believes is a measure and dimension.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-2' src='/static/img/blog/2013/01/chartio-2.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In interactive mode, ChartIO lets you drag and drop measures into the &lt;strong&gt;Measures&lt;/strong&gt;, &lt;strong&gt;Dimensions&lt;/strong&gt; and &lt;strong&gt;Filters&lt;/strong&gt; dialogue box to generate graphs. We&amp;#8217;re not going to do that, though, because we want to be explicit about how ChartIO uses SnowPlow data. So we&amp;#8217;re going to use &lt;strong&gt;Query mode&lt;/strong&gt; by clicking on the &lt;strong&gt;Query mode&lt;/strong&gt; hyperlink on the top left of the &lt;strong&gt;Layer 1&lt;/strong&gt; box. This enables us to enter a SQL query directly. ChartIO will graph the results:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-3' src='/static/img/blog/2013/01/chartio-3.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we&amp;#8217;re ready to graph engagement levels over time. Let&amp;#8217;s start with our first measure of engagement: conversion levels. We want to look at what % of users who visit our site each month that perform a transaction. To do this, we first need to identify users who have performed a transaction each month, using the following query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt;
+&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='mi'&gt;1&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now we join this table with the events table to list all the users who have visited each month and identify which of them has bought:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;buyer&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;
+&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='mi'&gt;1&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;
+&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;
+&lt;span class='k'&gt;AND&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now we can aggregate over the results of the above query, calculating the conversion rate by dividing the number of buyers by the total number of visitors:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='ss'&gt;`converted_visitors`&lt;/span&gt; &lt;span class='o'&gt;/&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;conversion_rate&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;buyer&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;
+	&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='mi'&gt;1&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;
+	&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;
+	&lt;span class='k'&gt;AND&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;e&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Pop the above query in the ChartIO query box:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;and click the &lt;strong&gt;Chart Query&lt;/strong&gt; button below. ChartIO will respond with a table of data. We can graph the data by clicking on any of the graph icons above the data table. Choosing the line graph, I get:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-6' src='/static/img/blog/2013/01/chartio-6.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can then rename the graph (by clicking the &lt;strong&gt;edit&lt;/strong&gt; hyperlink that appears when you hover over &lt;strong&gt;Chart Title&lt;/strong&gt;) and save the graph to our dashboard by clicking &lt;strong&gt;Save to Exploring engagement&lt;/strong&gt; button. ChartIO lets us resize and position the graph on the dashboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-7' src='/static/img/blog/2013/01/chartio-7.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Great! We can see conversion rates were reasonably stable between September and November of the year, but peaked at the end of the year at a height they were previously in June. The figure for September seems suspiciously high - we&amp;#8217;ll drill into this in more detail in a bit. Next we will plot our alternative measure of engagement over time: the number of pageviews per user per month, and see how that has changed over time.&lt;/p&gt;
+
+&lt;p&gt;Calculating the number of pageviews per user per month is straightforward in SnowPlow - we can use the following query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now we want to aggregate users by the number of pageviews each has done by month:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;page_views&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;distinct&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
+&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='k'&gt;ASC&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='k'&gt;DESC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Lastly we want to bucket values of page views e.g. into 1, 2-5, 6-10, 11-25 and 25+. We can introduce a bucketing into our previous query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;page_views&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='k'&gt;CASE&lt;/span&gt;
+	&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;25&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;25+&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;11-25&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt;  &lt;span class='mi'&gt;5&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;6-10&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt;  &lt;span class='mi'&gt;1&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;2-5&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;ELSE&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+&lt;span class='n'&gt;END&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; 
+&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;distinct&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
+&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='k'&gt;ASC&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='k'&gt;DESC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And then aggregate by bucket in the next query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;bucket&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;sum&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;uniques&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='n'&gt;page_views&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='k'&gt;CASE&lt;/span&gt;
+		&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;25&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;25+&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;11-25&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt;  &lt;span class='mi'&gt;5&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;06-10&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;WHEN&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt;  &lt;span class='mi'&gt;1&lt;/span&gt; &lt;span class='k'&gt;THEN&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;02-05&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;ELSE&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;01&amp;#39;&lt;/span&gt;
+	&lt;span class='n'&gt;END&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; 
+	&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;distinct&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='nf'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
+	&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='k'&gt;ASC&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='k'&gt;DESC&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;u&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;
+&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;This graph tells an interesting story. Overall, the number of unique visitors per month has grown pretty dramatically over time, peaking at about 1700 uniques in November. It is not so easy to tell how the distribution of users by engagement level has changed over time: this is easier if we change the graph to be a &amp;#8220;percent bar&amp;#8221;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-9' src='/static/img/blog/2013/01/chartio-9.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;This graph suggests that engagement levels dropped in October, but climbed dramatically from then to December. Curiously, there was no drop in overall engagement level as user numbers increased on the site between August and October: that means that the new users acquired were &amp;#8220;high quality&amp;#8221; or &amp;#8220;highly engaged&amp;#8221;. This is a useful graph: let&amp;#8217;s add it to our dashboard alongside the first graph we created:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-10' src='/static/img/blog/2013/01/chartio-10.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Just to put the two baseline graphs in context, let&amp;#8217;s add a third graph the tracks the number of unique users per month to our dashboard. Add a new chart using the following simple query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;COUNT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;DISTINCT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt; &lt;span class='k'&gt;as&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_004&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;
+&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And pop it on the dashboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Our baseline data tells us an interesting story, which from the dashboard, we&amp;#8217;re in a position to summarise:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Overall, visitor numbers have increased pretty dramatically between June and September&lt;/li&gt;
+
+&lt;li&gt;Over that same period, there was no corresponding drop in engagement, in terms of numbers of page views by visit. If anything, there was a slight increase&lt;/li&gt;
+
+&lt;li&gt;Looking at conversion rates over the same time, the picture is much more hairy. (With a surprising spike in July.) In fact, we know this was to do with a bug on the website, which prevented data being collected from any page apart from the checkout page. Hence user numbers are underreported, but conversion rates are overstated, for July&lt;/li&gt;
+
+&lt;li&gt;Conversion rates and average page views per visit rise in December&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id='unpicking_the_drivers_of_changing_engagement_levels'&gt;Unpicking the drivers of changing engagement levels&lt;/h3&gt;
+
+&lt;p&gt;For our sample data set there appears to be a rather interesting rise in engagement level (as measured by both conversion rates and page views by month) between November and December. What&amp;#8217;s driving that increase? What clues can our SnowPlow data give us?&lt;/p&gt;
+
+&lt;p&gt;We can divide drivers into two groups: those that effect all users on our website, and those that only effect some of them. If, for example, we performed a measure rearchitecture of our entire site, that is likely to effect &lt;strong&gt;all&lt;/strong&gt; users&amp;#8217; behaviour. But if we upgraded the site for mobile, then we would &lt;strong&gt;only&lt;/strong&gt; expect that to impact user behaviour for people browsing from mobile sites.&lt;/p&gt;
+
+&lt;p&gt;A good approach, then, to unpick what&amp;#8217;s driving growth in engagement levels is to see if this growth is consistent across all users, or just some of them. One easy way to do this is to compare engagement rates between different types of users, to see if we can spot a difference. It makes sense to start off with factors we have a hunch might be driving those changes (e.g. because we&amp;#8217;re familiar with what has changed at those business over the months in question.) To give a specific examples:&lt;/p&gt;
+
+&lt;h4 id='comparing_engagement_levels_between_users_from_paid_search_campaigns_and_notpaid_search_campaigns'&gt;Comparing engagement levels between users from paid search campaigns and not-paid search campaigns&lt;/h4&gt;
+
+&lt;p&gt;Psychic Bazaar&amp;#8217;s only direct marketing spend is on paid search campaigns on Google and Bing. We might therefore wonder whether a change to those campaigns drove the uplift in engagement we see on the site in September. To do this, first we need to identify all the users acquired via paid search:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;mkt_medium&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;cpc&amp;#39;&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Compare this with our data on which users have converted:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;transaction&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And our list of &lt;strong&gt;all&lt;/strong&gt; users:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;visitor&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We join the three data sets:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;buyer&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;visitor&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;
+&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;transaction&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;
+&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;mkt_medium&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;cpc&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;And then aggregate over the result set to compare conversion rates:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;sum&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;buyer&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='nf'&gt;sum&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;visitor&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;conversion_rate&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;buyer&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;visitor&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+		&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;
+	&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;buyer&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;transaction&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;
+	&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+		&lt;span class='k'&gt;SELECT&lt;/span&gt;
+		&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+		&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+		&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+		&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;mkt_medium&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;cpc&amp;#39;&lt;/span&gt;
+		&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+		&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+	&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;This naturally leads to the question: has the number of users acquired from paid search increased over the time period? (Especially between November and December, when our increase in conversion rates is most noticeable?) We can find out by graphing the following query, which looks at the number of uniques by month divided by whether they were acquired by paid search or not:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='nf'&gt;MONTH&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='nf'&gt;COUNT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;DISTINCT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;e&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;uniques&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt; &lt;span class='n'&gt;e&lt;/span&gt;
+&lt;span class='k'&gt;LEFT&lt;/span&gt; &lt;span class='k'&gt;JOIN&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
+	&lt;span class='k'&gt;SELECT&lt;/span&gt;
+	&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+	&lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+	&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
+	&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;mkt_medium&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;cpc&amp;#39;&lt;/span&gt;
+	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;e&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was &lt;strong&gt;no&lt;/strong&gt; increase in traffic from paid search terms between November and December, so this does &lt;strong&gt;not&lt;/strong&gt; account for the rising conversion rate in December.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /&gt;&lt;/p&gt;
+
+&lt;h4 id='other_factors_that_might_account_for_the_rise'&gt;Other factors that might account for the rise&lt;/h4&gt;
+
+&lt;p&gt;There is a wealth of other factors that we can explore using SnowPlow data, to see if they account for the rise in engagement levels / conversion rates in December. Doing so is beyond the scope of this blog post. However, we can outline them:&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;strong&gt;Factor&lt;/strong&gt;&lt;/th&gt;&lt;th&gt;&lt;strong&gt;How we would test it&lt;/strong&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Improvement to the site structure (e.g. homepage)&lt;/td&gt;&lt;td style='text-align: left;'&gt;Investigate how engagement levels vary by visit by landing page, and see if those changes by landing page on dates when those web pages were updated&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Improvements to the checkout flow&lt;/td&gt;&lt;td style='text-align: left;'&gt;Compare the conversion funnel between November and December - see if there&amp;#8217;s a specific point in the funnel where conversion rates change, and see if that change can be attributed to a development change&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;A change in the makeup of the users e.g. so that in December, a bigger portion of the userbase are repeat visitors&lt;/td&gt;&lt;td style='text-align: left;'&gt;Explore whether there is a change in makeup (e.g. more repeat visitors as a proportion of uniques) and see if there&amp;#8217;s a corresponding difference in conversion rates by different types of users (e.g. new vs returning). Note: this is the same approach as described above for user acquired from &lt;em&gt;paid search&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Christmas&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hard to prove definitively - but if no other factor can be identified, and the engagement level drops back in January, then the December bump might be season.&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;SnowPlow makes it possible to drill into all of the above, and other factors we can think of, to see which is responsible for driving changing engagement levels.&lt;/p&gt;
+
+&lt;h2 id='summarising_our_thoughts_on_chartio'&gt;Summarising our thoughts on ChartIO&lt;/h2&gt;
+
+&lt;p&gt;From our experience with it in the last couple of weeks, we believe that ChartIO is an excellent tool for visualising SnowPlow data. We highly recommend SnowPlow users give it a try,: ChartIO&amp;#8217;s simplicitly, speed, and lack of assumptions about the way data is structured make it an ideal analytics tool to run directly on top of SnowPlow data stored in Infobright.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#8217;re going to continue to use ChartIO (and blog about the results). We&amp;#8217;d love to hear from other SnowPlow users who are using it.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail</id>
@@ -25,7 +427,7 @@
 
 &lt;p&gt;This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /&gt;&lt;/p&gt;
 
 &lt;h2 id='contents'&gt;Contents&lt;/h2&gt;
 
@@ -306,7 +708,7 @@
 
 &lt;p&gt;Here is a taster of how SnowPlow event data looks with the new event types and event IDs:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /&gt;&lt;/p&gt;
 
 &lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
 
@@ -580,7 +982,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' width='250' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -800,7 +1202,7 @@ Common options:
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -842,7 +1244,7 @@ Common options:
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -1029,7 +1431,7 @@ Common options:
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -1397,7 +1799,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' frameborder='0' marginwidth='0' marginheight='0' height='356'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' frameborder='0' height='356' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

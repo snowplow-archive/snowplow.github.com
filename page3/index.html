@@ -41,6 +41,40 @@
 	
 		<div id="contents">
 	
+		<a name="Integrating SnowPlow with Google Tag Manager" />
+		<div class="post">
+			16 Nov 2012
+			<h1><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating SnowPlow with Google Tag Manager</a></h1>
+			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
+
+<p><img alt='gtm' src='/static/img/gtm.JPG' /></p>
+
+<p>We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>wiki</a>.</p>
+
+<p>In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:</p>
+
+<ol>
+<li>Setting up a Tag Management System is a big and complicated job. Much of the literature (especially around Google Tag Manager), and discussion (especially amongst members of the web analytics community) suggests it is very easy. Whilst Google Tag Manager is a straightforward product to use, the process of setting it up is difficult, because it involves thinking through, in a very rigorous way, exactly what data should be passed between the website and GTM. If this is not done properly, GTM will not have the relevant data to pass on to the tags it manages, including SnowPlow.</li>
+
+<li>Exacerbating the above, there is a lack of detailed literature on how to go about identifying all the data points that should be passed between your website and tag management solution. Nearly all the guides to setting up GTM that we reviewed covered only the most basic of GTM setups, which is just enough to enable page tracking. Clearly, that is not going to be sufficient for anything but the simplest blogs and brochureware sites.</li>
+
+<li>One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.</li>
+</ol>
+
+<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'>setting up Google Tag Manager</a> and <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>setting up SnowPlow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up SnowPlow within <a href='http://www.opentag.qubitproducts.com/'>Qubit&#8217;s OpenTag solution</a> in due course.</p>
+
+<p>We&#8217;re very excited by Google&#8217;s launch of Tag Manager, and recommend all new SnowPlow users who are not currently using a tag management system integrate one as part of their SnowPlow setup. Specifically:</p>
+
+<ol>
+<li>The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup SnowPlow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable</li>
+
+<li>The processing of mapping that data from the structure defined in the tag management system to one which works with SnowPlow&#8217;s data structure is the exact reverse of the analysis process that takes SnowPlow data and transforms it back into the structure that&#8217;s most natural for the company performing the analysis.</li>
+
+<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
+</ol>
+			<span class="comments-link"><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.6.0 released with the new StorageLoader" />
 		<div class="post">
 			12 Nov 2012
@@ -51,7 +85,7 @@
 
 <p>Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
 
-<p><img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /></p>
+<p><img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /></p>
 
 <p>StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
 
@@ -128,7 +162,7 @@
 <li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting SnowPlow</a></li>
 </ol>
 
-<p><img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /></p>
+<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
 <a name='what' />
 <h2 id='1_what_changes_has_google_announced'>1. What changes has Google announced?</h2>
 
@@ -151,23 +185,6 @@
 			<span class="comments-link"><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.5.0 released with EmrEtlRunner" />
-		<div class="post">
-			25 Oct 2012
-			<h1><a href="/blog/2012/10/25/snowplow-0.5.0-released">SnowPlow 0.5.0 released, now with a Ruby gem to run SnowPlow's ETL process on Amazon EMR</a></h1>
-			<p>We have just released SnowPlow <strong>0.5.0</strong>, with an all-new component, the SnowPlow EmrEtlRunner. EmrEtlRunner is a Ruby application to run SnowPlow&#8217;s Hive-based ETL (extract, transform, load) process on <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a> with minimum fuss.</p>
-
-<p>We are hugely grateful to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
-
-<h2 id='using_emretlrunner'>Using EmrEtlRunner</h2>
-
-<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw SnowPlow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href='http://snowplowanalytics.com/analytics/index.html'>Analyst&#8217;s Cookbook</a>.</p>
-
-<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'>Deploying EmrEtlRunner</a> guide on the SnowPlow Analytics wiki.</p>
-<p class='more'><a href='/blog/2012/10/25/snowplow-0.5.0-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/25/snowplow-0.5.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -187,6 +204,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+		
 			<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 		
 			<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
@@ -195,10 +214,25 @@
 		
 			<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
 		
-			<li><a href="/blog/2012/12/20/snowplow-0.6.4-released">SnowPlow 0.6.4 released, with Infobright improvements</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+			
+				<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -230,26 +264,11 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
-			
-				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
-			
-				<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
 			
 		
 		</ul>		

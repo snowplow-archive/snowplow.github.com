@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Using ChartIO to visualise and interrogate SnowPlow data - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			08 Jan 2013
+			<h1>Using ChartIO to visualise and interrogate SnowPlow data</h1>
+			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
+
+<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
+
+<p>In this post we cover:</p>
+
+<ol>
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'>Why is ChartIO so good?</a></li>
+
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'>Setting up ChartIO to work with SnowPlow</a></li>
+
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
+</ol>
+<h2><a name='why'>Why is ChartIO so good?</a></h2>
+<p>ChartIO is great for two reasons:</p>
+
+<ol>
+<li><strong>Fast</strong>. ChartIO is quick to setup. (Because it is a hosted product, with a very nice script for establishing an SSH connection between your database and the ChartIO web application.) At the same time, it is very quick, once a data connection is established, to create new graphs and charts and embed them in dashboards.</li>
+
+<li><strong>Easy</strong>. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.</li>
+</ol>
+
+<p>ChartIO has one enormous advantage that makes it especially well suited to querying SnowPlow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>OLAP analysis</a> before they can be used. (We covered how to convert SnowPlow data into that format in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of SnowPlow data</strong>.</p>
+<!--more--><h2><a name='setup'>Setting up ChartIO to work with SnowPlow</a></h2>
+<p>You can get started with ChartIO by signing up to a free 30 day trial. Connecting it to SnowPlow data is straightforward: full instructions can be found <a href='https://github.com/snowplow/snowplow/wiki/ChartIO-setup'>on the setup guide</a>, including how to create your first graph using SnowPlow data in ChartIO.</p>
+<h2><a name='engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></h2>
+<h3 id='before_we_get_started_how_will_we_measure_engagement'>Before we get started: how will we measure engagement?</h3>
+
+<p>As we discuss in detail in the <a href='/analytics/customer-analytics/user-engagement.html'>analytics cookbook</a>, there are many possible ways to measure engagement, and SnowPlow supports all of them. We need to pick one or two to use in this tutorial, although it would be possible to perform the analyses described with any measure that suits your business.</p>
+
+<p>For this tutorial we&#8217;re going to use data from <a href='http://www.psychicbazaar.com/'>Psychic Bazaar</a>, an online retailer of esoteric products. For an online retailer, whether a visitors makes a purchase is generally more interesting than whether they &#8216;engage&#8217; in vaguer terms. So we will use conversion rate as our first measure of engagement. However, to keep our tutorial interesting to people who want to perform the analysis on non-retail sites, we will also look at number of page views over a period of time as a measure of engagement.</p>
+
+<h3 id='establishing_the_baseline_measuring_engagement_over_time'>Establishing the baseline: measuring engagement over time</h3>
+
+<p>Lets start by looking out how engagement has changed over time on Psychic Bazaar. Let&#8217;s create a new dashboard to explore this issue in particular. Log into ChartIO and click on the <strong>+Dashboard</strong> link on the left hand menu to create a new dashboard.</p>
+
+<p><img alt='chartio-pic-1' src='/static/img/blog/2013/01/chartio-1.png' /></p>
+
+<p>Give the dashboard a suitable name and description and then click the relevant button to craete it. Now we need to add a chart to it. Click on the <strong>+Chart</strong> link on the right hand menu. The Chart Creator opens in <strong>interactive mode</strong>, with your database on the top left, a list of tables under it (including the SnowPlow events table) and under the table, a list of fields split by which ChartIO believes is a measure and dimension.</p>
+
+<p><img alt='chartio-pic-2' src='/static/img/blog/2013/01/chartio-2.png' /></p>
+
+<p>In interactive mode, ChartIO lets you drag and drop measures into the <strong>Measures</strong>, <strong>Dimensions</strong> and <strong>Filters</strong> dialogue box to generate graphs. We&#8217;re not going to do that, though, because we want to be explicit about how ChartIO uses SnowPlow data. So we&#8217;re going to use <strong>Query mode</strong> by clicking on the <strong>Query mode</strong> hyperlink on the top left of the <strong>Layer 1</strong> box. This enables us to enter a SQL query directly. ChartIO will graph the results:</p>
+
+<p><img alt='chartio-pic-3' src='/static/img/blog/2013/01/chartio-3.png' /></p>
+
+<p>Now we&#8217;re ready to graph engagement levels over time. Let&#8217;s start with our first measure of engagement: conversion levels. We want to look at what % of users who visit our site each month that perform a transaction. To do this, we first need to identify users who have performed a transaction each month, using the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='mi'>1</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span>
+<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>Now we join this table with the events table to list all the users who have visited each month and identify which of them has bought:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>buyer</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>user_id</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span><span class='p'>)</span> <span class='n'>visitors</span>
+<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='mi'>1</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span> <span class='p'>)</span> <span class='n'>buyers</span>
+<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='ss'>`month`</span>
+<span class='k'>AND</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>Now we can aggregate over the results of the above query, calculating the conversion rate by dividing the number of buyers by the total number of visitors:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='ss'>`month`</span><span class='p'>,</span>
+<span class='ss'>`converted_visitors`</span> <span class='o'>/</span> <span class='n'>visitors</span> <span class='k'>AS</span> <span class='n'>conversion_rate</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+	<span class='n'>buyer</span>
+	<span class='k'>FROM</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+		<span class='n'>user_id</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span><span class='p'>)</span> <span class='n'>visitors</span>
+	<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='mi'>1</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span> <span class='p'>)</span> <span class='n'>buyers</span>
+	<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='ss'>`month`</span>
+	<span class='k'>AND</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>e</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span> 
+</code></pre>
+</div>
+<p>Pop the above query in the ChartIO query box:</p>
+
+<p><img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /></p>
+
+<p>and click the <strong>Chart Query</strong> button below. ChartIO will respond with a table of data. We can graph the data by clicking on any of the graph icons above the data table. Choosing the line graph, I get:</p>
+
+<p><img alt='chartio-pic-6' src='/static/img/blog/2013/01/chartio-6.png' /></p>
+
+<p>We can then rename the graph (by clicking the <strong>edit</strong> hyperlink that appears when you hover over <strong>Chart Title</strong>) and save the graph to our dashboard by clicking <strong>Save to Exploring engagement</strong> button. ChartIO lets us resize and position the graph on the dashboard:</p>
+
+<p><img alt='chartio-pic-7' src='/static/img/blog/2013/01/chartio-7.png' /></p>
+
+<p>Great! We can see conversion rates were reasonably stable between September and November of the year, but peaked at the end of the year at a height they were previously in June. The figure for September seems suspiciously high - we&#8217;ll drill into this in more detail in a bit. Next we will plot our alternative measure of engagement over time: the number of pageviews per user per month, and see how that has changed over time.</p>
+
+<p>Calculating the number of pageviews per user per month is straightforward in SnowPlow - we can use the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span>
+<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>Now we want to aggregate users by the number of pageviews each has done by month:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
+</code></pre>
+</div>
+<p>Lastly we want to bucket values of page views e.g. into 1, 2-5, 6-10, 11-25 and 25+. We can introduce a bucketing into our previous query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>page_views</span><span class='p'>,</span>
+<span class='k'>CASE</span>
+	<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span> <span class='mi'>25</span> <span class='k'>THEN</span> <span class='s1'>&#39;25+&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span> <span class='mi'>10</span> <span class='k'>THEN</span> <span class='s1'>&#39;11-25&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span>  <span class='mi'>5</span> <span class='k'>THEN</span> <span class='s1'>&#39;6-10&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span>  <span class='mi'>1</span> <span class='k'>THEN</span> <span class='s1'>&#39;2-5&#39;</span>
+	<span class='k'>ELSE</span> <span class='s1'>&#39;1&#39;</span>
+<span class='n'>END</span> <span class='k'>AS</span> <span class='n'>bucket</span><span class='p'>,</span> 
+<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
+</code></pre>
+</div>
+<p>And then aggregate by bucket in the next query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>bucket</span><span class='p'>,</span>
+<span class='nf'>sum</span><span class='p'>(</span><span class='n'>uniques</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='ss'>`month`</span><span class='p'>,</span>
+	<span class='n'>page_views</span><span class='p'>,</span>
+	<span class='k'>CASE</span>
+		<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span> <span class='mi'>25</span> <span class='k'>THEN</span> <span class='s1'>&#39;25+&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span> <span class='mi'>10</span> <span class='k'>THEN</span> <span class='s1'>&#39;11-25&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span>  <span class='mi'>5</span> <span class='k'>THEN</span> <span class='s1'>&#39;06-10&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>page_views</span> <span class='o'>&gt;</span>  <span class='mi'>1</span> <span class='k'>THEN</span> <span class='s1'>&#39;02-05&#39;</span>
+		<span class='k'>ELSE</span> <span class='s1'>&#39;01&#39;</span>
+	<span class='n'>END</span> <span class='k'>AS</span> <span class='n'>bucket</span><span class='p'>,</span> 
+	<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+	<span class='k'>FROM</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
+	<span class='p'>)</span> <span class='n'>t</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
+<span class='p'>)</span> <span class='n'>u</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
+</code></pre>
+</div>
+<p>Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:</p>
+
+<p><img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /></p>
+
+<p>This graph tells an interesting story. Overall, the number of unique visitors per month has grown pretty dramatically over time, peaking at about 1700 uniques in November. It is not so easy to tell how the distribution of users by engagement level has changed over time: this is easier if we change the graph to be a &#8220;percent bar&#8221;:</p>
+
+<p><img alt='chartio-pic-9' src='/static/img/blog/2013/01/chartio-9.png' /></p>
+
+<p>This graph suggests that engagement levels dropped in October, but climbed dramatically from then to December. Curiously, there was no drop in overall engagement level as user numbers increased on the site between August and October: that means that the new users acquired were &#8220;high quality&#8221; or &#8220;highly engaged&#8221;. This is a useful graph: let&#8217;s add it to our dashboard alongside the first graph we created:</p>
+
+<p><img alt='chartio-pic-10' src='/static/img/blog/2013/01/chartio-10.png' /></p>
+
+<p>Just to put the two baseline graphs in context, let&#8217;s add a third graph the tracks the number of unique users per month to our dashboard. Add a new chart using the following simple query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>as</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='n'>events_004</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
+</code></pre>
+</div>
+<p>And pop it on the dashboard:</p>
+
+<p><img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /></p>
+
+<p>Our baseline data tells us an interesting story, which from the dashboard, we&#8217;re in a position to summarise:</p>
+
+<ul>
+<li>Overall, visitor numbers have increased pretty dramatically between June and September</li>
+
+<li>Over that same period, there was no corresponding drop in engagement, in terms of numbers of page views by visit. If anything, there was a slight increase</li>
+
+<li>Looking at conversion rates over the same time, the picture is much more hairy. (With a surprising spike in July.) In fact, we know this was to do with a bug on the website, which prevented data being collected from any page apart from the checkout page. Hence user numbers are underreported, but conversion rates are overstated, for July</li>
+
+<li>Conversion rates and average page views per visit rise in December</li>
+</ul>
+
+<h3 id='unpicking_the_drivers_of_changing_engagement_levels'>Unpicking the drivers of changing engagement levels</h3>
+
+<p>For our sample data set there appears to be a rather interesting rise in engagement level (as measured by both conversion rates and page views by month) between November and December. What&#8217;s driving that increase? What clues can our SnowPlow data give us?</p>
+
+<p>We can divide drivers into two groups: those that effect all users on our website, and those that only effect some of them. If, for example, we performed a measure rearchitecture of our entire site, that is likely to effect <strong>all</strong> users&#8217; behaviour. But if we upgraded the site for mobile, then we would <strong>only</strong> expect that to impact user behaviour for people browsing from mobile sites.</p>
+
+<p>A good approach, then, to unpick what&#8217;s driving growth in engagement levels is to see if this growth is consistent across all users, or just some of them. One easy way to do this is to compare engagement rates between different types of users, to see if we can spot a difference. It makes sense to start off with factors we have a hunch might be driving those changes (e.g. because we&#8217;re familiar with what has changed at those business over the months in question.) To give a specific examples:</p>
+
+<h4 id='comparing_engagement_levels_between_users_from_paid_search_campaigns_and_notpaid_search_campaigns'>Comparing engagement levels between users from paid search campaigns and not-paid search campaigns</h4>
+
+<p>Psychic Bazaar&#8217;s only direct marketing spend is on paid search campaigns on Google and Bing. We might therefore wonder whether a change to those campaigns drove the uplift in engagement we see on the site in September. To do this, first we need to identify all the users acquired via paid search:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>paid_search</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span>
+<span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>Compare this with our data on which users have converted:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span>
+<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='n'>transaction</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>And our list of <strong>all</strong> users:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>user_id</span><span class='p'>,</span>
+<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>visitor</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>We join the three data sets:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>buyer</span><span class='p'>,</span>
+<span class='n'>paid_search</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>visitor</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+	<span class='p'>)</span> <span class='n'>visitors</span>
+<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='n'>transaction</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>buyers</span>
+<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>paid_search</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+	<span class='p'>)</span> <span class='n'>paid_search</span>
+<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
+</code></pre>
+</div>
+<p>And then aggregate over the result set to compare conversion rates:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>paid_search</span><span class='p'>,</span>
+<span class='nf'>sum</span><span class='p'>(</span><span class='n'>buyer</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>sum</span><span class='p'>(</span><span class='n'>visitor</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>conversion_rate</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+<span class='k'>SELECT</span>
+<span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
+<span class='n'>buyer</span><span class='p'>,</span>
+<span class='n'>paid_search</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>visitor</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+		<span class='p'>)</span> <span class='n'>visitors</span>
+	<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>buyer</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='n'>transaction</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+	<span class='p'>)</span> <span class='n'>buyers</span>
+	<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
+	<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>user_id</span><span class='p'>,</span>
+		<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>paid_search</span>
+		<span class='k'>FROM</span> <span class='n'>events_005</span>
+		<span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+		<span class='p'>)</span> <span class='n'>paid_search</span>
+	<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
+	<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>paid_search</span>
+</code></pre>
+</div>
+<p>Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:</p>
+
+<p><img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /></p>
+
+<p>This naturally leads to the question: has the number of users acquired from paid search increased over the time period? (Especially between November and December, when our increase in conversion rates is most noticeable?) We can find out by graphing the following query, which looks at the number of uniques by month divided by whether they were acquired by paid search or not:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
+<span class='n'>paid_search</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='n'>events_005</span> <span class='n'>e</span>
+<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>user_id</span><span class='p'>,</span>
+	<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>paid_search</span>
+	<span class='k'>FROM</span> <span class='n'>events_005</span>
+	<span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+<span class='p'>)</span> <span class='n'>paid_search</span>
+<span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>paid_search</span>
+</code></pre>
+</div>
+<p>Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was <strong>no</strong> increase in traffic from paid search terms between November and December, so this does <strong>not</strong> account for the rising conversion rate in December.</p>
+
+<p><img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /></p>
+
+<h4 id='other_factors_that_might_account_for_the_rise'>Other factors that might account for the rise</h4>
+
+<p>There is a wealth of other factors that we can explore using SnowPlow data, to see if they account for the rise in engagement levels / conversion rates in December. Doing so is beyond the scope of this blog post. However, we can outline them:</p>
+<table><thead><tr><th><strong>Factor</strong></th><th><strong>How we would test it</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Improvement to the site structure (e.g. homepage)</td><td style='text-align: left;'>Investigate how engagement levels vary by visit by landing page, and see if those changes by landing page on dates when those web pages were updated</td>
+</tr><tr><td style='text-align: left;'>Improvements to the checkout flow</td><td style='text-align: left;'>Compare the conversion funnel between November and December - see if there&#8217;s a specific point in the funnel where conversion rates change, and see if that change can be attributed to a development change</td>
+</tr><tr><td style='text-align: left;'>A change in the makeup of the users e.g. so that in December, a bigger portion of the userbase are repeat visitors</td><td style='text-align: left;'>Explore whether there is a change in makeup (e.g. more repeat visitors as a proportion of uniques) and see if there&#8217;s a corresponding difference in conversion rates by different types of users (e.g. new vs returning). Note: this is the same approach as described above for user acquired from <em>paid search</em>.</td>
+</tr><tr><td style='text-align: left;'>Christmas</td><td style='text-align: left;'>Hard to prove definitively - but if no other factor can be identified, and the engagement level drops back in January, then the December bump might be season.</td>
+</tr></tbody></table>
+<p>SnowPlow makes it possible to drill into all of the above, and other factors we can think of, to see which is responsible for driving changing engagement levels.</p>
+
+<h2 id='summarising_our_thoughts_on_chartio'>Summarising our thoughts on ChartIO</h2>
+
+<p>From our experience with it in the last couple of weeks, we believe that ChartIO is an excellent tool for visualising SnowPlow data. We highly recommend SnowPlow users give it a try,: ChartIO&#8217;s simplicitly, speed, and lack of assumptions about the way data is structured make it an ideal analytics tool to run directly on top of SnowPlow data stored in Infobright.</p>
+
+<p>We&#8217;re going to continue to use ChartIO (and blog about the results). We&#8217;d love to hear from other SnowPlow users who are using it.</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+		
+			<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+		
+			<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
+		
+			<li><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></li>
+		
+			<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+			
+				<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
+			
+				<li><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></li>
+			
+				<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
+			
+				<li><a href="/blog/2012/12/20/snowplow-0.6.4-released">SnowPlow 0.6.4 released, with Infobright improvements</a></li>
+			
+				<li><a href="/blog/2012/12/18/snowplow-0.6.3-released">SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-16T17:23:53+00:00</updated>
+  <updated>2013-01-16T17:34:24+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -21,7 +21,7 @@
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;A short blog post this, to announce the release of &lt;a href='https://github.com/snowplow/scala-maxmind-geoip'&gt;scala-maxmind-geoip&lt;/a&gt;, our Scala wrapper for the MaxMind &lt;a href='http://www.maxmind.com/download/geoip/api/java/'&gt;Java Geo-IP&lt;/a&gt; library.&lt;/p&gt;
+    <content type="html">&lt;p&gt;A short blog post this, to announce the release of &lt;a href='https://github.com/snowplow/scala-maxmind-geoip'&gt;&lt;strong&gt;Scala MaxMind GeoIP&lt;/strong&gt;&lt;/a&gt;, our Scala wrapper for the MaxMind &lt;a href='http://www.maxmind.com/download/geoip/api/java/'&gt;Java Geo-IP&lt;/a&gt; library.&lt;/p&gt;
 
 &lt;p&gt;We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to &lt;a href='https://github.com/twitter/scalding'&gt;Scalding&lt;/a&gt;. We extracted this as a separate library for two main reasons:&lt;/p&gt;
 
@@ -31,7 +31,7 @@
 &lt;li&gt;&lt;strong&gt;Keeping SnowPlow&amp;#8217;s footprint small&lt;/strong&gt; - at SnowPlow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that &amp;#8216;do everything&amp;#8217; are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;On to the library: for Scala developers, the main benefits of using Scala MaxMind GeoIP over the MaxMind Java library are:&lt;/p&gt;
+&lt;p&gt;On to the library: for Scala developers, the main benefits of using &lt;a href='https://github.com/snowplow/scala-maxmind-geoip'&gt;scala-maxmind-geoip&lt;/a&gt; over the MaxMind Java library are:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Easier to setup/test&lt;/strong&gt; - the SBT project definition automatically pulls down the latest MaxMind Java code and &lt;code&gt;GeoLiteCity.dat&lt;/code&gt;&lt;/li&gt;
@@ -1116,7 +1116,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img width='250' alt='olap cube' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -1933,7 +1933,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginwidth='0' frameborder='0' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginheight='0' scrolling='no' frameborder='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' marginwidth='0' width='427' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

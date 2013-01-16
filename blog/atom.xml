@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-16T17:16:08+00:00</updated>
+  <updated>2013-01-16T17:23:53+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -15,7 +15,7 @@
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released"/>
-    <title>Scala MaxMind GeoIP released</title>
+    <title>Scala MaxMind GeoIP library released</title>
     <updated>2013-01-16T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
@@ -1933,7 +1933,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe frameborder='0' width='427' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' scrolling='no' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginwidth='0' frameborder='0' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

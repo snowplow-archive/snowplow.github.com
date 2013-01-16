@@ -44,7 +44,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 
 #### 1. A note about plugins and Github pages
 
-The SnowPlow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker] (http://arademaker.github.com/) [here] (http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
+The SnowPlow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker](http://arademaker.github.com/) [here](http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
 
 1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch. This is where **all** modifications to the website should be made.
 2. Jekyll should be run locally to generate the static html files locally

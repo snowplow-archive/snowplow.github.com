@@ -45,17 +45,23 @@
 		<div class="post">
 			18 Jan 2013
 			<h1><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></h1>
-			<p>In November last year, we tested SnowPlow with Google Tag Manager, and documented how to setup SnowPlow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>SnowPlow setup guide</a>. GTM was the first tag management tool we&#8217;d tested SnowPlow with and we were impressed on a number of fronts. (We documented our thoughts, at the time, on <a href='/blog/2012/11/16/integrating-snowplow-with-google-tag-manager/'>this blog post</a>.) Since then, we&#8217;ve recommended that <strong>all</strong> new SnowPlow users setup a tag management system, prior to integrating SnowPlow on their website, if they have not already done so. The benefits of doing so are well documented elsewhere. For SnowPlow users, there are two big benefits in particular, that we will flag:</p>
+			<p>This is a short blog post to highlight a new section on the <a href='https://github.com/snowplow/snowplow/wiki/SnowPlow-setup-guide'>SnowPlow setup guide</a> covering <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'>how to integrate SnowPlow with QuBit&#8217;s OpenTag tag management system</a>.</p>
+
+<p>In November last year, we started playing with tag management systems: testing SnowPlow with Google Tag Manager, and documented how to setup SnowPlow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>SnowPlow setup guide</a>. We were impressed on a number of fronts, but thought that the much more thought need to be put into what data was passed into the tag management system than people typically admit. (We documented our thoughts, at the time, on <a href='/blog/2012/11/16/integrating-snowplow-with-google-tag-manager/'>this blog post</a>.)</p>
+
+<p>Since then, we&#8217;ve recommended that <strong>all</strong> new SnowPlow users setup a tag management system, prior to integrating SnowPlow on their website, if they have not already done so. The benefits of doing so are well documented elsewhere. For SnowPlow users, there are two big benefits in particular, that we will flag:</p>
 
 <ol>
-<li>Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the <code>dataLayer</code> (in GTM) or the <code>Universal Variable</code> in OpenTag. This makes it easier for analysts, down the line, to understand <em>what</em> data has been passed into their web analtyics system, and how that data has been generated, key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.</li>
+<li>Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the <code>dataLayer</code> (in GTM) or the <code>Universal Variable</code> in OpenTag. This makes it easier for analysts, down the line, to understand <em>what</em> data has been passed into their web analtyics system, and how that data has been generated: key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.</li>
 
 <li>A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve SnowPlow tracking tags where we see the opportunity, safe in the knowledge that we&#8217;re not causing our clients too much difficulty to upgrade their tags.</li>
 </ol>
 
-<p><img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /></p>
+<p><img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /></p>
 
-<p>We are big proponents of tag management systems in general, there is a lot we like about QuBit&#8217;s OpenTag in particular:</p>
+<p>We were eager, having integrated SnowPlow with GTM, to integrate it with an open source tag management system. After all, a big selling point of SnowPlow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a>, and that we have finally documented <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'>how to integrate it with SnowPlow</a>.</p>
+
+<p>There is a lot we like about QuBit&#8217;s OpenTag:</p>
 
 <ol>
 <li><strong>Open source</strong>. You can view the <a href='https://github.com/QubitProducts/OpenTag/blob/master/OpenTag.js'>OpenTag.js</a> on Github to get a handle on exactly how OpenTag works</li>
@@ -138,7 +144,7 @@
 			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></h1>
 			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
 
-<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
+<p><img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /></p>
 
 <p>In this post we cover:</p>
 
@@ -171,7 +177,7 @@
 
 <p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
 
-<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
+<p><img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /></p>
 
 <h2 id='contents'>Contents</h2>
 
@@ -235,6 +241,19 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Other</h1>
 		<ul>
 		
@@ -248,19 +267,6 @@
 				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
 			
 				<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

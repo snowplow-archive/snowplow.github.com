@@ -4,13 +4,39 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-18T10:33:41+00:00</updated>
+  <updated>2013-01-20T17:45:38+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars"/>
+    <title>SnowPlow reaches 202 stars on GitHub</title>
+    <updated>2013-01-20T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;As of this weekend, the SnowPlow repository on GitHub now has over 200 stars! We&amp;#8217;re hugely excited to reach this milestone - this makes us:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The 3rd most-watched analytics project on GitHub, after &lt;a href='https://github.com/mnutt/hummingbird'&gt;Hummingbird&lt;/a&gt; (real-time analytics) and &lt;a href='https://github.com/Countly/countly-server'&gt;Countly&lt;/a&gt; (mobile analytics)&lt;/li&gt;
+
+&lt;li&gt;The &lt;a href='https://github.com/languages/Scala/most_watched?page=3'&gt;58th most-watched&lt;/a&gt; Scala project on GitHub&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Many thanks to everyone in the SnowPlow community and on GitHub for their support and interest!&lt;/p&gt;
+
+&lt;p&gt;We thought it might be interesting to share the Red Dwarf heatmap of where our 202 GitHub stars are located across the world:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Beyond the &amp;#8220;hot spots&amp;#8221; in the US and Europe, it&amp;#8217;s encouraging to see growing interest in SnowPlow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/18/using-snowplow-with-qubit-opentag</id>
@@ -28,7 +54,7 @@
 &lt;p&gt;Since then, we&amp;#8217;ve recommended that &lt;strong&gt;all&lt;/strong&gt; new SnowPlow users setup a tag management system, prior to integrating SnowPlow on their website, if they have not already done so. The benefits of doing so are well documented elsewhere. For SnowPlow users, there are two big benefits in particular, that we will flag:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the &lt;code&gt;dataLayer&lt;/code&gt; (in GTM) or the &lt;code&gt;Universal Variable&lt;/code&gt; in OpenTag. This makes it easier for analysts, down the line, to understand &lt;em&gt;what&lt;/em&gt; data has been passed into their web analtyics system, and how that data has been generated: key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.&lt;/li&gt;
+&lt;li&gt;Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the &lt;code&gt;dataLayer&lt;/code&gt; (in GTM) or the &lt;code&gt;Universal Variable&lt;/code&gt; in OpenTag. This makes it easier for analysts, down the line, to understand &lt;em&gt;what&lt;/em&gt; data has been passed into their web analytics system, and how that data has been generated: key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.&lt;/li&gt;
 
 &lt;li&gt;A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve SnowPlow tracking tags where we see the opportunity, safe in the knowledge that we&amp;#8217;re not causing our clients too much difficulty to upgrade their tags.&lt;/li&gt;
 &lt;/ol&gt;
@@ -1973,7 +1999,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' height='356' marginwidth='0' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe height='356' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' scrolling='no' width='427' frameborder='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

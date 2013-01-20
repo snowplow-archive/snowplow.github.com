@@ -41,6 +41,28 @@
 	
 		<div id="contents">
 	
+		<a name="SnowPlow hits 202 stars" />
+		<div class="post">
+			20 Jan 2013
+			<h1><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></h1>
+			<p>As of this weekend, the SnowPlow repository on GitHub now has over 200 stars! We&#8217;re hugely excited to reach this milestone - this makes us:</p>
+
+<ul>
+<li>The 3rd most-watched analytics project on GitHub, after <a href='https://github.com/mnutt/hummingbird'>Hummingbird</a> (real-time analytics) and <a href='https://github.com/Countly/countly-server'>Countly</a> (mobile analytics)</li>
+
+<li>The <a href='https://github.com/languages/Scala/most_watched?page=3'>58th most-watched</a> Scala project on GitHub</li>
+</ul>
+
+<p>Many thanks to everyone in the SnowPlow community and on GitHub for their support and interest!</p>
+
+<p>We thought it might be interesting to share the Red Dwarf heatmap of where our 202 GitHub stars are located across the world:</p>
+
+<p><img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /></p>
+
+<p>Beyond the &#8220;hot spots&#8221; in the US and Europe, it&#8217;s encouraging to see growing interest in SnowPlow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!</p>
+			<span class="comments-link"><a href="/blog/2013/01/20/snowplow-hits-202-stars#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Using OpenTag with SnowPlow" />
 		<div class="post">
 			18 Jan 2013
@@ -52,7 +74,7 @@
 <p>Since then, we&#8217;ve recommended that <strong>all</strong> new SnowPlow users setup a tag management system, prior to integrating SnowPlow on their website, if they have not already done so. The benefits of doing so are well documented elsewhere. For SnowPlow users, there are two big benefits in particular, that we will flag:</p>
 
 <ol>
-<li>Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the <code>dataLayer</code> (in GTM) or the <code>Universal Variable</code> in OpenTag. This makes it easier for analysts, down the line, to understand <em>what</em> data has been passed into their web analtyics system, and how that data has been generated: key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.</li>
+<li>Going through the exercise of implementing a tag management solution forces companies to take a rigorous look at the data they pass from their website into the tag manager, especially when declaring the data explicitly using things like the <code>dataLayer</code> (in GTM) or the <code>Universal Variable</code> in OpenTag. This makes it easier for analysts, down the line, to understand <em>what</em> data has been passed into their web analytics system, and how that data has been generated: key bits of information that can often get lost months after web analytics platforms like SnowPlow have been implemented. In addition, it makes the analytics as a whole more robust, as the generation of data is decoupled from the generation of other elements of web pages, which means web developers can continue to improve site functionality, safe in the knowledge they wont break anything on the analytics side.</li>
 
 <li>A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve SnowPlow tracking tags where we see the opportunity, safe in the knowledge that we&#8217;re not causing our clients too much difficulty to upgrade their tags.</li>
 </ol>
@@ -169,31 +191,6 @@
 			<span class="comments-link"><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="The Clojure Collector in detail" />
-		<div class="post">
-			07 Jan 2013
-			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
-			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>SnowPlow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
-
-<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
-
-<p><img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /></p>
-
-<h2 id='contents'>Contents</h2>
-
-<ol>
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
-
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
-
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
-
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/01/07/the-clojure-collector-in-detail'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/01/07/the-clojure-collector-in-detail#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -211,6 +208,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+		
 			<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
 		
 			<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
@@ -219,10 +218,25 @@
 		
 			<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
 		
-			<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -250,23 +264,6 @@
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
-			
-				<li><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></li>
-			
-				<li><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></li>
 			
 		
 		</ul>		

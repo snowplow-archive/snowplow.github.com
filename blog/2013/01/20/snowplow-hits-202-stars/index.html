@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes - SnowPlow Analytics</title>
+	<title>SnowPlow reaches 202 stars on GitHub - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,49 +41,23 @@
 	
 		<div id="contents">
 		<div class="post">
-			18 Dec 2012
-			<h1>SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes</h1>
-			<p>Today we are releasing SnowPlow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
+			20 Jan 2013
+			<h1>SnowPlow reaches 202 stars on GitHub</h1>
+			<p>As of this weekend, the SnowPlow repository on GitHub now has over 200 stars! We&#8217;re hugely excited to reach this milestone - this makes us:</p>
 
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
+<ul>
+<li>The 3rd most-watched analytics project on GitHub, after <a href='https://github.com/mnutt/hummingbird'>Hummingbird</a> (real-time analytics) and <a href='https://github.com/Countly/countly-server'>Countly</a> (mobile analytics)</li>
 
-<p>We&#8217;ll take a look at both fixes below:</p>
-<!--more-->
-<h2 id='javascript_tracker_fixes'>JavaScript tracker fixes</h2>
+<li>The <a href='https://github.com/languages/Scala/most_watched?page=3'>58th most-watched</a> Scala project on GitHub</li>
+</ul>
 
-<p>This release fixes the issues in the JavaScript tracker raised in <a href='https://github.com/snowplow/snowplow/issues/103'>issue 103</a>.</p>
+<p>Many thanks to everyone in the SnowPlow community and on GitHub for their support and interest!</p>
 
-<p>These issues stemmed from the splitting of the JavaScript into multiple files in SnowPlow version 0.6.1 (JavaScript tracker version 0.8.0). We do not believe these bugs affected SnowPlow data collection, but they are well worth fixing.</p>
+<p>We thought it might be interesting to share the Red Dwarf heatmap of where our 202 GitHub stars are located across the world:</p>
 
-<p>Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> and <a href='https://github.com/ramn'>Simon Andersson</a> for their help in squashing these bugs!</p>
+<p><img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /></p>
 
-<p>With these fixes we have bumped the JavaScript Tracker to version 0.8.2; the updated minified tracker is available as always here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.2/sp.js</code></pre>
-
-<h2 id='hiveql_script_fix'>HiveQL script fix</h2>
-
-<p>This release also fixes a bug (<a href='https://github.com/snowplow/snowplow/pull/112'>issue 112</a>) in the HiveQL file used to generate the <strong>Hive-format</strong> SnowPlow event files.</p>
-
-<p>This bug prevented the ETL from running if you were using EmrEtlRunner to generate Hive-format SnowPlow event files - in other words if you had set:</p>
-
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>in your EmrEtlRunner&#8217;s <code>config.yml</code> file.</p>
-
-<p>Many thanks to <a href='https://github.com/mmoulton'>Mike Moulton</a> for spotting and fixing this one!</p>
-
-<p>With this fix we have bumped the Hive-format HiveQL file to version 0.5.2. To start using the new file, all you need to do is update your EmrEtlRunner&#8217;s <code>config.yml</code> file by changing:</p>
-
-<pre><code>:hive_hiveql_version: 0.5.1</code></pre>
-
-<p>to:</p>
-
-<pre><code>:hive_hiveql_version: 0.5.2</code></pre>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>If you have any problems with SnowPlow version 0.6.3, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>Beyond the &#8220;hot spots&#8221; in the US and Europe, it&#8217;s encouraging to see growing interest in SnowPlow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-21T19:21:40+00:00</updated>
+  <updated>2013-01-22T13:44:01+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -15,23 +15,23 @@
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager"/>
-    <title>Implementing tag management - working out what data to pass into your tag management solution</title>
+    <title>What data should you be passing into your tag manager?</title>
     <updated>2013-01-21T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;Since Google launched &lt;a href='https://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt;, a plethora of blog posts have been published on the value of tag management solutions. What has been left out of much of the discussion is practical advice on how to setup your tag management solution (be it &lt;a href='https://www.google.com/tagmanager/'&gt;GTM&lt;/a&gt; or &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt; or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.&lt;/p&gt;
-&lt;img src='/static/img/tag-management/tag-management-schematic.gif' width='320' /&gt;
+    <content type="html">&lt;p&gt;Since the launch of &lt;a href='https://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt;, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it &lt;a href='https://www.google.com/tagmanager/'&gt;GTM&lt;/a&gt; or &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt; or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.&lt;/p&gt;
+&lt;img width='320' src='/static/img/tag-management/tag-management-schematic.gif' /&gt;
 &lt;h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'&gt;Why is it important to define, at implementation time, what data to pass to your tag manager?&lt;/h2&gt;
 
-&lt;p&gt;One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the &lt;em&gt;best&lt;/em&gt; solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge.&lt;/p&gt;
+&lt;p&gt;One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the &lt;em&gt;best&lt;/em&gt; solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.&lt;/p&gt;
 &lt;!--more--&gt;
-&lt;p&gt;We think this ability is rather dangerous. We&amp;#8217;re much more excited about the way that tag management solutions enable webmasters to explicitly pass data into their tag management solutions using constructs like the &lt;a href='https://developers.google.com/tag-manager/reference'&gt;&lt;code&gt;dataLayer&lt;/code&gt;&lt;/a&gt; in GTM and the &lt;a href='https://github.com/QubitProducts/UniversalVariable'&gt;&lt;code&gt;Universal Variable&lt;/code&gt;&lt;/a&gt; in OpenTag. The nice thing about this approach is that the infrastructure for managing the flow of data into your analytics infrastructure is decoupled from the infrastructure delivering the end-user experience. It means that web masters are free to improve websites, able to modify elements of web pages without breaing any data transfer processes. It also means that it is easy for analysts, down the line, to audit what data is being collected and how.&lt;/p&gt;
+&lt;p&gt;We think this is rather dangerous. We&amp;#8217;re much more excited about the way that tag management solutions enable webmasters to explicitly pass data into their tag management solutions using constructs like the &lt;a href='https://developers.google.com/tag-manager/reference'&gt;&lt;code&gt;dataLayer&lt;/code&gt;&lt;/a&gt; in GTM and the &lt;a href='https://github.com/QubitProducts/UniversalVariable'&gt;&lt;code&gt;Universal Variable&lt;/code&gt;&lt;/a&gt; in OpenTag. The nice thing about this approach is that the infrastructure for managing the flow of data into your analytics infrastructure is decoupled from the infrastructure delivering the end-user experience. It means that web masters are free to improve websites, able to modify elements of web pages without breaing any data transfer processes. It forces companies to think through what data they should be capturing, and document it. It makes it easy for analysts and data scientists, down the line, to audit what data is being collected and how.&lt;/p&gt;
 
-&lt;p&gt;The trouble with insisting formally passing data to your tag management system using things like the &lt;a href='https://developers.google.com/tag-manager/reference'&gt;&lt;code&gt;dataLayer&lt;/code&gt;&lt;/a&gt; or &lt;a href='https://github.com/QubitProducts/UniversalVariable'&gt;&lt;code&gt;Universal Variable&lt;/code&gt;&lt;/a&gt; is that it makes the process of implementing a tag management system more complicated: because you have to identify all the data points you want to pass to your web analytics (and advertising) systems and in a number of cases, develop a data model for transferring them to your tag management system, so that it can pass them on.&lt;/p&gt;
+&lt;p&gt;The trouble with insisting on formally passing data to your tag management system using things like the &lt;a href='https://developers.google.com/tag-manager/reference'&gt;&lt;code&gt;dataLayer&lt;/code&gt;&lt;/a&gt; or &lt;a href='https://github.com/QubitProducts/UniversalVariable'&gt;&lt;code&gt;Universal Variable&lt;/code&gt;&lt;/a&gt; is that it makes the process of implementing a tag management system more complicated: because you have to identify all the data points you want to pass to your web analytics (and advertising) systems and often develop a data model for transferring them to your tag management system, so that it can pass them on via the tags it fires.&lt;/p&gt;
 
-&lt;p&gt;For SnowPlow users, the challenge is more acute. Whereas other analytics systems recommend that you only pass data into them that you know how to use / evaluate, we recommend that SnowPlow users pass in &lt;em&gt;all&lt;/em&gt; the data associated with the events on a user journey so that analysts have a &lt;strong&gt;complete&lt;/strong&gt; picture of a user&amp;#8217;s journey. Then it is up to the analyst to decide whether or not specific bits of data are valuable based on what he / she does with that data. (Rather than prejudging it.) So for SnowPlow users who are setting up a tag management system, the challenge is to identify, upfront &lt;strong&gt;all&lt;/strong&gt; the data points to pass into the tag management system, so that they can be passed on to SnowPlow via the SnowPlow tracking tags.&lt;/p&gt;
+&lt;p&gt;For SnowPlow users, the challenge is more acute. Whereas other analytics systems recommend that you only pass data into them that you know how to use / evaluate, we recommend that SnowPlow users pass in &lt;em&gt;all&lt;/em&gt; the data associated with the events on a user journey so that analysts have a &lt;strong&gt;complete&lt;/strong&gt; picture of a user&amp;#8217;s journey. Then it is up to the analyst to decide whether or not specific bits of data are valuable based on what he / she does with that data (rather than prejudging it). So for SnowPlow users who are setting up a tag management system, the challenge is to identify, upfront &lt;strong&gt;all&lt;/strong&gt; the data points to pass into the tag management system, so that they can be passed on to SnowPlow via the SnowPlow tracking tags. Simple, right?&lt;/p&gt;
 
 &lt;h2 id='what_data_do_we_want_to_pass_into_snowplow'&gt;What data do we want to pass into SnowPlow?&lt;/h2&gt;
 
@@ -39,7 +39,7 @@
 
 &lt;h3 id='event_data'&gt;Event data&lt;/h3&gt;
 
-&lt;p&gt;At its heart, SnowPlow is a tool for capturing, storing and analysing event-stream data, with a focus on web event data. We aim to capture all events that occur on an individual&amp;#8217;s customer journey. To give an example of the types of events we might include:&lt;/p&gt;
+&lt;p&gt;At its heart, SnowPlow is a tool for capturing, storing and analysing event-stream data, with a focus on web event data. We aim to capture all events that occur on an individual&amp;#8217;s customer journey. To give a random assortment of examples of the types of events we might include:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Add item to basket&lt;/li&gt;
@@ -59,9 +59,17 @@
 &lt;li&gt;Send a message&lt;/li&gt;
 
 &lt;li&gt;Create a listing&lt;/li&gt;
+
+&lt;li&gt;Update a status&lt;/li&gt;
+
+&lt;li&gt;Ask a question&lt;/li&gt;
+
+&lt;li&gt;Book a flight&lt;/li&gt;
+
+&lt;li&gt;Donate to a charity&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;As part of setting up a tag management solution, it is important to identify all the possible events that can occur to a user on his / her journey through our website, and what data we want to capture for each of those events.&lt;/p&gt;
+&lt;p&gt;As part of setting up a tag management solution, it is important to identify all the possible events that can occur to a user on his / her journey through our website, and what data we want to capture for each of those event types.&lt;/p&gt;
 
 &lt;h3 id='web_page_entity_data'&gt;Web page entity data&lt;/h3&gt;
 
@@ -69,7 +77,7 @@
 
 &lt;p&gt;In spite of this evolution, web page loads are still very important events in a user journey. Broadly speaking, we capture data that occur thanks to AJAX events using the &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'&gt;SnowPlow event tracking method&lt;/a&gt; except for specific events that have their own specific methods e.g. &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-ecommerce'&gt;tracking ecommerce transaction&lt;/a&gt; or &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-adimps'&gt;ad impression tracking&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;To capture the broad swathe of events that result in a web page load, we use the &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-page'&gt;page tracker method&lt;/a&gt;. However, performing an analysis on the journey a user has taken based on the URLs and page titles of the pages they have visited is not that informative: we really want to store what entities were displayed on those web pages, so we can analyse what the user was shown, what entities they engaged with and which they did not. To take a simple example, we might want to calculate a conversion rate for a retailer by product, based on the number of unique users who were shown a particular product listing, the fraction of them that added the item to their basket and the fraction of them that went on to buy. In order to do this, we need to pass onto SnowPlow exactly what products were displayed on the web pages they visited, and potentially pass in additional information like what type of listing they were shown.&lt;/p&gt;
+&lt;p&gt;To capture the broad swathe of events that result in a web page load, we use the &lt;a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-page'&gt;page tracker method&lt;/a&gt;. However, performing an analysis on the journey a user has taken based on the URLs and page titles of the pages they have visited is not that informative: we really want to store what entities were displayed on those web pages, so we can analyse what the user was shown, what entities they engaged with and which they did not. To take a simple example, we might want to compare conversion rate for a retailer by product, to see which products &amp;#8216;convert best&amp;#8217; and why. In order to do this, we need to pass onto SnowPlow exactly what products were displayed on the web pages they visited, and potentially pass in additional information like what type of listing they were shown.&lt;/p&gt;
 
 &lt;p&gt;To give an example of the types of entities we might identify:&lt;/p&gt;
 
@@ -81,9 +89,15 @@
 &lt;li&gt;Videos&lt;/li&gt;
 
 &lt;li&gt;Adverts&lt;/li&gt;
+
+&lt;li&gt;People / connections&lt;/li&gt;
+
+&lt;li&gt;Jobs&lt;/li&gt;
+
+&lt;li&gt;Flights&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;As well as identifying all the events that can occur on a user journey, we also need to identify all the key elements that make up each web page, and pass them to our tag manager on page load, as part of a tag management implementation.&lt;/p&gt;
+&lt;p&gt;As well as identifying all the events that can occur on a user journey, then, we &lt;em&gt;also&lt;/em&gt; need to identify &lt;strong&gt;all&lt;/strong&gt; the key elements that make up each web page, and pass them to our tag manager on page load, as part of a tag management implementation.&lt;/p&gt;
 
 &lt;h2 id='summarising_our_method_for_identifying_all_the_data_points_to_pass_into_the_tag_manager'&gt;Summarising our method for identifying all the data points to pass into the tag manager&lt;/h2&gt;
 
@@ -92,9 +106,9 @@
 &lt;ol&gt;
 &lt;li&gt;Identify all the relevant events that can occur to a user navigating your website app. Catalogue each.&lt;/li&gt;
 
-&lt;li&gt;For each event, document what data you want to capture&lt;/li&gt;
+&lt;li&gt;For each event type, document what data should/could be captured&lt;/li&gt;
 
-&lt;li&gt;Now comb through each web page that makes up your website, and identify the relevant entities that make up your website&lt;/li&gt;
+&lt;li&gt;Comb through each web page that makes up your website, and identify the relevant entities that that make up web pages.&lt;/li&gt;
 
 &lt;li&gt;For each entity, document what data you want to capture&lt;/li&gt;
 &lt;/ol&gt;
@@ -105,7 +119,7 @@
 &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;&lt;img src='/static/img/tag-management/gtm-spec-title-page.JPG' /&gt;&lt;/a&gt;
 &lt;h2 id='want_help_implementing_a_tag_management_solution'&gt;Want help implementing a tag management solution?&lt;/h2&gt;
 
-&lt;p&gt;The SnowPlow Professional Services team can produce implementation guides like &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;the one for Psychic Bazaar&lt;/a&gt;. If you are implementing a tag management solution, either as part of a SnowPlow implementation or not, and and would like assistance, then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt;.&lt;/p&gt;</content>
+&lt;p&gt;The SnowPlow &lt;a href='/services/index.html'&gt;Professional Services team&lt;/a&gt; can produce implementation guides like &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;the one for Psychic Bazaar&lt;/a&gt;. If you are implementing a tag management solution, either as part of a SnowPlow implementation or not, and and would like assistance, then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt;.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -1278,7 +1292,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img width='250' src='/static/img/olap/example-cube-2.png' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -2095,7 +2109,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginheight='0' scrolling='no' height='356' frameborder='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe width='427' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' scrolling='no' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' frameborder='0' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

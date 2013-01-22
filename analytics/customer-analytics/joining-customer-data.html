@@ -157,13 +157,11 @@
 <span class='n'>FIELDS</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;,&#39;</span>
 <span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3://LOCATION-BUCKET/LOCATION-PATH/&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To check that your data has been successfully uploaded, you can run some sample queries within Hive e.g. to view the first 10 rows:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>from</span>  <span class='k'>LIMIT</span> <span class='mi'>10</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='importing_your_data_into_infobright'>Importing your data into Infobright</h3>
 
 <p>If you are using Infobright to store and query your SnowPlow data, uploading data into Infobright is easier: you can use any database administration tool that interfaces with MySQL (on which Infobright is based) to create a new table in Infobright and import the CSV in. If the data you are importing lives in another relational database, it may be possible to use a tool like <a href='http://www.navicat.com/'>Navicat</a> to move the data directly between one database and the other, or use an ETL tool like <a href='http://www.jitterbit.com/'>Jitterbit</a> to manage a regular transfer of data from one database to the other.</p>
@@ -176,8 +174,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='n'>fLIKE</span> <span class='s1'>&#39;login&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_value</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You can then perform queries that join both data tables, the SnowPlow <code>events</code> table and your 2nd table of imported customer data:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL pseudo-code */</span>
 <span class='k'>SELECT</span>
@@ -189,8 +186,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span> <span class='n'>s</span>
 <span class='k'>JOIN</span> <span class='mi'>2</span><span class='n'>nd</span><span class='o'>-</span><span class='k'>table</span> <span class='n'>e</span>
 <span class='k'>ON</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>customer_id</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You will likely want to aggregate your data by customer, in which case you would <code>GROUP BY e.customer_id</code>. (I.e. the ID used in your customer database, which is likely to be more robust than the cookie-based SnowPlow <code>user_id</code> for the reasons described in the <a href='identifying-users.html#login-events'>identifying users</a> section).</p>
 
 <h2 id='happy_integrating_snowplow_data_with_other_sources_of_customer_data'>Happy integrating SnowPlow data with other sources of customer data?</h2>

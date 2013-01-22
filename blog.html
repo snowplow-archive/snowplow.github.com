@@ -41,12 +41,44 @@
 	
 		<div id="contents">
 	
+		<a name="SnowPlow 0.7.1 released" />
+		<div class="post">
+			22 Jan 2013
+			<h1><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></h1>
+			<p>We&#8217;re happy to announce the release of SnowPlow version <strong>0.7.1</strong>. This release is designed to make it much easier to install and run the two SnowPlow Ruby applications:</p>
+
+<ol>
+<li><a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'>EmrEtlRunner</a> - which runs the SnowPlow ETL job</li>
+
+<li><a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>StorageLoader</a> - which loads SnowPlow events into Infobright</li>
+</ol>
+
+<p>From the feedback we received, setting up and running these two Ruby apps was the most challenging (and error-prone) part of the SnowPlow experience. Many thanks to all of those in the community who reported bugs with our original approach and suggested fixes!</p>
+
+<p>To streamline this process and reduce the chances of problems occurring, we have updated both Ruby apps to work in a <a href='https://rvm.io/integration/bundler/'>RVM+Bundler</a> environment, inline with Ruby community best practice. Specifically, we have:</p>
+
+<ul>
+<li>Created a simple <a href='https://github.com/snowplow/snowplow/wiki/Ruby-and-RVM-setup'>guide to setting up Ruby and RVM</a> ready for SnowPlow</li>
+
+<li>Updated both of our Ruby apps to use RVM and Bundler</li>
+
+<li>Updated our cronjob shell scripts to work with RVM and Bundler</li>
+
+<li>Updated the setup guides (<a href='https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-setup'>EmrEtlRunner</a>; <a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader</a>) for both apps to follow RVM and Bundler best practice</li>
+</ul>
+
+<p>This release bumps EmrEtlRunner to version 0.0.8 and StorageLoader to version 0.0.4.</p>
+
+<p>And that&#8217;s it! Hopefully this release fixes all of the Ruby-related issues encountered by SnowPlow users - but of course there might still be a couple of teething issues. If you spot anything that still doesn&#8217;t seem right, do please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+			<span class="comments-link"><a href="/blog/2013/01/22/snowplow-0.7.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="What data should you be passing into your tag manager?" />
 		<div class="post">
 			21 Jan 2013
 			<h1><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></h1>
 			<p>Since the launch of <a href='https://www.google.com/tagmanager/'>Google Tag Manager</a>, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it <a href='https://www.google.com/tagmanager/'>GTM</a> or <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a> or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.</p>
-<img width='320' src='/static/img/tag-management/tag-management-schematic.gif' />
+<img src='/static/img/tag-management/tag-management-schematic.gif' width='320' />
 <h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'>Why is it important to define, at implementation time, what data to pass to your tag manager?</h2>
 
 <p>One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the <em>best</em> solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.</p>
@@ -70,7 +102,7 @@
 
 <p>We thought it might be interesting to share the <a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;repo=snowplow'>Red Dwarf heatmap</a> of where our 202 GitHub stars are located across the world:</p>
 
-<p><img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /></p>
+<p><img alt='heatmap' src='/static/img/blog/2013/01/snowplow-stars-at-202.png' /></p>
 
 <p>Beyond the &#8220;hot spots&#8221; in the US and Europe, it&#8217;s encouraging to see growing interest in SnowPlow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!</p>
 			<span class="comments-link"><a href="/blog/2013/01/20/snowplow-hits-202-stars#disqus_thread" rel="nofollow">View Comments</a></span>
@@ -92,7 +124,7 @@
 <li>A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve SnowPlow tracking tags where we see the opportunity, safe in the knowledge that we&#8217;re not causing our clients too much difficulty to upgrade their tags.</li>
 </ol>
 
-<p><img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /></p>
+<p><img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /></p>
 
 <p>We were eager, having integrated SnowPlow with GTM, to integrate it with an open source tag management system. After all, a big selling point of SnowPlow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a>, and that we have finally documented <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'>how to integrate it with SnowPlow</a>.</p>
 
@@ -140,39 +172,6 @@
 			<span class="comments-link"><a href="/blog/2013/01/16/scala-maxmind-geoip-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="From ETL to enrichment - development roadmap" />
-		<div class="post">
-			09 Jan 2013
-			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></h1>
-			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the SnowPlow stack. Although in many respects the least sexy element of the stack, it is critical to SnowPlow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
-
-<ol>
-<li>Feedback from the community on them</li>
-
-<li>Ideas for alternative approaches or new features</li>
-</ol>
-
-<p>We will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
-</ol>
-
-<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
-<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/01/09/from-etl-to-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -190,6 +189,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
+		
 			<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 		
 			<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
@@ -198,40 +199,8 @@
 		
 			<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
 		
-			<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
-		
 	</ul>
 
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
-			
-				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
-			
-				<li><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></li>
-			
-				<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
-			
-				<li><a href="/blog/2012/12/20/snowplow-0.6.4-released">SnowPlow 0.6.4 released, with Infobright improvements</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -246,6 +215,36 @@
 				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
 			
 				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
+			
+				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
+			
+				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
+			
+				<li><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></li>
+			
+				<li><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

@@ -104,25 +104,21 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 
 <p>You are in the cluster. Launch Hive by typing:</p>
 <div class='highlight'><pre><code class='mysql'><span class='n'>hive</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We now need to create a table in Hive based on the Cloudfront logs. To do that, we first need to let Hive know where the SnowPlow deserializer is, so that Hive can read the raw log files. To do that, execute the following command:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>ADD</span> <span class='n'>JAR</span> <span class='n'>s3</span><span class='p'>:</span><span class='o'>//</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>emr</span><span class='o'>-</span><span class='n'>assets</span><span class='o'>/</span><span class='n'>hive</span><span class='o'>/</span><span class='n'>serdes</span><span class='o'>/</span><span class='n'>snowplow</span><span class='o'>-</span><span class='n'>log</span><span class='o'>-</span><span class='n'>deserializers</span><span class='o'>-</span><span class='mi'>0</span><span class='p'>.</span><span class='mi'>5</span><span class='p'>.</span><span class='mi'>3</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>(The S3 address given above is for the version of the deserializer <a href='https://github.com/snowplow/snowplow/wiki/Hosted-assets'>hosted by us</a>. You may want to substitute the address to point to your own copy of the Hive serde.) Now you can create the table:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='n'>events</span> 
 <span class='n'>ROW</span> <span class='n'>FORMAT</span> 
   <span class='n'>SERDE</span> <span class='s1'>&#39;com.snowplowanalytics.snowplow.hadoop.hive.SnowPlowEventDeserializer&#39;</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3://[[LOGS-BUCKET-NAME]]/&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You wll need to replace the &#8216;LOGS-BUCKET-NAME&#8217; with the name of the S3 bucket where your Cloudfront logs are stored.</p>
 
 <p>Hive now knows where your Cloudfront logs are stored, and it knows from the deserializer how to translate those individual logs into a tidy table. We can inspect the tidy table created prior to querying it:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>DESCRIBE</span> <span class='n'>events</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Hive will respond by listing all the different fields:</p>
 <div class='highlight'><pre><code class='mysql'><span class='n'>hive</span><span class='o'>&gt;</span> <span class='k'>DESCRIBE</span> <span class='n'>events</span> <span class='p'>;</span>
 <span class='n'>OK</span>
@@ -197,16 +193,14 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='n'>v_collector</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='n'>v_etl</span>	<span class='n'>string</span>	<span class='k'>from</span> <span class='n'>deserializer</span>
 <span class='kt'>Time</span> <span class='n'>taken</span><span class='p'>:</span> <span class='mi'>0</span><span class='p'>.</span><span class='mi'>574</span> <span class='n'>seconds</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You as an analyst can now query the &#8220;events&#8221; table as you would any table in SQL. For example, to count the number of unique visitors by day, execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>dt</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
-</code></pre>
-</div><a name='optimised-hive '><h3>Querying the data in a format optimsied for Hive</h3></a>
+</code></pre></div><a name='optimised-hive '><h3>Querying the data in a format optimsied for Hive</h3></a>
 <p>Whilst it is possible to query the Cloudfront logs directly, this is inefficient for a number of reasons:</p>
 
 <ol>
@@ -284,8 +278,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='p'>)</span>
 <span class='n'>PARTITIONED</span> <span class='k'>BY</span> <span class='p'>(</span><span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>)</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3://[[EVENTS_TABLE_PATH]]/&#39;</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Some things to note when comparing the above CREATE TABLE statement with the one for Cloudfront earlier:</p>
 
 <ol>
@@ -302,8 +295,7 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
-</code></pre>
-</div><a name='infobright'><h2>Infobright</h2></a>
+</code></pre></div><a name='infobright'><h2>Infobright</h2></a>
 <p>Whilst Hive has a number of features that make it well suited to performing analytics (especially horizontal scaling and direct integration to Amazon S3 via EMR), there are two disadvantages to using Hive:</p>
 
 <ol>
@@ -318,19 +310,16 @@ hadoop@ip-10-234-109-57:~$ </code></pre>
 
 <p>Connecting to your data stored in Infobright is straightforward. If you&#8217;re connecting via the command-line, you&#8217;ll need to SSH onto the server running your Infobright instance, and then connect to Infobright:</p>
 <div class='highlight'><pre><code class='mysql'><span class='n'>mysql</span><span class='o'>-</span><span class='n'>ib</span> <span class='o'>-</span><span class='n'>u</span>  <span class='o'>-</span><span class='n'>p</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Substitute your username for &#8216;USERNAME&#8217; and enter your password when prompted. Once in Infobright, you can connect to the SnowPlow database:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>USE</span> <span class='n'>snowplow</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In the SnowPlow database is the events table. You can query it as normal, so, for example, to find out the number of unique visitors by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> <span class='n'>dt</span><span class='p'>,</span> 
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note that the query is identical to that executed in Hive. In general, queries in the two datawarehousing platforms are very similar.</p>
 
 <h2 id='understand_how_snowplow_data_is_warehoused_in_hive__infobright'>Understand how SnowPlow data is warehoused in Hive / Infobright?</h2>

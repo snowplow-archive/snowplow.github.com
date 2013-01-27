@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-26T10:20:50+00:00</updated>
+  <updated>2013-01-27T16:56:17+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -58,7 +58,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Since the launch of &lt;a href='https://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt;, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it &lt;a href='https://www.google.com/tagmanager/'&gt;GTM&lt;/a&gt; or &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt; or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.&lt;/p&gt;
-&lt;img width='320' src='/static/img/tag-management/tag-management-schematic.gif' /&gt;
+&lt;img src='/static/img/tag-management/tag-management-schematic.gif' width='320' /&gt;
 &lt;h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'&gt;Why is it important to define, at implementation time, what data to pass to your tag manager?&lt;/h2&gt;
 
 &lt;p&gt;One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the &lt;em&gt;best&lt;/em&gt; solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.&lt;/p&gt;
@@ -179,7 +179,7 @@
 
 &lt;p&gt;We thought it might be interesting to share the &lt;a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;amp;repo=snowplow'&gt;Red Dwarf heatmap&lt;/a&gt; of where our 202 GitHub stars are located across the world:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='heatmap' src='/static/img/blog/2013/01/snowplow-stars-at-202.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Beyond the &amp;#8220;hot spots&amp;#8221; in the US and Europe, it&amp;#8217;s encouraging to see growing interest in SnowPlow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!&lt;/p&gt;</content>
   </entry>
@@ -205,7 +205,7 @@
 &lt;li&gt;A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve SnowPlow tracking tags where we see the opportunity, safe in the knowledge that we&amp;#8217;re not causing our clients too much difficulty to upgrade their tags.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We were eager, having integrated SnowPlow with GTM, to integrate it with an open source tag management system. After all, a big selling point of SnowPlow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt;, and that we have finally documented &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'&gt;how to integrate it with SnowPlow&lt;/a&gt;.&lt;/p&gt;
 
@@ -369,7 +369,7 @@
     </author>
     <content type="html">&lt;p&gt;In the last couple of weeks, we have been experimenting with &lt;a href='http://chartio.com/'&gt;ChartIO&lt;/a&gt; - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this post we cover:&lt;/p&gt;
 
@@ -403,15 +403,15 @@
 
 &lt;p&gt;Lets start by looking out how engagement has changed over time on Psychic Bazaar. Let&amp;#8217;s create a new dashboard to explore this issue in particular. Log into ChartIO and click on the &lt;strong&gt;+Dashboard&lt;/strong&gt; link on the left hand menu to create a new dashboard.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-1' src='/static/img/blog/2013/01/chartio-1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-1.png' alt='chartio-pic-1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Give the dashboard a suitable name and description and then click the relevant button to craete it. Now we need to add a chart to it. Click on the &lt;strong&gt;+Chart&lt;/strong&gt; link on the right hand menu. The Chart Creator opens in &lt;strong&gt;interactive mode&lt;/strong&gt;, with your database on the top left, a list of tables under it (including the SnowPlow events table) and under the table, a list of fields split by which ChartIO believes is a measure and dimension.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-2' src='/static/img/blog/2013/01/chartio-2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-2.png' alt='chartio-pic-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In interactive mode, ChartIO lets you drag and drop measures into the &lt;strong&gt;Measures&lt;/strong&gt;, &lt;strong&gt;Dimensions&lt;/strong&gt; and &lt;strong&gt;Filters&lt;/strong&gt; dialogue box to generate graphs. We&amp;#8217;re not going to do that, though, because we want to be explicit about how ChartIO uses SnowPlow data. So we&amp;#8217;re going to use &lt;strong&gt;Query mode&lt;/strong&gt; by clicking on the &lt;strong&gt;Query mode&lt;/strong&gt; hyperlink on the top left of the &lt;strong&gt;Layer 1&lt;/strong&gt; box. This enables us to enter a SQL query directly. ChartIO will graph the results:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-3' src='/static/img/blog/2013/01/chartio-3.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-3.png' alt='chartio-pic-3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we&amp;#8217;re ready to graph engagement levels over time. Let&amp;#8217;s start with our first measure of engagement: conversion levels. We want to look at what % of users who visit our site each month that perform a transaction. To do this, we first need to identify users who have performed a transaction each month, using the following query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -479,15 +479,15 @@
 &lt;/div&gt;
 &lt;p&gt;Pop the above query in the ChartIO query box:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-4.png' alt='chartio-pic-4' /&gt;&lt;/p&gt;
 
 &lt;p&gt;and click the &lt;strong&gt;Chart Query&lt;/strong&gt; button below. ChartIO will respond with a table of data. We can graph the data by clicking on any of the graph icons above the data table. Choosing the line graph, I get:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-6' src='/static/img/blog/2013/01/chartio-6.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-6.png' alt='chartio-pic-6' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We can then rename the graph (by clicking the &lt;strong&gt;edit&lt;/strong&gt; hyperlink that appears when you hover over &lt;strong&gt;Chart Title&lt;/strong&gt;) and save the graph to our dashboard by clicking &lt;strong&gt;Save to Exploring engagement&lt;/strong&gt; button. ChartIO lets us resize and position the graph on the dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-7' src='/static/img/blog/2013/01/chartio-7.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-7.png' alt='chartio-pic-7' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Great! We can see conversion rates were reasonably stable between September and November of the year, but peaked at the end of the year at a height they were previously in June. The figure for September seems suspiciously high - we&amp;#8217;ll drill into this in more detail in a bit. Next we will plot our alternative measure of engagement over time: the number of pageviews per user per month, and see how that has changed over time.&lt;/p&gt;
 
@@ -576,15 +576,15 @@
 &lt;/div&gt;
 &lt;p&gt;Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-8.png' alt='chartio-pic-8' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This graph tells an interesting story. Overall, the number of unique visitors per month has grown pretty dramatically over time, peaking at about 1700 uniques in November. It is not so easy to tell how the distribution of users by engagement level has changed over time: this is easier if we change the graph to be a &amp;#8220;percent bar&amp;#8221;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-9' src='/static/img/blog/2013/01/chartio-9.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-9.png' alt='chartio-pic-9' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This graph suggests that engagement levels dropped in October, but climbed dramatically from then to December. Curiously, there was no drop in overall engagement level as user numbers increased on the site between August and October: that means that the new users acquired were &amp;#8220;high quality&amp;#8221; or &amp;#8220;highly engaged&amp;#8221;. This is a useful graph: let&amp;#8217;s add it to our dashboard alongside the first graph we created:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-10' src='/static/img/blog/2013/01/chartio-10.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-10.png' alt='chartio-pic-10' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Just to put the two baseline graphs in context, let&amp;#8217;s add a third graph the tracks the number of unique users per month to our dashboard. Add a new chart using the following simple query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -597,7 +597,7 @@
 &lt;/div&gt;
 &lt;p&gt;And pop it on the dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-11.png' alt='chartio-pic-11' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Our baseline data tells us an interesting story, which from the dashboard, we&amp;#8217;re in a position to summarise:&lt;/p&gt;
 
@@ -719,7 +719,7 @@
 &lt;/div&gt;
 &lt;p&gt;Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-12.png' alt='chartio-pic-12' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This naturally leads to the question: has the number of users acquired from paid search increased over the time period? (Especially between November and December, when our increase in conversion rates is most noticeable?) We can find out by graphing the following query, which looks at the number of uniques by month divided by whether they were acquired by paid search or not:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -741,7 +741,7 @@
 &lt;/div&gt;
 &lt;p&gt;Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was &lt;strong&gt;no&lt;/strong&gt; increase in traffic from paid search terms between November and December, so this does &lt;strong&gt;not&lt;/strong&gt; account for the rising conversion rate in December.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-13.png' alt='chartio-pic-13' /&gt;&lt;/p&gt;
 
 &lt;h4 id='other_factors_that_might_account_for_the_rise'&gt;Other factors that might account for the rise&lt;/h4&gt;
 
@@ -773,7 +773,7 @@
 
 &lt;p&gt;This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /&gt;&lt;/p&gt;
 
 &lt;h2 id='contents'&gt;Contents&lt;/h2&gt;
 
@@ -1054,7 +1054,7 @@
 
 &lt;p&gt;Here is a taster of how SnowPlow event data looks with the new event types and event IDs:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
 
 &lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
 
@@ -1328,7 +1328,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' width='250' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -1548,7 +1548,7 @@ Common options:
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get SnowPlow tags working well with Google Tag Manager, and have documented our recommended approach to setting up SnowPlow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -1590,7 +1590,7 @@ Common options:
 
 &lt;p&gt;Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowPlowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -1777,7 +1777,7 @@ Common options:
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting SnowPlow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what' /&gt;
 &lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
 
@@ -2145,7 +2145,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' marginwidth='0' width='427' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' marginheight='0' marginwidth='0' height='356' scrolling='no'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

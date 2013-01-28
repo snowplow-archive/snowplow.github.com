@@ -44,17 +44,23 @@ $(function() {
 		var pageScheme = $('input:radio[name=pageScheme]:checked').val();
 		
 		var pageTitle = $("input#pageTitle").val();
-		var pageUrl = $("input#pageUrl").val();
+		var pageUrlRaw = $("input#pageUrl").val();
+		var pageUrl = removeScheme(pageUrlRaw); // Remove the pageScheme (i.e. HTTPS / HTTP) if present on the value entered
 
 		// var collectorType = $("input#collectorType").val();
 		var collectorType = $('input:radio[name=collectorType]:checked').val();
 		
-		var cloudfrontSubdomain = $("input#cloudfrontSubdomain").val();
-		var selfHostedCollectorUrl = $("input#selfHostedCollectorUrl").val();
-	
+		var cloudfrontSubDomain = $("input#cloudfrontSubDomain").val();
+		var selfHostedCollectorUrlRaw = $("input#selfHostedCollectorUrl").val();
+		var selfHostedCollectorUrl = removeScheme(selfHostedCollectorUrlRaw); // Remove the pageScheme (i.e. HTTPS / HTTP) if present on the value entered
 		
-		var embedCode = generateNoJsTag(applicationId, pageScheme, pageTitle, pageUrl, collectorType, cloudfrontSubdomain, selfHostedCollectorUrl);
-		$('#output').append($('<h2>The No-JS tracking tag for this page is:</h2><div class="highlight"><pre><span class="s">' + embedCode + '</span></pre></div>'));
+		// Validate the input, and if all the required fields have been provided, generate the tracking tag
+		if ( isValidated(applicationId, pageTitle, collectorType, cloudfrontSubDomain, selfHostedCollectorUrlRaw) ) {
+			var embedCode = generateNoJsTag(applicationId, pageScheme, pageTitle, pageUrl, collectorType, cloudfrontSubDomain, selfHostedCollectorUrl);
+			$('#output').append($('<h2>The No-JS tracking tag for this page is:</h2><div class="highlight"><pre><span class="s">' + embedCode + '</span></pre></div>'));
+		} 
+		
+		
 
 		// Return false because we do NOT want the page to reload. 
 		// (Which would cause the values entered in the fields to be lost, and the embed code to disappear)
@@ -62,14 +68,47 @@ $(function() {
 	});
 
 	/**
+	 * Validate that the required fields have all been inputted
+	 */
+	function isValidated(applicationId, pageTitle, collectorType, cloudfrontSubDomain, selfHostedCollectorUrlRaw) {
+		if ( applicationId == ''  || applicationId == undefined ) {
+			alert('You have not entered an Application ID');
+			return false;
+		}
+
+		if ( pageTitle == '' || pageTitle == undefined ) {
+			alert('You have not entered a page title');
+			return false;
+		}
+
+		if (collectorType == 'cloudfront') {
+			// check if the subdomain has been set
+			if ( cloudfrontSubDomain == '' || cloudfrontSubDomain == undefined ) {
+				alert('You have not entered a Cloudfront Subdomain');
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			// check if the collector endpoint URL has been set
+			if (selfHostedCollectorUrlRaw == '' || selfHostedCollectorUrlRaw || undefined ) {
+				alert('You have not entered a collector URL');
+				return false;
+			} else {
+				return true;
+			}
+		}
+	};
+
+	/**
 	 * Generates the tag, based on the values inputted on the form above
 	 */
-	function generateNoJsTag(appId, pageScheme, pageTitle, pageUrl, collectorType, cloudFrontSubDomain, collectorDomain ){
+	function generateNoJsTag(appId, pageScheme, pageTitle, pageUrl, collectorType, cloudfrontSubDomain, collectorDomain ){
 		// 1st, let's set the endpoint
 		var configCollectorUrl;
 
 		if (collectorType == 'cloudfront') {
-			configCollectorUrl = collectorUrlFromCfDist(cloudFrontSubDomain, pageScheme);
+			configCollectorUrl = collectorUrlFromCfDist(cloudfrontSubDomain, pageScheme);
 		} else {
 			configCollectorUrl = asCollectorUrl(collectorDomain, pageScheme);
 		}
@@ -78,7 +117,9 @@ $(function() {
 		request = generateRequestString(appId, pageTitle, pageUrl, pageScheme);
 
 		// 3rd assemble the tag out of the above two
-		tag = '<img src="' + configCollectorUrl + '?' + request + '" />' ;
+		tag = [	'<!--SnowPlow start plowing-->',
+				'<img src="' + configCollectorUrl + '?' + request + '" />',
+				'<!--SnowPlow stop plowing-->'].join('\n') ;
 
 		// 4th return the tag, html-escaped so it prints to the screen, rather than actually executing in the browser
 		return htmlEscape(tag);
@@ -87,8 +128,8 @@ $(function() {
 	/**
 	 * Builds a collector URL from a CloudFront distribution.
 	 */
-	function collectorUrlFromCfDist(distSubdomain, pageScheme) {
-		return asCollectorUrl(distSubdomain + '.cloudfront.net', pageScheme);
+	function collectorUrlFromCfDist(distSubDomain, pageScheme) {
+		return asCollectorUrl(distSubDomain + '.cloudfront.net', pageScheme);
 	}
 
 	/** 
@@ -105,7 +146,10 @@ $(function() {
 
 		sb.add('e','pv'); // 'pv' for Page View	
 		sb.add('page', pageTitle); 
-		sb.add('url', (pageScheme + '://' + pageUrl));
+		// Only add the URL parameter if the user has entered a page URL (i.e. not if the value is blank)
+		if ( pageUrl != '') { 
+			sb.add('url', (pageScheme + '://' + pageUrl));
+		}
 		sb.add('aid', appId); 
 
 		sb.add('p', 'web');
@@ -159,5 +203,19 @@ $(function() {
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
+
+    /**
+	 * Removes scheme i.e. `http://` or `https://` from the beginning of a string if it is present
+	 */
+	function removeScheme(url){
+		if ( url.substring(0,8) == 'https://' ) {
+			return url.slice(8);
+		} else if ( url.substring(0,7) == 'http://' ) {
+			return url.slice(7);
+		} else {
+			return url;
+		}
+	}
+
 	
 });

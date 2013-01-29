@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.0 released, with the new StorageLoader - SnowPlow Analytics</title>
+	<title>SnowPlow 0.7.2 released, with the new no-JavaScript tracker - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -41,73 +41,41 @@
 	
 		<div id="contents">
 		<div class="post">
-			12 Nov 2012
-			<h1>SnowPlow 0.6.0 released, with the new StorageLoader</h1>
-			<p>We&#8217;re very pleased to start the week by releasing a new version of SnowPlow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing SnowPlow components, but let&#8217;s start by introducing StorageLoader:</p>
+			29 Jan 2013
+			<h1>SnowPlow 0.7.2 released, with the new no-JavaScript tracker</h1>
+			<p>We&#8217;re excited to announce the release of SnowPlow version <strong>0.7.2</strong>. As well as a couple of bug fixes, this release includes our second SnowPlow tracker - the <a href='/no-js-tracker.html'>No-JS Tracker</a>, to be used in web environments where a JavaScript-based tracker is not an option.</p>
 
-<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
+<p>One of the bug fixes is particularly important: we are recommending that <strong>all users of the Clojure-based Collector upgrade</strong> to the new version (0.2.0) due to a serious bug in the way that event timestamps were recorded.</p>
 
-<p>Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
+<p>But first let&#8217;s look at the No-JS Tracker, and then talk about the other fixes:</p>
 
-<p><img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /></p>
+<h2 id='introducing_the_nojavascript_tracker'>Introducing the No-JavaScript Tracker</h2>
 
-<p>StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+<p>The <a href='/no-js-tracker.html'>No-JS Tracker</a> (or &#8216;pixel tracker&#8217;) can be used to log web events in environments that do not support Javascript. Examples of events include:</p>
 
 <ul>
-<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across SnowPlow&#8217;s granular data)</li>
+<li>Views an HTML email</li>
 
-<li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
+<li>Views of product listing on a 3rd party marketplace</li>
 
-<li><a href='http://www.postgresql.org'>PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
+<li>Views a page on a 3rd party hosting site</li>
 </ul>
+
+<p>Our <a href='/no-js-tracker.html'>No-JS Tracking tag wizard</a> makes it easier to generate pure-HTML tracking tags. Were you to embed these in email marketing messages, for example, you would be able to compare the behaviour of users on your website who had opened specific messages with those who had not. The <a href='/no-js-tracker.html'>No-JS Tracker</a> enables you to track a broader set of user events in SnowPlow, so providing greater coverage of your users&#8217; journeys. For more information on the <a href='/no-js-tracker.html'>No-JS tracker</a> see the <a href='/blog/2013/01/29/introducing-the-no-js-tracker/'>blog post</a>.</p>
 <!--more-->
-<p>There are significant advantages to storing data in Infobright instead of (or as well as) S3:</p>
+<h2 id='important_bug_fixes'>Important bug fixes</h2>
 
-<ul>
-<li>In many cases, query times are much faster</li>
+<p>We have fixed an important issue with the logging on the Clojure Collector (<a href='https://github.com/snowplow/snowplow/issues/146'>issue 146</a>). The previous version was logging all event dates using a 12-hour clock - meaning that it was impossible to tell if an event happened in the morning or evening.</p>
 
-<li>There are a wide range of analytics tools that plug directly into Infobright. (Any tool that plugs into MySQL.) These can now be run directly on top of SnowPlow data. (These tools include R and Tableau.)</li>
+<p>As a result of this, we <strong>strongly recommend</strong> that <strong>all</strong> users of the Clojure-based Collector upgrade to the new version, 0.2.0. As always, you can find this version available from our <a href='https://github.com/snowplow/snowplow/wiki/Hosted-assets'>Hosted assets page</a>.</p>
 
-<li>For more details on the pros and cons of storage in S3 vs Infobright, see our <a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'>guide to choosing between the two</a>.</li>
-</ul>
+<p>Our second bug (<a href='https://github.com/snowplow/snowplow/pull/147'>issue 147</a>) was spotted and fixed by <a href='https://github.com/ngsmrk'>Angus Mark</a> from <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> - many thanks Angus! There was a bug in the JavaScript tracker where the secure flag was not being correctly set on SnowPlow cookies transmitted over HTTPS.</p>
 
-<p>As you can hopefully get a sense looking at our roadmap for other databases to support, there are obvious advantages to using some of the other databases on our roadmapGoing forwards, we expect that many companies using SnowPlow will store that SnowPlow data in more than one store, to enable a very broad range of analytics from different types of tools.</p>
+<p>We don&#8217;t believe that this bug was breaking any functionality, but you can upgrade to the new version 0.9.1 of the tracker at this URL:</p>
 
-<h2 id='using_the_storageloader'>Using the StorageLoader</h2>
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.9.1/sp.js</code></pre>
 
-<p>You can configure StorageLoader with the details of the Infobright table to insert your SnowPlow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your SnowPlow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
-
-<p>With this setup, you will have your SnowPlow events easily accessible and queryable in a local Infobright instance - but you can still fall back to querying the data in Hive if you wish.</p>
-
-<p>The following setup guides should be helpful in terms of setting up StorageLoader:</p>
-
-<ul>
-<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house SnowPlow data</li>
-
-<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load SnowPlow data into Infobright</li>
-</ul>
-
-<h2 id='the_codebase'>The codebase</h2>
-
-<p>If you want to take a look at the code, you can find it in the main repository here: <a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>4-storage/storage-loader/</a></p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>If you have any problems getting StorageLoader working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-
-<h2 id='other_fixes_in_060'>Other fixes in 0.6.0</h2>
-
-<p>We have made a number of other fixes across SnowPlow to prepare the ground for StorageLoader:</p>
-
-<p><strong>EmrEtlRunner</strong> has been bumped to 0.0.5, including upgrading it to Sluice 0.0.4 (which has some bug fixes around S3 path handling).</p>
-
-<p>The <strong>Hive deserializer</strong> has been bumped to 0.5.1, and now outputs booleans such as <code>br_cookies</code> as 0 or 1 (instead of true or false) for the non-Hive output.</p>
-
-<p>The <strong>non-Hive format HiveQL script</strong> has been bumped to 0.0.2 and now uses the new 0 or 1 approach to booleans. This is necessary so that true/false values can be successfully loaded into Infobright.</p>
-
-<p>The <strong>setup_infobright.sql</strong> script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates &#8216;boolean&#8217; columns as tinyint(1)s anyway.</p>
-
-<p>We will keep you posted as we roll out support for additional database options in StorageLoader! (And welcome suggestinos for other databases we should build support for.)</p>
+<p>And that&#8217;s it! As always, if you do run into any issues, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

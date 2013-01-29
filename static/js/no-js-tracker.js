@@ -1,5 +1,5 @@
 $(function() {
-	var trackerVersion = 'no-js-0.0.1';
+	var trackerVersion = 'no-js-0.1.0';
 
 	/**
 	 * On page load... 
@@ -91,7 +91,7 @@ $(function() {
 			}
 		} else {
 			// check if the collector endpoint URL has been set
-			if (selfHostedCollectorUrlRaw == '' || selfHostedCollectorUrlRaw || undefined ) {
+			if (selfHostedCollectorUrlRaw == '' || selfHostedCollectorUrlRaw == undefined ) {
 				alert('You have not entered a collector URL');
 				return false;
 			} else {

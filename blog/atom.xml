@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-01-29T15:15:06+00:00</updated>
+  <updated>2013-01-30T13:00:38+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -151,7 +151,7 @@
 &lt;li&gt;Which services you should use the &lt;a href='/no-js-tracker.html'&gt;No-JS tracker&lt;/a&gt; with&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;When the &lt;a href='/no-js-tracker.html'&gt;No-JS tracker&lt;/a&gt; is used with the Clojure collector, the &lt;strong&gt;only&lt;/strong&gt; data captured is:&lt;/p&gt;
+&lt;p&gt;When the &lt;a href='/no-js-tracker.html'&gt;No-JS tracker&lt;/a&gt; is used with the Cloudfront collector, the &lt;strong&gt;only&lt;/strong&gt; data captured is:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;The name / value pairs stored on the query string i.e. the &lt;code&gt;event type&lt;/code&gt;, &lt;code&gt;page_url&lt;/code&gt; and &lt;code&gt;page_title&lt;/code&gt;&lt;/li&gt;
@@ -216,7 +216,7 @@
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Since the launch of &lt;a href='https://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt;, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it &lt;a href='https://www.google.com/tagmanager/'&gt;GTM&lt;/a&gt; or &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt; or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.&lt;/p&gt;
-&lt;img src='/static/img/tag-management/tag-management-schematic.gif' width='320' /&gt;
+&lt;img width='320' src='/static/img/tag-management/tag-management-schematic.gif' /&gt;
 &lt;h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'&gt;Why is it important to define, at implementation time, what data to pass to your tag manager?&lt;/h2&gt;
 
 &lt;p&gt;One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the &lt;em&gt;best&lt;/em&gt; solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.&lt;/p&gt;
@@ -1486,7 +1486,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img width='250' alt='olap cube' src='/static/img/olap/example-cube-2.png' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -2303,7 +2303,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginwidth='0' width='427' frameborder='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' height='356' scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

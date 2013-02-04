@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-02-01T16:44:32+00:00</updated>
+  <updated>2013-02-04T11:13:57+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -33,7 +33,7 @@
 
 &lt;p&gt;When the web started out, it was a network of largely static documents that were hyperlinked to one-another. Over time the documents started updating more rapidly, so looked less static. In addition, the development of Flash and then Javascript meant that web pages became more interactive: websites started to look more like interactive applications and less like documents.&lt;/p&gt;
 
-&lt;p&gt;The web analytics industry was born in the 1990s, when the web was still a network of hyperlinked documents. The primary &amp;#8220;event&amp;#8221; that web analytics programmes were interested a &lt;em&gt;hit&lt;/em&gt;, which referred to a request being made to a web server. (As such, it was more of an &amp;#8216;event&amp;#8217; for the sysadmin than the user navigating the website.) Over time this involved into the &lt;em&gt;page view&lt;/em&gt; - as loading a web pages with multiple elements (e.g. different images) would result in multiple hits. Web analytics packages excelled at tracking &lt;em&gt;page views&lt;/em&gt;. As online retail took off, they extended to capturing transactions, and most recently, social events (e.g. &lt;em&gt;liking a product&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;The web analytics industry was born in the 1990s, when the web was still a network of hyperlinked documents. The primary &amp;#8220;event&amp;#8221; that web analytics programmes were interested a &lt;em&gt;hit&lt;/em&gt;, which referred to a request being made to a web server. (As such, it was more of an &amp;#8220;event&amp;#8221; for the sysadmin than the user navigating the website.) Over time this evolved into the &lt;em&gt;page view&lt;/em&gt; - as loading a web pages with multiple elements (e.g. different images) would result in multiple hits. Web analytics packages excelled at tracking &lt;em&gt;page views&lt;/em&gt;. As online retail took off, they extended to capturing transactions, and most recently, social events (e.g. &lt;em&gt;liking a product&lt;/em&gt;).&lt;/p&gt;
 
 &lt;p&gt;As a user, there are millions of things you can do on the web: from checking your bank balance, to messaging a friend, to researching a holiday, to sharing photos of your children. Web analytics packages, however, still only recognise a very small subset of events. To go beyond tracking &lt;em&gt;page views&lt;/em&gt; and &lt;em&gt;transactions&lt;/em&gt;, web analysts have to use custom event tracking (in Google Analytics), or an unholy combination of eVars and sProps (in SiteCatalyst).&lt;/p&gt;
 
@@ -1574,7 +1574,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -2391,7 +2391,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' frameborder='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' scrolling='no' width='427' marginwidth='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' scrolling='no' width='427' height='356' marginheight='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

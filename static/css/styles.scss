@@ -55,6 +55,7 @@ $white: #FFFFFF;
 		}
 	}
 
+
 	.column {
 		display: inline;
 		float: left;
@@ -79,6 +80,48 @@ $white: #FFFFFF;
 		li {
 			margin-bottom: 3px;
 		}
+	}
+
+	.big-button {
+		width: 250px;
+		height: 30px;
+		line-height: 30px; /* To vertically center text */
+		background-color: $lightgrey;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		padding-left: 15px;
+		padding-right: 15px;
+		margin-bottom: 20px;
+		text-align: center;
+		font-size: 15px;
+		font-weight: bold;
+		border-width: 1px;
+		border-style: solid;
+		border-color: $darkblue;
+		a {
+			color: $darkblue;
+			text-decoration: none;
+			width: 250px; /* Make as wide as button to maximize clickable area */
+			height: 30px; /* Make as high as button to maximize clickable area */
+		}
+		&:hover {
+			background: $darkblue;
+			a {
+				color: $white;
+			}
+		}
+	}
+
+	#left-button {
+		display: inline;
+		float: left;
+		margin-left: 150px;
+	}
+
+	#right-button {
+		display: inline;
+		float: right;
+		margin-right: 150px;
 	}
 
 	#generateTagForm {

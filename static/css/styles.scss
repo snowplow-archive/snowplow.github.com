@@ -357,3 +357,19 @@ $white: #FFFFFF;
 		overflow: auto;		/* Show a scrollbar when code extends beyond box */ 
 	}
 }
+
+/* Formatting for table on tech doc page */
+#tech-table-links{
+	table {
+		td {
+			width: 480px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
+			text-align: center;
+			vertical-align: top;
+		}
+
+	}
+}

@@ -48,19 +48,22 @@
 		<!--Slider--><div id='wrapper'>
     <div class='slider-wrapper theme-default'>
         <div id='slider' class='nivoSlider'>
-            <img data-thumb='/static/img/slider/slide1.png' alt='' src='/static/img/slider/slide1.png' />
-            <img data-thumb='/static/img/slider/slide2.png' alt='' src='/static/img/slider/slide2.png' />
-            <img data-thumb='/static/img/slider/slide3.png' alt='' src='/static/img/slider/slide3.png' />
+            <img src='/static/img/slider/slide1.png' alt='' data-thumb='/static/img/slider/slide1.png' />
+            <img src='/static/img/slider/slide2.png' alt='' data-thumb='/static/img/slider/slide2.png' />
+            <img src='/static/img/slider/slide3.png' alt='' data-thumb='/static/img/slider/slide3.png' />
+            <a href='/product/get-started.html'><img src='/static/img/slider/slide4.png' alt='' data-thumb='/static/img/slider/slide4.png' /></a>
         </div>
     </div>
     <script type='text/javascript'>
 		$(window).load(function() {
-	    	$('#slider').nivoSlider();
+	    	$('#slider').nivoSlider({
+	    		pauseTime: 4500
+	    	});
 	});
 	</script>
 </div><div id='buttons'>
-	<div class='big-button' id='left-button'><a href='/product/index.html'>Learn more</a></div>
-	<div class='big-button' id='right-button'><a href='https://github.com/snowplow/snowplow/wiki/Setting-up-SnowPlow'>Setup SnowPlow today</a></div>
+	<div id='left-button' class='big-button'><a href='/product/index.html'>Learn more</a></div>
+	<div id='right-button' class='big-button'><a href='/product/get-started.html'>Setup SnowPlow today</a></div>
 </div><div class='column'>
 	<h2>Open source</h2>
 	<ul>
@@ -91,7 +94,7 @@
 	</ul>			
 </div><div class='column'>
 	<h2>SnowPlow on Twitter</h2>
-	<a href='https://twitter.com/SnowPlowData' height='200' class='twitter-timeline' data-widget-id='266927205374885888' width='266'>Tweets by @SnowPlowData</a>
+	<a href='https://twitter.com/SnowPlowData' width='266' height='200' class='twitter-timeline' data-widget-id='266927205374885888'>Tweets by @SnowPlowData</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 </div>

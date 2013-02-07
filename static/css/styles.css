@@ -71,10 +71,10 @@
     line-height: 30px;
     /* To vertically center text */
     background-color: #ececec;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
     margin-bottom: 20px;
     text-align: center;
     font-size: 15px;
@@ -88,7 +88,8 @@
       width: 250px;
       /* Make as wide as button to maximize clickable area */
       height: 30px;
-      /* Make as high as button to maximize clickable area */ }
+      /* Make as high as button to maximize clickable area */
+      float: left; }
     #container .big-button:hover {
       background: #162b4f; }
       #container .big-button:hover a {

@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-02-08T13:32:31+00:00</updated>
+  <updated>2013-02-14T13:05:44+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -1783,7 +1783,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -2600,7 +2600,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe scrolling='no' height='356' frameborder='0' marginheight='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe src='http://www.slideshare.net/slideshow/embed_code/14696456' scrolling='no' frameborder='0' marginwidth='0' height='356' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginheight='0'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

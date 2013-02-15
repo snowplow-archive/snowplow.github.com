@@ -58,7 +58,7 @@
 
 <li>The Page URL split out into its component parts (scheme, host, port, path, querystring, fragment/anchor)</li>
 
-<li>The web page&#8217;s characterset</li>
+<li>The web page&#8217;s character set</li>
 
 <li>The web page&#8217;s width and height</li>
 
@@ -67,22 +67,41 @@
 <li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
 </ul>
 
-<p>This release necessarily involves updates to the JavaScript tracker, the Hive ETL process and the Infobright storage table.</p>
+<p>These fields should make a new set of analyses on SnowPlow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
 
-<p>As well as adding support for the new fields, this new version introduces some <strong>breaking changes</strong> and deprecations which should be handled carefully by existing installations. We will discuss these first, before detailing the new fields, then the bug fixes and finally the upgrade process.</p>
+<p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
 
-<h2 id='breaking_changes_and_deprecations'>Breaking changes and deprecations</h2>
+<ol>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#new-fields'>The new fields</a></li>
 
-<p>The following table tracks the breaking changes and deprecations in this version. <strong>When upgrading to the latest version of the JavaScript tracker (0.10.0), please update your JavaScript tags as per the instructions below to avoid problems.</strong></p>
-<table><thead><tr><th>Type of change</th><th>Component</th><th>Change</th><th>Comment</th></tr></thead><tbody><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setAccount()</code> removed</td><td style='text-align: left;'>Use <code>setCollectorCf()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setTracker()</code> removed</td><td style='text-align: left;'>Use <code>getTrackerCf()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setHeartBeatTimer()</code> removed</td><td style='text-align: left;'>Use <code>enableActivityTracking()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>trackEvent()</code> deprecated</td><td style='text-align: left;'>Use <code>trackStructEvent()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Data change</td><td style='text-align: left;'>S3 &amp; Infobright storage</td><td style='text-align: left;'><code>event</code>=&#8221;custom&#8221; changed</td><td style='text-align: left;'>Changed to <code>event</code>=&#8221;struct&#8221;</td>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes'>Bug fixes</a></li>
+
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes'>Breaking changes</a></li>
+
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
+</ol>
+<h2><a name='new-fields'>1. New fields</a></h2>
+<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on SnowPlow data.</p>
+
+<p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
+<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
+</tr><tr><td style='text-align: left;'><code>page_urlscheme</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Scheme aka protocol, e.g. &#8220;https&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlhost</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Host aka domain, e.g. &#8220;www.snowplowanalytics.com&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlport</code></td><td style='text-align: left;'>int</td><td style='text-align: left;'>Port if specified, 80 if not</td>
+</tr><tr><td style='text-align: left;'><code>page_urlpath</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Path to page, e.g. &#8220;/product/index.html&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlquery</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Querystring, e.g. &#8220;id=GTM-DLRG&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlfragment</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Fragment aka anchor, e.g. &#8220;4-conclusion&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>br_viewwidth</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The width of the browser&#8217;s viewport in pixels</td>
+</tr><tr><td style='text-align: left;'><code>br_viewheight</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The height of the browser&#8217;s viewport in pixels</td>
+</tr><tr><td style='text-align: left;'><code>doc_charset</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>The page&#8217;s character encoding, e.g. &#8220;UTF-8&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>doc_width</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total width of the page (incl. non-viewed area)</td>
+</tr><tr><td style='text-align: left;'><code>doc_height</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total height of the page (incl. non-viewed area)</td>
+</tr><tr><td style='text-align: left;'><code>pp_xoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page x offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_xoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page x offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_yoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page y offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_yoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page y offset seen in the last ping period</td>
 </tr></tbody></table>
-<p>The first three changes are simply cleanup: we are removing tracker methods which we previously deprecated some time ago.</p>
-
-<p>The last two changes are us starting to re-structure our event tracking - we are making space in our event model to support unstructured events, which will be coming soon. Please check out our previous blog post, <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>Help us build out the SnowPlow Event Model</a> for more background on this.</p>
+<p>Don&#8217;t worry if some of these new fields don&#8217;t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
 <p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry >></a></p>
 			<span class="comments-link"><a href="/blog/2013/02/15/snowplow-0.7.3-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
@@ -207,19 +226,15 @@
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		
@@ -241,19 +256,6 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -265,6 +267,23 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

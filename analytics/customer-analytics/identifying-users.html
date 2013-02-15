@@ -68,7 +68,8 @@
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> <span class='s1'>&#39;[[USER_ID]]&#39;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='2b_ability_to_track_users_over_multiple_customer_journeys'>2b. Ability to track users over multiple customer journeys</h3>
 
 <p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, SnowPlow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using SnowPlow for <a href='/analytics/customer-analytics/attributino.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attributino.html'>attribution section</a> of this documentation.)</p>
@@ -79,7 +80,8 @@
 <span class='nf'>AVERAGE</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>avg_visits_to_purchase</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>On websites where users make multiple purchases, we need to divide the number of visits by number of orders, filtering out users who have not made a purchase:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> <span class='n'>user_id</span><span class='p'>,</span>
@@ -89,7 +91,8 @@
 <span class='k'>FROM</span> <span class='n'>events</span> 
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can then average across the results:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -103,7 +106,8 @@
 	<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>t</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
 
 <p>Because we can easily slice data by user_id (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
@@ -113,7 +117,8 @@
 <span class='n'>user_id</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
 <h2><a name='login-events'>3. More sophisticated approaches to user identification: login events</a></h2>
 <p>Whilst exposing the <code>user_id</code> makes slicing data by user easy for an analyst, relying on cookies to reliably identify users is risky for a number of reasons:</p>
@@ -141,7 +146,8 @@ event_label: login_id</code></pre>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_label</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>When a user logs in to a service from multiple computers, each SnowPlow <code>user_id</code>, associated with each computer, will be matched against their single <code>login_id</code>. (I.e. there will be a many-to-one relationship between Snowplow <code>user_id</code> and <code>login_id</code>.) To perform customer analytics using the more robust method of user identification, we simply aggregate over (<code>GROUP BY</code>) <code>login_id</code> rather than SnowPlow <code>user_id</code>.</p>
 
 <h2 id='4_understand_how_to_use_snowplow_to_reliably_identify_users_and_customers'>4. Understand how to use SnowPlow to reliably identify users and customers?</h2>

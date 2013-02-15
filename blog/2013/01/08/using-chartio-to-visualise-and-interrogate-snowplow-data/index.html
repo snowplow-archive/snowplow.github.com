@@ -51,7 +51,7 @@
 			<h1>Using ChartIO to visualise and interrogate SnowPlow data</h1>
 			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /></p>
+<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
 
 <p>In this post we cover:</p>
 
@@ -85,15 +85,15 @@
 
 <p>Lets start by looking out how engagement has changed over time on Psychic Bazaar. Let&#8217;s create a new dashboard to explore this issue in particular. Log into ChartIO and click on the <strong>+Dashboard</strong> link on the left hand menu to create a new dashboard.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-1.png' alt='chartio-pic-1' /></p>
+<p><img alt='chartio-pic-1' src='/static/img/blog/2013/01/chartio-1.png' /></p>
 
 <p>Give the dashboard a suitable name and description and then click the relevant button to craete it. Now we need to add a chart to it. Click on the <strong>+Chart</strong> link on the right hand menu. The Chart Creator opens in <strong>interactive mode</strong>, with your database on the top left, a list of tables under it (including the SnowPlow events table) and under the table, a list of fields split by which ChartIO believes is a measure and dimension.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-2.png' alt='chartio-pic-2' /></p>
+<p><img alt='chartio-pic-2' src='/static/img/blog/2013/01/chartio-2.png' /></p>
 
 <p>In interactive mode, ChartIO lets you drag and drop measures into the <strong>Measures</strong>, <strong>Dimensions</strong> and <strong>Filters</strong> dialogue box to generate graphs. We&#8217;re not going to do that, though, because we want to be explicit about how ChartIO uses SnowPlow data. So we&#8217;re going to use <strong>Query mode</strong> by clicking on the <strong>Query mode</strong> hyperlink on the top left of the <strong>Layer 1</strong> box. This enables us to enter a SQL query directly. ChartIO will graph the results:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-3.png' alt='chartio-pic-3' /></p>
+<p><img alt='chartio-pic-3' src='/static/img/blog/2013/01/chartio-3.png' /></p>
 
 <p>Now we&#8217;re ready to graph engagement levels over time. Let&#8217;s start with our first measure of engagement: conversion levels. We want to look at what % of users who visit our site each month that perform a transaction. To do this, we first need to identify users who have performed a transaction each month, using the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
@@ -103,8 +103,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we join this table with the events table to list all the users who have visited each month and identify which of them has bought:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span>
@@ -127,8 +126,7 @@
 <span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='ss'>`month`</span>
 <span class='k'>AND</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we can aggregate over the results of the above query, calculating the conversion rate by dividing the number of buyers by the total number of visitors:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -157,19 +155,18 @@
 	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>e</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span> 
-</code></pre>
-</div>
+</code></pre></div>
 <p>Pop the above query in the ChartIO query box:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-4.png' alt='chartio-pic-4' /></p>
+<p><img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /></p>
 
 <p>and click the <strong>Chart Query</strong> button below. ChartIO will respond with a table of data. We can graph the data by clicking on any of the graph icons above the data table. Choosing the line graph, I get:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-6.png' alt='chartio-pic-6' /></p>
+<p><img alt='chartio-pic-6' src='/static/img/blog/2013/01/chartio-6.png' /></p>
 
 <p>We can then rename the graph (by clicking the <strong>edit</strong> hyperlink that appears when you hover over <strong>Chart Title</strong>) and save the graph to our dashboard by clicking <strong>Save to Exploring engagement</strong> button. ChartIO lets us resize and position the graph on the dashboard:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-7.png' alt='chartio-pic-7' /></p>
+<p><img alt='chartio-pic-7' src='/static/img/blog/2013/01/chartio-7.png' /></p>
 
 <p>Great! We can see conversion rates were reasonably stable between September and November of the year, but peaked at the end of the year at a height they were previously in June. The figure for September seems suspiciously high - we&#8217;ll drill into this in more detail in a bit. Next we will plot our alternative measure of engagement over time: the number of pageviews per user per month, and see how that has changed over time.</p>
 
@@ -181,8 +178,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we want to aggregate users by the number of pageviews each has done by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -198,8 +194,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Lastly we want to bucket values of page views e.g. into 1, 2-5, 6-10, 11-25 and 25+. We can introduce a bucketing into our previous query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -222,8 +217,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then aggregate by bucket in the next query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -254,19 +248,18 @@
 <span class='p'>)</span> <span class='n'>u</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-8.png' alt='chartio-pic-8' /></p>
+<p><img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /></p>
 
 <p>This graph tells an interesting story. Overall, the number of unique visitors per month has grown pretty dramatically over time, peaking at about 1700 uniques in November. It is not so easy to tell how the distribution of users by engagement level has changed over time: this is easier if we change the graph to be a &#8220;percent bar&#8221;:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-9.png' alt='chartio-pic-9' /></p>
+<p><img alt='chartio-pic-9' src='/static/img/blog/2013/01/chartio-9.png' /></p>
 
 <p>This graph suggests that engagement levels dropped in October, but climbed dramatically from then to December. Curiously, there was no drop in overall engagement level as user numbers increased on the site between August and October: that means that the new users acquired were &#8220;high quality&#8221; or &#8220;highly engaged&#8221;. This is a useful graph: let&#8217;s add it to our dashboard alongside the first graph we created:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-10.png' alt='chartio-pic-10' /></p>
+<p><img alt='chartio-pic-10' src='/static/img/blog/2013/01/chartio-10.png' /></p>
 
 <p>Just to put the two baseline graphs in context, let&#8217;s add a third graph the tracks the number of unique users per month to our dashboard. Add a new chart using the following simple query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
@@ -275,11 +268,10 @@
 <span class='k'>FROM</span> <span class='n'>events_004</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And pop it on the dashboard:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-11.png' alt='chartio-pic-11' /></p>
+<p><img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /></p>
 
 <p>Our baseline data tells us an interesting story, which from the dashboard, we&#8217;re in a position to summarise:</p>
 
@@ -310,8 +302,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Compare this with our data on which users have converted:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -319,16 +310,14 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='n'>transaction</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And our list of <strong>all</strong> users:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
 <span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>visitor</span>
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We join the three data sets:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -359,8 +348,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
 	<span class='p'>)</span> <span class='n'>paid_search</span>
 <span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then aggregate over the result set to compare conversion rates:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>paid_search</span><span class='p'>,</span>
@@ -397,11 +385,10 @@
 	<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
 	<span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>paid_search</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-12.png' alt='chartio-pic-12' /></p>
+<p><img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /></p>
 
 <p>This naturally leads to the question: has the number of users acquired from paid search increased over the time period? (Especially between November and December, when our increase in conversion rates is most noticeable?) We can find out by graphing the following query, which looks at the number of uniques by month divided by whether they were acquired by paid search or not:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
@@ -419,11 +406,10 @@
 <span class='p'>)</span> <span class='n'>paid_search</span>
 <span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>paid_search</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was <strong>no</strong> increase in traffic from paid search terms between November and December, so this does <strong>not</strong> account for the rising conversion rate in December.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-13.png' alt='chartio-pic-13' /></p>
+<p><img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /></p>
 
 <h4 id='other_factors_that_might_account_for_the_rise'>Other factors that might account for the rise</h4>
 
@@ -469,6 +455,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+		
 			<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 		
 			<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
@@ -477,10 +465,42 @@
 		
 			<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
 		
-			<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+			
+				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
+			
+				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
+			
+				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
+			
+				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -506,40 +526,6 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
-			
-				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
-			
-				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-			
-				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
-			
-				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

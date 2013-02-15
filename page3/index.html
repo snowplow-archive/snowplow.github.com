@@ -47,13 +47,46 @@
 	
 		<div id="contents">
 	
+		<a name="From ETL to enrichment - development roadmap" />
+		<div class="post">
+			09 Jan 2013
+			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></h1>
+			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the SnowPlow stack. Although in many respects the least sexy element of the stack, it is critical to SnowPlow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
+
+<ol>
+<li>Feedback from the community on them</li>
+
+<li>Ideas for alternative approaches or new features</li>
+</ol>
+
+<p>We will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
+</ol>
+
+<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
+<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/09/from-etl-to-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Using ChartIO to visualise SnowPlow data" />
 		<div class="post">
 			08 Jan 2013
 			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></h1>
 			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /></p>
+<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
 
 <p>In this post we cover:</p>
 
@@ -86,7 +119,7 @@
 
 <p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
 
-<p><img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /></p>
+<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
 
 <h2 id='contents'>Contents</h2>
 
@@ -137,47 +170,6 @@
 			<span class="comments-link"><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.6.5 released" />
-		<div class="post">
-			26 Dec 2012
-			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></h1>
-			<p>We&#8217;re excited to announce our next SnowPlow release - version <strong>0.6.5</strong>, a Boxing Day release for SnowPlow!</p>
-
-<p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
-
-<ol>
-<li>It should make querying SnowPlow events much easier</li>
-
-<li>It should make SnowPlow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
-</ol>
-
-<p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
-
-<p>Here is a taster of how SnowPlow event data looks with the new event types and event IDs:</p>
-
-<p><img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /></p>
-
-<p>These are not the only improvements in this version - here are the rest:</p>
-
-<ul>
-<li>We have cleaned up the code for on-page activity tracking (&#8220;page pings&#8221;)</li>
-
-<li>We have fixed a bug that affected ad impression tracking - thanks <a href='https://github.com/talkspoon'>Alan Z</a>!</li>
-
-<li>The ETL no longer dies if a raw event has a corrupted querystring (e.g. the <code>&amp;refr=</code> parameter was not escaped)</li>
-
-<li>The JavaScript tracker&#8217;s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
-
-<li>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker sending a <code>&amp;uid=xxx</code> parameter</li>
-
-<li>We have added the ability to override the IP address by passing in an <code>&amp;ip=</code> parameter on the querystring</li>
-</ul>
-
-<p>Below, we first explain how to upgrade, before taking a brief tour through these updates:</p>
-<p class='more'><a href='/blog/2012/12/26/snowplow-0.6.5-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/26/snowplow-0.6.5-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -197,6 +189,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+		
 			<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 		
 			<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
@@ -205,10 +199,42 @@
 		
 			<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
 		
-			<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+			
+				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
+			
+				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
+			
+				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
+			
+				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -234,40 +260,6 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
-			
-				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
-			
-				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-			
-				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
-			
-				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

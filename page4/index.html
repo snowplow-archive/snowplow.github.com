@@ -47,6 +47,47 @@
 	
 		<div id="contents">
 	
+		<a name="SnowPlow 0.6.5 released" />
+		<div class="post">
+			26 Dec 2012
+			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></h1>
+			<p>We&#8217;re excited to announce our next SnowPlow release - version <strong>0.6.5</strong>, a Boxing Day release for SnowPlow!</p>
+
+<p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
+
+<ol>
+<li>It should make querying SnowPlow events much easier</li>
+
+<li>It should make SnowPlow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
+</ol>
+
+<p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
+
+<p>Here is a taster of how SnowPlow event data looks with the new event types and event IDs:</p>
+
+<p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
+
+<p>These are not the only improvements in this version - here are the rest:</p>
+
+<ul>
+<li>We have cleaned up the code for on-page activity tracking (&#8220;page pings&#8221;)</li>
+
+<li>We have fixed a bug that affected ad impression tracking - thanks <a href='https://github.com/talkspoon'>Alan Z</a>!</li>
+
+<li>The ETL no longer dies if a raw event has a corrupted querystring (e.g. the <code>&amp;refr=</code> parameter was not escaped)</li>
+
+<li>The JavaScript tracker&#8217;s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
+
+<li>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker sending a <code>&amp;uid=xxx</code> parameter</li>
+
+<li>We have added the ability to override the IP address by passing in an <code>&amp;ip=</code> parameter on the querystring</li>
+</ul>
+
+<p>Below, we first explain how to upgrade, before taking a brief tour through these updates:</p>
+<p class='more'><a href='/blog/2012/12/26/snowplow-0.6.5-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/12/26/snowplow-0.6.5-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.6.4 released" />
 		<div class="post">
 			20 Dec 2012
@@ -90,7 +131,7 @@
 			17 Dec 2012
 			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
 			<p>Because SnowPlow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate SnowPlow data with popular BI tools like Tableau or Qlikview.</p>
-<p style='text-align:center;'><img src='/static/img/olap/example-cube-2.png' width='250' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
 <p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the SnowPlow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
 <table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
 </tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
@@ -127,37 +168,6 @@
 			<span class="comments-link"><a href="/blog/2012/11/28/snowplow-0.6.2-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.6.1 released" />
-		<div class="post">
-			27 Nov 2012
-			<h1><a href="/blog/2012/11/27/snowplow-0.6.1-released">SnowPlow 0.6.1 released, with lots of small improvements</a></h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.1</strong>. This release includes updates:</p>
-
-<ol>
-<li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
-
-<li><strong>Javascript tracker updates</strong>. A number of updates have been made to make the Javascript tracker more robust</li>
-
-<li><strong>Updates to the ETL flow</strong> so that the <code>user_agent</code> string and <code>platform</code> captured and stored in Hive / Infobright</li>
-
-<li><strong>Improved EmrEtlRunner command line options</strong> now provide more flexibility when writing your data to storage</li>
-
-<li><strong>Bug fixes</strong> related to loading SnowPlow data into Infobright</li>
-</ol>
-
-<p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
-
-<ul>
-<li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
-
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
-
-<li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
-</ul>
-<p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/11/27/snowplow-0.6.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -177,6 +187,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+		
 			<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 		
 			<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
@@ -185,10 +197,42 @@
 		
 			<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
 		
-			<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
+			
+				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.2 released, tracking additional data</a></li>
+			
+				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
+			
+				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
+			
+				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
+			
+				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -214,40 +258,6 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
-			
-				<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
-			
-				<li><a href="/blog/2013/01/22/snowplow-0.7.1-released">SnowPlow 0.7.1 released, with easier-to-run Ruby apps</a></li>
-			
-				<li><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></li>
-			
-				<li><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

@@ -95,8 +95,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -104,8 +103,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -113,8 +111,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-visits'><h2>2. Number of visits</h2></a>
 <p>Because each user might visit a site more than once, summing the number of <code>user_id</code>s returns the number if <em>visitors</em>, NOT the number of <em>visits</em>. Every time a user visits the site, however, SnowPlow assigns that session with a <code>visit_id</code> (e.g. <code>1</code> for their first visit, <code>2</code> for their second.) Hence, to count the number of visits in a time period, we concatenate the unique <code>user_id</code> with the <code>visit_id</code> and then count the number of distinct concatenated entry in the events table:</p>
@@ -123,8 +120,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='nf'>CONCAT</span><span class='p'>(</span> <span class='n'>user_id</span><span class='p'>,</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='n'>visit_id</span> <span class='p'>)))</span>
 <span class='k'>FROM</span> <span class='n'>events</span> 
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Again, we can group by week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -132,8 +128,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -141,8 +136,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-pageviews'><h2>3. Number of page views</h2></a>
 <p>Page views are one type of event that are stored in the SnowPlow events table. Their defining feature is that the <code>page_title</code> contain values (are not <code>NULL</code>). In the case of an <em>event</em> that is not a page view (e.g. an <em>add to basket</em>) these fields would all be <code>NULL</code>, and the event fields (<code>ev_category</code>, <code>ev_action</code>, <code>ev_label</code> etc.) would contain values. For details, see the <a href='https://github.com/snowplow/snowplow/blog/master/docs/07_snowplow_hive_tables_introduction.md'>Introduction to the SnowPlow events table</a>.</p>
@@ -154,8 +148,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>By week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -164,8 +157,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>By month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -174,8 +166,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-events'><h2>4. Number of events / transactions</h2></a>
 <p>Although the number of page views is a standard metric in web analytics, this reflects the web&#8217;s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
@@ -186,8 +177,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>By week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -195,8 +185,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>By month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -204,8 +193,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>As well as looking at page views by time period, we can also look by <code>user_id</code>. This gives a good impression of the engagement level of each of our users: how does this vary across our user population, how it varies for a particular user over time, for example.</p>
 
 <p>For example, to examine the engagement by user by month, we execute the following query:</p>
@@ -216,8 +204,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='n'>user_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>There is scope to taking a progressively more nuanced approach to measuring user engagement levels. Some of the approaches are described in <a href='http://www.keplarllp.com/blog/2012/05/different-approaches-to-measuring-user-engagement-with-snowplow'>this blog post</a></p>
 
 <p><a href='#top'>Back to top</a></p>
@@ -231,8 +218,7 @@
 <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To calculate the average page views per day we average over the results in the above query. This can be performed in Hive in two steps:</p>
 
 <ol>
@@ -263,8 +249,7 @@
 <span class='nf'>AVG</span><span class='p'>(</span><span class='n'>pages</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>pages_per_visit</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In both Hive and Infobright the query can be performed in a single step, using a sub-select:</p>
 
 <p>SELECT t.dt, AVG(t.pages) FROM ( SELECT dt, user_id, visit_id, COUNT(event_id) AS pages FROM events WHERE page_title IS NOT NULL GROUP BY dt, user_id, visit_id ) t GROUP BY t.dt ;</p>
@@ -289,8 +274,7 @@
 <span class='k'>IF</span><span class='p'>(</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we need to calculate the fraction of visits by time period that are <em>bounces</em> e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>dt</span><span class='p'>,</span>
@@ -299,8 +283,7 @@
 <span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
 <span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -310,8 +293,7 @@
 <span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
 <span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -321,8 +303,7 @@
 <span class='nf'>SUM</span><span class='p'>(</span> <span class='n'>bounce</span> <span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>visit_id</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>bounce_rate</span>
 <span class='k'>FROM</span> <span class='n'>visits_with_bounce_info</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTHS</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note: a more nuanced and reliable approach to measuring bounce rate can be developed using the <a href='http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released/'>page ping</a> functionality. This is introduced in the <a href='http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released/'>v0.6.5 blog post</a>.</p>
 
 <p><a href='#top'>Back to top</a></p>
@@ -341,8 +322,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>visit_id</span><span class='o'>=</span><span class='mi'>1</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Secondly, we calculate the total number of visits in the time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_by_day</span> <span class='p'>(</span>
 <span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
@@ -354,15 +334,13 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span><span class='n'>visit_id</span><span class='p'>))</span> <span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Lastly, we take the number of new visits per time period, and divide by the total number of visits</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>n</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span>
 <span class='n'>n</span><span class='p'>.</span><span class='n'>number_new_visits</span> <span class='o'>/</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>number_of_visits</span> <span class='k'>AS</span> <span class='n'>percentage_new_visits</span>
 <span class='k'>FROM</span> <span class='n'>new_visits_by_day</span> <span class='n'>n</span> <span class='k'>JOIN</span> <span class='n'>visits_by_day</span> <span class='n'>v</span> <span class='k'>ON</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>dt</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='duration'><h2>8. Average visitor duration</h2></a>
 <p>To calculate this, 1st we need to calculate the duration of every visit:</p>
@@ -385,16 +363,14 @@
 <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>tm</span><span class='p'>)))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>dt</span><span class='p'>,</span>
 <span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>visits</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -402,8 +378,7 @@
 <span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>visits</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
@@ -411,8 +386,7 @@
 <span class='nf'>AVG</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>visits</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='efficiency'><h2>9. A note about efficiency</h2></a>
 <p>Hive and Hadoop more generally are very powerful tools to process large volumes of data. However, data processing is an expensive task, in the sense that every time you execute the query, you have to pay EMR fees to crunch through your data. As a result, where possible, it is advisable not to repeat the same analysis multiple times: for repeated analyses you should save the results of the analysis, and only perform subsequent analysis on new data.</p>
@@ -424,8 +398,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>dt</span> <span class='o'>&lt;</span> <span class='s1'>&#39;&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We would then save this data in a suitable database / Excel spreadsheet, and add to it by querying just <em>new</em> data e.g.</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='n'>dt</span><span class='p'>,</span>
@@ -433,8 +406,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>At the moment, the analyst has to manually append the new data to the old. Going forwards, we will build out the SnowPlow functionality so that it is straightforward to build ETL processes to migrate useful cuts of data into analytics databases for further analysis, where Hadoop / Hive is not required for that additional analysis.</p>
 
 <p><a href='#top'>Back to top</a></p>
@@ -447,8 +419,7 @@
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ENTER</span><span class='o'>-</span><span class='n'>DESIRED</span><span class='o'>-</span><span class='kt'>TIME</span><span class='o'>-</span><span class='n'>PERIOD</span><span class='p'>]]</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_language</span> 
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>,</span><span class='s1'>&#39;-&#39;</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>)))</span> <span class='k'>DESC</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='location'><h2>11. Demographics: location</h2></a>
 <p>THIS NEEDS TO BE DONE IN CONJUNCTION WITH MAXIMIND DATABASE OR OTHER GEOIP DATABASE, BASED ON IP - TO WRITE</p>
@@ -472,8 +443,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='k'>INSERT</span><span class='o'>-</span><span class='kt'>TIME</span><span class='o'>-</span><span class='n'>PERIOD</span><span class='o'>-</span><span class='n'>RESTRICTIONS</span><span class='p'>]]</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we can sum over the table to calculate the number of new visits vs returning visits</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>total_visits</span><span class='p'>,</span>
@@ -482,8 +452,7 @@
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>new</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_new</span><span class='p'>,</span>
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>returning</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_returning</span>
 <span class='k'>FROM</span> <span class='n'>visits_with_new_vs_returning_info</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='frequency'><h2>13. Behaviour: frequency</h2></a>
 <p>We can look at the distribution of users by number of visits they have performed in a given time period. First, we count the number of visits each user has performed in the specific time period:</p>
@@ -499,16 +468,14 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='k'>INSERT</span><span class='o'>-</span><span class='n'>CONDITIONS</span><span class='o'>-</span><span class='k'>FOR</span><span class='o'>-</span><span class='kt'>TIME</span><span class='o'>-</span><span class='n'>PERIOD</span><span class='o'>-</span><span class='n'>YOU</span><span class='o'>-</span><span class='n'>WANT</span><span class='o'>-</span><span class='k'>TO</span><span class='o'>-</span><span class='n'>EXAMINE</span><span class='p'>]]</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we need to categorise each user by the number of visits performed in the time period, and sum the number of users in each category:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>visit_count</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>user_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>users_by_frequency</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>visit_count</span> <span class='p'>;</span>	
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='recency'><h2>14. Behaviour: recency</h2></a>
 <p>We can look in a specific time period at each user who has visited, and see how many days it has been since they last visited. First, we identify all the users who have visited in our time frame, and grab the timestamp for their last event for each:</p>
@@ -526,16 +493,14 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>dt</span><span class='o'>&gt;</span><span class='s1'>&#39;&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we categorise the users by the number of days since they last visited, and sum the number in each category:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='n'>days_from_today</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>user_id</span> <span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>users_by_recency</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>days_from_today</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='engagement'><h2>15. Behaviour: engagement</h2></a>
 <p>Google Analytics provides two sets of metrics to indicate <em>engagement</em>. We think that both are weak (the duration of each visit and the number of page views per visit). Nonetheless, they are both easy to measure using SnowPlow. To start with the duration per visit, we simply execute the following query:</p>
@@ -546,8 +511,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> 
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In the same way, we can look at the number of page views per visit:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -556,8 +520,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='browser'><h2>16. Technology: browser</h2></a>
 <p>Browser details are stored in the events table in the <code>br_name</code>, <code>br_family</code>, <code>br_version</code>, <code>br_type</code>, <code>br_renderingengine</code>, <code>br_features</code> and <code>br_cookies</code> fields.</p>
@@ -569,8 +532,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_name</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>If you didn&#8217;t want to distinguish between different versions of the same browser in the results, replace <code>br_name</code> in the query with <code>br_family</code>.</p>
 
 <p><a href='#top'>Back to top</a></p>
@@ -584,8 +546,7 @@
 	<span class='k'>FROM</span> <span class='n'>events</span>
 	<span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>os_name</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 <a name='mobile'><h2>18. Technology: mobile</h2></a>
 <p>Mobile technology details are stored in the 4 device/hardware fields: <code>dvce_type</code>, <code>dvce_ismobile</code>, <code>dvce_screenwidth</code>, <code>dvce_screenheight</code>.</p>
@@ -597,8 +558,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_ismobile</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To break down the number of visits from mobile users by device type execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>dvce_type</span><span class='p'>,</span>
@@ -606,8 +566,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span> <span class='k'>AND</span> <span class='n'>dvce_ismobile</span> <span class='o'>=</span> <span class='no'>TRUE</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_type</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><a href='#top'>Back to top</a></p>
 </div>
 

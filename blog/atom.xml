@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-02-15T12:58:54+00:00</updated>
+  <updated>2013-02-15T13:01:29+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -15,7 +15,7 @@
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released"/>
-    <title>SnowPlow 0.7.2 released, tracking additional data</title>
+    <title>SnowPlow 0.7.3 released, tracking additional data</title>
     <updated>2013-02-15T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>

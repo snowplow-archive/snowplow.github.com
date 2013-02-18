@@ -47,6 +47,34 @@
 	
 		<div id="contents">
 	
+		<a name="Scala MaxMind GeoIP released" />
+		<div class="post">
+			16 Jan 2013
+			<h1><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></h1>
+			<p>A short blog post this, to announce the release of <a href='https://github.com/snowplow/scala-maxmind-geoip'><strong>Scala MaxMind GeoIP</strong></a>, our Scala wrapper for the MaxMind <a href='http://www.maxmind.com/download/geoip/api/java/'>Java Geo-IP</a> library.</p>
+
+<p>We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to <a href='https://github.com/twitter/scalding'>Scalding</a>. We extracted this as a separate library for two main reasons:</p>
+
+<ol>
+<li><strong>Being good open-source citizens</strong> - as with our <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library, we believe this library willl be useful to the wider community of software developers, not just SnowPlow users</li>
+
+<li><strong>Keeping SnowPlow&#8217;s footprint small</strong> - at SnowPlow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that &#8216;do everything&#8217; are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes</li>
+</ol>
+
+<p>On to the library: for Scala developers, the main benefits of using <a href='https://github.com/snowplow/scala-maxmind-geoip'>scala-maxmind-geoip</a> over the MaxMind Java library are:</p>
+
+<ul>
+<li><strong>Easier to setup/test</strong> - the SBT project definition automatically pulls down the latest MaxMind Java code and <code>GeoLiteCity.dat</code></li>
+
+<li><strong>Better type safety</strong> - the MaxMind Java library is somewhat null-happy. This library uses Option boxing wherever possible</li>
+
+<li><strong>Better performance</strong> - as well as or instead of using MaxMind&#8217;s own caching (<code>GEOIP_MEMORY_CACHE</code>), you can also configure an LRU (Least Recently Used) cache of variable size</li>
+</ul>
+
+<p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+			<span class="comments-link"><a href="/blog/2013/01/16/scala-maxmind-geoip-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="From ETL to enrichment - development roadmap" />
 		<div class="post">
 			09 Jan 2013
@@ -86,7 +114,7 @@
 			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></h1>
 			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
 
-<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
+<p><img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /></p>
 
 <p>In this post we cover:</p>
 
@@ -119,7 +147,7 @@
 
 <p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
 
-<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
+<p><img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /></p>
 
 <h2 id='contents'>Contents</h2>
 
@@ -155,21 +183,6 @@
 			<span class="comments-link"><a href="/blog/2013/01/03/snowplow-0.7.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="referer-parser ported to 3 more languages" />
-		<div class="post">
-			02 Jan 2013
-			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
-			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
-
-<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
-
-<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>SnowPlow ETL</a> process in the coming months.</p>
-
-<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
-<p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -178,7 +191,7 @@
 			<a href="/page2" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 3 of 8</span>
+		<span class="page_number">Page: 3 of 9</span>
 		
 			<a href="/page4" class="next">Next</a>
 		
@@ -189,6 +202,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+		
 			<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.3 released, tracking additional data</a></li>
 		
 			<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
@@ -196,8 +211,6 @@
 			<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
 		
 			<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
-		
-			<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
 		
 	</ul>
 
@@ -211,6 +224,21 @@
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
 		
 		</ul>		
@@ -232,24 +260,11 @@
 		
 		</ul>		
 	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
-			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
-			
-				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
@@ -258,8 +273,6 @@
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
 			
 				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

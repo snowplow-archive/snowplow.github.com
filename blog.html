@@ -47,6 +47,35 @@
 	
 		<div id="contents">
 	
+		<a name="Reflections on Saturday's Measurecamp" />
+		<div class="post">
+			18 Feb 2013
+			<h1><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></h1>
+			<p>On Satuday both Alex and I were lucky enough to attend London&#8217;s second <a href='http://www.measurecamp.org/'>Measurecamp</a>, an unconference dedicated to digital analytics. The venue was packed with smart people sharing some really interesting ideas - we can&#8217;t do justice to all those ideas here, so I&#8217;ve just outlined my favourite two from the day:</p>
+
+<ol>
+<li><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#keywords'>Using keywords to segment audience by product and interest match</a>, courtesy of <a href='https://twitter.com/carmenmardiros'>Carmen Mardiros</a></li>
+
+<li><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#server-side-datalayer'>Transferring commercially sensitive data into your web analytics platform via a server-side dataLayer</a>, courtesy of <a href='https://twitter.com/TechPad'>Matt Clarke</a></li>
+</ol>
+
+<p>I&#8217;ve also post the slides I&#8217;d put together on <a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#clv'>customer lifetime value</a> for the event: I didn&#8217;t end up sharing these on the day, because the room where the session took place didn&#8217;t have a projector. That was just as well, as I think we had a much more interesting conversation about customer lifetime value as a result.</p>
+<h2><a name='keywords'>1. Using keywords to segment audience by product and interest match</a></h2>
+<p>In this rather excellent presentation, <a href='https://twitter.com/carmenmardiros'>Carmen</a> showed how you can use keywords users enter (either in searches directing them to your website, or on internal searches) to classify audience in especially meaningful buckets e.g.</p>
+
+<ul>
+<li>Are they already a customer?</li>
+
+<li>Are they brand aware?</li>
+
+<li>Are they looking to purchase vs looking for support?</li>
+
+<li>Are they interested broadly or narrowly in your area?</li>
+</ul>
+<p class='more'><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.7.3 released" />
 		<div class="post">
 			15 Feb 2013
@@ -163,46 +192,13 @@
 			<span class="comments-link"><a href="/blog/2013/01/29/snowplow-0.7.2-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Introducing the No-Javascript tracker" />
-		<div class="post">
-			29 Jan 2013
-			<h1><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></h1>
-			<p>The <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) enables companies running SnowPlow to track users in environments that do not support Javascript. In this blog post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#why'>The purpose of the No-Javascript tracker (pixel tracker)</a></li>
-
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#mechanics'>How it works</a></li>
-
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#collector-considerations'>Considerations when using the No-JS tracker (pixel tracker) with the Clojure collector in particular</a></li>
-
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#roadmap'>Next steps on the SnowPlow tracker roadmap</a></li>
-</ol>
-<a name='why'><h2>What is the purpose of the No-Javascript tracker (pixel tracker)?</h2> </a>
-<p>Our aim with SnowPlow has been to enables companies to track user events across <strong>all</strong> platforms and devices. That means enabling tracking offline events, as well as online events, and mobile events, as well as web events.</p>
-
-<p>There is a whole class of web event that SnowPlow users may want to capture, but which are not possible to track using our standard Javascript tracker because they are environments that do not support Javascript. This includes:</p>
-
-<ol>
-<li>Views of HTML emails</li>
-
-<li>Views of ecommerce products on 3rd party marketplaces</li>
-
-<li>Views of pages on 3rd party hosting sites e.g. Github</li>
-</ol>
-
-<p>In these cases, you can use the <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) to track events directly into your SnowPlow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behaviour, for example.</p>
-<p class='more'><a href='/blog/2013/01/29/introducing-the-no-js-tracker'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/01/29/introducing-the-no-js-tracker#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
 		
 			<span class="previous">Previous</span>
 		
-		<span class="page_number">Page: 1 of 8</span>
+		<span class="page_number">Page: 1 of 9</span>
 		
 			<a href="/page2" class="next">Next</a>
 		
@@ -213,6 +209,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+		
 			<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.3 released, tracking additional data</a></li>
 		
 			<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
@@ -220,8 +218,6 @@
 			<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
 		
 			<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
-		
-			<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></li>
 		
 	</ul>
 
@@ -235,6 +231,21 @@
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
 		
 		</ul>		
@@ -256,24 +267,11 @@
 		
 		</ul>		
 	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
-			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
-			
-				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
@@ -282,8 +280,6 @@
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
 			
 				<li><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">SnowPlow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting SnowPlow</a></li>
-			
-				<li><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></li>
 			
 		
 		</ul>		

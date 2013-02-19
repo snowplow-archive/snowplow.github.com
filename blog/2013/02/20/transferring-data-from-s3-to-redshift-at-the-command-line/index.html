@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.4.10 released - SnowPlow Analytics</title>
+	<title>Bulk loading data from Amazon S3 into Redshift at the command line - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,61 +47,72 @@
 	
 		<div id="contents">
 		<div class="post">
-			11 Oct 2012
-			<h1>SnowPlow 0.4.10 released</h1>
-			<p>We have just released version <strong>0.4.10</strong> of SnowPlow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+			20 Feb 2013
+			<h1>Bulk loading data from Amazon S3 into Redshift at the command line</h1>
+			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out SnowPlow support for Redshift, so that SnowPlow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
 
-<ol>
-<li>snowplow.js to version 0.7.0</li>
+<p>In the course of building out SnowPlow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
 
-<li>the Hive deserializer to version 0.4.9</li>
-</ol>
+<h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
 
-<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
+<p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
+<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
+<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
+<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
+<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
+</code></pre></div>
+<p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
+<!--more-->
+<p>In order to orchestrate bulk loading programmatically, we used <a href='http://www.xigole.com/software/jisql/jisql.jsp'>JiSQL</a>, a Java based command-line tool for executing SQL queries that uses a JDBC driver. JiSQL enables us to specify the specific, Redshift-compatible JDBC driver to use to establish the connection. This meant we could upgrade our Ruby <a href='https://github.com/snowplow/snowplow/wiki/setting-up-alternative-data-stores'>StorageLoader</a> to execute the relevant command-line syntax to initiate the regular data loads of SnowPlow data from S3 into Redshift.</p>
 
-<h2 id='main_changes'>Main changes</h2>
+<h2 id='using_jisql_to_bulk_load_data_from_s3_to_redshift_at_the_commandline_a_step_by_step_guide'>Using JiSQL to bulk load data from S3 to Redshift at the command-line: a step by step guide</h2>
 
-<p>The main changes are as follows:</p>
+<h3 id='1_download_and_install_jisql'>1. Download and install JiSQL</h3>
 
 <ul>
-<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
+<li>Download JiSQL from <a href='http://www.xigole.com/software/jisql/jisql.jsp'>http://www.xigole.com/software/jisql/jisql.jsp</a></li>
 
-<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
-
-<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
+<li>Unzip the contents of the compressed file to a suitable location</li>
 </ul>
 
-<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <!--more--></p>
+<h3 id='2_download_the_redshiftcompatible_jdbc_driver'>2. Download the Redshift-compatible JDBC driver</h3>
 
-<h2 id='new_event_table_fields'>New event table fields</h2>
+<ul>
+<li>Download the driver from <a href='http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar'>http://jdbc.postgresql.org/download/postgresql-8.4-703.jdbc4.jar</a></li>
 
-<p>The new fields in the event table all relate directly to additional tracking functionality which was added to the JavaScript tracker in <a href='/blog/2012/09/06/snowplow-0.4.7-released/'>SnowPlow 0.4.7</a>. Specifically:</p>
+<li>We saved the driver to the <code>lib</code> folder in the jisql subdirectory</li>
+</ul>
 
-<ol>
-<li>The <code>setSiteId()</code> functionality is now extracted to the <code>app_id</code> field (short for application ID)</li>
+<h3 id='3_identify_the_jdbc_url_for_your_redshift_cluster'>3. Identify the JDBC URL for your Redshift cluster</h3>
 
-<li>The ecommerce tracking functionality is now extracted to a set of <code>tr_</code> and <code>ti_</code> fields</li>
-</ol>
+<p>In the AWS Console, go to the Redshift and select the cluster you want to load data into. A window will appear with details about the cluster, including the JDBC URL.</p>
 
-<p>For details on the new fields, please review our latest <a href='/analytics/snowplow-table-structure.html'>Hive events table definition</a> - there is now a column indicating in which version a given field was added.</p>
+<p><img alt='screenshot' src='/static/img/blog/2013/02/redshift-jdbc-url.png' /></p>
 
-<h2 id='how_to_get_the_new_version'>How to get the new version</h2>
+<h3 id='4_initiate_your_bulk_load_of_data_at_the_command_line'>4. Initiate your bulk load of data at the command line</h3>
 
-<p>As usual, the new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.9.jar</strong>.</p>
+<ul>
+<li>At the command line, navigate to the Ji-SQL folder</li>
 
-<p>The updated snowplow.js is <a href='https://raw.github.com/snowplow/snowplow/master/1-trackers/javascript-tracker/js/snowplow.js'>available in our GitHub repository</a> for you to minify and upload, or alternatively you can use the one on our CDN:</p>
+<li>Execute the following command:</li>
+</ul>
+<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>java -cp lib/jisql-2.0.11.jar:lib/jopt-simple-3.2.jar:lib/postgresql-8.4-703.jdbc4.jar com.xigole.util.sql.Jisql  -driver postgresql -cstring jdbc:postgresql://snowplow.cjbccnwghslt.us-east-1.redshift.amazonaws.com:5439/snplow -user <span class='nv'>$USERNAME</span> -password <span class='nv'>$PASSWORD</span> -c <span class='se'>\;</span> -query <span class='s2'>&quot;copy events from &#39;s3://$MY_BUCKET/PATH/TO/FILES/FOR/UPLOAD credentials &#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39; delimiter &#39;\t&#39;;&quot;</span>
+</code></pre></div>
+<p>Some notes about the above query:</p>
 
-<pre><code>https://d1fc8wv8zag5ca.cloudfront.net/0.7.0/sp.js</code></pre>
+<ul>
+<li>You will need to replace e.g. <code>$USERNAME</code> with your Redshift cluster username, <code>$PASSWORD</code> with your Redshift password etc.</li>
 
-<p>If you have any problems with either of these components, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
+<li>You will need to replace the jdbc url in the example <code>jdbc:postgresql://snowplow.cjbccnwghslt.us-east-1.redshift.amazonaws.com:5439/snplow</code> with the value you fetched from the AWS console in step 2</li>
 
-<h2 id='a_note_on_backwards_compatibility_for_the_events_table'>A note on backwards compatibility for the events table</h2>
+<li>The <code>-c \;</code> flag sets <code>;</code> as the query delimiter. If this is not specified, the query delimiter is taken to be <code>go</code> by default. As the query specified is terminated by a <code>;</code> rather than a <code>go</code>, leaving out the <code>-c \;</code> flag would cause the program to hang, as it waits for the terminating characters before executing the query</li>
 
-<p>We will continue to add extra fields to the SnowPlow events table as we add extra capabilities to the ETL process - for example, we are working on functionality to extract geo-location information from IP addresses via MaxMind.</p>
+<li>If you want to experiment with the tool, you can leave off the <code>-query</code> parameter, in which case you&#8217;ll invoke an interactive command-line session</li>
 
-<p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don&#8217;t explicitly query a new field.</p>
+<li>If the query is successful, it will return <code>0 rows affected.</code> at the command line. This is a bit misleading: if you then look in Redshift you&#8217;ll see the new rows have loaded.</li>
+</ul>
 
-<p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we&#8217;ll take advantage of this to improve backwards compatibility for our events table!</p>
+<p>Happy bulk loading from the command line!</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

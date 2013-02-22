@@ -78,155 +78,9 @@
 
 <li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
 </ol>
-<h2><a name='user-ids'>1. Our new user IDs</a></h2>
-<p>Historically, SnowPlow has supported a single <code>user_id</code> field. Unfortunately, there were three issues with this:</p>
 
-<ol>
-<li>SnowPlow was <strong>overloading</strong> the field with two different meanings - if a user was running the CloudFront collector, the <code>user_id</code> field contained a user ID from a first-party cookie (set by the JavaScript tracker). If a user was running the Clojure collector, the <code>user_id</code> field contained a cross-domain user ID as set by in a third-party cookie (and the JavaScript-set first-party cookie was ignored).</li>
-
-<li>Both meanings of <code>user_id</code> were <strong>web-specific</strong> - neither made sense for user tracking in a mobile app or any other platform which does not support cookies</li>
-
-<li>No support for a <strong>custom</strong> user ID - SnowPlow did not allow you to track a custom <code>user_id</code> specific to your business, such as your users&#8217; account numbers in your ecommerce package</li>
-</ol>
-
-<p>In this release, we aim to solve these issues by separating out user IDs into three separate fields:</p>
-<table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>user_id</code></td><td style='text-align: left;'>A custom user ID which you can set. Will be supported by all trackers (except the no-JS tracker)</td>
-</tr><tr><td style='text-align: left;'><code>domain_userid</code></td><td style='text-align: left;'>A user ID set by the JavaScript tracker in a first-party cookie; tied to the current domain</td>
-</tr><tr><td style='text-align: left;'><code>network_userid</code></td><td style='text-align: left;'>A user ID set by the Clojure collector in a third-party cookie; shared across a network of different domains</td>
-</tr></tbody></table>
-<p>To make use of the new custom user ID, you can use the following new method in the JavaScript tracker:</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;alex-123&#39;</span><span class='p'>]);</span> <span class='c1'>// Business-defined user ID</span>
-</code></pre>
-</div>
-<p>Please note that you must call <code>setUserId()</code> on every page where you know the user ID - in other words the setting does not survive a pageload.</p>
-
-<p>Whether or not each type of user ID is available for your analysis depends on the combination of your tracker and collector:</p>
-<table><thead><tr><th>Tracker</th><th>Collector</th><th>-&gt;</th><th><code>user_id</code>*</th><th><code>domain_userid</code></th><th><code>network_userid</code></th></tr></thead><tbody><tr><td style='text-align: left;'>JS tracker</td><td style='text-align: left;'>CloudFront</td><td style='text-align: left;'>-&gt;</td><td style='text-align: left;'>Yes</td><td style='text-align: left;'>Yes</td><td style='text-align: left;'>No</td>
-</tr><tr><td style='text-align: left;'>JS tracker</td><td style='text-align: left;'>Clojure</td><td style='text-align: left;'>-&gt;</td><td style='text-align: left;'>Yes</td><td style='text-align: left;'>Yes</td><td style='text-align: left;'>Yes</td>
-</tr><tr><td style='text-align: left;'>No-JS tracker</td><td style='text-align: left;'>CloudFront</td><td style='text-align: left;'>-&gt;</td><td style='text-align: left;'>N/A</td><td style='text-align: left;'>No</td><td style='text-align: left;'>No</td>
-</tr><tr><td style='text-align: left;'>No-JS tracker</td><td style='text-align: left;'>Clojure</td><td style='text-align: left;'>-&gt;</td><td style='text-align: left;'>N/A</td><td style='text-align: left;'>No</td><td style='text-align: left;'>Yes</td>
-</tr><tr><td style='text-align: left;'>Non-web tracker</td><td style='text-align: left;'>Any</td><td style='text-align: left;'>-&gt;</td><td style='text-align: left;'>Yes</td><td style='text-align: left;'>No</td><td style='text-align: left;'>No</td>
-</tr></tbody></table>
-<p>* Assuming you have added a call to <code>setUserId()</code> - which isn&#8217;t possible in the no-JS tracker.</p>
-<h2><a name='event-tstamps'>2. Our new event timestamps</a></h2>
-<p>Previously our data model included two fields, <code>dt</code> and <code>tm</code>, to track the date and time at which each event occurred. This timestamp was based on when the SnowPlow event collector <em>received</em> the event, <strong>not</strong> when the tracker <em>sent</em> the event.</p>
-
-<p>There are a couple of limitations to using a collector-based timestamp for eventstream analysis:</p>
-
-<ol>
-<li>If two events occur almost simultaneously in the client, there is no guarantee which will be received by the collector first (because of the unpredictability of the HTTP connection)</li>
-
-<li>If a tracker batches events and then sends them in one batch (e.g. a cellphone out of cell coverage) , then all of the events in that batch will end up with the same collector timestamp, despite occurring at different times</li>
-</ol>
-
-<p>For this reason, in this release we are introducing a tracker-based timestamp, which is set by the tracker when the event occurs, and is stored in our data model alongside the collector timestamp. This means that we now have five timestamp fields:</p>
-<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>collector_dt</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Date when the collector received the event</td>
-</tr><tr><td style='text-align: left;'><code>collector_tm</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Time when the collector received the event</td>
-</tr><tr><td style='text-align: left;'><code>dvce_dt</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Date on the client device when the event occurred</td>
-</tr><tr><td style='text-align: left;'><code>dvce_tm</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Time on the client device when the event occurred</td>
-</tr><tr><td style='text-align: left;'><code>dvce_epoch</code></td><td style='text-align: left;'>bigint</td><td style='text-align: left;'>Milliseconds since the epoch (1/1/1970) on the client device when the tracker sent the event</td>
-</tr></tbody></table>
-<p>Note that we include a super-precise <code>dvce_epoch</code> field because our <code>dvce_tm</code> field is not accurate to milliseconds; when querying within a given user session, simply order by <code>dvce_epoch</code> to get the user&#8217;s eventstream accurately ordered to the millisecond.</p>
-
-<p><strong>A word of warning:</strong> tracker timestamps are great for understanding the correct order of, and elapsed time between, events from a specific user session. However, they are not a safe way of understanding when a given event actually occurred, because you <strong>cannot</strong> trust the clocks on users&#8217; devices. So, stick to the collector timestamp if you need to understand when in the real-world events occurred across multiple users.</p>
-<a name='bug-fixes'><h2>2. Bug fixes</h2></a>
-<p>As well as the new fields introduced above, this release also includes an important bug fix in the JavaScript tracker, related to our newly-named <code>domain_userid</code>. Many thanks to <a href='https://github.com/ngsmrk'>Angus Mark</a> at <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> for alerting us to this.</p>
-
-<p>Previously, the site/app ID as set by <code>setSiteId()</code> was used as an input into naming the first-party cookie which stores the <code>domain_userid</code>. This had the unfortunate side effect that, if you used multiple site IDs for different parts of your site, your visitors would end up with different <code>domain_userid</code>s for the different parts of your site.</p>
-
-<p>This release fixes this problem - and it does so in a way that should not corrupt or reset any of your existing <code>domain_userids</code>. Going forwards, you can set different parts of your site to different app IDs without &#8220;fragmenting&#8221; your <code>domain_userid</code>s.</p>
-<a name='deprecations'><h2>4. Deprecations</h2></a>
-<p>Making the above changes to clean up our event data model have necessarily involved some deprecations, as set out in the table below. <strong>When upgrading to the new version of the JavaScript tracker (0.11.0), please update your JavaScript tags as per the instructions below to avoid problems:</strong></p>
-<table><thead><tr><th>Type of change</th><th>Component</th><th>Change</th><th>Comment</th></tr></thead><tbody><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>attachUserId()</code> deprecated</td><td style='text-align: left;'>Remove - this doesn&#8217;t do anything any more</td>
-</tr><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setSiteId()</code> deprecated</td><td style='text-align: left;'>Use <code>setAppId()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>getVisitorId()</code> deprecated</td><td style='text-align: left;'>Use <code>getDomainUserId()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>getVisitorInfo()</code> deprecated</td><td style='text-align: left;'>Use <code>getDomainUserInfo()</code> instead</td>
-</tr><tr><td style='text-align: left;'>Data change</td><td style='text-align: left;'>S3 &amp; Infobright storage</td><td style='text-align: left;'><code>visit_id</code> renamed</td><td style='text-align: left;'>Now called <code>domain_sessionidx</code></td>
-</tr></tbody></table>
-<p>The first change is because we are no longer overloading the <code>user_id</code> field with multiple different meanings. The next three changes are simply to bring the JavaScript method names inline with the field names we are using in our data model.</p>
-
-<p>The final change is to rename the <code>visit_id</code> field to <code>domain_sessionidx</code>. The field&#8217;s contents is unchanged, but we have updated the name to reflect that:</p>
-
-<ol>
-<li>The field holds the current count (aka index) of visits by this user, not a random ID</li>
-
-<li>Going forwards we will be tracking different types of sessions (mobile, desktop etc), not just website visits</li>
-
-<li>The field is generated by the JavaScript tracker, using a first party cookie. The name <code>domain_sessionidx</code> makes the limited scope of this field clearer</li>
-</ol>
-<a name='upgrading'><h2>5. Upgrading</h2></a>
-<p>Because we are making some significant changes to the event data model, such as &#8220;unpacking&#8221; the overloaded <code>user_id</code> field, this upgrade is relatively complex. <strong>Please read this upgrade guide in full first before starting your upgrade</strong>.</p>
-
-<p>The upgrade process has multiple steps - we will discuss each step in turn, and then suggest a way of scheduling this upgrade to prevent any data corruption.</p>
-
-<h3 id='41_javascript_tracker'>4.1 JavaScript tracker</h3>
-
-<p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version <strong>0.11.0</strong>. As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.0/sp.js</code></pre>
-
-<p><strong>Don&#8217;t forget to update your SnowPlow tags as per the updates in <a href='#deprecations'>Deprecations</a> above.</strong></p>
-
-<h3 id='42_clojure_collector'>4.2 Clojure collector</h3>
-
-<p>If you are using the CloudFront collector, you can skip this step.</p>
-
-<p>If you are using the Clojure collector, you will need to upgrade it to the latest version, <strong>0.3.0</strong>. You can find the new version packaged as a complete WAR file on our <a href='https://github.com/snowplow/snowplow/wiki/Hosted-assets'>Hosted assets</a> page. If you have forgotten how to deploy the Clojure-based collector, you will find full instructions on our Wiki, <a href='https://github.com/snowplow/snowplow/wiki/setting-up-the-clojure-collector'>Setting up the Clojure collector</a> (you can skip most of the setup steps).</p>
-
-<h3 id='43_etl'>4.3 ETL</h3>
-
-<p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest versions of the Hive serde and HiveQL scripts:</p>
-
-<pre><code>:snowplow:
-  :serde_version: 0.5.5
-  :hive_hiveql_version: 0.5.6
-  :non_hive_hiveql_version: 0.0.7</code></pre>
-
-<h3 id='44_infobright'>4.4 Infobright</h3>
-
-<p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. To make this easier for you, we have created two scripts:</p>
-
-<pre><code>4-storage/infobright-storage/migrate_006_cf_to_007.sh
-4-storage/infobright-storage/migrate_006_clj_to_007.sh</code></pre>
-
-<p>Choose the appropriate script depending on which collector you are using: &#8220;cf&#8221; means the CloudFront collector, &#8220;clj&#8221; the Clojure collector.</p>
-
-<p>Running this script will create a new table, <code>events_007</code> (version <strong>0.0.7</strong> of the Infobright table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events_006</code> table, which will not be modified in any way.</p>
-
-<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_007</code> table, not your old <code>events</code> table:</p>
-
-<pre><code>:storage:
-  :type: infobright
-  :database: snowplow
-  :table:    events_007 # NOT &quot;events_006&quot; any more</code></pre>
-
-<h3 id='45_scheduling_the_upgrade'>4.5 Scheduling the upgrade</h3>
-
-<p>This upgrade has to be carefully scheduled because we are changing the meaning of the <code>uid</code> field in the JavaScript tracker, and we are moving data from the old <code>user_id</code> field into the new <code>network_userid</code> or <code>domain_userid</code> fields.</p>
-
-<p>Our suggested approach is as follows:</p>
-
-<ol>
-<li>Setup the new JavaScript tracker version 0.11.0 in your tag manager as per section 4.1 above, but <strong>do not</strong> publish it live yet</li>
-
-<li>(If you are using the Clojure collector) Get the Clojure collector version 0.3.0 ready in Elastic Beanstalk as per section 4.2 above, but <strong>do not</strong> deploy it live yet</li>
-
-<li>Start a manual run of the EmrEtlRunner for your site&#8230;</li>
-
-<li><strong>As soon as</strong> the manual run has copied all of your available SnowPlow logs into your Processing Bucket, publish the new JavaScript tracker live, and deploy your new Clojure collector live (if you are using it)</li>
-
-<li>Wait for the EmrEtlRunner operation complete</li>
-
-<li>If you are using Infobright, run the StorageLoader and wait for it to finish</li>
-
-<li>Now upgrade the ETL as per section 4.3 above</li>
-
-<li>Now upgrade Infobright (if you are using it) as per section 4.4 above</li>
-</ol>
-
-<p>This upgrade approach should prevent any user ID data from ending up in the wrong fields in your SnowPlow event store.</p>
-<h2><a name='help'>6. Getting help</a></h2>
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>Read on below the fold to find out more!</p>
+<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry >></a></p>
 			<span class="comments-link"><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
@@ -245,8 +99,7 @@
 <span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
 <span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
 <span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
 <p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry >></a></p>
 			<span class="comments-link"><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line#disqus_thread" rel="nofollow">View Comments</a></span>
@@ -387,17 +240,19 @@
 	</ul>
 
 	
-		<h1>Inside the Plow</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -419,23 +274,6 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
-			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Analytics</h1>
 		<ul>
 		
@@ -445,6 +283,21 @@
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
 		
 		</ul>		

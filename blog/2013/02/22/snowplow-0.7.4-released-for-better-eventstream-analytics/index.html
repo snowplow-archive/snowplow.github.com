@@ -76,7 +76,9 @@
 
 <li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
 </ol>
-<h2><a name='user-ids'>1. Our new user IDs</a></h2>
+
+<p>Read on below the fold to find out more!</p>
+<!--more--><h2><a name='user-ids'>1. Our new user IDs</a></h2>
 <p>Historically, SnowPlow has supported a single <code>user_id</code> field. Unfortunately, there were three issues with this:</p>
 
 <ol>
@@ -94,8 +96,7 @@
 </tr></tbody></table>
 <p>To make use of the new custom user ID, you can use the following new method in the JavaScript tracker:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;alex-123&#39;</span><span class='p'>]);</span> <span class='c1'>// Business-defined user ID</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Please note that you must call <code>setUserId()</code> on every page where you know the user ID - in other words the setting does not survive a pageload.</p>
 
 <p>Whether or not each type of user ID is available for your analysis depends on the combination of your tracker and collector:</p>
@@ -127,7 +128,7 @@
 <p>Note that we include a super-precise <code>dvce_epoch</code> field because our <code>dvce_tm</code> field is not accurate to milliseconds; when querying within a given user session, simply order by <code>dvce_epoch</code> to get the user&#8217;s eventstream accurately ordered to the millisecond.</p>
 
 <p><strong>A word of warning:</strong> tracker timestamps are great for understanding the correct order of, and elapsed time between, events from a specific user session. However, they are not a safe way of understanding when a given event actually occurred, because you <strong>cannot</strong> trust the clocks on users&#8217; devices. So, stick to the collector timestamp if you need to understand when in the real-world events occurred across multiple users.</p>
-<a name='bug-fixes'><h2>2. Bug fixes</h2></a>
+<a name='bug-fixes'><h2>3. Bug fixes</h2></a>
 <p>As well as the new fields introduced above, this release also includes an important bug fix in the JavaScript tracker, related to our newly-named <code>domain_userid</code>. Many thanks to <a href='https://github.com/ngsmrk'>Angus Mark</a> at <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> for alerting us to this.</p>
 
 <p>Previously, the site/app ID as set by <code>setSiteId()</code> was used as an input into naming the first-party cookie which stores the <code>domain_userid</code>. This had the unfortunate side effect that, if you used multiple site IDs for different parts of your site, your visitors would end up with different <code>domain_userid</code>s for the different parts of your site.</p>
@@ -267,17 +268,19 @@
 	</ul>
 
 	
-		<h1>Inside the Plow</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -299,23 +302,6 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
-			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Analytics</h1>
 		<ul>
 		
@@ -325,6 +311,21 @@
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
 		
 		</ul>		

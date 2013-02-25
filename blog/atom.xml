@@ -4,13 +4,37 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-02-22T17:50:29+00:00</updated>
+  <updated>2013-02-25T15:34:43+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix"/>
+    <title>SnowPlow 0.7.5 released with important JavaScript fix</title>
+    <updated>2013-02-25T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are releasing SnowPlow version &lt;strong&gt;0.7.5&lt;/strong&gt; - which upgrades the JavaScript tracker to version &lt;strong&gt;0.11.1&lt;/strong&gt;. This is a small but important release - because we are fixing an issue introduced in version 0.7.2 a month ago: &lt;strong&gt;if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Essentially, version 0.7.2 of the JavaScript tracker fixed &lt;a href='https://github.com/snowplow/snowplow/pull/147'&gt;an old bug&lt;/a&gt; which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was preventing the secure flag from being set on SnowPlow&amp;#8217;s first-party cookies when sent via HTTPS pages.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages means HTTP pages can no longer read the cookie. This means that SnowPlow&amp;#8217;s &lt;code&gt;domain_user_id&lt;/code&gt; field (the first-party user ID) is &lt;strong&gt;reset&lt;/strong&gt; when a user browses from an HTTPS page (e.g. checkout) back to an HTTP page.&lt;/p&gt;
+
+&lt;p&gt;So, this release fixes &lt;a href='https://github.com/snowplow/snowplow/issues/181'&gt;the bug&lt;/a&gt;. Thanks to the Piwik team for their help in brainstorming this problem!&lt;/p&gt;
+
+&lt;p&gt;Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics</id>
@@ -21,12 +45,12 @@
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;Another week, another release! We&amp;#8217;re excited to announce SnowPlow version &lt;strong&gt;0.7.4&lt;/strong&gt;. The primary purpose of this release is to clean up and rationalise our event data model, in particular around &lt;strong&gt;user IDs&lt;/strong&gt; and &lt;strong&gt;event timestamps&lt;/strong&gt;. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by :&lt;/p&gt;
+    <content type="html">&lt;p&gt;Another week, another release! We&amp;#8217;re excited to announce SnowPlow version &lt;strong&gt;0.7.4&lt;/strong&gt;. The primary purpose of this release is to clean up and rationalise our event data model, in particular around &lt;strong&gt;user IDs&lt;/strong&gt; and &lt;strong&gt;event timestamps&lt;/strong&gt;. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Enabling companies to assign custom user IDs (e.g. when a customer logs on)&lt;/li&gt;
 
-&lt;li&gt;Distinguish between IDs set at a domain level (by first part cookies) and at a network level (using 3rd party cookies)&lt;/li&gt;
+&lt;li&gt;Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)&lt;/li&gt;
 
 &lt;li&gt;Enable precise ordering of events in a user&amp;#8217;s click stream with accuracy correct to the milli-second&lt;/li&gt;
 &lt;/ul&gt;

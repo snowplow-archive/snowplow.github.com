@@ -55,7 +55,7 @@
 
 <p>Essentially, version 0.9.1 of the JavaScript tracker (released in SnowPlow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on SnowPlow&#8217;s first-party cookies when sent via HTTPS pages.</p>
 
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, SnowPlow&#8217;s <code>domain_user_id</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
+<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, SnowPlow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
 
 <p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
 
@@ -276,6 +276,19 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Other</h1>
 		<ul>
 		
@@ -289,19 +302,6 @@
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

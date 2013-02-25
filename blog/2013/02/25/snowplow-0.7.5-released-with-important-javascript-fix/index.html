@@ -49,13 +49,13 @@
 		<div class="post">
 			25 Feb 2013
 			<h1>SnowPlow 0.7.5 released with important JavaScript fix</h1>
-			<p>We are releasing SnowPlow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in version 0.7.2 a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
+			<p>We are releasing SnowPlow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in SnowPlow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
 
-<p>Essentially, version 0.7.2 of the JavaScript tracker fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was preventing the secure flag from being set on SnowPlow&#8217;s first-party cookies when sent via HTTPS pages.</p>
+<p>Essentially, version 0.9.1 of the JavaScript tracker (released in SnowPlow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on SnowPlow&#8217;s first-party cookies when sent via HTTPS pages.</p>
 
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages means HTTP pages can no longer read the cookie. This means that SnowPlow&#8217;s <code>domain_user_id</code> field (the first-party user ID) is <strong>reset</strong> when a user browses from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
+<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, SnowPlow&#8217;s <code>domain_user_id</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
 
-<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>the bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
+<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
 
 <p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
 
@@ -104,23 +104,6 @@
 	</ul>
 
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
-			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -138,19 +121,6 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -162,6 +132,36 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

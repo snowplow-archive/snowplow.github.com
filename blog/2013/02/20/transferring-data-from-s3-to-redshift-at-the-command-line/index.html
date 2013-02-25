@@ -60,7 +60,8 @@
 <span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
 <span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
 <span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
 <!--more-->
 <p>In order to orchestrate bulk loading programmatically, we used <a href='http://www.xigole.com/software/jisql/jisql.jsp'>JiSQL</a>, a Java based command-line tool for executing SQL queries that uses a JDBC driver. JiSQL enables us to specify the specific, Redshift-compatible JDBC driver to use to establish the connection. This meant we could upgrade our Ruby <a href='https://github.com/snowplow/snowplow/wiki/setting-up-alternative-data-stores'>StorageLoader</a> to execute the relevant command-line syntax to initiate the regular data loads of SnowPlow data from S3 into Redshift.</p>
@@ -97,7 +98,8 @@
 <li>Execute the following command:</li>
 </ul>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>java -cp lib/jisql-2.0.11.jar:lib/jopt-simple-3.2.jar:lib/postgresql-8.4-703.jdbc4.jar com.xigole.util.sql.Jisql  -driver postgresql -cstring jdbc:postgresql://snowplow.cjbccnwghslt.us-east-1.redshift.amazonaws.com:5439/snplow -user <span class='nv'>$USERNAME</span> -password <span class='nv'>$PASSWORD</span> -c <span class='se'>\;</span> -query <span class='s2'>&quot;copy events from &#39;s3://$MY_BUCKET/PATH/TO/FILES/FOR/UPLOAD credentials &#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39; delimiter &#39;\t&#39;;&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Some notes about the above query:</p>
 
 <ul>
@@ -155,23 +157,6 @@
 	</ul>
 
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
-			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
-			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -189,19 +174,6 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -213,6 +185,36 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

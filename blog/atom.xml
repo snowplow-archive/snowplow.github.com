@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-02-25T18:14:52+00:00</updated>
+  <updated>2013-02-28T12:03:43+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -92,8 +92,7 @@
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;To make use of the new custom user ID, you can use the following new method in the JavaScript tracker:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setUserId&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;alex-123&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; &lt;span class='c1'&gt;// Business-defined user ID&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Please note that you must call &lt;code&gt;setUserId()&lt;/code&gt; on every page where you know the user ID - in other words the setting does not survive a pageload.&lt;/p&gt;
 
 &lt;p&gt;Whether or not each type of user ID is available for your analysis depends on the combination of your tracker and collector:&lt;/p&gt;
@@ -245,8 +244,7 @@
 &lt;span class='k'&gt;from&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&amp;#39;&lt;/span&gt; 
 &lt;span class='n'&gt;credentials&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&amp;#39;&lt;/span&gt; 
 &lt;span class='k'&gt;delimiter&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;\t&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found &lt;a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'&gt;here&lt;/a&gt;. )&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;p&gt;In order to orchestrate bulk loading programmatically, we used &lt;a href='http://www.xigole.com/software/jisql/jisql.jsp'&gt;JiSQL&lt;/a&gt;, a Java based command-line tool for executing SQL queries that uses a JDBC driver. JiSQL enables us to specify the specific, Redshift-compatible JDBC driver to use to establish the connection. This meant we could upgrade our Ruby &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-alternative-data-stores'&gt;StorageLoader&lt;/a&gt; to execute the relevant command-line syntax to initiate the regular data loads of SnowPlow data from S3 into Redshift.&lt;/p&gt;
@@ -283,8 +281,7 @@
 &lt;li&gt;Execute the following command:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;java -cp lib/jisql-2.0.11.jar:lib/jopt-simple-3.2.jar:lib/postgresql-8.4-703.jdbc4.jar com.xigole.util.sql.Jisql  -driver postgresql -cstring jdbc:postgresql://snowplow.cjbccnwghslt.us-east-1.redshift.amazonaws.com:5439/snplow -user &lt;span class='nv'&gt;$USERNAME&lt;/span&gt; -password &lt;span class='nv'&gt;$PASSWORD&lt;/span&gt; -c &lt;span class='se'&gt;\;&lt;/span&gt; -query &lt;span class='s2'&gt;&amp;quot;copy events from &amp;#39;s3://$MY_BUCKET/PATH/TO/FILES/FOR/UPLOAD credentials &amp;#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&amp;#39; delimiter &amp;#39;\t&amp;#39;;&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Some notes about the above query:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -334,7 +331,7 @@
 &lt;/ul&gt;
 &lt;!--more--&gt;
 &lt;p&gt;And then test whether those audience behaved in significantly different ways to validate your segmentation. (For example, comparing bounce rates or conversion rates between segments.) Once validated, the segmentation enables you to apply segment-specific KPI: for example, it is meaningless analysing purchase conversion rates for users who have already bought, and are returning to the site for support-related queries.&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16581811' width='427' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' marginheight='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a title='Getting to the People Behind The Keywords' href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811' target='_blank'&gt;Getting to the People Behind The Keywords&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/carmenmardiros' target='_blank'&gt;Carmen Mardiros&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16581811' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811' target='_blank' title='Getting to the People Behind The Keywords'&gt;Getting to the People Behind The Keywords&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/carmenmardiros' target='_blank'&gt;Carmen Mardiros&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;An especially exciting prospect going forwards is to use machine learning to extend the segmentation beyond the subset of users for whom we have keyword data: so we can classify users who have not entered keywords, but appear to behave in a similar way to those who have, into the same buckets. This would be especially powerful with SnowPlow data, as we have a user&amp;#8217;s complete click stream to work with when identifying users who &amp;#8220;look-like&amp;#8221; those we have classified on the basis of keywords alone. I hope to explore this in the near future, and blog about it here.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='server-side-datalayer'&gt;Transferring commercially-sensitive data into your web analytics platform via a server-side dataLayer&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;In another excellent presentation, &lt;a href='https://twitter.com/TechPad'&gt;Matt Clarke&lt;/a&gt; talked through his experience implementing &lt;a href='http://support.google.com/analytics/bin/answer.py?hl=en&amp;amp;answer=2790010&amp;amp;topic=2790009&amp;amp;ctx=topic'&gt;Universal Analytics&lt;/a&gt; at an online retailer. The key driver for Matt in choosing to implement Universal Analytics was a desire to deliver more commercially meaningful from Google Analytics, including:&lt;/p&gt;
@@ -348,11 +345,11 @@
 &lt;p&gt;In order to report on the above, it is necessary to capture margin data with every sale (in the case of 1) and record views, add to baskets and transactions by product and brand (in the case of 2). In both instances, Matt needed to pass more data into his web analytics platform than Google Analytics has traditionally allowed, which made Google&amp;#8217;s new Universal Analytics an attractive alternative.&lt;/p&gt;
 
 &lt;p&gt;Passing this commercially sensitive data into Univesal Analytics is not trivial, however. Pushing it through the client-side dataLayer would make it available to any competitor. So instead, Matt passed the data server side into Universal Analytics. Universal Analytics does not have a PHP tracker, but Matt was able to effectively build his own using Google&amp;#8217;s &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt;. By syncronising the client ID sent by the Javascript tracker with his own server-side tracker, Matt enables Universal Analtyics to stitch together the data generated client and server side. You can see more details in Matt&amp;#8217;s presentation below:&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16578670' width='427' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' marginheight='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a title='Measurecamp - Improving e commerce tracking with universal analytics' href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics' target='_blank'&gt;Measurecamp - Improving e commerce tracking with universal analytics&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/MattClarke4' target='_blank'&gt;Matt Clarke&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16578670' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics' target='_blank' title='Measurecamp - Improving e commerce tracking with universal analytics'&gt;Measurecamp - Improving e commerce tracking with universal analytics&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/MattClarke4' target='_blank'&gt;Matt Clarke&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;Matt&amp;#8217;s presentation is a must-read for anyone who wants to push web analytics tools into a more powerful business analytics tool. For us at SnowPlow, it really highlights the need to enable server side tracking alongside client-side tracking: previously it hadn&amp;#8217;t occurred to me that a SnowPlow user might want to use both approaches together, and replicate the dataLayer approach that has become best practice client-side on the server-side.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='clv'&gt;Customer lifetime value&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;These are the slides I prepared for my session on customer lifetime value:&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16598692' width='427' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' marginheight='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a title='Customer lifetime value' href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank'&gt;Customer lifetime value&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16598692' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank' title='Customer lifetime value'&gt;Customer lifetime value&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;We had a very interesting discussion about the challenges both of tracking user behaviour across user lifetime, and started to explore approaches to developing predictive models for customer lifetime value. In 30 minutes we didn&amp;#8217;t get the chance to develop these very far - I hope we find another forum (maybe G+?) to continue the conversation. Many thanks to all those who attended: I learnt a lot from you.&lt;/p&gt;
 
 &lt;h2 id='thank_you_measurecamp'&gt;Thank you Measurecamp&lt;/h2&gt;
@@ -567,8 +564,7 @@
 &lt;span class='nf'&gt;COUNT&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;DISTINCT&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;))&lt;/span&gt;
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt; &lt;span class='p'&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is actually a standard SnowPlow query to calculate the number of unique visitors to a website by day. So what happens when an analyst runs this query in Hive? Simply this:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -611,16 +607,14 @@
 &lt;span class='n'&gt;libraryDependencies&lt;/span&gt; &lt;span class='o'&gt;+=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;org.apache.hadoop&amp;quot;&lt;/span&gt; &lt;span class='o'&gt;%&lt;/span&gt;  &lt;span class='s'&gt;&amp;quot;hadoop-core&amp;quot;&lt;/span&gt;        &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;0.20.2&amp;quot;&lt;/span&gt;      &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;provided&amp;quot;&lt;/span&gt;
 &lt;span class='n'&gt;libraryDependencies&lt;/span&gt; &lt;span class='o'&gt;+=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;org.apache.hive&amp;quot;&lt;/span&gt;   &lt;span class='o'&gt;%&lt;/span&gt;  &lt;span class='s'&gt;&amp;quot;hive-exec&amp;quot;&lt;/span&gt;          &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;0.8.1&amp;quot;&lt;/span&gt;       &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;provided&amp;quot;&lt;/span&gt;
 &lt;span class='n'&gt;libraryDependencies&lt;/span&gt; &lt;span class='o'&gt;+=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;org.specs2&amp;quot;&lt;/span&gt;        &lt;span class='o'&gt;%%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;specs2&amp;quot;&lt;/span&gt;             &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;1.12.1&amp;quot;&lt;/span&gt;      &lt;span class='o'&gt;%&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;test&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is a simple project configuration which names and versions our project, and also adds Hadoop, Hive and Specs2 (our testing library) as dependencies. If you do not have SBT already installed, you can find instructions here http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html&lt;/p&gt;
 
 &lt;h2 id='writing_our_udf'&gt;Writing our UDF&lt;/h2&gt;
 
 &lt;p&gt;Done? Onto the code. First let&amp;#8217;s create a folder for it:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;mkdir -p src/main/java/com/snowplowanalytics/hive/udf
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now let&amp;#8217;s add a file into our udf folder called ToUpper.java, containing:&lt;/p&gt;
 
 &lt;p&gt;Listing 3: Our ToUpper.java UDF definition&lt;/p&gt;
@@ -651,8 +645,7 @@
 		&lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;to_value&lt;/span&gt;&lt;span class='o'&gt;;&lt;/span&gt;
     &lt;span class='o'&gt;}&lt;/span&gt;
 &lt;span class='o'&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This file defines our UDF, ToUpper. The package definition and imports should be self-explanatory; the &lt;code&gt;@Description&lt;/code&gt; annotation is a useful Hive-specific annotation to provide usage information for our UDF in the Hive console.&lt;/p&gt;
 
 &lt;p&gt;All user-defined functions extend the Hive UDF class; a UDF sub-class must then implement one or more methods named &amp;#8220;evaluate&amp;#8221; which will be called by Hive. We implement an evaluate method which takes one Hadoop Text (which stores text using UTF8) and returns the same Hadoop Text, but now in upper-case. The only complexity is some exception handling, which we include for safety&amp;#8217;s sake.&lt;/p&gt;
@@ -663,14 +656,12 @@
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;sbt
 &amp;gt; compile
 &lt;span class='o'&gt;[&lt;/span&gt;success&lt;span class='o'&gt;]&lt;/span&gt; Total &lt;span class='nb'&gt;time&lt;/span&gt;: 0 s, completed 28-Jan-2013 16:41:53
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id='testing_our_udf'&gt;Testing our UDF&lt;/h2&gt;
 
 &lt;p&gt;Okay great, now time to write a test to make sure this is doing what we expect! First we create a folder for it:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;mkdir -p src/test/scala/com/snowplowanalytics/hive/udf
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now let&amp;#8217;s add a file into our udf test folder called ToUpperTest.scala, containing:&lt;/p&gt;
 
 &lt;p&gt;Listing 5: Our ToUpperTest.scala Specs2 test&lt;/p&gt;
@@ -693,8 +684,7 @@
     &lt;span class='o'&gt;}&lt;/span&gt;
   &lt;span class='o'&gt;}&lt;/span&gt;
 &lt;span class='o'&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is a Specs2 unit test (http://etorreborre.github.com/specs2/), written in Scala, which checks that ToUpper is performing correctly: we test that an empty string is handled correctly, and then we test that a mixed-case string (&amp;#8220;Stephen King&amp;#8221;) is successfully converted to &amp;#8220;STEPHEN KING&amp;#8221;.&lt;/p&gt;
 
 &lt;p&gt;So let&amp;#8217;s run this next from SBT:&lt;/p&gt;
@@ -715,8 +705,7 @@
 [info] 
 [info] Passed: : Total 2, Failed 0, Errors 0, Passed 2, Skipped 0
 [success] Total time: 8 s, completed 28-Jan-2013 17:11:45
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id='building_and_using_our_udf'&gt;Building and using our UDF&lt;/h2&gt;
 
 &lt;p&gt;Our tests passed! Now we&amp;#8217;re ready to use our function &amp;#8220;in anger&amp;#8221; from Hive. First, still from SBT, let&amp;#8217;s build our jarfile:&lt;/p&gt;
@@ -726,20 +715,17 @@
 [info] Packaging /home/alex/Development/SnowPlow/hive-example-udf/target/scala-2.9.2/hive-example-udf_2.9.2-0.0.1.jar ...
 [info] Done packaging.
 [success] Total time: 1 s, completed 28-Jan-2013 17:21:02
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now take the jarfile (hive-example-udf_2.9.2-0.0.1.jar) and upload it to our Hive cluster - on Amazon&amp;#8217;s Elastic MapReduce, for example, you could upload it to S3.&lt;/p&gt;
 
 &lt;p&gt;From your Hive console, you can now add our new UDF like so:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;add&lt;/span&gt; &lt;span class='n'&gt;jar&lt;/span&gt; &lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;path&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='k'&gt;to&lt;/span&gt;&lt;span class='o'&gt;/&lt;/span&gt;&lt;span class='n'&gt;HiveSwarm&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;jar&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;create&lt;/span&gt; &lt;span class='n'&gt;temporary&lt;/span&gt; &lt;span class='n'&gt;function&lt;/span&gt; &lt;span class='n'&gt;to_upper&lt;/span&gt; &lt;span class='k'&gt;as&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;com.snowplowanalytics.hive.udf.ToUpper&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then finally you can use our new UDF in your HiveQL queries, something like this:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;SELECT&lt;/span&gt; &lt;span class='nf'&gt;toupper&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;author_name&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;authors&lt;/span&gt; &lt;span class='n'&gt;a&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
   &lt;span class='n'&gt;STEPHEN&lt;/span&gt; &lt;span class='n'&gt;KING&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;That completes our article. If you would like to download the example code above as a working project, you can find it on GitHub here: https://github.com/snowplow/hive-example-udf&lt;/p&gt;
 
 &lt;p&gt;I hope to return with further articles about Hive and Hadoop in the future - potentially one on writing a custom serde - an area where we have a lot of experience at SnowPlow Analytics.&lt;/p&gt;</content>
@@ -938,8 +924,7 @@
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;span class='c'&gt;&amp;lt;!--SnowPlow start plowing--&amp;gt;&lt;/span&gt;
 &lt;span class='nt'&gt;&amp;lt;img&lt;/span&gt; &lt;span class='na'&gt;src=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;http://collector.snplow.com/i?&amp;amp;e=pv&amp;amp;page=Root%20README&amp;amp;url=http%3A%2F%2Fgithub.com%2Fsnowplow%2Fsnowplow&amp;amp;aid=snowplow&amp;amp;p=web&amp;amp;tv=no-js-0.1.0&amp;quot;&lt;/span&gt; &lt;span class='nt'&gt;/&amp;gt;&lt;/span&gt;
 &lt;span class='c'&gt;&amp;lt;!--SnowPlow stop plowing--&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;There are several things to note about the tag:&lt;/p&gt;
 
 &lt;h4 id='1_it_is_a_plain_html_image_tag'&gt;1. It is a plain HTML image tag&lt;/h4&gt;
@@ -1400,8 +1385,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now we join this table with the events table to list all the users who have visited each month and identify which of them has bought:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1424,8 +1408,7 @@
 &lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;
 &lt;span class='k'&gt;AND&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;buyers&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
 &lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now we can aggregate over the results of the above query, calculating the conversion rate by dividing the number of buyers by the total number of visitors:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1454,8 +1437,7 @@
 	&lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
 &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;e&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Pop the above query in the ChartIO query box:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /&gt;&lt;/p&gt;
@@ -1478,8 +1460,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt;&lt;span class='o'&gt;=&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now we want to aggregate users by the number of pageviews each has done by month:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1495,8 +1476,7 @@
 	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
 &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
 &lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='k'&gt;ASC&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='k'&gt;DESC&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Lastly we want to bucket values of page views e.g. into 1, 2-5, 6-10, 11-25 and 25+. We can introduce a bucketing into our previous query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1519,8 +1499,7 @@
 	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
 &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
 &lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt; &lt;span class='k'&gt;ASC&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;page_views&lt;/span&gt; &lt;span class='k'&gt;DESC&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then aggregate by bucket in the next query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1551,8 +1530,7 @@
 &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;u&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;
 &lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;bucket&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /&gt;&lt;/p&gt;
@@ -1572,8 +1550,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_004&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;
 &lt;span class='k'&gt;ORDER&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And pop it on the dashboard:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /&gt;&lt;/p&gt;
@@ -1607,8 +1584,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;mkt_medium&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;cpc&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Compare this with our data on which users have converted:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1616,16 +1592,14 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;transaction&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And our list of &lt;strong&gt;all&lt;/strong&gt; users:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
 &lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='n'&gt;visitor&lt;/span&gt;
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events_005&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We join the three data sets:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1656,8 +1630,7 @@
 	&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;user_id&lt;/span&gt;
 	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
 &lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then aggregate over the result set to compare conversion rates:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
 &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -1694,8 +1667,7 @@
 	&lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;visitors&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
 	&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;t&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /&gt;&lt;/p&gt;
@@ -1716,8 +1688,7 @@
 &lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
 &lt;span class='k'&gt;ON&lt;/span&gt; &lt;span class='n'&gt;e&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;user_id&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;`month`&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;paid_search&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was &lt;strong&gt;no&lt;/strong&gt; increase in traffic from paid search terms between November and December, so this does &lt;strong&gt;not&lt;/strong&gt; account for the rising conversion rate in December.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /&gt;&lt;/p&gt;
@@ -1963,8 +1934,7 @@
 &lt;span class='k'&gt;print&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;search_parameter&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;   &lt;span class='c'&gt;# &amp;#39;q&amp;#39;     &lt;/span&gt;
 &lt;span class='k'&gt;print&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;search_term&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;        &lt;span class='c'&gt;# &amp;#39;gateway oracle cards denise linn&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;print&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;uri&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;                &lt;span class='c'&gt;# ParseResult(scheme=&amp;#39;http&amp;#39;, netloc=&amp;#39;www.google.com&amp;#39;, path=&amp;#39;/search&amp;#39;, params=&amp;#39;&amp;#39;, query=&amp;#39;q=gateway+oracle+cards+denise+linn&amp;amp;hl=en&amp;amp;client=safari&amp;#39;, fragment=&amp;#39;&amp;#39;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;For more information, please see the Python &lt;a href='https://github.com/snowplow/referer-parser/blob/master/python/README.md'&gt;README&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id='scala'&gt;Scala&lt;/h2&gt;
@@ -1980,8 +1950,7 @@
     &lt;span class='n'&gt;println&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;s&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;parameter&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;       &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;q&amp;quot;    &lt;/span&gt;
   &lt;span class='o'&gt;}&lt;/span&gt;
 &lt;span class='o'&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;For more information, please see the Java/Scala &lt;a href='https://github.com/snowplow/referer-parser/blob/master/java-scala/README.md'&gt;README&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id='usage_java'&gt;Usage: Java&lt;/h2&gt;
@@ -1999,8 +1968,7 @@
   &lt;span class='n'&gt;System&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;out&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;println&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;referer&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;name&lt;/span&gt;&lt;span class='o'&gt;);&lt;/span&gt;       &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;Google&amp;quot;&lt;/span&gt;
   &lt;span class='n'&gt;System&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;out&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;println&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;search&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;parameter&lt;/span&gt;&lt;span class='o'&gt;);&lt;/span&gt;   &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;q&amp;quot;    &lt;/span&gt;
   &lt;span class='n'&gt;System&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;out&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;println&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;search&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;term&lt;/span&gt;&lt;span class='o'&gt;);&lt;/span&gt;        &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;gateway oracle cards denise linn&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;For more information, please see the Java/Scala &lt;a href='https://github.com/snowplow/referer-parser/blob/master/java-scala/README.md'&gt;README&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id='getting_help'&gt;Getting help&lt;/h2&gt;
@@ -2093,8 +2061,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;transaction&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt; &lt;span class='p'&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We will be updating our &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; to use the &lt;code&gt;event&lt;/code&gt; field to simplify queries where possible.&lt;/p&gt;
 
 &lt;h2 id='2_event_ids'&gt;2. Event IDs&lt;/h2&gt;
@@ -2108,8 +2075,7 @@
 &lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
 &lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;event&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;page_view&amp;#39;&lt;/span&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;dt&lt;/span&gt; &lt;span class='p'&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;We will be updating our &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; to use &lt;code&gt;event_id&lt;/code&gt; in any examples which currently (erroneously) use &lt;code&gt;txn_id&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id='3_onpage_activity_tracking'&gt;3. On-page activity tracking&lt;/h2&gt;
@@ -2120,8 +2086,7 @@
 
 &lt;p&gt;Here is an example configuration:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;enableActivityTracking&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; &lt;span class='c1'&gt;// Ping every 10 seconds after 10 seconds&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is still an experimental feature - but it should provide some interesting data to start to explore page residency, true bounce rates and so on.&lt;/p&gt;
 
 &lt;p&gt;Please note that enabling activity tracking can &lt;strong&gt;significantly&lt;/strong&gt; increase the number of SnowPlow events generated, especially with a short &lt;code&gt;heartBeatDelay&lt;/code&gt;.&lt;/p&gt;
@@ -2161,8 +2126,7 @@ Common options:
 
 &lt;p&gt;The JavaScript tracker has a new method, &lt;code&gt;attachUserId(boolean)&lt;/code&gt;, which can be used to stop the tracker from sending a &lt;code&gt;&amp;amp;uid=xxx&lt;/code&gt; parameter. By default, the JavaScript tracker sends the user ID to the collector via this &lt;code&gt;uid&lt;/code&gt; parameter; you can now disable this by calling &lt;code&gt;attachUserId()&lt;/code&gt; like so:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;attachUserId&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='kc'&gt;false&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; &lt;span class='c1'&gt;// Don&amp;#39;t attach &amp;amp;uid=xxx to the querystring&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This function is not of immediate use - but it will be an important part of the setup for using the new Clojure Collector, which we are currently working on.&lt;/p&gt;
 
 &lt;h3 id='ip_address_override'&gt;IP address override&lt;/h3&gt;
@@ -3124,7 +3088,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' height='356' marginheight='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>
@@ -3228,8 +3192,7 @@ Common options:
 &lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;is_search_engine?&lt;/span&gt; &lt;span class='c1'&gt;# True&lt;/span&gt;
 &lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;search_engine&lt;/span&gt; &lt;span class='c1'&gt;# &amp;#39;Google Images&amp;#39;&lt;/span&gt;
 &lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;keywords&lt;/span&gt; 	&lt;span class='c1'&gt;# &amp;#39;hermetic tarot&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;&lt;a name='install' /&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;a name='install' /&gt;
 &lt;h3 id='installing_attlib'&gt;Installing Attlib&lt;/h3&gt;
 
 &lt;p&gt;Attlib is available via a Ruby Gem. To install, simply run the following at the command line:&lt;/p&gt;
@@ -3265,8 +3228,7 @@ Common options:
     &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;tieba.baidu.com&lt;/span&gt;
     &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;news.baidu.com&lt;/span&gt;
     &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;web.gougou.com&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Keeping this file up to date is a big job: one of our hopes releasing Attlib as an open source, standalone library, is that the community contributes to the file. We are enormously grateful to our friends at &lt;a href='http://piwik.org/'&gt;Piwik&lt;/a&gt; as our initial version of the file is based on the Piwik equivalent &lt;a href='https://github.com/piwik/piwik/blob/master/core/DataFiles/SearchEngines.php'&gt;SearchEngines.php&lt;/a&gt;, for the hard work they put into this version.&lt;/p&gt;
 &lt;a name='snowplow_stack' /&gt;
 &lt;h3 id='attlib_as_part_of_the_snowplow_stack'&gt;Attlib as part of the SnowPlow stack&lt;/h3&gt;
@@ -3466,8 +3428,7 @@ Common options:
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setAccount&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;d3rkrsqld9gmqf&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
 &lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setSiteId&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;CFe23a&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
 &lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The querystring passed to your SnowPlow collector will now include the following parameter:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;...&amp;amp;said=CFe23a&amp;amp;...&lt;/code&gt;&lt;/pre&gt;
@@ -3528,8 +3489,7 @@ Common options:
 &lt;span class='c1'&gt;// trackTrans sends the transaction to SnowPlow tracking servers.&lt;/span&gt;
 &lt;span class='c1'&gt;// Must be called last to commit the transaction.&lt;/span&gt;
 &lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackTrans&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The above example creates an order (aka &amp;#8220;transaction&amp;#8221;) with ID &lt;code&gt;order-123&lt;/code&gt; and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final &lt;code&gt;trackTrans&lt;/code&gt; call sends this complete order to SnowPlow as three separate events - one each for the order and its line items.&lt;/p&gt;
 
 &lt;p&gt;This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.&lt;/p&gt;
@@ -3608,8 +3568,7 @@ Common options:
 
 &lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='kd'&gt;function&lt;/span&gt;&lt;span class='p'&gt;()&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
 &lt;span class='p'&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Where &lt;code&gt;collector.mydomain.com&lt;/code&gt; is the URL to your own collector.&lt;/p&gt;
 
 &lt;p&gt;We added this capability to SnowPlow in support of Simon Rumble&amp;#8217;s excellent &lt;a href='https://github.com/shermozle/SnowCannon'&gt;SnowCannon&lt;/a&gt; prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.&lt;/p&gt;

@@ -88,7 +88,8 @@
 </ol>
 <a name='counting-unique-visitors'><h2>1. Number of unique visitors </h2></a>
 <p>The number of unique visitors can be calculated by summing the number of distinct <code>domain_userid</code>s in a specified time period e.g. day. (Because each user is assigned a unique domain_userid, based on a lack of SnowPlow tracking cookies on their browser):</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='n'>collector_dt</span> <span class='k'>AS</span> <span class='kt'>date</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
@@ -96,7 +97,8 @@
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>;</span>
 </code></pre></div>
 <p>Or by week:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`year`</span><span class='p'>,</span>
 <span class='nf'>WEEKOFYEAR</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`week`</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
@@ -105,7 +107,8 @@
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`week`</span>
 </code></pre></div>
 <p>Or by month:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`year`</span><span class='p'>,</span>
 <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
@@ -120,7 +123,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-visits'><h2>2. Number of visits</h2></a>
 <p>Because each user might visit a site more than once, summing the number of <code>domain_userid</code>s returns the number if <em>visitors</em>, NOT the number of <em>visits</em>. Every time a user visits the site, however, SnowPlow assigns that session with a <code>domain_sessionidx</code> (e.g. <code>1</code> for their first visit, <code>2</code> for their second.) Hence, to count the number of visits in a time period, we concatenate the unique <code>domain_userid</code> with the <code>domain_sessionidx</code> and then count the number of distinct concatenated entry in the events table:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>collector_dt</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='nf'>CONCAT</span><span class='p'>(</span> <span class='n'>domain_userid</span><span class='p'>,</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span> <span class='p'>)))</span> <span class='k'>AS</span> <span class='ss'>`visits`</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
@@ -136,7 +140,8 @@
 <p>Page views are one type of event that are stored in the SnowPlow events table. Their defining feature is that the <code>page_title</code> contain values (are not <code>NULL</code>). In the case of an <em>event</em> that is not a page view (e.g. an <em>add to basket</em>) these fields would all be <code>NULL</code>, and the event fields (<code>ev_category</code>, <code>ev_action</code>, <code>ev_label</code> etc.) would contain values. For details, see the <a href='https://github.com/snowplow/snowplow/blog/master/docs/07_snowplow_hive_tables_introduction.md'>Introduction to the SnowPlow events table</a>.</p>
 
 <p>To count the number of page views by day, then we simply execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>collector_dt</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>event_id</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='n'>page_views</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
@@ -153,7 +158,8 @@
 <p>Although the number of page views is a standard metric in web analytics, this reflects the web&#8217;s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
 
 <p>As a result, counting the total number of events (including page views but also other AJAX events) is actually a more meaningful thing to do than to count the number of page views, as we have done above. We recommend setting up SnowPlow so that <em>all</em> events / actions that a user takes are tracked. Hence, running the below queries should return a total sum of events on the site by time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>collector_dt</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>`events`</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
@@ -168,7 +174,8 @@
 <p>As well as looking at page views by time period, we can also look by user e.g. by grouping on <code>domain_userid</code>. This gives a good impression of the engagement level of each of our users: how does this vary across our user population, how it varies for a particular user over time, for example.</p>
 
 <p>For example, to examine the engagement by user by month, we execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`year`</span><span class='p'>,</span>
 <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`month`</span><span class='p'>,</span>
 <span class='n'>domain_userid</span> <span class='k'>AS</span> <span class='ss'>`user`</span><span class='p'>,</span>
@@ -181,7 +188,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='pages-per-visit'><h2>5. Pages per visit</h2></a>
 <p>The number of pages per visit can be calculated by visit very straightforwardly:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
 <span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>page_views</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
@@ -189,7 +197,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>;</span>
 </code></pre></div>
 <p>To calculate the average page views per week we group the results of the above query by week and then average over the results:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>DATE_FORMAT</span><span class='p'>(</span><span class='kt'>date</span><span class='p'>,</span>  <span class='s1'>&#39;%Y-%v&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`week`</span><span class='p'>,</span>
 <span class='nf'>AVG</span><span class='p'>(</span><span class='n'>page_views</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`average_pageviews`</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -209,7 +218,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='bounce-rate'><h2>6. Bounce rate</h2></a>
 <p>First we need to look at all the website visits, and flag which of those visits are <em>bounces</em>: these are visits where there is only one page view i.e. <code>COUNT( DISTINCT ( event_id )) = 1</code>:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
 <span class='k'>IF</span><span class='p'>(</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>bounce</span>
@@ -218,7 +228,8 @@
 <span class='p'>)</span> <span class='p'>;</span>
 </code></pre></div>
 <p>Then we need to calculate the fraction of visits by time period that are <em>bounces</em> e.g. by day:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='kt'>date</span><span class='p'>,</span>
 <span class='nf'>sum</span><span class='p'>(</span><span class='n'>bounce</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>count</span><span class='p'>(</span><span class='n'>session</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>fraction_of_visits_that_bounce</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -241,7 +252,8 @@
 <p>A new visit is easily identified as a visit where the domain_sessionidx = 1. Hence, to calculate the % of new visits, we need to sum all the visits where <code>domain_sessionidx</code> = 1 and divide by the total number of visits, in the time period.</p>
 
 <p>First, we create a table with every visit stored, and identify which visits were &#8220;new&#8221;:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visit</span>
@@ -249,7 +261,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
 </code></pre></div>
 <p>Then we aggregate the visits over our desired time period, and calculate the fraction of them that are new:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='kt'>date</span><span class='p'>,</span>
 <span class='nf'>sum</span><span class='p'>(</span><span class='n'>new_visit</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>count</span><span class='p'>(</span><span class='n'>session</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>fraction_of_visits_that_are_new</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -269,7 +282,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='duration'><h2>8. Average visitor duration</h2></a>
 <p>To calculate this, 1st we need to calculate the duration of every visit:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span>  <span class='k'>AS</span> <span class='n'>start_time</span><span class='p'>,</span>
@@ -279,7 +293,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>;</span>
 </code></pre></div>
 <p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>AVG</span><span class='p'>(</span><span class='ss'>`duration`</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>average_visit_duration</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -301,7 +316,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='language'><h2>9. Demographics: language</h2></a>
 <p>For each event the browser language is stored in the <code>br_language</code> field. As a result, counting the number of visitors in a time period by language is trivial:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>br_lang</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>visits</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
@@ -322,7 +338,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='new-vs-returning'><h2>11. Behaviour: new vs returning</h2></a>
 <p>Within a given time period, we can compare the number of new visitors (for whom <code>domain_sessionidx</code> = 1) with returning visitors (for whom <code>domain_sessionidx</code> &gt; 1):</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visitor</span><span class='p'>,</span>
@@ -331,7 +348,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
 </code></pre></div>
 <p>Then we can aggregate them by time period, to get the total new vs returning e.g. by day:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='ss'>`date`</span><span class='p'>,</span>
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>new_visitor</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>new_visits</span><span class='p'>,</span>
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>returning_visitor</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visits</span>
@@ -353,7 +371,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='frequency'><h2>12. Behaviour: frequency</h2></a>
 <p>We can look at the distribution of users by number of visits they have performed in a given time period. First, we count the number of visits each user has performed in the specific time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>visits</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
@@ -361,7 +380,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>;</span>
 </code></pre></div>
 <p>Now we aggregate that data set by the number of visits in the time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='ss'>`visits`</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -381,7 +401,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='recency'><h2>13. Behaviour: recency</h2></a>
 <p>We can look in a specific time period at each user who has visited, and see how many days it has been since they last visited. First, we identify all the users who have visited in our time frame:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='n'>current_visit</span><span class='p'>,</span>
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='o'>-</span> <span class='mi'>1</span><span class='p'>,</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>previous_visit</span>
@@ -390,7 +411,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
 <p>We can then look up the date of each session by joining the above results with the results of a query that identifies the date by session:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span>
@@ -398,7 +420,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
 <p>The combined query then looks like this:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> 
 <span class='n'>v</span><span class='p'>.</span><span class='n'>current_visit</span><span class='p'>,</span>
 <span class='n'>current</span><span class='p'>.</span><span class='ss'>`date`</span> <span class='k'>AS</span> <span class='ss'>`current_date`</span><span class='p'>,</span>
@@ -435,7 +458,8 @@
 <span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>previous_visit</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
 </code></pre></div>
 <p>We can then aggregate the results by the number of days difference, to produce a frequency table:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>difference</span><span class='p'>,</span>
 <span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -493,7 +517,8 @@
 </ol>
 
 <p>Both of these are flakey and unsophisticated measures of engagement. Nevertheless, they are easy to report on in SnowPlow. To plot visit duration, we execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
@@ -502,7 +527,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
 </code></pre></div>
 <p>We then need to classify each visit into a finite set of buckets based on their duration:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='k'>CASE</span> 
@@ -524,7 +550,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span><span class='p'>;</span>
 </code></pre></div>
 <p>Then aggregate the results for each bucket, so we have frequency by bucket:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>duration</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -556,7 +583,8 @@
 <p><img alt='visits-by-duration-chartio' src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' /></p>
 
 <p>We can also look at the number of page views per visit</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_depth</span>
@@ -566,7 +594,8 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
 </code></pre></div>
 <p>Then aggregate sessions by page depth into a frequency table:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span>
 <span class='n'>page_depth</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='p'>(</span>
@@ -590,7 +619,8 @@
 <p>Browser details are stored in the events table in the <code>br_name</code>, <code>br_family</code>, <code>br_version</code>, <code>br_type</code>, <code>br_renderingengine</code>, <code>br_features</code> and <code>br_cookies</code> fields.</p>
 
 <p>Looking at the distribution of visits by browser is straightforward:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='n'>br_name</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span><span class='s1'>&#39;-&#39;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
@@ -607,7 +637,8 @@
 <p>Operating system details are stored in the events table in the <code>os_name</code>, <code>os_family</code> and <code>os_manufacturer</code> fields.</p>
 
 <p>Looking at the distribution of visits by operating system is straightforward:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='n'>os_name</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span><span class='s1'>&#39;-&#39;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
@@ -622,7 +653,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='mobile'><h2>17. Technology: mobile</h2></a>
 <p>To work out how the number of visits in a given time period splits between visitors on mobile and those not, simply execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<span class='k'>SELECT</span> 
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>dvce_ismobile</span><span class='o'>=</span><span class='mi'>1</span><span class='p'>,</span> <span class='s1'>&#39;mobile&#39;</span><span class='p'>,</span> <span class='s1'>&#39;desktop&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>device_type</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>as</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>

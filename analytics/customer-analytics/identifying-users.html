@@ -51,72 +51,127 @@
 <p>All customer analytics starts with a solid understanding of what constitutes a customer and a user: this is missing in traditional web analytics. In this section, we explain how to use SnowPlow to reliably identify customers and users:</p>
 
 <ol>
-<li><a href='#user_id'>Understanding <code>user_id</code>s</a>. An overview of how SnowPlow sets and exposes <code>user_id</code>s</li>
+<li><a href='#user_id'>Understanding the different SnowPlow user IDs</a>. An overview of the different user IDs that SnowPlow recognises</li>
 
-<li><a href='#benefits_of_user_id'>The benefits of exposing <code>user_id</code>s</a>. The value that aggregating and filtering on <code>user_id</code>s provides data analysts</li>
+<li><a href='#benefits_of_user_id'>The benefits of exposing user IDs</a>. The value that aggregating and filtering on user_ids provides data analysts</li>
 
-<li><a href='#login-events'>More robust approaches to identifying customers through tracking login events</a>. A guide to a more reliable approach to identifying users, based on using SnowPlow to track login events</li>
+<li><a href='#benefits_of_multiple_user_ids'>The benefits of exposing multiple user IDs</a>. The value that exposing multiple user IDs provides data analysts</li>
+
+<li><a href='#login-events'>Robust approaches to identifying customers through tracking login events, using multiple IDs</a>. A guide to reliable approach to identifying users, based on using SnowPlow to track login events</li>
 </ol>
-<h2><a name='user_id'>1. Understanding `user_id`s</a></h2>
-<p>When a user visits a website with SnowPlow tracking, SnowPlow checks the users browser to see if a SnowPlow cookie has been set. If it has not, SnowPlow creates a new <code>user_id</code> and drops a browser cookie containing it. Then when the user returns to the site, SnowPlow will recognise the user from the <code>user_id</code> stored in the cookie on her browser.</p>
+<h2><a name='user_id'>1. Understanding user IDs</a></h2>
+<p>Every line of SnowPlow table includes placeholders for three different user IDs:</p>
 
-<p>This approach to identifying users is in line with that employed all tag-based web analytics programs. What is unique about SnowPlow is that it exposes the user_id on every line of SnowPlow data to analysts crunching SnowPlow data.</p>
-<h2><a name='benefits_of_user_id'>2. Benefits of exposing the `user_id` for analysis</a></h2>
+<ol>
+<li>The <code>domain_userid</code>. This is a user ID that is set via a first party cookie. It can therefore be used to track user behaviour within a particular webdomain e.g. <code>mynewssite.com</code></li>
+
+<li>The <code>network_userid</code>. This is a user ID that is set via a third party cookie. It can be used to track user behaviour across a network of sites on different domains.</li>
+
+<li>A <code>user_id</code> that can be set to custom values. This can be used to assign e.g. an ID set by a CRM system to SnowPlow data.</li>
+</ol>
+
+<p>There are strengths and weaknesses associated with each different type of user identifier. In many cases, we recommend using a combination of two or three of them to power the most robust set of user analytics. (More on this below.) In this introductory section, however, we&#8217;ll stick to outlining the benefits and limitations of each:</p>
+
+<h3 id='1_the_'>1. The <code>domain_userid</code></h3>
+
+<p>The <code>domain_userid</code> is set via a first party cookie in the SnowPlow Javascript (<code>sp.js</code>).</p>
+
+<p>Because it is set via a first party cookie, the <code>domain_userid</code> is rarely blocked.</p>
+
+<p>However, because it is tied to a first party cookie, it cannot be used to track users across domains: if you have SnowPlow set up across a network of sites, the same user on different sites will have different <code>domain_userid</code>s. (At least one for each site.)</p>
+
+<h3 id='2_the_'>2. The <code>network_userid</code></h3>
+
+<p>The <code>network_userid</code> is tied to a third party cookie. Because of this, it can be used to track an individual across multiple different domains.</p>
+
+<p>Third party cookies are increasingly being blocked on browsers. For example, mobile Safari currently blocks them, and there are plans for Firefox to block them by default. As a result, it is likely that a data tied to third party cookies will only be recorded for a shrinking subset of users.</p>
+
+<p>Currently, the <code>network_userid</code> is <strong>only</strong> set if you use the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-Clojure-collector'>Clojure collector</a>, not if you use the Cloudfront collector. (Unlike the Clojure collector, the Cloudfront collector does not set 3rd party cookies.)</p>
+
+<h3 id='3_the_'>3. The <code>user_id</code></h3>
+
+<p>Many companies and business already set their identifiers for their users and / or customers. (For example, when the user creates an account, or completes a first purchase.) In these cases, that user ID can be passed into SnowPlow as the <code>user_id</code> using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-user-id'>setUserID</a> method. This makes it easy to join SnowPlow event data with other customer data sets e.g. CRM data.</p>
+<h2><a name='benefits_of_user_id'>2. Benefits of exposing the user IDs for analysis</a></h2>
 <h3 id='2a_ability_to_view_a_users_complete_engagement_record'>2a. Ability to view a user&#8217;s complete engagement record</h3>
 
 <p>Analysts can quickly zoom in on a user&#8217;s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>from</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> <span class='s1'>&#39;[[USER_ID]]&#39;</span>
-</code></pre></div>
-<h3 id='2b_ability_to_track_users_over_multiple_customer_journeys'>2b. Ability to track users over multiple customer journeys</h3>
-
-<p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, SnowPlow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using SnowPlow for <a href='/analytics/customer-analytics/attributino.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attributino.html'>attribution section</a> of this documentation.)</p>
-
-<p>Each time a user visits a site, SnowPlow sets a visit counter (<code>visit_id</code>): this is set to 1 on the user&#8217;s first visit, 2 on the user&#8217;s second visit etc. So to calculate the average number of visits required before a customer purchases, we can execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> 
-<span class='nf'>AVERAGE</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>avg_visits_to_purchase</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
+<span class='o'>*</span>
+<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;[[ENTER USER ID HERE]]&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span>
 </code></pre></div>
-<p>On websites where users make multiple purchases, we need to divide the number of visits by number of orders, filtering out users who have not made a purchase:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span> <span class='n'>user_id</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_purchases</span><span class='p'>,</span>
-<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_visits</span><span class='p'>,</span>
-<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>visits_to_purchases</span>
-<span class='k'>FROM</span> <span class='n'>events</span> 
-<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre></div>
-<p>We can then average across the results:</p>
+<p>E.g. executing the query in Navicat:</p>
+
+<p><img alt='user-actions-over-time-navicat' src='/static/img/analytics/customer-analytics/user-actions-over-time.png' /></p>
+
+<h3 id='2b_ability_to_track_users_over_multiple_sessions'>2b. Ability to track users over multiple sessions</h3>
+
+<p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, SnowPlow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using SnowPlow for <a href='/analytics/customer-analytics/attribution.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attribution.html'>attribution section</a> of this documentation.)</p>
+
+<p>Each time a user visits a site, SnowPlow sets a session counter (<code>domain_sessionidx</code>): this is set to 1 on the user&#8217;s first visit, 2 on the user&#8217;s second visit etc. So to view how many visits a customer makes before purchasing, we can execute a query like this:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
-<span class='nf'>AVG</span><span class='p'>(</span><span class='n'>visits_to_purchases</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span> <span class='n'>user_id</span><span class='p'>,</span>
-	<span class='k'>FROM</span> <span class='n'>events</span> 
-	<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_purchases</span><span class='p'>,</span>
-	<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_visits</span><span class='p'>,</span>
-	<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>visit_id</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>visits_to_purchases</span>
-	<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-confirmation&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-<span class='p'>)</span> <span class='n'>t</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
+<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;order-complete&#39;</span>
+<span class='k'>AND</span> <span class='n'>domain_sessionidx</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_sessionidx</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
+<p>Plotting the results in ChartIO:</p>
+
+<p><img alt='breakdown-of-purchases-by-number-of-visits-to-purchase' src='/static/img/analytics/customer-analytics/breakdown-of-purchases-by-number-of-visits-to-purchase.png' /></p>
+
 <h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
 
 <p>Because we can easily slice data by user_id (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
-<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span><span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
-<span class='n'>user_id</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
+<span class='nf'>DATE_FORMAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s1'>&#39;%Y-%m&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`cohort`</span><span class='p'>,</span>
+<span class='n'>domain_userid</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span>
 </code></pre></div>
 <p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
-<h2><a name='login-events'>3. More sophisticated approaches to user identification: login events</a></h2>
-<p>Whilst exposing the <code>user_id</code> makes slicing data by user easy for an analyst, relying on cookies to reliably identify users is risky for a number of reasons:</p>
+<h2><a name='benefits_of_multiple_user_ids'>3. The benefits of exposing multiple user IDs</a></h2>
+<p>Most web analytics system (notably Google&#8217;s Universal Analytics) only accommodate a single user ID. We&#8217;ve deliberately supported three as we believe there are pros and cons of each type of user identifier, and having a combination available gives analysts maximum flexibility to identify users as reliably as possible. (Which is rarely 100% reliably&#8230;)</p>
+
+<h3 id='3a_advantages_of_storing_both_a_domain_and_network_user_id'>3a. Advantages of storing both a domain and network user ID</h3>
+
+<p>For businesses that wish to track users across multiple domains (notably content networks and ad networks), there are significant advantages to using the <code>network_userid</code> over the <code>domain_userid</code>: namely that it is straightforward to analyse a user&#8217;s behaviour across multiple sites.</p>
+
+<p>However, a growing proportion of browsers and users are dropping support for third party cookies.</p>
+
+<p>By maintaining support for both first party cookies (<code>domain_userid</code>) and third party cookies (<code>network_userid</code>), SnowPlow makes it possible to use the <code>network_userid</code> to identify users where those users have are happy to be tracked using third party cookies. For those users who are not (whom it is easy to identify because they do not have values set for <code>network_userid</code>), it is possible to fall back on <code>domain_userid</code>.</p>
+
+<p>This makes it possible to perform statistical analyses on network behaviour based on the subset of users who are comfortable with third party cookies. It makes it clear which users are and are not covered by the sample.</p>
+
+<p>It also leaves open the possibility of joining domain identifiers from different domains using cookie sync technologies.</p>
+
+<h3 id='3b_advantages_of_maintaining_a_separate_user_identifier_for_businesses_to_populate_with_their_own_customer_ids'>3b. Advantages of maintaining a separate user identifier for businesses to populate with their own customer IDs</h3>
+
+<p>Enabling businesses to set their own user ID where it is available is a very powerful feature: it makes it possible, for example, to join SnowPlow behavioural data with other customer data sets e.g. CRM, marketing etc.</p>
+
+<p>Rather then override the <code>domain_userid</code> and / or <code>network_userid</code>, however, we have a separate field <code>user_id</code> set aside for this purpose. This is to give analysts maximum flexibility when analysing user behaviour over the user&#8217;s entire behaviour. To illustrate this with an example:</p>
+
+<ul>
+<li>Consider the case of an online retailer with a long sales cycle. (I.e. it might be common for a user to make multiple visits to the site before making a purchase.)</li>
+
+<li>A user looking at making a purchase will typically visit the site multiple times before purchasing. In this case, it is possible to track his / her behaviour using either the <code>domain_userid</code> or <code>network_userid</code></li>
+
+<li>Once the user has bought an item, they will have created an account. At that stage, the retailer might ascribe that user a user ID, based on the user&#8217;s name / address</li>
+
+<li>It will be possible for the company to perform attribution analytics (i.e. tracking the user from e.g. clicking on an ad to making a purchase) using e.g. the <code>domain_userid</code></li>
+
+<li>Going forwards, however, the user may make several more purchases. Because they use the same account, it is possible to identify that it really is the same user making multiple purchases over time, using the <code>user_id</code>. This is true even if that user makes those purchases from different computers / devices, and hence different browsers. (So different <code>domain_userid</code> and <code>network_userid</code>.)</li>
+</ul>
+
+<p>More details on best practice in user identification is explored in the following section:</p>
+<h2><a name='login-events'>4. More sophisticated approaches to user identification: login events</a></h2>
+<p>Relying on cookies to reliably identify users is risky for a number of reasons:</p>
 
 <ol>
 <li>Users may delete cookies between sessions: in which case two or more <code>user_id</code>s really represent the same user</li>
@@ -126,23 +181,28 @@
 
 <p>Websites where users login, however, have the opportunity to identify users much more reliably. It is straightforward to incorporate this additional data into SnowPlow, to make customer identification more robust:</p>
 
-<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>SnowPlow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured in the SnowPlow event tracker. The values should be set as follows:</p>
+<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>SnowPlow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured and passed to SnowPlow using the setUserId call:</p>
 
-<pre><code>event_action: &#39;login&#39;
-event_label: login_id</code></pre>
+<p><div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;joe.blogs@email.com&#39;</span><span class='p'>]);</span>
+</code></pre></div></p>
 
-<p>where the <code>login_id</code> is the <code>user_id</code> as defined on the login system, rather than SnowPlow&#8217;s own <code>user_id</code>. This can be accomplished using the following Javascript to execute the event tracker. (Full documentation on the SnowPlow evene tracker can be found <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>here</a>).</p>
-
-<p>These fields then become available in SnowPlow in the <code>ev_action</code> and <code>ev_label</code> fields. So, to create a map of SnowPlow <code>user_id</code>s to the <code>login_id</code>s employed in your login, you can run the following query:</p>
+<p>It is then possible to map <code>user_id</code> to e.g. <code>domain_userid</code> by executing the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
-<span class='n'>user_id</span> <span class='k'>AS</span> <span class='n'>snowplow_user_id</span><span class='p'>,</span>
-<span class='n'>ev_label</span> <span class='k'>AS</span> <span class='n'>login_id</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;login&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>ev_label</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>user_id</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
+<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>AND</span> <span class='n'>user_id</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>user_id</span>
 </code></pre></div>
-<p>When a user logs in to a service from multiple computers, each SnowPlow <code>user_id</code>, associated with each computer, will be matched against their single <code>login_id</code>. (I.e. there will be a many-to-one relationship between Snowplow <code>user_id</code> and <code>login_id</code>.) To perform customer analytics using the more robust method of user identification, we simply aggregate over (<code>GROUP BY</code>) <code>login_id</code> rather than SnowPlow <code>user_id</code>.</p>
+<p>This type of mapping table is reliable and flexible, because it can accommodate many-to-many relationships between <code>user_id</code> and <code>domain_userid</code>. Consider the following two cases:</p>
+
+<ol>
+<li>A user logs in to his / her account from multiple devices. In that case, there would be many <code>domain_userid</code> to each <code>user_id</code>. That is fine, because we can aggregate data by <code>user_id</code> to capture the user&#8217;s behaviour across all those different devices.</li>
+
+<li>Multiple users log in and out of their account from a single shared computer. In that case, there would be many <code>user_id</code> to each <code>domain_userid</code>. In that case, we&#8217;d need to be careful to aggregate records between log in and out events and ascribe them to a single user, so that we can differentiate actions performed by different users on the same computer.</li>
+</ol>
 
 <h2 id='4_understand_how_to_use_snowplow_to_reliably_identify_users_and_customers'>4. Understand how to use SnowPlow to reliably identify users and customers?</h2>
 

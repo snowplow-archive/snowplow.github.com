@@ -380,49 +380,211 @@
 
 <p><a href='#top'>Back to top</a></p>
 <a name='recency'><h2>13. Behaviour: recency</h2></a>
-<p>We can look in a specific time period at each user who has visited, and see how many days it has been since they last visited. First, we identify all the users who have visited in our time frame, and grab the timestamp for their last event for each:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>users_by_recency</span> <span class='p'>(</span>
-<span class='n'>domain_userid</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>last_action_timestamp</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>days_from_today</span> <span class='kt'>BIGINT</span>
-<span class='p'>)</span> <span class='p'>;</span>
-
-<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>users_by_recency</span>
-<span class='k'>SELECT</span>
+<p>We can look in a specific time period at each user who has visited, and see how many days it has been since they last visited. First, we identify all the users who have visited in our time frame:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>last_action_timestamp</span><span class='p'>,</span>
-<span class='nf'>CEILING</span><span class='p'>((</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>()</span> <span class='o'>-</span> <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))))</span><span class='o'>/</span><span class='p'>(</span><span class='mi'>60</span><span class='o'>*</span><span class='mi'>60</span><span class='o'>*</span><span class='mi'>24</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>days_from_today</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span> <span class='p'>;</span>
+<span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='n'>current_visit</span><span class='p'>,</span>
+<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='o'>-</span> <span class='mi'>1</span><span class='p'>,</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>previous_visit</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
-<p>Now we categorise the users by the number of days since they last visited, and sum the number in each category:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
-<span class='n'>days_from_today</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>users_by_recency</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>days_from_today</span> <span class='p'>;</span>
+<p>We can then look up the date of each session by joining the above results with the results of a query that identifies the date by session:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
+<p>The combined query then looks like this:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> 
+<span class='n'>v</span><span class='p'>.</span><span class='n'>current_visit</span><span class='p'>,</span>
+<span class='n'>current</span><span class='p'>.</span><span class='ss'>`date`</span> <span class='k'>AS</span> <span class='ss'>`current_date`</span><span class='p'>,</span>
+<span class='n'>previous</span><span class='p'>.</span><span class='ss'>`date`</span> <span class='k'>AS</span> <span class='ss'>`previous_date`</span><span class='p'>,</span>
+<span class='nf'>DATEDIFF</span><span class='p'>(</span><span class='n'>current</span><span class='p'>.</span><span class='ss'>`date`</span><span class='p'>,</span> <span class='n'>previous</span><span class='p'>.</span><span class='ss'>`date`</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>difference</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='n'>current_visit</span><span class='p'>,</span>
+	<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='o'>-</span> <span class='mi'>1</span><span class='p'>,</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>previous_visit</span>
+	<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+	<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+	<span class='k'>HAVING</span> <span class='n'>previous_visit</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span>
+	<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+<span class='p'>)</span> <span class='n'>current</span>
+<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>current</span><span class='p'>.</span><span class='n'>domain_userid</span>
+<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>current_visit</span> <span class='o'>=</span> <span class='n'>current</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+<span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span>
+	<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+<span class='p'>)</span> <span class='n'>previous</span>
+<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_userid</span>
+<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>previous_visit</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+</code></pre></div>
+<p>We can then aggregate the results by the number of days difference, to produce a frequency table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>difference</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> 
+	<span class='n'>v</span><span class='p'>.</span><span class='n'>current_visit</span><span class='p'>,</span>
+	<span class='n'>current</span><span class='p'>.</span><span class='ss'>`date`</span> <span class='k'>AS</span> <span class='ss'>`current_date`</span><span class='p'>,</span>
+	<span class='n'>previous</span><span class='p'>.</span><span class='ss'>`date`</span> <span class='k'>AS</span> <span class='ss'>`previous_date`</span><span class='p'>,</span>
+	<span class='nf'>DATEDIFF</span><span class='p'>(</span><span class='n'>current</span><span class='p'>.</span><span class='ss'>`date`</span><span class='p'>,</span> <span class='n'>previous</span><span class='p'>.</span><span class='ss'>`date`</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>difference</span>
+	<span class='k'>FROM</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>domain_userid</span><span class='p'>,</span>
+		<span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='n'>current_visit</span><span class='p'>,</span>
+		<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='o'>-</span> <span class='mi'>1</span><span class='p'>,</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>previous_visit</span>
+		<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+		<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+		<span class='k'>HAVING</span> <span class='n'>previous_visit</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span><span class='p'>)</span> <span class='n'>v</span>
+	<span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>domain_userid</span><span class='p'>,</span>
+		<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+		<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span>
+		<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+	<span class='p'>)</span> <span class='n'>current</span>
+	<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>current</span><span class='p'>.</span><span class='n'>domain_userid</span>
+	<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>current_visit</span> <span class='o'>=</span> <span class='n'>current</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+	<span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>domain_userid</span><span class='p'>,</span>
+		<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+		<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span>
+		<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+	<span class='p'>)</span> <span class='n'>previous</span>
+	<span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_userid</span>
+	<span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>previous_visit</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+<span class='p'>)</span> <span class='n'>r</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>difference</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>difference</span>
+</code></pre></div>
+<p>And plot the results in ChartIO:</p>
+
+<p><img alt='days-since-last-visit-in-chartio' src='/static/img/analytics/basic-recipes/days-since-last-visit-in-2013-chartio.png' /></p>
+
 <p><a href='#top'>Back to top</a></p>
 <a name='engagement'><h2>14. Behaviour: engagement</h2></a>
-<p>Google Analytics provides two sets of metrics to indicate <em>engagement</em>. We think that both are weak (the duration of each visit and the number of page views per visit). Nonetheless, they are both easy to measure using SnowPlow. To start with the duration per visit, we simply execute the following query:</p>
+<p>Google Analytics provides two sets of metrics to indicate <em>engagement</em>:</p>
+
+<ol>
+<li>Visit duration</li>
+
+<li>Page depth (i.e. number of pages visited per session)</li>
+</ol>
+
+<p>Both of these are flakey and unsophisticated measures of engagement. Nevertheless, they are easy to report on in SnowPlow. To plot visit duration, we execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> 
+<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+<span class='k'>WHERE</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2012-12-31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
 </code></pre></div>
-<p>In the same way, we can look at the number of page views per visit:</p>
+<p>We then need to classify each visit into a finite set of buckets based on their duration:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='k'>CASE</span> 
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>1800</span> <span class='k'>THEN</span> <span class='s1'>&#39;g. 1801+ seconds&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>600</span> <span class='k'>THEN</span> <span class='s1'>&#39;f. 601-1800 seconds&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>180</span> <span class='k'>THEN</span> <span class='s1'>&#39;e. 181-600 seconds&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>60</span> <span class='k'>THEN</span> <span class='s1'>&#39;d. 61 - 180 seconds&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>30</span> <span class='k'>THEN</span> <span class='s1'>&#39;c. 31-60 seconds&#39;</span>
+	<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>10</span> <span class='k'>THEN</span> <span class='s1'>&#39;b. 11-30 seconds&#39;</span>
+	<span class='k'>ELSE</span> <span class='s1'>&#39;a. 0-10 seconds&#39;</span>
+	<span class='n'>END</span> <span class='k'>AS</span> <span class='n'>duration</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
+	<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+	<span class='k'>WHERE</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2012-12-31&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span><span class='p'>;</span>
+</code></pre></div>
+<p>Then aggregate the results for each bucket, so we have frequency by bucket:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>duration</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span> 
+	<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>v</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='k'>CASE</span> 
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>1800</span> <span class='k'>THEN</span> <span class='s1'>&#39;g. 1801+ seconds&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>600</span> <span class='k'>THEN</span> <span class='s1'>&#39;f. 601-1800 seconds&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>180</span> <span class='k'>THEN</span> <span class='s1'>&#39;e. 181-600 seconds&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>60</span> <span class='k'>THEN</span> <span class='s1'>&#39;d. 61 - 180 seconds&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>30</span> <span class='k'>THEN</span> <span class='s1'>&#39;c. 31-60 seconds&#39;</span>
+		<span class='k'>WHEN</span> <span class='n'>duration</span> <span class='o'>&gt;</span> <span class='mi'>10</span> <span class='k'>THEN</span> <span class='s1'>&#39;b. 11-30 seconds&#39;</span>
+		<span class='k'>ELSE</span> <span class='s1'>&#39;a. 0-10 seconds&#39;</span>
+		<span class='n'>END</span> <span class='k'>AS</span> <span class='n'>duration</span>
+	<span class='k'>FROM</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>domain_userid</span><span class='p'>,</span>
+		<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+		<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span><span class='o'>-</span><span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span><span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
+		<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+		<span class='k'>WHERE</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2012-12-31&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span> <span class='p'>)</span> <span class='n'>r</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>duration</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>duration</span><span class='p'>;</span>
+</code></pre></div>
+<p>We can then plot the results in ChartIO:</p>
+
+<p><img alt='visits-by-duration-chartio' src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' /></p>
+
+<p>We can also look at the number of page views per visit</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>page_title</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_depth</span>
+<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+<span class='k'>AND</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
 </code></pre></div>
+<p>Then aggregate sessions by page depth into a frequency table:</p>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<span class='n'>page_depth</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>page_depth</span>
+	<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+	<span class='k'>AND</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_depth</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>page_depth</span><span class='p'>;</span>
+</code></pre></div>
+<p>And plot the results in ChartIO:</p>
+
+<p><img alt='visits-in-the-last-month-by-page-depth' src='/static/img/analytics/basic-recipes/visits-in-the-last-month-by-page-depth-chartio.png' /></p>
+
 <p><a href='#top'>Back to top</a></p>
 <a name='browser'><h2>15. Technology: browser</h2></a>
 <p>Browser details are stored in the events table in the <code>br_name</code>, <code>br_family</code>, <code>br_version</code>, <code>br_type</code>, <code>br_renderingengine</code>, <code>br_features</code> and <code>br_cookies</code> fields.</p>
@@ -430,45 +592,46 @@
 <p>Looking at the distribution of visits by browser is straightforward:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='n'>br_name</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_name</span> <span class='p'>;</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span><span class='s1'>&#39;-&#39;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_name</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>frequency</span> <span class='k'>DESC</span>
 </code></pre></div>
-<p>If you didn&#8217;t want to distinguish between different versions of the same browser in the results, replace <code>br_name</code> in the query with <code>br_family</code>.</p>
+<p>Plotting the results in ChartIO:</p>
+
+<p><img alt='visits-by-browser-type' src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='os'><h2>16. Technology: operating system</h2></a>
 <p>Operating system details are stored in the events table in the <code>os_name</code>, <code>os_family</code> and <code>os_manufacturer</code> fields.</p>
 
 <p>Looking at the distribution of visits by operating system is straightforward:</p>
-<div class='highlight'><pre><code class='mysql'>	<span class='k'>SELECT</span>
-	<span class='n'>os_name</span><span class='p'>,</span>
-	<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s1'>&#39;-&#39;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span>
-	<span class='k'>FROM</span> <span class='n'>events</span>
-	<span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>os_name</span> <span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='n'>os_name</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span><span class='s1'>&#39;-&#39;</span><span class='p'>,</span><span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>os_name</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>frequency</span> <span class='k'>DESC</span>
 </code></pre></div>
+<p>Again, we can plot the results in ChartIO:</p>
+
+<p><img alt='visits-by-operating-system' src='/static/img/analytics/basic-recipes/visits-by-operating-system.png' /></p>
+
 <p><a href='#top'>Back to top</a></p>
 <a name='mobile'><h2>17. Technology: mobile</h2></a>
-<p>Mobile technology details are stored in the 4 device/hardware fields: <code>dvce_type</code>, <code>dvce_ismobile</code>, <code>dvce_screenwidth</code>, <code>dvce_screenheight</code>.</p>
-
 <p>To work out how the number of visits in a given time period splits between visitors on mobile and those not, simply execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
-<span class='n'>dvce_ismobile</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s1'>&#39;-&#39;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_ismobile</span> <span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
+<span class='k'>IF</span><span class='p'>(</span><span class='n'>dvce_ismobile</span><span class='o'>=</span><span class='mi'>1</span><span class='p'>,</span> <span class='s1'>&#39;mobile&#39;</span><span class='p'>,</span> <span class='s1'>&#39;desktop&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>device_type</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>as</span> <span class='n'>frequency</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_ismobile</span><span class='p'>;</span>
 </code></pre></div>
-<p>To break down the number of visits from mobile users by device type execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
-<span class='n'>dvce_type</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span> <span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='p'>[[</span><span class='n'>ANY</span> <span class='kt'>DATE</span> <span class='n'>CONDITIONS</span><span class='p'>]]</span> <span class='k'>AND</span> <span class='n'>dvce_ismobile</span> <span class='o'>=</span> <span class='no'>TRUE</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_type</span> <span class='p'>;</span>
-</code></pre></div>
+<p>Plotting the results in ChartIO:</p>
+
+<p><img alt='split-in-visits-by-mobile-vs-desktop' src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop.png' /></p>
+
 <p><a href='#top'>Back to top</a></p>
 </div>
 

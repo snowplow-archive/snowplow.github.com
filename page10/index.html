@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes - SnowPlow Analytics</title>
+	<title></title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -46,47 +46,30 @@
 </div>
 	
 		<div id="contents">
+	
+		<a name="new-setup-guide" />
 		<div class="post">
-			28 Nov 2012
-			<h1>SnowPlow 0.6.2 released, with JavaScript tracker bug fixes</h1>
-			<p>Today we are releasing SnowPlow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
+			02 Aug 2012
+			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
+			<p>Following a lot of invaluable feedback from users setting up SnowPlow for the first time, we&#8217;ve updated the SnowPlow setup documentation.</p>
 
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
-
-<p>This release fixes two bugs:</p>
-
-<ol>
-<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
-
-<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
-</ol>
-
-<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
-
-<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
-			<div id="comments">
-	<h2>Questions? Comments? Join the debate!</h2>
-	 <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
-            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
-            var disqus_url =  ;
-            var disqus_title =  ; */
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
+<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/SnowPlow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for SnowPlow newbies to get up and running&#8230;</p>
+			<span class="comments-link"><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
-		<p>Return to the <a href="/blog.html">main blog page</a></p>
+	
 
+	<!-- Pagination links -->
+	<div class="pagination">
+		
+			
+			<a href="/page9" class="previous">Previous</a>
+			
+		
+		<span class="page_number">Page: 10 of 10</span>
+		
+			<span class="next">Next</span>
+		
+	</div>
 </div>
 
 <div id="sidebar">
@@ -178,7 +161,6 @@
 	</ul>
 	<!--<strong>Tags</strong> -->
 </div>
-
 		<div id="footer">
 	<p>Copyright © SnowPlow Analytics Limited 2012.  All rights reserved</p>
 </div>

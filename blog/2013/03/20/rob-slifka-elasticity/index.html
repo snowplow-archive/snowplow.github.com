@@ -64,6 +64,20 @@
 <p>If you’re unfamiliar with AWS service interaction and evolution, it often follows this pattern (using EMR as an example):</p>
 
 <ol>
+<li>Use the AWS UI to become familiar with EMR. Manually step through the creation of Job Flows, choose your job type, asset location, cluster configuration options, etc.</li>
+
+<li>(Optionally) Graduate to the AWS CLI once you see a pattern in your interaction. You’re in active development and moving more quickly than before. You’ve decided on Pig, your assets and clusters are stored and predicted consistently, etc.</li>
+
+<li>Use an Amazon or 3rd-party API to integrate the tool into your workflow so you don’t have to copy the command line tools around your infrastructure.</li>
+</ol>
+
+<p>Amazon’s tools are developer services, not meant for absolutely streamlined consumption; some legwork is required. The AWS CLI is a thin wrapper around the EMR REST API meaning there are numerous and frequently mutually exclusive options. If you chose to use the CLI, you’ll spend a significant amount of time learning how to use the command line tools by reading the developer API guide. Why isn’t there a programmatic way to work with EMR that follows the same mental model as that which is exposed via the UI and doesn’t require you to understand the EMR REST API?</p>
+
+<p>That’s where Elasticity comes in.</p>
+
+<p>As an API author you can choose to represent the EMR model directly or layer your own model on top of it. As a point of reference, this is a partial list of EMR REST API calls: AddInstanceGroups, AddJobFlowSteps, DescribeJobFlows, etc.</p>
+
+<ol>
 <li>One way to provide access to EMR might be via Ruby methods that wrap each of these calls, something like <a href='https://github.com/rslifka/elasticity/blob/master/lib/elasticity/emr.rb'>this</a>. And by providing only this, you as a developer would be required to understand the EMR API documentation to use Elasticity - still not much better than using the CLI tools</li>
 
 <li>Another option might be for Elasticity to say, &#8220;Forget about job flows! I&#8217;m going to give you a &#8216;Session&#8217; and each step of your job flow is a &#8216;Batch Processing Function&#8217;&#8220;… and you’d be properly confused, having to map between your understanding of EMR and what Elasticity exposes</li>
@@ -154,19 +168,6 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -180,6 +181,19 @@
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

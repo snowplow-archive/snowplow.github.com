@@ -123,8 +123,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;transaction&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We will be updating our <a href='/analytics/index.html'>Analytics Cookbook</a> to use the <code>event</code> field to simplify queries where possible.</p>
 
 <h2 id='2_event_ids'>2. Event IDs</h2>
@@ -138,8 +137,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We will be updating our <a href='/analytics/index.html'>Analytics Cookbook</a> to use <code>event_id</code> in any examples which currently (erroneously) use <code>txn_id</code>.</p>
 
 <h2 id='3_onpage_activity_tracking'>3. On-page activity tracking</h2>
@@ -150,8 +148,7 @@
 
 <p>Here is an example configuration:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;enableActivityTracking&#39;</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>]);</span> <span class='c1'>// Ping every 10 seconds after 10 seconds</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This is still an experimental feature - but it should provide some interesting data to start to explore page residency, true bounce rates and so on.</p>
 
 <p>Please note that enabling activity tracking can <strong>significantly</strong> increase the number of SnowPlow events generated, especially with a short <code>heartBeatDelay</code>.</p>
@@ -191,8 +188,7 @@ Common options:
 
 <p>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker from sending a <code>&amp;uid=xxx</code> parameter. By default, the JavaScript tracker sends the user ID to the collector via this <code>uid</code> parameter; you can now disable this by calling <code>attachUserId()</code> like so:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;attachUserId&#39;</span><span class='p'>,</span> <span class='kc'>false</span><span class='p'>]);</span> <span class='c1'>// Don&#39;t attach &amp;uid=xxx to the querystring</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This function is not of immediate use - but it will be an important part of the setup for using the new Clojure Collector, which we are currently working on.</p>
 
 <h3 id='ip_address_override'>IP address override</h3>
@@ -233,6 +229,8 @@ Common options:
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+		
 			<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 		
 			<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
@@ -240,8 +238,6 @@ Common options:
 			<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
 		
 			<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">SnowPlow 0.7.4 released for better eventstream analytics</a></li>
-		
-			<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 		
 	</ul>
 
@@ -267,6 +263,8 @@ Common options:
 		<ul>
 		
 			
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+			
 				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 				<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
@@ -275,7 +273,18 @@ Common options:
 			
 				<li><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.3 released, tracking additional data</a></li>
 			
-				<li><a href="/blog/2013/01/29/snowplow-0.7.2-released">SnowPlow 0.7.2 released, with the new no-JavaScript tracker</a></li>
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		
@@ -293,19 +302,6 @@ Common options:
 				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
-			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

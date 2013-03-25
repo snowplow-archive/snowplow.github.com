@@ -95,8 +95,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>collector_dt</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by week:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> 
@@ -106,8 +105,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`week`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`week`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Or by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> 
@@ -117,8 +115,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`month`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`month`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='uniques-by-day' src='/static/img/analytics/basic-recipes/uniques-by-day-chartio.png' /></p>
@@ -133,8 +130,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>collector_dt</span> 
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='visits-by-day' src='/static/img/analytics/basic-recipes/visits-by-day-chartio.png' /></p>
@@ -152,8 +148,7 @@
 <span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>collector_dt</span> 
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='pageviews-by-day' src='/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png' /></p>
@@ -171,8 +166,7 @@
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-11-25&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>collector_dt</span> 
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='events-by-day' src='/static/img/analytics/basic-recipes/events-by-day-chartio.png' /></p>
@@ -188,8 +182,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`events`</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`year`</span><span class='p'>,</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='ss'>`user`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>There is scope to taking a progressively more nuanced approach to measuring user engagement levels. For more details see the section on <a href='/analytics/customer-analytics/user-engagement.html'>measuring user engagement with SnowPlow</a>.</p>
 
 <p><a href='#top'>Back to top</a></p>
@@ -202,8 +195,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To calculate the average page views per week we group the results of the above query by week and then average over the results:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -218,8 +210,7 @@
 	<span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>)</span> <span class='n'>pvs_by_visit</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`week`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='avg-pvs-per-visit-per-week-chartio' src='/static/img/analytics/basic-recipes/avg-pvs-per-visit-per-week.png' /></p>
@@ -235,8 +226,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
 <span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we need to calculate the fraction of visits by time period that are <em>bounces</em> e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -252,8 +242,7 @@
 <span class='k'>WHERE</span> <span class='ss'>`date`</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-11-26&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='fraction-of-visits-per-day-that-bounce' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png' /></p>
@@ -270,8 +259,7 @@
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visit</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we aggregate the visits over our desired time period, and calculate the fraction of them that are new:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -286,8 +274,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='fraction-of-visits-per-day-where-the-visitor-is-new' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png' /></p>
@@ -304,8 +291,7 @@
 <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='o'>-</span> <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -322,8 +308,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span> <span class='p'>)</span><span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='average-duration-by-month' src='/static/img/analytics/basic-recipes/average-visit-duration-by-month-chartio.png' /></p>
@@ -339,8 +324,7 @@
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_lang</span>
 <span class='k'>ORDER</span> <span class='k'>By</span> <span class='n'>visits</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note that rather than dividing the visits by language, it may make more sense to divide</p>
 
 <p>In ChartIO:</p>
@@ -362,8 +346,7 @@
 <span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visitor</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we can aggregate them by time period, to get the total new vs returning e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -380,8 +363,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span> <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO we would plot this by creating two layers: one for &#8220;new visits&#8221; and the other for &#8220;returning visits&#8221;. The combined graph would then look like:</p>
 
 <p><img alt='new-vs-returning-visits-by-day' src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day.png' /></p>
@@ -396,8 +378,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we aggregate that data set by the number of visits in the time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -412,8 +393,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span> <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`visits`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`visits`</span><span class='p'>;</span> 
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
 <p><img alt='distribution-of-visitors-by-number-of-visits' src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits-chartio.png' /></p>
@@ -429,8 +409,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then look up the date of each session by joining the above results with the results of a query that identifies the date by session:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -439,8 +418,7 @@
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The combined query then looks like this:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -478,8 +456,7 @@
 <span class='p'>)</span> <span class='n'>previous</span>
 <span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_userid</span>
 <span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>previous_visit</span> <span class='o'>=</span> <span class='n'>previous</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then aggregate the results by the number of days difference, to produce a frequency table:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -524,8 +501,7 @@
 <span class='p'>)</span> <span class='n'>r</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>difference</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>difference</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And plot the results in ChartIO:</p>
 
 <p><img alt='days-since-last-visit-in-chartio' src='/static/img/analytics/basic-recipes/days-since-last-visit-in-2013-chartio.png' /></p>
@@ -549,8 +525,7 @@
 <span class='k'>FROM</span> <span class='n'>events_008_cf</span>
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2012-12-31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We then need to classify each visit into a finite set of buckets based on their duration:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> 
@@ -573,8 +548,7 @@
 	<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
 	<span class='k'>WHERE</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2012-12-31&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then aggregate the results for each bucket, so we have frequency by bucket:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -603,8 +577,7 @@
 		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span> <span class='p'>)</span> <span class='n'>r</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>duration</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>duration</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then plot the results in ChartIO:</p>
 
 <p><img alt='visits-by-duration-chartio' src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' /></p>
@@ -619,8 +592,7 @@
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>AND</span> <span class='n'>collector_dt</span> <span class='o'>&gt;</span> <span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then aggregate sessions by page depth into a frequency table:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -637,8 +609,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_depth</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>page_depth</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And plot the results in ChartIO:</p>
 
 <p><img alt='visits-in-the-last-month-by-page-depth' src='/static/img/analytics/basic-recipes/visits-in-the-last-month-by-page-depth-chartio.png' /></p>
@@ -656,8 +627,7 @@
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_name</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>frequency</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
 <p><img alt='visits-by-browser-type' src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' /></p>
@@ -675,8 +645,7 @@
 <span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='nf'>CURDATE</span><span class='p'>()</span> <span class='o'>-</span> <span class='mi'>31</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>os_name</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>frequency</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Again, we can plot the results in ChartIO:</p>
 
 <p><img alt='visits-by-operating-system' src='/static/img/analytics/basic-recipes/visits-by-operating-system.png' /></p>
@@ -690,8 +659,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)))</span> <span class='k'>as</span> <span class='n'>frequency</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dvce_ismobile</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
 <p><img alt='split-in-visits-by-mobile-vs-desktop' src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop.png' /></p>

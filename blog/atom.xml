@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-03-25T12:13:10+00:00</updated>
+  <updated>2013-03-25T15:55:48+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -25,6 +25,8 @@
 
 &lt;p&gt;We chose this as our first non-Web tracker because we&amp;#8217;re hugely excited about the potential of sophisticated analytics for the &lt;a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'&gt;Internet of Things&lt;/a&gt;, following in the footsteps of great projects like &lt;a href='https://cosm.com/'&gt;Cosm&lt;/a&gt; and &lt;a href='http://exosite.com/'&gt;Exosite&lt;/a&gt;. And of course, SnowPlow&amp;#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &amp;#8220;machine-scale&amp;#8221;!&lt;/p&gt;
 
+&lt;p&gt;&lt;img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /&gt;&lt;/p&gt;
+
 &lt;p&gt;As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&amp;#8217;t wait to see what the Arduino and SnowPlow communities will use it for! Some ideas we had were:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -40,9 +42,11 @@
 &lt;p&gt;Want to find out more? To get started using our event tracker for Arduino, check out:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Our &lt;a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'&gt;Technical Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;a href='https://github.com/snowplow/snowplow-arduino-tracker'&gt;GitHub repository&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;Our &lt;a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'&gt;Setup Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The &lt;a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'&gt;Technical Documentation&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;The &lt;a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'&gt;Setup Guide&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Happy making!&lt;/p&gt;</content>

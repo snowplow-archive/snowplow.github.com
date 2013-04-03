@@ -4,13 +4,129 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-03-25T15:55:48+00:00</updated>
+  <updated>2013-04-03T16:20:06+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment"/>
+    <title>Snowplow 0.8.0 released with all-new Scalding-based data enrichment</title>
+    <updated>2013-04-03T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;A new month, a new release! We&amp;#8217;re excited to announce the immediate availability of Snowplow version &lt;strong&gt;0.8.0&lt;/strong&gt;. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.&lt;/p&gt;
+
+&lt;p&gt;This release has been heavily informed by our January blog post, &lt;a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'&gt;The Snowplow development roadmap for the ETL step - from ETL to enrichment&lt;/a&gt;. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using &lt;a href='https://github.com/twitter/scalding'&gt;Scalding&lt;/a&gt;, a Scala API built on top of &lt;a href='http://www.cascading.org'&gt;Cascading&lt;/a&gt;, the Hadoop ETL framework.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'&gt;The benefits of the new ETL&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'&gt;Limitations of the new ETL&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'&gt;A note for Infobright/Hive users&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'&gt;Upgrading and usage&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Read on below the fold to find out more.&lt;/p&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='benefits'&gt;1. Benefits of the new ETL&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The new ETL process is essentially a direct re-write of the existing Hive-based ETL process, however we have made some functionality improvements along the way. The benefits of the new Scalding-based ETL process as we see them are as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Fewer moving parts&lt;/strong&gt; - the new ETL process no longer requires Hive running on top of Hadoop. This should make it simpler to setup and more robust&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Data validation&lt;/strong&gt; - the new ETL process runs a set of validation checks on each raw line of Snowplow log data. If a line does not pass validation, then the line along with its validation errors is written to a new bucket for &amp;#8220;bad rows&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Better handling of unexpected errors&lt;/strong&gt; - if you set your ETL process to continue on unexpected errors, any raw lines which trigger unexpected errors will appear in a new &amp;#8220;errors&amp;#8221; bucket&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Fewer Redshift import errors&lt;/strong&gt; - we now truncate six &amp;#8220;high-risk&amp;#8221; fields (&lt;code&gt;useragent&lt;/code&gt;, &lt;code&gt;page_title&lt;/code&gt; et al) and validate that &lt;code&gt;ev_value&lt;/code&gt; is a float, to prevent the most common Redshift load errors&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Stronger technical foundation for our roadmap&lt;/strong&gt; - the foundations are now in-place for us adding more enrichment of our Snowplow events (e.g. &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;amp;state=open'&gt;referer parsing&lt;/a&gt; and &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=17&amp;amp;state=open'&gt;geo-location&lt;/a&gt; - both coming soon), and the &amp;#8220;gang of three&amp;#8221; cross-row ETL processes which we are planning (&lt;a href='https://github.com/snowplow/snowplow/issues/20'&gt;one&lt;/a&gt;, &lt;a href='https://github.com/snowplow/snowplow/issues/169'&gt;two&lt;/a&gt;, &lt;a href='https://github.com/snowplow/snowplow/issues/187'&gt;three&lt;/a&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a name='limitations'&gt;2. Limitations of the new ETL&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We want to be very clear about the limitations of the new ETL process as it stands today:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Redshift only&lt;/strong&gt; - the new ETL process only supports writing out in Redshift format. We discuss this further in &lt;a href='#infobright-hive-note'&gt;A note for Infobright/Hive users&lt;/a&gt; below.&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Performance&lt;/strong&gt; - the new ETL process takes almost twice as long as the old Hive process. This is because it is essentially running twice: once to generate the Redshift output, and once to generate the &amp;#8220;bad rows&amp;#8221;: in a Hadoop world these two outputs are handled sequentially as separate MapReduce jobs&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Small files problem&lt;/strong&gt; - being Hadoop-based, our ETL inherits Hadoop&amp;#8217;s &lt;a href='http://amilaparanawithana.blogspot.co.uk/2012/06/small-file-problem-in-hadoop.html'&gt;&amp;#8220;small files problem&amp;#8221;&lt;/a&gt;. Above around 3,000 raw Snowplow log files, the job can slow down considerably, so aim to keep your runs smaller than this&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Prototype&lt;/strong&gt; - please treat the new ETL process as a prototype. We &lt;strong&gt;strongly recommend&lt;/strong&gt; trying it out away from your existing Snowplow installation rather than upgrading your existing process in-place&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;On points 2 and 3: rest assured that improving the performance of the new Hadoop ETL (not least by tackling the small files problem) is a key priority for the Snowplow Analytics team going forwards.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='upgrading-usage'&gt;3. A note for Infobright/Hive users&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;If you are using Infobright or plain-Hive to store your Snowplow data, we understand that you&amp;#8217;ll be feeling a little left out of this release. Unfortunately, supporting Redshift, Infobright and Hive all in this version 1 simply wasn&amp;#8217;t feasible from a development-effort perspective.&lt;/p&gt;
+
+&lt;p&gt;This does not mean that we are giving up on Hive and Infobright: on the contrary, we have big plans for both data storage targets.&lt;/p&gt;
+
+&lt;p&gt;For &lt;strong&gt;Hive users&lt;/strong&gt; - we are working on a new Avro-based storage format for Snowplow events. Being based on &lt;a href='http://avro.apache.org/'&gt;Avro&lt;/a&gt;, it should be less fragile than our existing flatfile approach, easily queryable from Hive using the &lt;a href='https://cwiki.apache.org/Hive/avroserde-working-with-avro-from-hive.html'&gt;AvroSerde&lt;/a&gt;, and &lt;em&gt;faster&lt;/em&gt; to query (because data is stored more efficiently in binary format). Evolving the Avro schema to incorporate our &lt;a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'&gt;event dictionary&lt;/a&gt; will also be much more straightforward. This will be the 0.9.x release series and should come later in Q2 or early Q3.&lt;/p&gt;
+
+&lt;p&gt;For &lt;strong&gt;Infobright users&lt;/strong&gt; - we will be adding Infobright support into the new Hadoop-based ETL later this year. If you would rather not wait, we recommend switching to Redshift now or switching to PostgreSQL support when this is released in late Q2.&lt;/p&gt;
+
+&lt;p&gt;We should also stress: it is totally safe for Infobright/Hive users to upgrade to 0.8.0: the Hive-based ETL process continues to work as before, and we will be continuing to support the Hive ETL with bug fixes etc for the foreseeable future.&lt;/p&gt;
+
+&lt;p&gt;As always, you can check out upcoming features on our &lt;a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'&gt;Product roadmap&lt;/a&gt; wiki page.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='limitations'&gt;4. Upgrading and usage&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Upgrading is simply a matter of:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Upgrading your EmrEtlRunner installation to the latest code on GitHub&lt;/li&gt;
+
+&lt;li&gt;Updating your &lt;code&gt;config.yml&lt;/code&gt; configuration file&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Nothing else is changed in this release.&lt;/p&gt;
+
+&lt;p&gt;You can see the template for the new &lt;code&gt;config.yml&lt;/code&gt; file format &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'&gt;here&lt;/a&gt;. The new format introduces a few new configuration options:&lt;/p&gt;
+
+&lt;h3 id='updated_and_new_buckets'&gt;Updated and new buckets&lt;/h3&gt;
+
+&lt;p&gt;Under &lt;code&gt;:buckets:&lt;/code&gt; we have changed the path to our hosted assets:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:assets: s3://snowplow-hosted-assets&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We have also added two new buckets:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:out_bad_rows: ADD HERE # Leave blank for Hive ETL.
+:out_errors: ADD HERE # Leave blank for Hive ETL.&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;out_bad_rows&lt;/code&gt; bucket will contain any raw SnowPlow log lines which did not pass the ETL&amp;#8217;s validation. If you set &lt;code&gt;continue_on_unexpected_error&lt;/code&gt; to true, then the &lt;code&gt;out_errors&lt;/code&gt; bucket will contain any raw SnowPlow log lines which caused an unexpected error.&lt;/p&gt;
+
+&lt;h3 id='new_etl_configuration'&gt;New ETL configuration&lt;/h3&gt;
+
+&lt;p&gt;Under &lt;code&gt;:etl:&lt;/code&gt; we have added:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:job_name: SnowPlow ETL # Give your job a name
+:implementation: hadoop # Or &amp;#39;hive&amp;#39; for legacy ETL&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;job_name&lt;/code&gt; should make it easier to identify your ETL job in the Elastic MapReduce console.&lt;/p&gt;
+
+&lt;p&gt;Change &lt;code&gt;implementation&lt;/code&gt; to &amp;#8220;hive&amp;#8221; to use our alternative Hive-based ETL process.&lt;/p&gt;
+
+&lt;h3 id='new_version'&gt;New version&lt;/h3&gt;
+
+&lt;p&gt;Under &lt;code&gt;:snowplow:&lt;/code&gt; we have added a new version to track our new ETL process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:hadoop_etl_version: 0.1.0&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;#8217;s it! Once you have made those configuration changes, you should be up-and-running with the new ETL process.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;5. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things</id>

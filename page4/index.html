@@ -47,6 +47,19 @@
 	
 		<div id="contents">
 	
+		<a name="What data should you be passing into your tag manager?" />
+		<div class="post">
+			21 Jan 2013
+			<h1><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></h1>
+			<p>Since the launch of <a href='https://www.google.com/tagmanager/'>Google Tag Manager</a>, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it <a href='https://www.google.com/tagmanager/'>GTM</a> or <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a> or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.</p>
+<img src='/static/img/tag-management/tag-management-schematic.gif' width='320' />
+<h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'>Why is it important to define, at implementation time, what data to pass to your tag manager?</h2>
+
+<p>One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the <em>best</em> solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.</p>
+<p class='more'><a href='/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow hits 202 stars" />
 		<div class="post">
 			20 Jan 2013
@@ -166,37 +179,6 @@
 			<span class="comments-link"><a href="/blog/2013/01/09/from-etl-to-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Using ChartIO to visualise SnowPlow data" />
-		<div class="post">
-			08 Jan 2013
-			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></h1>
-			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise SnowPlow data. Given the number of requests we get from SnowPlow users to recommend tools to assist with analytics on SnowPlow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on SnowPlow data using ChartIO.</p>
-
-<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
-
-<p>In this post we cover:</p>
-
-<ol>
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'>Why is ChartIO so good?</a></li>
-
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'>Setting up ChartIO to work with SnowPlow</a></li>
-
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
-</ol>
-<h2><a name='why'>Why is ChartIO so good?</a></h2>
-<p>ChartIO is great for two reasons:</p>
-
-<ol>
-<li><strong>Fast</strong>. ChartIO is quick to setup. (Because it is a hosted product, with a very nice script for establishing an SSH connection between your database and the ChartIO web application.) At the same time, it is very quick, once a data connection is established, to create new graphs and charts and embed them in dashboards.</li>
-
-<li><strong>Easy</strong>. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.</li>
-</ol>
-
-<p>ChartIO has one enormous advantage that makes it especially well suited to querying SnowPlow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>OLAP analysis</a> before they can be used. (We covered how to convert SnowPlow data into that format in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of SnowPlow data</strong>.</p>
-<p class='more'><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -216,6 +198,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+		
 			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 		
 			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
@@ -223,8 +207,6 @@
 			<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 		
 			<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
-		
-			<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
 		
 	</ul>
 
@@ -250,6 +232,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
 				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
@@ -257,8 +241,6 @@
 				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 				<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
-			
-				<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">SnowPlow 0.7.4 released for better eventstream analytics</a></li>
 			
 		
 		</ul>		

@@ -4,13 +4,75 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-10T11:10:04+01:00</updated>
+  <updated>2013-04-11T17:06:19+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/04/12/measuring-conversion-rates-by-product-and-product-page</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/measuring-conversion-rates-by-product-and-product-page"/>
+    <title>Using Snowplow to perform catalogue analytics</title>
+    <updated>2013-04-12T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalogue analytics. Today, we&amp;#8217;ve published the first recipes in the &lt;a href='/analytics/catalogue-analytics/overview.html'&gt;catalogue analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Snowplow Analytics Cookbook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='Example-catalogue-analytics' src='/static/img/analytics/catalogue-analytics/product-page-performance/scatter-plot.jpg' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this blog post, we&amp;#8217;ll outline&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='#what'&gt;What is catalogue analytics?&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/12/measuring-conversion-rates-by-product-and-product-page/#today'&gt;What recipes have been published today?&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/12/measuring-conversion-rates-by-product-and-product-page/#tomorrow'&gt;What catalogue analytics recipes can we expect published in the next few weeks and months?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--more--&gt;&lt;a name='what'&gt;&lt;h3&gt;What is catalogue analytics?&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;For very many websites, a &amp;#8220;catalogue&amp;#8221; is a central part of the user-proposition. For a retailer, for example, a catalogue is the collection of products they are selling. For a media site, a catalogue is the collection of content items (be they articles or videos) offered. For an affiliate site, a catalogue is the collection of links or offers available. For a vertical search site, a catalogue is the list of indexed entries presented to the user.&lt;/p&gt;
+
+&lt;p&gt;Understanding how well different items in that catalogue &amp;#8220;perform&amp;#8221; is key to enabling businesses to:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Source better &amp;#8220;items&amp;#8221; (e.g. by buying more effectively if they are a retailer, designing new products if they are a manufacturer, or producing better content if they are a media company)&lt;/li&gt;
+
+&lt;li&gt;Presenting &amp;#8220;items&amp;#8221; more effectively (e.g. by surfacing more popular items, using search and recommendation to enable users to dive more deeply into a product catalogue, or personalize the items shown based on user or item data)&lt;/li&gt;
+
+&lt;li&gt;Improving the &amp;#8220;items&amp;#8221; themselves (e.g. by tweaking product prices, content copy etc.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='today'&gt;&lt;h3&gt;What recipes have been published today?&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;Today, we published a set of recipes to enable businesses to compare the performance of product pages. The analysis described is especially relevant to online retailers - it makes it easy to identify:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Which products are good candidates for increased marketing spend, because they are highly converting pages but with low traffic levels?&lt;/li&gt;
+
+&lt;li&gt;Which product pages are underperforming: maybe because the products on them are not competitively priced, or because the content or images are weak?&lt;/li&gt;
+
+&lt;li&gt;Which products are star performers: attracting large volumes of traffic and converting those users effectively&lt;/li&gt;
+
+&lt;li&gt;Which products are dogs: they do not attract traffic, nor do they convert&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='tomorrow'&gt;&lt;h3&gt;What catalogue analytics recipes can we expect published in the next few weeks and months?&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;This is the just the start in what we hope will develop into a long series of catalogue analytics recipes. Some of the other recipes that we plan to add include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Analysing how well different content pieces drive engagement&lt;/li&gt;
+
+&lt;li&gt;Analysing how much different catalogue items contribute to driving traffic to a site&lt;/li&gt;
+
+&lt;li&gt;Analysing how much different catalogue items contribute to basket growth through up-sell and increased time-on-site&lt;/li&gt;
+
+&lt;li&gt;Personalising the items displayed to users based on user data and item data&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If there are other examples of catalogue analyses you would like us to include - drop us a line! We&amp;#8217;re always interested to explore new and innovative ways of using Snowplow data to drive business value&amp;#8230;&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation</id>

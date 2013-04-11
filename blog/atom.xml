@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-11T17:06:19+01:00</updated>
+  <updated>2013-04-11T17:24:20+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -21,7 +21,7 @@
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalogue analytics. Today, we&amp;#8217;ve published the first recipes in the &lt;a href='/analytics/catalogue-analytics/overview.html'&gt;catalogue analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Snowplow Analytics Cookbook&lt;/a&gt;.&lt;/p&gt;
+    <content type="html">&lt;p&gt;We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalogue analytics. Today, we&amp;#8217;ve published the &lt;a href='/analytics/catalogue-analytics/measuring-and-comparing-product-page-performance.html'&gt;first recipes&lt;/a&gt; in the &lt;a href='/analytics/catalogue-analytics/overview.html'&gt;catalogue analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Snowplow Analytics Cookbook&lt;/a&gt;. These cover &lt;a href='/analytics/catalogue-analytics/measuring-and-comparing-product-page-performance.html'&gt;how to measure and compare the performance of different product pages on a retailer site&lt;/a&gt;, using plots like the one below:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='Example-catalogue-analytics' src='/static/img/analytics/catalogue-analytics/product-page-performance/scatter-plot.jpg' /&gt;&lt;/p&gt;
 
@@ -42,22 +42,24 @@
 &lt;ol&gt;
 &lt;li&gt;Source better &amp;#8220;items&amp;#8221; (e.g. by buying more effectively if they are a retailer, designing new products if they are a manufacturer, or producing better content if they are a media company)&lt;/li&gt;
 
-&lt;li&gt;Presenting &amp;#8220;items&amp;#8221; more effectively (e.g. by surfacing more popular items, using search and recommendation to enable users to dive more deeply into a product catalogue, or personalize the items shown based on user or item data)&lt;/li&gt;
+&lt;li&gt;Presenting &amp;#8220;items&amp;#8221; more effectively (e.g. by surfacing more popular items, using search and recommendation to enable users to dive more deeply into a product catalogue, or personalise the items shown based on user or item data)&lt;/li&gt;
 
 &lt;li&gt;Improving the &amp;#8220;items&amp;#8221; themselves (e.g. by tweaking product prices, content copy etc.)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;a name='today'&gt;&lt;h3&gt;What recipes have been published today?&lt;/h3&gt;&lt;/a&gt;
-&lt;p&gt;Today, we published a set of recipes to enable businesses to compare the performance of product pages. The analysis described is especially relevant to online retailers - it makes it easy to identify:&lt;/p&gt;
+&lt;p&gt;Today, we published a &lt;a href='/analytics/catalogue-analytics/measuring-and-comparing-product-page-performance.html'&gt;set of recipes to enable businesses to compare the performance of product pages&lt;/a&gt;. The analysis described is especially relevant to online retailers - it makes it easy to identify:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Which products are good candidates for increased marketing spend, because they are highly converting pages but with low traffic levels?&lt;/li&gt;
+&lt;li&gt;Which products are good candidates for increased marketing spend, because they are highly converting pages but with low traffic levels&lt;/li&gt;
 
-&lt;li&gt;Which product pages are underperforming: maybe because the products on them are not competitively priced, or because the content or images are weak?&lt;/li&gt;
+&lt;li&gt;Which product pages are underperforming: maybe because the products on them are not competitively priced, or because the content or images are weak&lt;/li&gt;
 
 &lt;li&gt;Which products are star performers: attracting large volumes of traffic and converting those users effectively&lt;/li&gt;
 
 &lt;li&gt;Which products are dogs: they do not attract traffic, nor do they convert&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;You can check out the recipes &lt;a href='/analytics/catalogue-analytics/measuring-and-comparing-product-page-performance.html'&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;a name='tomorrow'&gt;&lt;h3&gt;What catalogue analytics recipes can we expect published in the next few weeks and months?&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;This is the just the start in what we hope will develop into a long series of catalogue analytics recipes. Some of the other recipes that we plan to add include:&lt;/p&gt;
 

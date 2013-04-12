@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-12T16:50:35+01:00</updated>
+  <updated>2013-04-12T17:05:30+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -89,14 +89,14 @@
 
 &lt;p&gt;To upgrade to 0.8.1 from 0.8.0, follow these steps:&lt;/p&gt;
 
-&lt;h3 id='41_etl'&gt;4.1 ETL&lt;/h3&gt;
+&lt;h3 id='31_etl'&gt;3.1 ETL&lt;/h3&gt;
 
 &lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to the latest version of the Hadoop ETL:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;:snowplow:
   :hadoop_etl_version: 0.2.0 # Version of the Hadoop ETL&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id='42_redshift'&gt;4.2 Redshift&lt;/h3&gt;
+&lt;h3 id='32_redshift'&gt;3.2 Redshift&lt;/h3&gt;
 
 &lt;p&gt;We have updated the Redshift table definition, you can find the latest version in the GitHub repository &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'&gt;here&lt;/a&gt;.&lt;/p&gt;
 
@@ -104,7 +104,7 @@
 
 &lt;p&gt;Also please note that we have had to remove the &amp;#8220;raw&amp;#8221; &lt;code&gt;referrer_url&lt;/code&gt; field from our Redshift events table for space reasons. This means that your historical data will lose &lt;strong&gt;all&lt;/strong&gt; referer information in your events table unless you run a re-computation, see below.&lt;/p&gt;
 
-&lt;h3 id='43_optional_recomputation'&gt;4.3 (Optional) Re-computation&lt;/h3&gt;
+&lt;h3 id='33_optional_recomputation'&gt;3.3 (Optional) Re-computation&lt;/h3&gt;
 
 &lt;p&gt;If you would like to see referer details for historic Snowplow events (i.e. events already in your Snowplow events table in Redshift), then we recommend re-running your Snowplow ETL process across all of your historical raw data.&lt;/p&gt;
 
@@ -112,13 +112,13 @@
 
 &lt;p&gt;To re-run your Snowplow ETL process across all your historical data, please see our answer to &lt;a href='https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events'&gt;I want to recompute my SnowPlow events, how?&lt;/a&gt; on the Troubleshooting wiki page.&lt;/p&gt;
 
-&lt;h3 id='44_usage'&gt;4.4 Usage&lt;/h3&gt;
+&lt;h3 id='34_usage'&gt;3.4 Usage&lt;/h3&gt;
 
 &lt;p&gt;And that&amp;#8217;s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You can see the full list of issues delivered in Snowplow 0.8.1 on &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=16'&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</content>
+&lt;p&gt;You can see the full list of issues delivered in Snowplow 0.8.1 on &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;amp;page=1&amp;amp;state=closed'&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</content>
   </entry>
   
   <entry>

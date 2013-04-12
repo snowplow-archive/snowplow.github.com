@@ -117,14 +117,14 @@
 
 <p>To upgrade to 0.8.1 from 0.8.0, follow these steps:</p>
 
-<h3 id='41_etl'>4.1 ETL</h3>
+<h3 id='31_etl'>3.1 ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
 
 <pre><code>:snowplow:
   :hadoop_etl_version: 0.2.0 # Version of the Hadoop ETL</code></pre>
 
-<h3 id='42_redshift'>4.2 Redshift</h3>
+<h3 id='32_redshift'>3.2 Redshift</h3>
 
 <p>We have updated the Redshift table definition, you can find the latest version in the GitHub repository <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'>here</a>.</p>
 
@@ -132,7 +132,7 @@
 
 <p>Also please note that we have had to remove the &#8220;raw&#8221; <code>referrer_url</code> field from our Redshift events table for space reasons. This means that your historical data will lose <strong>all</strong> referer information in your events table unless you run a re-computation, see below.</p>
 
-<h3 id='43_optional_recomputation'>4.3 (Optional) Re-computation</h3>
+<h3 id='33_optional_recomputation'>3.3 (Optional) Re-computation</h3>
 
 <p>If you would like to see referer details for historic Snowplow events (i.e. events already in your Snowplow events table in Redshift), then we recommend re-running your Snowplow ETL process across all of your historical raw data.</p>
 
@@ -140,13 +140,13 @@
 
 <p>To re-run your Snowplow ETL process across all your historical data, please see our answer to <a href='https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events'>I want to recompute my SnowPlow events, how?</a> on the Troubleshooting wiki page.</p>
 
-<h3 id='44_usage'>4.4 Usage</h3>
+<h3 id='34_usage'>3.4 Usage</h3>
 
 <p>And that&#8217;s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.</p>
 <h2><a name='help'>4. Getting help</a></h2>
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
-<p>You can see the full list of issues delivered in Snowplow 0.8.1 on <a href='https://github.com/snowplow/snowplow/issues?milestone=16'>GitHub</a>.</p>
+<p>You can see the full list of issues delivered in Snowplow 0.8.1 on <a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;page=1&amp;state=closed'>GitHub</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

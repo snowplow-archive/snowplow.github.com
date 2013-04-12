@@ -47,6 +47,25 @@
 	
 		<div id="contents">
 	
+		<a name="How the role of Hive is changing in SnowPlow" />
+		<div class="post">
+			12 Oct 2012
+			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
+			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
+
+<ol>
+<li>How big data technologies like Apache Hive are transforming web analytics</li>
+
+<li>Howe we&#8217;ve used Hive in SnowPlow development</li>
+
+<li>How the role of Hive has changed at SnowPlow over time, including a comparison of Hive against other technologies.</li>
+</ol>
+
+<p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
+			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.4.10 released with Hive deserializer improvements" />
 		<div class="post">
 			11 Oct 2012
@@ -202,37 +221,6 @@
 			<span class="comments-link"><a href="/blog/2012/09/14/snowplow-0.4.8-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.7 released with additional JavaScript tracking options" />
-		<div class="post">
-			06 Sep 2012
-			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></h1>
-			<p>We have just released SnowPlow version <strong>0.4.7</strong>. This release bumps the SnowPlow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
-
-<ol>
-<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
-
-<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
-</ol>
-
-<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
-
-<p>We&#8217;ll take a look at both of these new features in turn:</p>
-
-<h2 id='site_id'>Site ID</h2>
-
-<p>The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-</code></pre></div>
-<p>The querystring passed to your SnowPlow collector will now include the following parameter:</p>
-
-<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
-
-<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well. <p class='more'><a href='/blog/2012/09/06/snowplow-0.4.7-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/09/06/snowplow-0.4.7-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -241,7 +229,7 @@
 			<a href="/page8" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 9 of 10</span>
+		<span class="page_number">Page: 9 of 11</span>
 		
 			<a href="/page10" class="next">Next</a>
 		
@@ -252,6 +240,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+		
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -259,8 +249,6 @@
 			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 		
 			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-		
-			<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 		
 	</ul>
 
@@ -286,6 +274,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
@@ -293,8 +283,6 @@
 				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
 				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
-			
-				<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
 			
 		
 		</ul>		

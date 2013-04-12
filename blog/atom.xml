@@ -4,13 +4,122 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-12T14:40:50+01:00</updated>
+  <updated>2013-04-12T16:50:35+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing"/>
+    <title>Snowplow 0.8.1 released with referer URL parsing</title>
+    <updated>2013-04-12T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow &lt;strong&gt;0.8.1&lt;/strong&gt;. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!&lt;/p&gt;
+
+&lt;p&gt;Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Were they driven by a search engine, social network, or link in an email program?&lt;/li&gt;
+
+&lt;li&gt;If so, which search engine / social network / email program?&lt;/li&gt;
+
+&lt;li&gt;If they were driven by a search engine, what query did they enter?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This data is key for performing attribution analytics.&lt;/p&gt;
+
+&lt;p&gt;Snowplow delivers the above functionality by parsing the page referer URIs which the JavaScript tracker sends to the collector. The Snowplow enrichment layer does a couple of things with these referer URIs:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It splits the referer URL into its six components (scheme, host, port, path, query, fragment). This makes querying referer data significantly easier, as we hope to show in future blog posts and attribution analytics recipes&lt;/li&gt;
+
+&lt;li&gt;It looks up the referer URL in a database of known referers and attempts to extract details about this referer, which you can then use for marketing attribution. (For example - is the referer a search engine, or social network? What query did the user enter in the search engine?)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'&gt;Referer parsing implementation&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'&gt;Some example data&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'&gt;Upgrading and usage&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Read on below the fold to find out more.&lt;/p&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='referer-parsing'&gt;1. Referer parsing implementation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The extraction of the referer URL into its six components is relatively straightforward. The second stage, looking up the referer URL in a database of known referers, is worth discussing in a little more detail.&lt;/p&gt;
+
+&lt;p&gt;Our referer analysis process uses the latest version of our separate and standalone &lt;a href='https://github.com/snowplow/referer-parser/tree/feature/social'&gt;referer-parser&lt;/a&gt; library. This library comes with a sizeable database of known referers, including search engines, social networks and webmail providers. You can view the library &lt;a href='https://github.com/snowplow/referer-parser/blob/feature/social/referers.yml'&gt;here&lt;/a&gt;. It is a straightforward YAML file containing a long list of referers. Because this is an open source list, anyone can contribute additional referers to it. In this way, we hope it will remain one of the most extensive and authoritative lists of referers to use in web analytics.&lt;/p&gt;
+
+&lt;p&gt;Snowplow feeds the referer URI and page URI to referer-parser to identify which &lt;code&gt;refr_medium&lt;/code&gt; this referer URL belongs to:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;#8220;search&amp;#8221; means that this referer is a known search engine&lt;/li&gt;
+
+&lt;li&gt;&amp;#8220;social&amp;#8221; means a social network or similar site&lt;/li&gt;
+
+&lt;li&gt;&amp;#8220;email&amp;#8221; means a webmail provider such as Yahoo! Mail&lt;/li&gt;
+
+&lt;li&gt;&amp;#8220;internal&amp;#8221; means that the referer was another page on the same domain&lt;/li&gt;
+
+&lt;li&gt;&amp;#8220;unknown&amp;#8221; means that there was a referer, but we couldn&amp;#8217;t identify it as belonging to one of the other categories&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If the referer can be found in the referer-parser database, Snowplow stores the name of the refering site in the &lt;code&gt;refr_source&lt;/code&gt; field.&lt;/p&gt;
+
+&lt;p&gt;Finally, if the referer is a &amp;#8220;search&amp;#8221; referer and Snowplow can pull out a search query from the referer URL, it then stores this search term in the &lt;code&gt;refr_term&lt;/code&gt; field.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='example-data'&gt;2. Example data&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Here is an excerpt of referer data from an ecommerce retailer - right-click and select &amp;#8220;Open in New Tab&amp;#8221; to see this at full size:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='parsed-referers-img' src='/static/img/blog/2013/04/parsed-referers.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, in this excerpt we have a variety of different referers - some internal pages and some search pages (Google, Google Images, Bing Images and AOL).&lt;/p&gt;
+&lt;h2&gt;&lt;a name='upgrading-usage'&gt;3. Upgrading and usage&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As with the 0.8.0 release, this new release assumes that you are running the Hadoop (Scalding) ETL and feeding your data into Redshift.&lt;/p&gt;
+
+&lt;p&gt;To upgrade to 0.8.1 from 0.8.0, follow these steps:&lt;/p&gt;
+
+&lt;h3 id='41_etl'&gt;4.1 ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to the latest version of the Hadoop ETL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  :hadoop_etl_version: 0.2.0 # Version of the Hadoop ETL&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='42_redshift'&gt;4.2 Redshift&lt;/h3&gt;
+
+&lt;p&gt;We have updated the Redshift table definition, you can find the latest version in the GitHub repository &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you already have your Snowplow data in the previous version of the Redshift events table, then we have written &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.0.1_to_0.1.0.sql'&gt;a migration script&lt;/a&gt; to handle the upgrade. &lt;strong&gt;Please review this script carefully before running and check that you are happy with how it handles the upgrade.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Also please note that we have had to remove the &amp;#8220;raw&amp;#8221; &lt;code&gt;referrer_url&lt;/code&gt; field from our Redshift events table for space reasons. This means that your historical data will lose &lt;strong&gt;all&lt;/strong&gt; referer information in your events table unless you run a re-computation, see below.&lt;/p&gt;
+
+&lt;h3 id='43_optional_recomputation'&gt;4.3 (Optional) Re-computation&lt;/h3&gt;
+
+&lt;p&gt;If you would like to see referer details for historic Snowplow events (i.e. events already in your Snowplow events table in Redshift), then we recommend re-running your Snowplow ETL process across all of your historical raw data.&lt;/p&gt;
+
+&lt;p&gt;This is also advisable given that we have removed the raw &lt;code&gt;referrer_url&lt;/code&gt; field from our Redshift table definition for space reasons.&lt;/p&gt;
+
+&lt;p&gt;To re-run your Snowplow ETL process across all your historical data, please see our answer to &lt;a href='https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events'&gt;I want to recompute my SnowPlow events, how?&lt;/a&gt; on the Troubleshooting wiki page.&lt;/p&gt;
+
+&lt;h3 id='44_usage'&gt;4.4 Usage&lt;/h3&gt;
+
+&lt;p&gt;And that&amp;#8217;s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see the full list of issues delivered in Snowplow 0.8.1 on &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=16'&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow</id>

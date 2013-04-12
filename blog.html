@@ -47,6 +47,49 @@
 	
 		<div id="contents">
 	
+		<a name="Snowplow 0.8.1 released" />
+		<div class="post">
+			12 Apr 2013
+			<h1><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></h1>
+			<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
+
+<p>Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:</p>
+
+<ol>
+<li>Were they driven by a search engine, social network, or link in an email program?</li>
+
+<li>If so, which search engine / social network / email program?</li>
+
+<li>If they were driven by a search engine, what query did they enter?</li>
+</ol>
+
+<p>This data is key for performing attribution analytics.</p>
+
+<p>Snowplow delivers the above functionality by parsing the page referer URIs which the JavaScript tracker sends to the collector. The Snowplow enrichment layer does a couple of things with these referer URIs:</p>
+
+<ol>
+<li>It splits the referer URL into its six components (scheme, host, port, path, query, fragment). This makes querying referer data significantly easier, as we hope to show in future blog posts and attribution analytics recipes</li>
+
+<li>It looks up the referer URL in a database of known referers and attempts to extract details about this referer, which you can then use for marketing attribution. (For example - is the referer a search engine, or social network? What query did the user enter in the search engine?)</li>
+</ol>
+
+<p>We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'>Referer parsing implementation</a></li>
+
+<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'>Some example data</a></li>
+
+<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'>Upgrading and usage</a></li>
+
+<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more.</p>
+<p class='more'><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Online catalog analytics" />
 		<div class="post">
 			12 Apr 2013
@@ -166,30 +209,13 @@
 			<span class="comments-link"><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Rob Slifka's Elasticity" />
-		<div class="post">
-			20 Mar 2013
-			<h1><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></h1>
-			<p><em>The SnowPlow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the SnowPlow project literally could not exist.</em></p>
-
-<p><em>As part of our &#8220;Inside the Plow&#8221; series, we will also be showcasing some of these core components of the SnowPlow stack, and talking to their creators. To kick us off, we are delighted to have <a href='https://twitter.com/robslifka'>Rob Slifka</a>, VP of <a href='http://www.sharethrough.com/engineering'>Engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> in San Francisco, talking to us about his <a href='https://github.com/rslifka/elasticity'>Elasticity</a> project. For those who aren&#8217;t aware: Elasticity is a Ruby library which we use as part of our <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>, to make it easy to automate the SnowPlow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.</em></p>
-
-<p><em>With the introductions done, let&#8217;s hand over to Rob to tell us a bit about himself, Elasticity and what he&#8217;s working on next:</em></p>
-
-<p><img alt='rob-slifka-img' src='/static/img/blog/2013/03/rob-slifka.jpeg' /></p>
-
-<p>Thanks Alex! Quick bit about me: I&#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href='http://www.sharethrough.com/engineering'>engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href='https://github.com/rslifka/elasticity'>Elasticity</a> comes in.</p>
-<p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/03/20/rob-slifka-elasticity#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
 		
 			<span class="previous">Previous</span>
 		
-		<span class="page_number">Page: 1 of 10</span>
+		<span class="page_number">Page: 1 of 11</span>
 		
 			<a href="/page2" class="next">Next</a>
 		
@@ -200,6 +226,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+		
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -207,8 +235,6 @@
 			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 		
 			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-		
-			<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 		
 	</ul>
 
@@ -234,6 +260,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
@@ -241,8 +269,6 @@
 				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
 				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
-			
-				<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
 			
 		
 		</ul>		

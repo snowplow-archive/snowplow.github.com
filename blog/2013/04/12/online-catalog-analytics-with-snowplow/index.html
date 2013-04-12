@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Online catalog analytics with Snowplow - SnowPlow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">SnowPlow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			12 Apr 2013
+			<h1>Online catalog analytics with Snowplow</h1>
+			<p>We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalog analytics for retailers. Today, we&#8217;ve published the <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>first recipes</a> in the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Snowplow Analytics Cookbook</a>. These cover <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>how to measure and compare the performance of different product pages on an ecommerce site</a>, using plots like the one below:</p>
+
+<p><img alt='Example-catalog-analytics' src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' /></p>
+
+<p>In this blog post, we will briefly outline:</p>
+
+<ul>
+<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#what'>What is catalog analytics?</a></li>
+
+<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#today'>What recipes have been published today?</a></li>
+
+<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#tomorrow'>What catalog analytics recipes can we expect published in the next few weeks and months?</a></li>
+</ul>
+<!--more--><a name='what'><h3>What is catalog analytics?</h3></a>
+<p>For very many online businesses, a &#8220;catalog&#8221; is a central part of the user-proposition. For a retailer, for example, a catalog is the collection of products they are selling. For a media site, a catalog is the collection of content items (be they articles or videos) offered. For an affiliate site, a catalog is the collection of links or offers available. For a vertical search site, a catalog is the list of indexed entries presented to the user.</p>
+
+<p>Understanding how well different items in that catalog &#8220;perform&#8221; is key to enabling these businesses to:</p>
+
+<ol>
+<li>Source better catalog items - e.g. by buying more effectively if they are a retailer, or designing new products if they are a manufacturer, or producing better content if they are a media company</li>
+
+<li>Present catalog items more effectively - e.g. by surfacing more popular items, using search and recommendation to enable users to dive more deeply into the catalog, or personalise the items shown based on user or item data</li>
+
+<li>Optimize the existing catalog items - e.g. by tweaking product prices, adjusting content copy and so on</li>
+</ol>
+<a name='today'><h3>Which catalog analytics recipes have been published today?</h3></a>
+<p>Today, we published a <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>set of recipes to enable businesses to compare the performance of product pages</a>. The published analysis is particularly relevant to online retailers - it makes it easy for them to identify:</p>
+
+<ol>
+<li>Which products are good candidates for increased marketing spend: namely, highly converting pages with low traffic levels</li>
+
+<li>Which product pages are underperforming: perhaps because the products on them are not competitively priced, or because the content or images are weak</li>
+
+<li>Which products are &#8220;star performers&#8221;: attracting large volumes of traffic and converting those users effectively</li>
+
+<li>Which products are &#8220;dogs&#8221;: products which do not attract traffic, and do not convert the traffic they do get</li>
+</ol>
+
+<p>You can check out the recipes <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>here</a>.</p>
+<a name='tomorrow'><h3>Which catalog analytics recipes will be published next?</h3></a>
+<p>These recipes are just the start in what we hope will develop into a long series of recipes for catalog analytics. Some of the other recipes that we plan to add include:</p>
+
+<ol>
+<li>Analysing how well individual content pieces drive engagement-on-site</li>
+
+<li>Analysing how much different catalog items contribute to driving traffic to a site</li>
+
+<li>Analysing how well different catalog items contribute to basket growth through up-sell and increased time-on-site</li>
+
+<li>Personalising the items displayed to users based on user data and item data</li>
+</ol>
+
+<p>If there are other examples of catalog analyses you would like us to include - <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>drop us a line</a>! We&#8217;re always interested to explore new and innovative ways of using Snowplow data to drive business value&#8230;</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
+		
+			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+		
+			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
+		
+			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+		
+			<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
+			
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+			
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+			
+				<li><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">SnowPlow 0.7.5 released with important JavaScript fix</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+			
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+			
+				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
+			
+		
+		</ul>		
+	
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

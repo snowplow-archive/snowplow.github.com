@@ -51,6 +51,8 @@
 <li><a href='#page_pings'>Understanding page ping events</a></li>
 
 <li><a href='#single-user-journey'>Visualizing an individual user journey through your website</a></li>
+
+<li><a href='#single-page'>Visualizing how a user engages with a particular web page over time</a></li>
 </ol>
 <a name='page_pings'><h2>Understanding page ping events</h2></a>
 <p>Snowplow includes a specific event type to help understand how users engage with content rich pages over time: Page Pings. This is a feature of the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-pagepings'>Javascript tracker</a>.</p>
@@ -69,7 +71,7 @@
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;enableActivityTracking&#39;</span><span class='p'>,</span> <span class='mi'>30</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>]);</span>
 </code></pre></div>
 <p>The first ping would occur after 30 seconds, and subsequent pings every 10 seconds.</p>
-<a name='single-user-journey'><h2>Visualizing how an individual user journey through your website</h2></a>
+<a name='single-user-journey'><h2>Visualizing an individual user journey through your website</h2></a>
 <p>We can pull up a stream of the page view and page ping events for a particular user over time executing a query like this:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -102,7 +104,7 @@
 <li>To make the visualization easier to read, drag <code>page_urlpath</code> from the dimensions pane to the &#8216;Color&#8217; mark. You should now see a visualization like the one shown below: (Click to zoom in.)</li>
 </ul>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-1.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-1.JPG' /></a>
-<p>Concentrating on the graphic specifically:</p>
+<p>Concentrating on the graphic specifically: (Click to zoom in.)</p>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg' /></a>
 <p>A number of things become apparent very quickly:</p>
 
@@ -115,6 +117,42 @@
 
 <li>Although the user spent a most of his / her time on the blog, he / she did engage with content on the rest of the site. In particular, he / she viewed all four pages in the &#8216;services&#8217; section, and spent the most time between thme on the &#8216;custom-development&#8217; page. Maybe this is a user we should target with advertising for our professional services offering?</li>
 </ol>
+<a name='single-page'><h2>Visualizing how a user engages with a particular web page over time</h2></a>
+<p>We can use Snowplow data not just to visualize a user&#8217;s interaction with the different pages on a website, but also zoom in on his / her interaction with a particular web page.</p>
+
+<p>In the above example, we saw that this particular user spent some time on the &#8216;From ETL to Enrichment&#8217; blog post. We can execute the following query to understand how he / she scrolled over that web page during that time period:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
+<span class='k'>SELECT</span> 
+	<span class='kt'>TIMESTAMP</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>tstamp</span><span class='p'>,</span>
+	<span class='n'>page_urlpath</span><span class='p'>,</span>
+	<span class='n'>event</span><span class='p'>,</span>
+	<span class='n'>pp_xoffset_min</span><span class='p'>,</span>
+	<span class='n'>pp_xoffset_max</span><span class='p'>,</span>
+	<span class='n'>pp_yoffset_min</span><span class='p'>,</span>
+	<span class='n'>pp_yoffset_max</span><span class='p'>,</span>
+	<span class='n'>br_viewwidth</span><span class='p'>,</span>
+	<span class='n'>br_viewheight</span><span class='p'>,</span>
+	<span class='n'>doc_width</span><span class='p'>,</span>
+	<span class='n'>doc_height</span>
+<span class='k'>FROM</span> <span class='ss'>`events_008_clj`</span>
+<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
+<span class='k'>AND</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;%etl-to-enrichment%&#39;</span><span class='p'>;</span>
+</code></pre></div>
+<p>We can load that data into Tableau:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg' /></a>
+<p>A number of things that should be apparent from the above data:</p>
+
+<ul>
+<li>Over the course of the c.6 minutes the user is on the page, he / she scrolls all the way from the top to the bottom. We can see that they scrolled to the very bottom of the page, because the maximum value for the y-offset (<code>pp_yoffset_max</code>) + the browser view-height (<code>br_viewheight</code>) = the document height (<code>doc_height</code>)</li>
+
+<li>The user does not scroll left or right at all. (<code>pp_xoffset_min</code> and <code>pp_xoffset_max</code> are 0 for every page ping.) This is not surprising, as the document width is 1,509 pixels, and the browser view width is 1,509 pixels. (So the complete web page width is visible in the browser.)</li>
+</ul>
+
+<p>We can easily plot how the user scrolls down the page over time in Tableau, by plotting either the <code>pp_yoffset_min</code> or <code>pp_yoffset_max</code> against time in seconds. (To do this, simply drag <code>tstamp</code> to the columns shelf, drag <code>ppy_offset_min</code> or <code>pp_yoffset_max</code> to the rows shelf, and select the line graph.) A plot like the following appears:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG' /></a>
+<p>The most striking thing about the above graph is that the user appears to read the top of the page in fair detail (spending a good 30 seconds there) before scrolling down almost 4000 pixels in a single (10 second) ping period. That becomes less surprising if we look at the actual blog post itself:</p>
+<p style='text-align: center'><a href='/static/img/analytics/catalog-analytics/content-page-performance/from-etl-to-enrichment-page-with-measurements.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/from-etl-to-enrichment-page-with-measurements.JPG' /></a></p>
+<p>The user has quickly scrolled over the flow chart that extends from c.600 pixels down the post to c.3200 pixels down the post, and is engaging much more closely with the text on either side, than the image itself.</p>
 </div>
 
  <div id="sidebar">

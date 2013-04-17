@@ -46,7 +46,75 @@
 </div>
 	
 		<div id="contents">
-<p>This content is coming soon!</p>
+<a name='top'><h1>Measuring content page performance</h1></a>
+<ol>
+<li><a href='#page_pings'>Understanding page ping events</a></li>
+
+<li><a href='#single-user-journey'>Visualizing an individual user journey through your website</a></li>
+</ol>
+<a name='page_pings'><h2>Understanding page ping events</h2></a>
+<p>Snowplow includes a specific event type to help understand how users engage with content rich pages over time: Page Pings. This is a feature of the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-pagepings'>Javascript tracker</a>.</p>
+
+<p>If enabled in the Javascript tracker, page ping events are fired at regular intervals, so long as a user continues to engage with the page. (&#8216;Engage&#8217; in this context is defined very broadly: if the user does <em>anything</em> with the web page e.g. scrolls, mouses over images etc., it counts as engagement. If, on the other hand, a user goes to a different tab on their browser, or a different application, the page pings stop.) With each page ping, several data points are recorded:</p>
+
+<ul>
+<li><code>pp_xoffset_min</code> and <code>pp_xoffset_max</code>: the minimum and maximum page x offset in the last ping period</li>
+
+<li><code>pp_yoffset_min</code> and <code>pp_yoffset_max</code>: the minimum and maximum page y offset in the last ping period</li>
+</ul>
+
+<p>By looking at these values and comparing them with the browser window dimensions (<code>br_viewwidth</code> and <code>br_viewheight</code>) and web page dimensions (<code>doc_width</code> and <code>doc_height</code>), we can analyse how users scroll over a web page over time.</p>
+
+<p>Page pings are enabled using the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-pagepings'>enableActivityTracking</a> function in the Javascript tracker. When enabled, you can configure what time period the user needs to engage with the page, since the page load, before the first page ping event occurs, and then over what period a user must continue to engage with the web page before the next page ping is sent. So, for example, if the Javascript function is called as follows:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;enableActivityTracking&#39;</span><span class='p'>,</span> <span class='mi'>30</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>]);</span>
+</code></pre></div>
+<p>The first ping would occur after 30 seconds, and subsequent pings every 10 seconds.</p>
+<a name='single-user-journey'><h2>Visualizing how an individual user journey through your website</h2></a>
+<p>We can pull up a stream of the page view and page ping events for a particular user over time executing a query like this:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='kt'>TIMESTAMP</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>tstamp</span><span class='p'>,</span>
+	<span class='n'>page_urlpath</span><span class='p'>,</span>
+	<span class='n'>page_title</span><span class='p'>,</span>
+	<span class='n'>event</span>
+<span class='k'>FROM</span>
+<span class='n'>events_008_clj</span>
+<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
+<span class='k'>AND</span> <span class='p'>(</span><span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span>
+<span class='k'>OR</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span><span class='p'>)</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>tstamp</span>
+</code></pre></div>
+<p>We can visualize the above user journey in Tableau:</p>
+
+<ul>
+<li>Connect Tableau to your Redshift / Infobright instance, but instead of connecting to your Snowplow events table directly, execute the above custom SQL</li>
+</ul>
+<p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-custom-sql.JPG' width='250' /></p>
+<ul>
+<li>Drag the <code>tstamp</code> dimension into the columns shelf and set it to show &#8216;seconds&#8217;. (Rather than the default &#8216;years&#8217;)</li>
+
+<li>Drag the <code>page_urlpath</code> dimension to the rows shelf. You should now see a Gantt style view of the user journey through the different web pages</li>
+
+<li>To make the visualization clearer, we list the <code>page_urlpath</code> in the order in which this user visited them. Click on the <code>page_urlpath</code> in the rows shelf, select &#8216;sort&#8217; from the dropdown, and select &#8216;Sort by&#8230; Field&#8217;. In the field dropdown, select <code>tstamp</code> and in the aggregation dropdown, select <code>Minimum</code>. Click &#8216;Apply&#8217;</li>
+
+<li>To make the visualization easier to read, drag <code>page_urlpath</code> from the dimensions pane to the &#8216;Color&#8217; mark. You should now see a visualization like the one shown below: (Click to zoom in.)</li>
+</ul>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-1.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-1.JPG' /></a>
+<p>Concentrating on the graphic specifically:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg' /></a>
+<p>A number of things become apparent very quickly:</p>
+
+<ol>
+<li>This user was browsing the Snowplow website on-and-off for a pretty long period that lasted between 3pm and 7pm on April 14th</li>
+
+<li>Although the user arrived on the <code>/technology/index.html</code> page, he / she actually spent the bulk of their time viewing the blog</li>
+
+<li>The blog posts that they particularly engaged with were &#8216;From ETL to Enrichment&#8217;, &#8216;Snowplow in a Universal Analytics world&#8217;</li>
+
+<li>Although the user spent a most of his / her time on the blog, he / she did engage with content on the rest of the site. In particular, he / she viewed all four pages in the &#8216;services&#8217; section, and spent the most time between thme on the &#8216;custom-development&#8217; page. Maybe this is a user we should target with advertising for our professional services offering?</li>
+</ol>
 </div>
 
  <div id="sidebar">

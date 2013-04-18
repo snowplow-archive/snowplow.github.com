@@ -47,6 +47,40 @@
 	
 		<div id="contents">
 	
+		<a name="SnowPlow 0.4.8 released with Hive deserializer improvements" />
+		<div class="post">
+			14 Sep 2012
+			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></h1>
+			<p>We have just released SnowPlow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+
+<ol>
+<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+
+<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+
+<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+
+<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+</ol>
+
+<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+
+<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+
+<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+
+<ul>
+<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+
+<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+
+<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
+</ul>
+
+<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <p class='more'><a href='/blog/2012/09/14/snowplow-0.4.8-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/09/14/snowplow-0.4.8-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.4.7 released with additional JavaScript tracking options" />
 		<div class="post">
 			06 Sep 2012
@@ -143,28 +177,6 @@
 			<span class="comments-link"><a href="/blog/2012/08/14/updated-hive-serde-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="snowcannon" />
-		<div class="post">
-			13 Aug 2012
-			<h1><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for SnowPlow</a></h1>
-			<p>We are hugely excited to introduce <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, a Node.js collector for SnowPlow, authored by <a href='http://twitter.com/shermozle'>@shermozle</a>.</p>
-
-<p>SnowCannon is an alternative collector to the default cloudfront collector included with SnowPlow. It offers a number of significant advantages over the Cloudfront connector:</p>
-
-<ol>
-<li>It allows the use of 3rd party cookies. In particular, this makes it possible to track usage across multiple domains</li>
-
-<li>It enables real-time analytics. (This is not possible with the Cloudfront-enabled collector, where there&#8217;s a 20-30 minute delay between the javascript tracking event and the associated log being written to S3.)</li>
-</ol>
-
-<p>To learn more about SnowCannon, visit the <a href='https://github.com/shermozle/SnowCannon'>Github repo</a>.</p>
-
-<p>SnowCannon is the first user-contributed module for SnowPlow, and we are delighted to see community members working to build out the SnowPlow platform. There are other contributions in the works, including a SnowPlow IOS client, that we hope to be announcing shortly.</p>
-
-<p>To encourage users to extend SnowPlow, we&#8217;ve architected SnowPlow in a module way, to enable developers to swap out elements in the SnowPlow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the SnowPlow architecture <a href='/product/technical-architecture.html'>here</a>.</p>
-			<span class="comments-link"><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -184,6 +196,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+		
 			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 		
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
@@ -191,8 +205,6 @@
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 		
 			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-		
-			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 		
 	</ul>
 
@@ -234,6 +246,8 @@
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 			

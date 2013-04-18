@@ -4,13 +4,39 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-17T16:48:36+01:00</updated>
+  <updated>2013-04-18T14:13:40+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow"/>
+    <title>Measuring content page performance with Snowplow (Catalog Analytics part 2)</title>
+    <updated>2013-04-18T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week, we started building out the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;Catalog Analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;, with a section documenting how to &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;measure the effectiveness of your product pages&lt;/a&gt;. Those recipes were geared specifically towards retailers.&lt;/p&gt;
+
+&lt;p&gt;This week, we&amp;#8217;ve added an extra section to the cookbook, covering &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'&gt;how to measure engagement levels with content pages&lt;/a&gt;. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money&lt;/p&gt;
+
+&lt;p&gt;In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:&lt;/p&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:&lt;/p&gt;
+&lt;!--more--&gt;&lt;a href='/static/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;Comparing how long visitors dwell on average on different pages:&lt;/p&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;Visualizing individual user journeys through a site, including identifying web pages on that visit that were particularly significant:&lt;/p&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;Visualizing an individual user journey across a web page:&lt;/p&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG'&gt;&lt;img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG' /&gt;&lt;/a&gt;
+&lt;p&gt;We have much more content planned for the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;. As always, we invite suggestions as to the type of analysis you&amp;#8217;d like us to cover, and contributions from people who&amp;#8217;ve used Snowplow data to perform useful analytics.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing</id>

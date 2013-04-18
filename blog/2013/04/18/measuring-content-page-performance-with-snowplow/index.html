@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.7.5 released with important JavaScript fix - SnowPlow Analytics</title>
+	<title>Measuring content page performance with Snowplow (Catalog Analytics part 2) - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,21 +47,23 @@
 	
 		<div id="contents">
 		<div class="post">
-			25 Feb 2013
-			<h1>SnowPlow 0.7.5 released with important JavaScript fix</h1>
-			<p>We are releasing SnowPlow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in SnowPlow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
+			18 Apr 2013
+			<h1>Measuring content page performance with Snowplow (Catalog Analytics part 2)</h1>
+			<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
 
-<p>Essentially, version 0.9.1 of the JavaScript tracker (released in SnowPlow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on SnowPlow&#8217;s first-party cookies when sent via HTTPS pages.</p>
+<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
 
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, SnowPlow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
-
-<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
-
-<p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
-
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
+<p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
+<!--more--><a href='/static/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg' /></a>
+<p>Comparing how long visitors dwell on average on different pages:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg' /></a>
+<p>Visualizing individual user journeys through a site, including identifying web pages on that visit that were particularly significant:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg' /></a>
+<p>Visualizing an individual user journey across a web page:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG' /></a>
+<p>We have much more content planned for the <a href='/analytics/index.html'>Analytics Cookbook</a>. As always, we invite suggestions as to the type of analysis you&#8217;d like us to cover, and contributions from people who&#8217;ve used Snowplow data to perform useful analytics.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

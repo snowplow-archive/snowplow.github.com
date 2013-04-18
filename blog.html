@@ -47,6 +47,21 @@
 	
 		<div id="contents">
 	
+		<a name="Measuring content page performance" />
+		<div class="post">
+			18 Apr 2013
+			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
+			<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
+
+<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
+
+<p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
+<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
+<p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
+<p class='more'><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Snowplow 0.8.1 released" />
 		<div class="post">
 			12 Apr 2013
@@ -173,42 +188,6 @@
 			<span class="comments-link"><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow Arduino Tracker released" />
-		<div class="post">
-			25 Mar 2013
-			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
-			<p>Today we are releasing our first non-Web tracker for SnowPlow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>SnowPlow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
-
-<p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, SnowPlow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
-
-<p><img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /></p>
-
-<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and SnowPlow communities will use it for! Some ideas we had were:</p>
-
-<ol>
-<li>Deploying a set of SnowPlow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home</li>
-
-<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href='http://arduino.cc/blog/category/wireless/rfid/'>RFID readers</a> and SnowPlow</li>
-
-<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to SnowPlow using Arduino&#8217;s <a href='http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps'>3G and GPS</a> shields</li>
-</ol>
-
-<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to SnowPlow - you can find his project on GitHub at <a href='https://github.com/alexanderdean/arduino-temp-tracker'>alexanderdean/arduino-temp-tracker</a>.</p>
-
-<p>Want to find out more? To get started using our event tracker for Arduino, check out:</p>
-
-<ul>
-<li>The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>GitHub repository</a></li>
-
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'>Technical Documentation</a></li>
-
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'>Setup Guide</a></li>
-</ul>
-
-<p>Happy making!</p>
-			<span class="comments-link"><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -226,6 +205,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+		
 			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 		
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
@@ -233,8 +214,6 @@
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 		
 			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-		
-			<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 		
 	</ul>
 
@@ -276,6 +255,8 @@
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 			

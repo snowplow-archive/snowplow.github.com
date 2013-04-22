@@ -47,6 +47,31 @@
 	
 		<div id="contents">
 	
+		<a name="The Clojure Collector in detail" />
+		<div class="post">
+			07 Jan 2013
+			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
+			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>SnowPlow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
+
+<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
+
+<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
+
+<h2 id='contents'>Contents</h2>
+
+<ol>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/01/07/the-clojure-collector-in-detail'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/07/the-clojure-collector-in-detail#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="SnowPlow 0.7.0 released" />
 		<div class="post">
 			03 Jan 2013
@@ -147,19 +172,6 @@
 			<span class="comments-link"><a href="/blog/2012/12/20/snowplow-0.6.4-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.6.3 released" />
-		<div class="post">
-			18 Dec 2012
-			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">SnowPlow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
-			<p>Today we are releasing SnowPlow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
-
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
-
-<p>We&#8217;ll take a look at both fixes below:</p>
-<p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/18/snowplow-0.6.3-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -179,6 +191,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+		
 			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 		
 			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
@@ -186,8 +200,6 @@
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-		
-			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 		
 	</ul>
 
@@ -230,6 +242,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			
 				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
@@ -237,8 +251,6 @@
 				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
 			
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

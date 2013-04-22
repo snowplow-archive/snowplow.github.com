@@ -49,6 +49,26 @@
 	
 		<a name="Measuring content page performance" />
 		<div class="post">
+			23 Apr 2013
+			<h1><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
+			<p><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>Eleven days ago</a>, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a set of recipes covering how to measure the performance of <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>content pages</a> and <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>product pages</a>.</p>
+
+<p>Today we&#8217;ve published the first set of recipes in the new <a href='/analytics/platform-analytics/overview.html'>platform analytics</a> section of the Cookbook. By &#8216;platform analytics&#8217;, we mean analytics performed to answer questions about how your platform (or &#8216;website&#8217;, &#8216;application&#8217; or &#8216;product&#8217;) performs. This is one of the most important branches of analytics that can be performed with clickstream, event data.</p>
+
+<p>The first recipes published cover how to perform <a href='/analytics/platform-analytics/funnel-analysis.html'>funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
+
+<p><img alt='funnel-analysis' src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' /></p>
+
+<p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &#8216;drop out&#8217; of the funnel.</p>
+
+<p>In addition, Snowplow also makes it easy to compare multiple funnels (e.g. like the time series example above, or, instead, comparing how successfully different audience segments progress through different funnels).</p>
+
+<p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/contact/index.html'>getting in touch</a> directly.</p>
+			<span class="comments-link"><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="Measuring content page performance" />
+		<div class="post">
 			18 Apr 2013
 			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
 			<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
@@ -161,33 +181,6 @@
 			<span class="comments-link"><a href="/blog/2013/04/10/snowplow-event-validation#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.8.0 released" />
-		<div class="post">
-			03 Apr 2013
-			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
-			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
-
-<p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
-
-<p>In the rest of this post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'>The benefits of the new ETL</a></li>
-
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'>Limitations of the new ETL</a></li>
-
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'>A note for Infobright/Hive users</a></li>
-
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'>Upgrading and usage</a></li>
-
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'>Getting help</a></li>
-</ol>
-
-<p>Read on below the fold to find out more.</p>
-<p class='more'><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -205,6 +198,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+		
 			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 		
 			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
@@ -212,8 +207,6 @@
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-		
-			<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 		
 	</ul>
 
@@ -256,6 +249,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			
 				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Online catalog analytics with Snowplow</a></li>
@@ -263,8 +258,6 @@
 				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
 			
 				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
-			
-				<li><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></li>
 			
 		
 		</ul>		

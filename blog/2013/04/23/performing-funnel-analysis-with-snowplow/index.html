@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.4 released, with Infobright improvements - SnowPlow Analytics</title>
+	<title>Measuring content page performance with Snowplow (Catalog Analytics part 2) - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,66 +47,21 @@
 	
 		<div id="contents">
 		<div class="post">
-			20 Dec 2012
-			<h1>SnowPlow 0.6.4 released, with Infobright improvements</h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			23 Apr 2013
+			<h1>Measuring content page performance with Snowplow (Catalog Analytics part 2)</h1>
+			<p><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>Eleven days ago</a>, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a set of recipes covering how to measure the performance of <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>content pages</a> and <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>product pages</a>.</p>
 
-<ol>
-<li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
+<p>Today we&#8217;ve published the first set of recipes in the new <a href='/analytics/platform-analytics/overview.html'>platform analytics</a> section of the Cookbook. By &#8216;platform analytics&#8217;, we mean analytics performed to answer questions about how your platform (or &#8216;website&#8217;, &#8216;application&#8217; or &#8216;product&#8217;) performs. This is one of the most important branches of analytics that can be performed with clickstream, event data.</p>
 
-<li>Clarified Hive table definitions</li>
-</ol>
+<p>The first recipes published cover how to perform <a href='/analytics/platform-analytics/funnel-analysis.html'>funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
 
-<p>Before we start - a big thanks to the community members who helped out on this release:</p>
+<p><img alt='funnel-analysis' src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' /></p>
 
-<ul>
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+<p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &#8216;drop out&#8217; of the funnel.</p>
 
-<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
-</ul>
+<p>In addition, Snowplow also makes it easy to compare multiple funnels (e.g. like the time series example above, or, instead, comparing how successfully different audience segments progress through different funnels).</p>
 
-<p>We&#8217;ll take a look at both updates below:</p>
-<!--more-->
-<h2 id='upgraded_infobright_table_definition'>Upgraded Infobright table definition</h2>
-
-<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new SnowPlow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
-
-<p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
-
-<pre><code>4-storage/infobright-storage/migrate_to_004.sh</code></pre>
-
-<p>Running this script will create a new table, <code>events_004</code> (version 0.0.4 of the table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
-
-<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
-
-<pre><code>:storage:
-  :type: infobright
-  :database: snowplow
-  :table:    events_004 # NOT &quot;events_003&quot; any more</code></pre>
-
-<p>Done!</p>
-
-<h2 id='clarified_hive_table_definitions'>Clarified Hive table definitions</h2>
-
-<p>We have clarified the two different Hive table definitions, available in this folder:</p>
-
-<p>4-storage/hive-storage</p>
-
-<p>Which format your SnowPlow event files are in will depend on how your EmrEtlRunner is configured. If your <code>config.yml</code> contains:</p>
-
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>then your SnowPlow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
-
-<p>Whereas if your <code>config.yml</code> contains:</p>
-
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>then your SnowPlow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>That&#8217;s it! If you have any problems with SnowPlow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/contact/index.html'>getting in touch</a> directly.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

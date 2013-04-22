@@ -4,7 +4,7 @@
   <title>The SnowPlow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-04-22T18:07:24+01:00</updated>
+  <updated>2013-04-22T18:17:58+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The SnowPlow Analytics Team</name>
@@ -15,7 +15,7 @@
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow"/>
-    <title>Measuring content page performance with Snowplow (Catalog Analytics part 2)</title>
+    <title>Funnel analysis with Snowplow (Platform analytics part 1)</title>
     <updated>2013-04-23T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
@@ -45,7 +45,9 @@
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;Last week, we started building out the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;Catalog Analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;, with a section documenting how to &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;measure the effectiveness of your product pages&lt;/a&gt;. Those recipes were geared specifically towards retailers.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;em&gt;This is the second part in our blog post series on Catalog Analytics. The &lt;a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'&gt;first part&lt;/a&gt; was published last week.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Last week, we started building out the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;Catalog Analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;, with a section documenting how to &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;measure the effectiveness of your product pages&lt;/a&gt;. Those recipes were geared specifically towards retailers.&lt;/p&gt;
 
 &lt;p&gt;This week, we&amp;#8217;ve added an extra section to the cookbook, covering &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'&gt;how to measure engagement levels with content pages&lt;/a&gt;. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money&lt;/p&gt;
 
@@ -174,7 +176,7 @@
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow"/>
-    <title>Online catalog analytics with Snowplow</title>
+    <title>Measuring product page performance with Snowplow (Catalog Analytics part 1)</title>
     <updated>2013-04-12T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>

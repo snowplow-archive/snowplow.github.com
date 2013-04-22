@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Data structure - SnowPlow Analytics</title>
+	<title>Funnel analysis - SnowPlow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -46,59 +46,27 @@
 </div>
 	
 		<div id="contents">
-<h1 id='snowplow_data_structure'>SnowPlow data structure</h1>
+<h1 id='funnel_analysis'>Funnel analysis</h1>
 
-<p>This guide covers:</p>
-
-<ol>
-<li><a href='#event-model'>The SnowPlow event model</a></li>
-
-<li><a href='#stored-today'>The way SnowPlow data is stored today</a></li>
-
-<li><a href='#evolve'>How we plan to evolve the structure of SnowPlow data in the near future</a></li>
-</ol>
-<h2><a name='event-model'>An overview of the SnowPlow event model</a></h2>
-<p>At its heart, SnowPlow is a platform for capturing, storing and analysing event-stream data: focused on web event data. Many of the core design decisions related to the way that data is structured stem from this:</p>
-
-<ul>
-<li><strong>Single table</strong>. SnowPlow data is stored in a single table representing the &#8220;stream of events&#8221; that have occured</li>
-
-<li><strong>Each line of data represents one event</strong>. As far as possible, every line of data represents a single event.</li>
-
-<li><strong>Immutable log</strong>. The SnowPlow data table is designed to be immutable: the data in each line should not change over time. Now, there are certainly cases when you&#8217;d want to perform an analysis using dimensions that might change over time: for example, the segment a customer belongs to might change over time, as the customer is successfully migrated to a higher-value user, or as the customer grows older. The design of the SnowPlow events table is such that the data captured is correct <em>at the time of capture</em>. So if the segment that a customer belongs to is recorded in a data line - that was correct at the time the event happened. If an analyst wants to perform a retrospective analysis of historical data based on the segment the customer belongs in <strong>today</strong>, that is possible. However, the analyst should do it <strong>without</strong> modifying the earlier records in the SnowPlow events table. (Instead, she should create a new table listing the current segments that each customer belongs to, and then perform the analysis by joining that table with the SnowPlow events table.)</li>
-
-<li><strong>Structured events</strong>. There are a wide variety of events that occur on the web that are of interest across a range of websites and webapps: these include <em>page views</em>, <em>plays of media (e.g. video)</em>, <em>add to baskets</em>, <em>ad impression</em> etc. We are building out a structured event model that represents these common events as first-class citizens with specific fields associated with each. At the same time, we recognise that there are also custom events that are only interesting to specific websites / apps (e.g. <em>login events</em>, <em>send message</em>) and custom dimensions that only a handful of users might want to store for paricular standard events (e.g. <em>page views</em>). So we&#8217;ve build the SnowPlow event model to include both event-specific event types that include fields that are available for customisation, and generic &#8216;custom events&#8217; that can be used to track events that are not recognised as 1st class citizens in the SnowPlow event model.</li>
-
-<li><strong>Unstructured events</strong>. We recognise that in certain situations, a business might want to track events using their own data model, rather than adopting the standard model we are building out in collaboration with the SnowPlow community. We intend to build out support for &#8216;unstructured events&#8217; in the near future, to cater to this requirement.</li>
-</ul>
-<h2><a name='stored-today'>The way SnowPlow data is stored today</a></h2>
-<p>Currently, whether the data is stored in S3 or in Infobright, SnowPlow data is structured as a single fat table. Each line represents a single event. Each line is &#8220;fat&#8221; because there are a large number of fields. This is not surprising - there are:</p>
-
-<ul>
-<li>Fields that are common across all events and platform (e.g. date, time, <code>user_id</code>)</li>
-
-<li>Fields that are platform specific (e.g. <code>page_url</code>, <code>page_title</code>, <code>page_referrer</code>, <code>br_features</code> for web events)</li>
-
-<li>Fields that are event specific (e.g. <code>tr_orderid</code>, <code>ti_sku</code>, <code>tr_price</code> for transaction events)</li>
-</ul>
-
-<p>A <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-web'>complete list of fields by type</a> is given on the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-web'>wiki</a>.</p>
-
-<p>The Hive table definition of the data as stored on S3 is given <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'>here</a>. The Infobright table definition of the data as stored on Infobright is given <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/infobright-storage/sql/table-def.sql'>here</a>. The structure of the data is very similar, with some minor changes to accommodate data types (e.g. arrays) that are supported by Hive but not Infobright.</p>
-<h2><a name='evolve'>How we plan to evolve the structure of SnowPlow data in the near future</a></h2>
-<p>As the number of platforms and specific events that SnowPlow supports grows, so to will the &#8220;fatness&#8221; of the table, as we incorporate more-and-more fields.</p>
-
-<p>In order to better manage this, we intend to move the storage of SnowPlow events in S3 to <a href='http://avro.apache.org/'>Avro</a>. Avro is a data serialization format that enables us to group fields together (so all the fields related to e.g. <em>ad impressions</em> can be treated as a single unit), to evolve the data schema over time without having to reprocess historical data, and to not have to worry about having large numbers of fields that are not populated. (E.g. fields that relate to events other than the current event being stored.) The Avro structure will follow the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-web'>canonical event model</a> as described on the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-web'>detailed wiki page</a>. We will add Avro-IDL definitions to the document shortly.</p>
-
-<h2 id='next_steps'>Next steps</h2>
-
-<p>Understand how SnowPlow data is generated, stored and structured? Then <a href='basic-recipes.html'>get started querying it</a>!</p>
+<p>Please be patient: this section is coming soon.</p>
 </div>
 
  <div id="sidebar">
 	<h1>Analysts Cookbook</h1>
 	<p>
-		<a href="/analytics/index.html" class="active">Overview</a>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalog-analytics/overview.html" >Catalog analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" class="active">Platform analytics</a>
 		
 		<ul>
 			
@@ -134,33 +102,11 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
 						
 							
-							<li><a href="/analytics/index.html">Introduction</a></li>
+							<li><a href="/analytics/platform-analytics/overview.html">Overview</a></li>
 									
 									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -172,7 +118,25 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -237,256 +201,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-production.html">Data production</a></li>
-									
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-						
-							
-							<li><a href="/analytics/snowplow-data-storage.html">Data storage</a></li>
-									
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
 					
 				
 					
@@ -506,9 +220,31 @@
 					
 						
 							
-							<li class="active"><a href="/analytics/snowplow-table-structure.html" class="active">Data structure</a></li>
+							<li class="active"><a href="/analytics/platform-analytics/funnel-analysis.html" class="active">Funnel analysis</a></li>
 									
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -582,35 +318,13 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
 									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
 					
 				
 					
 						
 							
-							<li><a href="/analytics/basic-recipes.html">Basic recipes</a></li>
+							<li><a href="/analytics/platform-analytics/sankey-diagrams-with-d3-js.html">Visualizing user journeys with Sankey diagrams in D3.js</a></li>
 									
 									
 					
@@ -620,7 +334,25 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -694,32 +426,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -729,6 +435,28 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -802,32 +530,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -837,6 +539,28 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -910,32 +634,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -945,6 +643,28 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1018,32 +738,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1053,6 +747,28 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1126,32 +842,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1161,6 +851,28 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1202,19 +914,215 @@
 					
 				
 			
-		</ul>
-		
-	</p>
-	<p>
-		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/catalog-analytics/overview.html" >Catalog analytics</a>
-		
-	</p>
-	<p>
-		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
 		
 	</p>
 	<p>

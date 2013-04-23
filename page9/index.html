@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -47,15 +47,15 @@
 	
 		<div id="contents">
 	
-		<a name="Analysing SnowPlow data with Tableau" />
+		<a name="Analysing Snowplow data with Tableau" />
 		<div class="post">
 			24 Oct 2012
-			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on SnowPlow data using Tableau - a video demo</a></h1>
-			<p>People who see SnowPlow for the first time often ask us to <i>"show SnowPlow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
+			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on Snowplow data using Tableau - a video demo</a></h1>
+			<p>People who see Snowplow for the first time often ask us to <i>"show Snowplow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
 
-<p>Demonstrating SnowPlow is tricky because currently, SnowPlow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because SnowPlow gives you access to underlying customer- and event-level data, it is easy to analyse SnowPlow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on SnowPlow data. (We will explain more on how to connect Tableau to SnowPlow data in a future blog post.)</p>
+<p>Demonstrating Snowplow is tricky because currently, Snowplow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because Snowplow gives you access to underlying customer- and event-level data, it is easy to analyse Snowplow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on Snowplow data. (We will explain more on how to connect Tableau to Snowplow data in a future blog post.)</p>
 
-<p>In the following series of videos, we start to show how SnowPlow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with SnowPlow data for an online retailer:</p>
+<p>In the following series of videos, we start to show how Snowplow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with Snowplow data for an online retailer:</p>
 
 <video width="648" height="563" controls>
 
@@ -65,7 +65,7 @@
 	<object width="648" height="563" type="application/x-shockwave-flash" data="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf">
 		<param name="movie" value="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf" />
 		<param name="flashvars" value="controlbar=over&amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4" />
-		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and SnowPlow introductory video"
+		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and Snowplow introductory video"
 		     title="No video playback capabilities, please download the video below" />
 	</object> 
 </video>
@@ -82,9 +82,9 @@
 			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
 			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
 
-<p>At SnowPlow we&#8217;re committed to supporting multiple different storage and analytics options for SnowPlow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
 
-<p>For all but the largest SnowPlow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
+<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
 
 <ol>
 <li>Scale to terabytes (although not petabytes, unlike Hive)</li>
@@ -96,7 +96,7 @@
 <li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
 </ol>
 
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for SnowPlow analytics. Unfortunately, when we started to load SnowPlow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
+<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
 
 <p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
 
@@ -106,7 +106,7 @@
 <li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
 </ol>
 
-<p>We will be using IRL at SnowPlow as part of our larger ETL process to load SnowPlow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
+<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
 
 <p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
 
@@ -114,18 +114,18 @@
 			<span class="comments-link"><a href="/blog/2012/10/21/infobright-ruby-loader-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="How the role of Hive is changing in SnowPlow" />
+		<a name="How the role of Hive is changing in Snowplow" />
 		<div class="post">
 			12 Oct 2012
-			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at SnowPlow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
+			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
 			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
 
 <ol>
 <li>How big data technologies like Apache Hive are transforming web analytics</li>
 
-<li>Howe we&#8217;ve used Hive in SnowPlow development</li>
+<li>Howe we&#8217;ve used Hive in Snowplow development</li>
 
-<li>How the role of Hive has changed at SnowPlow over time, including a comparison of Hive against other technologies.</li>
+<li>How the role of Hive has changed at Snowplow over time, including a comparison of Hive against other technologies.</li>
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
@@ -133,11 +133,11 @@
 			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.10 released with Hive deserializer improvements" />
+		<a name="Snowplow 0.4.10 released with Hive deserializer improvements" />
 		<div class="post">
 			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/snowplow-0.4.10-released">SnowPlow 0.4.10 released</a></h1>
-			<p>We have just released version <strong>0.4.10</strong> of SnowPlow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+			<h1><a href="/blog/2012/10/11/snowplow-0.4.10-released">Snowplow 0.4.10 released</a></h1>
+			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
 
 <ol>
 <li>snowplow.js to version 0.7.0</li>
@@ -178,11 +178,11 @@
 
 <li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
 
-<li><a href='#snowplow_stack'>Attlib as part of the SnowPlow stack</a></li>
+<li><a href='#snowplow_stack'>Attlib as part of the Snowplow stack</a></li>
 
 <li><a href='#other_languages'>Attlib in other languages</a></li>
 
-<li><a href='#snowplow_components_as_standalone_projects'>Making components of SnowPlow available as standalone open source projects</a></li>
+<li><a href='#snowplow_components_as_standalone_projects'>Making components of Snowplow available as standalone open source projects</a></li>
 </ol>
 <a name='what_attlib_does' />
 <h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
@@ -254,9 +254,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -271,9 +271,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -288,9 +288,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -303,9 +303,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -321,7 +321,7 @@
 	<!--<strong>Tags</strong> -->
 </div>
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

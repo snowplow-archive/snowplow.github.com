@@ -5,7 +5,7 @@ $(function() {
 	 * On page load... 
 	 */
 	// 1. Display the title including tracker version
-	$('#title').append($('<h1>No-Javascript Tracker for SnowPlow</h1><h2>No-JS tracking tag generator version <code>' + trackerVersion + '</code></h2>'));
+	$('#title').append($('<h1>No-Javascript Tracker for Snowplow</h1><h2>No-JS tracking tag generator version <code>' + trackerVersion + '</code></h2>'));
 	
 	// 2. Set the radio buttons to default options i.e. scheme = HTTP and collectorType = cloudfront...
 	$('input:radio[name=pageScheme]:nth(0)').attr('checked',true);
@@ -117,9 +117,9 @@ $(function() {
 		request = generateRequestString(appId, pageTitle, pageUrl, pageScheme);
 
 		// 3rd assemble the tag out of the above two
-		tag = [	'<!--SnowPlow start plowing-->',
+		tag = [	'<!--Snowplow start plowing-->',
 				'<img src="' + configCollectorUrl + '?' + request + '" />',
-				'<!--SnowPlow stop plowing-->'].join('\n') ;
+				'<!--Snowplow stop plowing-->'].join('\n') ;
 
 		// 4th return the tag, html-escaped so it prints to the screen, rather than actually executing in the browser
 		return htmlEscape(tag);
@@ -162,7 +162,7 @@ $(function() {
 
 
 	/**
-	 * A helper to build a SnowPlow request string from an
+	 * A helper to build a Snowplow request string from an
 	 * an optional initial value plus a set of individual
 	 * name-value pairs, provided using the add method.
 	 *

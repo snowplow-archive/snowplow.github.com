@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.1 released, with lots of small improvements - SnowPlow Analytics</title>
+	<title>Snowplow 0.6.1 released, with lots of small improvements - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,8 +48,8 @@
 		<div id="contents">
 		<div class="post">
 			27 Nov 2012
-			<h1>SnowPlow 0.6.1 released, with lots of small improvements</h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.1</strong>. This release includes updates:</p>
+			<h1>Snowplow 0.6.1 released, with lots of small improvements</h1>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
 
 <ol>
 <li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
@@ -60,7 +60,7 @@
 
 <li><strong>Improved EmrEtlRunner command line options</strong> now provide more flexibility when writing your data to storage</li>
 
-<li><strong>Bug fixes</strong> related to loading SnowPlow data into Infobright</li>
+<li><strong>Bug fixes</strong> related to loading Snowplow data into Infobright</li>
 </ol>
 
 <p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
@@ -97,10 +97,10 @@
 
 <h3 id='new_tracking_data'>New tracking data</h3>
 
-<p>Version 0.8.0 of the JavaScript tracker now passes additional data along to the SnowPlow collector. This additional data is as follows:</p>
+<p>Version 0.8.0 of the JavaScript tracker now passes additional data along to the Snowplow collector. This additional data is as follows:</p>
 
 <ul>
-<li><strong>Tracker version</strong> - so you will always know which version of the JavaScript tracker generated a given SnowPlow event</li>
+<li><strong>Tracker version</strong> - so you will always know which version of the JavaScript tracker generated a given Snowplow event</li>
 
 <li><strong>User fingerprint</strong> - we are still working on a new collector which supports cross-domain user tracking. In the meantime, we are releasing an experimental feature: a &#8216;user fingerprint&#8217; based on various (hopefully unique) attributes of the user&#8217;s browser. Many thanks to <a href='https://github.com/moncaubeig'>Gilles</a> for contributing this feature; to read more about this, please take a look at <a href='https://github.com/snowplow/snowplow/issues/70'>issue #70</a> in GitHub</li>
 
@@ -111,11 +111,11 @@
 
 <p>We have updated the ETL and storage systems (e.g. Hive and Infobright table definitions) to extract and store these new fields.</p>
 
-<p>We have updated the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>SnowPlow Tracker Protocol</a> page on our Wiki with these additions.</p>
+<p>We have updated the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a> page on our Wiki with these additions.</p>
 
 <h2 id='etl_and_storage_improvements'>ETL and storage improvements</h2>
 
-<p>This release includes various improvements to SnowPlow ETL and storage which are unrelated to the JavaScript tracker changes above. To break these down:</p>
+<p>This release includes various improvements to Snowplow ETL and storage which are unrelated to the JavaScript tracker changes above. To break these down:</p>
 
 <h3 id='additional_data_being_saved'>Additional data being saved</h3>
 
@@ -146,7 +146,7 @@
 <h3 id='placeholders_for_event_and_event_id'>Placeholders for event and event_id</h3>
 
 <ul>
-<li><strong>Event</strong> - we have renamed the <code>event_name</code> field in Infobright to simply <code>event</code>. This is still a placeholder (it will be populated in a future version of SnowPlow)</li>
+<li><strong>Event</strong> - we have renamed the <code>event_name</code> field in Infobright to simply <code>event</code>. This is still a placeholder (it will be populated in a future version of Snowplow)</li>
 
 <li><strong>Event ID</strong> - there has been some confusion over the uniqueness of the current <code>txn_id</code> field - see <a href='https://github.com/snowplow/snowplow/issues/89'>issue #89</a> for the discussion. We plan on adding a properly unique <code>event_id</code> for each event in the ETL layer; in the meantime we have added the <code>event_id</code> field in as a placeholder</li>
 </ul>
@@ -246,9 +246,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -263,9 +263,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -280,9 +280,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -295,9 +295,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -314,7 +314,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

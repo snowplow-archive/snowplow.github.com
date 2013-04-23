@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.5 released, with improved event tracking - SnowPlow Analytics</title>
+	<title>Snowplow 0.6.5 released, with improved event tracking - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,20 +48,20 @@
 		<div id="contents">
 		<div class="post">
 			26 Dec 2012
-			<h1>SnowPlow 0.6.5 released, with improved event tracking</h1>
-			<p>We&#8217;re excited to announce our next SnowPlow release - version <strong>0.6.5</strong>, a Boxing Day release for SnowPlow!</p>
+			<h1>Snowplow 0.6.5 released, with improved event tracking</h1>
+			<p>We&#8217;re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
 
 <p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
 
 <ol>
-<li>It should make querying SnowPlow events much easier</li>
+<li>It should make querying Snowplow events much easier</li>
 
-<li>It should make SnowPlow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
+<li>It should make Snowplow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
 </ol>
 
 <p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
 
-<p>Here is a taster of how SnowPlow event data looks with the new event types and event IDs:</p>
+<p>Here is a taster of how Snowplow event data looks with the new event types and event IDs:</p>
 
 <p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
 
@@ -107,7 +107,7 @@
 <h2 id='1_event_types'>1. Event types</h2>
 
 <p>To recap, every event sent by the JavaScript tracker now has an <code>event</code> field which specifies what type of event it is. Currently we have six different types of events, which are set out in the table below:</p>
-<table><thead><tr><th>Type of event</th><th>JavaScript tracker function</th><th>Value of SnowPlow <code>event</code> field</th></tr></thead><tbody><tr><td style='text-align: left;'>Page view</td><td style='text-align: left;'><code>trackPageView()</code></td><td style='text-align: left;'><code>page_view</code></td>
+<table><thead><tr><th>Type of event</th><th>JavaScript tracker function</th><th>Value of Snowplow <code>event</code> field</th></tr></thead><tbody><tr><td style='text-align: left;'>Page view</td><td style='text-align: left;'><code>trackPageView()</code></td><td style='text-align: left;'><code>page_view</code></td>
 </tr><tr><td style='text-align: left;'>Page ping</td><td style='text-align: left;'>None (automatic)*</td><td style='text-align: left;'><code>page_ping</code></td>
 </tr><tr><td style='text-align: left;'>Custom event</td><td style='text-align: left;'><code>trackEvent()</code></td><td style='text-align: left;'><code>custom</code></td>
 </tr><tr><td style='text-align: left;'>Ad impression</td><td style='text-align: left;'><code>trackImpression()</code></td><td style='text-align: left;'><code>ad_impression</code></td>
@@ -116,7 +116,7 @@
 </tr></tbody></table>
 <p><em>* for more information on on-page activity tracking, please see the relevant section later in this blog post.</em></p>
 
-<p>This new event field should make it much easier to query SnowPlow data by the type of event. For example, to retrieve the number of e-commerce transactions per day:</p>
+<p>This new event field should make it much easier to query Snowplow data by the type of event. For example, to retrieve the number of e-commerce transactions per day:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 <span class='n'>dt</span><span class='p'>,</span>
 <span class='k'>COUNT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>)</span>
@@ -128,7 +128,7 @@
 
 <h2 id='2_event_ids'>2. Event IDs</h2>
 
-<p>As stated above, the SnowPlow ETL now attaches a unique ID to each event - specifically a <a href='http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29'>type 4 UUID</a>. This new <code>event_id</code> is much more unique than the existing <code>txn_id</code> field, which is a short random number set in the JavaScript tracker (<code>txn_id</code> is currently unused, but we may eventually use it to check for duplicate events <code>txn_id</code> introduced prior to the ETL, see <a href='https://github.com/snowplow/snowplow/issues/24'>issue 24</a> for more details).</p>
+<p>As stated above, the Snowplow ETL now attaches a unique ID to each event - specifically a <a href='http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29'>type 4 UUID</a>. This new <code>event_id</code> is much more unique than the existing <code>txn_id</code> field, which is a short random number set in the JavaScript tracker (<code>txn_id</code> is currently unused, but we may eventually use it to check for duplicate events <code>txn_id</code> introduced prior to the ETL, see <a href='https://github.com/snowplow/snowplow/issues/24'>issue 24</a> for more details).</p>
 
 <p>You can use the new <code>event_id</code> field to uniquely identify individual events in your event store, and of course to count distinct events. For example, to count the number of page views by day, we simply execute the following query:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
@@ -144,14 +144,14 @@
 
 <p>In this release of the JavaScript tracker we have deprecated the old (undocumented) <code>setHeartBeatTimer()</code> inherited from <code>piwik.js</code>, and introduced a new function, <code>enableActivityTracking(minimumVisitLength, heartBeatDelay)</code>.</p>
 
-<p>With activity tracking enabled, &#8220;page pings&#8221; are sent to SnowPlow every <code>heartBeatDelay</code> seconds, as long as the visitor remains active (moving the mouse, clicking etc) on the page. Page pings are not sent until the <code>minimumVisitLength</code> seconds have elapsed.</p>
+<p>With activity tracking enabled, &#8220;page pings&#8221; are sent to Snowplow every <code>heartBeatDelay</code> seconds, as long as the visitor remains active (moving the mouse, clicking etc) on the page. Page pings are not sent until the <code>minimumVisitLength</code> seconds have elapsed.</p>
 
 <p>Here is an example configuration:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;enableActivityTracking&#39;</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>]);</span> <span class='c1'>// Ping every 10 seconds after 10 seconds</span>
 </code></pre></div>
 <p>This is still an experimental feature - but it should provide some interesting data to start to explore page residency, true bounce rates and so on.</p>
 
-<p>Please note that enabling activity tracking can <strong>significantly</strong> increase the number of SnowPlow events generated, especially with a short <code>heartBeatDelay</code>.</p>
+<p>Please note that enabling activity tracking can <strong>significantly</strong> increase the number of Snowplow events generated, especially with a short <code>heartBeatDelay</code>.</p>
 
 <h2 id='4_and_the_rest'>4. And the rest</h2>
 
@@ -163,9 +163,9 @@
 
 <h3 id='etl_resilient_against_corrupted_querystrings'>ETL resilient against corrupted querystrings</h3>
 
-<p>We had a problem with two historic versions of the JavaScript tracker, 0.8.0 and 0.8.1, where querystrings were being transmitted to the SnowPlow collector unescaped. These &#8220;corrupted&#8221; querystrings caused the ETL process to error and die.</p>
+<p>We had a problem with two historic versions of the JavaScript tracker, 0.8.0 and 0.8.1, where querystrings were being transmitted to the Snowplow collector unescaped. These &#8220;corrupted&#8221; querystrings caused the ETL process to error and die.</p>
 
-<p>We have updated the ETL process so that events with corrupted querystrings can be processed without error: these rows are stored as SnowPlow events, but of course with most of the standard fields empty.</p>
+<p>We have updated the ETL process so that events with corrupted querystrings can be processed without error: these rows are stored as Snowplow events, but of course with most of the standard fields empty.</p>
 
 <h3 id='snowpaksh_combineonly_option'>snowpak.sh combine-only option</h3>
 
@@ -199,7 +199,7 @@ Common options:
 
 <h2 id='getting_help'>Getting help</h2>
 
-<p>That&#8217;s it! If you have any problems with SnowPlow version 0.6.5, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>That&#8217;s it! If you have any problems with Snowplow version 0.6.5, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>
@@ -252,9 +252,9 @@ Common options:
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -269,9 +269,9 @@ Common options:
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -286,9 +286,9 @@ Common options:
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -301,9 +301,9 @@ Common options:
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -320,7 +320,7 @@ Common options:
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -47,11 +47,11 @@
 	
 		<div id="contents">
 	
-		<a name="SnowPlow 0.7.4 released" />
+		<a name="Snowplow 0.7.4 released" />
 		<div class="post">
 			22 Feb 2013
-			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">SnowPlow 0.7.4 released for better eventstream analytics</a></h1>
-			<p>Another week, another release! We&#8217;re excited to announce SnowPlow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
+			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
+			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
 
 <ul>
 <li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
@@ -61,7 +61,7 @@
 <li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
 </ul>
 
-<p>Many thanks to SnowPlow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
+<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
 
 <p>In this post we will cover:</p>
 
@@ -88,9 +88,9 @@
 		<div class="post">
 			20 Feb 2013
 			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
-			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out SnowPlow support for Redshift, so that SnowPlow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
+			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
 
-<p>In the course of building out SnowPlow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
+<p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
 
 <h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
 
@@ -134,11 +134,11 @@
 			<span class="comments-link"><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.7.3 released" />
+		<a name="Snowplow 0.7.3 released" />
 		<div class="post">
 			15 Feb 2013
-			<h1><a href="/blog/2013/02/15/snowplow-0.7.3-released">SnowPlow 0.7.3 released, tracking additional data</a></h1>
-			<p>We&#8217;re excited to announce the release of SnowPlow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
+			<h1><a href="/blog/2013/02/15/snowplow-0.7.3-released">Snowplow 0.7.3 released, tracking additional data</a></h1>
+			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
 
 <ul>
 <li>A new Event Vendor field</li>
@@ -154,7 +154,7 @@
 <li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
 </ul>
 
-<p>These fields should make a new set of analyses on SnowPlow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
+<p>These fields should make a new set of analyses on Snowplow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
 
 <p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
 
@@ -168,7 +168,7 @@
 <li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
 </ol>
 <h2><a name='new-fields'>1. New fields</a></h2>
-<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on SnowPlow data.</p>
+<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on Snowplow data.</p>
 
 <p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
 <table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
@@ -197,9 +197,9 @@
 		<div class="post">
 			08 Feb 2013
 			<h1><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></h1>
-			<p><em>SnowPlow&#8217;s own <a href='https://github.com/alexanderdean'>Alexander Dean</a> was recently asked to write an article for the <a href='http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&amp;a_bid=45f0d439'>Software Developer&#8217;s Journal edition on Hadoop</a> The kind folks at the Software Developer&#8217;s Journal have allowed us to reprint his article in full below.</em></p>
+			<p><em>Snowplow&#8217;s own <a href='https://github.com/alexanderdean'>Alexander Dean</a> was recently asked to write an article for the <a href='http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&amp;a_bid=45f0d439'>Software Developer&#8217;s Journal edition on Hadoop</a> The kind folks at the Software Developer&#8217;s Journal have allowed us to reprint his article in full below.</em></p>
 
-<p><em>Alex started writing Hive UDFs as part of the process to write the <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers'>SnowPlow log deserializer</a> - the custom SerDe used to parse SnowPlow logs generated by the Cloudfront and Clojure collectors so they can be processed in the SnowPlow ETL step.</em></p>
+<p><em>Alex started writing Hive UDFs as part of the process to write the <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers'>Snowplow log deserializer</a> - the custom SerDe used to parse Snowplow logs generated by the Cloudfront and Clojure collectors so they can be processed in the Snowplow ETL step.</em></p>
 
 <h2 id='article_synopsis'>Article Synopsis</h2>
 
@@ -252,9 +252,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -269,9 +269,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -286,9 +286,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -301,9 +301,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -319,7 +319,7 @@
 	<!--<strong>Tags</strong> -->
 </div>
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -51,9 +51,9 @@
 		<div class="post">
 			07 Jan 2013
 			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
-			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>SnowPlow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
+			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
 
-<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of SnowPlow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the SnowPlow community, in a discussion about how best to evolve SnowPlow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving SnowPlow development, and we want to encourage more of these conversations and contributions, to help make SnowPlow great.</p>
+<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.</p>
 
 <p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
 
@@ -72,19 +72,19 @@
 			<span class="comments-link"><a href="/blog/2013/01/07/the-clojure-collector-in-detail#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.7.0 released" />
+		<a name="Snowplow 0.7.0 released" />
 		<div class="post">
 			03 Jan 2013
-			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">SnowPlow 0.7.0 released, with new Clojure-based collector</a></h1>
-			<p>Today we are hugely excited to announce the release of SnowPlow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use SnowPlow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
+			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">Snowplow 0.7.0 released, with new Clojure-based collector</a></h1>
+			<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
 
-<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for SnowPlow.</p>
+<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for Snowplow.</p>
 
-<p>To date, the primary collector for SnowPlow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
+<p>To date, the primary collector for Snowplow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
 
-<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your SnowPlow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
+<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
 
-<p>And the other good news is that our Clojure collector automatically logs the raw SnowPlow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
+<p>And the other good news is that our Clojure collector automatically logs the raw Snowplow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
 
 <p>Read on below the fold for installation instructions and some additional information on this release.</p>
 <p class='more'><a href='/blog/2013/01/03/snowplow-0.7.0-released'>Read the rest of this entry >></a></p>
@@ -99,30 +99,30 @@
 
 <p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
 
-<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>SnowPlow ETL</a> process in the coming months.</p>
+<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
 
 <p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
 <p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry >></a></p>
 			<span class="comments-link"><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.6.5 released" />
+		<a name="Snowplow 0.6.5 released" />
 		<div class="post">
 			26 Dec 2012
-			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">SnowPlow 0.6.5 released, with improved event tracking</a></h1>
-			<p>We&#8217;re excited to announce our next SnowPlow release - version <strong>0.6.5</strong>, a Boxing Day release for SnowPlow!</p>
+			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">Snowplow 0.6.5 released, with improved event tracking</a></h1>
+			<p>We&#8217;re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
 
 <p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
 
 <ol>
-<li>It should make querying SnowPlow events much easier</li>
+<li>It should make querying Snowplow events much easier</li>
 
-<li>It should make SnowPlow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
+<li>It should make Snowplow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
 </ol>
 
 <p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
 
-<p>Here is a taster of how SnowPlow event data looks with the new event types and event IDs:</p>
+<p>Here is a taster of how Snowplow event data looks with the new event types and event IDs:</p>
 
 <p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
 
@@ -147,11 +147,11 @@
 			<span class="comments-link"><a href="/blog/2012/12/26/snowplow-0.6.5-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.6.4 released" />
+		<a name="Snowplow 0.6.4 released" />
 		<div class="post">
 			20 Dec 2012
-			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">SnowPlow 0.6.4 released, with Infobright improvements</a></h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">Snowplow 0.6.4 released, with Infobright improvements</a></h1>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
 
 <ol>
 <li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
@@ -214,9 +214,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -231,9 +231,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -248,9 +248,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -263,9 +263,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -281,7 +281,7 @@
 	<!--<strong>Tags</strong> -->
 </div>
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

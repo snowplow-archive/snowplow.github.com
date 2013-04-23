@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.7.0 released, with new Clojure-based collector - SnowPlow Analytics</title>
+	<title>Snowplow 0.7.0 released, with new Clojure-based collector - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,16 +48,16 @@
 		<div id="contents">
 		<div class="post">
 			03 Jan 2013
-			<h1>SnowPlow 0.7.0 released, with new Clojure-based collector</h1>
-			<p>Today we are hugely excited to announce the release of SnowPlow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use SnowPlow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
+			<h1>Snowplow 0.7.0 released, with new Clojure-based collector</h1>
+			<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
 
-<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for SnowPlow.</p>
+<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for Snowplow.</p>
 
-<p>To date, the primary collector for SnowPlow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
+<p>To date, the primary collector for Snowplow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
 
-<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your SnowPlow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
+<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
 
-<p>And the other good news is that our Clojure collector automatically logs the raw SnowPlow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
+<p>And the other good news is that our Clojure collector automatically logs the raw Snowplow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
 
 <p>Read on below the fold for installation instructions and some additional information on this release.</p>
 <!--more-->
@@ -69,7 +69,7 @@
 
 <h3 id='etl'>ETL</h3>
 
-<p>If you are using EmrEtlRunner, you need to update to the latest version, which is 0.0.7 - this is available by checking out the master branch of the <a href='https://github.com/snowplow/snowplow'>SnowPlow repository</a>.</p>
+<p>If you are using EmrEtlRunner, you need to update to the latest version, which is 0.0.7 - this is available by checking out the master branch of the <a href='https://github.com/snowplow/snowplow'>Snowplow repository</a>.</p>
 
 <p>You will also need to update your configuration file, <code>config.yml</code>, to use the latest versions of the HiveQL scripts:</p>
 
@@ -80,7 +80,7 @@
 
 <h3 id='storage'>Storage</h3>
 
-<p>If you are using StorageLoader, you need to update to the latest version, which is 0.0.3 - this is available by checking out the master branch of the <a href='https://github.com/snowplow/snowplow'>SnowPlow repository</a>.</p>
+<p>If you are using StorageLoader, you need to update to the latest version, which is 0.0.3 - this is available by checking out the master branch of the <a href='https://github.com/snowplow/snowplow'>Snowplow repository</a>.</p>
 
 <p>If you are using Infobright Community Edition, you will need to update your table definition. This is because the <code>user_id</code> field was not wide enough to store the new user IDs (UUIDs) set by the Clojure collector. To make this easier for you, we have created a script:</p>
 
@@ -100,7 +100,7 @@
 
 <p>We want to stress that the new Clojure-based collector is a piece of experimental technology - we are looking to the community to try it out and feedback to us on how it&#8217;s working for you, especially at scale.</p>
 
-<p>In particular, we would recommend running the Clojure-based collector alongside the CloudFront collector to be confident that it is performing under load and that no events are being dropped. We have run both collectors alongside each other for the <a href='http://snowplowanalytics.com'>SnowPlow Analytics</a> website for four complete days, and total event counts are as follows:</p>
+<p>In particular, we would recommend running the Clojure-based collector alongside the CloudFront collector to be confident that it is performing under load and that no events are being dropped. We have run both collectors alongside each other for the <a href='http://snowplowanalytics.com'>Snowplow Analytics</a> website for four complete days, and total event counts are as follows:</p>
 <table><thead><tr><th>Date</th><th>CloudFront</th><th>Clojure</th></tr></thead><tbody><tr><td style='text-align: left;'>2013-01-02</td><td style='text-align: left;'>275</td><td style='text-align: left;'>274</td>
 </tr><tr><td style='text-align: left;'>2013-01-01</td><td style='text-align: left;'>116</td><td style='text-align: left;'>108</td>
 </tr><tr><td style='text-align: left;'>2012-12-31</td><td style='text-align: left;'>107</td><td style='text-align: left;'>109</td>
@@ -132,7 +132,7 @@
 
 <h2 id='getting_help'>Getting help</h2>
 
-<p>That&#8217;s it! If you have any problems with SnowPlow version 0.7.0, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>That&#8217;s it! If you have any problems with Snowplow version 0.7.0, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>
@@ -185,9 +185,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -202,9 +202,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -219,9 +219,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -234,9 +234,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -253,7 +253,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

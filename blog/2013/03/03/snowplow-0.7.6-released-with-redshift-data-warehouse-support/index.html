@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.7.6 released with Redshift data warehouse support - SnowPlow Analytics</title>
+	<title>Snowplow 0.7.6 released with Redshift data warehouse support - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,19 +48,19 @@
 		<div id="contents">
 		<div class="post">
 			03 Mar 2013
-			<h1>SnowPlow 0.7.6 released with Redshift data warehouse support</h1>
-			<p>We&#8217;re excited to announce the immediate release of SnowPlow version <strong>0.7.6</strong> with support for storing your SnowPlow events in <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a>.</p>
+			<h1>Snowplow 0.7.6 released with Redshift data warehouse support</h1>
+			<p>We&#8217;re excited to announce the immediate release of Snowplow version <strong>0.7.6</strong> with support for storing your Snowplow events in <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a>.</p>
 
-<p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate SnowPlow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can&#8217;t wait to see what the SnowPlow community do with the new platform!</p>
+<p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate Snowplow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can&#8217;t wait to see what the Snowplow community do with the new platform!</p>
 
 <p>In this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#why-redshift'>Why Redshift is a great fit for SnowPlow data</a></li>
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#why-redshift'>Why Redshift is a great fit for Snowplow data</a></li>
 
 <li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#this-version'>Changes in this version</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#snowplow-redshift'>Setting up SnowPlow for Redshift</a></li>
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#snowplow-redshift'>Setting up Snowplow for Redshift</a></li>
 
 <li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#upgrading'>Upgrading for Infobright/Hive users</a></li>
 
@@ -70,18 +70,18 @@
 </ol>
 
 <p>Read on below the fold to find out more.</p>
-<!--more--><h2><a name='why-redshift'>1. Why Amazon Redshift is a great fit for SnowPlow data</a></h2>
-<p>SnowPlow datasets get big very quickly: we store at least one line of data for every single event that occurs on your website or application. Our largest users are recording 100M+ events every day; these data volumes get very big, very quickly.</p>
+<!--more--><h2><a name='why-redshift'>1. Why Amazon Redshift is a great fit for Snowplow data</a></h2>
+<p>Snowplow datasets get big very quickly: we store at least one line of data for every single event that occurs on your website or application. Our largest users are recording 100M+ events every day; these data volumes get very big, very quickly.</p>
 
-<p>Whereas traditional web analytics packages deal with this by aggregating data to feed pre-cut reports, we built SnowPlow specifically to maintain that granularity, because that granularity is critical to:</p>
+<p>Whereas traditional web analytics packages deal with this by aggregating data to feed pre-cut reports, we built Snowplow specifically to maintain that granularity, because that granularity is critical to:</p>
 
 <ul>
 <li>Performing bespoke analyses e.g. analysing conversion rates by product, or segmenting users by behaviour</li>
 
-<li>Joining SnowPlow data with third party datasets e.g. from your CMS, CRM, adserver or marketing data</li>
+<li>Joining Snowplow data with third party datasets e.g. from your CMS, CRM, adserver or marketing data</li>
 </ul>
 
-<p>As a result, we built SnowPlow on technologies like Hadoop and Hive from the get-go to enable SnowPlow users to record and analyse massive volumes of event data.</p>
+<p>As a result, we built Snowplow on technologies like Hadoop and Hive from the get-go to enable Snowplow users to record and analyse massive volumes of event data.</p>
 
 <p>The trouble with Hadoop and Hive is that they are not great tools for <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP analysis</a>. As a result, we added support for <a href='http://www.infobright.com/'>Infobright Community Edition</a>: an open source columnar database you deploy yourself which scales to terabytes.</p>
 
@@ -96,16 +96,16 @@
 
 <li>Redshift supports a broader set of SQL functionality than Infobright. In particular, loading data into Redshift is much more straightforward, and debugging errors when they occur much easier</li>
 
-<li>Data can be loaded directly from S3 into Redshift, making the SnowPlow ETL pipeline simpler and more efficient. And support for loading Redshift directly from Elastic MapReduce is in Amazon&#8217;s roadmap</li>
+<li>Data can be loaded directly from S3 into Redshift, making the Snowplow ETL pipeline simpler and more efficient. And support for loading Redshift directly from Elastic MapReduce is in Amazon&#8217;s roadmap</li>
 
-<li>Redshift is part of the AWS cloud, around which SnowPlow has been built</li>
+<li>Redshift is part of the AWS cloud, around which Snowplow has been built</li>
 
 <li>Redshift is highly cost-effective: costing as little $1,000 per TB per year</li>
 </ul>
 
-<p>Please read on to find out how to get started with SnowPlow and Redshift.</p>
+<p>Please read on to find out how to get started with Snowplow and Redshift.</p>
 <h2><a name='this-version'>2. Changes in this version</a></h2>
-<p>This version makes a set of changes to SnowPlow to add support for Redshift; it is important to understand these changes even if you are using our Hive or Infobright storage options and are not interested in using Redshift.</p>
+<p>This version makes a set of changes to Snowplow to add support for Redshift; it is important to understand these changes even if you are using our Hive or Infobright storage options and are not interested in using Redshift.</p>
 
 <p>The main changes are as follows:</p>
 
@@ -125,23 +125,23 @@
 <li>We have widened the field storing the raw useragent string in Infobright (and Redshift) to 1000 characters: 500 characters wasn&#8217;t enough</li>
 </ol>
 
-<p>If you are a SnowPlow Hive/Infobright user with no interest in Redshift, please jump to <a href='FIXME#hive-ice-upgrade'>Upgrading for Infobright/Hive users</a> for information on how to upgrade.</p>
-<h2><a name='snowplow-redshift'>3. Setting up SnowPlow for Redshift</a></h2>
+<p>If you are a Snowplow Hive/Infobright user with no interest in Redshift, please jump to <a href='FIXME#hive-ice-upgrade'>Upgrading for Infobright/Hive users</a> for information on how to upgrade.</p>
+<h2><a name='snowplow-redshift'>3. Setting up Snowplow for Redshift</a></h2>
 <p>This is a relatively simple process, which is fully documented on our wiki:</p>
 
 <ol>
 <li><a href='https://github.com/snowplow/snowplow/wiki/setting-up-redshift'>Setup a Redshift cluster</a></li>
 
-<li><a href='https://github.com/snowplow/snowplow/wiki/1-Installing-EmrEtlRunner'>Configure EmrEtlRunner to output SnowPlow events in Redshift format</a></li>
+<li><a href='https://github.com/snowplow/snowplow/wiki/1-Installing-EmrEtlRunner'>Configure EmrEtlRunner to output Snowplow events in Redshift format</a></li>
 
-<li><a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'>Configure StorageLoader to load SnowPlow events into Redshift</a></li>
+<li><a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'>Configure StorageLoader to load Snowplow events into Redshift</a></li>
 
-<li>(Optional) <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualise-your-data#wiki-redshift'>Connect Chartio to SnowPlow data in Redshift</a></li>
+<li>(Optional) <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualise-your-data#wiki-redshift'>Connect Chartio to Snowplow data in Redshift</a></li>
 </ol>
 
-<p>Once you have completed these steps, you should now have a SnowPlow eventstream data warehouse setup in Redshift!</p>
+<p>Once you have completed these steps, you should now have a Snowplow eventstream data warehouse setup in Redshift!</p>
 <h2><a name='upgrading'>4. Upgrading for Infobright/Hive users</a></h2>
-<p>These are the steps to upgrade SnowPlow to version 0.7.6 if you are using the Hive or Infobright output formats:</p>
+<p>These are the steps to upgrade Snowplow to version 0.7.6 if you are using the Hive or Infobright output formats:</p>
 
 <h3 id='41_emretlrunner'>4.1 EmrEtlRunner</h3>
 
@@ -153,7 +153,7 @@
   :mysql_infobright_hiveql_version: 0.0.8
   :redshift_hiveql_version: 0.0.1</code></pre>
 
-<p>If you are outputting SnowPlow events in Infobright format, you need to update this line too:</p>
+<p>If you are outputting Snowplow events in Infobright format, you need to update this line too:</p>
 
 <pre><code>:etl:
   ...
@@ -186,7 +186,7 @@
 
 <p>Done!</p>
 <h2><a name='roadmap'>5. Roadmap and next steps</a></h2>
-<p>We&#8217;re really excited about the opportunities for building web-scale, low-cost data warehouses for marketing and product analytics with Amazon Redshift, and we&#8217;re super-excited about all of the potential uses of SnowPlow event data within these data warehouses. If you&#8217;re excited too, do <a href='mailto:sales@snowplowanalytics.com'>get in touch</a>!</p>
+<p>We&#8217;re really excited about the opportunities for building web-scale, low-cost data warehouses for marketing and product analytics with Amazon Redshift, and we&#8217;re super-excited about all of the potential uses of Snowplow event data within these data warehouses. If you&#8217;re excited too, do <a href='mailto:sales@snowplowanalytics.com'>get in touch</a>!</p>
 
 <p>Separately, this is the last planned release in the 0.7.x series. We&#8217;re already hard at work on the next release, which will see us swap out the current Hive-based ETL process for a more robust, performant and extensible Hadoop (Cascading/Scalding) ETL process.</p>
 
@@ -245,9 +245,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -262,9 +262,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -279,9 +279,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -294,9 +294,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -313,7 +313,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

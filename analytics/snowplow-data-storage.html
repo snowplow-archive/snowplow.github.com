@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Data storage - SnowPlow Analytics</title>
+	<title>Data storage - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -46,15 +46,15 @@
 </div>
 	
 		<div id="contents">
-<h1 id='understanding_how_your_snowplow_data_is_stored'>Understanding how your SnowPlow data is stored</h1>
+<h1 id='understanding_how_your_snowplow_data_is_stored'>Understanding how your Snowplow data is stored</h1>
 
-<p>Currently, SnowPlow supports storing your data in two locations: <a href='#s3'>Amazon S3</a> and <a href='#redshift'>Redshift</a> and <a href='#infobright'>Infobright</a> columnar database. We are working to support <a href='#other'>a growing range of data storage options</a> - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your SnowPlow data, the more analysis tools you will be able to plug into that data. Many SnowPlow uses already store data on <em>both</em> S3 <em>and</em> Infobright, to exploit tools that work well with both storage solutions. (More on this <a href='#more'>further down the page</a>.)</p>
+<p>Currently, Snowplow supports storing your data in two locations: <a href='#s3'>Amazon S3</a> and <a href='#redshift'>Redshift</a> and <a href='#infobright'>Infobright</a> columnar database. We are working to support <a href='#other'>a growing range of data storage options</a> - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug into that data. Many Snowplow uses already store data on <em>both</em> S3 <em>and</em> Infobright, to exploit tools that work well with both storage solutions. (More on this <a href='#more'>further down the page</a>.)</p>
 
-<p>Understanding how your SnowPlow data is stored and formatted will better position you to analyse that data using a broad range of tools.</p>
+<p>Understanding how your Snowplow data is stored and formatted will better position you to analyse that data using a broad range of tools.</p>
 <h2><a name='s3'>Storage in Amazon S3</a></h2>
 <p><img alt='s3-logo' src='/static/img/amazon_s3_logo.jpg' /></p>
 
-<p>Storing your SnowPlow data in Amazon S3 has a number of benefits:</p>
+<p>Storing your Snowplow data in Amazon S3 has a number of benefits:</p>
 
 <ul>
 <li>It is incredibly scalable: S3 can store as much data as you can throw at it</li>
@@ -66,11 +66,11 @@
 
 <p>Going forwards, our intention is to change the format of data stored in S3 to use <a href='http://avro.apache.org/'>Avro</a>. This will better enable us to grow out the range of event-specific and platform-specific fields.</p>
 
-<p>For a guide to getting started using Hive to query your data in S3, see the <a href='https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools'>getting started</a> section on the <a href='https://github.com/snowplow/snowplow/wiki/SnowPlow%20setup%20guide'>setup guide</a>.</p>
+<p>For a guide to getting started using Hive to query your data in S3, see the <a href='https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools'>getting started</a> section on the <a href='https://github.com/snowplow/snowplow/wiki/Snowplow%20setup%20guide'>setup guide</a>.</p>
 <h2><a name='redshift'>Storage in Redshift</a></h2>
 <p><img alt='redshift-logo' src='/static/img/amazon-redshift.png' /></p>
 
-<p>Storing your SnowPlow data in Amazon Redshift has a number of benefits:</p>
+<p>Storing your Snowplow data in Amazon Redshift has a number of benefits:</p>
 
 <ul>
 <li>Amazon Redshift is a fully-managed service (unlike Infobright Community edition)</li>
@@ -90,7 +90,7 @@
 <h2><a name='infobright'>Storage in Infobright</a></h2>
 <p><img alt='infobright logo' src='/static/img/infobright_logo.JPG' /></p>
 
-<p>Storing your SnowPlow data in Infobright has a number of advantages:</p>
+<p>Storing your Snowplow data in Infobright has a number of advantages:</p>
 
 <ul>
 <li>Rapid querying. Infobright&#8217;s columnar oriented database is optimized for fast querying across very large data sets (scaling up to terabytes)</li>
@@ -101,7 +101,7 @@
 </ul>
 
 <p>Data is stored in Infobright as a single &#8216;fat table&#8217;. The structure mirrors the flat file structure of the data stored in Amazon S3, with some minor differences related to data formats that Hive supports and Infobright does not (e.g. arrays). For more details see the <a href='snowplow-table-structure.html'>data structure</a> page.</p>
-<a name='more'><p>As should hopefully be clear, there are benefits to storing your SnowPlow data in **both** S3 and Infobright: Infobright to support OLAP analysis, and S3 to support machine learning (via Mahout).</p></a><h2><a name='other'>Other storage options on the roadmap</a></h2>
+<a name='more'><p>As should hopefully be clear, there are benefits to storing your Snowplow data in **both** S3 and Infobright: Infobright to support OLAP analysis, and S3 to support machine learning (via Mahout).</p></a><h2><a name='other'>Other storage options on the roadmap</a></h2>
 <p>We plan to incorporate <a href='http://skydb.io/'>SkyDB</a> to enable specialist analysis of behavioral / event data.</p>
 
 <p><a href='snowplow-table-structure.html'>Learn more</a> about how data is structured.</p>
@@ -1236,7 +1236,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

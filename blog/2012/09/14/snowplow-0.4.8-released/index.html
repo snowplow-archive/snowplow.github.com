@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.4.8 released - SnowPlow Analytics</title>
+	<title>Snowplow 0.4.8 released - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,8 +48,8 @@
 		<div id="contents">
 		<div class="post">
 			14 Sep 2012
-			<h1>SnowPlow 0.4.8 released</h1>
-			<p>We have just released SnowPlow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+			<h1>Snowplow 0.4.8 released</h1>
+			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
 
 <ol>
 <li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
@@ -77,11 +77,11 @@
 
 <p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <!--more--></p>
 
-<p>As part of this new <strong>0.4.8</strong> SnowPlow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.</p>
+<p>As part of this new <strong>0.4.8</strong> Snowplow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.</p>
 
 <h2 id='support_for__as_the_tracking_pixel'>Support for <code>i</code> as the tracking pixel</h2>
 
-<p>Currently the SnowPlow JavaScript tracker fires a GET request to a tracking pixel called <code>ice.png</code>. This works fine, but it makes more sense to call the pixel <code>i</code>, for two reasons:</p>
+<p>Currently the Snowplow JavaScript tracker fires a GET request to a tracking pixel called <code>ice.png</code>. This works fine, but it makes more sense to call the pixel <code>i</code>, for two reasons:</p>
 
 <ol>
 <li>We free up 5 extra characters to use for sending data</li>
@@ -91,13 +91,13 @@
 
 <p>Thanks to <a href='https://github.com/shermozle/'>Simon Rumble</a> (author of <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>) for pointing this out! In due course we will update the JavaScript tracker and CloudFront collector to implement this change (see issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/25'>#25</a>), but to start off we have added support for <code>i</code> to the new version of the Hive deserializer.</p>
 
-<p>This is a small change, but highlights a wider point for SnowPlow development: in general, whenever we have a &#8220;breaking change&#8221; coming upstream, we will try to prepare for this change downstream first, to prevent any disruption to your use of SnowPlow.</p>
+<p>This is a small change, but highlights a wider point for Snowplow development: in general, whenever we have a &#8220;breaking change&#8221; coming upstream, we will try to prepare for this change downstream first, to prevent any disruption to your use of Snowplow.</p>
 
 <h2 id='support_for_forward_query_string__yes'>Support for Forward Query String = yes</h2>
 
 <p>Thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for spotting that the Hive deserializer does not work if your CloudFront distribution has Forward Query String set to Yes; Michael not only raised the issue but also provided a fix, many thanks Michael!</p>
 
-<p>Most SnowPlow users will have Forward Query String in their CloudFront distribution set to No, so this issue will not arise for them; however this fix will be invaluable for anyone who does have it set to Yes. If you want to read more about this, please check out <a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>.</p>
+<p>Most Snowplow users will have Forward Query String in their CloudFront distribution set to No, so this issue will not arise for them; however this fix will be invaluable for anyone who does have it set to Yes. If you want to read more about this, please check out <a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>.</p>
 
 <p>We&#8217;re aware that our guide for setting up the CloudFront distribution is a bit out of date (which is how this issue can arise) - we will be refreshing the tracking pixel guide soon (<a href='https://github.com/snowplow/snowplow/issues/25'>issue #25</a>)! Many thanks for your patience.</p>
 
@@ -166,9 +166,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -183,9 +183,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -200,9 +200,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -215,9 +215,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -234,7 +234,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

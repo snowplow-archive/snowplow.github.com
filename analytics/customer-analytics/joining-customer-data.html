@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Joining SnowPlow data to other customer data - SnowPlow Analytics</title>
+	<title>Joining Snowplow data to other customer data - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -46,20 +46,20 @@
 </div>
 	
 		<div id="contents">
-<h1 id='joining_snowplow_engagement_data_with_other_sources_of_customer_data_into_customer_datamarts'>Joining SnowPlow engagement data with other sources of customer data into customer datamarts</h1>
+<h1 id='joining_snowplow_engagement_data_with_other_sources_of_customer_data_into_customer_datamarts'>Joining Snowplow engagement data with other sources of customer data into customer datamarts</h1>
 
-<p>The value of data sets increases when they are joined with other, complimentary data sets. No where is this more true than in the case of customer data. Busiensses have for years spend huge sums of money integrating multiple customer data sets (incl. CRM data, financial data, offline sales data, email marketing data etc.) into datawarehouses, datamarts and single customer views to provide a complete picture of their userbase. Until SnowPlow, however, integrating web analytics with other customer data sources has always been difficult if not impossible.</p>
+<p>The value of data sets increases when they are joined with other, complimentary data sets. No where is this more true than in the case of customer data. Busiensses have for years spend huge sums of money integrating multiple customer data sets (incl. CRM data, financial data, offline sales data, email marketing data etc.) into datawarehouses, datamarts and single customer views to provide a complete picture of their userbase. Until Snowplow, however, integrating web analytics with other customer data sources has always been difficult if not impossible.</p>
 
-<p>In this section, we walk through the process of integrating SnowPlow data with other data sources:</p>
+<p>In this section, we walk through the process of integrating Snowplow data with other data sources:</p>
 
 <ol>
 <li><a href='#why'>Why integrate web analytics data with other customer data sources</a></li>
 
 <li><a href='#ingredients'>Necessary ingredients for successful integration</a></li>
 
-<li><a href='#upload'>Uploading customer data into SnowPlow</a></li>
+<li><a href='#upload'>Uploading customer data into Snowplow</a></li>
 
-<li><a href='#join'>Joining customer data with SnowPlow to create an integrated customer datamart</a></li>
+<li><a href='#join'>Joining customer data with Snowplow to create an integrated customer datamart</a></li>
 </ol>
 <a name='why'><h2>1. Why integrate web analytics data with other customer data sources?</h2></a>
 <p>To date many companies have become very good at using CRM, loyalty and sales data to understand, segment and serve their customer base. Typically, however, they have <strong>not</strong> used web analytics data to understand their customers, even though how users engage with brands and companies through their website and applications provides some of the most revealing data about who a person is, there motivation for engaging with a brand / product / service and how happy they are with that brand / product and service. To illustrate how revealing web analytics data can be, consider:</p>
@@ -80,7 +80,7 @@
 <li>Web analytics data can be used to distinguish focused buyers (who come on a website looking for a specific product, and zoom in on it quickly) from those who are interested in browsing and then end up buying</li>
 </ul>
 
-<p>By integrating SnowPlow data with other customer data, it is possible learn additional things about your customers, and use that to drive your marketing and platform development decisions.</p>
+<p>By integrating Snowplow data with other customer data, it is possible learn additional things about your customers, and use that to drive your marketing and platform development decisions.</p>
 
 <p>Potential sources of customer data to integrate with:</p>
 
@@ -103,26 +103,26 @@
 <p>Given the two above requirements, it becomes clear why web analytics data has not been integrated with other customer data sources:</p>
 
 <ul>
-<li>Web analytics data volumes are typically enormous, making <em>copying</em> the data hard. (SnowPlow <em>fixes</em> this problem by enabling you to import your data into SnowPlow, rather than export your web analytics data out of it.)</li>
+<li>Web analytics data volumes are typically enormous, making <em>copying</em> the data hard. (Snowplow <em>fixes</em> this problem by enabling you to import your data into Snowplow, rather than export your web analytics data out of it.)</li>
 
-<li>Web analytics programs are typically bad at reliably identifying users. (SnowPlow <em>fixes</em> this problem by exposing a <code>user_id</code>, <code>domain_userid</code> and <code>network_userid</code> and making it striaghtforward to map those user identifiers with identifiers from other systems.)</li>
+<li>Web analytics programs are typically bad at reliably identifying users. (Snowplow <em>fixes</em> this problem by exposing a <code>user_id</code>, <code>domain_userid</code> and <code>network_userid</code> and making it striaghtforward to map those user identifiers with identifiers from other systems.)</li>
 </ul>
-<a name='upload'><h2>3. Uploading data into SnowPlow</h2></a>
+<a name='upload'><h2>3. Uploading data into Snowplow</h2></a>
 <p>In order two join two data sets, you need to be able to run a query across both of them. Typically, this means getting copies of them in the same system. There are three options:</p>
 
 <ol>
-<li>Export data out of SnowPlow and into the system that the data you want to integrate it with lives e.g. your CRM system</li>
+<li>Export data out of Snowplow and into the system that the data you want to integrate it with lives e.g. your CRM system</li>
 
-<li>Import the data you want to integrate with SnowPlow out the system it usually lives (e.g. your CRM system) and import it into SnowPlow</li>
+<li>Import the data you want to integrate with Snowplow out the system it usually lives (e.g. your CRM system) and import it into Snowplow</li>
 
-<li>Export data out of SnowPlow and out of the system you want to integrate it with, and import both data sets into a third system to run the join</li>
+<li>Export data out of Snowplow and out of the system you want to integrate it with, and import both data sets into a third system to run the join</li>
 </ol>
 
-<p>Whilst all three options are possible, more often then not we recommend companies use option 2 i.e. import the customer data they want to join with SnowPlow into SnowPlow. (Or more specifically, if they are querying SnowPlow data in Hive, import the data into Hive. If they are querying SnowPlow data in Redshift, import the data into Redshift.) The reason is relatively straightforward: SnowPlow data sets tend to be very large: that is why we use either Hive or Redshift to store and query the data, as both these platforms are built for scale. Other sources of customer data e.g. CRM data are typically much smaller scale, so moving them into Hive / Infobright is usually more straightforward then moving millions of lines of SnowPlow data into a non-Hive / non-Infobright data store.</p>
+<p>Whilst all three options are possible, more often then not we recommend companies use option 2 i.e. import the customer data they want to join with Snowplow into Snowplow. (Or more specifically, if they are querying Snowplow data in Hive, import the data into Hive. If they are querying Snowplow data in Redshift, import the data into Redshift.) The reason is relatively straightforward: Snowplow data sets tend to be very large: that is why we use either Hive or Redshift to store and query the data, as both these platforms are built for scale. Other sources of customer data e.g. CRM data are typically much smaller scale, so moving them into Hive / Infobright is usually more straightforward then moving millions of lines of Snowplow data into a non-Hive / non-Infobright data store.</p>
 
 <h3 id='importing_data_into_hive'>Importing data into Hive</h3>
 
-<p>If you are running SnowPlow using Hive on Amazon&#8217;s S3 / EMR infrastructure, uploading data into Hive is a three step process:</p>
+<p>If you are running Snowplow using Hive on Amazon&#8217;s S3 / EMR infrastructure, uploading data into Hive is a three step process:</p>
 
 <ol>
 <li>Export the data from your system in a format suitable for Hive. (In practice, this generally means some kind of text-delimited format e.g. tab-delimited or comma-delimited)</li>
@@ -172,19 +172,19 @@
 </code></pre></div>
 <h3 id='importing_your_data_into_redshift'>Importing your data into Redshift</h3>
 
-<p>If you are using Redshift to store and query your SnowPlow data, uploading other sources of customer data into your Redshift cluster is reasonably straightforward.</p>
+<p>If you are using Redshift to store and query your Snowplow data, uploading other sources of customer data into your Redshift cluster is reasonably straightforward.</p>
 
 <p>Because uploading data into Redshift is fastest from S3, we generally recommend saving the data in tab delimited format (being careful to remove any tabs from the data), and then uploading those text files to S3. Bulk loading the data from S3 into Redshift is then straightforward. (For details on how to bulk load data from S3 into Redshift - see <a href='http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-S3.html'>here</a>.) Note you will need to create new tables in Redshift with a schema that match the format of the exported data in S3, prior to performing the bulk upload.</p>
 
-<p>To maintain a regular update of data from your other customer data sources into Redshift for analysing alongside SnowPlow, it makes sense either to script an ETL process, or to use an ETL tool. Currently there are not any Redshift compatible tools ETL tools that we have tested. However, we expect many ETL tools to roll out Redshift support over the next couple of months. In addition, the SnowPlow team can setup those regular ETL steps as part of our <a href='/services/index.html'>professional services</a> offering.</p>
+<p>To maintain a regular update of data from your other customer data sources into Redshift for analysing alongside Snowplow, it makes sense either to script an ETL process, or to use an ETL tool. Currently there are not any Redshift compatible tools ETL tools that we have tested. However, we expect many ETL tools to roll out Redshift support over the next couple of months. In addition, the Snowplow team can setup those regular ETL steps as part of our <a href='/services/index.html'>professional services</a> offering.</p>
 
 <h3 id='importing_your_data_into_infobright'>Importing your data into Infobright</h3>
 
-<p>If you are using Infobright to store and query your SnowPlow data, uploading data into Infobright is straightforward: you can use any database administration tool that interfaces with MySQL (on which Infobright is based) to create a new table in Infobright and import the CSV in. If the data you are importing lives in another relational database, it may be possible to use a tool like <a href='http://www.navicat.com/'>Navicat</a> to move the data directly between one database and the other, or use an ETL tool like <a href='http://www.jitterbit.com/'>Jitterbit</a> to manage a regular transfer of data from one database to the other.</p>
-<a name='join'><h2>4. Joining 3rd party customer data with SnowPlow data</h2></a>
+<p>If you are using Infobright to store and query your Snowplow data, uploading data into Infobright is straightforward: you can use any database administration tool that interfaces with MySQL (on which Infobright is based) to create a new table in Infobright and import the CSV in. If the data you are importing lives in another relational database, it may be possible to use a tool like <a href='http://www.navicat.com/'>Navicat</a> to move the data directly between one database and the other, or use an ETL tool like <a href='http://www.jitterbit.com/'>Jitterbit</a> to manage a regular transfer of data from one database to the other.</p>
+<a name='join'><h2>4. Joining 3rd party customer data with Snowplow data</h2></a>
 <p>Now that all your customer data sets are available in Hive, Redshift Infobright, you are in a position to run an analysis across all customer data sets.&lt;/a&gt;</p>
 
-<p>To do so, however, you need to map users between the different systems: mapping users identified in SnowPlow by the <code>domain_userid</code>, <code>network_userid</code> and <code>user_id</code>, with customers as identified by a <code>customer_id</code> (or something similar) in your other customer data sets. This requires firing a SnowPlow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be assigned to the SnowPlow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href='identifying-users.html#login-events'>identifying users with SnowPlow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
+<p>To do so, however, you need to map users between the different systems: mapping users identified in Snowplow by the <code>domain_userid</code>, <code>network_userid</code> and <code>user_id</code>, with customers as identified by a <code>customer_id</code> (or something similar) in your other customer data sets. This requires firing a Snowplow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be assigned to the Snowplow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href='identifying-users.html#login-events'>identifying users with Snowplow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -193,7 +193,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>network_userid</span><span class='p'>;</span>
 </code></pre></div>
-<p>You can then perform queries that join both data tables, the SnowPlow <code>events</code> table and your 2nd table of imported customer data via the mapping table above:</p>
+<p>You can then perform queries that join both data tables, the Snowplow <code>events</code> table and your 2nd table of imported customer data via the mapping table above:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL / Redshift pseudo-code */</span>
 <span class='k'>SELECT</span>
 <span class='n'>e</span><span class='p'>.</span><span class='n'>field_1</span><span class='p'>,</span>
@@ -214,9 +214,9 @@
 <span class='k'>JOIN</span> <span class='ss'>`events_008`</span>
 <span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>;</span>
 </code></pre></div>
-<h2 id='happy_integrating_snowplow_data_with_other_sources_of_customer_data'>Happy integrating SnowPlow data with other sources of customer data?</h2>
+<h2 id='happy_integrating_snowplow_data_with_other_sources_of_customer_data'>Happy integrating Snowplow data with other sources of customer data?</h2>
 
-<p>Find out <a href='customer-lifetime-value.html'>how to calculate customer lifetime value</a> using SnowPlow</p>
+<p>Find out <a href='customer-lifetime-value.html'>how to calculate customer lifetime value</a> using Snowplow</p>
 </div>
 
  <div id="sidebar">
@@ -500,7 +500,7 @@
 					
 						
 							
-							<li class="active"><a href="/analytics/customer-analytics/joining-customer-data.html" class="active">Joining SnowPlow data to other customer data</a></li>
+							<li class="active"><a href="/analytics/customer-analytics/joining-customer-data.html" class="active">Joining Snowplow data to other customer data</a></li>
 									
 									
 					
@@ -1420,7 +1420,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

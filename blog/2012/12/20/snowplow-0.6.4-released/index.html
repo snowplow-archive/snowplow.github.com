@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.4 released, with Infobright improvements - SnowPlow Analytics</title>
+	<title>Snowplow 0.6.4 released, with Infobright improvements - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,8 +48,8 @@
 		<div id="contents">
 		<div class="post">
 			20 Dec 2012
-			<h1>SnowPlow 0.6.4 released, with Infobright improvements</h1>
-			<p>We&#8217;re happy to announce our next SnowPlow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			<h1>Snowplow 0.6.4 released, with Infobright improvements</h1>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
 
 <ol>
 <li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
@@ -69,7 +69,7 @@
 <!--more-->
 <h2 id='upgraded_infobright_table_definition'>Upgraded Infobright table definition</h2>
 
-<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new SnowPlow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
+<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
 
 <p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
 
@@ -92,21 +92,21 @@
 
 <p>4-storage/hive-storage</p>
 
-<p>Which format your SnowPlow event files are in will depend on how your EmrEtlRunner is configured. If your <code>config.yml</code> contains:</p>
+<p>Which format your Snowplow event files are in will depend on how your EmrEtlRunner is configured. If your <code>config.yml</code> contains:</p>
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your SnowPlow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
 
 <p>Whereas if your <code>config.yml</code> contains:</p>
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your SnowPlow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
 
 <h2 id='getting_help'>Getting help</h2>
 
-<p>That&#8217;s it! If you have any problems with SnowPlow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>That&#8217;s it! If you have any problems with Snowplow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>
@@ -159,9 +159,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -176,9 +176,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -193,9 +193,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -208,9 +208,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -227,7 +227,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

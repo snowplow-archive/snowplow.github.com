@@ -8,18 +8,18 @@ The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [
 
 The content covers:
 
-1. What SnowPlow is, including why we developed SnowPlow, and how SnowPlow differs from other approaches to web analytics
-2. How SnowPlow works, from a technical standpoint
-3. How we plan to develop SnowPlow
-4. How to perform analyses using SnowPlow
-5. Overview of the Professional Services we offer around SnowPlow
+1. What Snowplow is, including why we developed Snowplow, and how Snowplow differs from other approaches to web analytics
+2. How Snowplow works, from a technical standpoint
+3. How we plan to develop Snowplow
+4. How to perform analyses using Snowplow
+5. Overview of the Professional Services we offer around Snowplow
 
-All content is copyright (c) 2012 SnowPlow Analytics Ltd and not to be reused without permission. 
+All content is copyright (c) 2012 Snowplow Analytics Ltd and not to be reused without permission. 
 
 
 ## Adding new content and editing existing content
 
-We welcome fixes and improvements! In particular on the analysis side, there is a wide range of ways SnowPlow can be used, and we can't possibly hope to cover them all ourselves. If you've used it for a specific type of analysis, we'd love you to share it here. Please fork the repo, make your changes and then create a pull request.
+We welcome fixes and improvements! In particular on the analysis side, there is a wide range of ways Snowplow can be used, and we can't possibly hope to cover them all ourselves. If you've used it for a specific type of analysis, we'd love you to share it here. Please fork the repo, make your changes and then create a pull request.
 
 ### Contributing to the website
 
@@ -44,7 +44,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 
 #### 1. A note about plugins and Github pages
 
-The SnowPlow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker](http://arademaker.github.com/) [here](http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
+The Snowplow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker](http://arademaker.github.com/) [here](http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
 
 1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch. This is where **all** modifications to the website should be made.
 2. Jekyll should be run locally to generate the static html files locally

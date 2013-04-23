@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Cohort Analysis - SnowPlow Analytics</title>
+	<title>Cohort Analysis - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -46,7 +46,7 @@
 </div>
 	
 		<div id="contents">
-<h1 id='performing_cohort_analyses_with_snowplow'>Performing cohort analyses with SnowPlow</h1>
+<h1 id='performing_cohort_analyses_with_snowplow'>Performing cohort analyses with Snowplow</h1>
 
 <ol>
 <li><a href='#what'>What is cohort analysis?</a></li>
@@ -149,7 +149,7 @@
 
 <h3 id='1d_other_ways_to_define_cohorts'>1d. Other ways to define cohorts</h3>
 
-<p>SnowPlow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of SnowPlow. (This data will need to be uploaded to SnowPlow before it can be used.) For more information, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a></p>
+<p>Snowplow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of Snowplow. (This data will need to be uploaded to Snowplow before it can be used.) For more information, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a></p>
 <a name='metric-definition'><h2>2. Metric definitions</h2></a>
 <p>As a second step, we need to define a query that measure the <em>thing</em> we want to compare between our cohorts. We therefore need to populate a table like the one below:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>metric_by_user</span> <span class='p'>(</span>
@@ -200,7 +200,7 @@
 </code></pre></div>
 <h3 id='2c_other_metrics_to_compare'>2c. Other metrics to compare</h3>
 
-<p>SnowPlow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
+<p>Snowplow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
 <a name='combinetheresults'><h2>3. Combining the results in the final cohort analysis</h2></a>
 <p>To perform the actual cohort analysis, all we have to do is to <code>JOIN</code> our two tables <code>user_cohort_map</code> and <code>metric_by_user</code> to aggregate results by cohort by time period so that we can compare them alongside each other:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright */</span>
@@ -223,9 +223,9 @@
 </code></pre></div>
 <p>Note: this is the same query <em>regardless</em> of what cohort definition was chosen in step 1, or what metric definition was chosen in step 2.</p>
 
-<p>In the above case, we&#8217;ve used the <code>AVG()</code> function to aggregate the metric over all users in each cohort. This is the most common aggregation function to use with SnowPlow. To use a more unusual function (e.g. a percentile), it may be necessary to write a user-defined-function (UDF) to perform the required aggregation.</p>
+<p>In the above case, we&#8217;ve used the <code>AVG()</code> function to aggregate the metric over all users in each cohort. This is the most common aggregation function to use with Snowplow. To use a more unusual function (e.g. a percentile), it may be necessary to write a user-defined-function (UDF) to perform the required aggregation.</p>
 
-<p>For more about cohort analyses and performing them on SnowPlow, view the <a href='http://www.keplarllp.com/blog/2012/05/performing-cohort-analysis-on-web-analytics-data-using-snowplow'>blog post series</a> on <a href='http://www.keplarllp.com'>Keplar LLP</a>.</p>
+<p>For more about cohort analyses and performing them on Snowplow, view the <a href='http://www.keplarllp.com/blog/2012/05/performing-cohort-analysis-on-web-analytics-data-using-snowplow'>blog post series</a> on <a href='http://www.keplarllp.com'>Keplar LLP</a>.</p>
 </div>
 
  <div id="sidebar">
@@ -509,7 +509,7 @@
 					
 						
 							
-							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining SnowPlow data to other customer data</a></li>
+							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining Snowplow data to other customer data</a></li>
 									
 									
 					
@@ -1429,7 +1429,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

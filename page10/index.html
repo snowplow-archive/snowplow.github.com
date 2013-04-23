@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -51,9 +51,9 @@
 		<div class="post">
 			24 Sep 2012
 			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
-			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce SnowPlow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
 
-<p>With each person, I started by explaining that SnowPlow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
 
 <h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
 
@@ -62,15 +62,15 @@
 </tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
 </tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
 </tr></tbody></table>
-<p>SnowPlow makes integrating web analytics data with other data sources easier in a two ways:</p>
+<p>Snowplow makes integrating web analytics data with other data sources easier in a two ways:</p>
 
 <ol>
-<li>All your SnowPlow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
+<li>All your Snowplow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
 
 <li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
 </ol>
 
-<p>For more details on how to perform <code>JOIN</code>s between SnowPlow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining SnowPlow engagement data with other sources of customer data</a></p>
+<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining Snowplow engagement data with other sources of customer data</a></p>
 
 <h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
 
@@ -89,11 +89,11 @@
 			<span class="comments-link"><a href="/blog/2012/09/24/what-does-snowplow-let-you-do#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.8 released with Hive deserializer improvements" />
+		<a name="Snowplow 0.4.8 released with Hive deserializer improvements" />
 		<div class="post">
 			14 Sep 2012
-			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">SnowPlow 0.4.8 released</a></h1>
-			<p>We have just released SnowPlow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">Snowplow 0.4.8 released</a></h1>
+			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
 
 <ol>
 <li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
@@ -123,11 +123,11 @@
 			<span class="comments-link"><a href="/blog/2012/09/14/snowplow-0.4.8-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.7 released with additional JavaScript tracking options" />
+		<a name="Snowplow 0.4.7 released with additional JavaScript tracking options" />
 		<div class="post">
 			06 Sep 2012
-			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">SnowPlow 0.4.7 released</a></h1>
-			<p>We have just released SnowPlow version <strong>0.4.7</strong>. This release bumps the SnowPlow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">Snowplow 0.4.7 released</a></h1>
+			<p>We have just released Snowplow version <strong>0.4.7</strong>. This release bumps the Snowplow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
 
 <ol>
 <li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
@@ -141,12 +141,12 @@
 
 <h2 id='site_id'>Site ID</h2>
 
-<p>The SnowPlow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
+<p>The Snowplow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
 </code></pre></div>
-<p>The querystring passed to your SnowPlow collector will now include the following parameter:</p>
+<p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
 
 <pre><code>...&amp;said=CFe23a&amp;...</code></pre>
 
@@ -157,7 +157,7 @@
 		<a name="Amazon announces Glacier" />
 		<div class="post">
 			21 Aug 2012
-			<h1><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running SnowPlow</a></h1>
+			<h1><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running Snowplow</a></h1>
 			<p>Today Amazon announced the launch of <a href='http://aws.amazon.com/glacier/'>Amazon Glacier</a>, which is a low-cost data archiving service designed for rarely accessed data.</p>
 
 <p>As Werner Vogels described it in his <a href='http://www.allthingsdistributed.com/2012/08/amazon-glacier.html'>blog post</a> this morning:</p>
@@ -166,9 +166,9 @@
 <p>Amazon Glacier provides the same high durability guarantee as Amazon S3 but relaxes the access times to a few hours. This is the right service for customers who have archival data that requires highly reliable storage but for which immediate access is not needed.</p>
 </blockquote>
 
-<p>At first sight, Amazon Glacier looks to be a fantastic fit for archiving the raw event logs generated by the SnowPlow collector (whether the CloudFront collector or alternatives such as <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>). Once the nightly SnowPlow ETL has been run on your raw event logs, you shouldn&#8217;t need to access those raw logs frequently. However, we would always recommend retaining them, as there may well be a reason to revisit them in the future. We never recommend throwing away atomic source data!</p>
+<p>At first sight, Amazon Glacier looks to be a fantastic fit for archiving the raw event logs generated by the Snowplow collector (whether the CloudFront collector or alternatives such as <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>). Once the nightly Snowplow ETL has been run on your raw event logs, you shouldn&#8217;t need to access those raw logs frequently. However, we would always recommend retaining them, as there may well be a reason to revisit them in the future. We never recommend throwing away atomic source data!</p>
 
-<p>This is where Amazon Glacier comes in - at the proposed pricing levels for Glacier, you could archive 2 terabytes of raw SnowPlow data for around $20 a month; this would be significantly cheaper than storing your raw logs in Amazon S3, which is the current SnowPlow approach.</p>
+<p>This is where Amazon Glacier comes in - at the proposed pricing levels for Glacier, you could archive 2 terabytes of raw Snowplow data for around $20 a month; this would be significantly cheaper than storing your raw logs in Amazon S3, which is the current Snowplow approach.</p>
 
 <p>Moreover, Werner has indicated that:</p>
 
@@ -176,22 +176,22 @@
 <p>In the coming months, Amazon S3 will introduce an option that will allow customers to seamlessly move data between Amazon S3 and Amazon Glacier based on data lifecycle policies.</p>
 </blockquote>
 
-<p>Once Amazon has launched this feature, we&#8217;ll get this automatic S3-&gt;Glacier archiving process working internally, and then release a howto for SnowPlow users so you can do the same, and start running your SnowPlow over Amazon Glacier!</p>
+<p>Once Amazon has launched this feature, we&#8217;ll get this automatic S3-&gt;Glacier archiving process working internally, and then release a howto for Snowplow users so you can do the same, and start running your Snowplow over Amazon Glacier!</p>
 
 <p>Exciting times for everybody who likes storing atomic event data cheaply and safely - stay tuned!</p>
 			<span class="comments-link"><a href="/blog/2012/08/21/amazon-glacier-launch#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="SnowPlow 0.4.6 released!" />
+		<a name="Snowplow 0.4.6 released!" />
 		<div class="post">
 			20 Aug 2012
-			<h1><a href="/blog/2012/08/20/snowplow-0.4.6-released">SnowPlow 0.4.6 released</a></h1>
-			<p>Over the weekend we released SnowPlow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the SnowPlow JavaScript tracker.</p>
+			<h1><a href="/blog/2012/08/20/snowplow-0.4.6-released">Snowplow 0.4.6 released</a></h1>
+			<p>Over the weekend we released Snowplow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the Snowplow JavaScript tracker.</p>
 
 <p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
 
 <p>You can use this feature in your JavaScript invocation code like so:</p>
-<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>SnowPlow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
+<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>Snowplow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
 <span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
 <span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
 
@@ -203,7 +203,7 @@
 </code></pre></div>
 <p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
 
-<p>We added this capability to SnowPlow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for SnowPlow. Going forwards you can of course use this custom URL to send your SnowPlow events to any kind of collector on a domain you control.</p>
+<p>We added this capability to Snowplow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for Snowplow. Going forwards you can of course use this custom URL to send your Snowplow events to any kind of collector on a domain you control.</p>
 
 <p>Anyway I hope you like the feature and let us know how you get on with it!</p>
 			<span class="comments-link"><a href="/blog/2012/08/20/snowplow-0.4.6-released#disqus_thread" rel="nofollow">View Comments</a></span>
@@ -251,9 +251,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -268,9 +268,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -285,9 +285,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -300,9 +300,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -318,7 +318,7 @@
 	<!--<strong>Tags</strong> -->
 </div>
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

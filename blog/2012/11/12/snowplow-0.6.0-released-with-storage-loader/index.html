@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.6.0 released, with the new StorageLoader - SnowPlow Analytics</title>
+	<title>Snowplow 0.6.0 released, with the new StorageLoader - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,19 +48,19 @@
 		<div id="contents">
 		<div class="post">
 			12 Nov 2012
-			<h1>SnowPlow 0.6.0 released, with the new StorageLoader</h1>
-			<p>We&#8217;re very pleased to start the week by releasing a new version of SnowPlow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing SnowPlow components, but let&#8217;s start by introducing StorageLoader:</p>
+			<h1>Snowplow 0.6.0 released, with the new StorageLoader</h1>
+			<p>We&#8217;re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let&#8217;s start by introducing StorageLoader:</p>
 
 <h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
 
-<p>Up until now, SnowPlow has stored all its data in S3, where it can be queried in Hive. However, our vision with SnowPlow has always been to enable to the broadest set of analyses on SnowPlow data as possible. That means making it as easy as possible to keep up to date versions of SnowPlow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
+<p>Up until now, Snowplow has stored all its data in S3, where it can be queried in Hive. However, our vision with Snowplow has always been to enable to the broadest set of analyses on Snowplow data as possible. That means making it as easy as possible to keep up to date versions of Snowplow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
 
-<p><img alt='snowplow-loader-image' src='/static/img/SnowPlowLoader.jpg' /></p>
+<p><img alt='snowplow-loader-image' src='/static/img/SnowplowLoader.jpg' /></p>
 
-<p>StorageLoader is a Ruby application that downloads SnowPlow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your SnowPlow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
 
 <ul>
-<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across SnowPlow&#8217;s granular data)</li>
+<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow&#8217;s granular data)</li>
 
 <li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
 
@@ -72,25 +72,25 @@
 <ul>
 <li>In many cases, query times are much faster</li>
 
-<li>There are a wide range of analytics tools that plug directly into Infobright. (Any tool that plugs into MySQL.) These can now be run directly on top of SnowPlow data. (These tools include R and Tableau.)</li>
+<li>There are a wide range of analytics tools that plug directly into Infobright. (Any tool that plugs into MySQL.) These can now be run directly on top of Snowplow data. (These tools include R and Tableau.)</li>
 
 <li>For more details on the pros and cons of storage in S3 vs Infobright, see our <a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'>guide to choosing between the two</a>.</li>
 </ul>
 
-<p>As you can hopefully get a sense looking at our roadmap for other databases to support, there are obvious advantages to using some of the other databases on our roadmapGoing forwards, we expect that many companies using SnowPlow will store that SnowPlow data in more than one store, to enable a very broad range of analytics from different types of tools.</p>
+<p>As you can hopefully get a sense looking at our roadmap for other databases to support, there are obvious advantages to using some of the other databases on our roadmapGoing forwards, we expect that many companies using Snowplow will store that Snowplow data in more than one store, to enable a very broad range of analytics from different types of tools.</p>
 
 <h2 id='using_the_storageloader'>Using the StorageLoader</h2>
 
-<p>You can configure StorageLoader with the details of the Infobright table to insert your SnowPlow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your SnowPlow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
+<p>You can configure StorageLoader with the details of the Infobright table to insert your Snowplow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your Snowplow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
 
-<p>With this setup, you will have your SnowPlow events easily accessible and queryable in a local Infobright instance - but you can still fall back to querying the data in Hive if you wish.</p>
+<p>With this setup, you will have your Snowplow events easily accessible and queryable in a local Infobright instance - but you can still fall back to querying the data in Hive if you wish.</p>
 
 <p>The following setup guides should be helpful in terms of setting up StorageLoader:</p>
 
 <ul>
-<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house SnowPlow data</li>
+<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house Snowplow data</li>
 
-<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load SnowPlow data into Infobright</li>
+<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load Snowplow data into Infobright</li>
 </ul>
 
 <h2 id='the_codebase'>The codebase</h2>
@@ -103,7 +103,7 @@
 
 <h2 id='other_fixes_in_060'>Other fixes in 0.6.0</h2>
 
-<p>We have made a number of other fixes across SnowPlow to prepare the ground for StorageLoader:</p>
+<p>We have made a number of other fixes across Snowplow to prepare the ground for StorageLoader:</p>
 
 <p><strong>EmrEtlRunner</strong> has been bumped to 0.0.5, including upgrading it to Sluice 0.0.4 (which has some bug fixes around S3 path handling).</p>
 
@@ -166,9 +166,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -183,9 +183,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -200,9 +200,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -215,9 +215,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -234,7 +234,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

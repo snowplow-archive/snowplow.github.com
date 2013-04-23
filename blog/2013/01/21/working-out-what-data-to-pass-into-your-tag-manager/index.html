@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>What data should you be passing into your tag manager? - SnowPlow Analytics</title>
+	<title>What data should you be passing into your tag manager? - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -59,15 +59,15 @@
 
 <p>The trouble with insisting on formally passing data to your tag management system using things like the <a href='https://developers.google.com/tag-manager/reference'><code>dataLayer</code></a> or <a href='https://github.com/QubitProducts/UniversalVariable'><code>Universal Variable</code></a> is that it makes the process of implementing a tag management system more complicated: because you have to identify all the data points you want to pass to your web analytics (and advertising) systems and often develop a data model for transferring them to your tag management system, so that it can pass them on via the tags it fires.</p>
 
-<p>For SnowPlow users, the challenge is more acute. Whereas other analytics systems recommend that you only pass data into them that you know how to use / evaluate, we recommend that SnowPlow users pass in <em>all</em> the data associated with the events on a user journey so that analysts have a <strong>complete</strong> picture of a user&#8217;s journey. Then it is up to the analyst to decide whether or not specific bits of data are valuable based on what he / she does with that data (rather than prejudging it). So for SnowPlow users who are setting up a tag management system, the challenge is to identify, upfront <strong>all</strong> the data points to pass into the tag management system, so that they can be passed on to SnowPlow via the SnowPlow tracking tags. Simple, right?</p>
+<p>For Snowplow users, the challenge is more acute. Whereas other analytics systems recommend that you only pass data into them that you know how to use / evaluate, we recommend that Snowplow users pass in <em>all</em> the data associated with the events on a user journey so that analysts have a <strong>complete</strong> picture of a user&#8217;s journey. Then it is up to the analyst to decide whether or not specific bits of data are valuable based on what he / she does with that data (rather than prejudging it). So for Snowplow users who are setting up a tag management system, the challenge is to identify, upfront <strong>all</strong> the data points to pass into the tag management system, so that they can be passed on to Snowplow via the Snowplow tracking tags. Simple, right?</p>
 
-<h2 id='what_data_do_we_want_to_pass_into_snowplow'>What data do we want to pass into SnowPlow?</h2>
+<h2 id='what_data_do_we_want_to_pass_into_snowplow'>What data do we want to pass into Snowplow?</h2>
 
-<p>Broadly speaking, there are types of data that we want to process in SnowPlow: event data and page-level data.</p>
+<p>Broadly speaking, there are types of data that we want to process in Snowplow: event data and page-level data.</p>
 
 <h3 id='event_data'>Event data</h3>
 
-<p>At its heart, SnowPlow is a tool for capturing, storing and analysing event-stream data, with a focus on web event data. We aim to capture all events that occur on an individual&#8217;s customer journey. To give a random assortment of examples of the types of events we might include:</p>
+<p>At its heart, Snowplow is a tool for capturing, storing and analysing event-stream data, with a focus on web event data. We aim to capture all events that occur on an individual&#8217;s customer journey. To give a random assortment of examples of the types of events we might include:</p>
 
 <ul>
 <li>Add item to basket</li>
@@ -103,9 +103,9 @@
 
 <p>As the web evolves, websites look less-and-less like hyperlinked documents and more-and-more like interactive applications. A larger fraction of interesting events on a customer journeys are powered by AJAX events, and fewer are enabled by web page loads.</p>
 
-<p>In spite of this evolution, web page loads are still very important events in a user journey. Broadly speaking, we capture data that occur thanks to AJAX events using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>SnowPlow event tracking method</a> except for specific events that have their own specific methods e.g. <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-ecommerce'>tracking ecommerce transaction</a> or <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-adimps'>ad impression tracking</a>.</p>
+<p>In spite of this evolution, web page loads are still very important events in a user journey. Broadly speaking, we capture data that occur thanks to AJAX events using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>Snowplow event tracking method</a> except for specific events that have their own specific methods e.g. <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-ecommerce'>tracking ecommerce transaction</a> or <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-adimps'>ad impression tracking</a>.</p>
 
-<p>To capture the broad swathe of events that result in a web page load, we use the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-page'>page tracker method</a>. However, performing an analysis on the journey a user has taken based on the URLs and page titles of the pages they have visited is not that informative: we really want to store what entities were displayed on those web pages, so we can analyse what the user was shown, what entities they engaged with and which they did not. To take a simple example, we might want to compare conversion rate for a retailer by product, to see which products &#8216;convert best&#8217; and why. In order to do this, we need to pass onto SnowPlow exactly what products were displayed on the web pages they visited, and potentially pass in additional information like what type of listing they were shown.</p>
+<p>To capture the broad swathe of events that result in a web page load, we use the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-page'>page tracker method</a>. However, performing an analysis on the journey a user has taken based on the URLs and page titles of the pages they have visited is not that informative: we really want to store what entities were displayed on those web pages, so we can analyse what the user was shown, what entities they engaged with and which they did not. To take a simple example, we might want to compare conversion rate for a retailer by product, to see which products &#8216;convert best&#8217; and why. In order to do this, we need to pass onto Snowplow exactly what products were displayed on the web pages they visited, and potentially pass in additional information like what type of listing they were shown.</p>
 
 <p>To give an example of the types of entities we might identify:</p>
 
@@ -147,7 +147,7 @@
 <a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'><img src='/static/img/tag-management/gtm-spec-title-page.JPG' /></a>
 <h2 id='want_help_implementing_a_tag_management_solution'>Want help implementing a tag management solution?</h2>
 
-<p>The SnowPlow <a href='/services/index.html'>Professional Services team</a> can produce implementation guides like <a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'>the one for Psychic Bazaar</a>. If you are implementing a tag management solution, either as part of a SnowPlow implementation or not, and and would like assistance, then <a href='/contact/index.html'>get in touch</a>.</p>
+<p>The Snowplow <a href='/services/index.html'>Professional Services team</a> can produce implementation guides like <a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'>the one for Psychic Bazaar</a>. If you are implementing a tag management solution, either as part of a Snowplow implementation or not, and and would like assistance, then <a href='/contact/index.html'>get in touch</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>
@@ -200,9 +200,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -217,9 +217,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -234,9 +234,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -249,9 +249,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -268,7 +268,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

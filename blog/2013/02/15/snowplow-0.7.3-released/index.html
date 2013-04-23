@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.7.3 released, tracking additional data - SnowPlow Analytics</title>
+	<title>Snowplow 0.7.3 released, tracking additional data - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,8 +48,8 @@
 		<div id="contents">
 		<div class="post">
 			15 Feb 2013
-			<h1>SnowPlow 0.7.3 released, tracking additional data</h1>
-			<p>We&#8217;re excited to announce the release of SnowPlow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
+			<h1>Snowplow 0.7.3 released, tracking additional data</h1>
+			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
 
 <ul>
 <li>A new Event Vendor field</li>
@@ -65,7 +65,7 @@
 <li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
 </ul>
 
-<p>These fields should make a new set of analyses on SnowPlow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
+<p>These fields should make a new set of analyses on Snowplow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
 
 <p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
 
@@ -79,7 +79,7 @@
 <li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
 </ol>
 <h2><a name='new-fields'>1. New fields</a></h2>
-<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on SnowPlow data.</p>
+<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on Snowplow data.</p>
 
 <p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
 <table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
@@ -103,14 +103,14 @@
 <!--more-->
 <h3 id='11_event_vendor'>1.1 Event vendor</h3>
 
-<p>As we have <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>previously blogged</a>, we are in the process of developing the SnowPlow event model: the list of first-class events for which we&#8217;ve defined a structured data model. As we stressed in the <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>blog post</a>, we well understand that different models will be appropriate for different websites and applications, and that model we develop will not be ideal for everyone. In the future, we plan to enable different companies to develop their own first class data model within SnowPlow. As a first step in this direction, we have added the <strong>Event vendor</strong> field to the SnowPlow data model: when a company develops its own event data model, it will be identifiable to that vendor using this field. This will open up the possibility of:</p>
+<p>As we have <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>previously blogged</a>, we are in the process of developing the Snowplow event model: the list of first-class events for which we&#8217;ve defined a structured data model. As we stressed in the <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>blog post</a>, we well understand that different models will be appropriate for different websites and applications, and that model we develop will not be ideal for everyone. In the future, we plan to enable different companies to develop their own first class data model within Snowplow. As a first step in this direction, we have added the <strong>Event vendor</strong> field to the Snowplow data model: when a company develops its own event data model, it will be identifiable to that vendor using this field. This will open up the possibility of:</p>
 
 <ol>
 <li>Ingesting proprietary events from third-party systems (e.g. <code>event_vendor</code>=&#8221;com.sendgrid&#8221; or &#8220;com.appnexus&#8221;)</li>
 
 <li>Ingesting clickstream events from other analytics services (e.g. <code>event_vendor</code>=&#8221;com.adobe&#8221; or &#8220;com.mixpanel&#8221;)</li>
 
-<li>Tracking custom events defined by a specific SnowPlow user (e.g. <code>event_vendor</code>=&#8221;au.com.asnowplowuser&#8221;)</li>
+<li>Tracking custom events defined by a specific Snowplow user (e.g. <code>event_vendor</code>=&#8221;au.com.asnowplowuser&#8221;)</li>
 </ol>
 
 <p>At the moment, however, all events will have an <code>event_vendor</code> field that will be &#8220;com.snowplowanalytics&#8221; (using the Java package-style naming convention).</p>
@@ -138,7 +138,7 @@
 <ul>
 <li>Silently checks for user activity (mouse movements, scrolling, key presses etc) on a page for a specified time period (e.g. 10 seconds)</li>
 
-<li>If any user activity was detected in those 10 seconds, the tracker sends a &#8220;page ping&#8221; back to SnowPlow. (No user activity, no page ping)</li>
+<li>If any user activity was detected in those 10 seconds, the tracker sends a &#8220;page ping&#8221; back to Snowplow. (No user activity, no page ping)</li>
 
 <li>This is then repeated for each new time period, until the user navigates away from the page</li>
 </ul>
@@ -170,7 +170,7 @@
 </tr></tbody></table>
 <p>The first three changes are simply cleanup: we are removing tracker methods which we previously deprecated some time ago.</p>
 
-<p>The last two changes are us starting to re-structure our event tracking - we are making space in our event model to support unstructured events, which will be coming soon. Please check out our previous blog post, <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>Help us build out the SnowPlow Event Model</a> for more background on this.</p>
+<p>The last two changes are us starting to re-structure our event tracking - we are making space in our event model to support unstructured events, which will be coming soon. Please check out our previous blog post, <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>Help us build out the Snowplow Event Model</a> for more background on this.</p>
 <a name='upgrade'><h2>4. Upgrading</h2></a>
 <p>Upgrading is a three-step process:</p>
 
@@ -180,7 +180,7 @@
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.10.0/sp.js</code></pre>
 
-<p><strong>Don&#8217;t forget to update your SnowPlow tags as per the updates in <a href='#breaking-changes'>breaking changes</a> and deprecations above.</strong></p>
+<p><strong>Don&#8217;t forget to update your Snowplow tags as per the updates in <a href='#breaking-changes'>breaking changes</a> and deprecations above.</strong></p>
 
 <h3 id='42_etl'>4.2 ETL</h3>
 
@@ -266,9 +266,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -283,9 +283,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -300,9 +300,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -315,9 +315,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -334,7 +334,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

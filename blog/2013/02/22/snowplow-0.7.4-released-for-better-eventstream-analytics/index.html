@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>SnowPlow 0.7.4 released for better eventstream analytics - SnowPlow Analytics</title>
+	<title>Snowplow 0.7.4 released for better eventstream analytics - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -48,8 +48,8 @@
 		<div id="contents">
 		<div class="post">
 			22 Feb 2013
-			<h1>SnowPlow 0.7.4 released for better eventstream analytics</h1>
-			<p>Another week, another release! We&#8217;re excited to announce SnowPlow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
+			<h1>Snowplow 0.7.4 released for better eventstream analytics</h1>
+			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
 
 <ul>
 <li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
@@ -59,7 +59,7 @@
 <li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
 </ul>
 
-<p>Many thanks to SnowPlow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
+<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
 
 <p>In this post we will cover:</p>
 
@@ -79,14 +79,14 @@
 
 <p>Read on below the fold to find out more!</p>
 <!--more--><h2><a name='user-ids'>1. Our new user IDs</a></h2>
-<p>Historically, SnowPlow has supported a single <code>user_id</code> field. Unfortunately, there were three issues with this:</p>
+<p>Historically, Snowplow has supported a single <code>user_id</code> field. Unfortunately, there were three issues with this:</p>
 
 <ol>
-<li>SnowPlow was <strong>overloading</strong> the field with two different meanings - if a user was running the CloudFront collector, the <code>user_id</code> field contained a user ID from a first-party cookie (set by the JavaScript tracker). If a user was running the Clojure collector, the <code>user_id</code> field contained a cross-domain user ID as set by in a third-party cookie (and the JavaScript-set first-party cookie was ignored).</li>
+<li>Snowplow was <strong>overloading</strong> the field with two different meanings - if a user was running the CloudFront collector, the <code>user_id</code> field contained a user ID from a first-party cookie (set by the JavaScript tracker). If a user was running the Clojure collector, the <code>user_id</code> field contained a cross-domain user ID as set by in a third-party cookie (and the JavaScript-set first-party cookie was ignored).</li>
 
 <li>Both meanings of <code>user_id</code> were <strong>web-specific</strong> - neither made sense for user tracking in a mobile app or any other platform which does not support cookies</li>
 
-<li>No support for a <strong>custom</strong> user ID - SnowPlow did not allow you to track a custom <code>user_id</code> specific to your business, such as your users&#8217; account numbers in your ecommerce package</li>
+<li>No support for a <strong>custom</strong> user ID - Snowplow did not allow you to track a custom <code>user_id</code> specific to your business, such as your users&#8217; account numbers in your ecommerce package</li>
 </ol>
 
 <p>In this release, we aim to solve these issues by separating out user IDs into three separate fields:</p>
@@ -108,7 +108,7 @@
 </tr></tbody></table>
 <p>* Assuming you have added a call to <code>setUserId()</code> - which isn&#8217;t possible in the no-JS tracker.</p>
 <h2><a name='event-tstamps'>2. Our new event timestamps</a></h2>
-<p>Previously our data model included two fields, <code>dt</code> and <code>tm</code>, to track the date and time at which each event occurred. This timestamp was based on when the SnowPlow event collector <em>received</em> the event, <strong>not</strong> when the tracker <em>sent</em> the event.</p>
+<p>Previously our data model included two fields, <code>dt</code> and <code>tm</code>, to track the date and time at which each event occurred. This timestamp was based on when the Snowplow event collector <em>received</em> the event, <strong>not</strong> when the tracker <em>sent</em> the event.</p>
 
 <p>There are a couple of limitations to using a collector-based timestamp for eventstream analysis:</p>
 
@@ -164,7 +164,7 @@
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.0/sp.js</code></pre>
 
-<p><strong>Don&#8217;t forget to update your SnowPlow tags as per the updates in <a href='#deprecations'>Deprecations</a> above.</strong></p>
+<p><strong>Don&#8217;t forget to update your Snowplow tags as per the updates in <a href='#deprecations'>Deprecations</a> above.</strong></p>
 
 <h3 id='42_clojure_collector'>4.2 Clojure collector</h3>
 
@@ -212,7 +212,7 @@
 
 <li>Start a manual run of the EmrEtlRunner for your site&#8230;</li>
 
-<li><strong>As soon as</strong> the manual run has copied all of your available SnowPlow logs into your Processing Bucket, publish the new JavaScript tracker live, and deploy your new Clojure collector live (if you are using it)</li>
+<li><strong>As soon as</strong> the manual run has copied all of your available Snowplow logs into your Processing Bucket, publish the new JavaScript tracker live, and deploy your new Clojure collector live (if you are using it)</li>
 
 <li>Wait for the EmrEtlRunner operation complete</li>
 
@@ -223,7 +223,7 @@
 <li>Now upgrade Infobright (if you are using it) as per section 4.4 above</li>
 </ol>
 
-<p>This upgrade approach should prevent any user ID data from ending up in the wrong fields in your SnowPlow event store.</p>
+<p>This upgrade approach should prevent any user ID data from ending up in the wrong fields in your Snowplow event store.</p>
 <h2><a name='help'>6. Getting help</a></h2>
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div id="comments">
@@ -278,9 +278,9 @@
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">SnowPlow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing SnowPlow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -295,9 +295,9 @@
 			
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">SnowPlow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">SnowPlow 0.7.6 released with Redshift data warehouse support</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -312,9 +312,9 @@
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate SnowPlow data</a></li>
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
-				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming SnowPlow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
+				<li><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></li>
 			
 		
 		</ul>		
@@ -327,9 +327,9 @@
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the SnowPlow Event Model</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The SnowPlow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 				<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></li>
 			
@@ -346,7 +346,7 @@
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

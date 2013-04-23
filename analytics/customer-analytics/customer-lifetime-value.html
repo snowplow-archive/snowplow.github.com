@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Customer Lifetime Value - SnowPlow Analytics</title>
+	<title>Customer Lifetime Value - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,7 +30,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">SnowPlow</a></h1>
+    <h1><a href="/">Snowplow</a></h1>
     <p>Your web analytics data in your hands</p>
   </div>
   <div id="menu" class="span-15">
@@ -46,7 +46,7 @@
 </div>
 	
 		<div id="contents">
-<h1 id='measuring_customer_lifetime_value_with_snowplow'>Measuring customer lifetime value with SnowPlow</h1>
+<h1 id='measuring_customer_lifetime_value_with_snowplow'>Measuring customer lifetime value with Snowplow</h1>
 
 <ol>
 <li><a href='#what-is-customer-lifetime-value'>What is customer lifetime value?</a></li>
@@ -57,7 +57,7 @@
 
 <li><a href='#why-competitors-suck'>Why traditional web analytics tools suck at customer lifetime value</a></li>
 
-<li><a href='#calculating-clv'>Calculating customer lifetime value with SnowPlow</a></li>
+<li><a href='#calculating-clv'>Calculating customer lifetime value with Snowplow</a></li>
 </ol>
 <a name='what-is-customer-lifetime-value'><h2>1. What is customer lifetime value?</h2></a>
 <p>The idea behind <strong>customer lifetime value</strong>* (CLV) is simple: it is the total amount of value derived by a business from a customer over the customer&#8217;s complete <em>lifetime</em> engaging with the business / product / company. Calculating and maximizing a customer&#8217;s lifetime value contrasts with other approaches to increasing value e.g.:</p>
@@ -116,8 +116,8 @@
 <li>They don&#8217;t provide the granular data required to build sophisticated models to forecast customer value going forwards</li>
 </ol>
 
-<p>Fortunately, SnowPlow addresses the above limitations, enabling analysts to calculate customer lifetime value as detailed below.</p>
-<a name='calculating-clv'><h2>5. Calculating customer lifetime value with SnowPlow</h2></a>
+<p>Fortunately, Snowplow addresses the above limitations, enabling analysts to calculate customer lifetime value as detailed below.</p>
+<a name='calculating-clv'><h2>5. Calculating customer lifetime value with Snowplow</h2></a>
 <p>There are diffent levels of sophistication to calculate customer lifetime value. The diagram below illustrates some different approaches:</p>
 <p style='text-align:center'><img src='img/lifetime-value-segmentation.jpg' title='clv-segmentation ' /></p>
 <p>We can distinguish different levels of sophistication when measuring customer lifetime value:</p>
@@ -138,7 +138,7 @@
 
 <p>Which approach you adopt will depend on your own circumstances, data quality and customer understanding: a cruder approach will often suffice and a more sophisticated approach may be misleading if there isn&#8217;t the customer understanding in place to justify the assumptions an analyst uses in predicting future revenue / profits per customer.</p>
 
-<p>In all cases, however, SnowPlow provides a solid foundation for doing the customer-lifetime value calculations. Below, we detail how to calculate customer lifetime value using a number of approaches:</p>
+<p>In all cases, however, Snowplow provides a solid foundation for doing the customer-lifetime value calculations. Below, we detail how to calculate customer lifetime value using a number of approaches:</p>
 
 <ol>
 <li><a href='#direct-historical-revenue-by-customer'>Summing historical revenue by customers over time</a></li>
@@ -150,9 +150,9 @@
 <li><a href='#future-value'>Include expected future value</a></li>
 </ol>
 <a name='direct-historical-revenue-by-customer'><h3>5.1 Summing historical revenue by customer over time</h3></a>
-<p>SnowPlow makes it easy to sum the amount of direct revenue attributable to each customer over their entire user history.</p>
+<p>Snowplow makes it easy to sum the amount of direct revenue attributable to each customer over their entire user history.</p>
 
-<p>Let&#8217;s start with the example of an online retailer, that has implemented SnowPlow so that every time an order is completed, an event is fired where:</p>
+<p>Let&#8217;s start with the example of an online retailer, that has implemented Snowplow so that every time an order is completed, an event is fired where:</p>
 
 <pre><code>ev_category = &#39;ecommerce&#39;
 ev_action = &#39;order-complete&#39;
@@ -192,12 +192,12 @@ ev_value = *total revenue*</code></pre>
 <li>Signing up to a new freemium service</li>
 </ol>
 
-<p>How you ascribe value to actions like the ones listed above will be subject to a blog post in the future. (There are wide range of possible techniques: because SnowPlow gives you access to granular event-level detail, it enables you to use a wide range of techniques to analyse the associated value.) The important thing to understand from the perspective of this guide is that there is a value that you ascribe at the time you perform the analysis. When you perform the anaysis, you create a table with the different values:</p>
+<p>How you ascribe value to actions like the ones listed above will be subject to a blog post in the future. (There are wide range of possible techniques: because Snowplow gives you access to granular event-level detail, it enables you to use a wide range of techniques to analyse the associated value.) The important thing to understand from the perspective of this guide is that there is a value that you ascribe at the time you perform the analysis. When you perform the anaysis, you create a table with the different values:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>events_by_value</span> <span class='p'>(</span>
 	<span class='n'>ev_action</span> <span class='n'>STRING</span><span class='p'>,</span>
 	<span class='n'>value</span> <span class='kt'>FLOAT</span><span class='p'>)</span>
 </code></pre></div>
-<p>Populate the above table with each different type of event and the value you want to ascribe it. You can then add up the value of actions that indirectly drive revenue by joining the above table with the SnowPlow events table:</p>
+<p>Populate the above table with each different type of event and the value you want to ascribe it. You can then add up the value of actions that indirectly drive revenue by joining the above table with the Snowplow events table:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>v</span><span class='p'>.</span><span class='n'>value</span><span class='p'>)</span>
@@ -234,7 +234,7 @@ ev_value = *total revenue*</code></pre>
 
 <h2 id='want_to_learn_more'>Want to learn more?</h2>
 
-<p>Read this <a href='http://www.keplarllp.com/blog/2012/06/different-approaches-to-measuring-customer-lifetime-value-with-snowplow'>Keplar blog post</a> on calculating customer lifetime value, find out <a href='/analytics/customer-analytics/user-engagement.html'>how to measure user engagement</a> using SnowPlow find out about <a href='/analytics/customer-analytics/cohort-analysis.html'>how to perform cohort analysis</a> using SnowPlow.</p>
+<p>Read this <a href='http://www.keplarllp.com/blog/2012/06/different-approaches-to-measuring-customer-lifetime-value-with-snowplow'>Keplar blog post</a> on calculating customer lifetime value, find out <a href='/analytics/customer-analytics/user-engagement.html'>how to measure user engagement</a> using Snowplow find out about <a href='/analytics/customer-analytics/cohort-analysis.html'>how to perform cohort analysis</a> using Snowplow.</p>
 </div>
 
  <div id="sidebar">
@@ -518,7 +518,7 @@ ev_value = *total revenue*</code></pre>
 					
 						
 							
-							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining SnowPlow data to other customer data</a></li>
+							<li><a href="/analytics/customer-analytics/joining-customer-data.html">Joining Snowplow data to other customer data</a></li>
 									
 									
 					
@@ -1438,7 +1438,7 @@ ev_value = *total revenue*</code></pre>
 </div>
 
 		<div id="footer">
-	<p>Copyright © SnowPlow Analytics Limited 2012 - 2013.  All rights reserved</p>
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
 	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->

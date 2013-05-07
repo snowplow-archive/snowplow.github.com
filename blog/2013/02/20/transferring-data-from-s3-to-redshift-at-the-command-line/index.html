@@ -112,6 +112,12 @@
 <li>If the query is successful, it will return <code>0 rows affected.</code> at the command line. This is a bit misleading: if you then look in Redshift you&#8217;ll see the new rows have loaded.</li>
 </ul>
 
+<p>A note about bulk loading data from S3 into Redshift:</p>
+
+<ul>
+<li>Amazon will only let you use the above syntax to load data from S3 into Redshift if the S3 bucket and the Redshift cluster are located in the <strong>same</strong> region. If they are not (and Redshift is not available in all regions, at the time of writing), you will need to copy your S3 data into a new bucket in the same region as your Redshift cluster, prior to running the bulk upload.</li>
+</ul>
+
 <p>Happy bulk loading from the command line!</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>

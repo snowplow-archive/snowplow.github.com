@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-02T11:33:55+01:00</updated>
+  <updated>2013-05-07T10:33:39+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -960,6 +960,12 @@
 &lt;li&gt;If you want to experiment with the tool, you can leave off the &lt;code&gt;-query&lt;/code&gt; parameter, in which case you&amp;#8217;ll invoke an interactive command-line session&lt;/li&gt;
 
 &lt;li&gt;If the query is successful, it will return &lt;code&gt;0 rows affected.&lt;/code&gt; at the command line. This is a bit misleading: if you then look in Redshift you&amp;#8217;ll see the new rows have loaded.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A note about bulk loading data from S3 into Redshift:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Amazon will only let you use the above syntax to load data from S3 into Redshift if the S3 bucket and the Redshift cluster are located in the &lt;strong&gt;same&lt;/strong&gt; region. If they are not (and Redshift is not available in all regions, at the time of writing), you will need to copy your S3 data into a new bucket in the same region as your Redshift cluster, prior to running the bulk upload.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Happy bulk loading from the command line!&lt;/p&gt;</content>

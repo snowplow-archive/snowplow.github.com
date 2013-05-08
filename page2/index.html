@@ -47,6 +47,41 @@
 	
 		<div id="contents">
 	
+		<a name="Snowplow event validation" />
+		<div class="post">
+			10 Apr 2013
+			<h1><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></h1>
+			<p>A key goal of the Snowplow project is enabling <strong>high-fidelity analytics</strong> for businesses running Snowplow.</p>
+
+<p>What do we mean by high-fidelity analytics? Simply put, high-fidelity analytics means Snowplow faithfully recording <em>all</em> customer events in a rich, granular, non-lossy and unopinionated way.</p>
+
+<p>This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that&#8217;s made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it&#8217;s an important one.</p>
+
+<p>Surprisingly, ensuring your data is high fidelity is <strong>not</strong> something that is enforced by other analytics products.</p>
+
+<p><img alt='high-fidelity' src='/static/img/blog/2013/04/high-fidelity-2000.jpg' /></p>
+
+<p>Why is Snowplow so unusual in aiming for high-fidelity analytics? Most often, analytics vendors sacrifice the goal of high-fidelity data at the altar of these three compromises:</p>
+
+<ol>
+<li><strong>Premature aggregation</strong> - when the data store gets too large, or the reports take too long to generate, it&#8217;s tempting to perform the aggregation and roll-up of the raw event data earlier, sometimes even at the point of collection. Of course this offers a huge potential performance boost to the tool, but at the cost of a huge degree of customer data fidelity</li>
+
+<li><strong>Ignoring bad news</strong> - the nature of event data means that often incomplete, corrupted or plain wrong data is sent in to the analytics tool by the event trackers. Handling bad event data is complicated (let&#8217;s go shopping!). Instead of dealing with the complexity, most analytics packages just throw the bad data away silently; this is why tag audit companies like <a href='http://www.observepoint.com/'>ObservePoint</a> exist</li>
+
+<li><strong>Being over-opinionated</strong> - customer analytics is full of challenging questions which need answering before you can analyse the data: do I track users by their first-party cookie, third-party cookie, business ID and/or IP address? Do I use the server clock, or the user&#8217;s clock to log the event time? When does a user session start and end? Because these questions can be difficult to answer, most analytics tools don&#8217;t ask them: instead they take an opinionated view of the &#8220;right answer&#8221; and silently enforce that view through their event collection, storage and analysis. By the time users realize that the logic enforced is one that does not work for their business, they are already tied to that vendor and the imperfect data set they have created with that vendor to date.</li>
+</ol>
+
+<p>To deliver on the goal of high-fidelity analytics, then, we&#8217;re trying to steer Snowplow around these three common pitfalls as best we can.</p>
+
+<p>We have talked in detail on our website and wiki about avoiding pitfall #1, Premature aggregation. In short: we do <strong>no</strong> aggregation - Snowplow users have access to granular, event level data, so that they can work out how best they should aggregate it for each type of analysis they wish to perform.</p>
+
+<p>We will blog more about our ideas to combat #3, Being over-opinionated, in the future.</p>
+
+<p>For the rest of this blog post, though, we will look at our solution to pitfall #2, Ignoring bad news: namely, <strong>event validation</strong>.</p>
+<p class='more'><a href='/blog/2013/04/10/snowplow-event-validation'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/04/10/snowplow-event-validation#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Snowplow 0.8.0 released" />
 		<div class="post">
 			03 Apr 2013
@@ -156,26 +191,6 @@
 			<span class="comments-link"><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.7.5 released" />
-		<div class="post">
-			25 Feb 2013
-			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
-			<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
-
-<p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow&#8217;s first-party cookies when sent via HTTPS pages.</p>
-
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, Snowplow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
-
-<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
-
-<p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
-
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-			<span class="comments-link"><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -195,6 +210,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+		
 			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 		
 			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
@@ -202,8 +219,6 @@
 			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 		
 			<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
-		
-			<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 		
 	</ul>
 
@@ -229,6 +244,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
 				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -236,8 +253,6 @@
 				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
 				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		

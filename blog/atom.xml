@@ -4,13 +4,51 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-07T10:33:39+01:00</updated>
+  <updated>2013-05-08T15:35:46+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements"/>
+    <title>Snowplow 0.8.2 released with Clojure Collector enhancements</title>
+    <updated>2013-05-08T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re happy to announce the immediate release of Snowplow &lt;strong&gt;0.8.2&lt;/strong&gt;. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community member &lt;a href='https://github.com/butlermh'&gt;Mark H. Butler&lt;/a&gt; for his major contributions to this release - much appreciated Mark!&lt;/p&gt;
+
+&lt;p&gt;This release bumps the Clojure Collector to version &lt;strong&gt;0.4.0&lt;/strong&gt;. There are three main changes to the Collector:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Building the Collector&amp;#8217;s warfile is now much simpler, thanks to a new &lt;code&gt;lein aws&lt;/code&gt; command contributed by Mark&lt;/li&gt;
+
+&lt;li&gt;We have fixed a bug (&lt;a href='https://github.com/snowplow/snowplow/issues/220'&gt;#220&lt;/a&gt;) where occasionally the Collector&amp;#8217;s event logging would log &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt; (empty string) rather than &lt;code&gt;&amp;quot;-&amp;quot;&lt;/code&gt; for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)&lt;/li&gt;
+
+&lt;li&gt;Some code tidy-up, including making the Clojure Collector work with newer versions of Leiningen&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To upgrade to this release:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download the new warfile by right-clicking on &lt;a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war'&gt;this link&lt;/a&gt; and selecting &amp;#8220;Save As&amp;#8230;&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;Log in to your Amazon Elastic Beanstalk console&lt;/li&gt;
+
+&lt;li&gt;Browse to your Collector&amp;#8217;s application&lt;/li&gt;
+
+&lt;li&gt;Click the &amp;#8220;Upload New Version&amp;#8221; and upload your warfile&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And that should be it. Thanks again to Mark for his contribution to this release - and we have some more exciting community contributions coming very soon to Snowplow, so watch this space!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow</id>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Where does your traffic *really* come from? - Snowplow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">Snowplow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			10 May 2013
+			<h1>Where does your traffic *really* come from?</h1>
+			<img src='/static/img/blog/2013/05/lone-traveller.jpg' />
+<p>Web analysts spend a lot of time exploring where visitors to the their websites come from:</p>
+
+<ul>
+<li>Which sites and marketing campaigns are driving visitors to your website?</li>
+
+<li>How valuable are those visitors?</li>
+
+<li>What should you be doing to drive up the number of high quality users? (In terms of spending more marketing, engaging with other websites / blogs / social networks etc.)</li>
+</ul>
+
+<p>Unfortunately, identifying where your visitors come from is <strong>not</strong> as straightforward as it often seems. In this post, we&#8217;ll cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#how'>How, technically, can we determine where visitors have come from?</a></li>
+
+<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#errors'>Potential sources of errors</a></li>
+
+<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#ga'>Problems with relying on the Google Analytics approach, in particular: why the Snowplow approach is superior</a></li>
+
+<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords'>Surprises when examining visitors acquired from Adwords search campaigns: most visitors clicked on an ad that was not shown on a Google domain</a></li>
+
+<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion'>Pulling all the findings together: the value of high fidelity data in determining where your visitors come from</a></li>
+</ol>
+<!--more--><a name='how'><h2>1. How, technically, can we determine where visitors have come from?</h2></a>
+<p>There are two sources of raw data that we can use to determine where a vistor to a website has come from: the <a href='#http-referer'>HTTP referer</a> and the <a href='#page-url'>page URL</a></p>
+<a name='http-referer'><h3>HTTP Referer</h3></a>
+<p>When you load a web page in your browser, your browser makes an HTTP request to a web server to deliver that page. That &#8216;request&#8217; includes a header field that identifies the address of the web page that linked to the resource being requested. (This is called the <a href='http://en.wikipedia.org/wiki/HTTP_referer'>HTTP referer</a>.) Web analytics programmes typically read the HTTP header and use that as one the inputs to deduce where a visitor has come from.</p>
+<a name='page-url'><h3>Page URL</h3></a>
+<p>HTTP referers are a technical solution to identifying where traffic comes from. In addition, digital marketers may want to label incoming traffic so that they can identify which marketing campaigns that traffic should be attributed to. This is typically done by adding a query string to the landing page URL.</p>
+
+<p>To give an example of how this technique works in practice, let&#8217;s imagine that I am marketing the website <code>www.flowersdirect.com</code>. I run a campaign on Adwords called &#8220;November promotion&#8221;. In my Adwords ad, I include a link (that I hope viewers of the add will click) to my homepage (<code>www.flowersdirect.com</code>). However, instead of just including the standard link in my ad i.e.</p>
+<div class='highlight'><pre><code class='html'><span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;http://www.flowersdirect.com&quot;</span><span class='nt'>&gt;</span>www.flowersdirect.com<span class='nt'>&lt;/a&gt;</span>
+</code></pre></div>
+<p>I add a query parameter onto the end of my link labelling the campaign:</p>
+<div class='highlight'><pre><code class='html'><span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;http://www.flowersdirect.com?utm_campaign=November_promotion&quot;</span><span class='nt'>&gt;</span>www.flowersdirect.com<span class='nt'>&lt;/a&gt;</span>
+</code></pre></div>
+<p>Adding the query parameter does not change the experience of the user clicking on the ad. Typically, the web analtyics Javascript tag will inspect the page URL (including query parameter) and pass it to the web analytics application, which can then deduce that the traffic should be attributed to the &#8220;November promotion&#8221; by parsing the querystring.</p>
+
+<p>Different web analytics tools look for different query parameters when assigning traffic to different marketing campaigns. In the case of <a href='https://support.google.com/analytics/answer/1033863?hl=en-GB'>Google Analytics</a>, the following parameters are used to set the following fields, for example:</p>
+<table><thead><tr><th><strong>Parameter</strong></th><th><strong>Field in GA</strong></th></tr></thead><tbody><tr><td style='text-align: left;'><code>utm_medium</code></td><td style='text-align: left;'>Medium</td>
+</tr><tr><td style='text-align: left;'><code>utm_source</code></td><td style='text-align: left;'>Source</td>
+</tr><tr><td style='text-align: left;'><code>utm_term</code></td><td style='text-align: left;'>Term</td>
+</tr><tr><td style='text-align: left;'><code>utm_campaign</code></td><td style='text-align: left;'>Campaign</td>
+</tr></tbody></table>
+<p>To keep things simple, Snowplow uses the same query parameters, so that businesses running Snowplow alongside GA only need to set the parameters once for each campaign in order to successfully track them in both GA and Snowplow.</p>
+
+<p>Web analytics programmes use a combination of the page URL and the HTTP referer header to infer where traffic to the website has come from.</p>
+<a name='errors'><h2>2. Potential sources of errors</h2></a>
+<p>In general, there is much more scope for errors to arise deducing the source of traffic from the querystring on the page URL than there are when using the HTTP referer field. That is because querystring parameters are set manually by humans, rather than programmatically by machines. The following are two of the most common sources of errors:</p>
+
+<h3 id='a_visitors_sharing_page_urls_with_campaign_parameters_in_the_querystring_using_copyandpaste'>(a) Visitors sharing page URLs with campaign parameters in the querystring, using copy-and-paste</h3>
+
+<p>Many times, I&#8217;ve noticed that a link in e.g. a Twitter post contains a &#8216;utm_&#8217; parameter that suggests it is a CPC campaign, or some other non-social channel, for example. This sort of error arises when, for example, a visitor clicks on a link from a CPC campaign, views the web page, then wants to share the web page - and does so by copying and pasting the URL. Website visitors don&#8217;t typically check those URL to see if there are marketing fields on the query parameters, leave alone remove them. Everywhere that the user pastes that link, that link will contain the query parameter. Any other users clicking on that link will be misclassified as coming from a CPC campaign.</p>
+
+<h3 id='b_typos_in_the_campaign_parameters_on_the_query_string'>(b) Typos in the campaign parameters on the query string</h3>
+
+<p>The individual who sets up the campaign may make a mistake adding the querystring to the link in the ad. This is very easy to do: setting up campaigns can be tedious (especially if many are set up at the same time) and error-prone. An error as simple as typing <code>utm-campaign</code> instead of <code>utm_campaign</code> is enough that most web analytics software will misclassify <em>all</em> the visitors who clicked on that link.</p>
+
+<p>Note that using a traditional web analytics solution, it is:</p>
+
+<ol>
+<li>Impossible to spot that an error has been made on the query string in most cases</li>
+
+<li>Even if you can do spot the error, it is impossible to reprocess the data (and correct the error) or even &#8216;ignore&#8217; the erroneaous data</li>
+</ol>
+
+<p>Using Snowplow, however, spotting errors is easy, because you have access to the raw page URL parameters in your Snowplow events table. The following is some example data from <a href='http://www.psychicbazaar.com/'>Psychic Bazaar</a>, an online retailer running Snowplow. We&#8217;ve executed the following query to identify page views where the referer is not internal (so that we only look at the first page view in each visit i.e. the one with all the interesting HTTP referer and page URL data to determine the source of traffic):</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>collector_tstamp</span><span class='p'>,</span>
+	<span class='n'>page_urlhost</span><span class='p'>,</span>
+	<span class='n'>page_urlpath</span><span class='p'>,</span>
+	<span class='n'>page_urlquery</span><span class='p'>,</span>
+	<span class='n'>mkt_medium</span><span class='p'>,</span>
+	<span class='n'>mkt_source</span><span class='p'>,</span>
+	<span class='n'>mkt_term</span><span class='p'>,</span>
+	<span class='n'>mkt_campaign</span><span class='p'>,</span>
+	<span class='n'>refr_urlhost</span><span class='p'>,</span>
+	<span class='n'>refr_urlpath</span><span class='p'>,</span>
+	<span class='n'>refr_urlquery</span><span class='p'>,</span>
+	<span class='n'>refr_medium</span><span class='p'>,</span>
+	<span class='n'>refr_source</span><span class='p'>,</span>
+	<span class='n'>refr_term</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span><span class='p'>;</span>
+</code></pre></div>
+<p>Note how for each line of data, you can see the raw page URL data (<code>page_urlquery</code> in particular) that is used to derive the marketing source, medium and campaign (<code>mkt_source</code>, <code>mkt_medium</code> and <code>mkt_campaign</code> fields):</p>
+<a href='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png'><img src='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png' /></a>
+<p><em>Click on the above image above to zoom in.</em></p>
+
+<p>This makes errors very easy to spot. As you can see from the screenshot below, Psychic Bazaar setup a campaign in September (that ran until November that year) where there was a simple typo in the query string. As a result, Snowplow did not set the marketing fields correctly for visitors who clicked on these links. Nonetheless, it is straightforward to spot the mistake, and adjust the data accordingly:</p>
+<a href='/static/img/blog/2013/05/erroneous-query-string-data.png'><img src='/static/img/blog/2013/05/erroneous-query-string-data.png' /></a>
+<p><em>Click on the above image above to zoom in.</em></p>
+
+<p>In Google Analytics, SiteCatalyst or any other typical web analytics tool, spotting the above error and handling it is basically inmpossible.</p>
+<a name='ga'><h2>3. Problems with relying on Google Analytics approach, in particular: why the Snowplow approach is superior</h2></a>
+<p>The traditional approach to unpicking where a visitor has come from adopted by Google Analytics has other weaknesses aside from handling bad data. This is related to the way in which HTTP referer data is combined with page URL data to infer where a visitor came from.</p>
+
+<p>When Google Analytics works out where a visitor has come from, it <em>first</em> examines the page URL for the first page view of the visit, and <em>then</em>, if no suitable <code>utm</code> parameters are found on the query string, looks at the HTTP referer header to see if a URL for a referring web page is available. (For a more detailed view of the process GA uses, see <a href='https://developers.google.com/analytics/devguides/platform/features/campaigns-trafficsources'>this detailed description from Google</a>.) There are two problems with this approach:</p>
+
+<ol>
+<li>Google <em>starts</em> with the source of data that is inherently more error prone, before looking at the more reliable (if sometimes less informative) data source</li>
+
+<li>Google does not apply any intelligence to using the combination of both sources together to infer where a visitor has come from. If, for example, a visitor has clicked on a link from a webmail client (evident from the HTTP referer URL), but that link contains a <code>utm_source=bing</code> parameter, we can guess, fairly reliably, that the user has not clicked on a paid Bing search campaign, but on a link that was shared by someone, who originally, clicked on the Bing search campaign ad. GA only considers each data point in isolation, and does not make the raw data available to us, as analysts, to make a more intelligent assignment.</li>
+</ol>
+
+<p>In Snowplow, by contrast, we do <strong>not</strong> collapse the two separate data sources (page URL parameters and HTTP referer) into a single &#8216;source&#8217; for the visitor. Instead, we expose both to the analyst: we offer five <code>mkt</code> fields that are set based on <code>utm</code> parameters on the page URL (<code>mkt_medium</code>, <code>mkt_source</code>, <code>mkt_term</code>, <code>mkt_content</code>, <code>mkt_campaign</code>) and separately we offer three <code>refr</code> fields (<code>refr_medium</code>, <code>refr_source</code>, <code>refr_term</code>) that are derived from the HTTP referer header. We can view these fields alongside one-another by executing the following query:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>mkt_medium</span><span class='p'>,</span>
+	<span class='n'>mkt_source</span><span class='p'>,</span>
+	<span class='n'>mkt_term</span><span class='p'>,</span>
+	<span class='n'>refr_medium</span><span class='p'>,</span>
+	<span class='n'>refr_source</span><span class='p'>,</span>
+	<span class='n'>refr_term</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span><span class='p'>;</span>
+</code></pre></div>
+<p>And check the results below. Note how in some cases the <code>mkt</code> fields are set, but the <code>refr</code> fields are not and vice-versa. On other occasions, both sets of fields are set:</p>
+<a href='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png'><img src='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png' /></a>
+<p>This is part of the Snowplow commitment to <a href='/blog/2013/04/10/snowplow-event-validation/'>high fidelity analytics</a>, a concept we introduced in <a href='/blog/2013/04/10/snowplow-event-validation/'>this blog post</a>.</p>
+<a name='adwords'><h2>4. Surprises when examining visitors acquired from Adwords search campaigns: most visitors clicked on ads that were not shown on Google domains</h2></a>
+<p>Another advantage of keeping your referer data separate to your marketing campaign data is that you can learn more about <em>where</em> your marketing ads are displayed based on the additional referer data that GA ignores.</p>
+
+<p>To give a concrete example: Psychic Bazaar buys Adwords on the Google Search network. It does not spend any more on the Google Display network. By running the following query, we can identify which domains those Adwords ads that were clicked on were displayed:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>refr_urlhost</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of click-throughs&quot;</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;mkt_source&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;GoogleSearch&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>refr_urlhost</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s-Name'>&quot;Number of click-throughs&quot;</span> <span class='k'>DESC</span>
+</code></pre></div>
+<p>Plotting the results in Tableau, there are a few surprises:</p>
+<a href='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg'><img src='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg' /></a>
+<p>The top two domains by amount of Adwords traffic directed towards Psychic Bazaar are <strong>not</strong> Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.</p>
+
+<p>We expected <em>some</em> of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We <em>were</em> surprised, however, that Amazon and eBay would do this. (It seems strange that they would show ads for merchants who are competing with themselves (in the case of Amazon) and their own merchants (in the case of both eBay and Amazon).) Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you&#8217;ll see Adwords ads displayed at the bottom:</p>
+<a href='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png'><img src='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png' /></a>
+<p>This puts Psychic Bazaar in the uncomfortable position of competing not only with other merchants on eBay and Amazon, but competing with its own website ads.</p>
+
+<p>We were also surprised to learn that in total, 69% of the click-throughs received were from non-Google domains: in this case at least, powering search advertising on other sites doesn&#8217;t simply add additional advertising inventory to Google&#8217;s core search inventory, it actually makes up the bulk of that inventory. (We&#8217;d be interested in finding out from other Snowplow users who buy on Adwords whether they get similar results.)</p>
+<a name='conclusion'><h2>Pulling all the findings together: the value of high fidelity data in determining where your visitors come from</h2></a>
+<p>In this post, we&#8217;ve found that the extra level of data provided by Snowplow related to where visitors come from, over-and-above that provided by standard web analytics like Google Analytics, is incredibly valuable for a number of reasons:</p>
+
+<ol>
+<li>It makes it possible to identify and manage errors that are invariably introduced in the data</li>
+
+<li>It leads to more intelligent and robust inferences about where you traffic comes from</li>
+
+<li>It identifies surprising results related to the placement of your paid campaigns, which may have significant implications for your overall marketing strategy.</li>
+</ol>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+		
+			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+		
+			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+		
+			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+		
+			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
+			
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
+			
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			
+				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+		
+		</ul>		
+	
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

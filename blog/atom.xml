@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-10T13:07:24+01:00</updated>
+  <updated>2013-05-11T11:16:33-07:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -16,13 +16,13 @@
     <id>http://snowplowanalytics.com/blog/2013/05/10/where-does-your-traffic-really-come-from</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/10/where-does-your-traffic-really-come-from"/>
     <title>Where does your traffic *really* come from?</title>
-    <updated>2013-05-10T00:00:00+01:00</updated>
+    <updated>2013-05-10T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;img src='/static/img/blog/2013/05/lone-traveller.jpg' /&gt;
-&lt;p&gt;Web analysts spend a lot of time exploring where visitors to the their websites come from:&lt;/p&gt;
+&lt;p&gt;Web analysts spend a lot of time exploring where visitors to their websites come from:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Which sites and marketing campaigns are driving visitors to your website?&lt;/li&gt;
@@ -32,51 +32,54 @@
 &lt;li&gt;What should you be doing to drive up the number of high quality users? (In terms of spending more marketing, engaging with other websites / blogs / social networks etc.)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Unfortunately, identifying where your visitors come from is &lt;strong&gt;not&lt;/strong&gt; as straightforward as it often seems. In this post, we&amp;#8217;ll cover:&lt;/p&gt;
+&lt;p&gt;Unfortunately, identifying where your visitors come from is &lt;strong&gt;not&lt;/strong&gt; as straightforward as it often seems. In this post, we will cover:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#how'&gt;How, technically, can we determine where visitors have come from?&lt;/a&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#errors'&gt;Potential sources of errors&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#ga'&gt;Problems with relying on the Google Analytics approach, in particular: why the Snowplow approach is superior&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#ga'&gt;Problems with relying on the Google Analytics approach, and why the Snowplow approach is superior&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords'&gt;Surprises when examining visitors acquired from Adwords search campaigns: most visitors clicked on an ad that was not shown on a Google domain&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords'&gt;Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on an ad that was not shown on a Google domain&lt;/a&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion'&gt;Pulling all the findings together: the value of high fidelity data in determining where your visitors come from&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;!--more--&gt;&lt;a name='how'&gt;&lt;h2&gt;1. How, technically, can we determine where visitors have come from?&lt;/h2&gt;&lt;/a&gt;
-&lt;p&gt;There are two sources of raw data that we can use to determine where a vistor to a website has come from: the &lt;a href='#http-referer'&gt;HTTP referer&lt;/a&gt; and the &lt;a href='#page-url'&gt;page URL&lt;/a&gt;&lt;/p&gt;
-&lt;a name='http-referer'&gt;&lt;h3&gt;HTTP Referer&lt;/h3&gt;&lt;/a&gt;
-&lt;p&gt;When you load a web page in your browser, your browser makes an HTTP request to a web server to deliver that page. That &amp;#8216;request&amp;#8217; includes a header field that identifies the address of the web page that linked to the resource being requested. (This is called the &lt;a href='http://en.wikipedia.org/wiki/HTTP_referer'&gt;HTTP referer&lt;/a&gt;.) Web analytics programmes typically read the HTTP header and use that as one the inputs to deduce where a visitor has come from.&lt;/p&gt;
-&lt;a name='page-url'&gt;&lt;h3&gt;Page URL&lt;/h3&gt;&lt;/a&gt;
-&lt;p&gt;HTTP referers are a technical solution to identifying where traffic comes from. In addition, digital marketers may want to label incoming traffic so that they can identify which marketing campaigns that traffic should be attributed to. This is typically done by adding a query string to the landing page URL.&lt;/p&gt;
+&lt;p&gt;There are two sources of raw data that we can use to determine where a vistor to a website has come from: the &lt;a href='#http-referer'&gt;HTTP referer&lt;/a&gt; and the &lt;a href='#page-url'&gt;page URL&lt;/a&gt;.&lt;/p&gt;
+&lt;a name='http-referer'&gt;&lt;h3&gt;Page referer&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;When you load a web page in your browser, your browser makes an HTTP request to a web server to deliver that page. That request includes a header field that identifies the address of the web page that linked to the resource being requested: this is called the &lt;a href='http://en.wikipedia.org/wiki/HTTP_referer'&gt;HTTP referer&lt;/a&gt; (sic). It is also possible to access the current page&amp;#8217;s referer information from the browser itself, using &lt;code&gt;document.referrer&lt;/code&gt; in JavaScript.&lt;/p&gt;
 
-&lt;p&gt;To give an example of how this technique works in practice, let&amp;#8217;s imagine that I am marketing the website &lt;code&gt;www.flowersdirect.com&lt;/code&gt;. I run a campaign on Adwords called &amp;#8220;November promotion&amp;#8221;. In my Adwords ad, I include a link (that I hope viewers of the add will click) to my homepage (&lt;code&gt;www.flowersdirect.com&lt;/code&gt;). However, instead of just including the standard link in my ad i.e.&lt;/p&gt;
+&lt;p&gt;Web analytics programs typically read the HTTP referer header or JavaScript&amp;#8217;s &lt;code&gt;document.referrer&lt;/code&gt;, and use that page referer data as one the inputs to infer where a visitor has come from.&lt;/p&gt;
+&lt;a name='page-url'&gt;&lt;h3&gt;Page URL&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;Page referers are a technical solution to identifying where traffic comes from. In addition, digital marketers may want to label incoming traffic so that they can identify which marketing campaigns that traffic should be attributed to. This is typically done by adding a querystring to the landing page URL.&lt;/p&gt;
+
+&lt;p&gt;To give an example of how this technique works in practice, let&amp;#8217;s imagine that I am marketing the website &lt;code&gt;www.flowersdirect.com&lt;/code&gt;. I run a campaign on AdWords called &amp;#8220;November promotion&amp;#8221;. In my AdWords ad, I include a link (that I hope viewers of the add will click) to my homepage (&lt;code&gt;www.flowersdirect.com&lt;/code&gt;). However, instead of just including the standard link in my ad, i.e.&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;span class='nt'&gt;&amp;lt;a&lt;/span&gt; &lt;span class='na'&gt;href=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;http://www.flowersdirect.com&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;www.flowersdirect.com&lt;span class='nt'&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I add a query parameter onto the end of my link labelling the campaign:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;span class='nt'&gt;&amp;lt;a&lt;/span&gt; &lt;span class='na'&gt;href=&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;http://www.flowersdirect.com?utm_campaign=November_promotion&amp;quot;&lt;/span&gt;&lt;span class='nt'&gt;&amp;gt;&lt;/span&gt;www.flowersdirect.com&lt;span class='nt'&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Adding the query parameter does not change the experience of the user clicking on the ad. Typically, the web analtyics Javascript tag will inspect the page URL (including query parameter) and pass it to the web analytics application, which can then deduce that the traffic should be attributed to the &amp;#8220;November promotion&amp;#8221; by parsing the querystring.&lt;/p&gt;
+&lt;p&gt;Adding the query parameter does not change the experience of the user clicking on the ad. Then, on the landing page (in this case, the &lt;code&gt;www.flowersdirect.com&lt;/code&gt; homepage) the web analytics JavaScript tag will pass the querystring to the web analytics program, which can then infer that the traffic should be attributed to the &amp;#8220;November promotion&amp;#8221;.&lt;/p&gt;
 
-&lt;p&gt;Different web analytics tools look for different query parameters when assigning traffic to different marketing campaigns. In the case of &lt;a href='https://support.google.com/analytics/answer/1033863?hl=en-GB'&gt;Google Analytics&lt;/a&gt;, the following parameters are used to set the following fields, for example:&lt;/p&gt;
+&lt;p&gt;Different web analytics programs look for different query parameters when assigning traffic to different marketing campaigns. In the case of &lt;a href='https://support.google.com/analytics/answer/1033863?hl=en-GB'&gt;Google Analytics&lt;/a&gt;, the following parameters are used to set the following fields:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;strong&gt;Parameter&lt;/strong&gt;&lt;/th&gt;&lt;th&gt;&lt;strong&gt;Field in GA&lt;/strong&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;utm_medium&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Medium&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;utm_source&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Source&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;utm_term&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Term&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;utm_content&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Content&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;utm_campaign&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Campaign&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;To keep things simple, Snowplow uses the same query parameters, so that businesses running Snowplow alongside GA only need to set the parameters once for each campaign in order to successfully track them in both GA and Snowplow.&lt;/p&gt;
 
-&lt;p&gt;Web analytics programmes use a combination of the page URL and the HTTP referer header to infer where traffic to the website has come from.&lt;/p&gt;
+&lt;p&gt;Web analytics programs use a combination of the page URL and the page referer to infer where traffic to the website has come from.&lt;/p&gt;
 &lt;a name='errors'&gt;&lt;h2&gt;2. Potential sources of errors&lt;/h2&gt;&lt;/a&gt;
-&lt;p&gt;In general, there is much more scope for errors to arise deducing the source of traffic from the querystring on the page URL than there are when using the HTTP referer field. That is because querystring parameters are set manually by humans, rather than programmatically by machines. The following are two of the most common sources of errors:&lt;/p&gt;
+&lt;p&gt;In general, there is much more scope for errors to arise deducing the source of traffic from the querystring on the page URL than there are when using the HTTP referer field. This is because querystring parameters are set manually by humans, rather than programmatically by machines. The following are two of the most common sources of errors:&lt;/p&gt;
 
-&lt;h3 id='a_visitors_sharing_page_urls_with_campaign_parameters_in_the_querystring_using_copyandpaste'&gt;(a) Visitors sharing page URLs with campaign parameters in the querystring, using copy-and-paste&lt;/h3&gt;
+&lt;h3 id='a_visitors_share_page_urls_with_campaign_parameters_in_the_querystring_using_copyandpaste'&gt;(a) Visitors share page URLs with campaign parameters in the querystring, using copy-and-paste&lt;/h3&gt;
 
-&lt;p&gt;Many times, I&amp;#8217;ve noticed that a link in e.g. a Twitter post contains a &amp;#8216;utm_&amp;#8217; parameter that suggests it is a CPC campaign, or some other non-social channel, for example. This sort of error arises when, for example, a visitor clicks on a link from a CPC campaign, views the web page, then wants to share the web page - and does so by copying and pasting the URL. Website visitors don&amp;#8217;t typically check those URL to see if there are marketing fields on the query parameters, leave alone remove them. Everywhere that the user pastes that link, that link will contain the query parameter. Any other users clicking on that link will be misclassified as coming from a CPC campaign.&lt;/p&gt;
+&lt;p&gt;Many times, you will see a link in e.g. a Twitter post containing a &lt;code&gt;utm_&lt;/code&gt; parameter that suggests it is a CPC campaign or some other non-social channel. This sort of error arises when, for example, a visitor clicks on a link from a CPC campaign, views the web page, then wants to share the web page - and does so by copying and pasting the URL. Website visitors are mostly oblivious to marketing parameters in the page&amp;#8217;s URL, and will leave them in place. Everywhere that the user pastes that link, that link will contain the query parameter; any other users clicking on that link will be misclassified as coming from a CPC campaign.&lt;/p&gt;
 
-&lt;h3 id='b_typos_in_the_campaign_parameters_on_the_query_string'&gt;(b) Typos in the campaign parameters on the query string&lt;/h3&gt;
+&lt;h3 id='b_typos_in_the_campaign_parameters_on_the_querystring'&gt;(b) Typos in the campaign parameters on the querystring&lt;/h3&gt;
 
 &lt;p&gt;The individual who sets up the campaign may make a mistake adding the querystring to the link in the ad. This is very easy to do: setting up campaigns can be tedious (especially if many are set up at the same time) and error-prone. An error as simple as typing &lt;code&gt;utm-campaign&lt;/code&gt; instead of &lt;code&gt;utm_campaign&lt;/code&gt; is enough that most web analytics software will misclassify &lt;em&gt;all&lt;/em&gt; the visitors who clicked on that link.&lt;/p&gt;
 
@@ -85,10 +88,12 @@
 &lt;ol&gt;
 &lt;li&gt;Impossible to spot that an error has been made on the query string in most cases&lt;/li&gt;
 
-&lt;li&gt;Even if you can do spot the error, it is impossible to reprocess the data (and correct the error) or even &amp;#8216;ignore&amp;#8217; the erroneaous data&lt;/li&gt;
+&lt;li&gt;Even if you can spot the error, it is impossible to reprocess the data (and correct the error) or even &amp;#8216;ignore&amp;#8217; the erroneous data&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Using Snowplow, however, spotting errors is easy, because you have access to the raw page URL parameters in your Snowplow events table. The following is some example data from &lt;a href='http://www.psychicbazaar.com/'&gt;Psychic Bazaar&lt;/a&gt;, an online retailer running Snowplow. We&amp;#8217;ve executed the following query to identify page views where the referer is not internal (so that we only look at the first page view in each visit i.e. the one with all the interesting HTTP referer and page URL data to determine the source of traffic):&lt;/p&gt;
+&lt;h3 id='identifying_errors_with_snowplow'&gt;Identifying errors with Snowplow&lt;/h3&gt;
+
+&lt;p&gt;Using Snowplow, however, spotting errors is easy, because you have access to the raw page URL parameters in your Snowplow events table. The following is some example data from &lt;a href='http://www.psychicbazaar.com/'&gt;Psychic Bazaar&lt;/a&gt;, an online retailer running Snowplow. We have executed the following query to identify page views where the referer is not internal (so that we only look at the first page view in each visit, i.e. the one with all the interesting page referer and page URL data to determine the source of traffic):&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='psql'&gt;&lt;span class='cm'&gt;/* PostgreSQL / Redshift */&lt;/span&gt;
 &lt;span class='k'&gt;SELECT&lt;/span&gt;
 	&lt;span class='n'&gt;collector_tstamp&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -112,23 +117,23 @@
 &lt;a href='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png'&gt;&lt;img src='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png' /&gt;&lt;/a&gt;
 &lt;p&gt;&lt;em&gt;Click on the above image above to zoom in.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;This makes errors very easy to spot. As you can see from the screenshot below, Psychic Bazaar setup a campaign in September (that ran until November that year) where there was a simple typo in the query string. As a result, Snowplow did not set the marketing fields correctly for visitors who clicked on these links. Nonetheless, it is straightforward to spot the mistake, and adjust the data accordingly:&lt;/p&gt;
+&lt;p&gt;This makes errors very easy to spot. As you can see from the screenshot below, Psychic Bazaar ran a campaign from September through November last year where there was a simple typo in the querystring. As a result, Snowplow did not set the marketing fields correctly for visitors who clicked on these links. Nonetheless, it is straightforward to spot the mistake, and adjust the data accordingly:&lt;/p&gt;
 &lt;a href='/static/img/blog/2013/05/erroneous-query-string-data.png'&gt;&lt;img src='/static/img/blog/2013/05/erroneous-query-string-data.png' /&gt;&lt;/a&gt;
 &lt;p&gt;&lt;em&gt;Click on the above image above to zoom in.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;In Google Analytics, SiteCatalyst or any other typical web analytics tool, spotting the above error and handling it is basically inmpossible.&lt;/p&gt;
-&lt;a name='ga'&gt;&lt;h2&gt;3. Problems with relying on Google Analytics approach, in particular: why the Snowplow approach is superior&lt;/h2&gt;&lt;/a&gt;
-&lt;p&gt;The traditional approach to unpicking where a visitor has come from adopted by Google Analytics has other weaknesses aside from handling bad data. This is related to the way in which HTTP referer data is combined with page URL data to infer where a visitor came from.&lt;/p&gt;
+&lt;p&gt;In Google Analytics, SiteCatalyst or most other tools, spotting the above error and handling it is correctly is impossible.&lt;/p&gt;
+&lt;a name='ga'&gt;&lt;h2&gt;3. Problems with relying on Google Analytics approach, and why the Snowplow approach is superior&lt;/h2&gt;&lt;/a&gt;
+&lt;p&gt;The traditional approach to inferring a visitor&amp;#8217;s origin has further weaknesses - related to the way in which page referer data is combined with page URL data to make these inferences.&lt;/p&gt;
 
-&lt;p&gt;When Google Analytics works out where a visitor has come from, it &lt;em&gt;first&lt;/em&gt; examines the page URL for the first page view of the visit, and &lt;em&gt;then&lt;/em&gt;, if no suitable &lt;code&gt;utm&lt;/code&gt; parameters are found on the query string, looks at the HTTP referer header to see if a URL for a referring web page is available. (For a more detailed view of the process GA uses, see &lt;a href='https://developers.google.com/analytics/devguides/platform/features/campaigns-trafficsources'&gt;this detailed description from Google&lt;/a&gt;.) There are two problems with this approach:&lt;/p&gt;
+&lt;p&gt;To work out where a visitor has come from, Google Analytics &lt;em&gt;first&lt;/em&gt; examines the page URL for the first page view of the visit, and &lt;em&gt;then&lt;/em&gt;, if no suitable &lt;code&gt;utm_&lt;/code&gt; parameters are found on the querystring, looks at the page referer to see if a URL for a referring web page is available. (For a more detailed view of the process GA uses, see &lt;a href='https://developers.google.com/analytics/devguides/platform/features/campaigns-trafficsources'&gt;this detailed description from Google&lt;/a&gt;.) There are two problems with this approach:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Google &lt;em&gt;starts&lt;/em&gt; with the source of data that is inherently more error prone, before looking at the more reliable (if sometimes less informative) data source&lt;/li&gt;
+&lt;li&gt;Google Analytics &lt;em&gt;starts&lt;/em&gt; with the source of data that is inherently more error-prone, before looking at the more reliable (if sometimes less informative) data source&lt;/li&gt;
 
-&lt;li&gt;Google does not apply any intelligence to using the combination of both sources together to infer where a visitor has come from. If, for example, a visitor has clicked on a link from a webmail client (evident from the HTTP referer URL), but that link contains a &lt;code&gt;utm_source=bing&lt;/code&gt; parameter, we can guess, fairly reliably, that the user has not clicked on a paid Bing search campaign, but on a link that was shared by someone, who originally, clicked on the Bing search campaign ad. GA only considers each data point in isolation, and does not make the raw data available to us, as analysts, to make a more intelligent assignment.&lt;/li&gt;
+&lt;li&gt;Google Analytics does not apply any intelligence to using the combination of both sources together to infer where a visitor has come from. If, for example, a visitor has clicked on a link from a webmail client (evident from the HTTP referer URL), but that link contains a &lt;code&gt;utm_source=bing&lt;/code&gt; parameter, we can guess, fairly reliably, that the user has not clicked on a paid Bing search campaign, but on a link that was shared by someone who originally clicked on the Bing search campaign ad. Google Analytics only considers each data point in isolation, and does not make the raw data available to us, as analysts, to make a more intelligent attribution&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;In Snowplow, by contrast, we do &lt;strong&gt;not&lt;/strong&gt; collapse the two separate data sources (page URL parameters and HTTP referer) into a single &amp;#8216;source&amp;#8217; for the visitor. Instead, we expose both to the analyst: we offer five &lt;code&gt;mkt&lt;/code&gt; fields that are set based on &lt;code&gt;utm&lt;/code&gt; parameters on the page URL (&lt;code&gt;mkt_medium&lt;/code&gt;, &lt;code&gt;mkt_source&lt;/code&gt;, &lt;code&gt;mkt_term&lt;/code&gt;, &lt;code&gt;mkt_content&lt;/code&gt;, &lt;code&gt;mkt_campaign&lt;/code&gt;) and separately we offer three &lt;code&gt;refr&lt;/code&gt; fields (&lt;code&gt;refr_medium&lt;/code&gt;, &lt;code&gt;refr_source&lt;/code&gt;, &lt;code&gt;refr_term&lt;/code&gt;) that are derived from the HTTP referer header. We can view these fields alongside one-another by executing the following query:&lt;/p&gt;
+&lt;p&gt;In Snowplow, by contrast, we do &lt;strong&gt;not&lt;/strong&gt; collapse the two separate data sources (page URL parameters and page referer) into a single &amp;#8216;source&amp;#8217; for the visitor. Instead, we expose both to the analyst: we offer five &lt;code&gt;mkt&lt;/code&gt; fields that are set based on &lt;code&gt;utm&lt;/code&gt; parameters on the page URL (&lt;code&gt;mkt_medium&lt;/code&gt;, &lt;code&gt;mkt_source&lt;/code&gt;, &lt;code&gt;mkt_term&lt;/code&gt;, &lt;code&gt;mkt_content&lt;/code&gt;, &lt;code&gt;mkt_campaign&lt;/code&gt;) and separately we offer three &lt;code&gt;refr&lt;/code&gt; fields (&lt;code&gt;refr_medium&lt;/code&gt;, &lt;code&gt;refr_source&lt;/code&gt;, &lt;code&gt;refr_term&lt;/code&gt;) that are derived from the HTTP referer header. We can view these fields alongside one-another by executing the following query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='psql'&gt;&lt;span class='cm'&gt;/* PostgreSQL / Redshift */&lt;/span&gt;
 &lt;span class='k'&gt;SELECT&lt;/span&gt;
 	&lt;span class='n'&gt;mkt_medium&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -143,10 +148,10 @@
 &lt;p&gt;And check the results below. Note how in some cases the &lt;code&gt;mkt&lt;/code&gt; fields are set, but the &lt;code&gt;refr&lt;/code&gt; fields are not and vice-versa. On other occasions, both sets of fields are set:&lt;/p&gt;
 &lt;a href='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png'&gt;&lt;img src='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png' /&gt;&lt;/a&gt;
 &lt;p&gt;This is part of the Snowplow commitment to &lt;a href='/blog/2013/04/10/snowplow-event-validation/'&gt;high fidelity analytics&lt;/a&gt;, a concept we introduced in &lt;a href='/blog/2013/04/10/snowplow-event-validation/'&gt;this blog post&lt;/a&gt;.&lt;/p&gt;
-&lt;a name='adwords'&gt;&lt;h2&gt;4. Surprises when examining visitors acquired from Adwords search campaigns: most visitors clicked on ads that were not shown on Google domains&lt;/h2&gt;&lt;/a&gt;
+&lt;a name='adwords'&gt;&lt;h2&gt;4. Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on ads that were not shown on Google domains&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;Another advantage of keeping your referer data separate to your marketing campaign data is that you can learn more about &lt;em&gt;where&lt;/em&gt; your marketing ads are displayed based on the additional referer data that GA ignores.&lt;/p&gt;
 
-&lt;p&gt;To give a concrete example: Psychic Bazaar buys Adwords on the Google Search network. It does not spend any more on the Google Display network. By running the following query, we can identify which domains those Adwords ads that were clicked on were displayed:&lt;/p&gt;
+&lt;p&gt;To give a concrete example: Psychic Bazaar buys AdWords on the Google Search network. It does not buy ads on the Google Display network. By running the following query, we can identify which domains those AdWords ads that were clicked on were displayed:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='psql'&gt;&lt;span class='cm'&gt;/* PostgreSQL / Redshift */&lt;/span&gt;
 &lt;span class='k'&gt;SELECT&lt;/span&gt;
 	&lt;span class='n'&gt;refr_urlhost&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
@@ -158,15 +163,15 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Plotting the results in Tableau, there are a few surprises:&lt;/p&gt;
 &lt;a href='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg'&gt;&lt;img src='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg' /&gt;&lt;/a&gt;
-&lt;p&gt;The top two domains by amount of Adwords traffic directed towards Psychic Bazaar are &lt;strong&gt;not&lt;/strong&gt; Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.&lt;/p&gt;
+&lt;p&gt;The top two domains by amount of AdWords traffic directed towards Psychic Bazaar are &lt;strong&gt;not&lt;/strong&gt; Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.&lt;/p&gt;
 
-&lt;p&gt;We expected &lt;em&gt;some&lt;/em&gt; of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We &lt;em&gt;were&lt;/em&gt; surprised, however, that Amazon and eBay would do this. (It seems strange that they would show ads for merchants who are competing with themselves (in the case of Amazon) and their own merchants (in the case of both eBay and Amazon).) Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you&amp;#8217;ll see Adwords ads displayed at the bottom:&lt;/p&gt;
+&lt;p&gt;We expected &lt;em&gt;some&lt;/em&gt; of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We &lt;em&gt;were&lt;/em&gt; surprised, however, that Amazon and eBay would do this. (It seems strange that they would show ads for merchants who are competing with themselves and their own merchants. Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you will see AdWords ads displayed at the bottom:&lt;/p&gt;
 &lt;a href='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png'&gt;&lt;img src='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png' /&gt;&lt;/a&gt;
-&lt;p&gt;This puts Psychic Bazaar in the uncomfortable position of competing not only with other merchants on eBay and Amazon, but competing with its own website ads.&lt;/p&gt;
+&lt;p&gt;This puts Psychic Bazaar in the uncomfortable position of competing not only with other merchants on eBay and Amazon, but also competing with its own website ads.&lt;/p&gt;
 
-&lt;p&gt;We were also surprised to learn that in total, 69% of the click-throughs received were from non-Google domains: in this case at least, powering search advertising on other sites doesn&amp;#8217;t simply add additional advertising inventory to Google&amp;#8217;s core search inventory, it actually makes up the bulk of that inventory. (We&amp;#8217;d be interested in finding out from other Snowplow users who buy on Adwords whether they get similar results.)&lt;/p&gt;
+&lt;p&gt;We were also surprised to learn that in total, 69% of the click-throughs received were from non-Google domains: in this case at least, powering search advertising on other sites doesn&amp;#8217;t simply add additional advertising inventory to Google&amp;#8217;s core search inventory, it actually makes up the bulk of that inventory. (We&amp;#8217;d be interested in finding out from other Snowplow users who buy on AdWords whether they see similar results.)&lt;/p&gt;
 &lt;a name='conclusion'&gt;&lt;h2&gt;Pulling all the findings together: the value of high fidelity data in determining where your visitors come from&lt;/h2&gt;&lt;/a&gt;
-&lt;p&gt;In this post, we&amp;#8217;ve found that the extra level of data provided by Snowplow related to where visitors come from, over-and-above that provided by standard web analytics like Google Analytics, is incredibly valuable for a number of reasons:&lt;/p&gt;
+&lt;p&gt;In this post, we have seen that the extra level of data provided by Snowplow related to where visitors come from, over-and-above that provided by standard web analytics programs like Google Analytics, is incredibly valuable for a number of reasons:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;It makes it possible to identify and manage errors that are invariably introduced in the data&lt;/li&gt;
@@ -181,7 +186,7 @@
     <id>http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements"/>
     <title>Snowplow 0.8.2 released with Clojure Collector enhancements</title>
-    <updated>2013-05-08T00:00:00+01:00</updated>
+    <updated>2013-05-08T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -219,7 +224,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow"/>
     <title>Funnel analysis with Snowplow (Platform analytics part 1)</title>
-    <updated>2013-04-23T00:00:00+01:00</updated>
+    <updated>2013-04-23T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -243,7 +248,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow"/>
     <title>Measuring content page performance with Snowplow (Catalog Analytics part 2)</title>
-    <updated>2013-04-18T00:00:00+01:00</updated>
+    <updated>2013-04-18T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -271,7 +276,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing"/>
     <title>Snowplow 0.8.1 released with referer URL parsing</title>
-    <updated>2013-04-12T00:00:00+01:00</updated>
+    <updated>2013-04-12T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -380,7 +385,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow"/>
     <title>Measuring product page performance with Snowplow (Catalog Analytics part 1)</title>
-    <updated>2013-04-12T00:00:00+01:00</updated>
+    <updated>2013-04-12T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -444,7 +449,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation"/>
     <title>Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</title>
-    <updated>2013-04-10T00:00:00+01:00</updated>
+    <updated>2013-04-10T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -520,7 +525,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment"/>
     <title>Snowplow 0.8.0 released with all-new Scalding-based data enrichment</title>
-    <updated>2013-04-03T00:00:00+01:00</updated>
+    <updated>2013-04-03T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -636,7 +641,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things"/>
     <title>Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</title>
-    <updated>2013-03-25T00:00:00+00:00</updated>
+    <updated>2013-03-25T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -676,7 +681,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/20/rob-slifka-elasticity</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/20/rob-slifka-elasticity"/>
     <title>Inside the Plow - Rob Slifka's Elasticity</title>
-    <updated>2013-03-20T00:00:00+00:00</updated>
+    <updated>2013-03-20T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -730,7 +735,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support"/>
     <title>Snowplow 0.7.6 released with Redshift data warehouse support</title>
-    <updated>2013-03-03T00:00:00+00:00</updated>
+    <updated>2013-03-03T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -885,7 +890,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix"/>
     <title>Snowplow 0.7.5 released with important JavaScript fix</title>
-    <updated>2013-02-25T00:00:00+00:00</updated>
+    <updated>2013-02-25T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -909,7 +914,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics"/>
     <title>Snowplow 0.7.4 released for better eventstream analytics</title>
-    <updated>2013-02-22T00:00:00+00:00</updated>
+    <updated>2013-02-22T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1097,7 +1102,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line"/>
     <title>Bulk loading data from Amazon S3 into Redshift at the command line</title>
-    <updated>2013-02-20T00:00:00+00:00</updated>
+    <updated>2013-02-20T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1178,7 +1183,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp"/>
     <title>Reflections on Saturday's Measurecamp</title>
-    <updated>2013-02-18T00:00:00+00:00</updated>
+    <updated>2013-02-18T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1236,7 +1241,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released"/>
     <title>Snowplow 0.7.3 released, tracking additional data</title>
-    <updated>2013-02-15T00:00:00+00:00</updated>
+    <updated>2013-02-15T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1412,7 +1417,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/08/writing-hive-udfs-and-serdes</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/08/writing-hive-udfs-and-serdes"/>
     <title>Writing Hive UDFs - a tutorial</title>
-    <updated>2013-02-08T00:00:00+00:00</updated>
+    <updated>2013-02-08T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1610,7 +1615,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model"/>
     <title>Help us build out the Snowplow Event Model</title>
-    <updated>2013-02-04T00:00:00+00:00</updated>
+    <updated>2013-02-04T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1698,7 +1703,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/29/snowplow-0.7.2-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/29/snowplow-0.7.2-released"/>
     <title>Snowplow 0.7.2 released, with the new no-JavaScript tracker</title>
-    <updated>2013-01-29T00:00:00+00:00</updated>
+    <updated>2013-01-29T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1742,7 +1747,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/29/introducing-the-no-js-tracker</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/29/introducing-the-no-js-tracker"/>
     <title>Introducing the No-Javascript pixel tracker</title>
-    <updated>2013-01-29T00:00:00+00:00</updated>
+    <updated>2013-01-29T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1855,7 +1860,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/22/snowplow-0.7.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/22/snowplow-0.7.1-released"/>
     <title>Snowplow 0.7.1 released, with easier-to-run Ruby apps</title>
-    <updated>2013-01-22T00:00:00+00:00</updated>
+    <updated>2013-01-22T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1891,7 +1896,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager"/>
     <title>What data should you be passing into your tag manager?</title>
-    <updated>2013-01-21T00:00:00+00:00</updated>
+    <updated>2013-01-21T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2001,7 +2006,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars"/>
     <title>Snowplow reaches 202 stars on GitHub</title>
-    <updated>2013-01-20T00:00:00+00:00</updated>
+    <updated>2013-01-20T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2027,7 +2032,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/18/using-snowplow-with-qubit-opentag</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/18/using-snowplow-with-qubit-opentag"/>
     <title>Implementing Snowplow with QuBit's OpenTag</title>
-    <updated>2013-01-18T00:00:00+00:00</updated>
+    <updated>2013-01-18T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2067,7 +2072,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released"/>
     <title>Scala MaxMind GeoIP library released</title>
-    <updated>2013-01-16T00:00:00+00:00</updated>
+    <updated>2013-01-16T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2099,7 +2104,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/09/from-etl-to-enrichment</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/09/from-etl-to-enrichment"/>
     <title>The Snowplow development roadmap for the ETL step - from ETL to enrichment</title>
-    <updated>2013-01-09T00:00:00+00:00</updated>
+    <updated>2013-01-09T00:00:00-08:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2201,7 +2206,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data"/>
     <title>Using ChartIO to visualise and interrogate Snowplow data</title>
-    <updated>2013-01-08T00:00:00+00:00</updated>
+    <updated>2013-01-08T00:00:00-08:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2589,7 +2594,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail"/>
     <title>Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</title>
-    <updated>2013-01-07T00:00:00+00:00</updated>
+    <updated>2013-01-07T00:00:00-08:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2687,7 +2692,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released"/>
     <title>Snowplow 0.7.0 released, with new Clojure-based collector</title>
-    <updated>2013-01-03T00:00:00+00:00</updated>
+    <updated>2013-01-03T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2782,7 +2787,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/02/referer-parser-ported-to-3-more-languages</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/02/referer-parser-ported-to-3-more-languages"/>
     <title>referer-parser now with Java, Scala and Python support</title>
-    <updated>2013-01-02T00:00:00+00:00</updated>
+    <updated>2013-01-02T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2857,7 +2862,7 @@
     <id>http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released"/>
     <title>Snowplow 0.6.5 released, with improved event tracking</title>
-    <updated>2012-12-26T00:00:00+00:00</updated>
+    <updated>2012-12-26T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3019,7 +3024,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released"/>
     <title>Snowplow 0.6.4 released, with Infobright improvements</title>
-    <updated>2012-12-20T00:00:00+00:00</updated>
+    <updated>2012-12-20T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3088,7 +3093,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released"/>
     <title>Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</title>
-    <updated>2012-12-18T00:00:00+00:00</updated>
+    <updated>2012-12-18T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3140,7 +3145,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau"/>
     <title>Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</title>
-    <updated>2012-12-17T00:00:00+00:00</updated>
+    <updated>2012-12-17T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3177,7 +3182,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released"/>
     <title>Snowplow 0.6.2 released, with JavaScript tracker bug fixes</title>
-    <updated>2012-11-28T00:00:00+00:00</updated>
+    <updated>2012-11-28T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3203,7 +3208,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released"/>
     <title>Snowplow 0.6.1 released, with lots of small improvements</title>
-    <updated>2012-11-27T00:00:00+00:00</updated>
+    <updated>2012-11-27T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3359,7 +3364,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager"/>
     <title>Integrating Snowplow with Google Tag Manager</title>
-    <updated>2012-11-16T00:00:00+00:00</updated>
+    <updated>2012-11-16T00:00:00-08:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3397,7 +3402,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader"/>
     <title>Snowplow 0.6.0 released, with the new StorageLoader</title>
-    <updated>2012-11-12T00:00:00+00:00</updated>
+    <updated>2012-11-12T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3473,7 +3478,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice"/>
     <title>Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</title>
-    <updated>2012-11-06T00:00:00+00:00</updated>
+    <updated>2012-11-06T00:00:00-08:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3518,7 +3523,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released"/>
     <title>Snowplow 0.5.1 released, with lots of small improvements</title>
-    <updated>2012-11-01T00:00:00+00:00</updated>
+    <updated>2012-11-01T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3582,7 +3587,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow"/>
     <title>Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</title>
-    <updated>2012-10-31T00:00:00+00:00</updated>
+    <updated>2012-10-31T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3738,7 +3743,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released"/>
     <title>Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</title>
-    <updated>2012-10-25T00:00:00+01:00</updated>
+    <updated>2012-10-25T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3770,7 +3775,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow"/>
     <title>Performing web analytics on Snowplow data using Tableau - a video demo</title>
-    <updated>2012-10-24T00:00:00+01:00</updated>
+    <updated>2012-10-24T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3905,7 +3910,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released"/>
     <title>Infobright Ruby Loader Released</title>
-    <updated>2012-10-21T00:00:00+01:00</updated>
+    <updated>2012-10-21T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3947,7 +3952,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow"/>
     <title>How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</title>
-    <updated>2012-10-12T00:00:00+01:00</updated>
+    <updated>2012-10-12T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3970,7 +3975,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released"/>
     <title>Snowplow 0.4.10 released</title>
-    <updated>2012-10-11T00:00:00+01:00</updated>
+    <updated>2012-10-11T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4034,7 +4039,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released"/>
     <title>Attlib - an open source library for extracting search marketing attribution data from referrer URLs</title>
-    <updated>2012-10-11T00:00:00+01:00</updated>
+    <updated>2012-10-11T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4131,7 +4136,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do"/>
     <title>Why set your data free?</title>
-    <updated>2012-09-24T00:00:00+01:00</updated>
+    <updated>2012-09-24T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4204,7 +4209,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released"/>
     <title>Snowplow 0.4.8 released</title>
-    <updated>2012-09-14T00:00:00+01:00</updated>
+    <updated>2012-09-14T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4280,7 +4285,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released"/>
     <title>Snowplow 0.4.7 released</title>
-    <updated>2012-09-06T00:00:00+01:00</updated>
+    <updated>2012-09-06T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4392,7 +4397,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch"/>
     <title>Amazon announces Glacier - lowers the cost of running Snowplow</title>
-    <updated>2012-08-21T00:00:00+01:00</updated>
+    <updated>2012-08-21T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4424,7 +4429,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released"/>
     <title>Snowplow 0.4.6 released</title>
-    <updated>2012-08-20T00:00:00+01:00</updated>
+    <updated>2012-08-20T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4455,7 +4460,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released"/>
     <title>Updated Hive SerDe released</title>
-    <updated>2012-08-14T00:00:00+01:00</updated>
+    <updated>2012-08-14T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4469,7 +4474,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow"/>
     <title>SnowCannon - a node.js collector for Snowplow</title>
-    <updated>2012-08-13T00:00:00+01:00</updated>
+    <updated>2012-08-13T00:00:00-07:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4495,7 +4500,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled"/>
     <title>The setup guide has been overhauled</title>
-    <updated>2012-08-02T00:00:00+01:00</updated>
+    <updated>2012-08-02T00:00:00-07:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>

@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-11T11:16:33-07:00</updated>
+  <updated>2013-05-11T17:04:36-07:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -43,11 +43,11 @@
 
 &lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords'&gt;Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on an ad that was not shown on a Google domain&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion'&gt;Pulling all the findings together: the value of high fidelity data in determining where your visitors come from&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion'&gt;Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;!--more--&gt;&lt;a name='how'&gt;&lt;h2&gt;1. How, technically, can we determine where visitors have come from?&lt;/h2&gt;&lt;/a&gt;
-&lt;p&gt;There are two sources of raw data that we can use to determine where a vistor to a website has come from: the &lt;a href='#http-referer'&gt;HTTP referer&lt;/a&gt; and the &lt;a href='#page-url'&gt;page URL&lt;/a&gt;.&lt;/p&gt;
-&lt;a name='http-referer'&gt;&lt;h3&gt;Page referer&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;There are two sources of raw data that we can use to determine where a vistor to a website has come from: the &lt;a href='#page-referer'&gt;page referer&lt;/a&gt; and the &lt;a href='#page-url'&gt;page URL&lt;/a&gt;.&lt;/p&gt;
+&lt;a name='page-referer'&gt;&lt;h3&gt;Page referer&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;When you load a web page in your browser, your browser makes an HTTP request to a web server to deliver that page. That request includes a header field that identifies the address of the web page that linked to the resource being requested: this is called the &lt;a href='http://en.wikipedia.org/wiki/HTTP_referer'&gt;HTTP referer&lt;/a&gt; (sic). It is also possible to access the current page&amp;#8217;s referer information from the browser itself, using &lt;code&gt;document.referrer&lt;/code&gt; in JavaScript.&lt;/p&gt;
 
 &lt;p&gt;Web analytics programs typically read the HTTP referer header or JavaScript&amp;#8217;s &lt;code&gt;document.referrer&lt;/code&gt;, and use that page referer data as one the inputs to infer where a visitor has come from.&lt;/p&gt;
@@ -165,12 +165,12 @@
 &lt;a href='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg'&gt;&lt;img src='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg' /&gt;&lt;/a&gt;
 &lt;p&gt;The top two domains by amount of AdWords traffic directed towards Psychic Bazaar are &lt;strong&gt;not&lt;/strong&gt; Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.&lt;/p&gt;
 
-&lt;p&gt;We expected &lt;em&gt;some&lt;/em&gt; of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We &lt;em&gt;were&lt;/em&gt; surprised, however, that Amazon and eBay would do this. (It seems strange that they would show ads for merchants who are competing with themselves and their own merchants. Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you will see AdWords ads displayed at the bottom:&lt;/p&gt;
+&lt;p&gt;We expected &lt;em&gt;some&lt;/em&gt; of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We &lt;em&gt;were&lt;/em&gt; surprised, however, that Amazon and eBay would do this: it seems strange that they would show ads for merchants who are competing with themselves and their own merchants. Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you will see AdWords ads displayed at the bottom:&lt;/p&gt;
 &lt;a href='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png'&gt;&lt;img src='/static/img/blog/2013/05/amazon-with-adwords-links-screenshot.png' /&gt;&lt;/a&gt;
 &lt;p&gt;This puts Psychic Bazaar in the uncomfortable position of competing not only with other merchants on eBay and Amazon, but also competing with its own website ads.&lt;/p&gt;
 
 &lt;p&gt;We were also surprised to learn that in total, 69% of the click-throughs received were from non-Google domains: in this case at least, powering search advertising on other sites doesn&amp;#8217;t simply add additional advertising inventory to Google&amp;#8217;s core search inventory, it actually makes up the bulk of that inventory. (We&amp;#8217;d be interested in finding out from other Snowplow users who buy on AdWords whether they see similar results.)&lt;/p&gt;
-&lt;a name='conclusion'&gt;&lt;h2&gt;Pulling all the findings together: the value of high fidelity data in determining where your visitors come from&lt;/h2&gt;&lt;/a&gt;
+&lt;a name='conclusion'&gt;&lt;h2&gt;Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;In this post, we have seen that the extra level of data provided by Snowplow related to where visitors come from, over-and-above that provided by standard web analytics programs like Google Analytics, is incredibly valuable for a number of reasons:&lt;/p&gt;
 
 &lt;ol&gt;

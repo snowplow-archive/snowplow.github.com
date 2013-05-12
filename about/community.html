@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Custom Development - Snowplow Analytics</title>
+	<title>Community - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -36,58 +36,185 @@
   <div id="menu" class="span-15">
     <ul>
       <li ><a href="/product/index.html">Product</a></li>
-      <li  class="active" ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
       <li ><a href="/analytics/index.html">Analytics</a></li>
       <li ><a href="/technology/index.html">Technology</a></li>
       <li ><a href="/blog.html">Blog</a></li>
-      <li ><a id="mail" href="/about/index.html">About</a></li>
+      <li  class="active" ><a id="mail" href="/about/index.html">About</a></li>
     </ul>
   </div>
 </div>
 	
 		<div id="contents">
-<h1 id='custom_development_of_snowplow'>Custom development of Snowplow</h1>
+<h1 id='a_huge_thank_you_to_everyone_in_the_snowplow_community'>A huge thank you to everyone in the Snowplow community</h1>
 
-<p>Snowplow has been <a href='/product/technical-architecture.html'>architected</a> to be as extensible as possible. Indeed, one of the primary motivations for us in keeping Snowplow open source is to encourage developers to extend it in multiple directions. Those directions include:</p>
-
-<ol>
-<li>Building mobile and other app clients</li>
-
-<li>Building real-time collectors</li>
-
-<li>Giving website audience control over what data is and is not captured by Snowplow</li>
-
-<li>Building machine learning algorithms that use Snowplow data to do content recommendation and personalisation</li>
-</ol>
-
-<p>If there&#8217;s a specific piece of functionality from Snowplow that Snowplow doesn&#8217;t include today, our Professional Services team can in many cases develop it for you.</p>
-
-<p>There are two costing models that we apply for custom-development:</p>
-
-<ol>
-<li>Where the output of the development will be proprietary technology owned and operated by the client, we charge for the development based on our <a href='rate-card.html'>rate card</a></li>
-
-<li>Where the output of the development will be contributed back to the open source community, we charge for the development at a significantly reduced rate. Where we co-develop features that are highly prized by the open source community, we are often willing to work with clients pro bono</li>
-</ol>
-
-<h2 id='learn_more'>Learn more</h2>
+<p>Snowplow is a big project that is only possible thanks to the huge community of individual contributors and companies that have helped and supported the project in different ways.</p>
 
 <ul>
-<li><a href='/contact/index.html'>Get in touch</a> with the Snowplow team to discuss your project</li>
+<li><a href='#os'>Open source projects on top of which Snowplow is built</a></li>
 
-<li>Find out about our other professional services, including <a href='analytics.html'>analytics services</a>, <a href='reporting.html'>report design and implementation</a> and <a href='custom-development.html'>custom development</a>.</li>
+<li><a href='#code'>Code contributors</a></li>
+
+<li><a href='#docs'>Documentation contributors</a></li>
+
+<li><a href='#cos'>Supportive companies</a></li>
 </ul>
+<a name='os'><h2>Opens source projects on top of which Snowplow is built</h2></a>
+<p>The Snowplow project is built on the shoulders of giants: amazing open source projects led and supported by talented developers:</p>
+
+<ul>
+<li><a href='http://hadoop.apache.org/'>Apache Hadoop</a></li>
+
+<li><a href='http://avro.apache.org/'>Apache Avro</a></li>
+
+<li><a href='http://www.cascading.org/'>Cascading</a></li>
+
+<li><a href='http://clojure.org/'>Clojure</a></li>
+
+<li><a href='https://github.com/weavejester/compojure'>Compojure</a></li>
+
+<li><a href='https://github.com/rslifka/elasticity'>Elasticity</a></li>
+
+<li><a href='http://fog.io/'>Fog</a></li>
+
+<li><a href='http://git-scm.com/'>Git</a></li>
+
+<li><a href='http://linux.org/'>Linux</a></li>
+
+<li><a href='http://www.ruby-lang.org/'>Ruby</a></li>
+
+<li><a href='http://www.scala-lang.org/'>Scala</a></li>
+
+<li><a href='http://typelevel.org/projects/scalaz/'>Scalaz</a></li>
+
+<li><a href='https://github.com/twitter/scalding/wiki'>Scalding</a></li>
+
+<li><a href='http://etorreborre.github.io/specs2/'>Specs2</a></li>
+</ul>
+
+<h2 id='individual_contributors'>Individual contributors</h2>
+
+<p>We&#8217;ve been very lucky to have individuals contribute to the Snowplow codebase and documentation.</p>
+<a name='code'><h3>Code contributors</h3></a>
+<ul>
+<li><a href='https://github.com/robocoder'>Anthon Pang</a></li>
+
+<li><a href='https://github.com/richo'>Richo Healey</a> @ <a href='http://99designs.com'>99designs</a> (.rvm tidy-up)</li>
+
+<li><a href='https://github.com/shermozle'>Simon Rumble</a> (<a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> node.js-based collector)</li>
+
+<li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> (JavaScript tracker and Hive deserializer improvements)</li>
+
+<li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> (EmrEtlRunner and HiveQL and Hive deserializer improvements)</li>
+
+<li><a href='https://github.com/larsyencken'>Lars Yencken</a> @ <a href='http://99designs.com'>99designs</a> (ETL design)</li>
+
+<li><a href='https://github.com/testower'>Tom Erik Støwer</a> (EmrEtlRunner bug fixes)</li>
+
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='www.over-blog.com/'>OverBlog</a> (user fingerprinting and Infobright improvements)</li>
+
+<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> (HiveQL improvements)</li>
+
+<li><a href='https://github.com/talkspoon'>Alan Z</a> @ <a href='http://www.verycd.com/'>VeryCD</a> (Ad impression tracking bug fix)</li>
+
+<li><a href='https://github.com/ngsmrk'>Angus Mark</a> @ <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> (JavaScript tracker fixes)</li>
+
+<li><a href='https://github.com/butlermh'>Mark H Butler</a> (Clojure Collector improvements)</li>
+</ul>
+
+<p>Original concept for Snowplow inspired by <a href='https://github.com/rathko'>Radek Maciaszek</a>.</p>
+<a name='docs'><h3>Documentation contributors</h3></a>
+<ul>
+<li><a href='https://github.com/richo'>Richo Healey</a> @ <a href='http://99designs.com'>99designs</a></li>
+
+<li><a href='https://twitter.com/Triona'>Triona Carey</a></li>
+
+<li>Gaël Blaise</li>
+
+<li><a href='https://github.com/shermozle'>Simon Rumble</a></li>
+
+<li><a href='https://github.com/joaosal'>Joao Salcedo</a> @ <a href='http://www.bigcommerce.com/'>Bigcommerce</a></li>
+</ul>
+<a name='cos'><h2>Supportive companies</h2></a>
+<p>We have benefited enormously from the generosity of companies who&#8217;ve provided free software, services and support.</p>
+<table><thead><tr><th><strong>Supported by</strong></th><th><strong>Description</strong></th></tr></thead><tbody><tr><td style='text-align: left;'><img src='/static/img/thanks/bizspark_logo.jpg' /></td><td style='text-align: left;'>Snowplow Analytics Ltd is proud to be a member of the <a href='https://www.microsoft.com/bizspark/‎'>Microsoft BizSpark Program</a></td>
+</tr><tr><td style='text-align: left;'><img src='/static/img/thanks/navicat_logo.jpg' /></td><td style='text-align: left;'><a href='http://www.navicat.com/'>Navicat</a> is our go-to database tool, so we were delighted to join Premiumsoft&#8217;s Navicat Open Source Project License Program</td>
+</tr></tbody></table>
 </div>
 
  <div id="sidebar">
-	<h1>Snowplow Professional Services</h1>
+	<h1>Get in touch</h1>
 	<ul>
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 						
-						<li><a href="/services/index.html">Overview</a></li>
+						<li><a href="/about/index.html">Contact us</a></li>
 						
 					
 				
@@ -98,76 +225,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -201,6 +258,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -211,79 +332,9 @@
 				
 					
 						
-						<li><a href="/services/analytics.html">Analytics Projects</a></li>
+						<li><a href="/about/team.html">Team</a></li>
 						
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -317,19 +368,67 @@
 		
 			
 				
-					
+			
 				
 			
 				
-					
+			
 				
 			
 				
-					
+			
 				
 			
 				
-					
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
 				
 			
 				
@@ -339,67 +438,13 @@
 				
 					
 						
-						<li><a href="/services/reporting.html">Report design and implementation</a></li>
+						<li class="active"><a href="/about/community.html" class="active">Community</a></li>
 						
 					
 				
 			
 				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
+					
 				
 			
 				
@@ -433,89 +478,79 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
 				
 					
-						
-						<li><a href="/services/implementation.html">Snowplow Implementation</a></li>
-						
-					
 				
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -549,6 +584,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -558,80 +657,6 @@
 			
 				
 					
-				
-			
-				
-					
-						
-						<li class="active"><a href="/services/custom-development.html" class="active">Custom Development</a></li>
-						
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -665,6 +690,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -674,80 +763,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-						
-						<li><a href="/services/rate-card.html">Pro Services Rate Card</a></li>
-						
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -781,6 +796,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -790,76 +869,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -893,6 +902,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -902,76 +975,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -1005,6 +1008,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -1014,76 +1081,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -1117,6 +1114,70 @@
 		
 			
 				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
 					
 				
 			
@@ -1126,76 +1187,6 @@
 			
 				
 					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 				
@@ -1228,7 +1219,7 @@
 			
 		
 	</ul>
-</div> 
+</div>
 
 		<div id="footer">
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>

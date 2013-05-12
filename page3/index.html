@@ -40,7 +40,7 @@
       <li ><a href="/analytics/index.html">Analytics</a></li>
       <li ><a href="/technology/index.html">Technology</a></li>
       <li  class="active" ><a href="/blog.html">Blog</a></li>
-      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
     </ul>
   </div>
 </div>
@@ -144,11 +144,7 @@
 <h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
 
 <p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
-<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
-<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
-<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
 <p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry >></a></p>
 			<span class="comments-link"><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line#disqus_thread" rel="nofollow">View Comments</a></span>
@@ -215,6 +211,23 @@
 	</ul>
 
 	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Other</h1>
 		<ul>
 		
@@ -228,23 +241,6 @@
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -266,19 +262,19 @@
 		
 		</ul>		
 	
-		<h1>Inside the Plow</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 			
-				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
+				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		

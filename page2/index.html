@@ -53,7 +53,7 @@
 			<h1><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></h1>
 			<p>We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalog analytics for retailers. Today, we&#8217;ve published the <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>first recipes</a> in the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Snowplow Analytics Cookbook</a>. These cover <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>how to measure and compare the performance of different product pages on an ecommerce site</a>, using plots like the one below:</p>
 
-<p><img alt='Example-catalog-analytics' src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' alt='Example-catalog-analytics' /></p>
 
 <p>In this blog post, we will briefly outline:</p>
 
@@ -80,7 +80,7 @@
 
 <p>Surprisingly, ensuring your data is high fidelity is <strong>not</strong> something that is enforced by other analytics products.</p>
 
-<p><img alt='high-fidelity' src='/static/img/blog/2013/04/high-fidelity-2000.jpg' /></p>
+<p><img src='/static/img/blog/2013/04/high-fidelity-2000.jpg' alt='high-fidelity' /></p>
 
 <p>Why is Snowplow so unusual in aiming for high-fidelity analytics? Most often, analytics vendors sacrifice the goal of high-fidelity data at the altar of these three compromises:</p>
 
@@ -138,7 +138,7 @@
 
 <p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
 
-<p><img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /></p>
+<p><img src='/static/img/blog/2013/03/arduino-board-photo.jpg' alt='arduino-photo' /></p>
 
 <p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
 
@@ -176,7 +176,7 @@
 
 <p><em>With the introductions done, let&#8217;s hand over to Rob to tell us a bit about himself, Elasticity and what he&#8217;s working on next:</em></p>
 
-<p><img alt='rob-slifka-img' src='/static/img/blog/2013/03/rob-slifka.jpeg' /></p>
+<p><img src='/static/img/blog/2013/03/rob-slifka.jpeg' alt='rob-slifka-img' /></p>
 
 <p>Thanks Alex! Quick bit about me: I&#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href='http://www.sharethrough.com/engineering'>engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href='https://github.com/rslifka/elasticity'>Elasticity</a> comes in.</p>
 <p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry >></a></p>
@@ -215,23 +215,6 @@
 	</ul>
 
 	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
-			
-				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -245,6 +228,23 @@
 				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
 			
 				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -266,19 +266,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
 			
 		
 		</ul>		

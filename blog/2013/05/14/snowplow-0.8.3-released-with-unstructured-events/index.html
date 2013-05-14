@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Snowplow 0.8.3 released with unstructured events - Snowplow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">Snowplow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			14 May 2013
+			<h1>Snowplow 0.8.3 released with unstructured events</h1>
+			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
+
+<p><strong>Please note that this release only adds unstructured events to the JavaScript Tracker - adding unstructured events to our Enrichment process and storage targets is on the roadmap - but rest assured we are working on it!</strong></p>
+
+<p>Many thanks to community members <a href='https://github.com/rgabo'>Gabor Ratky</a>, <a href='https://github.com/tarsolya'>Andras Tarsoly</a> and <a href='https://github.com/lackac'>Laszlo Bacsi</a>, all from <a href='http://secretsaucepartners.com/'>Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href='https://github.com/snowplow/snowplow/pull/198'>original GitHub pull request</a>.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition'>What are unstructured events?</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when'>When to use unstructured events?</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage'>Usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap'>Roadmap for unstructured events</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help'>Getting help</a></li>
+</ol>
+<!--more--><h2><a name='definition'>1. What are unstructured events?</a></h2>
+<p><a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct'>Custom unstructured events</a> are user events which do not fit one of the existing Snowplow event types (page views, ecommerce transactions etc), and do not fit easily into our existing <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'>custom structured event</a> format. A custom unstructured event consists of two elements:</p>
+
+<ul>
+<li>A <code>name</code>, e.g. &#8220;Game saved&#8221; or &#8220;returned-order&#8221;</li>
+
+<li>A set of <code>name: value</code> properties (also known as a hash, associative array or dictionary)</li>
+</ul>
+
+<p>You might recognise what we call custom unstructured events from other analytics tools including MixPanel, KISSmetrics and Keen.io, where they are the primary trackable event type.</p>
+<h2><a name='when'>2. When to use unstructured events?</a></h2>
+<p>Custom unstructured events are great for a couple of use cases:</p>
+
+<ol>
+<li>Where you want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow)</li>
+
+<li>Where you want to track events which have unpredictable or frequently changing properties</li>
+</ol>
+
+<p><strong>Note:</strong> because unstructured events are <em>not</em> currently processed by the ETL and enrichment step, or added to storage, we recommend using <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'>custom structured events</a> for custom events types, assuming that you can fit your events into our custom structured event schema.</p>
+<h2><a name='usage'>3. Usage</a></h2>
+<p>Tracking an unstructured event with the JavaScript Tracker is very straightforward - use the <code>trackUnstructEvent(name, properties)</code> function.</p>
+
+<p>Here is an example taken from our codebase:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackUnstructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;Viewed Product&#39;</span><span class='p'>,</span>
+                <span class='p'>{</span>
+                    <span class='nx'>product_id</span><span class='o'>:</span> <span class='s1'>&#39;ASO01043&#39;</span><span class='p'>,</span>
+                    <span class='nx'>category</span><span class='o'>:</span> <span class='s1'>&#39;Dresses&#39;</span><span class='p'>,</span>
+                    <span class='nx'>brand</span><span class='o'>:</span> <span class='s1'>&#39;ACME&#39;</span><span class='p'>,</span>
+                    <span class='nx'>returning</span><span class='o'>:</span> <span class='kc'>true</span><span class='p'>,</span>
+                    <span class='nx'>price</span><span class='o'>:</span> <span class='mf'>49.95</span><span class='p'>,</span>
+                    <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='s1'>&#39;s&#39;</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>],</span>
+                    <span class='nx'>available_since$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>,</span><span class='mi'>7</span><span class='p'>)</span>
+                <span class='p'>}</span>
+            <span class='p'>]);</span>
+</code></pre></div>
+<p>We have written a <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>follow-up blog post</a> to provide more information on using the new <code>trackUnstructEvent</code> functionality - please <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>read this post</a> for more information.</p>
+<h2><a name='upgrading'>4. Upgrading</a></h2>
+<p>There are two components to upgrade in this release:</p>
+
+<ul>
+<li>The JavaScript Tracker, to version 0.11.2</li>
+
+<li>The Clojure Collector, to version 0.5.0</li>
+</ul>
+
+<p>If you are running the Clojure Collector, you must upgrade the Clojure Collector <strong>before</strong> upgrading the JavaScript Tracker, or you will experience some data loss.</p>
+
+<h3 id='clojure_collector'>Clojure Collector</h3>
+
+<p>This release bumps the Clojure Collector to version <strong>0.5.0</strong>. To upgrade to this release:</p>
+
+<ol>
+<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
+
+<li>Log in to your Amazon Elastic Beanstalk console</li>
+
+<li>Browse to your Collector&#8217;s application</li>
+
+<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
+</ol>
+
+<h3 id='javascript_tracker'>JavaScript Tracker</h3>
+
+<p>Please update your website(s) or tag manager to use the latest version of the JavaScript Tracker, which is version 0.11.2. As always, the updated minified tracker is available here:</p>
+
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.2/sp.js</code></pre>
+<h2><a name='roadmap'>5. Roadmap</a></h2>
+<p>We are well aware that this release is only the start of adding custom unstructured events to Snowplow.</p>
+
+<p>It makes sense to work next on extracting unstructured events in our Enrichment process; unfortunately this is not trivial, because our Enrichment process currently only outputs to Redshift, and Redshift has no support for JSON objects or maps of properties, which we would need to store the unstructured event properties.</p>
+
+<p>Therefore we are exploring two different strands:</p>
+
+<ol>
+<li><strong>Storing Snowplow events in Avro</strong>. Avro is a rich data serialization system that will allow us to store the unstructured event properties within the event object. Initially, you would be able to query these Avro-serialized events using a range of tools on Hadoop including Pig, Hive, Scalding and Cascalog. It should also be relatively straightforward to load these events into NoSQL databases such as MongoDB. We would then work on mapping the Avro events into Redshift</li>
+
+<li><strong>Storing Snowplow events in PostgreSQL</strong>. Postgres has a JSON datatype, although the querying capabilities on that JSON datatype are so-far very primitive. Nonetheless, it should be possible to at least store the unstructured event properties in an appropriate JSON field in Postgres</li>
+</ol>
+
+<p>If you have a preference for one of the two above options, or a suggested third approach, then <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>get in touch</a> and let us know as soon as possible, as we are thining through these alternatives now.</p>
+
+<p>Please keep an eye on our <a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'>Roadmap wiki page</a> to see how Snowplow&#8217;s support for unstructured events evolves.</p>
+<h2><a name='help'>6. Getting help</a></h2>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+
+<p>And if you want to find out more about the syntax for <code>trackUnstructEvent</code>, do checkout our <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Snowplow Unstructured Events Guide</a>, which was also published today.</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+		
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
+			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+		
+			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+		
+			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			
+				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+		
+		</ul>		
+	
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

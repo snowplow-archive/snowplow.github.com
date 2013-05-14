@@ -47,6 +47,71 @@
 	
 		<div id="contents">
 	
+		<a name="Snowplow 0.4.8 released with Hive deserializer improvements" />
+		<div class="post">
+			14 Sep 2012
+			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">Snowplow 0.4.8 released</a></h1>
+			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+
+<ol>
+<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+
+<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+
+<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+
+<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+</ol>
+
+<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+
+<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+
+<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+
+<ul>
+<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+
+<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+
+<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
+</ul>
+
+<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <p class='more'><a href='/blog/2012/09/14/snowplow-0.4.8-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/09/14/snowplow-0.4.8-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="Snowplow 0.4.7 released with additional JavaScript tracking options" />
+		<div class="post">
+			06 Sep 2012
+			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">Snowplow 0.4.7 released</a></h1>
+			<p>We have just released Snowplow version <strong>0.4.7</strong>. This release bumps the Snowplow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+
+<ol>
+<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+
+<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
+</ol>
+
+<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
+
+<p>We&#8217;ll take a look at both of these new features in turn:</p>
+
+<h2 id='site_id'>Site ID</h2>
+
+<p>The Snowplow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+</code></pre></div>
+<p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
+
+<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
+
+<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well. <p class='more'><a href='/blog/2012/09/06/snowplow-0.4.7-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/09/06/snowplow-0.4.7-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Amazon announces Glacier" />
 		<div class="post">
 			21 Aug 2012
@@ -93,8 +158,7 @@
 
 <span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
 <span class='p'>...</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
 
 <p>We added this capability to Snowplow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for Snowplow. Going forwards you can of course use this custom URL to send your Snowplow events to any kind of collector on a domain you control.</p>
@@ -113,38 +177,6 @@
 			<span class="comments-link"><a href="/blog/2012/08/14/updated-hive-serde-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="snowcannon" />
-		<div class="post">
-			13 Aug 2012
-			<h1><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow">SnowCannon - a node.js collector for Snowplow</a></h1>
-			<p>We are hugely excited to introduce <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, a Node.js collector for Snowplow, authored by <a href='http://twitter.com/shermozle'>@shermozle</a>.</p>
-
-<p>SnowCannon is an alternative collector to the default cloudfront collector included with Snowplow. It offers a number of significant advantages over the Cloudfront connector:</p>
-
-<ol>
-<li>It allows the use of 3rd party cookies. In particular, this makes it possible to track usage across multiple domains</li>
-
-<li>It enables real-time analytics. (This is not possible with the Cloudfront-enabled collector, where there&#8217;s a 20-30 minute delay between the javascript tracking event and the associated log being written to S3.)</li>
-</ol>
-
-<p>To learn more about SnowCannon, visit the <a href='https://github.com/shermozle/SnowCannon'>Github repo</a>.</p>
-
-<p>SnowCannon is the first user-contributed module for Snowplow, and we are delighted to see community members working to build out the Snowplow platform. There are other contributions in the works, including a Snowplow IOS client, that we hope to be announcing shortly.</p>
-
-<p>To encourage users to extend Snowplow, we&#8217;ve architected Snowplow in a module way, to enable developers to swap out elements in the Snowplow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the Snowplow architecture <a href='/product/technical-architecture.html'>here</a>.</p>
-			<span class="comments-link"><a href="/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="new-setup-guide" />
-		<div class="post">
-			02 Aug 2012
-			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
-			<p>Following a lot of invaluable feedback from users setting up Snowplow for the first time, we&#8217;ve updated the Snowplow setup documentation.</p>
-
-<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for Snowplow newbies to get up and running&#8230;</p>
-			<span class="comments-link"><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -153,9 +185,9 @@
 			<a href="/page10" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 11 of 11</span>
+		<span class="page_number">Page: 11 of 12</span>
 		
-			<span class="next">Next</span>
+			<a href="/page12" class="next">Next</a>
 		
 	</div>
 </div>
@@ -164,35 +196,18 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+		
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
 			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 		
 			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 		
 			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 		
-			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-		
-			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -207,6 +222,23 @@
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
 		
 		</ul>		

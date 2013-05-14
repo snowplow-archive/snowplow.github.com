@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>A guide to unstructured events in Snowplow 0.8.3 - Snowplow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">Snowplow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			14 May 2013
+			<h1>A guide to unstructured events in Snowplow 0.8.3</h1>
+			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
+
+<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
+
+<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
+</ol>
+<!--more--><h2><a name='basic-usage'>1. Basic usage</a></h2>
+<p>Tracking an unstructured event with the JavaScript Tracker is very straightforward - use the <code>trackUnstructEvent(name, properties)</code> function:</p>
+
+<ul>
+<li><code>name</code> is the name of the unstructured event. This is case-sensitive; spaces etc are allowed</li>
+
+<li><code>properties</code> is a JavaScript object</li>
+</ul>
+
+<p>Here is an example:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackUnstructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;Viewed Product&#39;</span><span class='p'>,</span>
+                <span class='p'>{</span>
+                    <span class='nx'>product_id</span><span class='o'>:</span> <span class='s1'>&#39;ASO01043&#39;</span><span class='p'>,</span>
+                    <span class='nx'>category</span><span class='o'>:</span> <span class='s1'>&#39;Dresses&#39;</span><span class='p'>,</span>
+                    <span class='nx'>brand</span><span class='o'>:</span> <span class='s1'>&#39;ACME&#39;</span><span class='p'>,</span>
+                    <span class='nx'>returning</span><span class='o'>:</span> <span class='kc'>true</span><span class='p'>,</span>
+                    <span class='nx'>price</span><span class='o'>:</span> <span class='mf'>49.95</span><span class='p'>,</span>
+                    <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='s1'>&#39;s&#39;</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>],</span>
+                    <span class='nx'>available_since$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>,</span><span class='mi'>7</span><span class='p'>)</span>
+                <span class='p'>}</span>
+            <span class='p'>]);</span>
+</code></pre></div>
+<p>Every call to <code>trackUnstructEvent</code> has the same structure - the complexity comes from knowing how to structure the <code>properties</code> JavaScript object. We will discuss this next:</p>
+<h2><a name='properties-object'>2. The `properties` JavaScript object</a></h2>
+<p>The <code>properties</code> JavaScript consists of a set of individual <code>name: value</code> properties.</p>
+
+<p>The structure must be flat - in other words, properties cannot be nested. Continuing with the exampe code above, this means that the following is <strong>not</strong> allowed:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>category</span><span class='o'>:</span> <span class='p'>{</span> <span class='nx'>primary</span><span class='o'>:</span> <span class='s1'>&#39;Womenswear&#39;</span><span class='p'>,</span> <span class='nx'>secondary</span><span class='o'>:</span> <span class='s1'>&#39;Dresses&#39;</span><span class='p'>},</span> <span class='c1'>// NOT allowed</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>The <code>properties</code> JavaScript object supports a wide range of datatypes - see below for details.</p>
+<h2><a name='supported-datatypes'>3. Supported datatypes</a></h2>
+<p>Snowplow unstructured events support a relatively rich set of datatypes. Because these datatypes do not always map directly onto JavaScript datatypes, we have introduced some &#8220;type suffixes&#8221; for the JavaScript property names, to tell Snowplow what Snowplow datatype we want the JavaScript data to map onto.</p>
+
+<p>Our datatypes, then, are as follows:</p>
+<table><thead><tr><th>Snowplow datatype</th><th>Description</th><th>JavaScript datatype</th><th>Type suffix(es)</th><th>Supports array?</th></tr></thead><tbody><tr><td style='text-align: left;'>Null</td><td style='text-align: left;'>Absence of a value</td><td style='text-align: left;'>Null</td><td style='text-align: left;'>-</td><td style='text-align: left;'>No</td>
+</tr><tr><td style='text-align: left;'>String</td><td style='text-align: left;'>String of characters</td><td style='text-align: left;'>String</td><td style='text-align: left;'>-</td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Boolean</td><td style='text-align: left;'>True or false</td><td style='text-align: left;'>Boolean</td><td style='text-align: left;'>-</td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Integer</td><td style='text-align: left;'>Number without decimal</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$int</code></td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Floating point</td><td style='text-align: left;'>Number with decimal</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$flt</code></td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Geo-coordinates</td><td style='text-align: left;'>Longitude and latitude</td><td style='text-align: left;'>[Number, Number]</td><td style='text-align: left;'><code>$geo</code></td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Date</td><td style='text-align: left;'>Date and time (ms precision)</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$dt</code>, <code>$tm</code>, <code>$tms</code></td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Array</td><td style='text-align: left;'>Array of values</td><td style='text-align: left;'>[x, y, z]</td><td style='text-align: left;'>-</td><td style='text-align: left;'>-</td>
+</tr></tbody></table>
+<p>Let&#8217;s go through each of these in turn, providing some examples as we go:</p>
+
+<h3 id='null'>Null</h3>
+
+<p>Tracking a Null value for a given field is straightforward:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>returns_id</span><span class='o'>:</span> <span class='kc'>null</span>
+<span class='p'>}</span>
+</code></pre></div>
+<h3 id='string'>String</h3>
+
+<p>Tracking a String is easy:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>product_id</span><span class='o'>:</span> <span class='s1'>&#39;ASO01043&#39;</span> <span class='c1'>// Or &quot;ASO01043&quot;</span>
+<span class='p'>}</span>
+</code></pre></div>
+<h3 id='boolean'>Boolean</h3>
+
+<p>Tracking a Boolean is also straightforward:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>trial</span><span class='o'>:</span> <span class='kc'>true</span>
+<span class='p'>}</span>
+</code></pre></div>
+<h3 id='integer'>Integer</h3>
+
+<p>To track an Integer, use a JavaScript Number but add a type suffix like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>in_stock$int</span><span class='o'>:</span> <span class='mi'>23</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p><strong>Warning:</strong> if you do not add the <code>$int</code> type suffix, Snowplow will assume you are tracking a Floating point number.</p>
+
+<h3 id='floating_point'>Floating point</h3>
+
+<p>To track a Floating point number, use a JavaScript Number; adding a type suffix is optional:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>price$flt</span><span class='o'>:</span> <span class='mf'>4.99</span><span class='p'>,</span> 
+    <span class='nx'>sales_tax</span><span class='o'>:</span> <span class='mf'>49.99</span> <span class='c1'>// Same as $sales_tax:$flt</span>
+<span class='p'>}</span>
+</code></pre></div>
+<h3 id='geocoordinates'>Geo-coordinates</h3>
+
+<p>Tracking a pair of Geographic coordinates is done like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>check_in$geo</span><span class='o'>:</span> <span class='p'>[</span><span class='o'>-</span><span class='mf'>88.21337</span><span class='p'>,</span> <span class='mf'>40.11041</span><span class='p'>]</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p><strong>Warning:</strong> if you do not add the <code>$geo</code> type suffix, then the value will be incorrectly interpreted by Snowplow as an Array of Floating points.</p>
+
+<h3 id='date'>Date</h3>
+
+<p>Snowplow Dates include the date <em>and</em> the time, with milliseconds precision. There are three type suffixes supported for tracking a Date:</p>
+
+<ul>
+<li><code>$dt</code> - the Number of days since the epoch</li>
+
+<li><code>$tm</code> - the Number of seconds since the epoch</li>
+
+<li><code>$tms</code> - the Number of milliseconds since the epoch. This is the default for JavaScript Dates if no type suffix supplied</li>
+</ul>
+
+<p>You can track a date by adding either a JavaScript Number <em>or</em> JavaScript Date to your <code>properties</code> object. The following are all valid dates:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>birthday$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>1980</span><span class='p'>,</span><span class='mi'>11</span><span class='p'>,</span><span class='mi'>10</span><span class='p'>),</span> <span class='c1'>// Sent to Snowplow as birthday$dt: 3996</span>
+    <span class='nx'>birthday2$dt</span><span class='o'>:</span> <span class='mi'>3996</span><span class='p'>,</span> <span class='c1'>// ^ Same as above</span>
+    
+    <span class='nx'>registered$tm</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>05</span><span class='p'>,</span><span class='mi'>13</span><span class='p'>,</span><span class='mi'>14</span><span class='p'>,</span><span class='mi'>20</span><span class='p'>,</span><span class='mi'>10</span><span class='p'>),</span> <span class='c1'>// Sent to Snowplow as registered$tm: 1371129610</span>
+    <span class='nx'>registered2$tm</span><span class='o'>:</span> <span class='mi'>1371129610</span><span class='p'>,</span> <span class='c1'>// Same as above</span>
+    
+    <span class='nx'>last_action$tms</span><span class='o'>:</span> <span class='mi'>1368454114215</span><span class='p'>,</span> <span class='c1'>// Accurate to milliseconds</span>
+    <span class='nx'>last_action2</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>()</span> <span class='c1'>// Sent to Snowplow as last_action2$tms: 1368454114215</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>Note that the type prefix only indicates how the JavaScript Number sent to Snowplow is interpreted - all Snowplow Dates are stored to milliseconds precision (whether or not they include that level of precision).</p>
+
+<p><strong>Two warnings:</strong></p>
+
+<ol>
+<li>If you specify a JavaScript Number but do not add a valid Date suffix (<code>$dt</code>, <code>$tm</code> or <code>$tms</code>), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date</li>
+
+<li>If you specify a JavaScript Number but add the wrong Date suffix, then the Date will be incorrectly interpreted by Snowplow, for example:</li>
+</ol>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>last_ping$dt</span><span class='o'>:</span> <span class='mi'>1371129610</span> <span class='c1'>// Should have been $tm. Snowplow will interpret this as the year 3756521449</span>
+<span class='p'>}</span>
+</code></pre></div>
+<h3 id='arrays'>Arrays</h3>
+
+<p>You can track an Array of values of any data type other than Null.</p>
+
+<p>Arrays must be homogeneous - in other words, all values within the Array must be of the same datatype. This means that the following is <strong>not</strong> allowed:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='mi'>28</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='mi'>38</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>]</span> <span class='c1'>// NOT allowed</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>By contrast, the following are all allowed:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
+    <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='s1'>&#39;s&#39;</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>],</span>
+    <span class='nx'>session_starts$tm</span><span class='o'>:</span> <span class='p'>[</span><span class='mi'>1371129610</span><span class='p'>,</span> <span class='mi'>1064329730</span><span class='p'>,</span> <span class='mi'>1341127611</span><span class='p'>],</span>
+    <span class='nx'>check_ins$geo</span><span class='o'>:</span> <span class='p'>[[</span><span class='o'>-</span><span class='mf'>88.21337</span><span class='p'>,</span> <span class='mf'>40.11041</span><span class='p'>],</span> <span class='p'>[</span><span class='o'>-</span><span class='mf'>78.81557</span><span class='p'>,</span> <span class='mf'>30.22047</span><span class='p'>]]</span>
+<span class='p'>}</span>
+</code></pre></div><h2><a name='help'>4. Getting help</a></h2>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above guide, please do get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+
+<p>And if you have any ideas or feedback for Snowplow&#8217; custom unstructured events, do please share them, either in the comments below or through the usual channels.</p>
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+		
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
+			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+		
+			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+		
+			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			
+				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
+			
+				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+			
+				<li><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></li>
+			
+		
+		</ul>		
+	
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+</body>
+</html>

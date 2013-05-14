@@ -83,8 +83,7 @@
 
 <p>Page pings are enabled using the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-pagepings'>enableActivityTracking</a> function in the Javascript tracker. When enabled, you can configure what time period the user needs to engage with the page, from the page load, before the first page ping event occurs, and then over what period a user must continue to engage with the web page before the next page ping is sent. So, for example, if the Javascript function is called as follows:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;enableActivityTracking&#39;</span><span class='p'>,</span> <span class='mi'>30</span><span class='p'>,</span> <span class='mi'>10</span><span class='p'>]);</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The first ping would occur 30 seconds after page load, and subsequent pings will occur every 10 seconds as long as the user continues to engage with the page.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -102,8 +101,7 @@
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
 <span class='k'>AND</span> <span class='p'>(</span><span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span> <span class='k'>OR</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span><span class='p'>)</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>tstamp</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can visualize the above user journey in Tableau:</p>
 
 <ul>
@@ -153,8 +151,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events`</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
 <span class='k'>AND</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;%etl-to-enrichment%&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can load that data into Tableau:</p>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg' /></a>
 <p>From the above data we can see that:</p>
@@ -188,8 +185,7 @@
 <span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can sum the number of page pings per page:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
@@ -199,8 +195,7 @@
 <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>number_of_pings</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can join the two above queries into a single data set, and divide the number of page pings by the number of uniques to calculate the average pings per visitor for each page with the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span><span class='p'>,</span>
@@ -226,8 +221,7 @@
 <span class='p'>)</span> <span class='n'>p</span>
 <span class='k'>on</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Let&#8217;s pull that data into Tableau and plot average pings per page for each page:</p>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page.jpg' /></a>
 <p>The data shows that there is wide variation in the average time that users dwell on each web page. It is heartening to see that our blog post on <a href='/blog/2013/02/08/writing-hive-udfs-and-serdes/'>writing UDFs and Serdes for Hive</a> drove high levels of engagement (13.3 page pings ~ 2 minutes of viewing), as did our recent set of analytics recipes covering <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measuring and comparing product page performance</a>.</p>
@@ -269,8 +263,7 @@
 <span class='p'>)</span> <span class='n'>p</span>
 <span class='k'>on</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To visualize the data, we&#8217;re going to create a scatter plot, where each point represents a web page, and the position of the page is plotted as a function of page length (on one axis) and page engagement (average number of pings, on the other axis).</p>
 
 <p>To do this, load the above data into Tableau. Drag the <code>page_urlpath</code> to the rows shelf, and the <code>doc_height</code> and <code>average_pings_per_unique_per_page</code> to the measures pane. Click on the scatter plot - you should see something like the following plot. Each circle on the plot represents one page on our website. The height of the circle represents the average number of pings per user for that page - so how long users spend on it. The distance of each point to the right represents the height of the document - so larger webpages are further to the right. (We&#8217;ve also dragged the <code>unqiues</code> metric to the &#8216;size&#8217; pane, so that the size of each circle represents the number of unique visitors to that page.)</p>
@@ -283,12 +276,10 @@
 
 <p>Snowplow makes this straightforward to calculate. We can see how far down a user has scrolled in each page ping by adding together the maximum Y offset with the browser view height i.e.:</p>
 <div class='highlight'><pre><code class='mysql'><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>and then take that as a percentage of the total web page height:</p>
 <div class='highlight'><pre><code class='mysql'><span class='p'>(</span><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span><span class='p'>)</span> <span class='o'>/</span> <span class='n'>doc_height</span> <span class='k'>AS</span> <span class='n'>fraction_read</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then calculate the maximum value for each user for each web page:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
@@ -298,8 +289,7 @@
 <span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 <span class='k'>AND</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_ping&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>page_urlpath</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Feeding the data into Tableau, we can plot the average fraction of each web page viewed (where average is calculated across all users who visited that page), by simply dragging the <code>page_urlpath</code> dimension to the rows shelf, dragging the <code>fraction_read</code> metric into the table and changing the aggregation function Tableau performs on the metric from <code>SUM</code> to <code>AVERAGE</code>. In the below graph, we&#8217;ve also filtered the results so that only <code>page_urlpaths</code> for pages belonging to the analytics section of our website our displayed:</p>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
 <p>It appears that half our recipe web pages are read to the end by nearly everyone. A number, however, are not. (We&#8217;re losing people before they get to the end of the <a href='/analytics/basic-recipes.html'>basic recipes</a> or <a href='/analytics/customer-analytics/user-engagement.html'>measuring user engagement</a> pages.)</p>
@@ -401,6 +391,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -567,6 +559,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -677,110 +671,6 @@
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -835,110 +725,6 @@
 									
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1101,110 +887,6 @@
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -1313,6 +995,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -1363,6 +1047,332 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
 					
 				
 					

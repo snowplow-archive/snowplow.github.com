@@ -47,6 +47,60 @@
 	
 		<div id="contents">
 	
+		<a name="Snowplow unstructured events guide" />
+		<div class="post">
+			14 May 2013
+			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
+			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
+
+<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
+
+<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/05/14/snowplow-unstructured-events-guide#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="Snowplow 0.8.3 released" />
+		<div class="post">
+			14 May 2013
+			<h1><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></h1>
+			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
+
+<p><strong>Please note that this release only adds unstructured events to the JavaScript Tracker - adding unstructured events to our Enrichment process and storage targets is on the roadmap - but rest assured we are working on it!</strong></p>
+
+<p>Many thanks to community members <a href='https://github.com/rgabo'>Gabor Ratky</a>, <a href='https://github.com/tarsolya'>Andras Tarsoly</a> and <a href='https://github.com/lackac'>Laszlo Bacsi</a>, all from <a href='http://secretsaucepartners.com/'>Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href='https://github.com/snowplow/snowplow/pull/198'>original GitHub pull request</a>.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition'>What are unstructured events?</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when'>When to use unstructured events?</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage'>Usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap'>Roadmap for unstructured events</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Where does your traffic *really* come from?" />
 		<div class="post">
 			10 May 2013
@@ -123,7 +177,7 @@
 
 <p>The first recipes published cover how to perform <a href='/analytics/platform-analytics/funnel-analysis.html'>funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
 
-<p><img src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' alt='funnel-analysis' /></p>
+<p><img alt='funnel-analysis' src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' /></p>
 
 <p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &#8216;drop out&#8217; of the funnel.</p>
 
@@ -133,73 +187,13 @@
 			<span class="comments-link"><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Measuring content page performance" />
-		<div class="post">
-			18 Apr 2013
-			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
-			<p><em>This is the second part in our blog post series on Catalog Analytics. The <a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>first part</a> was published last week.</em></p>
-
-<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
-
-<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
-
-<p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
-<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
-<p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
-<p class='more'><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="Snowplow 0.8.1 released" />
-		<div class="post">
-			12 Apr 2013
-			<h1><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></h1>
-			<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
-
-<p>Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:</p>
-
-<ol>
-<li>Were they driven by a search engine, social network, or link in an email program?</li>
-
-<li>If so, which search engine / social network / email program?</li>
-
-<li>If they were driven by a search engine, what query did they enter?</li>
-</ol>
-
-<p>This data is key for performing attribution analytics.</p>
-
-<p>Snowplow delivers the above functionality by parsing the page referer URIs which the JavaScript tracker sends to the collector. The Snowplow enrichment layer does a couple of things with these referer URIs:</p>
-
-<ol>
-<li>It splits the referer URL into its six components (scheme, host, port, path, query, fragment). This makes querying referer data significantly easier, as we hope to show in future blog posts and attribution analytics recipes</li>
-
-<li>It looks up the referer URL in a database of known referers and attempts to extract details about this referer, which you can then use for marketing attribution. (For example - is the referer a search engine, or social network? What query did the user enter in the search engine?)</li>
-</ol>
-
-<p>We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'>Referer parsing implementation</a></li>
-
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'>Some example data</a></li>
-
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'>Upgrading and usage</a></li>
-
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'>Getting help</a></li>
-</ol>
-
-<p>Read on below the fold to find out more.</p>
-<p class='more'><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
 		
 			<span class="previous">Previous</span>
 		
-		<span class="page_number">Page: 1 of 11</span>
+		<span class="page_number">Page: 1 of 12</span>
 		
 			<a href="/page2" class="next">Next</a>
 		
@@ -210,35 +204,18 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+		
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
 			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 		
 			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 		
 			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 		
-			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-		
-			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -253,6 +230,23 @@
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
 		
 		</ul>		

@@ -105,8 +105,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>month</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then look at the distribution of users by the number of days per month they have logged in, for any month in particular:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
 <span class='k'>SELECT</span>
@@ -115,8 +114,7 @@
 <span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
 <span class='k'>WHERE</span> <span class='n'>yr</span><span class='o'>=</span><span class='mi'>12</span> <span class='k'>AND</span> <span class='n'>mnth</span><span class='o'>=</span><span class='mi'>5</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>visits</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We might also want to see how the distribution evolves by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
 <span class='k'>SELECT</span>
@@ -126,8 +124,7 @@
 <span class='nf'>count</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note: as well as looking at how the distribution of users by engagement level changes over time, we might also want to look at how it changes for a fixed group of users. This is normally performed as part of a <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a>.</p>
 <a name='visits-per-time-period'><h3>2. Number of visits by each user per day / week / month</h3></a>
 <p>A similar metric is calculated by countint the number of visits that each user makes in a given time period. The difference here, is that if a user visits a site more than once a day, each individual visit contributes to the &#8220;engagement&#8221; value assigned to that user. When we look at the number of days per month a user visits a website, by contrast, we do not distinguish users who&#8217;ve visited once from users who&#8217;ve visited twice.</p>
@@ -150,8 +147,7 @@
 <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
 <span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_sessionidx</span> <span class='p'>))</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we can look at the distribution of users, by numbers of visits per time period, in each time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
 <span class='k'>SELECT</span>
@@ -161,8 +157,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>visits_by_user_by_month</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>mnth</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
-</code></pre>
-</div><a name='events-per-visit'><h3>3. Number of events per visit</h3></a>
+</code></pre></div><a name='events-per-visit'><h3>3. Number of events per visit</h3></a>
 <p>We can take the number of &#8220;events&#8221; that occur on each visit as a proxy for how &#8220;engaged&#8221; the user was during that visit. (With more events indicating a deeper level of engagement.)</p>
 
 <p>Counting the number of events per user per visit is straightforward:</p>
@@ -180,8 +175,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then look at the distribution of visits by engagement level:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
 <span class='k'>SELECT</span>
@@ -189,8 +183,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>engagement</span> <span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>If we want to see whether this metric is improving over time, we can repeat the above, but this time note the date of each visit, and aggregate by time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
 <span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>engagement_by_visit</span> <span class='p'>(</span>
@@ -215,8 +208,7 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>engagement</span> <span class='p'>;</span>
-</code></pre>
-</div><a name='weighted-events-per-visit'><h3>4. Weighting events by value</h3></a>
+</code></pre></div><a name='weighted-events-per-visit'><h3>4. Weighting events by value</h3></a>
 <p>TO WRITE</p>
 
 <h2 id='want_to_learn_more'>Want to learn more?</h2>
@@ -284,6 +276,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -474,6 +468,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -524,6 +520,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -714,6 +712,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -764,6 +764,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -954,6 +956,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -1004,6 +1008,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -1194,120 +1200,6 @@
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -1356,6 +1248,126 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
 					
 				
 					

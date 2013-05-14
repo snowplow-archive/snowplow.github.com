@@ -47,6 +47,56 @@
 	
 		<div id="contents">
 	
+		<a name="Snowplow 0.5.2 released and introducing Sluice" />
+		<div class="post">
+			06 Nov 2012
+			<h1><a href="/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice">Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</a></h1>
+			<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we&#8217;ll also use this post to introduce our new Ruby gem, called Sluice.</p>
+
+<p>Many thanks to community member <a href='https://github.com/testower'>Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
+
+<h2 id='bugs_fixed'>Bugs fixed</h2>
+
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/71'>Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
+
+<pre><code>...
+:snowplow:
+  :serde_version: 0.4.9
+...</code></pre>
+
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/72'>Issue 72</a></strong>: Tom&#8217;s testing also identified a bug in EmrEtlRunner&#8217;s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
+<p class='more'><a href='/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="Snowplow 0.5.1 released" />
+		<div class="post">
+			01 Nov 2012
+			<h1><a href="/blog/2012/11/01/snowplow-0.5.1-released">Snowplow 0.5.1 released, with lots of small improvements</a></h1>
+			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
+
+<ol>
+<li>Improving the robustness of the ETL process</li>
+
+<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
+</ol>
+
+<p>To take each of these themes in turn:</p>
+
+<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
+
+<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
+
+<p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
+
+<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
+
+<pre><code>:etl:
+  :continue_on_unexpected_error: false</code></pre>
+<p class='more'><a href='/blog/2012/11/01/snowplow-0.5.1-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/11/01/snowplow-0.5.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="New version of GA - what it means for Snowplow adoption" />
 		<div class="post">
 			31 Oct 2012
@@ -59,7 +109,7 @@
 <li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting Snowplow</a></li>
 </ol>
 
-<p><img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /></p>
+<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
 <a name='what' />
 <h2 id='1_what_changes_has_google_announced'>1. What changes has Google announced?</h2>
 
@@ -128,63 +178,6 @@
 			<span class="comments-link"><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="infobright-ruby-loader-released" />
-		<div class="post">
-			21 Oct 2012
-			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
-			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
-
-<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
-
-<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
-
-<ol>
-<li>Scale to terabytes (although not petabytes, unlike Hive)</li>
-
-<li>Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR</li>
-
-<li>Significantly faster query times – typically seconds, not minutes</li>
-
-<li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
-</ol>
-
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
-
-<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
-
-<ol>
-<li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
-
-<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
-</ol>
-
-<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
-
-<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
-
-<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
-			<span class="comments-link"><a href="/blog/2012/10/21/infobright-ruby-loader-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="How the role of Hive is changing in Snowplow" />
-		<div class="post">
-			12 Oct 2012
-			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
-			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
-
-<ol>
-<li>How big data technologies like Apache Hive are transforming web analytics</li>
-
-<li>Howe we&#8217;ve used Hive in Snowplow development</li>
-
-<li>How the role of Hive has changed at Snowplow over time, including a comparison of Hive against other technologies.</li>
-</ol>
-
-<p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe height='356' src='http://www.slideshare.net/slideshow/embed_code/14696456' frameborder='0' width='427' marginwidth='0' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginheight='0'>  </iframe>
-			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -193,7 +186,7 @@
 			<a href="/page8" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 9 of 11</span>
+		<span class="page_number">Page: 9 of 12</span>
 		
 			<a href="/page10" class="next">Next</a>
 		
@@ -204,35 +197,18 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+		
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
 			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 		
 			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 		
 			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 		
-			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-		
-			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -247,6 +223,23 @@
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
 			
 		
 		</ul>		

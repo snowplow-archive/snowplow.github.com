@@ -47,11 +47,11 @@
 	
 		<!--Slider--><div id='wrapper'>
     <div class='slider-wrapper theme-default'>
-        <div class='nivoSlider' id='slider'>
-            <img alt='' data-thumb='/static/img/slider/slide1.png' src='/static/img/slider/slide1.png' />
-            <img alt='' data-thumb='/static/img/slider/slide2.png' src='/static/img/slider/slide2.png' />
-            <img alt='' data-thumb='/static/img/slider/slide3.png' src='/static/img/slider/slide3.png' />
-            <a href='/product/get-started.html'><img alt='' data-thumb='/static/img/slider/slide4.png' src='/static/img/slider/slide4.png' /></a>
+        <div id='slider' class='nivoSlider'>
+            <img src='/static/img/slider/slide1.png' data-thumb='/static/img/slider/slide1.png' alt='' />
+            <img src='/static/img/slider/slide2.png' data-thumb='/static/img/slider/slide2.png' alt='' />
+            <img src='/static/img/slider/slide3.png' data-thumb='/static/img/slider/slide3.png' alt='' />
+            <a href='/product/get-started.html'><img src='/static/img/slider/slide4.png' data-thumb='/static/img/slider/slide4.png' alt='' /></a>
         </div>
     </div>
     <script type='text/javascript'>
@@ -79,6 +79,8 @@
 	<h2>Latest from the blog</h2>
 	<ul>
 		
+		<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Snowplow 0.8.4 released with MaxMind geo-IP lookups</a> <abbr>16 May 2013</abbr></li>
+		
 		<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>A guide to unstructured events in Snowplow 0.8.3</a> <abbr>14 May 2013</abbr></li>
 		
 		<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>Snowplow 0.8.3 released with unstructured events</a> <abbr>14 May 2013</abbr></li>
@@ -89,12 +91,10 @@
 		
 		<li><a href='/blog/2013/04/23/performing-funnel-analysis-with-snowplow'>Funnel analysis with Snowplow (Platform analytics part 1)</a> <abbr>23 Apr 2013</abbr></li>
 		
-		<li><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Measuring content page performance with Snowplow (Catalog Analytics part 2)</a> <abbr>18 Apr 2013</abbr></li>
-		
 	</ul>			
 </div><div class='column'>
 	<h2>Snowplow on Twitter</h2>
-	<a class='twitter-timeline' data-widget-id='266927205374885888' height='350' href='https://twitter.com/SnowplowData' width='266'>Tweets by @SnowplowData</a>
+	<a height='350' width='266' href='https://twitter.com/SnowplowData' data-widget-id='266927205374885888' class='twitter-timeline'>Tweets by @SnowplowData</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 </div>

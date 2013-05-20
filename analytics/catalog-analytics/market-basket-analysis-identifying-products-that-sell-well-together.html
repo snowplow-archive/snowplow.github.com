@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Market basket analysis - identifying products and content that go well together - Snowplow Analytics</title>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/">Snowplow</a></h1>
+    <p>Your web analytics data in your hands</p>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li  class="active" ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+<a name='top'><h1>Market basket analysis: identifying products and content that go well together</h1></a>
+<p><a href='http://en.wikipedia.org/wiki/Affinity_analysis'>Affinity analysis</a> and <a href='http://en.wikipedia.org/wiki/Association_rule_learning'>association rule learning</a> encompasses a broad set of analytics techniques aimed at uncovering the associations and connections between specific objects: these might be visitors to your website (customers or audience), products in your store, or content items on your media site. Of these, &#8220;market basket analysis&#8221; is perhaps the most famous example. In a market basket analysis, you look to see if there are combinations of products that frequently co-occur in transactions. For example, maybe people who buy flour and casting sugar, also tend to buy eggs (because a high proportion of them are planning on baking a cake). A retailer can use this information to inform:</p>
+
+<ul>
+<li>Store layout (put products that co-occur together close to one another, to improve the customer shopping experience)</li>
+
+<li>Marketing (e.g. target customers who buy flour with offers on eggs, to encourage them to spend more on their shopping basket)</li>
+</ul>
+
+<p>Online retailers and publishers can use this type of analysis to:</p>
+
+<ul>
+<li>Inform the placement of content items on their media sites, or products in their catalogue</li>
+
+<li>Drive recommendation engines (like Amazon&#8217;s <em>customers who bought this product also bought these products&#8230;</em>)</li>
+
+<li>Deliver targeted marketing (e.g. emailing customers who bought products specific products with other products and offers on those products that are likely to be interesting to them.)</li>
+</ul>
+
+<p>There are a wide range of algorithms, available on a wide variety of platforms, for performing market basket analysis. In this introductory recipe, we will cover:</p>
+
+<ol>
+<li><a href='#metrics'>Market basket analysis: the basics</a></li>
+
+<li><a href='#apriori'>Performing marketing basket analysis using the apriori algorithm using R and the <code>arules</code> package</a></li>
+
+<li><a href='#arulesviz'>Managing large result sets: visualizing rules using the <code>arulesViz</code> package</a></li>
+
+<li><a href='#business'>Interpreting the results: using the analysis to drive business decision-making</a></li>
+
+<li><a href='#expand'>Expanding on the analysis - zooming out from the basket to look a customer behaviour over longer periods and different events</a></li>
+</ol>
+<a name='metrics'><h2>1. Market basket analysis: the basics</h2></a>
+<h3 id='terminology'>Terminology</h3>
+
+<p><strong>Items</strong> are the objects that we are identifying associations between. For an online retailer, each <strong>item</strong> is a product in the shop. For a publisher, each <strong>item</strong> might be an article, a blog post, a video etc. A group of items is an <strong>item set</strong>.</p>
+<p style='text-align:center'>
+	`I = {i_1, i_2,...,i_n}`
+</p>
+<p><strong>Transactions</strong> are instances of groups of items co-occuring together. For an online retailer, a <strong>transaction</strong> is, generally, a, transaction. For a publisher, a transaction might be the group of articles read in a single visit to the website. (It is up to the analyst to define over what period to measure a <strong>transaction</strong>.) For each <strong>transaction</strong>, then, we have an <strong>item set</strong>.</p>
+<p style='text-align:center'>
+	`t_n = {i_i, i_j,...,i_k}`
+</p>
+<p><strong>Rules</strong> are statements of the form</p>
+<p style='text-align:center'>
+	`{i_1, i_2,...} => {i_k}`
+</p>
+<p>I.e. if you have the items in item set (on the left hand side (LHS) of the rule i.e. <span>`{i_1, i_2,...}`</span>), then it is likely that a visitor will be interested in the item on the right hand side (RHS i.e. <span>`{i_k}`</span>. In our example above, our rule would be:</p>
+<p style='text-align:center'>
+	`{ flour, sugar } => { eggs }`
+</p>
+<p>The output of a market basket analysis is generally a set of rules, that we can then exploit to make business decisions (related to marketing or product placement, for example).</p>
+
+<p>The <strong>support</strong> of an item or item set is the fraction of transactions in our data set that contain that item or item set. In general, it is nice to identify rules that have a high support, as these will be applicable to a large number of transactions. For super market retailers, this is likely to involve basic products that are popular across an entire user base (e.g. bread, milk). A printer cartridge retailer, for example, may not have products with a high support, because each customer only buys cartridges that are specific to his / her own printer.</p>
+
+<p>The <strong>confidence</strong> of a rule is the likelihood that it is true for a new transaction that contains the items on the LHS of the rule. (I.e. it is the probability that the transaction <em>also</em> contains the item(s) on the RHS.) Formally:</p>
+<p style='text-align: center'>
+	confidence`( i_m => i_n ) =`  support`( i_m uu i_n ) //` support`( i_m )`
+</p>
+<p>The <strong>lift</strong> of a rule is the ratio of the support of the items on the LHS of the rule co-occuring with items on the RHS divided by probability that the LHS and RHS co-occur if the two are independent.</p>
+<p style='text-align: center'>
+	lift`( i_m => i_n ) = ` support`( i_m uu i_n ) // (`support`( i_m ) xx `support`( i_n ))`
+</p>
+<p>If lift is greater than 1, it suggests that the precense of the items on the LHS has increased the probability that the items on the right hand side will occur on this transaction. If the lift is below 1, it suggests that the presence of the items on the LHS make the probability that the items on the RHS will be part of the transaction <em>lower</em>. If the lift is 1, it suggests that the presence of items on the LHS and RHS really are independent: knowing that the items on the LHS are present makes <strong>no</strong> difference to the probability that items will occur on the RHS.</p>
+
+<p>When we perform market basket analysis, then, we are looking for rules with a lift of more than one. Rules with higher confidence are ones where the probability of an item appearing on the RHS is high given the presence of the items on the LHS. It is also preferable (higher value) to action rules that have a high support - as these will be applicable to a larger number of transactions. However, in the case of long-tail retailers, this may not be possible.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='apriori'><h2>2. Performing marketing basket analysis using the apriori algorithm using R and the arules package</h2></a>
+<p>Just to recap: the purpose of this analysis is to generate a set of rules that link two or more products together. Each of these rules should have a lift greater than one. In addition, we are interested in the support and confidence of those rules: higher confidence rules are ones where there is a higher probability of items on the RHS being part of the transaction given the presence of items on the LHS. We&#8217;d expect recommendations based on these rules to drive a higher response rate, for example. We&#8217;re also better off actioning rules with higher support first, as these will be applicable to a wider range of instances.</p>
+
+<p>In this example, we&#8217;re going to perform the analysis for an online retailer running Snowplow. We&#8217;re going to do the classic market basket analysis: by that I mean we are going to look for rules based on actual transactions. (Later on in this recipe, we&#8217;ll consider the pros and cons of defining the &#8216;scope&#8217; or our basket differently.)</p>
+
+<p>We&#8217;re going to use <a href='http://www.r-project.org/'>R</a> to perform the market basket analysis. R is a great statistical and graphical analysis tool, well suited to more advanced analysis. We&#8217;re going to use the <a href='http://cran.r-project.org/web/packages/arules/index.html'>Arules package</a>, which implements the <a href='http://en.wikipedia.org/wiki/Apriori_algorithm'>Apriori</a> algorithm, one of the most commonly used algorithms for identifying associations between items.</p>
+
+<p>To start with, we need to fetch transaction data from Snowplow which identifies groups of items by transaction. The following SQL query fetches these directly: it returns a line of data for every line item of each transaction, with the transaction id and the item name:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;ti_orderid&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;ti_name&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;sku&quot;</span>
+<span class='k'>FROM</span>
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
+</code></pre></div>
+<p>We can pull this data directly into R from R. (For assistance setting up R to use with Snowplow, see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.) First, we load up R, and connect R to our Snowplow table in Redshift by entering the following at the R prompt:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;RPostgreSQL&quot;)</span>
+<span class='go'>con &lt;- dbConnect(drv, host=&quot;&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;&quot;, port=&quot;&lt;&lt;PORT NUMBER&gt;&gt;&quot;, dbname=&quot;&lt;&lt;DBNAME&gt;&gt;&quot;, user=&quot;&lt;&lt;USERNAME&gt;&gt;&quot;, password=&quot;&lt;&lt;PASSWORD&gt;&gt;&quot;)</span>
+</code></pre></div>
+<p>(Be sure to substitute appropriate values for <code>&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;</code> <code>&lt;&lt;PORT NUMBER&gt;&gt;</code>, <code>&lt;&lt;DBNAM&gt;&gt;</code> and <code>&lt;&lt;USERNAME&gt;&gt;</code>.</p>
+
+<p>Then we execute our SQL query above, fetching the data as a data frame in R:</p>
+<div class='highlight'><pre><code class='r'>t <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>
+<span class='s'>SELECT</span>
+<span class='s'>\&quot;ti_orderid\&quot; AS \&quot;transaction_id\&quot;,</span>
+<span class='s'>\&quot;ti_name\&quot; AS \&quot;sku\&quot;</span>
+<span class='s'>FROM</span>
+<span class='s'>\&quot;events\&quot;</span>
+<span class='s'>WHERE</span>
+<span class='s'>\&quot;event\&quot; = &#39;transaction_item&#39;</span>
+<span class='s'>&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>We can take a peak at the first five records on our data frame by executing</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>head(t)</span>
+</code></pre></div>
+<p><img alt='viewing-the-initial-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/1.JPG' /></p>
+
+<p>Note how each line of data represents a single line item, so that the first transaction (which includes two items) spans two lines.</p>
+
+<p>Now we need to records lines by transaction id, so that the individual products that belong to each transaction are aggregated across records into a single record as an array of products. This is done by executing the following at the R prompt:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>i &lt;- split(t$sku, t$transaction_id)</span>
+</code></pre></div>
+<p>Again, we can peak at our data by executing <code>head(i)</code> at the prompt:</p>
+
+<p><img alt='viewing-the-aggregated-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/2.JPG' /></p>
+
+<p>Now we convert the data into a &#8220;Transaction&#8221; object optimized for running the arules algorithm:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;arules&quot;)</span>
+<span class='go'>txn &lt;- as(i, &quot;transactions&quot;)</span>
+</code></pre></div>
+<p>Finally, we can run our algorithm:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>basket_rules &lt;- apriori(txn, parameter = list(sup = 0.005, conf = 0.01, target=&quot;rules&quot;))</span>
+</code></pre></div>
+<p>When running the rule, we set minimum support and confidence thresholds, below which R ignores any rules. These are used to optimize the running of the algorithm: figuring out association rules can be compulationally expensive, because for a company with a large catalogue of items, the number of combinations of items is <em>enormous</em> (it increases exponentially with the number of items). Hence, anything we give the algorithm to minimize the computational burden is welcome.</p>
+
+<p>In our case, we&#8217;ve given low figures for support and confidence. This is because our test example is based on a long tail retailer, who offers more than 10k SKUs, against which c.90k purchases have been made. The maximum support any one of the products has is very low: this can be confirmed by plotting the relative frequency of each item (i.e. the fraction of transactions) for the top 25 items by item frequency (i.e. the fraction of transactions that each item appears in). This can be done by running:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'> </span>
+<span class='go'>itemFrequencyPlot(txn, topN = 25)</span>
+</code></pre></div>
+<p>In which case the following plot was produced:</p>
+
+<p><img alt='itemFrequencyPlot' src='/static/img/analytics/catalog-analytics/market-basket-analysis/3.JPG' /></p>
+
+<p>Note how the most frequent item appears in less than 2% of transactions recorded.</p>
+
+<p>In your case the distribution of items by transaction might look very different, and so very different support and confidence parameters may be applicable. To determine what works best, you need to experiment with different parameters: you&#8217;ll see that as you reduce them, the number of rules generated will increase, which will give you more to work with. However, you&#8217;ll need to sift through the rules more carefully to identify those that will be more impactful for your business. We return to this theme in the <a href='#arulesviz'>next section</a>.</p>
+
+<p>Lastly, let&#8217;s inspect the actual rules generated by the algorithm:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>inspect(basket_rules)</span>
+</code></pre></div>
+<p><img alt='basket_rules' src='/static/img/analytics/catalog-analytics/market-basket-analysis/4.JPG' /></p>
+
+<p>In our case, the algorithm has identified 9 rules. The first 7 are not helpful: there are no items on the LHS. (For these seven rules, note how because there are no items on the LHS, the support = the confidence and the lift = 1.)</p>
+
+<p>The last two rules are interesting though: they suggest that people who buy the &#8220;Memo Block Apple&#8221; are more likely to buy the &#8220;Memo Block Pear&#8221; and vice-versa. Not just that, but they are <em>much</em> more likely to do so: the confidence is 66 - suggesting they are very strongly associated.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='arulesviz'><h2>3. Managing large result sets: visualizing rules using the arulesViz package</h2></a>
+<p>In the previous example we set the parameters for support and confidence so that only a small set of rules were returned. As mentioned, however, it is often better to return a larger set, to increase the chances that we generate more relevant rules for our business.</p>
+
+<p>Let&#8217;s rerun the algorithm, but this time reduce our parameters for support and confidence, and save the result set into a different object:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>basket_rules_broad &lt;- apriori(txn, parameter = list(sup = 0.001, conf = 0.001, target=&quot;rules&quot;))</span>
+</code></pre></div>
+<p>In our case, 3.2M rules were returned. This is way to many to visually inspect - however we can look at the top 20 by lift:</p>
+
+<p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/5.JPG' /></p>
+
+<p>We can plot our rules by confidence, support and lift, using the <code>arulesViz</code> package:</p>
+<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;arulesViz&quot;)</span>
+<span class='go'>plot(basket_rules_broad)</span>
+</code></pre></div>
+<p>Our plot looks as follows:</p>
+
+<p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/6.JPG' /></p>
+
+<p>The plot shows that rules with high lift typically have low support. (This is not surprising, given the maths.) We can use a plot like the one above to identify rules with both high support and confidence: the <code>arulesViz</code> package lets us plot the graphs in an interactive mode, so that we can click on individual points and explore the associated data. For more details, see <a href='http://cran.r-project.org/web/packages/arulesViz/vignettes/arulesViz.pdf'>the full package instructions</a>.</p>
+
+<p>How many rules we generate, and how we prioritise which rules we action, depend on which business questions we plan to answer with our analysis. This is discussed further in the <a href='#business'>next section</a>.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='business'><h2>4. Using the analysis to drive business decision-making</h2></a>
+<p>Before we use the data to make any kind of business decision, it is important that we take a step back and remember something important:</p>
+
+<p><strong>The output of the analysis reflects how frequently items co-occur in transactions. This is a function <em>both</em> of the strength of association between the items, <em>and</em> the way the site owner has presented them.</strong></p>
+
+<p>To say that in a different way: items might cooccur not because they are &#8220;naturally&#8221; connected, but because we, the people in charge of the site, have presented them together.</p>
+
+<p>This is an example of a more general problem in web analytics: our data reflects the way users behave, and the <em>way we have encouraged them to behave, by the website design decisions we have made</em>. We need to be conscious of this, because, if as suggested earlier in the recipe, we use the results to inform where items are placed relative to one another, we need to control for how close they are situated on the website today, so that we don&#8217;t end up confirming what we have assumed. So, for example, if items <em>k</em> and <em>l</em> show a strong association, and are presented next to one-another already on our site, that is not that interesting. If they are far apart on our site, that is interesting - maybe we should put them closer together. If those items are close together, but the analysis shows there is <em>not</em> a strong association, we should probably separate them: our previous assumption that they should be placed together may have been wrong.</p>
+
+<h3 id='using_the_data_to_drive_website_organization'>Using the data to drive website organization</h3>
+
+<p>There are a number of ways we can use the data to drive site organisation:</p>
+
+<ol>
+<li>Large clusters of co-occuring items should probably be placed in their own category / theme</li>
+
+<li>Item pairs that commonly co-occur should be placed close together within broader categories on the website. This is especially important where one item in a pair is very popular, and the other item is very high margin.</li>
+
+<li>Long lists of rules (including ones with low support and confidence) can be used to put recommendations at the bottom of product pages and on product cart pages. The only thing that matters for these rules is that the lift is greater than one. (And that we pick those rules that are applicable for each product with the high lift where the product recommended has a high margin.)</li>
+
+<li>In the event that doing the above (3) drives significant uplift in profit, it would strengthen the case to invest in a recommendation system, that uses a similar algorithm in an operational context to power automatic recommendation engine on your website.</li>
+</ol>
+
+<h3 id='using_the_data_for_targeted_marketing'>Using the data for targeted marketing</h3>
+
+<p>The same results can be used to drive targeted marketing campaigns. For each user, we pick a handful of products based on products they have bought to date which have <em>both</em> a high uplift and a high margin, and send them a e.g. personalized email or display ads etc.</p>
+
+<p>How we use the analysis has significant implications for the analysis itself: if we are feeding the analysis into a machine-driven process for delivering recommendations, we are much more interested in generating an expansive set of rules. If, however, we are experimenting with targeted marketing for the first time, it makes much more sense to pick a handful of particularly high value rules, and action just them, before working out whether to invest in the effort of building out that capability to manage a much wider and more complicated rule set.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='expand'><h2>5. Expanding on the analysis: zooming out from the basket to look a customer behaviour over longer periods and different events</h2></a>
+<p>In the above example, we used actual transaction events to identify associations between products for an online retailer.</p>
+
+<p>Sticking with our retail example, however, we could have expanded the scope of our definition of transactions. Instead of <em>just</em> looking at the basket for successful transactions, we could have looked at user&#8217;s complete baskets (whether or not they went on to buy). The analysis steps would have been <em>almost</em> exactly the same, however, instead of pulling transaction data out of Snowplow, we&#8217;d have pulled <em>add-to-basket</em> data out, using a query like the following:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='s-Name'>&quot;domain_sessionidx&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;ev_property&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;sku&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;ev_action&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
+</code></pre></div>
+<p>We could increase the scope further, so instead of looking at <em>add-to-basket-events</em>, we look at every product that each visitor has viewed, and associate groups of products that individual users have looked at within a single session:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='s-Name'>&quot;domain_sessionidx&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;page_urlpath&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+</code></pre></div>
+<p>Note how this time each product is identified by URL rather than by SKU. It may be appropriate to filter out URLs that do not correspond with product pages.</p>
+
+<p>Finally, we could expand our window further, so instead of confining ourselves to a single session, we look at the same user over multiple sessions, i.e.:</p>
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;page_urlpath&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+</code></pre></div>
+<p>Note how this is almost exactly the same query as when our scope was per-session, we&#8217;ve just removed the <code>domain_sessionidx</code> (so that when we aggregate by &#8220;transaction_id&#8221;), we aggregate by user over their entire lifetime, rather than each simply over each session.</p>
+
+<p>These final, wider scope examples, are likely to be more appropriate for publishers and media site owners, who want to identify associations between articles, writers / authors / producers and categories of content, rather than products in a shop.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+</div>
+
+ <div id="sidebar">
+	<h1>Analysts Cookbook</h1>
+	<p>
+		<a href="/analytics/index.html" >Overview</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/customer-analytics/overview.html" >Customer analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/catalog-analytics/overview.html" class="active">Catalog analytics</a>
+		
+		<ul>
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li><a href="/analytics/catalog-analytics/overview.html">Overview</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">Product page performance</a></li>
+									
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li><a href="/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html">Content page performance</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html" class="active">Market basket analysis - identifying products and content that go well together</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+		</ul>		
+		
+	</p>
+	<p>
+		<a href="/analytics/platform-analytics/overview.html" >Platform analytics</a>
+		
+	</p>
+	<p>
+		<a href="/analytics/tools-and-techniques/overview.html" >Tools and techniques</a>
+		
+	</p>
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+
+</body>
+</html>

@@ -15,6 +15,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -110,6 +125,8 @@
 			
 				
 					
+				
+			
 				
 			
 				
@@ -322,6 +339,8 @@
 			
 				
 			
+				
+			
 		
 			
 				
@@ -350,6 +369,8 @@
 						<li><a href="/services/reporting.html">Report design and implementation</a></li>
 						
 					
+				
+			
 				
 			
 				
@@ -562,6 +583,8 @@
 			
 				
 			
+				
+			
 		
 			
 				
@@ -590,6 +613,8 @@
 			
 				
 					
+				
+			
 				
 			
 				
@@ -802,120 +827,6 @@
 			
 				
 			
-		
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-					
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
-				
-			
 				
 			
 		
@@ -1034,6 +945,126 @@
 			
 				
 			
+				
+			
+		
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+					
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
 		
 			
 				
@@ -1150,6 +1181,8 @@
 			
 				
 			
+				
+			
 		
 			
 				
@@ -1174,6 +1207,8 @@
 			
 				
 					
+				
+			
 				
 			
 				
@@ -1274,8 +1309,8 @@
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 

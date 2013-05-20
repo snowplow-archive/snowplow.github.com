@@ -15,6 +15,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -119,7 +134,7 @@
 <p>Fortunately, Snowplow addresses the above limitations, enabling analysts to calculate customer lifetime value as detailed below.</p>
 <a name='calculating-clv'><h2>5. Calculating customer lifetime value with Snowplow</h2></a>
 <p>There are diffent levels of sophistication to calculate customer lifetime value. The diagram below illustrates some different approaches:</p>
-<p style='text-align:center'><img title='clv-segmentation ' src='img/lifetime-value-segmentation.jpg' /></p>
+<p style='text-align:center'><img src='img/lifetime-value-segmentation.jpg' title='clv-segmentation ' /></p>
 <p>We can distinguish different levels of sophistication when measuring customer lifetime value:</p>
 
 <ol>
@@ -166,8 +181,7 @@ ev_value = *total revenue*</code></pre>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-complete&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>If there are several different types of events where revenue is directly attributable (e.g. customer submits a lead form as well as buys a product), we simply add the additional event types to our <code>WHERE</code> clause:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -176,8 +190,7 @@ ev_value = *total revenue*</code></pre>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;order-complete&#39;</span>
 <span class='k'>OR</span> <span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s1'>&#39;submit-lead-form&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div><a name='cross-channel'><h3>5.2 Including all revenue per customer across multiple channels</h3></a>
+</code></pre></div><a name='cross-channel'><h3>5.2 Including all revenue per customer across multiple channels</h3></a>
 <p>Many businesses monetize customers on multiple channels, not just web. To sum revenues across all those channels, you will need to join your web analytics data with your offline sales data on a per-customer basis. Details of how to do this is documented <a href='/analytics/customer-analytics/joining-customer-data.html'>here</a>.</p>
 <a name='indirect'><h3>5.3 Including indirect value as well as direct revenue / profit</h3></a>
 <p>For many online businesses, customers engage in multiple value-generating activities that only generates revenue indirectly. To give some examples:</p>
@@ -198,8 +211,7 @@ ev_value = *total revenue*</code></pre>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>events_by_value</span> <span class='p'>(</span>
 	<span class='n'>ev_action</span> <span class='n'>STRING</span><span class='p'>,</span>
 	<span class='n'>value</span> <span class='kt'>FLOAT</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Populate the above table with each different type of event and the value you want to ascribe it. You can then add up the value of actions that indirectly drive revenue by joining the above table with the Snowplow events table:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -208,8 +220,7 @@ ev_value = *total revenue*</code></pre>
 <span class='k'>JOIN</span> <span class='n'>events_by_value</span> <span class='n'>v</span>
 <span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>ev_action</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>ev_action</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You would then sum the indirect value by <code>user_id</code> generated by the above query with the direct revenue attributable to each user calculated in the <a href='#direct-historical-revenue-by-customer'>previous section</a></p>
 <a name='future-value '><h3>5.4 Include expected future value</h3></a>
 <p>Like ascribing value to actions that only indirectly generate revenue, documenting all the different approaches to estimating future value from each customer is beyond the scope of this guide, it&#8217;s something we will cover in a blog post in due course.</p>
@@ -218,15 +229,13 @@ ev_value = *total revenue*</code></pre>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>future_value_by_segment</span> <span class='p'>(</span>
 	<span class='n'>segment</span> <span class='n'>STRING</span><span class='p'>,</span>
 	<span class='n'>value</span> <span class='kt'>FLOAT</span> <span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And another table that maps <code>user_id</code>s to each segment:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>user_ids_by_segment</span> <span class='p'>(</span>
 	<span class='n'>segment</span> <span class='n'>STRING</span><span class='p'>,</span>
 	<span class='n'>user_id</span> <span class='n'>STRING</span>
 <span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You would populate the above 2 tables and then execute a query like the following, to calculate estimated future value for each customer:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -235,8 +244,7 @@ ev_value = *total revenue*</code></pre>
 <span class='k'>JOIN</span> <span class='n'>user_ids_by_segment</span> <span class='n'>u</span>
 <span class='k'>ON</span> <span class='n'>f</span><span class='p'>.</span><span class='n'>segment</span> <span class='o'>=</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>segment</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The resulting <code>future_value</code> by <code>user_id</code> would be added to the past value calculated for each user (including both direct revenue and indirect value, as desired) to derive an overall figure for customer lifetime value for each <code>user_id</code>.</p>
 
 <h2 id='want_to_learn_more'>Want to learn more?</h2>
@@ -304,6 +312,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 									
+					
+				
 					
 				
 					
@@ -502,6 +512,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 				
+					
+				
 			
 				
 					
@@ -552,6 +564,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 									
+					
+				
 					
 				
 					
@@ -750,6 +764,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 				
+					
+				
 			
 				
 					
@@ -800,6 +816,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 									
+					
+				
 					
 				
 					
@@ -998,6 +1016,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 				
+					
+				
 			
 				
 					
@@ -1048,6 +1068,8 @@ ev_value = *total revenue*</code></pre>
 				
 					
 									
+					
+				
 					
 				
 					
@@ -1246,124 +1268,6 @@ ev_value = *total revenue*</code></pre>
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -1412,6 +1316,130 @@ ev_value = *total revenue*</code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
 					
 				
 					
@@ -1508,8 +1536,8 @@ ev_value = *total revenue*</code></pre>
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 

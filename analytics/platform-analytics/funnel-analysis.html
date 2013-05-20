@@ -15,6 +15,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -159,8 +174,7 @@
 	<span class='nf'>MIN</span><span class='p'>(</span><span class='kt'>TIMESTAMP</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>tstamp</span>
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>For this tutorial, we&#8217;re going to include <em>all</em> the visitors who come to the website in our funnel analysis. However, as highlighted <a href='#who-to-include'>above</a>, we might want to refine this to users who&#8217;ve come to the website from specific marketing channels or who have landed on a subset of landing pages (e.g. on the shop rather than the blog, for example).</p>
 
 <h3 id='step_2_identify_which_of_those_users_added_a_product_to_basket'>Step 2: identify which of those users added a product to basket</h3>
@@ -191,8 +205,7 @@
 <span class='k'>WHERE</span> <span class='n'>ev_category</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
 <span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can combine this data with our visits data:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
 <span class='k'>SELECT</span>
@@ -224,8 +237,7 @@
 	<span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 <span class='p'>)</span> <span class='n'>a</span> <span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>a</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>a</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='step_3_identifying_users_who_started_to_fill_in_the_checkout_form'>Step 3: Identifying users who <em>started</em> to fill in the checkout form</h3>
 
 <p>The Psychic Bazaar checkout page is a long webform where the user enters all the required postage details (e.g. name, email address, shipping address).</p>
@@ -253,8 +265,7 @@
 <span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;checkout&#39;</span>
 <span class='k'>AND</span>  <span class='n'>ev_label</span> <span class='o'>=</span> <span class='s1'>&#39;id_email&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='step_4_identifying_users_who_finished_the_checkout_form'>Step 4: Identifying users who <em>finished</em> the checkout form</h3>
 
 <p>When a user clicks the submit button on the bottom of the checkout page, a structured event is fired where:</p>
@@ -277,8 +288,7 @@
 <span class='k'>AND</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;checkout&#39;</span>
 <span class='k'>AND</span> <span class='n'>ev_label</span> <span class='o'>=</span> <span class='s1'>&#39;paypal-button&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='step_5_identifying_users_who_complete_their_order'>Step 5: Identifying users who complete their order</h3>
 
 <p>When a user completes his / her order, a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-ecommerce'>transaction event</a> is fired. We can therefore identify all the visits where there was a sale by executing the following query:</p>
@@ -291,8 +301,7 @@
 <span class='k'>FROM</span> <span class='ss'>`events_008`</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;transaction&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>tr_orderid</span><span class='p'>,</span> <span class='n'>tr_total</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='step_6_consolidating_the_different_queries_into_a_single_query_that_returns_the_complete_data_set'>Step 6: Consolidating the different queries into a single query that returns the complete data set</h3>
 
 <p>We can join the above queries together into a single query that generates a complete data set, with one row of data per visit, where it is straightforward to deduce from the columns what stage in the workflow each customer made it:</p>
@@ -361,8 +370,7 @@
 	<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;transaction&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>tr_orderid</span><span class='p'>,</span> <span class='n'>tr_total</span>
 <span class='p'>)</span> <span class='n'>o</span> <span class='k'>ON</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>o</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>o</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The output of the query looks something like this (click to enlarge):</p>
 <a href='/static/img/analytics/platform-analytics/funnel-analysis/funnel-data.png'><img src='/static/img/analytics/platform-analytics/funnel-analysis/funnel-data.png' /></a>
 <p>Now that we have our data ready, we can visualize and interrogate it further in <a href='#tableau'>Tableau</a> or <a href='#r'>R</a>.</p>
@@ -379,8 +387,7 @@
 <span class='n'>ELSEIF</span> <span class='p'>([</span><span class='n'>start_checkout</span><span class='p'>]</span> <span class='o'>&gt;</span> <span class='mi'>0</span><span class='p'>)</span> <span class='n'>THEN</span> <span class='s'>&#39;3. Started checkout&#39;</span>
 <span class='n'>ELSEIF</span> <span class='p'>([</span><span class='n'>number_of_add_to_baskets</span><span class='p'>]</span> <span class='o'>&gt;</span> <span class='mi'>0</span><span class='p'>)</span> <span class='n'>THEN</span> <span class='s'>&#39;2. Added product(s) to basket&#39;</span>
 <span class='n'>ELSE</span> <span class='s'>&#39;1. Visit&#39;</span> <span class='n'>END</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This field categorises each session by how far in the funnel the user progressed. Call this field &#8216;Funnel&#8217; and save it.</p>
 
 <p>Now we can plot how the funnel has changed over time, for example. Drag &#8216;Funnel&#8217; to the Rows shelf, drag &#8216;tstamp&#8217; to the columns shelf, set &#8216;tstamp&#8217; to the desired time period (e.g. months). Then drag the &#8216;Number of Records&#8217; measure into the table. (Remember - for our data set - each record represents one session.)</p>
@@ -468,6 +475,8 @@
 				
 					
 									
+					
+				
 					
 				
 					
@@ -650,6 +659,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -764,114 +775,6 @@
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -918,114 +821,6 @@
 									
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1204,114 +999,6 @@
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 			
@@ -1424,6 +1111,8 @@
 				
 					
 				
+					
+				
 			
 				
 					
@@ -1466,6 +1155,344 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
 					
 				
 					
@@ -1548,8 +1575,8 @@
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 

@@ -15,6 +15,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -46,6 +61,23 @@
 </div>
 	
 		<div id="contents">
+	
+		<a name="Snowplow 0.5.0 released with EmrEtlRunner" />
+		<div class="post">
+			25 Oct 2012
+			<h1><a href="/blog/2012/10/25/snowplow-0.5.0-released">Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</a></h1>
+			<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow&#8217;s Hive-based ETL (extract, transform, load) process on <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a> with minimum fuss.</p>
+
+<p>We are hugely grateful to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
+
+<h2 id='using_emretlrunner'>Using EmrEtlRunner</h2>
+
+<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href='http://snowplowanalytics.com/analytics/index.html'>Analyst&#8217;s Cookbook</a>.</p>
+
+<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'>Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
+<p class='more'><a href='/blog/2012/10/25/snowplow-0.5.0-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/25/snowplow-0.5.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
 	
 		<a name="Analysing Snowplow data with Tableau" />
 		<div class="post">
@@ -129,7 +161,7 @@
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe marginheight='0' height='356' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/14696456' width='427' frameborder='0' marginwidth='0'>  </iframe>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
 			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
@@ -163,56 +195,6 @@
 			<span class="comments-link"><a href="/blog/2012/10/11/snowplow-0.4.10-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Attlib launched" />
-		<div class="post">
-			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></h1>
-			<p><strong>Update 17-Dec-12</strong>: We have renamed Attlib to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, to make it clearer what Attlib does: parse referer URLs. The repository has been updated accordingly. Some of the example code below is out-of-date now: we recommend checking out the <a href='https://github.com/snowplow/referer-parser'>repository</a> for more information.</p>
-
-<p>Last night we published <a href='https://github.com/snowplow/referer-parser'>Attlib</a>, an open source Ruby library for extracting search marketing attribution data from referer (sic) URLs. In this post we talk through:</p>
-
-<ol>
-<li><a href='#what_attlib_does'>What Attlib does, and how to use it</a></li>
-
-<li><a href='#install'>Installing Attlib</a></li>
-
-<li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
-
-<li><a href='#snowplow_stack'>Attlib as part of the Snowplow stack</a></li>
-
-<li><a href='#other_languages'>Attlib in other languages</a></li>
-
-<li><a href='#snowplow_components_as_standalone_projects'>Making components of Snowplow available as standalone open source projects</a></li>
-</ol>
-<a name='what_attlib_does' />
-<h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
-
-<p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
-<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
-
-<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
-
-<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
-</code></pre>
-</div><a name='install' />
-<h3 id='installing_attlib'>Installing Attlib</h3>
-
-<p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
-
-<pre><code>sudo gem install attlib</code></pre>
-
-<p>The sourcecode is available on <a href='https://github.com/snowplow/referer-parser'>Github</a></p>
-<a name='search_engine_yaml' />
-<h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
-
-<p>Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
-
-<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <p class='more'><a href='/blog/2012/10/11/attlib-0.0.1-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/11/attlib-0.0.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -232,6 +214,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+		
 			<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 		
 			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
@@ -239,8 +223,6 @@
 			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
 		
 			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
-		
-			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 		
 	</ul>
 
@@ -262,9 +244,28 @@
 		
 		</ul>		
 	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			
+				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
 				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
@@ -273,8 +274,6 @@
 				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
 		
 		</ul>		
@@ -296,23 +295,6 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
-			
-				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
-			
-				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
-			
-				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-		
-		</ul>		
-	
 	
 
 	<h1>Useful links</h1>
@@ -325,8 +307,8 @@
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 

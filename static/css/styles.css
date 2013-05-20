@@ -282,3 +282,13 @@
   padding-right: 10px;
   text-align: center;
   vertical-align: top; }
+
+/* 
+	Getting MathJax to play nice with Jekyll 
+	See http://cwoebker.com/posts/latex-math-magic
+*/
+code.has-jax {
+  font: inherit;
+  font-size: 100%;
+  background: inherit;
+  border: inherit; }

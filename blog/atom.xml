@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-20T17:45:12+01:00</updated>
+  <updated>2013-05-21T10:35:59+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -199,7 +199,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
             &lt;span class='p'&gt;]);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Every call to &lt;code&gt;trackUnstructEvent&lt;/code&gt; has the same structure - the complexity comes from knowing how to structure the &lt;code&gt;properties&lt;/code&gt; JavaScript object. We will discuss this next:&lt;/p&gt;
-&lt;h2&gt;&lt;a name='properties-object'&gt;2. The `properties` JavaScript object&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='properties-object'&gt;2. The 'properties' JavaScript object&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;properties&lt;/code&gt; JavaScript consists of a set of individual &lt;code&gt;name: value&lt;/code&gt; properties.&lt;/p&gt;
 
 &lt;p&gt;The structure must be flat - in other words, properties cannot be nested. Continuing with the exampe code above, this means that the following is &lt;strong&gt;not&lt;/strong&gt; allowed:&lt;/p&gt;

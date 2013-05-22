@@ -4,13 +4,51 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-22T11:28:38+01:00</updated>
+  <updated>2013-05-22T11:57:05+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing"/>
+    <title>Measuring how much traffic individual items in your catalog drive to your website</title>
+    <updated>2013-05-22T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We have just added a &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;new recipe&lt;/a&gt; to the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;catalog analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;. This recipe describes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;How to measure how effectively different items in your catalog drive visits to your website.&lt;/li&gt;
+
+&lt;li&gt;How to use the data to unpick &lt;em&gt;how&lt;/em&gt; each item drives that traffic.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;In digital marketing, we can distinguish classic &amp;#8220;outbound marketing&amp;#8221;, where we &lt;em&gt;push&lt;/em&gt; visitors to our website using paid ad campaigns, for example, with &amp;#8221;&lt;a href='http://en.wikipedia.org/wiki/Inbound_marketing'&gt;inbound market&lt;/a&gt;&amp;#8221;, where we &lt;em&gt;pull&lt;/em&gt; visitors into our site by producing attractive, linkable content.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Each item in our catalog (be it a product on a retail site, an article on a news website, a post on a blog or a video on a media site) has the potential to contribute to inbound marketing, by:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Providing new content that people might create links to&lt;/li&gt;
+
+&lt;li&gt;Providing additional content, including keywords and links for search engine crawlers&lt;/li&gt;
+
+&lt;li&gt;Providing additional potential landing pages to run advertising against.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This recipe shows how we can measure how effectively different items contribute to inbound marketing, and drill into the data to explore how it contributes. (Which of the three effects above does it support.)&lt;/p&gt;
+
+&lt;p&gt;In our previous recipe for &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;measuring product page performance&lt;/a&gt;, we showed how we can measure how effectively product pages on a retailer site drive &lt;em&gt;add-to-basket&lt;/em&gt; events. In our previous recipe for measuring &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'&gt;content page performance&lt;/a&gt;, we showed how to measure how much engagement different individual content items drive. &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;This recipe&lt;/a&gt; builds on the two previous recipes, by showing how we can measure how good each item is at drawing visitors to our website.&lt;/p&gt;
+
+&lt;p&gt;The recipe uses &lt;a href='http://www.tableausoftware.com/'&gt;Tableau&lt;/a&gt;. It is, however, possible to use alternative OLAP or analysis tools (e.g. &lt;a href='http://www.microsoft.com/en-us/bi/PowerPivot.aspx'&gt;Microsoft PowerPivot&lt;/a&gt; or &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt;): the same methodology applies.&lt;/p&gt;
+
+&lt;p&gt;The recipe is available &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow</id>

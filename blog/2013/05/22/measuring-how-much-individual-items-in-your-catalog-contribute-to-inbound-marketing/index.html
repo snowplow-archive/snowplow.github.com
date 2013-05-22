@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.4.10 released - Snowplow Analytics</title>
+	<title>Measuring how much traffic individual items in your catalog drive to your website - Snowplow Analytics</title>
 	
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -62,61 +62,35 @@
 	
 		<div id="contents">
 		<div class="post">
-			11 Oct 2012
-			<h1>Snowplow 0.4.10 released</h1>
-			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+			22 May 2013
+			<h1>Measuring how much traffic individual items in your catalog drive to your website</h1>
+			<p>We have just added a <a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'>new recipe</a> to the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>. This recipe describes:</p>
 
 <ol>
-<li>snowplow.js to version 0.7.0</li>
+<li>How to measure how effectively different items in your catalog drive visits to your website.</li>
 
-<li>the Hive deserializer to version 0.4.9</li>
+<li>How to use the data to unpick <em>how</em> each item drives that traffic.</li>
 </ol>
-
-<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
-
-<h2 id='main_changes'>Main changes</h2>
-
-<p>The main changes are as follows:</p>
-
-<ul>
-<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
-
-<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
-
-<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
-</ul>
-
-<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <!--more--></p>
-
-<h2 id='new_event_table_fields'>New event table fields</h2>
-
-<p>The new fields in the event table all relate directly to additional tracking functionality which was added to the JavaScript tracker in <a href='/blog/2012/09/06/snowplow-0.4.7-released/'>Snowplow 0.4.7</a>. Specifically:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a>
+<p>In digital marketing, we can distinguish classic &#8220;outbound marketing&#8221;, where we <em>push</em> visitors to our website using paid ad campaigns, for example, with &#8221;<a href='http://en.wikipedia.org/wiki/Inbound_marketing'>inbound market</a>&#8221;, where we <em>pull</em> visitors into our site by producing attractive, linkable content.</p>
+<!--more-->
+<p>Each item in our catalog (be it a product on a retail site, an article on a news website, a post on a blog or a video on a media site) has the potential to contribute to inbound marketing, by:</p>
 
 <ol>
-<li>The <code>setSiteId()</code> functionality is now extracted to the <code>app_id</code> field (short for application ID)</li>
+<li>Providing new content that people might create links to</li>
 
-<li>The ecommerce tracking functionality is now extracted to a set of <code>tr_</code> and <code>ti_</code> fields</li>
+<li>Providing additional content, including keywords and links for search engine crawlers</li>
+
+<li>Providing additional potential landing pages to run advertising against.</li>
 </ol>
 
-<p>For details on the new fields, please review our latest <a href='/analytics/snowplow-table-structure.html'>Hive events table definition</a> - there is now a column indicating in which version a given field was added.</p>
+<p>This recipe shows how we can measure how effectively different items contribute to inbound marketing, and drill into the data to explore how it contributes. (Which of the three effects above does it support.)</p>
 
-<h2 id='how_to_get_the_new_version'>How to get the new version</h2>
+<p>In our previous recipe for <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measuring product page performance</a>, we showed how we can measure how effectively product pages on a retailer site drive <em>add-to-basket</em> events. In our previous recipe for measuring <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>content page performance</a>, we showed how to measure how much engagement different individual content items drive. <a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'>This recipe</a> builds on the two previous recipes, by showing how we can measure how good each item is at drawing visitors to our website.</p>
 
-<p>As usual, the new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.9.jar</strong>.</p>
+<p>The recipe uses <a href='http://www.tableausoftware.com/'>Tableau</a>. It is, however, possible to use alternative OLAP or analysis tools (e.g. <a href='http://www.microsoft.com/en-us/bi/PowerPivot.aspx'>Microsoft PowerPivot</a> or <a href='http://www.r-project.org/'>R</a>): the same methodology applies.</p>
 
-<p>The updated snowplow.js is <a href='https://raw.github.com/snowplow/snowplow/master/1-trackers/javascript-tracker/js/snowplow.js'>available in our GitHub repository</a> for you to minify and upload, or alternatively you can use the one on our CDN:</p>
-
-<pre><code>https://d1fc8wv8zag5ca.cloudfront.net/0.7.0/sp.js</code></pre>
-
-<p>If you have any problems with either of these components, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
-
-<h2 id='a_note_on_backwards_compatibility_for_the_events_table'>A note on backwards compatibility for the events table</h2>
-
-<p>We will continue to add extra fields to the Snowplow events table as we add extra capabilities to the ETL process - for example, we are working on functionality to extract geo-location information from IP addresses via MaxMind.</p>
-
-<p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don&#8217;t explicitly query a new field.</p>
-
-<p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we&#8217;ll take advantage of this to improve backwards compatibility for our events table!</p>
+<p>The recipe is available <a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'>here</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

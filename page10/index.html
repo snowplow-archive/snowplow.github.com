@@ -16,6 +16,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -41,197 +56,149 @@
       <li ><a href="/analytics/index.html">Analytics</a></li>
       <li ><a href="/technology/index.html">Technology</a></li>
       <li  class="active" ><a href="/blog.html">Blog</a></li>
-      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
     </ul>
   </div>
 </div>
 	
 		<div id="contents">
 	
-		<a name="Snowplow 0.4.10 released with Hive deserializer improvements" />
+		<a name="New version of GA - what it means for Snowplow adoption" />
 		<div class="post">
-			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/snowplow-0.4.10-released">Snowplow 0.4.10 released</a></h1>
-			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+			31 Oct 2012
+			<h1><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</a></h1>
+			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
 
 <ol>
-<li>snowplow.js to version 0.7.0</li>
+<li><a href='#what'>The actual features Google has announced</a></li>
 
-<li>the Hive deserializer to version 0.4.9</li>
+<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting Snowplow</a></li>
 </ol>
 
-<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
+<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
+<a name='what' />
+<h2 id='1_what_changes_has_google_announced'>1. What changes has Google announced?</h2>
 
-<h2 id='main_changes'>Main changes</h2>
+<p>The most significant change Google has announced is the new <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href='#new-data-points'>new data points</a> businesses can <em>feed</em> GA, before considering <a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'>what that means for GA&#8217;s reporting capabilities</a>.</p>
+<a name='new-data-points' />
+<h3 id='11_custom_user_identifiers'>1.1 Custom user identifiers</h3>
 
-<p>The main changes are as follows:</p>
+<p>The first new data points that businesses can feed into Google Analytics is a user&#8217;s <code>client_id</code> (basically, a customer ID) as defined on the business&#8217;s own systems.</p>
 
-<ul>
-<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
+<p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google&#8217;s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
 
-<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
+<p>For businesses using GA, being able to augment Google&#8217;s user identification with their own internal <code>client_id</code>s is a significant step forwards for two reasons:</p>
 
-<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
-</ul>
+<ol>
+<li>Many GA users (especially those with applications or properties where users login, or those with a loyalty card scheme) can identify their own users reliably on specific platforms, devices and physical stores. By adding this additional user identification data into GA, GA will be more accurate at identifying the same user in different places reliably, moving us further from a world in which we rely on persistent cookies dropped on browsers with unique identifiers, to one where users are more robustly identified via logins, payments and loyalty schemes. These approaches will still use cookies, but as part of a broader set of user identification business processes that actively involve the user in the identification process</li>
 
-<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <p class='more'><a href='/blog/2012/10/11/snowplow-0.4.10-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/11/snowplow-0.4.10-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<li>It should make it easier for GA users to join GA data with other customer data sets on those <code>client_id</code>s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining</li>
+</ol>
+<p class='more'><a href='/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Attlib launched" />
+		<a name="Snowplow 0.5.0 released with EmrEtlRunner" />
 		<div class="post">
-			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></h1>
-			<p><strong>Update 17-Dec-12</strong>: We have renamed Attlib to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, to make it clearer what Attlib does: parse referer URLs. The repository has been updated accordingly. Some of the example code below is out-of-date now: we recommend checking out the <a href='https://github.com/snowplow/referer-parser'>repository</a> for more information.</p>
+			25 Oct 2012
+			<h1><a href="/blog/2012/10/25/snowplow-0.5.0-released">Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</a></h1>
+			<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow&#8217;s Hive-based ETL (extract, transform, load) process on <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a> with minimum fuss.</p>
 
-<p>Last night we published <a href='https://github.com/snowplow/referer-parser'>Attlib</a>, an open source Ruby library for extracting search marketing attribution data from referer (sic) URLs. In this post we talk through:</p>
+<p>We are hugely grateful to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
 
-<ol>
-<li><a href='#what_attlib_does'>What Attlib does, and how to use it</a></li>
+<h2 id='using_emretlrunner'>Using EmrEtlRunner</h2>
 
-<li><a href='#install'>Installing Attlib</a></li>
+<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href='http://snowplowanalytics.com/analytics/index.html'>Analyst&#8217;s Cookbook</a>.</p>
 
-<li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
-
-<li><a href='#snowplow_stack'>Attlib as part of the Snowplow stack</a></li>
-
-<li><a href='#other_languages'>Attlib in other languages</a></li>
-
-<li><a href='#snowplow_components_as_standalone_projects'>Making components of Snowplow available as standalone open source projects</a></li>
-</ol>
-<a name='what_attlib_does' />
-<h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
-
-<p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
-<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
-
-<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
-
-<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
-</code></pre></div><a name='install' />
-<h3 id='installing_attlib'>Installing Attlib</h3>
-
-<p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
-
-<pre><code>sudo gem install attlib</code></pre>
-
-<p>The sourcecode is available on <a href='https://github.com/snowplow/referer-parser'>Github</a></p>
-<a name='search_engine_yaml' />
-<h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
-
-<p>Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
-
-<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <p class='more'><a href='/blog/2012/10/11/attlib-0.0.1-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/10/11/attlib-0.0.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'>Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
+<p class='more'><a href='/blog/2012/10/25/snowplow-0.5.0-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/25/snowplow-0.5.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Why set your data free?" />
+		<a name="Analysing Snowplow data with Tableau" />
 		<div class="post">
-			24 Sep 2012
-			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
-			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+			24 Oct 2012
+			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on Snowplow data using Tableau - a video demo</a></h1>
+			<p>People who see Snowplow for the first time often ask us to <i>"show Snowplow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
 
-<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+<p>Demonstrating Snowplow is tricky because currently, Snowplow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because Snowplow gives you access to underlying customer- and event-level data, it is easy to analyse Snowplow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on Snowplow data. (We will explain more on how to connect Tableau to Snowplow data in a future blog post.)</p>
 
-<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
+<p>In the following series of videos, we start to show how Snowplow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with Snowplow data for an online retailer:</p>
 
-<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
-<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
-</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
-</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
-</tr></tbody></table>
-<p>Snowplow makes integrating web analytics data with other data sources easier in a two ways:</p>
+<video width="648" height="563" controls>
 
-<ol>
-<li>All your Snowplow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4"  type="video/mp4" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm" type="video/webm" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv"  type="video/ogg" />
+	<object width="648" height="563" type="application/x-shockwave-flash" data="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf">
+		<param name="movie" value="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf" />
+		<param name="flashvars" value="controlbar=over&amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4" />
+		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and Snowplow introductory video"
+		     title="No video playback capabilities, please download the video below" />
+	</object> 
+</video>
 
-<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
-</ol>
+<p class="note"><i>Having trouble viewing the video above? You may download the videos in your format of choice:<a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4">"MP4"</a>, <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv">"Ogg"</a> or <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm">WebM</a> formats.</i></p>
 
-<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining Snowplow engagement data with other sources of customer data</a></p>
-
-<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
-
-<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
-
-<ol>
-<li>Number of unique visitors by product page</li>
-
-<li>Different sources of traffic by product page (and how this changes over time)</li>
-
-<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
-
-<li>Improvements to conversion rates over time</li>
-</ol>
-<p class='more'><a href='/blog/2012/09/24/what-does-snowplow-let-you-do'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/09/24/what-does-snowplow-let-you-do#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.4.8 released with Hive deserializer improvements" />
+		<a name="infobright-ruby-loader-released" />
 		<div class="post">
-			14 Sep 2012
-			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">Snowplow 0.4.8 released</a></h1>
-			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+			21 Oct 2012
+			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
+			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
+
+<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+
+<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
 
 <ol>
-<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+<li>Scale to terabytes (although not petabytes, unlike Hive)</li>
 
-<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+<li>Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR</li>
 
-<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+<li>Significantly faster query times – typically seconds, not minutes</li>
 
-<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+<li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
 </ol>
 
-<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
 
-<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
 
-<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+<ol>
+<li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
 
-<ul>
-<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
+</ol>
 
-<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
 
-<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
-</ul>
+<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
 
-<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <p class='more'><a href='/blog/2012/09/14/snowplow-0.4.8-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/09/14/snowplow-0.4.8-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
+			<span class="comments-link"><a href="/blog/2012/10/21/infobright-ruby-loader-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.4.7 released with additional JavaScript tracking options" />
+		<a name="How the role of Hive is changing in Snowplow" />
 		<div class="post">
-			06 Sep 2012
-			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">Snowplow 0.4.7 released</a></h1>
-			<p>We have just released Snowplow version <strong>0.4.7</strong>. This release bumps the Snowplow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+			12 Oct 2012
+			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
+			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
 
 <ol>
-<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+<li>How big data technologies like Apache Hive are transforming web analytics</li>
 
-<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
+<li>Howe we&#8217;ve used Hive in Snowplow development</li>
+
+<li>How the role of Hive has changed at Snowplow over time, including a comparison of Hive against other technologies.</li>
 </ol>
 
-<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
-
-<p>We&#8217;ll take a look at both of these new features in turn:</p>
-
-<h2 id='site_id'>Site ID</h2>
-
-<p>The Snowplow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-</code></pre></div>
-<p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
-
-<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
-
-<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well. <p class='more'><a href='/blog/2012/09/06/snowplow-0.4.7-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/09/06/snowplow-0.4.7-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
+			<span class="comments-link"><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 
@@ -242,7 +209,7 @@
 			<a href="/page9" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 10 of 11</span>
+		<span class="page_number">Page: 10 of 12</span>
 		
 			<a href="/page11" class="next">Next</a>
 		
@@ -253,15 +220,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 		
-			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 		
-			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 		
-			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
 		
-			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
 		
 	</ul>
 
@@ -287,15 +254,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
 				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 			
 				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -304,15 +271,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
 				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
 				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-			
-				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
 		
 		</ul>		
@@ -346,8 +313,8 @@
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 
@@ -359,5 +326,26 @@
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
         </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+
 </body>
 </html>

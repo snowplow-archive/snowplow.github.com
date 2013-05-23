@@ -4,13 +4,488 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-23T23:04:45+01:00</updated>
+  <updated>2013-05-23T23:06:24+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing"/>
+    <title>Measuring how much traffic individual items in your catalog drive to your website</title>
+    <updated>2013-05-22T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We have just added a &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;new recipe&lt;/a&gt; to the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;catalog analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;. This recipe describes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;How to measure how effectively different items in your catalog drive visits to your website.&lt;/li&gt;
+
+&lt;li&gt;How to use the data to unpick &lt;em&gt;how&lt;/em&gt; each item drives that traffic.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'&gt;&lt;img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;In digital marketing, we can distinguish classic &amp;#8220;outbound marketing&amp;#8221;, where we &lt;em&gt;push&lt;/em&gt; visitors to our website using paid ad campaigns, for example, with &amp;#8221;&lt;a href='http://en.wikipedia.org/wiki/Inbound_marketing'&gt;inbound market&lt;/a&gt;&amp;#8221;, where we &lt;em&gt;pull&lt;/em&gt; visitors into our site by producing attractive, linkable content.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Each item in our catalog (be it a product on a retail site, an article on a news website, a post on a blog or a video on a media site) has the potential to contribute to inbound marketing, by:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Providing new content that people might create links to&lt;/li&gt;
+
+&lt;li&gt;Providing additional content, including keywords and links for search engine crawlers&lt;/li&gt;
+
+&lt;li&gt;Providing additional potential landing pages to run advertising against.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This recipe shows how we can measure how effectively different items contribute to inbound marketing, and drill into the data to explore how it contributes. (Which of the three effects above does it support.)&lt;/p&gt;
+
+&lt;p&gt;In our previous recipe for &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;measuring product page performance&lt;/a&gt;, we showed how we can measure how effectively product pages on a retailer site drive &lt;em&gt;add-to-basket&lt;/em&gt; events. In our previous recipe for measuring &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'&gt;content page performance&lt;/a&gt;, we showed how to measure how much engagement different individual content items drive. &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;This recipe&lt;/a&gt; builds on the two previous recipes, by showing how we can measure how good each item is at drawing visitors to our website.&lt;/p&gt;
+
+&lt;p&gt;The recipe uses &lt;a href='http://www.tableausoftware.com/'&gt;Tableau&lt;/a&gt;. It is, however, possible to use alternative OLAP or analysis tools (e.g. &lt;a href='http://www.microsoft.com/en-us/bi/PowerPivot.aspx'&gt;Microsoft PowerPivot&lt;/a&gt; or &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt;): the same methodology applies.&lt;/p&gt;
+
+&lt;p&gt;The recipe is available &lt;a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow"/>
+    <title>Performing market basket analysis on web analytics data with R</title>
+    <updated>2013-05-20T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We have just added a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;new recipe&lt;/a&gt; to the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;: one that walks through the process of performing a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;market basket analysis&lt;/a&gt;, to identify associations between products and/or content items based on user purchase / viewing behaviour. The recipe covers performing the analysis on Snowplow data using &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt; and the &lt;a href='http://cran.r-project.org/web/packages/arules/index.html'&gt;arules&lt;/a&gt; package in particular. Although the example walked through uses Snowplow data, the same approach &lt;em&gt;can&lt;/em&gt; be used with other data sets: I&amp;#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.&lt;/p&gt;
+&lt;p style='text-align: center'&gt;&lt;img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /&gt;&lt;/p&gt;
+&lt;p&gt;Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&amp;#8217;s &lt;em&gt;users who bought this product also bought these items&lt;/em&gt;&amp;#8230;&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Although people usually think of market basket analysis with respect to retailer transaction data, exactly the same algorithms and approaches can be uses with viewing data on media sites. The results of this type of analysis can be used to inform website design (how items are grouped together) and to power recommendation engines and targeted marketing. (E.g. advertising content items or products that people are more likely to be interested in, based on their past behaviour.)&lt;/p&gt;
+
+&lt;p&gt;This is the first recipe that primarily uses &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt;. We&amp;#8217;re big fans of R at Snowplow, and a big motivation in building Snowplow was to enable the use of sophisticated data analysis tools like R on granular event-level data. We have a number of other recipes for R we hope to publish in the near future. This is the third recipe added to the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;catalog analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Cookbook&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As always, if there are specific types of analysis you&amp;#8217;d like us to cover, then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt;, either directly or by dropping us a comment below.&lt;/p&gt;</content>
+  </entry>
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip"/>
+    <title>Snowplow 0.8.4 released with MaxMind geo-IP lookups</title>
+    <updated>2013-05-16T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are pleased to announce the immediate availability of Snowplow &lt;strong&gt;0.8.4&lt;/strong&gt;. This is a big release, which adds geo-IP lookups to the Snowplow Enrichment stage, using the excellent &lt;a href='http://dev.maxmind.com/geoip/legacy/geolite'&gt;GeoLite City database&lt;/a&gt; from &lt;a href='http://www.maxmind.com'&gt;MaxMind, Inc&lt;/a&gt;. This has been one of the most requested features from the Snowplow community, so we are delighted to launch it. Now you can determine the location of your website visitors directly from the Snowplow events table, and plot that data on a wide range of mapping tools including &lt;a href='http://kb.tableausoftware.com/articles/knowledgebase/mapping-basics'&gt;Tableau&lt;/a&gt; or &lt;a href='http://wrobstory.github.io/2013/04/python-maps-chloropleth.html'&gt;Vincent&lt;/a&gt;:&lt;/p&gt;
+&lt;a href='/static/img/blog/2013/05/pbz-global-visitors.jpg'&gt;&lt;img src='/static/img/blog/2013/05/pbz-global-visitors.jpg' /&gt;&lt;/a&gt;
+&lt;p&gt;&lt;em&gt;Click on the image above to enlarge it&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is some example geo-IP data:&lt;/p&gt;
+&lt;a href='/static/img/blog/2013/05/geoip-data.png'&gt;&lt;img src='/static/img/blog/2013/05/geoip-data.png' /&gt;&lt;/a&gt;
+&lt;p&gt;&lt;em&gt;Click on the image above to enlarge it&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;As well as geo-IP enrichment, there are a number of other code improvements to the Hadoop ETL, plus some minor improvements to EmrEtlRunner and some corresponding updates to the Redshift table. In this post we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#geoip'&gt;The new geo-IP capabilities&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#other-changes'&gt;Other changes&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#upgrading'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='geoip'&gt;1. The new geo-IP capabilities&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;When we released Snowplow 0.8.0 back in April, we promised that the new Scalding-based ETL process would provide a solid bedrock on which we could build a bunch of data enrichments to perform on the raw Snowplow logs to make Snowplow data more interesting to analyse. With version 0.8.1, we included a referer parsing enrichment, which looked up external page referers against a database of search engines and social networks, and used associatd rules to infer additional data about what drove those visitors to your site. This release adds our second big enrichment: the ETL process now lookups every IP address against MaxMind&amp;#8217;s &lt;a href='http://dev.maxmind.com/geoip/legacy/geolite'&gt;GeoLite City database&lt;/a&gt; in order to determine the location of a visitors - specifically (wherever possible):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;geo_country&lt;/code&gt; - the two-letter &lt;a href='http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2'&gt;ISO 3166-1 alpha-2&lt;/a&gt; country code associated with the IP address&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;geo_region&lt;/code&gt; - the two letter &lt;a href='http://en.wikipedia.org/wiki/ISO_3166-2'&gt;ISO-3166-2&lt;/a&gt; or &lt;a href='http://en.wikipedia.org/wiki/FIPS_10-4'&gt;FIPS 10-4&lt;/a&gt; code for the state or region associated with the IP address&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;geo_city&lt;/code&gt; - the city or town name associated with the IP address&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;geo_zipcode&lt;/code&gt; - the zip or postal code associated with the IP address&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;geo_latitude&lt;/code&gt; - the latitude associated with the IP address&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;geo_longitude&lt;/code&gt; - the longitude associated with the IP address&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For more information on these six fields we recommend reading the &lt;a href='http://dev.maxmind.com/geoip/legacy/csv'&gt;GeoIP CSV Databases technical reference&lt;/a&gt; on the MaxMind website.&lt;/p&gt;
+
+&lt;p&gt;Providing all this data directly in the Snowplow events table makes it easy to create geographic maps like the one below using Snowplow data directly: we will cover how to do this in a forthcoming blog post.&lt;/p&gt;
+&lt;a href='/static/img/blog/2013/05/pbz-europe-visitors.jpg'&gt;&lt;img src='/static/img/blog/2013/05/pbz-europe-visitors.jpg' /&gt;&lt;/a&gt;&lt;h2&gt;&lt;a name='other-changes'&gt;2. Other changes&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;In this release we have also made some functional improvements to the Hadoop (Scalding) ETL, plus some minor improvements to EmrEtlRunner and some updates to the Redshift table. To take these in turn:&lt;/p&gt;
+
+&lt;h3 id='hadoop_etl'&gt;Hadoop ETL&lt;/h3&gt;
+
+&lt;p&gt;We have made various improvements to the Hadoop ETL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have bumped the version of &lt;a href='https://github.com/snowplow/referer-parser'&gt;referer-parser&lt;/a&gt; - the latest version includes a fix to better attribute Google referer URLs&lt;/li&gt;
+
+&lt;li&gt;We have added truncation of &lt;code&gt;refr_urlpath&lt;/code&gt;, &lt;code&gt;refr_urlquery&lt;/code&gt; and &lt;code&gt;urlfragment&lt;/code&gt;, to prevent Redshift load errors&lt;/li&gt;
+
+&lt;li&gt;We now remove tabs and newlines from referer search terms (&lt;code&gt;refr_term&lt;/code&gt;), again to prevent Redshift load errors&lt;/li&gt;
+
+&lt;li&gt;We have fixed a nasty bug where the client timestamp was being inaccurately localised to the Hadoop cluster&amp;#8217;s local time (&lt;a href='https://github.com/snowplow/snowplow/issues/238'&gt;issue #238&lt;/a&gt;) - thanks &lt;a href='https://github.com/rgabo'&gt;Gabor&lt;/a&gt; for spotting this&lt;/li&gt;
+
+&lt;li&gt;We have made the code around page URL extraction more robust in the case that a page URL cannot be extracted&lt;/li&gt;
+
+&lt;li&gt;If you are running the latest version of the Clojure Collector, then the specific version number will now be extracted into the &lt;code&gt;v_collector&lt;/code&gt; field&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id='emretlrunner'&gt;EmrEtlRunner&lt;/h3&gt;
+
+&lt;p&gt;We have updated EmrEtlRunner to supply the location of the MaxMind GeoLite City database to the Scalding ETL.&lt;/p&gt;
+
+&lt;p&gt;We have also improved the notification messages when the ETL job is started on Elastic MapReduce, and the notification message if the job should fail.&lt;/p&gt;
+
+&lt;h3 id='redshift_events_table'&gt;Redshift events table&lt;/h3&gt;
+
+&lt;p&gt;We have updated the Redshift events table to include new fields for the geo-IP location - see &lt;a href='#geoip'&gt;above&lt;/a&gt; for the six new field names.&lt;/p&gt;
+
+&lt;p&gt;Also, we have renamed the five &lt;code&gt;ev_&lt;/code&gt; fields in the Redshift table definition to start with &lt;code&gt;se_&lt;/code&gt;, e.g. &lt;code&gt;se_action&lt;/code&gt;. This is to make these column names consistent with our structured events terminology.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='upgrading'&gt;3. Upgrading&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There are &lt;strong&gt;three components&lt;/strong&gt; to upgrade in this release:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Scalding ETL, to version 0.3.0&lt;/li&gt;
+
+&lt;li&gt;EmrEtlRunner, to version 0.2.0&lt;/li&gt;
+
+&lt;li&gt;The Redshift events table, to version 0.2.0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let&amp;#8217;s take these in turn:&lt;/p&gt;
+
+&lt;h3 id='hadoop_etl'&gt;Hadoop ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to the latest version of the Hadoop ETL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  :hadoop_etl_version: 0.3.0 # Version of the Hadoop ETL&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='emretlrunner'&gt;EmrEtlRunner&lt;/h3&gt;
+
+&lt;p&gt;You need to upgrade your EmrEtlRunner installation to the latest code (0.8.4 release) on GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='redshift_events_table'&gt;Redshift events table&lt;/h3&gt;
+
+&lt;p&gt;We have updated the Redshift table definition - you can find the latest version in the GitHub repository &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you already have your Snowplow data in the previous version of the Redshift events table, we have written &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.1.0_to_0.2.0.sql'&gt;a migration script&lt;/a&gt; to handle the upgrade. &lt;strong&gt;Please review this script carefully before running and check that you are happy with how it handles the upgrade.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see the full list of issues delivered in Snowplow 0.8.4 on &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=17&amp;amp;page=1&amp;amp;state=closed'&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide"/>
+    <title>A guide to unstructured events in Snowplow 0.8.3</title>
+    <updated>2013-05-14T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Earlier today we &lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'&gt;announced the release of Snowplow 0.8.3&lt;/a&gt;, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with &lt;code&gt;trackUnstructEvent()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In our earlier blog post we briefly introduced the capabilities of &lt;code&gt;trackUnstructEvent&lt;/code&gt; with some example code. In this blog post, we will take a detailed look at Snowplow&amp;#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.&lt;/p&gt;
+
+&lt;p&gt;Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post, then, we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'&gt;Basic usage&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'&gt;The &lt;code&gt;properties&lt;/code&gt; JavaScript object&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'&gt;Supported datatypes&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='basic-usage'&gt;1. Basic usage&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Tracking an unstructured event with the JavaScript Tracker is very straightforward - use the &lt;code&gt;trackUnstructEvent(name, properties)&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt; is the name of the unstructured event. This is case-sensitive; spaces etc are allowed&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;properties&lt;/code&gt; is a JavaScript object&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an example:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackUnstructEvent&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Viewed Product&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                &lt;span class='p'&gt;{&lt;/span&gt;
+                    &lt;span class='nx'&gt;product_id&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;ASO01043&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Dresses&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;brand&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;ACME&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;returning&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='kc'&gt;true&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;price&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;49.95&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;sizes&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;xs&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xxl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
+                    &lt;span class='nx'&gt;available_since$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2013&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;3&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;7&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+            &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Every call to &lt;code&gt;trackUnstructEvent&lt;/code&gt; has the same structure - the complexity comes from knowing how to structure the &lt;code&gt;properties&lt;/code&gt; JavaScript object. We will discuss this next:&lt;/p&gt;
+&lt;h2&gt;&lt;a name='properties-object'&gt;2. The 'properties' JavaScript object&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;properties&lt;/code&gt; JavaScript consists of a set of individual &lt;code&gt;name: value&lt;/code&gt; properties.&lt;/p&gt;
+
+&lt;p&gt;The structure must be flat - in other words, properties cannot be nested. Continuing with the exampe code above, this means that the following is &lt;strong&gt;not&lt;/strong&gt; allowed:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='nx'&gt;primary&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Womenswear&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;secondary&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Dresses&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;},&lt;/span&gt; &lt;span class='c1'&gt;// NOT allowed&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;properties&lt;/code&gt; JavaScript object supports a wide range of datatypes - see below for details.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='supported-datatypes'&gt;3. Supported datatypes&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Snowplow unstructured events support a relatively rich set of datatypes. Because these datatypes do not always map directly onto JavaScript datatypes, we have introduced some &amp;#8220;type suffixes&amp;#8221; for the JavaScript property names, to tell Snowplow what Snowplow datatype we want the JavaScript data to map onto.&lt;/p&gt;
+
+&lt;p&gt;Our datatypes, then, are as follows:&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Snowplow datatype&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;JavaScript datatype&lt;/th&gt;&lt;th&gt;Type suffix(es)&lt;/th&gt;&lt;th&gt;Supports array?&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Null&lt;/td&gt;&lt;td style='text-align: left;'&gt;Absence of a value&lt;/td&gt;&lt;td style='text-align: left;'&gt;Null&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;No&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;String&lt;/td&gt;&lt;td style='text-align: left;'&gt;String of characters&lt;/td&gt;&lt;td style='text-align: left;'&gt;String&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Boolean&lt;/td&gt;&lt;td style='text-align: left;'&gt;True or false&lt;/td&gt;&lt;td style='text-align: left;'&gt;Boolean&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Integer&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number without decimal&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$int&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Floating point&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number with decimal&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$flt&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Geo-coordinates&lt;/td&gt;&lt;td style='text-align: left;'&gt;Longitude and latitude&lt;/td&gt;&lt;td style='text-align: left;'&gt;[Number, Number]&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$geo&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Date&lt;/td&gt;&lt;td style='text-align: left;'&gt;Date and time (ms precision)&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$tm&lt;/code&gt;, &lt;code&gt;$tms&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Array&lt;/td&gt;&lt;td style='text-align: left;'&gt;Array of values&lt;/td&gt;&lt;td style='text-align: left;'&gt;[x, y, z]&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;
+&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;Let&amp;#8217;s go through each of these in turn, providing some examples as we go:&lt;/p&gt;
+
+&lt;h3 id='null'&gt;Null&lt;/h3&gt;
+
+&lt;p&gt;Tracking a Null value for a given field is straightforward:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;returns_id&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id='string'&gt;String&lt;/h3&gt;
+
+&lt;p&gt;Tracking a String is easy:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;product_id&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;ASO01043&amp;#39;&lt;/span&gt; &lt;span class='c1'&gt;// Or &amp;quot;ASO01043&amp;quot;&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id='boolean'&gt;Boolean&lt;/h3&gt;
+
+&lt;p&gt;Tracking a Boolean is also straightforward:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;trial&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='kc'&gt;true&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id='integer'&gt;Integer&lt;/h3&gt;
+
+&lt;p&gt;To track an Integer, use a JavaScript Number but add a type suffix like so:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;in_stock$int&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;23&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; if you do not add the &lt;code&gt;$int&lt;/code&gt; type suffix, Snowplow will assume you are tracking a Floating point number.&lt;/p&gt;
+
+&lt;h3 id='floating_point'&gt;Floating point&lt;/h3&gt;
+
+&lt;p&gt;To track a Floating point number, use a JavaScript Number; adding a type suffix is optional:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;price$flt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;4.99&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; 
+    &lt;span class='nx'&gt;sales_tax&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;49.99&lt;/span&gt; &lt;span class='c1'&gt;// Same as $sales_tax:$flt&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id='geocoordinates'&gt;Geo-coordinates&lt;/h3&gt;
+
+&lt;p&gt;Tracking a pair of Geographic coordinates is done like so:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;check_in$geo&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='mf'&gt;40.11041&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;88.21337&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='c1'&gt;// Lat, long&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Please note that the datatype takes the format &lt;strong&gt;latitude&lt;/strong&gt; followed by &lt;strong&gt;longitude&lt;/strong&gt;. That is the same order used by services such as Google Maps.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Warning:&lt;/strong&gt; if you do not add the &lt;code&gt;$geo&lt;/code&gt; type suffix, then the value will be incorrectly interpreted by Snowplow as an Array of Floating points.&lt;/p&gt;
+
+&lt;h3 id='date'&gt;Date&lt;/h3&gt;
+
+&lt;p&gt;Snowplow Dates include the date &lt;em&gt;and&lt;/em&gt; the time, with milliseconds precision. There are three type suffixes supported for tracking a Date:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$dt&lt;/code&gt; - the Number of days since the epoch&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;$tm&lt;/code&gt; - the Number of seconds since the epoch&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;$tms&lt;/code&gt; - the Number of milliseconds since the epoch. This is the default for JavaScript Dates if no type suffix supplied&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can track a date by adding either a JavaScript Number &lt;em&gt;or&lt;/em&gt; JavaScript Date to your &lt;code&gt;properties&lt;/code&gt; object. The following are all valid dates:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;birthday$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;1980&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;11&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as birthday$dt: 3996&lt;/span&gt;
+    &lt;span class='nx'&gt;birthday2$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;3996&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// ^ Same as above&lt;/span&gt;
+    
+    &lt;span class='nx'&gt;registered$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2013&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;05&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;13&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;14&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;20&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as registered$tm: 1371129610&lt;/span&gt;
+    &lt;span class='nx'&gt;registered2$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// Same as above&lt;/span&gt;
+    
+    &lt;span class='nx'&gt;last_action$tms&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1368454114215&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// Accurate to milliseconds&lt;/span&gt;
+    &lt;span class='nx'&gt;last_action2&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;()&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as last_action2$tms: 1368454114215&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that the type prefix only indicates how the JavaScript Number sent to Snowplow is interpreted - all Snowplow Dates are stored to milliseconds precision (whether or not they include that level of precision).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Two warnings:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;If you specify a JavaScript Number but do not add a valid Date suffix (&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$tm&lt;/code&gt; or &lt;code&gt;$tms&lt;/code&gt;), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date&lt;/li&gt;
+
+&lt;li&gt;If you specify a JavaScript Number but add the wrong Date suffix, then the Date will be incorrectly interpreted by Snowplow, for example:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;last_ping$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt; &lt;span class='c1'&gt;// Should have been $tm. Snowplow will interpret this as the year 3756521449&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id='arrays'&gt;Arrays&lt;/h3&gt;
+
+&lt;p&gt;You can track an Array of values of any data type other than Null.&lt;/p&gt;
+
+&lt;p&gt;Arrays must be homogeneous - in other words, all values within the Array must be of the same datatype. This means that the following is &lt;strong&gt;not&lt;/strong&gt; allowed:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;sizes&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;xs&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;28&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;38&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xxl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]&lt;/span&gt; &lt;span class='c1'&gt;// NOT allowed&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;By contrast, the following are all allowed:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='nx'&gt;sizes&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;xs&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xxl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
+    &lt;span class='nx'&gt;session_starts$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1064329730&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1341127611&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
+    &lt;span class='nx'&gt;check_ins$geo&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;88.21337&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;40.11041&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;78.81557&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;30.22047&lt;/span&gt;&lt;span class='p'&gt;]]&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above guide, please do get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And if you have any ideas or feedback for Snowplow&amp;#8217; custom unstructured events, do please share them, either in the comments below or through the usual channels.&lt;/p&gt;</content>
+  </entry>
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events"/>
+    <title>Snowplow 0.8.3 released with unstructured events</title>
+    <updated>2013-05-14T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re pleased to announce the release of Snowplow &lt;strong&gt;0.8.3&lt;/strong&gt;. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with &lt;code&gt;trackUnstructEvent()&lt;/code&gt;. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note that this release only adds unstructured events to the JavaScript Tracker - adding unstructured events to our Enrichment process and storage targets is on the roadmap - but rest assured we are working on it!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community members &lt;a href='https://github.com/rgabo'&gt;Gabor Ratky&lt;/a&gt;, &lt;a href='https://github.com/tarsolya'&gt;Andras Tarsoly&lt;/a&gt; and &lt;a href='https://github.com/lackac'&gt;Laszlo Bacsi&lt;/a&gt;, all from &lt;a href='http://secretsaucepartners.com/'&gt;Secret Sauce Partners&lt;/a&gt;, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the &lt;a href='https://github.com/snowplow/snowplow/pull/198'&gt;original GitHub pull request&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post, then, we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition'&gt;What are unstructured events?&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when'&gt;When to use unstructured events?&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage'&gt;Usage&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap'&gt;Roadmap for unstructured events&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='definition'&gt;1. What are unstructured events?&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct'&gt;Custom unstructured events&lt;/a&gt; are user events which do not fit one of the existing Snowplow event types (page views, ecommerce transactions etc), and do not fit easily into our existing &lt;a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'&gt;custom structured event&lt;/a&gt; format. A custom unstructured event consists of two elements:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A &lt;code&gt;name&lt;/code&gt;, e.g. &amp;#8220;Game saved&amp;#8221; or &amp;#8220;returned-order&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;A set of &lt;code&gt;name: value&lt;/code&gt; properties (also known as a hash, associative array or dictionary)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You might recognise what we call custom unstructured events from other analytics tools including MixPanel, KISSmetrics and Keen.io, where they are the primary trackable event type.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='when'&gt;2. When to use unstructured events?&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Custom unstructured events are great for a couple of use cases:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Where you want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow)&lt;/li&gt;
+
+&lt;li&gt;Where you want to track events which have unpredictable or frequently changing properties&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; because unstructured events are &lt;em&gt;not&lt;/em&gt; currently processed by the ETL and enrichment step, or added to storage, we recommend using &lt;a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'&gt;custom structured events&lt;/a&gt; for custom events types, assuming that you can fit your events into our custom structured event schema.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='usage'&gt;3. Usage&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Tracking an unstructured event with the JavaScript Tracker is very straightforward - use the &lt;code&gt;trackUnstructEvent(name, properties)&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;Here is an example taken from our codebase:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackUnstructEvent&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Viewed Product&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                &lt;span class='p'&gt;{&lt;/span&gt;
+                    &lt;span class='nx'&gt;product_id&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;ASO01043&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;Dresses&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;brand&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;ACME&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;returning&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='kc'&gt;true&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;price&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;49.95&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                    &lt;span class='nx'&gt;sizes&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;xs&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xxl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
+                    &lt;span class='nx'&gt;available_since$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2013&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;3&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;7&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+            &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We have written a &lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide'&gt;follow-up blog post&lt;/a&gt; to provide more information on using the new &lt;code&gt;trackUnstructEvent&lt;/code&gt; functionality - please &lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide'&gt;read this post&lt;/a&gt; for more information.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='upgrading'&gt;4. Upgrading&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There are two components to upgrade in this release:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The JavaScript Tracker, to version 0.11.2&lt;/li&gt;
+
+&lt;li&gt;The Clojure Collector, to version 0.5.0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are running the Clojure Collector, you must upgrade the Clojure Collector &lt;strong&gt;before&lt;/strong&gt; upgrading the JavaScript Tracker, or you will experience some data loss.&lt;/p&gt;
+
+&lt;h3 id='clojure_collector'&gt;Clojure Collector&lt;/h3&gt;
+
+&lt;p&gt;This release bumps the Clojure Collector to version &lt;strong&gt;0.5.0&lt;/strong&gt;. To upgrade to this release:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download the new warfile by right-clicking on &lt;a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war'&gt;this link&lt;/a&gt; and selecting &amp;#8220;Save As&amp;#8230;&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;Log in to your Amazon Elastic Beanstalk console&lt;/li&gt;
+
+&lt;li&gt;Browse to your Collector&amp;#8217;s application&lt;/li&gt;
+
+&lt;li&gt;Click the &amp;#8220;Upload New Version&amp;#8221; and upload your warfile&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id='javascript_tracker'&gt;JavaScript Tracker&lt;/h3&gt;
+
+&lt;p&gt;Please update your website(s) or tag manager to use the latest version of the JavaScript Tracker, which is version 0.11.2. As always, the updated minified tracker is available here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.2/sp.js&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;&lt;a name='roadmap'&gt;5. Roadmap&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We are well aware that this release is only the start of adding custom unstructured events to Snowplow.&lt;/p&gt;
+
+&lt;p&gt;It makes sense to work next on extracting unstructured events in our Enrichment process; unfortunately this is not trivial, because our Enrichment process currently only outputs to Redshift, and Redshift has no support for JSON objects or maps of properties, which we would need to store the unstructured event properties.&lt;/p&gt;
+
+&lt;p&gt;Therefore we are exploring two different strands:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Storing Snowplow events in Avro&lt;/strong&gt;. Avro is a rich data serialization system that will allow us to store the unstructured event properties within the event object. Initially, you would be able to query these Avro-serialized events using a range of tools on Hadoop including Pig, Hive, Scalding and Cascalog. It should also be relatively straightforward to load these events into NoSQL databases such as MongoDB. We would then work on mapping the Avro events into Redshift&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Storing Snowplow events in PostgreSQL&lt;/strong&gt;. Postgres has a JSON datatype, although the querying capabilities on that JSON datatype are so-far very primitive. Nonetheless, it should be possible to at least store the unstructured event properties in an appropriate JSON field in Postgres&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you have a preference for one of the two above options, or a suggested third approach, then &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;get in touch&lt;/a&gt; and let us know as soon as possible, as we are thining through these alternatives now.&lt;/p&gt;
+
+&lt;p&gt;Please keep an eye on our &lt;a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'&gt;Roadmap wiki page&lt;/a&gt; to see how Snowplow&amp;#8217;s support for unstructured events evolves.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;6. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And if you want to find out more about the syntax for &lt;code&gt;trackUnstructEvent&lt;/code&gt;, do checkout our &lt;a href='/blog/2013/05/14/snowplow-unstructured-events-guide'&gt;Snowplow Unstructured Events Guide&lt;/a&gt;, which was also published today.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/05/10/where-does-your-traffic-really-come-from</id>
@@ -179,7 +654,11 @@
 &lt;li&gt;It leads to more intelligent and robust inferences about where you traffic comes from&lt;/li&gt;
 
 &lt;li&gt;It identifies surprising results related to the placement of your paid campaigns, which may have significant implications for your overall marketing strategy.&lt;/li&gt;
-&lt;/ol&gt;</content>
+&lt;/ol&gt;
+
+&lt;h2 id='want_to_do_more_intelligent_more_robust_attribution'&gt;Want to do more intelligent, more robust attribution?&lt;/h2&gt;
+
+&lt;p&gt;Then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt; with the Snowplow Professional Services team.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -241,7 +720,7 @@
 
 &lt;p&gt;In addition, Snowplow also makes it easy to compare multiple funnels (e.g. like the time series example above, or, instead, comparing how successfully different audience segments progress through different funnels).&lt;/p&gt;
 
-&lt;p&gt;This will be the first of many platform analytics recipes - if there are specific analyses you&amp;#8217;d like us to cover, or would like to contribute yourself, then let us know below or by &lt;a href='/contact/index.html'&gt;getting in touch&lt;/a&gt; directly.&lt;/p&gt;</content>
+&lt;p&gt;This will be the first of many platform analytics recipes - if there are specific analyses you&amp;#8217;d like us to cover, or would like to contribute yourself, then let us know below or by &lt;a href='/about/index.html'&gt;getting in touch&lt;/a&gt; directly.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -1695,7 +2174,7 @@
 
 &lt;li&gt;Raising ideas / issues on &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;Github&lt;/a&gt;. (Like the &lt;a href='https://github.com/snowplow/snowplow/issues/113'&gt;original suggestion&lt;/a&gt; from &lt;a href='https://github.com/kingo55'&gt;Robert Kingston&lt;/a&gt; to track &lt;a href='https://github.com/snowplow/snowplow/issues/113'&gt;item views&lt;/a&gt;)&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/contact/index.html'&gt;Get in touch with us directly&lt;/a&gt; to share your thoughts and ideas&lt;/li&gt;
+&lt;li&gt;&lt;a href='/about/index.html'&gt;Get in touch with us directly&lt;/a&gt; to share your thoughts and ideas&lt;/li&gt;
 &lt;/ul&gt;</content>
   </entry>
   
@@ -1999,7 +2478,7 @@
 &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;&lt;img src='/static/img/tag-management/gtm-spec-title-page.JPG' /&gt;&lt;/a&gt;
 &lt;h2 id='want_help_implementing_a_tag_management_solution'&gt;Want help implementing a tag management solution?&lt;/h2&gt;
 
-&lt;p&gt;The Snowplow &lt;a href='/services/index.html'&gt;Professional Services team&lt;/a&gt; can produce implementation guides like &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;the one for Psychic Bazaar&lt;/a&gt;. If you are implementing a tag management solution, either as part of a Snowplow implementation or not, and and would like assistance, then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt;.&lt;/p&gt;</content>
+&lt;p&gt;The Snowplow &lt;a href='/services/index.html'&gt;Professional Services team&lt;/a&gt; can produce implementation guides like &lt;a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'&gt;the one for Psychic Bazaar&lt;/a&gt;. If you are implementing a tag management solution, either as part of a Snowplow implementation or not, and and would like assistance, then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt;.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -2685,7 +3164,7 @@
 
 &lt;h2 id='want_to_get_involved'&gt;Want to get involved?&lt;/h2&gt;
 
-&lt;p&gt;Want to help us develop the Clojure Collector, or some other part of the Snowplow stack? Have an idea about what we should be doing better, or differently? Then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt;. We&amp;#8217;d love to hear from you.&lt;/p&gt;</content>
+&lt;p&gt;Want to help us develop the Clojure Collector, or some other part of the Snowplow stack? Have an idea about what we should be doing better, or differently? Then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt;. We&amp;#8217;d love to hear from you.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -4129,7 +4608,7 @@ Common options:
 &lt;li&gt;Grow the userbase of people using and contributing to each component. Processing web analytics data is a big job: there are many individual components involved, and each of them needs to evolve with the changing marketplace. Attlib is concerned today with extracting useful data from search engine referrers: but it is likely that as time goes on, we&amp;#8217;ll want to extend it to capture data from other types of referrers e.g. social networks or affiliate sites. The bigger the community of people on top of those developments, the better for everyone in the web analytics community. Releasing each component as a standalone open source library should help grow that community.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr /&gt;
-&lt;p&gt;Any questions about Attlib, or anything else in this post? Then &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt; with the Snowplow team.&lt;/p&gt;</content>
+&lt;p&gt;Any questions about Attlib, or anything else in this post? Then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt; with the Snowplow team.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -4202,7 +4681,7 @@ Common options:
 
 &lt;h3 id='5_interested_in_any__all_of_the_above'&gt;5. Interested in any / all of the above?&lt;/h3&gt;
 
-&lt;p&gt;Then &lt;a href='/product/get-started.html'&gt;get started&lt;/a&gt; with Snowplow, or &lt;a href='/contact/index.html'&gt;get in touch&lt;/a&gt; to find out more!&lt;/p&gt;</content>
+&lt;p&gt;Then &lt;a href='/product/get-started.html'&gt;get started&lt;/a&gt; with Snowplow, or &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt; to find out more!&lt;/p&gt;</content>
   </entry>
   
   <entry>

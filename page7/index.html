@@ -16,6 +16,21 @@
 	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
 </head>
 <body>
 	<!-- Google Tag Manager -->
@@ -41,132 +56,134 @@
       <li ><a href="/analytics/index.html">Analytics</a></li>
       <li ><a href="/technology/index.html">Technology</a></li>
       <li  class="active" ><a href="/blog.html">Blog</a></li>
-      <li ><a id="mail" href="/contact/index.html">Contact</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
     </ul>
   </div>
 </div>
 	
 		<div id="contents">
 	
-		<a name="Snowplow 0.6.5 released" />
+		<a name="From ETL to enrichment - development roadmap" />
 		<div class="post">
-			26 Dec 2012
-			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">Snowplow 0.6.5 released, with improved event tracking</a></h1>
-			<p>We&#8217;re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
-
-<p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
+			09 Jan 2013
+			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
+			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
 
 <ol>
-<li>It should make querying Snowplow events much easier</li>
+<li>Feedback from the community on them</li>
 
-<li>It should make Snowplow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
+<li>Ideas for alternative approaches or new features</li>
 </ol>
 
-<p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
-
-<p>Here is a taster of how Snowplow event data looks with the new event types and event IDs:</p>
-
-<p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
-
-<p>These are not the only improvements in this version - here are the rest:</p>
-
-<ul>
-<li>We have cleaned up the code for on-page activity tracking (&#8220;page pings&#8221;)</li>
-
-<li>We have fixed a bug that affected ad impression tracking - thanks <a href='https://github.com/talkspoon'>Alan Z</a>!</li>
-
-<li>The ETL no longer dies if a raw event has a corrupted querystring (e.g. the <code>&amp;refr=</code> parameter was not escaped)</li>
-
-<li>The JavaScript tracker&#8217;s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
-
-<li>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker sending a <code>&amp;uid=xxx</code> parameter</li>
-
-<li>We have added the ability to override the IP address by passing in an <code>&amp;ip=</code> parameter on the querystring</li>
-</ul>
-
-<p>Below, we first explain how to upgrade, before taking a brief tour through these updates:</p>
-<p class='more'><a href='/blog/2012/12/26/snowplow-0.6.5-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/26/snowplow-0.6.5-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="Snowplow 0.6.4 released" />
-		<div class="post">
-			20 Dec 2012
-			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">Snowplow 0.6.4 released, with Infobright improvements</a></h1>
-			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+<p>We will cover:</p>
 
 <ol>
-<li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
 
-<li>Clarified Hive table definitions</li>
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
 </ol>
 
-<p>Before we start - a big thanks to the community members who helped out on this release:</p>
-
-<ul>
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
-
-<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
-</ul>
-
-<p>We&#8217;ll take a look at both updates below:</p>
-<p class='more'><a href='/blog/2012/12/20/snowplow-0.6.4-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/20/snowplow-0.6.4-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
+<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/09/from-etl-to-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.6.3 released" />
+		<a name="Using ChartIO to visualise Snowplow data" />
 		<div class="post">
-			18 Dec 2012
-			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
-			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
+			08 Jan 2013
+			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></h1>
+			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise Snowplow data. Given the number of requests we get from Snowplow users to recommend tools to assist with analytics on Snowplow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on Snowplow data using ChartIO.</p>
 
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
+<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
 
-<p>We&#8217;ll take a look at both fixes below:</p>
-<p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/18/snowplow-0.6.3-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="Transforming Snowplow data so it can be interrogated in BI tools like Tableau" />
-		<div class="post">
-			17 Dec 2012
-			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
-			<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
-<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
-<p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
-<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Shoes</td><td style='text-align: left;'>15</td><td style='text-align: right;'>1125.00</td>
-</tr><tr><td style='text-align: left;'>France</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>288</td><td style='text-align: right;'>2877.12</td>
-</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
-</tr></tbody></table>
-<p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
-
-<p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
-<p class='more'><a href='/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
-		<a name="Snowplow 0.6.2 released" />
-		<div class="post">
-			28 Nov 2012
-			<h1><a href="/blog/2012/11/28/snowplow-0.6.2-released">Snowplow 0.6.2 released, with JavaScript tracker bug fixes</a></h1>
-			<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
-
-<p>This release fixes two bugs:</p>
+<p>In this post we cover:</p>
 
 <ol>
-<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'>Why is ChartIO so good?</a></li>
 
-<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'>Setting up ChartIO to work with Snowplow</a></li>
+
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
+</ol>
+<h2><a name='why'>Why is ChartIO so good?</a></h2>
+<p>ChartIO is great for two reasons:</p>
+
+<ol>
+<li><strong>Fast</strong>. ChartIO is quick to setup. (Because it is a hosted product, with a very nice script for establishing an SSH connection between your database and the ChartIO web application.) At the same time, it is very quick, once a data connection is established, to create new graphs and charts and embed them in dashboards.</li>
+
+<li><strong>Easy</strong>. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.</li>
 </ol>
 
-<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
+<p>ChartIO has one enormous advantage that makes it especially well suited to querying Snowplow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>OLAP analysis</a> before they can be used. (We covered how to convert Snowplow data into that format in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of Snowplow data</strong>.</p>
+<p class='more'><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="The Clojure Collector in detail" />
+		<div class="post">
+			07 Jan 2013
+			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
+			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
 
-<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
-			<span class="comments-link"><a href="/blog/2012/11/28/snowplow-0.6.2-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.</p>
+
+<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
+
+<h2 id='contents'>Contents</h2>
+
+<ol>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/01/07/the-clojure-collector-in-detail'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/07/the-clojure-collector-in-detail#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="Snowplow 0.7.0 released" />
+		<div class="post">
+			03 Jan 2013
+			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">Snowplow 0.7.0 released, with new Clojure-based collector</a></h1>
+			<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
+
+<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for Snowplow.</p>
+
+<p>To date, the primary collector for Snowplow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
+
+<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
+
+<p>And the other good news is that our Clojure collector automatically logs the raw Snowplow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
+
+<p>Read on below the fold for installation instructions and some additional information on this release.</p>
+<p class='more'><a href='/blog/2013/01/03/snowplow-0.7.0-released'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/03/snowplow-0.7.0-released#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
+		<a name="referer-parser ported to 3 more languages" />
+		<div class="post">
+			02 Jan 2013
+			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
+			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
+
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
+
+<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
+
+<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
+<p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 
@@ -177,7 +194,7 @@
 			<a href="/page6" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 7 of 11</span>
+		<span class="page_number">Page: 7 of 12</span>
 		
 			<a href="/page8" class="next">Next</a>
 		
@@ -188,15 +205,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 		
-			<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
+			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 		
-			<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 		
-			<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
 		
-			<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
+			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
 		
 	</ul>
 
@@ -222,15 +239,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
+			
+				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
 				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
 			
 				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
-			
-				<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></li>
-			
-				<li><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></li>
-			
-				<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></li>
 			
 		
 		</ul>		
@@ -239,15 +256,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
 				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
 				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-			
-				<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></li>
-			
-				<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></li>
 			
 		
 		</ul>		
@@ -281,8 +298,8 @@
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
 	</div>
-	<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
-	  <script type="text/javascript">
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
 
@@ -294,5 +311,26 @@
             (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
         }());
         </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+
 </body>
 </html>

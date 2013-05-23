@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-11T17:04:36-07:00</updated>
+  <updated>2013-05-23T23:04:45+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -16,7 +16,7 @@
     <id>http://snowplowanalytics.com/blog/2013/05/10/where-does-your-traffic-really-come-from</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/10/where-does-your-traffic-really-come-from"/>
     <title>Where does your traffic *really* come from?</title>
-    <updated>2013-05-10T00:00:00-07:00</updated>
+    <updated>2013-05-10T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -186,7 +186,7 @@
     <id>http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements"/>
     <title>Snowplow 0.8.2 released with Clojure Collector enhancements</title>
-    <updated>2013-05-08T00:00:00-07:00</updated>
+    <updated>2013-05-08T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -224,7 +224,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/23/performing-funnel-analysis-with-snowplow"/>
     <title>Funnel analysis with Snowplow (Platform analytics part 1)</title>
-    <updated>2013-04-23T00:00:00-07:00</updated>
+    <updated>2013-04-23T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -248,7 +248,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/18/measuring-content-page-performance-with-snowplow"/>
     <title>Measuring content page performance with Snowplow (Catalog Analytics part 2)</title>
-    <updated>2013-04-18T00:00:00-07:00</updated>
+    <updated>2013-04-18T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -276,7 +276,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing"/>
     <title>Snowplow 0.8.1 released with referer URL parsing</title>
-    <updated>2013-04-12T00:00:00-07:00</updated>
+    <updated>2013-04-12T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -385,7 +385,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/12/online-catalog-analytics-with-snowplow"/>
     <title>Measuring product page performance with Snowplow (Catalog Analytics part 1)</title>
-    <updated>2013-04-12T00:00:00-07:00</updated>
+    <updated>2013-04-12T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -449,7 +449,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation"/>
     <title>Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</title>
-    <updated>2013-04-10T00:00:00-07:00</updated>
+    <updated>2013-04-10T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -525,7 +525,7 @@
     <id>http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment"/>
     <title>Snowplow 0.8.0 released with all-new Scalding-based data enrichment</title>
-    <updated>2013-04-03T00:00:00-07:00</updated>
+    <updated>2013-04-03T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -641,7 +641,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things"/>
     <title>Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</title>
-    <updated>2013-03-25T00:00:00-07:00</updated>
+    <updated>2013-03-25T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -681,7 +681,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/20/rob-slifka-elasticity</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/20/rob-slifka-elasticity"/>
     <title>Inside the Plow - Rob Slifka's Elasticity</title>
-    <updated>2013-03-20T00:00:00-07:00</updated>
+    <updated>2013-03-20T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -735,7 +735,7 @@
     <id>http://snowplowanalytics.com/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support"/>
     <title>Snowplow 0.7.6 released with Redshift data warehouse support</title>
-    <updated>2013-03-03T00:00:00-08:00</updated>
+    <updated>2013-03-03T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -890,7 +890,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix"/>
     <title>Snowplow 0.7.5 released with important JavaScript fix</title>
-    <updated>2013-02-25T00:00:00-08:00</updated>
+    <updated>2013-02-25T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -914,7 +914,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics"/>
     <title>Snowplow 0.7.4 released for better eventstream analytics</title>
-    <updated>2013-02-22T00:00:00-08:00</updated>
+    <updated>2013-02-22T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1102,7 +1102,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line"/>
     <title>Bulk loading data from Amazon S3 into Redshift at the command line</title>
-    <updated>2013-02-20T00:00:00-08:00</updated>
+    <updated>2013-02-20T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1183,7 +1183,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp"/>
     <title>Reflections on Saturday's Measurecamp</title>
-    <updated>2013-02-18T00:00:00-08:00</updated>
+    <updated>2013-02-18T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1241,7 +1241,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/15/snowplow-0.7.3-released"/>
     <title>Snowplow 0.7.3 released, tracking additional data</title>
-    <updated>2013-02-15T00:00:00-08:00</updated>
+    <updated>2013-02-15T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1417,7 +1417,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/08/writing-hive-udfs-and-serdes</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/08/writing-hive-udfs-and-serdes"/>
     <title>Writing Hive UDFs - a tutorial</title>
-    <updated>2013-02-08T00:00:00-08:00</updated>
+    <updated>2013-02-08T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1615,7 +1615,7 @@
     <id>http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model"/>
     <title>Help us build out the Snowplow Event Model</title>
-    <updated>2013-02-04T00:00:00-08:00</updated>
+    <updated>2013-02-04T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1703,7 +1703,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/29/snowplow-0.7.2-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/29/snowplow-0.7.2-released"/>
     <title>Snowplow 0.7.2 released, with the new no-JavaScript tracker</title>
-    <updated>2013-01-29T00:00:00-08:00</updated>
+    <updated>2013-01-29T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1747,7 +1747,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/29/introducing-the-no-js-tracker</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/29/introducing-the-no-js-tracker"/>
     <title>Introducing the No-Javascript pixel tracker</title>
-    <updated>2013-01-29T00:00:00-08:00</updated>
+    <updated>2013-01-29T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1860,7 +1860,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/22/snowplow-0.7.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/22/snowplow-0.7.1-released"/>
     <title>Snowplow 0.7.1 released, with easier-to-run Ruby apps</title>
-    <updated>2013-01-22T00:00:00-08:00</updated>
+    <updated>2013-01-22T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -1896,7 +1896,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager"/>
     <title>What data should you be passing into your tag manager?</title>
-    <updated>2013-01-21T00:00:00-08:00</updated>
+    <updated>2013-01-21T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2006,7 +2006,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/20/snowplow-hits-202-stars"/>
     <title>Snowplow reaches 202 stars on GitHub</title>
-    <updated>2013-01-20T00:00:00-08:00</updated>
+    <updated>2013-01-20T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2032,7 +2032,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/18/using-snowplow-with-qubit-opentag</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/18/using-snowplow-with-qubit-opentag"/>
     <title>Implementing Snowplow with QuBit's OpenTag</title>
-    <updated>2013-01-18T00:00:00-08:00</updated>
+    <updated>2013-01-18T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2072,7 +2072,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/16/scala-maxmind-geoip-released"/>
     <title>Scala MaxMind GeoIP library released</title>
-    <updated>2013-01-16T00:00:00-08:00</updated>
+    <updated>2013-01-16T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2104,7 +2104,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/09/from-etl-to-enrichment</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/09/from-etl-to-enrichment"/>
     <title>The Snowplow development roadmap for the ETL step - from ETL to enrichment</title>
-    <updated>2013-01-09T00:00:00-08:00</updated>
+    <updated>2013-01-09T00:00:00+00:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2206,7 +2206,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data"/>
     <title>Using ChartIO to visualise and interrogate Snowplow data</title>
-    <updated>2013-01-08T00:00:00-08:00</updated>
+    <updated>2013-01-08T00:00:00+00:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2594,7 +2594,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/07/the-clojure-collector-in-detail"/>
     <title>Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</title>
-    <updated>2013-01-07T00:00:00-08:00</updated>
+    <updated>2013-01-07T00:00:00+00:00</updated>
     <author>
       <name>yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2692,7 +2692,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/03/snowplow-0.7.0-released"/>
     <title>Snowplow 0.7.0 released, with new Clojure-based collector</title>
-    <updated>2013-01-03T00:00:00-08:00</updated>
+    <updated>2013-01-03T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2787,7 +2787,7 @@
     <id>http://snowplowanalytics.com/blog/2013/01/02/referer-parser-ported-to-3-more-languages</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/01/02/referer-parser-ported-to-3-more-languages"/>
     <title>referer-parser now with Java, Scala and Python support</title>
-    <updated>2013-01-02T00:00:00-08:00</updated>
+    <updated>2013-01-02T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -2862,7 +2862,7 @@
     <id>http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/26/snowplow-0.6.5-released"/>
     <title>Snowplow 0.6.5 released, with improved event tracking</title>
-    <updated>2012-12-26T00:00:00-08:00</updated>
+    <updated>2012-12-26T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3024,7 +3024,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/20/snowplow-0.6.4-released"/>
     <title>Snowplow 0.6.4 released, with Infobright improvements</title>
-    <updated>2012-12-20T00:00:00-08:00</updated>
+    <updated>2012-12-20T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3093,7 +3093,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/18/snowplow-0.6.3-released"/>
     <title>Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</title>
-    <updated>2012-12-18T00:00:00-08:00</updated>
+    <updated>2012-12-18T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3145,7 +3145,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau"/>
     <title>Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</title>
-    <updated>2012-12-17T00:00:00-08:00</updated>
+    <updated>2012-12-17T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3182,7 +3182,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/28/snowplow-0.6.2-released"/>
     <title>Snowplow 0.6.2 released, with JavaScript tracker bug fixes</title>
-    <updated>2012-11-28T00:00:00-08:00</updated>
+    <updated>2012-11-28T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3208,7 +3208,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/27/snowplow-0.6.1-released"/>
     <title>Snowplow 0.6.1 released, with lots of small improvements</title>
-    <updated>2012-11-27T00:00:00-08:00</updated>
+    <updated>2012-11-27T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3364,7 +3364,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/16/integrating-snowplow-with-google-tag-manager"/>
     <title>Integrating Snowplow with Google Tag Manager</title>
-    <updated>2012-11-16T00:00:00-08:00</updated>
+    <updated>2012-11-16T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3402,7 +3402,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader"/>
     <title>Snowplow 0.6.0 released, with the new StorageLoader</title>
-    <updated>2012-11-12T00:00:00-08:00</updated>
+    <updated>2012-11-12T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3478,7 +3478,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice"/>
     <title>Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</title>
-    <updated>2012-11-06T00:00:00-08:00</updated>
+    <updated>2012-11-06T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3523,7 +3523,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/11/01/snowplow-0.5.1-released"/>
     <title>Snowplow 0.5.1 released, with lots of small improvements</title>
-    <updated>2012-11-01T00:00:00-07:00</updated>
+    <updated>2012-11-01T00:00:00+00:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3587,7 +3587,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow"/>
     <title>Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</title>
-    <updated>2012-10-31T00:00:00-07:00</updated>
+    <updated>2012-10-31T00:00:00+00:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3743,7 +3743,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/25/snowplow-0.5.0-released"/>
     <title>Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</title>
-    <updated>2012-10-25T00:00:00-07:00</updated>
+    <updated>2012-10-25T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3775,7 +3775,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/24/web-analytics-with-tableau-and-snowplow"/>
     <title>Performing web analytics on Snowplow data using Tableau - a video demo</title>
-    <updated>2012-10-24T00:00:00-07:00</updated>
+    <updated>2012-10-24T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3910,7 +3910,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/21/infobright-ruby-loader-released"/>
     <title>Infobright Ruby Loader Released</title>
-    <updated>2012-10-21T00:00:00-07:00</updated>
+    <updated>2012-10-21T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3952,7 +3952,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow"/>
     <title>How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</title>
-    <updated>2012-10-12T00:00:00-07:00</updated>
+    <updated>2012-10-12T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -3975,7 +3975,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/snowplow-0.4.10-released"/>
     <title>Snowplow 0.4.10 released</title>
-    <updated>2012-10-11T00:00:00-07:00</updated>
+    <updated>2012-10-11T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4039,7 +4039,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/10/11/attlib-0.0.1-released"/>
     <title>Attlib - an open source library for extracting search marketing attribution data from referrer URLs</title>
-    <updated>2012-10-11T00:00:00-07:00</updated>
+    <updated>2012-10-11T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4136,7 +4136,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/24/what-does-snowplow-let-you-do"/>
     <title>Why set your data free?</title>
-    <updated>2012-09-24T00:00:00-07:00</updated>
+    <updated>2012-09-24T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4209,7 +4209,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/14/snowplow-0.4.8-released"/>
     <title>Snowplow 0.4.8 released</title>
-    <updated>2012-09-14T00:00:00-07:00</updated>
+    <updated>2012-09-14T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4285,7 +4285,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/09/06/snowplow-0.4.7-released"/>
     <title>Snowplow 0.4.7 released</title>
-    <updated>2012-09-06T00:00:00-07:00</updated>
+    <updated>2012-09-06T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4397,7 +4397,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/21/amazon-glacier-launch"/>
     <title>Amazon announces Glacier - lowers the cost of running Snowplow</title>
-    <updated>2012-08-21T00:00:00-07:00</updated>
+    <updated>2012-08-21T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4429,7 +4429,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/20/snowplow-0.4.6-released"/>
     <title>Snowplow 0.4.6 released</title>
-    <updated>2012-08-20T00:00:00-07:00</updated>
+    <updated>2012-08-20T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4460,7 +4460,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/14/updated-hive-serde-released"/>
     <title>Updated Hive SerDe released</title>
-    <updated>2012-08-14T00:00:00-07:00</updated>
+    <updated>2012-08-14T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4474,7 +4474,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/13/introducing-snow-cannon-a-node-js-collector-for-snowplow"/>
     <title>SnowCannon - a node.js collector for Snowplow</title>
-    <updated>2012-08-13T00:00:00-07:00</updated>
+    <updated>2012-08-13T00:00:00+01:00</updated>
     <author>
       <name>Alex</name>
       <uri>http://snowplowanalytics.com/</uri>
@@ -4500,7 +4500,7 @@ Common options:
     <id>http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled</id>
     <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2012/08/02/snowplow-setup-documentation-overhauled"/>
     <title>The setup guide has been overhauled</title>
-    <updated>2012-08-02T00:00:00-07:00</updated>
+    <updated>2012-08-02T00:00:00+01:00</updated>
     <author>
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>

@@ -63,6 +63,21 @@
 	
 		<div id="contents">
 	
+		<a name="referer-parser ported to 3 more languages" />
+		<div class="post">
+			02 Jan 2013
+			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
+			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
+
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
+
+<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
+
+<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
+<p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry >></a></p>
+			<span class="comments-link"><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages#disqus_thread" rel="nofollow">View Comments</a></span>
+		</div>
+	
 		<a name="Snowplow 0.6.5 released" />
 		<div class="post">
 			26 Dec 2012
@@ -162,28 +177,6 @@
 			<span class="comments-link"><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
-		<a name="Snowplow 0.6.2 released" />
-		<div class="post">
-			28 Nov 2012
-			<h1><a href="/blog/2012/11/28/snowplow-0.6.2-released">Snowplow 0.6.2 released, with JavaScript tracker bug fixes</a></h1>
-			<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
-
-<p>This release fixes two bugs:</p>
-
-<ol>
-<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
-
-<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
-</ol>
-
-<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
-
-<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
-			<span class="comments-link"><a href="/blog/2012/11/28/snowplow-0.6.2-released#disqus_thread" rel="nofollow">View Comments</a></span>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -192,7 +185,7 @@
 			<a href="/page7" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 8 of 12</span>
+		<span class="page_number">Page: 8 of 13</span>
 		
 			<a href="/page9" class="next">Next</a>
 		
@@ -203,6 +196,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
+		
 			<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 		
 			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
@@ -210,8 +205,6 @@
 			<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 		
 			<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
-		
-			<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
 		
 	</ul>
 
@@ -237,6 +230,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
+			
 				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 			
 				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
@@ -244,8 +239,6 @@
 				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
 			
 				<li><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></li>
-			
-				<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></li>
 			
 		
 		</ul>		

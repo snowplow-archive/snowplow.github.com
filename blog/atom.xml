@@ -4,13 +4,114 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-23T23:06:24+01:00</updated>
+  <updated>2013-05-24T15:54:05+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes"/>
+    <title>Snowplow 0.8.5 released with ETL bug fixes</title>
+    <updated>2013-05-24T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are pleased to announce the immediate availability of Snowplow &lt;strong&gt;0.8.5&lt;/strong&gt;. This is a bug fixing release, following on from our launch last week of Snowplow 0.8.4 with geo-IP lookups.&lt;/p&gt;
+
+&lt;p&gt;This release fixes one showstopper issue with Snowplow 0.8.4, and also includes a set of smaller enhancements to help the Scalding ETL better handle &amp;#8220;bad quality&amp;#8221; event data from webpages. We recommend everybody on the Snowplow 0.8.x series upgrade to this version.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community members &lt;a href='https://github.com/petervanwesep'&gt;Peter van Wesep&lt;/a&gt; and &lt;a href='https://github.com/rgabo'&gt;Gabor Ratky&lt;/a&gt; for their help identifying and debugging the issues fixed in this release!&lt;/p&gt;
+
+&lt;p&gt;In this post we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#showstopper'&gt;The showstopper bug fix&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#other-improvements'&gt;Other improvements&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#upgrading'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='showstopper'&gt;1. The showstopper bug fix&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Many thanks to Peter van Wesep for spotting the &lt;a href='https://github.com/snowplow/snowplow/issues/258'&gt;showstopper issue&lt;/a&gt; in the Snowplow 0.8.4 release: when the Snowplow ETL process was run from an Amazon Web Services account other than Snowplow&amp;#8217;s own, the Hadoop ETL code was unable to read the MaxMind geo-IP data file from an S3:// link hosted from a Snowplow public bucket. This issue did not affect users who are self-hosting the ETL assets.&lt;/p&gt;
+
+&lt;p&gt;This has now been fixed - we now provide the MaxMind geo-IP file on an HTTP:// link, and the Scalding ETL downloads it and adds it to HDFS before running.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='other-improvements'&gt;2. Other improvements&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have made a series of other improvements to the Scalding ETL, to make it more robust. These improvements are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We have widened the &lt;code&gt;page_urlport&lt;/code&gt; and &lt;code&gt;refr_urlport&lt;/code&gt; fields&lt;/li&gt;
+
+&lt;li&gt;We now strip control characters (e.g. nulls) from fields alongside tabs and newlines, to prevent Redshift load errors&lt;/li&gt;
+
+&lt;li&gt;The ETL no longer dies if a huge (larger than an integer) numeric value is sent in for a screen/view dimension&lt;/li&gt;
+
+&lt;li&gt;We have increased the size of &lt;code&gt;se_value&lt;/code&gt; from a float to a double&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;se_value&lt;/code&gt; is always now output as a plain string, never in scientific notation, to prevent Redshift load errors&lt;/li&gt;
+
+&lt;li&gt;It is now possible to build the ETL locally (we added a missing dependency to the project configuration)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a name='upgrading'&gt;3. Upgrading&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There are &lt;strong&gt;three components&lt;/strong&gt; to upgrade in this release:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Scalding ETL, to version 0.3.1&lt;/li&gt;
+
+&lt;li&gt;EmrEtlRunner, to version 0.2.1&lt;/li&gt;
+
+&lt;li&gt;The Redshift events table, to version 0.2.1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Alternatively, if you are still using Infobright with the legacy Hive ETL, you can upgrade your Infobright events table, to version 0.0.9.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s take these in turn:&lt;/p&gt;
+
+&lt;h3 id='hadoop_etl'&gt;Hadoop ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to the latest version of the Hadoop ETL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:snowplow:
+  :hadoop_etl_version: 0.3.1 # Version of the Hadoop ETL&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='emretlrunner'&gt;EmrEtlRunner&lt;/h3&gt;
+
+&lt;p&gt;You need to upgrade your EmrEtlRunner installation to the latest code (0.8.5 release) on GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.5&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id='redshift_events_table'&gt;Redshift events table&lt;/h3&gt;
+
+&lt;p&gt;We have updated the Redshift table definition - you can find the latest version in the GitHub repository &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you already have your Snowplow data in the previous version of the Redshift events table, we have written &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.0_to_0.2.1.sql'&gt;a migration script&lt;/a&gt; to handle the upgrade. &lt;strong&gt;Please review this script carefully before running and check that you are happy with how it handles the upgrade.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id='infobright_events_table'&gt;Infobright events table&lt;/h3&gt;
+
+&lt;p&gt;If you are storing your events in Infobright Community Edition, you can also update your table definition. To make this easier for you, we have created a script:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;4-storage/infobright-storage/migrate_008_to_009.sh&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this script will create a new table, &lt;code&gt;events_009&lt;/code&gt; (version 0.0.9 of the Infobright table definition) in your &lt;code&gt;snowplow&lt;/code&gt; database, copying across all your data from your existing &lt;code&gt;events_008&lt;/code&gt; table, which will not be modified in any way.&lt;/p&gt;
+
+&lt;p&gt;Once you have run this, don&amp;#8217;t forget to update your StorageLoader&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; to load into the new &lt;code&gt;events_009&lt;/code&gt; table, not your old &lt;code&gt;events_008&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;:storage:
+  :table:    events_009 # NOT &amp;quot;events_008&amp;quot; any more&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see the full list of issues delivered in Snowplow 0.8.5 on &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=24&amp;amp;page=1&amp;amp;state=closed'&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing</id>

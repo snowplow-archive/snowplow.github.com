@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.4.8 released - Snowplow Analytics</title>
+	<title>Snowplow 0.8.5 released with ETL bug fixes - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -63,73 +63,98 @@
 	
 		<div id="contents">
 		<div class="post">
-			14 Sep 2012
-			<h1>Snowplow 0.4.8 released</h1>
-			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
+			24 May 2013
+			<h1>Snowplow 0.8.5 released with ETL bug fixes</h1>
+			<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.5</strong>. This is a bug fixing release, following on from our launch last week of Snowplow 0.8.4 with geo-IP lookups.</p>
+
+<p>This release fixes one showstopper issue with Snowplow 0.8.4, and also includes a set of smaller enhancements to help the Scalding ETL better handle &#8220;bad quality&#8221; event data from webpages. We recommend everybody on the Snowplow 0.8.x series upgrade to this version.</p>
+
+<p>Many thanks to community members <a href='https://github.com/petervanwesep'>Peter van Wesep</a> and <a href='https://github.com/rgabo'>Gabor Ratky</a> for their help identifying and debugging the issues fixed in this release!</p>
+
+<p>In this post we will cover:</p>
 
 <ol>
-<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#showstopper'>The showstopper bug fix</a></li>
 
-<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#other-improvements'>Other improvements</a></li>
 
-<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#upgrading'>Upgrading</a></li>
 
-<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#help'>Getting help</a></li>
 </ol>
+<!--more--><h2><a name='showstopper'>1. The showstopper bug fix</a></h2>
+<p>Many thanks to Peter van Wesep for spotting the <a href='https://github.com/snowplow/snowplow/issues/258'>showstopper issue</a> in the Snowplow 0.8.4 release: when the Snowplow ETL process was run from an Amazon Web Services account other than Snowplow&#8217;s own, the Hadoop ETL code was unable to read the MaxMind geo-IP data file from an S3:// link hosted from a Snowplow public bucket. This issue did not affect users who are self-hosting the ETL assets.</p>
 
-<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
+<p>This has now been fixed - we now provide the MaxMind geo-IP file on an HTTP:// link, and the Scalding ETL downloads it and adds it to HDFS before running.</p>
+<h2><a name='other-improvements'>2. Other improvements</a></h2>
+<p>We have made a series of other improvements to the Scalding ETL, to make it more robust. These improvements are:</p>
 
-<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
+<ol>
+<li>We have widened the <code>page_urlport</code> and <code>refr_urlport</code> fields</li>
 
-<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
+<li>We now strip control characters (e.g. nulls) from fields alongside tabs and newlines, to prevent Redshift load errors</li>
+
+<li>The ETL no longer dies if a huge (larger than an integer) numeric value is sent in for a screen/view dimension</li>
+
+<li>We have increased the size of <code>se_value</code> from a float to a double</li>
+
+<li><code>se_value</code> is always now output as a plain string, never in scientific notation, to prevent Redshift load errors</li>
+
+<li>It is now possible to build the ETL locally (we added a missing dependency to the project configuration)</li>
+</ol>
+<h2><a name='upgrading'>3. Upgrading</a></h2>
+<p>There are <strong>three components</strong> to upgrade in this release:</p>
 
 <ul>
-<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
+<li>The Scalding ETL, to version 0.3.1</li>
 
-<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
+<li>EmrEtlRunner, to version 0.2.1</li>
 
-<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
+<li>The Redshift events table, to version 0.2.1</li>
 </ul>
 
-<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <!--more--></p>
+<p>Alternatively, if you are still using Infobright with the legacy Hive ETL, you can upgrade your Infobright events table, to version 0.0.9.</p>
 
-<p>As part of this new <strong>0.4.8</strong> Snowplow release, the Hive deserializer now supports the new CloudFront format as well as the old format: if you deploy the latest version of the deserializer, you should be able to process both old-format and new-format CloudFront logs without issue.</p>
+<p>Let&#8217;s take these in turn:</p>
 
-<h2 id='support_for__as_the_tracking_pixel'>Support for <code>i</code> as the tracking pixel</h2>
+<h3 id='hadoop_etl'>Hadoop ETL</h3>
 
-<p>Currently the Snowplow JavaScript tracker fires a GET request to a tracking pixel called <code>ice.png</code>. This works fine, but it makes more sense to call the pixel <code>i</code>, for two reasons:</p>
+<p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
 
-<ol>
-<li>We free up 5 extra characters to use for sending data</li>
+<pre><code>:snowplow:
+  :hadoop_etl_version: 0.3.1 # Version of the Hadoop ETL</code></pre>
 
-<li>A transparent GIF is smaller to send than a transparent PNG</li>
-</ol>
+<h3 id='emretlrunner'>EmrEtlRunner</h3>
 
-<p>Thanks to <a href='https://github.com/shermozle/'>Simon Rumble</a> (author of <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>) for pointing this out! In due course we will update the JavaScript tracker and CloudFront collector to implement this change (see issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/25'>#25</a>), but to start off we have added support for <code>i</code> to the new version of the Hive deserializer.</p>
+<p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.5 release) on GitHub:</p>
 
-<p>This is a small change, but highlights a wider point for Snowplow development: in general, whenever we have a &#8220;breaking change&#8221; coming upstream, we will try to prepare for this change downstream first, to prevent any disruption to your use of Snowplow.</p>
+<pre><code>$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.5</code></pre>
 
-<h2 id='support_for_forward_query_string__yes'>Support for Forward Query String = yes</h2>
+<h3 id='redshift_events_table'>Redshift events table</h3>
 
-<p>Thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for spotting that the Hive deserializer does not work if your CloudFront distribution has Forward Query String set to Yes; Michael not only raised the issue but also provided a fix, many thanks Michael!</p>
+<p>We have updated the Redshift table definition - you can find the latest version in the GitHub repository <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'>here</a>.</p>
 
-<p>Most Snowplow users will have Forward Query String in their CloudFront distribution set to No, so this issue will not arise for them; however this fix will be invaluable for anyone who does have it set to Yes. If you want to read more about this, please check out <a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>.</p>
+<p>If you already have your Snowplow data in the previous version of the Redshift events table, we have written <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.0_to_0.2.1.sql'>a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
 
-<p>We&#8217;re aware that our guide for setting up the CloudFront distribution is a bit out of date (which is how this issue can arise) - we will be refreshing the tracking pixel guide soon (<a href='https://github.com/snowplow/snowplow/issues/25'>issue #25</a>)! Many thanks for your patience.</p>
+<h3 id='infobright_events_table'>Infobright events table</h3>
 
-<h2 id='more_robust_querystring_handling'>More robust querystring handling</h2>
+<p>If you are storing your events in Infobright Community Edition, you can also update your table definition. To make this easier for you, we have created a script:</p>
 
-<p>A small change - we have made the code for extracting marketing attribution more robust. Specifically, the Hive deserializer no longer dies (i.e. throws a non-recoverable <code>SerDeException</code>) if the calling page&#8217;s URL has a malformed querystring.</p>
+<pre><code>4-storage/infobright-storage/migrate_008_to_009.sh</code></pre>
 
-<p>An example of a malformed querystring would be something like:</p>
+<p>Running this script will create a new table, <code>events_009</code> (version 0.0.9 of the Infobright table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events_008</code> table, which will not be modified in any way.</p>
 
-<pre><code>http://www.psychicbazaar.com/2-tarot-cards?n=48?utmsource=GoogleSearch&amp;...</code></pre>
+<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_009</code> table, not your old <code>events_008</code> table:</p>
 
-<p>Note the two <code>?</code> questionmarks (the second one should be an <code>&amp;</code> ampersand). In the case of a malformed querystring like this, the five marketing attribution fields in the Hive output format for this row will all be set to null.</p>
+<pre><code>:storage:
+  :table:    events_009 # NOT &quot;events_008&quot; any more</code></pre>
 
-<h2 id='deploying_the_new_version'>Deploying the new version</h2>
+<p>Done!</p>
+<h2><a name='help'>4. Getting help</a></h2>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
-<p>The new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.8.jar</strong>. If you have any problems running it, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
+<p>You can see the full list of issues delivered in Snowplow 0.8.5 on <a href='https://github.com/snowplow/snowplow/issues?milestone=24&amp;page=1&amp;state=closed'>GitHub</a>.</p>
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>

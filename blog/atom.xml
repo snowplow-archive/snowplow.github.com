@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-30T18:10:39+01:00</updated>
+  <updated>2013-05-31T11:30:43+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -88,7 +88,7 @@
 &lt;p&gt;With that decided, we then looked for options to aggregate and compact small files on Hadoop, identifying three possible solutions:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;a href='https://github.com/edwardcapriolo/filecrush'&gt;&lt;strong&gt;filecrush&lt;/strong&gt;&lt;/a&gt; - a highly configurable tool by &lt;a href='https://github.com/edwardcapriolo'&gt;Edward Capriolo&lt;/a&gt; to &amp;#8220;crush&amp;#8221; small files on HDFS. It supports a rich set of configuration arguments and is available as a jarfile ready to run on your cluster. It&amp;#8217;s a sophisticated tool - for example, by default it won&amp;#8217;t bother crushing a file which is within 75% of the HDFS block size already. Unfortunately, it does not work yet with Amazon&amp;#8217;s s3:// paths, only hdfs:// paths - and our &lt;a href='https://github.com/edwardcapriolo/filecrush/pull/2'&gt;pull request&lt;/a&gt; to add this functionality is incomplete&lt;/li&gt;
+&lt;li&gt;&lt;a href='https://github.com/edwardcapriolo/filecrush'&gt;&lt;strong&gt;filecrush&lt;/strong&gt;&lt;/a&gt; - a highly configurable tool by &lt;a href='https://github.com/edwardcapriolo'&gt;Edward Capriolo&lt;/a&gt; to &amp;#8220;crush&amp;#8221; small files on HDFS. It supports a rich set of configuration arguments and is available as a jarfile (&lt;a href='http://www.jointhegrid.com/hadoop_filecrush/'&gt;download it here&lt;/a&gt;) ready to run on your cluster. It&amp;#8217;s a sophisticated tool - for example, by default it won&amp;#8217;t bother crushing a file which is within 75% of the HDFS block size already. Unfortunately, it does not work yet with Amazon&amp;#8217;s s3:// paths, only hdfs:// paths - and our &lt;a href='https://github.com/edwardcapriolo/filecrush/pull/2'&gt;pull request&lt;/a&gt; to add this functionality is incomplete&lt;/li&gt;
 
 &lt;li&gt;&lt;a href='https://github.com/nathanmarz/dfs-datastores/blob/develop/dfs-datastores/src/main/java/com/backtype/hadoop/Consolidator.java'&gt;&lt;strong&gt;Consolidator&lt;/strong&gt;&lt;/a&gt; - a Hadoop file consolidation tool from the &lt;a href='https://github.com/nathanmarz/dfs-datastores'&gt;dfs-datastores&lt;/a&gt; library, written by &lt;a href='https://github.com/nathanmarz'&gt;Nathan Marz&lt;/a&gt;. There is scant documentation for this - we could only find one paragraph, &lt;a href='https://groups.google.com/forum/?fromgroups#!topic/cascalog-user/ovYSq2vTyYE'&gt;in this email thread&lt;/a&gt;. It has fewer capabilities than filecrush, and could do with a CLI-like wrapper to invoke it (we started writing just such a wrapper but then we found filecrush)&lt;/li&gt;
 

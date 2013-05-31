@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-31T12:17:23+01:00</updated>
+  <updated>2013-05-31T12:20:57+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -52,6 +52,7 @@
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Execution time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;177 minutes&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;9 minutes&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;39 minutes&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Aggregate step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;3 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;11 minutes&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;ETL step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;166 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;4 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;25 minutes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Norm. instance hours&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;120&lt;/td&gt;&lt;td style='text-align: left;'&gt;40&lt;/td&gt;&lt;td style='text-align: left;'&gt;2&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;Health warning:&lt;/strong&gt; this is one single benchmark, measuring the performance of the &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'&gt;Snowplow Hadoop job&lt;/a&gt; using a single data set. We encourage you to run your own benchmarks.&lt;/p&gt;
 

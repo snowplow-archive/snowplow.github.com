@@ -85,17 +85,17 @@
 <img src='/static/img/blog/2013/05/small-files-before-after.png' />
 <p>That&#8217;s right - aggregating with the small files first reduced total processing time from 2 hours 57 minutes to just 9 minutes - of which 3 minutes was the aggregation, and 4 minutes was running our actual Enrichment process. That&#8217;s a speedup of <strong>1,867%</strong>.</p>
 
-<p>To make the comparison as helpful as possible, here is the exact specification of the before- and after- test:</p>
-<table><thead><tr><th>Metric</th><th>Before (with small files)</th><th>After (with small files aggregated)</th></tr></thead><tbody><tr><td style='text-align: left;'><strong>Source log files</strong></td><td style='text-align: left;'>26,372</td><td style='text-align: left;'>26,372</td>
-</tr><tr><td style='text-align: left;'><strong>Files read by job</strong></td><td style='text-align: left;'>Source log files</td><td style='text-align: left;'>Aggregated log files</td>
-</tr><tr><td style='text-align: left;'><strong>Location of files</strong></td><td style='text-align: left;'>Amazon S3</td><td style='text-align: left;'>HDFS on CORE instances</td>
-</tr><tr><td style='text-align: left;'><strong>File compression</strong></td><td style='text-align: left;'>Gzip</td><td style='text-align: left;'>LZO</td>
-</tr><tr><td style='text-align: left;'><strong>part- files out</strong></td><td style='text-align: left;'>23,618</td><td style='text-align: left;'>141</td>
-</tr><tr><td style='text-align: left;'><strong>Events out</strong></td><td style='text-align: left;'>83,110</td><td style='text-align: left;'>83,110</td>
-</tr><tr><td style='text-align: left;'><strong>Cluster</strong></td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td>
-</tr><tr><td style='text-align: left;'><strong>Execution time</strong></td><td style='text-align: left;'><strong>177 minutes</strong></td><td style='text-align: left;'><strong>9 minutes</strong></td>
-</tr><tr><td style='text-align: left;'><strong>Aggregate step time</strong></td><td style='text-align: left;'>-</td><td style='text-align: left;'>3 minutes</td>
-</tr><tr><td style='text-align: left;'><strong>ETL step time</strong></td><td style='text-align: left;'>166 minutes</td><td style='text-align: left;'>4 minutes</td>
+<p>To make the comparison as helpful as possible, here is the exact specification of the before- and after- test. We have also added a second after- run with a more realistic cluster size.</p>
+<table><thead><tr><th>Metric</th><th>Before (with small files)</th><th>After (with small files aggregated)</th><th>After (with smaller cluster)</th></tr></thead><tbody><tr><td style='text-align: left;'><strong>Source log files</strong></td><td style='text-align: left;'>26,372</td><td style='text-align: left;'>26,372</td><td style='text-align: left;'>26,372</td>
+</tr><tr><td style='text-align: left;'><strong>Files read by job</strong></td><td style='text-align: left;'>Source log files</td><td style='text-align: left;'>Aggregated log files</td><td style='text-align: left;'>Aggregated log files</td>
+</tr><tr><td style='text-align: left;'><strong>Location of files</strong></td><td style='text-align: left;'>Amazon S3</td><td style='text-align: left;'>HDFS on Core instances</td><td style='text-align: left;'>HDFS on Core instances</td>
+</tr><tr><td style='text-align: left;'><strong>File compression</strong></td><td style='text-align: left;'>Gzip</td><td style='text-align: left;'>LZO</td><td style='text-align: left;'>LZO</td>
+</tr><tr><td style='text-align: left;'><strong>part- files out</strong></td><td style='text-align: left;'>23,618</td><td style='text-align: left;'>141</td><td style='text-align: left;'>141</td>
+</tr><tr><td style='text-align: left;'><strong>Events out</strong></td><td style='text-align: left;'>83,110</td><td style='text-align: left;'>83,110</td><td style='text-align: left;'>83,110</td>
+</tr><tr><td style='text-align: left;'><strong>Cluster</strong></td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td><td style='text-align: left;'>1 x m1.small, 1 x m1.small</td>
+</tr><tr><td style='text-align: left;'><strong>Execution time</strong></td><td style='text-align: left;'><strong>177 minutes</strong></td><td style='text-align: left;'><strong>9 minutes</strong></td><td style='text-align: left;'><strong>39 minutes</strong></td>
+</tr><tr><td style='text-align: left;'><strong>Aggregate step time</strong></td><td style='text-align: left;'>-</td><td style='text-align: left;'>3 minutes</td><td style='text-align: left;'>11 minutes</td>
+</tr><tr><td style='text-align: left;'><strong>ETL step time</strong></td><td style='text-align: left;'>166 minutes</td><td style='text-align: left;'>4 minutes</td><td style='text-align: left;'>25 minutes</td>
 </tr></tbody></table>
 <p><strong>Health warning:</strong> this is one single benchmark, measuring the performance of the <a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'>Snowplow Hadoop job</a> using a single data set. We encourage you to run your own benchmarks.</p>
 

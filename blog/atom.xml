@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-05-31T11:30:43+01:00</updated>
+  <updated>2013-05-31T12:17:23+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -41,17 +41,17 @@
 &lt;img src='/static/img/blog/2013/05/small-files-before-after.png' /&gt;
 &lt;p&gt;That&amp;#8217;s right - aggregating with the small files first reduced total processing time from 2 hours 57 minutes to just 9 minutes - of which 3 minutes was the aggregation, and 4 minutes was running our actual Enrichment process. That&amp;#8217;s a speedup of &lt;strong&gt;1,867%&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;To make the comparison as helpful as possible, here is the exact specification of the before- and after- test:&lt;/p&gt;
-&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Metric&lt;/th&gt;&lt;th&gt;Before (with small files)&lt;/th&gt;&lt;th&gt;After (with small files aggregated)&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Source log files&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;26,372&lt;/td&gt;&lt;td style='text-align: left;'&gt;26,372&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Files read by job&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Source log files&lt;/td&gt;&lt;td style='text-align: left;'&gt;Aggregated log files&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Location of files&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Amazon S3&lt;/td&gt;&lt;td style='text-align: left;'&gt;HDFS on CORE instances&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;File compression&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Gzip&lt;/td&gt;&lt;td style='text-align: left;'&gt;LZO&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;part- files out&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;23,618&lt;/td&gt;&lt;td style='text-align: left;'&gt;141&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Events out&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;83,110&lt;/td&gt;&lt;td style='text-align: left;'&gt;83,110&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Cluster&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;1 x m1.large, 18 x m1.medium&lt;/td&gt;&lt;td style='text-align: left;'&gt;1 x m1.large, 18 x m1.medium&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Execution time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;177 minutes&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;9 minutes&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Aggregate step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;3 minutes&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;ETL step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;166 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;4 minutes&lt;/td&gt;
+&lt;p&gt;To make the comparison as helpful as possible, here is the exact specification of the before- and after- test. We have also added a second after- run with a more realistic cluster size.&lt;/p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Metric&lt;/th&gt;&lt;th&gt;Before (with small files)&lt;/th&gt;&lt;th&gt;After (with small files aggregated)&lt;/th&gt;&lt;th&gt;After (with smaller cluster)&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Source log files&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;26,372&lt;/td&gt;&lt;td style='text-align: left;'&gt;26,372&lt;/td&gt;&lt;td style='text-align: left;'&gt;26,372&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Files read by job&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Source log files&lt;/td&gt;&lt;td style='text-align: left;'&gt;Aggregated log files&lt;/td&gt;&lt;td style='text-align: left;'&gt;Aggregated log files&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Location of files&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Amazon S3&lt;/td&gt;&lt;td style='text-align: left;'&gt;HDFS on Core instances&lt;/td&gt;&lt;td style='text-align: left;'&gt;HDFS on Core instances&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;File compression&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Gzip&lt;/td&gt;&lt;td style='text-align: left;'&gt;LZO&lt;/td&gt;&lt;td style='text-align: left;'&gt;LZO&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;part- files out&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;23,618&lt;/td&gt;&lt;td style='text-align: left;'&gt;141&lt;/td&gt;&lt;td style='text-align: left;'&gt;141&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Events out&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;83,110&lt;/td&gt;&lt;td style='text-align: left;'&gt;83,110&lt;/td&gt;&lt;td style='text-align: left;'&gt;83,110&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Cluster&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;1 x m1.large, 18 x m1.medium&lt;/td&gt;&lt;td style='text-align: left;'&gt;1 x m1.large, 18 x m1.medium&lt;/td&gt;&lt;td style='text-align: left;'&gt;1 x m1.small, 1 x m1.small&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Execution time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;177 minutes&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;9 minutes&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;39 minutes&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Aggregate step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;3 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;11 minutes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;ETL step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;166 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;4 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;25 minutes&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;Health warning:&lt;/strong&gt; this is one single benchmark, measuring the performance of the &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'&gt;Snowplow Hadoop job&lt;/a&gt; using a single data set. We encourage you to run your own benchmarks.&lt;/p&gt;
 

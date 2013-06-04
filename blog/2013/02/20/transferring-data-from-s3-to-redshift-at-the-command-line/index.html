@@ -65,7 +65,7 @@
 		<div class="post">
 			20 Feb 2013
 			<h1>Bulk loading data from Amazon S3 into Redshift at the command line</h1>
-			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
+			 <span class="author">Author: <a href="/yali.html?rel=author">Yali Sassoon </a></span>
 			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
 
 <p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>

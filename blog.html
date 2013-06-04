@@ -67,7 +67,7 @@
 		<div class="post">
 			03 Jun 2013
 			<h1><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></h1>
-			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
+			 <span class="author">Author: <a href="/alex.html?rel=author">Alex Dean </a></span>
 			<p>We are very pleased to announce the release of Snowplow <strong>0.8.6</strong>, with two significant performance-related improvements to the Hadoop ETL. These improvements are:</p>
 
 <ol>
@@ -94,7 +94,7 @@
 		<div class="post">
 			30 May 2013
 			<h1><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></h1>
-			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
+			 <span class="author">Author: <a href="/alex.html?rel=author">Alex Dean </a></span>
 			<p>Hadoop has a serious Small File Problem. It&#8217;s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href='http://blog.cloudera.com/blog/2009/02/the-small-files-problem/'>Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
 <img src='/static/img/blog/2013/05/plowing-small-files.jpg' />
 <p>In this blog post we will discuss the small files problem in terms of our experiences with it at Snowplow. <strong>And we will argue that dealing with the small files problem - if you have it - is the single most important optimisation you can perform on your MapReduce process.</strong></p>
@@ -105,7 +105,7 @@
 		<div class="post">
 			24 May 2013
 			<h1><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></h1>
-			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
+			 <span class="author">Author: <a href="/alex.html?rel=author">Alex Dean </a></span>
 			<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.5</strong>. This is a bug fixing release, following on from our launch last week of Snowplow 0.8.4 with geo-IP lookups.</p>
 
 <p>This release fixes one showstopper issue with Snowplow 0.8.4, and also includes a set of smaller enhancements to help the Scalding ETL better handle &#8220;bad quality&#8221; event data from webpages. We recommend everybody on the Snowplow 0.8.x series upgrade to this version.</p>
@@ -130,7 +130,7 @@
 		<div class="post">
 			22 May 2013
 			<h1><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></h1>
-			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
+			 <span class="author">Author: <a href="/yali.html?rel=author">Yali Sassoon </a></span>
 			<p>We have just added a <a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'>new recipe</a> to the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>. This recipe describes:</p>
 
 <ol>
@@ -147,7 +147,7 @@
 		<div class="post">
 			20 May 2013
 			<h1><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></h1>
-			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
+			 <span class="author">Author: <a href="/yali.html?rel=author">Yali Sassoon </a></span>
 			<p>We have just added a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>new recipe</a> to the <a href='/analytics/index.html'>Analytics Cookbook</a>: one that walks through the process of performing a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behaviour. The recipe covers performing the analysis on Snowplow data using <a href='http://www.r-project.org/'>R</a> and the <a href='http://cran.r-project.org/web/packages/arules/index.html'>arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I&#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
 <p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /></p>
 <p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&#8217;s <em>users who bought this product also bought these items</em>&#8230;</p>

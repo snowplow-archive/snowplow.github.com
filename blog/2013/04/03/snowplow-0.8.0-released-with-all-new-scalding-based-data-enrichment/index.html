@@ -65,6 +65,7 @@
 		<div class="post">
 			03 Apr 2013
 			<h1>Snowplow 0.8.0 released with all-new Scalding-based data enrichment</h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
 
 <p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
@@ -279,7 +280,6 @@
 			
 		
 		</ul>		
-	
 	
 
 	<h1>Useful links</h1>

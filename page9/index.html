@@ -67,19 +67,20 @@
 		<div class="post">
 			18 Dec 2012
 			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
 
 <p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
 
 <p>We&#8217;ll take a look at both fixes below:</p>
-<p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/18/snowplow-0.6.3-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Transforming Snowplow data so it can be interrogated in BI tools like Tableau" />
 		<div class="post">
 			17 Dec 2012
 			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
+			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
 			<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
 <p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
 <p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
@@ -92,14 +93,14 @@
 <p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
 
 <p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
-<p class='more'><a href='/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Snowplow 0.6.2 released" />
 		<div class="post">
 			28 Nov 2012
 			<h1><a href="/blog/2012/11/28/snowplow-0.6.2-released">Snowplow 0.6.2 released, with JavaScript tracker bug fixes</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
@@ -115,13 +116,13 @@
 <p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
 
 <p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
-			<span class="comments-link"><a href="/blog/2012/11/28/snowplow-0.6.2-released#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 		<a name="Snowplow 0.6.1 released" />
 		<div class="post">
 			27 Nov 2012
 			<h1><a href="/blog/2012/11/27/snowplow-0.6.1-released">Snowplow 0.6.1 released, with lots of small improvements</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
 
 <ol>
@@ -145,14 +146,14 @@
 
 <li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
 </ul>
-<p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2012/11/27/snowplow-0.6.1-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Integrating Snowplow with Google Tag Manager" />
 		<div class="post">
 			16 Nov 2012
 			<h1><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating Snowplow with Google Tag Manager</a></h1>
+			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
 			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
 
 <p><img alt='gtm' src='/static/img/gtm.JPG' /></p>
@@ -180,7 +181,6 @@
 
 <li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
 </ol>
-			<span class="comments-link"><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 
@@ -282,7 +282,6 @@
 			
 		
 		</ul>		
-	
 	
 
 	<h1>Useful links</h1>

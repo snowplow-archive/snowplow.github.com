@@ -120,6 +120,10 @@
     #container #generateTagForm h4 {
       margin-top: 3px;
       margin-bottom: 3px; }
+  #container .author {
+    color: #00679d;
+    font-size: 11px;
+    font-style: italic; }
 
 #sidebar {
   width: 200px;
@@ -181,6 +185,19 @@
     font-size: 13px; }
   #contents a {
     text-decoration: none; }
+  #contents .post_summary {
+    display: block;
+    width: 100%;
+    float: left;
+    margin-top: 5px; }
+  #contents .date {
+    display: inline;
+    width: 100px;
+    float: left; }
+  #contents .post_title {
+    display: inline;
+    width: 600px;
+    float: left; }
 
 #header {
   display: block;

@@ -67,6 +67,7 @@
 		<div class="post">
 			22 Feb 2013
 			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
 
 <ul>
@@ -96,14 +97,14 @@
 </ol>
 
 <p>Read on below the fold to find out more!</p>
-<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Bulk loading data from Amazon S3 into Redshift at the command line" />
 		<div class="post">
 			20 Feb 2013
 			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
+			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
 			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
 
 <p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
@@ -117,14 +118,14 @@
 <span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
 </code></pre></div>
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
-<p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Reflections on Saturday's Measurecamp" />
 		<div class="post">
 			18 Feb 2013
 			<h1><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></h1>
+			 <span class="author">Author: <a href="/yali.html  ">Yali Sassoon </a></span>
 			<p>On Satuday both Alex and I were lucky enough to attend London&#8217;s second <a href='http://www.measurecamp.org/'>Measurecamp</a>, an unconference dedicated to digital analytics. The venue was packed with smart people sharing some really interesting ideas - we can&#8217;t do justice to all those ideas here, so I&#8217;ve just outlined my favourite two from the day:</p>
 
 <ol>
@@ -146,14 +147,14 @@
 
 <li>Are they interested broadly or narrowly in your area?</li>
 </ul>
-<p class='more'><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Snowplow 0.7.3 released" />
 		<div class="post">
 			15 Feb 2013
 			<h1><a href="/blog/2013/02/15/snowplow-0.7.3-released">Snowplow 0.7.3 released, tracking additional data</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
 
 <ul>
@@ -205,14 +206,14 @@
 </tr><tr><td style='text-align: left;'><code>pp_yoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page y offset seen in the last ping period</td>
 </tr></tbody></table>
 <p>Don&#8217;t worry if some of these new fields don&#8217;t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
-<p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/02/15/snowplow-0.7.3-released#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Writing Hive UDFs - a tutorial" />
 		<div class="post">
 			08 Feb 2013
 			<h1><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p><em>Snowplow&#8217;s own <a href='https://github.com/alexanderdean'>Alexander Dean</a> was recently asked to write an article for the <a href='http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&amp;a_bid=45f0d439'>Software Developer&#8217;s Journal edition on Hadoop</a> The kind folks at the Software Developer&#8217;s Journal have allowed us to reprint his article in full below.</em></p>
 
 <p><em>Alex started writing Hive UDFs as part of the process to write the <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers'>Snowplow log deserializer</a> - the custom SerDe used to parse Snowplow logs generated by the Cloudfront and Clojure collectors so they can be processed in the Snowplow ETL step.</em></p>
@@ -222,8 +223,7 @@
 <p>In this article you will learn how to write a user-defined function (&#8220;UDF&#8221;) to work with the Apache Hive platform. We will start gently with an introduction to Hive, then move on to developing the UDF and writing tests for it. We will write our UDF in Java, but use Scala&#8217;s SBT as our build tool and write our tests in Scala with Specs2.</p>
 
 <p>In order to get the most out of this article, you should be comfortable programming in Java. You do not need to have any experience with Apache Hive, HiveQL (the Hive query language) or indeed Hive UDFs - I will introduce all of these concepts from first principles. Experience with Scala is advantageous, but not necessary.</p>
-<p class='more'><a href='/blog/2013/02/08/writing-hive-udfs-and-serdes'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/02/08/writing-hive-udfs-and-serdes'>Read the rest of this entry</a></p>
 		</div>
 	
 
@@ -325,7 +325,6 @@
 			
 		
 		</ul>		
-	
 	
 
 	<h1>Useful links</h1>

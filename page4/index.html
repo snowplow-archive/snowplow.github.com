@@ -67,6 +67,7 @@
 		<div class="post">
 			03 Apr 2013
 			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
 
 <p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
@@ -86,14 +87,14 @@
 </ol>
 
 <p>Read on below the fold to find out more.</p>
-<p class='more'><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Snowplow Arduino Tracker released" />
 		<div class="post">
 			25 Mar 2013
 			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
 
 <p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
@@ -123,13 +124,13 @@
 </ul>
 
 <p>Happy making!</p>
-			<span class="comments-link"><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 		<a name="Rob Slifka's Elasticity" />
 		<div class="post">
 			20 Mar 2013
 			<h1><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p><em>The Snowplow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the Snowplow project literally could not exist.</em></p>
 
 <p><em>As part of our &#8220;Inside the Plow&#8221; series, we will also be showcasing some of these core components of the Snowplow stack, and talking to their creators. To kick us off, we are delighted to have <a href='https://twitter.com/robslifka'>Rob Slifka</a>, VP of <a href='http://www.sharethrough.com/engineering'>Engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> in San Francisco, talking to us about his <a href='https://github.com/rslifka/elasticity'>Elasticity</a> project. For those who aren&#8217;t aware: Elasticity is a Ruby library which we use as part of our <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>, to make it easy to automate the Snowplow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.</em></p>
@@ -139,14 +140,14 @@
 <p><img alt='rob-slifka-img' src='/static/img/blog/2013/03/rob-slifka.jpeg' /></p>
 
 <p>Thanks Alex! Quick bit about me: I&#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href='http://www.sharethrough.com/engineering'>engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href='https://github.com/rslifka/elasticity'>Elasticity</a> comes in.</p>
-<p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/03/20/rob-slifka-elasticity#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Snowplow 0.7.6 released" />
 		<div class="post">
 			03 Mar 2013
 			<h1><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>We&#8217;re excited to announce the immediate release of Snowplow version <strong>0.7.6</strong> with support for storing your Snowplow events in <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a>.</p>
 
 <p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate Snowplow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can&#8217;t wait to see what the Snowplow community do with the new platform!</p>
@@ -168,14 +169,14 @@
 </ol>
 
 <p>Read on below the fold to find out more.</p>
-<p class='more'><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support'>Read the rest of this entry >></a></p>
-			<span class="comments-link"><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#disqus_thread" rel="nofollow">View Comments</a></span>
+<p class='more'><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support'>Read the rest of this entry</a></p>
 		</div>
 	
 		<a name="Snowplow 0.7.5 released" />
 		<div class="post">
 			25 Feb 2013
 			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
+			 <span class="author">Author: <a href="/alex.html  ">Alex Dean </a></span>
 			<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
 
 <p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow&#8217;s first-party cookies when sent via HTTPS pages.</p>
@@ -189,7 +190,6 @@
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
 
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-			<span class="comments-link"><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix#disqus_thread" rel="nofollow">View Comments</a></span>
 		</div>
 	
 
@@ -291,7 +291,6 @@
 			
 		
 		</ul>		
-	
 	
 
 	<h1>Useful links</h1>

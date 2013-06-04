@@ -150,6 +150,12 @@ $white: #FFFFFF;
 			margin-bottom: 3px;
 		}
 	}
+
+	.author {
+		color: $lightblue;
+		font-size: 11px;
+		font-style: italic;
+	}
 			
 }
 
@@ -230,6 +236,25 @@ $white: #FFFFFF;
 	
 	p  { font-size: 13px; }
 	a  { text-decoration: none; }
+
+	.post_summary {
+		display: block;
+		width: 100%;
+		float: left;
+		margin-top: 5px;
+	}
+
+	.date {
+		display: inline;
+		width: 100px;
+		float: left;
+	}
+
+	.post_title {
+		display: inline;
+		width: 600px;
+		float: left;
+	}
 	
 }
 

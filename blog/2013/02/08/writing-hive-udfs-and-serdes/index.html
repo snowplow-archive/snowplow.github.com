@@ -88,7 +88,8 @@
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>user_id</span><span class='p'>))</span>
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span> <span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This is actually a standard Snowplow query to calculate the number of unique visitors to a website by day. So what happens when an analyst runs this query in Hive? Simply this:</p>
 
 <ol>
@@ -131,14 +132,16 @@
 <span class='n'>libraryDependencies</span> <span class='o'>+=</span> <span class='s'>&quot;org.apache.hadoop&quot;</span> <span class='o'>%</span>  <span class='s'>&quot;hadoop-core&quot;</span>        <span class='o'>%</span> <span class='s'>&quot;0.20.2&quot;</span>      <span class='o'>%</span> <span class='s'>&quot;provided&quot;</span>
 <span class='n'>libraryDependencies</span> <span class='o'>+=</span> <span class='s'>&quot;org.apache.hive&quot;</span>   <span class='o'>%</span>  <span class='s'>&quot;hive-exec&quot;</span>          <span class='o'>%</span> <span class='s'>&quot;0.8.1&quot;</span>       <span class='o'>%</span> <span class='s'>&quot;provided&quot;</span>
 <span class='n'>libraryDependencies</span> <span class='o'>+=</span> <span class='s'>&quot;org.specs2&quot;</span>        <span class='o'>%%</span> <span class='s'>&quot;specs2&quot;</span>             <span class='o'>%</span> <span class='s'>&quot;1.12.1&quot;</span>      <span class='o'>%</span> <span class='s'>&quot;test&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This is a simple project configuration which names and versions our project, and also adds Hadoop, Hive and Specs2 (our testing library) as dependencies. If you do not have SBT already installed, you can find instructions here http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html</p>
 
 <h2 id='writing_our_udf'>Writing our UDF</h2>
 
 <p>Done? Onto the code. First let&#8217;s create a folder for it:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>mkdir -p src/main/java/com/snowplowanalytics/hive/udf
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now let&#8217;s add a file into our udf folder called ToUpper.java, containing:</p>
 
 <p>Listing 3: Our ToUpper.java UDF definition</p>
@@ -169,7 +172,8 @@
 		<span class='k'>return</span> <span class='n'>to_value</span><span class='o'>;</span>
     <span class='o'>}</span>
 <span class='o'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This file defines our UDF, ToUpper. The package definition and imports should be self-explanatory; the <code>@Description</code> annotation is a useful Hive-specific annotation to provide usage information for our UDF in the Hive console.</p>
 
 <p>All user-defined functions extend the Hive UDF class; a UDF sub-class must then implement one or more methods named &#8220;evaluate&#8221; which will be called by Hive. We implement an evaluate method which takes one Hadoop Text (which stores text using UTF8) and returns the same Hadoop Text, but now in upper-case. The only complexity is some exception handling, which we include for safety&#8217;s sake.</p>
@@ -180,12 +184,14 @@
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>sbt
 &gt; compile
 <span class='o'>[</span>success<span class='o'>]</span> Total <span class='nb'>time</span>: 0 s, completed 28-Jan-2013 16:41:53
-</code></pre></div>
+</code></pre>
+</div>
 <h2 id='testing_our_udf'>Testing our UDF</h2>
 
 <p>Okay great, now time to write a test to make sure this is doing what we expect! First we create a folder for it:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>mkdir -p src/test/scala/com/snowplowanalytics/hive/udf
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now let&#8217;s add a file into our udf test folder called ToUpperTest.scala, containing:</p>
 
 <p>Listing 5: Our ToUpperTest.scala Specs2 test</p>
@@ -208,7 +214,8 @@
     <span class='o'>}</span>
   <span class='o'>}</span>
 <span class='o'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This is a Specs2 unit test (http://etorreborre.github.com/specs2/), written in Scala, which checks that ToUpper is performing correctly: we test that an empty string is handled correctly, and then we test that a mixed-case string (&#8220;Stephen King&#8221;) is successfully converted to &#8220;STEPHEN KING&#8221;.</p>
 
 <p>So let&#8217;s run this next from SBT:</p>
@@ -229,7 +236,8 @@
 [info] 
 [info] Passed: : Total 2, Failed 0, Errors 0, Passed 2, Skipped 0
 [success] Total time: 8 s, completed 28-Jan-2013 17:11:45
-</code></pre></div>
+</code></pre>
+</div>
 <h2 id='building_and_using_our_udf'>Building and using our UDF</h2>
 
 <p>Our tests passed! Now we&#8217;re ready to use our function &#8220;in anger&#8221; from Hive. First, still from SBT, let&#8217;s build our jarfile:</p>
@@ -239,17 +247,20 @@
 [info] Packaging /home/alex/Development/Snowplow/hive-example-udf/target/scala-2.9.2/hive-example-udf_2.9.2-0.0.1.jar ...
 [info] Done packaging.
 [success] Total time: 1 s, completed 28-Jan-2013 17:21:02
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now take the jarfile (hive-example-udf_2.9.2-0.0.1.jar) and upload it to our Hive cluster - on Amazon&#8217;s Elastic MapReduce, for example, you could upload it to S3.</p>
 
 <p>From your Hive console, you can now add our new UDF like so:</p>
 <div class='highlight'><pre><code class='mysql'><span class='o'>&gt;</span> <span class='k'>add</span> <span class='n'>jar</span> <span class='o'>/</span><span class='n'>path</span><span class='o'>/</span><span class='k'>to</span><span class='o'>/</span><span class='n'>HiveSwarm</span><span class='p'>.</span><span class='n'>jar</span><span class='p'>;</span>
 <span class='o'>&gt;</span> <span class='k'>create</span> <span class='n'>temporary</span> <span class='n'>function</span> <span class='n'>to_upper</span> <span class='k'>as</span> <span class='s1'>&#39;com.snowplowanalytics.hive.udf.ToUpper&#39;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>And then finally you can use our new UDF in your HiveQL queries, something like this:</p>
 <div class='highlight'><pre><code class='mysql'><span class='o'>&gt;</span> <span class='k'>SELECT</span> <span class='nf'>toupper</span><span class='p'>(</span><span class='n'>author_name</span><span class='p'>)</span> <span class='k'>FROM</span> <span class='n'>authors</span> <span class='n'>a</span><span class='p'>;</span>
   <span class='n'>STEPHEN</span> <span class='n'>KING</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>That completes our article. If you would like to download the example code above as a working project, you can find it on GitHub here: https://github.com/snowplow/hive-example-udf</p>
 
 <p>I hope to return with further articles about Hive and Hadoop in the future - potentially one on writing a custom serde - an area where we have a lot of experience at Snowplow Analytics.</p>
@@ -303,19 +314,19 @@
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 		
 		</ul>		
@@ -337,23 +348,6 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
-			
-				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
-			
-				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -367,6 +361,23 @@
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
 				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+			
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+			
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 		
 		</ul>		

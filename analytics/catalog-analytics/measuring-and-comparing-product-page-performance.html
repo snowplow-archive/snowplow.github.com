@@ -91,7 +91,8 @@
 <span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'># Only display results for the *production website*</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>unique_visitors</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note that the query above is specific to a particular retailer: Psychic Bazaar. You will need to modify your version of the query so that results are only shown for product pages (rather than catalog pages, home pages etc), by modifying the <code>WHERE</code> clause. You may also want to limit the query to a specific period of time, by adding a set of date conditions (using <code>collecor_dt</code>) to the <code>WHERE</code> clause.</p>
 
 <p>The results of the above query look something like this:</p>
@@ -136,7 +137,8 @@
 <span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>uniques_that_add_to_basket</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The results of the above query look something like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>product_sku</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>number_of_add_to_baskets</strong></th><th><strong>number_of_products_added_to_baket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style='text-align: left;'>PBZ00274</td><td style='text-align: right;'>14</td><td style='text-align: right;'>16</td><td style='text-align: right;'>16</td>
 </tr><tr><td style='text-align: left;'>/tarot-cards/121-the-gothic-tarot.html</td><td style='text-align: left;'>PBZ00110</td><td style='text-align: right;'>14</td><td style='text-align: right;'>15</td><td style='text-align: right;'>15</td>
@@ -184,7 +186,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
 <span class='p'>)</span> <span class='n'>ab</span>
 <span class='k'>ON</span> <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>page_urlpath</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The results of the query look something like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>fraction_that_add_to_basket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/244-el-gran-tarot-esoterico.html</td><td style='text-align: right;'>132</td><td style='text-align: right;'>17</td><td style='text-align: right;'>0.128</td>
 </tr><tr><td style='text-align: left;'>/jewellery/151-gold-hamsa-on-black-thread-bracelet.htm</td><td style='text-align: right;'>105</td><td style='text-align: right;'>2</td><td style='text-align: right;'>0.190</td>
@@ -192,7 +195,7 @@
 </tr></tbody></table>
 <p>We can plot the results to compare products between pages:</p>
 
-<p><img alt='add-to-basket-rate-by-product-page' src='/static/img/analytics/catalog-analytics/product-page-performance/top-product-page-by-fraction-of-uniques-that-add-to-basket.jpg' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/top-product-page-by-fraction-of-uniques-that-add-to-basket.jpg' alt='add-to-basket-rate-by-product-page' /></p>
 
 <p>The above plot is interesting: it makes it easy to compare conversion rates between products and product pages. In the next section we will evolve our analysis using a scatter plot to visualize the product page performance.</p>
 
@@ -202,7 +205,7 @@
 
 <p>Here is a preview of the scatter plot we will generate:</p>
 
-<p><img alt='scatter-plot' src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' alt='scatter-plot' /></p>
 
 <p>The good thing about the above scatter plot is that it is incredibly <em>actionable</em>. Before we look at how it is actionable, let&#8217;s explore the plot briefly.</p>
 
@@ -210,33 +213,33 @@
 
 <p>Each product (i.e. product page) is marked on the plot by a circle. The position of the circle on the left-right axis indicates how many times that product page has been viewed: so the products over to the right of the plot are ones with highly trafficked product pages.</p>
 
-<p><img alt='expl1' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide1.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide1.JPG' alt='expl1' /></p>
 
 <p>The position on the top-bottom axis indicates the number of unique users who have added the product to their baskets. Products that are higher up have been added to basket more frequently than those lower down.</p>
 
-<p><img alt='expl2' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide2.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide2.JPG' alt='expl2' /></p>
 
 <p>We can tell how well-converting a product page is by looking at the height of its position on the graph, relative to its distance from the left axis. Products that are positioned high up, but over to the left, are added to basket a lot, even if they do not attract many visitors. They are therefore highly converting product pages.</p>
 
-<p><img alt='expl3' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide3.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide3.JPG' alt='expl3' /></p>
 
 <h4 id='why_is_the_scatter_plot_so_actionable'>Why is the scatter plot so actionable?</h4>
 
 <p>Let&#8217;s look at why the plot is so <strong>actionable</strong>. To take one example: any products located in the lower right corner are highly trafficked but low converting - any effort spent fixing those product pages (e.g. by checking the copy, updating the product images or lowering the price) should be rewarded with a significant sales uplift, given the number of people visiting those pages:</p>
 
-<p><img alt='expl4' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide4.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide4.JPG' alt='expl4' /></p>
 
 <p>In our plot above that means checking the product page for the <em>Gateway Oracle Cards</em> and the <em>Celtic Ogham Set</em> for example. In contrast, products located in the top left of the plot are very highly converting, but low trafficked pages. We should drive more traffic to these pages, either by positioning those products more prominently on catalog pages, for example, or by spending marketing dollars driving more traffic to those pages specifically. Again, that investment should result in a significant uplift in sales, given how highly converting those products are.</p>
 
-<p><img alt='expl5' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide5.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide5.JPG' alt='expl5' /></p>
 
 <p>Products in the top right are already performing well - this analysis suggests that we focus our efforts on the two groups of products identified above.</p>
 
-<p><img alt='expl6' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide6.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide6.JPG' alt='expl6' /></p>
 
 <p>Similarly, products in the lower left corner are performing poorly - but it is not clear whether this is because they have low traffic levels and /or are poor at driving conversions. We should invest in improving the performance of these pages, but the return on that investment is likely to be smaller (or harder to achieve) than the two opportunities identified above.</p>
 
-<p><img alt='expl7' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide7.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/Slide7.JPG' alt='expl7' /></p>
 
 <h4 id='producing_the_plot'>Producing the plot</h4>
 
@@ -250,7 +253,8 @@
 <span class='k'>FROM</span> <span class='n'>events_008</span>
 <span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can combine this with the previous queries:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
 <span class='k'>SELECT</span>
@@ -304,7 +308,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ON</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>product_sku</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>ti_sku</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This produces a result set that looks like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>uniques_that_purchase</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/oracles/266-magical-messages-from-the-fairies-oracle-cards.html</td><td style='text-align: right;'>89</td><td style='text-align: right;'>14</td><td style='text-align: right;'>7</td>
 </tr><tr><td style='text-align: left;'>/tarot-cards/127-petrak-tarot.html</td><td style='text-align: right;'>82</td><td style='text-align: right;'>21</td><td style='text-align: right;'>18</td>

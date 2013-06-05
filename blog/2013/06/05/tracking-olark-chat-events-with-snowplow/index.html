@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>What data should you be passing into your tag manager? - Snowplow Analytics</title>
+	<title>Tracking Olark chat events with Snowplow - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -63,108 +63,88 @@
 	
 		<div id="contents">
 		<div class="post">
-			21 Jan 2013
-			<h1>What data should you be passing into your tag manager?</h1>
+			05 Jun 2013
+			<h1>Tracking Olark chat events with Snowplow</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Since the launch of <a href='https://www.google.com/tagmanager/'>Google Tag Manager</a>, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it <a href='https://www.google.com/tagmanager/'>GTM</a> or <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a> or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.</p>
-<img src='/static/img/tag-management/tag-management-schematic.gif' width='320' />
-<h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'>Why is it important to define, at implementation time, what data to pass to your tag manager?</h2>
+			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p>One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the <em>best</em> solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.</p>
-<!--more-->
-<p>We think this is rather dangerous. We&#8217;re much more excited about the way that tag management solutions enable webmasters to explicitly pass data into their tag management solutions using constructs like the <a href='https://developers.google.com/tag-manager/reference'><code>dataLayer</code></a> in GTM and the <a href='https://github.com/QubitProducts/UniversalVariable'><code>Universal Variable</code></a> in OpenTag. The nice thing about this approach is that the infrastructure for managing the flow of data into your analytics infrastructure is decoupled from the infrastructure delivering the end-user experience. It means that web masters are free to improve websites, able to modify elements of web pages without breaing any data transfer processes. It forces companies to think through what data they should be capturing, and document it. It makes it easy for analysts and data scientists, down the line, to audit what data is being collected and how.</p>
+<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
 
-<p>The trouble with insisting on formally passing data to your tag management system using things like the <a href='https://developers.google.com/tag-manager/reference'><code>dataLayer</code></a> or <a href='https://github.com/QubitProducts/UniversalVariable'><code>Universal Variable</code></a> is that it makes the process of implementing a tag management system more complicated: because you have to identify all the data points you want to pass to your web analytics (and advertising) systems and often develop a data model for transferring them to your tag management system, so that it can pass them on via the tags it fires.</p>
-
-<p>For Snowplow users, the challenge is more acute. Whereas other analytics systems recommend that you only pass data into them that you know how to use / evaluate, we recommend that Snowplow users pass in <em>all</em> the data associated with the events on a user journey so that analysts have a <strong>complete</strong> picture of a user&#8217;s journey. Then it is up to the analyst to decide whether or not specific bits of data are valuable based on what he / she does with that data (rather than prejudging it). So for Snowplow users who are setting up a tag management system, the challenge is to identify, upfront <strong>all</strong> the data points to pass into the tag management system, so that they can be passed on to Snowplow via the Snowplow tracking tags. Simple, right?</p>
-
-<h2 id='what_data_do_we_want_to_pass_into_snowplow'>What data do we want to pass into Snowplow?</h2>
-
-<p>Broadly speaking, there are types of data that we want to process in Snowplow: event data and page-level data.</p>
-
-<h3 id='event_data'>Event data</h3>
-
-<p>At its heart, Snowplow is a tool for capturing, storing and analysing event-stream data, with a focus on web event data. We aim to capture all events that occur on an individual&#8217;s customer journey. To give a random assortment of examples of the types of events we might include:</p>
-
-<ul>
-<li>Add item to basket</li>
-
-<li>Like a post</li>
-
-<li>Invite someone to be friends</li>
-
-<li>Watch a video</li>
-
-<li>Review a product</li>
-
-<li>Log in to an application</li>
-
-<li>Create and display a graph</li>
-
-<li>Send a message</li>
-
-<li>Create a listing</li>
-
-<li>Update a status</li>
-
-<li>Ask a question</li>
-
-<li>Book a flight</li>
-
-<li>Donate to a charity</li>
-</ul>
-
-<p>As part of setting up a tag management solution, it is important to identify all the possible events that can occur to a user on his / her journey through our website, and what data we want to capture for each of those event types.</p>
-
-<h3 id='web_page_entity_data'>Web page entity data</h3>
-
-<p>As the web evolves, websites look less-and-less like hyperlinked documents and more-and-more like interactive applications. A larger fraction of interesting events on a customer journeys are powered by AJAX events, and fewer are enabled by web page loads.</p>
-
-<p>In spite of this evolution, web page loads are still very important events in a user journey. Broadly speaking, we capture data that occur thanks to AJAX events using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>Snowplow event tracking method</a> except for specific events that have their own specific methods e.g. <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-ecommerce'>tracking ecommerce transaction</a> or <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-adimps'>ad impression tracking</a>.</p>
-
-<p>To capture the broad swathe of events that result in a web page load, we use the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-page'>page tracker method</a>. However, performing an analysis on the journey a user has taken based on the URLs and page titles of the pages they have visited is not that informative: we really want to store what entities were displayed on those web pages, so we can analyse what the user was shown, what entities they engaged with and which they did not. To take a simple example, we might want to compare conversion rate for a retailer by product, to see which products &#8216;convert best&#8217; and why. In order to do this, we need to pass onto Snowplow exactly what products were displayed on the web pages they visited, and potentially pass in additional information like what type of listing they were shown.</p>
-
-<p>To give an example of the types of entities we might identify:</p>
-
-<ul>
-<li>Products</li>
-
-<li>Articles / blog posts</li>
-
-<li>Videos</li>
-
-<li>Adverts</li>
-
-<li>People / connections</li>
-
-<li>Jobs</li>
-
-<li>Flights</li>
-</ul>
-
-<p>As well as identifying all the events that can occur on a user journey, then, we <em>also</em> need to identify <strong>all</strong> the key elements that make up each web page, and pass them to our tag manager on page load, as part of a tag management implementation.</p>
-
-<h2 id='summarising_our_method_for_identifying_all_the_data_points_to_pass_into_the_tag_manager'>Summarising our method for identifying all the data points to pass into the tag manager</h2>
-
-<p>We are now in a position to pull the above information together and summarise our suggested approach:</p>
+<p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
 <ol>
-<li>Identify all the relevant events that can occur to a user navigating your website app. Catalogue each.</li>
+<li>Whether people visiting the site would want to chat to us?</li>
 
-<li>For each event type, document what data should/could be captured</li>
-
-<li>Comb through each web page that makes up your website, and identify the relevant entities that that make up web pages.</li>
-
-<li>For each entity, document what data you want to capture</li>
+<li>Whether the chats were &#8220;useful&#8221; i.e. did they drive visitors to become Snowplow users? Did they help us identify content on the site that was confusing and needed clarification? Does it help drive sales of <a href='http://snowplowanalytics.com/services/index.html'>Snowplow professional services</a>.</li>
 </ol>
 
-<h2 id='bringing_the_method_to_life_a_realworld_example'>Bringing the method to life: a real-world example</h2>
+<p>What became clear very quickly was that only a minority of visitors to the Snowplow site were interested in chatting. However, the &#8220;usefulness&#8221; of those chats was very high - already two professional services contracts have been won off the back of initial conversations powered by Olark. And in addition, we learnt a lot about where out content needs clarifying.</p>
 
-<p>We applied the above methodology to <a href='http://www.psychicbazaar.com/index.php'>Psychic Bazaar</a>, an online retailer in the esoteric space. The good folks at Psychic Bazaar have kindly allowed us to share the implementation guide, so you can see the approach in action. Psychic Bazaar is in the process of implementing Google Tag Manager. However, the approach outlined is tag manager agnostic: if they implemented OpenTag instead, then references to the <code>dataLayer</code> would be replaced to references to the <code>Universal Variable</code> - the actual data and structure of the data would remain unchanged.</p>
-<a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'><img src='/static/img/tag-management/gtm-spec-title-page.JPG' /></a>
-<h2 id='want_help_implementing_a_tag_management_solution'>Want help implementing a tag management solution?</h2>
+<p>The testing of Olark to date has been qualitative however. Longer term, we want to assess the value Olark adds quantitatively. To do this, naturally, we turn to Snowplow. We want to track Olark chat events in Snowplow, so that we can then analyze the Snowplow data to understand:</p>
 
-<p>The Snowplow <a href='/services/index.html'>Professional Services team</a> can produce implementation guides like <a href='/static/pdf/google-tag-manager-implementation-specification-for-psychic-bazaar.pdf'>the one for Psychic Bazaar</a>. If you are implementing a tag management solution, either as part of a Snowplow implementation or not, and and would like assistance, then <a href='/about/index.html'>get in touch</a>.</p>
+<ol>
+<li>The type of user behaviour on the site that typically leads up to a user reaching out to us on Olark</li>
+
+<li>The type of user behaviour on the site that leads to a user being responsive to us reaching out to them via Olark</li>
+
+<li>What impact do conversation on Olark have on the visitors subsequent browsing behaviour (and likelihood to start using Snowplow and buying Snowplow professional services)?</li>
+
+<li>How good (quick) we are at responding to visitors reaching out to us via Olark</li>
+</ol>
+
+<p>In this blog post, we will describe how we used <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>Snowplow structured events</a> to track Olark chat events. In a future blog post, we will analyse the data collected in Snowplow, to show how to answer the four questions outlined above. (We&#8217;ll write this once we&#8217;ve been running Olark for a while, so have a good data set to use to peform the analysis.)</p>
+<!--more-->
+<h2 id='tracking_olark_chat_events_in_snowplow'>Tracking Olark chat events in Snowplow</h2>
+
+<p>Olark provides an easy-to-use Javascript API, that lets us call our own Javascript functions when an Olark chat event happens. There are two that are relevant for us - an event that fires when a visitor pings a message to an &#8220;operator&#8221; (i.e. the Snowplow team) via the Olark client:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+    <span class='c1'>// our custom function here</span>
+<span class='p'>});</span>
+</code></pre></div>
+<p>&#8230;and an event that fires when an operator pings a message to a visitor:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+    <span class='c1'>// our custom function here</span>
+<span class='p'>});</span>
+</code></pre></div>
+<p>We&#8217;re running Google Tag Manager on the Snowplow website, so we want to push an event into the GTM dataLayer when a chat event happens, so that that event is visible to Snowplow tags configured in GTM. To do this, we add the following Javascript to our page template:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+    <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToOperator&#39;</span><span class='p'>});</span>
+<span class='p'>});</span>
+
+<span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
+    <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToVisitor&#39;</span><span class='p'>});</span>
+<span class='p'>});</span>
+</code></pre></div>
+<p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event</a> when a visitor messages the operator:</p>
+
+<p><img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /></p>
+
+<p>Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:</p>
+<div class='highlight'><pre><code class='html'><span class='c'>&lt;!-- Snowplow event tracking --&gt;</span>
+<span class='nt'>&lt;script </span><span class='na'>type=</span><span class='s'>&quot;text/javascript&quot;</span><span class='nt'>&gt;</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.snplow.com&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackStructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;contact&#39;</span><span class='p'>,</span> <span class='s1'>&#39;olark_chat&#39;</span><span class='p'>,</span> <span class='s1'>&#39;message_to_operator&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>]);</span>
+<span class='nt'>&lt;/script&gt;</span>
+</code></pre></div>
+<p>Secondly, we&#8217;ve created a rule that fires the tag when an event occurs in the dataLayer called &#8216;olarkMessageToOperator&#8217;. This is triggered by Javascript that we added to out page template.</p>
+
+<p>Now that our first tag is setup, we need to create an analogous tag, but one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:</p>
+
+<p><img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /></p>
+
+<p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular data a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&#8217;ll be able to analyse when someone pings us:</p>
+
+<ul>
+<li>How quickly we respond to messages from visitors</li>
+
+<li>When visitors respond to messages from us. (When should we reach out, and when shouldn&#8217;t we)</li>
+
+<li>What impact chats on Olark have, in aggregate on visitor&#8217;s subsequent behaviour on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)</li>
+</ul>
+
+<p>We&#8217;ll cover how to perform the above analysis in a future blog post.</p>
+
+<p><a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>struct-events</a></p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

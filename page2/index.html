@@ -63,6 +63,17 @@
 	
 		<div id="contents">
 	
+		<a name="Performing market basket analysis on web analytics data with R" />
+		<div class="post">
+			20 May 2013
+			<h1><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We have just added a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>new recipe</a> to the <a href='/analytics/index.html'>Analytics Cookbook</a>: one that walks through the process of performing a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behaviour. The recipe covers performing the analysis on Snowplow data using <a href='http://www.r-project.org/'>R</a> and the <a href='http://cran.r-project.org/web/packages/arules/index.html'>arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I&#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
+<p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /></p>
+<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&#8217;s <em>users who bought this product also bought these items</em>&#8230;</p>
+<p class='more'><a href='/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow'>Read the rest of this entry</a></p>
+		</div>
+	
 		<a name="Snowplow 0.8.4 released" />
 		<div class="post">
 			16 May 2013
@@ -176,40 +187,6 @@
 <p class='more'><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from'>Read the rest of this entry</a></p>
 		</div>
 	
-		<a name="Snowplow 0.8.2 released" />
-		<div class="post">
-			08 May 2013
-			<h1><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
-
-<p>Many thanks to community member <a href='https://github.com/butlermh'>Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
-
-<p>This release bumps the Clojure Collector to version <strong>0.4.0</strong>. There are three main changes to the Collector:</p>
-
-<ol>
-<li>Building the Collector&#8217;s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
-
-<li>We have fixed a bug (<a href='https://github.com/snowplow/snowplow/issues/220'>#220</a>) where occasionally the Collector&#8217;s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
-
-<li>Some code tidy-up, including making the Clojure Collector work with newer versions of Leiningen</li>
-</ol>
-
-<p>To upgrade to this release:</p>
-
-<ol>
-<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
-
-<li>Log in to your Amazon Elastic Beanstalk console</li>
-
-<li>Browse to your Collector&#8217;s application</li>
-
-<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
-</ol>
-
-<p>And that should be it. Thanks again to Mark for his contribution to this release - and we&#8217;re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -229,6 +206,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+		
 			<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 		
 			<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
@@ -237,14 +216,14 @@
 		
 			<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 		
-			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
 				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
@@ -253,8 +232,6 @@
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -357,7 +334,10 @@
 		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
 		<script type="text/javascript">
 		olark('api.chat.onMessageToOperator', function(event) {
-		    dataLayer.push({'event': 'olarkChat'});
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
 		});
 		</script>
 		<!-- end track olark code -->

@@ -95,6 +95,8 @@
 	<h2>Latest from the blog</h2>
 	<ul>
 		
+		<li><a href='/blog/2013/06/05/tracking-olark-chat-events-with-snowplow'>Tracking Olark chat events with Snowplow</a> <abbr>05 Jun 2013</abbr></li>
+		
 		<li><a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements'>Snowplow 0.8.6 released with performance improvements</a> <abbr>03 Jun 2013</abbr></li>
 		
 		<li><a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem'>Dealing with Hadoop's small files problem</a> <abbr>30 May 2013</abbr></li>
@@ -104,8 +106,6 @@
 		<li><a href='/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing'>Measuring how much traffic individual items in your catalog drive to your website</a> <abbr>22 May 2013</abbr></li>
 		
 		<li><a href='/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow'>Performing market basket analysis on web analytics data with R</a> <abbr>20 May 2013</abbr></li>
-		
-		<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Snowplow 0.8.4 released with MaxMind geo-IP lookups</a> <abbr>16 May 2013</abbr></li>
 		
 	</ul>			
 </div><div class='column'>
@@ -154,7 +154,10 @@
 		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
 		<script type="text/javascript">
 		olark('api.chat.onMessageToOperator', function(event) {
-		    dataLayer.push({'event': 'olarkChat'});
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
 		});
 		</script>
 		<!-- end track olark code -->

@@ -248,6 +248,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+		
 			<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 		
 			<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
@@ -256,14 +258,14 @@
 		
 			<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 		
-			<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
 				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
@@ -272,8 +274,6 @@
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/01/18/using-snowplow-with-qubit-opentag">Implementing Snowplow with QuBit's OpenTag</a></li>
 			
 		
 		</ul>		
@@ -377,7 +377,10 @@
 		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
 		<script type="text/javascript">
 		olark('api.chat.onMessageToOperator', function(event) {
-		    dataLayer.push({'event': 'olarkChat'});
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
 		});
 		</script>
 		<!-- end track olark code -->

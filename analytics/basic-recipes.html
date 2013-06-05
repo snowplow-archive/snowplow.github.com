@@ -2011,7 +2011,10 @@
 		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
 		<script type="text/javascript">
 		olark('api.chat.onMessageToOperator', function(event) {
-		    dataLayer.push({'event': 'olarkChat'});
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
 		});
 		</script>
 		<!-- end track olark code -->

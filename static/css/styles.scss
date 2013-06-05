@@ -7,6 +7,16 @@ $darkblue: #162B4F;
 $lightgrey: #ECECEC;
 $darkgrey: #DCDCE9;
 $white: #FFFFFF;
+$a5: #1F294D;
+$a4: #4C5471;
+$a3: #797F94;
+$a2: #A5A9B8;
+$a1: #D2D4DB;
+$b5: #2E469A;
+$b4: #586BAE;
+$b3: #8290C2;
+$b2: #ACB5D6;
+$b1: #D5DAEB;
 
 /* 
  * General page layout 
@@ -21,14 +31,14 @@ $white: #FFFFFF;
 
 	font-family: Helvetica, arial, freesans, clean, sans-serif;
 	/* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
-	color: $darkblue;
+	color: $a4;
 	font-size: 13px;
 	
-	h1 { font-size: 18px; margin-top: 14px;}
-	h2 { font-size: 16px; margin-top: 12px;}
-	h3 { font-size: 14px; margin-top: 12px;}
+	h1 { font-size: 18px; margin-top: 14px; color: $a5;}
+	h2 { font-size: 16px; margin-top: 12px; color: $a5;}
+	h3 { font-size: 14px; margin-top: 12px; color: $a5;}
 	p  { font-size: 13px; }
-	a  { text-decoration: none; }
+	a  { text-decoration: none; color: $b5; }
 	a:hover { text-decoration: underline; }
 
 	.shortcolumn {
@@ -44,7 +54,7 @@ $white: #FFFFFF;
 		padding-right: 10px;
 		padding-top: 10px;
 		padding-bottom: 10px;
-		background-color: $lightgrey;
+		background-color: $a1;
 
 		h2 {
 			margin-top: 10px;
@@ -69,7 +79,7 @@ $white: #FFFFFF;
 		padding-right: 10px;
 		padding-top: 10px;
 		padding-bottom: 10px;
-		background-color: $lightgrey;
+		background-color: $a1;
 
 
 		h2 {
@@ -86,7 +96,7 @@ $white: #FFFFFF;
 		width: 250px;
 		height: 30px;
 		line-height: 30px; /* To vertically center text */
-		background-color: $lightgrey;
+		background-color: $a1;
 		padding-top: 0px;
 		padding-bottom: 0px;
 		padding-left: 0px;
@@ -97,18 +107,18 @@ $white: #FFFFFF;
 		font-weight: bold;
 		border-width: 1px;
 		border-style: solid;
-		border-color: $darkblue;
+		border-color: $a5;
 		a {
-			color: $darkblue;
+			color: $a5;
 			text-decoration: none;
 			width: 250px; /* Make as wide as button to maximize clickable area */
 			height: 30px; /* Make as high as button to maximize clickable area */
 			float: left;
 		}
 		&:hover {
-			background: $darkblue;
+			background: $a5;
 			a {
-				color: $white;
+				color: $a1;
 			}
 		}
 	}
@@ -128,10 +138,10 @@ $white: #FFFFFF;
 	#generateTagForm {
 		width: 650px;
 		border: 2px;
-		border-color: $darkblue;
+		border-color: $a5;
 
 		fieldset {
-			background-color: $lightgrey;
+			background-color: $a2;
 			border: 0;
 			margin-top: 2px;
 			margin-bottom: 2px;
@@ -152,7 +162,7 @@ $white: #FFFFFF;
 	}
 
 	.author {
-		color: $lightblue;
+		color: $a3;
 		font-size: 11px;
 		font-style: italic;
 	}
@@ -167,7 +177,7 @@ $white: #FFFFFF;
 	margin-top: 10px;
 	margin-left: 10px;
 	padding: 10px 10px 10px 10px;
-	background-color: $lightgrey;
+	background-color: $a1;
 	font-size: 12px;
 
 	h1 {
@@ -214,7 +224,7 @@ $white: #FFFFFF;
 		margin-top: 10px;
 		margin-bottom: 10px;
 		thead {
-			background-color: $lightgrey;
+			background-color: $a1;
 			th {
 				font-size: 12px;
 				text-align: left;
@@ -271,7 +281,7 @@ $white: #FFFFFF;
 	height: 50px;
 	border-bottom-style: solid ;
 	border-bottom-width: 1px;	
-	border-right-color: $darkgrey;
+	border-right-color: $a3;
 	margin-bottom: 20px;
 
 	#logo {
@@ -310,20 +320,20 @@ $white: #FFFFFF;
 			height: 20px;
 			float: left;
 			margin-left: 10px;
-			background-color: $lightgrey;
+			background-color: $a1;
 			text-align: center;
 			font-size: 13px;
 			border-width: 1px; 
 			border-style: solid; 
-			border-color: $darkgrey;
+			border-color: $a1;
 			&:hover { 
-				background: $darkblue;
+				background: $a5;
 				a {
-					color: $white;
+					color: $a1;
 				}
 			}
 			a {
-				color: $darkblue;
+				color: $a5;
 				text-decoration: none;
 				float: left;
 				width: 100px; /* Mqke the clickable area as wide as possible */
@@ -331,11 +341,11 @@ $white: #FFFFFF;
 		}
 
 		li.active {
-			background-color: $darkblue;
-			border-color: $darkblue; 
+			background-color: $a5;
+			border-color: $a5; 
 			
 			a {
-				color: $white;		
+				color: $a1;		
 			}
 		}
 
@@ -349,7 +359,7 @@ $white: #FFFFFF;
 	height: 30px;
 	border-top-style: solid ;
 	border-top-width: 1px;	
-	border-top-color: $darkblue;
+	border-top-color: $a5;
 	margin-top: 40px;
 	text-align: center;
 
@@ -367,12 +377,12 @@ $white: #FFFFFF;
 	width: 90%;
 	margin-top: 10px;
 	margin-bottom: 30px;
-	background-color: $lightgrey;
+	background-color: $a1;
 	padding: 20px 20px 20px 20px;
 	/*
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
-	border-bottom-color: $darkblue;
+	border-bottom-color: $a5;
 	*/
 
 	p.note {
@@ -380,7 +390,7 @@ $white: #FFFFFF;
 	}
 
 	.author_summary {
-		background-color: $white;
+		background-color: $a1;
 		width: 628px;
 		height: 100px;
 		padding-top: 1px;

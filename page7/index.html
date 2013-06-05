@@ -46,8 +46,7 @@
 	<div id="container">
 		<div id="header" class="span-24">
   <div id="logo">
-    <h1><a href="/">Snowplow</a></h1>
-    <p>Your web analytics data in your hands</p>
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
   </div>
   <div id="menu" class="span-15">
     <ul>
@@ -69,7 +68,7 @@
 			<h1><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>Since the launch of <a href='https://www.google.com/tagmanager/'>Google Tag Manager</a>, a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it <a href='https://www.google.com/tagmanager/'>GTM</a> or <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a> or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example.</p>
-<img src='/static/img/tag-management/tag-management-schematic.gif' width='320' />
+<img width='320' src='/static/img/tag-management/tag-management-schematic.gif' />
 <h2 id='why_is_it_important_to_define_at_implementation_time_what_data_to_pass_to_your_tag_manager'>Why is it important to define, at implementation time, what data to pass to your tag manager?</h2>
 
 <p>One of the things we hear a lot from proponents of tag management (especially from web analyts) is that they make it easy to capture data from web pages. Indeed, the <em>best</em> solutions enable analysts with no development knowledge to identify and capture new data points, to pass onto their web analytics program, without any programming knowledge, using snazzy drag-and-drop UIs.</p>
@@ -93,7 +92,7 @@
 
 <p>We thought it might be interesting to share the <a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;repo=snowplow'>Red Dwarf heatmap</a> of where our 202 GitHub stars are located across the world:</p>
 
-<p><img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /></p>
+<p><img alt='heatmap' src='/static/img/blog/2013/01/snowplow-stars-at-202.png' /></p>
 
 <p>Beyond the &#8220;hot spots&#8221; in the US and Europe, it&#8217;s encouraging to see growing interest in Snowplow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!</p>
 		</div>
@@ -115,7 +114,7 @@
 <li>A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve Snowplow tracking tags where we see the opportunity, safe in the knowledge that we&#8217;re not causing our clients too much difficulty to upgrade their tags.</li>
 </ol>
 
-<p><img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /></p>
+<p><img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /></p>
 
 <p>We were eager, having integrated Snowplow with GTM, to integrate it with an open source tag management system. After all, a big selling point of Snowplow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a>, and that we have finally documented <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'>how to integrate it with Snowplow</a>.</p>
 
@@ -261,23 +260,6 @@
 		
 		</ul>		
 	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -291,6 +273,23 @@
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
 				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
 		
 		</ul>		

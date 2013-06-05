@@ -12,21 +12,25 @@
   clear: both;
   font-family: Helvetica, arial, freesans, clean, sans-serif;
   /* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
-  color: #162b4f;
+  color: #4c5471;
   font-size: 13px; }
   #container h1 {
     font-size: 18px;
-    margin-top: 14px; }
+    margin-top: 14px;
+    color: #1f294d; }
   #container h2 {
     font-size: 16px;
-    margin-top: 12px; }
+    margin-top: 12px;
+    color: #1f294d; }
   #container h3 {
     font-size: 14px;
-    margin-top: 12px; }
+    margin-top: 12px;
+    color: #1f294d; }
   #container p {
     font-size: 13px; }
   #container a {
-    text-decoration: none; }
+    text-decoration: none;
+    color: #2e469a; }
   #container a:hover {
     text-decoration: underline; }
   #container .shortcolumn {
@@ -42,7 +46,7 @@
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #ececec; }
+    background-color: #d2d4db; }
     #container .shortcolumn h2 {
       margin-top: 10px; }
     #container .shortcolumn li {
@@ -60,7 +64,7 @@
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #ececec; }
+    background-color: #d2d4db; }
     #container .column h2 {
       margin-top: 10px; }
     #container .column li {
@@ -70,7 +74,7 @@
     height: 30px;
     line-height: 30px;
     /* To vertically center text */
-    background-color: #ececec;
+    background-color: #d2d4db;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-left: 0px;
@@ -81,9 +85,9 @@
     font-weight: bold;
     border-width: 1px;
     border-style: solid;
-    border-color: #162b4f; }
+    border-color: #1f294d; }
     #container .big-button a {
-      color: #162b4f;
+      color: #1f294d;
       text-decoration: none;
       width: 250px;
       /* Make as wide as button to maximize clickable area */
@@ -91,9 +95,9 @@
       /* Make as high as button to maximize clickable area */
       float: left; }
     #container .big-button:hover {
-      background: #162b4f; }
+      background: #1f294d; }
       #container .big-button:hover a {
-        color: white; }
+        color: #d2d4db; }
   #container #left-button {
     display: inline;
     float: left;
@@ -105,9 +109,9 @@
   #container #generateTagForm {
     width: 650px;
     border: 2px;
-    border-color: #162b4f; }
+    border-color: #1f294d; }
     #container #generateTagForm fieldset {
-      background-color: #ececec;
+      background-color: #a5a9b8;
       border: 0;
       margin-top: 2px;
       margin-bottom: 2px;
@@ -121,7 +125,7 @@
       margin-top: 3px;
       margin-bottom: 3px; }
   #container .author {
-    color: #00679d;
+    color: #797f94;
     font-size: 11px;
     font-style: italic; }
 
@@ -133,7 +137,7 @@
   margin-top: 10px;
   margin-left: 10px;
   padding: 10px 10px 10px 10px;
-  background-color: #ececec;
+  background-color: #d2d4db;
   font-size: 12px; }
   #sidebar h1 {
     font-size: 13px;
@@ -168,7 +172,7 @@
     margin-top: 10px;
     margin-bottom: 10px; }
     #contents table thead {
-      background-color: #ececec; }
+      background-color: #d2d4db; }
       #contents table thead th {
         font-size: 12px;
         text-align: left;
@@ -210,7 +214,7 @@
   height: 50px;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  border-right-color: #dcdce9;
+  border-right-color: #797f94;
   margin-bottom: 20px; }
   #header #logo {
     display: inline;
@@ -237,27 +241,27 @@
       height: 20px;
       float: left;
       margin-left: 10px;
-      background-color: #ececec;
+      background-color: #d2d4db;
       text-align: center;
       font-size: 13px;
       border-width: 1px;
       border-style: solid;
-      border-color: #dcdce9; }
+      border-color: #d2d4db; }
       #header #menu li:hover {
-        background: #162b4f; }
+        background: #1f294d; }
         #header #menu li:hover a {
-          color: white; }
+          color: #d2d4db; }
       #header #menu li a {
-        color: #162b4f;
+        color: #1f294d;
         text-decoration: none;
         float: left;
         width: 100px;
         /* Mqke the clickable area as wide as possible */ }
     #header #menu li.active {
-      background-color: #162b4f;
-      border-color: #162b4f; }
+      background-color: #1f294d;
+      border-color: #1f294d; }
       #header #menu li.active a {
-        color: white; }
+        color: #d2d4db; }
 
 #footer {
   display: block;
@@ -266,7 +270,7 @@
   height: 30px;
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-color: #162b4f;
+  border-top-color: #1f294d;
   margin-top: 40px;
   text-align: center; }
   #footer p {
@@ -278,17 +282,17 @@
   width: 90%;
   margin-top: 10px;
   margin-bottom: 30px;
-  background-color: #ececec;
+  background-color: #d2d4db;
   padding: 20px 20px 20px 20px;
   /*
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  border-bottom-color: $darkblue;
+  border-bottom-color: $a5;
   */ }
   .post p.note {
     font-size: 8px; }
   .post .author_summary {
-    background-color: white;
+    background-color: #d2d4db;
     width: 628px;
     height: 100px;
     padding-top: 1px;

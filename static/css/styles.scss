@@ -25,8 +25,8 @@ $white: #FFFFFF;
 	font-size: 13px;
 	
 	h1 { font-size: 18px; margin-top: 14px;}
-	h2 { font-size: 16px; margin-top: 20px;}
-	h3 { font-size: 14px; margin-top: 20px;}
+	h2 { font-size: 16px; margin-top: 12px;}
+	h3 { font-size: 14px; margin-top: 12px;}
 	p  { font-size: 13px; }
 	a  { text-decoration: none; }
 	a:hover { text-decoration: underline; }
@@ -255,6 +255,11 @@ $white: #FFFFFF;
 		width: 600px;
 		float: left;
 	}
+
+	.author_spiel {
+		margin-bottom: 10px;
+		font-style: italic;
+	}
 	
 }
 
@@ -372,6 +377,36 @@ $white: #FFFFFF;
 
 	p.note {
 		font-size: 8px; 
+	}
+
+	.author_summary {
+		background-color: $white;
+		width: 628px;
+		height: 100px;
+		padding-top: 1px;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-bottom: 30px;
+
+
+		.author_image {
+			height: 60px;
+			width: 60px;
+			display: inline;
+			float: left;
+			margin-left: 10px;
+		}
+
+		.author_spiel {
+			width: 500px;
+			float: left;
+			margin-left: 10px;
+		}
+
+		h2 {
+			margin-left: 10px;
+			margin-top: 5px;
+		}
 	}
 
 }

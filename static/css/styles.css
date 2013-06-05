@@ -19,10 +19,10 @@
     margin-top: 14px; }
   #container h2 {
     font-size: 16px;
-    margin-top: 20px; }
+    margin-top: 12px; }
   #container h3 {
     font-size: 14px;
-    margin-top: 20px; }
+    margin-top: 12px; }
   #container p {
     font-size: 13px; }
   #container a {
@@ -198,6 +198,9 @@
     display: inline;
     width: 600px;
     float: left; }
+  #contents .author_spiel {
+    margin-bottom: 10px;
+    font-style: italic; }
 
 #header {
   display: block;
@@ -284,6 +287,27 @@
   */ }
   .post p.note {
     font-size: 8px; }
+  .post .author_summary {
+    background-color: white;
+    width: 628px;
+    height: 100px;
+    padding-top: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px; }
+    .post .author_summary .author_image {
+      height: 60px;
+      width: 60px;
+      display: inline;
+      float: left;
+      margin-left: 10px; }
+    .post .author_summary .author_spiel {
+      width: 500px;
+      float: left;
+      margin-left: 10px; }
+    .post .author_summary h2 {
+      margin-left: 10px;
+      margin-top: 5px; }
 
 /* Pygments for code highlighting */
 .highlight pre {

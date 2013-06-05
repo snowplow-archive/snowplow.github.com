@@ -65,7 +65,7 @@
 		<div class="post">
 			11 Oct 2012
 			<h1>Snowplow 0.4.10 released</h1>
-			 <span class="author">Author: <a href="/alex.html?rel=author">Alex Dean </a></span>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
 			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
 
 <ol>
@@ -119,6 +119,13 @@
 <p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don&#8217;t explicitly query a new field.</p>
 
 <p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we&#8217;ll take advantage of this to improve backwards compatibility for our events table!</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  Alex is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
 			<div id="comments">
 	<h2>Questions? Comments? Join the debate!</h2>
 	 <div id="disqus_thread"></div>
@@ -141,6 +148,7 @@
 </div>
 		</div>
 		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
 
 </div>
 

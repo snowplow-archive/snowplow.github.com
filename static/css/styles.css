@@ -257,7 +257,7 @@
         float: left;
         width: 100px;
         /* Mqke the clickable area as wide as possible */
-        margin-top: 3px; }
+        margin-top: 4px; }
     #header #menu li.active {
       background-color: #1f294d;
       border-color: #1f294d; }

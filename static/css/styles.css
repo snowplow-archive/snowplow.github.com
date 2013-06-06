@@ -208,6 +208,23 @@
     float: left; }
   #contents .author_spiel {
     margin-bottom: 10px; }
+  #contents table {
+    color: #2e469a;
+    border-width: 1px;
+    border-color: #acb5d6;
+    border-collapse: collapse; }
+  #contents table th {
+    color: #d5daeb;
+    background: #2e469a;
+    border-width: 1px;
+    border-color: #acb5d6; }
+  #contents table td {
+    background: #d5daeb;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #acb5d6; }
+    #contents table td ul {
+      padding-left: 10px; }
 
 #header {
   display: block;

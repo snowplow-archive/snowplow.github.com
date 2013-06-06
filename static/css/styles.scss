@@ -272,6 +272,31 @@ $b1: #D5DAEB;
 	.author_spiel {
 		margin-bottom: 10px;
 	}
+
+	table {
+		color: $b4;
+		border-width: 1px;
+		border-color: $b2;
+		border-collapse: collapse;
+	}
+
+	table th {
+		color: $b1;
+		background: $b5;
+		border-width: 1px;
+		border-color: $b2;
+	}
+
+	table td {
+		background: $b1;
+		border-width: 1px;
+		border-style: solid;
+		border-color: $b2;
+
+		ul {
+			padding-left: 10px;
+		}
+	}
 	
 }
 

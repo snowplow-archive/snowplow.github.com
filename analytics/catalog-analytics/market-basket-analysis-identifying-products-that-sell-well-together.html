@@ -152,8 +152,8 @@
 <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
 </code></pre></div>
 <p>We can pull this data directly into R from R. (For assistance setting up R to use with Snowplow, see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.) First, we load up R, and connect R to our Snowplow table in Redshift by entering the following at the R prompt:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;RPostgreSQL&quot;)</span>
-<span class='go'>con &lt;- dbConnect(drv, host=&quot;&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;&quot;, port=&quot;&lt;&lt;PORT NUMBER&gt;&gt;&quot;, dbname=&quot;&lt;&lt;DBNAME&gt;&gt;&quot;, user=&quot;&lt;&lt;USERNAME&gt;&gt;&quot;, password=&quot;&lt;&lt;PASSWORD&gt;&gt;&quot;)</span>
+<div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
+con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PORT NUMBER&gt;&gt;&quot;</span><span class='p'>,</span> dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;DBNAME&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;USERNAME&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PASSWORD&gt;&gt;&quot;</span><span class='p'>)</span>
 </code></pre></div>
 <p>(Be sure to substitute appropriate values for <code>&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;</code> <code>&lt;&lt;PORT NUMBER&gt;&gt;</code>, <code>&lt;&lt;DBNAM&gt;&gt;</code> and <code>&lt;&lt;USERNAME&gt;&gt;</code>.</p>
 
@@ -169,31 +169,31 @@
 <span class='s'>&quot;</span><span class='p'>)</span>
 </code></pre></div>
 <p>We can take a peak at the first five records on our data frame by executing</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>head(t)</span>
+<div class='highlight'><pre><code class='r'>head<span class='p'>(</span>t<span class='p'>)</span>
 </code></pre></div>
 <p><img alt='viewing-the-initial-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/1.JPG' /></p>
 
 <p>Note how each line of data represents a single line item, so that the first transaction (which includes two items) spans two lines.</p>
 
 <p>Now we need to records lines by transaction id, so that the individual products that belong to each transaction are aggregated across records into a single record as an array of products. This is done by executing the following at the R prompt:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>i &lt;- split(t$sku, t$transaction_id)</span>
+<div class='highlight'><pre><code class='r'>i <span class='o'>&lt;-</span> split<span class='p'>(</span>t<span class='o'>$</span>sku<span class='p'>,</span> t<span class='o'>$</span>transaction_id<span class='p'>)</span>
 </code></pre></div>
 <p>Again, we can peak at our data by executing <code>head(i)</code> at the prompt:</p>
 
 <p><img alt='viewing-the-aggregated-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/2.JPG' /></p>
 
 <p>Now we convert the data into a &#8220;Transaction&#8221; object optimized for running the arules algorithm:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;arules&quot;)</span>
-<span class='go'>txn &lt;- as(i, &quot;transactions&quot;)</span>
+<div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arules&quot;</span><span class='p'>)</span>
+txn <span class='o'>&lt;-</span> as<span class='p'>(</span>i<span class='p'>,</span> <span class='s'>&quot;transactions&quot;</span><span class='p'>)</span>
 </code></pre></div>
 <p>Finally, we can run our algorithm:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>basket_rules &lt;- apriori(txn, parameter = list(sup = 0.005, conf = 0.01, target=&quot;rules&quot;))</span>
+<div class='highlight'><pre><code class='r'>basket_rules <span class='o'>&lt;-</span> apriori<span class='p'>(</span>txn<span class='p'>,</span> parameter <span class='o'>=</span> list<span class='p'>(</span>sup <span class='o'>=</span> <span class='m'>0.005</span><span class='p'>,</span> conf <span class='o'>=</span> <span class='m'>0.01</span><span class='p'>,</span> target<span class='o'>=</span><span class='s'>&quot;rules&quot;</span><span class='p'>))</span>
 </code></pre></div>
 <p>When running the rule, we set minimum support and confidence thresholds, below which R ignores any rules. These are used to optimize the running of the algorithm: figuring out association rules can be compulationally expensive, because for a company with a large catalogue of items, the number of combinations of items is <em>enormous</em> (it increases exponentially with the number of items). Hence, anything we give the algorithm to minimize the computational burden is welcome.</p>
 
 <p>In our case, we&#8217;ve given low figures for support and confidence. This is because our test example is based on a long tail retailer, who offers more than 10k SKUs, against which c.90k purchases have been made. The maximum support any one of the products has is very low: this can be confirmed by plotting the relative frequency of each item (i.e. the fraction of transactions) for the top 25 items by item frequency (i.e. the fraction of transactions that each item appears in). This can be done by running:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'> </span>
-<span class='go'>itemFrequencyPlot(txn, topN = 25)</span>
+<div class='highlight'><pre><code class='r'> 
+itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span class='o'>=</span> <span class='m'>25</span><span class='p'>)</span>
 </code></pre></div>
 <p>In which case the following plot was produced:</p>
 
@@ -204,7 +204,7 @@
 <p>In your case the distribution of items by transaction might look very different, and so very different support and confidence parameters may be applicable. To determine what works best, you need to experiment with different parameters: you&#8217;ll see that as you reduce them, the number of rules generated will increase, which will give you more to work with. However, you&#8217;ll need to sift through the rules more carefully to identify those that will be more impactful for your business. We return to this theme in the <a href='#arulesviz'>next section</a>.</p>
 
 <p>Lastly, let&#8217;s inspect the actual rules generated by the algorithm:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>inspect(basket_rules)</span>
+<div class='highlight'><pre><code class='r'>inspect<span class='p'>(</span>basket_rules<span class='p'>)</span>
 </code></pre></div>
 <p><img alt='basket_rules' src='/static/img/analytics/catalog-analytics/market-basket-analysis/4.JPG' /></p>
 
@@ -217,15 +217,15 @@
 <p>In the previous example we set the parameters for support and confidence so that only a small set of rules were returned. As mentioned, however, it is often better to return a larger set, to increase the chances that we generate more relevant rules for our business.</p>
 
 <p>Let&#8217;s rerun the algorithm, but this time reduce our parameters for support and confidence, and save the result set into a different object:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>basket_rules_broad &lt;- apriori(txn, parameter = list(sup = 0.001, conf = 0.001, target=&quot;rules&quot;))</span>
+<div class='highlight'><pre><code class='r'>basket_rules_broad <span class='o'>&lt;-</span> apriori<span class='p'>(</span>txn<span class='p'>,</span> parameter <span class='o'>=</span> list<span class='p'>(</span>sup <span class='o'>=</span> <span class='m'>0.001</span><span class='p'>,</span> conf <span class='o'>=</span> <span class='m'>0.001</span><span class='p'>,</span> target<span class='o'>=</span><span class='s'>&quot;rules&quot;</span><span class='p'>))</span>
 </code></pre></div>
 <p>In our case, 3.2M rules were returned. This is way to many to visually inspect - however we can look at the top 20 by lift:</p>
 
 <p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/5.JPG' /></p>
 
 <p>We can plot our rules by confidence, support and lift, using the <code>arulesViz</code> package:</p>
-<div class='highlight'><pre><code class='rout'><span class='go'>library(&quot;arulesViz&quot;)</span>
-<span class='go'>plot(basket_rules_broad)</span>
+<div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arulesViz&quot;</span><span class='p'>)</span>
+plot<span class='p'>(</span>basket_rules_broad<span class='p'>)</span>
 </code></pre></div>
 <p>Our plot looks as follows:</p>
 

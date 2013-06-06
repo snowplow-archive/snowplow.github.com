@@ -181,7 +181,7 @@
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_input</span> <span class='o'>=</span> <span class='s2'>&quot;hdfs:///local/snowplow-logs&quot;</span>
 
 <span class='c1'># Create the Hadoop MR step for the file crushing</span>
-<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='ss'>Elasticity</span><span class='p'>:</span><span class='ss'>:CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3distcp_asset</span><span class='o'>]</span><span class='p'>)</span> <span class='c1'># s3distcp_asset is &quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span>
+<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='ss'>Elasticity</span><span class='p'>:</span><span class='ss'>:CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
 
 <span class='n'>filecrush_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
   <span class='s2'>&quot;--src&quot;</span>               <span class='p'>,</span> <span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:processing</span><span class='o'>]</span><span class='p'>,</span>

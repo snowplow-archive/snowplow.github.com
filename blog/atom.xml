@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-06-06T11:53:02+01:00</updated>
+  <updated>2013-06-06T14:38:14+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -314,7 +314,7 @@ $ git checkout 0.8.6&lt;/code&gt;&lt;/pre&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='n'&gt;hadoop_input&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;hdfs:///local/snowplow-logs&amp;quot;&lt;/span&gt;
 
 &lt;span class='c1'&gt;# Create the Hadoop MR step for the file crushing&lt;/span&gt;
-&lt;span class='n'&gt;filecrush_step&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='ss'&gt;Elasticity&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt;&lt;span class='ss'&gt;:CustomJarStep&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;config&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='ss'&gt;:s3distcp_asset&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='c1'&gt;# s3distcp_asset is &amp;quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;filecrush_step&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='ss'&gt;Elasticity&lt;/span&gt;&lt;span class='p'&gt;:&lt;/span&gt;&lt;span class='ss'&gt;:CustomJarStep&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;new&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s2'&gt;&amp;quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; 
 
 &lt;span class='n'&gt;filecrush_step&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;arguments&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='o'&gt;[&lt;/span&gt;
   &lt;span class='s2'&gt;&amp;quot;--src&amp;quot;&lt;/span&gt;               &lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;config&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='ss'&gt;:s3&lt;/span&gt;&lt;span class='o'&gt;][&lt;/span&gt;&lt;span class='ss'&gt;:buckets&lt;/span&gt;&lt;span class='o'&gt;][&lt;/span&gt;&lt;span class='ss'&gt;:processing&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;

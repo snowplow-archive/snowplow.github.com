@@ -10,10 +10,11 @@
   margin-right: auto;
   margin-left: auto;
   clear: both;
-  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  /* font-family: Helvetica, arial, freesans, clean, sans-serif; */
   /* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #4c5471;
-  font-size: 13px; }
+  font-size: 14px; }
   #container h1 {
     font-size: 18px;
     margin-top: 14px;
@@ -23,14 +24,15 @@
     margin-top: 12px;
     color: #1f294d; }
   #container h3 {
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 12px;
     color: #1f294d; }
   #container p {
-    font-size: 13px; }
+    font-size: 14px; }
   #container a {
     text-decoration: none;
-    color: #2e469a; }
+    color: #2e469a;
+    font-weight: bold; }
   #container a:hover {
     text-decoration: underline; }
   #container .shortcolumn {
@@ -138,9 +140,9 @@
   margin-left: 10px;
   padding: 10px 10px 10px 10px;
   background-color: #d2d4db;
-  font-size: 12px; }
+  font-size: 13px; }
   #sidebar h1 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
     margin-top: 15px; }
   #sidebar ul {
@@ -151,7 +153,7 @@
     #sidebar ul li {
       margin-bottom: 3px; }
   #sidebar a {
-    font-size: 12px;
+    font-size: 13px;
     text-decoration: none;
     font-weight: normal; }
     #sidebar a:hover {
@@ -174,7 +176,7 @@
     #contents table thead {
       background-color: #d2d4db; }
       #contents table thead th {
-        font-size: 12px;
+        font-size: 14px;
         text-align: left;
         padding-left: 10px;
         padding-right: 10px; }
@@ -182,11 +184,11 @@
       text-align: left;
       padding-left: 10px;
       padding-right: 10px;
-      font-size: 12px; }
+      font-size: 13px; }
   #contents code {
     max-width: 720px; }
   #contents p {
-    font-size: 13px; }
+    font-size: 14px; }
   #contents a {
     text-decoration: none; }
   #contents .post_summary {
@@ -234,16 +236,16 @@
     width: 750px; }
     #header #menu ul {
       list-style-type: none;
-      margin-top: 28px; }
+      margin-top: 23px; }
     #header #menu li {
       display: inline;
       width: 100px;
-      height: 20px;
+      height: 25px;
       float: left;
       margin-left: 10px;
       background-color: #d2d4db;
       text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       border-width: 1px;
       border-style: solid;
       border-color: #d2d4db; }
@@ -256,7 +258,8 @@
         text-decoration: none;
         float: left;
         width: 100px;
-        /* Mqke the clickable area as wide as possible */ }
+        /* Mqke the clickable area as wide as possible */
+        margin-top: 3px; }
     #header #menu li.active {
       background-color: #1f294d;
       border-color: #1f294d; }
@@ -274,7 +277,7 @@
   margin-top: 40px;
   text-align: center; }
   #footer p {
-    font-size: 10px; }
+    font-size: 11px; }
 
 /* Blog */
 .post {

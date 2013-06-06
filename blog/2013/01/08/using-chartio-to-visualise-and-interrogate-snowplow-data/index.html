@@ -119,8 +119,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we join this table with the events table to list all the users who have visited each month and identify which of them has bought:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span>
@@ -143,8 +142,7 @@
 <span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='ss'>`month`</span>
 <span class='k'>AND</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>buyers</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we can aggregate over the results of the above query, calculating the conversion rate by dividing the number of buyers by the total number of visitors:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -173,8 +171,7 @@
 	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>visitors</span><span class='p'>.</span><span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>e</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span> 
-</code></pre>
-</div>
+</code></pre></div>
 <p>Pop the above query in the ChartIO query box:</p>
 
 <p><img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /></p>
@@ -197,8 +194,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we want to aggregate users by the number of pageviews each has done by month:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -214,8 +210,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Lastly we want to bucket values of page views e.g. into 1, 2-5, 6-10, 11-25 and 25+. We can introduce a bucketing into our previous query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -238,8 +233,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span> <span class='k'>ASC</span><span class='p'>,</span> <span class='n'>page_views</span> <span class='k'>DESC</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then aggregate by bucket in the next query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='ss'>`month`</span><span class='p'>,</span>
@@ -270,8 +264,7 @@
 <span class='p'>)</span> <span class='n'>u</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>bucket</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:</p>
 
 <p><img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /></p>
@@ -291,8 +284,7 @@
 <span class='k'>FROM</span> <span class='n'>events_004</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`month`</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And pop it on the dashboard:</p>
 
 <p><img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /></p>
@@ -326,8 +318,7 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>mkt_medium</span> <span class='o'>=</span> <span class='s1'>&#39;cpc&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Compare this with our data on which users have converted:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -335,16 +326,14 @@
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='n'>transaction</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And our list of <strong>all</strong> users:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
 <span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='n'>visitor</span>
 <span class='k'>FROM</span> <span class='n'>events_005</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We join the three data sets:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -375,8 +364,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span>
 	<span class='p'>)</span> <span class='n'>paid_search</span>
 <span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then aggregate over the result set to compare conversion rates:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 <span class='n'>paid_search</span><span class='p'>,</span>
@@ -413,8 +401,7 @@
 	<span class='k'>ON</span> <span class='n'>visitors</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
 	<span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>paid_search</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:</p>
 
 <p><img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /></p>
@@ -435,8 +422,7 @@
 <span class='p'>)</span> <span class='n'>paid_search</span>
 <span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>paid_search</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`month`</span><span class='p'>,</span> <span class='n'>paid_search</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was <strong>no</strong> increase in traffic from paid search terms between November and December, so this does <strong>not</strong> account for the rising conversion rate in December.</p>
 
 <p><img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /></p>
@@ -503,19 +489,19 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
-				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
 			
-				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
+				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
 			
 		
 		</ul>		
@@ -537,19 +523,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
-				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
+				<li><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></li>
 			
 		
 		</ul>		

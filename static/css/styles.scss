@@ -29,16 +29,17 @@ $b1: #D5DAEB;
 	margin-left: auto;
 	clear: both;
 
-	font-family: Helvetica, arial, freesans, clean, sans-serif;
+	/* font-family: Helvetica, arial, freesans, clean, sans-serif; */
 	/* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
+	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: $a4;
-	font-size: 13px;
+	font-size: 14px;
 	
 	h1 { font-size: 18px; margin-top: 14px; color: $a5;}
 	h2 { font-size: 16px; margin-top: 12px; color: $a5;}
-	h3 { font-size: 14px; margin-top: 12px; color: $a5;}
-	p  { font-size: 13px; }
-	a  { text-decoration: none; color: $b5; }
+	h3 { font-size: 15px; margin-top: 12px; color: $a5;}
+	p  { font-size: 14px; }
+	a  { text-decoration: none; color: $b5; font-weight: bold; }
 	a:hover { text-decoration: underline; }
 
 	.shortcolumn {
@@ -178,10 +179,10 @@ $b1: #D5DAEB;
 	margin-left: 10px;
 	padding: 10px 10px 10px 10px;
 	background-color: $a1;
-	font-size: 12px;
+	font-size: 13px;
 
 	h1 {
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: bold;
 		margin-top: 15px;
 	}
@@ -198,7 +199,7 @@ $b1: #D5DAEB;
 	}
 
 	a {
-		font-size: 12px;
+		font-size: 13px;
 		text-decoration: none;
 		font-weight: normal;
 
@@ -226,7 +227,7 @@ $b1: #D5DAEB;
 		thead {
 			background-color: $a1;
 			th {
-				font-size: 12px;
+				font-size: 14px;
 				text-align: left;
 				padding-left: 10px;
 				padding-right: 10px;
@@ -236,7 +237,7 @@ $b1: #D5DAEB;
 			text-align: left;
 			padding-left: 10px;
 			padding-right: 10px;
-			font-size: 12px;
+			font-size: 13px;
 		}
 	}
 
@@ -244,7 +245,7 @@ $b1: #D5DAEB;
 		max-width: 720px;
 	}
 	
-	p  { font-size: 13px; }
+	p  { font-size: 14px; }
 	a  { text-decoration: none; }
 
 	.post_summary {
@@ -311,18 +312,18 @@ $b1: #D5DAEB;
 		
 		ul {
 			list-style-type: none;
-			margin-top: 28px;
+			margin-top: 23px;
 		}
 
 		li {
 			display: inline;
 			width: 100px;
-			height: 20px;
+			height: 25px;
 			float: left;
 			margin-left: 10px;
 			background-color: $a1;
 			text-align: center;
-			font-size: 13px;
+			font-size: 14px;
 			border-width: 1px; 
 			border-style: solid; 
 			border-color: $a1;
@@ -337,6 +338,7 @@ $b1: #D5DAEB;
 				text-decoration: none;
 				float: left;
 				width: 100px; /* Mqke the clickable area as wide as possible */
+				margin-top: 3px;
 			}
 		}
 
@@ -364,7 +366,7 @@ $b1: #D5DAEB;
 	text-align: center;
 
 	p {
-		font-size: 10px;
+		font-size: 11px;
 	}
 
 }

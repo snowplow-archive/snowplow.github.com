@@ -209,7 +209,7 @@
   #contents .author_spiel {
     margin-bottom: 10px; }
   #contents table {
-    color: #2e469a;
+    color: #586bae;
     border-width: 1px;
     border-color: #acb5d6;
     border-collapse: collapse; }
@@ -303,13 +303,10 @@
   width: 90%;
   margin-top: 10px;
   margin-bottom: 30px;
-  background-color: #d2d4db;
   padding: 20px 20px 20px 20px;
-  /*
-  border-bottom-style: solid;
+  /* border-bottom-style: solid; */
   border-bottom-width: 1px;
-  border-bottom-color: $a5;
-  */ }
+  border-bottom-color: #8290c2; }
   .post p.note {
     font-size: 8px; }
   .post .author_summary {

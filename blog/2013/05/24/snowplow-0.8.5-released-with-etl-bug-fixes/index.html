@@ -125,10 +125,9 @@
 <h3 id='hadoop_etl'>Hadoop ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
-
-<pre><code>:snowplow:
-  :hadoop_etl_version: 0.3.1 # Version of the Hadoop ETL</code></pre>
-
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.1</span> <span class='c1'># Version of the Hadoop ETL</span>
+</code></pre></div>
 <h3 id='emretlrunner'>EmrEtlRunner</h3>
 
 <p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.5 release) on GitHub:</p>
@@ -151,10 +150,9 @@ $ git checkout 0.8.5</code></pre>
 <p>Running this script will create a new table, <code>events_009</code> (version 0.0.9 of the Infobright table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events_008</code> table, which will not be modified in any way.</p>
 
 <p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_009</code> table, not your old <code>events_008</code> table:</p>
-
-<pre><code>:storage:
-  :table:    events_009 # NOT &quot;events_008&quot; any more</code></pre>
-
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:storage</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span>    <span class='l-Scalar-Plain'>events_009</span> <span class='c1'># NOT &quot;events_008&quot; any more</span>
+</code></pre></div>
 <p>Done!</p>
 <h2><a name='help'>4. Getting help</a></h2>
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>

@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-06-06T17:43:10+01:00</updated>
+  <updated>2013-06-07T16:46:08+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -2513,7 +2513,11 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;That completes our article. If you would like to download the example code above as a working project, you can find it on GitHub here: https://github.com/snowplow/hive-example-udf&lt;/p&gt;
 
-&lt;p&gt;I hope to return with further articles about Hive and Hadoop in the future - potentially one on writing a custom serde - an area where we have a lot of experience at Snowplow Analytics.&lt;/p&gt;</content>
+&lt;p&gt;I hope to return with further articles about Hive and Hadoop in the future - potentially one on writing a custom serde - an area where we have a lot of experience at Snowplow Analytics.&lt;/p&gt;
+
+&lt;h2 id='looking_for_help_performing_analytics_or_developing_data_pipelines_using_hive_and_other_hadooppowered_tools'&gt;Looking for help performing analytics or developing data pipelines using Hive and other Hadoop-powered tools&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href='/services/pipelines.html'&gt;Learn more&lt;/a&gt; about services offered by the &lt;a href='/services/pipelines.html'&gt;Snowplow Professional Services team&lt;/a&gt;.&lt;/p&gt;</content>
   </entry>
   
   <entry>
@@ -4506,13 +4510,9 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
-&lt;a name='what' /&gt;
-&lt;h2 id='1_what_changes_has_google_announced'&gt;1. What changes has Google announced?&lt;/h2&gt;
-
+&lt;a name='what'&gt;&lt;h2&gt;1. What changes has Google announced?&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;The most significant change Google has announced is the new &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt;, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what &lt;a href='#new-data-points'&gt;new data points&lt;/a&gt; businesses can &lt;em&gt;feed&lt;/em&gt; GA, before considering &lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'&gt;what that means for GA&amp;#8217;s reporting capabilities&lt;/a&gt;.&lt;/p&gt;
-&lt;a name='new-data-points' /&gt;
-&lt;h3 id='11_custom_user_identifiers'&gt;1.1 Custom user identifiers&lt;/h3&gt;
-
+&lt;a name='new-data-points'&gt;&lt;h3&gt;1.1 Custom user identifiers&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;The first new data points that businesses can feed into Google Analytics is a user&amp;#8217;s &lt;code&gt;client_id&lt;/code&gt; (basically, a customer ID) as defined on the business&amp;#8217;s own systems.&lt;/p&gt;
 
 &lt;p&gt;Previously, Google Analytics identified unique users using their own &lt;code&gt;cookie_id&lt;/code&gt;s. Google&amp;#8217;s &lt;code&gt;cookie_id&lt;/code&gt;s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their &lt;code&gt;cookie_id&lt;/code&gt;s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.&lt;/p&gt;
@@ -4524,9 +4524,7 @@ Common options:
 
 &lt;li&gt;It should make it easier for GA users to join GA data with other customer data sets on those &lt;code&gt;client_id&lt;/code&gt;s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining&lt;/li&gt;
 &lt;/ol&gt;
-&lt;!--more--&gt;&lt;a name='customer-journey' /&gt;
-&lt;h3 id='12_capturing_events_across_a_users_entire_customer_journey_not_just_the_web_not_just_digital_interactions'&gt;1.2 Capturing events across a user&amp;#8217;s entire customer journey (not just the web, not just digital interactions)&lt;/h3&gt;
-
+&lt;!--more--&gt;&lt;a name='customer-journey'&gt;&lt;h3&gt;1.2 Capturing events across a user's entire customer journey (not just the web, not just digital interactions)&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer&amp;#8217;s complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented &amp;#8220;single customer views&amp;#8221; have typically struggled incorporating web behaviour in those views.&lt;/p&gt;
 
 &lt;p&gt;Google has taken a significant step towards enabling businesses to capture much more of their customer&amp;#8217;s journeys in Google Analytics itself. The &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt; makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her &lt;code&gt;client_id&lt;/code&gt; could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase.&lt;/p&gt;
@@ -4534,9 +4532,7 @@ Common options:
 &lt;p&gt;The Measurement Protocol can also be used to capture events on digital platforms that are not so well suited to traditional web analytics solution e.g. mobile applications, set-top box applications, videogames on consoles etc. It thus opens the door for Google Analytics to capture and report on event data from a range of devices, not just those that are web based.&lt;/p&gt;
 
 &lt;p&gt;Taken together, this means it will be possible for Google Analytics to offer reports detailing customer behaviour across the complete customer journey. Building on this, it should also be possible for GA to enable analysts to calculate &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;customer lifetime value&lt;/a&gt; (if the value of different events was passed in with the events): this is one of the most important metrics in customer analytics, and one that has been conspicuous by its absence from web analytics outside of solutions like &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;Snowplow&lt;/a&gt; until now. The Measurement Protocol potentially means a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.&lt;/p&gt;
-
-&lt;h3 id='13_capturing_customeracquisition_cost_data'&gt;1.3 Capturing customer-acquisition cost data&lt;/h3&gt;
-
+&lt;a name='cost-data'&gt;&lt;h3&gt;1.3 Capturing customer-acquisition cost data&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;One of the most common types of analytics performed on web data is working out the return on marketing investment for different customer-acquisition channels. To perform this analysis, we need to combine:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -4554,9 +4550,7 @@ Common options:
 &lt;p&gt;The &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt; enables businesses to define and capture their own dimensions and metrics each time an event that is tracked. Those additional metrics and dimensions are then available to report in in GA.&lt;/p&gt;
 
 &lt;p&gt;As well as enabling businesses to add custom dimension and metric values to individual event tracking calls, Google also lets businesses bulk upload multiple dimensions at a time into the GA, if a relationship between those custom dimensions and dimensions already in GA can be defined, and GA knows what values to ascribe events already in it to those new dimensions, based on that defined relationship. To give an example: you could upload the product names/SKUs associated with each web page, enabling reporting on page views by SKU. Or, you could upload a range of product metadata (e.g. book titles and authors) and associate that with an ISBN custom field.&lt;/p&gt;
-&lt;a name='reporting-capabilities' /&gt;
-&lt;h3 id='15_what_new_reporting_is_enabled_through_the_capture_of_all_these_additional_data_points'&gt;1.5 What new reporting is enabled through the capture of all these additional data points?&lt;/h3&gt;
-
+&lt;a name='reporting-capabilities'&gt;&lt;h3&gt;1.5 What new reporting is enabled through the capture of all these additional data points?&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;Taken together, the additional data that businesses can feed into Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -4564,9 +4558,7 @@ Common options:
 
 &lt;li&gt;&lt;strong&gt;Event analytics&lt;/strong&gt; across platforms, on and offline. GA can now report on user&amp;#8217;s complete journey, not just what they do on websites, but also their behaviours on other digital platforms (esp. mobile) and offline.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;a name='whysnowplow' /&gt;
-&lt;h2 id='2_how_do_the_advances_in_ga_change_the_case_for_adopting_snowplow'&gt;2. How do the advances in GA change the case for adopting Snowplow?&lt;/h2&gt;
-
+&lt;a name='whysnowplow' /&gt;&lt;a name='whysnowplow'&gt;&lt;h2&gt;2. How do the advances in GA change the case for adopting Snowplow?&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;Prior to the latest announcement, the case for adopting Snowplow alongside your GA implementation was as follows:&lt;/p&gt;
 
 &lt;ul&gt;

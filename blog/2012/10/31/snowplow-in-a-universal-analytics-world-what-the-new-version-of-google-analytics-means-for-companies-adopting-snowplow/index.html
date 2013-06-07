@@ -79,13 +79,9 @@
 </ol>
 
 <p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
-<a name='what' />
-<h2 id='1_what_changes_has_google_announced'>1. What changes has Google announced?</h2>
-
+<a name='what'><h2>1. What changes has Google announced?</h2></a>
 <p>The most significant change Google has announced is the new <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href='#new-data-points'>new data points</a> businesses can <em>feed</em> GA, before considering <a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'>what that means for GA&#8217;s reporting capabilities</a>.</p>
-<a name='new-data-points' />
-<h3 id='11_custom_user_identifiers'>1.1 Custom user identifiers</h3>
-
+<a name='new-data-points'><h3>1.1 Custom user identifiers</h3></a>
 <p>The first new data points that businesses can feed into Google Analytics is a user&#8217;s <code>client_id</code> (basically, a customer ID) as defined on the business&#8217;s own systems.</p>
 
 <p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google&#8217;s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
@@ -97,9 +93,7 @@
 
 <li>It should make it easier for GA users to join GA data with other customer data sets on those <code>client_id</code>s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining</li>
 </ol>
-<!--more--><a name='customer-journey' />
-<h3 id='12_capturing_events_across_a_users_entire_customer_journey_not_just_the_web_not_just_digital_interactions'>1.2 Capturing events across a user&#8217;s entire customer journey (not just the web, not just digital interactions)</h3>
-
+<!--more--><a name='customer-journey'><h3>1.2 Capturing events across a user's entire customer journey (not just the web, not just digital interactions)</h3></a>
 <p>We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer&#8217;s complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented &#8220;single customer views&#8221; have typically struggled incorporating web behaviour in those views.</p>
 
 <p>Google has taken a significant step towards enabling businesses to capture much more of their customer&#8217;s journeys in Google Analytics itself. The <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a> makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her <code>client_id</code> could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase.</p>
@@ -107,9 +101,7 @@
 <p>The Measurement Protocol can also be used to capture events on digital platforms that are not so well suited to traditional web analytics solution e.g. mobile applications, set-top box applications, videogames on consoles etc. It thus opens the door for Google Analytics to capture and report on event data from a range of devices, not just those that are web based.</p>
 
 <p>Taken together, this means it will be possible for Google Analytics to offer reports detailing customer behaviour across the complete customer journey. Building on this, it should also be possible for GA to enable analysts to calculate <a href='/analytics/customer-analytics/customer-lifetime-value.html'>customer lifetime value</a> (if the value of different events was passed in with the events): this is one of the most important metrics in customer analytics, and one that has been conspicuous by its absence from web analytics outside of solutions like <a href='/analytics/customer-analytics/customer-lifetime-value.html'>Snowplow</a> until now. The Measurement Protocol potentially means a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.</p>
-
-<h3 id='13_capturing_customeracquisition_cost_data'>1.3 Capturing customer-acquisition cost data</h3>
-
+<a name='cost-data'><h3>1.3 Capturing customer-acquisition cost data</h3></a>
 <p>One of the most common types of analytics performed on web data is working out the return on marketing investment for different customer-acquisition channels. To perform this analysis, we need to combine:</p>
 
 <ol>
@@ -127,9 +119,7 @@
 <p>The <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a> enables businesses to define and capture their own dimensions and metrics each time an event that is tracked. Those additional metrics and dimensions are then available to report in in GA.</p>
 
 <p>As well as enabling businesses to add custom dimension and metric values to individual event tracking calls, Google also lets businesses bulk upload multiple dimensions at a time into the GA, if a relationship between those custom dimensions and dimensions already in GA can be defined, and GA knows what values to ascribe events already in it to those new dimensions, based on that defined relationship. To give an example: you could upload the product names/SKUs associated with each web page, enabling reporting on page views by SKU. Or, you could upload a range of product metadata (e.g. book titles and authors) and associate that with an ISBN custom field.</p>
-<a name='reporting-capabilities' />
-<h3 id='15_what_new_reporting_is_enabled_through_the_capture_of_all_these_additional_data_points'>1.5 What new reporting is enabled through the capture of all these additional data points?</h3>
-
+<a name='reporting-capabilities'><h3>1.5 What new reporting is enabled through the capture of all these additional data points?</h3></a>
 <p>Taken together, the additional data that businesses can feed into Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:</p>
 
 <ol>
@@ -137,9 +127,7 @@
 
 <li><strong>Event analytics</strong> across platforms, on and offline. GA can now report on user&#8217;s complete journey, not just what they do on websites, but also their behaviours on other digital platforms (esp. mobile) and offline.</li>
 </ol>
-<a name='whysnowplow' />
-<h2 id='2_how_do_the_advances_in_ga_change_the_case_for_adopting_snowplow'>2. How do the advances in GA change the case for adopting Snowplow?</h2>
-
+<a name='whysnowplow' /><a name='whysnowplow'><h2>2. How do the advances in GA change the case for adopting Snowplow?</h2></a>
 <p>Prior to the latest announcement, the case for adopting Snowplow alongside your GA implementation was as follows:</p>
 
 <ul>

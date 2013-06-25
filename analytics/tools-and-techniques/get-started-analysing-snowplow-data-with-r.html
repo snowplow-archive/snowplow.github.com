@@ -66,11 +66,440 @@
 </div>
 	
 		<div id="contents">
-<h1 id='getting_started_analysing_snowplow_data_with_r'>Getting started analysing Snowplow data with R</h1>
-
+<a name='top'><h1>Getting started analyzing Snowplow data with R</h1></a>
 <p>This guide is geared towards data analysts who have limited or no experience with R. It aims to teach R through concrete examples with Snowplow data - so you can start using R to answer business questions and draw out interesting insights from your Snowplow data fast, whilst growing familiarity with the underlying tool and approach.</p>
 
-<p>CONTENT COMING SOON</p>
+<ol>
+<li><a href='#why'>Why use R?</a></li>
+
+<li><a href='#start'>Getting started: plotting the number of uniques per day</a></li>
+
+<li><a href='#intro-to-data-frames'>Having a look at the data: an introduction to data frames in R</a></li>
+
+<li><a href='#1st-plot'>Creating our first plot</a></li>
+
+<li><a href='#more-complex-example'>A more complicated example: comparing visit characteristics by a range of dimensions</a></li>
+
+<li><a href='#factors'>Introducing factors in R</a></li>
+
+<li><a href='#more-interesting-plots'>Producing some more interesting plots with ggplot2</a></li>
+</ol>
+<a name='why'><h2>1. Why use R?</h2></a>
+<p>R is a fantastic analytics tool. To date, however, only a minority of web analysts use it. To list just some of what makes it so excellent, especially when compared with traditional general purpose tools like Excel, and BI tools like Tableau:</p>
+
+<ul>
+<li>It is great for producing a wide variety of visualizations - including a much wider than those supported by BI tools</li>
+
+<li>It has fantastic tools for extending existing visualizations and creating new visualizations all together</li>
+
+<li>It is easy to document analytics performed with R and retrace your steps. (Simply by copying and pasting your steps into the R console.) This makes R a much <em>safer</em> and <em>more robust</em> environment to interrogate data than e.g. Excel or Tableau, where if you realize you made an error eight steps back, retracing your steps can be difficult and time consuming.</li>
+
+<li>It is blindingly fast to both perform complicated analytics and generate beautiful visualizations. The syntax is incredibly concise - what you can achieve in one line of R can take hours of working through menus and options on other systems.</li>
+
+<li>It helps you think through what you do with your data in a more rigorous way. R forces you to define your data types much more specifically than either Excel or BI tools like Tableau. That rigour is helpful - it means you do things faster, and you&#8217;re less liable to make mistakes.</li>
+
+<li>It is great at statistics. Traditional BI tools and Excel <em>suck</em> at statistics. Sure you can calculate means, medians, quartiles etc. But actually pulling these together into meaningful distribution plots, or plotting how they change over time, is a pain in these tools, which are much better at counting and summing data. R is simply much better at statistics</li>
+
+<li>It has an <strong>enormous</strong> library of packages available for performing just about any type of analytics imaginable</li>
+
+<li>It is free</li>
+
+<li>It works on all platforms</li>
+</ul>
+
+<p>In spite of all the benefits listed above, people often find struggle with R to start off with. The command line is a difficult place to start, and R has some idiosyncracies that need to be understood.</p>
+
+<p>In this guide, we cover them by working through practical examples with Snowplow data, paying special attention to covering some of those key concepts and idiosyncracies.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='start'><h2>2. Getting started: plotting the number of unique visitors by day</h2></a>
+<p>This guide assumes you have installed R, and installed the <code>RPostgreSQL</code> package required to get R to talk to PostgreSQL databases including Amazon Redshift. If you have not, installed this, you can do so by executing the following at the R prompt:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.package<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>R will ask you to select a mirror to download the package from. Select a local mirror and the package should install automatically.</p>
+
+<p>Now we need to tell R to use the package:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> library<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>The library lets us execute a SQL query against our data in Redshift, and pulls the result of the query into R as a data frame. (We&#8217;ll explain a bit about data frames shortly.) The query we want to execute, to find out how many unique visitors we&#8217;ve received to our site by day, is:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span> 
+<span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;date&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>&quot;date&quot;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>&quot;date&quot;</span><span class='p'>;</span>
+</code></pre></div>
+<p>To execute the query in R, first we have to setup a connection to our Redshift database, by executing the following commands:</p>
+<div class='highlight'><pre><code class='r'>drv <span class='o'>&lt;-</span> dbDriver<span class='p'>(</span><span class='s'>&quot;PostgreSQL&quot;</span><span class='p'>)</span>
+con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER HOST DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PORT DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span>dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER DB NAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER USERNAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PASSWORD HERE&gt;&gt;&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>(For detials about where to find your host, port, dbname and username see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.)</p>
+
+<p>Now we can execute the query, and assign it to a variable called <code>uniquesByDay</code>, by executing the following:</p>
+<div class='highlight'><pre><code class='r'>uniquesByDay <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>
+<span class='s'>	SELECT </span>
+<span class='s'>	to_char(collector_tstamp, &#39;YYYY-MM-DD&#39;) AS \&quot;date\&quot;,</span>
+<span class='s'>	count(distinct(domain_userid)) AS uniques</span>
+<span class='s'>	FROM \&quot;public\&quot;.\&quot;events\&quot;</span>
+<span class='s'>	WHERE collector_tstamp &gt; &#39;2013-02-22&#39;</span>
+<span class='s'>	GROUP BY \&quot;date\&quot;</span>
+<span class='s'>	ORDER BY \&quot;date\&quot;</span>
+<span class='s'>&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>Note how double inverted commas have to be escaped with a backslash.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='intro-to-data-frames'><h2>3. Having a look at the data: an introduction to data frames in R</h2></a>
+<p>We can have a look at the <code>uniquesByDay</code> variable by simply entering it at the command line:</p>
+<div class='highlight'><pre><code class='r'>uniquesByDay
+</code></pre></div>
+<p>R responds by dumping the contents of the variable to the screen. We see that the data is in the form of a table with three columns. The first column is the row number, the second column is the <code>date</code> column, and the third is the <code>uniques</code> column. We can view just the top 5 lines of data by entering <code>head(uniquesByDay)</code> at the prompt. We&#8217;ve pasted the contents of the screen, including what R returns, in our case:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> head<span class='p'>(</span>uniquesByDay<span class='p'>)</span>
+        date uniques
+<span class='m'>1</span> <span class='m'>2013-02-22</span>      <span class='m'>78</span>
+<span class='m'>2</span> <span class='m'>2013-02-23</span>      <span class='m'>70</span>
+<span class='m'>3</span> <span class='m'>2013-02-24</span>      <span class='m'>76</span>
+<span class='m'>4</span> <span class='m'>2013-02-25</span>     <span class='m'>125</span>
+<span class='m'>5</span> <span class='m'>2013-02-26</span>     <span class='m'>130</span>
+<span class='m'>6</span> <span class='m'>2013-02-27</span>      <span class='m'>88</span>
+<span class='o'>&gt;</span> 
+</code></pre></div>
+<p>We can find out more about our uniquesByDay object, by typing <code>summary(uniquesByDay)</code> at the prompt:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> summary<span class='p'>(</span>uniquesByDay<span class='p'>)</span>
+     date              uniques      
+ Length<span class='o'>:</span><span class='m'>124</span>         Min.   <span class='o'>:</span> <span class='m'>16.00</span>  
+ Class <span class='o'>:</span>character   <span class='m'>1</span>st Qu.<span class='o'>:</span> <span class='m'>75.75</span>  
+ Mode  <span class='o'>:</span>character   Median <span class='o'>:</span><span class='m'>116.00</span>  
+                    Mean   <span class='o'>:</span><span class='m'>114.73</span>  
+                    <span class='m'>3</span>rd Qu.<span class='o'>:</span><span class='m'>150.25</span>  
+                    Max.   <span class='o'>:</span><span class='m'>274.00</span>  
+<span class='o'>&gt;</span>
+</code></pre></div>
+<p>R tells us that our data contains two columns: <code>date</code> and <code>uniques</code>. It tells us what type each column is: <code>date</code> is of type <code>character</code>, and <code>uniques</code> is a numeric field, for which it gives us some basic statistical information, so we can get a sense of the range of values.</p>
+
+<p>Our <code>date</code> column really corresponds to <code>date</code>. We can update the data type for this column:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> uniquesByDay<span class='o'>$</span>date <span class='o'>&lt;-</span> as.Date<span class='p'>(</span>uniquesByDay<span class='o'>$</span>date<span class='p'>)</span>
+</code></pre></div>
+<p>When we now look at the summary for our data frame, the type of data in the <code>date</code> column has changed:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> summary<span class='p'>(</span>uniquesByDay<span class='p'>)</span>
+      date               uniques      
+ Min.   <span class='o'>:</span><span class='m'>2013-02-22</span>   Min.   <span class='o'>:</span> <span class='m'>16.00</span>  
+ <span class='m'>1</span>st Qu.<span class='o'>:</span><span class='m'>2013-03-24</span>   <span class='m'>1</span>st Qu.<span class='o'>:</span> <span class='m'>75.75</span>  
+ Median <span class='o'>:</span><span class='m'>2013-04-24</span>   Median <span class='o'>:</span><span class='m'>116.00</span>  
+ Mean   <span class='o'>:</span><span class='m'>2013-04-24</span>   Mean   <span class='o'>:</span><span class='m'>114.73</span>  
+ <span class='m'>3</span>rd Qu.<span class='o'>:</span><span class='m'>2013-05-25</span>   <span class='m'>3</span>rd Qu.<span class='o'>:</span><span class='m'>150.25</span>  
+ Max.   <span class='o'>:</span><span class='m'>2013-06-25</span>   Max.   <span class='o'>:</span><span class='m'>274.00</span>  
+<span class='o'>&gt;</span> 
+</code></pre></div>
+<p>We can get further information on the structure of the data frame by executing the <code>str()</code> function on it:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>uniquesByDay<span class='p'>)</span>
+<span class='s'>&#39;data.frame&#39;</span><span class='o'>:</span>	<span class='m'>124</span> obs. of  <span class='m'>2</span> variables<span class='o'>:</span>
+ <span class='o'>$</span> date   <span class='o'>:</span> Date<span class='p'>,</span> format<span class='o'>:</span> <span class='s'>&quot;2013-02-22&quot;</span> <span class='s'>&quot;2013-02-23&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> uniques<span class='o'>:</span> num  <span class='m'>78</span> <span class='m'>70</span> <span class='m'>76</span> <span class='m'>125</span> <span class='m'>130</span> <span class='m'>88</span> <span class='m'>84</span> <span class='m'>69</span> <span class='m'>35</span> <span class='m'>75</span> <span class='kc'>...</span>
+</code></pre></div>
+<p>This confirms that the type of the first column has been set to a date format.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='1st-plot'><h2>4. Creating our first plot</h2></a>
+<p>There are a number of built in and additional libraries for plotting data visualizations in R. We recommend starting out with the absolutely excellent <code>ggplot2</code>.</p>
+
+<p>First, install the <code>ggplot2</code> package, if you have not done so previously:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.packages<span class='p'>(</span><span class='s'>&quot;ggplot2&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>Now that it&#8217;s installed, you can load the library:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> library<span class='p'>(</span><span class='s'>&quot;ggplot2&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>Now we can plot the number of uniques over time, using the <code>qplot</code> (quickplot) command:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>date<span class='p'>,</span> uniques<span class='p'>,</span> data<span class='o'>=</span>uniquesByDay<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;line&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>The plot appears in a new window:</p>
+
+<p><img alt='uniques-by-day' src='/static/img/analytics/tools/r/uniques-by-day.png' /></p>
+
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='more-complex-example'>5. A more complicated example: comparing visit characteristics by a range of dimensions</a>
+<p>The previous example was simple start. It didn&#8217;t enable us to do anything that could not easily be achieved using any other visualization tool.</p>
+
+<p>In our second example, we&#8217;ll pull a more complicated data set from Snowplow, and try out some visualizations in GGPlot (boxplot and jittered scattergrams) that I think are awesome at conveying distribution information, and are not well supported by other tools.</p>
+
+<p>For this example, we&#8217;re going to look at visit data by a number of different dimensions, and produce different plots to see how different visit characteristics vary with those different dimensions. This is classically something that is well supported by a BI / OLAP tool like Tableau. The example shows that R has those same capabilities, and in addition, a broader set of visualizations to enable us to unpick relationships between metrics and dimensions.</p>
+
+<p>First, we need to design a SQL query to pull the cut of data we want. In this case, we want visit level data. We want to capture the following metrics for each visit:</p>
+
+<ul>
+<li>Number of distinct pages viewed (i.e. breadth of content engaged with)</li>
+
+<li>Total number of events (as a measure of engagement)</li>
+</ul>
+
+<p>With the following dimensions:</p>
+
+<ul>
+<li>Whether or not the user visited our &#8220;services&#8221; page. (A goal of ours is to drive visitors to buy our services.)</li>
+
+<li>The landing page the visitor arrived on</li>
+
+<li>The referer that drove them to our website</li>
+
+<li>The timestamp the visit started. (So we can analyse e.g. how behaviour varies by day of the week.)</li>
+
+<li>Which country the visitor is located in</li>
+
+<li>The browser type</li>
+
+<li>How many times the visitor had visited our website previously</li>
+</ul>
+
+<p>The SQL query to return our required measures by visit and some of the dimensions is straightforward:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='n'>geo_country</span><span class='p'>,</span>
+<span class='n'>br_type</span><span class='p'>,</span>
+<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;time_of_first_touch&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>page_urlpath</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;distinct_pages_visited&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;number_of_events&quot;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span>
+<span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-02-22&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='err'>&quot;</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>geo_country</span><span class='p'>,</span> <span class='n'>br_type</span>
+</code></pre></div>
+<p>We need to add a line about whether or not one of our services pages was visited as part of the customer journey. We can identify all the visits where the visitor did pop by one of our services pages by executing the following query:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='mi'>1</span> <span class='k'>AS</span> <span class='s1'>&#39;visited_services_pages&#39;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span>
+<span class='k'>WHERE</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/services/%&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>visited_services_pages</span>
+</code></pre></div>
+<p>And then join the results of the above query to our first query to generate the additional dimension:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
+<span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> 
+<span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='n'>geo_country</span><span class='p'>,</span>
+<span class='n'>br_type</span><span class='p'>,</span>
+<span class='n'>visited_services_pages</span><span class='p'>,</span>
+<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;time_of_first_touch&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>page_urlpath</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;distinct_pages_visited&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;number_of_events&quot;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span> <span class='n'>e</span>
+<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='ss'>&quot;visited_services_pages&quot;</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span>
+	<span class='k'>WHERE</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/services/%&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>visited_services_pages</span>
+<span class='p'>)</span> <span class='n'>s</span>
+<span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>domain_userid</span>
+<span class='k'>AND</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+<span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-02-23&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>geo_country</span><span class='p'>,</span> <span class='n'>br_type</span><span class='p'>,</span> <span class='n'>visited_services_pages</span>
+</code></pre></div>
+<p>Lastly we add the data about who are referer is, and what the URL of the landing page is. Both of these data points can be read from the first line of data for the visit, so we add them by doing an additional join with the output of the previous query, this time on <code>domain_userid</code>, <code>domain_sessionidx</code> <strong>and</strong> <code>min(collector_tstamp)</code>:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>geo_country</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>br_type</span><span class='p'>,</span>
+<span class='n'>r</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='n'>landing_page</span><span class='p'>,</span>
+<span class='n'>r</span><span class='p'>.</span><span class='n'>refr_medium</span><span class='p'>,</span>
+<span class='n'>r</span><span class='p'>.</span><span class='n'>refr_source</span><span class='p'>,</span>
+<span class='n'>r</span><span class='p'>.</span><span class='n'>refr_term</span><span class='p'>,</span>
+<span class='n'>r</span><span class='p'>.</span><span class='n'>refr_urlhost</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>visited_services_pages</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>time_of_first_touch</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>distinct_pages_visited</span><span class='p'>,</span>
+<span class='n'>t</span><span class='p'>.</span><span class='n'>number_of_events</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='n'>geo_country</span><span class='p'>,</span>
+	<span class='n'>br_type</span><span class='p'>,</span>
+	<span class='n'>visited_services_pages</span><span class='p'>,</span>
+	<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;time_of_first_touch&quot;</span><span class='p'>,</span>
+	<span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>page_urlpath</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;distinct_pages_visited&quot;</span><span class='p'>,</span>
+	<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;number_of_events&quot;</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span> <span class='k'>AS</span> <span class='n'>e</span>
+	<span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
+		<span class='k'>SELECT</span>
+		<span class='n'>domain_userid</span><span class='p'>,</span>
+		<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+		<span class='s1'>&#39;1&#39;</span> <span class='k'>AS</span> <span class='ss'>&quot;visited_services_pages&quot;</span>
+		<span class='k'>FROM</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span>
+		<span class='k'>WHERE</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/services/%&#39;</span>
+		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>visited_services_pages</span>
+	<span class='p'>)</span> <span class='k'>AS</span> <span class='n'>s</span>
+	<span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>domain_userid</span>
+	<span class='k'>AND</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>s</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+	<span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-02-22&#39;</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span> <span class='n'>geo_country</span><span class='p'>,</span> <span class='n'>br_type</span><span class='p'>,</span> <span class='n'>visited_services_pages</span>
+<span class='p'>)</span> <span class='k'>AS</span> <span class='n'>t</span>
+<span class='k'>JOIN</span> <span class='ss'>&quot;public&quot;</span><span class='p'>.</span><span class='ss'>&quot;events&quot;</span> <span class='k'>AS</span> <span class='n'>r</span>
+<span class='k'>ON</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>r</span><span class='p'>.</span><span class='n'>domain_userid</span>
+<span class='k'>AND</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>r</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
+<span class='k'>AND</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>time_of_first_touch</span> <span class='o'>=</span> <span class='n'>r</span><span class='p'>.</span><span class='n'>collector_tstamp</span>
+</code></pre></div>
+<p>Now that we have our query, we can pull the data into R:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> visits <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>
+<span class='s'>	SELECT</span>
+<span class='s'>	t.domain_userid,</span>
+<span class='s'>	t.domain_sessionidx,</span>
+<span class='s'>	t.geo_country,</span>
+<span class='s'>	t.br_type,</span>
+<span class='s'>	r.page_urlpath AS landing_page,</span>
+<span class='s'>	r.refr_medium,</span>
+<span class='s'>	r.refr_source,</span>
+<span class='s'>	r.refr_term,</span>
+<span class='s'>	r.refr_urlhost,</span>
+<span class='s'>	t.visited_services_pages,</span>
+<span class='s'>	t.time_of_first_touch,</span>
+<span class='s'>	t.distinct_pages_visited,</span>
+<span class='s'>	t.number_of_events</span>
+<span class='s'>	FROM (</span>
+<span class='s'>		SELECT</span>
+<span class='s'>		e.domain_userid,</span>
+<span class='s'>		e.domain_sessionidx,</span>
+<span class='s'>		geo_country,</span>
+<span class='s'>		br_type,</span>
+<span class='s'>		visited_services_pages,</span>
+<span class='s'>		min(collector_tstamp) AS \&quot;time_of_first_touch\&quot;,</span>
+<span class='s'>		count(distinct(page_urlpath)) AS \&quot;distinct_pages_visited\&quot;,</span>
+<span class='s'>		count(*) as \&quot;number_of_events\&quot;</span>
+<span class='s'>		FROM \&quot;public\&quot;.\&quot;events\&quot; AS e</span>
+<span class='s'>		LEFT JOIN (</span>
+<span class='s'>			SELECT</span>
+<span class='s'>			domain_userid,</span>
+<span class='s'>			domain_sessionidx,</span>
+<span class='s'>			&#39;1&#39; AS \&quot;visited_services_pages\&quot;</span>
+<span class='s'>			FROM \&quot;public\&quot;.\&quot;events\&quot;</span>
+<span class='s'>			WHERE page_urlpath LIKE &#39;/services/%&#39;</span>
+<span class='s'>			GROUP BY domain_userid, domain_sessionidx, visited_services_pages</span>
+<span class='s'>		) AS s</span>
+<span class='s'>		ON e.domain_userid = s.domain_userid</span>
+<span class='s'>		AND e.domain_sessionidx = s.domain_sessionidx</span>
+<span class='s'>		WHERE collector_tstamp &gt; &#39;2013-02-22&#39;</span>
+<span class='s'>		GROUP BY e.domain_userid, e.domain_sessionidx, geo_country, br_type, visited_services_pages</span>
+<span class='s'>	) AS t</span>
+<span class='s'>	JOIN \&quot;public\&quot;.\&quot;events\&quot; AS r</span>
+<span class='s'>	ON t.domain_userid = r.domain_userid</span>
+<span class='s'>	AND t.domain_sessionidx = r.domain_sessionidx</span>
+<span class='s'>	AND t.time_of_first_touch = r.collector_tstamp</span>
+<span class='s'>&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p>Our <code>visits</code> data frame is more complicated than the <code>uniquesByDay</code> data frame we created last time. Let&#8217;s inspect the structure:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>visits<span class='p'>)</span>
+<span class='s'>&#39;data.frame&#39;</span><span class='o'>:</span>	<span class='m'>21521</span> obs. of  <span class='m'>13</span> variables<span class='o'>:</span>
+ <span class='o'>$</span> domain_userid         <span class='o'>:</span> chr  <span class='s'>&quot;602978179116344f&quot;</span> <span class='s'>&quot;eb11ac6179052d3d&quot;</span> <span class='s'>&quot;20e77808d8778a3b&quot;</span> <span class='s'>&quot;eb11ac6179052d3d&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> domain_sessionidx     <span class='o'>:</span> int  <span class='m'>61</span> <span class='m'>2</span> <span class='m'>1</span> <span class='m'>3</span> <span class='m'>10</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>24</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> geo_country           <span class='o'>:</span> chr  <span class='s'>&quot;GB&quot;</span> <span class='s'>&quot;GB&quot;</span> <span class='s'>&quot;GB&quot;</span> <span class='s'>&quot;GB&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> br_type               <span class='o'>:</span> chr  <span class='s'>&quot;Browser&quot;</span> <span class='s'>&quot;Browser&quot;</span> <span class='s'>&quot;Browser&quot;</span> <span class='s'>&quot;Browser&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> landing_page          <span class='o'>:</span> chr  <span class='s'>&quot;/&quot;</span> <span class='s'>&quot;/&quot;</span> <span class='s'>&quot;/&quot;</span> <span class='s'>&quot;/blog/2013/02/15/snowplow-0.7.3-released/&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_medium           <span class='o'>:</span> chr  <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='s'>&quot;search&quot;</span> <span class='s'>&quot;internal&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_source           <span class='o'>:</span> chr  <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='s'>&quot;Google&quot;</span> <span class='s'>&quot;&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_term             <span class='o'>:</span> chr  <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_urlhost          <span class='o'>:</span> chr  <span class='s'>&quot;&quot;</span> <span class='s'>&quot;&quot;</span> <span class='s'>&quot;www.google.co.uk&quot;</span> <span class='s'>&quot;snowplowanalytics.com&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> visited_services_pages<span class='o'>:</span> chr  <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='s'>&quot;1&quot;</span> <span class='kc'>NA</span> <span class='kc'>...</span>
+ <span class='o'>$</span> time_of_first_touch   <span class='o'>:</span> POSIXct<span class='p'>,</span> format<span class='o'>:</span> <span class='s'>&quot;2013-02-22 11:51:27&quot;</span> <span class='s'>&quot;2013-02-22 11:52:56&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> distinct_pages_visited<span class='o'>:</span> num  <span class='m'>1</span> <span class='m'>2</span> <span class='m'>4</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>4</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>10</span> <span class='kc'>...</span>
+ <span class='o'>$</span> number_of_events      <span class='o'>:</span> num  <span class='m'>5</span> <span class='m'>4</span> <span class='m'>5</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>6</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>32</span> <span class='kc'>...</span>
+<span class='o'>&gt;</span> 
+</code></pre></div>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='factors'><h2>6. Introducing factors in R</h2></a>
+<p>This is a convenient moment to take a quick aside from our example and introduce factors in R.</p>
+
+<p>In data analysis, we can distinguish three types of variable:</p>
+<table><thead><tr><th><strong>Type of variable</strong></th><th><strong>Description</strong></th><th><strong>Example</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Continuous</td><td style='text-align: left;'>A variable that can take any value with a range</td><td style='text-align: left;'>Height of a person, session length</td>
+</tr><tr><td style='text-align: left;'>Ordinal</td><td style='text-align: left;'>A discrete (not continuous) variable, but one in which there is an order</td><td style='text-align: left;'>Sizes of T-shirt (small / medium / large)</td>
+</tr><tr><td style='text-align: left;'>Nominal</td><td style='text-align: left;'>A discrete (not continuous) variable, where there is no inherent order between values</td><td style='text-align: left;'>Landing pages</td>
+</tr></tbody></table>
+<p>Continuous variables in R are typically numeric. Ordinal and nominal variables are factors. We can tell R which of the columns in our data frame are factors. This will help R</p>
+
+<ol>
+<li>Process our data more efficiently</li>
+
+<li>Plot our data more intelligently (because R will understand the type of variable in each column)</li>
+</ol>
+
+<p><code>domain_userid</code>, for example, is a factor: it can take one of a finite (but large) number of values of cookies set. It is an unordered factor, because there is no hierarchy between values. We can tell R it is factor by entering:</p>
+<div class='highlight'><pre><code class='r'>visits<span class='o'>$</span>domain_userid <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>domain_userid<span class='p'>)</span>
+</code></pre></div>
+<p>If we inspect the structure of that column, we&#8217;ll see it is now a factor:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>visits<span class='o'>$</span>domain_userid<span class='p'>)</span>
+ Factor w<span class='o'>/</span> <span class='m'>9621</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;0002ade0b7018c82&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>3661</span> <span class='m'>8850</span> <span class='m'>1268</span> <span class='m'>8850</span> <span class='m'>596</span> <span class='m'>1142</span> <span class='m'>1619</span> <span class='m'>8850</span> <span class='m'>8695</span> <span class='m'>426</span> <span class='kc'>...</span>
+</code></pre></div>
+<p>Let&#8217;s update the status of our other dimensions in the same way:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> visits<span class='o'>$</span>domain_sessionidx <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>domain_sessionidx<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>geo_country <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>geo_country<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>br_type <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>br_type<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>landing_page <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>landing_page<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>refr_medium <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>refr_medium<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>refr_source <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>refr_source<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>refr_term <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>refr_term<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>refr_urlhost <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>refr_urlhost<span class='p'>)</span>
+<span class='o'>&gt;</span> visits<span class='o'>$</span>visited_services_pages <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>visited_services_pages<span class='p'>)</span>
+<span class='o'>&gt;</span> 
+</code></pre></div>
+<p>We can view the updated structure of the data frame:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>visits<span class='p'>)</span>
+<span class='s'>&#39;data.frame&#39;</span><span class='o'>:</span>	<span class='m'>21521</span> obs. of  <span class='m'>13</span> variables<span class='o'>:</span>
+ <span class='o'>$</span> domain_userid         <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>9621</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;0002ade0b7018c82&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>3661</span> <span class='m'>8850</span> <span class='m'>1268</span> <span class='m'>8850</span> <span class='m'>596</span> <span class='m'>1142</span> <span class='m'>1619</span> <span class='m'>8850</span> <span class='m'>8695</span> <span class='m'>426</span> <span class='kc'>...</span>
+ <span class='o'>$</span> domain_sessionidx     <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>194</span> levels <span class='s'>&quot;0&quot;</span><span class='p'>,</span><span class='s'>&quot;1&quot;</span><span class='p'>,</span><span class='s'>&quot;2&quot;</span><span class='p'>,</span><span class='s'>&quot;3&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>62</span> <span class='m'>3</span> <span class='m'>2</span> <span class='m'>4</span> <span class='m'>11</span> <span class='m'>2</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>25</span> <span class='m'>2</span> <span class='kc'>...</span>
+ <span class='o'>$</span> geo_country           <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>106</span> levels <span class='s'>&quot;A1&quot;</span><span class='p'>,</span><span class='s'>&quot;AD&quot;</span><span class='p'>,</span><span class='s'>&quot;AE&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>36</span> <span class='m'>36</span> <span class='m'>36</span> <span class='m'>36</span> <span class='m'>35</span> <span class='m'>25</span> <span class='m'>100</span> <span class='m'>36</span> <span class='m'>53</span> <span class='m'>35</span> <span class='kc'>...</span>
+ <span class='o'>$</span> br_type               <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>4</span> levels <span class='s'>&quot;Browser&quot;</span><span class='p'>,</span><span class='s'>&quot;Email Client&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> landing_page          <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>137</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;/&quot;</span><span class='p'>,</span><span class='s'>&quot;/about/community.html&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>2</span> <span class='m'>2</span> <span class='m'>2</span> <span class='m'>74</span> <span class='m'>21</span> <span class='m'>2</span> <span class='m'>25</span> <span class='m'>103</span> <span class='m'>45</span> <span class='m'>2</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_medium           <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>6</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;email&quot;</span><span class='p'>,</span><span class='s'>&quot;internal&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>3</span> <span class='m'>4</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>3</span> <span class='m'>1</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_source           <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>19</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;Bing Images&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>6</span> <span class='m'>1</span> <span class='m'>6</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_term             <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>56</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;arduino&quot;</span><span class='p'>,</span><span class='s'>&quot;CHARTIO&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> refr_urlhost          <span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>156</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;ab-analytics.com&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>104</span> <span class='m'>40</span> <span class='m'>114</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>40</span> <span class='m'>1</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> visited_services_pages<span class='o'>:</span> Factor w<span class='o'>/</span> <span class='m'>1</span> level <span class='s'>&quot;1&quot;</span><span class='o'>:</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='m'>1</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='kc'>NA</span> <span class='m'>1</span> <span class='kc'>...</span>
+ <span class='o'>$</span> time_of_first_touch   <span class='o'>:</span> POSIXct<span class='p'>,</span> format<span class='o'>:</span> <span class='s'>&quot;2013-02-22 11:51:27&quot;</span> <span class='s'>&quot;2013-02-22 11:52:56&quot;</span> <span class='kc'>...</span>
+ <span class='o'>$</span> distinct_pages_visited<span class='o'>:</span> num  <span class='m'>1</span> <span class='m'>2</span> <span class='m'>4</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>4</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>10</span> <span class='kc'>...</span>
+ <span class='o'>$</span> number_of_events      <span class='o'>:</span> num  <span class='m'>5</span> <span class='m'>4</span> <span class='m'>5</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>6</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>32</span> <span class='kc'>...</span>
+<span class='o'>&gt;</span> 
+</code></pre></div>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='more-interesting-plots'><h2>7. Producing some more interesting plots</h2></a>
+<p>Let&#8217;s start by examining the breadth and depth of engagement by visit:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;point&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p><img alt='basic-bread-and-depth' src='/static/img/analytics/tools/r/breadth-and-depth-engagement.png' /></p>
+
+<p>That is <em>kind of</em> interesting: it shows that we have visitors who engage very deeply with only one page on our site (e.g. the visitor at the top left of the scatter) <strong>and</strong> we have visitors who engage lightly across a broad range of pages (bottom right) and deeply with a lot of pages (top right). However, most of the points are in the bottom left, and they are too closely spaced to see how closely packed they are.</p>
+
+<p>We can get a clearer view if we plot a jitter plot: this &#8220;jitters&#8221; points left and right about where they would otherwise be plotted, making it easier to identify areas with a high concentration of points:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;jitter&quot;</span><span class='p'>,</span> alpha<span class='o'>=</span>I<span class='p'>(</span><span class='m'>5</span><span class='o'>/</span><span class='m'>100</span><span class='p'>))</span> <span class='o'>+</span> 
+scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>250</span><span class='p'>))</span> <span class='o'>+</span> 
+scale_x_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
+
+Warning message<span class='o'>:</span>
+Removed <span class='m'>69</span> rows containing missing values <span class='p'>(</span>geom_point<span class='p'>)</span>.
+</code></pre></div>
+<p><img alt='jitter-with-transparency' src='/static/img/analytics/tools/r/jitter-with-transparency.png' /></p>
+
+<p>Note: we have changed the plot type from &#8220;point&#8221; to &#8220;jitter&#8221; to jitter each point. The &#8220;alpha&#8221; argument is responsible for point transparency: we have set it to 5% (i.e. 20 points in one place will be required to create a black spot). The <code>scale_y_continuous</code> and <code>scale_x_continuous</code> arguments scale the x and y axes so that we zoom in on the point of the graph where most of our visits lie. R has kindly reminded us that some of our points lie outside this range, and so have been been removed.</p>
+
+<p>The graph shows us that the majority of visitors do not engage deeply. It actually appears that engagement is likely to be <em>deeper</em> if a visitor visits <em>fewer</em> pages. That is interesting: we can explore if using a boxplot:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>factor<span class='p'>(</span>distinct_pages_visited<span class='p'>),</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span> <span class='o'>+</span> 
+scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>500</span><span class='p'>))</span>
+</code></pre></div>
+<p><img alt='boxplot' src='/static/img/analytics/tools/r/boxplot.png' /></p>
+
+<p>The boxplot shows that are earlier intuition was wrong: engagement depth increases <em>with</em> breadth. We had thought looking at the jittered plot that a higher proportion of people who only engaged with one page engaged more deeply. Now we can see that this was false: it looked to be the case, because the absolute number of poeple engaging deeply who only look at one page is higher than the actual number who engage deeply with a broader set. The boxplot controls for the difference in absolute numbers: we are instead looking at the distribution within each breadth level.</p>
+
+<p>One thing to notice is that when producing the boxplot, we plot <code>factor(distinct_pages_visited)</code> on the x-axis rather than simply <code>distinct_pages_visited</code>. That is because whereas a scatter or jitter plot can be produced by plotting a continuous variable on the x-axis, a boxplot requires a discrete variable. Applying the <code>factor</code> function converts our continuous variable into a discrete variable very simply: in general, R makes converting one type of variable into another very simple.</p>
+
+<p>The boxplot above was interesting: it showed very clearly a relationship between breadth and depth of engagement by visit. Let&#8217;s use the same plot, but this time to compare breadth of engagement by landing page:</p>
+<div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span>
+</code></pre></div>
+<p><img alt='messy-boxplot' src='/static/img/analytics/tools/r/messy-boxplot.png' /></p>
+
+<p>Ouch - this graph is very messy: breadth of engagement does appear to vary by landing page, but there are too many (100+) landing pages to make the analysis straight forward. What we want is to plot the results just for the top 10 landing pages, by number of visits.</p>
+
+<p>Back to <a href='#top'>top</a>.</p>
 </div>
 
  <div id="sidebar">

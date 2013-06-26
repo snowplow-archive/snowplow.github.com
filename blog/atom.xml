@@ -4,13 +4,51 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-06-26T15:00:28+01:00</updated>
+  <updated>2013-06-26T15:40:28+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization"/>
+    <title>Getting started using R for data analysis</title>
+    <updated>2013-06-26T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;R is one of the most popular data analytics platforms out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.&lt;/p&gt;
+
+&lt;p&gt;Given how great it is, why is R used so little by business and web analysts? I think there are two reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;People are put off by the command-line. The learning curve for command-line tools in general is steep initially. In addition, there are some quirks to the R language and syntax that make it puzzling for newbies who are familiar with other command-line tools for data analysis e.g. Python.&lt;/li&gt;
+
+&lt;li&gt;Most business and web analysts spend more time describing data that actually deriving insights from it. For descriptive work, tools like Excel and BI / OLAP tools like Tableau are OK.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In order to encourage business and web analysts get started with R, we&amp;#8217;ve put together a tutorial in the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; geared specifically towards newbies who want to start playing with R. The purpose is to:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Get started quickly, by working with real web analytics data from Snowplow&lt;/li&gt;
+
+&lt;li&gt;Get started with visualizations, to make the data come alive&lt;/li&gt;
+
+&lt;li&gt;Cover the basics of concepts like factors and data frames, which are core to the way R works&lt;/li&gt;
+
+&lt;li&gt;Give enough of an overview with the example that someone who works through the tutorial can then go off and productively use the multitude of other resources out there to build their knowledge of R.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The recipe - &lt;a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'&gt;Getting Started with R&lt;/a&gt;, is available &lt;a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/06/05/tracking-olark-chat-events-with-snowplow</id>

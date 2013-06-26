@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes - Snowplow Analytics</title>
+	<title>Getting started using R for data analysis - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,54 +67,40 @@
 	
 		<div id="contents">
 		<div class="post">
-			18 Dec 2012
-			<h1>Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
+			26 Jun 2013
+			<h1>Getting started using R for data analysis</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>R is one of the most popular data analytics platforms out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.</p>
 
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
+<p><img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /></p>
 
-<p>We&#8217;ll take a look at both fixes below:</p>
-<!--more-->
-<h2 id='javascript_tracker_fixes'>JavaScript tracker fixes</h2>
+<p>That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.</p>
 
-<p>This release fixes the issues in the JavaScript tracker raised in <a href='https://github.com/snowplow/snowplow/issues/103'>issue 103</a>.</p>
+<p>Given how great it is, why is R used so little by business and web analysts? I think there are two reasons:</p>
 
-<p>These issues stemmed from the splitting of the JavaScript into multiple files in Snowplow version 0.6.1 (JavaScript tracker version 0.8.0). We do not believe these bugs affected Snowplow data collection, but they are well worth fixing.</p>
+<ol>
+<li>People are put off by the command-line. The learning curve for command-line tools in general is steep initially. In addition, there are some quirks to the R language and syntax that make it puzzling for newbies who are familiar with other command-line tools for data analysis e.g. Python.</li>
 
-<p>Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> and <a href='https://github.com/ramn'>Simon Andersson</a> for their help in squashing these bugs!</p>
+<li>Most business and web analysts spend more time describing data that actually deriving insights from it. For descriptive work, tools like Excel and BI / OLAP tools like Tableau are OK.</li>
+</ol>
 
-<p>With these fixes we have bumped the JavaScript Tracker to version 0.8.2; the updated minified tracker is available as always here:</p>
+<p>In order to encourage business and web analysts get started with R, we&#8217;ve put together a tutorial in the <a href='/analytics/index.html'>Analytics Cookbook</a> geared specifically towards newbies who want to start playing with R. The purpose is to:</p>
 
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.2/sp.js</code></pre>
+<ol>
+<li>Get started quickly, by working with real web analytics data from Snowplow</li>
 
-<h2 id='hiveql_script_fix'>HiveQL script fix</h2>
+<li>Get started with visualizations, to make the data come alive</li>
 
-<p>This release also fixes a bug (<a href='https://github.com/snowplow/snowplow/pull/112'>issue 112</a>) in the HiveQL file used to generate the <strong>Hive-format</strong> Snowplow event files.</p>
+<li>Cover the basics of concepts like factors and data frames, which are core to the way R works</li>
 
-<p>This bug prevented the ETL from running if you were using EmrEtlRunner to generate Hive-format Snowplow event files - in other words if you had set:</p>
+<li>Give enough of an overview with the example that someone who works through the tutorial can then go off and productively use the multitude of other resources out there to build their knowledge of R.</li>
+</ol>
 
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>in your EmrEtlRunner&#8217;s <code>config.yml</code> file.</p>
-
-<p>Many thanks to <a href='https://github.com/mmoulton'>Mike Moulton</a> for spotting and fixing this one!</p>
-
-<p>With this fix we have bumped the Hive-format HiveQL file to version 0.5.2. To start using the new file, all you need to do is update your EmrEtlRunner&#8217;s <code>config.yml</code> file by changing:</p>
-
-<pre><code>:hive_hiveql_version: 0.5.1</code></pre>
-
-<p>to:</p>
-
-<pre><code>:hive_hiveql_version: 0.5.2</code></pre>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>If you have any problems with Snowplow version 0.6.3, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>The recipe - <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>Getting Started with R</a>, is available <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>here</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
 </div>
 
 			</div> 

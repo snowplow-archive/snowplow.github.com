@@ -129,7 +129,7 @@
 <ul>
 <li>Connect Tableau to your Redshift / Infobright instance, but instead of connecting to your Snowplow events table directly, execute the above custom SQL</li>
 </ul>
-<p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-custom-sql.JPG' width='250' /></p>
+<p style='text-align: center'><img width='250' src='/static/img/analytics/catalog-analytics/content-page-performance/tableau-custom-sql.JPG' /></p>
 <ul>
 <li>Drag the <code>tstamp</code> dimension into the columns shelf and set it to show &#8216;seconds&#8217;. (Rather than the default &#8216;years&#8217;)</li>
 
@@ -255,7 +255,7 @@
 <p>At the bottom of the list we can identify pages that attracted <strong>no</strong> page pings - this means that none of the users who visited these pages stayed on them long enough for the first page ping event to fire. (In our case, that means 10 seconds.) Pages in this category include a number of blog posts on Snowplow releases (<a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>0.8.0 release with Scalding ETL</a>, the <a href='/blog/2012/10/21/infobright-ruby-loader-released/'>Infobright Ruby loader release</a> and the <a href='/blog/2012/08/14/updated-hive-serde-released/'>updated Hive Serde</a>.) We should not be too surprised: short posts announcing releases are going to be consumed much quicker than longer, tutorial style posts and analytics recipes.</p>
 
 <p>This touches on an important point: not all pages are designed to perform the same function and when we are applying an analysis like this, we should only be comparing pages that <em>are</em> designed to perform the same function, specifically driving engagement. Let&#8217;s refine the above analysis by including <em>only</em> results for blog posts. We can do this by dragging the <code>page_urlpath</code> dimension into the filters pane, select &#8216;wildcard&#8217; from the tab menu and instruct Tableau to include only <code>page_urlpath</code> that start with &#8216;/blog/&#8217;:</p>
-<p style='text-align: center'><a href='/static/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG'><img src='/static/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG' width='250' /></a></p>
+<p style='text-align: center'><a href='/static/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG'><img width='250' src='/static/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG' /></a></p>
 <p>We can now compare how long users spent on different blog pages:</p>
 <a href='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg' /></a>
 <p>Back to <a href='#top'>top</a>.</p>

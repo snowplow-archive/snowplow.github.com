@@ -108,7 +108,8 @@
 </ol>
 <a name='counting-unique-visitors'><h2>1. Number of unique visitors </h2></a>
 <p>The number of unique visitors can be calculated by summing the number of distinct <code>domain_userid</code>s in a specified time period. (Because each user is assigned a unique domain_userid, based on a lack of Snowplow tracking cookies on their browser):</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>as</span> <span class='ss'>&quot;Uniques&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
@@ -119,12 +120,13 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='uniques-by-day' src='/static/img/analytics/basic-recipes/uniques-by-day-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/uniques-by-day-chartio.png' alt='uniques-by-day' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-visits'><h2>2. Number of visits</h2></a>
 <p>Because each user might visit a site more than once, summing the number of <code>domain_userid</code>s returns the number if <em>visitors</em>, NOT the number of <em>visits</em>. Every time a user visits the site, however, Snowplow assigns that session with a <code>domain_sessionidx</code> (e.g. <code>1</code> for their first visit, <code>2</code> for their second.) Hence, to count the number of visits in a time period, we concatenate the unique <code>domain_userid</code> with the <code>domain_sessionidx</code> and then count the number of distinct concatenated entry in the events table:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span> <span class='k'>distinct</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;visits&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
@@ -135,14 +137,15 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='visits-by-day' src='/static/img/analytics/basic-recipes/visits-by-day-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visits-by-day-chartio.png' alt='visits-by-day' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-pageviews'><h2>3. Number of page views</h2></a>
 <p>Page views are one type of event that are stored in the Snowplow events table. They can easily be identified using the <code>event</code> field, which is set to &#8216;page_view&#8217;.</p>
 
 <p>To count the number of page views by day, then we simply execute the following query:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;page_views&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
@@ -154,7 +157,7 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='pageviews-by-day' src='/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png' alt='pageviews-by-day' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='counting-events'><h2>4. Number of events</h2></a>
@@ -173,7 +176,7 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='events-by-day' src='/static/img/analytics/basic-recipes/events-by-day-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/events-by-day-chartio.png' alt='events-by-day' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='pages-per-visit'><h2>5. Pages per visit</h2></a>
@@ -181,7 +184,7 @@
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
 <span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='ss'>&quot;session&quot;</span><span class='p'>,</span>
-<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>pages_visited</span>
+<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;pages_visited&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>and</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
@@ -196,7 +199,7 @@
 <span class='k'>from</span> <span class='p'>(</span>
 	<span class='k'>select</span>
 	<span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='ss'>&quot;session&quot;</span><span class='p'>,</span>
-	<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>pages_visited</span>
+	<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;pages_visited&quot;</span>
 	<span class='k'>from</span> <span class='n'>events</span>
 	<span class='k'>where</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 	<span class='k'>group</span> <span class='k'>by</span> <span class='k'>session</span>
@@ -207,7 +210,7 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='page-views-per-visit-frequency-table-chartio' src='/static/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png' alt='page-views-per-visit-frequency-table-chartio' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='bounce-rate'><h2>6. Bounce rate</h2></a>
@@ -216,8 +219,8 @@
 <span class='k'>select</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
-<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>time_first_touch</span><span class='p'>,</span>
-<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>number_of_events</span><span class='p'>,</span>
+<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;time_first_touch&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;number_of_events&quot;</span><span class='p'>,</span>
 <span class='k'>case</span> <span class='k'>when</span> <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='mi'>1</span> <span class='k'>else</span> <span class='mi'>0</span> <span class='k'>end</span> <span class='k'>as</span> <span class='n'>bounces</span>
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
@@ -235,8 +238,8 @@
 	<span class='k'>select</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
 	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>time_first_touch</span><span class='p'>,</span>
-	<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>number_of_events</span><span class='p'>,</span>
+	<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;time_first_touch&quot;</span><span class='p'>,</span>
+	<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;number_of_events&quot;</span><span class='p'>,</span>
 	<span class='k'>case</span> <span class='k'>when</span> <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='mi'>1</span> <span class='k'>else</span> <span class='mi'>0</span> <span class='k'>end</span> <span class='k'>as</span> <span class='n'>bounces</span>
 	<span class='k'>from</span> <span class='n'>events</span>
 	<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
@@ -250,77 +253,84 @@
 
 <p>In ChartIO:</p>
 
-<p><img alt='fraction-of-visits-per-day-that-bounce' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png' alt='fraction-of-visits-per-day-that-bounce' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='new-visits'><h2>7. % New visits</h2></a>
 <p>A new visit is easily identified as a visit where the domain_sessionidx = 1. Hence, to calculate the % of new visits, we need to sum all the visits where <code>domain_sessionidx</code> = 1 and divide by the total number of visits, in the time period.</p>
 
 <p>First, we create a table with every visit stored, and identify which visits were &#8220;new&#8221;:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visit</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;time_first_touch&quot;</span><span class='p'>,</span>
+<span class='n'>domain_userid</span><span class='p'>,</span> 
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='k'>case</span> <span class='k'>when</span> <span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='mi'>1</span> <span class='k'>else</span> <span class='mi'>0</span> <span class='n'>end</span> <span class='k'>as</span> <span class='s2'>&quot;first_visit&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre>
 </div>
 <p>Then we aggregate the visits over our desired time period, and calculate the fraction of them that are new:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='kt'>date</span><span class='p'>,</span>
-<span class='nf'>sum</span><span class='p'>(</span><span class='n'>new_visit</span><span class='p'>)</span><span class='o'>/</span><span class='nf'>count</span><span class='p'>(</span><span class='n'>session</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>fraction_of_visits_that_are_new</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span>
-	<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-	<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-	<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visit</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>)</span> <span class='n'>v</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='nf'>to_char</span><span class='p'>(</span><span class='n'>time_first_touch</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>,</span>
+<span class='nf'>sum</span><span class='p'>(</span><span class='n'>first_visit</span><span class='p'>)::</span><span class='kt'>real</span><span class='o'>/</span><span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;fraction_of_visits_that_are_new&quot;</span>
+<span class='k'>from</span> <span class='p'>(</span>
+	<span class='k'>select</span>
+	<span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;time_first_touch&quot;</span><span class='p'>,</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span> 
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='k'>case</span> <span class='k'>when</span> <span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='mi'>1</span> <span class='k'>else</span> <span class='mi'>0</span> <span class='n'>end</span> <span class='k'>as</span> <span class='s2'>&quot;first_visit&quot;</span>
+	<span class='k'>from</span> <span class='n'>events</span>
+	<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;date&quot;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s2'>&quot;date&quot;</span><span class='p'>;</span>
 </code></pre>
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='fraction-of-visits-per-day-where-the-visitor-is-new' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png' alt='fraction-of-visits-per-day-where-the-visitor-is-new' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='duration'><h2>8. Average visitor duration</h2></a>
 <p>To calculate this, 1st we need to calculate the duration of every visit:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span>  <span class='k'>AS</span> <span class='n'>start_time</span><span class='p'>,</span>
-<span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>finish_time</span><span class='p'>,</span>
-<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='o'>-</span> <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;start_time&quot;</span><span class='p'>,</span>
+<span class='nf'>max</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;finish_time&quot;</span><span class='p'>,</span>
+<span class='nf'>max</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='o'>-</span> <span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;duration&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
 </code></pre>
 </div>
 <p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='ss'>`date`</span><span class='p'>,</span>
-<span class='nf'>AVG</span><span class='p'>(</span><span class='ss'>`duration`</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>average_visit_duration</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span>
-	<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-	<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-	<span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span>  <span class='k'>AS</span> <span class='n'>start_time</span><span class='p'>,</span>
-	<span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>finish_time</span><span class='p'>,</span>
-	<span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MAX</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='o'>-</span> <span class='nf'>UNIX_TIMESTAMP</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='n'>duration</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span> <span class='p'>)</span><span class='n'>v</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='nf'>to_char</span><span class='p'>(</span><span class='n'>start_time</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>,</span>
+<span class='nf'>avg</span><span class='p'>(</span><span class='n'>duration</span><span class='p'>)</span><span class='o'>/</span><span class='mi'>1000000</span> <span class='k'>as</span> <span class='s2'>&quot;average_visit_duration_seconds&quot;</span>
+<span class='k'>from</span> <span class='p'>(</span>
+	<span class='k'>select</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;start_time&quot;</span><span class='p'>,</span>
+	<span class='nf'>max</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;finish_time&quot;</span><span class='p'>,</span>
+	<span class='nf'>max</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='o'>-</span> <span class='nf'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='s2'>&quot;duration&quot;</span>
+	<span class='k'>from</span> <span class='n'>events</span>
+	<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+<span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;Date&quot;</span>
+<span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>;</span>
 </code></pre>
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='average-duration-by-month' src='/static/img/analytics/basic-recipes/average-visit-duration-by-month-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/average-visit-duration-by-month-chartio.png' alt='average-duration-by-month' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='language'><h2>9. Demographics: language</h2></a>
@@ -339,7 +349,7 @@
 
 <p>In ChartIO:</p>
 
-<p><img alt='visitors-by-language-chartio' src='/static/img/analytics/basic-recipes/visitors-by-language-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visitors-by-language-chartio.png' alt='visitors-by-language-chartio' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='location'><h2>10. Demographics: location</h2></a>
@@ -378,7 +388,7 @@
 </div>
 <p>In ChartIO we would plot this by creating two layers: one for &#8220;new visits&#8221; and the other for &#8220;returning visits&#8221;. The combined graph would then look like:</p>
 
-<p><img alt='new-vs-returning-visits-by-day' src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day.png' alt='new-vs-returning-visits-by-day' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='frequency'><h2>12. Behaviour: frequency</h2></a>
@@ -410,7 +420,7 @@
 </div>
 <p>In ChartIO:</p>
 
-<p><img alt='distribution-of-visitors-by-number-of-visits' src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits-chartio.png' alt='distribution-of-visitors-by-number-of-visits' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='recency'><h2>13. Behaviour: recency</h2></a>
@@ -522,7 +532,7 @@
 </div>
 <p>And plot the results in ChartIO:</p>
 
-<p><img alt='days-since-last-visit-in-chartio' src='/static/img/analytics/basic-recipes/days-since-last-visit-in-2013-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/days-since-last-visit-in-2013-chartio.png' alt='days-since-last-visit-in-chartio' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='engagement'><h2>14. Behaviour: engagement</h2></a>
@@ -601,7 +611,7 @@
 </div>
 <p>We can then plot the results in ChartIO:</p>
 
-<p><img alt='visits-by-duration-chartio' src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' alt='visits-by-duration-chartio' /></p>
 
 <p>We can also look at the number of page views per visit</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
@@ -635,7 +645,7 @@
 </div>
 <p>And plot the results in ChartIO:</p>
 
-<p><img alt='visits-in-the-last-month-by-page-depth' src='/static/img/analytics/basic-recipes/visits-in-the-last-month-by-page-depth-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visits-in-the-last-month-by-page-depth-chartio.png' alt='visits-in-the-last-month-by-page-depth' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='browser'><h2>15. Technology: browser</h2></a>
@@ -654,7 +664,7 @@
 </div>
 <p>Plotting the results in ChartIO:</p>
 
-<p><img alt='visits-by-browser-type' src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' alt='visits-by-browser-type' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='os'><h2>16. Technology: operating system</h2></a>
@@ -673,7 +683,7 @@
 </div>
 <p>Again, we can plot the results in ChartIO:</p>
 
-<p><img alt='visits-by-operating-system' src='/static/img/analytics/basic-recipes/visits-by-operating-system.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/visits-by-operating-system.png' alt='visits-by-operating-system' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='mobile'><h2>17. Technology: mobile</h2></a>
@@ -688,7 +698,7 @@
 </div>
 <p>Plotting the results in ChartIO:</p>
 
-<p><img alt='split-in-visits-by-mobile-vs-desktop' src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop.png' /></p>
+<p><img src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop.png' alt='split-in-visits-by-mobile-vs-desktop' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 </div>

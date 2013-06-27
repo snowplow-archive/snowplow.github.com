@@ -236,7 +236,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 </div>
 <p>The plot appears in a new window:</p>
 
-<p><img alt='uniques-by-day' src='/static/img/analytics/tools/r/uniques-by-day.png' /></p>
+<p><img src='/static/img/analytics/tools/r/uniques-by-day.png' alt='uniques-by-day' /></p>
 
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='more-complex-example'><h2>5. A more complicated example: comparing visit characteristics by a range of dimensions</h2></a>
@@ -499,7 +499,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;point&quot;</span><span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='basic-bread-and-depth' src='/static/img/analytics/tools/r/breadth-and-depth-engagement.png' /></p>
+<p><img src='/static/img/analytics/tools/r/breadth-and-depth-engagement.png' alt='basic-bread-and-depth' /></p>
 
 <p>That is <em>kind of</em> interesting: it shows that we have visitors who engage very deeply with only one page on our site (e.g. the visitor at the top left of the scatter) <strong>and</strong> we have visitors who engage lightly across a broad range of pages (bottom right) and deeply with a lot of pages (top right). However, most of the points are in the bottom left, and they are too closely spaced to see how closely packed they are.</p>
 
@@ -512,7 +512,7 @@ Warning message:
 Removed <span class='m'>69</span> rows containing missing values <span class='p'>(</span>geom_point<span class='p'>)</span><span class='m'>.</span>
 </code></pre>
 </div>
-<p><img alt='jitter-with-transparency' src='/static/img/analytics/tools/r/jitter-with-transparency.png' /></p>
+<p><img src='/static/img/analytics/tools/r/jitter-with-transparency.png' alt='jitter-with-transparency' /></p>
 
 <p>Note: we have changed the plot type from &#8220;point&#8221; to &#8220;jitter&#8221; to jitter each point. The &#8220;alpha&#8221; argument is responsible for point transparency: we have set it to 5% (i.e. 20 points in one place will be required to create a black spot). The <code>scale_y_continuous</code> and <code>scale_x_continuous</code> arguments scale the x and y axes so that we zoom in on the point of the graph where most of our visits lie. R has kindly reminded us that some of our points lie outside this range, and so have been been removed.</p>
 
@@ -521,7 +521,7 @@ Removed <span class='m'>69</span> rows containing missing values <span class='p'
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>500</span><span class='p'>))</span>
 </code></pre>
 </div>
-<p><img alt='boxplot' src='/static/img/analytics/tools/r/boxplot.png' /></p>
+<p><img src='/static/img/analytics/tools/r/boxplot.png' alt='boxplot' /></p>
 
 <p>The boxplot shows that our earlier intuition was wrong: engagement depth increases <em>with</em> breadth. We had thought looking at the jittered plot that a higher proportion of people who only engaged with one page engaged more deeply. Now we can see that this was false: it looked to be the case, because the absolute number of people engaging deeply who only look at one page is higher than the actual number who engage deeply with a broader set. The boxplot controls for the difference in absolute numbers: we are instead looking at the distribution within each breadth level.</p>
 
@@ -531,7 +531,7 @@ scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span c
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='messy-boxplot' src='/static/img/analytics/tools/r/messy-boxplot.png' /></p>
+<p><img src='/static/img/analytics/tools/r/messy-boxplot.png' alt='messy-boxplot' /></p>
 
 <p>Ouch - this graph is very messy: breadth of engagement does appear to vary by landing page, but there are too many (100+) landing pages to make the analysis straight forward. What we want is to plot the results just for the top 10 landing pages, by number of visits.</p>
 
@@ -565,7 +565,7 @@ ordered<span class='o'>=</span><span class='kc'>TRUE</span><span class='p'>)</sp
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visitsSubset<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='boxplot-messy-axis' src='/static/img/analytics/tools/r/boxplot-messy-axis.png' /></p>
+<p><img src='/static/img/analytics/tools/r/boxplot-messy-axis.png' alt='boxplot-messy-axis' /></p>
 
 <p>We can tidy up the x-axis by aligning the labels on the axis vertically, by adding <code> + theme(axis.text.x = element_text(angle=90, vjust=0.4))</code> to our command. We can also hide the outliers on our plot, to make it clear, by adding <code>outlier.shape=NA</code>:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visitsSubset<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>,</span> outlier.shape<span class='o'>=</span><span class='kc'>NA</span><span class='p'>)</span> <span class='o'>+</span> 
@@ -573,7 +573,7 @@ theme<span class='p'>(</span>axis.text.x <span class='o'>=</span> element_text<s
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>15</span><span class='p'>))</span>
 </code></pre>
 </div>
-<p><img alt='tidy-boxplot-breadth-of-engagement' src='/static/img/analytics/tools/r/tidy-boxplot-engagement-breadth-by-landing-page.png' /></p>
+<p><img src='/static/img/analytics/tools/r/tidy-boxplot-engagement-breadth-by-landing-page.png' alt='tidy-boxplot-breadth-of-engagement' /></p>
 
 <p>The results are very interesting: visitors who land on the homepage and analytics cookbook are much more likely to engage more broadly with content on the site, rather than visitors who land on the specific blog posts (e.g. on writing Hive UDFs or dealing with Hadoop small files problem.)</p>
 
@@ -583,7 +583,7 @@ theme<span class='p'>(</span>axis.text.x <span class='o'>=</span> element_text<s
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
 </code></pre>
 </div>
-<p><img alt='tidy-boxplot-depth-of-engagement' src='/static/img/analytics/tools/r/boxplot-depth-of-engagement-by-landing-page.png' /></p>
+<p><img src='/static/img/analytics/tools/r/boxplot-depth-of-engagement-by-landing-page.png' alt='tidy-boxplot-depth-of-engagement' /></p>
 
 <p>The impact of landing page on depth of engagement is not nearly as pronounced as that between landing page and depth of engagement. That is likely to be because of both:</p>
 
@@ -602,7 +602,7 @@ scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span c
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>refr_medium<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> fill<span class='o'>=</span>visited_services_page geom<span class='o'>=</span><span class='s'>&quot;bar&quot;</span><span class='p'>,</span> position<span class='o'>=</span><span class='s'>&quot;fill&quot;</span><span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='barchart-conversion-by-refr-medium' src='/static/img/analytics/tools/r/barchart-conversion-by-refr-medium.png' /></p>
+<p><img src='/static/img/analytics/tools/r/barchart-conversion-by-refr-medium.png' alt='barchart-conversion-by-refr-medium' /></p>
 
 <p>Note that <code>position=&quot;fill&quot;</code> makes each bar on our bar graph extend 100%.</p>
 
@@ -613,7 +613,7 @@ scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span c
 scale_x_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
 </code></pre>
 </div>
-<p><img alt='facetted-scatter-plot' src='/static/img/analytics/tools/r/facetted-scatter.png' /></p>
+<p><img src='/static/img/analytics/tools/r/facetted-scatter.png' alt='facetted-scatter-plot' /></p>
 
 <p>We used the <code>facet</code> argument above to ask R to plot us two version of the scatter plot, one for visits where the services pages were visted, and one for visits where they were not, to see if the overall pattern of engagement for the two groups is different. The results are interesting: they suggest that in both cases, there is a strong relationship between breadth and depth of engagement. (These are highly correlated.) However, visitors that visited the services pages are <em>more likely</em> to engage both more deeply and more broadly, overall, than those who do not, as evidenced from the lower fraction of points at the bottom right of the graph. (Further visualization work is required to specify this more precisely.)</p>
 

@@ -23,6 +23,8 @@ $b1: #D5DAEB;
  */
 
 #container {
+
+
 	width: 960px;
 	display: block;
 	margin-right: auto;
@@ -41,6 +43,9 @@ $b1: #D5DAEB;
 	p  { font-size: 14px; }
 	a  { text-decoration: none; color: $b5; font-weight: bold; }
 	a:hover { text-decoration: underline; }
+
+	img {  border-style: none; } /* Ensure on IE that linked images don't get a blue border */
+	
 
 	.shortcolumn {
 		display: inline;

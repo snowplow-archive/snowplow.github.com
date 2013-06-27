@@ -14,7 +14,8 @@
   /* font-family: "Lucida Grande", "Tahoma", "Lucida Sans", "Lucida", "Arial", "Helvetica", "sans-serif"; */
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #4c5471;
-  font-size: 14px; }
+  font-size: 14px;
+  /* Ensure on IE that linked images don't get a blue border */ }
   #container h1 {
     font-size: 18px;
     margin-top: 14px;
@@ -35,6 +36,8 @@
     font-weight: bold; }
   #container a:hover {
     text-decoration: underline; }
+  #container img {
+    border-style: none; }
   #container .shortcolumn {
     display: inline;
     float: left;

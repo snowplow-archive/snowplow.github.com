@@ -328,32 +328,43 @@
 <span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>;</span>
 </code></pre>
 </div>
-<p>In ChartIO:</p>
-
-<p><img src='/static/img/analytics/basic-recipes/average-visit-duration-by-month-chartio.png' alt='average-duration-by-month' /></p>
-
 <p><a href='#top'>Back to top</a></p>
 <a name='language'><h2>9. Demographics: language</h2></a>
 <p>For each event the browser language is stored in the <code>br_language</code> field. As a result, counting the number of visitors in a time period by language is trivial:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
 <span class='n'>br_lang</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>visits</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
-<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_lang</span>
-<span class='k'>ORDER</span> <span class='k'>By</span> <span class='n'>visits</span> <span class='k'>DESC</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>as</span> <span class='s2'>&quot;visitors&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='n'>br_lang</span>
+<span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;visitors&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
 </code></pre>
 </div>
-<p>Note that rather than dividing the visits by language, it may make more sense to divide</p>
-
 <p>In ChartIO:</p>
 
 <p><img src='/static/img/analytics/basic-recipes/visitors-by-language-chartio.png' alt='visitors-by-language-chartio' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='location'><h2>10. Demographics: location</h2></a>
-<p>THIS NEEDS TO BE DONE IN CONJUNCTION WITH MAXIMIND DATABASE OR OTHER GEOIP DATABASE, BASED ON IP - TO WRITE</p>
+<p>We can identify the geographic location of users using the <code>geo_country</code>, <code>geo_region</code>, <code>geo_city</code>, <code>geo_zipcode</code>, <code>geo_latitude</code> and <code>geo_longitude</code> fields.</p>
+
+<p>To calculate the number of visitors in the last month by country, simply execute:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>SELECT</span>
+<span class='n'>geo_country</span><span class='p'>,</span>
+<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>as</span> <span class='s2'>&quot;visitors&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='n'>geo_country</span>
+<span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;visitors&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
+</code></pre>
+</div>
+<p>In ChartIO:</p>
+
+<p><img src='/static/img/analytics/basic-recipes/visitors-by-country-chartio.png' alt='visitors-by-country' /></p>
+
+<p>To create a geographical plot, you&#8217;ll need to use another tool like <a href='http://cran.r-project.org/'>R</a> or <a href='http://www.tableausoftware.com/'>Tableau</a>.</p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='new-vs-returning'><h2>11. Behaviour: new vs returning</h2></a>

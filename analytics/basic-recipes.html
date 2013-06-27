@@ -161,7 +161,8 @@
 <p>Although the number of page views is a standard metric in web analytics, this reflects the web&#8217;s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
 
 <p>As a result, counting the total number of events (including page views but also other AJAX events) is actually a more meaningful thing to do than to count the number of page views, as we have done above. We recommend setting up Snowplow so that <em>all</em> events / actions that a user takes are tracked. Hence, running the below queries should return a total sum of events on the site by time period:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;events&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
@@ -177,7 +178,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='pages-per-visit'><h2>5. Pages per visit</h2></a>
 <p>The number of pages per visit can be calculated by visit very straightforwardly:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='k'>AS</span> <span class='ss'>&quot;session&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>pages_visited</span>
 <span class='k'>from</span> <span class='n'>events</span>
@@ -187,7 +189,8 @@
 </code></pre>
 </div>
 <p>We can then aggregate our data by number of pages per visit, to produce a frequency table:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>pages_visited</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;frequency&quot;</span>
 <span class='k'>from</span> <span class='p'>(</span>
@@ -209,7 +212,8 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='bounce-rate'><h2>6. Bounce rate</h2></a>
 <p>First we need to identify all the sessions that were &#8216;bounces&#8217;. These are visits where there is only a single event captured: the initial page view:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>time_first_touch</span><span class='p'>,</span>
@@ -223,9 +227,10 @@
 <p>This query returns a line of data for every session. For each, it logs a timestamp, the number of events, and a flag that is set to 1 if the visitor bounced.</p>
 
 <p>To calculate bounce rate by day, we take the above table, aggregate the results by day, sum the number of bounces and divide it by the total number of sessions:</p>
-<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>time_first_touch</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
-<span class='k'>sum</span><span class='p'>(</span><span class='n'>bounces</span><span class='p'>)</span><span class='o'>/</span><span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Bounce rate&quot;</span>
+<span class='k'>sum</span><span class='p'>(</span><span class='n'>bounces</span><span class='p'>)::</span><span class='nb'>real</span><span class='o'>/</span><span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>as</span> <span class='ss'>&quot;Bounce rate&quot;</span>
 <span class='k'>from</span> <span class='p'>(</span>
 	<span class='k'>select</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
@@ -241,6 +246,8 @@
 <span class='k'>order</span> <span class='k'>by</span> <span class='nb'>Date</span><span class='p'>;</span>
 </code></pre>
 </div>
+<p>Note that we have to cast sum(bounces) as a &#8216;real&#8217; number, to force Redshift / PostgreSQL to output a real number rather than an integer for the bounce rate.</p>
+
 <p>In ChartIO:</p>
 
 <p><img alt='fraction-of-visits-per-day-that-bounce' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png' /></p>

@@ -355,65 +355,53 @@
 <p><a href='#top'>Back to top</a></p>
 <a name='new-vs-returning'><h2>11. Behaviour: new vs returning</h2></a>
 <p>Within a given time period, we can compare the number of new visitors (for whom <code>domain_sessionidx</code> = 1) with returning visitors (for whom <code>domain_sessionidx</code> &gt; 1):</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visitor</span><span class='p'>,</span>
-<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visitor</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>as</span> <span class='n'>time_first_touch</span><span class='p'>,</span>
+<span class='k'>case</span> <span class='k'>when</span> <span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='s1'>&#39;new&#39;</span> <span class='k'>else</span> <span class='s1'>&#39;returning&#39;</span> <span class='k'>end</span> <span class='k'>as</span> <span class='ss'>&quot;new_vs_returning&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 </code></pre></div>
 <p>Then we can aggregate them by time period, to get the total new vs returning e.g. by day:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='ss'>`date`</span><span class='p'>,</span>
-<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>new_visitor</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>new_visits</span><span class='p'>,</span>
-<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>returning_visitor</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visits</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span>
-	<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`date`</span><span class='p'>,</span>
-	<span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>,</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`session`</span><span class='p'>,</span>
-	<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>)</span>  <span class='k'>AS</span> <span class='n'>new_visitor</span><span class='p'>,</span>
-	<span class='k'>IF</span><span class='p'>(</span><span class='n'>domain_sessionidx</span> <span class='o'>&gt;</span><span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>0</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>returning_visitor</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`session`</span> <span class='p'>)</span> <span class='n'>v</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`date`</span>
-</code></pre></div>
-<p>In ChartIO we would plot this by creating two layers: one for &#8220;new visits&#8221; and the other for &#8220;returning visits&#8221;. The combined graph would then look like:</p>
-
-<p><img alt='new-vs-returning-visits-by-day' src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day.png' /></p>
-
-<p><a href='#top'>Back to top</a></p>
-<a name='frequency'><h2>12. Behaviour: frequency</h2></a>
-<p>We can look at the distribution of users by number of visits they have performed in a given time period. First, we count the number of visits each user has performed in the specific time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>visits</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
-<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>;</span>
-</code></pre></div>
-<p>Now we aggregate that data set by the number of visits in the time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='ss'>`visits`</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
+<span class='k'>select</span>
+<span class='n'>to_char</span><span class='p'>(</span><span class='n'>time_first_touch</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span>
+<span class='ss'>&quot;new_vs_returning&quot;</span> <span class='k'>As</span> <span class='ss'>&quot;New vs returning&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Number of visits&quot;</span>
+<span class='k'>from</span> <span class='p'>(</span>
+	<span class='k'>select</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>visits</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008_cf`</span>
-	<span class='k'>WHERE</span> <span class='n'>collector_dt</span><span class='o'>&gt;</span><span class='s1'>&#39;2012-12-31&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span> <span class='p'>)</span> <span class='n'>v</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>`visits`</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='ss'>`visits`</span><span class='p'>;</span> 
+	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
+	<span class='k'>min</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>time_first_touch</span><span class='p'>,</span>
+	<span class='k'>case</span> <span class='k'>when</span> <span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span> <span class='k'>then</span> <span class='s1'>&#39;new&#39;</span> <span class='k'>else</span> <span class='s1'>&#39;returning&#39;</span> <span class='k'>end</span> <span class='k'>as</span> <span class='ss'>&quot;new_vs_returning&quot;</span>
+	<span class='k'>from</span> <span class='n'>events</span>
+	<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
+	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
+<span class='p'>)</span> <span class='n'>v</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span> <span class='ss'>&quot;New vs returning&quot;</span>
+<span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span> <span class='ss'>&quot;New vs returning&quot;</span>
 </code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img alt='distribution-of-visitors-by-number-of-visits' src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits-chartio.png' /></p>
+<p><img alt='new-vs-returning-visits-by-day' src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day-chartio.png' /></p>
+
+<p><a href='#top'>Back to top</a></p>
+<a name='frequency'><h2>12. Behaviour: frequency</h2></a>
+<p>We can plot the distribution of visits in a time period by the number of visits each visitor has performed:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>select</span>
+<span class='n'>domain_sessionidx</span> <span class='k'>as</span> <span class='ss'>&quot;Number of visits&quot;</span><span class='p'>,</span>
+<span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>as</span> <span class='ss'>&quot;Frequency&quot;</span>
+<span class='k'>from</span> <span class='n'>events</span>
+<span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
+<span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Number of visits&quot;</span>
+<span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Number of visits&quot;</span>
+</code></pre></div>
+<p>In ChartIO:</p>
+
+<p><img alt='distribution-of-visitors-by-number-of-visits' src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits.png' /></p>
 
 <p><a href='#top'>Back to top</a></p>
 <a name='recency'><h2>13. Behaviour: recency</h2></a>

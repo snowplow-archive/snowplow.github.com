@@ -96,7 +96,7 @@
 
 <li><a href='#business'>Interpreting the results: using the analysis to drive business decision-making</a></li>
 
-<li><a href='#expand'>Expanding on the analysis - zooming out from the basket to look a customer behaviour over longer periods and different events</a></li>
+<li><a href='#expand'>Expanding on the analysis - zooming out from the basket to look a customer behavior over longer periods and different events</a></li>
 </ol>
 <a name='metrics'><h2>1. Market basket analysis: the basics</h2></a>
 <h3 id='terminology'>Terminology</h3>
@@ -266,7 +266,7 @@ plot<span class='p'>(</span>basket_rules_broad<span class='p'>)</span>
 <p>How we use the analysis has significant implications for the analysis itself: if we are feeding the analysis into a machine-driven process for delivering recommendations, we are much more interested in generating an expansive set of rules. If, however, we are experimenting with targeted marketing for the first time, it makes much more sense to pick a handful of particularly high value rules, and action just them, before working out whether to invest in the effort of building out that capability to manage a much wider and more complicated rule set.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
-<a name='expand'><h2>5. Expanding on the analysis: zooming out from the basket to look a customer behaviour over longer periods and different events</h2></a>
+<a name='expand'><h2>5. Expanding on the analysis: zooming out from the basket to look a customer behavior over longer periods and different events</h2></a>
 <p>In the above example, we used actual transaction events to identify associations between products for an online retailer.</p>
 
 <p>Sticking with our retail example, however, we could have expanded the scope of our definition of transactions. Instead of <em>just</em> looking at the basket for successful transactions, we could have looked at user&#8217;s complete baskets (whether or not they went on to buy). The analysis steps would have been <em>almost</em> exactly the same, however, instead of pulling transaction data out of Snowplow, we&#8217;d have pulled <em>add-to-basket</em> data out, using a query like the following:</p>

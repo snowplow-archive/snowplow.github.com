@@ -83,9 +83,9 @@
 <p>Every line of Snowplow table includes placeholders for three different user IDs:</p>
 
 <ol>
-<li>The <code>domain_userid</code>. This is a user ID that is set via a first party cookie. It can therefore be used to track user behaviour within a particular webdomain e.g. <code>mynewssite.com</code></li>
+<li>The <code>domain_userid</code>. This is a user ID that is set via a first party cookie. It can therefore be used to track user behavior within a particular webdomain e.g. <code>mynewssite.com</code></li>
 
-<li>The <code>network_userid</code>. This is a user ID that is set via a third party cookie. It can be used to track user behaviour across a network of sites on different domains.</li>
+<li>The <code>network_userid</code>. This is a user ID that is set via a third party cookie. It can be used to track user behavior across a network of sites on different domains.</li>
 
 <li>A <code>user_id</code> that can be set to custom values. This can be used to assign e.g. an ID set by a CRM system to Snowplow data.</li>
 </ol>
@@ -161,26 +161,26 @@
 
 <h3 id='3a_advantages_of_storing_both_a_domain_and_network_user_id'>3a. Advantages of storing both a domain and network user ID</h3>
 
-<p>For businesses that wish to track users across multiple domains (notably content networks and ad networks), there are significant advantages to using the <code>network_userid</code> over the <code>domain_userid</code>: namely that it is straightforward to analyse a user&#8217;s behaviour across multiple sites.</p>
+<p>For businesses that wish to track users across multiple domains (notably content networks and ad networks), there are significant advantages to using the <code>network_userid</code> over the <code>domain_userid</code>: namely that it is straightforward to analyse a user&#8217;s behavior across multiple sites.</p>
 
 <p>However, a growing proportion of browsers and users are dropping support for third party cookies.</p>
 
 <p>By maintaining support for both first party cookies (<code>domain_userid</code>) and third party cookies (<code>network_userid</code>), Snowplow makes it possible to use the <code>network_userid</code> to identify users where those users have are happy to be tracked using third party cookies. For those users who are not (whom it is easy to identify because they do not have values set for <code>network_userid</code>), it is possible to fall back on <code>domain_userid</code>.</p>
 
-<p>This makes it possible to perform statistical analyses on network behaviour based on the subset of users who are comfortable with third party cookies. It makes it clear which users are and are not covered by the sample.</p>
+<p>This makes it possible to perform statistical analyses on network behavior based on the subset of users who are comfortable with third party cookies. It makes it clear which users are and are not covered by the sample.</p>
 
 <p>It also leaves open the possibility of joining domain identifiers from different domains using cookie sync technologies.</p>
 
 <h3 id='3b_advantages_of_maintaining_a_separate_user_identifier_for_businesses_to_populate_with_their_own_customer_ids'>3b. Advantages of maintaining a separate user identifier for businesses to populate with their own customer IDs</h3>
 
-<p>Enabling businesses to set their own user ID where it is available is a very powerful feature: it makes it possible, for example, to join Snowplow behavioural data with other customer data sets e.g. CRM, marketing etc.</p>
+<p>Enabling businesses to set their own user ID where it is available is a very powerful feature: it makes it possible, for example, to join Snowplow behavioral data with other customer data sets e.g. CRM, marketing etc.</p>
 
-<p>Rather then override the <code>domain_userid</code> and / or <code>network_userid</code>, however, we have a separate field <code>user_id</code> set aside for this purpose. This is to give analysts maximum flexibility when analysing user behaviour over the user&#8217;s entire behaviour. To illustrate this with an example:</p>
+<p>Rather then override the <code>domain_userid</code> and / or <code>network_userid</code>, however, we have a separate field <code>user_id</code> set aside for this purpose. This is to give analysts maximum flexibility when analysing user behavior over the user&#8217;s entire behavior. To illustrate this with an example:</p>
 
 <ul>
 <li>Consider the case of an online retailer with a long sales cycle. (I.e. it might be common for a user to make multiple visits to the site before making a purchase.)</li>
 
-<li>A user looking at making a purchase will typically visit the site multiple times before purchasing. In this case, it is possible to track his / her behaviour using either the <code>domain_userid</code> or <code>network_userid</code></li>
+<li>A user looking at making a purchase will typically visit the site multiple times before purchasing. In this case, it is possible to track his / her behavior using either the <code>domain_userid</code> or <code>network_userid</code></li>
 
 <li>Once the user has bought an item, they will have created an account. At that stage, the retailer might ascribe that user a user ID, based on the user&#8217;s name / address</li>
 
@@ -219,7 +219,7 @@
 <p>This type of mapping table is reliable and flexible, because it can accommodate many-to-many relationships between <code>user_id</code> and <code>domain_userid</code>. Consider the following two cases:</p>
 
 <ol>
-<li>A user logs in to his / her account from multiple devices. In that case, there would be many <code>domain_userid</code> to each <code>user_id</code>. That is fine, because we can aggregate data by <code>user_id</code> to capture the user&#8217;s behaviour across all those different devices.</li>
+<li>A user logs in to his / her account from multiple devices. In that case, there would be many <code>domain_userid</code> to each <code>user_id</code>. That is fine, because we can aggregate data by <code>user_id</code> to capture the user&#8217;s behavior across all those different devices.</li>
 
 <li>Multiple users log in and out of their account from a single shared computer. In that case, there would be many <code>user_id</code> to each <code>domain_userid</code>. In that case, we&#8217;d need to be careful to aggregate records between log in and out events and ascribe them to a single user, so that we can differentiate actions performed by different users on the same computer.</li>
 </ol>

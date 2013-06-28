@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-06-28T15:10:36+01:00</updated>
+  <updated>2013-06-28T17:53:33+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -227,11 +227,11 @@
 &lt;p&gt;The testing of Olark to date has been qualitative however. Longer term, we want to assess the value Olark adds quantitatively. To do this, naturally, we turn to Snowplow. We want to track Olark chat events in Snowplow, so that we can then analyze the Snowplow data to understand:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;The type of user behaviour on the site that typically leads up to a user reaching out to us on Olark&lt;/li&gt;
+&lt;li&gt;The type of user behavior on the site that typically leads up to a user reaching out to us on Olark&lt;/li&gt;
 
-&lt;li&gt;The type of user behaviour on the site that leads to a user being responsive to us reaching out to them via Olark&lt;/li&gt;
+&lt;li&gt;The type of user behavior on the site that leads to a user being responsive to us reaching out to them via Olark&lt;/li&gt;
 
-&lt;li&gt;What impact do conversation on Olark have on the visitors subsequent browsing behaviour (and likelihood to start using Snowplow and buying Snowplow professional services)?&lt;/li&gt;
+&lt;li&gt;What impact do conversation on Olark have on the visitors subsequent browsing behavior (and likelihood to start using Snowplow and buying Snowplow professional services)?&lt;/li&gt;
 
 &lt;li&gt;How good (quick) we are at responding to visitors reaching out to us via Olark?&lt;/li&gt;
 &lt;/ol&gt;
@@ -283,7 +283,7 @@
 
 &lt;li&gt;When visitors tend respond to messages from us. (When should we reach out, and when we shouldn&amp;#8217;t.)&lt;/li&gt;
 
-&lt;li&gt;What impact chats on Olark have, in aggregate on visitor&amp;#8217;s subsequent behaviour on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)&lt;/li&gt;
+&lt;li&gt;What impact chats on Olark have, in aggregate on visitor&amp;#8217;s subsequent behavior on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;We&amp;#8217;ll cover how to perform the above analysis in a future blog post.&lt;/p&gt;</content>
@@ -674,11 +674,11 @@ $ git checkout 0.8.5&lt;/code&gt;&lt;/pre&gt;
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;We have just added a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;new recipe&lt;/a&gt; to the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;: one that walks through the process of performing a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;market basket analysis&lt;/a&gt;, to identify associations between products and/or content items based on user purchase / viewing behaviour. The recipe covers performing the analysis on Snowplow data using &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt; and the &lt;a href='http://cran.r-project.org/web/packages/arules/index.html'&gt;arules&lt;/a&gt; package in particular. Although the example walked through uses Snowplow data, the same approach &lt;em&gt;can&lt;/em&gt; be used with other data sets: I&amp;#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.&lt;/p&gt;
+    <content type="html">&lt;p&gt;We have just added a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;new recipe&lt;/a&gt; to the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt;: one that walks through the process of performing a &lt;a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'&gt;market basket analysis&lt;/a&gt;, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt; and the &lt;a href='http://cran.r-project.org/web/packages/arules/index.html'&gt;arules&lt;/a&gt; package in particular. Although the example walked through uses Snowplow data, the same approach &lt;em&gt;can&lt;/em&gt; be used with other data sets: I&amp;#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.&lt;/p&gt;
 &lt;p style='text-align: center'&gt;&lt;img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /&gt;&lt;/p&gt;
 &lt;p&gt;Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&amp;#8217;s &lt;em&gt;users who bought this product also bought these items&lt;/em&gt;&amp;#8230;&lt;/p&gt;
 &lt;!--more--&gt;
-&lt;p&gt;Although people usually think of market basket analysis with respect to retailer transaction data, exactly the same algorithms and approaches can be uses with viewing data on media sites. The results of this type of analysis can be used to inform website design (how items are grouped together) and to power recommendation engines and targeted marketing. (E.g. advertising content items or products that people are more likely to be interested in, based on their past behaviour.)&lt;/p&gt;
+&lt;p&gt;Although people usually think of market basket analysis with respect to retailer transaction data, exactly the same algorithms and approaches can be uses with viewing data on media sites. The results of this type of analysis can be used to inform website design (how items are grouped together) and to power recommendation engines and targeted marketing. (E.g. advertising content items or products that people are more likely to be interested in, based on their past behavior.)&lt;/p&gt;
 
 &lt;p&gt;This is the first recipe that primarily uses &lt;a href='http://www.r-project.org/'&gt;R&lt;/a&gt;. We&amp;#8217;re big fans of R at Snowplow, and a big motivation in building Snowplow was to enable the use of sophisticated data analysis tools like R on granular event-level data. We have a number of other recipes for R we hope to publish in the near future. This is the third recipe added to the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;catalog analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Cookbook&lt;/a&gt;.&lt;/p&gt;
 
@@ -1790,7 +1790,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Thanks Alex! Quick bit about me: I&amp;#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for &lt;a href='http://www.sharethrough.com/engineering'&gt;engineering&lt;/a&gt; at &lt;a href='http://www.sharethrough.com'&gt;Sharethrough&lt;/a&gt; - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where &lt;a href='https://github.com/rslifka/elasticity'&gt;Elasticity&lt;/a&gt; comes in.&lt;/p&gt;
 &lt;!--more--&gt;
-&lt;p&gt;Our ads report a significant amount of information around user behaviour which we then use in decisioning, pricing and insight derivation (e.g. “Do people share videos before watching them?”). In the early days, we were handling what we now consider a small volume of logs (1GB/day) with a correspondingly quick and dirty ETL: a log parser that updated the MySQL instance backing our reporting dashboards. Fast forward to 2013 and our log intake is north of 30GB/day. With this volume of data and with the insights we wanted to derive, that process didn’t cut it and we determined that the quickest way for us to begin deriving value from our data was via &lt;a href='http://aws.amazon.com/elasticmapreduce/'&gt;Amazon Elastic MapReduce&lt;/a&gt; (hereon referred to as EMR).&lt;/p&gt;
+&lt;p&gt;Our ads report a significant amount of information around user behavior which we then use in decisioning, pricing and insight derivation (e.g. “Do people share videos before watching them?”). In the early days, we were handling what we now consider a small volume of logs (1GB/day) with a correspondingly quick and dirty ETL: a log parser that updated the MySQL instance backing our reporting dashboards. Fast forward to 2013 and our log intake is north of 30GB/day. With this volume of data and with the insights we wanted to derive, that process didn’t cut it and we determined that the quickest way for us to begin deriving value from our data was via &lt;a href='http://aws.amazon.com/elasticmapreduce/'&gt;Amazon Elastic MapReduce&lt;/a&gt; (hereon referred to as EMR).&lt;/p&gt;
 
 &lt;p&gt;If you’re unfamiliar with AWS service interaction and evolution, it often follows this pattern (using EMR as an example):&lt;/p&gt;
 
@@ -1861,7 +1861,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Whereas traditional web analytics packages deal with this by aggregating data to feed pre-cut reports, we built Snowplow specifically to maintain that granularity, because that granularity is critical to:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Performing bespoke analyses e.g. analysing conversion rates by product, or segmenting users by behaviour&lt;/li&gt;
+&lt;li&gt;Performing bespoke analyses e.g. analysing conversion rates by product, or segmenting users by behavior&lt;/li&gt;
 
 &lt;li&gt;Joining Snowplow data with third party datasets e.g. from your CMS, CRM, adserver or marketing data&lt;/li&gt;
 &lt;/ul&gt;
@@ -2324,7 +2324,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;&lt;a name='clv'&gt;Customer lifetime value&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;These are the slides I prepared for my session on customer lifetime value:&lt;/p&gt;
 &lt;iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16598692' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank' title='Customer lifetime value'&gt;Customer lifetime value&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
-&lt;p&gt;We had a very interesting discussion about the challenges both of tracking user behaviour across user lifetime, and started to explore approaches to developing predictive models for customer lifetime value. In 30 minutes we didn&amp;#8217;t get the chance to develop these very far - I hope we find another forum (maybe G+?) to continue the conversation. Many thanks to all those who attended: I learnt a lot from you.&lt;/p&gt;
+&lt;p&gt;We had a very interesting discussion about the challenges both of tracking user behavior across user lifetime, and started to explore approaches to developing predictive models for customer lifetime value. In 30 minutes we didn&amp;#8217;t get the chance to develop these very far - I hope we find another forum (maybe G+?) to continue the conversation. Many thanks to all those who attended: I learnt a lot from you.&lt;/p&gt;
 
 &lt;h2 id='thank_you_measurecamp'&gt;Thank you Measurecamp&lt;/h2&gt;
 
@@ -2414,7 +2414,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Each event now tracks the current viewport of the browser - in other words, the viewable area (width x height) current available within the browser.&lt;/p&gt;
 
-&lt;p&gt;This will enable analysts to distinguish browsing behaviour based on viewport size, and see if there are specific events on a customer journey that trigger a user resizing his / her browser. (Which is a useful user-experience indicator.)&lt;/p&gt;
+&lt;p&gt;This will enable analysts to distinguish browsing behavior based on viewport size, and see if there are specific events on a customer journey that trigger a user resizing his / her browser. (Which is a useful user-experience indicator.)&lt;/p&gt;
 
 &lt;h3 id='14_document_width_and_height'&gt;1.4 Document width and height&lt;/h3&gt;
 
@@ -2449,7 +2449,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;ol&gt;
 &lt;li&gt;Our &lt;code&gt;logImpression()&lt;/code&gt; method was not working (it was using the wrong argument names) - this has now been fixed.&lt;/li&gt;
 
-&lt;li&gt;The activity tracking (page ping) behaviour was too fragile: if a single monitoring period elapsed with no activity, then all future monitoring would be cancelled. This could easily lead to on-page activity not being recorded. This has now been fixed&lt;/li&gt;
+&lt;li&gt;The activity tracking (page ping) behavior was too fragile: if a single monitoring period elapsed with no activity, then all future monitoring would be cancelled. This could easily lead to on-page activity not being recorded. This has now been fixed&lt;/li&gt;
 &lt;/ol&gt;
 &lt;a name='breaking-changes'&gt;&lt;h2&gt;3. Breaking changes and deprecations&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;The following table tracks the breaking changes and deprecations in this version. &lt;strong&gt;When upgrading to the latest version of the JavaScript tracker (0.10.0), please update your JavaScript tags as per the instructions below to avoid problems:&lt;/strong&gt;&lt;/p&gt;
@@ -2824,7 +2824,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Views a page on a 3rd party hosting site&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Our &lt;a href='/no-js-tracker.html'&gt;No-JS Tracking tag wizard&lt;/a&gt; makes it easier to generate pure-HTML tracking tags. Were you to embed these in email marketing messages, for example, you would be able to compare the behaviour of users on your website who had opened specific messages with those who had not. The &lt;a href='/no-js-tracker.html'&gt;No-JS Tracker&lt;/a&gt; enables you to track a broader set of user events in Snowplow, so providing greater coverage of your users&amp;#8217; journeys. For more information on the &lt;a href='/no-js-tracker.html'&gt;No-JS tracker&lt;/a&gt; see the &lt;a href='/blog/2013/01/29/introducing-the-no-js-tracker/'&gt;blog post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Our &lt;a href='/no-js-tracker.html'&gt;No-JS Tracking tag wizard&lt;/a&gt; makes it easier to generate pure-HTML tracking tags. Were you to embed these in email marketing messages, for example, you would be able to compare the behavior of users on your website who had opened specific messages with those who had not. The &lt;a href='/no-js-tracker.html'&gt;No-JS Tracker&lt;/a&gt; enables you to track a broader set of user events in Snowplow, so providing greater coverage of your users&amp;#8217; journeys. For more information on the &lt;a href='/no-js-tracker.html'&gt;No-JS tracker&lt;/a&gt; see the &lt;a href='/blog/2013/01/29/introducing-the-no-js-tracker/'&gt;blog post&lt;/a&gt;.&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;h2 id='important_bug_fixes'&gt;Important bug fixes&lt;/h2&gt;
 
@@ -2874,7 +2874,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Views of pages on 3rd party hosting sites e.g. Github&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;In these cases, you can use the &lt;a href='/no-js-tracker.html'&gt;No-Javascript tracker&lt;/a&gt; (pixel tracker) to track events directly into your Snowplow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behaviour, for example.&lt;/p&gt;
+&lt;p&gt;In these cases, you can use the &lt;a href='/no-js-tracker.html'&gt;No-Javascript tracker&lt;/a&gt; (pixel tracker) to track events directly into your Snowplow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behavior, for example.&lt;/p&gt;
 &lt;!--more--&gt;&lt;a name='mechanics'&gt;&lt;h2&gt;How it works&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;The standard Javascript tracker&lt;/p&gt;
 
@@ -3549,7 +3549,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;For our sample data set there appears to be a rather interesting rise in engagement level (as measured by both conversion rates and page views by month) between November and December. What&amp;#8217;s driving that increase? What clues can our Snowplow data give us?&lt;/p&gt;
 
-&lt;p&gt;We can divide drivers into two groups: those that effect all users on our website, and those that only effect some of them. If, for example, we performed a measure rearchitecture of our entire site, that is likely to effect &lt;strong&gt;all&lt;/strong&gt; users&amp;#8217; behaviour. But if we upgraded the site for mobile, then we would &lt;strong&gt;only&lt;/strong&gt; expect that to impact user behaviour for people browsing from mobile sites.&lt;/p&gt;
+&lt;p&gt;We can divide drivers into two groups: those that effect all users on our website, and those that only effect some of them. If, for example, we performed a measure rearchitecture of our entire site, that is likely to effect &lt;strong&gt;all&lt;/strong&gt; users&amp;#8217; behavior. But if we upgraded the site for mobile, then we would &lt;strong&gt;only&lt;/strong&gt; expect that to impact user behavior for people browsing from mobile sites.&lt;/p&gt;
 
 &lt;p&gt;A good approach, then, to unpick what&amp;#8217;s driving growth in engagement levels is to see if this growth is consistent across all users, or just some of them. One easy way to do this is to compare engagement rates between different types of users, to see if we can spot a difference. It makes sense to start off with factors we have a hunch might be driving those changes (e.g. because we&amp;#8217;re familiar with what has changed at those business over the months in question.) To give a specific examples:&lt;/p&gt;
 
@@ -3859,7 +3859,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;li&gt;Duplicate rows - the two collectors may be occassionally duplicating different rows (see &lt;a href='https://github.com/snowplow/snowplow/issues/24'&gt;issue 24&lt;/a&gt;)&lt;/li&gt;
 
-&lt;li&gt;Browsing behaviour - it may be that the user navigates away from the page before one or other collector can register the event&lt;/li&gt;
+&lt;li&gt;Browsing behavior - it may be that the user navigates away from the page before one or other collector can register the event&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;We plan on testing all of this further with larger datasets; we also intend to explore the Clojure collector&amp;#8217;s duplicate rows to check there are no particular issues there.&lt;/p&gt;
@@ -4714,13 +4714,13 @@ Common options:
 &lt;li&gt;It should make it easier for GA users to join GA data with other customer data sets on those &lt;code&gt;client_id&lt;/code&gt;s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining&lt;/li&gt;
 &lt;/ol&gt;
 &lt;!--more--&gt;&lt;a name='customer-journey'&gt;&lt;h3&gt;1.2 Capturing events across a user's entire customer journey (not just the web, not just digital interactions)&lt;/h3&gt;&lt;/a&gt;
-&lt;p&gt;We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer&amp;#8217;s complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented &amp;#8220;single customer views&amp;#8221; have typically struggled incorporating web behaviour in those views.&lt;/p&gt;
+&lt;p&gt;We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer&amp;#8217;s complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented &amp;#8220;single customer views&amp;#8221; have typically struggled incorporating web behavior in those views.&lt;/p&gt;
 
 &lt;p&gt;Google has taken a significant step towards enabling businesses to capture much more of their customer&amp;#8217;s journeys in Google Analytics itself. The &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt; makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her &lt;code&gt;client_id&lt;/code&gt; could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase.&lt;/p&gt;
 
 &lt;p&gt;The Measurement Protocol can also be used to capture events on digital platforms that are not so well suited to traditional web analytics solution e.g. mobile applications, set-top box applications, videogames on consoles etc. It thus opens the door for Google Analytics to capture and report on event data from a range of devices, not just those that are web based.&lt;/p&gt;
 
-&lt;p&gt;Taken together, this means it will be possible for Google Analytics to offer reports detailing customer behaviour across the complete customer journey. Building on this, it should also be possible for GA to enable analysts to calculate &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;customer lifetime value&lt;/a&gt; (if the value of different events was passed in with the events): this is one of the most important metrics in customer analytics, and one that has been conspicuous by its absence from web analytics outside of solutions like &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;Snowplow&lt;/a&gt; until now. The Measurement Protocol potentially means a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.&lt;/p&gt;
+&lt;p&gt;Taken together, this means it will be possible for Google Analytics to offer reports detailing customer behavior across the complete customer journey. Building on this, it should also be possible for GA to enable analysts to calculate &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;customer lifetime value&lt;/a&gt; (if the value of different events was passed in with the events): this is one of the most important metrics in customer analytics, and one that has been conspicuous by its absence from web analytics outside of solutions like &lt;a href='/analytics/customer-analytics/customer-lifetime-value.html'&gt;Snowplow&lt;/a&gt; until now. The Measurement Protocol potentially means a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.&lt;/p&gt;
 &lt;a name='cost-data'&gt;&lt;h3&gt;1.3 Capturing customer-acquisition cost data&lt;/h3&gt;&lt;/a&gt;
 &lt;p&gt;One of the most common types of analytics performed on web data is working out the return on marketing investment for different customer-acquisition channels. To perform this analysis, we need to combine:&lt;/p&gt;
 
@@ -4743,9 +4743,9 @@ Common options:
 &lt;p&gt;Taken together, the additional data that businesses can feed into Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Customer analytics&lt;/strong&gt;. We have long argued that web analytics packages including GA are too focused on sessions, page views and conversions, and neglect the broader, more valuable customer analytics that underpin the most successful businesses in the world. With these new data points, GA has the raw data to produce useful customer reports including customer lifetime value, and analysis of user behaviours over their entire journeys. No longer will web analysts using GA be confined to viewing actions over an isolated session: now they can slice and dice metrics by users over their user journeys spanning multiple site visits.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Customer analytics&lt;/strong&gt;. We have long argued that web analytics packages including GA are too focused on sessions, page views and conversions, and neglect the broader, more valuable customer analytics that underpin the most successful businesses in the world. With these new data points, GA has the raw data to produce useful customer reports including customer lifetime value, and analysis of user behaviors over their entire journeys. No longer will web analysts using GA be confined to viewing actions over an isolated session: now they can slice and dice metrics by users over their user journeys spanning multiple site visits.&lt;/li&gt;
 
-&lt;li&gt;&lt;strong&gt;Event analytics&lt;/strong&gt; across platforms, on and offline. GA can now report on user&amp;#8217;s complete journey, not just what they do on websites, but also their behaviours on other digital platforms (esp. mobile) and offline.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Event analytics&lt;/strong&gt; across platforms, on and offline. GA can now report on user&amp;#8217;s complete journey, not just what they do on websites, but also their behaviors on other digital platforms (esp. mobile) and offline.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;a name='whysnowplow' /&gt;&lt;a name='whysnowplow'&gt;&lt;h2&gt;2. How do the advances in GA change the case for adopting Snowplow?&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;Prior to the latest announcement, the case for adopting Snowplow alongside your GA implementation was as follows:&lt;/p&gt;
@@ -4755,7 +4755,7 @@ Common options:
 
 &lt;li&gt;Snowplow enables you to perform all these three types of analytics, by providing you with access to your raw customer-level and event-level clickstream data, so that you can use whatever analytics tool you like to crunch the data and perform that analysis&lt;/li&gt;
 
-&lt;li&gt;Snowplow makes it easier to join your web analytics data sets with other data sets (e.g. marketing data sets, CRM and offline data sets), by enabling businesses to load customer IDs into Snowplow, and then perform the join on the raw data sets. This means that businesses running Snowplow can analyse user behaviour across their entire customer journey (on and offline, across all digital and non-digital channels)&lt;/li&gt;
+&lt;li&gt;Snowplow makes it easier to join your web analytics data sets with other data sets (e.g. marketing data sets, CRM and offline data sets), by enabling businesses to load customer IDs into Snowplow, and then perform the join on the raw data sets. This means that businesses running Snowplow can analyse user behavior across their entire customer journey (on and offline, across all digital and non-digital channels)&lt;/li&gt;
 
 &lt;li&gt;Snowplow makes it easy to warehouse your customer data for posterity: an asset which will doubtless grow in value over time.&lt;/li&gt;
 &lt;/ul&gt;
@@ -4783,7 +4783,7 @@ Common options:
 &lt;/ul&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Using machine learning techniques (e.g. &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt;) to &lt;strong&gt;segment audience by behaviour&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Using machine learning techniques (e.g. &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt;) to &lt;strong&gt;segment audience by behavior&lt;/strong&gt;&lt;/li&gt;
 
 &lt;li&gt;Performing &lt;strong&gt;event analytics&lt;/strong&gt; / pathing in a way that takes into account the &lt;strong&gt;structure of the website&lt;/strong&gt;. This is described brilliantly by &lt;a href='http://semphonic.blogs.com/about.html'&gt;Gary Angel&lt;/a&gt; on the &lt;a href='http://semphonic.blogs.com/semangel/2011/01/statistical-analysis-functionalism-and-how-web-analytics-works.html'&gt;Semphonic blog&lt;/a&gt;. This methodology includes identifying those events that are predictive of customer lifetime value&lt;/li&gt;
 
@@ -5235,7 +5235,7 @@ Common options:
 
 &lt;p&gt;Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;strong&gt;Data source&lt;/strong&gt;&lt;/th&gt;&lt;th&gt;&lt;strong&gt;Example business questions&lt;/strong&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Marketing spend data e.g. AdWords, ad server data&lt;/td&gt;&lt;td style='text-align: left;'&gt;What is the return on my ad spend? How should I optimize my return on ad spend&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Customer data e.g. CRM, loyalty&lt;/td&gt;&lt;td style='text-align: left;'&gt;How does the online behaviour of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Customer data e.g. CRM, loyalty&lt;/td&gt;&lt;td style='text-align: left;'&gt;How does the online behavior of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Product / media catalogue data&lt;/td&gt;&lt;td style='text-align: left;'&gt;What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;Snowplow makes integrating web analytics data with other data sources easier in a two ways:&lt;/p&gt;
@@ -5269,9 +5269,9 @@ Common options:
 &lt;p&gt;Machine learning tools, and &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt; in particular, have created some new and exciting opportunities to:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Develop product and content recommendation engines, based on user web behaviour. (E.g. users who viewed these content items, also viewed&amp;#8230;)&lt;/li&gt;
+&lt;li&gt;Develop product and content recommendation engines, based on user web behavior. (E.g. users who viewed these content items, also viewed&amp;#8230;)&lt;/li&gt;
 
-&lt;li&gt;Segment your audience by online behaviour&lt;/li&gt;
+&lt;li&gt;Segment your audience by online behavior&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Snowplow makes it easy to extract the core input data you would need to feed a machine learning algorithm in a single query. (E.g. a matrix mapping users to products by page views / add to baskets / purchases etc.) We will be exploring ways to integrate Snowplow with &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt; in a future blog post.&lt;/p&gt;

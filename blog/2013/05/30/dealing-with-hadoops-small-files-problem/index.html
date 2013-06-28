@@ -181,7 +181,7 @@
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_input</span> <span class='o'>=</span> <span class='s2'>&quot;hdfs:///local/snowplow-logs&quot;</span>
 
 <span class='c1'># Create the Hadoop MR step for the file crushing</span>
-<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='no'>Elasticity</span><span class='o'>::</span><span class='no'>CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
+<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='ss'>Elasticity</span><span class='p'>:</span><span class='ss'>:CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
 
 <span class='n'>filecrush_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
   <span class='s2'>&quot;--src&quot;</span>               <span class='p'>,</span> <span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:processing</span><span class='o'>]</span><span class='p'>,</span>
@@ -194,8 +194,7 @@
 
 <span class='c1'># Add to our jobflow</span>
 <span class='vi'>@jobflow</span><span class='o'>.</span><span class='n'>add_step</span><span class='p'>(</span><span class='n'>filecrush_step</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then we had to update our ETL job to take the <code>--dest</code> of the S3DistCp step as its own input:</p>
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
             <span class='s2'>&quot;com.snowplowanalytics.snowplow.enrich.hadoop.EtlJob&quot;</span><span class='p'>,</span> <span class='c1'># Job to run</span>
@@ -206,8 +205,7 @@
             <span class='s2'>&quot;--output_folder&quot;</span>     <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out</span><span class='o'>]</span><span class='p'>),</span>
             <span class='s2'>&quot;--bad_rows_folder&quot;</span>   <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out_bad_rows</span><span class='o'>]</span><span class='p'>)</span>
           <span class='o'>]</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And that was it! If you want to see all of the code excerpted above, you can find it in the <a href='https://github.com/snowplow/snowplow/blob/feature/perf-improvements/3-enrich/emr-etl-runner/lib/snowplow-emr-etl-runner/emr_jobs.rb'>Snowplow project on GitHub</a>. We did not have to make any changes to our main Hadoop ETL job, because Elastic MapReduce can handle LZO-compressed files invisibly to the job reading them. And no doubt the switch to LZO also contributed to the excellent performance we saw above.</p>
 
 <p>So that&#8217;s everything - hopefully this post has helped to illustrate just how badly small files can slow down your Hadoop job, and what you can do about it: if you have a small file problem on Hadoop, there&#8217;s now no excuse not to fix it!</p>
@@ -248,6 +246,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
+		
 			<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 		
 			<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
@@ -256,14 +256,14 @@
 		
 			<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 		
-			<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 			
 				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
@@ -272,25 +272,6 @@
 				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
 				<li><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></li>
-			
-				<li><a href="/blog/2013/01/20/snowplow-hits-202-stars">Snowplow reaches 202 stars on GitHub</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
-			
-				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
 		
 		</ul>		
@@ -308,6 +289,23 @@
 				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
 			
 				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
 		
 		</ul>		

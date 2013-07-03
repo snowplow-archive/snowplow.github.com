@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.8.1 released with referer URL parsing - Snowplow Analytics</title>
+	<title>Snowplow Tracker for Lua event analytics released - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,107 +67,76 @@
 	
 		<div id="contents">
 		<div class="post">
-			12 Apr 2013
-			<h1>Snowplow 0.8.1 released with referer URL parsing</h1>
+			03 Jul 2013
+			<h1>Snowplow Tracker for Lua event analytics released</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
+			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
 
-<p>Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:</p>
-
-<ol>
-<li>Were they driven by a search engine, social network, or link in an email program?</li>
-
-<li>If so, which search engine / social network / email program?</li>
-
-<li>If they were driven by a search engine, what query did they enter?</li>
-</ol>
-
-<p>This data is key for performing attribution analytics.</p>
-
-<p>Snowplow delivers the above functionality by parsing the page referer URIs which the JavaScript tracker sends to the collector. The Snowplow enrichment layer does a couple of things with these referer URIs:</p>
+<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
+<div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
+<span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
+<span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
+</code></pre></div>
+<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
 
 <ol>
-<li>It splits the referer URL into its six components (scheme, host, port, path, query, fragment). This makes querying referer data significantly easier, as we hope to show in future blog posts and attribution analytics recipes</li>
+<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
 
-<li>It looks up the referer URL in a database of known referers and attempts to extract details about this referer, which you can then use for marketing attribution. (For example - is the referer a search engine, or social network? What query did the user enter in the search engine?)</li>
+<li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
 </ol>
 
-<p>We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:</p>
+<p>After the jump we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'>Referer parsing implementation</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'>Some example data</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'>Upgrading and usage</a></li>
-
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'>Getting help</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
 </ol>
-
-<p>Read on below the fold to find out more.</p>
-<!--more--><h2><a name='referer-parsing'>1. Referer parsing implementation</a></h2>
-<p>The extraction of the referer URL into its six components is relatively straightforward. The second stage, looking up the referer URL in a database of known referers, is worth discussing in a little more detail.</p>
-
-<p>Our referer analysis process uses the latest version of our separate and standalone <a href='https://github.com/snowplow/referer-parser/tree/feature/social'>referer-parser</a> library. This library comes with a sizeable database of known referers, including search engines, social networks and webmail providers. You can view the library <a href='https://github.com/snowplow/referer-parser/blob/feature/social/referers.yml'>here</a>. It is a straightforward YAML file containing a long list of referers. Because this is an open source list, anyone can contribute additional referers to it. In this way, we hope it will remain one of the most extensive and authoritative lists of referers to use in web analytics.</p>
-
-<p>Snowplow feeds the referer URI and page URI to referer-parser to identify which <code>refr_medium</code> this referer URL belongs to:</p>
+<!--more--><h2><a name='supported-events'>1. Supported events</a></h2>
+<p>The Lua Tracker supports three types of event:</p>
 
 <ol>
-<li>&#8220;search&#8221; means that this referer is a known search engine</li>
+<li><code>trackStructEvent()</code> - for tracking Google Analytics-style custom structured events with five fields (category, action, label, property, value)</li>
 
-<li>&#8220;social&#8221; means a social network or similar site</li>
+<li><code>trackUnstructEvent()</code> - for tracking Mixpanel-style custom unstructured events, consisting of an event name plus event properties in a Lua table</li>
 
-<li>&#8220;email&#8221; means a webmail provider such as Yahoo! Mail</li>
-
-<li>&#8220;internal&#8221; means that the referer was another page on the same domain</li>
-
-<li>&#8220;unknown&#8221; means that there was a referer, but we couldn&#8217;t identify it as belonging to one of the other categories</li>
+<li><code>trackScreenView()</code> - for tracking views of individual screens within a game, app or similar</li>
 </ol>
 
-<p>If the referer can be found in the referer-parser database, Snowplow stores the name of the refering site in the <code>refr_source</code> field.</p>
+<p>Please note that currently only <code>trackStructEvent()</code> is supported within the Snowplow ETL and Redshift table definition; adding support for unstructured events and screen views is on our roadmap.</p>
+<h2><a name='usage example'>2. Usage example</a></h2>
+<p>Using the SnowplowTracker from Lua is really simple.</p>
 
-<p>Finally, if the referer is a &#8220;search&#8221; referer and Snowplow can pull out a search query from the referer URL, it then stores this search term in the <code>refr_term</code> field.</p>
-<h2><a name='example-data'>2. Example data</a></h2>
-<p>Here is an excerpt of referer data from an ecommerce retailer - right-click and select &#8220;Open in New Tab&#8221; to see this at full size:</p>
+<p>First require the library and instantiate a new tracker:</p>
+<div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>snowplow</span> <span class='o'>=</span> <span class='nb'>require</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>snowplow&quot;</span> <span class='p'>)</span>
+<span class='kd'>local</span> <span class='n'>tracker</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForUri</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>snplow.mydomain.com&quot;</span> <span class='p'>)</span>
+</code></pre></div>
+<p>You can adjust the default configuration if you like:</p>
+<div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>encodeBase64</span><span class='p'>(</span> <span class='kc'>false</span> <span class='p'>)</span> <span class='c1'>-- Default is true</span>
+<span class='n'>tracker</span><span class='p'>:</span><span class='n'>platform</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>tv&quot;</span> <span class='p'>)</span> <span class='c1'>-- Default is &quot;pc&quot;</span>
+</code></pre></div>
+<p>Add any additional information about the app, user or device that you know:</p>
+<div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>setUserId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>bob@example.com&quot;</span> <span class='p'>)</span>
+<span class='n'>tracker</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-lightroom-plugin&quot;</span> <span class='p'>)</span>
+<span class='n'>tracker</span><span class='p'>:</span><span class='n'>setScreenResolution</span><span class='p'>(</span> <span class='mi'>1068</span><span class='p'>,</span> <span class='mi'>720</span> <span class='p'>)</span>
+</code></pre></div>
+<p>Now you are ready to track your events:</p>
+<div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>trackUnstructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>save-file&quot;</span><span class='p'>,</span> <span class='p'>{</span> <span class='n'>save_id</span> <span class='o'>=</span> <span class='s2'>&quot;</span><span class='s'>4321&quot;</span><span class='p'>,</span>
+                                           <span class='n'>compression</span> <span class='o'>=</span> <span class='mi'>98</span><span class='p'>,</span>
+                                           <span class='n'>description</span> <span class='o'>=</span> <span class='s2'>&quot;</span><span class='s'>Backup without layers&quot;</span><span class='p'>,</span>
+                                           <span class='n'>read_only</span> <span class='o'>=</span> <span class='kc'>false</span>
+                                         <span class='p'>}</span>
+                          <span class='p'>)</span>
+</code></pre></div>
+<p>And that&#8217;s it!</p>
+<h2><a name='usage example'>3. Finding out more</a></h2>
+<p>To read through the complete API for this Lua event tracker, please see the <a href='https://github.com/snowplow/snowplow/wiki/Lua-Tracker'>Lua Tracker page</a> on the Snowplow wiki.</p>
 
-<p><img alt='parsed-referers-img' src='/static/img/blog/2013/04/parsed-referers.png' /></p>
+<p>For setting up the tracker in various Lua environments (including <a href='http://luarocks.org/repositories/rocks/'>LuaRocks</a>), please see the <a href='https://github.com/snowplow/snowplow/wiki/Lua-tracker-setup'>Lua Tracker Setup page</a> on the Snowplow wiki.</p>
 
-<p>As you can see, in this excerpt we have a variety of different referers - some internal pages and some search pages (Google, Google Images, Bing Images and AOL).</p>
-<h2><a name='upgrading-usage'>3. Upgrading and usage</a></h2>
-<p>As with the 0.8.0 release, this new release assumes that you are running the Hadoop (Scalding) ETL and feeding your data into Redshift.</p>
-
-<p>To upgrade to 0.8.1 from 0.8.0, follow these steps:</p>
-
-<h3 id='31_etl'>3.1 ETL</h3>
-
-<p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
-
-<pre><code>:snowplow:
-  :hadoop_etl_version: 0.2.0 # Version of the Hadoop ETL</code></pre>
-
-<h3 id='32_redshift'>3.2 Redshift</h3>
-
-<p>We have updated the Redshift table definition, you can find the latest version in the GitHub repository <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'>here</a>.</p>
-
-<p>If you already have your Snowplow data in the previous version of the Redshift events table, then we have written <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.0.1_to_0.1.0.sql'>a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
-
-<p>Also please note that we have had to remove the &#8220;raw&#8221; <code>referrer_url</code> field from our Redshift events table for space reasons. This means that your historical data will lose <strong>all</strong> referer information in your events table unless you run a re-computation, see below.</p>
-
-<h3 id='33_optional_recomputation'>3.3 (Optional) Re-computation</h3>
-
-<p>If you would like to see referer details for historic Snowplow events (i.e. events already in your Snowplow events table in Redshift), then we recommend re-running your Snowplow ETL process across all of your historical raw data.</p>
-
-<p>This is also advisable given that we have removed the raw <code>referrer_url</code> field from our Redshift table definition for space reasons.</p>
-
-<p>To re-run your Snowplow ETL process across all your historical data, please see our answer to <a href='https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events'>I want to recompute my Snowplow events, how?</a> on the Troubleshooting wiki page.</p>
-
-<h3 id='34_usage'>3.4 Usage</h3>
-
-<p>And that&#8217;s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.</p>
-<h2><a name='help'>4. Getting help</a></h2>
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-
-<p>You can see the full list of issues delivered in Snowplow 0.8.1 on <a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;page=1&amp;state=closed'>GitHub</a>.</p>
+<p>To check out the code itself, please see our <a href='https://github.com/snowplow/snowplow-lua-tracker'>snowplow-lua-tracker</a> repository in GitHub.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

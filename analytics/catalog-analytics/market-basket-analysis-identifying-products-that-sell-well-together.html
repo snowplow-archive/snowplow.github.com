@@ -142,38 +142,42 @@
 <p>We&#8217;re going to use <a href='http://www.r-project.org/'>R</a> to perform the market basket analysis. R is a great statistical and graphical analysis tool, well suited to more advanced analysis. We&#8217;re going to use the <a href='http://cran.r-project.org/web/packages/arules/index.html'>Arules package</a>, which implements the <a href='http://en.wikipedia.org/wiki/Apriori_algorithm'>Apriori</a> algorithm, one of the most commonly used algorithms for identifying associations between items.</p>
 
 <p>To start with, we need to fetch transaction data from Snowplow which identifies groups of items by transaction. The following SQL query fetches these directly: it returns a line of data for every line item of each transaction, with the transaction id and the item name:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;ti_orderid&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;ti_name&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;sku&quot;</span>
+<span class='k'>FROM</span>
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
+</code></pre></div>
 <p>We can pull this data directly into R from R. (For assistance setting up R to use with Snowplow, see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.) First, we load up R, and connect R to our Snowplow table in Redshift by entering the following at the R prompt:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
 con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PORT NUMBER&gt;&gt;&quot;</span><span class='p'>,</span> dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;DBNAME&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;USERNAME&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PASSWORD&gt;&gt;&quot;</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>(Be sure to substitute appropriate values for <code>&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;</code> <code>&lt;&lt;PORT NUMBER&gt;&gt;</code>, <code>&lt;&lt;DBNAM&gt;&gt;</code> and <code>&lt;&lt;USERNAME&gt;&gt;</code>.</p>
 
 <p>Then we execute our SQL query above, fetching the data as a data frame in R:</p>
 <div class='highlight'><pre><code class='r'>t <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>
 <span class='s'>SELECT</span>
-<span class='s'>\&quot;</span>ti_orderid\<span class='s'>&quot; AS \&quot;</span>transaction_id\<span class='s'>&quot;,</span>
-<span class='s'>\&quot;</span>ti_name\<span class='s'>&quot; AS \&quot;</span>sku\<span class='s'>&quot;</span>
+<span class='s'>\&quot;ti_orderid\&quot; AS \&quot;transaction_id\&quot;,</span>
+<span class='s'>\&quot;ti_name\&quot; AS \&quot;sku\&quot;</span>
 <span class='s'>FROM</span>
-<span class='s'>\&quot;</span>events\<span class='s'>&quot;</span>
+<span class='s'>\&quot;events\&quot;</span>
 <span class='s'>WHERE</span>
-<span class='s'>\&quot;</span>event\<span class='s'>&quot; = &#39;transaction_item&#39;</span>
+<span class='s'>\&quot;event\&quot; = &#39;transaction_item&#39;</span>
 <span class='s'>&quot;</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can take a peak at the first five records on our data frame by executing</p>
 <div class='highlight'><pre><code class='r'>head<span class='p'>(</span>t<span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><img alt='viewing-the-initial-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/1.JPG' /></p>
 
 <p>Note how each line of data represents a single line item, so that the first transaction (which includes two items) spans two lines.</p>
 
 <p>Now we need to records lines by transaction id, so that the individual products that belong to each transaction are aggregated across records into a single record as an array of products. This is done by executing the following at the R prompt:</p>
-<div class='highlight'><pre><code class='r'>i <span class='o'>&lt;-</span> split<span class='p'>(</span>t<span class='p'>$</span>sku<span class='p'>,</span> t<span class='p'>$</span>transaction_id<span class='p'>)</span>
-</code></pre>
-</div>
+<div class='highlight'><pre><code class='r'>i <span class='o'>&lt;-</span> split<span class='p'>(</span>t<span class='o'>$</span>sku<span class='p'>,</span> t<span class='o'>$</span>transaction_id<span class='p'>)</span>
+</code></pre></div>
 <p>Again, we can peak at our data by executing <code>head(i)</code> at the prompt:</p>
 
 <p><img alt='viewing-the-aggregated-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/2.JPG' /></p>
@@ -181,19 +185,16 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <p>Now we convert the data into a &#8220;Transaction&#8221; object optimized for running the arules algorithm:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arules&quot;</span><span class='p'>)</span>
 txn <span class='o'>&lt;-</span> as<span class='p'>(</span>i<span class='p'>,</span> <span class='s'>&quot;transactions&quot;</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Finally, we can run our algorithm:</p>
 <div class='highlight'><pre><code class='r'>basket_rules <span class='o'>&lt;-</span> apriori<span class='p'>(</span>txn<span class='p'>,</span> parameter <span class='o'>=</span> list<span class='p'>(</span>sup <span class='o'>=</span> <span class='m'>0.005</span><span class='p'>,</span> conf <span class='o'>=</span> <span class='m'>0.01</span><span class='p'>,</span> target<span class='o'>=</span><span class='s'>&quot;rules&quot;</span><span class='p'>))</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>When running the rule, we set minimum support and confidence thresholds, below which R ignores any rules. These are used to optimize the running of the algorithm: figuring out association rules can be compulationally expensive, because for a company with a large catalogue of items, the number of combinations of items is <em>enormous</em> (it increases exponentially with the number of items). Hence, anything we give the algorithm to minimize the computational burden is welcome.</p>
 
 <p>In our case, we&#8217;ve given low figures for support and confidence. This is because our test example is based on a long tail retailer, who offers more than 10k SKUs, against which c.90k purchases have been made. The maximum support any one of the products has is very low: this can be confirmed by plotting the relative frequency of each item (i.e. the fraction of transactions) for the top 25 items by item frequency (i.e. the fraction of transactions that each item appears in). This can be done by running:</p>
 <div class='highlight'><pre><code class='r'> 
 itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span class='o'>=</span> <span class='m'>25</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In which case the following plot was produced:</p>
 
 <p><img alt='itemFrequencyPlot' src='/static/img/analytics/catalog-analytics/market-basket-analysis/3.JPG' /></p>
@@ -204,8 +205,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 
 <p>Lastly, let&#8217;s inspect the actual rules generated by the algorithm:</p>
 <div class='highlight'><pre><code class='r'>inspect<span class='p'>(</span>basket_rules<span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><img alt='basket_rules' src='/static/img/analytics/catalog-analytics/market-basket-analysis/4.JPG' /></p>
 
 <p>In our case, the algorithm has identified 9 rules. The first 7 are not helpful: there are no items on the LHS. (For these seven rules, note how because there are no items on the LHS, the support = the confidence and the lift = 1.)</p>
@@ -218,8 +218,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 
 <p>Let&#8217;s rerun the algorithm, but this time reduce our parameters for support and confidence, and save the result set into a different object:</p>
 <div class='highlight'><pre><code class='r'>basket_rules_broad <span class='o'>&lt;-</span> apriori<span class='p'>(</span>txn<span class='p'>,</span> parameter <span class='o'>=</span> list<span class='p'>(</span>sup <span class='o'>=</span> <span class='m'>0.001</span><span class='p'>,</span> conf <span class='o'>=</span> <span class='m'>0.001</span><span class='p'>,</span> target<span class='o'>=</span><span class='s'>&quot;rules&quot;</span><span class='p'>))</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In our case, 3.2M rules were returned. This is way to many to visually inspect - however we can look at the top 20 by lift:</p>
 
 <p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/5.JPG' /></p>
@@ -227,8 +226,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 <p>We can plot our rules by confidence, support and lift, using the <code>arulesViz</code> package:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arulesViz&quot;</span><span class='p'>)</span>
 plot<span class='p'>(</span>basket_rules_broad<span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Our plot looks as follows:</p>
 
 <p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/6.JPG' /></p>
@@ -272,13 +270,37 @@ plot<span class='p'>(</span>basket_rules_broad<span class='p'>)</span>
 <p>In the above example, we used actual transaction events to identify associations between products for an online retailer.</p>
 
 <p>Sticking with our retail example, however, we could have expanded the scope of our definition of transactions. Instead of <em>just</em> looking at the basket for successful transactions, we could have looked at user&#8217;s complete baskets (whether or not they went on to buy). The analysis steps would have been <em>almost</em> exactly the same, however, instead of pulling transaction data out of Snowplow, we&#8217;d have pulled <em>add-to-basket</em> data out, using a query like the following:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='s-Name'>&quot;domain_sessionidx&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;ev_property&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;sku&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;ev_action&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
+</code></pre></div>
 <p>We could increase the scope further, so instead of looking at <em>add-to-basket-events</em>, we look at every product that each visitor has viewed, and associate groups of products that individual users have looked at within a single session:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='s-Name'>&quot;domain_sessionidx&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;page_urlpath&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+</code></pre></div>
 <p>Note how this time each product is identified by URL rather than by SKU. It may be appropriate to filter out URLs that do not correspond with product pages.</p>
 
 <p>Finally, we could expand our window further, so instead of confining ourselves to a single session, we look at the same user over multiple sessions, i.e.:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+<span class='s-Name'>&quot;domain_userid&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;transaction_id&quot;</span><span class='p'>,</span>
+<span class='s-Name'>&quot;page_urlpath&quot;</span>
+<span class='k'>FROM</span> 
+<span class='s-Name'>&quot;events&quot;</span>
+<span class='k'>WHERE</span>
+<span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+</code></pre></div>
 <p>Note how this is almost exactly the same query as when our scope was per-session, we&#8217;ve just removed the <code>domain_sessionidx</code> (so that when we aggregate by &#8220;transaction_id&#8221;), we aggregate by user over their entire lifetime, rather than each simply over each session.</p>
 
 <p>These final, wider scope examples, are likely to be more appropriate for publishers and media site owners, who want to identify associations between articles, writers / authors / producers and categories of content, rather than products in a shop.</p>

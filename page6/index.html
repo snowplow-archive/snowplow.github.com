@@ -68,6 +68,42 @@
 		<div id="contents">
 	
 		<div class="post">
+			22 Feb 2013
+			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
+
+<ul>
+<li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
+
+<li>Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)</li>
+
+<li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
+</ul>
+
+<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
+
+<p>In this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids'>Our new user IDs</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps'>Our new event timestamps</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes'>Bug fixes</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations'>Breaking changes</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more!</p>
+<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			20 Feb 2013
 			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -78,7 +114,11 @@
 <h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
 
 <p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-
+<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
+<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
+<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
+<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
+</code></pre></div>
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
 <p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry</a></p>
 		</div>
@@ -185,18 +225,6 @@
 <p class='more'><a href='/blog/2013/02/08/writing-hive-udfs-and-serdes'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			04 Feb 2013
-			<h1><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
-
-<p>Working out how best to structure the Snowplow event data is key to making Snowplow a success. One of the things that has surprised us, since we started working on Snowplow, is the extent to which our view of the best way to structure that data has changed over time.</p>
-
-<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We&#8217;ve been fortunate to work with a wide range of businesses who&#8217;ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
-<p class='more'><a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -216,6 +244,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+		
 			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 		
 			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
@@ -224,27 +254,8 @@
 		
 			<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 		
-			<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
-		
 	</ul>
 
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
-			
-				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -267,6 +278,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+			
 				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
@@ -275,7 +288,22 @@
 			
 				<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></li>
 			
-				<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></li>
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
 			
 		
 		</ul>		

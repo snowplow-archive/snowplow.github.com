@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-07T17:03:30+01:00</updated>
+  <updated>2013-07-07T17:19:22+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -23,7 +23,7 @@
     </author>
     <content type="html">&lt;p&gt;After a brief summer intermission, we are pleased to announce the release of &lt;a href='https://github.com/snowplow/snowplow/releases/0.8.7'&gt;Snowplow &lt;strong&gt;0.8.7&lt;/strong&gt;&lt;/a&gt;. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.&lt;/p&gt;
 
-&lt;p&gt;As well as some tweaks and improvements, the bug fixes make the JavaScript Tracker work better with older versions of Internet Explorer. Many thanks to Snowplow client &lt;a href='http://www.bigcommerce.com/'&gt;BigCommerce&lt;/a&gt; for bringing some of these issues to our attention.&lt;/p&gt;
+&lt;p&gt;As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the &lt;code&gt;setCustomUrl()&lt;/code&gt; method from working properly. Many thanks to community member &lt;a href='https://github.com/mfu0'&gt;mfu0&lt;/a&gt; and Snowplow client &lt;a href='http://www.bigcommerce.com/'&gt;BigCommerce&lt;/a&gt; for bringing some of these issues to our attention.&lt;/p&gt;
 
 &lt;p&gt;As always, the updated minified tracker is available here:&lt;/p&gt;
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Attlib - an open source library for extracting search marketing attribution data from referrer URLs - Snowplow Analytics</title>
+	<title>.NET (C#) support added to referer-parser - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,99 +67,54 @@
 	
 		<div id="contents">
 		<div class="post">
-			11 Oct 2012
-			<h1>Attlib - an open source library for extracting search marketing attribution data from referrer URLs</h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><strong>Update 17-Dec-12</strong>: We have renamed Attlib to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, to make it clearer what Attlib does: parse referer URLs. The repository has been updated accordingly. Some of the example code below is out-of-date now: we recommend checking out the <a href='https://github.com/snowplow/referer-parser'>repository</a> for more information.</p>
+			09 Jul 2013
+			<h1>.NET (C#) support added to referer-parser</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
 
-<p>Last night we published <a href='https://github.com/snowplow/referer-parser'>Attlib</a>, an open source Ruby library for extracting search marketing attribution data from referer (sic) URLs. In this post we talk through:</p>
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
 
-<ol>
-<li><a href='#what_attlib_does'>What Attlib does, and how to use it</a></li>
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
-<li><a href='#install'>Installing Attlib</a></li>
+<p>Here is a taster for using the library from C Sharp:</p>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
 
-<li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span> <span class='c1'>// Our current URL</span>
 
-<li><a href='#snowplow_stack'>Attlib as part of the Snowplow stack</a></li>
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
 
-<li><a href='#other_languages'>Attlib in other languages</a></li>
-
-<li><a href='#snowplow_components_as_standalone_projects'>Making components of Snowplow available as standalone open source projects</a></li>
-</ol>
-<a name='what_attlib_does' />
-<h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
-
-<p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
-<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
-
-<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
-
-<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
-<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
-</code></pre></div><a name='install' />
-<h3 id='installing_attlib'>Installing Attlib</h3>
-
-<p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
-
-<pre><code>sudo gem install attlib</code></pre>
-
-<p>The sourcecode is available on <a href='https://github.com/snowplow/referer-parser'>Github</a></p>
-<a name='search_engine_yaml' />
-<h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
-
-<p>Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
-
-<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <!--more--></p>
-
-<p>The structure of the YAML file should be straightforward to understand. Each search engine is a top level item. For each search engine, two lists are given: one is a list of parameters used in that search engine&#8217;s query string to identify the keywords entered. The other is the list of domains on which that search engine operates. An extract is shown below:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>Babylon</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>parameters</span><span class='p-Indicator'>:</span> 
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>q</span>
-  <span class='l-Scalar-Plain'>domains</span><span class='p-Indicator'>:</span> 
-   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>search.babylon.com</span>
-   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>searchassist.babylon.com</span>
-
-<span class='l-Scalar-Plain'>Baidu</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>parameters</span><span class='p-Indicator'>:</span> 
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>wd</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>word</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>kw</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>k</span>
-  <span class='l-Scalar-Plain'>domains</span><span class='p-Indicator'>:</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>www.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>www1.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>zhidao.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>tieba.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>news.baidu.com</span>
-    <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>web.gougou.com</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
 </code></pre></div>
-<p>Keeping this file up to date is a big job: one of our hopes releasing Attlib as an open source, standalone library, is that the community contributes to the file. We are enormously grateful to our friends at <a href='http://piwik.org/'>Piwik</a> as our initial version of the file is based on the Piwik equivalent <a href='https://github.com/piwik/piwik/blob/master/core/DataFiles/SearchEngines.php'>SearchEngines.php</a>, for the hard work they put into this version.</p>
-<a name='snowplow_stack' />
-<h3 id='attlib_as_part_of_the_snowplow_stack'>Attlib as part of the Snowplow stack</h3>
+<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
+<!--more-->
+<h2 id='a_brief_interview_with_author_sepp_wijnands'>A brief interview with author Sepp Wijnands</h2>
 
-<p>Our intention is to port <a href='https://github.com/snowplow/referer-parser'>Attlib</a> into Scala and integrate it into the Snowplow stack: specifically the ETL phase. Both Ruby and Scala versions of Attlib will run based on the same <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file.</p>
-<a name='other_languages' />
-<h3 id='attlib_in_other_languages'>Attlib in other languages</h3>
+<p>We asked <a href='https://github.com/swijnands'>Sipp</a> to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:</p>
 
-<p>As well as contributing to the search <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, we also hope that community members will develop versions of Attlib in other languages e.g. Python.</p>
-<a name='snowplow_components_as_standalone_projects' />
-<h3 id='making_components_of_snowplow_available_as_standalone_open_source_projects'>Making components of Snowplow available as standalone open source projects</h3>
+<p><em><a href='http://www.iperform.nl/'>iPerform Software</a> (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.</em></p>
 
-<p>Attlib is the first component in the Snowplow stack that we have released as a standalone library. There are many more in the pipeline. (More on this in future blog posts :-) ). For us, this is a key part of the Snowplow strategy:</p>
+<p><em>One of our customers had a feature request about getting (directly) notified when a very specific set of keywords is used when somebody enters the website via Google or Bing (or &#8230;.) searches.</em></p>
 
-<ol>
-<li>Keeping the Snowplow architecture as loosely coupled as possible. We believe this makes Snowplow robust, scalable and extendable</li>
+<p><em>While we could probably have used an existing third-party analytics platform to do the job, one of the great things about the referer-parser project is that the <a href='https://github.com/snowplow/referer-parser/blob/master/referers.yml'>referer database</a> is very complete, and using the referer-parser library we can be in full control how and when notifications are send.</em></p>
 
-<li>Grow the userbase of people using and contributing to each component. Processing web analytics data is a big job: there are many individual components involved, and each of them needs to evolve with the changing marketplace. Attlib is concerned today with extracting useful data from search engine referrers: but it is likely that as time goes on, we&#8217;ll want to extend it to capture data from other types of referrers e.g. social networks or affiliate sites. The bigger the community of people on top of those developments, the better for everyone in the web analytics community. Releasing each component as a standalone open source library should help grow that community.</li>
-</ol>
-<hr />
-<p>Any questions about Attlib, or anything else in this post? Then <a href='/about/index.html'>get in touch</a> with the Snowplow team.</p>
+<p><em>The referer-parser solution is currently deployed and fully up-and-running. And so far, the customer couldn&#8217;t be happier!</em></p>
+
+<p><em>So, thanks again for the fabulous referer-parser project!</em></p>
+
+<h2 id='installation'>Installation</h2>
+
+<p>Interested in using the .NET port of referer-parser? A NuGet Package is available, under package id RefererParser.</p>
+
+<h2 id='find_out_more'>Find out more</h2>
+
+<p>For more information, please check out the <a href='https://github.com/snowplow/referer-parser/blob/master/dotnet/README.md'>project README</a> for the .NET port of referer-parser.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
 </div>
 
 			</div> 

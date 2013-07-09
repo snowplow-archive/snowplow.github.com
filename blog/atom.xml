@@ -4,13 +4,65 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-09T13:56:35+01:00</updated>
+  <updated>2013-07-09T14:50:06+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser"/>
+    <title>.NET (C#) support added to referer-parser</title>
+    <updated>2013-07-09T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are pleased to announce the addition of &lt;a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'&gt;.NET support (C#)&lt;/a&gt; to our standalone &lt;a href='https://github.com/snowplow/referer-parser'&gt;referer-parser&lt;/a&gt; library. Many thanks to &lt;a href='https://github.com/swijnands'&gt;Sepp Wijnands&lt;/a&gt; at &lt;a href='http://www.iperform.nl/'&gt;iPerform Software&lt;/a&gt; for contributing this latest port!&lt;/p&gt;
+
+&lt;p&gt;To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer &lt;em&gt;(sic)&lt;/em&gt; URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.&lt;/p&gt;
+
+&lt;p&gt;As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to &lt;a href='https://github.com/snowplow/referer-parser/tree/master/python'&gt;Python&lt;/a&gt; and now to &lt;a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'&gt;Dot Net&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is a taster for using the library from C Sharp:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='c#'&gt;&lt;span class='k'&gt;using&lt;/span&gt; &lt;span class='nn'&gt;RefererParser&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+
+&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;refererUrl&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;amp;hl=en&amp;amp;client=safari&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;    &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http:/www.psychicbazaar.com/shop&amp;quot;&lt;/span&gt; &lt;span class='c1'&gt;// Our current URL&lt;/span&gt;
+
+&lt;span class='kt'&gt;var&lt;/span&gt; &lt;span class='n'&gt;referer&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='n'&gt;Parser&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Parse&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;Uri&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;refererUrl&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+
+&lt;span class='n'&gt;Console&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;WriteLine&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Medium&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt; &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;Search&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;Console&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;WriteLine&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Source&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt; &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;Google&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;Console&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;WriteLine&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;r&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Term&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt; &lt;span class='c1'&gt;// =&amp;gt; &amp;quot;gateway oracle cards denise linn&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='a_brief_interview_with_author_sepp_wijnands'&gt;A brief interview with author Sepp Wijnands&lt;/h2&gt;
+
+&lt;p&gt;We asked &lt;a href='https://github.com/swijnands'&gt;Sipp&lt;/a&gt; to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;a href='http://www.iperform.nl/'&gt;iPerform Software&lt;/a&gt; (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;One of our customers had a feature request about getting (directly) notified when a very specific set of keywords is used when somebody enters the website via Google or Bing (or &amp;#8230;.) searches.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;While we could probably have used an existing third-party analytics platform to do the job, one of the great things about the referer-parser project is that the &lt;a href='https://github.com/snowplow/referer-parser/blob/master/referers.yml'&gt;referer database&lt;/a&gt; is very complete, and using the referer-parser library we can be in full control how and when notifications are send.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The referer-parser solution is currently deployed and fully up-and-running. And so far, the customer couldn&amp;#8217;t be happier!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;So, thanks again for the fabulous referer-parser project!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id='installation'&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;Interested in using the .NET port of referer-parser? A NuGet Package is available, under package id RefererParser.&lt;/p&gt;
+
+&lt;h2 id='find_out_more'&gt;Find out more&lt;/h2&gt;
+
+&lt;p&gt;For more information, please check out the &lt;a href='https://github.com/snowplow/referer-parser/blob/master/dotnet/README.md'&gt;project README&lt;/a&gt; for the .NET port of referer-parser.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model</id>
@@ -21,7 +73,7 @@
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;Back in March, &lt;a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'&gt;Robert Kingston suggested&lt;/a&gt; that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon monthly charges going forwards, and see how those costs vary with different traffic levels. We thought that was an excellent idea.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Back in March, &lt;a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'&gt;Robert Kingston suggested&lt;/a&gt; that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.&lt;/p&gt;
 
 &lt;p&gt;Since Rob&amp;#8217;s suggestion, we&amp;#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:&lt;/p&gt;
 
@@ -33,7 +85,7 @@
 &lt;li&gt;We enabled support for &lt;a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'&gt;task and spot instances&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;As a result of the updates, we held off building the model. Now that they have been delivered, we have started putting together the model in earnest. In this post we&amp;#8217;ll cover:&lt;/p&gt;
+&lt;p&gt;As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&amp;#8217;ll cover:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'&gt;How the model will work: what drives AWS costs for Snowplow users&lt;/a&gt;&lt;/li&gt;
@@ -41,39 +93,47 @@
 &lt;li&gt;&lt;a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'&gt;How you can help&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;We think walking through the &lt;a href='#details'&gt;mechanics of the model&lt;/a&gt; should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling. (We will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.)&lt;/p&gt;
+&lt;p&gt;We think walking through the &lt;a href='#details'&gt;mechanics of the model&lt;/a&gt; should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling: we will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /&gt;&lt;/p&gt;
 
-&lt;p&gt;We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as at estimating the costs associated with processing billions of lines of rows per day. (And can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.)&lt;/p&gt;
+&lt;p&gt;We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as it is at estimating the costs associated with processing billions of lines of rows per day. And we intend that the model can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.&lt;/p&gt;
 
 &lt;p&gt;As an extra incentive, we&amp;#8217;re offering every Snowplow user who shares some of the data requested below a &lt;strong&gt;free Snowplow T-shirt&lt;/strong&gt; :-).&lt;/p&gt;
 &lt;!--more--&gt;&lt;h2&gt;&lt;a name='details'&gt;1. How the model will work: what drives AWS costs for Snowplow users&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a &lt;em&gt;typical&lt;/em&gt; Snowplow user (i.e. one running the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'&gt;Cloudfront collector&lt;/a&gt; rather than the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'&gt;Clojure collector&lt;/a&gt;), and storing their data on Redshift for analysis, rather than analyse the data in S3 using EMR) then we need to account for:&lt;/p&gt;
+&lt;p&gt;It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a &lt;em&gt;typical&lt;/em&gt; Snowplow user (i.e. one running the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'&gt;Cloudfront collector&lt;/a&gt; rather than the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'&gt;Clojure collector&lt;/a&gt;), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:&lt;/p&gt;
 
-&lt;p&gt;1 &lt;a href='#cloudfront'&gt;Cloudfront costs&lt;/a&gt;,&lt;br /&gt;2 &lt;a href='#s3'&gt;S3 costs&lt;/a&gt;,&lt;br /&gt;3 &lt;a href='#emr'&gt;EMR costs&lt;/a&gt; and&lt;br /&gt;4 &lt;a href='#redshift'&gt;Redshift costs&lt;/a&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='#cloudfront'&gt;Cloudfront costs&lt;/a&gt;,&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#s3'&gt;S3 costs&lt;/a&gt;,&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#emr'&gt;EMR costs&lt;/a&gt; and&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#redshift'&gt;Redshift costs&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h3&gt;&lt;a name='cloudfront'&gt;1.1 Cloudfront costs&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Snowplow uses Cloudfront to serve both &lt;code&gt;sp.js&lt;/code&gt;, the Snowplow Javascript, and the Snowplow pixel &lt;code&gt;i&lt;/code&gt;. Broadly, Cloudfront costs scale linearly with the volume of data served out of Cloudfront, with a couple of provisos:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;The cost per MB served goes down, as volumes rise. (Amazon tier the pricing.)&lt;/li&gt;
+&lt;li&gt;The cost per MB served goes down, as volumes rise (because Amazon tier their pricing)&lt;/li&gt;
 
-&lt;li&gt;The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in. (So the exact cost depends on the distribution of your visitors geographically.)&lt;/li&gt;
+&lt;li&gt;The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in (so the exact cost depends on the distribution of your visitors geographically)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Modelling the costs is therefore reasonably straightforward. The &lt;code&gt;i&lt;/code&gt; pixel is served with every event tracked: so we can calculate the cost of serving &lt;code&gt;i&lt;/code&gt; based on the size of &lt;code&gt;i&lt;/code&gt; (it is 37 bytes), the number of events, and the geographic split of visitors by Amazon region. The costs scale almost linearly with the number of events tracked per day.&lt;/p&gt;
 
-&lt;p&gt;Modelling the cost of serving &lt;code&gt;sp.js&lt;/code&gt; is a little trickier. As discussed in our blog post on &lt;a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'&gt;browser caching&lt;/a&gt;, it is possible to set &lt;code&gt;sp.js&lt;/code&gt; so that it is only served once per unique visitor, rather than once per event. Because &lt;code&gt;sp.js&lt;/code&gt; is 37KB (so a lot larger than &lt;code&gt;i&lt;/code&gt;), this has a significant impact on your Cloudfront costs. From a modelling perspective, however, it makes it easy to estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.&lt;/p&gt;
+&lt;p&gt;Modelling the cost of serving &lt;code&gt;sp.js&lt;/code&gt; is a little trickier. As discussed in our blog post on &lt;a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'&gt;browser caching&lt;/a&gt;, it is possible to set &lt;code&gt;sp.js&lt;/code&gt; so that it is only served once per unique visitor, rather than once per event. Because &lt;code&gt;sp.js&lt;/code&gt; is 37KB (so a lot larger than &lt;code&gt;i&lt;/code&gt;), this has a significant impact on your Cloudfront costs. From a modelling perspective, then, we should estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.&lt;/p&gt;
 &lt;h3&gt;&lt;a name='s3'&gt;1.2 S3 costs&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Snowplow uses S3 to store event data. Amazon charges for S3 based on:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;The volume of data stored in S3&lt;/li&gt;
 
-&lt;li&gt;The number of requests for that data. (In the form of &lt;code&gt;GET&lt;/code&gt; / &lt;code&gt;PUT&lt;/code&gt; / &lt;code&gt;COPY&lt;/code&gt; requests.)&lt;/li&gt;
+&lt;li&gt;The number of requests for that data (in the form of &lt;code&gt;GET&lt;/code&gt; / &lt;code&gt;PUT&lt;/code&gt; / &lt;code&gt;COPY&lt;/code&gt; requests)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how long a &amp;#8216;typical&amp;#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and multiply by Amazon S3&amp;#8217;s cost per GB.&lt;/p&gt;
+&lt;p&gt;Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how large a &amp;#8216;typical&amp;#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and then multiply by Amazon S3&amp;#8217;s cost per GB.&lt;/p&gt;
 
 &lt;p&gt;What is more tricky is modelling the number of requests to S3 for the files. To understand why, we need to examine the Snowplow data pipeline, and in particular, the part of the pipeline that takes the raw data generated by the Snowplow collector, cleans that data, enriches it, and uploads the enriched data into Amazon Redshift for analysis.&lt;/p&gt;
 
@@ -84,9 +144,9 @@
 &lt;p&gt;This encapsulates the bulk of the data processing:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket.&lt;/li&gt;
+&lt;li&gt;Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket&lt;/li&gt;
 
-&lt;li&gt;EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS.&lt;/li&gt;
+&lt;li&gt;EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS&lt;/li&gt;
 
 &lt;li&gt;The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.&lt;/li&gt;
 

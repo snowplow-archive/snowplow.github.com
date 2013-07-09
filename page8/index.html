@@ -68,6 +68,38 @@
 		<div id="contents">
 	
 		<div class="post">
+			29 Jan 2013
+			<h1><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>The <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) enables companies running Snowplow to track users in environments that do not support Javascript. In this blog post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#why'>The purpose of the No-Javascript tracker (pixel tracker)</a></li>
+
+<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#mechanics'>How it works</a></li>
+
+<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#collector-considerations'>Considerations when using the No-JS tracker (pixel tracker) with the Clojure collector in particular</a></li>
+
+<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#roadmap'>Next steps on the Snowplow tracker roadmap</a></li>
+</ol>
+<a name='why'><h2>What is the purpose of the No-Javascript tracker (pixel tracker)?</h2> </a>
+<p>Our aim with Snowplow has been to enables companies to track user events across <strong>all</strong> platforms and devices. That means enabling tracking offline events, as well as online events, and mobile events, as well as web events.</p>
+
+<p>There is a whole class of web event that Snowplow users may want to capture, but which are not possible to track using our standard Javascript tracker because they are environments that do not support Javascript. This includes:</p>
+
+<ol>
+<li>Views of HTML emails</li>
+
+<li>Views of ecommerce products on 3rd party marketplaces</li>
+
+<li>Views of pages on 3rd party hosting sites e.g. Github</li>
+</ol>
+
+<p>In these cases, you can use the <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) to track events directly into your Snowplow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behavior, for example.</p>
+<p class='more'><a href='/blog/2013/01/29/introducing-the-no-js-tracker'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			22 Jan 2013
 			<h1><a href="/blog/2013/01/22/snowplow-0.7.1-released">Snowplow 0.7.1 released, with easier-to-run Ruby apps</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -166,33 +198,6 @@
 <p>Keep plowing!</p>
 		</div>
 	
-		<div class="post">
-			16 Jan 2013
-			<h1><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>A short blog post this, to announce the release of <a href='https://github.com/snowplow/scala-maxmind-geoip'><strong>Scala MaxMind GeoIP</strong></a>, our Scala wrapper for the MaxMind <a href='http://www.maxmind.com/download/geoip/api/java/'>Java Geo-IP</a> library.</p>
-
-<p>We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to <a href='https://github.com/twitter/scalding'>Scalding</a>. We extracted this as a separate library for two main reasons:</p>
-
-<ol>
-<li><strong>Being good open-source citizens</strong> - as with our <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library, we believe this library willl be useful to the wider community of software developers, not just Snowplow users</li>
-
-<li><strong>Keeping Snowplow&#8217;s footprint small</strong> - at Snowplow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that &#8216;do everything&#8217; are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes</li>
-</ol>
-
-<p>On to the library: for Scala developers, the main benefits of using <a href='https://github.com/snowplow/scala-maxmind-geoip'>scala-maxmind-geoip</a> over the MaxMind Java library are:</p>
-
-<ul>
-<li><strong>Easier to setup/test</strong> - the SBT project definition automatically pulls down the latest MaxMind Java code and <code>GeoLiteCity.dat</code></li>
-
-<li><strong>Better type safety</strong> - the MaxMind Java library is somewhat null-happy. This library uses Option boxing wherever possible</li>
-
-<li><strong>Better performance</strong> - as well as or instead of using MaxMind&#8217;s own caching (<code>GEOIP_MEMORY_CACHE</code>), you can also configure an LRU (Least Recently Used) cache of variable size</li>
-</ul>
-
-<p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -201,7 +206,7 @@
 			<a href="/page7" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 8 of 14</span>
+		<span class="page_number">Page: 8 of 15</span>
 		
 			<a href="/page9" class="next">Next</a>
 		
@@ -212,6 +217,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
 			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
@@ -219,8 +226,6 @@
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
 		
 			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
-		
-			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 		
 	</ul>
 
@@ -246,6 +251,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
 				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
@@ -253,8 +260,6 @@
 				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-			
-				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 			
 		
 		</ul>		

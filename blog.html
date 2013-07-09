@@ -68,10 +68,36 @@
 		<div id="contents">
 	
 		<div class="post">
+			09 Jul 2013
+			<h1><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
+
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
+
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
+
+<p>Here is a taster for using the library from C Sharp:</p>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span> <span class='c1'>// Our current URL</span>
+
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
+</code></pre></div>
+<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
+<p class='more'><a href='/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			08 Jul 2013
 			<h1><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon monthly charges going forwards, and see how those costs vary with different traffic levels. We thought that was an excellent idea.</p>
+			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
 
 <p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
 
@@ -83,7 +109,7 @@
 <li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
 </ol>
 
-<p>As a result of the updates, we held off building the model. Now that they have been delivered, we have started putting together the model in earnest. In this post we&#8217;ll cover:</p>
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll cover:</p>
 
 <ol>
 <li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'>How the model will work: what drives AWS costs for Snowplow users</a></li>
@@ -91,11 +117,11 @@
 <li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'>How you can help</a></li>
 </ol>
 
-<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling. (We will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.)</p>
+<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling: we will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.</p>
 
 <p><img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
 
-<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as at estimating the costs associated with processing billions of lines of rows per day. (And can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.)</p>
+<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as it is at estimating the costs associated with processing billions of lines of rows per day. And we intend that the model can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.</p>
 
 <p>As an extra incentive, we&#8217;re offering every Snowplow user who shares some of the data requested below a <strong>free Snowplow T-shirt</strong> :-).</p>
 <p class='more'><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
@@ -171,38 +197,13 @@
 <p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			28 Jun 2013
-			<h1><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><i>This post is a response to an excellent, but old, blog post by <a href='http://www.gilliganondata.com/index.php/about/'>Tim Wilson</a> called <a href='http://www.gilliganondata.com/index.php/2011/08/09/web-analytics-platforms-are-fundamentally-broken/'>Web Analytics Platforms are Fundamentally Broken</a>, authored back in August 2011. Tim made the case (that is still true today) that web analytics is hard, and part of that hardness is because web analytics platforms are fundamentally broken. After Tim published his post, a very interesting conversation ensued on <a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'>Google+</a>. Reading through it, I was struck by how many of the points raised are still relevant today, and how many of the participants touched on issues that were central to our thinking when when we conceived of Snowplow.</i></p><p><i>One thing that I feel was sorely lacking from the discussion around <i>hardness</i> in web analytics was an effort to distinguish different sources of complexity. In this post, I identify some of those sources, and outline strategies for dealing with them. At the end of the post, I consider the extent to which web analytics platforms can help overcome that complexity, and argue that Omniture Sitecatalyst actually creates additional complexity because of the way it has been architected technically. I end by concluding that <strong>web analytics will continue to be hard because there are no straightforward ways to address every source of complexity, but that tools like Sitecatalyst make it harder than it needs to be</strong>.</i></p>
-<p><img alt='rubiks-cube' src='/static/img/blog/2013/06/rubiks-cube.png' /></p>
-
-<h2 id='what_is_it_that_makes_web_analytics_difficult'>What is it that makes web analytics difficult?</h2>
-
-<p>The following all make web analytics hard.</p>
-
-<ol>
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data'>Large, complex, high volume, high velocity data</a></li>
-
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata'>Lots of contextual knowledge requried to understand the data</a></li>
-
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions'>The business questions that people want to use the data to answer are hard</a></li>
-
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools'>Poorly architected tools make the previous three complexities <em>harder</em> to deal with</a></li>
-</ol>
-
-<p>Much of the discussion around Tim&#8217;s original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture&#8217;s SiteCatalyst (around which much of the discussion about Tim&#8217;s blog post focused) actually manages to make things worse.</p>
-<p class='more'><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
 		
 			<span class="previous">Previous</span>
 		
-		<span class="page_number">Page: 1 of 14</span>
+		<span class="page_number">Page: 1 of 15</span>
 		
 			<a href="/page2" class="next">Next</a>
 		
@@ -213,6 +214,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
 			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
@@ -220,8 +223,6 @@
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
 		
 			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
-		
-			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 		
 	</ul>
 
@@ -247,6 +248,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
 				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
@@ -254,8 +257,6 @@
 				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-			
-				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 			
 		
 		</ul>		

@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho - Snowplow Analytics</title>
+	<title>The Snowplow blog - thoughts, musing and tutorials on event analytics from the Snowplow team - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -66,67 +66,29 @@
 </div>
 	
 		<div id="contents">
+	
 		<div class="post">
-			17 Dec 2012
-			<h1>Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</h1>
+			02 Aug 2012
+			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
-<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
-<p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
-<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Shoes</td><td style='text-align: left;'>15</td><td style='text-align: right;'>1125.00</td>
-</tr><tr><td style='text-align: left;'>France</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>288</td><td style='text-align: right;'>2877.12</td>
-</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
-</tr></tbody></table>
-<p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
+			<p>Following a lot of invaluable feedback from users setting up Snowplow for the first time, we&#8217;ve updated the Snowplow setup documentation.</p>
 
-<p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
-<!--more-->
-<p>Snowplow data is in a log file format. Whilst each line does include metrics (e.g. revenue) and dimensions (e.g. browser features or operating system details), there are a large number of dimensions that we might want to slice and dice the data on that are not included in each line: these data points have to be inferred by reading across several lines of data. To give just one example: the source of traffic i.e. <code>mkt_source</code> for a particular visit is only given on the <strong>first line</strong> of data for that visit. Hence, in order to enable users to analyse page views, customer lifetime value and other metrics by different marketing sources (e.g. to do attribution analysis), we need to work out which source of traffic to attribute that visit to, and label every line of data associated with that visit with that source of traffic.</p>
-
-<p>So in order to use a BI tool like Tableau or Qlikview to interrogate Snowplow data, you need to transform the data first. We&#8217;ve documented how to perform the transformation in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>. We hope it provides a useful guide for anyone interested in interrogating or visualising Snowplow data using BI tools.</p>
-
-<p>We also wonder whether the documentation will be of interest to the wider community of analysts and data scientists interested in using tools like Tableau to query log data. One of the things that surprised us, going in to this exercise, was the lack of material we could find on the internet that covered transforming log data so that it could be analysed using BI tools. We expected this to be well-covered territory: especially given the fact that the vast majority of data processed by Hadoop is log files, and nearly all the BI vendors are working hard to integrate their products with Hadoop. (For example, Tableau now integrates with MapR Hadoop distributions, so you can analyse Hive tables directly in Tableau.) Without the transformation step covered in our <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>guide</a> however, this type of integration is useless.</p>
-
-<p>If we&#8217;ve missed any online literature on the topic, or if there are other people who&#8217;ve looked at this particular problem and come up with different approaches - we&#8217;d love to debate them here. Get in touch! For everyone else, we hope you find our <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>guide</a> helpful&#8230;</p>
-
-<p>References:</p>
-
-<ul>
-<li>Snowplow data <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>canonical data structure</a>.</li>
-</ul>
-			<div class="author_summary">
-				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
-</div>
-
-			</div> 
-			<div id="comments">
-	<h2>Questions? Comments? Join the debate!</h2>
-	 <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
-            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
-            var disqus_url =  ;
-            var disqus_title =  ; */
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
+<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for Snowplow newbies to get up and running&#8230;</p>
 		</div>
-		<p>Return to the <a href="/blog.html">main blog page</a></p>
-		
+	
 
+	<!-- Pagination links -->
+	<div class="pagination">
+		
+			
+			<a href="/page14" class="previous">Previous</a>
+			
+		
+		<span class="page_number">Page: 15 of 15</span>
+		
+			<span class="next">Next</span>
+		
+	</div>
 </div>
 
 <div id="sidebar">
@@ -221,7 +183,6 @@
 	</ul>
 	<!--<strong>Tags</strong> -->
 </div>
-
 		<div id="footer">
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>

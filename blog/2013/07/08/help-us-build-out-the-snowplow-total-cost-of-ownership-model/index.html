@@ -70,7 +70,7 @@
 			08 Jul 2013
 			<h1>Help us build out the Snowplow Total Cost of Ownership Model</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon monthly charges going forwards, and see how those costs vary with different traffic levels. We thought that was an excellent idea.</p>
+			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
 
 <p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
 
@@ -82,7 +82,7 @@
 <li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
 </ol>
 
-<p>As a result of the updates, we held off building the model. Now that they have been delivered, we have started putting together the model in earnest. In this post we&#8217;ll cover:</p>
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll cover:</p>
 
 <ol>
 <li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'>How the model will work: what drives AWS costs for Snowplow users</a></li>
@@ -90,39 +90,47 @@
 <li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'>How you can help</a></li>
 </ol>
 
-<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling. (We will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.)</p>
+<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling: we will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.</p>
 
 <p><img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
 
-<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as at estimating the costs associated with processing billions of lines of rows per day. (And can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.)</p>
+<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as it is at estimating the costs associated with processing billions of lines of rows per day. And we intend that the model can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.</p>
 
 <p>As an extra incentive, we&#8217;re offering every Snowplow user who shares some of the data requested below a <strong>free Snowplow T-shirt</strong> :-).</p>
 <!--more--><h2><a name='details'>1. How the model will work: what drives AWS costs for Snowplow users</a></h2>
-<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyse the data in S3 using EMR) then we need to account for:</p>
+<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
 
-<p>1 <a href='#cloudfront'>Cloudfront costs</a>,<br />2 <a href='#s3'>S3 costs</a>,<br />3 <a href='#emr'>EMR costs</a> and<br />4 <a href='#redshift'>Redshift costs</a>.</p>
+<ol>
+<li><a href='#cloudfront'>Cloudfront costs</a>,</li>
+
+<li><a href='#s3'>S3 costs</a>,</li>
+
+<li><a href='#emr'>EMR costs</a> and</li>
+
+<li><a href='#redshift'>Redshift costs</a></li>
+</ol>
 <h3><a name='cloudfront'>1.1 Cloudfront costs</a></h3>
 <p>Snowplow uses Cloudfront to serve both <code>sp.js</code>, the Snowplow Javascript, and the Snowplow pixel <code>i</code>. Broadly, Cloudfront costs scale linearly with the volume of data served out of Cloudfront, with a couple of provisos:</p>
 
 <ul>
-<li>The cost per MB served goes down, as volumes rise. (Amazon tier the pricing.)</li>
+<li>The cost per MB served goes down, as volumes rise (because Amazon tier their pricing)</li>
 
-<li>The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in. (So the exact cost depends on the distribution of your visitors geographically.)</li>
+<li>The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in (so the exact cost depends on the distribution of your visitors geographically)</li>
 </ul>
 
 <p>Modelling the costs is therefore reasonably straightforward. The <code>i</code> pixel is served with every event tracked: so we can calculate the cost of serving <code>i</code> based on the size of <code>i</code> (it is 37 bytes), the number of events, and the geographic split of visitors by Amazon region. The costs scale almost linearly with the number of events tracked per day.</p>
 
-<p>Modelling the cost of serving <code>sp.js</code> is a little trickier. As discussed in our blog post on <a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'>browser caching</a>, it is possible to set <code>sp.js</code> so that it is only served once per unique visitor, rather than once per event. Because <code>sp.js</code> is 37KB (so a lot larger than <code>i</code>), this has a significant impact on your Cloudfront costs. From a modelling perspective, however, it makes it easy to estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.</p>
+<p>Modelling the cost of serving <code>sp.js</code> is a little trickier. As discussed in our blog post on <a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'>browser caching</a>, it is possible to set <code>sp.js</code> so that it is only served once per unique visitor, rather than once per event. Because <code>sp.js</code> is 37KB (so a lot larger than <code>i</code>), this has a significant impact on your Cloudfront costs. From a modelling perspective, then, we should estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.</p>
 <h3><a name='s3'>1.2 S3 costs</a></h3>
 <p>Snowplow uses S3 to store event data. Amazon charges for S3 based on:</p>
 
 <ul>
 <li>The volume of data stored in S3</li>
 
-<li>The number of requests for that data. (In the form of <code>GET</code> / <code>PUT</code> / <code>COPY</code> requests.)</li>
+<li>The number of requests for that data (in the form of <code>GET</code> / <code>PUT</code> / <code>COPY</code> requests)</li>
 </ul>
 
-<p>Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how long a &#8216;typical&#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and multiply by Amazon S3&#8217;s cost per GB.</p>
+<p>Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how large a &#8216;typical&#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and then multiply by Amazon S3&#8217;s cost per GB.</p>
 
 <p>What is more tricky is modelling the number of requests to S3 for the files. To understand why, we need to examine the Snowplow data pipeline, and in particular, the part of the pipeline that takes the raw data generated by the Snowplow collector, cleans that data, enriches it, and uploads the enriched data into Amazon Redshift for analysis.</p>
 
@@ -133,9 +141,9 @@
 <p>This encapsulates the bulk of the data processing:</p>
 
 <ul>
-<li>Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket.</li>
+<li>Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket</li>
 
-<li>EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS.</li>
+<li>EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS</li>
 
 <li>The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.</li>
 
@@ -461,6 +469,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
 			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
@@ -468,8 +478,6 @@
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
 		
 			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
-		
-			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 		
 	</ul>
 
@@ -495,6 +503,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
 				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
@@ -502,8 +512,6 @@
 				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-			
-				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 			
 		
 		</ul>		

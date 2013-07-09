@@ -68,6 +68,33 @@
 		<div id="contents">
 	
 		<div class="post">
+			01 Nov 2012
+			<h1><a href="/blog/2012/11/01/snowplow-0.5.1-released">Snowplow 0.5.1 released, with lots of small improvements</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
+
+<ol>
+<li>Improving the robustness of the ETL process</li>
+
+<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
+</ol>
+
+<p>To take each of these themes in turn:</p>
+
+<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
+
+<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
+
+<p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
+
+<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
+
+<pre><code>:etl:
+  :continue_on_unexpected_error: false</code></pre>
+<p class='more'><a href='/blog/2012/11/01/snowplow-0.5.1-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			31 Oct 2012
 			<h1><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -178,24 +205,6 @@
 <p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
 		</div>
 	
-		<div class="post">
-			12 Oct 2012
-			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
-
-<ol>
-<li>How big data technologies like Apache Hive are transforming web analytics</li>
-
-<li>Howe we&#8217;ve used Hive in Snowplow development</li>
-
-<li>How the role of Hive has changed at Snowplow over time, including a comparison of Hive against other technologies.</li>
-</ol>
-
-<p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -204,7 +213,7 @@
 			<a href="/page11" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 12 of 14</span>
+		<span class="page_number">Page: 12 of 15</span>
 		
 			<a href="/page13" class="next">Next</a>
 		
@@ -215,6 +224,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
 			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
@@ -222,8 +233,6 @@
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
 		
 			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
-		
-			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 		
 	</ul>
 
@@ -249,6 +258,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
 				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
@@ -256,8 +267,6 @@
 				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-			
-				<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></li>
 			
 		
 		</ul>		

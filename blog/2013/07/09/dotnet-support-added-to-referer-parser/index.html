@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>referer-parser now with Java, Scala and Python support - Snowplow Analytics</title>
+	<title>.NET (C#) support added to referer-parser - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,73 +67,50 @@
 	
 		<div id="contents">
 		<div class="post">
-			02 Jan 2013
-			<h1>referer-parser now with Java, Scala and Python support</h1>
+			09 Jul 2013
+			<h1>.NET (C#) support added to referer-parser</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
 
-<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
 
-<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
-<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
+<p>Here is a taster for using the library from C Sharp:</p>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
+</code></pre></div>
+<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
 <!--more-->
-<h2 id='python'>Python</h2>
+<h2 id='a_brief_interview_with_author_sepp_wijnands'>A brief interview with author Sepp Wijnands</h2>
 
-<p>To use referer-parser from a Python script:</p>
-<div class='highlight'><pre><code class='python'><span class='kn'>from</span> <span class='nn'>referer_parser</span> <span class='kn'>import</span> <span class='n'>Referer</span>
+<p>We asked <a href='https://github.com/swijnands'>Sepp</a> to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:</p>
 
-<span class='n'>referer_url</span> <span class='o'>=</span> <span class='s'>&#39;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&#39;</span>
+<p><em><a href='http://www.iperform.nl/'>iPerform Software</a> (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.</em></p>
 
-<span class='n'>r</span> <span class='o'>=</span> <span class='n'>Referer</span><span class='p'>(</span><span class='n'>referer_url</span><span class='p'>)</span>
+<p><em>One of our customers had a feature request about getting (directly) notified when a very specific set of keywords is used when somebody enters the website via Google or Bing (or &#8230;.) searches.</em></p>
 
-<span class='k'>print</span><span class='p'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>known</span><span class='p'>)</span>              <span class='c'># True</span>
-<span class='k'>print</span><span class='p'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>referer</span><span class='p'>)</span>            <span class='c'># &#39;Google&#39;</span>
-<span class='k'>print</span><span class='p'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>search_parameter</span><span class='p'>)</span>   <span class='c'># &#39;q&#39;     </span>
-<span class='k'>print</span><span class='p'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>search_term</span><span class='p'>)</span>        <span class='c'># &#39;gateway oracle cards denise linn&#39;</span>
-<span class='k'>print</span><span class='p'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>uri</span><span class='p'>)</span>                <span class='c'># ParseResult(scheme=&#39;http&#39;, netloc=&#39;www.google.com&#39;, path=&#39;/search&#39;, params=&#39;&#39;, query=&#39;q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&#39;, fragment=&#39;&#39;)</span>
-</code></pre></div>
-<p>For more information, please see the Python <a href='https://github.com/snowplow/referer-parser/blob/master/python/README.md'>README</a>.</p>
+<p><em>While we could probably have used an existing third-party analytics platform to do the job, one of the great things about the referer-parser project is that the <a href='https://github.com/snowplow/referer-parser/blob/master/referers.yml'>referer database</a> is very complete, and using the referer-parser library we can be in full control how and when notifications are send.</em></p>
 
-<h2 id='scala'>Scala</h2>
+<p><em>The referer-parser solution is currently deployed and fully up-and-running. And so far, the customer couldn&#8217;t be happier!</em></p>
 
-<p>To use referer-parser from a Scala app:</p>
-<div class='highlight'><pre><code class='scala'><span class='k'>val</span> <span class='n'>refererUrl</span> <span class='k'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span>
+<p><em>So, thanks again for the fabulous referer-parser project!</em></p>
 
-<span class='k'>import</span> <span class='nn'>com.snowplowanalytics.refererparser.scala.Parser</span>
-<span class='k'>for</span> <span class='o'>(</span><span class='n'>r</span> <span class='k'>&lt;-</span> <span class='nc'>Parser</span><span class='o'>.</span><span class='n'>parse</span><span class='o'>(</span><span class='n'>refererUrl</span><span class='o'>))</span> <span class='o'>{</span>
-  <span class='n'>println</span><span class='o'>(</span><span class='n'>r</span><span class='o'>.</span><span class='n'>referer</span><span class='o'>.</span><span class='n'>name</span><span class='o'>)</span>      <span class='c1'>// =&gt; &quot;Google&quot;</span>
-  <span class='k'>for</span> <span class='o'>(</span><span class='n'>s</span> <span class='k'>&lt;-</span> <span class='n'>r</span><span class='o'>.</span><span class='n'>search</span><span class='o'>)</span> <span class='o'>{</span>
-    <span class='n'>println</span><span class='o'>(</span><span class='n'>s</span><span class='o'>.</span><span class='n'>term</span><span class='o'>)</span>            <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-    <span class='n'>println</span><span class='o'>(</span><span class='n'>s</span><span class='o'>.</span><span class='n'>parameter</span><span class='o'>)</span>       <span class='c1'>// =&gt; &quot;q&quot;    </span>
-  <span class='o'>}</span>
-<span class='o'>}</span>
-</code></pre></div>
-<p>For more information, please see the Java/Scala <a href='https://github.com/snowplow/referer-parser/blob/master/java-scala/README.md'>README</a>.</p>
+<h2 id='installation'>Installation</h2>
 
-<h2 id='usage_java'>Usage: Java</h2>
+<p>Interested in using the .NET port of referer-parser? A NuGet Package is available, under package id RefererParser.</p>
 
-<p>To use referer-parser from a Java program:</p>
-<div class='highlight'><pre><code class='java'><span class='kn'>import</span> <span class='nn'>com.snowplowanalytics.refererparser.Parser</span><span class='o'>;</span>
+<h2 id='find_out_more'>Find out more</h2>
 
-<span class='o'>...</span>
-
-  <span class='n'>String</span> <span class='n'>refererUrl</span> <span class='o'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='o'>;</span>
-
-  <span class='n'>Parser</span> <span class='n'>refererParser</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>Parser</span><span class='o'>();</span>
-  <span class='n'>Referal</span> <span class='n'>r</span> <span class='o'>=</span> <span class='n'>refererParser</span><span class='o'>.</span><span class='na'>parse</span><span class='o'>(</span><span class='n'>refererUrl</span><span class='o'>);</span>
-
-  <span class='n'>System</span><span class='o'>.</span><span class='na'>out</span><span class='o'>.</span><span class='na'>println</span><span class='o'>(</span><span class='n'>r</span><span class='o'>.</span><span class='na'>referer</span><span class='o'>.</span><span class='na'>name</span><span class='o'>);</span>       <span class='c1'>// =&gt; &quot;Google&quot;</span>
-  <span class='n'>System</span><span class='o'>.</span><span class='na'>out</span><span class='o'>.</span><span class='na'>println</span><span class='o'>(</span><span class='n'>r</span><span class='o'>.</span><span class='na'>search</span><span class='o'>.</span><span class='na'>parameter</span><span class='o'>);</span>   <span class='c1'>// =&gt; &quot;q&quot;    </span>
-  <span class='n'>System</span><span class='o'>.</span><span class='na'>out</span><span class='o'>.</span><span class='na'>println</span><span class='o'>(</span><span class='n'>r</span><span class='o'>.</span><span class='na'>search</span><span class='o'>.</span><span class='na'>term</span><span class='o'>);</span>        <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre></div>
-<p>For more information, please see the Java/Scala <a href='https://github.com/snowplow/referer-parser/blob/master/java-scala/README.md'>README</a>.</p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>That&#8217;s it! If you have any problems with the new versions of referer-parser, please <a href='https://github.com/snowplow/referer-parser/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-
-<p>And do let us know if you find referer-parser useful!</p>
+<p>For more information, please check out the <a href='https://github.com/snowplow/referer-parser/blob/master/dotnet/README.md'>project README</a> for the .NET port of referer-parser.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-09T14:50:06+01:00</updated>
+  <updated>2013-07-09T15:04:25+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -13,8 +13,8 @@
 
   
   <entry>
-    <id>http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser</id>
-    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser"/>
+    <id>http://snowplowanalytics.com/blog/2013/07/09/dotnet-support-added-to-referer-parser</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/09/dotnet-support-added-to-referer-parser"/>
     <title>.NET (C#) support added to referer-parser</title>
     <updated>2013-07-09T00:00:00+01:00</updated>
     <author>
@@ -31,7 +31,7 @@
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='c#'&gt;&lt;span class='k'&gt;using&lt;/span&gt; &lt;span class='nn'&gt;RefererParser&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 
 &lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;refererUrl&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;amp;hl=en&amp;amp;client=safari&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
-&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;    &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http:/www.psychicbazaar.com/shop&amp;quot;&lt;/span&gt; &lt;span class='c1'&gt;// Our current URL&lt;/span&gt;
+&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;    &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http:/www.psychicbazaar.com/shop&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt; &lt;span class='c1'&gt;// Our current URL&lt;/span&gt;
 
 &lt;span class='kt'&gt;var&lt;/span&gt; &lt;span class='n'&gt;referer&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='n'&gt;Parser&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Parse&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;Uri&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;refererUrl&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
 
@@ -43,7 +43,7 @@
 &lt;!--more--&gt;
 &lt;h2 id='a_brief_interview_with_author_sepp_wijnands'&gt;A brief interview with author Sepp Wijnands&lt;/h2&gt;
 
-&lt;p&gt;We asked &lt;a href='https://github.com/swijnands'&gt;Sipp&lt;/a&gt; to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:&lt;/p&gt;
+&lt;p&gt;We asked &lt;a href='https://github.com/swijnands'&gt;Sepp&lt;/a&gt; to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;a href='http://www.iperform.nl/'&gt;iPerform Software&lt;/a&gt; (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.&lt;/em&gt;&lt;/p&gt;
 

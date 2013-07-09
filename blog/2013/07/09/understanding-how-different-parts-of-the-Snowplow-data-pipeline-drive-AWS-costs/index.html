@@ -129,9 +129,9 @@
 <ul>
 <li>Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket</li>
 
-<li>EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS</li>
+<li>EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS.</li>
 
-<li>The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.</li>
+<li>The output of that Scalding Enrichment process is then written straight into S3. The EMR cluster is then shut down.</li>
 
 <li>Once the job has completed, the raw logs are moved from the processing bucket to the archive bucket.</li>
 </ul>
@@ -170,7 +170,7 @@
 
 <p><img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /></p>
 
-<p>In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does <em>not</em> operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This <em>should</em> aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats. with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:</p>
+<p>In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does <em>not</em> operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This <em>should</em> aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:</p>
 
 <p><img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /></p>
 
@@ -196,7 +196,7 @@
 
 <p>We also hope this post is interesting for anyone with an interest in modelling technology costs (and AWS costs in particular).</p>
 
-<p>Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, <a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>you can help us build that model</a>, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow on post</a>.</p>
+<p>Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>you can help us build that model</a>, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow on post</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -238,7 +238,7 @@
 		
 			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 		
-			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
@@ -268,7 +268,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			

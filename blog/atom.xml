@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-09T15:10:17+01:00</updated>
+  <updated>2013-07-09T16:13:13+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -252,6 +252,8 @@
 &lt;li&gt;We&amp;#8217;ll send you a Snowplow T-shirt, by way of thanks.&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;p&gt;If you can pop the above data points (in whatever format is most convenient), and email them to me on &lt;code&gt;yali at snowplowanalytics dot com&lt;/code&gt;, along with your T-shirt size, we will send you through your T-shirts as soon as they are printed.&lt;/p&gt;
+
 &lt;p&gt;So please help us help you, and keep plowing!&lt;/p&gt;</content>
   </entry>
   
@@ -323,9 +325,9 @@
 &lt;ul&gt;
 &lt;li&gt;Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket&lt;/li&gt;
 
-&lt;li&gt;EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS&lt;/li&gt;
+&lt;li&gt;EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS.&lt;/li&gt;
 
-&lt;li&gt;The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.&lt;/li&gt;
+&lt;li&gt;The output of that Scalding Enrichment process is then written straight into S3. The EMR cluster is then shut down.&lt;/li&gt;
 
 &lt;li&gt;Once the job has completed, the raw logs are moved from the processing bucket to the archive bucket.&lt;/li&gt;
 &lt;/ul&gt;
@@ -364,7 +366,7 @@
 
 &lt;p&gt;&lt;img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /&gt;&lt;/p&gt;
 
-&lt;p&gt;In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does &lt;em&gt;not&lt;/em&gt; operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This &lt;em&gt;should&lt;/em&gt; aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats. with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:&lt;/p&gt;
+&lt;p&gt;In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does &lt;em&gt;not&lt;/em&gt; operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This &lt;em&gt;should&lt;/em&gt; aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /&gt;&lt;/p&gt;
 
@@ -390,12 +392,12 @@
 
 &lt;p&gt;We also hope this post is interesting for anyone with an interest in modelling technology costs (and AWS costs in particular).&lt;/p&gt;
 
-&lt;p&gt;Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, &lt;a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'&gt;you can help us build that model&lt;/a&gt;, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a &lt;a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'&gt;follow on post&lt;/a&gt;.&lt;/p&gt;</content>
+&lt;p&gt;Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, &lt;a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'&gt;you can help us build that model&lt;/a&gt;, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a &lt;a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'&gt;follow on post&lt;/a&gt;.&lt;/p&gt;</content>
   </entry>
   
   <entry>
-    <id>http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser</id>
-    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser"/>
+    <id>http://snowplowanalytics.com/blog/2013/07/09/dotnet-support-added-to-referer-parser</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/09/dotnet-support-added-to-referer-parser"/>
     <title>.NET (C#) support added to referer-parser</title>
     <updated>2013-07-09T00:00:00+01:00</updated>
     <author>
@@ -412,7 +414,7 @@
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='c#'&gt;&lt;span class='k'&gt;using&lt;/span&gt; &lt;span class='nn'&gt;RefererParser&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 
 &lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;refererUrl&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;amp;hl=en&amp;amp;client=safari&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
-&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;    &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http:/www.psychicbazaar.com/shop&amp;quot;&lt;/span&gt; &lt;span class='c1'&gt;// Our current URL&lt;/span&gt;
+&lt;span class='kt'&gt;string&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;    &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;http:/www.psychicbazaar.com/shop&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt; &lt;span class='c1'&gt;// Our current URL&lt;/span&gt;
 
 &lt;span class='kt'&gt;var&lt;/span&gt; &lt;span class='n'&gt;referer&lt;/span&gt; &lt;span class='p'&gt;=&lt;/span&gt; &lt;span class='n'&gt;Parser&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='n'&gt;Parse&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;Uri&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;refererUrl&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='n'&gt;pageUrl&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
 
@@ -424,7 +426,7 @@
 &lt;!--more--&gt;
 &lt;h2 id='a_brief_interview_with_author_sepp_wijnands'&gt;A brief interview with author Sepp Wijnands&lt;/h2&gt;
 
-&lt;p&gt;We asked &lt;a href='https://github.com/swijnands'&gt;Sipp&lt;/a&gt; to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:&lt;/p&gt;
+&lt;p&gt;We asked &lt;a href='https://github.com/swijnands'&gt;Sepp&lt;/a&gt; to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;&lt;a href='http://www.iperform.nl/'&gt;iPerform Software&lt;/a&gt; (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.&lt;/em&gt;&lt;/p&gt;
 

@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-09T16:13:13+01:00</updated>
+  <updated>2013-07-09T16:25:09+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -43,7 +43,7 @@
 
 &lt;p&gt;We will then share this data back, in an anonymized form, with the community, as part of the model.&lt;/p&gt;
 
-&lt;p&gt;We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you). we will &lt;em&gt;also&lt;/em&gt; send each person that provides data a &lt;strong&gt;free Snowplow T-shirt&lt;/strong&gt; in their size.&lt;/p&gt;
+&lt;p&gt;We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you), we will &lt;em&gt;also&lt;/em&gt; send each person that provides data a &lt;strong&gt;free Snowplow T-shirt&lt;/strong&gt; in their size.&lt;/p&gt;
 
 &lt;p&gt;In the rest of this post, we provide simple instructions for pulling the relevant data from Amazon.&lt;/p&gt;
 &lt;!--more--&gt;&lt;h3&gt;&lt;a name='events-per-day'&gt;1. Calculating the number of events tracked per day&lt;/a&gt;&lt;/h3&gt;
@@ -236,7 +236,7 @@
 &lt;span class='k'&gt;from&lt;/span&gt; &lt;span class='n'&gt;stv_partitions&lt;/span&gt; 
 &lt;span class='k'&gt;order&lt;/span&gt; &lt;span class='k'&gt;by&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;3&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;4&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The amount of used capacity (in MB) is given in the &amp;#8220;used&amp;#8221; column: it is 1941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.&lt;/p&gt;
+&lt;p&gt;The amount of used capacity (in MB) is given in the &amp;#8220;used&amp;#8221; column: it is 1,941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='redshift-example' src='/static/img/blog/2013/07/redshift-disk-space.JPG' /&gt;&lt;/p&gt;
 
@@ -249,7 +249,7 @@
 &lt;ol&gt;
 &lt;li&gt;A Total Cost of Ownership Model will be really useful for all of us!&lt;/li&gt;
 
-&lt;li&gt;We&amp;#8217;ll send you a Snowplow T-shirt, by way of thanks.&lt;/li&gt;
+&lt;li&gt;We&amp;#8217;ll send you a Snowplow T-shirt, by way of thanks&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;If you can pop the above data points (in whatever format is most convenient), and email them to me on &lt;code&gt;yali at snowplowanalytics dot com&lt;/code&gt;, along with your T-shirt size, we will send you through your T-shirts as soon as they are printed.&lt;/p&gt;

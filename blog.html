@@ -68,6 +68,40 @@
 		<div id="contents">
 	
 		<div class="post">
+			08 Jul 2013
+			<h1><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon monthly charges going forwards, and see how those costs vary with different traffic levels. We thought that was an excellent idea.</p>
+
+<p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
+
+<ol>
+<li>We replaced the Hive-based ETL with the <a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>Scalding-based enrichment process</a></li>
+
+<li>We dealt with the <a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'>small files problem</a>, dramatically reducing EMR costs</li>
+
+<li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
+</ol>
+
+<p>As a result of the updates, we held off building the model. Now that they have been delivered, we have started putting together the model in earnest. In this post we&#8217;ll cover:</p>
+
+<ol>
+<li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'>How the model will work: what drives AWS costs for Snowplow users</a></li>
+
+<li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'>How you can help</a></li>
+</ol>
+
+<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling. (We will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.)</p>
+
+<p><img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+
+<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as at estimating the costs associated with processing billions of lines of rows per day. (And can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.)</p>
+
+<p>As an extra incentive, we&#8217;re offering every Snowplow user who shares some of the data requested below a <strong>free Snowplow T-shirt</strong> :-).</p>
+<p class='more'><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			07 Jul 2013
 			<h1><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -162,39 +196,6 @@
 <p class='more'><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			26 Jun 2013
-			<h1><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><a href='http://cran.r-project.org/'>R</a> is one of the most popular data analytics tools out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.</p>
-
-<p><img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /></p>
-
-<p>That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.</p>
-
-<p>Given how great it is, why is R used so little by business and web analysts? I think there are two reasons:</p>
-
-<ol>
-<li>People are put off by the command-line. The learning curve for command-line tools in general is steep initially. In addition, there are some quirks to the R language and syntax that make it puzzling for newbies who are familiar with other command-line tools for data analysis e.g. Python.</li>
-
-<li>Most business and web analysts spend more time describing data that actually deriving insights from it. For descriptive work, tools like Excel and BI / OLAP tools like Tableau are OK.</li>
-</ol>
-
-<p>In order to encourage business and web analysts get started with R, we&#8217;ve put together <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>a tutorial</a> in the <a href='/analytics/index.html'>Analytics Cookbook</a> geared specifically towards newbies who want to start playing with R. The purpose is to:</p>
-
-<ol>
-<li>Get started quickly, by working with real web analytics data from Snowplow</li>
-
-<li>Get started with visualizations, to make the data come alive</li>
-
-<li>Cover the basics of concepts like factors and data frames, which are core to the way R works</li>
-
-<li>Give enough of an overview with the example that someone who works through the tutorial can then go off and productively use the multitude of other resources out there to build their knowledge of R.</li>
-</ol>
-
-<p>The recipe - <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>Getting Started with R</a>, is available <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>here</a>.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -212,6 +213,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
@@ -220,14 +223,14 @@
 		
 			<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 		
-			<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
@@ -236,8 +239,6 @@
 				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
 				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
-			
-				<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></li>
 			
 		
 		</ul>		

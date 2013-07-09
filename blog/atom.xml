@@ -4,13 +4,378 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-07T17:19:22+01:00</updated>
+  <updated>2013-07-09T13:56:35+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model"/>
+    <title>Help us build out the Snowplow Total Cost of Ownership Model</title>
+    <updated>2013-07-08T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Back in March, &lt;a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'&gt;Robert Kingston suggested&lt;/a&gt; that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon monthly charges going forwards, and see how those costs vary with different traffic levels. We thought that was an excellent idea.&lt;/p&gt;
+
+&lt;p&gt;Since Rob&amp;#8217;s suggestion, we&amp;#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We replaced the Hive-based ETL with the &lt;a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'&gt;Scalding-based enrichment process&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;We dealt with the &lt;a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'&gt;small files problem&lt;/a&gt;, dramatically reducing EMR costs&lt;/li&gt;
+
+&lt;li&gt;We enabled support for &lt;a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'&gt;task and spot instances&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As a result of the updates, we held off building the model. Now that they have been delivered, we have started putting together the model in earnest. In this post we&amp;#8217;ll cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'&gt;How the model will work: what drives AWS costs for Snowplow users&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'&gt;How you can help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We think walking through the &lt;a href='#details'&gt;mechanics of the model&lt;/a&gt; should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling. (We will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /&gt;&lt;/p&gt;
+
+&lt;p&gt;We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as at estimating the costs associated with processing billions of lines of rows per day. (And can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.)&lt;/p&gt;
+
+&lt;p&gt;As an extra incentive, we&amp;#8217;re offering every Snowplow user who shares some of the data requested below a &lt;strong&gt;free Snowplow T-shirt&lt;/strong&gt; :-).&lt;/p&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='details'&gt;1. How the model will work: what drives AWS costs for Snowplow users&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a &lt;em&gt;typical&lt;/em&gt; Snowplow user (i.e. one running the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'&gt;Cloudfront collector&lt;/a&gt; rather than the &lt;a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'&gt;Clojure collector&lt;/a&gt;), and storing their data on Redshift for analysis, rather than analyse the data in S3 using EMR) then we need to account for:&lt;/p&gt;
+
+&lt;p&gt;1 &lt;a href='#cloudfront'&gt;Cloudfront costs&lt;/a&gt;,&lt;br /&gt;2 &lt;a href='#s3'&gt;S3 costs&lt;/a&gt;,&lt;br /&gt;3 &lt;a href='#emr'&gt;EMR costs&lt;/a&gt; and&lt;br /&gt;4 &lt;a href='#redshift'&gt;Redshift costs&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='cloudfront'&gt;1.1 Cloudfront costs&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Snowplow uses Cloudfront to serve both &lt;code&gt;sp.js&lt;/code&gt;, the Snowplow Javascript, and the Snowplow pixel &lt;code&gt;i&lt;/code&gt;. Broadly, Cloudfront costs scale linearly with the volume of data served out of Cloudfront, with a couple of provisos:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The cost per MB served goes down, as volumes rise. (Amazon tier the pricing.)&lt;/li&gt;
+
+&lt;li&gt;The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in. (So the exact cost depends on the distribution of your visitors geographically.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Modelling the costs is therefore reasonably straightforward. The &lt;code&gt;i&lt;/code&gt; pixel is served with every event tracked: so we can calculate the cost of serving &lt;code&gt;i&lt;/code&gt; based on the size of &lt;code&gt;i&lt;/code&gt; (it is 37 bytes), the number of events, and the geographic split of visitors by Amazon region. The costs scale almost linearly with the number of events tracked per day.&lt;/p&gt;
+
+&lt;p&gt;Modelling the cost of serving &lt;code&gt;sp.js&lt;/code&gt; is a little trickier. As discussed in our blog post on &lt;a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'&gt;browser caching&lt;/a&gt;, it is possible to set &lt;code&gt;sp.js&lt;/code&gt; so that it is only served once per unique visitor, rather than once per event. Because &lt;code&gt;sp.js&lt;/code&gt; is 37KB (so a lot larger than &lt;code&gt;i&lt;/code&gt;), this has a significant impact on your Cloudfront costs. From a modelling perspective, however, it makes it easy to estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='s3'&gt;1.2 S3 costs&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Snowplow uses S3 to store event data. Amazon charges for S3 based on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The volume of data stored in S3&lt;/li&gt;
+
+&lt;li&gt;The number of requests for that data. (In the form of &lt;code&gt;GET&lt;/code&gt; / &lt;code&gt;PUT&lt;/code&gt; / &lt;code&gt;COPY&lt;/code&gt; requests.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how long a &amp;#8216;typical&amp;#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and multiply by Amazon S3&amp;#8217;s cost per GB.&lt;/p&gt;
+
+&lt;p&gt;What is more tricky is modelling the number of requests to S3 for the files. To understand why, we need to examine the Snowplow data pipeline, and in particular, the part of the pipeline that takes the raw data generated by the Snowplow collector, cleans that data, enriches it, and uploads the enriched data into Amazon Redshift for analysis.&lt;/p&gt;
+
+&lt;p&gt;The first part of the data pipeline is orchestrated by &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'&gt;EmrEtlRunner&lt;/a&gt;. This performs the bulk of data processing work:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='emr-etl-runner' src='/static/img/blog/2013/07/emr-etl-runner-steps.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;This encapsulates the bulk of the data processing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket.&lt;/li&gt;
+
+&lt;li&gt;EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS.&lt;/li&gt;
+
+&lt;li&gt;The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.&lt;/li&gt;
+
+&lt;li&gt;Once the job has completed, the raw logs are moved from the processing bucket to the archive bucket.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For modelling AWS costs (and S3 costs in particular), we need to note that two &lt;code&gt;COPY&lt;/code&gt; requests are executed for each collector log file written to S3: one to move that data from the in-bucket to the processing-bucket, and then another one to move the same file from the processing-bucket to the archive bucket.&lt;/p&gt;
+
+&lt;p&gt;In addition, one &lt;code&gt;GET&lt;/code&gt; request is executed per raw collector log file, when the data is read from S3 for the purposes of writing into HDFS.&lt;/p&gt;
+
+&lt;p&gt;The second part of the data pipeline is orchestrated by the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'&gt;StorageLoader&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='storage-loader' src='/static/img/blog/2013/07/storage-loader-steps.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a much simpler stage of the data processing pipeline:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Data from enriched event files generated by the Scalding process on EMR is read and written to Amazon Redshift&lt;/li&gt;
+
+&lt;li&gt;The enriched event files are then moved from the in-bucket (which &lt;em&gt;was&lt;/em&gt; the archive bucket for EmrEtlRunner) to the archive bucket (for the StorageLoader)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Again, for modelling purposes, we note that a single &lt;code&gt;GET&lt;/code&gt; request is executed for each enriched event file (when the file is read for the purposes of copying the data into Redshift). and then a &lt;code&gt;COPY&lt;/code&gt; request is executed for that file to move it from the in to the out bucket.&lt;/p&gt;
+
+&lt;p&gt;This means that we can accurately forecast costs based on the number of raw collector log files generated and the number of enriched event files generated. Unfortunately, modelling how this number scales with visitors / page views and events is &lt;em&gt;not&lt;/em&gt; straightforward because it is not clear how the number of collector log files and Snowplow event files scales with numbers of events tracked. This is one of the things &lt;a href='#help'&gt;we hope the community can help us with&lt;/a&gt;, by providing us with data points to help us unpick the relevant relationships.&lt;/p&gt;
+
+&lt;p&gt;To articulate our challenge: we need to understand&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;How the number of raw collector log files (for the Cloudfront collector) scales with number of events&lt;/li&gt;
+
+&lt;li&gt;How the number of enriched Snowplow event files scale with the number of events&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We have working hypotheses for what determines both numbers. We need to validate these with the Snowplow community, and quantify the relationships mathematically, based on data points shared by members of our community:&lt;/p&gt;
+
+&lt;p&gt;We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has &lt;em&gt;lots&lt;/em&gt; of servers at each edge location, so this tailing off might only happen at very large volumes.) We&amp;#8217;d therefore expect a graph like the one below, if we plotted numbers of log files vs events:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does &lt;em&gt;not&lt;/em&gt; operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This &lt;em&gt;should&lt;/em&gt; aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats. with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we &lt;a href='#help'&gt;explain below&lt;/a&gt;, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='emr'&gt;1.3 EMR costs&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Snowplow uses EMR to run the Enrichment process on the raw logs created by the collector. Because the process is powered by Hadoop, it should scale linearly: double the number of lines of data to be processed, the time to process should double. Double the number of machines in the cluster, the processing time should be halved.&lt;/p&gt;
+
+&lt;p&gt;Amazon charges for EMR based on the number of boxes in the cluster, the size of those boxes and the time the cluster is live for. Amazon rounds up the nearest hour: as a result, we would expect the cost of the daily job to be a step function.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='emr-costs' src='/static/img/blog/2013/07/emr-costs.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;We need to work out how many lines of data we can expect each Amazon box to process in one hour. Getting a handle on these figures will also mean we can advise Snowplow users what size of cluster to spin up based on the number of events processed per run.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='redshift'&gt;1.4 Redshift costs&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The majority of Snowplow users store their events table in Amazon Redshift, and then plug analytics tools into Redshift to crunch that data. As a result, they run a Redshift cluster constantly.&lt;/p&gt;
+
+&lt;p&gt;Amazon charges per Redshift node, where each node provides a 2TB of storage (for standard XL nodes) or 16TB of storage (for 8XL nodes). As a result, we can model Redshift costs simply as a function of the volume of data stored (itself just a function of the number of events tracked per day, and the number of days Snowplow has been running). As for EMR, we expect a step function (with a big increase in cost each time an additional 2TB node is required):&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='redshift-costs' src='/static/img/blog/2013/07/redshift-costs.png' /&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;How &lt;i&gt;you&lt;/i&gt; can help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As should hopefully be clear from reading the above, we need Snowplow users to share with us the following data, to help us accurately model the above relationships:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='#events-per-day'&gt;The number of events tracked per day&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#runs-per-day'&gt;The number of times the enrichment process is run per day&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#log-files-per-day'&gt;The number of Cloudfront log files generated per day, adn the volume of data&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#emr-details'&gt;The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#output-back-to-s3'&gt;The number of files outputted back to S3, and the size of those files&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#redshift-data-points'&gt;The total number of lines of data in Redshift, and the amount of Redshift capacity used&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will then share this data back, in an anonymized form, with the community, as part of the model.&lt;/p&gt;
+
+&lt;p&gt;We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you). we will &lt;em&gt;also&lt;/em&gt; send each person that provides data a &lt;strong&gt;free Snowplow T-shirt&lt;/strong&gt; in their size.&lt;/p&gt;
+
+&lt;p&gt;To get those data points, please work through the following steps:&lt;/p&gt;
+&lt;h3&gt;&lt;a name='events-per-day'&gt;2.1 Calculating the number of events tracked per day&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Simply execute the following SQL statement in Redshift&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
+&lt;span class='n'&gt;to_char&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='n'&gt;collector_tstamp&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;YYYY-MM-DD&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;&amp;quot;Day&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+&lt;span class='k'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;AS&lt;/span&gt; &lt;span class='ss'&gt;&amp;quot;Number of events&amp;quot;&lt;/span&gt;
+&lt;span class='k'&gt;FROM&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;
+&lt;span class='k'&gt;WHERE&lt;/span&gt; &lt;span class='n'&gt;collector_tstamp&lt;/span&gt; &lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='err'&gt;{$&lt;/span&gt;&lt;span class='k'&gt;START&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='nb'&gt;DATE&lt;/span&gt;&lt;span class='err'&gt;}&lt;/span&gt;
+&lt;span class='k'&gt;AND&lt;/span&gt; &lt;span class='n'&gt;collector_tstamp&lt;/span&gt;&lt;span class='o'&gt;&amp;lt;&lt;/span&gt; &lt;span class='err'&gt;{$&lt;/span&gt;&lt;span class='k'&gt;START&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='nb'&gt;DATE&lt;/span&gt;&lt;span class='err'&gt;}&lt;/span&gt;
+&lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='ss'&gt;&amp;quot;Day&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3&gt;&lt;a name='runs-per-day'&gt;2.2 Calculating the number of times the enrichment process is run per day&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Most Snowplow users run the enrichment process once per day.&lt;/p&gt;
+
+&lt;p&gt;You can confirm how many times you run Snowplow by logging into the AWS S3 console and navigating to the bucket where you archive your Snowplow event files. (This is specified in the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'&gt;StorageLoader config file&lt;/a&gt;.) Within the bucket you&amp;#8217;ll see a single folder generated for each enrichment &amp;#8216;run&amp;#8217;, labelled with the timestamp of the run. You&amp;#8217;ll be able to tell directly how many times the enrichment process is run - in the below case - it is once per day:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='aws-s3-screenshot' src='/static/img/blog/2013/07/number-of-runs-per-day.png' /&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a name='log-files-per-day'&gt;2.3 Measuring The number of Cloudfront log files generated per day, adn the volume of data&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;This is most easily done using an S3 front end, as the AWS S3 console is a bit limited. We use &lt;a href='http://www.cloudberrylab.com/'&gt;Cloudberry&lt;/a&gt;. On Cloudberry, you can read the number of files generated per day, and their size, directly, by simply right clicking on the folder with the day&amp;#8217;s worth of log file archives and selecting properties:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='number-of-collector-logs-and-size' src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the above case we see there were 370 files generated on 2013-07-08, which occupied a total of 366.5KB.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='emr-details'&gt;2.4 The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;You can use the EMR command line tools to generate a JSON with details of each EMR job. In the below example, we pull a JSON for a specific job:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;./elastic-mapreduce --describe --jobflow j-Y9QNJI44PA0X
+&lt;span class='o'&gt;{&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;JobFlows&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[&lt;/span&gt;
+    &lt;span class='o'&gt;{&lt;/span&gt;
+      &lt;span class='s2'&gt;&amp;quot;Instances&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+        &lt;span class='s2'&gt;&amp;quot;TerminationProtected&amp;quot;&lt;/span&gt;: &lt;span class='nb'&gt;false&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;MasterInstanceId&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;i-944414d9&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;HadoopVersion&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;1.0.3&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;NormalizedInstanceHours&amp;quot;&lt;/span&gt;: 2,
+        &lt;span class='s2'&gt;&amp;quot;MasterPublicDnsName&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ec2-54-228-105-10.eu-west-1.compute.amazonaws.com&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;SlaveInstanceType&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;m1.small&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;MasterInstanceType&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;m1.small&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;InstanceGroups&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[&lt;/span&gt;
+          &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;ReadyDateTime&amp;quot;&lt;/span&gt;: 1372215923.0,
+            &lt;span class='s2'&gt;&amp;quot;InstanceGroupId&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ig-2TGA68QGUOCUV&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;State&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ENDED&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;LastStateChangeReason&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Job flow terminated&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;InstanceType&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;m1.small&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRequestCount&amp;quot;&lt;/span&gt;: 1,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRunningCount&amp;quot;&lt;/span&gt;: 0,
+            &lt;span class='s2'&gt;&amp;quot;StartDateTime&amp;quot;&lt;/span&gt;: 1372215848.0,
+            &lt;span class='s2'&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;BidPrice&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;Market&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ON_DEMAND&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;CreationDateTime&amp;quot;&lt;/span&gt;: 1372215689.0,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRole&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;MASTER&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;EndDateTime&amp;quot;&lt;/span&gt;: 1372216249.0
+          &lt;span class='o'&gt;}&lt;/span&gt;,
+          &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;ReadyDateTime&amp;quot;&lt;/span&gt;: 1372215929.0,
+            &lt;span class='s2'&gt;&amp;quot;InstanceGroupId&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ig-2M2UW6B8LFWOG&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;State&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ENDED&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;LastStateChangeReason&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Job flow terminated&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;InstanceType&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;m1.small&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRequestCount&amp;quot;&lt;/span&gt;: 1,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRunningCount&amp;quot;&lt;/span&gt;: 0,
+            &lt;span class='s2'&gt;&amp;quot;StartDateTime&amp;quot;&lt;/span&gt;: 1372215929.0,
+            &lt;span class='s2'&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;BidPrice&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;Market&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;ON_DEMAND&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;CreationDateTime&amp;quot;&lt;/span&gt;: 1372215689.0,
+            &lt;span class='s2'&gt;&amp;quot;InstanceRole&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;CORE&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;EndDateTime&amp;quot;&lt;/span&gt;: 1372216249.0
+          &lt;span class='o'&gt;}&lt;/span&gt;
+        &lt;span class='o'&gt;]&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;InstanceCount&amp;quot;&lt;/span&gt;: 2,
+        &lt;span class='s2'&gt;&amp;quot;KeepJobFlowAliveWhenNoSteps&amp;quot;&lt;/span&gt;: &lt;span class='nb'&gt;false&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;Placement&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+          &lt;span class='s2'&gt;&amp;quot;AvailabilityZone&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;eu-west-1a&amp;quot;&lt;/span&gt;
+        &lt;span class='o'&gt;}&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;Ec2SubnetId&amp;quot;&lt;/span&gt;: null,
+        &lt;span class='s2'&gt;&amp;quot;Ec2KeyName&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;etl-nasqueron&amp;quot;&lt;/span&gt;
+      &lt;span class='o'&gt;}&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;JobFlowId&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;j-Y9QNJI44PA0X&amp;quot;&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;BootstrapActions&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[]&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;JobFlowRole&amp;quot;&lt;/span&gt;: null,
+      &lt;span class='s2'&gt;&amp;quot;AmiVersion&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;2.3.6&amp;quot;&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;LogUri&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;s3n:\/\/snowplow-emr-logs\/pbz\/&amp;quot;&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;Steps&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[&lt;/span&gt;
+        &lt;span class='o'&gt;{&lt;/span&gt;
+          &lt;span class='s2'&gt;&amp;quot;ExecutionStatusDetail&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;State&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;COMPLETED&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;LastStateChangeReason&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;StartDateTime&amp;quot;&lt;/span&gt;: 1372215928.0,
+            &lt;span class='s2'&gt;&amp;quot;CreationDateTime&amp;quot;&lt;/span&gt;: 1372215689.0,
+            &lt;span class='s2'&gt;&amp;quot;EndDateTime&amp;quot;&lt;/span&gt;: 1372216010.0
+          &lt;span class='o'&gt;}&lt;/span&gt;,
+          &lt;span class='s2'&gt;&amp;quot;StepConfig&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;HadoopJarStep&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+              &lt;span class='s2'&gt;&amp;quot;MainClass&amp;quot;&lt;/span&gt;: null,
+              &lt;span class='s2'&gt;&amp;quot;Args&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[&lt;/span&gt;
+                &lt;span class='s2'&gt;&amp;quot;--src&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;s3n:\/\/snowplow-emr-processing\/pbz\/&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--dest&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;hdfs:\/\/\/local\/snowplow-logs&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--groupBy&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;.*\\.([0-9]+-[0-9]+-[0-9]+)-[0-9]+\\..*&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--targetSize&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;128&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--outputCodec&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;lzo&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--s3Endpoint&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;s3-eu-west-1.amazonaws.com&amp;quot;&lt;/span&gt;
+              &lt;span class='o'&gt;]&lt;/span&gt;,
+              &lt;span class='s2'&gt;&amp;quot;Properties&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[]&lt;/span&gt;,
+              &lt;span class='s2'&gt;&amp;quot;Jar&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;\/home\/hadoop\/lib\/emr-s3distcp-1.0.jar&amp;quot;&lt;/span&gt;
+            &lt;span class='o'&gt;}&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Elasticity Custom Jar Step&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;ActionOnFailure&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;TERMINATE_JOB_FLOW&amp;quot;&lt;/span&gt;
+          &lt;span class='o'&gt;}&lt;/span&gt;
+        &lt;span class='o'&gt;}&lt;/span&gt;,
+        &lt;span class='o'&gt;{&lt;/span&gt;
+          &lt;span class='s2'&gt;&amp;quot;ExecutionStatusDetail&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;State&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;COMPLETED&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;LastStateChangeReason&amp;quot;&lt;/span&gt;: null,
+            &lt;span class='s2'&gt;&amp;quot;StartDateTime&amp;quot;&lt;/span&gt;: 1372216010.0,
+            &lt;span class='s2'&gt;&amp;quot;CreationDateTime&amp;quot;&lt;/span&gt;: 1372215689.0,
+            &lt;span class='s2'&gt;&amp;quot;EndDateTime&amp;quot;&lt;/span&gt;: 1372216196.0
+          &lt;span class='o'&gt;}&lt;/span&gt;,
+          &lt;span class='s2'&gt;&amp;quot;StepConfig&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='s2'&gt;&amp;quot;HadoopJarStep&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+              &lt;span class='s2'&gt;&amp;quot;MainClass&amp;quot;&lt;/span&gt;: null,
+              &lt;span class='s2'&gt;&amp;quot;Args&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[&lt;/span&gt;
+                &lt;span class='s2'&gt;&amp;quot;com.snowplowanalytics.snowplow.enrich.hadoop.EtlJob&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--hdfs&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--input_folder&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;hdfs:\/\/\/local\/snowplow-logs&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--input_format&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;cloudfront&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--maxmind_file&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;http:\/\/snowplow-hosted-assets.s3.amazonaws.com\/third-party\/maxmind\/GeoLiteCity.dat&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--output_folder&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;s3n:\/\/snowplow-events-pbz\/events\/2013-06-26-04-00-03\/&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;--bad_rows_folder&amp;quot;&lt;/span&gt;,
+                &lt;span class='s2'&gt;&amp;quot;2013-06-26-04-00-03\/&amp;quot;&lt;/span&gt;
+              &lt;span class='o'&gt;]&lt;/span&gt;,
+              &lt;span class='s2'&gt;&amp;quot;Properties&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[]&lt;/span&gt;,
+              &lt;span class='s2'&gt;&amp;quot;Jar&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;s3:\/\/snowplow-hosted-assets\/3-enrich\/hadoop-etl\/snowplow-hadoop-etl-0.3.2.jar&amp;quot;&lt;/span&gt;
+            &lt;span class='o'&gt;}&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Elasticity Custom Jar Step&amp;quot;&lt;/span&gt;,
+            &lt;span class='s2'&gt;&amp;quot;ActionOnFailure&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;TERMINATE_JOB_FLOW&amp;quot;&lt;/span&gt;
+          &lt;span class='o'&gt;}&lt;/span&gt;
+        &lt;span class='o'&gt;}&lt;/span&gt;
+      &lt;span class='o'&gt;]&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;Name&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Snowplow Enrichment for pbz&amp;quot;&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;ExecutionStatusDetail&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;{&lt;/span&gt;
+        &lt;span class='s2'&gt;&amp;quot;ReadyDateTime&amp;quot;&lt;/span&gt;: 1372215929.0,
+        &lt;span class='s2'&gt;&amp;quot;State&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;COMPLETED&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;LastStateChangeReason&amp;quot;&lt;/span&gt;: &lt;span class='s2'&gt;&amp;quot;Steps completed&amp;quot;&lt;/span&gt;,
+        &lt;span class='s2'&gt;&amp;quot;StartDateTime&amp;quot;&lt;/span&gt;: 1372215929.0,
+        &lt;span class='s2'&gt;&amp;quot;CreationDateTime&amp;quot;&lt;/span&gt;: 1372215689.0,
+        &lt;span class='s2'&gt;&amp;quot;EndDateTime&amp;quot;&lt;/span&gt;: 1372216249.0
+      &lt;span class='o'&gt;}&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;SupportedProducts&amp;quot;&lt;/span&gt;: &lt;span class='o'&gt;[]&lt;/span&gt;,
+      &lt;span class='s2'&gt;&amp;quot;VisibleToAllUsers&amp;quot;&lt;/span&gt;: &lt;span class='nb'&gt;false&lt;/span&gt;
+    &lt;span class='o'&gt;}&lt;/span&gt;
+  &lt;span class='o'&gt;]&lt;/span&gt;
+&lt;span class='o'&gt;}&lt;/span&gt;
+╭─alex@nasqueron  ~/Apps/emr-cli  
+╰─&lt;span class='nv'&gt;$ &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Rather than parse the JSON yourself, we&amp;#8217;re very happy for community members to simply save the JSON and email it to us, with the other data points. We can then extract the relevant data points from the JSON directly. (We&amp;#8217;ll use R and the RJSON package, and blog about how we do it.) You can either generate a JSON for a specific job (you will need to enter the job ID:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;./elastic-mapreduce --describe --jobflow &lt;span class='o'&gt;{&lt;/span&gt;&lt;span class='nv'&gt;$jobflow&lt;/span&gt;-id&lt;span class='o'&gt;}&lt;/span&gt; &amp;gt; emr-job-data.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or you can fetch the data for every job run in the last two days:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;./elastic-mapreduce --describe &amp;gt; emr-job-data.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or all the data for every job in the last fortnight:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='nv'&gt;$ &lt;/span&gt;./elastic-mapreduce --describe all &amp;gt; emr-job-data.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3&gt;&lt;a name='output-back-to-s3'&gt;2.5 Measuring the number of files written back to S3, and their size&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;We can use Cloudberry again. Simply identify a folder in the archive bucket specified in the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'&gt;StorageLoader config&lt;/a&gt;, right click on it and select properties:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='number-of-snowplow-event-files-and-size' src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the above example, 3 files were generated for a single run, with a total size of 981.4KB.&lt;/p&gt;
+&lt;h3&gt;&lt;a name='redshift-data-points'&gt;2.6 The total number of lines of data in Redshift, and the amount of Redshift capacity used&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Measuring the amount of space occupied by your events in Redshift is very easy.&lt;/p&gt;
+
+&lt;p&gt;First, measure the number of events by executing the following query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sql'&gt;&lt;span class='k'&gt;select&lt;/span&gt; &lt;span class='k'&gt;count&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='o'&gt;*&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; &lt;span class='k'&gt;from&lt;/span&gt; &lt;span class='n'&gt;events&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then to find out how much disk space that occupies in your Redshift cluster execute the following query:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='sql'&gt;&lt;span class='k'&gt;select&lt;/span&gt; &lt;span class='k'&gt;owner&lt;/span&gt; &lt;span class='k'&gt;as&lt;/span&gt; &lt;span class='n'&gt;node&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;diskno&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;used&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='n'&gt;capacity&lt;/span&gt; 
+&lt;span class='k'&gt;from&lt;/span&gt; &lt;span class='n'&gt;stv_partitions&lt;/span&gt; 
+&lt;span class='k'&gt;order&lt;/span&gt; &lt;span class='k'&gt;by&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;3&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;4&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The amount of used capacity (in MB) is given in the &amp;#8220;used&amp;#8221; column: it is 1941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='redshift-example' src='/static/img/blog/2013/07/redshift-disk-space.JPG' /&gt;&lt;/p&gt;
+
+&lt;p&gt;For our purposes, we only need one of the lines of data to calculate the relationship between disk space on Redshift and number of events stored on Redshift, and use that to model Redshift costs.&lt;/p&gt;
+
+&lt;h2 id='help_us_build_an_accurate_robust_model_that_we_all_can_use_to_forecast_snowplow_aws_costs'&gt;Help us build an accurate, robust model, that we all can use to forecast Snowplow AWS costs&lt;/h2&gt;
+
+&lt;p&gt;We realise that you, our users, are busy people who have plenty to do aside from spending 20-30 minutes fetching data points related to your Snowplow installation, and sending them to us. We really hope, however, that many of you do, because:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A Total Cost of Ownership Model will be really useful for all of us!&lt;/li&gt;
+
+&lt;li&gt;We&amp;#8217;ll send you a Snowplow T-shirt, by way of thanks.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So please help us help you, and keep plowing!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/07/07/snowplow-0.8.7-released</id>

@@ -68,34 +68,40 @@
 		<div id="contents">
 	
 		<div class="post">
-			09 Jul 2013
-			<h1><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
+			10 Jul 2013
+			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
 
-<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
+<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
 
-<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
+<p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
 
-<p>Here is a taster for using the library from C Sharp:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+<ol>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#events-per-day'>The number of events tracked per day</a></li>
 
-<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
-<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#runs-per-day'>The number of times the enrichment process is run per day</a></li>
 
-<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#log-files-per-day'>The number of Cloudfront log files generated per day, and the volume of data</a></li>
 
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre></div>
-<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
-<p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#emr-details'>The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#output-back-to-s3'>The number of files outputted back to S3, and the size of those files</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#redshift-data-points'>The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></li>
+</ol>
+
+<p>We will then share this data back, in an anonymized form, with the community, as part of the model.</p>
+
+<p>We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you). we will <em>also</em> send each person that provides data a <strong>free Snowplow T-shirt</strong> in their size.</p>
+
+<p>In the rest of this post, we provide simple instructions for pulling the relevant data from Amazon.</p>
+<p class='more'><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
 		</div>
 	
 		<div class="post">
-			08 Jul 2013
-			<h1><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
+			09 Jul 2013
+			<h1><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
 
@@ -109,22 +115,46 @@
 <li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
 </ol>
 
-<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll cover:</p>
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
+<h2><a name='details'>What drives AWS costs for Snowplow users?</a></h2>
+<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
 
 <ol>
-<li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#details'>How the model will work: what drives AWS costs for Snowplow users</a></li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront'>Cloudfront costs</a>,</li>
 
-<li><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model#help'>How you can help</a></li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3'>S3 costs</a>,</li>
+
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr'>EMR costs</a> and</li>
+
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift'>Redshift costs</a></li>
 </ol>
+<p class='more'><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			09 Jul 2013
+			<h1><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
 
-<p>We think walking through the <a href='#details'>mechanics of the model</a> should be useful both to help Snowplow users understand the drivers of their AWS fees, and also an interesting exercise in mathematical modelling: we will open source the model that we build, and use it to power a calculator on our website, so that anyone can use it to estimate their Snowplow AWS costs.</p>
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
 
-<p><img alt='your-country-needs-you-image' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
-<p>We hope Snowplow users will help us build the model by sharing with us some sample data points (related to the number size of files processed by the Snowplow data pipeline), so that we can build a bottom-up model that is as accurate at low volumes as it is at estimating the costs associated with processing billions of lines of rows per day. And we intend that the model can easily be updated as Amazon reduce their AWS pricing, as is becoming increasingly frequent.</p>
+<p>Here is a taster for using the library from C Sharp:</p>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
 
-<p>As an extra incentive, we&#8217;re offering every Snowplow user who shares some of the data requested below a <strong>free Snowplow T-shirt</strong> :-).</p>
-<p class='more'><a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span> <span class='c1'>// Our current URL</span>
+
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
+</code></pre></div>
+<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
+<p class='more'><a href='/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
 		</div>
 	
 		<div class="post">
@@ -177,26 +207,6 @@
 <p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			02 Jul 2013
-			<h1><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
-
-<p>We&#8217;ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month&#8217;s <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/'>0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
-
-<p>In this post, we explain how to use browser caching to significantly reduce the size of your Cloudfront bills.</p>
-
-<ol>
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs'>Understanding Cloudfront costs and the potential savings</a></li>
-
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
-</ol>
-
-<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
-<p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -214,15 +224,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
-			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-		
-			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 		
 	</ul>
 
@@ -231,7 +241,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
@@ -248,7 +258,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
@@ -282,6 +292,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -289,8 +301,6 @@
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
 		
 		</ul>		

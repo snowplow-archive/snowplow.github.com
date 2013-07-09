@@ -68,6 +68,26 @@
 		<div id="contents">
 	
 		<div class="post">
+			02 Jul 2013
+			<h1><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
+
+<p>We&#8217;ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month&#8217;s <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/'>0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
+
+<p>In this post, we explain how to use browser caching to significantly reduce the size of your Cloudfront bills.</p>
+
+<ol>
+<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs'>Understanding Cloudfront costs and the potential savings</a></li>
+
+<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
+</ol>
+
+<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
+<p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			28 Jun 2013
 			<h1><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -185,16 +205,6 @@
 <p class='more'><a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			30 May 2013
-			<h1><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Hadoop has a serious Small File Problem. It&#8217;s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href='http://blog.cloudera.com/blog/2009/02/the-small-files-problem/'>Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
-<img src='/static/img/blog/2013/05/plowing-small-files.jpg' />
-<p>In this blog post we will discuss the small files problem in terms of our experiences with it at Snowplow. <strong>And we will argue that dealing with the small files problem - if you have it - is the single most important optimisation you can perform on your MapReduce process.</strong></p>
-<p class='more'><a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -214,15 +224,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
-			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-		
-			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 		
 	</ul>
 
@@ -231,7 +241,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
@@ -248,7 +258,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
@@ -282,6 +292,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -289,8 +301,6 @@
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
 		
 		</ul>		

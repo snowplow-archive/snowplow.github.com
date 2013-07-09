@@ -68,6 +68,24 @@
 		<div id="contents">
 	
 		<div class="post">
+			03 Jan 2013
+			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">Snowplow 0.7.0 released, with new Clojure-based collector</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
+
+<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for Snowplow.</p>
+
+<p>To date, the primary collector for Snowplow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
+
+<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
+
+<p>And the other good news is that our Clojure collector automatically logs the raw Snowplow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
+
+<p>Read on below the fold for installation instructions and some additional information on this release.</p>
+<p class='more'><a href='/blog/2013/01/03/snowplow-0.7.0-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			02 Jan 2013
 			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -157,25 +175,6 @@
 <p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			17 Dec 2012
-			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
-<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
-<p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
-<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
-</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Shoes</td><td style='text-align: left;'>15</td><td style='text-align: right;'>1125.00</td>
-</tr><tr><td style='text-align: left;'>France</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>288</td><td style='text-align: right;'>2877.12</td>
-</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
-</tr></tbody></table>
-<p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
-
-<p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
-<p class='more'><a href='/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -195,15 +194,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
-			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-		
-			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 		
 	</ul>
 
@@ -212,7 +211,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
@@ -229,7 +228,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
@@ -263,6 +262,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -270,8 +271,6 @@
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
 		
 		</ul>		

@@ -69,6 +69,30 @@
 	
 		<div class="post">
 			14 May 2013
+			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
+
+<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
+
+<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			14 May 2013
 			<h1><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
 			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
@@ -178,22 +202,6 @@
 <p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/about/index.html'>getting in touch</a> directly.</p>
 		</div>
 	
-		<div class="post">
-			18 Apr 2013
-			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>This is the second part in our blog post series on Catalog Analytics. The <a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>first part</a> was published last week.</em></p>
-
-<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
-
-<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
-
-<p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
-<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
-<p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
-<p class='more'><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -213,15 +221,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
-			<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
 			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-		
-			<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 		
 	</ul>
 
@@ -230,7 +238,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
@@ -247,7 +255,7 @@
 		<ul>
 		
 			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
@@ -281,6 +289,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
@@ -288,8 +298,6 @@
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
-			
-				<li><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></li>
 			
 		
 		</ul>		

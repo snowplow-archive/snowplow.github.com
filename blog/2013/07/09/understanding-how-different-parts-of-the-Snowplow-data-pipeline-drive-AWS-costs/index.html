@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Unpicking the Snowplow data pipeline and how it drives AWS costs - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			09 Jul 2013
+			<h1>Unpicking the Snowplow data pipeline and how it drives AWS costs</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
+
+<p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
+
+<ol>
+<li>We replaced the Hive-based ETL with the <a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>Scalding-based enrichment process</a></li>
+
+<li>We dealt with the <a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'>small files problem</a>, dramatically reducing EMR costs</li>
+
+<li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
+</ol>
+
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
+<h2><a name='details'>What drives AWS costs for Snowplow users?</a></h2>
+<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
+
+<ol>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront'>Cloudfront costs</a>,</li>
+
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3'>S3 costs</a>,</li>
+
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr'>EMR costs</a> and</li>
+
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift'>Redshift costs</a></li>
+</ol>
+<!--more--><h3><a name='cloudfront'>1. Cloudfront costs</a></h3>
+<p>Snowplow uses Cloudfront to serve both <code>sp.js</code>, the Snowplow Javascript, and the Snowplow pixel <code>i</code>. Broadly, Cloudfront costs scale linearly with the volume of data served out of Cloudfront, with a couple of provisos:</p>
+
+<ul>
+<li>The cost per MB served goes down, as volumes rise (because Amazon tier their pricing)</li>
+
+<li>The exact cost varies by AWS account region, and the region the browser that loads the content served by Cloudfront is in (so the exact cost depends on the distribution of your visitors geographically)</li>
+</ul>
+
+<p>Modelling the costs is therefore reasonably straightforward. The <code>i</code> pixel is served with every event tracked: so we can calculate the cost of serving <code>i</code> based on the size of <code>i</code> (it is 37 bytes), the number of events, and the geographic split of visitors by Amazon region. The costs scale almost linearly with the number of events tracked per day.</p>
+
+<p>Modelling the cost of serving <code>sp.js</code> is a little trickier. As discussed in our blog post on <a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'>browser caching</a>, it is possible to set <code>sp.js</code> so that it is only served once per unique visitor, rather than once per event. Because <code>sp.js</code> is 37KB (so a lot larger than <code>i</code>), this has a significant impact on your Cloudfront costs. From a modelling perspective, then, we should estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.</p>
+<h3><a name='s3'>2. S3 costs</a></h3>
+<p>Snowplow uses S3 to store event data. Amazon charges for S3 based on:</p>
+
+<ul>
+<li>The volume of data stored in S3</li>
+
+<li>The number of requests for that data (in the form of <code>GET</code> / <code>PUT</code> / <code>COPY</code> requests)</li>
+</ul>
+
+<p>Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how large a &#8216;typical&#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and then multiply by Amazon S3&#8217;s cost per GB.</p>
+
+<p>What is more tricky is modelling the number of requests to S3 for the files. To understand why, we need to examine the Snowplow data pipeline, and in particular, the part of the pipeline that takes the raw data generated by the Snowplow collector, cleans that data, enriches it, and uploads the enriched data into Amazon Redshift for analysis.</p>
+
+<p>The first part of the data pipeline is orchestrated by <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>. This performs the bulk of data processing work:</p>
+
+<p><img alt='emr-etl-runner' src='/static/img/blog/2013/07/emr-etl-runner-steps.png' /></p>
+
+<p>This encapsulates the bulk of the data processing:</p>
+
+<ul>
+<li>Raw collector log files that need to be processed are identified in the in-bucket, and moved to the processing bucket</li>
+
+<li>EmrEtlRunner then triggers the Enrichment process to run. This spins up an EMR cluster, loads the data in the processing bucket into HDFS, loads Scalding Enrichment process (as a JAR) and uses that JAR to process the raw logs uploaded into HDFS. The output of that processing is written back, into HDFS</li>
+
+<li>The output of that Scalding Enrichment is then copied from HDFS into the out-bucket in S3. The EMR cluster is then shut down.</li>
+
+<li>Once the job has completed, the raw logs are moved from the processing bucket to the archive bucket.</li>
+</ul>
+
+<p>For modelling AWS costs (and S3 costs in particular), we need to note that two <code>COPY</code> requests are executed for each collector log file written to S3: one to move that data from the in-bucket to the processing-bucket, and then another one to move the same file from the processing-bucket to the archive bucket.</p>
+
+<p>In addition, one <code>GET</code> request is executed per raw collector log file, when the data is read from S3 for the purposes of writing into HDFS.</p>
+
+<p>The second part of the data pipeline is orchestrated by the <a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'>StorageLoader</a>:</p>
+
+<p><img alt='storage-loader' src='/static/img/blog/2013/07/storage-loader-steps.png' /></p>
+
+<p>This is a much simpler stage of the data processing pipeline:</p>
+
+<ul>
+<li>Data from enriched event files generated by the Scalding process on EMR is read and written to Amazon Redshift</li>
+
+<li>The enriched event files are then moved from the in-bucket (which <em>was</em> the archive bucket for EmrEtlRunner) to the archive bucket (for the StorageLoader)</li>
+</ul>
+
+<p>Again, for modelling purposes, we note that a single <code>GET</code> request is executed for each enriched event file (when the file is read for the purposes of copying the data into Redshift). and then a <code>COPY</code> request is executed for that file to move it from the in to the out bucket.</p>
+
+<p>This means that we can accurately forecast costs based on the number of raw collector log files generated and the number of enriched event files generated. Unfortunately, modelling how this number scales with visitors / page views and events is <em>not</em> straightforward because it is not clear how the number of collector log files and Snowplow event files scales with numbers of events tracked. This is one of the things <a href='#help'>we hope the community can help us with</a>, by providing us with data points to help us unpick the relevant relationships.</p>
+
+<p>To articulate our challenge: we need to understand</p>
+
+<ol>
+<li>How the number of raw collector log files (for the Cloudfront collector) scales with number of events</li>
+
+<li>How the number of enriched Snowplow event files scale with the number of events</li>
+</ol>
+
+<p>We have working hypotheses for what determines both numbers. We need to validate these with the Snowplow community, and quantify the relationships mathematically, based on data points shared by members of our community:</p>
+
+<p>We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has <em>lots</em> of servers at each edge location, so this tailing off might only happen at very large volumes.) We&#8217;d therefore expect a graph like the one below, if we plotted numbers of log files vs events:</p>
+
+<p><img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /></p>
+
+<p>In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does <em>not</em> operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This <em>should</em> aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats. with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:</p>
+
+<p><img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /></p>
+
+<p>As we <a href='#help'>explain below</a>, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.</p>
+<h3><a name='emr'>3. EMR costs</a></h3>
+<p>Snowplow uses EMR to run the Enrichment process on the raw logs created by the collector. Because the process is powered by Hadoop, it should scale linearly: double the number of lines of data to be processed, the time to process should double. Double the number of machines in the cluster, the processing time should be halved.</p>
+
+<p>Amazon charges for EMR based on the number of boxes in the cluster, the size of those boxes and the time the cluster is live for. Amazon rounds up the nearest hour: as a result, we would expect the cost of the daily job to be a step function.</p>
+
+<p><img alt='emr-costs' src='/static/img/blog/2013/07/emr-costs.png' /></p>
+
+<p>We need to work out how many lines of data we can expect each Amazon box to process in one hour. Getting a handle on these figures will also mean we can advise Snowplow users what size of cluster to spin up based on the number of events processed per run.</p>
+<h3><a name='redshift'>1.4 Redshift costs</a></h3>
+<p>The majority of Snowplow users store their events table in Amazon Redshift, and then plug analytics tools into Redshift to crunch that data. As a result, they run a Redshift cluster constantly.</p>
+
+<p>Amazon charges per Redshift node, where each node provides a 2TB of storage (for standard XL nodes) or 16TB of storage (for 8XL nodes). As a result, we can model Redshift costs simply as a function of the volume of data stored (itself just a function of the number of events tracked per day, and the number of days Snowplow has been running). As for EMR, we expect a step function (with a big increase in cost each time an additional 2TB node is required):</p>
+
+<p><img alt='redshift-costs' src='/static/img/blog/2013/07/redshift-costs.png' /></p>
+
+<h2 id='wrapping_up'>Wrapping up</h2>
+
+<p>One of the things we realised when we started the modelling exercise, was that we had not sufficiently documented the workings of the Snowplow data pipeline. This blog post is a first stab at addressing that shortfall. We hope it&#8217;s useful for those interested in how Snowplow works, and will be using the diagrams etc. in the <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation'>technical documentation</a> section of the <a href='https://github.com/snowplow/snowplow/wiki'>Snowplow Wiki</a>.</p>
+
+<p>We also hope this post is interesting for anyone with an interest in modelling technology costs (and AWS costs in particular).</p>
+
+<p>Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, <a href='/blog/2013/07/08/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>you can help us build that model</a>, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow on post</a>.</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+		
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
+			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+		
+			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
+			
+				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/09/2013-dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+			
+				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+			
+				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
+			
+				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

@@ -77,17 +77,18 @@
 <p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
 <p>Here is a taster for using the library from C Sharp:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='c'><span class='n'>using</span> <span class='n'>RefererParser</span><span class='p'>;</span>
 
-<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
-<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+<span class='n'>string</span> <span class='n'>refererUrl</span> <span class='o'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='n'>string</span> <span class='n'>pageUrl</span>    <span class='o'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
 
-<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+<span class='n'>var</span> <span class='n'>referer</span> <span class='o'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='n'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
 
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
 <!--more-->
 <h2 id='a_brief_interview_with_author_sepp_wijnands'>A brief interview with author Sepp Wijnands</h2>
@@ -178,23 +179,6 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
-			
-				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-			
-				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
-			
-				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Analytics</h1>
 		<ul>
 		
@@ -225,6 +209,23 @@
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+			
+				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+			
+				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
+			
+				<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></li>
 			
 		
 		</ul>		

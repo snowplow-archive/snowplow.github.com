@@ -151,7 +151,7 @@
 <span class='k'>WHERE</span>
 <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
 </code></pre></div>
-<p>We can pull this data directly into R from R. (For assistance setting up R to use with Snowplow, see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.) First, we load up R, and connect R to our Snowplow table in Redshift by entering the following at the R prompt:</p>
+<p>We can pull this data directly into R from R. (For assistance setting up R to use with Snowplow, see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>setup guide</a>.) First, we load up R, and connect R to our Snowplow table in Redshift by entering the following at the R prompt:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
 con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;REDSHIFT ENDPOINT&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PORT NUMBER&gt;&gt;&quot;</span><span class='p'>,</span> dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;DBNAME&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;USERNAME&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;PASSWORD&gt;&gt;&quot;</span><span class='p'>)</span>
 </code></pre></div>

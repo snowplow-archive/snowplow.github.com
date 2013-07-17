@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-07-12T10:13:42+01:00</updated>
+  <updated>2013-07-17T14:11:02+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -2520,7 +2520,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'&gt;Configure StorageLoader to load Snowplow events into Redshift&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;(Optional) &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualise-your-data#wiki-redshift'&gt;Connect Chartio to Snowplow data in Redshift&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;(Optional) &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualize-Snowplow-data#wiki-redshift'&gt;Connect Chartio to Snowplow data in Redshift&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Once you have completed these steps, you should now have a Snowplow eventstream data warehouse setup in Redshift!&lt;/p&gt;
@@ -3932,7 +3932,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;ChartIO has one enormous advantage that makes it especially well suited to querying Snowplow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for &lt;a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'&gt;OLAP analysis&lt;/a&gt; before they can be used. (We covered how to convert Snowplow data into that format in the &lt;a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'&gt;analytics cookbook&lt;/a&gt;.) ChartIO &lt;strong&gt;does&lt;/strong&gt; work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, &lt;strong&gt;ChartIO is, we believe, the easiest way to build graphs and dashboards on top of Snowplow data&lt;/strong&gt;.&lt;/p&gt;
 &lt;!--more--&gt;&lt;h2&gt;&lt;a name='setup'&gt;Setting up ChartIO to work with Snowplow&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;You can get started with ChartIO by signing up to a free 30 day trial. Connecting it to Snowplow data is straightforward: full instructions can be found &lt;a href='https://github.com/snowplow/snowplow/wiki/ChartIO-setup'&gt;on the setup guide&lt;/a&gt;, including how to create your first graph using Snowplow data in ChartIO.&lt;/p&gt;
+&lt;p&gt;You can get started with ChartIO by signing up to a free 30 day trial. Connecting it to Snowplow data is straightforward: full instructions can be found &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualize-Snowplow-data'&gt;on the setup guide&lt;/a&gt;, including how to create your first graph using Snowplow data in ChartIO.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='engagement'&gt;Tutorial: using ChartIO to unpick the drivers of engagement with a site&lt;/a&gt;&lt;/h2&gt;
 &lt;h3 id='before_we_get_started_how_will_we_measure_engagement'&gt;Before we get started: how will we measure engagement?&lt;/h3&gt;
 

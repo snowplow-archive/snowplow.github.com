@@ -119,7 +119,7 @@
 
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='start'><h2>2. Getting started: plotting the number of unique visitors by day</h2></a>
-<p><em>If you have not installed R yet, instructions on doing so can be found <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>here</a>.</em></p>
+<p><em>If you have not installed R yet, instructions on doing so can be found <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>here</a>.</em></p>
 
 <p>This guide assumes you have installed R, and installed the <code>RPostgreSQL</code> package required to get R to talk to PostgreSQL databases including Amazon Redshift. If you have not, installed this, you can do so by executing the following at the R prompt:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.package<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
@@ -141,7 +141,7 @@
 <div class='highlight'><pre><code class='r'>drv <span class='o'>&lt;-</span> dbDriver<span class='p'>(</span><span class='s'>&quot;PostgreSQL&quot;</span><span class='p'>)</span>
 con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER HOST DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PORT DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span>dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER DB NAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER USERNAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PASSWORD HERE&gt;&gt;&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>(For detials about where to find your host, port, dbname and username see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-data'>setup guide</a>.)</p>
+<p>(For detials about where to find your host, port, dbname and username see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>setup guide</a>.)</p>
 
 <p>Now we can execute the query, and assign it to a variable called <code>uniquesByDay</code>, by executing the following:</p>
 <div class='highlight'><pre><code class='r'>uniquesByDay <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>

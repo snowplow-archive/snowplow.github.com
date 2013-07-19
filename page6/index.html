@@ -68,6 +68,32 @@
 		<div id="contents">
 	
 		<div class="post">
+			03 Apr 2013
+			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
+
+<p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'>The benefits of the new ETL</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'>Limitations of the new ETL</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'>A note for Infobright/Hive users</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'>Upgrading and usage</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more.</p>
+<p class='more'><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			25 Mar 2013
 			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -165,42 +191,6 @@
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 		</div>
 	
-		<div class="post">
-			22 Feb 2013
-			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
-
-<ul>
-<li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
-
-<li>Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)</li>
-
-<li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
-</ul>
-
-<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
-
-<p>In this post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids'>Our new user IDs</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps'>Our new event timestamps</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes'>Bug fixes</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations'>Breaking changes</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading'>Upgrading</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
-</ol>
-
-<p>Read on below the fold to find out more!</p>
-<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -220,6 +210,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+		
 			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
@@ -228,14 +220,14 @@
 		
 			<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 		
-			<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
 				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
@@ -244,8 +236,6 @@
 				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 			
 				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></li>
 			
 		
 		</ul>		

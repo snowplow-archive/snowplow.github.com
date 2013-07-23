@@ -74,6 +74,24 @@
       margin-top: 10px; }
     #container .column li {
       margin-bottom: 3px; }
+  #container #testimonial {
+    display: block;
+    width: 460px;
+    margin-left: 250px;
+    margin-right: 250px;
+    margin-top: 75px;
+    margin-bottom: 25px; }
+    #container #testimonial .quote {
+      display: block;
+      width: 100%;
+      font-size: 18px;
+      font-style: italic;
+      text-align: left; }
+    #container #testimonial .auth {
+      display: block;
+      width: 100%;
+      font-size: 16px;
+      text-align: right; }
   #container .big-button {
     width: 250px;
     height: 30px;

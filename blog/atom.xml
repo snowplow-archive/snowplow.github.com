@@ -4,13 +4,229 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-08-02T09:57:44+01:00</updated>
+  <updated>2013-08-04T22:46:18+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support"/>
+    <title>Snowplow 0.8.8 released with Postgres and Hive support</title>
+    <updated>2013-08-05T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular &lt;a href='http://www.postgresql.org/'&gt;PostgreSQL&lt;/a&gt; open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.&lt;/p&gt;
+
+&lt;p&gt;And if you are already happily using Snowplow with Redshift, there are two other new features to check out:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We have added support for multiple storage targets to Snowplow&amp;#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever&lt;/li&gt;
+
+&lt;li&gt;We have brought back the ability to query your Snowplow events using &lt;a href='http://hive.apache.org/'&gt;HiveQL&lt;/a&gt;. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As well as these new features, we have made a large number of improvements across Snowplow:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have made some improvements to the Hadoop-based Enrichment process (bumped to version 0.3.3)&lt;/li&gt;
+
+&lt;li&gt;We have simplified EmrEtlRunner and its configuration file format&lt;/li&gt;
+
+&lt;li&gt;We have improved the performance of the Redshift loading code&lt;/li&gt;
+
+&lt;li&gt;We have added a configuration option for setting &lt;code&gt;MAXERROR&lt;/code&gt; when loading into Redshift (see the &lt;a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'&gt;Redshift &lt;code&gt;COPY&lt;/code&gt; documentation&lt;/a&gt; for details)&lt;/li&gt;
+
+&lt;li&gt;We have moved the Snowplow JavaScript Tracker into &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker'&gt;its own repository&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;We have removed the deprecated Hive ETL and Infobright folders from the repository&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After the fold, we will cover the options for upgrading and using the new functionality:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'&gt;Loading events into Postgres&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'&gt;Querying events with HiveQL&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='upgrading'&gt;1. Upgrading&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;There are &lt;strong&gt;three components&lt;/strong&gt; to upgrade in this release:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Hadoop ETL, to version 0.3.3&lt;/li&gt;
+
+&lt;li&gt;EmrEtlRunner, to version 0.4.0, and its configuration file&lt;/li&gt;
+
+&lt;li&gt;StorageLoader, to version 0.1.0, and its configuration file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let&amp;#8217;s take these in turn:&lt;/p&gt;
+
+&lt;h3 id='hadoop_etl'&gt;Hadoop ETL&lt;/h3&gt;
+
+&lt;p&gt;If you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to use the latest version of the Hadoop ETL:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:snowplow&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:hadoop_etl_version&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0.3.3&lt;/span&gt; &lt;span class='c1'&gt;# Version of the Hadoop ETL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Read on for the rest of the changes you will need to make to &lt;code&gt;config.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id='emretlrunner'&gt;EmrEtlRunner&lt;/h3&gt;
+
+&lt;p&gt;You need to upgrade your EmrEtlRunner installation to the latest code (0.8.8 release) on GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.8
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, you need to update the format of your &lt;code&gt;config.yml&lt;/code&gt; - the format has been simplified significantly. The new format (&lt;a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'&gt;as found on GitHub&lt;/a&gt;) looks like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:aws&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:access_key_id&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:secret_access_key&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:s3&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:region&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:buckets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:assets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;s3://snowplow-hosted-assets&lt;/span&gt; &lt;span class='c1'&gt;# DO NOT CHANGE unless you are hosting the jarfiles etc yourself in your own bucket&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:log&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:in&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:processing&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:out&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE WITH SUB-FOLDER&lt;/span&gt; &lt;span class='c1'&gt;# e.g. s3://my-out-bucket/events&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:out_bad_rows&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;        &lt;span class='c1'&gt;# e.g. s3://my-out-bucket/bad-rows&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:out_errors&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Leave blank unless :continue_on_unexpected_error: set to true below&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:archive&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:emr&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='c1'&gt;# Can bump the below as EMR upgrades Hadoop&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:hadoop_version&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;1.0.3&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:placement&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:ec2_key_name&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='c1'&gt;# Adjust your Hadoop cluster below&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:jobflow&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:master_instance_type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;m1.small&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:core_instance_count&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;2&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:core_instance_type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;m1.small&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:task_instance_count&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0&lt;/span&gt; &lt;span class='c1'&gt;# Increase to use spot instances&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:task_instance_type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;m1.small&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:task_instance_bid&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0.015&lt;/span&gt; &lt;span class='c1'&gt;# In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:etl&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:job_name&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;SnowPlow ETL&lt;/span&gt; &lt;span class='c1'&gt;# Give your job a name&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:hadoop_etl_version&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0.3.3&lt;/span&gt; &lt;span class='c1'&gt;# Version of the Hadoop ETL&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:collector_format&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;cloudfront&lt;/span&gt; &lt;span class='c1'&gt;# Or &amp;#39;clj-tomcat&amp;#39; for the Clojure Collector&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:continue_on_unexpected_error&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;false&lt;/span&gt; &lt;span class='c1'&gt;# You can switch to &amp;#39;true&amp;#39; (and set :out_errors: above) if you really don&amp;#39;t want the ETL throwing exceptions&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that the &lt;code&gt;:snowplow:&lt;/code&gt; section has been mostly removed, with &lt;code&gt;:hadoop_etl_version:&lt;/code&gt; moving into the &lt;code&gt;:etl:&lt;/code&gt; section.&lt;/p&gt;
+
+&lt;h3 id='storageloader'&gt;StorageLoader&lt;/h3&gt;
+
+&lt;p&gt;You need to upgrade your StorageLoader installation to the latest code (0.8.8 release) on GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.8
+$ cd snowplow/4-storage/storage-loader
+$ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, you need to update the format of your &lt;code&gt;config.yml&lt;/code&gt; - the format has been updated to support multiple storage targets. The new format (&lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'&gt;as found on GitHub&lt;/a&gt;) looks like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:aws&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:access_key_id&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:secret_access_key&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:s3&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:region&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# S3 bucket region must be the same as Redshift cluster region&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:buckets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:in&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Must be s3:// not s3n:// for Redshift&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:archive&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:download&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:folder&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='c1'&gt;# Not required for Redshift&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:targets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;:name&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;My&lt;/span&gt;&lt;span class='nv'&gt; &lt;/span&gt;&lt;span class='s'&gt;Redshift&lt;/span&gt;&lt;span class='nv'&gt; &lt;/span&gt;&lt;span class='s'&gt;database&amp;quot;&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;redshift&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:host&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# The endpoint as shown in the Redshift console&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:database&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Name of database &lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:port&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;5439&lt;/span&gt; &lt;span class='c1'&gt;# Default Redshift port&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:table&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;events&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:username&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; 
+    &lt;span class='l-Scalar-Plain'&gt;:password&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; 
+    &lt;span class='l-Scalar-Plain'&gt;:maxerror&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;1&lt;/span&gt; &lt;span class='c1'&gt;# Stop loading on first error, or increase to permit more load errors&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note the new &lt;code&gt;:maxerror:&lt;/code&gt; setting - see the &lt;a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'&gt;Redshift &lt;code&gt;COPY&lt;/code&gt; documentation&lt;/a&gt; for more on this.&lt;/p&gt;
+
+&lt;p&gt;To add another Redshift storage target, just add another configuration block under &lt;code&gt;:targets:&lt;/code&gt;, starting with &lt;code&gt;- :name:&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To add a new Postgres storage target, read on&amp;#8230;&lt;/p&gt;
+&lt;h2&gt;&lt;a name='postgres'&gt;2. Loading events into Postgres&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Loading events into Postgres is quite straightforward:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Upgrade to the latest version of Snowplow &lt;a href='#upgrading'&gt;as described above&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;If you don&amp;#8217;t have one already, setup a Postgres database server&lt;/li&gt;
+
+&lt;li&gt;Create a &lt;code&gt;snowplow&lt;/code&gt; database within Postgres&lt;/li&gt;
+
+&lt;li&gt;Deploy the Snowplow schema and table into &lt;code&gt;snowplow&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;Configure StorageLoader to load into Postgres&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For help on steps 2-4, please see our new guide, &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL'&gt;Setting up PostgreSQL&lt;/a&gt;. You can find the new PostgreSQL script on GitHub, &lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/table-def.sql'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For step 5, you should create a StorageLoader configuration file which looks like this (&lt;a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/postgres.yml.sample'&gt;as found on GitHub&lt;/a&gt;):&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:aws&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:access_key_id&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:secret_access_key&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:s3&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:region&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# S3 bucket region&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:buckets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:in&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:archive&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:download&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:folder&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Postgres-only config option. Where to store the downloaded files&lt;/span&gt;
+&lt;span class='l-Scalar-Plain'&gt;:targets&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;:name&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;My&lt;/span&gt;&lt;span class='nv'&gt; &lt;/span&gt;&lt;span class='s'&gt;PostgreSQL&lt;/span&gt;&lt;span class='nv'&gt; &lt;/span&gt;&lt;span class='s'&gt;database&amp;quot;&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;postgres&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:host&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Hostname of database server&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:database&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; &lt;span class='c1'&gt;# Name of database &lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:port&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;5432&lt;/span&gt; &lt;span class='c1'&gt;# Default Postgres port&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:table&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;atomic.events&lt;/span&gt;
+    &lt;span class='l-Scalar-Plain'&gt;:username&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; 
+    &lt;span class='l-Scalar-Plain'&gt;:password&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;ADD HERE&lt;/span&gt; 
+    &lt;span class='l-Scalar-Plain'&gt;:maxerror&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='c1'&gt;# Not required for Postgres&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make sure to set &lt;code&gt;:folder:&lt;/code&gt; to a local directory where you can download the Snowplow event files to, ready for loading into your local Postgres database server.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='hiveql'&gt;3. Querying events with HiveQL&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The new release makes it possible again to query your Snowplow events directly on Amazon S3 using &lt;a href='http://hive.apache.org/'&gt;HiveQL&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Steps are as follows:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Upgrade to the latest version of Snowplow &lt;a href='#upgrading'&gt;as described above&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Wait for Snowplow to run at least once following the upgrade&lt;/li&gt;
+
+&lt;li&gt;Follow the instructions in our updated guide, &lt;a href='https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools'&gt;Running Hive using the command line tools&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you want to run HiveQL queries across your historical event data (i.e. from before the upgrade), this is possible too. You will need to rename the timestamped folders in your event archive from the old format to the new format, by prepending &lt;code&gt;run=&lt;/code&gt;. So for example, change:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;s3://my-snowplow-archive/events/2013-07-01-04-00-03&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;s3://my-snowplow-archive/events/run=2013-07-01-04-00-03&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One this is done for all folders, all of your historic event files should be correctly partitioned ready for Hive to query.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For more details on this release, please check out the &lt;a href='https://github.com/snowplow/snowplow/releases/0.8.8'&gt;0.8.8 Release Notes&lt;/a&gt; on GitHub.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event</id>

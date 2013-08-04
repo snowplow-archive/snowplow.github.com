@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Snowplow 0.8.8 released with Postgres and Hive support - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			05 Aug 2013
+			<h1>Snowplow 0.8.8 released with Postgres and Hive support</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href='http://www.postgresql.org/'>PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
+
+<p>And if you are already happily using Snowplow with Redshift, there are two other new features to check out:</p>
+
+<ol>
+<li>We have added support for multiple storage targets to Snowplow&#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
+
+<li>We have brought back the ability to query your Snowplow events using <a href='http://hive.apache.org/'>HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
+</ol>
+
+<p>As well as these new features, we have made a large number of improvements across Snowplow:</p>
+
+<ul>
+<li>We have made some improvements to the Hadoop-based Enrichment process (bumped to version 0.3.3)</li>
+
+<li>We have simplified EmrEtlRunner and its configuration file format</li>
+
+<li>We have improved the performance of the Redshift loading code</li>
+
+<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for details)</li>
+
+<li>We have moved the Snowplow JavaScript Tracker into <a href='https://github.com/snowplow/snowplow-javascript-tracker'>its own repository</a></li>
+
+<li>We have removed the deprecated Hive ETL and Infobright folders from the repository</li>
+</ul>
+
+<p>After the fold, we will cover the options for upgrading and using the new functionality:</p>
+
+<ol>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'>Loading events into Postgres</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'>Querying events with HiveQL</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'>Getting help</a></li>
+</ol>
+<!--more--><h2><a name='upgrading'>1. Upgrading</a></h2>
+<p>There are <strong>three components</strong> to upgrade in this release:</p>
+
+<ul>
+<li>The Hadoop ETL, to version 0.3.3</li>
+
+<li>EmrEtlRunner, to version 0.4.0, and its configuration file</li>
+
+<li>StorageLoader, to version 0.1.0, and its configuration file</li>
+</ul>
+
+<p>Let&#8217;s take these in turn:</p>
+
+<h3 id='hadoop_etl'>Hadoop ETL</h3>
+
+<p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.3</span> <span class='c1'># Version of the Hadoop ETL</span>
+</code></pre></div>
+<p>Read on for the rest of the changes you will need to make to <code>config.yml</code>.</p>
+
+<h3 id='emretlrunner'>EmrEtlRunner</h3>
+
+<p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.8 release) on GitHub:</p>
+
+<pre><code>$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.8
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment</code></pre>
+
+<p>Next, you need to update the format of your <code>config.yml</code> - the format has been simplified significantly. The new format (<a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'>as found on GitHub</a>) looks like this:</p>
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:s3</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:region</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='l-Scalar-Plain'>:buckets</span><span class='p-Indicator'>:</span>
+    <span class='l-Scalar-Plain'>:assets</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>s3://snowplow-hosted-assets</span> <span class='c1'># DO NOT CHANGE unless you are hosting the jarfiles etc yourself in your own bucket</span>
+    <span class='l-Scalar-Plain'>:log</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+    <span class='l-Scalar-Plain'>:in</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+    <span class='l-Scalar-Plain'>:processing</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+    <span class='l-Scalar-Plain'>:out</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE WITH SUB-FOLDER</span> <span class='c1'># e.g. s3://my-out-bucket/events</span>
+    <span class='l-Scalar-Plain'>:out_bad_rows</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>        <span class='c1'># e.g. s3://my-out-bucket/bad-rows</span>
+    <span class='l-Scalar-Plain'>:out_errors</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Leave blank unless :continue_on_unexpected_error: set to true below</span>
+    <span class='l-Scalar-Plain'>:archive</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:emr</span><span class='p-Indicator'>:</span>
+  <span class='c1'># Can bump the below as EMR upgrades Hadoop</span>
+  <span class='l-Scalar-Plain'>:hadoop_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>1.0.3</span>
+  <span class='l-Scalar-Plain'>:placement</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='l-Scalar-Plain'>:ec2_key_name</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='c1'># Adjust your Hadoop cluster below</span>
+  <span class='l-Scalar-Plain'>:jobflow</span><span class='p-Indicator'>:</span>
+    <span class='l-Scalar-Plain'>:master_instance_type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>m1.small</span>
+    <span class='l-Scalar-Plain'>:core_instance_count</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>2</span>
+    <span class='l-Scalar-Plain'>:core_instance_type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>m1.small</span>
+    <span class='l-Scalar-Plain'>:task_instance_count</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0</span> <span class='c1'># Increase to use spot instances</span>
+    <span class='l-Scalar-Plain'>:task_instance_type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>m1.small</span>
+    <span class='l-Scalar-Plain'>:task_instance_bid</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.015</span> <span class='c1'># In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances</span>
+<span class='l-Scalar-Plain'>:etl</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:job_name</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>SnowPlow ETL</span> <span class='c1'># Give your job a name</span>
+  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.3</span> <span class='c1'># Version of the Hadoop ETL</span>
+  <span class='l-Scalar-Plain'>:collector_format</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>cloudfront</span> <span class='c1'># Or &#39;clj-tomcat&#39; for the Clojure Collector</span>
+  <span class='l-Scalar-Plain'>:continue_on_unexpected_error</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>false</span> <span class='c1'># You can switch to &#39;true&#39; (and set :out_errors: above) if you really don&#39;t want the ETL throwing exceptions</span>
+</code></pre></div>
+<p>Note that the <code>:snowplow:</code> section has been mostly removed, with <code>:hadoop_etl_version:</code> moving into the <code>:etl:</code> section.</p>
+
+<h3 id='storageloader'>StorageLoader</h3>
+
+<p>You need to upgrade your StorageLoader installation to the latest code (0.8.8 release) on GitHub:</p>
+
+<pre><code>$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.8.8
+$ cd snowplow/4-storage/storage-loader
+$ bundle install --deployment</code></pre>
+
+<p>Next, you need to update the format of your <code>config.yml</code> - the format has been updated to support multiple storage targets. The new format (<a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>as found on GitHub</a>) looks like this:</p>
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:s3</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:region</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># S3 bucket region must be the same as Redshift cluster region</span>
+  <span class='l-Scalar-Plain'>:buckets</span><span class='p-Indicator'>:</span>
+    <span class='l-Scalar-Plain'>:in</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Must be s3:// not s3n:// for Redshift</span>
+    <span class='l-Scalar-Plain'>:archive</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:download</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:folder</span><span class='p-Indicator'>:</span> <span class='c1'># Not required for Redshift</span>
+<span class='l-Scalar-Plain'>:targets</span><span class='p-Indicator'>:</span>
+  <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>:name</span><span class='p-Indicator'>:</span> <span class='s'>&quot;My</span><span class='nv'> </span><span class='s'>Redshift</span><span class='nv'> </span><span class='s'>database&quot;</span>
+    <span class='l-Scalar-Plain'>:type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>redshift</span>
+    <span class='l-Scalar-Plain'>:host</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># The endpoint as shown in the Redshift console</span>
+    <span class='l-Scalar-Plain'>:database</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Name of database </span>
+    <span class='l-Scalar-Plain'>:port</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>5439</span> <span class='c1'># Default Redshift port</span>
+    <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>events</span>
+    <span class='l-Scalar-Plain'>:username</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
+    <span class='l-Scalar-Plain'>:password</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
+    <span class='l-Scalar-Plain'>:maxerror</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>1</span> <span class='c1'># Stop loading on first error, or increase to permit more load errors</span>
+</code></pre></div>
+<p>Note the new <code>:maxerror:</code> setting - see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for more on this.</p>
+
+<p>To add another Redshift storage target, just add another configuration block under <code>:targets:</code>, starting with <code>- :name:</code>.</p>
+
+<p>To add a new Postgres storage target, read on&#8230;</p>
+<h2><a name='postgres'>2. Loading events into Postgres</a></h2>
+<p>Loading events into Postgres is quite straightforward:</p>
+
+<ol>
+<li>Upgrade to the latest version of Snowplow <a href='#upgrading'>as described above</a></li>
+
+<li>If you don&#8217;t have one already, setup a Postgres database server</li>
+
+<li>Create a <code>snowplow</code> database within Postgres</li>
+
+<li>Deploy the Snowplow schema and table into <code>snowplow</code></li>
+
+<li>Configure StorageLoader to load into Postgres</li>
+</ol>
+
+<p>For help on steps 2-4, please see our new guide, <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL'>Setting up PostgreSQL</a>. You can find the new PostgreSQL script on GitHub, <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/table-def.sql'>here</a>.</p>
+
+<p>For step 5, you should create a StorageLoader configuration file which looks like this (<a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/postgres.yml.sample'>as found on GitHub</a>):</p>
+<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+  <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:s3</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:region</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># S3 bucket region</span>
+  <span class='l-Scalar-Plain'>:buckets</span><span class='p-Indicator'>:</span>
+    <span class='l-Scalar-Plain'>:in</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+    <span class='l-Scalar-Plain'>:archive</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
+<span class='l-Scalar-Plain'>:download</span><span class='p-Indicator'>:</span>
+  <span class='l-Scalar-Plain'>:folder</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Postgres-only config option. Where to store the downloaded files</span>
+<span class='l-Scalar-Plain'>:targets</span><span class='p-Indicator'>:</span>
+  <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>:name</span><span class='p-Indicator'>:</span> <span class='s'>&quot;My</span><span class='nv'> </span><span class='s'>PostgreSQL</span><span class='nv'> </span><span class='s'>database&quot;</span>
+    <span class='l-Scalar-Plain'>:type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>postgres</span>
+    <span class='l-Scalar-Plain'>:host</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Hostname of database server</span>
+    <span class='l-Scalar-Plain'>:database</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Name of database </span>
+    <span class='l-Scalar-Plain'>:port</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>5432</span> <span class='c1'># Default Postgres port</span>
+    <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>atomic.events</span>
+    <span class='l-Scalar-Plain'>:username</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
+    <span class='l-Scalar-Plain'>:password</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
+    <span class='l-Scalar-Plain'>:maxerror</span><span class='p-Indicator'>:</span> <span class='c1'># Not required for Postgres</span>
+</code></pre></div>
+<p>Make sure to set <code>:folder:</code> to a local directory where you can download the Snowplow event files to, ready for loading into your local Postgres database server.</p>
+<h2><a name='hiveql'>3. Querying events with HiveQL</a></h2>
+<p>The new release makes it possible again to query your Snowplow events directly on Amazon S3 using <a href='http://hive.apache.org/'>HiveQL</a>.</p>
+
+<p>Steps are as follows:</p>
+
+<ol>
+<li>Upgrade to the latest version of Snowplow <a href='#upgrading'>as described above</a></li>
+
+<li>Wait for Snowplow to run at least once following the upgrade</li>
+
+<li>Follow the instructions in our updated guide, <a href='https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools'>Running Hive using the command line tools</a></li>
+</ol>
+
+<p>If you want to run HiveQL queries across your historical event data (i.e. from before the upgrade), this is possible too. You will need to rename the timestamped folders in your event archive from the old format to the new format, by prepending <code>run=</code>. So for example, change:</p>
+
+<pre><code>s3://my-snowplow-archive/events/2013-07-01-04-00-03</code></pre>
+
+<p>To:</p>
+
+<pre><code>s3://my-snowplow-archive/events/run=2013-07-01-04-00-03</code></pre>
+
+<p>One this is done for all folders, all of your historic event files should be correctly partitioned ready for Hive to query.</p>
+<h2><a name='help'>4. Getting help</a></h2>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+
+<p>For more details on this release, please check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.8'>0.8.8 Release Notes</a> on GitHub.</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+		
+			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+		
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+		
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
+			
+				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+			
+				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+			
+				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

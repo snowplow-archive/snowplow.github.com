@@ -113,11 +113,11 @@
 
 <li><strong>Verb</strong>, this describes the action being done by the subject: &#8220;I <strong>wrote</strong> a letter&#8221;</li>
 
-<li><strong>Object</strong>, aka <em>direct object</em> or noun in the <em>accusative</em> case. This is the entity to which the action is being done: &#8220;I wrote <strong>a letter</strong>&#8221;</li>
+<li><strong>Direct Object</strong>, or simply <em>object</em> or noun in the <em>accusative</em> case. This is the entity to which the action is being done: &#8220;I wrote <strong>a letter</strong>&#8221;</li>
 
-<li><strong>Indirect object</strong>, or noun in the <em>dative</em> case. A slightly more tricky concept: this is the entity indirectly affected by the action: &#8220;I sent the letter <em>to</em> <strong>Tom</strong>&#8221;</li>
+<li><strong>Indirect Object</strong>, or noun in the <em>dative</em> case. A slightly more tricky concept: this is the entity indirectly affected by the action: &#8220;I sent the letter <em>to</em> <strong>Tom</strong>&#8221;</li>
 
-<li><strong>Prepositional object</strong>. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: &#8220;I put the letter <em>in</em> <strong>an envelope</strong>&#8221;. In a language such as German, prepositional objects will be found in the <em>accusative</em>, <em>dative</em> or <em>genitive</em> case depending on the preposition used</li>
+<li><strong>Prepositional Object</strong>. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: &#8220;I put the letter <em>in</em> <strong>an envelope</strong>&#8221;. In a language such as German, prepositional objects will be found in the <em>accusative</em>, <em>dative</em> or <em>genitive</em> case depending on the preposition used</li>
 
 <li><strong>Context</strong>. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: &#8220;I posted the letter <strong>on Tuesday from Boston</strong>&#8221;</li>
 </ul>
@@ -128,11 +128,11 @@
 
 <p><img alt='ecomm1' src='/static/img/blog/2013/08/grammar-ecomm1.png' /></p>
 
-<p>In this event, a shopper (Subject) views (Verb) a t-shirt (Object) while browsing an online store (Context).</p>
+<p>In this event, a shopper (Subject) views (Verb) a t-shirt (Direct Object) while browsing an online store (Context).</p>
 
 <p><img alt='ecomm2' src='/static/img/blog/2013/08/grammar-ecomm2.png' /></p>
 
-<p>Here we introduce an indirect object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Object) to her shopping basket (indirect object). Again, this is while browsing (Context).</p>
+<p>Here we introduce an indirect object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Direct Object) to her shopping basket (Indirect Object). Again, this is while browsing (Context).</p>
 
 <p><img alt='ecomm3' src='/static/img/blog/2013/08/grammar-ecomm3.png' /></p>
 
@@ -142,11 +142,11 @@
 
 <p><img alt='videogame1' src='/static/img/blog/2013/08/grammar-videogame1.png' /></p>
 
-<p>In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Object) to another player (Indirect Object).</p>
+<p>In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Direct Object) to another player (Indirect Object).</p>
 
 <p><img alt='videogame2' src='/static/img/blog/2013/08/grammar-videogame2.png' /></p>
 
-<p>During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the object of events, not just their subjects.</p>
+<p>During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Direct Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the object of events, not just their subjects.</p>
 
 <p><img alt='videogame3' src='/static/img/blog/2013/08/grammar-videogame3.png' /></p>
 
@@ -156,30 +156,30 @@
 
 <p><img alt='media1' src='/static/img/blog/2013/08/grammar-media1.png' /></p>
 
-<p>While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Object).</p>
+<p>While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Direct Object).</p>
 
 <p><img alt='media2' src='/static/img/blog/2013/08/grammar-media2.png' /></p>
 
-<p>Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Object) on Twitter (Prepositional Object).</p>
+<p>Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Direct Object) on Twitter (Prepositional Object). Also note that Twitter here is a proper noun, not a common noun.</p>
 
 <p><img alt='media3' src='/static/img/blog/2013/08/grammar-media3.png' /></p>
 
-<p>Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.</p>
+<p>Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Direct Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.</p>
 <a name='learnings'> </a><h2>5. What have we learnt</h2>
 <p>As you can see, it is relatively straightforward to map any of the digital events above into these six &#8220;slots&#8221; of: Subject, Verb, Object, Indirect Object, Prepositional Object and Context. This is unsurprising: this core grammar has been unambiguously describing events in many different human languages across thousands of years.</p>
 
 <p>Going through the above exercise, several further things have become clear to us that we will want to factor into the Snowplow event grammar going forwards:</p>
 
-<h3 id='implicit_subject_is_a_mistake'>Implicit Subject is a mistake</h3>
+<h3 id='implicit_subjects_are_a_mistake'>Implicit Subjects are a mistake</h3>
 
 <p>Most web and event analytics systems make the mistake of making the Subject of the event implicit:</p>
 
 <pre><code>(End user) added product to basket
 (Admin) banned user #23</code></pre>
 
-<p>This is a mistake, because as we have seen above, the Subject is a key component of our event grammar.</p>
+<p>This is a mistake, because as we have seen above, expressing the Subject is a key component of our event grammar.</p>
 
-<p>Going further, it is particularly dangerous to assume that the Subject of every event is your end user aka customer, because we have seen cases where this is not the case.</p>
+<p>Going further, it is particularly dangerous to assume that the Subject of every event is your end-user aka customer, because we have seen cases where this is not the case.</p>
 
 <h3 id='an_entity_can_be_subject_or_object_or_both_across_multiple_events'>An entity can be Subject or Object or both across multiple events</h3>
 
@@ -190,9 +190,9 @@ User #2 kills user #3
 User #2 levels up
 Admin bans user #1</code></pre>
 
-<p>As we can see from this, the same entities will be found as Subject, Object, Indirect Object or Prepositional Object depending on the event.</p>
+<p>As we can see from this, the same entities will be found as Subject, Direct Object, Indirect Object or Prepositional Object depending on the event.</p>
 
-<p>Most analytics systems miss the fact that an end user (for example) is not merely the implicit subject of multiple events, but is in fact an entity which is the Subject and the Object of different events.</p>
+<p>Most analytics systems miss the fact that an end-user (for example) is not merely the implicit subject of multiple events, but is in fact an entity which is the Subject and the Object of different events.</p>
 
 <h3 id='we_can_keep_our_verbs_really_simple'>We can keep our Verbs really simple</h3>
 

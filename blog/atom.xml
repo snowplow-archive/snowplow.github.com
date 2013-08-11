@@ -4,13 +4,179 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-08-06T16:40:30+01:00</updated>
+  <updated>2013-08-11T19:03:59+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar"/>
+    <title>Towards universal event analytics - building an event grammar</title>
+    <updated>2013-08-12T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;As we outgrow our &amp;#8220;fat table&amp;#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.&lt;/p&gt;
+
+&lt;p&gt;When we blogged about &lt;a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'&gt;building out the Snowplow event model&lt;/a&gt; earlier this year, a comment left on that post by &lt;a href='https://twitter.com/mglcel'&gt;Loïc Dias Da Silva&lt;/a&gt; made us realize that we were missing an even more fundamental point: defining a Snowplow event &lt;strong&gt;grammar&lt;/strong&gt; to underpin our Snowplow event dictionary. Here is part of Loïc&amp;#8217;s excellent comment - although I would encourage you to read it in full &lt;a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'&gt;on the blog post&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Hi, we&amp;#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;An Actor(id/type) made and Action(verb, context) on another Object(id/type).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Each Actor, Action and Object can hold k/v properties.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The context itself, owned by the action, is a k/v dictionary.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;So in designing his event grammar, Loïc was influenced by the &lt;a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'&gt;Resource Description Framework&lt;/a&gt;, the W3C specifications for modelling relationships to web resources.&lt;/p&gt;
+
+&lt;p&gt;An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &amp;#8220;event grammar&amp;#8221; to write this sentence: the &lt;strong&gt;grammar of human language&lt;/strong&gt;. Why not start, then, from the core grammar underpinning English, Latin, Greek, German et al and see just how far this approach can take us in modelling events in the digital world?&lt;/p&gt;
+
+&lt;p&gt;So, in the rest of this post we will:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'&gt;Introduce the components of our grammar&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'&gt;Model some ecommerce events&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'&gt;Model some videogame events&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'&gt;Model some digital media events&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'&gt;Discuss what we have learnt&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'&gt;Draw some conclusions&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;a name='grammar'&gt; &lt;/a&gt;&lt;h2&gt;1. The components of our grammar&lt;/h2&gt;
+&lt;p&gt;All of the human languages mentioned above (and many, many others) share the same fundamental building blocks in their grammars for describing an event with a verb in the &lt;em&gt;active voice&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='grammar' src='/static/img/blog/2013/08/event-grammar.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;To go through these in turn:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Subject&lt;/strong&gt;, or noun in the &lt;em&gt;nominative&lt;/em&gt; case. This is the entity which is carrying out the action: &amp;#8221;&lt;strong&gt;I&lt;/strong&gt; wrote a letter&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Verb&lt;/strong&gt;, this describes the action being done by the subject: &amp;#8220;I &lt;strong&gt;wrote&lt;/strong&gt; a letter&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Object&lt;/strong&gt;, aka &lt;em&gt;direct object&lt;/em&gt; or noun in the &lt;em&gt;accusative&lt;/em&gt; case. This is the entity to which the action is being done: &amp;#8220;I wrote &lt;strong&gt;a letter&lt;/strong&gt;&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Indirect object&lt;/strong&gt;, or noun in the &lt;em&gt;dative&lt;/em&gt; case. A slightly more tricky concept: this is the entity indirectly affected by the action: &amp;#8220;I sent the letter &lt;em&gt;to&lt;/em&gt; &lt;strong&gt;Tom&lt;/strong&gt;&amp;#8221;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Prepositional object&lt;/strong&gt;. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: &amp;#8220;I put the letter &lt;em&gt;in&lt;/em&gt; &lt;strong&gt;an envelope&lt;/strong&gt;&amp;#8221;. In a language such as German, prepositional objects will be found in the &lt;em&gt;accusative&lt;/em&gt;, &lt;em&gt;dative&lt;/em&gt; or &lt;em&gt;genitive&lt;/em&gt; case depending on the preposition used&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Context&lt;/strong&gt;. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: &amp;#8220;I posted the letter &lt;strong&gt;on Tuesday from Boston&lt;/strong&gt;&amp;#8221;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With these grammatical building blocks defined, let&amp;#8217;s now put them through their paces modelling some digital events - starting with some online retail events:&lt;/p&gt;
+&lt;a name='ecommerce'&gt; &lt;/a&gt;&lt;h2&gt;2. Modelling some ecommerce events&lt;/h2&gt;
+&lt;p&gt;Here are some ecommerce events mapped to our grammatical model:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='ecomm1' src='/static/img/blog/2013/08/grammar-ecomm1.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this event, a shopper (Subject) views (Verb) a t-shirt (Object) while browsing an online store (Context).&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='ecomm2' src='/static/img/blog/2013/08/grammar-ecomm2.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here we introduce an indirect object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Object) to her shopping basket (indirect object). Again, this is while browsing (Context).&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='ecomm3' src='/static/img/blog/2013/08/grammar-ecomm3.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here we have an object introduced by preposition: the shopper (Subject) pays (Verb) for his order (Prepositional Object). This is all within the checkout flow (Context).&lt;/p&gt;
+&lt;a name='videogame'&gt; &lt;/a&gt;&lt;h2&gt;3. Modelling some videogame events&lt;/h2&gt;
+&lt;p&gt;So far so good, but how well does this model work with events generated by a gaming session?&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='videogame1' src='/static/img/blog/2013/08/grammar-videogame1.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Object) to another player (Indirect Object).&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='videogame2' src='/static/img/blog/2013/08/grammar-videogame2.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the object of events, not just their subjects.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='videogame3' src='/static/img/blog/2013/08/grammar-videogame3.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here we illustrate a reflexive verb: through grinding (Context), the player (Subject) levels herself up (Verb, reflexive). A reflexive verb is one where the Subject and the Object are the same.&lt;/p&gt;
+&lt;a name='media'&gt; &lt;/a&gt;&lt;h2&gt;4. Modelling some digital media events&lt;/h2&gt;
+&lt;p&gt;This seems to be working well! Finally, let&amp;#8217;s map our new event grammar onto the world of digital media and publishing:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='media1' src='/static/img/blog/2013/08/grammar-media1.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Object).&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='media2' src='/static/img/blog/2013/08/grammar-media2.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Object) on Twitter (Prepositional Object).&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='media3' src='/static/img/blog/2013/08/grammar-media3.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.&lt;/p&gt;
+&lt;a name='learnings'&gt; &lt;/a&gt;&lt;h2&gt;5. What have we learnt&lt;/h2&gt;
+&lt;p&gt;As you can see, it is relatively straightforward to map any of the digital events above into these six &amp;#8220;slots&amp;#8221; of: Subject, Verb, Object, Indirect Object, Prepositional Object and Context. This is unsurprising: this core grammar has been unambiguously describing events in many different human languages across thousands of years.&lt;/p&gt;
+
+&lt;p&gt;Going through the above exercise, several further things have become clear to us that we will want to factor into the Snowplow event grammar going forwards:&lt;/p&gt;
+
+&lt;h3 id='implicit_subject_is_a_mistake'&gt;Implicit Subject is a mistake&lt;/h3&gt;
+
+&lt;p&gt;Most web and event analytics systems make the mistake of making the Subject of the event implicit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(End user) added product to basket
+(Admin) banned user #23&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a mistake, because as we have seen above, the Subject is a key component of our event grammar.&lt;/p&gt;
+
+&lt;p&gt;Going further, it is particularly dangerous to assume that the Subject of every event is your end user aka customer, because we have seen cases where this is not the case.&lt;/p&gt;
+
+&lt;h3 id='an_entity_can_be_subject_or_object_or_both_across_multiple_events'&gt;An entity can be Subject or Object or both across multiple events&lt;/h3&gt;
+
+&lt;p&gt;As per these gaming examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User #1 gifts gold to user #2
+User #2 kills user #3
+User #2 levels up
+Admin bans user #1&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As we can see from this, the same entities will be found as Subject, Object, Indirect Object or Prepositional Object depending on the event.&lt;/p&gt;
+
+&lt;p&gt;Most analytics systems miss the fact that an end user (for example) is not merely the implicit subject of multiple events, but is in fact an entity which is the Subject and the Object of different events.&lt;/p&gt;
+
+&lt;h3 id='we_can_keep_our_verbs_really_simple'&gt;We can keep our Verbs really simple&lt;/h3&gt;
+
+&lt;p&gt;All of the events above were modelled simply using verbs in the active voice, not the passive voice:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Active voice: I watch a video&lt;/li&gt;
+
+&lt;li&gt;Passive voice: the video was watched by Alex&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We don&amp;#8217;t need to use passive voice for our event model, because we can always derive (if needed) a passive voice event from our active voice event.&lt;/p&gt;
+
+&lt;p&gt;Going further, verbs conjugate in lots of other ways (tense, person, mood etc) - but again we don&amp;#8217;t need to include any of this into our event model: all of this can be derived (if needed) from our event&amp;#8217;s Context.&lt;/p&gt;
+
+&lt;h3 id='context_is_king'&gt;Context is king&lt;/h3&gt;
+
+&lt;p&gt;Our idea of Context does not map cleanly onto a singular grammatical component, but it&amp;#8217;s just too useful to exclude. In fact, de facto we already have a rich web context for Snowplow events in our &lt;a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'&gt;Canonical event model&lt;/a&gt;, including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;When the event occurred&lt;/li&gt;
+
+&lt;li&gt;Where (geographically) the event occurred&lt;/li&gt;
+
+&lt;li&gt;Properties of the device on which the event occurred&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a name='learnings'&gt; &lt;/a&gt;&lt;h2&gt;6. Conclusions&lt;/h2&gt;
+&lt;p&gt;We hope this has been an interesting exploration of how we can potentially adapt and simplify the grammar of human languages to express a new grammar for digital events. We are really excited about the possibilities this opens up - initially around expressing such a grammar in our new &lt;a href='http://avro.apache.org/'&gt;Avro&lt;/a&gt; event model, and later hopefully in graph databases such as &lt;a href='http://www.neo4j.org/'&gt;Neo4J&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Of course, we have only just started to sketch out this new event model, and we hope that it will prompt a wider debate with the Snowplow and analytics communities. We are excited to evolve these ideas and build a model for universal event analytics with you, together - and we look forward to continuing the conversation on our &lt;a href='https://groups.google.com/d/forum/snowplow-user'&gt;snowplow-user mailing list&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And finally, many thanks again to &lt;a href='https://twitter.com/mglcel'&gt;Loïc Dias Da Silva&lt;/a&gt; for sharing his original Actor-Action-Object idea on our blog!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support</id>

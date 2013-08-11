@@ -68,6 +68,34 @@
 		<div id="contents">
 	
 		<div class="post">
+			03 Mar 2013
+			<h1><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re excited to announce the immediate release of Snowplow version <strong>0.7.6</strong> with support for storing your Snowplow events in <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a>.</p>
+
+<p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate Snowplow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can&#8217;t wait to see what the Snowplow community do with the new platform!</p>
+
+<p>In this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#why-redshift'>Why Redshift is a great fit for Snowplow data</a></li>
+
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#this-version'>Changes in this version</a></li>
+
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#snowplow-redshift'>Setting up Snowplow for Redshift</a></li>
+
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#upgrading'>Upgrading for Infobright/Hive users</a></li>
+
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#roadmap'>Roadmap and next steps</a></li>
+
+<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more.</p>
+<p class='more'><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			25 Feb 2013
 			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -170,64 +198,6 @@
 <p class='more'><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			15 Feb 2013
-			<h1><a href="/blog/2013/02/15/snowplow-0.7.3-released">Snowplow 0.7.3 released, tracking additional data</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
-
-<ul>
-<li>A new Event Vendor field</li>
-
-<li>The Page URL split out into its component parts (scheme, host, port, path, querystring, fragment/anchor)</li>
-
-<li>The web page&#8217;s character set</li>
-
-<li>The web page&#8217;s width and height</li>
-
-<li>The browser&#8217;s viewport (i.e. visible width and height)</li>
-
-<li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
-</ul>
-
-<p>These fields should make a new set of analyses on Snowplow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
-
-<p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#new-fields'>The new fields</a></li>
-
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes'>Bug fixes</a></li>
-
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes'>Breaking changes</a></li>
-
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
-</ol>
-<h2><a name='new-fields'>1. New fields</a></h2>
-<p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on Snowplow data.</p>
-
-<p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
-<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
-</tr><tr><td style='text-align: left;'><code>page_urlscheme</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Scheme aka protocol, e.g. &#8220;https&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlhost</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Host aka domain, e.g. &#8220;www.snowplowanalytics.com&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlport</code></td><td style='text-align: left;'>int</td><td style='text-align: left;'>Port if specified, 80 if not</td>
-</tr><tr><td style='text-align: left;'><code>page_urlpath</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Path to page, e.g. &#8220;/product/index.html&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlquery</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Querystring, e.g. &#8220;id=GTM-DLRG&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlfragment</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Fragment aka anchor, e.g. &#8220;4-conclusion&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>br_viewwidth</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The width of the browser&#8217;s viewport in pixels</td>
-</tr><tr><td style='text-align: left;'><code>br_viewheight</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The height of the browser&#8217;s viewport in pixels</td>
-</tr><tr><td style='text-align: left;'><code>doc_charset</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>The page&#8217;s character encoding, e.g. &#8220;UTF-8&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>doc_width</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total width of the page (incl. non-viewed area)</td>
-</tr><tr><td style='text-align: left;'><code>doc_height</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total height of the page (incl. non-viewed area)</td>
-</tr><tr><td style='text-align: left;'><code>pp_xoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page x offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_xoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page x offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_yoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page y offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_yoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page y offset seen in the last ping period</td>
-</tr></tbody></table>
-<p>Don&#8217;t worry if some of these new fields don&#8217;t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
-<p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -247,6 +217,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+		
 			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 		
 			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
@@ -254,8 +226,6 @@
 			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 	</ul>
 
@@ -315,6 +285,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
 				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
@@ -322,8 +294,6 @@
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
 		
 		</ul>		

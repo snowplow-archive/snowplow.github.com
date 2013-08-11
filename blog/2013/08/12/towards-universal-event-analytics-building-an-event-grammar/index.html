@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Towards universal event analytics - building an event grammar - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			12 Aug 2013
+			<h1>Towards universal event analytics - building an event grammar</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>As we outgrow our &#8220;fat table&#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
+
+<p>When we blogged about <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc&#8217;s excellent comment - although I would encourage you to read it in full <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>on the blog post</a>:</p>
+
+<p><em>Hi, we&#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
+
+<p><em>An Actor(id/type) made and Action(verb, context) on another Object(id/type).</em></p>
+
+<p><em>Each Actor, Action and Object can hold k/v properties.</em></p>
+
+<p><em>The context itself, owned by the action, is a k/v dictionary.</em></p>
+
+<p>So in designing his event grammar, Loïc was influenced by the <a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'>Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
+
+<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &#8220;event grammar&#8221; to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German et al and see just how far this approach can take us in modelling events in the digital world?</p>
+
+<p>So, in the rest of this post we will:</p>
+
+<ol>
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'>Introduce the components of our grammar</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'>Model some ecommerce events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'>Model some videogame events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'>Model some digital media events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'>Discuss what we have learnt</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'>Draw some conclusions</a></li>
+</ol>
+<!--more--><a name='grammar'> </a><h2>1. The components of our grammar</h2>
+<p>All of the human languages mentioned above (and many, many others) share the same fundamental building blocks in their grammars for describing an event with a verb in the <em>active voice</em>:</p>
+
+<p><img alt='grammar' src='/static/img/blog/2013/08/event-grammar.png' /></p>
+
+<p>To go through these in turn:</p>
+
+<ul>
+<li><strong>Subject</strong>, or noun in the <em>nominative</em> case. This is the entity which is carrying out the action: &#8221;<strong>I</strong> wrote a letter&#8221;</li>
+
+<li><strong>Verb</strong>, this describes the action being done by the subject: &#8220;I <strong>wrote</strong> a letter&#8221;</li>
+
+<li><strong>Object</strong>, aka <em>direct object</em> or noun in the <em>accusative</em> case. This is the entity to which the action is being done: &#8220;I wrote <strong>a letter</strong>&#8221;</li>
+
+<li><strong>Indirect object</strong>, or noun in the <em>dative</em> case. A slightly more tricky concept: this is the entity indirectly affected by the action: &#8220;I sent the letter <em>to</em> <strong>Tom</strong>&#8221;</li>
+
+<li><strong>Prepositional object</strong>. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: &#8220;I put the letter <em>in</em> <strong>an envelope</strong>&#8221;. In a language such as German, prepositional objects will be found in the <em>accusative</em>, <em>dative</em> or <em>genitive</em> case depending on the preposition used</li>
+
+<li><strong>Context</strong>. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: &#8220;I posted the letter <strong>on Tuesday from Boston</strong>&#8221;</li>
+</ul>
+
+<p>With these grammatical building blocks defined, let&#8217;s now put them through their paces modelling some digital events - starting with some online retail events:</p>
+<a name='ecommerce'> </a><h2>2. Modelling some ecommerce events</h2>
+<p>Here are some ecommerce events mapped to our grammatical model:</p>
+
+<p><img alt='ecomm1' src='/static/img/blog/2013/08/grammar-ecomm1.png' /></p>
+
+<p>In this event, a shopper (Subject) views (Verb) a t-shirt (Object) while browsing an online store (Context).</p>
+
+<p><img alt='ecomm2' src='/static/img/blog/2013/08/grammar-ecomm2.png' /></p>
+
+<p>Here we introduce an indirect object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Object) to her shopping basket (indirect object). Again, this is while browsing (Context).</p>
+
+<p><img alt='ecomm3' src='/static/img/blog/2013/08/grammar-ecomm3.png' /></p>
+
+<p>Here we have an object introduced by preposition: the shopper (Subject) pays (Verb) for his order (Prepositional Object). This is all within the checkout flow (Context).</p>
+<a name='videogame'> </a><h2>3. Modelling some videogame events</h2>
+<p>So far so good, but how well does this model work with events generated by a gaming session?</p>
+
+<p><img alt='videogame1' src='/static/img/blog/2013/08/grammar-videogame1.png' /></p>
+
+<p>In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Object) to another player (Indirect Object).</p>
+
+<p><img alt='videogame2' src='/static/img/blog/2013/08/grammar-videogame2.png' /></p>
+
+<p>During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the object of events, not just their subjects.</p>
+
+<p><img alt='videogame3' src='/static/img/blog/2013/08/grammar-videogame3.png' /></p>
+
+<p>Here we illustrate a reflexive verb: through grinding (Context), the player (Subject) levels herself up (Verb, reflexive). A reflexive verb is one where the Subject and the Object are the same.</p>
+<a name='media'> </a><h2>4. Modelling some digital media events</h2>
+<p>This seems to be working well! Finally, let&#8217;s map our new event grammar onto the world of digital media and publishing:</p>
+
+<p><img alt='media1' src='/static/img/blog/2013/08/grammar-media1.png' /></p>
+
+<p>While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Object).</p>
+
+<p><img alt='media2' src='/static/img/blog/2013/08/grammar-media2.png' /></p>
+
+<p>Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Object) on Twitter (Prepositional Object).</p>
+
+<p><img alt='media3' src='/static/img/blog/2013/08/grammar-media3.png' /></p>
+
+<p>Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.</p>
+<a name='learnings'> </a><h2>5. What have we learnt</h2>
+<p>As you can see, it is relatively straightforward to map any of the digital events above into these six &#8220;slots&#8221; of: Subject, Verb, Object, Indirect Object, Prepositional Object and Context. This is unsurprising: this core grammar has been unambiguously describing events in many different human languages across thousands of years.</p>
+
+<p>Going through the above exercise, several further things have become clear to us that we will want to factor into the Snowplow event grammar going forwards:</p>
+
+<h3 id='implicit_subject_is_a_mistake'>Implicit Subject is a mistake</h3>
+
+<p>Most web and event analytics systems make the mistake of making the Subject of the event implicit:</p>
+
+<pre><code>(End user) added product to basket
+(Admin) banned user #23</code></pre>
+
+<p>This is a mistake, because as we have seen above, the Subject is a key component of our event grammar.</p>
+
+<p>Going further, it is particularly dangerous to assume that the Subject of every event is your end user aka customer, because we have seen cases where this is not the case.</p>
+
+<h3 id='an_entity_can_be_subject_or_object_or_both_across_multiple_events'>An entity can be Subject or Object or both across multiple events</h3>
+
+<p>As per these gaming examples:</p>
+
+<pre><code>User #1 gifts gold to user #2
+User #2 kills user #3
+User #2 levels up
+Admin bans user #1</code></pre>
+
+<p>As we can see from this, the same entities will be found as Subject, Object, Indirect Object or Prepositional Object depending on the event.</p>
+
+<p>Most analytics systems miss the fact that an end user (for example) is not merely the implicit subject of multiple events, but is in fact an entity which is the Subject and the Object of different events.</p>
+
+<h3 id='we_can_keep_our_verbs_really_simple'>We can keep our Verbs really simple</h3>
+
+<p>All of the events above were modelled simply using verbs in the active voice, not the passive voice:</p>
+
+<ul>
+<li>Active voice: I watch a video</li>
+
+<li>Passive voice: the video was watched by Alex</li>
+</ul>
+
+<p>We don&#8217;t need to use passive voice for our event model, because we can always derive (if needed) a passive voice event from our active voice event.</p>
+
+<p>Going further, verbs conjugate in lots of other ways (tense, person, mood etc) - but again we don&#8217;t need to include any of this into our event model: all of this can be derived (if needed) from our event&#8217;s Context.</p>
+
+<h3 id='context_is_king'>Context is king</h3>
+
+<p>Our idea of Context does not map cleanly onto a singular grammatical component, but it&#8217;s just too useful to exclude. In fact, de facto we already have a rich web context for Snowplow events in our <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>Canonical event model</a>, including:</p>
+
+<ul>
+<li>When the event occurred</li>
+
+<li>Where (geographically) the event occurred</li>
+
+<li>Properties of the device on which the event occurred</li>
+</ul>
+<a name='learnings'> </a><h2>6. Conclusions</h2>
+<p>We hope this has been an interesting exploration of how we can potentially adapt and simplify the grammar of human languages to express a new grammar for digital events. We are really excited about the possibilities this opens up - initially around expressing such a grammar in our new <a href='http://avro.apache.org/'>Avro</a> event model, and later hopefully in graph databases such as <a href='http://www.neo4j.org/'>Neo4J</a>.</p>
+
+<p>Of course, we have only just started to sketch out this new event model, and we hope that it will prompt a wider debate with the Snowplow and analytics communities. We are excited to evolve these ideas and build a model for universal event analytics with you, together - and we look forward to continuing the conversation on our <a href='https://groups.google.com/d/forum/snowplow-user'>snowplow-user mailing list</a>.</p>
+
+<p>And finally, many thanks again to <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> for sharing his original Actor-Action-Object idea on our blog!</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+		
+			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+		
+			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+		
+			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+		
+			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
+			
+				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
+			
+				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+			
+				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
+			
+				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+				<li><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

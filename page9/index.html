@@ -68,6 +68,37 @@
 		<div id="contents">
 	
 		<div class="post">
+			22 Jan 2013
+			<h1><a href="/blog/2013/01/22/snowplow-0.7.1-released">Snowplow 0.7.1 released, with easier-to-run Ruby apps</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re happy to announce the release of Snowplow version <strong>0.7.1</strong>. This release is designed to make it much easier to install and run the two Snowplow Ruby applications:</p>
+
+<ol>
+<li><a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'>EmrEtlRunner</a> - which runs the Snowplow ETL job</li>
+
+<li><a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>StorageLoader</a> - which loads Snowplow events into Infobright</li>
+</ol>
+
+<p>From the feedback we received, setting up and running these two Ruby apps was the most challenging (and error-prone) part of the Snowplow experience. Many thanks to all of those in the community who reported bugs with our original approach and suggested fixes!</p>
+
+<p>To streamline this process and reduce the chances of problems occurring, we have updated both Ruby apps to work in a <a href='https://rvm.io/integration/bundler/'>RVM+Bundler</a> environment, inline with Ruby community best practice. Specifically, we have:</p>
+
+<ul>
+<li>Created a simple <a href='https://github.com/snowplow/snowplow/wiki/Ruby-and-RVM-setup'>guide to setting up Ruby and RVM</a> ready for Snowplow</li>
+
+<li>Updated both of our Ruby apps to use RVM and Bundler</li>
+
+<li>Updated our cronjob shell scripts to work with RVM and Bundler</li>
+
+<li>Updated the setup guides (<a href='https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-setup'>EmrEtlRunner</a>; <a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader</a>) for both apps to follow RVM and Bundler best practice</li>
+</ul>
+
+<p>This release bumps EmrEtlRunner to version 0.0.8 and StorageLoader to version 0.0.4.</p>
+
+<p>And that&#8217;s it! Hopefully this release fixes all of the Ruby-related issues encountered by Snowplow users - but of course there might still be a couple of teething issues. If you spot anything that still doesn&#8217;t seem right, do please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+		</div>
+	
+		<div class="post">
 			21 Jan 2013
 			<h1><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -162,38 +193,6 @@
 <p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 		</div>
 	
-		<div class="post">
-			09 Jan 2013
-			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
-			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
-
-<ol>
-<li>Feedback from the community on them</li>
-
-<li>Ideas for alternative approaches or new features</li>
-</ol>
-
-<p>We will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
-</ol>
-
-<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
-<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -213,6 +212,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+		
 			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 		
 			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
@@ -220,8 +221,6 @@
 			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 			<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-		
-			<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 		
 	</ul>
 
@@ -281,6 +280,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
 				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
@@ -288,8 +289,6 @@
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
-			
-				<li><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></li>
 			
 		
 		</ul>		

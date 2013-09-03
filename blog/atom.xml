@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-09-03T16:01:13+01:00</updated>
+  <updated>2013-09-03T16:52:16+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -30,7 +30,7 @@
 &lt;ol&gt;
 &lt;li&gt;Amazon Redshift or PostgreSQL, so you can analyze the data using traditional analytics and BI tools&lt;/li&gt;
 
-&lt;li&gt;Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. Mahout, Hive and Pig, on EMR&lt;/li&gt;
+&lt;li&gt;Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt;, &lt;a href='http://hive.apache.org/'&gt;Hive&lt;/a&gt; and &lt;a href='http://pig.apache.org/'&gt;Pig&lt;/a&gt;, on EMR&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Since we started offering support for Amazon Redshift and more recently PostgreSQL, our focus on the blog and in the &lt;a href='/analytics/index.html'&gt;Analytics Cookbook&lt;/a&gt; has been on using traditional analytics tools e.g. &lt;a href='http://www.tableausoftware.com/'&gt;Tableau&lt;/a&gt;, &lt;a href='http://cran.r-project.org/'&gt;R&lt;/a&gt; and &lt;a href='http://office.microsoft.com/en-gb/excel/'&gt;Excel&lt;/a&gt; to crunch the data. However, there are a host of reasons when you might want to crunch the data using one of the new generation of big data tools. Two give two examples:&lt;/p&gt;
@@ -50,6 +50,8 @@
 &lt;p&gt;It&amp;#8217;s not just the UI that makes using Qubole a lot nicer than EMR. Qubole handles the behind the scenes scaling of your cluster, so you don&amp;#8217;t have to. Queries that do not require map reduce jobs to produce outputs, e.g. reading data directly from S3, can be executed without spinning up clusters (and so return much faster). Clusters that are no longer used, are automatically shut down. (Am I the only person who&amp;#8217;s got in trouble for leaving a big cluster running over night?)&lt;/p&gt;
 
 &lt;p&gt;Qubole is a particular nice service if you want to use Apache Hive. It was developed by the same engineers who originally built Apache Hive at Facebook. In the &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'&gt;guide to getting started with Qubole&lt;/a&gt;, which we have just published, we walk Snowplow users through the process of running their first query Apache Hive query on Snowplow data with Qubole.&lt;/p&gt;
+
+&lt;p&gt;We intend to follow-up the getting started guide with a set of recipes for using both &lt;a href='http://hive.apache.org/'&gt;Hive&lt;/a&gt; and &lt;a href='http://mahout.apache.org/'&gt;Mahout&lt;/a&gt; via Qubole. Stay tuned!&lt;/p&gt;
 
 &lt;p&gt;As always, we welcome comments and feedback - especially on how you find the combination of Qubole&amp;#8217;s data crunching capability, on Snowplow&amp;#8217;s granular event-level data.&lt;/p&gt;</content>
   </entry>

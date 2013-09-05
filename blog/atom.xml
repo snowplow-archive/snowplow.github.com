@@ -4,13 +4,37 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-09-03T16:52:16+01:00</updated>
+  <updated>2013-09-05T20:18:04+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change"/>
+    <title>Snowplow 0.8.9 released to handle CloudFront log file format change</title>
+    <updated>2013-09-05T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are pleased to announce the immediate availability of Snowplow 0.8.9. This release was necessitated by an unannounced change Amazon made to the CloudFront access log file format on 17th August, discussed in this &lt;a href='https://forums.aws.amazon.com/thread.jspa?messageID=484509&amp;amp;#484509'&gt;AWS Forum thread&lt;/a&gt; and this &lt;a href='https://groups.google.com/forum/#!topic/snowplow-user/HWeSkiiXbdQ'&gt;snowplow-user email thread&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Essentially, Amazon switched from URL-encoding all &amp;#8221;%&amp;#8221;&amp;#8221; signs found in the &lt;code&gt;cs-uri-query&lt;/code&gt; field, to only URL-encoding them if they were not already escaped, i.e. were not followed by &amp;#8220;25&amp;#8221; (&amp;#8220;%25&amp;#8221;). This unannounced change was in contradiction to the existing &lt;a href='http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'&gt;CloudFront access log technical specification&lt;/a&gt;, which was not updated.&lt;/p&gt;
+
+&lt;p&gt;Snowplow expects &amp;#8221;%&amp;#8221; signs to be double-encoded, and so decodes them twice. Unfortunately, if a URL contains a space (e.g. in a referer search term), then constructing a URI object from this double-decoded string will fail, the event will be rejected by Snowplow validation and be logged to the bad-rows bucket (not loaded into Redshift). Assuming you are using the CloudFront collector, if you check your bad-rows bucket for Snowplow ETL runs before and after August 17th, expect to see a large increase in the number of bad-rows after the 17th.&lt;/p&gt;
+
+&lt;p&gt;On 5th September, Amazon decided to reverse this change, but this still leaves Snowplow users with three weeks&amp;#8217; worth of CloudFront logs in the wrong format. Therefore, we have released Snowplow 0.8.9, which adds support for both single- and double-encoded &amp;#8221;%&amp;#8221; signs in the &lt;code&gt;cs-uri-query&lt;/code&gt; field.&lt;/p&gt;
+
+&lt;p&gt;Assuming you are using EmrEtlRunner, you need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to use the latest version of the Hadoop ETL:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:snowplow&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:hadoop_etl_version&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0.3.4&lt;/span&gt; &lt;span class='c1'&gt;# Version of the Hadoop ETL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And that&amp;#8217;s it! You may also want to re-run your Snowplow process against your CloudFront logs starting from the 17th August to recover the events wrongly identified as &amp;#8220;bad rows&amp;#8221;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data</id>

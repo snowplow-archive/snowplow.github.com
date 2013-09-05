@@ -68,6 +68,16 @@
 		<div id="contents">
 	
 		<div class="post">
+			30 May 2013
+			<h1><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Hadoop has a serious Small File Problem. It&#8217;s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href='http://blog.cloudera.com/blog/2009/02/the-small-files-problem/'>Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
+<img src='/static/img/blog/2013/05/plowing-small-files.jpg' />
+<p>In this blog post we will discuss the small files problem in terms of our experiences with it at Snowplow. <strong>And we will argue that dealing with the small files problem - if you have it - is the single most important optimisation you can perform on your MapReduce process.</strong></p>
+<p class='more'><a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			24 May 2013
 			<h1><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -143,30 +153,6 @@
 <p class='more'><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			14 May 2013
-			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
-
-<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
-
-<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
-
-<p>In the rest of this post, then, we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -186,6 +172,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
 			<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 		
 			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
@@ -193,8 +181,6 @@
 			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 		
 			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-		
-			<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 		
 	</ul>
 
@@ -220,6 +206,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
 				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
@@ -227,8 +215,6 @@
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
 				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-			
-				<li><a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements">Snowplow 0.8.6 released with performance improvements</a></li>
 			
 		
 		</ul>		

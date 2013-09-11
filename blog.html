@@ -80,10 +80,10 @@
 <ol>
 <li>How to use <a href='http://hive.apache.org/'>Apache Hive</a>, <a href='http://www.qubole.com/'>Qubole</a> and <a href='https://github.com/rcongiu'>Robert Congui&#8217;s</a> <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to monitor the number of bad rows generated over time</li>
 
-<li>How to us the same tools to reprocess the bad rows of data, so that they are added to your Snowplow data in Redshift / PostgreSQL</li>
+<li>How to use the same tools to reprocess the bad rows of data, so that they are added to your Snowplow data in Redshift / PostgreSQL</li>
 </ol>
 
-<p>The steps necessary to reprocess the data will be very similar to those required regardless of the reason that the reprocessing is necessary: as a result, this blog post should be useful for anyone interested in using the bad rows functionality to debug and improve their event data collection. It should also be useful for anyone interested in using <a href='http://hive.apache.org/'>Hive</a> and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to process JSON data in S3. (Bad row data is stored by Snowplow in JSON format, which is why the JSON serde is necessary.) We will use <a href='http://www.qubole.com/'>Qubole</a>, our preferred platform for running Hive jobs on data in S3, which we previously introduced in <a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>this blog post</a>.</p>
+<p>The steps necessary to reprocess the data will be very similar to those required regardless of the reason that the reprocessing is necessary: as a result, this blog post should be useful for anyone interested in using the bad rows functionality to debug and improve the robustness of their event data collection. It should also be useful for anyone interested in using <a href='http://hive.apache.org/'>Hive</a> and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to process JSON data in S3. (Bad row data is stored by Snowplow in JSON format.) We will use <a href='http://www.qubole.com/'>Qubole</a>, our preferred platform for running Hive jobs on data in S3, which we previously introduced in <a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>this blog post</a>.</p>
 
 <ol>
 <li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#how-snowplow-handles-bad-rows'>Understanding how Snowplow handles bad rows</a></li>

@@ -68,6 +68,30 @@
 		<div id="contents">
 	
 		<div class="post">
+			07 Jan 2013
+			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
+			 <span class="author">Author: <a href="" rel="author"> </a></span>
+			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
+
+<p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.</p>
+
+<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
+
+<h2 id='contents'>Contents</h2>
+
+<ol>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
+
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/01/07/the-clojure-collector-in-detail'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			03 Jan 2013
 			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">Snowplow 0.7.0 released, with new Clojure-based collector</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -163,18 +187,6 @@
 <p class='more'><a href='/blog/2012/12/20/snowplow-0.6.4-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			18 Dec 2012
-			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
-
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
-
-<p>We&#8217;ll take a look at both fixes below:</p>
-<p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -194,6 +206,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+		
 			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 		
 			<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
@@ -202,14 +216,14 @@
 		
 			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 		
-			<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
 				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
@@ -218,8 +232,6 @@
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
 				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
-			
-				<li><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></li>
 			
 		
 		</ul>		

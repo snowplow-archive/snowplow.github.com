@@ -95,7 +95,8 @@
 <span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'># Only display results for the *production website*</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>unique_visitors</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note that the query above is specific to a particular retailer: Psychic Bazaar. You will need to modify your version of the query so that results are only shown for product pages (rather than catalog pages, home pages etc), by modifying the <code>WHERE</code> clause. You may also want to limit the query to a specific period of time, by adding a set of date conditions (using <code>collecor_dt</code>) to the <code>WHERE</code> clause.</p>
 
 <p>The results of the above query look something like this:</p>
@@ -140,7 +141,8 @@
 <span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>uniques_that_add_to_basket</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The results of the above query look something like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>product_sku</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>number_of_add_to_baskets</strong></th><th><strong>number_of_products_added_to_baket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style='text-align: left;'>PBZ00274</td><td style='text-align: right;'>14</td><td style='text-align: right;'>16</td><td style='text-align: right;'>16</td>
 </tr><tr><td style='text-align: left;'>/tarot-cards/121-the-gothic-tarot.html</td><td style='text-align: left;'>PBZ00110</td><td style='text-align: right;'>14</td><td style='text-align: right;'>15</td><td style='text-align: right;'>15</td>
@@ -188,7 +190,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
 <span class='p'>)</span> <span class='n'>ab</span>
 <span class='k'>ON</span> <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>page_urlpath</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The results of the query look something like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>fraction_that_add_to_basket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/244-el-gran-tarot-esoterico.html</td><td style='text-align: right;'>132</td><td style='text-align: right;'>17</td><td style='text-align: right;'>0.128</td>
 </tr><tr><td style='text-align: left;'>/jewellery/151-gold-hamsa-on-black-thread-bracelet.htm</td><td style='text-align: right;'>105</td><td style='text-align: right;'>2</td><td style='text-align: right;'>0.190</td>
@@ -254,7 +257,8 @@
 <span class='k'>FROM</span> <span class='n'>events_008</span>
 <span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can combine this with the previous queries:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
 <span class='k'>SELECT</span>
@@ -308,7 +312,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>ON</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>product_sku</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>ti_sku</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This produces a result set that looks like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>uniques_that_purchase</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/oracles/266-magical-messages-from-the-fairies-oracle-cards.html</td><td style='text-align: right;'>89</td><td style='text-align: right;'>14</td><td style='text-align: right;'>7</td>
 </tr><tr><td style='text-align: left;'>/tarot-cards/127-petrak-tarot.html</td><td style='text-align: right;'>82</td><td style='text-align: right;'>21</td><td style='text-align: right;'>18</td>

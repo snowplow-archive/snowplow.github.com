@@ -116,7 +116,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='nb'>Date</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='nb'>Date</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='uniques-by-day' src='/static/img/analytics/basic-recipes/uniques-by-day-chartio.png' /></p>
@@ -132,7 +133,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span> 
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='visits-by-day' src='/static/img/analytics/basic-recipes/visits-by-day-chartio.png' /></p>
@@ -151,7 +153,8 @@
 <span class='k'>and</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span> 
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='pageviews-by-day' src='/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png' /></p>
@@ -169,7 +172,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span> 
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='events-by-day' src='/static/img/analytics/basic-recipes/events-by-day-chartio.png' /></p>
@@ -185,7 +189,8 @@
 <span class='k'>where</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>and</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='k'>session</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can then aggregate our data by number of pages per visit, to produce a frequency table:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -201,7 +206,8 @@
 <span class='p'>)</span> <span class='k'>as</span> <span class='n'>page_view_per_visit</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>pages_visited</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='n'>pages_visited</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='page-views-per-visit-frequency-table-chartio' src='/static/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png' /></p>
@@ -219,7 +225,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This query returns a line of data for every session. For each, it logs a timestamp, the number of events, and a flag that is set to 1 if the visitor bounced.</p>
 
 <p>To calculate bounce rate by day, we take the above table, aggregate the results by day, sum the number of bounces and divide it by the total number of sessions:</p>
@@ -240,7 +247,8 @@
 <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='nb'>Date</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='nb'>Date</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note that we have to cast sum(bounces) as a &#8216;real&#8217; number, to force Redshift / PostgreSQL to output a real number rather than an integer for the bounce rate.</p>
 
 <p>In ChartIO:</p>
@@ -261,7 +269,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then we aggregate the visits over our desired time period, and calculate the fraction of them that are new:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -278,7 +287,8 @@
 	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;date&quot;</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s2'>&quot;date&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='fraction-of-visits-per-day-where-the-visitor-is-new' src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png' /></p>
@@ -296,7 +306,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -315,7 +326,8 @@
 <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;Date&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p><a href='#top'>Back to top</a></p>
 <a name='language'><h2>9. Demographics: language</h2></a>
 <p>For each event the browser language is stored in the <code>br_language</code> field. As a result, counting the number of visitors in a time period by language is trivial:</p>
@@ -327,7 +339,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>br_lang</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;visitors&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='visitors-by-language-chartio' src='/static/img/analytics/basic-recipes/visitors-by-language-chartio.png' /></p>
@@ -345,7 +358,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>geo_country</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;visitors&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='visitors-by-country' src='/static/img/analytics/basic-recipes/visitors-by-country-chartio.png' /></p>
@@ -364,7 +378,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then we can aggregate them by time period, to get the total new vs returning e.g. by day:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -383,7 +398,8 @@
 <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span> <span class='ss'>&quot;New vs returning&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Date&quot;</span><span class='p'>,</span> <span class='ss'>&quot;New vs returning&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='new-vs-returning-visits-by-day' src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day-chartio.png' /></p>
@@ -398,7 +414,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Number of visits&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Number of visits&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='distribution-of-visitors-by-number-of-visits' src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits.png' /></p>
@@ -415,7 +432,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can join the above table with a similar table, but join each visit to data for the previous visit, so we can calculate the number of days between visits:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -451,7 +469,8 @@
 	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
 <span class='p'>)</span> <span class='n'>p</span> <span class='k'>on</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>previous_domain_sessionidx</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
 <span class='k'>and</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>domain_userid</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Finally, we group the results by the number of days between visits, to plot a frequency table:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -494,7 +513,8 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Days between visits&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Days between visits&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='days-since-last-visit-in-chartio' src='/static/img/analytics/basic-recipes/days-since-last-visit-in-chartio.png' /></p>
@@ -525,7 +545,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then we aggregate the results for each bucket, so we have frequency by bucket:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>select</span>
@@ -549,7 +570,8 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;Visit duration&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='s2'>&quot;Visit duration&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can then plot the results in ChartIO:</p>
 
 <p><img alt='visits-by-duration-chartio' src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' /></p>
@@ -564,7 +586,8 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>and</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We then aggregate those results together by the number of page views per visit</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSLQ */</span>
 <span class='k'>select</span>
@@ -582,7 +605,8 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Page views per visit&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Page views per visit&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='visits-in-the-last-month-by-page-depth' src='/static/img/analytics/basic-recipes/visits-in-last-month-by-page-depth-chartio.png' /></p>
@@ -599,7 +623,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Browser&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Visits&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In ChartIO:</p>
 
 <p><img alt='visits-by-browser-type' src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' /></p>
@@ -616,7 +641,8 @@
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='ss'>&quot;Operating System&quot;</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='ss'>&quot;Visits&quot;</span> <span class='k'>desc</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Again, we can plot the results in ChartIO:</p>
 
 <p><img alt='visits-by-operating-system' src='/static/img/analytics/basic-recipes/visits-by-operating-system-chartio.png' /></p>
@@ -630,7 +656,8 @@
 <span class='nf'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>as</span> <span class='s2'>&quot;Visits&quot;</span>
 <span class='k'>from</span> <span class='n'>events</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='s2'>&quot;Device type&quot;</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Plotting the results in ChartIO:</p>
 
 <p><img alt='split-in-visits-by-mobile-vs-desktop' src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop-chartio.png' /></p>

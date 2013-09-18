@@ -125,7 +125,8 @@
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.3</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Read on for the rest of the changes you will need to make to <code>config.yml</code>.</p>
 
 <h3 id='emretlrunner'>EmrEtlRunner</h3>
@@ -170,7 +171,8 @@ $ bundle install --deployment</code></pre>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.3</span> <span class='c1'># Version of the Hadoop ETL</span>
   <span class='l-Scalar-Plain'>:collector_format</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>cloudfront</span> <span class='c1'># Or &#39;clj-tomcat&#39; for the Clojure Collector</span>
   <span class='l-Scalar-Plain'>:continue_on_unexpected_error</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>false</span> <span class='c1'># You can switch to &#39;true&#39; (and set :out_errors: above) if you really don&#39;t want the ETL throwing exceptions</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note that the <code>:snowplow:</code> section has been mostly removed, with <code>:hadoop_etl_version:</code> moving into the <code>:etl:</code> section.</p>
 
 <h3 id='storageloader'>StorageLoader</h3>
@@ -203,7 +205,8 @@ $ bundle install --deployment</code></pre>
     <span class='l-Scalar-Plain'>:username</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
     <span class='l-Scalar-Plain'>:password</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
     <span class='l-Scalar-Plain'>:maxerror</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>1</span> <span class='c1'># Stop loading on first error, or increase to permit more load errors</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note the new <code>:maxerror:</code> setting - see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for more on this.</p>
 
 <p>To add another Redshift storage target, just add another configuration block under <code>:targets:</code>, starting with <code>- :name:</code>.</p>
@@ -247,7 +250,8 @@ $ bundle install --deployment</code></pre>
     <span class='l-Scalar-Plain'>:username</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
     <span class='l-Scalar-Plain'>:password</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
     <span class='l-Scalar-Plain'>:maxerror</span><span class='p-Indicator'>:</span> <span class='c1'># Not required for Postgres</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Make sure to set <code>:folder:</code> to a local directory where you can download the Snowplow event files to, ready for loading into your local Postgres database server.</p>
 <h2><a name='hiveql'>3. Querying events with HiveQL</a></h2>
 <p>The new release makes it possible again to query your Snowplow events directly on Amazon S3 using <a href='http://hive.apache.org/'>HiveQL</a>.</p>

@@ -117,7 +117,8 @@
 </tr></tbody></table>
 <p>To make use of the new custom user ID, you can use the following new method in the JavaScript tracker:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;alex-123&#39;</span><span class='p'>]);</span> <span class='c1'>// Business-defined user ID</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Please note that you must call <code>setUserId()</code> on every page where you know the user ID - in other words the setting does not survive a pageload.</p>
 
 <p>Whether or not each type of user ID is available for your analysis depends on the combination of your tracker and collector:</p>

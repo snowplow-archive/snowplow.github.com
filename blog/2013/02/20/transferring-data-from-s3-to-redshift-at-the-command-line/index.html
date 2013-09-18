@@ -77,11 +77,7 @@
 <h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
 
 <p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
-<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
-<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
-<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
 <!--more-->
 <p>In order to orchestrate bulk loading programmatically, we used <a href='http://www.xigole.com/software/jisql/jisql.jsp'>JiSQL</a>, a Java based command-line tool for executing SQL queries that uses a JDBC driver. JiSQL enables us to specify the specific, Redshift-compatible JDBC driver to use to establish the connection. This meant we could upgrade our Ruby <a href='https://github.com/snowplow/snowplow/wiki/setting-up-alternative-data-stores'>StorageLoader</a> to execute the relevant command-line syntax to initiate the regular data loads of Snowplow data from S3 into Redshift.</p>
@@ -118,7 +114,8 @@
 <li>Execute the following command:</li>
 </ul>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>java -cp lib/jisql-2.0.11.jar:lib/jopt-simple-3.2.jar:lib/postgresql-8.4-703.jdbc4.jar com.xigole.util.sql.Jisql  -driver postgresql -cstring jdbc:postgresql://snowplow.cjbccnwghslt.us-east-1.redshift.amazonaws.com:5439/snplow -user <span class='nv'>$USERNAME</span> -password <span class='nv'>$PASSWORD</span> -c <span class='se'>\;</span> -query <span class='s2'>&quot;copy events from &#39;s3://$MY_BUCKET/PATH/TO/FILES/FOR/UPLOAD credentials &#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39; delimiter &#39;\t&#39;;&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Some notes about the above query:</p>
 
 <ul>

@@ -77,7 +77,8 @@
 <div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
 <span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
 <span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
 
 <ol>

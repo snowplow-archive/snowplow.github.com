@@ -88,7 +88,8 @@
 <div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
 
 <pre><code>...&amp;said=CFe23a&amp;...</code></pre>
@@ -149,7 +150,8 @@
 <span class='c1'>// trackTrans sends the transaction to Snowplow tracking servers.</span>
 <span class='c1'>// Must be called last to commit the transaction.</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackTrans&#39;</span><span class='p'>]);</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The above example creates an order (aka &#8220;transaction&#8221;) with ID <code>order-123</code> and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final <code>trackTrans</code> call sends this complete order to Snowplow as three separate events - one each for the order and its line items.</p>
 
 <p>This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.</p>

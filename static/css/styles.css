@@ -150,6 +150,26 @@
   #container .author {
     color: #797f94;
     font-size: 11px; }
+  #container .team_member_profile {
+    position: relative;
+    float: left;
+    width: 340px;
+    min-height: 470px;
+    margin-right: 20px; }
+    #container .team_member_profile .name {
+      position: relative;
+      float: left;
+      width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 3px; }
+    #container .team_member_profile .pic {
+      position: relative;
+      width: 100%;
+      float: left; }
+      #container .team_member_profile .pic img {
+        width: 150px;
+        height: 150px; }
 
 #sidebar {
   width: 200px;

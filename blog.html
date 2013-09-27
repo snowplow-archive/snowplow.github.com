@@ -68,6 +68,26 @@
 		<div id="contents">
 	
 		<div class="post">
+			27 Sep 2013
+			<h1><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We are very please to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we&#8217;ve been working on <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>since July</a>, to enable:</p>
+
+<ul>
+<li>Snowplow users and prospective users better forecast their Snowplow costs going forwards</li>
+
+<li>The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform</li>
+</ul>
+
+<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges (and how we tackled them), discuss why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> rather than Excel, and explore some surprising aspects of what drives Snowplow AWS costs. (Building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.) Until we do, we encourage anyone with an interest in to <a href='https://github.com/snowplow/snowplow-tco-model'>download</a> and play with the model directly themselves. (You should be able to mdoel the cost of your particular Snowplow segment, and see how costs divide between the different AWS services.)</p>
+
+<p>In this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with Google Analytics and SiteCatalyst:</p>
+
+<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
+<p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			11 Sep 2013
 			<h1><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -180,50 +200,6 @@
 <p class='more'><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			05 Aug 2013
-			<h1><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href='http://www.postgresql.org/'>PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
-
-<p>And if you are already happily using Snowplow with Redshift, there are two other new features to check out:</p>
-
-<ol>
-<li>We have added support for multiple storage targets to Snowplow&#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
-
-<li>We have brought back the ability to query your Snowplow events using <a href='http://hive.apache.org/'>HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
-</ol>
-
-<p>As well as these new features, we have made a large number of improvements across Snowplow:</p>
-
-<ul>
-<li>We have made some improvements to the Hadoop-based Enrichment process (bumped to version 0.3.3)</li>
-
-<li>We have simplified EmrEtlRunner and its configuration file format</li>
-
-<li>We have improved the performance of the Redshift loading code</li>
-
-<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for details)</li>
-
-<li>We have moved the Snowplow JavaScript Tracker into <a href='https://github.com/snowplow/snowplow-javascript-tracker'>its own repository</a></li>
-
-<li>We have removed the deprecated Hive ETL and Infobright folders from the repository</li>
-</ul>
-
-<p>After the fold, we will cover the options for upgrading and using the new functionality:</p>
-
-<ol>
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'>Upgrading</a></li>
-
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'>Loading events into Postgres</a></li>
-
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'>Querying events with HiveQL</a></li>
-
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'>Getting help</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -241,6 +217,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
 			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
@@ -248,8 +226,6 @@
 			<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 		
 			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-		
-			<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 		
 	</ul>
 
@@ -309,6 +285,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
 				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
 				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
@@ -316,8 +294,6 @@
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-				<li><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></li>
 			
 		
 		</ul>		

@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.4.6 released - Snowplow Analytics</title>
+	<title>How much does Snowplow cost to run, vs the competition? - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,33 +67,54 @@
 	
 		<div id="contents">
 		<div class="post">
-			20 Aug 2012
-			<h1>Snowplow 0.4.6 released</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Over the weekend we released Snowplow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the Snowplow JavaScript tracker.</p>
+			27 Sep 2013
+			<h1>How much does Snowplow cost to run, vs the competition?</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We are very please to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we&#8217;ve been working on <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>since July</a>, to enable:</p>
 
-<p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
+<ul>
+<li>Snowplow users and prospective users better forecast their Snowplow costs going forwards</li>
 
-<p>You can use this feature in your JavaScript invocation code like so:</p>
-<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>Snowplow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
-<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
-<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
+<li>The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform</li>
+</ul>
 
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges (and how we tackled them), discuss why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> rather than Excel, and explore some surprising aspects of what drives Snowplow AWS costs. (Building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.) Until we do, we encourage anyone with an interest in to <a href='https://github.com/snowplow/snowplow-tco-model'>download</a> and play with the model directly themselves. (You should be able to mdoel the cost of your particular Snowplow segment, and see how costs divide between the different AWS services.)</p>
 
-<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
-<span class='p'>...</span>
-</code></pre></div>
-<p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
+<p>In this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with Google Analytics and SiteCatalyst:</p>
 
-<p>We added this capability to Snowplow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for Snowplow. Going forwards you can of course use this custom URL to send your Snowplow events to any kind of collector on a domain you control.</p>
+<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
+<!--more-->
+<p>We can&#8217;t (alas) compete with the free version of <a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'>Google Analytics</a> on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)</p>
 
-<p>Anyway I hope you like the feature and let us know how you get on with it!</p>
+<p>At higher volumes, though, the savings are substantial. Snowplow is <strong>at least an order of magnitude cheaper</strong> to run than <a href='http://www.google.co.uk/intl/en_uk/analytics/premium/index.html'>GA Premium</a> and <a href='http://www.adobe.com/solutions/digital-analytics/marketing-reports-analytics.html'>Adobe SiteCatalyst</a> for companies recording between 10k and 100k events per month. (At these volumes, we&#8217;ve modelled the cost based on users employing Redshift, rather than PostgreSQL, to store their data.) Even at a billion events per month (where multiple Redshift nodes are required to store all your atomic data), the cost of running Snowplow is not much more than half the cost of running Google Analytics Premium.</p>
+
+<p>We&#8217;ve also compared the cost of running Snowplow with the cost of some of the SaaS analytics vendors: (Note in this diagram we&#8217;re comparing monthly, rather than yearly costs).</p>
+
+<p><img alt='snowplow-saas-price-comparison' src='/static/img/price-comparison/snowplow-saas-price-comparison.png' /></p>
+
+<p>For anyone capturing 500K events or more, it is cheaper to run Snowplow, than <a href='https://mixpanel.com/'>Mixpanel</a>, <a href='https://www.kissmetrics.com/'>Kissmetrics</a> or <a href='https://keen.io/'>Keen IO</a>. However, the saving increases with volume: at 20M events per month, Snowplow costs 25% less to run than Mixpanel, for example.</p>
+
+<p><strong>Sources</strong></p>
+
+<p>The above pricing comparisons were put together with data from the following sources: if over time the prices change, then please let us know, so we can update them to keep them accurate:</p>
+
+<ul>
+<li><a href='http://www.neboagency.com/blog/google-analytics-vs-site-catalyst-2/'>Google Analytics Premium pricing</a></li>
+
+<li>Omniture SiteCatalyst pricing based on a cross section of 20 different clients</li>
+
+<li><a href='https://mixpanel.com/pricing/'>Mixpanel pricing page</a></li>
+
+<li><a href='https://www.kissmetrics.com/pricing'>Kissmetrics pricing page</a></li>
+
+<li><a href='https://keen.io/'>Keen IO pricing page</a></li>
+
+<li>For Snowplow pricing, please refer to the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow TCO model</a> for details on both the underlying model assumptions and the model mechanics.</li>
+</ul>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
 </div>
 
 			</div> 

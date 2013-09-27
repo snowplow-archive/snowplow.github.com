@@ -71,17 +71,19 @@
 			27 Sep 2013
 			<h1><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are very please to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we&#8217;ve been working on <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>since July</a>, to enable:</p>
+			<p>We are very pleased to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we started developing <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>back in July</a>, to enable:</p>
 
 <ul>
-<li>Snowplow users and prospective users better forecast their Snowplow costs going forwards</li>
+<li>Snowplow users and prospective users to better forecast their Snowplow costs on <a href='http://aws.amazon.com/'>Amazon Web Services</a> going forwards</li>
 
 <li>The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform</li>
 </ul>
 
-<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges (and how we tackled them), discuss why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> rather than Excel, and explore some surprising aspects of what drives Snowplow AWS costs. (Building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.) Until we do, we encourage anyone with an interest in to <a href='https://github.com/snowplow/snowplow-tco-model'>download</a> and play with the model directly themselves. (You should be able to mdoel the cost of your particular Snowplow segment, and see how costs divide between the different AWS services.)</p>
+<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges and how we tackled them. We&#8217;ll also review why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.</p>
 
-<p>In this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with Google Analytics and SiteCatalyst:</p>
+<p>In the meantime, <a href='https://github.com/snowplow/snowplow-tco-model'>download our TCO Model</a> and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.</p>
+
+<p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
 
 <p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
 <p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>

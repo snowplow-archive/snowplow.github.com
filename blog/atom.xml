@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-09-27T14:05:07+01:00</updated>
+  <updated>2013-09-27T14:23:41+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -21,25 +21,27 @@
       <name>Yali</name>
       <uri>http://snowplowanalytics.com/</uri>
     </author>
-    <content type="html">&lt;p&gt;We are very please to announce the release of the &lt;a href='https://github.com/snowplow/snowplow-tco-model'&gt;Snowplow Total Cost of Ownership Model&lt;/a&gt;. This is a model we&amp;#8217;ve been working on &lt;a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;since July&lt;/a&gt;, to enable:&lt;/p&gt;
+    <content type="html">&lt;p&gt;We are very pleased to announce the release of the &lt;a href='https://github.com/snowplow/snowplow-tco-model'&gt;Snowplow Total Cost of Ownership Model&lt;/a&gt;. This is a model we started developing &lt;a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;back in July&lt;/a&gt;, to enable:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Snowplow users and prospective users better forecast their Snowplow costs going forwards&lt;/li&gt;
+&lt;li&gt;Snowplow users and prospective users to better forecast their Snowplow costs on &lt;a href='http://aws.amazon.com/'&gt;Amazon Web Services&lt;/a&gt; going forwards&lt;/li&gt;
 
 &lt;li&gt;The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&amp;#8217;ll publish a series of blog posts exploring those challenges (and how we tackled them), discuss why we chose to build the model in &lt;a href='http://cran.r-project.org/'&gt;R&lt;/a&gt; rather than Excel, and explore some surprising aspects of what drives Snowplow AWS costs. (Building on our &lt;a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;last blog post&lt;/a&gt; on the subject.) Until we do, we encourage anyone with an interest in to &lt;a href='https://github.com/snowplow/snowplow-tco-model'&gt;download&lt;/a&gt; and play with the model directly themselves. (You should be able to mdoel the cost of your particular Snowplow segment, and see how costs divide between the different AWS services.)&lt;/p&gt;
+&lt;p&gt;Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&amp;#8217;ll publish a series of blog posts exploring those challenges and how we tackled them. We&amp;#8217;ll also review why we chose to build the model in &lt;a href='http://cran.r-project.org/'&gt;R&lt;/a&gt; (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our &lt;a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;last blog post&lt;/a&gt; on the subject.&lt;/p&gt;
 
-&lt;p&gt;In this blog post, we&amp;#8217;ll focus on perhaps the most interesting output of the model: &lt;strong&gt;How expensive is it to run Snowplow vs our commercial competitors?&lt;/strong&gt; Let&amp;#8217;s start by comparing it with Google Analytics and SiteCatalyst:&lt;/p&gt;
+&lt;p&gt;In the meantime, &lt;a href='https://github.com/snowplow/snowplow-tco-model'&gt;download our TCO Model&lt;/a&gt; and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this blog post, we&amp;#8217;ll focus on perhaps the most interesting output of the model: &lt;strong&gt;How expensive is it to run Snowplow vs our commercial competitors?&lt;/strong&gt; Let&amp;#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /&gt;&lt;/p&gt;
 &lt;!--more--&gt;
-&lt;p&gt;We can&amp;#8217;t (alas) compete with the free version of &lt;a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'&gt;Google Analytics&lt;/a&gt; on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)&lt;/p&gt;
+&lt;p&gt;Snowplow cannot compete with the free version of &lt;a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'&gt;Google Analytics&lt;/a&gt; directly on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)&lt;/p&gt;
 
-&lt;p&gt;At higher volumes, though, the savings are substantial. Snowplow is &lt;strong&gt;at least an order of magnitude cheaper&lt;/strong&gt; to run than &lt;a href='http://www.google.co.uk/intl/en_uk/analytics/premium/index.html'&gt;GA Premium&lt;/a&gt; and &lt;a href='http://www.adobe.com/solutions/digital-analytics/marketing-reports-analytics.html'&gt;Adobe SiteCatalyst&lt;/a&gt; for companies recording between 10k and 100k events per month. (At these volumes, we&amp;#8217;ve modelled the cost based on users employing Redshift, rather than PostgreSQL, to store their data.) Even at a billion events per month (where multiple Redshift nodes are required to store all your atomic data), the cost of running Snowplow is not much more than half the cost of running Google Analytics Premium.&lt;/p&gt;
+&lt;p&gt;At higher volumes, though, the savings are substantial. Running Snowplow is &lt;strong&gt;at least an order of magnitude cheaper&lt;/strong&gt; than &lt;a href='http://www.google.co.uk/intl/en_uk/analytics/premium/index.html'&gt;GA Premium&lt;/a&gt; and &lt;a href='http://www.adobe.com/solutions/digital-analytics/marketing-reports-analytics.html'&gt;Adobe SiteCatalyst&lt;/a&gt; for businesses recording between 10k and 100k events per month. (At these volumes, we&amp;#8217;ve modelled the cost based on users employing Redshift, rather than PostgreSQL, to store their data.) Even at a billion events per month (where multiple Redshift nodes are required to store all your atomic data), the cost of running Snowplow is a little over half the cost of running Google Analytics Premium.&lt;/p&gt;
 
-&lt;p&gt;We&amp;#8217;ve also compared the cost of running Snowplow with the cost of some of the SaaS analytics vendors: (Note in this diagram we&amp;#8217;re comparing monthly, rather than yearly costs).&lt;/p&gt;
+&lt;p&gt;We&amp;#8217;ve then compared the cost of running Snowplow with the cost of some of the SaaS analytics startups (note in this diagram we&amp;#8217;re comparing monthly, rather than yearly costs):&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='snowplow-saas-price-comparison' src='/static/img/price-comparison/snowplow-saas-price-comparison.png' /&gt;&lt;/p&gt;
 

@@ -68,6 +68,44 @@
 		<div id="contents">
 	
 		<div class="post">
+			12 Aug 2013
+			<h1><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>As we outgrow our &#8220;fat table&#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
+
+<p>When we blogged about <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc&#8217;s excellent comment - although I would encourage you to read it in full <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>on the blog post</a>:</p>
+
+<p><em>Hi, we&#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
+
+<p><em>An Actor(id/type) made and Action(verb, context) on another Object(id/type).</em></p>
+
+<p><em>Each Actor, Action and Object can hold k/v properties.</em></p>
+
+<p><em>The context itself, owned by the action, is a k/v dictionary.</em></p>
+
+<p>So in designing his event grammar, Loïc was influenced by the <a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'>Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
+
+<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &#8220;event grammar&#8221; to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
+
+<p>So, in the rest of this post we will:</p>
+
+<ol>
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'>Introduce the components of our grammar</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'>Model some ecommerce events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'>Model some videogame events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'>Model some digital media events</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'>Discuss what we have learnt</a></li>
+
+<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'>Draw some conclusions</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			05 Aug 2013
 			<h1><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -186,32 +224,6 @@
 <p class='more'><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			09 Jul 2013
-			<h1><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
-
-<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
-
-<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
-
-<p>Here is a taster for using the library from C Sharp:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
-
-<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
-<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
-
-<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
-
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
-<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre></div>
-<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
-<p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -231,6 +243,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+		
 			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
@@ -239,14 +253,14 @@
 		
 			<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 		
-			<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
 				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
@@ -255,8 +269,6 @@
 				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
-			
-				<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></li>
 			
 		
 		</ul>		

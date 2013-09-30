@@ -4,13 +4,57 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-09-27T14:23:41+01:00</updated>
+  <updated>2013-09-30T15:19:44+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/09/30/book-review-instant-hive-essentials-how-to</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/09/30/book-review-instant-hive-essentials-how-to"/>
+    <title>Book review - Apache Hive Essentials How-to</title>
+    <updated>2013-09-30T00:00:00+01:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Although it is no longer part of the core Snowplow stack, Apache Hive is the gateway drug that got us started on Hadoop. As some of our &lt;a href='http://snowplowanalytics.com/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'&gt;recent&lt;/a&gt; &lt;a href='http://snowplowanalytics.com/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'&gt;blog posts&lt;/a&gt; testify, Hive is still very much a part of our big data toolkit, and this will continue as we use it to roll out new features. (E.g. for analyzing custom unstructured events.) I suspect that many Hadoopers started out with Hive, before experimenting with the myriad other tools to crunch data using Hadoop.&lt;/p&gt;
+
+&lt;p&gt;We were therefore delighted to be invited to review &lt;a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;amp;utm_medium=link&amp;amp;utm_campaign=bookmention'&gt;Apache Hive Essentials How-to&lt;/a&gt;, a new guide to Hive written by Darren Lee from &lt;a href='http://www.bizo.com/home'&gt;Bizo&lt;/a&gt;.&lt;/p&gt;
+&lt;a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;amp;utm_medium=link&amp;amp;utm_campaign=bookmention'&gt;
+	&lt;img src='/static/img/blog/2013/09/instant-apache-hive-essentials.png' title='Hive how to guide' /&gt;
+&lt;/a&gt;
+&lt;p&gt;For me, there are two totally different categories of technical book that I enjoy in completely different ways:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Books that help me use tools more effectively: so I do more in less time.&lt;/li&gt;
+
+&lt;li&gt;Books that change the way I see the tools I use. These books step back from the practicalities of using the particular tools they cover to situate them in their proper context, and compare their usage with other tools. My favorite example in this cateogry is &lt;a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'&gt;Seven Languages in Seven Weeks&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Often, technical books fail because they try and accomplish &lt;em&gt;both&lt;/em&gt; of the above.&lt;/p&gt;
+
+&lt;p&gt;Fortunately, that is &lt;strong&gt;not&lt;/strong&gt; true of the &lt;a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;amp;utm_medium=link&amp;amp;utm_campaign=bookmention'&gt;Apache Hive Essentials How-to&lt;/a&gt;. This is an uncompromisingly practical, focused book, that makes essential reading for anyone working with Hive.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='why_is_it_such_a_good_book'&gt;Why is it such a good book?&lt;/h2&gt;
+
+&lt;p&gt;The best thing about Hive is that it makes Hadoop accessible to anyone familiar with SQL. The tricky thing about Hive, is that getting the most out of it means using those features that take you out of SQL, in particular:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Writing custom SerDes&lt;/li&gt;
+
+&lt;li&gt;Writing user defined functions, including table defining functions&lt;/li&gt;
+
+&lt;li&gt;Streaming with Python / Ruby&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Darren Lee does a great job of jumping straight into some of the more useful, trickier aspects of Hive (particularly optimizing joins) before covering the topics listed above. His instructions for writing custom SerDes and user defined functions is succinct and easy to follow. His code is clear and well explained. His examples are well chosen. (I particularly like example of implementing simple linear regression as a user-defined aggregation function.)&lt;/p&gt;
+
+&lt;p&gt;This book is short, sharp and to the point. I only wish I&amp;#8217;d read it 18 months ago.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/09/27/how-much-does-snowplow-cost-to-run</id>

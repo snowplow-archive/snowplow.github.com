@@ -68,6 +68,36 @@
 		<div id="contents">
 	
 		<div class="post">
+			06 Sep 2012
+			<h1><a href="/blog/2012/09/06/snowplow-0.4.7-released">Snowplow 0.4.7 released</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We have just released Snowplow version <strong>0.4.7</strong>. This release bumps the Snowplow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+
+<ol>
+<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+
+<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
+</ol>
+
+<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
+
+<p>We&#8217;ll take a look at both of these new features in turn:</p>
+
+<h2 id='site_id'>Site ID</h2>
+
+<p>The Snowplow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
+</code></pre></div>
+<p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
+
+<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
+
+<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well. <p class='more'><a href='/blog/2012/09/06/snowplow-0.4.7-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			21 Aug 2012
 			<h1><a href="/blog/2012/08/21/amazon-glacier-launch">Amazon announces Glacier - lowers the cost of running Snowplow</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -150,15 +180,6 @@
 <p>To encourage users to extend Snowplow, we&#8217;ve architected Snowplow in a module way, to enable developers to swap out elements in the Snowplow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the Snowplow architecture <a href='/product/technical-architecture.html'>here</a>.</p>
 		</div>
 	
-		<div class="post">
-			02 Aug 2012
-			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Following a lot of invaluable feedback from users setting up Snowplow for the first time, we&#8217;ve updated the Snowplow setup documentation.</p>
-
-<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for Snowplow newbies to get up and running&#8230;</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -167,9 +188,9 @@
 			<a href="/page15" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 16 of 16</span>
+		<span class="page_number">Page: 16 of 17</span>
 		
-			<span class="next">Next</span>
+			<a href="/page17" class="next">Next</a>
 		
 	</div>
 </div>
@@ -177,6 +198,8 @@
 <div id="sidebar">
 	<h1>Recent posts</h1>
 	<ul>
+		
+			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 		
@@ -186,14 +209,14 @@
 		
 			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 		
-			<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
@@ -202,8 +225,6 @@
 				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
 				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-				<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></li>
 			
 		
 		</ul>		

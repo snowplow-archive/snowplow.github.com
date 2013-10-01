@@ -4,13 +4,53 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-10-01T13:07:29+01:00</updated>
+  <updated>2013-10-01T17:31:37+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/10/01/snowplow-passes-500-stars</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/10/01/snowplow-passes-500-stars"/>
+    <title>Snowplow passes 500 stars on GitHub</title>
+    <updated>2013-10-01T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;As of yesterday, the &lt;a href='https://github.com/snowplow/snowplow'&gt;Snowplow repository on GitHub&lt;/a&gt; now has over 500 stars! We&amp;#8217;re hugely excited to reach this milestone, having picked up &lt;strong&gt;300 new watchers&lt;/strong&gt; since our &lt;a href='/blog/2013/01/20/snowplow-hits-202-stars'&gt;last milestone&lt;/a&gt; in January.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to everyone in the Snowplow community and on GitHub for their continuing support and interest!&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#8217;s a quick round-up of the most popular open source analytics projects on GitHub:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://github.com/mnutt/hummingbird'&gt;Hummingbird&lt;/a&gt; (real-time web analytics) - 2,299 stars&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/piwik/piwik'&gt;Piwik&lt;/a&gt; (web analytics) - 1,290 stars&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/Countly/countly-server'&gt;Countly&lt;/a&gt; (mobile analytics) - 798 stars&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='https://github.com/snowplow/snowplow'&gt;Snowplow&lt;/a&gt; - 501 stars&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So we&amp;#8217;re in the challenger position but definitely nipping at the heels of the alternatives!&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;We thought it would be fun to share an updated &lt;a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;amp;repo=snowplow'&gt;Red Dwarf heatmap&lt;/a&gt; showing where our 501 GitHub stars are located across the world:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='heatmap' src='/static/img/blog/2013/10/snowplow-stars-at-501.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Viewed alongside &lt;a href='/blog/2013/01/20/snowplow-hits-202-stars'&gt;January&amp;#8217;s heatmap&lt;/a&gt;, it&amp;#8217;s really encouraging to see Snowplow picking up more interest in South Asia, Eastern Europe and the West Coast of the US!&lt;/p&gt;
+
+&lt;p&gt;In other news, GitHub recently replaced its list of the most-watched Scala projects with a list of &lt;a href='https://github.com/trending?l=scala'&gt;Trending Scala repositories&lt;/a&gt;. We were delighted to hit the top of this list in mid-September, pipping Scala stalwarts including the Play Framework and Scala itself:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='trending' src='/static/img/blog/2013/10/snowplow-trending-16-sep-2013.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;All of this is hugely encouraging for the future. So many thanks for your continued support and look out for some big new features coming to Snowplow soon!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/09/30/book-review-instant-hive-essentials-how-to</id>

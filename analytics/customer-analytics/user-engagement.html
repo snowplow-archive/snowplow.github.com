@@ -105,129 +105,106 @@
 
 <li><a href='#weighted-events-per-visit'>Weighting events by value</a></li>
 </ol>
-<a name='days-per-time-period'><h3>1. Measuring the number of days per week / month that users visit the site</h3></a>
+<a name='days-per-time-period'><h3>1. Measuring the number of days per month that users visit the site</h3></a>
 <p>This is a key metric employed by the social network Facebook, amongst others.</p>
 
-<p>To calculate it, we first calculate the figure per domain_userid per time period (e.g. month):</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
-<span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>days_visited_per_user_per_month</span> <span class='p'>(</span>
-<span class='n'>domain_userid</span> <span class='n'>STRING</span><span class='p'>,</span>	
-<span class='n'>yr</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>mnth</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>visits</span> <span class='kt'>INT</span>
-<span class='p'>)</span> <span class='p'>;</span>
-
-<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>days_visited_per_user_per_month</span> 
+<p>To calculate it, calculate for each user how many days they&#8217;ve visited our website for each month:</p>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
+<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>collectordt</span><span class='p'>),</span>
-<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>month</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;day&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='ss'>&quot;Days_visited_website&quot;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 </code></pre></div>
-<p>We can then look at the distribution of users by the number of days per month they have logged in, for any month in particular:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
+<p>Now we can aggregate over that data to calculate the distribution, by month, or users, by the number of days they have logged in:</p>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
-<span class='n'>visits</span><span class='p'>,</span>
-<span class='nf'>count</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
-<span class='k'>WHERE</span> <span class='n'>yr</span><span class='o'>=</span><span class='mi'>12</span> <span class='k'>AND</span> <span class='n'>mnth</span><span class='o'>=</span><span class='mi'>5</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>visits</span> <span class='p'>;</span>
-</code></pre></div>
-<p>We might also want to see how the distribution evolves by month:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
-<span class='k'>SELECT</span>
-<span class='n'>yr</span><span class='p'>,</span>
-<span class='n'>mnth</span><span class='p'>,</span>
-<span class='n'>visits</span><span class='p'>,</span>
-<span class='nf'>count</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>days_visited_per_month</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
+<span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
+<span class='ss'>&quot;Days_visited_website&quot;</span><span class='p'>,</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Frequency&quot;</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;day&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='ss'>&quot;Days_visited_website&quot;</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> <span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
 <p>Note: as well as looking at how the distribution of users by engagement level changes over time, we might also want to look at how it changes for a fixed group of users. This is normally performed as part of a <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a>.</p>
 <a name='visits-per-time-period'><h3>2. Number of visits by each user per day / week / month</h3></a>
-<p>A similar metric is calculated by countint the number of visits that each user makes in a given time period. The difference here, is that if a user visits a site more than once a day, each individual visit contributes to the &#8220;engagement&#8221; value assigned to that user. When we look at the number of days per month a user visits a website, by contrast, we do not distinguish users who&#8217;ve visited once from users who&#8217;ve visited twice.</p>
+<p>A similar metric is calculated by countint the number of visits (sessions) that each user makes in a given time period. The difference here, is that if a user visits a site more than once a day, each individual visit contributes to the &#8220;engagement&#8221; value assigned to that user. When we look at the number of days per month a user visits a website, by contrast, we do not distinguish users who&#8217;ve visited once from users who&#8217;ve visited twice.</p>
 
 <p>Which approach is better depends on the type of product / service you offer online and the way users engage with it. If users typically open your service in a browser window, and then leave it on (but in the background), distinguishing users who visit once and twice a day may not be meaningful. If each visit is distinct, however, this metric might be preferable.</p>
 
 <p>To calculate it, we first calculate the number of visits performed per user per time period. (In the below example we use a month as a time period):</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
-<span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>visits_by_user_by_month</span> <span class='p'>(</span>
-<span class='n'>domain_userid</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>yr</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>mnth</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>visits</span> <span class='kt'>INT</span>
-<span class='p'>)</span> <span class='p'>;</span>
-
-<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>visits_by_user_by_month</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
+<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
-<span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
-<span class='nf'>COUNT</span><span class='p'>(</span> <span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_sessionidx</span> <span class='p'>))</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='kt'>YEAR</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)</span> <span class='p'>;</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;Visits_per_month&quot;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
+<span class='p'>)</span> <span class='p'>;</span>
 </code></pre></div>
-<p>Now we can look at the distribution of users, by numbers of visits per time period, in each time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
+<p>Now we can aggregate over the above data to view the distribution of users, by numbers of visits per time period, in each time period:</p>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
-<span class='n'>yr</span><span class='p'>,</span>
-<span class='n'>mnth</span><span class='p'>,</span>
-<span class='n'>visits</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>visits_by_user_by_month</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>yr</span><span class='p'>,</span> <span class='n'>mnth</span><span class='p'>,</span> <span class='n'>visits</span> <span class='p'>;</span>
+<span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
+<span class='ss'>&quot;Visits_per_month&quot;</span><span class='p'>,</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Frequency&quot;</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;Month&quot;</span><span class='p'>,</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='ss'>&quot;Visits_per_month&quot;</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> 
+<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 </code></pre></div><a name='events-per-visit'><h3>3. Number of events per visit</h3></a>
 <p>We can take the number of &#8220;events&#8221; that occur on each visit as a proxy for how &#8220;engaged&#8221; the user was during that visit. (With more events indicating a deeper level of engagement.)</p>
 
 <p>Counting the number of events per user per visit is straightforward:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
-<span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>engagement_by_visit</span> <span class='p'>(</span>
-<span class='n'>domain_userid</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>domain_sessionidx</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>engagement</span> <span class='kt'>INT</span>
-<span class='p'>)</span> <span class='p'>;</span>
-
-<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>engagement_by_visit</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;engagement_level&quot;</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> <span class='p'>;</span>
 </code></pre></div>
-<p>We can then look at the distribution of visits by engagement level:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
+<p>We can then look at the distribution of users by engagement level:</p>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
-<span class='n'>engagement</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>engagement</span> <span class='p'>;</span>
+<span class='n'>engagement_level</span><span class='p'>,</span>
+<span class='k'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='k'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;engagement_level&quot;</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> 
+<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> <span class='p'>;</span>
 </code></pre></div>
 <p>If we want to see whether this metric is improving over time, we can repeat the above, but this time note the date of each visit, and aggregate by time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / Infobright */</span>
-<span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='nf'>engagement_by_visit</span> <span class='p'>(</span>
-<span class='n'>domain_userid</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>domain_sessionidx</span> <span class='kt'>INT</span><span class='p'>,</span>
-<span class='n'>dt</span> <span class='n'>STRING</span><span class='p'>,</span>
-<span class='n'>engagement</span> <span class='kt'>INT</span>
-<span class='p'>)</span> <span class='p'>;</span>
-
-<span class='k'>INSERT</span> <span class='n'>OVERWRITE</span> <span class='k'>TABLE</span> <span class='n'>engagement_by_visit</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
-<span class='n'>domain_userid</span><span class='p'>,</span>
-<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-<span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>),</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='n'>txn_id</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='p'>;</span>	
-
-<span class='k'>SELECT</span>
-<span class='n'>dt</span><span class='p'>,</span>
-<span class='n'>engagement</span><span class='p'>,</span>
-<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>dt</span><span class='p'>,</span> <span class='n'>engagement</span> <span class='p'>;</span>
+<span class='n'>Month</span><span class='p'>,</span>
+<span class='n'>engagement_level</span><span class='p'>,</span>
+<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;Frequency&quot;</span>
+<span class='k'>FROM</span> <span class='p'>(</span>
+	<span class='k'>SELECT</span>
+	<span class='nf'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;Month&quot;</span><span class='p'>,</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
+	<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;engagement_level&quot;</span>
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+<span class='p'>)</span> <span class='n'>t</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> <span class='p'>;</span>
 </code></pre></div><a name='weighted-events-per-visit'><h3>4. Weighting events by value</h3></a>
 <p>TO WRITE</p>
 

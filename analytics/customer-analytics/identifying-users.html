@@ -90,9 +90,17 @@
 <li>A <code>user_id</code> that can be set to custom values. This can be used to assign e.g. an ID set by a CRM system to Snowplow data.</li>
 </ol>
 
+<p>In addition, there are two additional fields that can be used to identify users:</p>
+
+<ol>
+<li><code>user_ipaddress</code></li>
+
+<li><code>user_fingerprint</code></li>
+</ol>
+
 <p>There are strengths and weaknesses associated with each different type of user identifier. In many cases, we recommend using a combination of two or three of them to power the most robust set of user analytics. (More on this below.) In this introductory section, however, we&#8217;ll stick to outlining the benefits and limitations of each:</p>
 
-<h3 id='1_the_'>1. The <code>domain_userid</code></h3>
+<h4 id='1_the_'>1. The <code>domain_userid</code></h4>
 
 <p>The <code>domain_userid</code> is set via a first party cookie in the Snowplow Javascript (<code>sp.js</code>).</p>
 
@@ -100,7 +108,7 @@
 
 <p>However, because it is tied to a first party cookie, it cannot be used to track users across domains: if you have Snowplow set up across a network of sites, the same user on different sites will have different <code>domain_userid</code>s. (At least one for each site.)</p>
 
-<h3 id='2_the_'>2. The <code>network_userid</code></h3>
+<h4 id='2_the_'>2. The <code>network_userid</code></h4>
 
 <p>The <code>network_userid</code> is tied to a third party cookie. Because of this, it can be used to track an individual across multiple different domains.</p>
 
@@ -108,38 +116,50 @@
 
 <p>Currently, the <code>network_userid</code> is <strong>only</strong> set if you use the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-Clojure-collector'>Clojure collector</a>, not if you use the Cloudfront collector. (Unlike the Clojure collector, the Cloudfront collector does not set 3rd party cookies.)</p>
 
-<h3 id='3_the_'>3. The <code>user_id</code></h3>
+<h4 id='3_the_'>3. The <code>user_id</code></h4>
 
 <p>Many companies and business already set their identifiers for their users and / or customers. (For example, when the user creates an account, or completes a first purchase.) In these cases, that user ID can be passed into Snowplow as the <code>user_id</code> using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-user-id'>setUserID</a> method. This makes it easy to join Snowplow event data with other customer data sets e.g. CRM data.</p>
+
+<h4 id='4_the_'>4. The <code>user_ipaddress</code></h4>
+
+<p>IP addresses can be useful tools to use for identifying users. In particular, these can often be mapped to geographic locations, or specific companies / businesses.</p>
+
+<p>Often, however, several users will connect from the same IP address. As a result, companies only typically use IP address as one of many clues to identifying a user, rather than the sole identifier.</p>
+
+<h3 id='5_the_'>5. The <code>user_fingerprint</code></h3>
+
+<p>This is an experimental feature, that uses specific browser features (e.g. plugins that have been installed) to &#8220;fingerprint&#8221; the browser.</p>
+
+<p>We are not sure how well this works in practice (i.e. how unique different browsers are). It may be useful to stitch together sessions on occasions where a user&#8217;s cookies have been deleted, for example.</p>
 <h2><a name='benefits_of_user_id'>2. Benefits of exposing the user IDs for analysis</a></h2>
 <h3 id='2a_ability_to_view_a_users_complete_engagement_record'>2a. Ability to view a user&#8217;s complete engagement record</h3>
 
 <p>Analysts can quickly zoom in on a user&#8217;s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 <span class='o'>*</span>
-<span class='k'>FROM</span> <span class='n'>events_008_cf</span>
-<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;[[ENTER USER ID HERE]]&#39;</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;{ENTER USER ID HERE}&#39;</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>dvce_tstamp</span>
 </code></pre></div>
 <p>E.g. executing the query in Navicat:</p>
 
-<p><img alt='user-actions-over-time-navicat' src='/static/img/analytics/customer-analytics/user-actions-over-time.png' /></p>
+<p><img alt='user-actions-over-time-navicat' src='/static/img/analytics/customer-analytics/user-actions-over-time-navicat.JPG' /></p>
 
 <h3 id='2b_ability_to_track_users_over_multiple_sessions'>2b. Ability to track users over multiple sessions</h3>
 
 <p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, Snowplow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using Snowplow for <a href='/analytics/customer-analytics/attribution.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attribution.html'>attribution section</a> of this documentation.)</p>
 
 <p>Each time a user visits a site, Snowplow sets a session counter (<code>domain_sessionidx</code>): this is set to 1 on the user&#8217;s first visit, 2 on the user&#8217;s second visit etc. So to view how many visits a customer makes before purchasing, we can execute a query like this:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>ev_action</span> <span class='o'>=</span> <span class='s1'>&#39;order-complete&#39;</span>
 <span class='k'>AND</span> <span class='n'>domain_sessionidx</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_sessionidx</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>domain_sessionidx</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span>
 </code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
@@ -147,13 +167,13 @@
 
 <h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
 
-<p>Because we can easily slice data by user_id (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
-<span class='k'>SELECT</span>
-<span class='nf'>DATE_FORMAT</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='s1'>&#39;%Y-%m&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>`cohort`</span><span class='p'>,</span>
-<span class='n'>domain_userid</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span>
+<p>Because we can easily slice data by user (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span> 
+<span class='n'>domain_userid</span><span class='p'>,</span>
+<span class='nf'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s2'>&quot;cohort&quot;</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='s2'>&quot;events&quot;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 </code></pre></div>
 <p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
 <h2><a name='benefits_of_multiple_user_ids'>3. The benefits of exposing multiple user IDs</a></h2>
@@ -207,14 +227,15 @@
 </code></pre></div></p>
 
 <p>It is then possible to map <code>user_id</code> to e.g. <code>domain_userid</code> by executing the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>CREATE</span> <span class='n'>VIEW</span> <span class='n'>business_to_cookie_id_map</span> <span class='k'>AS</span>
 <span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='n'>user_id</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>AND</span> <span class='n'>user_id</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>user_id</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 </code></pre></div>
 <p>This type of mapping table is reliable and flexible, because it can accommodate many-to-many relationships between <code>user_id</code> and <code>domain_userid</code>. Consider the following two cases:</p>
 

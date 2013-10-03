@@ -69,7 +69,7 @@
 
 <p>Snowplow consists of five loosely-coupled subsystems.</p>
 
-<p><img alt='architecture' src='/static/img/technical-architecture.png' /></p>
+<p><img src='/static/img/technical-architecture.png' alt='architecture' /></p>
 
 <h3 id='1_trackers'>1. Trackers</h3>
 
@@ -106,9 +106,11 @@
 <ul>
 <li>Snowplow can be setup to load your event-level and customer-level data into one or more data stores, to enable analytics.</li>
 
-<li>Currently we support loading Snowplow data into <a href='http://aws.amazon.com/s3/'>Amazon S3</a> (for processing by <a href='http://hive.apache.org/'>Hive</a> / <a href='http://pig.apache.org/'>Pig</a> / <a href='http://mahout.apache.org/'>Mahout</a> on EMR) and <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a> for analysis in more traditional tools (e.g. <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>R</a>, <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data'>Tableau</a> and <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Excel-to-analyze-Snowplow-data'>Excel</a>).</li>
+<li>Snowplow data is delivered into <a href='http://aws.amazon.com/s3/'>Amazon S3</a> (for processing by <a href='http://hive.apache.org/'>Hive</a> / <a href='http://pig.apache.org/'>Pig</a> / <a href='http://mahout.apache.org/'>Mahout</a> on EMR).</li>
 
-<li>We plan to add support for storing Snowplow data in <a href='http://www.postgresql.org/'>PostgreSQL</a> in the near future, for Snowplow users who do not require Redshift&#8217;s Terabyte-Petabyte scale solution.</li>
+<li>In addition, Snowplow supports loading the data into <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a> and <a href='http://www.postgresql.org/'>PostgreSQL</a> for analysis in more traditional tools (e.g. <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>R</a>, <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data'>Tableau</a> and <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Excel-to-analyze-Snowplow-data'>Excel</a>). Amazon Redshift enables Snowplow users to query Petabytes of Snowplow data quickly and conveniently via its Postgres API.</li>
+
+<li>Going forwards, we plan to support more storage targets to enable a broader set of analyses, including <a href='http://www.neo4j.org/'>Neo4J</a>.</li>
 </ul>
 
 <p>Snowplow data is stored in each storage option above as close to the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>Snowplow Canonical Event Model</a> as possible. The data model is described <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>here</a>.</p>

@@ -76,7 +76,8 @@
 <div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
 <span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
 <span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
 
 <ol>
@@ -112,16 +113,19 @@
 <p>First require the library and instantiate a new tracker:</p>
 <div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>snowplow</span> <span class='o'>=</span> <span class='nb'>require</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>snowplow&quot;</span> <span class='p'>)</span>
 <span class='kd'>local</span> <span class='n'>tracker</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForUri</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>snplow.mydomain.com&quot;</span> <span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>You can adjust the default configuration if you like:</p>
 <div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>encodeBase64</span><span class='p'>(</span> <span class='kc'>false</span> <span class='p'>)</span> <span class='c1'>-- Default is true</span>
 <span class='n'>tracker</span><span class='p'>:</span><span class='n'>platform</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>tv&quot;</span> <span class='p'>)</span> <span class='c1'>-- Default is &quot;pc&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Add any additional information about the app, user or device that you know:</p>
 <div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>setUserId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>bob@example.com&quot;</span> <span class='p'>)</span>
 <span class='n'>tracker</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-lightroom-plugin&quot;</span> <span class='p'>)</span>
 <span class='n'>tracker</span><span class='p'>:</span><span class='n'>setScreenResolution</span><span class='p'>(</span> <span class='mi'>1068</span><span class='p'>,</span> <span class='mi'>720</span> <span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now you are ready to track your events:</p>
 <div class='highlight'><pre><code class='lua'><span class='n'>tracker</span><span class='p'>:</span><span class='n'>trackUnstructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>save-file&quot;</span><span class='p'>,</span> <span class='p'>{</span> <span class='n'>save_id</span> <span class='o'>=</span> <span class='s2'>&quot;</span><span class='s'>4321&quot;</span><span class='p'>,</span>
                                            <span class='n'>compression</span> <span class='o'>=</span> <span class='mi'>98</span><span class='p'>,</span>
@@ -129,7 +133,8 @@
                                            <span class='n'>read_only</span> <span class='o'>=</span> <span class='kc'>false</span>
                                          <span class='p'>}</span>
                           <span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>And that&#8217;s it!</p>
 <h2><a name='usage example'>3. Finding out more</a></h2>
 <p>To read through the complete API for this Lua event tracker, please see the <a href='https://github.com/snowplow/snowplow/wiki/Lua-Tracker'>Lua Tracker page</a> on the Snowplow wiki.</p>
@@ -187,23 +192,6 @@
 	</ul>
 
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -221,19 +209,19 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		
@@ -251,6 +239,23 @@
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		

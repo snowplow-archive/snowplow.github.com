@@ -82,7 +82,7 @@
 <li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
 </ol>
 
-<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
+<p><img src='/static/img/blog/2013/07/breaking-bad-money.jpg' alt='money' /></p>
 <!--more--><h2><a name='costs'>Understanding Cloudfront costs and the potential savings</a></h2>
 <p>Snowplow users rack up Cloudfront costs because both the Snowplow Javascript file <code>sp.js</code> and the <code>i</code> pixel are served from Cloudfront. A straightforward way of reducing your Cloudfront costs is to encourage the browsers of users who visit the websites you are tracking to cache <code>sp.js</code>. Because this file does not change frequently (it only changes on specific Snowplow upgrades), there is no need for the browser to reload it with each new page view. By getting browsers to cache the file, so that it only loads once per browser (i.e. once per visitor) rather than once per page view, your Cloudfront fees should drop notably. Take for example, an example ad network serving that uses Snowplow to track ad impressions, and serves 30 billion ads per month on 10 billion page views, across a network of 150M uniques.</p>
 
@@ -100,7 +100,7 @@
 
 <p>To set this property, we go into the AWS S3 console, identify <code>sp.js</code>, right click on it and select <strong>Properties</strong>. Click on the <strong>Metadata</strong> drop down and then click <strong>Add more metadata</strong>:</p>
 
-<p><img alt='add-more-metadata' src='/static/img/blog/2013/07/properties-filled-in.png' /></p>
+<p><img src='/static/img/blog/2013/07/properties-filled-in.png' alt='add-more-metadata' /></p>
 
 <p>In the keys dropdown select <strong>Cache control</strong>. In the values field enter <code>max-age=</code> and then a value for the lifetime of <code>sp.js</code>. In our case, we&#8217;ve set it to 10 years i.e. 315,360,000 seconds.</p>
 
@@ -171,23 +171,6 @@
 	</ul>
 
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -205,19 +188,19 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		
@@ -235,6 +218,23 @@
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		

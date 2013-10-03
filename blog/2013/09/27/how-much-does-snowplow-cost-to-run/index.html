@@ -84,7 +84,7 @@
 
 <p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
 
-<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
+<p><img src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' alt='snowplow-premium-price-comparison' /></p>
 <!--more-->
 <p>Snowplow cannot compete with the free version of <a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'>Google Analytics</a> directly on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)</p>
 
@@ -92,7 +92,7 @@
 
 <p>We&#8217;ve then compared the cost of running Snowplow with the cost of some of the SaaS analytics startups (note in this diagram we&#8217;re comparing monthly, rather than yearly costs):</p>
 
-<p><img alt='snowplow-saas-price-comparison' src='/static/img/price-comparison/snowplow-saas-price-comparison.png' /></p>
+<p><img src='/static/img/price-comparison/snowplow-saas-price-comparison.png' alt='snowplow-saas-price-comparison' /></p>
 
 <p>For anyone capturing 500K events or more, it is cheaper to run Snowplow, than <a href='https://mixpanel.com/'>Mixpanel</a>, <a href='https://www.kissmetrics.com/'>Kissmetrics</a> or <a href='https://keen.io/'>Keen IO</a>. However, the saving increases with volume: at 20M events per month, Snowplow costs 25% less to run than Mixpanel, for example.</p>
 
@@ -163,23 +163,6 @@
 	</ul>
 
 	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -197,19 +180,19 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		
@@ -227,6 +210,23 @@
 				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
 				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		

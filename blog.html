@@ -68,6 +68,18 @@
 		<div id="contents">
 	
 		<div class="post">
+			07 Oct 2013
+			<h1><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Applications for the new Snowplow Analytics open source internship program are now open! At Snowplow we are passionate about enterprise-strength open-source technology, and we are hugely excited to be offering paid internships for open source hackers this winter.</p>
+
+<p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &#8220;winterns&#8221; will work directly on and contribute to data engineering projects within the <a href='https://github.com/snowplow'>Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
+
+<p><img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /></p>
+<p class='more'><a href='/blog/2013/10/07/announcing-our-winter-open-source-internship-program'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			01 Oct 2013
 			<h1><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -133,7 +145,7 @@
 
 <p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
 
-<p><img src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' alt='snowplow-premium-price-comparison' /></p>
+<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
 <p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -167,26 +179,6 @@
 <p class='more'><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			05 Sep 2013
-			<h1><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the immediate availability of Snowplow 0.8.9. This release was necessitated by an unannounced change Amazon made to the CloudFront access log file format on 17th August, discussed in this <a href='https://forums.aws.amazon.com/thread.jspa?messageID=484509&amp;#484509'>AWS Forum thread</a> and this <a href='https://groups.google.com/forum/#!topic/snowplow-user/HWeSkiiXbdQ'>snowplow-user email thread</a>.</p>
-
-<p>Essentially, Amazon switched from URL-encoding all &#8221;%&#8221;&#8221; signs found in the <code>cs-uri-query</code> field, to only URL-encoding them if they were not already escaped, i.e. were not followed by &#8220;25&#8221; (&#8220;%25&#8221;). This unannounced change was in contradiction to the existing <a href='http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>CloudFront access log technical specification</a>, which was not updated.</p>
-
-<p>Snowplow expects &#8221;%&#8221; signs to be double-encoded, and so decodes them twice. Unfortunately, if a URL contains a space (e.g. in a referer search term), then constructing a URI object from this double-decoded string will fail, the event will be rejected by Snowplow validation and be logged to the bad-rows bucket (not loaded into Redshift). Assuming you are using the CloudFront collector, if you check your bad-rows bucket for Snowplow ETL runs before and after August 17th, expect to see a large increase in the number of bad-rows after the 17th.</p>
-
-<p>On 5th September, Amazon decided to reverse this change, but this still leaves Snowplow users with three weeks&#8217; worth of CloudFront logs in the wrong format. Therefore, we have released Snowplow 0.8.9, which adds support for both single- and double-encoded &#8221;%&#8221; signs in the <code>cs-uri-query</code> field.</p>
-
-<p>Assuming you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.4</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre>
-</div>
-<p>And that&#8217;s it! You may also want to re-run your Snowplow process against your CloudFront logs starting from the 17th August to recover the events wrongly identified as &#8220;bad rows&#8221;.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -204,6 +196,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
@@ -212,10 +206,25 @@
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
-			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -234,19 +243,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		
@@ -268,19 +277,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

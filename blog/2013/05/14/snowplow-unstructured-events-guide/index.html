@@ -108,8 +108,7 @@
                     <span class='nx'>available_since$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>,</span><span class='mi'>7</span><span class='p'>)</span>
                 <span class='p'>}</span>
             <span class='p'>]);</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Every call to <code>trackUnstructEvent</code> has the same structure - the complexity comes from knowing how to structure the <code>properties</code> JavaScript object. We will discuss this next:</p>
 <h2><a name='properties-object'>2. The 'properties' JavaScript object</a></h2>
 <p>The <code>properties</code> JavaScript consists of a set of individual <code>name: value</code> properties.</p>
@@ -118,8 +117,7 @@
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>category</span><span class='o'>:</span> <span class='p'>{</span> <span class='nx'>primary</span><span class='o'>:</span> <span class='s1'>&#39;Womenswear&#39;</span><span class='p'>,</span> <span class='nx'>secondary</span><span class='o'>:</span> <span class='s1'>&#39;Dresses&#39;</span><span class='p'>},</span> <span class='c1'>// NOT allowed</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The <code>properties</code> JavaScript object supports a wide range of datatypes - see below for details.</p>
 <h2><a name='supported-datatypes'>3. Supported datatypes</a></h2>
 <p>Snowplow unstructured events support a relatively rich set of datatypes. Because these datatypes do not always map directly onto JavaScript datatypes, we have introduced some &#8220;type suffixes&#8221; for the JavaScript property names, to tell Snowplow what Snowplow datatype we want the JavaScript data to map onto.</p>
@@ -142,32 +140,28 @@
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>returns_id</span><span class='o'>:</span> <span class='kc'>null</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='string'>String</h3>
 
 <p>Tracking a String is easy:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>product_id</span><span class='o'>:</span> <span class='s1'>&#39;ASO01043&#39;</span> <span class='c1'>// Or &quot;ASO01043&quot;</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='boolean'>Boolean</h3>
 
 <p>Tracking a Boolean is also straightforward:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>trial</span><span class='o'>:</span> <span class='kc'>true</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='integer'>Integer</h3>
 
 <p>To track an Integer, use a JavaScript Number but add a type suffix like so:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>in_stock$int</span><span class='o'>:</span> <span class='mi'>23</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><strong>Warning:</strong> if you do not add the <code>$int</code> type suffix, Snowplow will assume you are tracking a Floating point number.</p>
 
 <h3 id='floating_point'>Floating point</h3>
@@ -177,16 +171,14 @@
     <span class='nx'>price$flt</span><span class='o'>:</span> <span class='mf'>4.99</span><span class='p'>,</span> 
     <span class='nx'>sales_tax</span><span class='o'>:</span> <span class='mf'>49.99</span> <span class='c1'>// Same as $sales_tax:$flt</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='geocoordinates'>Geo-coordinates</h3>
 
 <p>Tracking a pair of Geographic coordinates is done like so:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>check_in$geo</span><span class='o'>:</span> <span class='p'>[</span><span class='mf'>40.11041</span><span class='p'>,</span> <span class='o'>-</span><span class='mf'>88.21337</span><span class='p'>]</span> <span class='c1'>// Lat, long</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Please note that the datatype takes the format <strong>latitude</strong> followed by <strong>longitude</strong>. That is the same order used by services such as Google Maps.</p>
 
 <p><strong>Warning:</strong> if you do not add the <code>$geo</code> type suffix, then the value will be incorrectly interpreted by Snowplow as an Array of Floating points.</p>
@@ -214,8 +206,7 @@
     <span class='nx'>last_action$tms</span><span class='o'>:</span> <span class='mi'>1368454114215</span><span class='p'>,</span> <span class='c1'>// Accurate to milliseconds</span>
     <span class='nx'>last_action2</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>()</span> <span class='c1'>// Sent to Snowplow as last_action2$tms: 1368454114215</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note that the type prefix only indicates how the JavaScript Number sent to Snowplow is interpreted - all Snowplow Dates are stored to milliseconds precision (whether or not they include that level of precision).</p>
 
 <p><strong>Two warnings:</strong></p>
@@ -228,8 +219,7 @@
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>last_ping$dt</span><span class='o'>:</span> <span class='mi'>1371129610</span> <span class='c1'>// Should have been $tm. Snowplow will interpret this as the year 3756521449</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='arrays'>Arrays</h3>
 
 <p>You can track an Array of values of any data type other than Null.</p>
@@ -238,16 +228,14 @@
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='mi'>28</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='mi'>38</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>]</span> <span class='c1'>// NOT allowed</span>
 <span class='p'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>By contrast, the following are all allowed:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='s1'>&#39;s&#39;</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>],</span>
     <span class='nx'>session_starts$tm</span><span class='o'>:</span> <span class='p'>[</span><span class='mi'>1371129610</span><span class='p'>,</span> <span class='mi'>1064329730</span><span class='p'>,</span> <span class='mi'>1341127611</span><span class='p'>],</span>
     <span class='nx'>check_ins$geo</span><span class='o'>:</span> <span class='p'>[[</span><span class='o'>-</span><span class='mf'>88.21337</span><span class='p'>,</span> <span class='mf'>40.11041</span><span class='p'>],</span> <span class='p'>[</span><span class='o'>-</span><span class='mf'>78.81557</span><span class='p'>,</span> <span class='mf'>30.22047</span><span class='p'>]]</span>
 <span class='p'>}</span>
-</code></pre>
-</div><h2><a name='help'>4. Getting help</a></h2>
+</code></pre></div><h2><a name='help'>4. Getting help</a></h2>
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above guide, please do get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
 <p>And if you have any ideas or feedback for Snowplow&#8217; custom unstructured events, do please share them, either in the comments below or through the usual channels.</p>
@@ -288,6 +276,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
@@ -296,10 +286,25 @@
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
-			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -318,19 +323,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		
@@ -352,19 +357,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

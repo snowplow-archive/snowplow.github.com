@@ -68,6 +68,41 @@
 		<div id="contents">
 	
 		<div class="post">
+			25 Mar 2013
+			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
+
+<p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
+
+<p><img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /></p>
+
+<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
+
+<ol>
+<li>Deploying a set of Snowplow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home</li>
+
+<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href='http://arduino.cc/blog/category/wireless/rfid/'>RFID readers</a> and Snowplow</li>
+
+<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino&#8217;s <a href='http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps'>3G and GPS</a> shields</li>
+</ol>
+
+<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at <a href='https://github.com/alexanderdean/arduino-temp-tracker'>alexanderdean/arduino-temp-tracker</a>.</p>
+
+<p>Want to find out more? To get started using our event tracker for Arduino, check out:</p>
+
+<ul>
+<li>The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>GitHub repository</a></li>
+
+<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'>Technical Documentation</a></li>
+
+<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'>Setup Guide</a></li>
+</ul>
+
+<p>Happy making!</p>
+		</div>
+	
+		<div class="post">
 			20 Mar 2013
 			<h1><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -77,7 +112,7 @@
 
 <p><em>With the introductions done, let&#8217;s hand over to Rob to tell us a bit about himself, Elasticity and what he&#8217;s working on next:</em></p>
 
-<p><img src='/static/img/blog/2013/03/rob-slifka.jpeg' alt='rob-slifka-img' /></p>
+<p><img alt='rob-slifka-img' src='/static/img/blog/2013/03/rob-slifka.jpeg' /></p>
 
 <p>Thanks Alex! Quick bit about me: I&#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href='http://www.sharethrough.com/engineering'>engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href='https://github.com/rslifka/elasticity'>Elasticity</a> comes in.</p>
 <p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry</a></p>
@@ -166,22 +201,6 @@
 <p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			20 Feb 2013
-			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
-
-<p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
-
-<h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
-
-<p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-
-<p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
-<p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -201,6 +220,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
@@ -209,10 +230,25 @@
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
-			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -231,19 +267,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		
@@ -265,19 +301,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

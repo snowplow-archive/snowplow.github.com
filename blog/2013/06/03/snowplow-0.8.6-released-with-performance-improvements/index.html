@@ -102,8 +102,7 @@
     <span class='l-Scalar-Plain'>:task_instance_count</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0</span> <span class='c1'># Increase to use spot instances</span>
     <span class='l-Scalar-Plain'>:task_instance_type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>m1.small</span>
     <span class='l-Scalar-Plain'>:task_instance_bid</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.015</span> <span class='c1'># In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note the <code>:task_instance_bid:</code> variable - this lets you bid an upper bound (in US Dollars) that you are willing to pay for Task instances to be added to your job. Leave this blank if you would prefer on-demand Task instances at the standard EMR prices.</p>
 
 <p>The best introduction to configuring the various instance groups for your job (Master, Core and Task) is in the post <a href='http://aws.typepad.com/aws/2011/08/run-amazon-elastic-mapreduce-on-ec2-spot-instances.html'>Run Amazon Elastic MapReduce on EC2 Spot Instances</a> on the Amazon Web Services Blog. In the language of this blog post, the Snowpow ETL process is typically a <strong>Data-Critical Workload</strong>:</p>
@@ -127,8 +126,7 @@
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.2</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre>
-</div>
+</code></pre></div>
 <h3 id='emretlrunner'>EmrEtlRunner</h3>
 
 <p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.6 release) on GitHub:</p>
@@ -144,8 +142,7 @@ $ git checkout 0.8.6</code></pre>
     <span class='l-Scalar-Plain'>:task_instance_count</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0</span> <span class='c1'># Increase to use spot instances</span>
     <span class='l-Scalar-Plain'>:task_instance_type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>m1.small</span>
     <span class='l-Scalar-Plain'>:task_instance_bid</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.015</span> <span class='c1'># In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p><strong>Note that almost all of these variables are either new or renamed.</strong> For recommended settings for the new <code>task_instance</code> settings, please see <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements#task-instances'>Using task instances in your ETL process</a> above.</p>
 <h2><a name='help'>4. Getting help</a></h2>
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
@@ -188,6 +185,8 @@ $ git checkout 0.8.6</code></pre>
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
@@ -196,10 +195,25 @@ $ git checkout 0.8.6</code></pre>
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
-			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -218,19 +232,19 @@ $ git checkout 0.8.6</code></pre>
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		
@@ -252,19 +266,11 @@ $ git checkout 0.8.6</code></pre>
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

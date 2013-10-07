@@ -96,7 +96,7 @@
 <!--more--><a name='how-snowplow-handles-bad-rows'><h2>1. Understanding how Snowplow handles bad rows</h2></a>
 <p>The Snowplow enrichment process takes input lines of data, in the form of collector logs. It validates the format of the data in each of those lines. If the format is as expected, it performs the relevant enrichments on that data (e.g. referer parsing, geo-IP lookups), and writes the enriched data to the Out Bucket on S3, from where it can be loaded into Redshift / PostgreSQL. If the input line of data fails the validation, it gets written to the Bad Rows Bucket on S3.</p>
 
-<p><img src='/static/img/blog/2013/09/snowplow-data-processing-bad-bucket-flow-chart-cropped.png' alt='flow-chart' /></p>
+<p><img alt='flow-chart' src='/static/img/blog/2013/09/snowplow-data-processing-bad-bucket-flow-chart-cropped.png' /></p>
 
 <p>The locations are specified in the <a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'>EmrEtlRunner config file</a>, an example of which can be found <a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'>here</a>.</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:s3</span><span class='p-Indicator'>:</span>
@@ -110,8 +110,7 @@
     <span class='l-Scalar-Plain'>:out_bad_rows</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># e.g. s3://my-out-bucket/bad-rows</span>
     <span class='l-Scalar-Plain'>:out_errors</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> <span class='c1'># Leave blank unless :continue_on_unexpected_error: set to true below</span>
     <span class='l-Scalar-Plain'>:archive</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Each bad row is a JSON containing just two fields:</p>
 
 <ol>
@@ -121,7 +120,13 @@
 </ol>
 
 <p>An example row generated for the Snowplow website, caused by Amazon&#8217;s CloudFront log file format update, is shown below (formatted to make it easier to read):</p>
-<a name='processing-bad-rows-data-using-json-serde-hive-qubole'><h2>2. Processing the bad rows data using the JSON serde, Hive and Qubole</h2> </a>
+<div class='highlight'><pre><code class='json'><span class='p'>{</span>
+    <span class='nt'>&quot;line&quot;</span><span class='p'>:</span> <span class='s2'>&quot;2013-08-19\t04:06:09\tHKG50\t826\t175.159.22.201\tGET\td3v6ndkyapxc2w.cloudfront.net\t/i\t200\thttp://snowplowanalytics.com/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html\tMozilla/5.0%20(Macintosh;%20Intel%20Mac%20OS%20X%2010_6_8)%20AppleWebKit/534.57.2%20(KHTML,%20like%20Gecko)%20Version/5.1.7%20Safari/534.57.2\te=pv&amp;page=Market%20basket%20analysis%20-%20identifying%20products%20and%20content%20that%20go%20well%20together%20-%20Snowplow%20Analytics&amp;dtm=1376885168897&amp;tid=479753&amp;vp=1361x678&amp;ds=1346x6578&amp;vid=1&amp;duid=24210ca58692c76e&amp;p=web&amp;tv=js-0.12.0&amp;fp=421731260&amp;aid=snowplowweb&amp;lang=en-us&amp;cs=UTF-8&amp;tz=Asia%2FShanghai&amp;refr=http%3A%2F%2Fwww.google.com%2Furl%3Fsa%3Dt%26rct%3Dj%26q%3Dmarket%2520basket%2520analysis%2520apriori%2520algorithm%26source%3Dweb%26cd%3D9%26sqi%3D2%26ved%3D0CGgQFjAI%26url%3Dhttp%253A%252F%252Fsnowplowanalytics.com%252Fanalytics%252Fcatalog-analytics%252Fmarket-basket-analysis-identifying-products-that-sell-well-together.html%26ei%3DnZkRUp_UF4qdiAem-YHwAg%26usg%3DAFQjCNE8XEB-2ItaXcOC5i2T-jLvpv77uQ%26sig2%3DFPZRScoJkUEg5G2qa8BoBA%26bvm%3Dbv.50768961%2Cd.aGc%26cad%3Drjt&amp;f_pdf=1&amp;f_qt=1&amp;f_realp=0&amp;f_wma=0&amp;f_dir=0&amp;f_fla=1&amp;f_java=1&amp;f_gears=0&amp;f_ag=0&amp;res=1440x900&amp;cd=24&amp;cookie=1&amp;url=http%3A%2F%2Fsnowplowanalytics.com%2Fanalytics%2Fcatalog-analytics%2Fmarket-basket-analysis-identifying-products-that-sell-well-together.html\t-\tRefreshHit\tmEPXmPmaMHvqTD6ung3_IlOgVuNOLnliGz9mVYn29oyOPMDadhuQpQ==&quot;</span><span class='p'>,</span>
+    <span class='nt'>&quot;errors&quot;</span><span class='p'>:</span> <span class='p'>[</span>
+        <span class='s2'>&quot;Provided URI string [http://www.google.com/url?sa=t&amp;rct=j&amp;q=market basket analysis apriori algorithm&amp;source=web&amp;cd=9&amp;sqi=2&amp;ved=0CGgQFjAI&amp;url=http://snowplowanalytics.com/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html&amp;ei=nZkRUp_UF4qdiAem-YHwAg&amp;usg=AFQjCNE8XEB-2ItaXcOC5i2T-jLvpv77uQ&amp;sig2=FPZRScoJkUEg5G2qa8BoBA&amp;bvm=bv.50768961,d.aGc&amp;cad=rjt] violates RFC 2396: [Illegal character in query at index 45: http://www.google.com/url?sa=t&amp;rct=j&amp;q=market basket analysis apriori algorithm&amp;source=web&amp;cd=9&amp;sqi=2&amp;ved=0CGgQFjAI&amp;url=http://snowplowanalytics.com/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html&amp;ei=nZkRUp_UF4qdiAem-YHwAg&amp;usg=AFQjCNE8XEB-2ItaXcOC5i2T-jLvpv77uQ&amp;sig2=FPZRScoJkUEg5G2qa8BoBA&amp;bvm=bv.50768961,d.aGc&amp;cad=rjt]&quot;</span>
+    <span class='p'>]</span>
+<span class='p'>}</span>
+</code></pre></div><a name='processing-bad-rows-data-using-json-serde-hive-qubole'><h2>2. Processing the bad rows data using the JSON serde, Hive and Qubole</h2> </a>
 <p>There are a couple of ways to process JSON data in Hive. For this tutorial, we&#8217;re going to use Roberto Congiu&#8217;s <a href='https://github.com/rcongiu/Hive-JSON-Serde'>Hive-JSON-Serde</a>. This is our preferred method of working with JSONs in Hive, where your complete data set is stored as a series of JSONs. (When you have a single JSON-formatted field in a regular Hive table, we recommend using the <code>get_json_object</code> UDF to parse the JSON data.)</p>
 
 <p>The Hive-JSON-serde is available <a href='https://github.com/rcongiu/Hive-JSON-Serde'>on Github</a> and can be built using Maven. If you prefer not to compile it for yourself, we have made a hosted version of the compiled JAR available <a href='snowplow-hosted-assets.s3.amazonaws.com/third-party/rcongiu/json-serde-1.1.6-jar-with-dependencies.jar'>here</a>.</p>
@@ -134,7 +139,7 @@
 
 <p>After a short period Qubole should alert you that the JAR has been successfully uploaded:</p>
 
-<p><img src='/static/img/blog/2013/09/qubole-add-jar.png' alt='qubole-pic-1' /></p>
+<p><img alt='qubole-pic-1' src='/static/img/blog/2013/09/qubole-add-jar.png' /></p>
 
 <p>Now we need to define a table so that Hive can query our bad row data in S3. Execute the following query in the Qubole Composer, making sure that you update the <code>LOCATION</code> setting to point to the location in S3 where your bad rows are stored. (This can be worked out from your EmrEtlRunner&#8217;s <code>config.yml</code> file, as explained <a href='#how-snowplow-handles-bad-rows'>above</a>).</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> <span class='ss'>`bad_rows`</span> <span class='p'>(</span>
@@ -145,23 +150,20 @@
 <span class='n'>ROW</span> <span class='n'>FORMAT</span> <span class='n'>SERDE</span> <span class='s1'>&#39;org.openx.data.jsonserde.JsonSerDe&#39;</span>
 <span class='n'>STORED</span> <span class='k'>AS</span> <span class='n'>TEXTFILE</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3n://snowplow-data/snplow/bad-rows/&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p><img src='/static/img/blog/2013/09/qubole-create-table.png' alt='qubole-pic-2' /></p>
+</code></pre></div>
+<p><img alt='qubole-pic-2' src='/static/img/blog/2013/09/qubole-create-table.png' /></p>
 
 <p>Our table is partitioned by <code>run</code> - each time the Snowplow enrichment process is run (in our case daily), any bad rows are saved in their own separate subfolder labelled <code>run=2013-xx-xx...</code>. Let&#8217;s recover those partitions, by executing the following:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>ALTER</span> <span class='k'>TABLE</span> <span class='ss'>`bad_rows`</span> <span class='n'>RECOVER</span> <span class='n'>PARTITIONS</span><span class='p'>;</span>
-</code></pre>
-</div><a name='plot-bad-rows-over-time'><h2>3. Plotting the number of bad rows over time</h2></a>
+</code></pre></div><a name='plot-bad-rows-over-time'><h2>3. Plotting the number of bad rows over time</h2></a>
 <p>We run the Snowplow ETL once a day. As a result, each &#8220;run&#8221; represents one days worth of data. By counting the number of bad rows per run, we effectively calculate the number of bad rows of data generated per day. We can do that by executing the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span> 
 <span class='n'>run</span><span class='p'>,</span>
 <span class='nf'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
 <span class='k'>FROM</span> <span class='ss'>`bad_rows`</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>run</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p><img src='/static/img/blog/2013/09/qubole-execute-count-query.png' alt='qubole-pic-3' /></p>
+</code></pre></div>
+<p><img alt='qubole-pic-3' src='/static/img/blog/2013/09/qubole-execute-count-query.png' /></p>
 
 <p>Execute that in Qubole, and then download your results. (By clicking the <strong>Download</strong> link in the UI. If you open them in Excel, you should see something as follows:</p>
 <table><thead><tr><th><strong>Run ID</strong></th><th><strong>Number of bad rows</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>2013-08-17-03-00-02</td><td style='text-align: left;'>6</td>
@@ -173,7 +175,7 @@
 
 <p>We can plot the data directly in Excel:</p>
 
-<p><img src='/static/img/blog/2013/09/excel-graph-of-bad-rows-per-day.JPG' alt='excel-graph' /></p>
+<p><img alt='excel-graph' src='/static/img/blog/2013/09/excel-graph-of-bad-rows-per-day.JPG' /></p>
 
 <p>Notice:</p>
 
@@ -195,8 +197,7 @@
 <span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
 <span class='n'>STORED</span> <span class='k'>AS</span> <span class='n'>TEXTFILE</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3n://qubole-analysis/data-to-reprocess/snplow/2013-09-11/&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note:</p>
 
 <ul>
@@ -209,30 +210,26 @@
 <div class='highlight'><pre><code class='mysql'><span class='k'>INSERT</span> <span class='k'>INTO</span> <span class='k'>TABLE</span> <span class='ss'>`data_to_reprocess`</span>
 <span class='k'>SELECT</span> <span class='n'>line</span>
 <span class='k'>FROM</span> <span class='ss'>`bad_rows`</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note how we are <strong>only</strong> writing the actual raw line of data into the new table (and ignoring everything else in the <code>bad_rows</code> table, including both the <code>run</code> and the actual error message itself).</p>
 
 <p>Bingo! When the query is complete, the data to reprocess is available in the new bucket we&#8217;ve created:</p>
 
-<p><img src='/static/img/blog/2013/09/file_with_lines_of_data_to_reprocess.png' alt='s3-pic' /></p>
+<p><img alt='s3-pic' src='/static/img/blog/2013/09/file_with_lines_of_data_to_reprocess.png' /></p>
 
 <p>We now need to run the Snowplow Enrichment process on this new data set. We do that using EmrEtlRunner. Navigate to the server you run EmrEtlRunner from, and navigate to the directory it is installed in.</p>
 
 <p>Now, create a copy of your <a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'>EmrEtlRunner config.yml</a> with a suitable name e.g. <code>config-process-bad-rows-2013-09-11.yml</code> and update the In Bucket to point to the location of the the data to be reprocessed is (i.e. the location of the Hive <code>data_to_reprocess</code> table). Don&#8217;t forget as well to update (if you haven&#8217;t already done so) the ETL to the latest version, which can handle the change in Amazon&#8217;s CloudFront log file format:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.4</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now execute the following command at the command line:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>bundle <span class='nb'>exec </span>bin/snowplow-emr-etl-runner --config config/config-process-bad-rows-2013-09-11.yml
-</code></pre>
-</div>
+</code></pre></div>
 <p>Make sure you update the path to point at the name of the config file you created in the previous step. This should kick off the Enrichment process in EMR. Once it has been completed, you can run the StorageLoader to load the newly processed data into Redshift / PostgreSQL as normal:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span><span class='nb'>cd</span> ../../4-storage/storage-loader
 <span class='nv'>$ </span>bundle <span class='nb'>exec </span>bin/snowplow-storage-loader --config config/config.yml
-</code></pre>
-</div>
+</code></pre></div>
 <p>Done! The data that was previously excluded has now been added to your Snowplow database!</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
@@ -271,6 +268,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
@@ -279,10 +278,25 @@
 		
 			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 		
-			<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-		
 	</ul>
 
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
@@ -301,19 +315,19 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		
@@ -335,19 +349,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

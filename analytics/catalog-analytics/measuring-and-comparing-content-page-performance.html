@@ -109,18 +109,18 @@
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='single-user-journey'><h2>2. Visualizing an individual user journey through your website</h2></a>
 <p>We can pull up a stream of the page view and page ping events for a particular user over time executing a query like this:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
 	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='kt'>TIMESTAMP</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>tstamp</span><span class='p'>,</span>
+	<span class='n'>collector_tstamp</span><span class='p'>,</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='n'>page_title</span><span class='p'>,</span>
 	<span class='n'>event</span>
-<span class='k'>FROM</span> <span class='n'>events</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
 <span class='k'>AND</span> <span class='p'>(</span><span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span> <span class='k'>OR</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span><span class='p'>)</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>tstamp</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
 <p>We can visualize the above user journey in Tableau:</p>
 
@@ -155,9 +155,9 @@
 <p>We can use Snowplow data not just to visualize a user&#8217;s interaction with the different pages on a website, but also zoom in on his / her interaction with a particular web page.</p>
 
 <p>In the above example, we saw that this particular user spent some time on the &#8216;From ETL to Enrichment&#8217; blog post. We can execute the following query to understand how he / she scrolled over that web page during that time period:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
-	<span class='kt'>TIMESTAMP</span><span class='p'>(</span><span class='n'>collector_dt</span><span class='p'>,</span> <span class='n'>collector_tm</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>tstamp</span><span class='p'>,</span>
+	<span class='n'>collector_tstamp</span><span class='p'>,</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='n'>event</span><span class='p'>,</span>
 	<span class='n'>pp_xoffset_min</span><span class='p'>,</span>
@@ -168,7 +168,7 @@
 	<span class='n'>br_viewheight</span><span class='p'>,</span>
 	<span class='n'>doc_width</span><span class='p'>,</span>
 	<span class='n'>doc_height</span>
-<span class='k'>FROM</span> <span class='ss'>`events`</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;594b77eb9d30435b&#39;</span>
 <span class='k'>AND</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;%etl-to-enrichment%&#39;</span><span class='p'>;</span>
 </code></pre></div>
@@ -197,27 +197,27 @@
 <p>As should be clear, the number of page pings for each web page on a site is proportional to the amount of time that users spend on that page: so we can use it as a proxy. A straightforward way, then, of measuring the performance of different content pages, is to calculate the average page pings per visitor on that page.</p>
 
 <p>We can calculate the number of visitors to a page by counting the number of distinct user IDs:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Infobright / MySQL */</span>
+<div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
-<span class='k'>FROM</span> <span class='ss'>`events`</span>
+	<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div>
 <p>We can sum the number of page pings per page:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
-<span class='k'>FROM</span> <span class='ss'>`events`</span>
+	<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>number_of_pings</span> <span class='k'>DESC</span><span class='p'>;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div>
 <p>We can join the two above queries into a single data set, and divide the number of page pings by the number of uniques to calculate the average pings per visitor for each page with the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span><span class='p'>,</span>
 	<span class='n'>p</span><span class='p'>.</span><span class='n'>number_of_pings</span><span class='p'>,</span>
@@ -225,19 +225,19 @@
 <span class='k'>FROM</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span> 
 		<span class='n'>page_urlpath</span><span class='p'>,</span>
-		<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
-	<span class='k'>FROM</span> <span class='ss'>`events`</span>
+		<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 	<span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='p'>)</span> <span class='n'>u</span>
 <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span>
 		<span class='n'>page_urlpath</span><span class='p'>,</span>
-		<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
-	<span class='k'>FROM</span> <span class='ss'>`events`</span>
+		<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 	<span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 	<span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='p'>)</span> <span class='n'>p</span>
 <span class='k'>on</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
@@ -257,7 +257,7 @@
 <p>We may want to compare the page height with the average amount of time spent on a page: after all, we should not expect that someone would spend as long on a page with a little content as a page with a lot.</p>
 
 <p>To do this with our data set, we simply add the <code>doc_height</code> field to our previous query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span><span class='p'>,</span>
 	<span class='n'>p</span><span class='p'>.</span><span class='n'>number_of_pings</span><span class='p'>,</span>
@@ -266,20 +266,20 @@
 <span class='k'>FROM</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span> 
 		<span class='n'>page_urlpath</span><span class='p'>,</span>
-		<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span><span class='p'>,</span>
-		<span class='nf'>MAX</span><span class='p'>(</span><span class='n'>doc_height</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>doc_height</span>
-	<span class='k'>FROM</span> <span class='ss'>`events`</span>
+		<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span> <span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span><span class='p'>,</span>
+		<span class='k'>MAX</span><span class='p'>(</span><span class='n'>doc_height</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>doc_height</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 	<span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='p'>)</span> <span class='n'>u</span>
 <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span>
 		<span class='n'>page_urlpath</span><span class='p'>,</span>
-		<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
-	<span class='k'>FROM</span> <span class='ss'>`events`</span>
+		<span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>event_id</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_pings</span>
+	<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 	<span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 	<span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_ping&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='p'>)</span> <span class='n'>p</span>
 <span class='k'>on</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>uniques</span> <span class='k'>DESC</span><span class='p'>;</span>
@@ -295,17 +295,17 @@
 <p>One question we may have regarding long web pages is: what percentage of uses make it to the bottom of the page?</p>
 
 <p>Snowplow makes this straightforward to calculate. We can see how far down a user has scrolled in each page ping by adding together the maximum Y offset with the browser view height i.e.:</p>
-<div class='highlight'><pre><code class='mysql'><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span>
+<div class='highlight'><pre><code class='sql'><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span>
 </code></pre></div>
 <p>and then take that as a percentage of the total web page height:</p>
-<div class='highlight'><pre><code class='mysql'><span class='p'>(</span><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span><span class='p'>)</span> <span class='o'>/</span> <span class='n'>doc_height</span> <span class='k'>AS</span> <span class='n'>fraction_read</span>
+<div class='highlight'><pre><code class='sql'><span class='p'>(</span><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span><span class='p'>)</span> <span class='o'>/</span> <span class='n'>doc_height</span> <span class='k'>AS</span> <span class='n'>fraction_read</span>
 </code></pre></div>
 <p>We can then calculate the maximum value for each user for each web page:</p>
-<div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
+<div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 	<span class='n'>domain_userid</span><span class='p'>,</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='nf'>MAX</span><span class='p'>(</span> <span class='p'>(</span><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span><span class='p'>)</span> <span class='o'>/</span> <span class='n'>doc_height</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_read</span>
-<span class='k'>FROM</span> <span class='ss'>`events`</span>
+	<span class='k'>MAX</span><span class='p'>(</span> <span class='p'>(</span><span class='n'>pp_yoffset_max</span> <span class='o'>+</span> <span class='n'>br_viewheight</span><span class='p'>)</span> <span class='o'>/</span> <span class='n'>doc_height</span><span class='p'>::</span><span class='nb'>REAL</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>fraction_read</span>
+<span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;snowplowanalytics.com&#39;</span>
 <span class='k'>AND</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;page_ping&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>page_urlpath</span><span class='p'>;</span>

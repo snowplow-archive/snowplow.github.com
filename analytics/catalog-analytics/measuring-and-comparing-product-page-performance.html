@@ -80,19 +80,19 @@
 <p>A straightforward (if crude) way of measuring <em>how good a product page is</em> then is to measure what fraction of users who visit the page go on to add that product to their basket.</p>
 
 <p>To calculate the fraction of users who&#8217;ve visited a product page that have gone on to add one or more of those products to their basket, we start by calculating the number of uniques per product page:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 <span class='n'>page_urlpath</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>unique_visitors</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
-<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
 	<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span>
-<span class='p'>)</span> <span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'># Only display results for the *production website*</span>
+<span class='p'>)</span> <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'>-- Only display results for the *production website*</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>unique_visitors</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div>
@@ -109,37 +109,37 @@
 <p>On our example website (<a href='http://www.psychicbazaar.com/'>www.psychicbazaar.com</a>), add to baskets are recorded using the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event tracking</a> method. The five fields are set as follows:</p>
 
 <ul>
-<li><code>ev_category</code> = &#8216;ecomm&#8217;</li>
+<li><code>se_category</code> = &#8216;ecomm&#8217;</li>
 
-<li><code>ev_action</code> = &#8216;action&#8217;</li>
+<li><code>se_action</code> = &#8216;action&#8217;</li>
 
-<li><code>ev_label</code> = product SKU</li>
+<li><code>se_label</code> = product SKU</li>
 
-<li><code>ev_property</code> = number added to basket</li>
+<li><code>se_property</code> = number added to basket</li>
 
-<li><code>ev_value</code> = sales value of items added to basket</li>
+<li><code>se_value</code> = sales value of items added to basket</li>
 </ul>
 
 <p>We can therefore query the number of add-to-baskets by product page using the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>page_urlpath</span><span class='p'>,</span>
-<span class='n'>ev_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
+<span class='n'>se_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques_that_add_to_basket</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_add_to_baskets</span><span class='p'>,</span>
-<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
-<span class='k'>FROM</span> <span class='n'>events_008</span>
-<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
+<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>se_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
 	<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span> <span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span> <span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>))</span>
-<span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
-<span class='k'>AND</span> <span class='ss'>`ev_category`</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
-<span class='k'>AND</span> <span class='ss'>`ev_action`</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
+<span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
+<span class='k'>AND</span> <span class='n'>se_category</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
+<span class='k'>AND</span> <span class='n'>se_action</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
 <span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>uniques_that_add_to_basket</span> <span class='k'>DESC</span><span class='p'>;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>3</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div>
 <p>The results of the above query look something like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>product_sku</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>number_of_add_to_baskets</strong></th><th><strong>number_of_products_added_to_baket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style='text-align: left;'>PBZ00274</td><td style='text-align: right;'>14</td><td style='text-align: right;'>16</td><td style='text-align: right;'>16</td>
@@ -147,7 +147,7 @@
 </tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
 </tr></tbody></table>
 <p>We can now combine the two above tables into a single query, and calculate the fraction of visitors to each page that go on to add the product to their basket:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span><span class='p'>,</span>
 <span class='n'>pv</span><span class='p'>.</span><span class='n'>unique_visitors</span><span class='p'>,</span>
@@ -158,34 +158,36 @@
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>unique_visitors</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
-		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span> <span class='p'>)</span> 
-		<span class='k'>OR</span> <span class='p'>(</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span> <span class='p'>)</span> 
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
+		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
+		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span>
-	<span class='p'>)</span> <span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'># Only display results for the *production website*</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>	
+	<span class='p'>)</span> <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'>-- Only display results for the *production website*</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>unique_visitors</span> <span class='k'>DESC</span>
 <span class='p'>)</span> <span class='n'>pv</span>
 <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='n'>ev_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
+	<span class='n'>se_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques_that_add_to_basket</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_add_to_baskets</span><span class='p'>,</span>
-	<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
-	<span class='k'>FROM</span> <span class='n'>events_008</span>
-	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
+	<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>se_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
 		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span> <span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span> <span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>))</span>
-	<span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
-	<span class='k'>AND</span> <span class='ss'>`ev_category`</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
-	<span class='k'>AND</span> <span class='ss'>`ev_action`</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
+	<span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
+	<span class='k'>AND</span> <span class='n'>se_category</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
+	<span class='k'>AND</span> <span class='n'>se_action</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
 	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>3</span> <span class='k'>DESC</span>
 <span class='p'>)</span> <span class='n'>ab</span>
 <span class='k'>ON</span> <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 </code></pre></div>
@@ -245,18 +247,18 @@
 <h4 id='producing_the_plot'>Producing the plot</h4>
 
 <p>To produce the plot we need to the same data as above, but need to include in addition data on the number of uniques who go on to purchase each product. This additional data can be delivered via the following query:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>ti_sku</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques_that_purchase</span><span class='p'>,</span>
 <span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>ti_orderid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_orders</span><span class='p'>,</span>
 <span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ti_quantity</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>actual_number_sold</span>
-<span class='k'>FROM</span> <span class='n'>events_008</span>
-<span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
+<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span><span class='p'>;</span>
 </code></pre></div>
 <p>We can combine this with the previous queries:</p>
-<div class='highlight'><pre><code class='mysql'><span class='cm'>/* Hive / Infobright SQL */</span>
+<div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span><span class='p'>,</span>
 <span class='n'>pv</span><span class='p'>.</span><span class='n'>unique_visitors</span><span class='p'>,</span>
@@ -267,34 +269,36 @@
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>unique_visitors</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_views</span>
-	<span class='k'>FROM</span> <span class='ss'>`events_008`</span>
-	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
-		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span> <span class='p'>)</span> 
-		<span class='k'>OR</span> <span class='p'>(</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span> <span class='p'>)</span> 
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
+		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
+		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span>
-	<span class='p'>)</span> <span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'># Only display results for the *production website*</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>	
+	<span class='p'>)</span> <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
+	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span> <span class='c1'>-- Only display results for the *production website*</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>unique_visitors</span> <span class='k'>DESC</span>
 <span class='p'>)</span> <span class='n'>pv</span>
 <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
 	<span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='n'>ev_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
+	<span class='n'>se_label</span> <span class='k'>AS</span> <span class='n'>product_sku</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques_that_add_to_basket</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_add_to_baskets</span><span class='p'>,</span>
-	<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ev_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
-	<span class='k'>FROM</span> <span class='n'>events_008</span>
-	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'># Only display results for *product* pages</span>
+	<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>se_property</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>number_of_products_added_to_baket</span>
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>WHERE</span> <span class='p'>(</span>                                    <span class='c1'>-- Only display results for *product* pages</span>
 		<span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span> <span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span> <span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span> <span class='p'>)</span> 
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 		<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>))</span>
-	<span class='k'>AND</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
-	<span class='k'>AND</span> <span class='ss'>`ev_category`</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
-	<span class='k'>AND</span> <span class='ss'>`ev_action`</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
+	<span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;struct&#39;</span>
+	<span class='k'>AND</span> <span class='n'>se_category</span> <span class='o'>=</span> <span class='s1'>&#39;ecomm&#39;</span>
+	<span class='k'>AND</span> <span class='n'>se_action</span> <span class='o'>=</span> <span class='s1'>&#39;add-to-basket&#39;</span>
 	<span class='k'>AND</span> <span class='n'>page_urlhost</span> <span class='o'>=</span> <span class='s1'>&#39;www.psychicbazaar.com&#39;</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>,</span> <span class='n'>product_sku</span>
+	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
+	<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>3</span> <span class='k'>DESC</span>
 <span class='p'>)</span> <span class='n'>ab</span>
 <span class='k'>ON</span> <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='p'>(</span>
@@ -303,11 +307,11 @@
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques_that_purchase</span><span class='p'>,</span>
 	<span class='nf'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>ti_orderid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>number_of_orders</span><span class='p'>,</span>
 	<span class='nf'>SUM</span><span class='p'>(</span><span class='n'>ti_quantity</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>actual_number_sold</span>
-	<span class='k'>FROM</span> <span class='n'>events_008</span>
-	<span class='k'>WHERE</span> <span class='ss'>`event`</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
+	<span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
+	<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;transaction_item&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>ti_sku</span>
 <span class='p'>)</span> <span class='n'>t</span>
-<span class='k'>ON</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>product_sku</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>ti_sku</span>
+<span class='k'>ON</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>product_sku</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>ti_sku</span><span class='p'>;</span>
 </code></pre></div>
 <p>This produces a result set that looks like this:</p>
 <table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>uniques_that_purchase</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/oracles/266-magical-messages-from-the-fairies-oracle-cards.html</td><td style='text-align: right;'>89</td><td style='text-align: right;'>14</td><td style='text-align: right;'>7</td>

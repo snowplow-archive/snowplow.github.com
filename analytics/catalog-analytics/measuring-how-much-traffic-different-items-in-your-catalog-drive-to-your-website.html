@@ -145,14 +145,14 @@
 <div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Item page&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span> <span class='o'>+</span> <span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span> <span class='o'>+</span> <span class='n'>domain_userid</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
 	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Landing page views&quot;</span>
 <span class='k'>FROM</span>
-	<span class='s-Name'>&quot;events&quot;</span>
+	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
 <span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span><span class='p'>;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>;</span>
 </code></pre></div>
 <p>Note that we group our results by page, so we get a single line for each page. The sum of all the records for each page is the number of page views, where that page is a landing page. We also calculate the number of visits and uniques, by counting the number of distinct users and sessions.</p>
 
@@ -160,19 +160,19 @@
 <div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Item page&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span> <span class='o'>+</span> <span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>user_id</span> <span class='o'>+</span> <span class='n'>domain_userid</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
 	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Landing page views&quot;</span>
 <span class='k'>FROM</span>
-	<span class='s-Name'>&quot;events&quot;</span>
+	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
 <span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
 <span class='k'>AND</span> <span class='p'>(</span>  <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span> <span class='p'>)</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>page_urlpath</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s-Name'>&quot;Landing page views&quot;</span> <span class='k'>DESC</span><span class='p'>;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>4</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div><a href='/static/img/analytics/catalog-analytics/driving-traffic/1.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.png' /></a>
 <p>We can plot the results in Tableau: create a new data connection from Tableau to Redshift using the above query. (For detailed instructions on how to pull specific cuts of Snowplow data from Redshift into Tableau, refer to the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data'>guide to setting up Tableau to work with Snowplow / Redshift guide</a>). Simply drag the &#8220;Item page&#8221; dimension to the rows shelf and one of the measures into the worksheet. In the example below we&#8217;ve listed &#8220;visits driven to the site&#8221; by page view:</p>
 <a href='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG' /></a>
@@ -222,7 +222,7 @@
 <div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 	<span class='n'>collector_tstamp</span><span class='p'>,</span>
-	<span class='n'>user_id</span> <span class='o'>+</span> <span class='n'>domain_userid</span> <span class='k'>AS</span> <span class='s-Name'>&quot;domain_userid&quot;</span><span class='p'>,</span>
+	<span class='n'>domain_userid</span><span class='p'>,</span>
 	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
 	<span class='n'>page_urlpath</span><span class='p'>,</span>
 	<span class='n'>refr_medium</span><span class='p'>,</span>
@@ -235,7 +235,7 @@
 	<span class='n'>mkt_term</span><span class='p'>,</span>
 	<span class='n'>mkt_campaign</span>
 <span class='k'>FROM</span>
-	<span class='s-Name'>&quot;events&quot;</span>
+	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
 <span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
 <span class='k'>AND</span> <span class='p'>(</span>  <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 

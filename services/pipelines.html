@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Data pipelines and algorithms - Snowplow Analytics</title>
+	<title>Custom datawarehouses and pipelines using EMR and Redshift - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -66,13 +66,19 @@
 </div>
 	
 		<div id="contents">
-<h1 id='data_pipelines_and_analytics_infrastructure'>Data pipelines and analytics infrastructure</h1>
+<h1 id='custom_datawarehouses_and_pipelines_using_amazon_emr_and_redshift'>Custom datawarehouses and pipelines using Amazon EMR and Redshift</h1>
 
 <p>Want to leverage Amazon Web Services and big data technologies to help you get get value out of your company-specific data?</p>
 
-<p>We have significant experience using Amazon Web Services including EMR, Redshift and Dynamo DB to build scalable, robust, fault tolerent data pipeline and data analytics infrastructure. We often use that experience to help clients implement custom data pipelines and analytic infrastructure to match their particular event models and data sets.</p>
+<p>Amazon Redshift is a fantastic data warehousing platform, that makes it possible and affordable to warehouse granular, event data to analyze in a wide range of BI and analytics tools. Amazon EMR is a perfect platform for building sophisticated, scalable ETL pipelines, especially when used with technologies like <a href='http://www.cascading.org/'>Cascading</a> and <a href='https://github.com/twitter/scalding'>Scalding</a>.</p>
 
-<p>We are familiar not just with AWS, but a range of open source data processing technologies including <a href='http://hadoop.apache.org/'>Hadoop</a>, <a href='http://hive.apache.org/'>Hive</a> <a href='http://www.cascading.org/'>Cascading</a> and <a href='https://github.com/twitter/scalding'>Scalding</a>, and BI and analysis tools including <a href='http://www.tableausoftware.com/'>Tableau</a>, <a href='https://chartio.com/'>ChartIO</a> and <a href='http://cran.r-project.org/'>R</a>, all of which we can stitch together to deliver agile datawarehousing and reporting solutions for fast-movign, data-driven companies.</p>
+<p>We have significant experience using both Redshift and EMR to build scalable, robust, fault tolerent data pipeline and data analytics infrastructure. We&#8217;ve been able to repurpose much of the Snowplow technology stack to implement client-specific solutions that load data in a custom (often JSON format) into a custom schema in Redshift for analysis.</p>
+
+<h2 id='load_your_raw_json_data_into_redshift'>Load your raw JSON data into Redshift</h2>
+
+<p>JSON is a very popular format for storing event data. Analysing JSON data is not trivial: as a result, many companies are looking for ways to load their JSON data into Amazon Redshift, so that it can be analyzed faster, more easily, using a wider set of BI and analysis tools.</p>
+
+<p>We have worked with a number of clients to modify the Snowplow stack to load custom JSONs into Redshift.</p>
 
 <h2 id='experts_in_developing_and_delivering_data_processing_infrastructure_on_aws'>Experts in developing and delivering data processing infrastructure on AWS</h2>
 <img src='/static/img/APN_Standard_Technology_Partner.png' title='Amazon Web Services Technology Partner' width='250' />
@@ -647,7 +653,7 @@
 				
 					
 						
-						<li class="active"><a href="/services/pipelines.html" class="active">Data pipelines and algorithms</a></li>
+						<li class="active"><a href="/services/pipelines.html" class="active">Custom datawarehouses and pipelines using EMR and Redshift</a></li>
 						
 					
 				

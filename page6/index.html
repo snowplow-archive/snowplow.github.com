@@ -68,6 +68,32 @@
 		<div id="contents">
 	
 		<div class="post">
+			16 May 2013
+			<h1><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.4</strong>. This is a big release, which adds geo-IP lookups to the Snowplow Enrichment stage, using the excellent <a href='http://dev.maxmind.com/geoip/legacy/geolite'>GeoLite City database</a> from <a href='http://www.maxmind.com'>MaxMind, Inc</a>. This has been one of the most requested features from the Snowplow community, so we are delighted to launch it. Now you can determine the location of your website visitors directly from the Snowplow events table, and plot that data on a wide range of mapping tools including <a href='http://kb.tableausoftware.com/articles/knowledgebase/mapping-basics'>Tableau</a> or <a href='http://wrobstory.github.io/2013/04/python-maps-chloropleth.html'>Vincent</a>:</p>
+<a href='/static/img/blog/2013/05/pbz-global-visitors.jpg'><img src='/static/img/blog/2013/05/pbz-global-visitors.jpg' /></a>
+<p><em>Click on the image above to enlarge it</em></p>
+
+<p>Here is some example geo-IP data:</p>
+<a href='/static/img/blog/2013/05/geoip-data.png'><img src='/static/img/blog/2013/05/geoip-data.png' /></a>
+<p><em>Click on the image above to enlarge it</em></p>
+
+<p>As well as geo-IP enrichment, there are a number of other code improvements to the Hadoop ETL, plus some minor improvements to EmrEtlRunner and some corresponding updates to the Redshift table. In this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#geoip'>The new geo-IP capabilities</a></li>
+
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#other-changes'>Other changes</a></li>
+
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			14 May 2013
 			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -183,25 +209,6 @@
 <p>And that should be it. Thanks again to Mark for his contribution to this release - and we&#8217;re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
 		</div>
 	
-		<div class="post">
-			23 Apr 2013
-			<h1><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>Eleven days ago</a>, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a set of recipes covering how to measure the performance of <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>content pages</a> and <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>product pages</a>.</p>
-
-<p>Today we&#8217;ve published the first set of recipes in the new <a href='/analytics/platform-analytics/overview.html'>platform analytics</a> section of the Cookbook. By &#8216;platform analytics&#8217;, we mean analytics performed to answer questions about how your platform (or &#8216;website&#8217;, &#8216;application&#8217; or &#8216;product&#8217;) performs. This is one of the most important branches of analytics that can be performed with clickstream, event data.</p>
-
-<p>The first recipes published cover how to perform <a href='/analytics/platform-analytics/funnel-analysis.html'>funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
-
-<p><img alt='funnel-analysis' src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' /></p>
-
-<p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &#8216;drop out&#8217; of the funnel.</p>
-
-<p>In addition, Snowplow also makes it easy to compare multiple funnels (e.g. like the time series example above, or, instead, comparing how successfully different audience segments progress through different funnels).</p>
-
-<p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/about/index.html'>getting in touch</a> directly.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -221,6 +228,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+		
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
@@ -229,31 +238,14 @@
 		
 			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
-			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 			
 				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 			
@@ -263,24 +255,14 @@
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
-				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-			
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -302,11 +284,36 @@
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		

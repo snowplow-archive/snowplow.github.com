@@ -68,12 +68,23 @@
 		<div id="contents">
 	
 		<div class="post">
+			19 Jul 2013
+			<h1><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Yesterday at the <a href='http://www.meetup.com/hadoop-users-group-uk/'>Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
+
+<p>I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:</p>
+<iframe scrolling='no' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginheight='0' width='427' src='http://www.slideshare.net/slideshow/embed_code/24416560' frameborder='0' height='356'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' title='Snowplow presentation to hug uk' target='_blank'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
+<p>Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!</p>
+		</div>
+	
+		<div class="post">
 			10 Jul 2013
 			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
 
-<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+<p><img src='/static/img/blog/2013/07/your-country-needs-you.jpg' alt='your-country-needs-you' /></p>
 
 <p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
 
@@ -142,17 +153,18 @@
 <p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
 <p>Here is a taster for using the library from C Sharp:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='c'><span class='n'>using</span> <span class='n'>RefererParser</span><span class='p'>;</span>
 
-<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
-<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+<span class='n'>string</span> <span class='n'>refererUrl</span> <span class='o'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='n'>string</span> <span class='n'>pageUrl</span>    <span class='o'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
 
-<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+<span class='n'>var</span> <span class='n'>referer</span> <span class='o'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='n'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
 
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
 <p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
 		</div>
@@ -176,37 +188,6 @@
 <p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
 		</div>
 	
-		<div class="post">
-			03 Jul 2013
-			<h1><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
-
-<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
-<div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
-<span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
-<span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre></div>
-<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
-
-<ol>
-<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
-
-<li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
-</ol>
-
-<p>After the jump we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -226,6 +207,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+		
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
@@ -234,31 +217,14 @@
 		
 			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
-			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 			
 				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 			
@@ -268,24 +234,14 @@
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
-				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-			
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -307,11 +263,36 @@
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		

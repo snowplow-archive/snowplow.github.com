@@ -68,6 +68,34 @@
 		<div id="contents">
 	
 		<div class="post">
+			18 Oct 2013
+			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
+
+<ol>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
+</ol>
+<a name='background'><h2>1. Background on this release</h2></a>
+<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: oftenby slapping a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
+
+<p>For those users, one of the frustrations with Snowplow, is that analysis typically starts with a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in our BI tool of choice.)</p>
+
+<p>This release aims to bridge that gap. We&#8217;ve provided a range of recipes and cubes as views into the atomic Snowplow data. All of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
+<p class='more'><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			07 Oct 2013
 			<h1><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -75,7 +103,7 @@
 
 <p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &#8220;winterns&#8221; will work directly on and contribute to data engineering projects within the <a href='https://github.com/snowplow'>Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
 
-<p><img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /></p>
+<p><img src='/static/img/blog/2013/10/billion-dollar-brain.png' alt='billion-dollar-brain' /></p>
 <p class='more'><a href='/blog/2013/10/07/announcing-our-winter-open-source-internship-program'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -111,7 +139,7 @@
 
 <p>We were therefore delighted to be invited to review <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>Apache Hive Essentials How-to</a>, a new guide to Hive written by Darren Lee from <a href='http://www.bizo.com/home'>Bizo</a>.</p>
 <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>
-	<img src='/static/img/blog/2013/09/instant-apache-hive-essentials.png' title='Hive how to guide' />
+	<img title='Hive how to guide' src='/static/img/blog/2013/09/instant-apache-hive-essentials.png' />
 </a>
 <p>For me, there are two totally different categories of technical book that I enjoy in completely different ways:</p>
 
@@ -145,38 +173,8 @@
 
 <p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
 
-<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
+<p><img src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' alt='snowplow-premium-price-comparison' /></p>
 <p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			11 Sep 2013
-			<h1><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the distinguishing features of the Snowplow data pipeline is the handling of &#8220;bad&#8221; data. Every row of incoming, raw data is validated. When a row fails validation, it is logged in a &#8220;bad rows&#8221; bucket on S3 alongside the error message that was generated by the failed validation. That means you can keep track of the number of rows that fail validation, and have the opportunity to update and then reprocess those bad rows. (This makes Snowplow different from traditional web analytics platforms, that simply ignore bad rows of data, and provide no insight into the volume of incoming data that ends up being ignored.)</p>
-
-<p>This functionality was crucial in spotting that, in mid-August, Amazon made an <a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'>undocumented update the CloudFront collector file format</a>. This resulted in a sudden spike in the number of &#8220;bad rows&#8221; generated by Snowplow, as the <code>cs-uri-query</code> field format changed from the format the Enrichment process expected. (For details of the change, see <a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'>this blog post</a>, and the links in it.) Amazon has since rolled back the update, and we have since updated Snowplow to be able to process rows in both formats. However, Snowplow users will have three weeks of data with lines of data missing, that ideally need to be reprocessed using the updated Snowplow version.</p>
-<img src='/static/img/blog/2013/09/black_sheep.jpg' title='black sheet - can you spot bad data?' width='300' />
-<p>In this blog post, we will walk through:</p>
-
-<ol>
-<li>How to use <a href='http://hive.apache.org/'>Apache Hive</a>, <a href='http://www.qubole.com/'>Qubole</a> and <a href='https://github.com/rcongiu'>Robert Congui&#8217;s</a> <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to monitor the number of bad rows generated over time</li>
-
-<li>How to use the same tools to reprocess the bad rows of data, so that they are added to your Snowplow data in Redshift / PostgreSQL</li>
-</ol>
-
-<p>The steps necessary to reprocess the data will be very similar to those required regardless of the reason that the reprocessing is necessary: as a result, this blog post should be useful for anyone interested in using the bad rows functionality to debug and improve the robustness of their event data collection. It should also be useful for anyone interested in using <a href='http://hive.apache.org/'>Hive</a> and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to process JSON data in S3. (Bad row data is stored by Snowplow in JSON format.) We will use <a href='http://www.qubole.com/'>Qubole</a>, our preferred platform for running Hive jobs on data in S3, which we previously introduced in <a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>this blog post</a>.</p>
-
-<ol>
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#how-snowplow-handles-bad-rows'>Understanding how Snowplow handles bad rows</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#processing-bad-rows-data-using-json-serde-hive-qubole'>Processing the bad rows data using the JSON serde, Hive and Qubole</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#plot-bad-rows-over-time'>Plotting the number of bad rows over time</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#processing-bad-rows'>Reprocessing bad rows</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole'>Read the rest of this entry</a></p>
 		</div>
 	
 
@@ -196,6 +194,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+		
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
@@ -204,31 +204,14 @@
 		
 			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
-			<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
-			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 			
 				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 			
@@ -238,24 +221,14 @@
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
 			
-				<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></li>
-			
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -277,11 +250,36 @@
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
 			
 		
 		</ul>		

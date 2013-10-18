@@ -72,7 +72,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p><img src='/static/img/blog/2013/06/olark/olark-logo.png' alt='olark-logo' /></p>
+<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
 
 <p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
@@ -104,14 +104,12 @@
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>&#8230;and an event that fires when an operator pings a message to a visitor:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We&#8217;re running Google Tag Manager on the Snowplow website, so we want to push an event into the GTM dataLayer when a chat event happens, so that that event is visible to Snowplow tags configured in GTM. To do this, we add the following Javascript to our page template:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToOperator&#39;</span><span class='p'>});</span>
@@ -120,11 +118,10 @@
 <span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToVisitor&#39;</span><span class='p'>});</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event</a> when a visitor messages the operator:</p>
 
-<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' alt='gtm-create-tag-1' /></p>
+<p><img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /></p>
 
 <p>Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:</p>
 <div class='highlight'><pre><code class='html'><span class='c'>&lt;!-- Snowplow event tracking --&gt;</span>
@@ -132,13 +129,12 @@
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.snplow.com&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackStructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;contact&#39;</span><span class='p'>,</span> <span class='s1'>&#39;olark_chat&#39;</span><span class='p'>,</span> <span class='s1'>&#39;message_to_operator&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>]);</span>
 <span class='nt'>&lt;/script&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Secondly, we&#8217;ve created a rule that fires the tag when an event occurs in the dataLayer called &#8216;olarkMessageToOperator&#8217;. This is triggered by Javascript that we added to out page template.</p>
 
 <p>Now that our first tag is setup, we need to create an analogous tag, one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:</p>
 
-<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' alt='gtm-create-tag-2' /></p>
+<p><img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /></p>
 
 <p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&#8217;ll be able to analyze:</p>
 
@@ -201,6 +197,23 @@
 	</ul>
 
 	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -214,32 +227,6 @@
 				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 		
 		</ul>		
@@ -261,19 +248,28 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

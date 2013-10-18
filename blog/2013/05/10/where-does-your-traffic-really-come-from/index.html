@@ -105,12 +105,10 @@
 
 <p>To give an example of how this technique works in practice, let&#8217;s imagine that I am marketing the website <code>www.flowersdirect.com</code>. I run a campaign on AdWords called &#8220;November promotion&#8221;. In my AdWords ad, I include a link (that I hope viewers of the add will click) to my homepage (<code>www.flowersdirect.com</code>). However, instead of just including the standard link in my ad, i.e.</p>
 <div class='highlight'><pre><code class='html'><span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;http://www.flowersdirect.com&quot;</span><span class='nt'>&gt;</span>www.flowersdirect.com<span class='nt'>&lt;/a&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>I add a query parameter onto the end of my link labelling the campaign:</p>
 <div class='highlight'><pre><code class='html'><span class='nt'>&lt;a</span> <span class='na'>href=</span><span class='s'>&quot;http://www.flowersdirect.com?utm_campaign=November_promotion&quot;</span><span class='nt'>&gt;</span>www.flowersdirect.com<span class='nt'>&lt;/a&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Adding the query parameter does not change the experience of the user clicking on the ad. Then, on the landing page (in this case, the <code>www.flowersdirect.com</code> homepage) the web analytics JavaScript tag will pass the querystring to the web analytics program, which can then infer that the traffic should be attributed to the &#8220;November promotion&#8221;.</p>
 
 <p>Different web analytics programs look for different query parameters when assigning traffic to different marketing campaigns. In the case of <a href='https://support.google.com/analytics/answer/1033863?hl=en-GB'>Google Analytics</a>, the following parameters are used to set the following fields:</p>
@@ -145,7 +143,25 @@
 <h3 id='identifying_errors_with_snowplow'>Identifying errors with Snowplow</h3>
 
 <p>Using Snowplow, however, spotting errors is easy, because you have access to the raw page URL parameters in your Snowplow events table. The following is some example data from <a href='http://www.psychicbazaar.com/'>Psychic Bazaar</a>, an online retailer running Snowplow. We have executed the following query to identify page views where the referer is not internal (so that we only look at the first page view in each visit, i.e. the one with all the interesting page referer and page URL data to determine the source of traffic):</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>collector_tstamp</span><span class='p'>,</span>
+	<span class='n'>page_urlhost</span><span class='p'>,</span>
+	<span class='n'>page_urlpath</span><span class='p'>,</span>
+	<span class='n'>page_urlquery</span><span class='p'>,</span>
+	<span class='n'>mkt_medium</span><span class='p'>,</span>
+	<span class='n'>mkt_source</span><span class='p'>,</span>
+	<span class='n'>mkt_term</span><span class='p'>,</span>
+	<span class='n'>mkt_campaign</span><span class='p'>,</span>
+	<span class='n'>refr_urlhost</span><span class='p'>,</span>
+	<span class='n'>refr_urlpath</span><span class='p'>,</span>
+	<span class='n'>refr_urlquery</span><span class='p'>,</span>
+	<span class='n'>refr_medium</span><span class='p'>,</span>
+	<span class='n'>refr_source</span><span class='p'>,</span>
+	<span class='n'>refr_term</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span><span class='p'>;</span>
+</code></pre></div>
 <p>Note how for each line of data, you can see the raw page URL data (<code>page_urlquery</code> in particular) that is used to derive the marketing source, medium and campaign (<code>mkt_source</code>, <code>mkt_medium</code> and <code>mkt_campaign</code> fields):</p>
 <a href='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png'><img src='/static/img/blog/2013/05/inferring-mkt-source-medium-term-campaign-from-pageurl.png' /></a>
 <p><em>Click on the above image above to zoom in.</em></p>
@@ -167,7 +183,17 @@
 </ol>
 
 <p>In Snowplow, by contrast, we do <strong>not</strong> collapse the two separate data sources (page URL parameters and page referer) into a single &#8216;source&#8217; for the visitor. Instead, we expose both to the analyst: we offer five <code>mkt</code> fields that are set based on <code>utm</code> parameters on the page URL (<code>mkt_medium</code>, <code>mkt_source</code>, <code>mkt_term</code>, <code>mkt_content</code>, <code>mkt_campaign</code>) and separately we offer three <code>refr</code> fields (<code>refr_medium</code>, <code>refr_source</code>, <code>refr_term</code>) that are derived from the HTTP referer header. We can view these fields alongside one-another by executing the following query:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>mkt_medium</span><span class='p'>,</span>
+	<span class='n'>mkt_source</span><span class='p'>,</span>
+	<span class='n'>mkt_term</span><span class='p'>,</span>
+	<span class='n'>refr_medium</span><span class='p'>,</span>
+	<span class='n'>refr_source</span><span class='p'>,</span>
+	<span class='n'>refr_term</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span><span class='p'>;</span>
+</code></pre></div>
 <p>And check the results below. Note how in some cases the <code>mkt</code> fields are set, but the <code>refr</code> fields are not and vice-versa. On other occasions, both sets of fields are set:</p>
 <a href='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png'><img src='/static/img/blog/2013/05/mkt-and-refr-fields-alongside-one-another.png' /></a>
 <p>This is part of the Snowplow commitment to <a href='/blog/2013/04/10/snowplow-event-validation/'>high fidelity analytics</a>, a concept we introduced in <a href='/blog/2013/04/10/snowplow-event-validation/'>this blog post</a>.</p>
@@ -175,7 +201,15 @@
 <p>Another advantage of keeping your referer data separate to your marketing campaign data is that you can learn more about <em>where</em> your marketing ads are displayed based on the additional referer data that GA ignores.</p>
 
 <p>To give a concrete example: Psychic Bazaar buys AdWords on the Google Search network. It does not buy ads on the Google Display network. By running the following query, we can identify which domains those AdWords ads that were clicked on were displayed:</p>
-
+<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
+<span class='k'>SELECT</span>
+	<span class='n'>refr_urlhost</span><span class='p'>,</span>
+	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of click-throughs&quot;</span>
+<span class='k'>FROM</span> <span class='s-Name'>&quot;public&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events_new&quot;</span>
+<span class='k'>WHERE</span> <span class='s-Name'>&quot;mkt_source&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;GoogleSearch&#39;</span>
+<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>refr_urlhost</span>
+<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s-Name'>&quot;Number of click-throughs&quot;</span> <span class='k'>DESC</span>
+</code></pre></div>
 <p>Plotting the results in Tableau, there are a few surprises:</p>
 <a href='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg'><img src='/static/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg' /></a>
 <p>The top two domains by amount of AdWords traffic directed towards Psychic Bazaar are <strong>not</strong> Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.</p>
@@ -249,6 +283,23 @@
 	</ul>
 
 	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -262,32 +313,6 @@
 				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 		
 		</ul>		
@@ -309,19 +334,28 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

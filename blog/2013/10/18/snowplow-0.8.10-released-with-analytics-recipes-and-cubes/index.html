@@ -86,37 +86,37 @@
 <li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
 </ol>
 <a name='background'><h2>1. Background on this release</h2></a>
-<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: oftenby slapping a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
+<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
 
-<p>For those users, one of the frustrations with Snowplow, is that analysis typically starts with a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in our BI tool of choice.)</p>
+<p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
 
-<p>This release aims to bridge that gap. We&#8217;ve provided a range of recipes and cubes as views into the atomic Snowplow data. All of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
+<p>This release aims to bridge that gap: we are providing a range of recipes and cubes as SQL views into the atomic Snowplow data; all of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
 <!--more--><a name='schema'><h2>2. Reorganizing the Snowplow database</h2></a>
 <p>With this release we have reorganized Snowplow data:</p>
 
 <ol>
-<li>The <code>events</code> table is now located in the <code>atomic</code> schema. (This is new for Redshift users.)</li>
+<li>The <code>events</code> table is now located in the <code>atomic</code> schema. (This is new for Redshift users, not for Postgres users.)</li>
 
-<li>There are three new schemas that contain &#8220;cubes&#8221; - views of the Snowplow data that can be consumed directly in a pivot / OLAP / BI tool e.g. PowerPivot or Tableau. These are <code>cubes_pages</code>, <code>cubes_visits</code> and <code>cubes_transactions</code>.</li>
+<li>There are three new schemas that contain &#8220;cubes&#8221; - i.e. views of the Snowplow data that can be consumed directly in a pivot / OLAP / BI tool e.g. PowerPivot or Tableau. These are <code>cubes_pages</code>, <code>cubes_visits</code> and <code>cubes_transactions</code>.</li>
 
 <li>There are three new schemas that contain &#8220;recipes&#8221; - views of the Snowplow data that can be visualized directly in any graphics package. These are <code>recipes_basic</code>, <code>recipes_customer</code> and <code>recipes_catalog</code></li>
 </ol>
 <a name='recipe-use'><h2>3. Seeing a recipe in action: charting the number of uniques over time</h2></a>
 <p>Let&#8217;s start by showing how easy the views make it to start plotting Snowplow data in ChartIO. Log into ChartIO and create a new connection to your database, just as before, but this time set the <strong>Schema name</strong> field to be &#8216;recipes_basic&#8217; rather than &#8216;atomic&#8217;. (This is necessary, because ChartIO requires a different connection for each schema on your database, rather than a single connection per database.)</p>
 
-<p><img src='/static/img/blog/2013/10/chartio-connection.png' alt='chartio-setup' /></p>
+<p><img alt='chartio-setup' src='/static/img/blog/2013/10/chartio-connection.png' /></p>
 
 <p>Now go back into ChartIO and select to create a new graph. Select your new data source: a long list of different &#8220;recipes&#8221; should be displayed. Select the <strong>Uniques And Visits By Day</strong> from the list - this will reveal the dimensions and metrics returned in that view:</p>
 
-<p><img src='/static/img/blog/2013/10/chartio-2.png' alt='chartio-setup-2' /></p>
+<p><img alt='chartio-setup-2' src='/static/img/blog/2013/10/chartio-2.png' /></p>
 
 <p>Now you can simply drag the relevant metrics and dimensions over from the list into the design pane. Let&#8217;s simply plot uniques by date: drag the <strong>Date</strong> dimension to the dimensions pane, and the <strong>Uniques</strong> measure over to the <strong>Measures</strong> pane:</p>
 
-<p><img src='/static/img/blog/2013/10/chartio-select-dimensions.png' alt='chartio-setup-select-dimensions' /></p>
+<p><img alt='chartio-setup-select-dimensions' src='/static/img/blog/2013/10/chartio-select-dimensions.png' /></p>
 
 <p>Now click <strong>Chart Query</strong> to draw the graph. Simple visualization of Snowplow data with no SQL required!</p>
 
-<p><img src='/static/img/blog/2013/10/chartio-final-graph.png' alt='chartio-setup-3' /></p>
+<p><img alt='chartio-setup-3' src='/static/img/blog/2013/10/chartio-final-graph.png' /></p>
 <a name='visitor-cube'><h2>4. Seeing a cube in action: interrogating the visitors cube in Tableau</h2></a>
 <p>We&#8217;ve included a number of &#8220;cube views&#8221; in the new release. These can be opened directly into your pivoting tool of choice.</p>
 
@@ -124,23 +124,23 @@
 
 <p>Open up Tableau, select to create a new database connection, enter your database details. Select the <code>referer_entries_and_exits</code> view to connect to.</p>
 
-<p><img src='/static/img/blog/2013/10/tableau-connection.JPG' alt='talbeau-setup-1' /></p>
+<p><img alt='talbeau-setup-1' src='/static/img/blog/2013/10/tableau-connection.JPG' /></p>
 
 <p>Note: if you are connecting to the views in Redshift, you will need to add the new schemas to your <code>search_path</code> before they are visible in Tableau. You can, however, access them directly by selecting <strong>Custom SQL</strong> and entering <code>SELECT * FROM cubes_visits.referer_entries_and_exits</code>.</p>
 
 <p>Tableau will ask whether you want to import all the data, or connect live. If you have a lot of data, we recommend connecting live.</p>
 
-<p><img src='/static/img/blog/2013/10/tableau-1.JPG' alt='tableau-setup-2' /></p>
+<p><img alt='tableau-setup-2' src='/static/img/blog/2013/10/tableau-1.JPG' /></p>
 
 <p>You can now drag and drop any of the dimensions and any of the metrics listed. For example, we can drag in <code>entry_page_path</code>, <code>visit_start_ts</code> and <code>visit_duration</code> to see how average visit lengths have changed per landing page over time:</p>
 
-<p><img src='/static/img/blog/2013/10/tableau-visualization.JPG' alt='tableau-setup-3' /></p>
+<p><img alt='tableau-setup-3' src='/static/img/blog/2013/10/tableau-visualization.JPG' /></p>
 <a name='setup'><h2>5. Installing this release</h2></a>
 <h3 id='51_redshift_users'>5.1 Redshift users</h3>
 
 <p>If you&#8217;re using Redshift, you will need to migrate your Snowplow events table from the <code>public</code> schema to the <code>atomic</code> schema. This can be done using <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.1_to_0.2.2.sql'>this migration script</a>.</p>
 
-<p>You will then you need to update your <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>StorageLoader config file</a> to ensure that from now on, all new data is loaded into the <code>atomic.events</code> table. (Rather than the <code>public.events</code> table.) You do this by updating the file so that the <code>:table:</code> key is set to &#8216;atomic.events&#8217; rather than just &#8216;events&#8217;:</p>
+<p>You will then you need to update your <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>StorageLoader config file</a> to ensure that from now on, all new data is loaded into the <code>atomic.events</code> table, rather than the <code>public.events</code> table. You do this by updating the file so that the <code>:table:</code> key is set to &#8216;atomic.events&#8217; rather than just &#8216;events&#8217;:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:targets</span><span class='p-Indicator'>:</span>
   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>:name</span><span class='p-Indicator'>:</span>     <span class='s'>&quot;Snowplow</span><span class='nv'> </span><span class='s'>PostgreSQL&quot;</span>
     <span class='l-Scalar-Plain'>:type</span><span class='p-Indicator'>:</span>     <span class='l-Scalar-Plain'>postgres</span> 
@@ -148,8 +148,7 @@
     <span class='l-Scalar-Plain'>:database</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>snplow2</span>
     <span class='l-Scalar-Plain'>:port</span><span class='p-Indicator'>:</span>     <span class='l-Scalar-Plain'>5432</span>
     <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span>    <span class='l-Scalar-Plain'>atomic.events</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now you need to create the new schemas for the different views, and define each view. The following six scripts need to be run:</p>
 
 <ol>
@@ -168,7 +167,7 @@
 
 <p>These can be run directly using the <code>psql</code> command line tool, as described <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-prebuilt-views-in-Redshift-and-PostgreSQL'>in the setup guide</a>.</p>
 
-<p>Finally, you will want to add the new schemas to your <code>search_path</code>. This is necessary if the views in them will show up in tools like Tableau and SQL Workbench. An explanation of how to update the search path is given <a href='https://github.com/snowplow/snowplow/wiki/setting-up-redshift#wiki-search_path'>here, in the setup guide</a>.</p>
+<p>Finally, you will want to add the new schemas to your <code>search_path</code>. This is necessary for the views in these schemas to show up in tools like Tableau and SQL Workbench. An explanation of how to update the search path is given <a href='https://github.com/snowplow/snowplow/wiki/setting-up-redshift#wiki-search_path'>here, in the setup guide</a>.</p>
 
 <h3 id='52_postgresql_users'>5.2 PostgreSQL users</h3>
 
@@ -176,7 +175,7 @@
 
 <p>You need to do is updated your events table definition, as per <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.1.0_to_0.1.1.sql'>this migration script</a>.</p>
 
-<p>Afterwards, you can create the new schemas and views, by runnign the following scripts:</p>
+<p>Afterwards, you can create the new schemas and views, by running the following scripts:</p>
 
 <ol>
 <li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/recipes/recipes-basic.sql'>recipes-basic.sql</a></li>
@@ -194,7 +193,7 @@
 
 <p>These can be run directly using the <code>psql</code> command line tool, as described <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-prebuilt-views-in-Redshift-and-PostgreSQL'>in the setup guide</a>.</p>
 <a name='next-steps'><h2>6. Next steps: where to go from here</h2></a>
-<p>We&#8217;ll be covering how to use the recipes and cubes in more detail in forthcoming blog posts and new recipes in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a>. In the meantime, we recommend that curious users start experimenting with the different views, and refer to the underlying SQL to understand how they&#8217;re created, and how they can tweak those statements to deliver the data formatted as they need.</p>
+<p>We&#8217;ll be covering how to use the recipes and cubes in more detail in forthcoming blog posts, and of course adding new recipes to the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a>. In the meantime, we recommend that curious users start experimenting with the different views, and refer to the underlying SQL to understand how they&#8217;re created, and indeed how they can tweak those statements to deliver the data formatted as they need.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -245,6 +244,23 @@
 	</ul>
 
 	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -258,32 +274,6 @@
 				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
 			
 		
 		</ul>		
@@ -305,19 +295,28 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

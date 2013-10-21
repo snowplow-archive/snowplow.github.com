@@ -68,6 +68,38 @@
 		<div id="contents">
 	
 		<div class="post">
+			09 Jan 2013
+			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
+			 <span class="author">Author: <a href="" rel="author"> </a></span>
+			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
+
+<ol>
+<li>Feedback from the community on them</li>
+
+<li>Ideas for alternative approaches or new features</li>
+</ol>
+
+<p>We will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
+
+<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
+</ol>
+
+<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
+<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			08 Jan 2013
 			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
@@ -153,46 +185,6 @@
 <p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			26 Dec 2012
-			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">Snowplow 0.6.5 released, with improved event tracking</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
-
-<p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
-
-<ol>
-<li>It should make querying Snowplow events much easier</li>
-
-<li>It should make Snowplow event data a better fit for JSON-oriented datastores such as MongoDB and Riak</li>
-</ol>
-
-<p>As well as event types, in this release we are also introducing <strong>event IDs</strong>. With this, the ETL phase adds an <code>event_id</code> UUID (universally unique ID) to each event row, which should help with subsequent querying.</p>
-
-<p>Here is a taster of how Snowplow event data looks with the new event types and event IDs:</p>
-
-<p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
-
-<p>These are not the only improvements in this version - here are the rest:</p>
-
-<ul>
-<li>We have cleaned up the code for on-page activity tracking (&#8220;page pings&#8221;)</li>
-
-<li>We have fixed a bug that affected ad impression tracking - thanks <a href='https://github.com/talkspoon'>Alan Z</a>!</li>
-
-<li>The ETL no longer dies if a raw event has a corrupted querystring (e.g. the <code>&amp;refr=</code> parameter was not escaped)</li>
-
-<li>The JavaScript tracker&#8217;s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
-
-<li>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker sending a <code>&amp;uid=xxx</code> parameter</li>
-
-<li>We have added the ability to override the IP address by passing in an <code>&amp;ip=</code> parameter on the querystring</li>
-</ul>
-
-<p>Below, we first explain how to upgrade, before taking a brief tour through these updates:</p>
-<p class='more'><a href='/blog/2012/12/26/snowplow-0.6.5-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -212,6 +204,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+		
 			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 		
 			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
@@ -219,8 +213,6 @@
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 		
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-		
-			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 		
 	</ul>
 
@@ -263,6 +255,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
 				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
@@ -270,8 +264,6 @@
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
 				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
 			
 		
 		</ul>		

@@ -68,6 +68,30 @@
 		<div id="contents">
 	
 		<div class="post">
+			20 Dec 2012
+			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">Snowplow 0.6.4 released, with Infobright improvements</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+
+<ol>
+<li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
+
+<li>Clarified Hive table definitions</li>
+</ol>
+
+<p>Before we start - a big thanks to the community members who helped out on this release:</p>
+
+<ul>
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+
+<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
+</ul>
+
+<p>We&#8217;ll take a look at both updates below:</p>
+<p class='more'><a href='/blog/2012/12/20/snowplow-0.6.4-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			18 Dec 2012
 			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -149,39 +173,6 @@
 <p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			16 Nov 2012
-			<h1><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating Snowplow with Google Tag Manager</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
-
-<p><img alt='gtm' src='/static/img/gtm.JPG' /></p>
-
-<p>We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>wiki</a>.</p>
-
-<p>In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:</p>
-
-<ol>
-<li>Setting up a Tag Management System is a big and complicated job. Much of the literature (especially around Google Tag Manager), and discussion (especially amongst members of the web analytics community) suggests it is very easy. Whilst Google Tag Manager is a straightforward product to use, the process of setting it up is difficult, because it involves thinking through, in a very rigorous way, exactly what data should be passed between the website and GTM. If this is not done properly, GTM will not have the relevant data to pass on to the tags it manages, including Snowplow.</li>
-
-<li>Exacerbating the above, there is a lack of detailed literature on how to go about identifying all the data points that should be passed between your website and tag management solution. Nearly all the guides to setting up GTM that we reviewed covered only the most basic of GTM setups, which is just enough to enable page tracking. Clearly, that is not going to be sufficient for anything but the simplest blogs and brochureware sites.</li>
-
-<li>One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.</li>
-</ol>
-
-<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'>setting up Google Tag Manager</a> and <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>setting up Snowplow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up Snowplow within <a href='http://www.opentag.qubitproducts.com/'>Qubit&#8217;s OpenTag solution</a> in due course.</p>
-
-<p>We&#8217;re very excited by Google&#8217;s launch of Tag Manager, and recommend all new Snowplow users who are not currently using a tag management system integrate one as part of their Snowplow setup. Specifically:</p>
-
-<ol>
-<li>The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup Snowplow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable</li>
-
-<li>The processing of mapping that data from the structure defined in the tag management system to one which works with Snowplow&#8217;s data structure is the exact reverse of the analysis process that takes Snowplow data and transforms it back into the structure that&#8217;s most natural for the company performing the analysis.</li>
-
-<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
-</ol>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -201,6 +192,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+		
 			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 		
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
@@ -208,8 +201,6 @@
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-		
-			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
 	</ul>
 
@@ -287,6 +278,15 @@
 		
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

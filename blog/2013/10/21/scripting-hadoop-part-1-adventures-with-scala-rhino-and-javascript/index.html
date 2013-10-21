@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			21 Oct 2013
+			<h1>Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
+
+<ol>
+<li>Custom trackers and collector logging formats</li>
+
+<li>Custom event models</li>
+
+<li>Custom business logic that impacts on the way their event data is processed</li>
+</ol>
+
+<p>To date, we have relied on three main techniques to help Snowplow users meet these requirements:</p>
+
+<ol>
+<li>Adding additional configuration options into the core Enrichment process (e.g. IP address anonymization, coming in 0.8.11)</li>
+
+<li>Working with users on bespoke re-writes of the Snowplow Enrichment process (mostly forks of the Scalding ETL job)</li>
+
+<li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
+</ol>
+
+<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
+
+<p>If possible, the following approach would make an attractive middle ground:</p>
+
+<ol>
+<li>Pass one or more user-authored scripts into our Scalding ETL at runtime</li>
+
+<li>The user-authored script(s) are executed against each row of event data</li>
+
+<li>These scripts can be written in a popular and easy-to-learn scripting language</li>
+</ol>
+
+<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
+
+<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
+<!--more-->
+<p>First we clone our <a href='https://github.com/snowplow/scalding-example-project'>Scalding Example Project</a>, available on GitHub. This gives us a Scala environment which we know successfully can run Scalding on Hadoop (including Elastic MapReduce), giving us some confidence that whatever scripting works in this environment will ultimately work fine on EMR too.</p>
+
+<p>So let&#8217;s get started:</p>
+
+<pre><code>$ git clone git@github.com:snowplow/scalding-example-project.git
+$ cd scalding-example-project
+$ sbt
+scalding-example-project &gt; console
+scala&gt; </code></pre>
+
+<p>Great, now we&#8217;re in the Scala console within SBT, and we have access to all of the libraries loaded as part of the scalding-example-project should we need them.</p>
+
+<p>Now let&#8217;s create a JavaScript-powered ScriptEngine in Scala:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>factory</span> <span class='k'>=</span> <span class='k'>new</span> <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptEngineManager</span>
+<span class='n'>factory</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngineManager</span> <span class='o'>=</span> <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptEngineManager</span><span class='k'>@</span><span class='mi'>381</span><span class='n'>ebaf3</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>engine</span> <span class='k'>=</span> <span class='n'>factory</span><span class='o'>.</span><span class='n'>getEngineByName</span><span class='o'>(</span><span class='s'>&quot;JavaScript&quot;</span><span class='o'>)</span>
+<span class='n'>engine</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngine</span> <span class='o'>=</span> <span class='n'>com</span><span class='o'>.</span><span class='n'>sun</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='n'>javascript</span><span class='o'>.</span><span class='nc'>RhinoScriptEngine</span><span class='k'>@</span><span class='mi'>75</span><span class='n'>ee0563</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print(&#39;Hello, World\\n&#39;)&quot;</span><span class='o'>)</span>
+<span class='nc'>Hello</span><span class='o'>,</span> <span class='nc'>World</span>
+<span class='n'>res4</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
+</code></pre></div>
+<p>Excellent - we&#8217;ve now got JavaScript executing from Scala! For more information, check out the Javadoc for <a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngineManager.html'>ScriptEngineManager</a> and <a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngine.html'>ScriptEngine</a>.</p>
+
+<p>As a next step, let&#8217;s focus on the boundaries and get data flowing from Scala to JavaScript and back out again. Let&#8217;s pass in a variable - I&#8217;m going to prepend dollar signs to all of my Scala-sourced JavaScript variables to make their origin clear:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='s'>&quot;$filter&quot;</span><span class='o'>,</span> <span class='s'>&quot;yeah&quot;</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? true : false;&quot;</span><span class='o'>)</span>
+<span class='n'>isFiltered</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>true</span>
+</code></pre></div>
+<p>Great, that worked, although the return type java.lang.Object is obviously a little blunt. Now let&#8217;s see what happens if we write some invalid JavaScript:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;undefined.splice()&quot;</span><span class='o'>)</span>
+<span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptException</span><span class='k'>:</span> <span class='kt'>sun.org.mozilla.javascript.internal.EcmaError:</span>
+<span class='nc'>TypeError</span><span class='k'>:</span> <span class='kt'>Cannot</span> <span class='kt'>call</span> <span class='kt'>method</span> <span class='err'>&quot;</span><span class='kt'>splice</span><span class='err'>&quot;</span> <span class='kt'>of</span> <span class='kt'>undefined</span> <span class='o'>(</span><span class='kt'>&lt;Unknown</span> <span class='kt'>source&gt;</span><span class='k'>#</span><span class='err'>1</span><span class='o'>)</span> <span class='kt'>in</span>
+<span class='o'>&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span> <span class='n'>at</span> <span class='n'>line</span> <span class='n'>number</span> <span class='mi'>1</span>
+</code></pre></div>
+<p>Okay - this ScriptException is very similar to what you would see evaluating the same code in the Firefox or Chrome JavaScript consoles, so that&#8217;s reassuring.</p>
+
+<p>Let&#8217;s try another failure scenario - where our JavaScript accidentally returns a Number when we are expecting a Boolean:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? 1 : 0;&quot;</span><span class='o'>)</span>
+<span class='n'>isFiltered</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='mf'>1.0</span>
+</code></pre></div>
+<p>The return type definitely looks problematic, although the problem won&#8217;t manifest itself until we try to cast it into a Boolean. So let&#8217;s put together an example with some type safety:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>import</span> <span class='nn'>PartialFunction._</span>
+<span class='k'>import</span> <span class='nn'>PartialFunction._</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>def</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>script</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span>
+	<span class='n'>condOpt</span><span class='o'>(</span><span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='n'>script</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Any</span><span class='o'>)</span> <span class='o'>{</span> <span class='k'>case</span> <span class='n'>b</span><span class='k'>:</span> <span class='kt'>Boolean</span> <span class='o'>=&gt;</span> <span class='n'>b</span> <span class='o'>}</span>
+<span class='n'>evalAsBoolean</span><span class='k'>:</span> <span class='o'>(</span><span class='kt'>script:</span> <span class='kt'>String</span><span class='o'>)</span><span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? true : false;&quot;</span><span class='o'>)</span>
+<span class='n'>res30</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Some</span><span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? 1 : 0;&quot;</span><span class='o'>)</span>
+<span class='n'>res30</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
+</code></pre></div>
+<p>Perfect! We have wrapped our JavaScript in some sensible Scala types. For more information on the <code>condOpt</code> &#8220;magic&#8221;, check out <a href='http://stackoverflow.com/a/9828815/255627'>this Stack Overflow answer</a> to <em>&#8220;How to cast java.lang.Object to a specific type in Scala?&#8221;</em>.</p>
+
+<p>Let&#8217;s try something a little more ambitious now. Can we mutate a POJO (&#8220;plain old Java object&#8221;) from inside JavaScript? Only one way to find out:</p>
+
+<p><div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>class</span> <span class='nc'>MyPojo</span> <span class='o'>{</span> <span class='nd'>@scala</span><span class='o'>.</span><span class='n'>reflect</span><span class='o'>.</span><span class='nc'>BeanProperty</span> <span class='k'>var</span> <span class='n'>myVar</span><span class='k'>:</span> <span class='kt'>String</span> <span class='o'>=</span> <span class='s'>&quot;heart scala&quot;</span> <span class='o'>}</span>
+<span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>MyPojo</span>
+</code></pre></div></p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myPojo</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>MyPojo</span>
+<span class='n'>myPojo</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='k'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='s'>&quot;$myPojo&quot;</span><span class='o'>,</span> <span class='n'>myPojo</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;$myPojo.myVar = \&quot;heart js\&quot;;&quot;</span><span class='o'>)</span>
+<span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptException</span><span class='k'>:</span> <span class='kt'>sun.org.mozilla.javascript.internal.EvaluatorException:</span>
+<span class='nc'>Java</span> <span class='n'>method</span> <span class='s'>&quot;myVar&quot;</span> <span class='n'>cannot</span> <span class='n'>be</span> <span class='n'>assigned</span> <span class='n'>to</span><span class='o'>.</span> <span class='o'>(&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span><span class='k'>#</span><span class='mi'>1</span><span class='o'>)</span> <span class='n'>in</span> <span class='o'>&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span>
+<span class='n'>at</span> <span class='n'>line</span> <span class='n'>number</span> <span class='mi'>1</span>
+</code></pre></div>
+<p>Oh dear! It looks like Java and Scala&#8217;s getters and setters sugar doesn&#8217;t translate well into JavaScript. So let&#8217;s try the actual setter method, and then print using the getter:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;$myPojo.setMyVar(\&quot;heart js\&quot;)&quot;</span><span class='o'>)</span>
+<span class='n'>res10</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print($myPojo.myVar() + \&quot;\\n\&quot;)&quot;</span><span class='o'>)</span>
+<span class='n'>heart</span> <span class='n'>js</span>
+<span class='n'>res20</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
+</code></pre></div>
+<p>Okay great - the mutation seems to be working. And note that trailing semi-colons are optional, just as they are in &#8220;real&#8221; JavaScript. Now let&#8217;s try and get our POJO back out into our Scala context:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myPojoRedux</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>get</span><span class='o'>(</span><span class='s'>&quot;$myPojo&quot;</span><span class='o'>)</span> <span class='k'>match</span> <span class='o'>{</span>
+	<span class='k'>case</span> <span class='n'>p</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=&gt;</span> <span class='n'>p</span>
+	<span class='k'>case</span> <span class='k'>_</span> <span class='k'>=&gt;</span> <span class='k'>throw</span> <span class='k'>new</span> <span class='nc'>ClassCastException</span>
+<span class='o'>}</span>
+<span class='n'>myPojoRedux</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='k'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>myPojoRedux</span><span class='o'>.</span><span class='n'>myVar</span>
+<span class='n'>res26</span><span class='k'>:</span> <span class='kt'>String</span> <span class='o'>=</span> <span class='n'>heart</span> <span class='n'>js</span>
+</code></pre></div>
+<p>Done! So we have made some progress: we have mutated a POJO inside of JavaScript using the de-sugared setter and getter forms.</p>
+
+<p>Okay, what&#8217;s the situation with Scala case classes? Obviously we won&#8217;t try to mutate them inside of JavaScript, but it would be great if we can at least see their contents:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>case</span> <span class='k'>class</span> <span class='nc'>MyCaseClass</span><span class='o'>(</span><span class='n'>myVal</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span>
+<span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>MyCaseClass</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myCC</span> <span class='k'>=</span> <span class='nc'>MyCaseClass</span><span class='o'>(</span><span class='s'>&quot;can&#39;t touch this&quot;</span><span class='o'>)</span>
+<span class='n'>myCaseClass</span><span class='k'>:</span> <span class='kt'>MyCaseClass</span> <span class='o'>=</span> <span class='nc'>MyCaseClass</span><span class='o'>(</span><span class='n'>can</span><span class='-Symbol'>&#39;t</span> <span class='n'>touch</span> <span class='k'>this</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='s'>&quot;$myCaseClass&quot;</span><span class='o'>,</span> <span class='n'>myCC</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print($myCaseClass.myVal() + \&quot;\\n\&quot;)&quot;</span><span class='o'>)</span>
+<span class='n'>can</span><span class='-Symbol'>&#39;t</span> <span class='n'>touch</span> <span class='k'>this</span>
+<span class='n'>res35</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
+</code></pre></div>
+<p>Great! We can see inside Scala case classes without any particular fuss.</p>
+
+<p>We&#8217;re almost done for our first blog post - of course, we haven&#8217;t touched Hadoop yet, but we have a much better understanding of how we can script Scala programs (and so hopefully Scalding jobs) using JavaScript.</p>
+
+<p>Before we go, let&#8217;s try to generalize our <code>evalAsBoolean()</code> method above into something a little bit more reusable. How about a method with a signature like this:</p>
+<div class='highlight'><pre><code class='scala'><span class='cm'>/**</span>
+<span class='cm'> * Evaluate some JavaScript into a Some(Boolean),</span>
+<span class='cm'> * returning None if this evaluation failed.</span>
+<span class='cm'> *</span>
+<span class='cm'> * @param js The JavaScript to evaluate</span>
+<span class='cm'> * @param vars A Map of variables to pass into</span>
+<span class='cm'> * the JavaScript</span>
+<span class='cm'> * @return An Option-boxed Boolean</span>
+<span class='cm'> */</span>
+<span class='k'>def</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>,</span> <span class='n'>vars</span><span class='k'>:</span> <span class='kt'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span>
+</code></pre></div>
+<p>Hopefully the function arguments and return value are fairly clear, so let&#8217;s proceed to the whole function definition:</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>import</span> <span class='nn'>javax.script.ScriptEngineManager</span>
+<span class='k'>import</span> <span class='nn'>PartialFunction._</span>
+
+<span class='cm'>/**</span>
+<span class='cm'> * Evaluate some JavaScript into a Some(Boolean),</span>
+<span class='cm'> * returning None if this evaluation failed.</span>
+<span class='cm'> *</span>
+<span class='cm'> * @param js The JavaScript to evaluate</span>
+<span class='cm'> * @param vars A Map of variables to pass into</span>
+<span class='cm'> * the JavaScript</span>
+<span class='cm'> * @return An Option-boxed Boolean</span>
+<span class='cm'> */</span>
+<span class='k'>def</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>,</span> <span class='n'>vars</span><span class='k'>:</span> <span class='kt'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='o'>{</span>
+	
+    <span class='k'>val</span> <span class='n'>factory</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>ScriptEngineManager</span>
+    <span class='k'>val</span> <span class='n'>engine</span> <span class='k'>=</span> <span class='n'>factory</span><span class='o'>.</span><span class='n'>getEngineByName</span><span class='o'>(</span><span class='s'>&quot;JavaScript&quot;</span><span class='o'>)</span>
+
+    <span class='k'>val</span> <span class='n'>prependDollar</span> <span class='k'>=</span> <span class='o'>(</span><span class='n'>v</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span> <span class='k'>=&gt;</span> <span class='k'>if</span> <span class='o'>(</span><span class='n'>v</span><span class='o'>.</span><span class='n'>startsWith</span><span class='o'>(</span><span class='s'>&quot;$&quot;</span><span class='o'>))</span> <span class='n'>v</span> <span class='k'>else</span> <span class='s'>&quot;$%s&quot;</span><span class='o'>.</span><span class='n'>format</span><span class='o'>(</span><span class='n'>v</span><span class='o'>)</span>
+    <span class='k'>for</span> <span class='o'>((</span><span class='n'>k</span><span class='o'>,</span> <span class='n'>v</span><span class='o'>)</span> <span class='k'>&lt;-</span> <span class='n'>vars</span><span class='o'>)</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='n'>prependDollar</span><span class='o'>(</span><span class='n'>k</span><span class='o'>),</span> <span class='n'>v</span><span class='o'>)</span>
+
+    <span class='k'>try</span> <span class='o'>{</span>
+        <span class='n'>condOpt</span><span class='o'>(</span><span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='n'>js</span><span class='o'>)</span><span class='k'>:</span> <span class='kt'>Any</span><span class='o'>)</span> <span class='o'>{</span>
+            <span class='k'>case</span> <span class='n'>b</span><span class='k'>:</span> <span class='kt'>Boolean</span> <span class='o'>=&gt;</span> <span class='n'>b</span>
+        <span class='o'>}</span>
+    <span class='o'>}</span> <span class='k'>catch</span> <span class='o'>{</span>
+        <span class='k'>case</span> <span class='n'>se</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptException</span> <span class='o'>=&gt;</span> <span class='nc'>None</span>
+    <span class='o'>}</span>
+<span class='o'>}</span>
+</code></pre></div>
+<p>Paste that into the Scala console in SBT and you should see:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>evalAsBoolean</span><span class='k'>:</span> <span class='o'>(</span><span class='kt'>js:</span> <span class='kt'>String</span><span class='o'>,</span> <span class='kt'>vars:</span> <span class='kt'>Map</span><span class='o'>[</span><span class='kt'>String</span>,<span class='kt'>java.lang.Object</span><span class='o'>])</span><span class='nc'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span>
+</code></pre></div>
+<p>Now let&#8217;s try this out - first with a script which should evaluate to true:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>vars1</span> <span class='k'>=</span> <span class='nc'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>](</span>
+<span class='s'>&quot;one&quot;</span> <span class='o'>-&gt;</span> <span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='n'>lang</span><span class='o'>.</span><span class='nc'>Integer</span><span class='o'>(</span><span class='mi'>1</span><span class='o'>),</span>
+<span class='s'>&quot;$two&quot;</span> <span class='o'>-&gt;</span> <span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='n'>lang</span><span class='o'>.</span><span class='nc'>Integer</span><span class='o'>(</span><span class='mi'>2</span><span class='o'>)</span>
+<span class='o'>)</span>
+<span class='n'>vars1</span><span class='k'>:</span> <span class='kt'>scala.collection.immutable.Map</span><span class='o'>[</span><span class='kt'>String</span>,<span class='kt'>java.lang.Object</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Map</span><span class='o'>(</span><span class='n'>one</span> <span class='o'>-&gt;</span> <span class='mi'>1</span><span class='o'>,</span> <span class='nc'>$two</span> <span class='o'>-&gt;</span> <span class='mi'>2</span><span class='o'>)</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js1</span> <span class='k'>=</span> <span class='s'>&quot;($one + $two) === 3;&quot;</span>
+<span class='n'>js1</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='o'>(</span><span class='nc'>$one</span> <span class='o'>+</span> <span class='nc'>$two</span><span class='o'>)</span> <span class='o'>===</span> <span class='mi'>3</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js1</span><span class='o'>,</span> <span class='n'>vars1</span><span class='o'>)</span>
+<span class='n'>res1</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Some</span><span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span>
+</code></pre></div>
+<p>Now a false value, involving checking a property inside of a case class:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>case</span> <span class='k'>class</span> <span class='nc'>ALang</span><span class='o'>(</span><span class='n'>aLang</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span>
+<span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>ALang</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>vars2</span> <span class='k'>=</span> <span class='nc'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>](</span><span class='s'>&quot;lang&quot;</span> <span class='o'>-&gt;</span> <span class='nc'>ALang</span><span class='o'>(</span><span class='s'>&quot;dart&quot;</span><span class='o'>))</span>
+<span class='n'>vars2</span><span class='k'>:</span> <span class='kt'>scala.collection.immutable.Map</span><span class='o'>[</span><span class='kt'>String</span>,<span class='kt'>java.lang.Object</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Map</span><span class='o'>(</span><span class='n'>lang</span> <span class='o'>-&gt;</span> <span class='nc'>ALang</span><span class='o'>(</span><span class='n'>dart</span><span class='o'>))</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js2</span> <span class='k'>=</span> <span class='s'>&quot;$lang.aLang() === \&quot;js\&quot;;&quot;</span>
+<span class='n'>js2</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='nc'>$lang</span><span class='o'>.</span><span class='n'>aLang</span><span class='o'>()</span> <span class='o'>===</span> <span class='s'>&quot;js&quot;</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js2</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
+<span class='n'>res2</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Some</span><span class='o'>(</span><span class='kc'>false</span><span class='o'>)</span>
+</code></pre></div>
+<p>That&#8217;s working a treat. Now let&#8217;s try evaluating an invalid piece of JavaScript:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js3</span> <span class='k'>=</span> <span class='s'>&quot;$doesNotExist.arg()&quot;</span>
+<span class='n'>js3</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='nc'>$doesNotExist</span><span class='o'>.</span><span class='n'>arg</span><span class='o'>()</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js3</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
+<span class='n'>res3</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
+</code></pre></div>
+<p>Good, and finally a valid piece of JavaScript but one which returns a String when we want a Boolean:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js4</span> <span class='k'>=</span> <span class='s'>&quot;\&quot;I heart \&quot; + $lang.aLang();&quot;</span>
+<span class='n'>js4</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='s'>&quot;I heart &quot;</span> <span class='o'>+</span> <span class='nc'>$lang</span><span class='o'>.</span><span class='n'>aLang</span><span class='o'>();</span>
+
+<span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js4</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
+<span class='n'>res4</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
+</code></pre></div>
+<p>Great! Those are all behaving as expected. We&#8217;re going to pause here, but we&#8217;ve already made some good progress understanding how JavaScript can be invoked at runtime from a Scala environment.</p>
+
+<p>In the next post, we will take these learnings and start to apply them within a Scalding environment, with the aim of getting some basic user-defined JavaScript executing on Elastic MapReduce. Stay tuned for the next installment!</p>
+
+<p>If you&#8217;re interested in adapting Snowplow&#8217;s technology to meet your custom event processing needs, and would like to discuss your requirements with the Snowplow team, then <a href='/about/index.html'>get in touch</a>.</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+		
+			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+		
+			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+		
+			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+		
+			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+				<li><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+				<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

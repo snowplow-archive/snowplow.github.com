@@ -4,13 +4,261 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-10-18T18:26:46+01:00</updated>
+  <updated>2013-10-21T14:57:08+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript"/>
+    <title>Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</title>
+    <updated>2013-10-21T00:00:00+01:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Custom trackers and collector logging formats&lt;/li&gt;
+
+&lt;li&gt;Custom event models&lt;/li&gt;
+
+&lt;li&gt;Custom business logic that impacts on the way their event data is processed&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To date, we have relied on three main techniques to help Snowplow users meet these requirements:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Adding additional configuration options into the core Enrichment process (e.g. IP address anonymization, coming in 0.8.11)&lt;/li&gt;
+
+&lt;li&gt;Working with users on bespoke re-writes of the Snowplow Enrichment process (mostly forks of the Scalding ETL job)&lt;/li&gt;
+
+&lt;li&gt;Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &amp;#8220;middle ground&amp;#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?&lt;/p&gt;
+
+&lt;p&gt;If possible, the following approach would make an attractive middle ground:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Pass one or more user-authored scripts into our Scalding ETL at runtime&lt;/li&gt;
+
+&lt;li&gt;The user-authored script(s) are executed against each row of event data&lt;/li&gt;
+
+&lt;li&gt;These scripts can be written in a popular and easy-to-learn scripting language&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Two technologies stood out as promising: Java&amp;#8217;s &lt;a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'&gt;ScriptEngine&lt;/a&gt; and Mozilla&amp;#8217;s &lt;a href='https://developer.mozilla.org/en/docs/Rhino'&gt;Rhino&lt;/a&gt;. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.&lt;/p&gt;
+
+&lt;p&gt;The first step to test if this approach is viable, was to test out Rhino and Scala&amp;#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&amp;#8230;&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;First we clone our &lt;a href='https://github.com/snowplow/scalding-example-project'&gt;Scalding Example Project&lt;/a&gt;, available on GitHub. This gives us a Scala environment which we know successfully can run Scalding on Hadoop (including Elastic MapReduce), giving us some confidence that whatever scripting works in this environment will ultimately work fine on EMR too.&lt;/p&gt;
+
+&lt;p&gt;So let&amp;#8217;s get started:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git@github.com:snowplow/scalding-example-project.git
+$ cd scalding-example-project
+$ sbt
+scalding-example-project &amp;gt; console
+scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Great, now we&amp;#8217;re in the Scala console within SBT, and we have access to all of the libraries loaded as part of the scalding-example-project should we need them.&lt;/p&gt;
+
+&lt;p&gt;Now let&amp;#8217;s create a JavaScript-powered ScriptEngine in Scala:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;factory&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;javax&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;ScriptEngineManager&lt;/span&gt;
+&lt;span class='n'&gt;factory&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;javax.script.ScriptEngineManager&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;javax&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;ScriptEngineManager&lt;/span&gt;&lt;span class='k'&gt;@&lt;/span&gt;&lt;span class='mi'&gt;381&lt;/span&gt;&lt;span class='n'&gt;ebaf3&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;factory&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;getEngineByName&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;JavaScript&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;javax.script.ScriptEngine&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;com&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;sun&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;javascript&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;RhinoScriptEngine&lt;/span&gt;&lt;span class='k'&gt;@&lt;/span&gt;&lt;span class='mi'&gt;75&lt;/span&gt;&lt;span class='n'&gt;ee0563&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;print(&amp;#39;Hello, World\\n&amp;#39;)&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='nc'&gt;Hello&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='nc'&gt;World&lt;/span&gt;
+&lt;span class='n'&gt;res4&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Excellent - we&amp;#8217;ve now got JavaScript executing from Scala! For more information, check out the Javadoc for &lt;a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngineManager.html'&gt;ScriptEngineManager&lt;/a&gt; and &lt;a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngine.html'&gt;ScriptEngine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As a next step, let&amp;#8217;s focus on the boundaries and get data flowing from Scala to JavaScript and back out again. Let&amp;#8217;s pass in a variable - I&amp;#8217;m going to prepend dollar signs to all of my Scala-sourced JavaScript variables to make their origin clear:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;put&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$filter&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;yeah&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;isFiltered&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;($filter === \&amp;quot;yeah\&amp;quot;) ? true : false;&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;isFiltered&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='kc'&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Great, that worked, although the return type java.lang.Object is obviously a little blunt. Now let&amp;#8217;s see what happens if we write some invalid JavaScript:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;isFiltered&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;undefined.splice()&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;javax&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;ScriptException&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;sun.org.mozilla.javascript.internal.EcmaError:&lt;/span&gt;
+&lt;span class='nc'&gt;TypeError&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Cannot&lt;/span&gt; &lt;span class='kt'&gt;call&lt;/span&gt; &lt;span class='kt'&gt;method&lt;/span&gt; &lt;span class='err'&gt;&amp;quot;&lt;/span&gt;&lt;span class='kt'&gt;splice&lt;/span&gt;&lt;span class='err'&gt;&amp;quot;&lt;/span&gt; &lt;span class='kt'&gt;of&lt;/span&gt; &lt;span class='kt'&gt;undefined&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;&amp;lt;Unknown&lt;/span&gt; &lt;span class='kt'&gt;source&amp;gt;&lt;/span&gt;&lt;span class='k'&gt;#&lt;/span&gt;&lt;span class='err'&gt;1&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='kt'&gt;in&lt;/span&gt;
+&lt;span class='o'&gt;&amp;lt;&lt;/span&gt;&lt;span class='nc'&gt;Unknown&lt;/span&gt; &lt;span class='n'&gt;source&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;at&lt;/span&gt; &lt;span class='n'&gt;line&lt;/span&gt; &lt;span class='n'&gt;number&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Okay - this ScriptException is very similar to what you would see evaluating the same code in the Firefox or Chrome JavaScript consoles, so that&amp;#8217;s reassuring.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s try another failure scenario - where our JavaScript accidentally returns a Number when we are expecting a Boolean:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;isFiltered&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;($filter === \&amp;quot;yeah\&amp;quot;) ? 1 : 0;&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;isFiltered&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='mf'&gt;1.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The return type definitely looks problematic, although the problem won&amp;#8217;t manifest itself until we try to cast it into a Boolean. So let&amp;#8217;s put together an example with some type safety:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;PartialFunction._&lt;/span&gt;
+&lt;span class='k'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;PartialFunction._&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;def&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt;
+	&lt;span class='n'&gt;condOpt&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Any&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt; &lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='n'&gt;b&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Boolean&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;b&lt;/span&gt; &lt;span class='o'&gt;}&lt;/span&gt;
+&lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;script:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;&lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;($filter === \&amp;quot;yeah\&amp;quot;) ? true : false;&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res30&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Some&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kc'&gt;true&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;($filter === \&amp;quot;yeah\&amp;quot;) ? 1 : 0;&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res30&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Perfect! We have wrapped our JavaScript in some sensible Scala types. For more information on the &lt;code&gt;condOpt&lt;/code&gt; &amp;#8220;magic&amp;#8221;, check out &lt;a href='http://stackoverflow.com/a/9828815/255627'&gt;this Stack Overflow answer&lt;/a&gt; to &lt;em&gt;&amp;#8220;How to cast java.lang.Object to a specific type in Scala?&amp;#8221;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s try something a little more ambitious now. Can we mutate a POJO (&amp;#8220;plain old Java object&amp;#8221;) from inside JavaScript? Only one way to find out:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;MyPojo&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt; &lt;span class='nd'&gt;@scala&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;reflect&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;BeanProperty&lt;/span&gt; &lt;span class='k'&gt;var&lt;/span&gt; &lt;span class='n'&gt;myVar&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;heart scala&amp;quot;&lt;/span&gt; &lt;span class='o'&gt;}&lt;/span&gt;
+&lt;span class='n'&gt;defined&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;MyPojo&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;myPojo&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nc'&gt;MyPojo&lt;/span&gt;
+&lt;span class='n'&gt;myPojo&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;MyPojo&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;MyPojo&lt;/span&gt;&lt;span class='k'&gt;@&lt;/span&gt;&lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='n'&gt;bbf1be2&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;put&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$myPojo&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;myPojo&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$myPojo.myVar = \&amp;quot;heart js\&amp;quot;;&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;javax&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;script&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;ScriptException&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;sun.org.mozilla.javascript.internal.EvaluatorException:&lt;/span&gt;
+&lt;span class='nc'&gt;Java&lt;/span&gt; &lt;span class='n'&gt;method&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;myVar&amp;quot;&lt;/span&gt; &lt;span class='n'&gt;cannot&lt;/span&gt; &lt;span class='n'&gt;be&lt;/span&gt; &lt;span class='n'&gt;assigned&lt;/span&gt; &lt;span class='n'&gt;to&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt; &lt;span class='o'&gt;(&amp;lt;&lt;/span&gt;&lt;span class='nc'&gt;Unknown&lt;/span&gt; &lt;span class='n'&gt;source&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt;&lt;span class='k'&gt;#&lt;/span&gt;&lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='n'&gt;in&lt;/span&gt; &lt;span class='o'&gt;&amp;lt;&lt;/span&gt;&lt;span class='nc'&gt;Unknown&lt;/span&gt; &lt;span class='n'&gt;source&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt;
+&lt;span class='n'&gt;at&lt;/span&gt; &lt;span class='n'&gt;line&lt;/span&gt; &lt;span class='n'&gt;number&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Oh dear! It looks like Java and Scala&amp;#8217;s getters and setters sugar doesn&amp;#8217;t translate well into JavaScript. So let&amp;#8217;s try the actual setter method, and then print using the getter:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$myPojo.setMyVar(\&amp;quot;heart js\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res10&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;print($myPojo.myVar() + \&amp;quot;\\n\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;heart&lt;/span&gt; &lt;span class='n'&gt;js&lt;/span&gt;
+&lt;span class='n'&gt;res20&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Okay great - the mutation seems to be working. And note that trailing semi-colons are optional, just as they are in &amp;#8220;real&amp;#8221; JavaScript. Now let&amp;#8217;s try and get our POJO back out into our Scala context:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;myPojoRedux&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;get&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$myPojo&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='k'&gt;match&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+	&lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='n'&gt;p&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;MyPojo&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;p&lt;/span&gt;
+	&lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='k'&gt;_&lt;/span&gt; &lt;span class='k'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;throw&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nc'&gt;ClassCastException&lt;/span&gt;
+&lt;span class='o'&gt;}&lt;/span&gt;
+&lt;span class='n'&gt;myPojoRedux&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;MyPojo&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;MyPojo&lt;/span&gt;&lt;span class='k'&gt;@&lt;/span&gt;&lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='n'&gt;bbf1be2&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;myPojoRedux&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;myVar&lt;/span&gt;
+&lt;span class='n'&gt;res26&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='n'&gt;heart&lt;/span&gt; &lt;span class='n'&gt;js&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Done! So we have made some progress: we have mutated a POJO inside of JavaScript using the de-sugared setter and getter forms.&lt;/p&gt;
+
+&lt;p&gt;Okay, what&amp;#8217;s the situation with Scala case classes? Obviously we won&amp;#8217;t try to mutate them inside of JavaScript, but it would be great if we can at least see their contents:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;MyCaseClass&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;myVal&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;defined&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;MyCaseClass&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;myCC&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;MyCaseClass&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;can&amp;#39;t touch this&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;myCaseClass&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;MyCaseClass&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;MyCaseClass&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;can&lt;/span&gt;&lt;span class='-Symbol'&gt;&amp;#39;t&lt;/span&gt; &lt;span class='n'&gt;touch&lt;/span&gt; &lt;span class='k'&gt;this&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;put&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$myCaseClass&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;myCC&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;print($myCaseClass.myVal() + \&amp;quot;\\n\&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;can&lt;/span&gt;&lt;span class='-Symbol'&gt;&amp;#39;t&lt;/span&gt; &lt;span class='n'&gt;touch&lt;/span&gt; &lt;span class='k'&gt;this&lt;/span&gt;
+&lt;span class='n'&gt;res35&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.Object&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Great! We can see inside Scala case classes without any particular fuss.&lt;/p&gt;
+
+&lt;p&gt;We&amp;#8217;re almost done for our first blog post - of course, we haven&amp;#8217;t touched Hadoop yet, but we have a much better understanding of how we can script Scala programs (and so hopefully Scalding jobs) using JavaScript.&lt;/p&gt;
+
+&lt;p&gt;Before we go, let&amp;#8217;s try to generalize our &lt;code&gt;evalAsBoolean()&lt;/code&gt; method above into something a little bit more reusable. How about a method with a signature like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='cm'&gt;/**&lt;/span&gt;
+&lt;span class='cm'&gt; * Evaluate some JavaScript into a Some(Boolean),&lt;/span&gt;
+&lt;span class='cm'&gt; * returning None if this evaluation failed.&lt;/span&gt;
+&lt;span class='cm'&gt; *&lt;/span&gt;
+&lt;span class='cm'&gt; * @param js The JavaScript to evaluate&lt;/span&gt;
+&lt;span class='cm'&gt; * @param vars A Map of variables to pass into&lt;/span&gt;
+&lt;span class='cm'&gt; * the JavaScript&lt;/span&gt;
+&lt;span class='cm'&gt; * @return An Option-boxed Boolean&lt;/span&gt;
+&lt;span class='cm'&gt; */&lt;/span&gt;
+&lt;span class='k'&gt;def&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;, &lt;span class='kt'&gt;Object&lt;/span&gt;&lt;span class='o'&gt;])&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Hopefully the function arguments and return value are fairly clear, so let&amp;#8217;s proceed to the whole function definition:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='k'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;javax.script.ScriptEngineManager&lt;/span&gt;
+&lt;span class='k'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;PartialFunction._&lt;/span&gt;
+
+&lt;span class='cm'&gt;/**&lt;/span&gt;
+&lt;span class='cm'&gt; * Evaluate some JavaScript into a Some(Boolean),&lt;/span&gt;
+&lt;span class='cm'&gt; * returning None if this evaluation failed.&lt;/span&gt;
+&lt;span class='cm'&gt; *&lt;/span&gt;
+&lt;span class='cm'&gt; * @param js The JavaScript to evaluate&lt;/span&gt;
+&lt;span class='cm'&gt; * @param vars A Map of variables to pass into&lt;/span&gt;
+&lt;span class='cm'&gt; * the JavaScript&lt;/span&gt;
+&lt;span class='cm'&gt; * @return An Option-boxed Boolean&lt;/span&gt;
+&lt;span class='cm'&gt; */&lt;/span&gt;
+&lt;span class='k'&gt;def&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;, &lt;span class='kt'&gt;Object&lt;/span&gt;&lt;span class='o'&gt;])&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+	
+    &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;factory&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nc'&gt;ScriptEngineManager&lt;/span&gt;
+    &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='n'&gt;factory&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;getEngineByName&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;JavaScript&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+    &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;prependDollar&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;v&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='k'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;if&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;v&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;startsWith&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;$&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;))&lt;/span&gt; &lt;span class='n'&gt;v&lt;/span&gt; &lt;span class='k'&gt;else&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;$%s&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;format&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;v&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+    &lt;span class='k'&gt;for&lt;/span&gt; &lt;span class='o'&gt;((&lt;/span&gt;&lt;span class='n'&gt;k&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;v&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='k'&gt;&amp;lt;-&lt;/span&gt; &lt;span class='n'&gt;vars&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;put&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;prependDollar&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;k&lt;/span&gt;&lt;span class='o'&gt;),&lt;/span&gt; &lt;span class='n'&gt;v&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+    &lt;span class='k'&gt;try&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+        &lt;span class='n'&gt;condOpt&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;engine&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;eval&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Any&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+            &lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='n'&gt;b&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Boolean&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;b&lt;/span&gt;
+        &lt;span class='o'&gt;}&lt;/span&gt;
+    &lt;span class='o'&gt;}&lt;/span&gt; &lt;span class='k'&gt;catch&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+        &lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='n'&gt;se&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;javax.script.ScriptException&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='nc'&gt;None&lt;/span&gt;
+    &lt;span class='o'&gt;}&lt;/span&gt;
+&lt;span class='o'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Paste that into the Scala console in SBT and you should see:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kt'&gt;js:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='kt'&gt;vars:&lt;/span&gt; &lt;span class='kt'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;,&lt;span class='kt'&gt;java.lang.Object&lt;/span&gt;&lt;span class='o'&gt;])&lt;/span&gt;&lt;span class='nc'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now let&amp;#8217;s try this out - first with a script which should evaluate to true:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;vars1&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;, &lt;span class='kt'&gt;Object&lt;/span&gt;&lt;span class='o'&gt;](&lt;/span&gt;
+&lt;span class='s'&gt;&amp;quot;one&amp;quot;&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;java&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lang&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;Integer&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='o'&gt;),&lt;/span&gt;
+&lt;span class='s'&gt;&amp;quot;$two&amp;quot;&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='n'&gt;java&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;lang&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='nc'&gt;Integer&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;vars1&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;scala.collection.immutable.Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;,&lt;span class='kt'&gt;java.lang.Object&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;one&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='nc'&gt;$two&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='mi'&gt;2&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;js1&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;($one + $two) === 3;&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;js1&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='nc'&gt;$one&lt;/span&gt; &lt;span class='o'&gt;+&lt;/span&gt; &lt;span class='nc'&gt;$two&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='o'&gt;===&lt;/span&gt; &lt;span class='mi'&gt;3&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js1&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars1&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res1&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Some&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kc'&gt;true&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now a false value, involving checking a property inside of a case class:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;case&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;ALang&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;aLang&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;String&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;defined&lt;/span&gt; &lt;span class='k'&gt;class&lt;/span&gt; &lt;span class='nc'&gt;ALang&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;vars2&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;, &lt;span class='kt'&gt;Object&lt;/span&gt;&lt;span class='o'&gt;](&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;lang&amp;quot;&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='nc'&gt;ALang&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;dart&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;))&lt;/span&gt;
+&lt;span class='n'&gt;vars2&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;scala.collection.immutable.Map&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;String&lt;/span&gt;,&lt;span class='kt'&gt;java.lang.Object&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Map&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;lang&lt;/span&gt; &lt;span class='o'&gt;-&amp;gt;&lt;/span&gt; &lt;span class='nc'&gt;ALang&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;dart&lt;/span&gt;&lt;span class='o'&gt;))&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;js2&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;$lang.aLang() === \&amp;quot;js\&amp;quot;;&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;js2&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;$lang&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;aLang&lt;/span&gt;&lt;span class='o'&gt;()&lt;/span&gt; &lt;span class='o'&gt;===&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;js&amp;quot;&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js2&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars2&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res2&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;Some&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='kc'&gt;false&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That&amp;#8217;s working a treat. Now let&amp;#8217;s try evaluating an invalid piece of JavaScript:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;js3&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;$doesNotExist.arg()&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;js3&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;$doesNotExist&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;arg&lt;/span&gt;&lt;span class='o'&gt;()&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js3&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars2&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res3&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Good, and finally a valid piece of JavaScript but one which returns a String when we want a Boolean:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='scala'&gt;&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;val&lt;/span&gt; &lt;span class='n'&gt;js4&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;\&amp;quot;I heart \&amp;quot; + $lang.aLang();&amp;quot;&lt;/span&gt;
+&lt;span class='n'&gt;js4&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;java.lang.String&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;quot;I heart &amp;quot;&lt;/span&gt; &lt;span class='o'&gt;+&lt;/span&gt; &lt;span class='nc'&gt;$lang&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='n'&gt;aLang&lt;/span&gt;&lt;span class='o'&gt;();&lt;/span&gt;
+
+&lt;span class='n'&gt;scala&lt;/span&gt;&lt;span class='o'&gt;&amp;gt;&lt;/span&gt; &lt;span class='n'&gt;evalAsBoolean&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;js4&lt;/span&gt;&lt;span class='o'&gt;,&lt;/span&gt; &lt;span class='n'&gt;vars2&lt;/span&gt;&lt;span class='o'&gt;)&lt;/span&gt;
+&lt;span class='n'&gt;res4&lt;/span&gt;&lt;span class='k'&gt;:&lt;/span&gt; &lt;span class='kt'&gt;Option&lt;/span&gt;&lt;span class='o'&gt;[&lt;/span&gt;&lt;span class='kt'&gt;Boolean&lt;/span&gt;&lt;span class='o'&gt;]&lt;/span&gt; &lt;span class='k'&gt;=&lt;/span&gt; &lt;span class='nc'&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Great! Those are all behaving as expected. We&amp;#8217;re going to pause here, but we&amp;#8217;ve already made some good progress understanding how JavaScript can be invoked at runtime from a Scala environment.&lt;/p&gt;
+
+&lt;p&gt;In the next post, we will take these learnings and start to apply them within a Scalding environment, with the aim of getting some basic user-defined JavaScript executing on Elastic MapReduce. Stay tuned for the next installment!&lt;/p&gt;
+
+&lt;p&gt;If you&amp;#8217;re interested in adapting Snowplow&amp;#8217;s technology to meet your custom event processing needs, and would like to discuss your requirements with the Snowplow team, then &lt;a href='/about/index.html'&gt;get in touch&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes</id>

@@ -68,6 +68,16 @@
 		<div id="contents">
 	
 		<div class="post">
+			20 May 2013
+			<h1><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We have just added a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>new recipe</a> to the <a href='/analytics/index.html'>Analytics Cookbook</a>: one that walks through the process of performing a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using <a href='http://www.r-project.org/'>R</a> and the <a href='http://cran.r-project.org/web/packages/arules/index.html'>arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I&#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
+<p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /></p>
+<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&#8217;s <em>users who bought this product also bought these items</em>&#8230;</p>
+<p class='more'><a href='/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			16 May 2013
 			<h1><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -176,39 +186,6 @@
 <p class='more'><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			08 May 2013
-			<h1><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
-
-<p>Many thanks to community member <a href='https://github.com/butlermh'>Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
-
-<p>This release bumps the Clojure Collector to version <strong>0.4.0</strong>. There are three main changes to the Collector:</p>
-
-<ol>
-<li>Building the Collector&#8217;s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
-
-<li>We have fixed a bug (<a href='https://github.com/snowplow/snowplow/issues/220'>#220</a>) where occasionally the Collector&#8217;s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
-
-<li>Some code tidy-up, including making the Clojure Collector work with newer versions of Leiningen</li>
-</ol>
-
-<p>To upgrade to this release:</p>
-
-<ol>
-<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
-
-<li>Log in to your Amazon Elastic Beanstalk console</li>
-
-<li>Browse to your Collector&#8217;s application</li>
-
-<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
-</ol>
-
-<p>And that should be it. Thanks again to Mark for his contribution to this release - and we&#8217;re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -228,6 +205,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+		
 			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 		
 			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
@@ -235,8 +214,6 @@
 			<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 		
 			<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-		
-			<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 		
 	</ul>
 
@@ -314,6 +291,15 @@
 		
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

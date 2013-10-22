@@ -71,7 +71,7 @@
 			22 Oct 2013
 			<h1><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a number of different posts demonstrating how you can use those recipes and cubes to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
+			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
 
 <p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
 
@@ -79,9 +79,15 @@
 
 <h2 id='recap_what_is_cohort_analysis'>Recap: what is Cohort Analysis</h2>
 
-<p>We have a long page describing cohort analysis in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, however, a cohort analysis is a longitudal study, that compares the behaviour and characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analysis: because you can vary how you define different cohorts, and you can also vary the characteristic that you&#8217;re comparing between cohort over time.</p>
+<p>We have described cohort analysis at length in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:</p>
 
-<p>In digital media, however, people generally use cohort analysis to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how many well they retained customers acquired in October vs in September vs in August, and thereby measure in a robust way if they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
+<ol>
+<li>how you group people into cohorts (cohort definition), and</li>
+
+<li>the characteristic that you&#8217;re comparing between cohort over time.</li>
+</ol>
+
+<p>In digital media people generally use the phrase &#8216;cohort analysis&#8217; to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
 <p class='more'><a href='/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio'>Read the rest of this entry</a></p>
 		</div>
 	

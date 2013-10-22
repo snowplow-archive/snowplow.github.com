@@ -70,7 +70,7 @@
 			22 Oct 2013
 			<h1>Using the new SQL views to perform cohort analysis with ChartIO</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a number of different posts demonstrating how you can use those recipes and cubes to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
+			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
 
 <p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
 
@@ -78,9 +78,15 @@
 
 <h2 id='recap_what_is_cohort_analysis'>Recap: what is Cohort Analysis</h2>
 
-<p>We have a long page describing cohort analysis in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, however, a cohort analysis is a longitudal study, that compares the behaviour and characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analysis: because you can vary how you define different cohorts, and you can also vary the characteristic that you&#8217;re comparing between cohort over time.</p>
+<p>We have described cohort analysis at length in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:</p>
 
-<p>In digital media, however, people generally use cohort analysis to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how many well they retained customers acquired in October vs in September vs in August, and thereby measure in a robust way if they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
+<ol>
+<li>how you group people into cohorts (cohort definition), and</li>
+
+<li>the characteristic that you&#8217;re comparing between cohort over time.</li>
+</ol>
+
+<p>In digital media people generally use the phrase &#8216;cohort analysis&#8217; to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
 <!--more-->
 <p>We&#8217;ve included 10 different cohort analyses as standard with Snowplow, all of which compare retention rates between different cohorts, but which vary in how they define cohorts and what unit of time the comparison is performed over:</p>
 <table><thead><tr><th><strong>Cohort definition</strong></th><th><strong>Unit of time comparison is performed over</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Paid channel acquired</td><td style='text-align: left;'>Months</td>
@@ -94,15 +100,15 @@
 </tr><tr><td style='text-align: left;'>Month first transact on website</td><td style='text-align: left;'>Months</td>
 </tr><tr><td style='text-align: left;'>Week first transact on website</td><td style='text-align: left;'>Weeks</td>
 </tr></tbody></table>
-<p>Other metrics you might want to compare between cohorts include average revenue per user and average <a href='/analytics/customer-analytics/user-engagement.html'>engagement by user</a>. (Engagement can be defined in many different ways.)</p>
+<p>Other metrics you might want to compare between cohorts include <a href='/analytics/customer-analytics/customer-lifetime-value.html'>average revenue per user</a> and average <a href='/analytics/customer-analytics/user-engagement.html'>engagement by user</a>. (Engagement can be defined in many different ways.) For details in how to perform cohort analyses with these measures, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>detailed recipe in the Analysts Cookbook</a>.</p>
 
-<p>In this post we&#8217;re going to plot retention by month based on the month that a user first touched the website. We&#8217;re going to perform this analysis for the Snowplow website itself.</p>
+<p>In this post we&#8217;re going to plot retention by month, based on the month that a user first touched the website. We&#8217;re going to perform this analysis for the Snowplow website itself.</p>
 
 <h2 id='performing_the_analysis'>Performing the analysis</h2>
 
 <p>Before we dive into ChartIO and create our plot, let&#8217;s first have a look at the raw data in <a href='http://www.navicat.com/'>Navicat</a>, by opening up our view directly. Go into Navicat (or your SQL UI of choice) and open up <code>customer_recipes.cohort_retention_by_month_first_touch</code> view:</p>
 <p><a href='/static/img/blog/2013/10/cohort-analysis/1.JPG'><img src='/static/img/blog/2013/10/cohort-analysis/1.JPG' title='cohort data viewed directly in Navicat' /></a></p>
-<p>(You can click on the picture above to zoom in on it.) Let&#8217;s take a good look at the actual structure of the data: this will make it much clearer how to successfully plot the data in ChartIO:</p>
+<p>(You can click on the picture above to <a href='/static/img/blog/2013/10/cohort-analysis/1.JPG'>zoom in</a> on it.) Let&#8217;s take a good look at the actual structure of the data: this will make it much clearer how to successfully plot the data in ChartIO:</p>
 
 <ul>
 <li>Each line of data gives the number of uniques, for that a particular cohort, that were active each month. (This number is given in the <code>uniques</code> column.)</li>
@@ -111,14 +117,14 @@
 
 <li>We have three dimensions for each line of data: the first, called <code>cohort</code>, is the month that the user first touched the website.</li>
 
-<li>The second dimensions is <code>month_actual</code> - this is the month that the measure was taken. So we see in our example, that we have 9 records for the February 2013 cohort, one for February, one for March, one for April etc. until October. For those 9 records, the first dimension is always equal to February 2013 - i.e. the month that these users first came to our website. But the <code>month_actual</code> field increments.</li>
+<li>The second dimension is <code>month_actual</code> - this is the month that the measure was taken. So we see in our example, that we have 9 records for the February 2013 cohort, one for February, one for March, one for April etc. until October. For those 9 records, the first dimension is always equal to February 2013 - i.e. the month that these users first came to our website. But the <code>month_actual</code> field increments.</li>
 
-<li>As well as giving the actual month that each measure was taken, we also get a <code>month_rank</code> which equals 1 for the first measurement for the cohort, 2 for the second etc. This will make it easy to compare the retention rates after e.g. 3 months between cohorts that signed up in January and February, for example: note that we&#8217;d want to compare the March numbers for our January cohort with our April numbers for our February cohort. Rather than work out the number of months between the cohort definition and the actual month, we can simply use <code>month_rank</code> for our comparison.</li>
+<li>As well as giving the actual month that each measure was taken, we also get a <code>month_rank</code> which equals 1 for the first measurement for the cohort, 2 for the second etc. This will make it easy to compare the retention rates after e.g. 3 months between cohorts that signed up in January and February, for example: note that we&#8217;d want to compare the March numbers for our January cohort with our April numbers for our February cohort. Rather than work out the number of months between the cohort definition and the actual month, we can simply compare figures where <code>month_rank</code> = 3 for our comparison.</li>
 
-<li>Finally, note that our <code>fraction_retailed</code> figure is always 1 (i.e. 100%) for the first month&#8217;s reading for each cohort. That is because, by definition, each cohort is active for the first month that they touch the website.</li>
+<li>Finally, note that our <code>fraction_retained</code> figure is always 1 (i.e. 100%) for the first month&#8217;s reading for each cohort. That is because, by definition, every member of the cohort is active on the first month that they touch the website. (Activity is defined as visiting the website at least once.)</li>
 </ul>
 
-<p>Now - to perform our analysis, we want to plot a line graph: one per cohort, where we&#8217;re plotting month rank (on the x-axis) against fraction retained (on the y-axis):</p>
+<p>Now - to perform our analysis, we want to plot a line graph: one per cohort, where we&#8217;re plotting month rank (on the x-axis) against fraction retained (on the y-axis). We expect a graph as follows, with retention by cohort decreasing over time for each of cohorts:</p>
 
 <p><img alt='cohort-mockup' src='/static/img/blog/2013/10/cohort-analysis/cohort-analysis-mockup.png' /></p>
 
@@ -130,21 +136,23 @@
 
 <p><img alt='select-view' src='/static/img/blog/2013/10/cohort-analysis/4.JPG' /></p>
 
-<p>Now let&#8217;s create our plot. We want to plot <code>Fraction Retained</code> as our metric, so drag that from the <strong>Data Sources</strong> column to the <strong>Measures</strong> pane:</p>
+<p>Now let&#8217;s create our plot. We want to plot <strong>Fraction Retained</strong> as our metric, so drag that from the <strong>Data Sources</strong> column to the <strong>Measures</strong> pane:</p>
 
 <p><img alt='fraction-retained' src='/static/img/blog/2013/10/cohort-analysis/5.JPG' /></p>
 
-<p>Now we want to plot this over month rank, so let&#8217;s drag <code>Month Rank</code> from the <strong>Data Sources</strong> column to the <strong>Dimensions</strong> pane:</p>
+<p>Now we want to plot this over <strong>Month Rank</strong>, so let&#8217;s drag <strong>Month Rank</strong> from the <strong>Data Sources</strong> column to the <strong>Dimensions</strong> pane:</p>
 
 <p><img alt='month-rank' src='/static/img/blog/2013/10/cohort-analysis/6.JPG' /></p>
 
-<p>Lastly we want to compare the fraction retained over month rank between cohorts, so drag this to the dimensions pane as pane as well. ChartIO, on seeing that this is a date field, assumes you want to plot it by week. We want to plot it by month, so click on it in the dimensions pane to reveal a dropdown, and select <strong>Month</strong> from the <strong>Time bucket</strong> dropdown:</p>
+<p>Lastly we want to compare the fraction retained over month rank between <strong>Cohort</strong>, so drag <strong>Cohort</strong> from the <strong>Data Sources</strong> column to the dimensions pane as pane as well. ChartIO, on seeing that this is a date field, assumes you want to plot it by week. We want to plot it by month, so click on it in the dimensions pane to reveal a dropdown, and set <strong>Time bucket</strong> to <strong>Month</strong>:</p>
 
 <p><img alt='cohort' src='/static/img/blog/2013/10/cohort-analysis/7.JPG' /></p>
 
 <p>Now click the <strong>Chart Query</strong> button. A table with the different values (a subset of those we saw in Navicat) will appear above. Click on the line graph icon, to its right, to plot a line chart and bingo! The cohort analysis is complete:</p>
 
 <p><img alt='complete-cohort-analysis' src='/static/img/blog/2013/10/cohort-analysis/8.JPG' /></p>
+
+<p>We can see that retention <em>has not</em>, sadly for us, improved over time. It does appear that the users acquired in August, however, were retained better than those acquired in other months. It would be interesting to understand why: to do this, we&#8217;d need to look at how each user was acquired (what drove them to our website), and whether some channels are better at driving &#8220;sticky&#8221; users than others, and if those channels accounted for a bigger share of user acquisition in August than the other months.</p>
 
 <p>We plan to post more guides to using the recipes directly in ChartIO and other analytics tools, and as building blocks for developing your own, bespoke analysis, over the next few months. Stay tuned!</p>
 			<div class="author_summary">

@@ -142,38 +142,11 @@
 </ul>
 
 <p>For any page view that happens in session (so it <strong>not</strong> a landing page), the referer will be an internal page. If <code>refr_medium</code> set to any of the <em>other</em> options in the list above, the page view was a landing page. As a result, to fetch all rows of data which represent page views for landing pages, we simply execute the following query:</p>
-<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
-<span class='k'>SELECT</span>
-	<span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Item page&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Landing page views&quot;</span>
-<span class='k'>FROM</span>
-	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
-<span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-<span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>Note that we group our results by page, so we get a single line for each page. The sum of all the records for each page is the number of page views, where that page is a landing page. We also calculate the number of visits and uniques, by counting the number of distinct users and sessions.</p>
 
 <p>To start with, lets perform the analysis on <a href='http://www.psychicbazaar.com/'>Psychic Bazaar</a>. We want to execute the above query, but <strong>only</strong> return lines for pages which are product page. (So ignore entries for e.g. the home page or category pages.) We can do this by filtering results based on URL:</p>
-<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
-<span class='k'>SELECT</span>
-	<span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Item page&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span> <span class='o'>+</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>+</span> <span class='n'>domain_sessionidx</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits driven to site&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Landing page views&quot;</span>
-<span class='k'>FROM</span>
-	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
-<span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-<span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
-<span class='k'>AND</span> <span class='p'>(</span>  <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span> <span class='p'>)</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>4</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div><a href='/static/img/analytics/catalog-analytics/driving-traffic/1.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.png' /></a>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/1.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.png' /></a>
 <p>We can plot the results in Tableau: create a new data connection from Tableau to Redshift using the above query. (For detailed instructions on how to pull specific cuts of Snowplow data from Redshift into Tableau, refer to the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data'>guide to setting up Tableau to work with Snowplow / Redshift guide</a>). Simply drag the &#8220;Item page&#8221; dimension to the rows shelf and one of the measures into the worksheet. In the example below we&#8217;ve listed &#8220;visits driven to the site&#8221; by page view:</p>
 <a href='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG' /></a>
 <p>Now we can plot a histogram by clicking on the histogram image on the &#8220;Show Me&#8221; toolbar. To tidy up the histogram, we&#8217;ve replaced the &#8220;Item page&#8221; dimension with a calculated field &#8220;Item Name&#8221; in Tableau which removes the leading &#8220;/&#171;CATEGORY NAME&#187;&#8221; and trailing &#8220;.html&#8221; from the &#8220;Item page&#8221; field (which was the item URL), using the following formula:</p>
@@ -186,14 +159,16 @@
 <span class='go'>		,&quot;/pendula/&quot;, &quot;&quot;)</span>
 <span class='go'>	,&quot;/jewellery/&quot;, &quot;&quot;)</span>
 <span class='go'>, &quot;.html&quot;, &quot;&quot;)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We&#8217;ve also added a calculated field called &#8220;Product category&#8221; that infers the product category from the item page URL using the following formula:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>IF(CONTAINS([item page], &quot;/tarot-cards/&quot;)) THEN &quot;Tarot&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/oracles/&quot;)) THEN &quot;Oracle&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/jewellery/&quot;)) THEN &quot;Jewellery&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/pendula/&quot;)) THEN &quot;Pendulum&quot;</span>
 <span class='go'>ELSE &quot;Not classified&quot; END</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We then added the &#8220;Product category&#8221; field to the color dimension. Our graph looks as follows:</p>
 <a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a>
 <p><em>Note: the above graph is truncated - click on it to view the full result set</em></p>
@@ -219,30 +194,7 @@
 <p>Back to <a href='#top'>top</a>.</p>
 <a name='drill'><h2>3. Drilling into our data: understanding *how* our top performing products are generating traffic</h2></a>
 <p>We can examine <em>how</em> our top performing products (for inbound marketing) drive traffic to our site by going back to our Snowplow data in Redshift, and executing the following query:</p>
-<div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
-<span class='k'>SELECT</span>
-	<span class='n'>collector_tstamp</span><span class='p'>,</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='n'>refr_medium</span><span class='p'>,</span>
-	<span class='n'>refr_source</span><span class='p'>,</span>
-	<span class='n'>refr_term</span><span class='p'>,</span>
-	<span class='n'>refr_urlhost</span><span class='p'>,</span>
-	<span class='n'>refr_urlpath</span><span class='p'>,</span>
-	<span class='n'>mkt_medium</span><span class='p'>,</span>
-	<span class='n'>mkt_source</span><span class='p'>,</span>
-	<span class='n'>mkt_term</span><span class='p'>,</span>
-	<span class='n'>mkt_campaign</span>
-<span class='k'>FROM</span>
-	<span class='s-Name'>&quot;atomic&quot;</span><span class='mf'>.</span><span class='s-Name'>&quot;events&quot;</span>
-<span class='k'>WHERE</span> <span class='s-Name'>&quot;event&quot;</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-<span class='k'>AND</span>   <span class='s-Name'>&quot;refr_medium&quot;</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
-<span class='k'>AND</span> <span class='p'>(</span>  <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/tarot-cards/%&#39;</span><span class='p'>)</span> 
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/oracles/%&#39;</span><span class='p'>)</span> 
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/pendula/%&#39;</span><span class='p'>)</span>
-	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span> <span class='p'>)</span>
-</code></pre></div>
+
 <p>Note that this query pulls many more fields into Snowplow than the previous query: crucially it pulls the <code>collector_tstamp</code> (so we can look at traffic over time) and the marketing and referer fields (so we can see on which channel each product drove traffic).</p>
 
 <p>Because we&#8217;re pulling more fields from Snowplow, we are not going to aggregate our data by product as we did before in the SQL - instead, we&#8217;ll do the aggregation in Tableau. (This will give us more flexibility to slice and dice the dimensions against one another in Tableau.)</p>
@@ -251,12 +203,14 @@
 <a href='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG' /></a>
 <p>Because we&#8217;re aggregating our data in Tableau rather than SQL, we need to create our metrics (uniques, visits and page views) in Tableau. To create a new calculated field for &#8220;uniques&#8221;, right click on the measures pane, select &#8220;Create calculated field&#8221;, give your new field the name &#8220;uniques&#8221; and enter the following calculation:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>COUNTD([domain_userid])</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This counts the number of distinct <code>domain_userid</code>: it is the same way we previously calculated the number of uniques in the SQL.</p>
 
 <p>Create a visits metric in the same way, but this time enter the following formula:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>COUNTD([domain_userid + STR(domain_sessionidx)])</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Lastly, we need to create a metric for &#8220;page views&#8221;. Remember: each line of our data represents a single page view, so we can simply rename the &#8220;Number of records&#8221; field to &#8220;Page views&#8221;. Our measures pane now looks as follows:</p>
 <a href='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG' /></a>
 <p>Now we can plot the number of visits driven by each type of product, and break that down by referer type. To start off, let&#8217;s plot the number of visits by product, as before, but this time, drag &#8220;refr_medium&#8221; into the color shelf, so that we breakdown visits by the referer type:</p>
@@ -271,7 +225,8 @@
 <span class='go'>		,&quot;/pendula/&quot;, &quot;&quot;)</span>
 <span class='go'>	,&quot;/jewellery/&quot;, &quot;&quot;)</span>
 <span class='go'>, &quot;.html&quot;, &quot;&quot;)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The visualization tells us three things:</p>
 
 <ol>

@@ -102,7 +102,8 @@
 <span class='p'>...</span> <span class='k'>AS</span> <span class='n'>cohort</span><span class='p'>,</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='1a_defining_cohorts_by_when_a_user_first_visits_the_website'>1a. Defining cohorts by when a user first visits the website</h3>
 
 <p>In this case we want to compare users who first visited us in January with those that first visited us in February, March, April etc.</p>
@@ -115,7 +116,8 @@
 <span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='k'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>cohort</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='1b_definine_a_cohort_by_when_a_user_first_performed_a_specific_action'>1b. Definine a cohort by when a user first performed a specific action</h3>
 
 <p>For many SaaS providers, it is not when a user first visits the site that is really important, but when a user actually signed up for a service, or performed some other specific action for the first time.</p>
@@ -129,7 +131,8 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>se_action</span> <span class='o'>=</span> <span class='s1'>&#39;sign-up&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note that the above query assumes that a signup is tracked using <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>custom structured event tracking</a>, where the event action field is set to &#8216;sign-up&#8217;.</p>
 
 <h3 id='1c_definine_a_cohort_by_the_channel_a_user_was_acquired_on'>1c. Definine a cohort by the channel a user was acquired on</h3>
@@ -157,7 +160,8 @@
 	<span class='k'>AND</span> <span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='mi'>1</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>WHERE</span> <span class='n'>r</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>By including the other marketing fields (<code>mkt_content</code>, <code>mkt_name</code>) we can define cohorts more precisely e.g. to compare users acquired with different keyword combinations, or who had seen different ad versions.</p>
 
 <p>We may also want to define cohorts based on a the <code>refr_...</code> rather than <code>mkt_...</code> fields (e.g. because we are interested in comparing the behaviour of users from organic rather than paid campaigns), or define our cohorts based a combination of <code>refr_...</code> and <code>mkt_...</code> fields, e.g.:</p>
@@ -179,7 +183,8 @@
 	<span class='k'>WHERE</span> <span class='n'>refr_medium</span> <span class='o'>!=</span> <span class='s1'>&#39;internal&#39;</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>WHERE</span> <span class='n'>r</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='1d_other_ways_to_define_cohorts'>1d. Other ways to define cohorts</h3>
 
 <p>Snowplow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of Snowplow. (This data will need to be uploaded to Snowplow before it can be used.) For more information, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
@@ -193,7 +198,8 @@
 <span class='p'>...</span> <span class='k'>AS</span> <span class='n'>metric</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>There is a wide range <code>metric_value</code>s we might want to compare between cohorts: most either get at how engaged a particular cohort is, or how valuable a particular cohort is.</p>
 
 <h3 id='2a_measuring_user_retention'>2a. Measuring user retention</h3>
@@ -208,7 +214,8 @@
 <span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='n'>months_active</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='2b_measuring_user_engagement'>2b. Measuring user engagement</h3>
 
 <p>There are a <a href='/analytics/customer-analytics/user-engagement.html'>wide variety of ways to measure user engagement</a>. Here we give just a couple of examples:</p>
@@ -229,7 +236,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Alternatively, we might want to just look at the average number of visits per month. (Maybe we&#8217;re doing the analysis for a search or affiliate site, that aims to build a loyal base of repeat users who visit the site frequently but then get off it quickly onto other sites where they make purchases.)</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>engagement_users_by_visits_per_month</span> <span class='k'>AS</span> 
@@ -247,7 +255,8 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='2c_measuring_customer_value'>2c. Measuring customer value</h3>
 
 <p>There are a <a href='/analytics/customer-analytics/customer-lifetime-value.html'>wide variety of ways to measure customer value and lifetime value</a>. Here we give just one example - for a retailer that wants to compare purchase value per month:</p>
@@ -267,7 +276,8 @@
 	<span class='k'>WHERE</span> <span class='n'>event</span><span class='o'>=</span><span class='s1'>&#39;transaction&#39;</span>
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>,</span><span class='mi'>4</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>t</span> <span class='c1'>-- deduped transaction table</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <h3 id='2d_other_metrics_to_compare'>2d. Other metrics to compare</h3>
 
 <p>Snowplow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
@@ -286,7 +296,8 @@
 <span class='k'>ON</span> <span class='k'>c</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>domain_userid</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>If we&#8217;d like to compare retention rates between cohorts defined by referer channels:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>cohort_retention_by_week_by_refr_acquired</span> <span class='k'>AS</span>
@@ -302,7 +313,8 @@
 <span class='k'>ON</span> <span class='k'>c</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>domain_userid</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>For more about cohort analyses and performing them on Snowplow, view the <a href='http://www.keplarllp.com/blog/2012/05/performing-cohort-analysis-on-web-analytics-data-using-snowplow'>blog post series</a> on <a href='http://www.keplarllp.com'>Keplar LLP</a>.</p>
 </div>
 

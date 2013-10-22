@@ -68,6 +68,16 @@
 		<div id="contents">
 	
 		<div class="post">
+			30 May 2013
+			<h1><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Hadoop has a serious Small File Problem. It&#8217;s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href='http://blog.cloudera.com/blog/2009/02/the-small-files-problem/'>Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
+<img src='/static/img/blog/2013/05/plowing-small-files.jpg' />
+<p>In this blog post we will discuss the small files problem in terms of our experiences with it at Snowplow. <strong>And we will argue that dealing with the small files problem - if you have it - is the single most important optimisation you can perform on your MapReduce process.</strong></p>
+<p class='more'><a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			24 May 2013
 			<h1><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes">Snowplow 0.8.5 released with ETL bug fixes</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -143,30 +153,6 @@
 <p class='more'><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			14 May 2013
-			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
-
-<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
-
-<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
-
-<p>In the rest of this post, then, we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
-
-<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -186,6 +172,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 		
 			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
@@ -194,24 +182,31 @@
 		
 			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 		
-			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-		
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -233,6 +228,32 @@
 		
 		</ul>		
 	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
@@ -246,41 +267,6 @@
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
 				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

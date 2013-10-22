@@ -100,13 +100,7 @@
 </tr><tr><td style='text-align: left;'>October 21 update</td><td style='text-align: left;'>Amazon updated the latest log file format with three new fields. See <a href='https://forums.aws.amazon.com/ann.jspa?annID=2174&amp;ref_=pe_411040_33444690_11#'>this post</a> for details.</td>
 </tr></tbody></table><!--more-->
 <p>The latest version of Snowplow supports <em>all</em> the different versions of the file format listed above, including the new format that was rolled out yesterday. It is important to note that the October 21st CloudFront file format is <strong>not</strong> supported by previous Snowplow versions: as a result, we&#8217;d expect existing Snowplow users using the CloudFront collector to see a significant number of lines in their bad rows bucket in S3 with the following format:</p>
-<div class='highlight'><pre><code class='json'><span class='p'>{</span>
-    <span class='nt'>&quot;line&quot;</span><span class='p'>:</span> <span class='s2'>&quot;2013-10-21\t18:49:02\tCDG51\t474\t80.10.159.93\tGET\td3dxd9302qh2q4.cloudfront.net\t/i\t200\thttp://www.mychoicepad.com/explore/\tMozilla/5.0%2520(iPad;%2520CPU%2520OS%25207_0_2%2520like%2520Mac%2520OS%2520X)%2520AppleWebKit/537.51.1%2520(KHTML,%2520like%2520Gecko)%2520Mobile/11A501\te=pp&amp;page=Explore%2520MyChoicePad%2520-%2520the%2520educational%2520Makaton%2520iPad%2520app&amp;;pp_mix=0&amp;pp_max=67&amp;pp_miy=1224&amp;pp_may=1547&amp;dtm=1382381340983&amp;tid=031666&amp;vp=980x1203&amp;ds=980x2390&amp;vid=1&amp;duid=00ecea075c77a900&amp;p=web&amp;tv=js-0.11.2&amp;fp=1956663502&amp;aid=mychoicepadweb&amp;lang=fr-fr&amp;cs=UTF-8&amp;tz=Europe%252FBerlin&amp;refr=http%253A%252F%252Fwww.mychoicepad.com%252Fmychoicepad%252F&amp;f_pdf=0&amp;f_qt=1&amp;f_realp=0&amp;f_wma=0&amp;f_dir=0&amp;f_fla=0&amp;f_java=0&amp;f_gears=0&amp;f_ag=0&amp;res=768x1024&amp;cd=32&amp;cookie=1&amp;url=http%253A%252F%252Fwww.mychoicepad.com%252Fexplore%252F\t-\tHit\tMBBAElwDr_1_43BnXPZxQwl_PWv0x90I2uu2qXzYOxV5HSsFUAgXaw==\td3dxd9302qh2q4.cloudfront.net\thttp\t823&quot;</span><span class='p'>,</span>
-    <span class='nt'>&quot;errors&quot;</span><span class='p'>:</span> <span class='p'>[</span>
-        <span class='s2'>&quot;Line does not match CloudFront header or data row formats&quot;</span>
-    <span class='p'>]</span>
-<span class='p'>}</span>
-</code></pre></div>
+
 <p>Once you have <a href='#upgrade'>upgraded your Snowplow installation to the latest version</a>, you will need to reprocess those bad rows. Instructions on how to do so are given <a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'>in this blog post</a>.</p>
 <a name='ip'><h2>2. IP address anonymization</h2></a>
 <p>As well as the critical update, there are a number of <em>nice-to-have</em> features bundled in this release. Chief amongst them is IP anonymization. The enrichment process can now be configured to mask IP addresses, so that privacy-conscious Snowplow users can prevent IP addresses being visible to analysts.</p>
@@ -150,17 +144,20 @@
 <span class='nv'>$ </span>git checkout 0.8.11
 <span class='nv'>$ </span><span class='nb'>cd </span>snowplow/3-enrich/emr-etl-runner
 <span class='nv'>$ </span>bundle install --deployment
-</code></pre></div>
+</code></pre>
+</div>
 <p>You also need to update the <code>config.yml</code> file for EmrEtlRunner to use the latest version of the Hadoop ETL (0.3.5):</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.5</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In addition, you need to add a new &#8220;enrichments&#8221; section in the <code>config.yml</code> file:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:enrichments</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:anon_ip</span><span class='p-Indicator'>:</span>
     <span class='l-Scalar-Plain'>:enabled</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>false</span>
     <span class='l-Scalar-Plain'>:anon_octets</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>1</span> <span class='c1'># Or 2, 3 or 4. 0 is same as enabled: false</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>To enable IP enrichment, you need to set <code>anon_ip.enabled</code> to true, and specify the level of anonymization with <code>anon_ip.anon_octets</code> field. If, for example, my IP address is &#8216;37.157.33.178&#8217;, then setting it to different values between 0 and 4 would anonymize my IP address as follows:</p>
 <table><thead><tr><th><code>anon_ip.anon_octets</code> value</th><th>IP address displayed in Snowplow</th></tr></thead><tbody><tr><td style='text-align: left;'>0</td><td style='text-align: left;'>37.157.33.178</td>
 </tr><tr><td style='text-align: left;'>1</td><td style='text-align: left;'>37.157.33.x</td>
@@ -175,7 +172,8 @@
 <span class='nv'>$ </span>git checkout 0.8.11
 <span class='nv'>$ </span><span class='nb'>cd </span>snowplow/4-storage/storage-loader
 <span class='nv'>$ </span>bundle install --deployment
-</code></pre></div>
+</code></pre>
+</div>
 <p>The StorageLoader <code>config.yml</code> file includes a new <code>:comprows:</code> option for Redshift users. This determines the number of rows that Amazon analyzes in order to determine the best compression encoding format to use for each of the fields in your Redshift event table. Note that this is <strong>only</strong> used if the <code>--include compupdate</code> option is specified when running the StorageLoader. For more information on Amazon&#8217;s <code>comprows</code> functionality, see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift documentation</a>.</p>
 
 <p>An example <code>config.yml</code> for StorageLoader for Redshift users, including the new setting, can be found <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>on Github</a>.</p>
@@ -220,6 +218,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 		
 			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
@@ -228,24 +228,31 @@
 		
 			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
 		
-			<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-		
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -267,6 +274,32 @@
 		
 		</ul>		
 	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+			
+				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
+			
+				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
@@ -280,41 +313,6 @@
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
 			
 				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

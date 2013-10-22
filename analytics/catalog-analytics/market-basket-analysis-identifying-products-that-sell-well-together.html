@@ -167,7 +167,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <div class='highlight'><pre><code class='r'>head<span class='p'>(</span>t<span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='viewing-the-initial-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/1.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/1.JPG' alt='viewing-the-initial-data' /></p>
 
 <p>Note how each line of data represents a single line item, so that the first transaction (which includes two items) spans two lines.</p>
 
@@ -177,7 +177,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 </div>
 <p>Again, we can peak at our data by executing <code>head(i)</code> at the prompt:</p>
 
-<p><img alt='viewing-the-aggregated-data' src='/static/img/analytics/catalog-analytics/market-basket-analysis/2.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/2.JPG' alt='viewing-the-aggregated-data' /></p>
 
 <p>Now we convert the data into a &#8220;Transaction&#8221; object optimized for running the arules algorithm:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arules&quot;</span><span class='p'>)</span>
@@ -197,7 +197,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 </div>
 <p>In which case the following plot was produced:</p>
 
-<p><img alt='itemFrequencyPlot' src='/static/img/analytics/catalog-analytics/market-basket-analysis/3.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/3.JPG' alt='itemFrequencyPlot' /></p>
 
 <p>Note how the most frequent item appears in less than 2% of transactions recorded.</p>
 
@@ -207,7 +207,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 <div class='highlight'><pre><code class='r'>inspect<span class='p'>(</span>basket_rules<span class='p'>)</span>
 </code></pre>
 </div>
-<p><img alt='basket_rules' src='/static/img/analytics/catalog-analytics/market-basket-analysis/4.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/4.JPG' alt='basket_rules' /></p>
 
 <p>In our case, the algorithm has identified 9 rules. The first 7 are not helpful: there are no items on the LHS. (For these seven rules, note how because there are no items on the LHS, the support = the confidence and the lift = 1.)</p>
 
@@ -223,7 +223,7 @@ itemFrequencyPlot<span class='p'>(</span>txn<span class='p'>,</span> topN <span 
 </div>
 <p>In our case, 3.2M rules were returned. This is way to many to visually inspect - however we can look at the top 20 by lift:</p>
 
-<p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/5.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/5.JPG' alt='top_10_by_lift' /></p>
 
 <p>We can plot our rules by confidence, support and lift, using the <code>arulesViz</code> package:</p>
 <div class='highlight'><pre><code class='r'>library<span class='p'>(</span><span class='s'>&quot;arulesViz&quot;</span><span class='p'>)</span>
@@ -232,7 +232,7 @@ plot<span class='p'>(</span>basket_rules_broad<span class='p'>)</span>
 </div>
 <p>Our plot looks as follows:</p>
 
-<p><img alt='top_10_by_lift' src='/static/img/analytics/catalog-analytics/market-basket-analysis/6.JPG' /></p>
+<p><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/6.JPG' alt='top_10_by_lift' /></p>
 
 <p>The plot shows that rules with high lift typically have low support. (This is not surprising, given the maths.) We can use a plot like the one above to identify rules with both high support and confidence: the <code>arulesViz</code> package lets us plot the graphs in an interactive mode, so that we can click on individual points and explore the associated data. For more details, see <a href='http://cran.r-project.org/web/packages/arulesViz/vignettes/arulesViz.pdf'>the full package instructions</a>.</p>
 

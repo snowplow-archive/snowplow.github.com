@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
 
-<p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' alt='final-cohort-analysis-summary' /></p>
 
 <p>In this post, we&#8217;ll cover how to perform a cohort analysis using <a href='http://chartio.com/'>ChartIO</a> and Snowplow.</p>
 
@@ -127,31 +127,31 @@
 
 <p>Now - to perform our analysis, we want to plot a line graph: one per cohort, where we&#8217;re plotting month rank (on the x-axis) against fraction retained (on the y-axis). We expect a graph as follows, with retention by cohort decreasing over time for each of cohorts:</p>
 
-<p><img alt='cohort-mockup' src='/static/img/blog/2013/10/cohort-analysis/cohort-analysis-mockup.png' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/cohort-analysis-mockup.png' alt='cohort-mockup' /></p>
 
 <p>Let&#8217;s plot our cohort analysis! Log into ChartIO, go into a dashboard where you want to create your graph and click the <strong>Add Chart</strong> button. (We&#8217;re going to assume you&#8217;ve already setup a connection in ChartIO to your Snowplow data in Redshift, and in particular, the <code>recipes_customer</code> schema. If you haven&#8217;t, instructions can be found <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualize-Snowplow-data'>here</a>.)</p>
 
-<p><img alt='add-chart' src='/static/img/blog/2013/10/cohort-analysis/3.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/3.JPG' alt='add-chart' /></p>
 
 <p>Select the data source on the left which connects to the <code>recipes_customer</code> schema. A long list of all the different views available in that schema will be shown below. Select the <strong>Cohort Dfn by Month First Touch</strong> view. The different measures and dimensions will be shown:</p>
 
-<p><img alt='select-view' src='/static/img/blog/2013/10/cohort-analysis/4.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/4.JPG' alt='select-view' /></p>
 
 <p>Now let&#8217;s create our plot. We want to plot <strong>Fraction Retained</strong> as our metric, so drag that from the <strong>Data Sources</strong> column to the <strong>Measures</strong> pane:</p>
 
-<p><img alt='fraction-retained' src='/static/img/blog/2013/10/cohort-analysis/5.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/5.JPG' alt='fraction-retained' /></p>
 
 <p>Now we want to plot this over <strong>Month Rank</strong>, so let&#8217;s drag <strong>Month Rank</strong> from the <strong>Data Sources</strong> column to the <strong>Dimensions</strong> pane:</p>
 
-<p><img alt='month-rank' src='/static/img/blog/2013/10/cohort-analysis/6.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/6.JPG' alt='month-rank' /></p>
 
 <p>Lastly we want to compare the fraction retained over month rank between <strong>Cohort</strong>, so drag <strong>Cohort</strong> from the <strong>Data Sources</strong> column to the dimensions pane as pane as well. ChartIO, on seeing that this is a date field, assumes you want to plot it by week. We want to plot it by month, so click on it in the dimensions pane to reveal a dropdown, and set <strong>Time bucket</strong> to <strong>Month</strong>:</p>
 
-<p><img alt='cohort' src='/static/img/blog/2013/10/cohort-analysis/7.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/7.JPG' alt='cohort' /></p>
 
 <p>Now click the <strong>Chart Query</strong> button. A table with the different values (a subset of those we saw in Navicat) will appear above. Click on the line graph icon, to its right, to plot a line chart and bingo! The cohort analysis is complete:</p>
 
-<p><img alt='complete-cohort-analysis' src='/static/img/blog/2013/10/cohort-analysis/8.JPG' /></p>
+<p><img src='/static/img/blog/2013/10/cohort-analysis/8.JPG' alt='complete-cohort-analysis' /></p>
 
 <p>We can see that retention <em>has not</em>, sadly for us, improved over time. It does appear that the users acquired in August, however, were retained better than those acquired in other months. It would be interesting to understand why: to do this, we&#8217;d need to look at how each user was acquired (what drove them to our website), and whether some channels are better at driving &#8220;sticky&#8221; users than others, and if those channels accounted for a bigger share of user acquisition in August than the other months.</p>
 
@@ -206,15 +206,6 @@
 	</ul>
 
 	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -249,6 +240,23 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Research</h1>
 		<ul>
 		
@@ -275,19 +283,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
 
-<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+<p><img src='/static/img/blog/2013/07/your-country-needs-you.jpg' alt='your-country-needs-you' /></p>
 
 <p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
 
@@ -111,11 +111,11 @@
 
 <p>You can confirm how many times you run Snowplow by logging into the AWS S3 console and navigating to the bucket where you archive your Snowplow event files. (This is specified in the <a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'>StorageLoader config file</a>.) Within the bucket you&#8217;ll see a single folder generated for each enrichment &#8216;run&#8217;, labelled with the timestamp of the run. You&#8217;ll be able to tell directly how many times the enrichment process is run - in the below case - it is once per day:</p>
 
-<p><img alt='aws-s3-screenshot' src='/static/img/blog/2013/07/number-of-runs-per-day.png' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-runs-per-day.png' alt='aws-s3-screenshot' /></p>
 <h3><a name='log-files-per-day'>3. Measuring The number of Cloudfront log files generated per day, adn the volume of data</a></h3>
 <p>This is most easily done using an S3 front end, as the AWS S3 console is a bit limited. We use <a href='http://www.cloudberrylab.com/'>Cloudberry</a>. On Cloudberry, you can read the number of files generated per day, and their size, directly, by simply right clicking on the folder with the day&#8217;s worth of log file archives and selecting properties:</p>
 
-<p><img alt='number-of-collector-logs-and-size' src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' alt='number-of-collector-logs-and-size' /></p>
 
 <p>In the above case we see there were 370 files generated on 2013-07-08, which occupied a total of 366.5KB.</p>
 <h3><a name='emr-details'>4. The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></h3>
@@ -277,7 +277,7 @@
 </div><h3><a name='output-back-to-s3'>5. Measuring the number of files written back to S3, and their size</a></h3>
 <p>We can use Cloudberry again. Simply identify a folder in the archive bucket specified in the <a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'>StorageLoader config</a>, right click on it and select properties:</p>
 
-<p><img alt='number-of-snowplow-event-files-and-size' src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' alt='number-of-snowplow-event-files-and-size' /></p>
 
 <p>In the above example, 3 files were generated for a single run, with a total size of 981.4KB.</p>
 <h3><a name='redshift-data-points'>6. The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></h3>
@@ -295,7 +295,7 @@
 </div>
 <p>The amount of used capacity (in MB) is given in the &#8220;used&#8221; column: it is 1,941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.</p>
 
-<p><img alt='redshift-example' src='/static/img/blog/2013/07/redshift-disk-space.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/redshift-disk-space.JPG' alt='redshift-example' /></p>
 
 <p>For our purposes, we only need one of the lines of data to calculate the relationship between disk space on Redshift and number of events stored on Redshift, and use that to model Redshift costs.</p>
 
@@ -362,15 +362,6 @@
 	</ul>
 
 	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -405,6 +396,23 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Research</h1>
 		<ul>
 		
@@ -431,19 +439,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

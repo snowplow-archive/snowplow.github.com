@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
+<p><img src='/static/img/blog/2013/06/olark/olark-logo.png' alt='olark-logo' /></p>
 
 <p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
@@ -125,7 +125,7 @@
 </div>
 <p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event</a> when a visitor messages the operator:</p>
 
-<p><img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /></p>
+<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' alt='gtm-create-tag-1' /></p>
 
 <p>Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:</p>
 <div class='highlight'><pre><code class='html'><span class='c'>&lt;!-- Snowplow event tracking --&gt;</span>
@@ -139,7 +139,7 @@
 
 <p>Now that our first tag is setup, we need to create an analogous tag, one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:</p>
 
-<p><img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /></p>
+<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' alt='gtm-create-tag-2' /></p>
 
 <p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&#8217;ll be able to analyze:</p>
 
@@ -202,15 +202,6 @@
 	</ul>
 
 	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -245,6 +236,23 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Research</h1>
 		<ul>
 		
@@ -271,19 +279,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

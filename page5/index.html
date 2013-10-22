@@ -84,7 +84,7 @@
 <li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
 </ol>
 
-<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
+<p><img src='/static/img/blog/2013/07/breaking-bad-money.jpg' alt='money' /></p>
 <p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -93,7 +93,7 @@
 			<h1><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><i>This post is a response to an excellent, but old, blog post by <a href='http://www.gilliganondata.com/index.php/about/'>Tim Wilson</a> called <a href='http://www.gilliganondata.com/index.php/2011/08/09/web-analytics-platforms-are-fundamentally-broken/'>Web Analytics Platforms are Fundamentally Broken</a>, authored back in August 2011. Tim made the case (that is still true today) that web analytics is hard, and part of that hardness is because web analytics platforms are fundamentally broken. After Tim published his post, a very interesting conversation ensued on <a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'>Google+</a>. Reading through it, I was struck by how many of the points raised are still relevant today, and how many of the participants touched on issues that were central to our thinking when when we conceived of Snowplow.</i></p><p><i>One thing that I feel was sorely lacking from the discussion around <i>hardness</i> in web analytics was an effort to distinguish different sources of complexity. In this post, I identify some of those sources, and outline strategies for dealing with them. At the end of the post, I consider the extent to which web analytics platforms can help overcome that complexity, and argue that Omniture Sitecatalyst actually creates additional complexity because of the way it has been architected technically. I end by concluding that <strong>web analytics will continue to be hard because there are no straightforward ways to address every source of complexity, but that tools like Sitecatalyst make it harder than it needs to be</strong>.</i></p>
-<p><img alt='rubiks-cube' src='/static/img/blog/2013/06/rubiks-cube.png' /></p>
+<p><img src='/static/img/blog/2013/06/rubiks-cube.png' alt='rubiks-cube' /></p>
 
 <h2 id='what_is_it_that_makes_web_analytics_difficult'>What is it that makes web analytics difficult?</h2>
 
@@ -119,7 +119,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><a href='http://cran.r-project.org/'>R</a> is one of the most popular data analytics tools out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.</p>
 
-<p><img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /></p>
+<p><img src='/static/img/analytics/tools/r/boxplot.png' alt='img1' /></p>
 
 <p>That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.</p>
 
@@ -152,7 +152,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
+<p><img src='/static/img/blog/2013/06/olark/olark-logo.png' alt='olark-logo' /></p>
 
 <p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
@@ -238,15 +238,6 @@
 	</ul>
 
 	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -281,6 +272,23 @@
 		
 		</ul>		
 	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
+			
+				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Research</h1>
 		<ul>
 		
@@ -307,19 +315,11 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
-			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

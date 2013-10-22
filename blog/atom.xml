@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-10-22T21:00:11+01:00</updated>
+  <updated>2013-10-22T21:13:03+01:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -23,7 +23,7 @@
     </author>
     <content type="html">&lt;p&gt;We are thrilled to be going to Budapest this November, where I&amp;#8217;ve kindly been invited to speak at the &lt;a href='http://budapestbiforum.com/'&gt;Budapest BI Forum&lt;/a&gt; on Snowplow, on a day dedicated to &lt;a href='http://budapestbiforum.com/program/open-analytics-day/'&gt;Open Analytics&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='budapest-pic' src='/static/img/blog/2013/10/budapest.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/budapest.jpg' alt='budapest-pic' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Budapest is home to a thriving community of tech-savvy companies. We are very keen to meet as many of them as possible whilst we&amp;#8217;re in Budapest - so if you&amp;#8217;re based in Budapest (or visiting for the conference), and would like to sit down with us, then &lt;a href='/about/index.html'&gt;give us a shout&lt;/a&gt;! We&amp;#8217;ll be in Budapest between November 5th and the 8th.&lt;/p&gt;</content>
   </entry>
@@ -161,7 +161,7 @@
     </author>
     <content type="html">&lt;p&gt;&lt;em&gt;We wanted to follow-up our recent &lt;a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'&gt;launch of Snowplow 0.8.10&lt;/a&gt;, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' alt='final-cohort-analysis-summary' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this post, we&amp;#8217;ll cover how to perform a cohort analysis using &lt;a href='http://chartio.com/'&gt;ChartIO&lt;/a&gt; and Snowplow.&lt;/p&gt;
 
@@ -215,31 +215,31 @@
 
 &lt;p&gt;Now - to perform our analysis, we want to plot a line graph: one per cohort, where we&amp;#8217;re plotting month rank (on the x-axis) against fraction retained (on the y-axis). We expect a graph as follows, with retention by cohort decreasing over time for each of cohorts:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='cohort-mockup' src='/static/img/blog/2013/10/cohort-analysis/cohort-analysis-mockup.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/cohort-analysis-mockup.png' alt='cohort-mockup' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Let&amp;#8217;s plot our cohort analysis! Log into ChartIO, go into a dashboard where you want to create your graph and click the &lt;strong&gt;Add Chart&lt;/strong&gt; button. (We&amp;#8217;re going to assume you&amp;#8217;ve already setup a connection in ChartIO to your Snowplow data in Redshift, and in particular, the &lt;code&gt;recipes_customer&lt;/code&gt; schema. If you haven&amp;#8217;t, instructions can be found &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-ChartIO-to-visualize-Snowplow-data'&gt;here&lt;/a&gt;.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='add-chart' src='/static/img/blog/2013/10/cohort-analysis/3.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/3.JPG' alt='add-chart' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Select the data source on the left which connects to the &lt;code&gt;recipes_customer&lt;/code&gt; schema. A long list of all the different views available in that schema will be shown below. Select the &lt;strong&gt;Cohort Dfn by Month First Touch&lt;/strong&gt; view. The different measures and dimensions will be shown:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='select-view' src='/static/img/blog/2013/10/cohort-analysis/4.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/4.JPG' alt='select-view' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now let&amp;#8217;s create our plot. We want to plot &lt;strong&gt;Fraction Retained&lt;/strong&gt; as our metric, so drag that from the &lt;strong&gt;Data Sources&lt;/strong&gt; column to the &lt;strong&gt;Measures&lt;/strong&gt; pane:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='fraction-retained' src='/static/img/blog/2013/10/cohort-analysis/5.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/5.JPG' alt='fraction-retained' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we want to plot this over &lt;strong&gt;Month Rank&lt;/strong&gt;, so let&amp;#8217;s drag &lt;strong&gt;Month Rank&lt;/strong&gt; from the &lt;strong&gt;Data Sources&lt;/strong&gt; column to the &lt;strong&gt;Dimensions&lt;/strong&gt; pane:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='month-rank' src='/static/img/blog/2013/10/cohort-analysis/6.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/6.JPG' alt='month-rank' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Lastly we want to compare the fraction retained over month rank between &lt;strong&gt;Cohort&lt;/strong&gt;, so drag &lt;strong&gt;Cohort&lt;/strong&gt; from the &lt;strong&gt;Data Sources&lt;/strong&gt; column to the dimensions pane as pane as well. ChartIO, on seeing that this is a date field, assumes you want to plot it by week. We want to plot it by month, so click on it in the dimensions pane to reveal a dropdown, and set &lt;strong&gt;Time bucket&lt;/strong&gt; to &lt;strong&gt;Month&lt;/strong&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='cohort' src='/static/img/blog/2013/10/cohort-analysis/7.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/7.JPG' alt='cohort' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now click the &lt;strong&gt;Chart Query&lt;/strong&gt; button. A table with the different values (a subset of those we saw in Navicat) will appear above. Click on the line graph icon, to its right, to plot a line chart and bingo! The cohort analysis is complete:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='complete-cohort-analysis' src='/static/img/blog/2013/10/cohort-analysis/8.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/cohort-analysis/8.JPG' alt='complete-cohort-analysis' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We can see that retention &lt;em&gt;has not&lt;/em&gt;, sadly for us, improved over time. It does appear that the users acquired in August, however, were retained better than those acquired in other months. It would be interesting to understand why: to do this, we&amp;#8217;d need to look at how each user was acquired (what drove them to our website), and whether some channels are better at driving &amp;#8220;sticky&amp;#8221; users than others, and if those channels accounted for a bigger share of user acquisition in August than the other months.&lt;/p&gt;
 
@@ -554,19 +554,19 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;a name='recipe-use'&gt;&lt;h2&gt;3. Seeing a recipe in action: charting the number of uniques over time&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;Let&amp;#8217;s start by showing how easy the views make it to start plotting Snowplow data in ChartIO. Log into ChartIO and create a new connection to your database, just as before, but this time set the &lt;strong&gt;Schema name&lt;/strong&gt; field to be &amp;#8216;recipes_basic&amp;#8217; rather than &amp;#8216;atomic&amp;#8217;. (This is necessary, because ChartIO requires a different connection for each schema on your database, rather than a single connection per database.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-setup' src='/static/img/blog/2013/10/chartio-connection.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/chartio-connection.png' alt='chartio-setup' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now go back into ChartIO and select to create a new graph. Select your new data source: a long list of different &amp;#8220;recipes&amp;#8221; should be displayed. Select the &lt;strong&gt;Uniques And Visits By Day&lt;/strong&gt; from the list - this will reveal the dimensions and metrics returned in that view:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-setup-2' src='/static/img/blog/2013/10/chartio-2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/chartio-2.png' alt='chartio-setup-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now you can simply drag the relevant metrics and dimensions over from the list into the design pane. Let&amp;#8217;s simply plot uniques by date: drag the &lt;strong&gt;Date&lt;/strong&gt; dimension to the dimensions pane, and the &lt;strong&gt;Uniques&lt;/strong&gt; measure over to the &lt;strong&gt;Measures&lt;/strong&gt; pane:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-setup-select-dimensions' src='/static/img/blog/2013/10/chartio-select-dimensions.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/chartio-select-dimensions.png' alt='chartio-setup-select-dimensions' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now click &lt;strong&gt;Chart Query&lt;/strong&gt; to draw the graph. Simple visualization of Snowplow data with no SQL required!&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-setup-3' src='/static/img/blog/2013/10/chartio-final-graph.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/chartio-final-graph.png' alt='chartio-setup-3' /&gt;&lt;/p&gt;
 &lt;a name='visitor-cube'&gt;&lt;h2&gt;4. Seeing a cube in action: interrogating the visitors cube in Tableau&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;We&amp;#8217;ve included a number of &amp;#8220;cube views&amp;#8221; in the new release. These can be opened directly into your pivoting tool of choice.&lt;/p&gt;
 
@@ -574,17 +574,17 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Open up Tableau, select to create a new database connection, enter your database details. Select the &lt;code&gt;referer_entries_and_exits&lt;/code&gt; view to connect to.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='talbeau-setup-1' src='/static/img/blog/2013/10/tableau-connection.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/tableau-connection.JPG' alt='talbeau-setup-1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Note: if you are connecting to the views in Redshift, you will need to add the new schemas to your &lt;code&gt;search_path&lt;/code&gt; before they are visible in Tableau. You can, however, access them directly by selecting &lt;strong&gt;Custom SQL&lt;/strong&gt; and entering &lt;code&gt;SELECT * FROM cubes_visits.referer_entries_and_exits&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Tableau will ask whether you want to import all the data, or connect live. If you have a lot of data, we recommend connecting live.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='tableau-setup-2' src='/static/img/blog/2013/10/tableau-1.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/tableau-1.JPG' alt='tableau-setup-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can now drag and drop any of the dimensions and any of the metrics listed. For example, we can drag in &lt;code&gt;entry_page_path&lt;/code&gt;, &lt;code&gt;visit_start_ts&lt;/code&gt; and &lt;code&gt;visit_duration&lt;/code&gt; to see how average visit lengths have changed per landing page over time:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='tableau-setup-3' src='/static/img/blog/2013/10/tableau-visualization.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/tableau-visualization.JPG' alt='tableau-setup-3' /&gt;&lt;/p&gt;
 &lt;a name='setup'&gt;&lt;h2&gt;5. Installing this release&lt;/h2&gt;&lt;/a&gt;
 &lt;h3 id='51_redshift_users'&gt;5.1 Redshift users&lt;/h3&gt;
 
@@ -660,7 +660,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &amp;#8220;winterns&amp;#8221; will work directly on and contribute to data engineering projects within the &lt;a href='https://github.com/snowplow'&gt;Snowplow open source stack&lt;/a&gt;. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/billion-dollar-brain.png' alt='billion-dollar-brain' /&gt;&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;p&gt;A Snowplow wintern loves coding, enjoys experimenting with new technologies and is happiest working &amp;#8220;in the open&amp;#8221; on community/team projects. In terms of programming languages: most of our stack is in Scala, Ruby, JavaScript and Clojure, but we also have code written in R, Java, C, SQL and Lua - in fact, whatever languages you like working in, we can probably find something interesting for you to do. We should stress that almost all of our work revolves around data engineering - you won&amp;#8217;t be involved in front-end/web development during your winternship, unless you want to of course!&lt;/p&gt;
 
@@ -724,13 +724,13 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;!--more--&gt;
 &lt;p&gt;We thought it would be fun to share an updated &lt;a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;amp;repo=snowplow'&gt;Red Dwarf heatmap&lt;/a&gt; showing where our 501 GitHub stars are located across the world:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='heatmap' src='/static/img/blog/2013/10/snowplow-stars-at-501.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/snowplow-stars-at-501.png' alt='heatmap' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Viewed alongside &lt;a href='/blog/2013/01/20/snowplow-hits-202-stars'&gt;January&amp;#8217;s heatmap&lt;/a&gt;, it&amp;#8217;s really encouraging to see Snowplow picking up more interest in South Asia, Eastern Europe and the West Coast of the US!&lt;/p&gt;
 
 &lt;p&gt;In other news, GitHub recently replaced its list of the most-watched Scala projects with a list of &lt;a href='https://github.com/trending?l=scala'&gt;Trending Scala repositories&lt;/a&gt;. We were delighted to hit the top of this list in mid-September, pipping Scala stalwarts including the Play Framework and Scala itself:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='trending' src='/static/img/blog/2013/10/snowplow-trending-16-sep-2013.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/10/snowplow-trending-16-sep-2013.png' alt='trending' /&gt;&lt;/p&gt;
 
 &lt;p&gt;All of this is hugely encouraging for the future. So many thanks for your continued support and look out for some big new features coming to Snowplow soon!&lt;/p&gt;</content>
   </entry>
@@ -802,7 +802,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In the rest of this blog post, we&amp;#8217;ll focus on perhaps the most interesting output of the model: &lt;strong&gt;How expensive is it to run Snowplow vs our commercial competitors?&lt;/strong&gt; Let&amp;#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' alt='snowplow-premium-price-comparison' /&gt;&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;p&gt;Snowplow cannot compete with the free version of &lt;a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'&gt;Google Analytics&lt;/a&gt; directly on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)&lt;/p&gt;
 
@@ -810,7 +810,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We&amp;#8217;ve then compared the cost of running Snowplow with the cost of some of the SaaS analytics startups (note in this diagram we&amp;#8217;re comparing monthly, rather than yearly costs):&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-saas-price-comparison' src='/static/img/price-comparison/snowplow-saas-price-comparison.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/price-comparison/snowplow-saas-price-comparison.png' alt='snowplow-saas-price-comparison' /&gt;&lt;/p&gt;
 
 &lt;p&gt;For anyone capturing 500K events or more, it is cheaper to run Snowplow, than &lt;a href='https://mixpanel.com/'&gt;Mixpanel&lt;/a&gt;, &lt;a href='https://www.kissmetrics.com/'&gt;Kissmetrics&lt;/a&gt; or &lt;a href='https://keen.io/'&gt;Keen IO&lt;/a&gt;. However, the saving increases with volume: at 20M events per month, Snowplow costs 25% less to run than Mixpanel, for example.&lt;/p&gt;
 
@@ -845,7 +845,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
     <content type="html">&lt;p&gt;One of the distinguishing features of the Snowplow data pipeline is the handling of &amp;#8220;bad&amp;#8221; data. Every row of incoming, raw data is validated. When a row fails validation, it is logged in a &amp;#8220;bad rows&amp;#8221; bucket on S3 alongside the error message that was generated by the failed validation. That means you can keep track of the number of rows that fail validation, and have the opportunity to update and then reprocess those bad rows. (This makes Snowplow different from traditional web analytics platforms, that simply ignore bad rows of data, and provide no insight into the volume of incoming data that ends up being ignored.)&lt;/p&gt;
 
 &lt;p&gt;This functionality was crucial in spotting that, in mid-August, Amazon made an &lt;a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'&gt;undocumented update the CloudFront collector file format&lt;/a&gt;. This resulted in a sudden spike in the number of &amp;#8220;bad rows&amp;#8221; generated by Snowplow, as the &lt;code&gt;cs-uri-query&lt;/code&gt; field format changed from the format the Enrichment process expected. (For details of the change, see &lt;a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'&gt;this blog post&lt;/a&gt;, and the links in it.) Amazon has since rolled back the update, and we have since updated Snowplow to be able to process rows in both formats. However, Snowplow users will have three weeks of data with lines of data missing, that ideally need to be reprocessed using the updated Snowplow version.&lt;/p&gt;
-&lt;img src='/static/img/blog/2013/09/black_sheep.jpg' title='black sheet - can you spot bad data?' width='300' /&gt;
+&lt;img src='/static/img/blog/2013/09/black_sheep.jpg' width='300' title='black sheet - can you spot bad data?' /&gt;
 &lt;p&gt;In this blog post, we will walk through:&lt;/p&gt;
 
 &lt;ol&gt;
@@ -868,7 +868,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;!--more--&gt;&lt;a name='how-snowplow-handles-bad-rows'&gt;&lt;h2&gt;1. Understanding how Snowplow handles bad rows&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;The Snowplow enrichment process takes input lines of data, in the form of collector logs. It validates the format of the data in each of those lines. If the format is as expected, it performs the relevant enrichments on that data (e.g. referer parsing, geo-IP lookups), and writes the enriched data to the Out Bucket on S3, from where it can be loaded into Redshift / PostgreSQL. If the input line of data fails the validation, it gets written to the Bad Rows Bucket on S3.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='flow-chart' src='/static/img/blog/2013/09/snowplow-data-processing-bad-bucket-flow-chart-cropped.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/snowplow-data-processing-bad-bucket-flow-chart-cropped.png' alt='flow-chart' /&gt;&lt;/p&gt;
 
 &lt;p&gt;The locations are specified in the &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'&gt;EmrEtlRunner config file&lt;/a&gt;, an example of which can be found &lt;a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:s3&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
@@ -906,7 +906,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;After a short period Qubole should alert you that the JAR has been successfully uploaded:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='qubole-pic-1' src='/static/img/blog/2013/09/qubole-add-jar.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/qubole-add-jar.png' alt='qubole-pic-1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we need to define a table so that Hive can query our bad row data in S3. Execute the following query in the Qubole Composer, making sure that you update the &lt;code&gt;LOCATION&lt;/code&gt; setting to point to the location in S3 where your bad rows are stored. (This can be worked out from your EmrEtlRunner&amp;#8217;s &lt;code&gt;config.yml&lt;/code&gt; file, as explained &lt;a href='#how-snowplow-handles-bad-rows'&gt;above&lt;/a&gt;).&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;CREATE&lt;/span&gt; &lt;span class='n'&gt;EXTERNAL&lt;/span&gt; &lt;span class='k'&gt;TABLE&lt;/span&gt; &lt;span class='ss'&gt;`bad_rows`&lt;/span&gt; &lt;span class='p'&gt;(&lt;/span&gt;
@@ -919,7 +919,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;span class='n'&gt;LOCATION&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s3n://snowplow-data/snplow/bad-rows/&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;img alt='qubole-pic-2' src='/static/img/blog/2013/09/qubole-create-table.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/qubole-create-table.png' alt='qubole-pic-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Our table is partitioned by &lt;code&gt;run&lt;/code&gt; - each time the Snowplow enrichment process is run (in our case daily), any bad rows are saved in their own separate subfolder labelled &lt;code&gt;run=2013-xx-xx...&lt;/code&gt;. Let&amp;#8217;s recover those partitions, by executing the following:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;ALTER&lt;/span&gt; &lt;span class='k'&gt;TABLE&lt;/span&gt; &lt;span class='ss'&gt;`bad_rows`&lt;/span&gt; &lt;span class='n'&gt;RECOVER&lt;/span&gt; &lt;span class='n'&gt;PARTITIONS&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
@@ -933,7 +933,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;span class='k'&gt;GROUP&lt;/span&gt; &lt;span class='k'&gt;BY&lt;/span&gt; &lt;span class='n'&gt;run&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;&lt;img alt='qubole-pic-3' src='/static/img/blog/2013/09/qubole-execute-count-query.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/qubole-execute-count-query.png' alt='qubole-pic-3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Execute that in Qubole, and then download your results. (By clicking the &lt;strong&gt;Download&lt;/strong&gt; link in the UI. If you open them in Excel, you should see something as follows:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;strong&gt;Run ID&lt;/strong&gt;&lt;/th&gt;&lt;th&gt;&lt;strong&gt;Number of bad rows&lt;/strong&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;2013-08-17-03-00-02&lt;/td&gt;&lt;td style='text-align: left;'&gt;6&lt;/td&gt;
@@ -945,7 +945,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We can plot the data directly in Excel:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='excel-graph' src='/static/img/blog/2013/09/excel-graph-of-bad-rows-per-day.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/excel-graph-of-bad-rows-per-day.JPG' alt='excel-graph' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Notice:&lt;/p&gt;
 
@@ -987,7 +987,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Bingo! When the query is complete, the data to reprocess is available in the new bucket we&amp;#8217;ve created:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='s3-pic' src='/static/img/blog/2013/09/file_with_lines_of_data_to_reprocess.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/file_with_lines_of_data_to_reprocess.png' alt='s3-pic' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We now need to run the Snowplow Enrichment process on this new data set. We do that using EmrEtlRunner. Navigate to the server you run EmrEtlRunner from, and navigate to the directory it is installed in.&lt;/p&gt;
 
@@ -1044,7 +1044,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;We&amp;#8217;ve just published a getting-started guide to using &lt;a href='http://www.qubole.com/#All'&gt;Qubole&lt;/a&gt;, a managed Big Data service, to query your Snowpow data. You can read the guide &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='qubole-logo' src='/static/img/blog/2013/09/qubole-logo.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/qubole-logo.png' alt='qubole-logo' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Snowplow delivers event data to users in a number of different places:&lt;/p&gt;
 
@@ -1064,7 +1064,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;!--more--&gt;
 &lt;p&gt;For situations when you want to use big data tools to crunch your Snowplow and other data in S3, an increasingly attractive alternative to doing that in EMR is to use &lt;a href='http://www.qubole.com/#All'&gt;Qubole&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='qubole-ui' src='/static/img/blog/2013/09/qubole-ui.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/09/qubole-ui.png' alt='qubole-ui' /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href='http://www.qubole.com/#All'&gt;Qubole&lt;/a&gt; runs on top of Amazon Web Services. It interfaces directly with S3, in just the same way that EMR does. However, Qubole is a significantly more polished product than EMR. Data scientists can explore their data in S3, create tables and query those tables all via an easy-to-use web UI. You can test queries on samples of the data, easily run and monitor multiple queries in parallel and download the results of queries directly to your local computer, so you can quickly visualize it in Excel or R.&lt;/p&gt;
 
@@ -1120,7 +1120,7 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;!--more--&gt;&lt;a name='grammar'&gt; &lt;/a&gt;&lt;h2&gt;1. The components of our grammar&lt;/h2&gt;
 &lt;p&gt;All of the human languages mentioned above (and many, many others) share the same fundamental building blocks in their grammars for describing an event with a verb in the &lt;em&gt;active voice&lt;/em&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='grammar' src='/static/img/blog/2013/08/event-grammar.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/event-grammar.png' alt='grammar' /&gt;&lt;/p&gt;
 
 &lt;p&gt;To go through these in turn:&lt;/p&gt;
 
@@ -1142,43 +1142,43 @@ scala&amp;gt; &lt;/code&gt;&lt;/pre&gt;
 &lt;a name='ecommerce'&gt; &lt;/a&gt;&lt;h2&gt;2. Modelling some ecommerce events&lt;/h2&gt;
 &lt;p&gt;Here are some ecommerce events mapped to our grammatical model:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='ecomm1' src='/static/img/blog/2013/08/grammar-ecomm1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-ecomm1.png' alt='ecomm1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this event, a shopper (Subject) views (Verb) a t-shirt (Direct Object) while browsing an online store (Context).&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='ecomm2' src='/static/img/blog/2013/08/grammar-ecomm2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-ecomm2.png' alt='ecomm2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we introduce an Indirect Object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Direct Object) to her shopping basket (Indirect Object). Again, this is while browsing the online store (Context).&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='ecomm3' src='/static/img/blog/2013/08/grammar-ecomm3.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-ecomm3.png' alt='ecomm3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we have an Object introduced by preposition: the shopper (Subject) pays (Verb) for his order (Prepositional Object). This is all within the checkout flow (Context).&lt;/p&gt;
 &lt;a name='videogame'&gt; &lt;/a&gt;&lt;h2&gt;3. Modelling some videogame events&lt;/h2&gt;
 &lt;p&gt;So far so good, but how well does this model work with events generated by a gaming session?&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='videogame1' src='/static/img/blog/2013/08/grammar-videogame1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-videogame1.png' alt='videogame1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Direct Object) to another player (Indirect Object).&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='videogame2' src='/static/img/blog/2013/08/grammar-videogame2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-videogame2.png' alt='videogame2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Direct Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the Object of events, not just their Subjects.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='videogame3' src='/static/img/blog/2013/08/grammar-videogame3.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-videogame3.png' alt='videogame3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here we illustrate a reflexive verb: through grinding (Context), the player (Subject) levels herself up (Verb, reflexive). A reflexive Verb is one where the Subject and the Object are the same.&lt;/p&gt;
 &lt;a name='media'&gt; &lt;/a&gt;&lt;h2&gt;4. Modelling some digital media events&lt;/h2&gt;
 &lt;p&gt;This seems to be working well! Finally, let&amp;#8217;s map our new event grammar onto the world of digital media and publishing:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='media1' src='/static/img/blog/2013/08/grammar-media1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-media1.png' alt='media1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Direct Object).&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='media2' src='/static/img/blog/2013/08/grammar-media2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-media2.png' alt='media2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Direct Object) on Twitter (Prepositional Object). Also note that Twitter here is a proper noun (not a common noun).&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='media3' src='/static/img/blog/2013/08/grammar-media3.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/08/grammar-media3.png' alt='media3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Direct Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.&lt;/p&gt;
 &lt;a name='learnings'&gt; &lt;/a&gt;&lt;h2&gt;5. What have we learnt&lt;/h2&gt;
@@ -1475,7 +1475,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
     <content type="html">&lt;p&gt;Yesterday at the &lt;a href='http://www.meetup.com/hadoop-users-group-uk/'&gt;Hadoop User Group&lt;/a&gt;, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.&lt;/p&gt;
 
 &lt;p&gt;I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/24416560' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'&gt;Snowplow presentation to hug uk&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/24416560' height='356' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'&gt;Snowplow presentation to hug uk&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!&lt;/p&gt;</content>
   </entry>
   
@@ -1490,7 +1490,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;In a &lt;a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;previous blog post&lt;/a&gt;, we described how we were in the process of building a &lt;a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;Total Cost of Ownership model&lt;/a&gt; for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/your-country-needs-you.jpg' alt='your-country-needs-you' /&gt;&lt;/p&gt;
 
 &lt;p&gt;To build that model, though, we need &lt;strong&gt;your help&lt;/strong&gt;. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the &lt;a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'&gt;last post&lt;/a&gt;, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:&lt;/p&gt;
 
@@ -1528,11 +1528,11 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;You can confirm how many times you run Snowplow by logging into the AWS S3 console and navigating to the bucket where you archive your Snowplow event files. (This is specified in the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'&gt;StorageLoader config file&lt;/a&gt;.) Within the bucket you&amp;#8217;ll see a single folder generated for each enrichment &amp;#8216;run&amp;#8217;, labelled with the timestamp of the run. You&amp;#8217;ll be able to tell directly how many times the enrichment process is run - in the below case - it is once per day:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='aws-s3-screenshot' src='/static/img/blog/2013/07/number-of-runs-per-day.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/number-of-runs-per-day.png' alt='aws-s3-screenshot' /&gt;&lt;/p&gt;
 &lt;h3&gt;&lt;a name='log-files-per-day'&gt;3. Measuring The number of Cloudfront log files generated per day, adn the volume of data&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;This is most easily done using an S3 front end, as the AWS S3 console is a bit limited. We use &lt;a href='http://www.cloudberrylab.com/'&gt;Cloudberry&lt;/a&gt;. On Cloudberry, you can read the number of files generated per day, and their size, directly, by simply right clicking on the folder with the day&amp;#8217;s worth of log file archives and selecting properties:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='number-of-collector-logs-and-size' src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' alt='number-of-collector-logs-and-size' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the above case we see there were 370 files generated on 2013-07-08, which occupied a total of 366.5KB.&lt;/p&gt;
 &lt;h3&gt;&lt;a name='emr-details'&gt;4. The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)&lt;/a&gt;&lt;/h3&gt;
@@ -1694,7 +1694,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;&lt;h3&gt;&lt;a name='output-back-to-s3'&gt;5. Measuring the number of files written back to S3, and their size&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;We can use Cloudberry again. Simply identify a folder in the archive bucket specified in the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'&gt;StorageLoader config&lt;/a&gt;, right click on it and select properties:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='number-of-snowplow-event-files-and-size' src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' alt='number-of-snowplow-event-files-and-size' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the above example, 3 files were generated for a single run, with a total size of 981.4KB.&lt;/p&gt;
 &lt;h3&gt;&lt;a name='redshift-data-points'&gt;6. The total number of lines of data in Redshift, and the amount of Redshift capacity used&lt;/a&gt;&lt;/h3&gt;
@@ -1712,7 +1712,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;The amount of used capacity (in MB) is given in the &amp;#8220;used&amp;#8221; column: it is 1,941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='redshift-example' src='/static/img/blog/2013/07/redshift-disk-space.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/redshift-disk-space.JPG' alt='redshift-example' /&gt;&lt;/p&gt;
 
 &lt;p&gt;For our purposes, we only need one of the lines of data to calculate the relationship between disk space on Redshift and number of events stored on Redshift, and use that to model Redshift costs.&lt;/p&gt;
 
@@ -1792,7 +1792,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The first part of the data pipeline is orchestrated by &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'&gt;EmrEtlRunner&lt;/a&gt;. This performs the bulk of data processing work:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='emr-etl-runner' src='/static/img/blog/2013/07/emr-etl-runner-steps.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/emr-etl-runner-steps.png' alt='emr-etl-runner' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This encapsulates the bulk of the data processing:&lt;/p&gt;
 
@@ -1812,7 +1812,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The second part of the data pipeline is orchestrated by the &lt;a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'&gt;StorageLoader&lt;/a&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='storage-loader' src='/static/img/blog/2013/07/storage-loader-steps.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/storage-loader-steps.png' alt='storage-loader' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a much simpler stage of the data processing pipeline:&lt;/p&gt;
 
@@ -1838,11 +1838,11 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has &lt;em&gt;lots&lt;/em&gt; of servers at each edge location, so this tailing off might only happen at very large volumes.) We&amp;#8217;d therefore expect a graph like the one below, if we plotted numbers of log files vs events:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/line-graph.png' alt='line-graph' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does &lt;em&gt;not&lt;/em&gt; operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This &lt;em&gt;should&lt;/em&gt; aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/step-function.png' alt='step-function' /&gt;&lt;/p&gt;
 
 &lt;p&gt;As we &lt;a href='#help'&gt;explain below&lt;/a&gt;, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.&lt;/p&gt;
 &lt;h3&gt;&lt;a name='emr'&gt;3. EMR costs&lt;/a&gt;&lt;/h3&gt;
@@ -1850,7 +1850,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Amazon charges for EMR based on the number of boxes in the cluster, the size of those boxes and the time the cluster is live for. Amazon rounds up the nearest hour: as a result, we would expect the cost of the daily job to be a step function.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='emr-costs' src='/static/img/blog/2013/07/emr-costs.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/emr-costs.png' alt='emr-costs' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We need to work out how many lines of data we can expect each Amazon box to process in one hour. Getting a handle on these figures will also mean we can advise Snowplow users what size of cluster to spin up based on the number of events processed per run.&lt;/p&gt;
 &lt;h3&gt;&lt;a name='redshift'&gt;1.4 Redshift costs&lt;/a&gt;&lt;/h3&gt;
@@ -1858,7 +1858,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Amazon charges per Redshift node, where each node provides a 2TB of storage (for standard XL nodes) or 16TB of storage (for 8XL nodes). As a result, we can model Redshift costs simply as a function of the volume of data stored (itself just a function of the number of events tracked per day, and the number of days Snowplow has been running). As for EMR, we expect a step function (with a big increase in cost each time an additional 2TB node is required):&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='redshift-costs' src='/static/img/blog/2013/07/redshift-costs.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/redshift-costs.png' alt='redshift-costs' /&gt;&lt;/p&gt;
 
 &lt;h2 id='wrapping_up'&gt;Wrapping up&lt;/h2&gt;
 
@@ -2050,7 +2050,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'&gt;How to update your files in S3 to get them to cache in your users&amp;#8217; browsers&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/breaking-bad-money.jpg' alt='money' /&gt;&lt;/p&gt;
 &lt;!--more--&gt;&lt;h2&gt;&lt;a name='costs'&gt;Understanding Cloudfront costs and the potential savings&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Snowplow users rack up Cloudfront costs because both the Snowplow Javascript file &lt;code&gt;sp.js&lt;/code&gt; and the &lt;code&gt;i&lt;/code&gt; pixel are served from Cloudfront. A straightforward way of reducing your Cloudfront costs is to encourage the browsers of users who visit the websites you are tracking to cache &lt;code&gt;sp.js&lt;/code&gt;. Because this file does not change frequently (it only changes on specific Snowplow upgrades), there is no need for the browser to reload it with each new page view. By getting browsers to cache the file, so that it only loads once per browser (i.e. once per visitor) rather than once per page view, your Cloudfront fees should drop notably. Take for example, an example ad network serving that uses Snowplow to track ad impressions, and serves 30 billion ads per month on 10 billion page views, across a network of 150M uniques.&lt;/p&gt;
 
@@ -2068,7 +2068,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;To set this property, we go into the AWS S3 console, identify &lt;code&gt;sp.js&lt;/code&gt;, right click on it and select &lt;strong&gt;Properties&lt;/strong&gt;. Click on the &lt;strong&gt;Metadata&lt;/strong&gt; drop down and then click &lt;strong&gt;Add more metadata&lt;/strong&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='add-more-metadata' src='/static/img/blog/2013/07/properties-filled-in.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/07/properties-filled-in.png' alt='add-more-metadata' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the keys dropdown select &lt;strong&gt;Cache control&lt;/strong&gt;. In the values field enter &lt;code&gt;max-age=&lt;/code&gt; and then a value for the lifetime of &lt;code&gt;sp.js&lt;/code&gt;. In our case, we&amp;#8217;ve set it to 10 years i.e. 315,360,000 seconds.&lt;/p&gt;
 
@@ -2101,7 +2101,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;&lt;i&gt;This post is a response to an excellent, but old, blog post by &lt;a href='http://www.gilliganondata.com/index.php/about/'&gt;Tim Wilson&lt;/a&gt; called &lt;a href='http://www.gilliganondata.com/index.php/2011/08/09/web-analytics-platforms-are-fundamentally-broken/'&gt;Web Analytics Platforms are Fundamentally Broken&lt;/a&gt;, authored back in August 2011. Tim made the case (that is still true today) that web analytics is hard, and part of that hardness is because web analytics platforms are fundamentally broken. After Tim published his post, a very interesting conversation ensued on &lt;a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'&gt;Google+&lt;/a&gt;. Reading through it, I was struck by how many of the points raised are still relevant today, and how many of the participants touched on issues that were central to our thinking when when we conceived of Snowplow.&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;i&gt;One thing that I feel was sorely lacking from the discussion around &lt;i&gt;hardness&lt;/i&gt; in web analytics was an effort to distinguish different sources of complexity. In this post, I identify some of those sources, and outline strategies for dealing with them. At the end of the post, I consider the extent to which web analytics platforms can help overcome that complexity, and argue that Omniture Sitecatalyst actually creates additional complexity because of the way it has been architected technically. I end by concluding that &lt;strong&gt;web analytics will continue to be hard because there are no straightforward ways to address every source of complexity, but that tools like Sitecatalyst make it harder than it needs to be&lt;/strong&gt;.&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt='rubiks-cube' src='/static/img/blog/2013/06/rubiks-cube.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/06/rubiks-cube.png' alt='rubiks-cube' /&gt;&lt;/p&gt;
 
 &lt;h2 id='what_is_it_that_makes_web_analytics_difficult'&gt;What is it that makes web analytics difficult?&lt;/h2&gt;
 
@@ -2253,7 +2253,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;&lt;a href='http://cran.r-project.org/'&gt;R&lt;/a&gt; is one of the most popular data analytics tools out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/analytics/tools/r/boxplot.png' alt='img1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.&lt;/p&gt;
 
@@ -2291,7 +2291,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;As some of you will have noticed, we recently installed &lt;a href='http://www.olark.com/'&gt;Olark&lt;/a&gt; on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/06/olark/olark-logo.png' alt='olark-logo' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward &lt;a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'&gt;quick start guide&lt;/a&gt;. We tested Olark for a week on the Snowplow website - we wanted to see:&lt;/p&gt;
 
@@ -2343,7 +2343,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a &lt;a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'&gt;structured event&lt;/a&gt; when a visitor messages the operator:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' alt='gtm-create-tag-1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='html'&gt;&lt;span class='c'&gt;&amp;lt;!-- Snowplow event tracking --&amp;gt;&lt;/span&gt;
@@ -2357,7 +2357,7 @@ $ bundle install --deployment&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now that our first tag is setup, we need to create an analogous tag, one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' alt='gtm-create-tag-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&amp;#8217;ll be able to analyze:&lt;/p&gt;
 
@@ -3398,7 +3398,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The first recipes published cover how to perform &lt;a href='/analytics/platform-analytics/funnel-analysis.html'&gt;funnel analysis&lt;/a&gt; with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='funnel-analysis' src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' alt='funnel-analysis' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &amp;#8216;drop out&amp;#8217; of the funnel.&lt;/p&gt;
 
@@ -3504,7 +3504,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;&lt;a name='example-data'&gt;2. Example data&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Here is an excerpt of referer data from an ecommerce retailer - right-click and select &amp;#8220;Open in New Tab&amp;#8221; to see this at full size:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='parsed-referers-img' src='/static/img/blog/2013/04/parsed-referers.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/04/parsed-referers.png' alt='parsed-referers-img' /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you can see, in this excerpt we have a variety of different referers - some internal pages and some search pages (Google, Google Images, Bing Images and AOL).&lt;/p&gt;
 &lt;h2&gt;&lt;a name='upgrading-usage'&gt;3. Upgrading and usage&lt;/a&gt;&lt;/h2&gt;
@@ -3555,7 +3555,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalog analytics for retailers. Today, we&amp;#8217;ve published the &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;first recipes&lt;/a&gt; in the &lt;a href='/analytics/catalog-analytics/overview.html'&gt;catalog analytics&lt;/a&gt; section of the &lt;a href='/analytics/index.html'&gt;Snowplow Analytics Cookbook&lt;/a&gt;. These cover &lt;a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'&gt;how to measure and compare the performance of different product pages on an ecommerce site&lt;/a&gt;, using plots like the one below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='Example-catalog-analytics' src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' alt='Example-catalog-analytics' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this blog post, we will briefly outline:&lt;/p&gt;
 
@@ -3625,7 +3625,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Surprisingly, ensuring your data is high fidelity is &lt;strong&gt;not&lt;/strong&gt; something that is enforced by other analytics products.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='high-fidelity' src='/static/img/blog/2013/04/high-fidelity-2000.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/04/high-fidelity-2000.jpg' alt='high-fidelity' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Why is Snowplow so unusual in aiming for high-fidelity analytics? Most often, analytics vendors sacrifice the goal of high-fidelity data at the altar of these three compromises:&lt;/p&gt;
 
@@ -3801,7 +3801,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We chose this as our first non-Web tracker because we&amp;#8217;re hugely excited about the potential of sophisticated analytics for the &lt;a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'&gt;Internet of Things&lt;/a&gt;, following in the footsteps of great projects like &lt;a href='https://cosm.com/'&gt;Cosm&lt;/a&gt; and &lt;a href='http://exosite.com/'&gt;Exosite&lt;/a&gt;. And of course, Snowplow&amp;#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &amp;#8220;machine-scale&amp;#8221;!&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/03/arduino-board-photo.jpg' alt='arduino-photo' /&gt;&lt;/p&gt;
 
 &lt;p&gt;As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&amp;#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:&lt;/p&gt;
 
@@ -3843,7 +3843,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;em&gt;With the introductions done, let&amp;#8217;s hand over to Rob to tell us a bit about himself, Elasticity and what he&amp;#8217;s working on next:&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='rob-slifka-img' src='/static/img/blog/2013/03/rob-slifka.jpeg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/03/rob-slifka.jpeg' alt='rob-slifka-img' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Thanks Alex! Quick bit about me: I&amp;#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for &lt;a href='http://www.sharethrough.com/engineering'&gt;engineering&lt;/a&gt; at &lt;a href='http://www.sharethrough.com'&gt;Sharethrough&lt;/a&gt; - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where &lt;a href='https://github.com/rslifka/elasticity'&gt;Elasticity&lt;/a&gt; comes in.&lt;/p&gt;
 &lt;!--more--&gt;
@@ -4293,7 +4293,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;In the AWS Console, go to the Redshift and select the cluster you want to load data into. A window will appear with details about the cluster, including the JDBC URL.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='screenshot' src='/static/img/blog/2013/02/redshift-jdbc-url.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/02/redshift-jdbc-url.png' alt='screenshot' /&gt;&lt;/p&gt;
 
 &lt;h3 id='4_initiate_your_bulk_load_of_data_at_the_command_line'&gt;4. Initiate your bulk load of data at the command line&lt;/h3&gt;
 
@@ -4360,7 +4360,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;!--more--&gt;
 &lt;p&gt;And then test whether those audience behaved in significantly different ways to validate your segmentation. (For example, comparing bounce rates or conversion rates between segments.) Once validated, the segmentation enables you to apply segment-specific KPI: for example, it is meaningless analysing purchase conversion rates for users who have already bought, and are returning to the site for support-related queries.&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/16581811' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811' target='_blank' title='Getting to the People Behind The Keywords'&gt;Getting to the People Behind The Keywords&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/carmenmardiros' target='_blank'&gt;Carmen Mardiros&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/16581811' height='356' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811' target='_blank' title='Getting to the People Behind The Keywords'&gt;Getting to the People Behind The Keywords&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/carmenmardiros' target='_blank'&gt;Carmen Mardiros&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;An especially exciting prospect going forwards is to use machine learning to extend the segmentation beyond the subset of users for whom we have keyword data: so we can classify users who have not entered keywords, but appear to behave in a similar way to those who have, into the same buckets. This would be especially powerful with Snowplow data, as we have a user&amp;#8217;s complete click stream to work with when identifying users who &amp;#8220;look-like&amp;#8221; those we have classified on the basis of keywords alone. I hope to explore this in the near future, and blog about it here.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='server-side-datalayer'&gt;Transferring commercially-sensitive data into your web analytics platform via a server-side dataLayer&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;In another excellent presentation, &lt;a href='https://twitter.com/TechPad'&gt;Matt Clarke&lt;/a&gt; talked through his experience implementing &lt;a href='http://support.google.com/analytics/bin/answer.py?hl=en&amp;amp;answer=2790010&amp;amp;topic=2790009&amp;amp;ctx=topic'&gt;Universal Analytics&lt;/a&gt; at an online retailer. The key driver for Matt in choosing to implement Universal Analytics was a desire to deliver more commercially meaningful from Google Analytics, including:&lt;/p&gt;
@@ -4374,11 +4374,11 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In order to report on the above, it is necessary to capture margin data with every sale (in the case of 1) and record views, add to baskets and transactions by product and brand (in the case of 2). In both instances, Matt needed to pass more data into his web analytics platform than Google Analytics has traditionally allowed, which made Google&amp;#8217;s new Universal Analytics an attractive alternative.&lt;/p&gt;
 
 &lt;p&gt;Passing this commercially sensitive data into Univesal Analytics is not trivial, however. Pushing it through the client-side dataLayer would make it available to any competitor. So instead, Matt passed the data server side into Universal Analytics. Universal Analytics does not have a PHP tracker, but Matt was able to effectively build his own using Google&amp;#8217;s &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt;. By syncronising the client ID sent by the Javascript tracker with his own server-side tracker, Matt enables Universal Analtyics to stitch together the data generated client and server side. You can see more details in Matt&amp;#8217;s presentation below:&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/16578670' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics' target='_blank' title='Measurecamp - Improving e commerce tracking with universal analytics'&gt;Measurecamp - Improving e commerce tracking with universal analytics&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/MattClarke4' target='_blank'&gt;Matt Clarke&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/16578670' height='356' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics' target='_blank' title='Measurecamp - Improving e commerce tracking with universal analytics'&gt;Measurecamp - Improving e commerce tracking with universal analytics&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/MattClarke4' target='_blank'&gt;Matt Clarke&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;Matt&amp;#8217;s presentation is a must-read for anyone who wants to push web analytics tools into a more powerful business analytics tool. For us at Snowplow, it really highlights the need to enable server side tracking alongside client-side tracking: previously it hadn&amp;#8217;t occurred to me that a Snowplow user might want to use both approaches together, and replicate the dataLayer approach that has become best practice client-side on the server-side.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='clv'&gt;Customer lifetime value&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;These are the slides I prepared for my session on customer lifetime value:&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/16598692' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank' title='Customer lifetime value'&gt;Customer lifetime value&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;iframe frameborder='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/16598692' height='356' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank' title='Customer lifetime value'&gt;Customer lifetime value&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/yalisassoon' target='_blank'&gt;yalisassoon&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
 &lt;p&gt;We had a very interesting discussion about the challenges both of tracking user behavior across user lifetime, and started to explore approaches to developing predictive models for customer lifetime value. In 30 minutes we didn&amp;#8217;t get the chance to develop these very far - I hope we find another forum (maybe G+?) to continue the conversation. Many thanks to all those who attended: I learnt a lot from you.&lt;/p&gt;
 
 &lt;h2 id='thank_you_measurecamp'&gt;Thank you Measurecamp&lt;/h2&gt;
@@ -5188,7 +5188,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We thought it might be interesting to share the &lt;a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;amp;repo=snowplow'&gt;Red Dwarf heatmap&lt;/a&gt; of where our 202 GitHub stars are located across the world:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='heatmap' src='/static/img/blog/2013/01/snowplow-stars-at-202.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Beyond the &amp;#8220;hot spots&amp;#8221; in the US and Europe, it&amp;#8217;s encouraging to see growing interest in Snowplow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!&lt;/p&gt;</content>
   </entry>
@@ -5214,7 +5214,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve Snowplow tracking tags where we see the opportunity, safe in the knowledge that we&amp;#8217;re not causing our clients too much difficulty to upgrade their tags.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We were eager, having integrated Snowplow with GTM, to integrate it with an open source tag management system. After all, a big selling point of Snowplow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, &lt;a href='http://www.opentag.qubitproducts.com/'&gt;OpenTag&lt;/a&gt;, and that we have finally documented &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'&gt;how to integrate it with Snowplow&lt;/a&gt;.&lt;/p&gt;
 
@@ -5378,7 +5378,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
     </author>
     <content type="html">&lt;p&gt;In the last couple of weeks, we have been experimenting with &lt;a href='http://chartio.com/'&gt;ChartIO&lt;/a&gt; - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise Snowplow data. Given the number of requests we get from Snowplow users to recommend tools to assist with analytics on Snowplow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on Snowplow data using ChartIO.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this post we cover:&lt;/p&gt;
 
@@ -5412,15 +5412,15 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Lets start by looking out how engagement has changed over time on Psychic Bazaar. Let&amp;#8217;s create a new dashboard to explore this issue in particular. Log into ChartIO and click on the &lt;strong&gt;+Dashboard&lt;/strong&gt; link on the left hand menu to create a new dashboard.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-1' src='/static/img/blog/2013/01/chartio-1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-1.png' alt='chartio-pic-1' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Give the dashboard a suitable name and description and then click the relevant button to craete it. Now we need to add a chart to it. Click on the &lt;strong&gt;+Chart&lt;/strong&gt; link on the right hand menu. The Chart Creator opens in &lt;strong&gt;interactive mode&lt;/strong&gt;, with your database on the top left, a list of tables under it (including the Snowplow events table) and under the table, a list of fields split by which ChartIO believes is a measure and dimension.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-2' src='/static/img/blog/2013/01/chartio-2.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-2.png' alt='chartio-pic-2' /&gt;&lt;/p&gt;
 
 &lt;p&gt;In interactive mode, ChartIO lets you drag and drop measures into the &lt;strong&gt;Measures&lt;/strong&gt;, &lt;strong&gt;Dimensions&lt;/strong&gt; and &lt;strong&gt;Filters&lt;/strong&gt; dialogue box to generate graphs. We&amp;#8217;re not going to do that, though, because we want to be explicit about how ChartIO uses Snowplow data. So we&amp;#8217;re going to use &lt;strong&gt;Query mode&lt;/strong&gt; by clicking on the &lt;strong&gt;Query mode&lt;/strong&gt; hyperlink on the top left of the &lt;strong&gt;Layer 1&lt;/strong&gt; box. This enables us to enter a SQL query directly. ChartIO will graph the results:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-3' src='/static/img/blog/2013/01/chartio-3.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-3.png' alt='chartio-pic-3' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we&amp;#8217;re ready to graph engagement levels over time. Let&amp;#8217;s start with our first measure of engagement: conversion levels. We want to look at what % of users who visit our site each month that perform a transaction. To do this, we first need to identify users who have performed a transaction each month, using the following query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -5488,15 +5488,15 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;Pop the above query in the ChartIO query box:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-4' src='/static/img/blog/2013/01/chartio-4.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-4.png' alt='chartio-pic-4' /&gt;&lt;/p&gt;
 
 &lt;p&gt;and click the &lt;strong&gt;Chart Query&lt;/strong&gt; button below. ChartIO will respond with a table of data. We can graph the data by clicking on any of the graph icons above the data table. Choosing the line graph, I get:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-6' src='/static/img/blog/2013/01/chartio-6.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-6.png' alt='chartio-pic-6' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We can then rename the graph (by clicking the &lt;strong&gt;edit&lt;/strong&gt; hyperlink that appears when you hover over &lt;strong&gt;Chart Title&lt;/strong&gt;) and save the graph to our dashboard by clicking &lt;strong&gt;Save to Exploring engagement&lt;/strong&gt; button. ChartIO lets us resize and position the graph on the dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-7' src='/static/img/blog/2013/01/chartio-7.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-7.png' alt='chartio-pic-7' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Great! We can see conversion rates were reasonably stable between September and November of the year, but peaked at the end of the year at a height they were previously in June. The figure for September seems suspiciously high - we&amp;#8217;ll drill into this in more detail in a bit. Next we will plot our alternative measure of engagement over time: the number of pageviews per user per month, and see how that has changed over time.&lt;/p&gt;
 
@@ -5585,15 +5585,15 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;Create a new chart in ChartIO using the above query and graph it using the first bar chart icon. Give the graph a suitable name:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-8' src='/static/img/blog/2013/01/chartio-8.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-8.png' alt='chartio-pic-8' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This graph tells an interesting story. Overall, the number of unique visitors per month has grown pretty dramatically over time, peaking at about 1700 uniques in November. It is not so easy to tell how the distribution of users by engagement level has changed over time: this is easier if we change the graph to be a &amp;#8220;percent bar&amp;#8221;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-9' src='/static/img/blog/2013/01/chartio-9.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-9.png' alt='chartio-pic-9' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This graph suggests that engagement levels dropped in October, but climbed dramatically from then to December. Curiously, there was no drop in overall engagement level as user numbers increased on the site between August and October: that means that the new users acquired were &amp;#8220;high quality&amp;#8221; or &amp;#8220;highly engaged&amp;#8221;. This is a useful graph: let&amp;#8217;s add it to our dashboard alongside the first graph we created:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-10' src='/static/img/blog/2013/01/chartio-10.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-10.png' alt='chartio-pic-10' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Just to put the two baseline graphs in context, let&amp;#8217;s add a third graph the tracks the number of unique users per month to our dashboard. Add a new chart using the following simple query:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -5606,7 +5606,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;And pop it on the dashboard:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-11' src='/static/img/blog/2013/01/chartio-11.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-11.png' alt='chartio-pic-11' /&gt;&lt;/p&gt;
 
 &lt;p&gt;Our baseline data tells us an interesting story, which from the dashboard, we&amp;#8217;re in a position to summarise:&lt;/p&gt;
 
@@ -5728,7 +5728,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;Plotting the data in ChartIO we can see that users acquired from paid campaigns are much more likely to convert:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-12' src='/static/img/blog/2013/01/chartio-12.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-12.png' alt='chartio-pic-12' /&gt;&lt;/p&gt;
 
 &lt;p&gt;This naturally leads to the question: has the number of users acquired from paid search increased over the time period? (Especially between November and December, when our increase in conversion rates is most noticeable?) We can find out by graphing the following query, which looks at the number of uniques by month divided by whether they were acquired by paid search or not:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='mysql'&gt;&lt;span class='k'&gt;SELECT&lt;/span&gt;
@@ -5750,7 +5750,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;p&gt;Plotting the above graph shows that growth in paid search traffic accounts for some of the growth in traffic volumes between July and September. However, there was &lt;strong&gt;no&lt;/strong&gt; increase in traffic from paid search terms between November and December, so this does &lt;strong&gt;not&lt;/strong&gt; account for the rising conversion rate in December.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='chartio-pic-13' src='/static/img/blog/2013/01/chartio-13.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/chartio-13.png' alt='chartio-pic-13' /&gt;&lt;/p&gt;
 
 &lt;h4 id='other_factors_that_might_account_for_the_rise'&gt;Other factors that might account for the rise&lt;/h4&gt;
 
@@ -5782,7 +5782,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /&gt;&lt;/p&gt;
 
 &lt;h2 id='contents'&gt;Contents&lt;/h2&gt;
 
@@ -6063,7 +6063,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Here is a taster of how Snowplow event data looks with the new event types and event IDs:&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/blog/2012/event_and_event_id_fields.png' alt='events-screenshot' /&gt;&lt;/p&gt;
 
 &lt;p&gt;These are not the only improvements in this version - here are the rest:&lt;/p&gt;
 
@@ -6337,7 +6337,7 @@ Common options:
       <uri>http://snowplowanalytics.com/</uri>
     </author>
     <content type="html">&lt;p&gt;Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.&lt;/p&gt;
-&lt;p style='text-align:center;'&gt;&lt;img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /&gt;&lt;/p&gt;
+&lt;p style='text-align:center;'&gt;&lt;img src='/static/img/olap/example-cube-2.png' alt='olap cube' width='250' /&gt;&lt;/p&gt;
 &lt;p&gt;Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:&lt;/p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Country&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Number Sold&lt;/th&gt;&lt;th&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Sept 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;137&lt;/td&gt;&lt;td style='text-align: right;'&gt;1779.63&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;UK&lt;/td&gt;&lt;td style='text-align: left;'&gt;Oct 2012&lt;/td&gt;&lt;td style='text-align: left;'&gt;Hats&lt;/td&gt;&lt;td style='text-align: left;'&gt;193&lt;/td&gt;&lt;td style='text-align: right;'&gt;2507.07&lt;/td&gt;
@@ -6557,7 +6557,7 @@ Common options:
     </author>
     <content type="html">&lt;p&gt;A month and a half ago, Google launched &lt;a href='http://www.google.com/tagmanager/'&gt;Google Tag Manager&lt;/a&gt; (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='gtm' src='/static/img/gtm.JPG' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/gtm.JPG' alt='gtm' /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the &lt;a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'&gt;wiki&lt;/a&gt;.&lt;/p&gt;
 
@@ -6599,7 +6599,7 @@ Common options:
 
 &lt;p&gt;Up until now, Snowplow has stored all its data in S3, where it can be queried in Hive. However, our vision with Snowplow has always been to enable to the broadest set of analyses on Snowplow data as possible. That means making it as easy as possible to keep up to date versions of Snowplow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='snowplow-loader-image' src='/static/img/SnowplowLoader.jpg' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/SnowplowLoader.jpg' alt='snowplow-loader-image' /&gt;&lt;/p&gt;
 
 &lt;p&gt;StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into &lt;a href='http://www.infobright.org/'&gt;Infobright Community Edition (ICE)&lt;/a&gt; - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:&lt;/p&gt;
 
@@ -6786,7 +6786,7 @@ Common options:
 &lt;li&gt;&lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'&gt;How those advances change the case for companies considering adopting Snowplow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /&gt;&lt;/p&gt;
 &lt;a name='what'&gt;&lt;h2&gt;1. What changes has Google announced?&lt;/h2&gt;&lt;/a&gt;
 &lt;p&gt;The most significant change Google has announced is the new &lt;a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'&gt;Measurement Protocol&lt;/a&gt;, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what &lt;a href='#new-data-points'&gt;new data points&lt;/a&gt; businesses can &lt;em&gt;feed&lt;/em&gt; GA, before considering &lt;a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'&gt;what that means for GA&amp;#8217;s reporting capabilities&lt;/a&gt;.&lt;/p&gt;
 &lt;a name='new-data-points'&gt;&lt;h3&gt;1.1 Custom user identifiers&lt;/h3&gt;&lt;/a&gt;
@@ -7067,7 +7067,7 @@ Common options:
 &lt;video width=&quot;648&quot; height=&quot;563&quot; controls&gt;
 
 	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.mp4&quot;  type=&quot;video/mp4&quot; /&gt;
-	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.webm&quot; type=&quot;video/webm&quot; /&gt;
+	&lt;!-- LINK BROKEN - need to fix&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.webm&quot; type=&quot;video/webm&quot; /&gt; --&gt;
 	&lt;source src=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.ogv&quot;  type=&quot;video/ogg&quot; /&gt;
 	&lt;object width=&quot;648&quot; height=&quot;563&quot; type=&quot;application/x-shockwave-flash&quot; data=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.swf&quot;&gt;
 		&lt;param name=&quot;movie&quot; value=&quot;http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-7.swf&quot; /&gt;
@@ -7142,7 +7142,7 @@ Common options:
 &lt;/ol&gt;
 
 &lt;p&gt;The slides from the presentation are below. As always, any questions / comments, please post them below.&lt;/p&gt;
-&lt;iframe scrolling='no' marginheight='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' frameborder='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427' marginwidth='0'&gt;  &lt;/iframe&gt;</content>
+&lt;iframe frameborder='0' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/14696456' height='356' marginheight='0' width='427' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'&gt;  &lt;/iframe&gt;</content>
   </entry>
   
   <entry>

@@ -69,12 +69,39 @@
 		<div id="contents">
 	
 		<div class="post">
+			28 Oct 2013
+			<h1><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>This winter we are recruiting <a href='http://snowplowanalytics.com/blog/2013/10/07/announcing-our-winter-open-source-internship-program/'>interns</a> to join the Snowplow team to work on discrete projects.</p>
+
+<p>A number of the candidates we have interviewed have expressed an interest in working with us to develop new analytics approaches on Snowplow data. In particular, we&#8217;ve had a lot of interest in piloting machine learning approaches to:</p>
+
+<ul>
+<li>Segmenting audience by behaviour</li>
+
+<li>Leveraging libraries for content / product recommendation (e.g. PredictionIO, Mahout, Weka)</li>
+
+<li>Developing and testing new approaches to attribution</li>
+</ul>
+
+<p>We are very keen, however, that any of the above projects be executed on a real data set, for a real Snowplow user, to answer real business questions.</p>
+
+<p><img alt='call-for-data' src='/static/img/blog/2013/10/call.jpg' /></p>
+
+<p>To that end, we are now making an offer to the Snowplow community: do you have a Snowplow data set and one or more business questions that you think would benefit from anyone of the above approaches? Would you be willing to &#8220;share&#8221; your data?</p>
+
+<p>We will want to blog about the approach and the results of our winterns&#8217; work with the wider community, so we recognize that this may rule out a number of Snowplow users. Still, we are happy to work with whoever signs up to publish the work in a way that doesn&#8217;t give away commercial secrets. And for companies that are willing to let us loose on their data, you will hopefully get some highly valuable insights at zero cost.</p>
+
+<p>Interested? Email us at <a href='mailto:data@snowplowanalytics.com'>data@snowplowanalytics.com</a>.</p>
+		</div>
+	
+		<div class="post">
 			23 Oct 2013
 			<h1><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>We are thrilled to be going to Budapest this November, where I&#8217;ve kindly been invited to speak at the <a href='http://budapestbiforum.com/'>Budapest BI Forum</a> on Snowplow, on a day dedicated to <a href='http://budapestbiforum.com/program/open-analytics-day/'>Open Analytics</a>.</p>
 
-<p><img src='/static/img/blog/2013/10/budapest.jpg' alt='budapest-pic' /></p>
+<p><img alt='budapest-pic' src='/static/img/blog/2013/10/budapest.jpg' /></p>
 
 <p>Budapest is home to a thriving community of tech-savvy companies. We are very keen to meet as many of them as possible whilst we&#8217;re in Budapest - so if you&#8217;re based in Budapest (or visiting for the conference), and would like to sit down with us, then <a href='/about/index.html'>give us a shout</a>! We&#8217;ll be in Budapest between November 5th and the 8th.</p>
 		</div>
@@ -120,7 +147,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
 
-<p><img src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' alt='final-cohort-analysis-summary' /></p>
+<p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
 
 <p>In this post, we&#8217;ll cover how to perform a cohort analysis using <a href='http://chartio.com/'>ChartIO</a> and Snowplow.</p>
 
@@ -180,34 +207,6 @@
 <p class='more'><a href='/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			18 Oct 2013
-			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
-
-<ol>
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
-</ol>
-<a name='background'><h2>1. Background on this release</h2></a>
-<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
-
-<p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
-
-<p>This release aims to bridge that gap: we are providing a range of recipes and cubes as SQL views into the atomic Snowplow data; all of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
-<p class='more'><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -225,6 +224,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+		
 			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
@@ -233,27 +234,8 @@
 		
 			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 		
-			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -272,9 +254,28 @@
 		
 		</ul>		
 	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
 			
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
@@ -283,17 +284,6 @@
 				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -320,6 +310,15 @@
 		
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

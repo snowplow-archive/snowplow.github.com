@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Infobright Ruby Loader Released - Snowplow Analytics</title>
+	<title>Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions. - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,44 +68,34 @@
 	
 		<div id="contents">
 		<div class="post">
-			21 Oct 2012
-			<h1>Infobright Ruby Loader Released</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
+			28 Oct 2013
+			<h1>Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>This winter we are recruiting <a href='http://snowplowanalytics.com/blog/2013/10/07/announcing-our-winter-open-source-internship-program/'>interns</a> to join the Snowplow team to work on discrete projects.</p>
 
-<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+<p>A number of the candidates we have interviewed have expressed an interest in working with us to develop new analytics approaches on Snowplow data. In particular, we&#8217;ve had a lot of interest in piloting machine learning approaches to:</p>
 
-<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
+<ul>
+<li>Segmenting audience by behaviour</li>
 
-<ol>
-<li>Scale to terabytes (although not petabytes, unlike Hive)</li>
+<li>Leveraging libraries for content / product recommendation (e.g. PredictionIO, Mahout, Weka)</li>
 
-<li>Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR</li>
+<li>Developing and testing new approaches to attribution</li>
+</ul>
 
-<li>Significantly faster query times – typically seconds, not minutes</li>
+<p>We are very keen, however, that any of the above projects be executed on a real data set, for a real Snowplow user, to answer real business questions.</p>
 
-<li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
-</ol>
+<p><img alt='call-for-data' src='/static/img/blog/2013/10/call.jpg' /></p>
 
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
+<p>To that end, we are now making an offer to the Snowplow community: do you have a Snowplow data set and one or more business questions that you think would benefit from anyone of the above approaches? Would you be willing to &#8220;share&#8221; your data?</p>
 
-<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
+<p>We will want to blog about the approach and the results of our winterns&#8217; work with the wider community, so we recognize that this may rule out a number of Snowplow users. Still, we are happy to work with whoever signs up to publish the work in a way that doesn&#8217;t give away commercial secrets. And for companies that are willing to let us loose on their data, you will hopefully get some highly valuable insights at zero cost.</p>
 
-<ol>
-<li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
-
-<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
-</ol>
-
-<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
-
-<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
-
-<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
+<p>Interested? Email us at <a href='mailto:data@snowplowanalytics.com'>data@snowplowanalytics.com</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
 </div>
 
 			</div> 

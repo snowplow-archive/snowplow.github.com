@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p><img src='/static/img/blog/2013/06/olark/olark-logo.png' alt='olark-logo' /></p>
+<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
 
 <p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
@@ -105,14 +105,12 @@
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>&#8230;and an event that fires when an operator pings a message to a visitor:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We&#8217;re running Google Tag Manager on the Snowplow website, so we want to push an event into the GTM dataLayer when a chat event happens, so that that event is visible to Snowplow tags configured in GTM. To do this, we add the following Javascript to our page template:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToOperator&#39;</span><span class='p'>});</span>
@@ -121,11 +119,10 @@
 <span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToVisitor&#39;</span><span class='p'>});</span>
 <span class='p'>});</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event</a> when a visitor messages the operator:</p>
 
-<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' alt='gtm-create-tag-1' /></p>
+<p><img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /></p>
 
 <p>Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:</p>
 <div class='highlight'><pre><code class='html'><span class='c'>&lt;!-- Snowplow event tracking --&gt;</span>
@@ -133,13 +130,12 @@
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.snplow.com&#39;</span><span class='p'>]);</span>
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackStructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;contact&#39;</span><span class='p'>,</span> <span class='s1'>&#39;olark_chat&#39;</span><span class='p'>,</span> <span class='s1'>&#39;message_to_operator&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>]);</span>
 <span class='nt'>&lt;/script&gt;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Secondly, we&#8217;ve created a rule that fires the tag when an event occurs in the dataLayer called &#8216;olarkMessageToOperator&#8217;. This is triggered by Javascript that we added to out page template.</p>
 
 <p>Now that our first tag is setup, we need to create an analogous tag, one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:</p>
 
-<p><img src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' alt='gtm-create-tag-2' /></p>
+<p><img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /></p>
 
 <p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&#8217;ll be able to analyze:</p>
 
@@ -189,6 +185,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+		
 			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
@@ -197,27 +195,8 @@
 		
 			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 		
-			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -236,9 +215,28 @@
 		
 		</ul>		
 	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
 			
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
@@ -247,17 +245,6 @@
 				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -284,6 +271,15 @@
 		
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

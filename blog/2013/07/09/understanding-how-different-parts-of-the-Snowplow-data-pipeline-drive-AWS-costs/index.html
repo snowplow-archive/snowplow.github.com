@@ -123,7 +123,7 @@
 
 <p>The first part of the data pipeline is orchestrated by <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>. This performs the bulk of data processing work:</p>
 
-<p><img src='/static/img/blog/2013/07/emr-etl-runner-steps.png' alt='emr-etl-runner' /></p>
+<p><img alt='emr-etl-runner' src='/static/img/blog/2013/07/emr-etl-runner-steps.png' /></p>
 
 <p>This encapsulates the bulk of the data processing:</p>
 
@@ -143,7 +143,7 @@
 
 <p>The second part of the data pipeline is orchestrated by the <a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'>StorageLoader</a>:</p>
 
-<p><img src='/static/img/blog/2013/07/storage-loader-steps.png' alt='storage-loader' /></p>
+<p><img alt='storage-loader' src='/static/img/blog/2013/07/storage-loader-steps.png' /></p>
 
 <p>This is a much simpler stage of the data processing pipeline:</p>
 
@@ -169,11 +169,11 @@
 
 <p>We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has <em>lots</em> of servers at each edge location, so this tailing off might only happen at very large volumes.) We&#8217;d therefore expect a graph like the one below, if we plotted numbers of log files vs events:</p>
 
-<p><img src='/static/img/blog/2013/07/line-graph.png' alt='line-graph' /></p>
+<p><img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /></p>
 
 <p>In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does <em>not</em> operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This <em>should</em> aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:</p>
 
-<p><img src='/static/img/blog/2013/07/step-function.png' alt='step-function' /></p>
+<p><img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /></p>
 
 <p>As we <a href='#help'>explain below</a>, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.</p>
 <h3><a name='emr'>3. EMR costs</a></h3>
@@ -181,7 +181,7 @@
 
 <p>Amazon charges for EMR based on the number of boxes in the cluster, the size of those boxes and the time the cluster is live for. Amazon rounds up the nearest hour: as a result, we would expect the cost of the daily job to be a step function.</p>
 
-<p><img src='/static/img/blog/2013/07/emr-costs.png' alt='emr-costs' /></p>
+<p><img alt='emr-costs' src='/static/img/blog/2013/07/emr-costs.png' /></p>
 
 <p>We need to work out how many lines of data we can expect each Amazon box to process in one hour. Getting a handle on these figures will also mean we can advise Snowplow users what size of cluster to spin up based on the number of events processed per run.</p>
 <h3><a name='redshift'>1.4 Redshift costs</a></h3>
@@ -189,7 +189,7 @@
 
 <p>Amazon charges per Redshift node, where each node provides a 2TB of storage (for standard XL nodes) or 16TB of storage (for 8XL nodes). As a result, we can model Redshift costs simply as a function of the volume of data stored (itself just a function of the number of events tracked per day, and the number of days Snowplow has been running). As for EMR, we expect a step function (with a big increase in cost each time an additional 2TB node is required):</p>
 
-<p><img src='/static/img/blog/2013/07/redshift-costs.png' alt='redshift-costs' /></p>
+<p><img alt='redshift-costs' src='/static/img/blog/2013/07/redshift-costs.png' /></p>
 
 <h2 id='wrapping_up'>Wrapping up</h2>
 
@@ -235,6 +235,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+		
 			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
@@ -243,27 +245,8 @@
 		
 			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 		
-			<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-		
 	</ul>
 
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Other</h1>
 		<ul>
@@ -282,9 +265,28 @@
 		
 		</ul>		
 	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Analytics</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
 			
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
@@ -293,17 +295,6 @@
 				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-				<li><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -330,6 +321,15 @@
 		
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

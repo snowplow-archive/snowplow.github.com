@@ -142,11 +142,10 @@
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;{ENTER USER ID HERE}&#39;</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>dvce_tstamp</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>E.g. executing the query in Navicat:</p>
 
-<p><img src='/static/img/analytics/customer-analytics/user-actions-over-time-navicat.JPG' alt='user-actions-over-time-navicat' /></p>
+<p><img alt='user-actions-over-time-navicat' src='/static/img/analytics/customer-analytics/user-actions-over-time-navicat.JPG' /></p>
 
 <h3 id='2b_ability_to_track_users_over_multiple_sessions'>2b. Ability to track users over multiple sessions</h3>
 
@@ -162,11 +161,10 @@
 <span class='k'>AND</span> <span class='n'>domain_sessionidx</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
-<p><img src='/static/img/analytics/customer-analytics/breakdown-of-purchases-by-number-of-visits-to-purchase.png' alt='breakdown-of-purchases-by-number-of-visits-to-purchase' /></p>
+<p><img alt='breakdown-of-purchases-by-number-of-visits-to-purchase' src='/static/img/analytics/customer-analytics/breakdown-of-purchases-by-number-of-visits-to-purchase.png' /></p>
 
 <h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
 
@@ -177,8 +175,7 @@
 <span class='nf'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s2'>&quot;cohort&quot;</span>
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='s2'>&quot;events&quot;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
 <h2><a name='benefits_of_multiple_user_ids'>3. The benefits of exposing multiple user IDs</a></h2>
 <p>Most web analytics system (notably Google&#8217;s Universal Analytics) only accommodate a single user ID. We&#8217;ve deliberately supported three as we believe there are pros and cons of each type of user identifier, and having a combination available gives analysts maximum flexibility to identify users as reliably as possible. (Which is rarely 100% reliably&#8230;)</p>
@@ -228,8 +225,7 @@
 <p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>Snowplow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured and passed to Snowplow using the setUserId call:</p>
 
 <p><div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;joe.blogs@email.com&#39;</span><span class='p'>]);</span>
-</code></pre>
-</div></p>
+</code></pre></div></p>
 
 <p>It is then possible to map <code>user_id</code> to e.g. <code>domain_userid</code> by executing the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
@@ -241,8 +237,7 @@
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>AND</span> <span class='n'>user_id</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This type of mapping table is reliable and flexible, because it can accommodate many-to-many relationships between <code>user_id</code> and <code>domain_userid</code>. Consider the following two cases:</p>
 
 <ol>

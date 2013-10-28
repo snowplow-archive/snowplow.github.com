@@ -4,13 +4,29 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-10-28T10:12:34+00:00</updated>
+  <updated>2013-10-28T14:04:42+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n"/>
+    <title>Our video introduction of Snowplow to code_n</title>
+    <updated>2013-10-28T00:00:00+00:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We were very flattered to be invited by the team at &lt;a href='http://www.code-n.org/#about/main'&gt;code_n&lt;/a&gt; to enter their competition to identify &amp;#8220;outstanding young companies and promote their groundbreaking business models&amp;#8221;. This year&amp;#8217;s competition is focused on data, and has the motto &lt;em&gt;Driving the Data Revolution&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;As part of our application process, we put together a short video introducing Snowplow. You can watch the video below.&lt;/p&gt;
+&lt;iframe allowfullscreen='1' frameborder='0' height='315' src='//www.youtube.com/embed/p49quiYRsgE' width='420'&gt; &lt;/iframe&gt;
+&lt;p&gt;We look forward to finding out if our application has been successful!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/10/28/call-for-data-this-winter</id>

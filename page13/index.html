@@ -69,6 +69,36 @@
 		<div id="contents">
 	
 		<div class="post">
+			08 Jan 2013
+			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></h1>
+			 <span class="author">Author: <a href="" rel="author"> </a></span>
+			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise Snowplow data. Given the number of requests we get from Snowplow users to recommend tools to assist with analytics on Snowplow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on Snowplow data using ChartIO.</p>
+
+<p><img alt='chartio-pic-0' src='/static/img/blog/2013/01/chartio-0.png' /></p>
+
+<p>In this post we cover:</p>
+
+<ol>
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'>Why is ChartIO so good?</a></li>
+
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'>Setting up ChartIO to work with Snowplow</a></li>
+
+<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
+</ol>
+<h2><a name='why'>Why is ChartIO so good?</a></h2>
+<p>ChartIO is great for two reasons:</p>
+
+<ol>
+<li><strong>Fast</strong>. ChartIO is quick to setup. (Because it is a hosted product, with a very nice script for establishing an SSH connection between your database and the ChartIO web application.) At the same time, it is very quick, once a data connection is established, to create new graphs and charts and embed them in dashboards.</li>
+
+<li><strong>Easy</strong>. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.</li>
+</ol>
+
+<p>ChartIO has one enormous advantage that makes it especially well suited to querying Snowplow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>OLAP analysis</a> before they can be used. (We covered how to convert Snowplow data into that format in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of Snowplow data</strong>.</p>
+<p class='more'><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			07 Jan 2013
 			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
@@ -164,30 +194,6 @@
 <p class='more'><a href='/blog/2012/12/26/snowplow-0.6.5-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			20 Dec 2012
-			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">Snowplow 0.6.4 released, with Infobright improvements</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
-
-<ol>
-<li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
-
-<li>Clarified Hive table definitions</li>
-</ol>
-
-<p>Before we start - a big thanks to the community members who helped out on this release:</p>
-
-<ul>
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
-
-<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
-</ul>
-
-<p>We&#8217;ll take a look at both updates below:</p>
-<p class='more'><a href='/blog/2012/12/20/snowplow-0.6.4-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -207,6 +213,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+		
 			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
 		
 			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
@@ -215,14 +223,14 @@
 		
 			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 		
-			<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
@@ -231,8 +239,6 @@
 				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
 				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
-			
-				<li><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></li>
 			
 		
 		</ul>		

@@ -4,13 +4,61 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-10-28T14:04:42+00:00</updated>
+  <updated>2013-11-12T12:29:22+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week"/>
+    <title>A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</title>
+    <updated>2013-11-11T00:00:00+00:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week, Alex and I had the pleasure to attend the &lt;a href='http://budapestbiforum.com/'&gt;Budapest BI Forum&lt;/a&gt;. I learnt a great deal from the different people I got to meet, and got a chance to give a talk on what Snowplow is, where we&amp;#8217;re at today and how we plan to develop it going forwards.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='budapest' src='/static/img/blog/2013/11/budapest.jpg' /&gt;&lt;/p&gt;
+
+&lt;p&gt;To summarize a few of the things we learnt:&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='1_the_python_toolset_for_data_analytics_is_developing_incredibly_rapidly'&gt;1. The Python toolset for data analytics is developing incredibly rapidly&lt;/h2&gt;
+
+&lt;p&gt;We were fortunate to hear talks from three data scientists who are very active in the Python community: &lt;a href='https://twitter.com/almarklein'&gt;Almar Klein&lt;/a&gt; (who is part of the team developing &lt;a href='http://vispy.org/'&gt;VisPy&lt;/a&gt;, an advanced visualization library), Olivier Grisel (who is part of the team developing &lt;a href='http://scikit-learn.org/stable/'&gt;scikit-learn&lt;/a&gt;, a machine learning library) and &lt;a href='https://twitter.com/dyjh'&gt;Yves J. Hilpisch&lt;/a&gt; (from &lt;a href='http://www.continuum.io/'&gt;Continuum Analytics&lt;/a&gt;, who&amp;#8217;ve produced a raft of Python libraries incl. a just-in-time compiler). All three introduced us to compelling and fast-developing aspects of the Python data analytics ecosystem.&lt;/p&gt;
+
+&lt;p&gt;Olivier&amp;#8217;s presentation can be accessed &lt;a href='https://speakerdeck.com/ogrisel/growing-randomized-trees-in-the-cloud-1'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Almar&amp;#8217;s presentation can be downloaded &lt;a href='https://github.com/vispy/static/raw/master/vispy-biforum-2013.pdf'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Yves&amp;#8217;s presentation can be browsed as a hosted iPython notebook &lt;a href='https://www.wakari.io/sharing/bundle/yves/CAE_Python_Next_Gen_Analytics'&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I also hope to add some Python tutorials to the &lt;a href='http://snowplowanalytics.com/analytics/index.html'&gt;Snowplow Analytics Cookbook&lt;/a&gt; in the future.&lt;/p&gt;
+
+&lt;h2 id='2_bi_offerings_are_pushing_beyond_traditional_olap_into_predictive_analytics__modelling'&gt;2. BI offerings are pushing beyond traditional OLAP into predictive analytics / modelling&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#8217;ve always used BI tools for slicing / dicing data, and R for modelling and predictive analytics. So it was interesting to learn that many of these tools are now incorporating modelling and predictive analytics capabilities via a GUI, including &lt;a href='http://rapidminer.com/'&gt;RapidMiner&lt;/a&gt;, &lt;a href='http://spotfire.tibco.com/'&gt;Spotfire&lt;/a&gt; and &lt;a href='http://www.knime.org/'&gt;Knime&lt;/a&gt; amongst others.&lt;/p&gt;
+
+&lt;h2 id='3_media_companies_boast_some_of_the_most_sophisticated_big_data_analytics_platforms'&gt;3. Media Companies boast some of the most sophisticated big data analytics platforms&lt;/h2&gt;
+
+&lt;p&gt;We know that in the UK, media companies including the Guardian and Channel 4 have implemented internally some super-sophisticated data pipelines and analytics engines. It was great to learn (though not surprising) that European media companies have also implemented equally sophisticated analytics infrastructure. In particular, we thoroughly enjoyed hearing about the Hadoop, R and Jython stack built at &lt;a href='http://www.sanoma.com/'&gt;Sanoma Media&lt;/a&gt; from &lt;a href='https://twitter.com/skieft'&gt;Sander Kieft&lt;/a&gt; and &lt;a href='https://twitter.com/Voogeltje'&gt;Jelmer Voogel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Again, I hope to post a link to their slides shortly.&lt;/p&gt;
+
+&lt;h2 id='4_the_budapest_tech_scene_is_buzzing'&gt;4. The Budapest tech scene is buzzing&lt;/h2&gt;
+
+&lt;p&gt;Budapest is home to some very exciting, and rapidly growing tech companies. It was great to meet &lt;a href='http://budapestbiforum.com/program/innovative-bi-day/balazs-szakacs-the-bi-journey-of-ustream/'&gt;Balázs Szakács&lt;/a&gt; from &lt;a href='http://www.ustream.tv/'&gt;Ustream&lt;/a&gt;, who presented on the development to date of the analytics stack at UStream, as well as &lt;a href='hu.linkedin.com/in/zoltanctoth/'&gt;Zoltán Csaba Tóth&lt;/a&gt; from &lt;a href='http://prezi.com/'&gt;Prezi&lt;/a&gt; and of course Snowplow community member &lt;a href='https://twitter.com/rgabo'&gt;Gabor Ratky&lt;/a&gt; from &lt;a href='http://secretsaucepartners.com/'&gt;Secret Sauce Partners&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Again, I hope to post a link to Balázs&amp;#8217;s slides in due course.&lt;/p&gt;
+
+&lt;h2 id='thank_you'&gt;Thank you&lt;/h2&gt;
+
+&lt;p&gt;Big thanks to the many people who made the conference possible and enjoyable, especially &lt;a href='https://twitter.com/BenceArato'&gt;Bence Arató&lt;/a&gt;, who organised it and invited us to speak. We look forward to returning next year!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n</id>

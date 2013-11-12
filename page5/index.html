@@ -69,6 +69,32 @@
 		<div id="contents">
 	
 		<div class="post">
+			09 Jul 2013
+			<h1><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
+
+<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
+
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
+
+<p>Here is a taster for using the library from C Sharp:</p>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
+
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
+<span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
+</code></pre></div>
+<p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
+<p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			07 Jul 2013
 			<h1><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -163,39 +189,6 @@
 <p class='more'><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			26 Jun 2013
-			<h1><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><a href='http://cran.r-project.org/'>R</a> is one of the most popular data analytics tools out there, with a rich and vibrant community of users and contributors. In spite of its popularity in general (and particularly with amongst academics and statisticians), R is not a common tool to find in business or web analysts arsenal, where Excel and Google Analytics tend to reign supreme.</p>
-
-<p><img alt='img1' src='/static/img/analytics/tools/r/boxplot.png' /></p>
-
-<p>That is a real shame. R is a fantastic tool for exploring data, reworking it, visualizing it, developing models, and then comparing those models against your data sets. My work crunching data has become immeasurably easier and more pleasurable since I learnt R: I spend less time cleaning and organising data, and performing other boring things like formatting visualizations and checking for errors. I spend much more time actually mining data, deriving insights, testing and building on those insights.</p>
-
-<p>Given how great it is, why is R used so little by business and web analysts? I think there are two reasons:</p>
-
-<ol>
-<li>People are put off by the command-line. The learning curve for command-line tools in general is steep initially. In addition, there are some quirks to the R language and syntax that make it puzzling for newbies who are familiar with other command-line tools for data analysis e.g. Python.</li>
-
-<li>Most business and web analysts spend more time describing data that actually deriving insights from it. For descriptive work, tools like Excel and BI / OLAP tools like Tableau are OK.</li>
-</ol>
-
-<p>In order to encourage business and web analysts get started with R, we&#8217;ve put together <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>a tutorial</a> in the <a href='/analytics/index.html'>Analytics Cookbook</a> geared specifically towards newbies who want to start playing with R. The purpose is to:</p>
-
-<ol>
-<li>Get started quickly, by working with real web analytics data from Snowplow</li>
-
-<li>Get started with visualizations, to make the data come alive</li>
-
-<li>Cover the basics of concepts like factors and data frames, which are core to the way R works</li>
-
-<li>Give enough of an overview with the example that someone who works through the tutorial can then go off and productively use the multitude of other resources out there to build their knowledge of R.</li>
-</ol>
-
-<p>The recipe - <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>Getting Started with R</a>, is available <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>here</a>.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -215,6 +208,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+		
 			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
 			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
@@ -223,14 +218,14 @@
 		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 		
-			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
@@ -239,8 +234,6 @@
 				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
 		
 		</ul>		

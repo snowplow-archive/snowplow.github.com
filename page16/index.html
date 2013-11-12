@@ -69,6 +69,36 @@
 		<div id="contents">
 	
 		<div class="post">
+			31 Oct 2012
+			<h1><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
+
+<ol>
+<li><a href='#what'>The actual features Google has announced</a></li>
+
+<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting Snowplow</a></li>
+</ol>
+
+<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
+<a name='what'><h2>1. What changes has Google announced?</h2></a>
+<p>The most significant change Google has announced is the new <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href='#new-data-points'>new data points</a> businesses can <em>feed</em> GA, before considering <a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'>what that means for GA&#8217;s reporting capabilities</a>.</p>
+<a name='new-data-points'><h3>1.1 Custom user identifiers</h3></a>
+<p>The first new data points that businesses can feed into Google Analytics is a user&#8217;s <code>client_id</code> (basically, a customer ID) as defined on the business&#8217;s own systems.</p>
+
+<p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google&#8217;s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
+
+<p>For businesses using GA, being able to augment Google&#8217;s user identification with their own internal <code>client_id</code>s is a significant step forwards for two reasons:</p>
+
+<ol>
+<li>Many GA users (especially those with applications or properties where users login, or those with a loyalty card scheme) can identify their own users reliably on specific platforms, devices and physical stores. By adding this additional user identification data into GA, GA will be more accurate at identifying the same user in different places reliably, moving us further from a world in which we rely on persistent cookies dropped on browsers with unique identifiers, to one where users are more robustly identified via logins, payments and loyalty schemes. These approaches will still use cookies, but as part of a broader set of user identification business processes that actively involve the user in the identification process</li>
+
+<li>It should make it easier for GA users to join GA data with other customer data sets on those <code>client_id</code>s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining</li>
+</ol>
+<p class='more'><a href='/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			25 Oct 2012
 			<h1><a href="/blog/2012/10/25/snowplow-0.5.0-released">Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -167,35 +197,6 @@
 <iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
 		</div>
 	
-		<div class="post">
-			11 Oct 2012
-			<h1><a href="/blog/2012/10/11/snowplow-0.4.10-released">Snowplow 0.4.10 released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
-
-<ol>
-<li>snowplow.js to version 0.7.0</li>
-
-<li>the Hive deserializer to version 0.4.9</li>
-</ol>
-
-<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
-
-<h2 id='main_changes'>Main changes</h2>
-
-<p>The main changes are as follows:</p>
-
-<ul>
-<li>The querystring parameter for site ID which the JavaScript tracker sends to your collector is renamed from <code>said</code> to <code>aid</code></li>
-
-<li>The Hive-based ETL process now extracts the ecommerce tracking fields and the site ID field and adds them into your processed events table</li>
-
-<li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
-</ul>
-
-<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <p class='more'><a href='/blog/2012/10/11/snowplow-0.4.10-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -215,6 +216,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+		
 			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
 			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
@@ -223,14 +226,14 @@
 		
 			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 		
-			<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
@@ -239,8 +242,6 @@
 				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
-			
-				<li><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></li>
 			
 		
 		</ul>		

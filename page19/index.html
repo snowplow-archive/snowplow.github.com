@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.8.7 released with JavaScript Tracker improvements - Snowplow Analytics</title>
+	<title>The Snowplow blog - thoughts, musing and tutorials on event analytics from the Snowplow team - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -67,54 +67,29 @@
 </div>
 	
 		<div id="contents">
+	
 		<div class="post">
-			07 Jul 2013
-			<h1>Snowplow 0.8.7 released with JavaScript Tracker improvements</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>After a brief summer intermission, we are pleased to announce the release of <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
+			02 Aug 2012
+			<h1><a href="/blog/2012/08/02/snowplow-setup-documentation-overhauled">The setup guide has been overhauled</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Following a lot of invaluable feedback from users setting up Snowplow for the first time, we&#8217;ve updated the Snowplow setup documentation.</p>
 
-<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href='https://github.com/mfu0'>mfu0</a> and Snowplow client <a href='http://www.bigcommerce.com/'>BigCommerce</a> for bringing some of these issues to our attention.</p>
-
-<p>As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.12.0/sp.js</code></pre>
-
-<p>Please note that this release implements the latest version of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
-
-<p>This is the first Snowplow release to make use of the new <a href='https://github.com/blog/1547-release-your-software'>GitHub Releases</a> functionality - so do check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>0.8.7 Release Notes</a>.</p>
-
-<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
-			<div class="author_summary">
-				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
-</div>
-
-			</div> 
-			<div id="comments">
-	<h2>Questions? Comments? Join the debate!</h2>
-	 <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
-            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
-            var disqus_url =  ;
-            var disqus_title =  ; */
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
+<p>The documentation can be found <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-setup-guide'>here</a>. Any further feedback would be much appreciated - we want to make it as painless as possible for Snowplow newbies to get up and running&#8230;</p>
 		</div>
-		<p>Return to the <a href="/blog.html">main blog page</a></p>
-		
+	
 
+	<!-- Pagination links -->
+	<div class="pagination">
+		
+			
+			<a href="/page18" class="previous">Previous</a>
+			
+		
+		<span class="page_number">Page: 19 of 19</span>
+		
+			<span class="next">Next</span>
+		
+	</div>
 </div>
 
 <div id="sidebar">
@@ -227,7 +202,6 @@
 	</ul>
 	<!--<strong>Tags</strong> -->
 </div>
-
 		<div id="footer">
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>

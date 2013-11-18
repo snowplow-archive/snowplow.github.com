@@ -182,7 +182,7 @@
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_input</span> <span class='o'>=</span> <span class='s2'>&quot;hdfs:///local/snowplow-logs&quot;</span>
 
 <span class='c1'># Create the Hadoop MR step for the file crushing</span>
-<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='ss'>Elasticity</span><span class='p'>:</span><span class='ss'>:CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
+<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='no'>Elasticity</span><span class='o'>::</span><span class='no'>CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
 
 <span class='n'>filecrush_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
   <span class='s2'>&quot;--src&quot;</span>               <span class='p'>,</span> <span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:processing</span><span class='o'>]</span><span class='p'>,</span>
@@ -195,7 +195,8 @@
 
 <span class='c1'># Add to our jobflow</span>
 <span class='vi'>@jobflow</span><span class='o'>.</span><span class='n'>add_step</span><span class='p'>(</span><span class='n'>filecrush_step</span><span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>And then we had to update our ETL job to take the <code>--dest</code> of the S3DistCp step as its own input:</p>
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
             <span class='s2'>&quot;com.snowplowanalytics.snowplow.enrich.hadoop.EtlJob&quot;</span><span class='p'>,</span> <span class='c1'># Job to run</span>
@@ -206,7 +207,8 @@
             <span class='s2'>&quot;--output_folder&quot;</span>     <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out</span><span class='o'>]</span><span class='p'>),</span>
             <span class='s2'>&quot;--bad_rows_folder&quot;</span>   <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out_bad_rows</span><span class='o'>]</span><span class='p'>)</span>
           <span class='o'>]</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>And that was it! If you want to see all of the code excerpted above, you can find it in the <a href='https://github.com/snowplow/snowplow/blob/feature/perf-improvements/3-enrich/emr-etl-runner/lib/snowplow-emr-etl-runner/emr_jobs.rb'>Snowplow project on GitHub</a>. We did not have to make any changes to our main Hadoop ETL job, because Elastic MapReduce can handle LZO-compressed files invisibly to the job reading them. And no doubt the switch to LZO also contributed to the excellent performance we saw above.</p>
 
 <p>So that&#8217;s everything - hopefully this post has helped to illustrate just how badly small files can slow down your Hadoop job, and what you can do about it: if you have a small file problem on Hadoop, there&#8217;s now no excuse not to fix it!</p>
@@ -247,6 +249,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+		
 			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 		
 			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
@@ -255,24 +259,57 @@
 		
 			<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 		
-			<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-		
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Inside the Plow</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
 			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
 			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
+				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -294,54 +331,19 @@
 		
 		</ul>		
 	
-		<h1>Analytics</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
-				<li><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
-				<li><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
 		
 		</ul>		

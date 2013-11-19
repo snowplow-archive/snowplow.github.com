@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.8.10 released with analytics cubes and recipes 'baked in' - Snowplow Analytics</title>
+	<title>Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,133 +68,149 @@
 	
 		<div id="contents">
 		<div class="post">
-			18 Oct 2013
-			<h1>Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</h1>
+			20 Nov 2013
+			<h1>Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
+			<p>Very many of our Professional Services projects involve forking the Snowplow codebase so that specific clients can use it to load their event data, stored as JSONs, into Amazon Redshift, so that they can use BI tools to create dashboards and mine that data.</p>
 
-<ol>
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
+<p><img alt='container-ship-image' src='/static/img/blog/2013/11/container-ship.jpg' /></p>
 
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
+<p>We&#8217;ve been surprised quite how many companies have gone down the road of using JSONs to store their event data. In this blog post, we look at:</p>
 
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
+<ul>
+<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#why'>Why logging event data as JSONs has become so popular</a></li>
 
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
+<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#weaknesses'>The weaknesses of this approach</a></li>
 
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
+<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#solution'>Using the Snowplow tech stack to load JSON data into Redshift</a></li>
+</ul>
+<!--more--><h2><a name='why'>Why has logging event data as JSONs has become so popular?</a></h2>
+<p>There are a number of reasons logging event data as JSONs has become as popular as it is</p>
 
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
-</ol>
-<a name='background'><h2>1. Background on this release</h2></a>
-<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
+<h3 id='1_easy_to_implement'>1. Easy to implement</h3>
 
-<p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
-
-<p>This release aims to bridge that gap: we are providing a range of recipes and cubes as SQL views into the atomic Snowplow data; all of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
-<!--more--><a name='schema'><h2>2. Reorganizing the Snowplow database</h2></a>
-<p>With this release we have reorganized Snowplow data:</p>
-
-<ol>
-<li>The <code>events</code> table is now located in the <code>atomic</code> schema. (This is new for Redshift users, not for Postgres users.)</li>
-
-<li>There are three new schemas that contain &#8220;cubes&#8221; - i.e. views of the Snowplow data that can be consumed directly in a pivot / OLAP / BI tool e.g. PowerPivot or Tableau. These are <code>cubes_pages</code>, <code>cubes_visits</code> and <code>cubes_transactions</code>.</li>
-
-<li>There are three new schemas that contain &#8220;recipes&#8221; - views of the Snowplow data that can be visualized directly in any graphics package. These are <code>recipes_basic</code>, <code>recipes_customer</code> and <code>recipes_catalog</code></li>
-</ol>
-<a name='recipe-use'><h2>3. Seeing a recipe in action: charting the number of uniques over time</h2></a>
-<p>Let&#8217;s start by showing how easy the views make it to start plotting Snowplow data in ChartIO. Log into ChartIO and create a new connection to your database, just as before, but this time set the <strong>Schema name</strong> field to be &#8216;recipes_basic&#8217; rather than &#8216;atomic&#8217;. (This is necessary, because ChartIO requires a different connection for each schema on your database, rather than a single connection per database.)</p>
-
-<p><img alt='chartio-setup' src='/static/img/blog/2013/10/chartio-connection.png' /></p>
-
-<p>Now go back into ChartIO and select to create a new graph. Select your new data source: a long list of different &#8220;recipes&#8221; should be displayed. Select the <strong>Uniques And Visits By Day</strong> from the list - this will reveal the dimensions and metrics returned in that view:</p>
-
-<p><img alt='chartio-setup-2' src='/static/img/blog/2013/10/chartio-2.png' /></p>
-
-<p>Now you can simply drag the relevant metrics and dimensions over from the list into the design pane. Let&#8217;s simply plot uniques by date: drag the <strong>Date</strong> dimension to the dimensions pane, and the <strong>Uniques</strong> measure over to the <strong>Measures</strong> pane:</p>
-
-<p><img alt='chartio-setup-select-dimensions' src='/static/img/blog/2013/10/chartio-select-dimensions.png' /></p>
-
-<p>Now click <strong>Chart Query</strong> to draw the graph. Simple visualization of Snowplow data with no SQL required!</p>
-
-<p><img alt='chartio-setup-3' src='/static/img/blog/2013/10/chartio-final-graph.png' /></p>
-<a name='visitor-cube'><h2>4. Seeing a cube in action: interrogating the visitors cube in Tableau</h2></a>
-<p>We&#8217;ve included a number of &#8220;cube views&#8221; in the new release. These can be opened directly into your pivoting tool of choice.</p>
-
-<p>For this example, we&#8217;re going to open the <code>cubes_visits.referer_entries_and_exits</code> view directly into Tableau.</p>
-
-<p>Open up Tableau, select to create a new database connection, enter your database details. Select the <code>referer_entries_and_exits</code> view to connect to.</p>
-
-<p><img alt='talbeau-setup-1' src='/static/img/blog/2013/10/tableau-connection.JPG' /></p>
-
-<p>Note: if you are connecting to the views in Redshift, you will need to add the new schemas to your <code>search_path</code> before they are visible in Tableau. You can, however, access them directly by selecting <strong>Custom SQL</strong> and entering <code>SELECT * FROM cubes_visits.referer_entries_and_exits</code>.</p>
-
-<p>Tableau will ask whether you want to import all the data, or connect live. If you have a lot of data, we recommend connecting live.</p>
-
-<p><img alt='tableau-setup-2' src='/static/img/blog/2013/10/tableau-1.JPG' /></p>
-
-<p>You can now drag and drop any of the dimensions and any of the metrics listed. For example, we can drag in <code>entry_page_path</code>, <code>visit_start_ts</code> and <code>visit_duration</code> to see how average visit lengths have changed per landing page over time:</p>
-
-<p><img alt='tableau-setup-3' src='/static/img/blog/2013/10/tableau-visualization.JPG' /></p>
-<a name='setup'><h2>5. Installing this release</h2></a>
-<h3 id='51_redshift_users'>5.1 Redshift users</h3>
-
-<p>If you&#8217;re using Redshift, you will need to migrate your Snowplow events table from the <code>public</code> schema to the <code>atomic</code> schema. This can be done using <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.1_to_0.2.2.sql'>this migration script</a>.</p>
-
-<p>You will then you need to update your <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>StorageLoader config file</a> to ensure that from now on, all new data is loaded into the <code>atomic.events</code> table, rather than the <code>public.events</code> table. You do this by updating the file so that the <code>:table:</code> key is set to &#8216;atomic.events&#8217; rather than just &#8216;events&#8217;:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:targets</span><span class='p-Indicator'>:</span>
-  <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>:name</span><span class='p-Indicator'>:</span>     <span class='s'>&quot;Snowplow</span><span class='nv'> </span><span class='s'>PostgreSQL&quot;</span>
-    <span class='l-Scalar-Plain'>:type</span><span class='p-Indicator'>:</span>     <span class='l-Scalar-Plain'>postgres</span> 
-    <span class='l-Scalar-Plain'>:host</span><span class='p-Indicator'>:</span>     <span class='l-Scalar-Plain'>ec2-54-221-8-121.compute-1.amazonaws.com</span>
-    <span class='l-Scalar-Plain'>:database</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>snplow2</span>
-    <span class='l-Scalar-Plain'>:port</span><span class='p-Indicator'>:</span>     <span class='l-Scalar-Plain'>5432</span>
-    <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span>    <span class='l-Scalar-Plain'>atomic.events</span>
+<p>Representing an event as a JSON is an extremely simple, easy-to-understand approach, especially for application developers. Let&#8217;s look at an example, a video play event represented as a JSON:</p>
+<div class='highlight'><pre><code class='json'><span class='p'>{</span>
+    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
+    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
+        <span class='nt'>&quot;viewer_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
+        <span class='nt'>&quot;video_id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
+        <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
+        <span class='nt'>&quot;author_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span>
+    <span class='p'>}</span>
+<span class='p'>}</span>
 </code></pre></div>
-<p>Now you need to create the new schemas for the different views, and define each view. The following six scripts need to be run:</p>
+<p>The JSON is very easy to read and understand. Crucially for application developers, it is straightforward to compose.</p>
+
+<p>Note that there are many ways we could choose to represent a video play event with a JSON. We might want e.g. to use nesting, to capture a richer data set both about the video itself, and about the user who watched it:</p>
+<div class='highlight'><pre><code class='json'><span class='p'>{</span>
+    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
+    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
+        <span class='nt'>&quot;viewer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;age&quot;</span><span class='p'>:</span> <span class='mi'>28</span><span class='p'>,</span>
+            <span class='nt'>&quot;gender&quot;</span><span class='p'>:</span> <span class='s2'>&quot;male&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;member&quot;</span><span class='p'>:</span> <span class='kc'>true</span>
+        <span class='p'>},</span>
+        <span class='nt'>&quot;video&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
+            <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;producer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+                <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span><span class='p'>,</span>
+                <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;michaeldouglasboy&quot;</span><span class='p'>,</span>
+                <span class='nt'>&quot;joined&quot;</span><span class='p'>:</span> <span class='s2'>&quot;2012-09-29&quot;</span>
+            <span class='p'>}</span>
+        <span class='p'>}</span>
+    <span class='p'>}</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>In the above example, we&#8217;ve used nesting to group related fields (fields related to the viewer, fields related to the video, and fields related to the producer of the video). Again, even with the additional data, the JSON is easy for the human eye to parse, and the nesting provides a tidy way of structuring our data.</p>
+
+<h3 id='2_flexible'>2. Flexible</h3>
+
+<p>JSONs are flexible. If one day, an application developer decides she wants to add a new field to the &#8220;play_video&#8221; JSON, there&#8217;s nothing stopping her!</p>
+
+<p>Typically, application developers can create new JSONs to represent new event types over time, and update the structure of JSONs for existing event types over time (adding or dropping fields), as they see fit.</p>
+
+<h3 id='3_wellsupported'>3. Well-supported</h3>
+
+<p>Lots of analytics applications store event data as JSONs, including <a href='https://www.kissmetrics.com/'>Kissmetrics</a>, <a href='https://mixpanel.com/'>Mixpanel</a> and <a href='https://keen.io/'>KeenIO</a> and <a href='http://www.swrve.com/'>Swrve</a>. At Snowplow, we&#8217;re in the process of building out support for <a href='https://github.com/snowplow/snowplow/wiki/Developer-FAQ#wiki-unstructtimeline'>unstructured events</a>, where events are represented as JSONs.</p>
+
+<h3 id='4_seemingly_easy_to_analyze_using_hive_and_json_serde'>4. <em>Seemingly</em> easy to analyze using Hive and JSON Serde</h3>
+
+<p>JSONs, stored as flat files in S3 or HDFS <em>should</em> be easy to analyze using Hive and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a>. (We&#8217;ve blogged an example of this <a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'>here</a>.) You &#8216;simply&#8217; specify the schema as part of your Hive table definitions, implicit in the JSON. for each event type, and then you can query the data using SQL statements, as if it was a relational database. Easy peasy!</p>
+<h2><a name='weaknesses'>The weaknesses of this approach</a></h2>
+<p>Unfortunately, querying the JSON data is not as easy as it first appears:</p>
 
 <ol>
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/recipes/recipes-basic.sql'>recipes-basic.sql</a></li>
+<li>
+<p>It is not always obvious, to the analyst creating the Hive table definitions, what the schema / structure for each event type should be. The analyst can visually inspect the some of the data to get some idea, but it is impossible to tell:</p>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/recipes/recipes-catalog.sql'>recipes-catalog.sql</a></li>
+<ul>
+<li>Whether they have spotted all the possible fields that might appear. (E.g. there may be some that are sparsely populated, but very important when they are filled in.)</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/recipes/recipes-customers.sql'>recipes-customers</a></li>
+<li>Which fields are compulsory, and which are optional?</li>
+</ul>
+</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/cubes/cube-visits.sql'>cube-visits.sql</a></li>
+<li>
+<p>When exploding nested data into separate tables, it is can be hard to identify on what key that data should be joined to the parent table.</p>
+</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/cubes/cube-transactions.sql'>cube-transactions.sql</a></li>
+<li>
+<p>It can be hard (if not impossible) for analysts and application developers to spot &#8220;errors&#8221; in the JSON at the point the event data is generated and captured. It is very easy for mistakes to creep in: JSONs are very fragile (a missing comma or inverted comma will break a JSON.) There&#8217;s also no way to check the type of individual fields.</p>
+</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/redshift-analytics/cubes/cube-pages.sql'>cube-pages.sql</a></li>
+<li>
+<p>In order to run effective analytics across records for a particular event type, it is important that all those events conform to some minimal schema. However, there is no way to enforce this upstream.</p>
+</li>
 </ol>
 
-<p>These can be run directly using the <code>psql</code> command line tool, as described <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-prebuilt-views-in-Redshift-and-PostgreSQL'>in the setup guide</a>.</p>
-
-<p>Finally, you will want to add the new schemas to your <code>search_path</code>. This is necessary for the views in these schemas to show up in tools like Tableau and SQL Workbench. An explanation of how to update the search path is given <a href='https://github.com/snowplow/snowplow/wiki/setting-up-redshift#wiki-search_path'>here, in the setup guide</a>.</p>
-
-<h3 id='52_postgresql_users'>5.2 PostgreSQL users</h3>
-
-<p>If you are using PostgreSQL, your events data should already be in the <code>atomic.events</code> schema.</p>
-
-<p>You need to do is updated your events table definition, as per <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.1.0_to_0.1.1.sql'>this migration script</a>.</p>
-
-<p>Afterwards, you can create the new schemas and views, by running the following scripts:</p>
+<p>When Amazon Redshift was launched earlier this year, many companies wanted to load their event data into Redshift, to enable faster querying than was possible in Apache Hive, and also so that they could use BI and analytics tools to create dashboards, visaulize and mine the data. Unfortunately, loading JSON data into Redshift is even harder:</p>
 
 <ol>
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/recipes/recipes-basic.sql'>recipes-basic.sql</a></li>
+<li>Redshift tables have traditional schemas where each field has a fixed type. To make loading data into Redshift reliable, you really want to enforce the right type on the right variable all the way from data collection. However, JSONs do not support strong typing or schemas.</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/recipes/recipes-catalog.sql'>recipes-catalog.sql</a></li>
+<li>Any input line that does not conform to the Redshift schema fails to load. Many companies are then stuck between two unappealing approaches: junk data that doesn&#8217;t fit the schema (which may be a significant subset of the data), or only load a very small subset of the fields that have been reliably collected across the different event types. (Thereby relaxing the requirements on input data to successfully load.)</li>
+</ol>
+<h2><a name='solution'>Using the Snowplow tech stack to load JSON data into Redshift</a></h2>
+<p>The Snowplow stack can be forked so that Snowplow transforms JSON data and loads it into Redshift. We&#8217;ve found this is a much better approach then building an ETL pipeline using e.g. Apache Hive and the JSON serde because Snowplow has a lot of validation capabilities. We&#8217;ll discuss this in a second - first, let&#8217;s overview the process for adapting Snowplow to load your custom JSONs into Redshift:</p>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/recipes/recipes-customers.sql'>recipes-customers</a></li>
+<ol>
+<li>We develop an event dictionary for the client, which catalogs all the different events in their application and the fields that are captured with each of those events.</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/cubes/cube-visits.sql'>cube-visits.sql</a></li>
+<li>We use that event dictionary to define table definitions in Redshift where the data will be loaded. (So we have a mapping of the event dictionary to the output tables.)</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/cubes/cube-transactions.sql'>cube-transactions.sql</a></li>
+<li>We work with the client to map the contents of their event JSONs to the dictionary. (So we have a mapping of the input JSONs to the event dictionary.)</li>
 
-<li><a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/cubes/cube-pages.sql'>cube-pages.sql</a></li>
+<li>We then modify the Snowplow stack to unpick the JSONs (as per the JSON -&gt; dictionary mapping) and write the data back to S3 in a format suitable for loading directly into Redshift (as per the dictionary -&gt; Redshift table definitions mapping)</li>
 </ol>
 
-<p>These can be run directly using the <code>psql</code> command line tool, as described <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-prebuilt-views-in-Redshift-and-PostgreSQL'>in the setup guide</a>.</p>
-<a name='next-steps'><h2>6. Next steps: where to go from here</h2></a>
-<p>We&#8217;ll be covering how to use the recipes and cubes in more detail in forthcoming blog posts, and of course adding new recipes to the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a>. In the meantime, we recommend that curious users start experimenting with the different views, and refer to the underlying SQL to understand how they&#8217;re created, and indeed how they can tweak those statements to deliver the data formatted as they need.</p>
+<p>As mentioned above, the key to making this work is to use Snowplow&#8217;s rich validation capabilities. We use these to:</p>
+
+<ol>
+<li>Check that the input data conforms to the schemas specified</li>
+
+<li>Output any data that does not conform to the schema to a &#8220;bad buckeet&#8221;. This means that the &#8220;good data&#8221; will successfully load into Redshift, while we don&#8217;t lose any &#8220;bad data&#8221;. We can now easily spot errors as they arise (by ensuring that the ETL process is run every few hours) and deal with them immediately. It also means that the &#8220;bad&#8221; data can be inspected, updated, reprocessed, and then loaded into Redshift, which is much preferable to simpy dropping it.</li>
+</ol>
+
+<p>Going forwards, we plan to build out the validation capability, so that as well as simply checking if incoming JSONs adhere to the schema, Snowplow will also spot &#8220;orphaned data&#8221; (i.e. name / value pairs in the JSON that are not accommodated in the schema) so that the schema can be updated to incorporate this data, and we save it from being lost.</p>
+
+<h2 id='interested_in_talking_to_the_snowplow_team_about_loading_your_json_data_into_redshift'>Interested in talking to the Snowplow team about loading your JSON data into Redshift?</h2>
+
+<p>View our info on the <a href='/services/pipelines.html'>Professional Services pages</a>, or <a href='/about/index.html'>get in touch</a> to discuss your requirements.</p>
+
+<h2 id='references'>References</h2>
+
+<p>We&#8217;re not the only people who think storing event data as JSONs is not a great. For more opinions:</p>
+
+<ul>
+<li><a href='http://nathanmarz.com/blog/thrift-graphs-strong-flexible-schemas-on-hadoop.html'>Nathan Marz</a> wrote a blog post back in 2010, highlighting their weaknesses, as part of presenting an alternative, graph-based model.</li>
+
+<li>The <a href='http://vldb.org/pvldb/vol5/p1771_georgelee_vldb2012.pdf'>Unified Logging Infrastructure for Data Analytics at Twitter</a> gives a very clear description of how this approach breaks down at scale. (See particularly section 3.1.)</li>
+</ul>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

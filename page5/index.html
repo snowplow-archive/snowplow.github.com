@@ -69,6 +69,17 @@
 		<div id="contents">
 	
 		<div class="post">
+			19 Jul 2013
+			<h1><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Yesterday at the <a href='http://www.meetup.com/hadoop-users-group-uk/'>Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
+
+<p>I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:</p>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/24416560' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
+<p>Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!</p>
+		</div>
+	
+		<div class="post">
 			10 Jul 2013
 			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -177,37 +188,6 @@
 <p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
 		</div>
 	
-		<div class="post">
-			03 Jul 2013
-			<h1><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
-
-<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
-<div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
-<span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
-<span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre></div>
-<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
-
-<ol>
-<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
-
-<li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
-</ol>
-
-<p>After the jump we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -227,6 +207,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 		
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
@@ -235,14 +217,14 @@
 		
 			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
-			<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
 				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
@@ -251,8 +233,6 @@
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
 				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-				<li><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></li>
 			
 		
 		</ul>		

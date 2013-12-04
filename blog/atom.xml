@@ -4,13 +4,35 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-12-02T13:20:14+00:00</updated>
+  <updated>2013-12-04T15:46:17+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative"/>
+    <title>The first Graduate Data Science Initiative event in London</title>
+    <updated>2013-12-04T00:00:00+00:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last night, I was very privilage to speak at the first meeting of the &lt;a href='http://www.meetup.com/Graduate-Data-Science-Initiative/'&gt;Graduate Data Science Initiative meetup&lt;/a&gt;, alongside Martin Goodson from Qubit and Eddie Bells from Lyst.&lt;/p&gt;
+
+&lt;p&gt;The event was for graduates interested in careers in Data Science careers. It&amp;#8217;s a great initiative and we were very happy to support it.&lt;/p&gt;
+
+&lt;p&gt;I gave the first talk on how data scientists and big data technolgies, including Snowplow, are fundamentally changing the way that people think about use web analytics data specifically, and digital event data more generally. I went on to describe why we believe event data is such an interesting data set to work with. We&amp;#8217;ll see if any of the participants are more excited about digital event data as a result. I&amp;#8217;ve embedded my slides below:&lt;/p&gt;
+&lt;div id='pres'&gt;&lt;iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/28874690' width='476'&gt; &lt;/iframe&gt;&lt;/div&gt;
+&lt;p&gt;Eddie Bells gave a very interesting talk about the data infrastructure at &lt;a href='http://www.lyst.com/'&gt;Lyst&lt;/a&gt;, particularly around scraping and structuring (including classifying) data.&lt;/p&gt;
+
+&lt;p&gt;Martin Goodson followed up with a fascinating talk highlighting the enormous amount of money wasted in online retail because of a lack of sound statistical approach to techniques like A/B and multivariant testing. I hope to post links to both Martin&amp;#8217;s and Eddie&amp;#8217;s slides in due course.&lt;/p&gt;
+
+&lt;p&gt;Many thanks to Fatos and Amir for organising the event. We hope it continues to flourish, and look forward to continuing to support this and similar initiatives to bring more talented graduates into data science.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/11/20/loading-json-data-into-redshift</id>

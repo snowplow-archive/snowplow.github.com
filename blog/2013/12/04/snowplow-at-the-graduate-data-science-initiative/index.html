@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.4.7 released - Snowplow Analytics</title>
+	<title>The first Graduate Data Science Initiative event in London - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,114 +68,24 @@
 	
 		<div id="contents">
 		<div class="post">
-			06 Sep 2012
-			<h1>Snowplow 0.4.7 released</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow version <strong>0.4.7</strong>. This release bumps the Snowplow JavaScript tracker to version <strong>0.6</strong>, with two significant new features:</p>
+			04 Dec 2013
+			<h1>The first Graduate Data Science Initiative event in London</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Last night, I was very privilage to speak at the first meeting of the <a href='http://www.meetup.com/Graduate-Data-Science-Initiative/'>Graduate Data Science Initiative meetup</a>, alongside Martin Goodson from Qubit and Eddie Bells from Lyst.</p>
 
-<ol>
-<li>The ability to set a site ID for your tracking - useful for multi-site publishers</li>
+<p>The event was for graduates interested in careers in Data Science careers. It&#8217;s a great initiative and we were very happy to support it.</p>
 
-<li>The ability to log ecommerce transactions - useful for merchants wanting to track orders</li>
-</ol>
+<p>I gave the first talk on how data scientists and big data technolgies, including Snowplow, are fundamentally changing the way that people think about use web analytics data specifically, and digital event data more generally. I went on to describe why we believe event data is such an interesting data set to work with. We&#8217;ll see if any of the participants are more excited about digital event data as a result. I&#8217;ve embedded my slides below:</p>
+<div id='pres'><iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/28874690' width='476'> </iframe></div>
+<p>Eddie Bells gave a very interesting talk about the data infrastructure at <a href='http://www.lyst.com/'>Lyst</a>, particularly around scraping and structuring (including classifying) data.</p>
 
-<p>A huge thanks to community member <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for contributing the ecommerce tracking functionality - thank you Simon!</p>
+<p>Martin Goodson followed up with a fascinating talk highlighting the enormous amount of money wasted in online retail because of a lack of sound statistical approach to techniques like A/B and multivariant testing. I hope to post links to both Martin&#8217;s and Eddie&#8217;s slides in due course.</p>
 
-<p>We&#8217;ll take a look at both of these new features in turn:</p>
-
-<h2 id='site_id'>Site ID</h2>
-
-<p>The Snowplow JavaScript tracker now lets you set a site identifier before you start logging events. The new method for this is called <code>setSiteId()</code> - it takes one argument, the identifier you have assigned to this site. For example:</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setAccount&#39;</span><span class='p'>,</span> <span class='s1'>&#39;d3rkrsqld9gmqf&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setSiteId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;CFe23a&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-</code></pre></div>
-<p>The querystring passed to your Snowplow collector will now include the following parameter:</p>
-
-<pre><code>...&amp;said=CFe23a&amp;...</code></pre>
-
-<p>where <code>said</code> stands for <em>Site or App ID</em> - because we plan on using the same parameter for mobile and desktop app tracking as well. <!--more--></p>
-
-<p>This new feature should be helpful for anyone running multiple sites (or perhaps clients) against the same Snowplow collector - it means that you can easily partition your Snowplow events by site, whilst still being able to run cross-site analyses should you so wish.</p>
-
-<p>Note that we haven&#8217;t yet added extracting <code>said</code> to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/33'>open ticket for this</a>.</p>
-
-<h2 id='ecommerce_transactions'>Ecommerce transactions</h2>
-
-<p>To date, we have been analysing e-commerce transactions using Snowplow by:</p>
-
-<ul>
-<li>Logging every <em>product add to basket</em> event</li>
-
-<li>Logging every <em>product remove from basket</em> event</li>
-
-<li>Netting these events off to determine the final contents of the order</li>
-</ul>
-
-<p>This approach works, but it adds complexity in the analysis step. Happily community member Simon Andersson has contributed an alternative solution: dedicated Snowplow e-commerce transaction tracking, similar to the functionality found in the Google Analytics JavaScript API.</p>
-
-<p>The idea is that you add the new tracking code to your shop&#8217;s checkout confirmation page, so that the completed order can be sent to Snowplow. A complete example of the new tracking code looks like this:</p>
-<div class='highlight'><pre><code class='javascript'><span class='kd'>var</span> <span class='nx'>orderId</span> <span class='o'>=</span> <span class='s1'>&#39;order-123&#39;</span><span class='p'>;</span>
-
-<span class='c1'>// addTrans sets up the transaction, should be called first.</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addTrans&#39;</span><span class='p'>,</span>
-  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// affiliation or store name</span>
-  <span class='s1'>&#39;8000&#39;</span><span class='p'>,</span>                 <span class='c1'>// total - required</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// tax</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// shipping</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// city</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// state or province</span>
-  <span class='s1'>&#39;&#39;</span>                      <span class='c1'>// country</span>
-  <span class='p'>]);</span>
-
-<span class='c1'>// addItem is called for each item in the shopping cart.</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
-  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
-  <span class='s1'>&#39;1001&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
-  <span class='s1'>&#39;Blue t-shirt&#39;</span><span class='p'>,</span>         <span class='c1'>// product name</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
-  <span class='s1'>&#39;2000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
-  <span class='s1'>&#39;2&#39;</span>                     <span class='c1'>// quantity - required</span>
-  <span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
-  <span class='nx'>orderId</span><span class='p'>,</span>                <span class='c1'>// order ID - required</span>
-  <span class='s1'>&#39;1002&#39;</span><span class='p'>,</span>                 <span class='c1'>// SKU - required</span>
-  <span class='s1'>&#39;Red shoes&#39;</span><span class='p'>,</span>            <span class='c1'>// product name</span>
-  <span class='s1'>&#39;&#39;</span><span class='p'>,</span>                     <span class='c1'>// category</span>
-  <span class='s1'>&#39;4000&#39;</span><span class='p'>,</span>                 <span class='c1'>// unit price - required</span>
-  <span class='s1'>&#39;1&#39;</span>                     <span class='c1'>// quantity - required</span>
-  <span class='p'>]);</span>
-
-<span class='c1'>// trackTrans sends the transaction to Snowplow tracking servers.</span>
-<span class='c1'>// Must be called last to commit the transaction.</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackTrans&#39;</span><span class='p'>]);</span>
-</code></pre></div>
-<p>The above example creates an order (aka &#8220;transaction&#8221;) with ID <code>order-123</code> and then adds two line items (two blue t-shirts and one pair of red shoes) as line items to the order. The final <code>trackTrans</code> call sends this complete order to Snowplow as three separate events - one each for the order and its line items.</p>
-
-<p>This new functionality should be useful for anybody who wants to track orders transacted in a online shopping cart such as Magento, PrestaShop or Spree.</p>
-
-<p>Note that we haven&#8217;t yet added extracting these e-commerce orders to our ETL process, but we have an <a href='https://github.com/snowplow/snowplow/issues/34'>open ticket for this</a>.</p>
-
-<h2 id='upgrading'>Upgrading</h2>
-
-<p>We have made the minified JavaScript tracker version 0.6 available on this URL:</p>
-
-<pre><code>http://d1fc8wv8zag5ca.cloudfront.net/0.6/sp.js</code></pre>
-
-<p>There are no breaking changes with the previous version 0.5, so you can upgrade your existing Snowplow JavaScript tracker without issue.</p>
-
-<p>Note that we have now added versioning to the JavaScript tracker&#8217;s URL. This is because we have &#8220;breaking changes&#8221; to the JavaScript tracker in the pipeline (see e.g. issues <a href='https://github.com/snowplow/snowplow/issues/29'>#29</a> and <a href='https://github.com/snowplow/snowplow/issues/32'>#32</a>).</p>
-
-<h2 id='thanks'>Thanks</h2>
-
-<p>A final note to say thanks again to <a href='https://github.com/ramn'>Simon Andersson</a> for contributing the ecommerce tracking functionality! Community contributors like Simon A and Simon R(umble) are helping us to quickly make the Snowplow vision a reality.</p>
-
-<p>And of course, we welcome contributions across the five Snowplow sub-systems. If you would like help implementing a new tracker, trying a different ETL approach or loading Snowplow events into an alternative database, please <a href='mailto:contribute@snowplowanalytics.com'>get in touch</a>!</p>
+<p>Many thanks to Fatos and Amir for organising the event. We hope it continues to flourish, and look forward to continuing to support this and similar initiatives to bring more talented graduates into data science.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
 </div>
 
 			</div> 

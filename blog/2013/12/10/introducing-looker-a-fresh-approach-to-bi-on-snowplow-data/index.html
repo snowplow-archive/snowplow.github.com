@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+
+	<div id="container">
+		<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+		<div id="contents">
+		<div class="post">
+			10 Dec 2013
+			<h1>Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p><img alt='Looker-screenshot' src='/static/img/blog/2013/12/looker-screenshot.png' /></p>
+
+<p>In the last few weeks, we have been experimenting with using <a href='http://looker.com'>Looker</a> as a front-end to analsye Snowplow data. We&#8217;ve really liked what we&#8217;ve seen: Looker works beautifully with Snowplow. Over the next few weeks, we&#8217;ll share example analyses and visualizations of Snowplow data in Looker, and dive into Looker in more detail. In this post, we&#8217;ll take a step back and walk through some context to explain why we are so excited about Looker.</p>
+
+<ol>
+<li><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#limitations'>Understanding the limitations that arise when you use traditional Business Intelligence (BI) tools (like Tableau) to analyse Snowplow data</a></li>
+
+<li><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#enter-looker'>How Looker takes a fresh approach to BI, and why that overcomes the limitations Snowplow users have working with other solutions</a></li>
+</ol>
+<!--more--><a name='limitations'><h2>The limitations that arise when you use traditional Business Intelligence (BI) tools to analyse Snowplow data</h2></a>
+<p>Our vision for Snowplow is to enable companies to capture and store granular, event-level data from their websites and applications, so that they can perform any type of analysis on that data, including joining that event data with other data sets.</p>
+
+<p>The majority of companies using Snowplow access their data from Amazon Redshift. Redshift is great: it makes it possible to run performant queries against massive data sets - and Snowplow data sets are often very large. It also makes it possible to plug-in one or more business intelligence tools to query and visualize the data, via its Postgres API. Perhaps not surprisingly, one of the quesitons we get asked most is what BI and reporting solutions to use to mine Snowplow data and deliver dashboards powered by that data. We have worked with a number clients to implement BI tools on top of Snowplow data, more often than not <a href='http://tableausoftware.com'>Tableau</a>.</p>
+
+<p>BI tools are great for a host of reasons. By providing graphical user interfaces on top of the data, they make it possible for people to query the data without knowledge of SQL. They also make it possible to visualize the data, making it easier to identify underlying trends and drive value from the data.</p>
+
+<p>For companies running Snowplow, the benefits that a BI tool provide come at a cost: it is not possible to query the data as flexibily through the BI tool as it is executing SQL directly against the data in Redshift. To understand why, it helps to think about the architecture underlying traditional Business Intelligence tools:</p>
+
+<p><img alt='Diagram of BI tool architecture' src='/static/img/blog/2013/12/simplified-bi-architecture.png' /></p>
+
+<p>BI tools typically load data sets into their own internal analytics engine. The tool will then infer a collection of dimensions and metrics from that data, based on the underlying structure of the database it is connected to. Users of the BI tool can then go on to define additional dimensions and metrics on top of that data: for example by defining the metric &#8216;uniques&#8217; as a count of the number of distinct &#8216;domain_userid&#8217; values. It is then possible to use the complete set of dimensions and metrics to pivot the data (slice and dice differnet combinations of metrics and dimensions together) and visualize the different slices of data.</p>
+
+<p>There are two problems with using the above approach with Snowplow data in Amazon Redshift, however:</p>
+
+<ol>
+<li><a href='#volume'>The volume of data in Redshift is simply too large to load into the BI tool&#8217;s own data processing engine. (Which is generally optimized for in-memory computation.)</a></li>
+
+<li><a href='#mapping'>Deriving dimensions and metrics from the underlying Snowplow data is not trivial</a></li>
+</ol>
+<a name='volume'><h3>1.1 There is too much data in Redshift to load into the BI tool's own analytics engine</h3></a>
+<p>BI tools like Tableau have very fast in-memory analytics engines. This is important because when you are slicing and dicing different combinations of dimensions and metrics, you do not want to have to wait tens of minutes for the table or graph to update. Unfortunately, this approach does not work well with Snowplow data in Redshift, because the volume of underlying event-level data is too great to load in-memory.</p>
+
+<p>The primary workaround with Snowplow data is to reduce the volume of data loaded into the BI tool, by:</p>
+
+<ol>
+<li>Aggregating the data to a session or visitor level, prior to loading it into the BI tool. (Rather than keep it at the underlying event-level.) This effectively reduces the number of lines of data loaded in.)</li>
+
+<li>Limit the number of dimensions / metrics loaded in. (Effectivley limiting the number of columns loaded in.)</li>
+
+<li>Limiting the range of data loaded into the BI tool e.g. by time period, or only load data for specific user-segments or cohorts. (This also limits the number of lines of data loaded in.)</li>
+</ol>
+
+<p>The problem with all of the above approaches is that they limit the flexibility that the end-user of the BI tool has to query the data . Aggregating the data to a visit / session level prevents the user drilling in to specific visitors or sessions identified as part of the analysis. Limiting the number of columns loaded limits the number of dimensions and metrics that an end user can slice and dice the data by. And limiting the data loaded in by time period or user segment limits the number of segments or time periods that an analyst can explore data for.</p>
+<a name='mapping'><h3>1.2 Deriving dimensions and metrics from the underlying Snowplow data is not trivial</h3></a>
+<p>The other feature of Snowplow data that BI tools typically struggle with is inferring many of the most useful dimensions and metrics from the underlying event data.</p>
+
+<p>Some dimensions and metrics are relatively straightforward to define for Snowplow data. For example, if we want to uniquely identify a session, we can do so by concatenating the &#8216;domain_userid&#8217; and &#8216;domain_sessionidx&#8217;. In Tableau, we can create a session ID dimension, by selecting &#8216;Create Metric / Dimension&#8217; and entering the following formula:</p>
+
+<pre><code>[domain_userid] + &#39;-&#39; +  STR([domain_sessionidx])</code></pre>
+
+<p>Similarly, it is straightforward to define a &#8216;Uniques&#8217; metric as a count distinct on &#8216;domain_userid&#8217; values. Again, we select the &#8216;Create Metric / Dimension&#8217; option, and then enter:</p>
+
+<pre><code>COUNTD( [domain_userid] )</code></pre>
+
+<p>The trouble is that there is a raft of other dimensions that are much harder to define: for example, what was the landing page of this particular session? That involves identifying the first event for a particular session (which is generally a page view), reading the different page parameters (&#8216;page_urlhost&#8217;, &#8216;page_urlpath&#8217;) for that event, and then blitting that value across all the other lines of data for that session. There are other dimensions that derive from the first event in a session, for example:</p>
+
+<ol>
+<li>The page referer (including referer type)</li>
+
+<li>Any marketing campaign attributes</li>
+</ol>
+
+<p>In all these cases, it is difficult to define the logic for identifying these dimensions in traditional BI tools. (It is impossible in Tableau.) There are other dimensions that relate to the visitor (rather than the session):</p>
+
+<ol>
+<li>What date they first visited the website</li>
+
+<li>What visit they &#8216;signed up&#8217; (if relevant)</li>
+
+<li>Where that user was acquired from? (What referer? What marketing channel?)</li>
+</ol>
+
+<p>To fetch these dimension values, we need to identify the first event for that user across all their different user sessions. Again, this is very difficult within the BI tool, because there is no way to explain to the BI tool how to identify specific lines in the user&#8217;s event stream, read dimension values from that event and then apply them to all the other events in the same session.</p>
+
+<p>Further, there are other dimensions that relate to the <em>last</em> event in a user&#8217;s session: namely, their exit page. The same difficulty arises.</p>
+
+<p>Finally, there are dimensions that relate to more than one line of data from a user&#8217;s event stream: for example, session duration is the difference between the timestamp on the first and last event for a particular session. Again, the same difficulty arises.</p>
+
+<p>In all the above examples, it is <strong>not</strong> possible to derive the above fields in Tableau directly on the data, because we have no way in Tableau of defining dimensions related to specific lines in a data set. As a result, companies that use Tableau or other standard BI tools on top of Snowplow have to compute them using SQL <em>before</em> loading the data into Tableau. That is effectively what we have done in the different cubes that we created in the 0.8.12 release. You can see the underlying SQL <a href='https://github.com/snowplow/snowplow/tree/master/5-analytics/redshift-analytics/cubes'>here</a>. We&#8217;ve produced a guide to generating OLAP-compatible data from the &#8216;atomic.events&#8217; data in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>Analytics Cookbook</a>. It is not trivial.</p>
+
+<p>As a result, companies that have implemented e.g. Tableau on top of Snowplow, typically have one or more members of a data team, internally, that are experts at using the SQL to generate different slices of the data that are suitable for loading into Tableau. Consumers of the data who are not versed in SQL query the data using Tableau (either through dashboards powered by Tableau Server or directly via Tableau desktop). If they find that they cannot generate the particular analysis they want out of the different cubes available, they can then ask a member of the data team to generate them a new cube from the event-level data. It works, but it is not ideal.</p>
+
+<h2 id='enter_looker_a_fresh_approach_to_bi_that_is_much_better_suited_to_analysing_snowplow_data'>Enter Looker: a fresh approach to BI, that is much better suited to analysing Snowplow data</h2>
+
+<p><a href='http://looker.com'>Looker</a> is architected differently to traditional BI tools. There are a number of features that make Looker unique, but two are especially pertinent for users who want to use a BI tool to analyse their Snowplow data:</p>
+
+<ol>
+<li><a href='#processing-engine'>Looker does not load data into its own data processing engine. Instead, it uses the underlying database to perform the computations.</a></li>
+
+<li><a href='#meta-data-layer'>Looker has a lightweight meta-data model that makes it easy to derive a comprehensive set of dimensions and metrics on top of the underlying data.</a></li>
+</ol>
+<a name='processing-engine'><h3>1. Looker uses the underlying database to crunch the data</h3></a>
+<p>If you have your data in an database like Amazon Redshift that is optmized for running analytics queries across large data sets, it makes to run your queries on the data in Amazon Redshift. Looker does that: every time you slice / dice combinations of metrics and dimensions in the Looker Explorer, plot a graph or draw a dashboard, Looker translates the actions in the user interface into SQL and runs that SQL on Redshift. Rather then spend time developing their own in-memory data processing architecture, the Looker team have concentrated instead on generating highly performant SQL. As a result, when you&#8217;re exploring Snowplow data in Looker, you are exploring the complete data set.</p>
+<a name='meta-data-layer'><h3>2. Looker has a light-weight meta-data model, that makes it easy to derive dimensions and metrics from the underlying Snowplow data</h3></a>
+<p>Looker boasts a very expressive metadata model. You can create a model that understands different entities - for example: visitors, sessions and events. Events can be derived directly from the &#8216;atomic.events&#8217; table. In contrast, sessions and visitors are derived from aggregations on that data. The model is rich enough that you can express links between different entities: visitor A has visited the website on three separate occasions: Looker will let you drill into each of those three sessions and view the underlying event stream for each of them. (You can have as many entities as you like in your model: we typically include geographic data, referers, devices, browsers and event types in the models we&#8217;ve built using Looker.)</p>
+
+<p>The <a href='http://looker.com'>Looker</a> data model is not only expressive, but it&#8217;s very lightweight: it consists simply of YAML definitions of dimensions, metrics and views on the data. That makes it easy to quickly put together rich models. It also makes it easy to extend the model to incorporate data from other sources: making it straightforward to use <a href='http://looker.com'>Looker</a> to query Snowplow data joined with other data sets, including transactional data, customer data (e.g. from CRM systems) and ad server / marketing data, for example. The combination of computing on the data directly in Redshift and enabling users to define rich metadata models means <a href='http://looker.com'>Looker</a> is an especially powerful analytics tool for exploring and dashboarding Snowplow data in Amazon Redshift. In the coming weeks, we plan to publish some of the models we&#8217;ve built for Snowplow data in <a href='http://looker.com'>Looker</a> to make it easy for Snowplow users who want to experiment with <a href='http://looker.com'>Looker</a> get off to a flying start. This is the first in a series of blog posts on analysing Snowplow data with <a href='http://looker.com'>Looker</a>: in future posts we will drill into the <a href='http://looker.com'>Looker</a> meta-data model in particular in more detail. Get in touch with either us or the Looker team, if you&#8217;d like to trial <a href='http://looker.com'>Looker</a> on top of your Snowplow data.</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+		
+			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+		
+			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
+		
+			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+		
+			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
+			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+		<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
+</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

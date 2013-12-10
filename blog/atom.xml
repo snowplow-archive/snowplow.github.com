@@ -4,13 +4,121 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2013-12-04T15:46:17+00:00</updated>
+  <updated>2013-12-10T11:41:04+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data"/>
+    <title>Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</title>
+    <updated>2013-12-10T00:00:00+00:00</updated>
+    <author>
+      <name>Yali</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;&lt;img alt='Looker-screenshot' src='/static/img/blog/2013/12/looker-screenshot.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the last few weeks, we have been experimenting with using &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; as a front-end to analsye Snowplow data. We&amp;#8217;ve really liked what we&amp;#8217;ve seen: Looker works beautifully with Snowplow. Over the next few weeks, we&amp;#8217;ll share example analyses and visualizations of Snowplow data in Looker, and dive into Looker in more detail. In this post, we&amp;#8217;ll take a step back and walk through some context to explain why we are so excited about Looker.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#limitations'&gt;Understanding the limitations that arise when you use traditional Business Intelligence (BI) tools (like Tableau) to analyse Snowplow data&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#enter-looker'&gt;How Looker takes a fresh approach to BI, and why that overcomes the limitations Snowplow users have working with other solutions&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;a name='limitations'&gt;&lt;h2&gt;The limitations that arise when you use traditional Business Intelligence (BI) tools to analyse Snowplow data&lt;/h2&gt;&lt;/a&gt;
+&lt;p&gt;Our vision for Snowplow is to enable companies to capture and store granular, event-level data from their websites and applications, so that they can perform any type of analysis on that data, including joining that event data with other data sets.&lt;/p&gt;
+
+&lt;p&gt;The majority of companies using Snowplow access their data from Amazon Redshift. Redshift is great: it makes it possible to run performant queries against massive data sets - and Snowplow data sets are often very large. It also makes it possible to plug-in one or more business intelligence tools to query and visualize the data, via its Postgres API. Perhaps not surprisingly, one of the quesitons we get asked most is what BI and reporting solutions to use to mine Snowplow data and deliver dashboards powered by that data. We have worked with a number clients to implement BI tools on top of Snowplow data, more often than not &lt;a href='http://tableausoftware.com'&gt;Tableau&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;BI tools are great for a host of reasons. By providing graphical user interfaces on top of the data, they make it possible for people to query the data without knowledge of SQL. They also make it possible to visualize the data, making it easier to identify underlying trends and drive value from the data.&lt;/p&gt;
+
+&lt;p&gt;For companies running Snowplow, the benefits that a BI tool provide come at a cost: it is not possible to query the data as flexibily through the BI tool as it is executing SQL directly against the data in Redshift. To understand why, it helps to think about the architecture underlying traditional Business Intelligence tools:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='Diagram of BI tool architecture' src='/static/img/blog/2013/12/simplified-bi-architecture.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;BI tools typically load data sets into their own internal analytics engine. The tool will then infer a collection of dimensions and metrics from that data, based on the underlying structure of the database it is connected to. Users of the BI tool can then go on to define additional dimensions and metrics on top of that data: for example by defining the metric &amp;#8216;uniques&amp;#8217; as a count of the number of distinct &amp;#8216;domain_userid&amp;#8217; values. It is then possible to use the complete set of dimensions and metrics to pivot the data (slice and dice differnet combinations of metrics and dimensions together) and visualize the different slices of data.&lt;/p&gt;
+
+&lt;p&gt;There are two problems with using the above approach with Snowplow data in Amazon Redshift, however:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='#volume'&gt;The volume of data in Redshift is simply too large to load into the BI tool&amp;#8217;s own data processing engine. (Which is generally optimized for in-memory computation.)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#mapping'&gt;Deriving dimensions and metrics from the underlying Snowplow data is not trivial&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='volume'&gt;&lt;h3&gt;1.1 There is too much data in Redshift to load into the BI tool's own analytics engine&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;BI tools like Tableau have very fast in-memory analytics engines. This is important because when you are slicing and dicing different combinations of dimensions and metrics, you do not want to have to wait tens of minutes for the table or graph to update. Unfortunately, this approach does not work well with Snowplow data in Redshift, because the volume of underlying event-level data is too great to load in-memory.&lt;/p&gt;
+
+&lt;p&gt;The primary workaround with Snowplow data is to reduce the volume of data loaded into the BI tool, by:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Aggregating the data to a session or visitor level, prior to loading it into the BI tool. (Rather than keep it at the underlying event-level.) This effectively reduces the number of lines of data loaded in.)&lt;/li&gt;
+
+&lt;li&gt;Limit the number of dimensions / metrics loaded in. (Effectivley limiting the number of columns loaded in.)&lt;/li&gt;
+
+&lt;li&gt;Limiting the range of data loaded into the BI tool e.g. by time period, or only load data for specific user-segments or cohorts. (This also limits the number of lines of data loaded in.)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The problem with all of the above approaches is that they limit the flexibility that the end-user of the BI tool has to query the data . Aggregating the data to a visit / session level prevents the user drilling in to specific visitors or sessions identified as part of the analysis. Limiting the number of columns loaded limits the number of dimensions and metrics that an end user can slice and dice the data by. And limiting the data loaded in by time period or user segment limits the number of segments or time periods that an analyst can explore data for.&lt;/p&gt;
+&lt;a name='mapping'&gt;&lt;h3&gt;1.2 Deriving dimensions and metrics from the underlying Snowplow data is not trivial&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;The other feature of Snowplow data that BI tools typically struggle with is inferring many of the most useful dimensions and metrics from the underlying event data.&lt;/p&gt;
+
+&lt;p&gt;Some dimensions and metrics are relatively straightforward to define for Snowplow data. For example, if we want to uniquely identify a session, we can do so by concatenating the &amp;#8216;domain_userid&amp;#8217; and &amp;#8216;domain_sessionidx&amp;#8217;. In Tableau, we can create a session ID dimension, by selecting &amp;#8216;Create Metric / Dimension&amp;#8217; and entering the following formula:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[domain_userid] + &amp;#39;-&amp;#39; +  STR([domain_sessionidx])&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similarly, it is straightforward to define a &amp;#8216;Uniques&amp;#8217; metric as a count distinct on &amp;#8216;domain_userid&amp;#8217; values. Again, we select the &amp;#8216;Create Metric / Dimension&amp;#8217; option, and then enter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;COUNTD( [domain_userid] )&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The trouble is that there is a raft of other dimensions that are much harder to define: for example, what was the landing page of this particular session? That involves identifying the first event for a particular session (which is generally a page view), reading the different page parameters (&amp;#8216;page_urlhost&amp;#8217;, &amp;#8216;page_urlpath&amp;#8217;) for that event, and then blitting that value across all the other lines of data for that session. There are other dimensions that derive from the first event in a session, for example:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The page referer (including referer type)&lt;/li&gt;
+
+&lt;li&gt;Any marketing campaign attributes&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In all these cases, it is difficult to define the logic for identifying these dimensions in traditional BI tools. (It is impossible in Tableau.) There are other dimensions that relate to the visitor (rather than the session):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;What date they first visited the website&lt;/li&gt;
+
+&lt;li&gt;What visit they &amp;#8216;signed up&amp;#8217; (if relevant)&lt;/li&gt;
+
+&lt;li&gt;Where that user was acquired from? (What referer? What marketing channel?)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To fetch these dimension values, we need to identify the first event for that user across all their different user sessions. Again, this is very difficult within the BI tool, because there is no way to explain to the BI tool how to identify specific lines in the user&amp;#8217;s event stream, read dimension values from that event and then apply them to all the other events in the same session.&lt;/p&gt;
+
+&lt;p&gt;Further, there are other dimensions that relate to the &lt;em&gt;last&lt;/em&gt; event in a user&amp;#8217;s session: namely, their exit page. The same difficulty arises.&lt;/p&gt;
+
+&lt;p&gt;Finally, there are dimensions that relate to more than one line of data from a user&amp;#8217;s event stream: for example, session duration is the difference between the timestamp on the first and last event for a particular session. Again, the same difficulty arises.&lt;/p&gt;
+
+&lt;p&gt;In all the above examples, it is &lt;strong&gt;not&lt;/strong&gt; possible to derive the above fields in Tableau directly on the data, because we have no way in Tableau of defining dimensions related to specific lines in a data set. As a result, companies that use Tableau or other standard BI tools on top of Snowplow have to compute them using SQL &lt;em&gt;before&lt;/em&gt; loading the data into Tableau. That is effectively what we have done in the different cubes that we created in the 0.8.12 release. You can see the underlying SQL &lt;a href='https://github.com/snowplow/snowplow/tree/master/5-analytics/redshift-analytics/cubes'&gt;here&lt;/a&gt;. We&amp;#8217;ve produced a guide to generating OLAP-compatible data from the &amp;#8216;atomic.events&amp;#8217; data in the &lt;a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'&gt;Analytics Cookbook&lt;/a&gt;. It is not trivial.&lt;/p&gt;
+
+&lt;p&gt;As a result, companies that have implemented e.g. Tableau on top of Snowplow, typically have one or more members of a data team, internally, that are experts at using the SQL to generate different slices of the data that are suitable for loading into Tableau. Consumers of the data who are not versed in SQL query the data using Tableau (either through dashboards powered by Tableau Server or directly via Tableau desktop). If they find that they cannot generate the particular analysis they want out of the different cubes available, they can then ask a member of the data team to generate them a new cube from the event-level data. It works, but it is not ideal.&lt;/p&gt;
+
+&lt;h2 id='enter_looker_a_fresh_approach_to_bi_that_is_much_better_suited_to_analysing_snowplow_data'&gt;Enter Looker: a fresh approach to BI, that is much better suited to analysing Snowplow data&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; is architected differently to traditional BI tools. There are a number of features that make Looker unique, but two are especially pertinent for users who want to use a BI tool to analyse their Snowplow data:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='#processing-engine'&gt;Looker does not load data into its own data processing engine. Instead, it uses the underlying database to perform the computations.&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='#meta-data-layer'&gt;Looker has a lightweight meta-data model that makes it easy to derive a comprehensive set of dimensions and metrics on top of the underlying data.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='processing-engine'&gt;&lt;h3&gt;1. Looker uses the underlying database to crunch the data&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;If you have your data in an database like Amazon Redshift that is optmized for running analytics queries across large data sets, it makes to run your queries on the data in Amazon Redshift. Looker does that: every time you slice / dice combinations of metrics and dimensions in the Looker Explorer, plot a graph or draw a dashboard, Looker translates the actions in the user interface into SQL and runs that SQL on Redshift. Rather then spend time developing their own in-memory data processing architecture, the Looker team have concentrated instead on generating highly performant SQL. As a result, when you&amp;#8217;re exploring Snowplow data in Looker, you are exploring the complete data set.&lt;/p&gt;
+&lt;a name='meta-data-layer'&gt;&lt;h3&gt;2. Looker has a light-weight meta-data model, that makes it easy to derive dimensions and metrics from the underlying Snowplow data&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;Looker boasts a very expressive metadata model. You can create a model that understands different entities - for example: visitors, sessions and events. Events can be derived directly from the &amp;#8216;atomic.events&amp;#8217; table. In contrast, sessions and visitors are derived from aggregations on that data. The model is rich enough that you can express links between different entities: visitor A has visited the website on three separate occasions: Looker will let you drill into each of those three sessions and view the underlying event stream for each of them. (You can have as many entities as you like in your model: we typically include geographic data, referers, devices, browsers and event types in the models we&amp;#8217;ve built using Looker.)&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; data model is not only expressive, but it&amp;#8217;s very lightweight: it consists simply of YAML definitions of dimensions, metrics and views on the data. That makes it easy to quickly put together rich models. It also makes it easy to extend the model to incorporate data from other sources: making it straightforward to use &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; to query Snowplow data joined with other data sets, including transactional data, customer data (e.g. from CRM systems) and ad server / marketing data, for example. The combination of computing on the data directly in Redshift and enabling users to define rich metadata models means &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; is an especially powerful analytics tool for exploring and dashboarding Snowplow data in Amazon Redshift. In the coming weeks, we plan to publish some of the models we&amp;#8217;ve built for Snowplow data in &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; to make it easy for Snowplow users who want to experiment with &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; get off to a flying start. This is the first in a series of blog posts on analysing Snowplow data with &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt;: in future posts we will drill into the &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; meta-data model in particular in more detail. Get in touch with either us or the Looker team, if you&amp;#8217;d like to trial &lt;a href='http://looker.com'&gt;Looker&lt;/a&gt; on top of your Snowplow data.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative</id>

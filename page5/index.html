@@ -69,6 +69,50 @@
 		<div id="contents">
 	
 		<div class="post">
+			05 Aug 2013
+			<h1><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href='http://www.postgresql.org/'>PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
+
+<p>And if you are already happily using Snowplow with Redshift, there are two other new features to check out:</p>
+
+<ol>
+<li>We have added support for multiple storage targets to Snowplow&#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
+
+<li>We have brought back the ability to query your Snowplow events using <a href='http://hive.apache.org/'>HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
+</ol>
+
+<p>As well as these new features, we have made a large number of improvements across Snowplow:</p>
+
+<ul>
+<li>We have made some improvements to the Hadoop-based Enrichment process (bumped to version 0.3.3)</li>
+
+<li>We have simplified EmrEtlRunner and its configuration file format</li>
+
+<li>We have improved the performance of the Redshift loading code</li>
+
+<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for details)</li>
+
+<li>We have moved the Snowplow JavaScript Tracker into <a href='https://github.com/snowplow/snowplow-javascript-tracker'>its own repository</a></li>
+
+<li>We have removed the deprecated Hive ETL and Infobright folders from the repository</li>
+</ul>
+
+<p>After the fold, we will cover the options for upgrading and using the new functionality:</p>
+
+<ol>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'>Loading events into Postgres</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'>Querying events with HiveQL</a></li>
+
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			19 Jul 2013
 			<h1><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -169,25 +213,6 @@
 <p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			07 Jul 2013
-			<h1><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>After a brief summer intermission, we are pleased to announce the release of <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
-
-<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href='https://github.com/mfu0'>mfu0</a> and Snowplow client <a href='http://www.bigcommerce.com/'>BigCommerce</a> for bringing some of these issues to our attention.</p>
-
-<p>As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.12.0/sp.js</code></pre>
-
-<p>Please note that this release implements the latest version of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
-
-<p>This is the first Snowplow release to make use of the new <a href='https://github.com/blog/1547-release-your-software'>GitHub Releases</a> functionality - so do check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>0.8.7 Release Notes</a>.</p>
-
-<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -207,6 +232,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
@@ -214,8 +241,6 @@
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
 			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
-			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
 	</ul>
 
@@ -258,6 +283,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
 				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 			
 				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
@@ -265,8 +292,6 @@
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
 				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 		
 		</ul>		

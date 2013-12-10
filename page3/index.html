@@ -69,6 +69,48 @@
 		<div id="contents">
 	
 		<div class="post">
+			21 Oct 2013
+			<h1><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
+
+<ol>
+<li>Custom trackers and collector logging formats</li>
+
+<li>Custom event models</li>
+
+<li>Custom business logic that impacts on the way their event data is processed</li>
+</ol>
+
+<p>To date, we have relied on three main techniques to help Snowplow users meet these requirements:</p>
+
+<ol>
+<li>Adding additional configuration options into the core Enrichment process (e.g. IP address anonymization, coming in 0.8.11)</li>
+
+<li>Working with users on bespoke re-writes of the Snowplow Enrichment process (mostly forks of the Scalding ETL job)</li>
+
+<li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
+</ol>
+
+<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
+
+<p>If possible, the following approach would make an attractive middle ground:</p>
+
+<ol>
+<li>Pass one or more user-authored scripts into our Scalding ETL at runtime</li>
+
+<li>The user-authored script(s) are executed against each row of event data</li>
+
+<li>These scripts can be written in a popular and easy-to-learn scripting language</li>
+</ol>
+
+<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
+
+<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
+<p class='more'><a href='/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			18 Oct 2013
 			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -156,28 +198,6 @@
 <p class='more'><a href='/blog/2013/09/30/book-review-instant-hive-essentials-how-to'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			27 Sep 2013
-			<h1><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are very pleased to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we started developing <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>back in July</a>, to enable:</p>
-
-<ul>
-<li>Snowplow users and prospective users to better forecast their Snowplow costs on <a href='http://aws.amazon.com/'>Amazon Web Services</a> going forwards</li>
-
-<li>The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform</li>
-</ul>
-
-<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges and how we tackled them. We&#8217;ll also review why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.</p>
-
-<p>In the meantime, <a href='https://github.com/snowplow/snowplow-tco-model'>download our TCO Model</a> and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.</p>
-
-<p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
-
-<p><img alt='snowplow-premium-price-comparison' src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' /></p>
-<p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -197,6 +217,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
@@ -204,8 +226,6 @@
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
 			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
-			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
 	</ul>
 
@@ -248,6 +268,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
 				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 			
 				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
@@ -255,8 +277,6 @@
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
 				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 		
 		</ul>		

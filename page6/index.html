@@ -69,6 +69,25 @@
 		<div id="contents">
 	
 		<div class="post">
+			07 Jul 2013
+			<h1><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>After a brief summer intermission, we are pleased to announce the release of <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
+
+<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href='https://github.com/mfu0'>mfu0</a> and Snowplow client <a href='http://www.bigcommerce.com/'>BigCommerce</a> for bringing some of these issues to our attention.</p>
+
+<p>As always, the updated minified tracker is available here:</p>
+
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.12.0/sp.js</code></pre>
+
+<p>Please note that this release implements the latest version of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
+
+<p>This is the first Snowplow release to make use of the new <a href='https://github.com/blog/1547-release-your-software'>GitHub Releases</a> functionality - so do check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>0.8.7 Release Notes</a>.</p>
+
+<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
+		</div>
+	
+		<div class="post">
 			03 Jul 2013
 			<h1><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -177,40 +196,6 @@
 <p>The recipe - <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>Getting Started with R</a>, is available <a href='/analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html'>here</a>.</p>
 		</div>
 	
-		<div class="post">
-			05 Jun 2013
-			<h1><a href="/blog/2013/06/05/tracking-olark-chat-events-with-snowplow">Tracking Olark chat events with Snowplow</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
-
-<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
-
-<p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
-
-<ol>
-<li>Whether people visiting the site would want to chat to us.</li>
-
-<li>Whether the chats were &#8220;useful&#8221; i.e. did they drive visitors to become Snowplow users? Did they help us identify content on the site that was confusing and needed clarification? Does it help drive sales of <a href='http://snowplowanalytics.com/services/index.html'>Snowplow professional services</a>.</li>
-</ol>
-
-<p>What became clear very quickly was that only a minority of visitors to the Snowplow site were interested in chatting. However, the &#8220;usefulness&#8221; of those chats was very high - already two professional services contracts have been won off the back of initial conversations powered by Olark. And in addition, we learnt a lot about where out content needs clarifying.</p>
-
-<p>The testing of Olark to date has been qualitative however. Longer term, we want to assess the value Olark adds quantitatively. To do this, naturally, we turn to Snowplow. We want to track Olark chat events in Snowplow, so that we can then analyze the Snowplow data to understand:</p>
-
-<ol>
-<li>The type of user behavior on the site that typically leads up to a user reaching out to us on Olark</li>
-
-<li>The type of user behavior on the site that leads to a user being responsive to us reaching out to them via Olark</li>
-
-<li>What impact do conversation on Olark have on the visitors subsequent browsing behavior (and likelihood to start using Snowplow and buying Snowplow professional services)?</li>
-
-<li>How good (quick) we are at responding to visitors reaching out to us via Olark?</li>
-</ol>
-
-<p>In this blog post, we will describe how we used <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>Snowplow structured events</a> to track Olark chat events. In a future blog post, we will analyze the data collected in Snowplow, to show how to answer the four questions outlined above. (We&#8217;ll write this once we&#8217;ve been running Olark for a while, so have a good data set to use to peform the analysis.)</p>
-<p class='more'><a href='/blog/2013/06/05/tracking-olark-chat-events-with-snowplow'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -230,6 +215,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
@@ -237,8 +224,6 @@
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
 			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
-			<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 		
 	</ul>
 
@@ -281,6 +266,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
 				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 			
 				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
@@ -288,8 +275,6 @@
 				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
 			
 				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-				<li><a href="/blog/2013/06/26/getting-started-with-r-for-data-analysis-and-visualization">Getting started using R for data analysis</a></li>
 			
 		
 		</ul>		

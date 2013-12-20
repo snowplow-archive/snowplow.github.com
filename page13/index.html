@@ -69,6 +69,37 @@
 		<div id="contents">
 	
 		<div class="post">
+			22 Jan 2013
+			<h1><a href="/blog/2013/01/22/snowplow-0.7.1-released">Snowplow 0.7.1 released, with easier-to-run Ruby apps</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re happy to announce the release of Snowplow version <strong>0.7.1</strong>. This release is designed to make it much easier to install and run the two Snowplow Ruby applications:</p>
+
+<ol>
+<li><a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'>EmrEtlRunner</a> - which runs the Snowplow ETL job</li>
+
+<li><a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>StorageLoader</a> - which loads Snowplow events into Infobright</li>
+</ol>
+
+<p>From the feedback we received, setting up and running these two Ruby apps was the most challenging (and error-prone) part of the Snowplow experience. Many thanks to all of those in the community who reported bugs with our original approach and suggested fixes!</p>
+
+<p>To streamline this process and reduce the chances of problems occurring, we have updated both Ruby apps to work in a <a href='https://rvm.io/integration/bundler/'>RVM+Bundler</a> environment, inline with Ruby community best practice. Specifically, we have:</p>
+
+<ul>
+<li>Created a simple <a href='https://github.com/snowplow/snowplow/wiki/Ruby-and-RVM-setup'>guide to setting up Ruby and RVM</a> ready for Snowplow</li>
+
+<li>Updated both of our Ruby apps to use RVM and Bundler</li>
+
+<li>Updated our cronjob shell scripts to work with RVM and Bundler</li>
+
+<li>Updated the setup guides (<a href='https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-setup'>EmrEtlRunner</a>; <a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader</a>) for both apps to follow RVM and Bundler best practice</li>
+</ul>
+
+<p>This release bumps EmrEtlRunner to version 0.0.8 and StorageLoader to version 0.0.4.</p>
+
+<p>And that&#8217;s it! Hopefully this release fixes all of the Ruby-related issues encountered by Snowplow users - but of course there might still be a couple of teething issues. If you spot anything that still doesn&#8217;t seem right, do please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+		</div>
+	
+		<div class="post">
 			21 Jan 2013
 			<h1><a href="/blog/2013/01/21/working-out-what-data-to-pass-into-your-tag-manager">What data should you be passing into your tag manager?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -96,7 +127,7 @@
 
 <p>We thought it might be interesting to share the <a href='http://jrvis.com/red-dwarf/?user=snowplow&amp;repo=snowplow'>Red Dwarf heatmap</a> of where our 202 GitHub stars are located across the world:</p>
 
-<p><img alt='heatmap' src='/static/img/blog/2013/01/snowplow-stars-at-202.png' /></p>
+<p><img src='/static/img/blog/2013/01/snowplow-stars-at-202.png' alt='heatmap' /></p>
 
 <p>Beyond the &#8220;hot spots&#8221; in the US and Europe, it&#8217;s encouraging to see growing interest in Snowplow from South America, South/East Asia and Australia/New Zealand. We look forward to checking back on the heatmap when we have some more stars!</p>
 		</div>
@@ -117,7 +148,7 @@
 <li>A selfish reason, perhaps, but having our customers use a tag management platforms gives us the freedom to improve Snowplow tracking tags where we see the opportunity, safe in the knowledge that we&#8217;re not causing our clients too much difficulty to upgrade their tags.</li>
 </ol>
 
-<p><img alt='qubit-opentag-logo' src='/static/img/blog/2013/01/qubit-opentag.png' /></p>
+<p><img src='/static/img/blog/2013/01/qubit-opentag.png' alt='qubit-opentag-logo' /></p>
 
 <p>We were eager, having integrated Snowplow with GTM, to integrate it with an open source tag management system. After all, a big selling point of Snowplow is that it is open source: enabling companies to setup, own and manage their own data infrastructure, without relying on a third party to mediate their access to their own data. We were therefore delighted that QuBit has developed an open source tag management system, <a href='http://www.opentag.qubitproducts.com/'>OpenTag</a>, and that we have finally documented <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20Javascript%20tags%20with%20QuBit%20OpenTag'>how to integrate it with Snowplow</a>.</p>
 
@@ -163,38 +194,6 @@
 <p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 		</div>
 	
-		<div class="post">
-			09 Jan 2013
-			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
-			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
-
-<ol>
-<li>Feedback from the community on them</li>
-
-<li>Ideas for alternative approaches or new features</li>
-</ol>
-
-<p>We will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
-
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
-</ol>
-
-<p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
-<p><a href='/static/pdf/snowplow-scalding-etl-specification.pdf'><img src='/static/img/blog/2013/01/scalding-etl-spec.gif' /></a></p><p class='more'><a href='/blog/2013/01/09/from-etl-to-enrichment'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -214,6 +213,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
@@ -222,44 +223,8 @@
 		
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
-			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -295,20 +260,56 @@
 		
 		</ul>		
 	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Recruitment</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

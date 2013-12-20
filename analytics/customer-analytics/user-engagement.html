@@ -117,7 +117,8 @@
 <span class='k'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;day&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)))</span> <span class='k'>AS</span> <span class='ss'>&quot;Days_visited_website&quot;</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now we can aggregate over that data to calculate the distribution, by month, or users, by the number of days they have logged in:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -133,7 +134,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Note: as well as looking at how the distribution of users by engagement level changes over time, we might also want to look at how it changes for a fixed group of users. This is normally performed as part of a <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a>.</p>
 <a name='visits-per-time-period'><h3>2. Number of visits by each user per day / week / month</h3></a>
 <p>A similar metric is calculated by countint the number of visits (sessions) that each user makes in a given time period. The difference here, is that if a user visits a site more than once a day, each individual visit contributes to the &#8220;engagement&#8221; value assigned to that user. When we look at the number of days per month a user visits a website, by contrast, we do not distinguish users who&#8217;ve visited once from users who&#8217;ve visited twice.</p>
@@ -149,7 +151,8 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 <span class='p'>)</span> <span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now we can aggregate over the above data to view the distribution of users, by numbers of visits per time period, in each time period:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -166,7 +169,8 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
-</code></pre></div><a name='events-per-visit'><h3>3. Number of events per visit</h3></a>
+</code></pre>
+</div><a name='events-per-visit'><h3>3. Number of events per visit</h3></a>
 <p>We can take the number of &#8220;events&#8221; that occur on each visit as a proxy for how &#8220;engaged&#8221; the user was during that visit. (With more events indicating a deeper level of engagement.)</p>
 
 <p>Counting the number of events per user per visit is straightforward:</p>
@@ -176,7 +180,8 @@
 <span class='k'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;engagement_level&quot;</span>
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> <span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>We can then look at the distribution of users by engagement level:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -190,7 +195,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> 
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> <span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>If we want to see whether this metric is improving over time, we can repeat the above, but this time note the date of each visit, and aggregate by time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -206,7 +212,8 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span> <span class='p'>;</span>
-</code></pre></div><a name='weighted-events-per-visit'><h3>4. Weighting events by value</h3></a>
+</code></pre>
+</div><a name='weighted-events-per-visit'><h3>4. Weighting events by value</h3></a>
 <p>TO WRITE</p>
 
 <h2 id='want_to_learn_more'>Want to learn more?</h2>
@@ -241,6 +248,44 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -254,44 +299,6 @@
 				
 					
 									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -389,19 +396,21 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
+					
+				
 					
 				
 					
@@ -425,21 +434,19 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
-					
-				
+									
 					
 				
 					
@@ -534,6 +541,28 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
 					
 				
 					
@@ -569,28 +598,6 @@
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -685,27 +692,21 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
 					
-									
-					
 				
-					
-									
 					
 				
 					
@@ -721,21 +722,27 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -830,6 +837,28 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
 					
 				
 					
@@ -865,28 +894,6 @@
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -978,6 +985,28 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
 					
 				
 					
@@ -1013,28 +1042,6 @@
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1126,6 +1133,32 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1157,32 +1190,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1261,6 +1268,24 @@
 					
 				
 			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1390,24 +1415,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 			
 				
 					
@@ -1425,6 +1432,24 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1454,24 +1479,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1569,6 +1576,24 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1598,24 +1623,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					

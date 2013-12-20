@@ -68,11 +68,11 @@
 	
 		<!--Slider--><div id='wrapper'>
     <div class='slider-wrapper theme-default'>
-        <div class='nivoSlider' id='slider'>
-            <img alt='' data-thumb='/static/img/slider/slide1.png' src='/static/img/slider/slide1.png' />
-            <img alt='' data-thumb='/static/img/slider/slide2.png' src='/static/img/slider/slide2.png' />
-            <img alt='' data-thumb='/static/img/slider/slide3.png' src='/static/img/slider/slide3.png' />
-            <a href='/product/get-started.html'><img alt='' data-thumb='/static/img/slider/slide4.png' src='/static/img/slider/slide4.png' /></a>
+        <div id='slider' class='nivoSlider'>
+            <img src='/static/img/slider/slide1.png' alt='' data-thumb='/static/img/slider/slide1.png' />
+            <img src='/static/img/slider/slide2.png' alt='' data-thumb='/static/img/slider/slide2.png' />
+            <img src='/static/img/slider/slide3.png' alt='' data-thumb='/static/img/slider/slide3.png' />
+            <a href='/product/get-started.html'><img src='/static/img/slider/slide4.png' alt='' data-thumb='/static/img/slider/slide4.png' /></a>
         </div>
     </div>
     <script type='text/javascript'>
@@ -83,8 +83,8 @@
 	});
 	</script>
 </div><div id='buttons'>
-	<div class='big-button' id='left-button'><a href='/product/index.html'>Learn more</a></div>
-	<div class='big-button' id='right-button'><a href='/product/get-started.html'>Setup Snowplow today</a></div>
+	<div id='left-button' class='big-button'><a href='/product/index.html'>Learn more</a></div>
+	<div id='right-button' class='big-button'><a href='/product/get-started.html'>Setup Snowplow today</a></div>
 </div><div id='testimonial'>
 	<div class='quote'>We see great promise in Snowplow Analytics, an open source platform that derives intelligent information from regular web analytics, based on open data principles and cloud storage</div>
 	<div class='auth'><a href='http://thoughtworks.fileburst.com/assets/technology-radar-may-2013.pdf' target='_blank'>Thoughtworks Tech Radar, May 2013</a></div>
@@ -103,6 +103,8 @@
 	<h2>Latest from the blog</h2>
 	<ul>
 		
+		<li><a href='/blog/2013/12/20/introducing-our-snowplow-winterns'>Introducing our Snowplow winterns</a> <abbr>20 Dec 2013</abbr></li>
+		
 		<li><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data'>Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a> <abbr>10 Dec 2013</abbr></li>
 		
 		<li><a href='/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative'>The first Graduate Data Science Initiative event in London</a> <abbr>04 Dec 2013</abbr></li>
@@ -113,12 +115,10 @@
 		
 		<li><a href='/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week'>A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a> <abbr>11 Nov 2013</abbr></li>
 		
-		<li><a href='/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n'>Our video introduction of Snowplow to code_n</a> <abbr>28 Oct 2013</abbr></li>
-		
 	</ul>			
 </div><div class='column'>
 	<h2>Snowplow on Twitter</h2>
-	<a class='twitter-timeline' data-widget-id='266927205374885888' height='350' href='https://twitter.com/SnowplowData' width='266'>Tweets by @SnowplowData</a>
+	<a width='266' data-widget-id='266927205374885888' height='350' href='https://twitter.com/SnowplowData' class='twitter-timeline'>Tweets by @SnowplowData</a>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 </div>

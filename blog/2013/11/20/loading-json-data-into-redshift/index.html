@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>Very many of our Professional Services projects involve forking the Snowplow codebase so that specific clients can use it to load their event data, stored as JSONs, into Amazon Redshift, so that they can use BI tools to create dashboards and mine that data.</p>
 
-<p><img alt='container-ship-image' src='/static/img/blog/2013/11/container-ship.jpg' /></p>
+<p><img src='/static/img/blog/2013/11/container-ship.jpg' alt='container-ship-image' /></p>
 
 <p>We&#8217;ve been surprised quite how many companies have gone down the road of using JSONs to store their event data. In this blog post, we look at:</p>
 
@@ -90,42 +90,11 @@
 <h3 id='1_easy_to_implement'>1. Easy to implement</h3>
 
 <p>Representing an event as a JSON is an extremely simple, easy-to-understand approach. Let&#8217;s look at an example, a video play event represented as a JSON:</p>
-<div class='highlight'><pre><code class='json'><span class='p'>{</span>
-    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
-    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
-        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
-        <span class='nt'>&quot;viewer_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
-        <span class='nt'>&quot;video_id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
-        <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
-        <span class='nt'>&quot;author_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span>
-    <span class='p'>}</span>
-<span class='p'>}</span>
-</code></pre></div>
+
 <p>The JSON is very easy to read and comprehend. Crucially for application developers, it is straightforward to compose.</p>
 
 <p>Note that there are many ways we could choose to represent a video play event with a JSON. We might want e.g. to use nesting, to capture a richer data set both about the video itself, and about the user who watched it:</p>
-<div class='highlight'><pre><code class='json'><span class='p'>{</span>
-    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
-    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
-        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
-        <span class='nt'>&quot;viewer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
-            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
-            <span class='nt'>&quot;age&quot;</span><span class='p'>:</span> <span class='mi'>28</span><span class='p'>,</span>
-            <span class='nt'>&quot;gender&quot;</span><span class='p'>:</span> <span class='s2'>&quot;male&quot;</span><span class='p'>,</span>
-            <span class='nt'>&quot;member&quot;</span><span class='p'>:</span> <span class='kc'>true</span>
-        <span class='p'>},</span>
-        <span class='nt'>&quot;video&quot;</span><span class='p'>:</span> <span class='p'>{</span>
-            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
-            <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
-            <span class='nt'>&quot;producer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
-                <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span><span class='p'>,</span>
-                <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;michaeldouglasboy&quot;</span><span class='p'>,</span>
-                <span class='nt'>&quot;joined&quot;</span><span class='p'>:</span> <span class='s2'>&quot;2012-09-29&quot;</span>
-            <span class='p'>}</span>
-        <span class='p'>}</span>
-    <span class='p'>}</span>
-<span class='p'>}</span>
-</code></pre></div>
+
 <p>In the above example, we&#8217;ve used nesting to group related fields (fields related to the viewer, fields related to the video, and fields related to the producer of the video). Again, even with all the additional data, the JSON is easy for the human eye to parse, and the nesting provides a tidy way of structuring our data.</p>
 
 <h3 id='2_flexible'>2. Flexible</h3>
@@ -246,6 +215,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
@@ -254,44 +225,8 @@
 		
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
-			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -327,20 +262,56 @@
 		
 		</ul>		
 	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Recruitment</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

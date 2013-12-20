@@ -110,7 +110,7 @@
 <h2><a name='overview'>2. An overview of the Snowplow tables and views</a></h2>
 <p>Before we dive in and start querying Snowplow data, let&#8217;s take a look at it in Navicat. Open up Navicat, then double click on your connection to the Snowplow database, and then double click on the Snowplow database itself:</p>
 
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/1.JPG' /></p>
+<p><img src='/static/img/analytics/tools/sql/1.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>In our case we&#8217;re looking at the database named <code>snplow2</code>. You&#8217;ll notice below it there are a number of different schema:</p>
 
@@ -126,28 +126,17 @@
 
 <p>For this tutorial, we&#8217;re going to focus on the <code>atomic.events</code> table. Double click on the <code>atomic</code> schema, and then double click on the <strong>tables</strong> subdirectory and then on <code>events</code> table specifically. The events table should open up:</p>
 
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/2.JPG' /></p>
+<p><img src='/static/img/analytics/tools/sql/2.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>You should now have a view of the first 1000 lines of Snowplow data in your database. You should be able to scroll right to see the full list of columns available. (Note that some of these will be sparsely populated.) You should also be able to scroll down to see more records.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
 <h2><a name='basic-structure'>3. The basic structure of a SQL query</a></h2>
 <p>Let&#8217;s write our first SQL query! Click on the <strong>Query</strong> button in the Navicat toolbar and then select <strong>New Query</strong>. In the query editor, type in the following query,</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> 
-	<span class='n'>collector_tstamp</span><span class='p'>,</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>event</span><span class='p'>,</span>
-	<span class='n'>page_urlpath</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>WHERE</span> 
-	<span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-17&#39;</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_tstamp</span>
-<span class='k'>LIMIT</span> <span class='mf'>100</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>Now press on the <strong>Run</strong> button in the toolbar. The results of the query should be displayed beneathe the query itself:</p>
 
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/3.JPG' /></p>
+<p><img src='/static/img/analytics/tools/sql/3.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>Note that the results is another table of data.</p>
 
@@ -156,64 +145,31 @@
 <p>Back to <a href='#top'>top</a>.</p>
 <h3><a name='select'>3a. The SELECT clause</a></h3>
 <p>The query starts with the <code>SELECT</code> statement, which is followed by a list of fields in the Snowplow events table:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> 
-	<span class='n'>collector_tstamp</span><span class='p'>,</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>event</span><span class='p'>,</span>
-	<span class='n'>page_urlpath</span>
-<span class='mf'>...</span>
-</code></pre></div>
+
 <p>The <code>SELECT</code> statement simply determines which of the fields should be included in the query. In our case, we&#8217;ve picked five fields. We could have picked more of less.</p>
 
 <p>Note that the list of fields is comma separated. If you forget a single comma - the query will fail. So be super careful to include one between each field, but not one between the last field and the <code>FROM</code> keyword.</p>
 
 <p>If we want to include <em>all</em> the fields in our query, then rather than type them all out, we can simply use a <code>*</code> to indicate we want all of them i.e.:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> 
-	<span class='o'>*</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>WHERE</span> 
-	<span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-17&#39;</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>collector_tstamp</span>
-<span class='k'>LIMIT</span> <span class='mf'>100</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>When thinking about which fields to include in your query, it may be helpful to reference the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>Snowplow Canonical event model</a>.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
-<h3><a name='from'>3b. The FROM clause</a></h3><div class='highlight'><pre><code class='psql'><span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-</code></pre></div>
+<h3><a name='from'>3b. The FROM clause</a></h3>
 <p>The <code>FROM</code> statement lets Redshift / PostgreSQL know <em>which</em> table or view we wish to query. For example, rather than querying the <code>atomic.events</code> table, we could query the <code>cubes_visits.basic</code> view instead e.g.</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> 
-	<span class='o'>*</span>
-<span class='k'>FROM</span> <span class='n'>cubes_visits</span><span class='mf'>.</span><span class='n'>basic</span>
-<span class='k'>WHERE</span> <span class='n'>visit_start_ts</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-17&#39;</span>
-<span class='k'>LIMIT</span> <span class='mf'>100</span><span class='p'>;</span>
-</code></pre></div>
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/4.JPG' /></p>
+
+<p><img src='/static/img/analytics/tools/sql/4.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>Back to <a href='#top'>top</a>.</p>
-<h3><a name='where'>3c. The WHERE clause</a></h3><div class='highlight'><pre><code class='psql'><span class='k'>WHERE</span> 
-	<span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-17&#39;</span>
-</code></pre></div>
+<h3><a name='where'>3c. The WHERE clause</a></h3>
 <p>The <code>WHERE</code> statement acts as a filter: only lines of data in our table / view which meet the conditions specified in the <code>WHERE</code> clause are included in the query. Any other rows of data are ignored.</p>
 
 <p>The <code>WHERE</code> clause is particularly important when analyzing Snowplow data, which is typically a very large data set. To make analyses more manageable, we often limit the scope to certain periods of time, and use the <code>WHERE</code> clause to power that filtering process. We can, for example, specify multiple conditions in the <code>WHERE</code> clause e.g.:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> <span class='o'>*</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>WHERE</span>
-	<span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-01&#39;</span>
-	<span class='k'>AND</span> <span class='n'>collector_tstamp</span> <span class='o'>&lt;</span> <span class='s1'>&#39;2013-11-08&#39;</span>
-</code></pre></div>
+
 <p>In the above case, the <code>WHERE</code> clause ensures that only records in the week between November 1st and November 7th (inclusive) are included in our query results.</p>
 
 <p>We can also apply the <code>WHERE</code> clause to <em>any</em> field in our query. For example, as well as filtering, on date, we can also filter data rows by geographic location:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span> <span class='o'>*</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>WHERE</span>
-	<span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='s1'>&#39;2013-11-01&#39;</span>
-	<span class='k'>AND</span> <span class='n'>collector_tstamp</span> <span class='o'>&lt;</span> <span class='s1'>&#39;2013-11-08&#39;</span>
-	<span class='k'>AND</span> <span class='n'>geo_country</span> <span class='o'>=</span> <span class='s1'>&#39;US&#39;</span>
-</code></pre></div>
+
 <p>In the above example, only data rows for users in the US for the first week in November are returned.</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -229,13 +185,10 @@
 <p>Often, however, you wont want to access the actual event-level records themselves. Instead, you&#8217;ll want to perform calculations across the results in multiple records and just returning the results of those calculations.</p>
 
 <p>Let&#8217;s try performing a simple calculation. Enter the following query into Navicat, and click on the <strong>Run</strong> button to execute it.</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-</code></pre></div>
+
 <p>The above query looks like the previous queries we entered. However, instead of specifying a list of fields under the <code>SELECT</code> statement, we&#8217;ve specified a function <code>COUNT</code>. When you execute the query, only a single row with a single value should be returned:</p>
 
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/5.JPG' /></p>
+<p><img src='/static/img/analytics/tools/sql/5.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>The number given is the number of rows in the table, in total.</p>
 
@@ -254,26 +207,16 @@
 <p>In the previous example, we counted the number of records in the <code>atomic.events</code> table by executing <code>SELECT COUNT(*) FROM atomic.events</code>.</p>
 
 <p>If instead, we want to know how many unique visitors came to our website, we execute the following query:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-</code></pre></div>
+
 <p>Note that each user is assigned a first party cookie ID, so by counting the number of different cookie IDs, we can calculate the number of uniques to our website.</p>
 
 <p>Also note that we have added a <code>AS &quot;Uniques&quot;</code> to the end of our <code>SELECT</code> statement. This instructs Redshift / PostgreSQL to name the output of that field &#8220;Uniques&#8221;. This is nice aesthetically - it doesn&#8217;t change the actual substance of the query. However, it can be useful when <a href='#combining-queries'>chaining multiple SQL statements together</a>, as a way to refer back to specific aggregations performed by earlier steps.</p>
 
 <p>What if we want to count the number of visits to our website? It&#8217;s possible that one or more of our visitors has visited the site on more than one occasion. On each occasion, he / she will have the same cookie ID (i.e. value for <code>domain_userid</code>), but a different <code>domain_sessionidx</code> value. (This will be 1 for the user&#8217;s first visit, 2 for his / her second visit etc.) To calculate this, then we need to count the number of distinct <code>domain_userid</code> - <code>domain_sessionidx</code> combinations. We can concatenate the two together using the PosgreSQL <a href='http://www.postgresql.org/docs/9.1/static/functions-string.html'>concatenate function</a>, which is represented by the <code>||</code> symbol:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-</code></pre></div>
+
 <p>We can also choose to return both the number of uniques and number of visits to our website at the same time:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='o'>||</span> <span class='s1'>&#39;-&#39;</span> <span class='o'>||</span> <span class='n'>domain_sessionidx</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Visits&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-</code></pre></div>
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/6.JPG' /></p>
+
+<p><img src='/static/img/analytics/tools/sql/6.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>Back to <a href='#top'>top</a>.</p>
 <h3><a name='group-by'>4b. The GROUP BY clause</a></h3>
@@ -282,40 +225,17 @@
 <p>Typically, however, we want to segment our data (e.g. by user or by day or by geography or by browser), calculate our aggregate metric for each group and then compare the results for those different groups against one another.</p>
 
 <p>This is achieved using the <code>GROUP BY</code> clause. To understand how it works, it&#8217;s best to use an example:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>geo_country</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>geo_country</span>
-</code></pre></div>
-<p><img alt='snowplow-data-in-navicat' src='/static/img/analytics/tools/sql/7.JPG' /></p>
+
+<p><img src='/static/img/analytics/tools/sql/7.JPG' alt='snowplow-data-in-navicat' /></p>
 
 <p>The above query returns the number of uniques for each country. You&#8217;ll see that we get back one line of data for each distinct value of <code>geo_country</code> that Redshift finds in the <code>geo_country</code> field.</p>
 
 <p>Alternatively, we could <code>GROUP BY</code> users, and calculate the number of events for each user:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span>
-</code></pre></div>
+
 <p>To make our results more interesting, we might choose to order the output by the number of events, with the largest values first. To do so, we would add an <code>ORDER BY</code> clause to the end of our statement:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s-Name'>&quot;Number of events&quot;</span> <span class='k'>DESC</span>
-</code></pre></div>
+
 <p>We can group by <em>combinations</em> of fields, rather than just individual fields. For example, we can calculate the number of events per visit, rather than per visitor, by grouping on a combination of <code>domain_userid</code> AND <code>domain_sessionidx</code>:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='s-Name'>&quot;Number of events&quot;</span> <span class='k'>DESC</span>
-</code></pre></div>
+
 <p>Note that this returns a line of data for every <code>domain_userid</code> / <code>domain_sessionidx</code> combination.</p>
 
 <p>Also note that any field that is <strong>not</strong> part of the GROUP BY clause needs to include an aggregate function. (I.e. either we&#8217;re using a field to to determine what we are grouping over, or we are including a field because it is being aggregated over itself. We can&#8217;t include a field that is not being aggregated over, or used to specify over what to aggregate. If we try to do this, we&#8217;ll get an error when we try and execute the query.)</p>
@@ -323,14 +243,7 @@
 <p>Back to <a href='#top'>top</a>.</p>
 <h3><a name='shortcut'>4c. A handy shortcut: referring to fields by their position in GROUP BY and ORDER BY clauses</a></h3>
 <p>Rather than give the actual field names in the <code>GROUP BY</code> or <code>ORDER BY</code> clauses, we can instead refer to them by their position in the result set e.g. the following is equivalent to the previous query:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>,</span><span class='mf'>2</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>3</span> <span class='k'>DESC</span>
-</code></pre></div>
+
 <p>This is a big time saver as queries get bigger&#8230;</p>
 
 <p>Back to <a href='#top'>top</a>.</p>
@@ -338,29 +251,11 @@
 <p>Very often, we want to <code>GROUP BY</code> time intervals e.g. days, weeks, or months.</p>
 
 <p>This can be done using a combination of the <code>DATE_TRUNC()</code> function, which rounds a timestamp values to e.g. hours / days / weeks / months / years etc, and <code>GROUP BY</code> functionality. For example, to count the number of uniques per day, we can run:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;day&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Date&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>1</span> <span class='k'>ASC</span>
-</code></pre></div>
+
 <p>We can, alternatively, group the results by week:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;week&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Date&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>1</span> <span class='k'>ASC</span>
-</code></pre></div>
+
 <p>Or month:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Date&quot;</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='k'>DISTINCT</span><span class='p'>(</span> <span class='n'>domain_userid</span> <span class='p'>))</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Uniques&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>1</span> <span class='k'>ASC</span>
-</code></pre></div>
+
 <p>Back to <a href='#top'>top</a>.</p>
 <h2><a name='combining-queries'>5. Combining simple queries to perform more complicated analysis</a></h2>
 <p>As should be clear from the above, the SQL querying syntax is reasonably succinct: there is not a lot to it. (There are many more advanced functions that I have not been able to cover in this short intro, but most of it is there already.)</p>
@@ -370,44 +265,13 @@
 <p>We can chain queries together, so that one operates on the output of the next.</p>
 
 <p>To take an example, let&#8217;s say that we want to plot the distribution of visits by the number of events per visit. In this case, it is easy to see how we would calculate the number of events per visit:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>,</span><span class='mf'>2</span>
-</code></pre></div>
+
 <p>As a second step, we&#8217;d take the output of the query above, and group visits by the number of events in them, to get our frequency table:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-<span class='s-Name'>&quot;Number of events&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events per visit&quot;</span><span class='p'>,</span>
-<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>As</span> <span class='s-Name'>&quot;Frequency&quot;</span>
-<span class='k'>FROM</span> <span class='p'>(</span>
-	<span class='k'>SELECT</span>
-		<span class='n'>domain_userid</span><span class='p'>,</span>
-		<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-		<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-	<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>,</span><span class='mf'>2</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>t</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>2</span> <span class='k'>DESC</span>
-</code></pre></div>
+
 <p>Note that in the above query, the <code>FROM</code> clause specifies the previous query rather than specifying a specific table or view.</p>
 
 <p>This notation is fine for relatively simple queries, but when we start creating very long chains of queries, can be hard to read and debug. As a result, we generally recommend creating views for the interim tables, and saving these to their own schema e.g. a <code>staging</code> schema. The following is equivalent to the above, but significantly easier to follow:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>staging</span><span class='mf'>.</span><span class='n'>num_events_by_session</span> <span class='k'>AS</span>
-<span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>,</span><span class='mf'>2</span><span class='p'>;</span>
-</code></pre></div><div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-<span class='s-Name'>&quot;Number of events&quot;</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Number of events per visit&quot;</span><span class='p'>,</span>
-<span class='n'>COUNT</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>As</span> <span class='s-Name'>&quot;Frequency&quot;</span>
-<span class='k'>FROM</span> <span class='n'>staging</span><span class='mf'>.</span><span class='n'>num_events_by_session</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
-<span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>Note that we have &#8220;saved&#8221; the results of the first query as a view, and then run our second query on that view. In Redshift / PostgreSQL, views are ways of saving queries so they can be operated on by other queries. Unlike tables, the results of the view are not persisted in actual tables - every time you call the view, the query that was used to create it is run from scratch.</p>
 
 <p>Also note that the above is two queries: each ends with a semicolon. (So Redshift / PostgreSQL knows they are two queries, rather than one. This is important, because the second query is only valid once the 1st has been executed - otherwise there is no <code>staging.num_events_by_session</code> to query.)</p>
@@ -433,30 +297,9 @@
 <p>However, we want the value of these fields for the <em>first</em> record in the visit i.e. the record of the landing page view. For each visit, this should be the line of data where the <code>dvce_tstamp</code> is the lowest, because it is the <em>first</em> event of the visit.</p>
 
 <p>To fetch the referer data by visit, then, we first fetch data to identify each of our visits, and for each of those visits, fetch the minimum <code>dvce_tstamp</code>:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>staging</span><span class='mf'>.</span><span class='n'>sessions_with_first_touch_time</span> <span class='k'>AS</span> 
-<span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;first_touch_time_collector&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span><span class='p'>,</span><span class='mf'>2</span><span class='p'>;</span>
-</code></pre></div>
+
 <p>Next, we use the values in that table to go back to the atomic.events table and pull out the <code>refr</code> field details <em>only</em> for records that match the session and the <code>first_touch_time_collector</code></p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>a</span><span class='mf'>.</span><span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>a</span><span class='mf'>.</span><span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>first_touch_time_collector</span><span class='p'>,</span>
-	<span class='n'>refr_medium</span><span class='p'>,</span>
-	<span class='n'>refr_source</span><span class='p'>,</span>
-	<span class='n'>refr_term</span><span class='p'>,</span>
-	<span class='n'>refr_urlhost</span><span class='p'>,</span>
-	<span class='n'>refr_urlpath</span>
-<span class='k'>FROM</span> 
-	<span class='n'>staging</span><span class='mf'>.</span><span class='n'>sessions_with_first_touch_time</span> <span class='k'>AS</span> <span class='n'>a</span> <span class='k'>LEFT</span> <span class='k'>JOIN</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span> <span class='k'>AS</span> <span class='n'>b</span>
-<span class='k'>ON</span> <span class='n'>a</span><span class='mf'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>b</span><span class='mf'>.</span><span class='n'>domain_userid</span> 
-<span class='k'>AND</span> <span class='n'>a</span><span class='mf'>.</span><span class='n'>domain_sessionidx</span> <span class='o'>=</span> <span class='n'>b</span><span class='mf'>.</span><span class='n'>domain_sessionidx</span> 
-<span class='k'>AND</span> <span class='n'>a</span><span class='mf'>.</span><span class='n'>first_touch_time_collector</span> <span class='o'>=</span> <span class='n'>b</span><span class='mf'>.</span><span class='n'>dvce_tstamp</span>
-</code></pre></div>
+
 <p>Notes:</p>
 
 <ul>
@@ -476,14 +319,7 @@
 <p>Sometimes, however, we will want to update the value of a single record based on its position or relationship to a larger group of records. Alternatively, we may want to use aggregate records for the group and use those values to update individual records. (E.g. what fraction of the group total does this individual record represent?) In these cases, window functions become invaluable.</p>
 
 <p>Particularly useful with Snowplow data is the ability to use window functions to rank events by the order that they have occurred, for a specific visitor. For example, we might want to know in what order a user has performed a series of page views. To do this, we can execute the following query:</p>
-<div class='highlight'><pre><code class='psql'><span class='k'>SELECT</span>
-	<span class='n'>domain_userid</span><span class='p'>,</span>
-	<span class='n'>domain_sessionidx</span><span class='p'>,</span>
-	<span class='n'>page_urlpath</span><span class='p'>,</span>
-	<span class='n'>RANK</span><span class='p'>()</span> <span class='k'>OVER</span> <span class='p'>(</span><span class='k'>PARTITION</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span> <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>dvce_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s-Name'>&quot;rank_asc&quot;</span>
-<span class='k'>FROM</span> <span class='n'>atomic</span><span class='mf'>.</span><span class='n'>events</span>
-<span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
-</code></pre></div>
+
 <p>We can then use those results to easily identify landing page views (those with <code>&quot;rnk&quot; = 1</code>) and aggregate across our data set to understand how visitors are to move between one particular web page and another.</p>
 
 <p><code>RANK()</code> is just one of the windowing functions available. For more details on windows functions in Redshift see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html'>Amazon documentation</a> or the <a href='http://www.postgresql.org/docs/9.1/static/tutorial-window.html'>PostgreSQL documentation</a> for PostgreSQL.</p>
@@ -578,6 +414,24 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
+						
+							
+							<li class="active"><a href="/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html" class="active">Get started with SQL</a></li>
+									
+									
+					
+				
+					
+									
+					
+				
+					
 									
 					
 				
@@ -594,11 +448,121 @@
 					
 				
 					
-						
-							
-							<li class="active"><a href="/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html" class="active">Get started with SQL</a></li>
-									
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -606,9 +570,19 @@
 					
 				
 					
-				
+									
 					
 				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -724,153 +698,9 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -886,9 +716,15 @@
 					
 				
 					
-				
+									
 					
 				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -952,6 +788,12 @@
 					
 				
 			
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1087,12 +929,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
 			
 				
 					
@@ -1143,6 +979,28 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1154,7 +1012,121 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1170,9 +1142,11 @@
 					
 				
 					
-				
+									
 					
 				
+					
+									
 					
 				
 					
@@ -1288,6 +1262,12 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1305,12 +1285,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1426,6 +1400,12 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1443,12 +1423,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1564,6 +1538,12 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1581,12 +1561,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1702,138 +1676,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1857,12 +1699,6 @@
 				
 					
 									
-					
-				
-					
-				
-					
-				
 					
 				
 					

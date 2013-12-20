@@ -73,7 +73,7 @@
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
 
-<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+<p><img src='/static/img/blog/2013/07/your-country-needs-you.jpg' alt='your-country-needs-you' /></p>
 
 <p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
 
@@ -105,16 +105,17 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='err'>{$</span><span class='k'>START</span><span class='o'>-</span><span class='nb'>DATE</span><span class='err'>}</span>
 <span class='k'>AND</span> <span class='n'>collector_tstamp</span><span class='o'>&lt;</span> <span class='err'>{$</span><span class='k'>START</span><span class='o'>-</span><span class='nb'>DATE</span><span class='err'>}</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='ss'>&quot;Day&quot;</span>
-</code></pre></div><h3><a name='runs-per-day'>2. Calculating the number of times the enrichment process is run per day</a></h3>
+</code></pre>
+</div><h3><a name='runs-per-day'>2. Calculating the number of times the enrichment process is run per day</a></h3>
 <p>Most Snowplow users run the enrichment process once per day.</p>
 
 <p>You can confirm how many times you run Snowplow by logging into the AWS S3 console and navigating to the bucket where you archive your Snowplow event files. (This is specified in the <a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'>StorageLoader config file</a>.) Within the bucket you&#8217;ll see a single folder generated for each enrichment &#8216;run&#8217;, labelled with the timestamp of the run. You&#8217;ll be able to tell directly how many times the enrichment process is run - in the below case - it is once per day:</p>
 
-<p><img alt='aws-s3-screenshot' src='/static/img/blog/2013/07/number-of-runs-per-day.png' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-runs-per-day.png' alt='aws-s3-screenshot' /></p>
 <h3><a name='log-files-per-day'>3. Measuring The number of Cloudfront log files generated per day, adn the volume of data</a></h3>
 <p>This is most easily done using an S3 front end, as the AWS S3 console is a bit limited. We use <a href='http://www.cloudberrylab.com/'>Cloudberry</a>. On Cloudberry, you can read the number of files generated per day, and their size, directly, by simply right clicking on the folder with the day&#8217;s worth of log file archives and selecting properties:</p>
 
-<p><img alt='number-of-collector-logs-and-size' src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-collector-logs-and-size.JPG' alt='number-of-collector-logs-and-size' /></p>
 
 <p>In the above case we see there were 370 files generated on 2013-07-08, which occupied a total of 366.5KB.</p>
 <h3><a name='emr-details'>4. The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></h3>
@@ -260,19 +261,23 @@
 <span class='o'>}</span>
 ╭─alex@nasqueron  ~/Apps/emr-cli  
 ╰─<span class='nv'>$ </span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Rather than parse the JSON yourself, we&#8217;re very happy for community members to simply save the JSON and email it to us, with the other data points. We can then extract the relevant data points from the JSON directly. (We&#8217;ll use R and the RJSON package, and blog about how we do it.) You can either generate a JSON for a specific job (you will need to enter the job ID:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>./elastic-mapreduce --describe --jobflow <span class='o'>{</span><span class='nv'>$jobflow</span>-id<span class='o'>}</span> &gt; emr-job-data.json
-</code></pre></div>
+</code></pre>
+</div>
 <p>Or you can fetch the data for every job run in the last two days:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>./elastic-mapreduce --describe &gt; emr-job-data.json
-</code></pre></div>
+</code></pre>
+</div>
 <p>Or all the data for every job in the last fortnight:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>./elastic-mapreduce --describe all &gt; emr-job-data.json
-</code></pre></div><h3><a name='output-back-to-s3'>5. Measuring the number of files written back to S3, and their size</a></h3>
+</code></pre>
+</div><h3><a name='output-back-to-s3'>5. Measuring the number of files written back to S3, and their size</a></h3>
 <p>We can use Cloudberry again. Simply identify a folder in the archive bucket specified in the <a href='https://github.com/snowplow/snowplow/wiki/1-installing-the-storageloader#wiki-configuration'>StorageLoader config</a>, right click on it and select properties:</p>
 
-<p><img alt='number-of-snowplow-event-files-and-size' src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG' alt='number-of-snowplow-event-files-and-size' /></p>
 
 <p>In the above example, 3 files were generated for a single run, with a total size of 981.4KB.</p>
 <h3><a name='redshift-data-points'>6. The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></h3>
@@ -280,15 +285,17 @@
 
 <p>First, measure the number of events by executing the following query:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>select</span> <span class='k'>count</span><span class='p'>(</span><span class='o'>*</span><span class='p'>)</span> <span class='k'>from</span> <span class='n'>events</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then to find out how much disk space that occupies in your Redshift cluster execute the following query:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>select</span> <span class='k'>owner</span> <span class='k'>as</span> <span class='n'>node</span><span class='p'>,</span> <span class='n'>diskno</span><span class='p'>,</span> <span class='n'>used</span><span class='p'>,</span> <span class='n'>capacity</span> 
 <span class='k'>from</span> <span class='n'>stv_partitions</span> 
 <span class='k'>order</span> <span class='k'>by</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>2</span><span class='p'>,</span> <span class='mi'>3</span><span class='p'>,</span> <span class='mi'>4</span><span class='p'>;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The amount of used capacity (in MB) is given in the &#8220;used&#8221; column: it is 1,941MB in the below example. The total capacity is given at 1906184 i.e. 1.8TB: that is because we are running a single (2TB) node.</p>
 
-<p><img alt='redshift-example' src='/static/img/blog/2013/07/redshift-disk-space.JPG' /></p>
+<p><img src='/static/img/blog/2013/07/redshift-disk-space.JPG' alt='redshift-example' /></p>
 
 <p>For our purposes, we only need one of the lines of data to calculate the relationship between disk space on Redshift and number of events stored on Redshift, and use that to model Redshift costs.</p>
 
@@ -342,6 +349,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 		
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
@@ -350,44 +359,8 @@
 		
 			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
-			<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Analytics</h1>
 		<ul>
@@ -423,20 +396,56 @@
 		
 		</ul>		
 	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Recruitment</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
 				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

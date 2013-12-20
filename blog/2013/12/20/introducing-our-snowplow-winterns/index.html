@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow Arduino Tracker released - sensor and event analytics for the internet of things - Snowplow Analytics</title>
+	<title>Introducing our Snowplow winterns - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,38 +68,50 @@
 	
 		<div id="contents">
 		<div class="post">
-			25 Mar 2013
-			<h1>Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</h1>
+			20 Dec 2013
+			<h1>Introducing our Snowplow winterns</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
+			<p>Just over two months ago we announced our winter internship program for open source hackers, <a href='/blog/2013/10/07/announcing-out-winter-open-source-internship-program/'>here on this blog</a>. We had no idea what response kind of response we would receive - it was our first attempt at designing an internship program, and we had never heard of a startup (even an open source company like ours) recruiting <em>remote</em> interns. As it turned out, we were delighted by the response we received, and we decided to make offers to <strong>three</strong> very talented &#8220;winterns&#8221; from around the world, rather than the one-to-two originally planned.</p>
 
-<p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
+<p>This week saw all three of our winterns working hard on their respective Snowplow projects, and so we wanted to take this opportunity to introduce each of them to the community, as well as giving a little more background on the projects they are working on:</p>
 
-<p><img src='/static/img/blog/2013/03/arduino-board-photo.jpg' alt='arduino-photo' /></p>
+<p><img src='/static/img/blog/2013/12/winterns.png' alt='winterns-montage' /></p>
+<!--more-->
+<h2 id='brandon_amos_a_new_streambased_scala_collector_for_snowplow'>Brandon Amos: a new stream-based Scala collector for Snowplow</h2>
 
-<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
+<p>Brandon Amos is one of our two remote winterns.</p>
 
-<ol>
-<li>Deploying a set of Snowplow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home</li>
+<p>Brandon is based on the East Coast of the US and is a third-year CS undergraduate at Virginia Tech. Outside of computer science, Brandon is an indie guitarist, classical pianist, and symphonic trumpeter. During the winternship, Brandon aims to learn more about Scala and associated libraries, such as Akka and Spray, so he can use them in his own work.</p>
 
-<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href='http://arduino.cc/blog/category/wireless/rfid/'>RFID readers</a> and Snowplow</li>
+<p>Brandon is working on a new stream-based event collector for Snowplow, written in Scala. The original plan was for this new collector to collect events from Snowplow trackers over HTTP and then emit them onto a <a href='https://kafka.apache.org/'>Kafka</a> queue. However, prior to Brandon starting, we were given early access to <a href='http://aws.amazon.com/kinesis/'>Amazon Kinesis</a>, the new fully-managed stream processing service from AWS; we decided it makes more sense to focus on Kinesis as the first target for our new Scala collector.</p>
 
-<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino&#8217;s <a href='http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps'>3G and GPS</a> shields</li>
-</ol>
+<p>Brandon&#8217;s new Scala collector is being built on top of <a href='http://spray.io/'>Spray</a> (aka akka-http), a Scala/Akka toolkit for building REST/HTTP-based integration layers. As well as building the new collector, Brandon is working on a new <a href='http://diwakergupta.github.io/thrift-missing-guide/'>Thrift</a>-based schema to store all raw Snowplow events in.</p>
 
-<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at <a href='https://github.com/alexanderdean/arduino-temp-tracker'>alexanderdean/arduino-temp-tracker</a>.</p>
+<p>You can follow Brandon&#8217;s progress in the <a href='https://github.com/snowplow/snowplow/tree/feature/scala-rt-coll'><code>feature/scala-rt-collector</code></a> branch of the main Snowplow repository. Expect to hear a lot more from us soon about how we will be working with Amazon Kinesis at Snowplow - we are super-excited about the service!</p>
 
-<p>Want to find out more? To get started using our event tracker for Arduino, check out:</p>
+<h2 id='jiawen_zhou_a_new_forex_library_for_scala'>Jiawen Zhou: a new forex library for Scala</h2>
 
-<ul>
-<li>The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>GitHub repository</a></li>
+<p>Jiawen Zhou is working with us here at Snowplow HQ.</p>
 
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'>Technical Documentation</a></li>
+<p>Jiawen is a second-year MEng undergrad at Imperial in London; she likes basketball and tells us <em>&#8220;I joined Snowplow because I wanted a chance to program in new languages which I am interested in. I hope I can learn from here and contribute at the end of my winternship.&#8221;</em></p>
 
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'>Setup Guide</a></li>
-</ul>
+<p>Jiawen is working on a new high-performance Scala library for exchange rate lookups and currency conversions. The library will let users work with foreign exchange in an expressive high-level DSL - we are working with Finance professionals to get the details of this library right. Under the covers the library makes use of the excellent <a href='https://openexchangerates.org/'>Open Exchange Rates</a> API, and leverages both <a href='http://www.joda.org/joda-money/'>Joda-Money</a> and <a href='http://www.joda.org/joda-time/'>Joda-Time</a>.</p>
 
-<p>Happy making!</p>
+<p>The ultimate plan is to integrate this library into the Snowplow Enrichment process, to allow financial transactions (e.g. ecommerce tracking) to be converted into a base currency for consistent reporting.</p>
+
+<p>You can follow Jiawen&#8217;s progress in the new repository, <a href='https://github.com/snowplow/scala-forex'><code>scala-forex</code></a> (foreign exchange).</p>
+
+<h2 id='anuj_more_a_new_python_tracker_for_snowplow'>Anuj More: a new Python Tracker for Snowplow</h2>
+
+<p>Anuj More is the second of our remote winterns.</p>
+
+<p>Anuj is a recent IT graduate of Mumbai University, and is still based in the city. Anuj is ambidextrous, a huge &#8220;A Bit of Fry and Laurie&#8221; fan, and a Beatles lover. Through this winternship, Anuj is keen to find out how FOSS startups work, including the challenges on the business side of things. He also notes that <em>&#8220;this will be my first professionally written Python project; so excited about that too.&#8221;</em></p>
+
+<p>Anuj is working on a Python event tracker for Snowplow. We are hugely excited about the potential for generating Snowplow events from Python - be it from Django/Flask/Bottle web applications, desktop applications, games or anything else. Anuj is taking our experiences from writing the previous trackers, implementing the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a> and building out a nicely Pythonic API.</p>
+
+<p>The Python Tracker is built for Python 3, and makes use of the excellent <a href='http://docs.python-requests.org/en/latest/'>Requests</a> library for HTTP GETs, and <a href='http://andreacensi.github.io/contracts/'>PyContracts</a> for validating that the tracker is being implemented in client code correctly.</p>
+
+<p>Anuj&#8217;s <code>snowplow-python-tracker</code>, our fifth Snowplow tracker, will be open-sourced in early January.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

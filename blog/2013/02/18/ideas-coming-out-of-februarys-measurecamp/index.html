@@ -94,7 +94,7 @@
 </ul>
 <!--more-->
 <p>And then test whether those audience behaved in significantly different ways to validate your segmentation. (For example, comparing bounce rates or conversion rates between segments.) Once validated, the segmentation enables you to apply segment-specific KPI: for example, it is meaningless analysing purchase conversion rates for users who have already bought, and are returning to the site for support-related queries.</p>
-<iframe scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/16581811' marginheight='0' width='427' height='356' frameborder='0' marginwidth='0'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811' target='_blank' title='Getting to the People Behind The Keywords'>Getting to the People Behind The Keywords</a> </strong> from <strong><a href='http://www.slideshare.net/carmenmardiros' target='_blank'>Carmen Mardiros</a></strong> </div>
+<iframe width='427' height='356' frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16581811' marginheight='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'> </iframe><div style='margin-bottom:5px'> <strong> <a title='Getting to the People Behind The Keywords' target='_blank' href='http://www.slideshare.net/carmenmardiros/getting-to-the-people-behind-the-keywords-16581811'>Getting to the People Behind The Keywords</a> </strong> from <strong><a target='_blank' href='http://www.slideshare.net/carmenmardiros'>Carmen Mardiros</a></strong> </div>
 <p>An especially exciting prospect going forwards is to use machine learning to extend the segmentation beyond the subset of users for whom we have keyword data: so we can classify users who have not entered keywords, but appear to behave in a similar way to those who have, into the same buckets. This would be especially powerful with Snowplow data, as we have a user&#8217;s complete click stream to work with when identifying users who &#8220;look-like&#8221; those we have classified on the basis of keywords alone. I hope to explore this in the near future, and blog about it here.</p>
 <h2><a name='server-side-datalayer'>Transferring commercially-sensitive data into your web analytics platform via a server-side dataLayer</a></h2>
 <p>In another excellent presentation, <a href='https://twitter.com/TechPad'>Matt Clarke</a> talked through his experience implementing <a href='http://support.google.com/analytics/bin/answer.py?hl=en&amp;answer=2790010&amp;topic=2790009&amp;ctx=topic'>Universal Analytics</a> at an online retailer. The key driver for Matt in choosing to implement Universal Analytics was a desire to deliver more commercially meaningful from Google Analytics, including:</p>
@@ -108,11 +108,11 @@
 <p>In order to report on the above, it is necessary to capture margin data with every sale (in the case of 1) and record views, add to baskets and transactions by product and brand (in the case of 2). In both instances, Matt needed to pass more data into his web analytics platform than Google Analytics has traditionally allowed, which made Google&#8217;s new Universal Analytics an attractive alternative.</p>
 
 <p>Passing this commercially sensitive data into Univesal Analytics is not trivial, however. Pushing it through the client-side dataLayer would make it available to any competitor. So instead, Matt passed the data server side into Universal Analytics. Universal Analytics does not have a PHP tracker, but Matt was able to effectively build his own using Google&#8217;s <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>. By syncronising the client ID sent by the Javascript tracker with his own server-side tracker, Matt enables Universal Analtyics to stitch together the data generated client and server side. You can see more details in Matt&#8217;s presentation below:</p>
-<iframe scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/16578670' marginheight='0' width='427' height='356' frameborder='0' marginwidth='0'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics' target='_blank' title='Measurecamp - Improving e commerce tracking with universal analytics'>Measurecamp - Improving e commerce tracking with universal analytics</a> </strong> from <strong><a href='http://www.slideshare.net/MattClarke4' target='_blank'>Matt Clarke</a></strong> </div>
+<iframe width='427' height='356' frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16578670' marginheight='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'> </iframe><div style='margin-bottom:5px'> <strong> <a title='Measurecamp - Improving e commerce tracking with universal analytics' target='_blank' href='http://www.slideshare.net/MattClarke4/measurecamp-improving-e-commerce-tracking-with-universal-analytics'>Measurecamp - Improving e commerce tracking with universal analytics</a> </strong> from <strong><a target='_blank' href='http://www.slideshare.net/MattClarke4'>Matt Clarke</a></strong> </div>
 <p>Matt&#8217;s presentation is a must-read for anyone who wants to push web analytics tools into a more powerful business analytics tool. For us at Snowplow, it really highlights the need to enable server side tracking alongside client-side tracking: previously it hadn&#8217;t occurred to me that a Snowplow user might want to use both approaches together, and replicate the dataLayer approach that has become best practice client-side on the server-side.</p>
 <h2><a name='clv'>Customer lifetime value</a></h2>
 <p>These are the slides I prepared for my session on customer lifetime value:</p>
-<iframe scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' src='http://www.slideshare.net/slideshow/embed_code/16598692' marginheight='0' width='427' height='356' frameborder='0' marginwidth='0'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692' target='_blank' title='Customer lifetime value'>Customer lifetime value</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
+<iframe width='427' height='356' frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/16598692' marginheight='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'> </iframe><div style='margin-bottom:5px'> <strong> <a title='Customer lifetime value' target='_blank' href='http://www.slideshare.net/yalisassoon/customer-lifetime-value-16598692'>Customer lifetime value</a> </strong> from <strong><a target='_blank' href='http://www.slideshare.net/yalisassoon'>yalisassoon</a></strong> </div>
 <p>We had a very interesting discussion about the challenges both of tracking user behavior across user lifetime, and started to explore approaches to developing predictive models for customer lifetime value. In 30 minutes we didn&#8217;t get the chance to develop these very far - I hope we find another forum (maybe G+?) to continue the conversation. Many thanks to all those who attended: I learnt a lot from you.</p>
 
 <h2 id='thank_you_measurecamp'>Thank you Measurecamp</h2>
@@ -185,6 +185,43 @@
 		
 		</ul>		
 	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Inside the Plow</h1>
 		<ul>
 		
@@ -202,15 +239,6 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Releases</h1>
 		<ul>
 		
@@ -224,34 +252,6 @@
 				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

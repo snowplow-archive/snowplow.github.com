@@ -46,7 +46,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 
 The Snowplow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker](http://arademaker.github.com/) [here](http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
 
-1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch. This is where **all** modifications to the website should be made.
+1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch (or in a dedicated branch just for that update e.g. "post/my-new-post")
 2. Jekyll should be run locally to generate the static html files locally
 3. These static files (saved in the `_site` folder) should be copied to the root directory on the master branch
 4. These static files are the ones that are then served on Github pages
@@ -59,11 +59,46 @@ As all the Jekyll processing is performed locally, you need to make sure that Je
 3. [Pygments](http://pygments.org/). To install, `sudo apt-get install python-pygments`
 4. [Sass](http://sass-lang.com/). (If you want to edit the CSS.) To install, `sudo gem install sass`. To use, edit `static/css/styles.scss` and then execute `sass static/css/styles.scss:static/css/styles.css` to generate the geniune CSS from the SCSS.
 
+To make things easier, you can make use of our [dev-environment] [dev-environment], which can be provisioned with all the required dependencies. To set this up:
+
+First: make sure you have both Virtual Box and Vagrant installed locally.
+
+Secondly, clone the [dev-environment] [dev-enviornment]:
+
+	$ git clone git@github.com:snowplow/dev-environment.git
+
+Build the VM:
+
+	$ cd dev-environment
+	$ vagrant up
+
+Once the basic box is provisioned, you need to run two ansible playbooks to install Ruby, RVM, Jekyll and the other required gems. First SSH into the VM:
+
+	$ vagrant ssh
+
+Then install Ruby via the playbook:
+
+	$ ansible-playbook /vagrant/ansible-playbooks/ruby.yaml --inventory-file=/home/vagrant/ansible_hosts --connection=local
+
+Exit the VM and then re-enter it. (This is necessary to switch on RVM and switch to using Ruby 1.9.3):
+
+	$ exit
+	$ vagrant ssh
+
+Then install Jekyll and the required Jekyll plugins:
+
+	$ ansible-playbook /vagrant/ansible-playbooks/jekyll.yaml --inventory-file=/home/vagrant/ansible_hosts --connection=local
+
+Great! Now you have your development environment setup. Now you can download this repo. We recommend you do this in the host:
+
+	$ exit
+	$ git clone git@github.com:snowplow/snowplow.github.com.git
+
 More explanation on how to update the site is given below:
 
 #### 2. Making changes locally
 
-First, on your local repository, switch to the source branch to update the source files
+In your host, switch to the source branch to update the source files
 
 	git checkout source
 	git pull 	# to ensure you're working on the latest version
@@ -121,19 +156,13 @@ When the side menu is generated (Jekyll compiles the site) it fetches all the di
 
 #### 8. Previewing the changes locally
 
-This is advisable before performing any commits :-). To preview the site on your local machine, navigate to the repo:
+This is advisable before performing any commits :-). To preview the site on your host machine, you'll need to build it in the VM (guest machine):
 
-	cd snowplow.github.com
+	$ vagrant ssh
+	$ cd /vagrant/snowplow.github.com
+	$ jekyll --server
 
-And run Jekyll
-
-	jekyll --server
-
-This will compile the website to the _site directory. to view the website, enter
-
-	localhost:4000
-
-In your browser URL window.
+This will build the website and serve it to port localhost:4000. The Vagrant box is setup to forward this to localhost:4001 on your host machine, so open up a browser and enter `localhost:4001`. You should see the updated website displayed.
 
 Remember, if you don't like what you see, and modify the site, to preview the changes, you'll need to CTRL-C out of Jekyll, then re-run 
 
@@ -147,16 +176,12 @@ Once you are happy with the updates you've made to the website, you need to depl
 
 Remember: source files are stored in the `source` branch. (Which you have been editting.) To deploy, we need to get Jekyll to generate the static html pages, copy them to our master repo and then push them to Github. To do this:
 
-Firstly add and commit the changes made to the source repo
+Firstly add and commit the changes made to the source repo. Do this in the host (rather than the guest VM)
 
-	git checkout source
+	$ exit
 	// make relevant changes and updates to the site
-	git add .
-	git commit -m "{{enter description of changes made}}"
-
-Now run Jekyll locally to generate the static pages into the `_site` folder
-
-	jekyll
+	$ git add .
+	$ git commit -m "{{enter description of changes made}}"
 
 Now switch to the master branch
 
@@ -174,4 +199,6 @@ And finally push both the source and master branches to origin
 
 	git push --all origin
 
-All done!
+All done! You should see the updates pushed to the live site in a matter of minutes. (You may need to clear the browser cache to see them.)
+
+[dev-environment]: https://github.com/snowplow/dev-environment

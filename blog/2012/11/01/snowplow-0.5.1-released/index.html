@@ -71,59 +71,61 @@
 			01 Nov 2012
 			<h1>Snowplow 0.5.1 released, with lots of small improvements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
+			
+<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
 
 <ol>
 <li>Improving the robustness of the ETL process</li>
 
-<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
+<li>Laying the foundations for loading Snowplow events into <a href="http://www.infobright.org/">Infobright Community Edition</a> (ICE)</li>
 </ol>
 
 <p>To take each of these themes in turn:</p>
 
-<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
+<h2 id="1_a_more_robust_etl_process">1. A more robust ETL process</h2>
 
-<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
+<p>The Hive deserializer now has improved error handling - many thanks to community member <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a> for his help here!</p>
 
 <p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
 
-<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
+<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner’s <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml">configuration file</a> to support this:</p>
 
 <pre><code>:etl:
   :continue_on_unexpected_error: false</code></pre>
 <!--more-->
-<p>Switch this to &#8216;true&#8217; to continue processing on unexpected row-level errors.</p>
+<p>Switch this to ‘true’ to continue processing on unexpected row-level errors.</p>
 
-<h2 id='2_groundwork_for_infobright_compatibility'>2. Groundwork for Infobright compatibility</h2>
+<h2 id="2_groundwork_for_infobright_compatibility">2. Groundwork for Infobright compatibility</h2>
 
-<p>We have added a table definition (and supporting scripts) for setting up a Snowplow events table in Infobright - you can find these in the main repository under <a href='https://github.com/snowplow/snowplow/tree/master/4-storage/infobright-storage'><code>snowplow/4-storage/infobright-storage</code></a>.</p>
+<p>We have added a table definition (and supporting scripts) for setting up a Snowplow events table in Infobright - you can find these in the main repository under <a href="https://github.com/snowplow/snowplow/tree/master/4-storage/infobright-storage"><code>snowplow/4-storage/infobright-storage</code></a>.</p>
 
 <p>Some early ETL design decisions meant that the Snowplow event files being generated before 0.5.1 were not compatible with being loaded into Infobright (or similar relational databases like Postgres or MySQL). We have made some updates to the ETL process in 0.5.1 to fix this:</p>
 
 <ol>
 <li>In the Hive deserializer, we now convert tabs to 4 spaces to prevent a stray tab from breaking our load into Infobright</li>
 
-<li>Databases like Infobright don&#8217;t support Hive&#8217;s <code>ARRAY&lt;STRING&gt;</code> syntax, so we have updated the Hive deserializer to also output individual booleans for the browser features, alongside the browser features array</li>
+<li>Databases like Infobright don’t support Hive’s <code>ARRAY&lt;STRING&gt;</code> syntax, so we have updated the Hive deserializer to also output individual booleans for the browser features, alongside the browser features array</li>
 
-<li>We have created a new HiveQL script which outputs Snowplow event files in a format which can be easily loaded into Infobright - this is called <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/hive-etl/hiveql/non-hive-rolling-etl.q'><code>non-hive-rolling-etl.q</code></a></li>
+<li>We have created a new HiveQL script which outputs Snowplow event files in a format which can be easily loaded into Infobright - this is called <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/hive-etl/hiveql/non-hive-rolling-etl.q"><code>non-hive-rolling-etl.q</code></a></li>
 
-<li>We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> so that you can choose whether to output Hive-format or non-Hive-format event files</li>
+<li>We have added a configuration option to the EmrEtlRunner’s <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml">configuration file</a> so that you can choose whether to output Hive-format or non-Hive-format event files</li>
 </ol>
 
-<p>On point 4: we believe that most people will want to load their Snowplow event files into other database systems, such as Infobright (or eventually, Postgres, Google BigQuery, SkyDB etc). Therefore, the default setting for the <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration option</a> in the EmrEtlRunner is to output your Snowplow event files in the non-Hive-format:</p>
+<p>On point 4: we believe that most people will want to load their Snowplow event files into other database systems, such as Infobright (or eventually, Postgres, Google BigQuery, SkyDB etc). Therefore, the default setting for the <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml">configuration option</a> in the EmrEtlRunner is to output your Snowplow event files in the non-Hive-format:</p>
 
 <pre><code>:etl:
   :storage_format: non-hive</code></pre>
 
-<p>As the comment says, if you will <strong>only</strong> be doing analysis in Hive, you could switch this setting to &#8216;hive&#8217; and benefit from the slightly-tweaked, Hive-friendly file format.</p>
+<p>As the comment says, if you will <strong>only</strong> be doing analysis in Hive, you could switch this setting to ‘hive’ and benefit from the slightly-tweaked, Hive-friendly file format.</p>
 
-<h2 id='getting_help'>Getting help</h2>
+<h2 id="getting_help">Getting help</h2>
 
-<p>If you have any problems getting version 0.5.1 working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>If you have any problems getting version 0.5.1 working, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
 
-<h2 id='in_the_pipeline'>In the pipeline</h2>
+<h2 id="in_the_pipeline">In the pipeline</h2>
 
-<p>At Snowplow we want to support multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We&#8217;ll keep you posted on our progress here!</p>
+<p>At Snowplow we want to support multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We’ll keep you posted on our progress here!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -174,23 +176,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -208,22 +193,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -245,19 +244,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

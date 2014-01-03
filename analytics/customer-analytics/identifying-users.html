@@ -67,18 +67,19 @@
 </div>
 	
 		<div id="contents">
-<h1 id='identifying_users_and_customers_using_snowplow'>Identifying users and customers using Snowplow</h1>
+
+<h1 id="identifying_users_and_customers_using_snowplow">Identifying users and customers using Snowplow</h1>
 
 <p>All customer analytics starts with a solid understanding of what constitutes a customer and a user: this is missing in traditional web analytics. In this section, we explain how to use Snowplow to reliably identify customers and users:</p>
 
 <ol>
-<li><a href='#user_id'>Understanding the different Snowplow user IDs</a>. An overview of the different user IDs that Snowplow recognises</li>
+<li><a href="#user_id">Understanding the different Snowplow user IDs</a>. An overview of the different user IDs that Snowplow recognises</li>
 
-<li><a href='#benefits_of_user_id'>The benefits of exposing user IDs</a>. The value that aggregating and filtering on user_ids provides data analysts</li>
+<li><a href="#benefits_of_user_id">The benefits of exposing user IDs</a>. The value that aggregating and filtering on user_ids provides data analysts</li>
 
-<li><a href='#benefits_of_multiple_user_ids'>The benefits of exposing multiple user IDs</a>. The value that exposing multiple user IDs provides data analysts</li>
+<li><a href="#benefits_of_multiple_user_ids">The benefits of exposing multiple user IDs</a>. The value that exposing multiple user IDs provides data analysts</li>
 
-<li><a href='#login-events'>Robust approaches to identifying customers through tracking login events, using multiple IDs</a>. A guide to reliable approach to identifying users, based on using Snowplow to track login events</li>
+<li><a href="#login-events">Robust approaches to identifying customers through tracking login events, using multiple IDs</a>. A guide to reliable approach to identifying users, based on using Snowplow to track login events</li>
 </ol>
 <h2><a name='user_id'>1. Understanding user IDs</a></h2>
 <p>Every line of Snowplow table includes placeholders for three different user IDs:</p>
@@ -99,9 +100,9 @@
 <li><code>user_fingerprint</code></li>
 </ol>
 
-<p>There are strengths and weaknesses associated with each different type of user identifier. In many cases, we recommend using a combination of two or three of them to power the most robust set of user analytics. (More on this below.) In this introductory section, however, we&#8217;ll stick to outlining the benefits and limitations of each:</p>
+<p>There are strengths and weaknesses associated with each different type of user identifier. In many cases, we recommend using a combination of two or three of them to power the most robust set of user analytics. (More on this below.) In this introductory section, however, we’ll stick to outlining the benefits and limitations of each:</p>
 
-<h4 id='1_the_'>1. The <code>domain_userid</code></h4>
+<h4 id="1_the_">1. The <code>domain_userid</code></h4>
 
 <p>The <code>domain_userid</code> is set via a first party cookie in the Snowplow Javascript (<code>sp.js</code>).</p>
 
@@ -109,50 +110,49 @@
 
 <p>However, because it is tied to a first party cookie, it cannot be used to track users across domains: if you have Snowplow set up across a network of sites, the same user on different sites will have different <code>domain_userid</code>s. (At least one for each site.)</p>
 
-<h4 id='2_the_'>2. The <code>network_userid</code></h4>
+<h4 id="2_the_">2. The <code>network_userid</code></h4>
 
 <p>The <code>network_userid</code> is tied to a third party cookie. Because of this, it can be used to track an individual across multiple different domains.</p>
 
 <p>Third party cookies are increasingly being blocked on browsers. For example, mobile Safari currently blocks them, and there are plans for Firefox to block them by default. As a result, it is likely that a data tied to third party cookies will only be recorded for a shrinking subset of users.</p>
 
-<p>Currently, the <code>network_userid</code> is <strong>only</strong> set if you use the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-Clojure-collector'>Clojure collector</a>, not if you use the Cloudfront collector. (Unlike the Clojure collector, the Cloudfront collector does not set 3rd party cookies.)</p>
+<p>Currently, the <code>network_userid</code> is <strong>only</strong> set if you use the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-the-Clojure-collector">Clojure collector</a>, not if you use the Cloudfront collector. (Unlike the Clojure collector, the Cloudfront collector does not set 3rd party cookies.)</p>
 
-<h4 id='3_the_'>3. The <code>user_id</code></h4>
+<h4 id="3_the_">3. The <code>user_id</code></h4>
 
-<p>Many companies and business already set their identifiers for their users and / or customers. (For example, when the user creates an account, or completes a first purchase.) In these cases, that user ID can be passed into Snowplow as the <code>user_id</code> using the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-user-id'>setUserID</a> method. This makes it easy to join Snowplow event data with other customer data sets e.g. CRM data.</p>
+<p>Many companies and business already set their identifiers for their users and / or customers. (For example, when the user creates an account, or completes a first purchase.) In these cases, that user ID can be passed into Snowplow as the <code>user_id</code> using the <a href="https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-user-id">setUserID</a> method. This makes it easy to join Snowplow event data with other customer data sets e.g. CRM data.</p>
 
-<h4 id='4_the_'>4. The <code>user_ipaddress</code></h4>
+<h4 id="4_the_">4. The <code>user_ipaddress</code></h4>
 
 <p>IP addresses can be useful tools to use for identifying users. In particular, these can often be mapped to geographic locations, or specific companies / businesses.</p>
 
 <p>Often, however, several users will connect from the same IP address. As a result, companies only typically use IP address as one of many clues to identifying a user, rather than the sole identifier.</p>
 
-<h4 id='5_the_'>5. The <code>user_fingerprint</code></h4>
+<h4 id="5_the_">5. The <code>user_fingerprint</code></h4>
 
-<p>This is an experimental feature, that uses specific browser features (e.g. plugins that have been installed) to &#8220;fingerprint&#8221; the browser.</p>
+<p>This is an experimental feature, that uses specific browser features (e.g. plugins that have been installed) to “fingerprint” the browser.</p>
 
-<p>We are not sure how well this works in practice (i.e. how unique different browsers are). It may be useful to stitch together sessions on occasions where a user&#8217;s cookies have been deleted, for example.</p>
+<p>We are not sure how well this works in practice (i.e. how unique different browsers are). It may be useful to stitch together sessions on occasions where a user’s cookies have been deleted, for example.</p>
 <h2><a name='benefits_of_user_id'>2. Benefits of exposing the user IDs for analysis</a></h2>
-<h3 id='2a_ability_to_view_a_users_complete_engagement_record'>2a. Ability to view a user&#8217;s complete engagement record</h3>
+<h3 id="2a_ability_to_view_a_users_complete_engagement_record">2a. Ability to view a user’s complete engagement record</h3>
 
-<p>Analysts can quickly zoom in on a user&#8217;s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
+<p>Analysts can quickly zoom in on a user’s complete engagement record, including every action they have taken on every single visit to your website(s). Fetching this history is straightforward:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 <span class='o'>*</span>
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='o'>=</span> <span class='s1'>&#39;{ENTER USER ID HERE}&#39;</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>dvce_tstamp</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>E.g. executing the query in Navicat:</p>
 
-<p><img src='/static/img/analytics/customer-analytics/user-actions-over-time-navicat.JPG' alt='user-actions-over-time-navicat' /></p>
+<p><img src="/static/img/analytics/customer-analytics/user-actions-over-time-navicat.JPG" alt="user-actions-over-time-navicat" /></p>
 
-<h3 id='2b_ability_to_track_users_over_multiple_sessions'>2b. Ability to track users over multiple sessions</h3>
+<h3 id="2b_ability_to_track_users_over_multiple_sessions">2b. Ability to track users over multiple sessions</h3>
 
-<p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, Snowplow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using Snowplow for <a href='/analytics/customer-analytics/attribution.html'>attribution</a>, see the <a href='/analytics/customer-analytics/attribution.html'>attribution section</a> of this documentation.)</p>
+<p>Often a user will visit a website several times before completing a particular goal. Whereas traditional web analytics programs only provide analysts with data on the visit when the goal was completed, Snowplow lets analysts zoom back in time to see all the actions that led up to a goal. This makes it possible, for example, to see which referrer <em>first</em> drove a user to a service, who only converted after 3 visits. As a result, the analyst can accurately attribute a return on that marketing spend, that would not be possible if you were only to look at data on a per session basis. (For more on using Snowplow for <a href="/analytics/customer-analytics/attribution.html">attribution</a>, see the <a href="/analytics/customer-analytics/attribution.html">attribution section</a> of this documentation.)</p>
 
-<p>Each time a user visits a site, Snowplow sets a session counter (<code>domain_sessionidx</code>): this is set to 1 on the user&#8217;s first visit, 2 on the user&#8217;s second visit etc. So to view how many visits a customer makes before purchasing, we can execute a query like this:</p>
+<p>Each time a user visits a site, Snowplow sets a session counter (<code>domain_sessionidx</code>): this is set to 1 on the user’s first visit, 2 on the user’s second visit etc. So to view how many visits a customer makes before purchasing, we can execute a query like this:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>domain_sessionidx</span><span class='p'>,</span>
@@ -162,30 +162,28 @@
 <span class='k'>AND</span> <span class='n'>domain_sessionidx</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
-<p><img src='/static/img/analytics/customer-analytics/breakdown-of-purchases-by-number-of-visits-to-purchase.png' alt='breakdown-of-purchases-by-number-of-visits-to-purchase' /></p>
+<p><img src="/static/img/analytics/customer-analytics/breakdown-of-purchases-by-number-of-visits-to-purchase.png" alt="breakdown-of-purchases-by-number-of-visits-to-purchase" /></p>
 
-<h3 id='2c_ability_to_categorise_users_by_cohorts'>2c. Ability to categorise users by cohorts</h3>
+<h3 id="2c_ability_to_categorise_users_by_cohorts">2c. Ability to categorise users by cohorts</h3>
 
-<p>Because we can easily slice data by user (rather than session), it is easy to define <a href='/analytics/customer-analytics/cohort-analysis.html'>cohorts</a> to use in <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
+<p>Because we can easily slice data by user (rather than session), it is easy to define <a href="/analytics/customer-analytics/cohort-analysis.html">cohorts</a> to use in <a href="/analytics/customer-analytics/cohort-analysis.html">cohort-analysis</a>. For example, to divide users into cohorts based on the month that they first used a service, we can execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 <span class='n'>domain_userid</span><span class='p'>,</span>
 <span class='nf'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;month&#39;</span><span class='p'>,</span> <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>))</span> <span class='k'>AS</span> <span class='s2'>&quot;cohort&quot;</span>
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='s2'>&quot;events&quot;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
-</code></pre>
-</div>
-<p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href='/analytics/customer-analytics/cohort-analysis.html'>cohort analysis</a> section.)</p>
+</code></pre></div>
+<p>We can then aggregate results for each individual <code>user_id</code> by cohort (<code>group by cohort</code>), to compare different metrics (e.g. engagement levels) between different cohorts as a whole. (For more in-depth examples of how this is done in practice, see the <a href="/analytics/customer-analytics/cohort-analysis.html">cohort analysis</a> section.)</p>
 <h2><a name='benefits_of_multiple_user_ids'>3. The benefits of exposing multiple user IDs</a></h2>
-<p>Most web analytics system (notably Google&#8217;s Universal Analytics) only accommodate a single user ID. We&#8217;ve deliberately supported three as we believe there are pros and cons of each type of user identifier, and having a combination available gives analysts maximum flexibility to identify users as reliably as possible. (Which is rarely 100% reliably&#8230;)</p>
+<p>Most web analytics system (notably Google’s Universal Analytics) only accommodate a single user ID. We’ve deliberately supported three as we believe there are pros and cons of each type of user identifier, and having a combination available gives analysts maximum flexibility to identify users as reliably as possible. (Which is rarely 100% reliably…)</p>
 
-<h3 id='3a_advantages_of_storing_both_a_domain_and_network_user_id'>3a. Advantages of storing both a domain and network user ID</h3>
+<h3 id="3a_advantages_of_storing_both_a_domain_and_network_user_id">3a. Advantages of storing both a domain and network user ID</h3>
 
-<p>For businesses that wish to track users across multiple domains (notably content networks and ad networks), there are significant advantages to using the <code>network_userid</code> over the <code>domain_userid</code>: namely that it is straightforward to analyse a user&#8217;s behavior across multiple sites.</p>
+<p>For businesses that wish to track users across multiple domains (notably content networks and ad networks), there are significant advantages to using the <code>network_userid</code> over the <code>domain_userid</code>: namely that it is straightforward to analyse a user’s behavior across multiple sites.</p>
 
 <p>However, a growing proportion of browsers and users are dropping support for third party cookies.</p>
 
@@ -195,18 +193,18 @@
 
 <p>It also leaves open the possibility of joining domain identifiers from different domains using cookie sync technologies.</p>
 
-<h3 id='3b_advantages_of_maintaining_a_separate_user_identifier_for_businesses_to_populate_with_their_own_customer_ids'>3b. Advantages of maintaining a separate user identifier for businesses to populate with their own customer IDs</h3>
+<h3 id="3b_advantages_of_maintaining_a_separate_user_identifier_for_businesses_to_populate_with_their_own_customer_ids">3b. Advantages of maintaining a separate user identifier for businesses to populate with their own customer IDs</h3>
 
 <p>Enabling businesses to set their own user ID where it is available is a very powerful feature: it makes it possible, for example, to join Snowplow behavioral data with other customer data sets e.g. CRM, marketing etc.</p>
 
-<p>Rather then override the <code>domain_userid</code> and / or <code>network_userid</code>, however, we have a separate field <code>user_id</code> set aside for this purpose. This is to give analysts maximum flexibility when analysing user behavior over the user&#8217;s entire behavior. To illustrate this with an example:</p>
+<p>Rather then override the <code>domain_userid</code> and / or <code>network_userid</code>, however, we have a separate field <code>user_id</code> set aside for this purpose. This is to give analysts maximum flexibility when analysing user behavior over the user’s entire behavior. To illustrate this with an example:</p>
 
 <ul>
 <li>Consider the case of an online retailer with a long sales cycle. (I.e. it might be common for a user to make multiple visits to the site before making a purchase.)</li>
 
 <li>A user looking at making a purchase will typically visit the site multiple times before purchasing. In this case, it is possible to track his / her behavior using either the <code>domain_userid</code> or <code>network_userid</code></li>
 
-<li>Once the user has bought an item, they will have created an account. At that stage, the retailer might ascribe that user a user ID, based on the user&#8217;s name / address</li>
+<li>Once the user has bought an item, they will have created an account. At that stage, the retailer might ascribe that user a user ID, based on the user’s name / address</li>
 
 <li>It will be possible for the company to perform attribution analytics (i.e. tracking the user from e.g. clicking on an ad to making a purchase) using e.g. the <code>domain_userid</code></li>
 
@@ -220,17 +218,14 @@
 <ol>
 <li>Users may delete cookies between sessions: in which case two or more <code>user_id</code>s really represent the same user</li>
 
-<li>Users may access your website from different browsers (e.g. a home computer and a work computer, or a mobile device and a desktop): in which case again, two or more <code>user_id</code>&#8217;s really represent one user</li>
+<li>Users may access your website from different browsers (e.g. a home computer and a work computer, or a mobile device and a desktop): in which case again, two or more <code>user_id</code>’s really represent one user</li>
 </ol>
 
 <p>Websites where users login, however, have the opportunity to identify users much more reliably. It is straightforward to incorporate this additional data into Snowplow, to make customer identification more robust:</p>
 
-<p>When a user logs in to a website, the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events'>Snowplow event tracker</a> should be fired to capture the login event. The user&#8217;s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured and passed to Snowplow using the setUserId call:</p>
-
-<p><div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;joe.blogs@email.com&#39;</span><span class='p'>]);</span>
-</code></pre>
-</div></p>
-
+<p>When a user logs in to a website, the <a href="https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events">Snowplow event tracker</a> should be fired to capture the login event. The user’s login ID (as defined in whichever system is used to manage the login process e.g. the CMS, Facebook etc.) should be captured and passed to Snowplow using the setUserId call:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserId&#39;</span><span class='p'>,</span> <span class='s1'>&#39;joe.blogs@email.com&#39;</span><span class='p'>]);</span>
+</code></pre></div>
 <p>It is then possible to map <code>user_id</code> to e.g. <code>domain_userid</code> by executing the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='n'>VIEW</span> <span class='n'>business_to_cookie_id_map</span> <span class='k'>AS</span>
@@ -241,19 +236,19 @@
 <span class='k'>WHERE</span> <span class='n'>domain_userid</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>AND</span> <span class='n'>user_id</span> <span class='k'>IS</span> <span class='k'>NOT</span> <span class='no'>NULL</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This type of mapping table is reliable and flexible, because it can accommodate many-to-many relationships between <code>user_id</code> and <code>domain_userid</code>. Consider the following two cases:</p>
 
 <ol>
-<li>A user logs in to his / her account from multiple devices. In that case, there would be many <code>domain_userid</code> to each <code>user_id</code>. That is fine, because we can aggregate data by <code>user_id</code> to capture the user&#8217;s behavior across all those different devices.</li>
+<li>A user logs in to his / her account from multiple devices. In that case, there would be many <code>domain_userid</code> to each <code>user_id</code>. That is fine, because we can aggregate data by <code>user_id</code> to capture the user’s behavior across all those different devices.</li>
 
-<li>Multiple users log in and out of their account from a single shared computer. In that case, there would be many <code>user_id</code> to each <code>domain_userid</code>. In that case, we&#8217;d need to be careful to aggregate records between log in and out events and ascribe them to a single user, so that we can differentiate actions performed by different users on the same computer.</li>
+<li>Multiple users log in and out of their account from a single shared computer. In that case, there would be many <code>user_id</code> to each <code>domain_userid</code>. In that case, we’d need to be careful to aggregate records between log in and out events and ascribe them to a single user, so that we can differentiate actions performed by different users on the same computer.</li>
 </ol>
 
-<h2 id='4_understand_how_to_use_snowplow_to_reliably_identify_users_and_customers'>4. Understand how to use Snowplow to reliably identify users and customers?</h2>
+<h2 id="4_understand_how_to_use_snowplow_to_reliably_identify_users_and_customers">4. Understand how to use Snowplow to reliably identify users and customers?</h2>
 
-<p><a href='/analytics/customer-analytics/joining-customer-data.html'>Read on</a> to learn how to join Snowplow customer data with <a href='/analytics/customer-analytics/joining-customer-data.html'>other sources of customer data</a>.</p>
+<p><a href="/analytics/customer-analytics/joining-customer-data.html">Read on</a> to learn how to join Snowplow customer data with <a href="/analytics/customer-analytics/joining-customer-data.html">other sources of customer data</a>.</p>
+
 </div>
 
  <div id="sidebar">
@@ -267,18 +262,6 @@
 		
 		<ul>
 			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -414,6 +397,18 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 			
 				
 					
@@ -437,15 +432,7 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -481,7 +468,15 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -563,18 +558,6 @@
 					
 				
 			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -710,6 +693,18 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 			
 				
 					
@@ -733,15 +728,15 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
@@ -769,15 +764,15 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
@@ -881,15 +876,15 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
@@ -917,15 +912,15 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
@@ -1029,15 +1024,7 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -1073,7 +1060,15 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1174,46 +1169,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1225,6 +1180,46 @@
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1322,22 +1317,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
 					
 				
 					
@@ -1373,147 +1352,19 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1617,6 +1468,138 @@
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1658,6 +1641,18 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					

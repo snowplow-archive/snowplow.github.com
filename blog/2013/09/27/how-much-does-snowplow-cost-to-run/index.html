@@ -71,49 +71,51 @@
 			27 Sep 2013
 			<h1>How much does Snowplow cost to run, vs the competition?</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are very pleased to announce the release of the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow Total Cost of Ownership Model</a>. This is a model we started developing <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>back in July</a>, to enable:</p>
+			
+<p>We are very pleased to announce the release of the <a href="https://github.com/snowplow/snowplow-tco-model">Snowplow Total Cost of Ownership Model</a>. This is a model we started developing <a href="http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/">back in July</a>, to enable:</p>
 
 <ul>
-<li>Snowplow users and prospective users to better forecast their Snowplow costs on <a href='http://aws.amazon.com/'>Amazon Web Services</a> going forwards</li>
+<li>Snowplow users and prospective users to better forecast their Snowplow costs on <a href="http://aws.amazon.com/">Amazon Web Services</a> going forwards</li>
 
 <li>The Snowplow Development Team to monitor how the cost of running Snowplow evolves as we build out the platform</li>
 </ul>
 
-<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we&#8217;ll publish a series of blog posts exploring those challenges and how we tackled them. We&#8217;ll also review why we chose to build the model in <a href='http://cran.r-project.org/'>R</a> (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our <a href='http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last blog post</a> on the subject.</p>
+<p>Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we’ll publish a series of blog posts exploring those challenges and how we tackled them. We’ll also review why we chose to build the model in <a href="http://cran.r-project.org/">R</a> (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our <a href="http://snowplowanalytics.com/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/">last blog post</a> on the subject.</p>
 
-<p>In the meantime, <a href='https://github.com/snowplow/snowplow-tco-model'>download our TCO Model</a> and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.</p>
+<p>In the meantime, <a href="https://github.com/snowplow/snowplow-tco-model">download our TCO Model</a> and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.</p>
 
-<p>In the rest of this blog post, we&#8217;ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let&#8217;s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
+<p>In the rest of this blog post, we’ll focus on perhaps the most interesting output of the model: <strong>How expensive is it to run Snowplow vs our commercial competitors?</strong> Let’s start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:</p>
 
-<p><img src='/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png' alt='snowplow-premium-price-comparison' /></p>
+<p><img src="/static/img/price-comparison/snowplow-google-analytics-omniture-sitecatalyst-price-comparison.png" alt="snowplow-premium-price-comparison" /></p>
 <!--more-->
-<p>Snowplow cannot compete with the free version of <a href='http://www.google.co.uk/intl/en_uk/analytics/index.html'>Google Analytics</a> directly on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)</p>
+<p>Snowplow cannot compete with the free version of <a href="http://www.google.co.uk/intl/en_uk/analytics/index.html">Google Analytics</a> directly on cost. Our model forecasts that even at low volumes, Snowplow ends up costing $1000 per year: this really reflects the cost of running a server to host a PostgreSQL database for your Snowplow data. (Our model assumes an m1.large EC2 instance being provisioned for this purpose - this accounts for 75% of the cost - there may be alternatives that bring that cost down significantly.)</p>
 
-<p>At higher volumes, though, the savings are substantial. Running Snowplow is <strong>at least an order of magnitude cheaper</strong> than <a href='http://www.google.co.uk/intl/en_uk/analytics/premium/index.html'>GA Premium</a> and <a href='http://www.adobe.com/solutions/digital-analytics/marketing-reports-analytics.html'>Adobe SiteCatalyst</a> for businesses recording between 10k and 100k events per month. (At these volumes, we&#8217;ve modelled the cost based on users employing Redshift, rather than PostgreSQL, to store their data.) Even at a billion events per month (where multiple Redshift nodes are required to store all your atomic data), the cost of running Snowplow is a little over half the cost of running Google Analytics Premium.</p>
+<p>At higher volumes, though, the savings are substantial. Running Snowplow is <strong>at least an order of magnitude cheaper</strong> than <a href="http://www.google.co.uk/intl/en_uk/analytics/premium/index.html">GA Premium</a> and <a href="http://www.adobe.com/solutions/digital-analytics/marketing-reports-analytics.html">Adobe SiteCatalyst</a> for businesses recording between 10k and 100k events per month. (At these volumes, we’ve modelled the cost based on users employing Redshift, rather than PostgreSQL, to store their data.) Even at a billion events per month (where multiple Redshift nodes are required to store all your atomic data), the cost of running Snowplow is a little over half the cost of running Google Analytics Premium.</p>
 
-<p>We&#8217;ve then compared the cost of running Snowplow with the cost of some of the SaaS analytics startups (note in this diagram we&#8217;re comparing monthly, rather than yearly costs):</p>
+<p>We’ve then compared the cost of running Snowplow with the cost of some of the SaaS analytics startups (note in this diagram we’re comparing monthly, rather than yearly costs):</p>
 
-<p><img src='/static/img/price-comparison/snowplow-saas-price-comparison.png' alt='snowplow-saas-price-comparison' /></p>
+<p><img src="/static/img/price-comparison/snowplow-saas-price-comparison.png" alt="snowplow-saas-price-comparison" /></p>
 
-<p>For anyone capturing 500K events or more, it is cheaper to run Snowplow, than <a href='https://mixpanel.com/'>Mixpanel</a>, <a href='https://www.kissmetrics.com/'>Kissmetrics</a> or <a href='https://keen.io/'>Keen IO</a>. However, the saving increases with volume: at 20M events per month, Snowplow costs 25% less to run than Mixpanel, for example.</p>
+<p>For anyone capturing 500K events or more, it is cheaper to run Snowplow, than <a href="https://mixpanel.com/">Mixpanel</a>, <a href="https://www.kissmetrics.com/">Kissmetrics</a> or <a href="https://keen.io/">Keen IO</a>. However, the saving increases with volume: at 20M events per month, Snowplow costs 25% less to run than Mixpanel, for example.</p>
 
 <p><strong>Sources</strong></p>
 
 <p>The above pricing comparisons were put together with data from the following sources: if over time the prices change, then please let us know, so we can update them to keep them accurate:</p>
 
 <ul>
-<li><a href='http://www.neboagency.com/blog/google-analytics-vs-site-catalyst-2/'>Google Analytics Premium pricing</a></li>
+<li><a href="http://www.neboagency.com/blog/google-analytics-vs-site-catalyst-2/">Google Analytics Premium pricing</a></li>
 
 <li>Omniture SiteCatalyst pricing based on a cross section of 20 different clients</li>
 
-<li><a href='https://mixpanel.com/pricing/'>Mixpanel pricing page</a></li>
+<li><a href="https://mixpanel.com/pricing/">Mixpanel pricing page</a></li>
 
-<li><a href='https://www.kissmetrics.com/pricing'>Kissmetrics pricing page</a></li>
+<li><a href="https://www.kissmetrics.com/pricing">Kissmetrics pricing page</a></li>
 
-<li><a href='https://keen.io/'>Keen IO pricing page</a></li>
+<li><a href="https://keen.io/">Keen IO pricing page</a></li>
 
-<li>For Snowplow pricing, please refer to the <a href='https://github.com/snowplow/snowplow-tco-model'>Snowplow TCO model</a> for details on both the underlying model assumptions and the model mechanics.</li>
+<li>For Snowplow pricing, please refer to the <a href="https://github.com/snowplow/snowplow-tco-model">Snowplow TCO model</a> for details on both the underlying model assumptions and the model mechanics.</li>
 </ul>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -164,23 +166,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -198,22 +183,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -235,19 +234,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

@@ -71,7 +71,8 @@
 			21 Oct 2013
 			<h1>Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
+			
+<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
 
 <ol>
 <li>Custom trackers and collector logging formats</li>
@@ -91,7 +92,7 @@
 <li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
 </ol>
 
-<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
+<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a “middle ground” between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
 
 <p>If possible, the following approach would make an attractive middle ground:</p>
 
@@ -103,13 +104,13 @@
 <li>These scripts can be written in a popular and easy-to-learn scripting language</li>
 </ol>
 
-<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
+<p>Two technologies stood out as promising: Java’s <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine">ScriptEngine</a> and Mozilla’s <a href="https://developer.mozilla.org/en/docs/Rhino">Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
 
-<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
+<p>The first step to test if this approach is viable, was to test out Rhino and Scala’s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed</p>
 <!--more-->
-<p>First we clone our <a href='https://github.com/snowplow/scalding-example-project'>Scalding Example Project</a>, available on GitHub. This gives us a Scala environment which we know successfully can run Scalding on Hadoop (including Elastic MapReduce), giving us some confidence that whatever scripting works in this environment will ultimately work fine on EMR too.</p>
+<p>First we clone our <a href="https://github.com/snowplow/scalding-example-project">Scalding Example Project</a>, available on GitHub. This gives us a Scala environment which we know successfully can run Scalding on Hadoop (including Elastic MapReduce), giving us some confidence that whatever scripting works in this environment will ultimately work fine on EMR too.</p>
 
-<p>So let&#8217;s get started:</p>
+<p>So let’s get started:</p>
 
 <pre><code>$ git clone git@github.com:snowplow/scalding-example-project.git
 $ cd scalding-example-project
@@ -117,44 +118,40 @@ $ sbt
 scalding-example-project &gt; console
 scala&gt; </code></pre>
 
-<p>Great, now we&#8217;re in the Scala console within SBT, and we have access to all of the libraries loaded as part of the scalding-example-project should we need them.</p>
+<p>Great, now we’re in the Scala console within SBT, and we have access to all of the libraries loaded as part of the scalding-example-project should we need them.</p>
 
-<p>Now let&#8217;s create a JavaScript-powered ScriptEngine in Scala:</p>
+<p>Now let’s create a JavaScript-powered ScriptEngine in Scala:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>factory</span> <span class='k'>=</span> <span class='k'>new</span> <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptEngineManager</span>
-<span class='n'>factory</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngineManager</span> <span class='o'>=</span> <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptEngineManager</span><span class='o'>@</span><span class='mi'>381</span><span class='n'>ebaf3</span>
+<span class='n'>factory</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngineManager</span> <span class='o'>=</span> <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptEngineManager</span><span class='k'>@</span><span class='mi'>381</span><span class='n'>ebaf3</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>engine</span> <span class='k'>=</span> <span class='n'>factory</span><span class='o'>.</span><span class='n'>getEngineByName</span><span class='o'>(</span><span class='s'>&quot;JavaScript&quot;</span><span class='o'>)</span>
-<span class='n'>engine</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngine</span> <span class='o'>=</span> <span class='n'>com</span><span class='o'>.</span><span class='n'>sun</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='n'>javascript</span><span class='o'>.</span><span class='nc'>RhinoScriptEngine</span><span class='o'>@</span><span class='mi'>75</span><span class='n'>ee0563</span>
+<span class='n'>engine</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptEngine</span> <span class='o'>=</span> <span class='n'>com</span><span class='o'>.</span><span class='n'>sun</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='n'>javascript</span><span class='o'>.</span><span class='nc'>RhinoScriptEngine</span><span class='k'>@</span><span class='mi'>75</span><span class='n'>ee0563</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print(&#39;Hello, World\\n&#39;)&quot;</span><span class='o'>)</span>
 <span class='nc'>Hello</span><span class='o'>,</span> <span class='nc'>World</span>
 <span class='n'>res4</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
-</code></pre>
-</div>
-<p>Excellent - we&#8217;ve now got JavaScript executing from Scala! For more information, check out the Javadoc for <a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngineManager.html'>ScriptEngineManager</a> and <a href='http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngine.html'>ScriptEngine</a>.</p>
+</code></pre></div>
+<p>Excellent - we’ve now got JavaScript executing from Scala! For more information, check out the Javadoc for <a href="http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngineManager.html">ScriptEngineManager</a> and <a href="http://download.java.net/jdk6/archive/b104/docs/api/javax/script/ScriptEngine.html">ScriptEngine</a>.</p>
 
-<p>As a next step, let&#8217;s focus on the boundaries and get data flowing from Scala to JavaScript and back out again. Let&#8217;s pass in a variable - I&#8217;m going to prepend dollar signs to all of my Scala-sourced JavaScript variables to make their origin clear:</p>
+<p>As a next step, let’s focus on the boundaries and get data flowing from Scala to JavaScript and back out again. Let’s pass in a variable - I’m going to prepend dollar signs to all of my Scala-sourced JavaScript variables to make their origin clear:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='s'>&quot;$filter&quot;</span><span class='o'>,</span> <span class='s'>&quot;yeah&quot;</span><span class='o'>)</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? true : false;&quot;</span><span class='o'>)</span>
 <span class='n'>isFiltered</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>true</span>
-</code></pre>
-</div>
-<p>Great, that worked, although the return type java.lang.Object is obviously a little blunt. Now let&#8217;s see what happens if we write some invalid JavaScript:</p>
+</code></pre></div>
+<p>Great, that worked, although the return type java.lang.Object is obviously a little blunt. Now let’s see what happens if we write some invalid JavaScript:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;undefined.splice()&quot;</span><span class='o'>)</span>
 <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptException</span><span class='k'>:</span> <span class='kt'>sun.org.mozilla.javascript.internal.EcmaError:</span>
 <span class='nc'>TypeError</span><span class='k'>:</span> <span class='kt'>Cannot</span> <span class='kt'>call</span> <span class='kt'>method</span> <span class='err'>&quot;</span><span class='kt'>splice</span><span class='err'>&quot;</span> <span class='kt'>of</span> <span class='kt'>undefined</span> <span class='o'>(</span><span class='kt'>&lt;Unknown</span> <span class='kt'>source&gt;</span><span class='k'>#</span><span class='err'>1</span><span class='o'>)</span> <span class='kt'>in</span>
 <span class='o'>&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span> <span class='n'>at</span> <span class='n'>line</span> <span class='n'>number</span> <span class='mi'>1</span>
-</code></pre>
-</div>
-<p>Okay - this ScriptException is very similar to what you would see evaluating the same code in the Firefox or Chrome JavaScript consoles, so that&#8217;s reassuring.</p>
+</code></pre></div>
+<p>Okay - this ScriptException is very similar to what you would see evaluating the same code in the Firefox or Chrome JavaScript consoles, so that’s reassuring.</p>
 
-<p>Let&#8217;s try another failure scenario - where our JavaScript accidentally returns a Number when we are expecting a Boolean:</p>
+<p>Let’s try another failure scenario - where our JavaScript accidentally returns a Number when we are expecting a Boolean:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>isFiltered</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? 1 : 0;&quot;</span><span class='o'>)</span>
 <span class='n'>isFiltered</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='mf'>1.0</span>
-</code></pre>
-</div>
-<p>The return type definitely looks problematic, although the problem won&#8217;t manifest itself until we try to cast it into a Boolean. So let&#8217;s put together an example with some type safety:</p>
+</code></pre></div>
+<p>The return type definitely looks problematic, although the problem won’t manifest itself until we try to cast it into a Boolean. So let’s put together an example with some type safety:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>import</span> <span class='nn'>PartialFunction._</span>
 <span class='k'>import</span> <span class='nn'>PartialFunction._</span>
 
@@ -167,50 +164,43 @@ scala&gt; </code></pre>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='s'>&quot;($filter === \&quot;yeah\&quot;) ? 1 : 0;&quot;</span><span class='o'>)</span>
 <span class='n'>res30</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
-</code></pre>
-</div>
-<p>Perfect! We have wrapped our JavaScript in some sensible Scala types. For more information on the <code>condOpt</code> &#8220;magic&#8221;, check out <a href='http://stackoverflow.com/a/9828815/255627'>this Stack Overflow answer</a> to <em>&#8220;How to cast java.lang.Object to a specific type in Scala?&#8221;</em>.</p>
+</code></pre></div>
+<p>Perfect! We have wrapped our JavaScript in some sensible Scala types. For more information on the <code>condOpt</code> “magic”, check out <a href="http://stackoverflow.com/a/9828815/255627">this Stack Overflow answer</a> to <em>“How to cast java.lang.Object to a specific type in Scala?”</em>.</p>
 
-<p>Let&#8217;s try something a little more ambitious now. Can we mutate a POJO (&#8220;plain old Java object&#8221;) from inside JavaScript? Only one way to find out:</p>
-
-<p><div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>class</span> <span class='nc'>MyPojo</span> <span class='o'>{</span> <span class='nd'>@scala</span><span class='o'>.</span><span class='n'>reflect</span><span class='o'>.</span><span class='nc'>BeanProperty</span> <span class='k'>var</span> <span class='n'>myVar</span><span class='k'>:</span> <span class='kt'>String</span> <span class='o'>=</span> <span class='s'>&quot;heart scala&quot;</span> <span class='o'>}</span>
+<p>Let’s try something a little more ambitious now. Can we mutate a POJO (“plain old Java object”) from inside JavaScript? Only one way to find out:</p>
+<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>class</span> <span class='nc'>MyPojo</span> <span class='o'>{</span> <span class='nd'>@scala</span><span class='o'>.</span><span class='n'>reflect</span><span class='o'>.</span><span class='nc'>BeanProperty</span> <span class='k'>var</span> <span class='n'>myVar</span><span class='k'>:</span> <span class='kt'>String</span> <span class='o'>=</span> <span class='s'>&quot;heart scala&quot;</span> <span class='o'>}</span>
 <span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>MyPojo</span>
-</code></pre>
-</div></p>
-<div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myPojo</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>MyPojo</span>
-<span class='n'>myPojo</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='o'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
+</code></pre></div><div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myPojo</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>MyPojo</span>
+<span class='n'>myPojo</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='k'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>put</span><span class='o'>(</span><span class='s'>&quot;$myPojo&quot;</span><span class='o'>,</span> <span class='n'>myPojo</span><span class='o'>)</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;$myPojo.myVar = \&quot;heart js\&quot;;&quot;</span><span class='o'>)</span>
 <span class='n'>javax</span><span class='o'>.</span><span class='n'>script</span><span class='o'>.</span><span class='nc'>ScriptException</span><span class='k'>:</span> <span class='kt'>sun.org.mozilla.javascript.internal.EvaluatorException:</span>
-<span class='nc'>Java</span> <span class='n'>method</span> <span class='s'>&quot;myVar&quot;</span> <span class='n'>cannot</span> <span class='n'>be</span> <span class='n'>assigned</span> <span class='n'>to</span><span class='o'>.</span> <span class='o'>(&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span><span class='err'>#</span><span class='mi'>1</span><span class='o'>)</span> <span class='n'>in</span> <span class='o'>&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span>
+<span class='nc'>Java</span> <span class='n'>method</span> <span class='s'>&quot;myVar&quot;</span> <span class='n'>cannot</span> <span class='n'>be</span> <span class='n'>assigned</span> <span class='n'>to</span><span class='o'>.</span> <span class='o'>(&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span><span class='k'>#</span><span class='mi'>1</span><span class='o'>)</span> <span class='n'>in</span> <span class='o'>&lt;</span><span class='nc'>Unknown</span> <span class='n'>source</span><span class='o'>&gt;</span>
 <span class='n'>at</span> <span class='n'>line</span> <span class='n'>number</span> <span class='mi'>1</span>
-</code></pre>
-</div>
-<p>Oh dear! It looks like Java and Scala&#8217;s getters and setters sugar doesn&#8217;t translate well into JavaScript. So let&#8217;s try the actual setter method, and then print using the getter:</p>
+</code></pre></div>
+<p>Oh dear! It looks like Java and Scala’s getters and setters sugar doesn’t translate well into JavaScript. So let’s try the actual setter method, and then print using the getter:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;$myPojo.setMyVar(\&quot;heart js\&quot;)&quot;</span><span class='o'>)</span>
 <span class='n'>res10</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print($myPojo.myVar() + \&quot;\\n\&quot;)&quot;</span><span class='o'>)</span>
 <span class='n'>heart</span> <span class='n'>js</span>
 <span class='n'>res20</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
-</code></pre>
-</div>
-<p>Okay great - the mutation seems to be working. And note that trailing semi-colons are optional, just as they are in &#8220;real&#8221; JavaScript. Now let&#8217;s try and get our POJO back out into our Scala context:</p>
+</code></pre></div>
+<p>Okay great - the mutation seems to be working. And note that trailing semi-colons are optional, just as they are in “real” JavaScript. Now let’s try and get our POJO back out into our Scala context:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>myPojoRedux</span> <span class='k'>=</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>get</span><span class='o'>(</span><span class='s'>&quot;$myPojo&quot;</span><span class='o'>)</span> <span class='k'>match</span> <span class='o'>{</span>
 	<span class='k'>case</span> <span class='n'>p</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=&gt;</span> <span class='n'>p</span>
 	<span class='k'>case</span> <span class='k'>_</span> <span class='k'>=&gt;</span> <span class='k'>throw</span> <span class='k'>new</span> <span class='nc'>ClassCastException</span>
 <span class='o'>}</span>
-<span class='n'>myPojoRedux</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='o'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
+<span class='n'>myPojoRedux</span><span class='k'>:</span> <span class='kt'>MyPojo</span> <span class='o'>=</span> <span class='nc'>MyPojo</span><span class='k'>@</span><span class='mi'>2</span><span class='n'>bbf1be2</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>myPojoRedux</span><span class='o'>.</span><span class='n'>myVar</span>
 <span class='n'>res26</span><span class='k'>:</span> <span class='kt'>String</span> <span class='o'>=</span> <span class='n'>heart</span> <span class='n'>js</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Done! So we have made some progress: we have mutated a POJO inside of JavaScript using the de-sugared setter and getter forms.</p>
 
-<p>Okay, what&#8217;s the situation with Scala case classes? Obviously we won&#8217;t try to mutate them inside of JavaScript, but it would be great if we can at least see their contents:</p>
+<p>Okay, what’s the situation with Scala case classes? Obviously we won’t try to mutate them inside of JavaScript, but it would be great if we can at least see their contents:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>case</span> <span class='k'>class</span> <span class='nc'>MyCaseClass</span><span class='o'>(</span><span class='n'>myVal</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span>
 <span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>MyCaseClass</span>
 
@@ -222,13 +212,12 @@ scala&gt; </code></pre>
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>engine</span><span class='o'>.</span><span class='n'>eval</span><span class='o'>(</span><span class='s'>&quot;print($myCaseClass.myVal() + \&quot;\\n\&quot;)&quot;</span><span class='o'>)</span>
 <span class='n'>can</span><span class='-Symbol'>&#39;t</span> <span class='n'>touch</span> <span class='k'>this</span>
 <span class='n'>res35</span><span class='k'>:</span> <span class='kt'>java.lang.Object</span> <span class='o'>=</span> <span class='kc'>null</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Great! We can see inside Scala case classes without any particular fuss.</p>
 
-<p>We&#8217;re almost done for our first blog post - of course, we haven&#8217;t touched Hadoop yet, but we have a much better understanding of how we can script Scala programs (and so hopefully Scalding jobs) using JavaScript.</p>
+<p>We’re almost done for our first blog post - of course, we haven’t touched Hadoop yet, but we have a much better understanding of how we can script Scala programs (and so hopefully Scalding jobs) using JavaScript.</p>
 
-<p>Before we go, let&#8217;s try to generalize our <code>evalAsBoolean()</code> method above into something a little bit more reusable. How about a method with a signature like this:</p>
+<p>Before we go, let’s try to generalize our <code>evalAsBoolean()</code> method above into something a little bit more reusable. How about a method with a signature like this:</p>
 <div class='highlight'><pre><code class='scala'><span class='cm'>/**</span>
 <span class='cm'> * Evaluate some JavaScript into a Some(Boolean),</span>
 <span class='cm'> * returning None if this evaluation failed.</span>
@@ -239,9 +228,8 @@ scala&gt; </code></pre>
 <span class='cm'> * @return An Option-boxed Boolean</span>
 <span class='cm'> */</span>
 <span class='k'>def</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>,</span> <span class='n'>vars</span><span class='k'>:</span> <span class='kt'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>])</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span>
-</code></pre>
-</div>
-<p>Hopefully the function arguments and return value are fairly clear, so let&#8217;s proceed to the whole function definition:</p>
+</code></pre></div>
+<p>Hopefully the function arguments and return value are fairly clear, so let’s proceed to the whole function definition:</p>
 <div class='highlight'><pre><code class='scala'><span class='k'>import</span> <span class='nn'>javax.script.ScriptEngineManager</span>
 <span class='k'>import</span> <span class='nn'>PartialFunction._</span>
 
@@ -270,13 +258,11 @@ scala&gt; </code></pre>
         <span class='k'>case</span> <span class='n'>se</span><span class='k'>:</span> <span class='kt'>javax.script.ScriptException</span> <span class='o'>=&gt;</span> <span class='nc'>None</span>
     <span class='o'>}</span>
 <span class='o'>}</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Paste that into the Scala console in SBT and you should see:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>evalAsBoolean</span><span class='k'>:</span> <span class='o'>(</span><span class='kt'>js:</span> <span class='kt'>String</span><span class='o'>,</span> <span class='kt'>vars:</span> <span class='kt'>Map</span><span class='o'>[</span><span class='kt'>String</span>,<span class='kt'>java.lang.Object</span><span class='o'>])</span><span class='nc'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span>
-</code></pre>
-</div>
-<p>Now let&#8217;s try this out - first with a script which should evaluate to true:</p>
+</code></pre></div>
+<p>Now let’s try this out - first with a script which should evaluate to true:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>vars1</span> <span class='k'>=</span> <span class='nc'>Map</span><span class='o'>[</span><span class='kt'>String</span>, <span class='kt'>Object</span><span class='o'>](</span>
 <span class='s'>&quot;one&quot;</span> <span class='o'>-&gt;</span> <span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='n'>lang</span><span class='o'>.</span><span class='nc'>Integer</span><span class='o'>(</span><span class='mi'>1</span><span class='o'>),</span>
 <span class='s'>&quot;$two&quot;</span> <span class='o'>-&gt;</span> <span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='n'>lang</span><span class='o'>.</span><span class='nc'>Integer</span><span class='o'>(</span><span class='mi'>2</span><span class='o'>)</span>
@@ -288,8 +274,7 @@ scala&gt; </code></pre>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js1</span><span class='o'>,</span> <span class='n'>vars1</span><span class='o'>)</span>
 <span class='n'>res1</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Some</span><span class='o'>(</span><span class='kc'>true</span><span class='o'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now a false value, involving checking a property inside of a case class:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>case</span> <span class='k'>class</span> <span class='nc'>ALang</span><span class='o'>(</span><span class='n'>aLang</span><span class='k'>:</span> <span class='kt'>String</span><span class='o'>)</span>
 <span class='n'>defined</span> <span class='k'>class</span> <span class='nc'>ALang</span>
@@ -302,29 +287,27 @@ scala&gt; </code></pre>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js2</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
 <span class='n'>res2</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>Some</span><span class='o'>(</span><span class='kc'>false</span><span class='o'>)</span>
-</code></pre>
-</div>
-<p>That&#8217;s working a treat. Now let&#8217;s try evaluating an invalid piece of JavaScript:</p>
+</code></pre></div>
+<p>That’s working a treat. Now let’s try evaluating an invalid piece of JavaScript:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js3</span> <span class='k'>=</span> <span class='s'>&quot;$doesNotExist.arg()&quot;</span>
 <span class='n'>js3</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='nc'>$doesNotExist</span><span class='o'>.</span><span class='n'>arg</span><span class='o'>()</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js3</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
 <span class='n'>res3</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Good, and finally a valid piece of JavaScript but one which returns a String when we want a Boolean:</p>
 <div class='highlight'><pre><code class='scala'><span class='n'>scala</span><span class='o'>&gt;</span> <span class='k'>val</span> <span class='n'>js4</span> <span class='k'>=</span> <span class='s'>&quot;\&quot;I heart \&quot; + $lang.aLang();&quot;</span>
 <span class='n'>js4</span><span class='k'>:</span> <span class='kt'>java.lang.String</span> <span class='o'>=</span> <span class='s'>&quot;I heart &quot;</span> <span class='o'>+</span> <span class='nc'>$lang</span><span class='o'>.</span><span class='n'>aLang</span><span class='o'>();</span>
 
 <span class='n'>scala</span><span class='o'>&gt;</span> <span class='n'>evalAsBoolean</span><span class='o'>(</span><span class='n'>js4</span><span class='o'>,</span> <span class='n'>vars2</span><span class='o'>)</span>
 <span class='n'>res4</span><span class='k'>:</span> <span class='kt'>Option</span><span class='o'>[</span><span class='kt'>Boolean</span><span class='o'>]</span> <span class='k'>=</span> <span class='nc'>None</span>
-</code></pre>
-</div>
-<p>Great! Those are all behaving as expected. We&#8217;re going to pause here, but we&#8217;ve already made some good progress understanding how JavaScript can be invoked at runtime from a Scala environment.</p>
+</code></pre></div>
+<p>Great! Those are all behaving as expected. We’re going to pause here, but we’ve already made some good progress understanding how JavaScript can be invoked at runtime from a Scala environment.</p>
 
 <p>In the next post, we will take these learnings and start to apply them within a Scalding environment, with the aim of getting some basic user-defined JavaScript executing on Elastic MapReduce. Stay tuned for the next installment!</p>
 
-<p>If you&#8217;re interested in adapting Snowplow&#8217;s technology to meet your custom event processing needs, and would like to discuss your requirements with the Snowplow team, then <a href='/about/index.html'>get in touch</a>.</p>
+<p>If you’re interested in adapting Snowplow’s technology to meet your custom event processing needs, and would like to discuss your requirements with the Snowplow team, then <a href="/about/index.html">get in touch</a>.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -375,23 +358,6 @@ scala&gt; </code></pre>
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -409,22 +375,36 @@ scala&gt; </code></pre>
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -446,19 +426,22 @@ scala&gt; </code></pre>
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

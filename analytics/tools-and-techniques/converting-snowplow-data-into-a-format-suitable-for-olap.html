@@ -68,30 +68,32 @@
 	
 		<div id="contents">
 <h1><a name='top'>Converting Snowplow data into a format suitable for OLAP reporting tools e.g. Tableau, Qlikview, Pentaho, Microstrategy</a></h1>
-<p>Snowplow data is stored in a log file format, where each line of data represents one &#8220;event&#8221; on a particular user journey. This data structure is unsuitable for traditional BI / analysis tools like Tableau, Qlikview, Pentaho or Microstrategy which require that the data be structured in a format suitable for OLAP analysis. (Sometimes also called <em>pivot tables</em>.) In this section of the cookbook, we describe how to restructure Snowplow event data into a format suitable for OLAP analysis, so that it can be interrogated using tools like Tableau and Qlikview.</p>
+<p>Snowplow data is stored in a log file format, where each line of data represents one “event” on a particular user journey. This data structure is unsuitable for traditional BI / analysis tools like Tableau, Qlikview, Pentaho or Microstrategy which require that the data be structured in a format suitable for OLAP analysis. (Sometimes also called <em>pivot tables</em>.) In this section of the cookbook, we describe how to restructure Snowplow event data into a format suitable for OLAP analysis, so that it can be interrogated using tools like Tableau and Qlikview.</p>
 
 <p>Although this guide is written specifically for Snowplow data, the basic approach to converting log format data into a structure suitable for OLAP data should work for other log or event data sets as well.</p>
 
 <p>In this recipe, we give an overview of OLAP reporting tools before walking through the steps necessary to convert Snowplow log file format data into a format suitable for data analysis. (So that it can be interrogated by tools like Tableau, Qlikview, Microstrategy etc.)</p>
 
 <ol>
-<li><a href='#why'>Why use OLAP?</a></li>
+<li><a href="#why">Why use OLAP?</a></li>
 
-<li><a href='#what'>What is OLAP exactly?</a></li>
+<li><a href="#what">What is OLAP exactly?</a></li>
 
-<li><a href='#structure'>What structure does the data need to be in to support an OLAP cube?</a></li>
+<li><a href="#structure">What structure does the data need to be in to support an OLAP cube?</a></li>
 
-<li><a href='#practical'>Some practical considerations related to databases and tables</a></li>
+<li><a href="#practical">Some practical considerations related to databases and tables</a></li>
 
-<li><a href='#conversion'>Converting Snowplow event log data into dimensional OLAP structure: step by step guide</a></li>
+<li><a href="#conversion">Converting Snowplow event log data into dimensional OLAP structure: step by step guide</a></li>
 
-<li><a href='#tableau-test'>Interrogating the data with Tableau</a></li>
+<li><a href="#tableau-test">Interrogating the data with Tableau</a></li>
 
-<li><a href='#qlikview-test'>Interrogating the data with Qlikview</a></li>
+<li><a href="#qlikview-test">Interrogating the data with Qlikview</a></li>
 
-<li><a href='#limitations'>Limitations in OLAP analysis</a></li>
+<li><a href="#limitations">Limitations in OLAP analysis</a></li>
 </ol>
-<a name='why'><h3>1. Why use OLAP?</h3> </a>
+
+<p><a name='why'><h3>1. Why use OLAP?</h3> </a></p>
+
 <p>OLAP tools like Tableau, Qlikview, Pentaho and Microstrategy are very popular amongst data analysts because they</p>
 
 <ol>
@@ -99,42 +101,44 @@
 
 <li>They do not require much technical knowledge to use. (E.g. no need to know SQL or Python).</li>
 
-<li>They are well suited to &#8220;train of thought analysis&#8221; i.e. moving quickly between one view of the data and another, as insights derived from the first immediately lead to questions that are answered by the second.</li>
+<li>They are well suited to “train of thought analysis” i.e. moving quickly between one view of the data and another, as insights derived from the first immediately lead to questions that are answered by the second.</li>
 </ol>
 
 <p>OLAP tools are especially well suited for Snowplow web analytics data:</p>
 
 <ol>
-<li>There are a wide range of dimensions we might want to slice and dice web analytics data by, including time, user, visit, geography, device, browser, type of web page, web page, content and/or product, acquisition channel&#8230;</li>
+<li>There are a wide range of dimensions we might want to slice and dice web analytics data by, including time, user, visit, geography, device, browser, type of web page, web page, content and/or product, acquisition channel</li>
 
-<li>There are a wide variety of metrics we might want to compare between dimension combinations e.g. unique users, visits, page views, events, purchases, conversion rates, revenue&#8230;</li>
+<li>There are a wide variety of metrics we might want to compare between dimension combinations e.g. unique users, visits, page views, events, purchases, conversion rates, revenue</li>
 
-<li>Web analysts are generally very familiar with OLAP analysis / pivot tables: Google Analytics <a href='http://www.google.com/analytics/features/custom-reports.html'>custom reports</a> enables analysts to select metrics and dimensions like a primitive (and incredibly slow) OLAP cube, for example.</li>
+<li>Web analysts are generally very familiar with OLAP analysis / pivot tables: Google Analytics <a href="http://www.google.com/analytics/features/custom-reports.html">custom reports</a> enables analysts to select metrics and dimensions like a primitive (and incredibly slow) OLAP cube, for example.</li>
 </ol>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='what'><h3>2. What is OLAP exactly?</h3> </a>
-<h4 id='21_olap_overview'>2.1 OLAP overview</h4>
+<p>Back to <a href="#top">top</a>.</p>
 
-<p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for &#8220;online analytics processing&#8221;, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
+<p><a name='what'><h3>2. What is OLAP exactly?</h3> </a></p>
 
-<p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they&#8217;re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
-<p style='text-align:center;'><img width='250' src='/static/img/olap/example-cube.png' alt='olap cube' /></p>
-<p>When we say OLAP cube, then, we visualise a &#8220;cube&#8221; of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a &#8220;hyper-cube&#8221;, but it doens&#8217;t really matter.)</p>
+<h4 id="21_olap_overview">2.1 OLAP overview</h4>
 
-<p>Back to <a href='#top'>top</a>.</p>
+<p>OLAP is an approach for analysing multi-dimensional data. OLAP stands for “online analytics processing”, but it in fact relates to something much more tightly defined in data analytics: the treating of multidimensional data as a cube.</p>
 
-<h4 id='22_olap_operations'>2.2 OLAP operations</h4>
+<p>An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they’re interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?</p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube.png' width='250' /></p>
+<p>When we say OLAP cube, then, we visualise a “cube” of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a “hyper-cube”, but it doens’t really matter.)</p>
 
-<h4 id='221_slicing_data'>2.2.1 Slicing data</h4>
+<p>Back to <a href="#top">top</a>.</p>
 
-<p>We &#8220;slice&#8221; data when we pick two dimensions to view a particular metric by. The analogy is to take a &#8220;slice&#8221; through an OLAP cube to produce a 2D data set.</p>
-<p style='text-align:center;'><img width='180' src='/static/img/olap/slice.png' alt='slice olap cube' /></p>
-<h4 id='222_dice_data'>2.2.2. Dice data</h4>
+<h4 id="22_olap_operations">2.2 OLAP operations</h4>
 
-<p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called &#8220;dice&#8221;.</p>
-<p style='text-align:center;'><img width='140' src='/static/img/olap/dice.png' alt='dice olap cube' /></p>
-<h4 id='223_drill_up_and_drill_down'>2.2.3. Drill up and drill down</h4>
+<h4 id="221_slicing_data">2.2.1 Slicing data</h4>
+
+<p>We “slice” data when we pick two dimensions to view a particular metric by. The analogy is to take a “slice” through an OLAP cube to produce a 2D data set.</p>
+<p style='text-align:center;'><img alt='slice olap cube' src='/static/img/olap/slice.png' width='180' /></p>
+<h4 id="222_dice_data">2.2.2. Dice data</h4>
+
+<p>Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called “dice”.</p>
+<p style='text-align:center;'><img alt='dice olap cube' src='/static/img/olap/dice.png' width='140' /></p>
+<h4 id="223_drill_up_and_drill_down">2.2.3. Drill up and drill down</h4>
 
 <p>OLAP dimensions are often organised in a hierarchy. To gives some examples:</p>
 
@@ -148,9 +152,9 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <p>Drilling down refers to moving down the dimension hierarchy - e.g. from viewing sales by month to by week, and then by day. In each case, the level the metrics are being aggregated drops, so the actual numbers reported fall.</p>
 
-<p>In contrast, drilling up means moving up the dimension hierarchy - e.g. form viewing sales by month to by year. In this case, you&#8217;re aggregating bigger data sets (a whole year&#8217;s worth of data), so the the actual numbers get larger.</p>
+<p>In contrast, drilling up means moving up the dimension hierarchy - e.g. form viewing sales by month to by year. In this case, you’re aggregating bigger data sets (a whole year’s worth of data), so the the actual numbers get larger.</p>
 
-<h4 id='224_pivot'>2.2.4 Pivot</h4>
+<h4 id="224_pivot">2.2.4 Pivot</h4>
 
 <p>Pivoting means swaping one dimension for another. Typically this is used in two situations:</p>
 
@@ -159,36 +163,38 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <li>To better understand a relationship once one has been spotted. (Does product mix <em>only</em> vary by city? Or is it actually that user segments vary by city, and it is user segment that is predictive of product mix?)</li>
 </ol>
-<p style='text-align:center;'><img width='140' src='/static/img/olap/pivot.png' alt='pivot olap cube' /></p>
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
-<p>In traditional OLAP parlance, at the heart of OLAP data is a &#8220;fact table&#8221;. In Snowplow paralance, that fact table is really an &#8220;events&#8221; table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:</p>
+<p style='text-align:center;'><img alt='pivot olap cube' src='/static/img/olap/pivot.png' width='140' /></p>
+<p>Back to <a href="#top">top</a>.</p>
+
+<p><a name='structure'><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a></p>
+
+<p>In traditional OLAP parlance, at the heart of OLAP data is a “fact table”. In Snowplow paralance, that fact table is really an “events” table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:</p>
 
 <ol>
-<li>The granularity of the data is sufficient to support the sufficient &#8220;drill down&#8221;. So, for example, if you want to be able to drill down to an individual user level, for example, your data set has to have separate entries for each user, each differentiated by the <code>user_id</code> field. Any aggregation of users (e.g. cohorts) must happen in the OLAP tool e.g. Tableau, <strong>not</strong> in the raw data fed into Tableau</li>
+<li>The granularity of the data is sufficient to support the sufficient “drill down”. So, for example, if you want to be able to drill down to an individual user level, for example, your data set has to have separate entries for each user, each differentiated by the <code>user_id</code> field. Any aggregation of users (e.g. cohorts) must happen in the OLAP tool e.g. Tableau, <strong>not</strong> in the raw data fed into Tableau</li>
 
-<li>All the dimensional information associated with each event (or &#8220;fact&#8221;) that you want to slice / dice on must be present in the line of event data.</li>
+<li>All the dimensional information associated with each event (or “fact”) that you want to slice / dice on must be present in the line of event data.</li>
 </ol>
 
-<p>Of the two requirements outlined above, meeting the first using Snowplow data is easy, because Snowplow data is already stored at the most granular level. (I.e. at least one line of data per &#8220;event&#8221;.) Meeting the second is a bit more nuanced. We discuss both below:</p>
+<p>Of the two requirements outlined above, meeting the first using Snowplow data is easy, because Snowplow data is already stored at the most granular level. (I.e. at least one line of data per “event”.) Meeting the second is a bit more nuanced. We discuss both below:</p>
 
-<h4 id='31_getting_the_granularity_of_data_right'>3.1 Getting the granularity of data right</h4>
+<h4 id="31_getting_the_granularity_of_data_right">3.1 Getting the granularity of data right</h4>
 
-<p>The more granular our data, the more reporting flexibility we have. One of the most frequently cited complaints about Google Analytics, for example, is that the data Google provides isn&#8217;t sufficiently granular, so you cannot, for example, drill down to explore the way an individual user has engaged with your site.</p>
+<p>The more granular our data, the more reporting flexibility we have. One of the most frequently cited complaints about Google Analytics, for example, is that the data Google provides isn’t sufficiently granular, so you cannot, for example, drill down to explore the way an individual user has engaged with your site.</p>
 
-<p>With OLAP analysis, increased granularity doesn&#8217;t just support better drill down facilities. It also enables more pivotting possibilities - as you can slice and dice more combinations of metrics against one another.</p>
+<p>With OLAP analysis, increased granularity doesn’t just support better drill down facilities. It also enables more pivotting possibilities - as you can slice and dice more combinations of metrics against one another.</p>
 
-<p>So granularity is good. The good news is that Snowplow data is very granular: at least one line of data per event. If we wanted (and it&#8217;s perfectly legitimate to), we could feed Snowplow data into our OLAP reporting tool without aggregating it at all. However, there is a cost associated with this level of granularity: it means that the data volumes are greater, and so it is likely that the reporting tool will work more slowly. This used to be a much more important consideration (when RAM wasn&#8217;t so cheap, and before columnar databases like Infobright, in-memory databases and SSD drives). However, it is still a reasonable consideration today.</p>
+<p>So granularity is good. The good news is that Snowplow data is very granular: at least one line of data per event. If we wanted (and it’s perfectly legitimate to), we could feed Snowplow data into our OLAP reporting tool without aggregating it at all. However, there is a cost associated with this level of granularity: it means that the data volumes are greater, and so it is likely that the reporting tool will work more slowly. This used to be a much more important consideration (when RAM wasn’t so cheap, and before columnar databases like Infobright, in-memory databases and SSD drives). However, it is still a reasonable consideration today.</p>
 
-<p>One example of an approach to aggregating Snowplow data: we could aggregate it at the level of the user, session and event. (Be it a particular page load, product add to basket etc.) In this case, if we had a user who had visited a particular page 3x in one session, we would only have one line of data representing those three page views. (As opposed to having three in our original Snowplow events data set.) This would reduce our volume of data somewhat (likely by a factor of 0.1 - 0.25), but still give us a lot of reporting flexibility. (We&#8217;d be able to drill down to the user and action level.) We would not, however, be able to perform any path analysis. (I.e. look at the sequence of events in a particular user session.) In any case, this type of analysis isn&#8217;t well supported by OLAP tools like Tableau.</p>
+<p>One example of an approach to aggregating Snowplow data: we could aggregate it at the level of the user, session and event. (Be it a particular page load, product add to basket etc.) In this case, if we had a user who had visited a particular page 3x in one session, we would only have one line of data representing those three page views. (As opposed to having three in our original Snowplow events data set.) This would reduce our volume of data somewhat (likely by a factor of 0.1 - 0.25), but still give us a lot of reporting flexibility. (We’d be able to drill down to the user and action level.) We would not, however, be able to perform any path analysis. (I.e. look at the sequence of events in a particular user session.) In any case, this type of analysis isn’t well supported by OLAP tools like Tableau.</p>
 
-<h4 id='32_ensure_all_dimensions_information_associated_with_each_event_is_in_every_line_of_data'>3.2 Ensure all dimensions information associated with each event is in every line of data</h4>
+<h4 id="32_ensure_all_dimensions_information_associated_with_each_event_is_in_every_line_of_data">3.2 Ensure all dimensions information associated with each event is in every line of data</h4>
 
 <p>There are a number of dimensions that are already available on every line of Snowplow data. For example, the browser and operating system fields are populated in every line of Snowplow data.</p>
 
 <p>However, there are other dimensions that are not available on every line of Snowplow data. These dimensions need to be inferred by looking at user behavior across multiple lines of data. To give two examples:</p>
 
-<p>Say we are interested in bucketing users into cohorts based on the first time they performed a particular action e.g. &#8220;signup&#8221;. Maybe we bucket users by month. In order to decide which bucket a user belongs, we need to scan all their records to identify the line of data generated when they first signed up, and then read the <code>dt</code> field on that line and use that to determine the bucket. This can be accomplished, for example, using the following SQL:</p>
+<p>Say we are interested in bucketing users into cohorts based on the first time they performed a particular action e.g. “signup”. Maybe we bucket users by month. In order to decide which bucket a user belongs, we need to scan all their records to identify the line of data generated when they first signed up, and then read the <code>dt</code> field on that line and use that to determine the bucket. This can be accomplished, for example, using the following SQL:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>user_id</span><span class='p'>,</span>
 	<span class='nf'>CONCAT</span><span class='p'>(</span><span class='kt'>YEAR</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)),</span> <span class='s2'>&quot;-&quot;</span><span class='p'>,</span> <span class='nf'>MONTH</span><span class='p'>(</span><span class='nf'>MIN</span><span class='p'>(</span><span class='n'>dt</span><span class='p'>)))</span>
@@ -198,9 +204,8 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 	<span class='n'>ev_action</span> <span class='k'>LIKE</span> <span class='s2'>&quot;signup&quot;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> 
 	<span class='n'>user_id</span>
-</code></pre>
-</div>
-<p>When we feed our data into an OLAP reporting tool like Tableau, we need a column in it called &#8220;cohort&#8221;, and for each event for each user, that column needs to be populated with the results from the above query.</p>
+</code></pre></div>
+<p>When we feed our data into an OLAP reporting tool like Tableau, we need a column in it called “cohort”, and for each event for each user, that column needs to be populated with the results from the above query.</p>
 
 <p>To take another example: say we want to bucket users again, but this time by the channel that drove them to our website in the first place. Again, to work this out, we need to look at the first event for each of those users, and see what drove him / her there. Our SQL query would look like:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
@@ -216,39 +221,42 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 	<span class='k'>group</span> <span class='k'>by</span> <span class='n'>user_id</span> <span class='p'>)</span> <span class='n'>users</span>
 <span class='k'>ON</span> <span class='n'>users</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>first_touch_timestamp</span>
-</code></pre>
-</div>
-<p>In our modified data set for our OLAP reporting tool, we&#8217;d want a column for this data (maybe called &#8220;first referrer&#8221;) that was populated with the <code>first_referrer</code> field generated by the above query.</p>
+</code></pre></div>
+<p>In our modified data set for our OLAP reporting tool, we’d want a column for this data (maybe called “first referrer”) that was populated with the <code>first_referrer</code> field generated by the above query.</p>
 
-<p>In both the above cases, we take data that we deduce about a dimension from scanning multiple rows of events data (in each case, about the &#8220;user&#8221; dimension), and add it into an additional column to our &#8220;event&#8221; line of data in or OLAP data set. This means that it is straightforward for the OLAP tool to identify that this event happened for a user who belongs in this particular cohort, and so when aggregating metrics for that cohort, the metric on this line of data should be included. Tools like Tableau will not scan multiple lines of data to infer the dimension value for a particular line of data computation needs to happen to the data set before it is imported in.</p>
+<p>In both the above cases, we take data that we deduce about a dimension from scanning multiple rows of events data (in each case, about the “user” dimension), and add it into an additional column to our “event” line of data in or OLAP data set. This means that it is straightforward for the OLAP tool to identify that this event happened for a user who belongs in this particular cohort, and so when aggregating metrics for that cohort, the metric on this line of data should be included. Tools like Tableau will not scan multiple lines of data to infer the dimension value for a particular line of data computation needs to happen to the data set before it is imported in.</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='practical'><h3>4. Some practical considerations related to star schemas and columnar databases</h3></a>
-<p>OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central &#8220;fact table&#8221; of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.</p>
-<p style='text-align:center;'><img src='/static/img/olap/star-schema.png' alt='pivot olap cube' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
-<p>Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single &#8220;fat&#8221; fact table with all the relevant dimensions:</p>
-<p style='text-align:center;'><img width='500' src='/static/img/olap/desired-structure-for-olap.png' alt='desired structure' /></p>
-<p>Columnar databases make this possible because they make &#8220;columns cheap&#8221;: query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves. (Which is generally a time consuming operation.)</p>
+<p>Back to <a href="#top">top</a>.</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='conversion'><h3>5. Converting Snowplow event log data into dimensional OLAP structure: step by step guide</h3></a>
+<p><a name='practical'><h3>4. Some practical considerations related to star schemas and columnar databases</h3></a></p>
+
+<p>OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central “fact table” of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.</p>
+<p style='text-align:center;'><img alt='pivot olap cube' src='/static/img/olap/star-schema.png' /></p><p style='font-size:small;text-align:right'>Image taken from <a href='http://en.wikipedia.org/wiki/Star_schema'>Wikipedia</a></p>
+<p>Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single “fat” fact table with all the relevant dimensions:</p>
+<p style='text-align:center;'><img alt='desired structure' src='/static/img/olap/desired-structure-for-olap.png' width='500' /></p>
+<p>Columnar databases make this possible because they make “columns cheap”: query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves. (Which is generally a time consuming operation.)</p>
+
+<p>Back to <a href="#top">top</a>.</p>
+
+<p><a name='conversion'><h3>5. Converting Snowplow event log data into dimensional OLAP structure: step by step guide</h3></a></p>
+
 <p>Converting Snowplow event log data into a dimensional OLAP struture is a four step process</p>
 
 <ol>
-<li><a href='#structure-2'>Define the structure of our OLAP data table</a>, including both metric and dimension columns</li>
+<li><a href="#structure-2">Define the structure of our OLAP data table</a>, including both metric and dimension columns</li>
 
-<li><a href='#granularity'>Work out what level of granularity to use</a> i.e. what each line of data reprents. (One event or a higher level of aggregation?)</li>
+<li><a href="#granularity">Work out what level of granularity to use</a> i.e. what each line of data reprents. (One event or a higher level of aggregation?)</li>
 
-<li><a href='#define'>Define our table</a></li>
+<li><a href="#define">Define our table</a></li>
 
-<li><a href='#compute'>Work out how to compute each line of data</a></li>
+<li><a href="#compute">Work out how to compute each line of data</a></li>
 
-<li><a href='#generate'>Generate the OLAP data</a></li>
+<li><a href="#generate">Generate the OLAP data</a></li>
 </ol>
 <h3><a name='structure-2'>5.1 Define the structure of our OLAP data table, including both metric and dimension columns</a></h3>
-<h3 id='511_metrics'>5.1.1 Metrics</h3>
+<h3 id="511_metrics">5.1.1 Metrics</h3>
 
-<p>Let us start with the metrics we want to include, and make sure we have all the basics we&#8217;d expect for any website:</p>
+<p>Let us start with the metrics we want to include, and make sure we have all the basics we’d expect for any website:</p>
 
 <ul>
 <li>Uniques</li>
@@ -334,9 +342,9 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <li>Number of shares</li>
 </ul>
 
-<p>To keep this tutorial a manageable length, we&#8217;ll only include the first three metrics (uniques, visits and page views) in our example. However, extending our OLAP data table to include many more metrics is possible (and recommended): one of the explicit aims of Snowplow, after all, is to enable you to report the metrics that matter to your business, however particular those metrics are. (For a video of an example cube with many more dimensions, see our blog post on <a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow/'>analysing Snowplow data with Tableau</a>.)</p>
+<p>To keep this tutorial a manageable length, we’ll only include the first three metrics (uniques, visits and page views) in our example. However, extending our OLAP data table to include many more metrics is possible (and recommended): one of the explicit aims of Snowplow, after all, is to enable you to report the metrics that matter to your business, however particular those metrics are. (For a video of an example cube with many more dimensions, see our blog post on <a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow/">analysing Snowplow data with Tableau</a>.)</p>
 
-<h3 id='512_dimensions'>5.1.2 Dimensions</h3>
+<h3 id="512_dimensions">5.1.2 Dimensions</h3>
 
 <p>When deciding which dimensions to include, we need to think about all the entities that matter to our business. Some common entities that all website / webapp owners should be interested in:</p>
 
@@ -376,7 +384,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <li>Groups</li>
 </ul>
 
-<p>Again, to keep this tutorial manageable, we&#8217;ll concentrate on just the first three entities identified i.e. users, visits, pages. However, we do recommend including <strong>all</strong> the entities in your OLAP data structure that matter to you business. Now, for each entity, we should list what data points we want to capture. Some suggestions:</p>
+<p>Again, to keep this tutorial manageable, we’ll concentrate on just the first three entities identified i.e. users, visits, pages. However, we do recommend including <strong>all</strong> the entities in your OLAP data structure that matter to you business. Now, for each entity, we should list what data points we want to capture. Some suggestions:</p>
 
 <p><strong>User</strong></p>
 
@@ -408,11 +416,11 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <li>page_title</li>
 </ul>
 
-<p>We should recognise that there is a hierarchy in the three entities we&#8217;ve identified: users may visit our website once or more, and on each visit view one or more pages. This will be important when we generate our OLAP data.</p>
+<p>We should recognise that there is a hierarchy in the three entities we’ve identified: users may visit our website once or more, and on each visit view one or more pages. This will be important when we generate our OLAP data.</p>
 
-<p>Remember - we&#8217;re only including a handful of dimensions to keep this tutorial manageable. We recommend including as many dimensions as possible, to support as wide a range of OLAP analyses as possible.</p>
+<p>Remember - we’re only including a handful of dimensions to keep this tutorial manageable. We recommend including as many dimensions as possible, to support as wide a range of OLAP analyses as possible.</p>
 <h3><a name='granularity'>5.2 Work out what level of granularity to use i.e. what each line of data reprents. (One event or a higher level of aggregation?)</a></h3>
-<p>We discussed the merits and costs or keeping more granular data in your OLAP cube. For the sakes of this example, we&#8217;re going aggregate data by page by visit. That means we will be able to look at the number of page views and number of unique page views by visit, but not analyse e.g. for users who look at a particular web page twice in one session e.g. how many page views they viewed in between the two of the same page.</p>
+<p>We discussed the merits and costs or keeping more granular data in your OLAP cube. For the sakes of this example, we’re going aggregate data by page by visit. That means we will be able to look at the number of page views and number of unique page views by visit, but not analyse e.g. for users who look at a particular web page twice in one session e.g. how many page views they viewed in between the two of the same page.</p>
 <h3><a name='define'>5.3 Define our table</a></h3>
 <p>To return to our example, we are now in a position to define the structure of the OLAP data as it would look in <a name='table-def'>Infobright</a>:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>CREATE</span> <span class='k'>TABLE</span> <span class='k'>IF</span> <span class='k'>NOT</span> <span class='k'>EXISTS</span> <span class='nf'>demo_cube</span> <span class='p'>(</span>
@@ -446,17 +454,16 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 		<span class='ss'>`page_views`</span> <span class='kt'>int</span>
 
 <span class='p'>)</span> <span class='kp'>ENGINE</span> <span class='n'>BRIGHTHOUSE</span> <span class='k'>DEFAULT</span> <span class='kp'>CHARSET</span><span class='o'>=</span><span class='n'>utf8</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Note: only one of our three metrics is defined in our table: <code>page_views</code>. We do not have a column for <code>uniques</code> or <code>visits</code>. The reason is that both of these can be <em>derived</em> from the data above: we can work out how many uniques on a particular day by counting the number of distinct <code>user_id</code>s. Similarly, we can calculate the number of visits based on the number of distinct <code>CONCAT(user_id, &quot;-&quot;, visit_id)</code> in a time period.</p>
 
-<p>If we were aggregating our data to a the visit level (so we have one line of data for each visit), we could have an additional metric column called <code>visits</code> and set the value to <code>1</code> for each line of data. (Because each line of data would represent one visit.) Then summing this value over e.g. time would have given us a visit count. However, in our case, where each line of data represents one page view, there is no way to sum across page views to get visits. (Because we don&#8217;t know in advance how many page views in a visit.) Instead, we count distinct effective visit identifiers, where our visit identifier is created by concatenating the <code>user_id</code> with the <code>visit_id</code>.</p>
+<p>If we were aggregating our data to a the visit level (so we have one line of data for each visit), we could have an additional metric column called <code>visits</code> and set the value to <code>1</code> for each line of data. (Because each line of data would represent one visit.) Then summing this value over e.g. time would have given us a visit count. However, in our case, where each line of data represents one page view, there is no way to sum across page views to get visits. (Because we don’t know in advance how many page views in a visit.) Instead, we count distinct effective visit identifiers, where our visit identifier is created by concatenating the <code>user_id</code> with the <code>visit_id</code>.</p>
 
 <p>Similarly, if we were to aggregate our data to the user level (so we have one line of data for each user), we could have a column for both the uniques and visits metrics, where the uniques column would be set to <code>1</code> on every data line and the value of <code>visits</code> would vary depending on the number of visits by user. However, we would not be able to perform any page level analysis with our data set.</p>
 <h3><a name='compute'>5.4 Work out how to compute each line of data</a></h3>
-<p>There are a number of tools we can use to generate out OLAP data set from our Snowplow data set. In this example, we&#8217;re going to assume our events data is in Infobright, and we&#8217;ll generate our OLAP data set using just SQL. Note: the same SQL should work equally well to generate an output data set in Hive. However, we would <strong>not</strong> want our OLAP data to live in Hive, as querying it would be much slower than if that data lived in a columnar database like Infobright. Train-of-thought analysis (which OLAP reporting tools excel at) is only possible if querying is fast, and Hive/ map reduce is not fast.</p>
+<p>There are a number of tools we can use to generate out OLAP data set from our Snowplow data set. In this example, we’re going to assume our events data is in Infobright, and we’ll generate our OLAP data set using just SQL. Note: the same SQL should work equally well to generate an output data set in Hive. However, we would <strong>not</strong> want our OLAP data to live in Hive, as querying it would be much slower than if that data lived in a columnar database like Infobright. Train-of-thought analysis (which OLAP reporting tools excel at) is only possible if querying is fast, and Hive/ map reduce is not fast.</p>
 
-<p>We&#8217;ve decided that we want a line of data for every web page on every visit. We can generate a line of data at this granularity using the following query:</p>
+<p>We’ve decided that we want a line of data for every web page on every visit. We can generate a line of data at this granularity using the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>user_id</span><span class='p'>,</span>
 	<span class='n'>visit_id</span><span class='p'>,</span>
@@ -467,9 +474,8 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 	<span class='n'>events</span> <span class='n'>e</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> 
 	<span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span><span class='p'>,</span> <span class='n'>page_url</span><span class='p'>,</span> <span class='n'>page_title</span>
-</code></pre>
-</div>
-<p>So far so good, we now have a number of the desired columns in our OLAP data set. We&#8217;re still missing a number of dimensions, however, that relate to the visit (i.e. <code>dt</code>, <code>tm</code>, and source of traffic) and user (i.e. cohort and source of traffic).</p>
+</code></pre></div>
+<p>So far so good, we now have a number of the desired columns in our OLAP data set. We’re still missing a number of dimensions, however, that relate to the visit (i.e. <code>dt</code>, <code>tm</code>, and source of traffic) and user (i.e. cohort and source of traffic).</p>
 
 <p>Let us first generate the missing visit data. We want the date, time and traffic source data fields that are stored in the first line of event data for each visit. We can pull that data from our Snowplow events table by executing the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
@@ -493,8 +499,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <span class='k'>AND</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>visit_id</span> <span class='o'>=</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>visit_id</span>
 <span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e2</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e2</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>v</span><span class='p'>.</span><span class='n'>first_touch_timestamp</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>visit_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then join it with our original data set to populate the missing visit dimension fields:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -549,8 +554,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <span class='p'>)</span> <span class='n'>visits</span>
 <span class='k'>ON</span> <span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>visits</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>AND</span> <span class='n'>page_views</span><span class='p'>.</span><span class='n'>visit_id</span> <span class='o'>=</span> <span class='n'>visits</span><span class='p'>.</span><span class='n'>visit_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now we only need to add the missing user dimension fields i.e. <code>cohort</code> and traffic source fields. Both can be derived from the first event that each user takes, <em>ever</em>, using the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>u</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -572,8 +576,7 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 <span class='k'>ON</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>e3</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>AND</span> <span class='nf'>CONCAT</span><span class='p'>(</span><span class='n'>e3</span><span class='p'>.</span><span class='n'>dt</span><span class='p'>,</span> <span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='n'>e3</span><span class='p'>.</span><span class='n'>tm</span><span class='p'>)</span> <span class='o'>=</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>first_touch_timestamp</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Now need to join these additional data fields to our data set:</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>SELECT</span>
 	<span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span><span class='p'>,</span>
@@ -658,54 +661,58 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 		<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>u</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='p'>)</span> <span class='n'>users</span>
 <span class='k'>ON</span> <span class='n'>page_views</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>users</span><span class='p'>.</span><span class='n'>user_id</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>The above query will return Snowplow data in a format suitable for processing in an OLAP reporting tool like Tableau.</p>
 <h3><a name='generate'>5.5 Generate the OLAP data</a></h3>
 <p>Generating the data required is as simple as running the above query. However, using SQL statements to generate versions of the Snowplow events data to use in OLAP reporting tools is not computationally efficient: in particular, it requires multiple passes through the entire data set and several joins between subtables derived from the events table, all of which are pretty costly.</p>
 
-<p>For that reason, we recommend using SQL to generate <strong>agile data cubes</strong>: to quickly generate data for querying in Tableau / Qlikview / Pentaho with a view to experimenting with new dimensions and metrics, for example. If it turns out that a particular data cube is of value to you, and you want to continue to use it (and keep it updated), we&#8217;d recommend using <a href='http://www.cascading.org/'>Cascading</a> in a Hadoop environment to keep you OLAP data set up-to-date. We will document how to do this in due course.</p>
+<p>For that reason, we recommend using SQL to generate <strong>agile data cubes</strong>: to quickly generate data for querying in Tableau / Qlikview / Pentaho with a view to experimenting with new dimensions and metrics, for example. If it turns out that a particular data cube is of value to you, and you want to continue to use it (and keep it updated), we’d recommend using <a href="http://www.cascading.org/">Cascading</a> in a Hadoop environment to keep you OLAP data set up-to-date. We will document how to do this in due course.</p>
 
-<p>If you&#8217;re running Infobright Community Edition, you wont be able to write the output of the query directly into a new table because <code>INSERT</code> statements are not supported. Instead, we&#8217;ll write our results to file, and then import them back into Infobright.</p>
+<p>If you’re running Infobright Community Edition, you wont be able to write the output of the query directly into a new table because <code>INSERT</code> statements are not supported. Instead, we’ll write our results to file, and then import them back into Infobright.</p>
 
 <p>To write the results to file, execute the above query, but add <code>INTO OUTFILE </code> at the end of the statement.</p>
 
-<p>Now create a new table to house the data, using the <a href='#table-def'>table definition given above</a>.</p>
+<p>Now create a new table to house the data, using the <a href="#table-def">table definition given above</a>.</p>
 
 <p>Now we can load our saved data into our new table</p>
 <div class='highlight'><pre><code class='mysql'><span class='k'>LOAD</span> <span class='n'>DATA</span> <span class='k'>INFILE</span> <span class='s1'>&#39;&#39;</span>
 <span class='k'>INTO</span> <span class='k'>TABLE</span> <span class='n'>demo_cube</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p>We&#8217;re ready to connect our OLAP reporting tool of choice (e.g. Tableau, Qlikview) to our data set in Infobright!</p>
+</code></pre></div>
+<p>We’re ready to connect our OLAP reporting tool of choice (e.g. Tableau, Qlikview) to our data set in Infobright!</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='tableau-test'><h3>6. Interrogating the data with Tableau</h3></a>
-<p>Connecting Tableau desktop edition to Infobright is a bit fiddly: in most cases, your data will be on a remote Infobright instance and you&#8217;ll want to establish an SSH connection between the PC running Tableau and that instance. Instructions on how to do this is beyond the scope of this tutorial, but a decent explanation of how to setup a tunnel using <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/'>Putty</a> can be found <a href='http://oldsite.precedence.co.uk/nc/putty.html'>here</a>.</p>
+<p>Back to <a href="#top">top</a>.</p>
+
+<p><a name='tableau-test'><h3>6. Interrogating the data with Tableau</h3></a></p>
+
+<p>Connecting Tableau desktop edition to Infobright is a bit fiddly: in most cases, your data will be on a remote Infobright instance and you’ll want to establish an SSH connection between the PC running Tableau and that instance. Instructions on how to do this is beyond the scope of this tutorial, but a decent explanation of how to setup a tunnel using <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">Putty</a> can be found <a href="http://oldsite.precedence.co.uk/nc/putty.html">here</a>.</p>
 
 <p>Once you have setup your tunnel, launch Tableau and select <strong>connect to data</strong>. Select <strong>MySQL</strong> from the list of options:</p>
-<p style='text-align:center;'><img width='350' src='/static/img/olap/tableau-1.JPG' alt='connect tableau to data' /></p>
-<p>In our case I&#8217;ve setup Putty to forward requests to <code>localhost:1234</code> to my remote Infobright instance. The server name and port number you&#8217;ll need to enter will be determined by the nature of the tunnel you&#8217;ve established.</p>
+<p style='text-align:center;'><img alt='connect tableau to data' src='/static/img/olap/tableau-1.JPG' width='350' /></p>
+<p>In our case I’ve setup Putty to forward requests to <code>localhost:1234</code> to my remote Infobright instance. The server name and port number you’ll need to enter will be determined by the nature of the tunnel you’ve established.</p>
 
 <p>Enter the username and password to log into your Infobright instance and click <strong>Connect</strong>. Select the database you created the table in: your table should be visible:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-2.JPG' alt='olap cube' /></p>
-<p>You&#8217;ll be given an option as to how much of the data you want imported into Tableau&#8217;s fast data engine. If your data set isn&#8217;t too large, you can try importing all of it. Otherwise, select &#8220;import some data&#8221; or &#8220;Connect live&#8221;&#8220;. Your workbook should launch:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-3.JPG' alt='olap cube' /></p>
-<p>Tableau&#8217;s made some guesses as to which one of our columns are dimensions and which are metrics. If the field is numeric, Tableau assumes it is a metric. If it&#8217;s not, it assumes it&#8217;s a dimension. That works for <em>most</em> of our fields, but not for <code>visit_id</code> (which is a dimension). Simply drag <code>visit_id</code> from the <strong>Measures</strong> pane to the <strong>Dimensions pane</strong>:</p>
-<p style='text-align:center;'><img src='/static/img/olap/tableau-4.JPG' alt='olap cube' /></p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-2.JPG' /></p>
+<p>You’ll be given an option as to how much of the data you want imported into Tableau’s fast data engine. If your data set isn’t too large, you can try importing all of it. Otherwise, select “import some data” or “Connect live”“. Your workbook should launch:</p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-3.JPG' /></p>
+<p>Tableau’s made some guesses as to which one of our columns are dimensions and which are metrics. If the field is numeric, Tableau assumes it is a metric. If it’s not, it assumes it’s a dimension. That works for <em>most</em> of our fields, but not for <code>visit_id</code> (which is a dimension). Simply drag <code>visit_id</code> from the <strong>Measures</strong> pane to the <strong>Dimensions pane</strong>:</p>
+<p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/tableau-4.JPG' /></p>
 <p>Now we need to add our two missing metrics: <code>uniques</code> and <code>visits</code>. To add <code>uniques</code>, right click on <code>user_id</code> (in the dimensions pane) and select <strong>Create calculated field</strong>. Tableau gives us the opportunity to create a new, calcultaed field. Fill in the name and formula as below:</p>
-<p style='text-align:center;'><img width='550' src='/static/img/olap/tableau-5.JPG' alt='calculated field - uniques' /></p>
+<p style='text-align:center;'><img alt='calculated field - uniques' src='/static/img/olap/tableau-5.JPG' width='550' /></p>
 <p>Click <strong>OK</strong>: <code>Uniques</code> will now be listed as a <strong>Measure</strong>. Now we need to create a new calculated field for <strong>Visits</strong>:</p>
-<p style='text-align:center;'><img width='550' src='/static/img/olap/tableau-6.JPG' alt='calculated field - visits' /></p>
-<p>Now we&#8217;re all set! We can drag and drop our fields and metrics to our heart&#8217;s content, to explore our data set. To see a video demonstration of how to do this (including with a cube with more dimensions and metrics than in this tutorial) see our blog post on <a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow/'>analysing Snowplow data with Tableau</a>.</p>
+<p style='text-align:center;'><img alt='calculated field - visits' src='/static/img/olap/tableau-6.JPG' width='550' /></p>
+<p>Now we’re all set! We can drag and drop our fields and metrics to our heart’s content, to explore our data set. To see a video demonstration of how to do this (including with a cube with more dimensions and metrics than in this tutorial) see our blog post on <a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow/">analysing Snowplow data with Tableau</a>.</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='qlikview-test'><h3>7. Interrogating the data with Qlikview</h3></a>
+<p>Back to <a href="#top">top</a>.</p>
+
+<p><a name='qlikview-test'><h3>7. Interrogating the data with Qlikview</h3></a></p>
+
 <p>TO WRITE</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
-<a name='limitations'><h3>8. Limitations in OLAP analysis</h3></a>
-<p>One of the things that people often note when running tools like Tableau on top of Snowplow data is that it is quick and easy to put together the vast majority of reports delivered by standard analytics package like Google Analytics and even the type of cohort analysis delivered by toolsl like <a href='https://mixpanel.com/'>Mixpanel</a> and <a href='http://www.kissmetrics.com/'>Kissmetrics</a>. This sometimes leads excited analysts to forget all the analytics possibilities that are <strong>not</strong> supported by OLAP tools:</p>
+<p>Back to <a href="#top">top</a>.</p>
+
+<p><a name='limitations'><h3>8. Limitations in OLAP analysis</h3></a></p>
+
+<p>One of the things that people often note when running tools like Tableau on top of Snowplow data is that it is quick and easy to put together the vast majority of reports delivered by standard analytics package like Google Analytics and even the type of cohort analysis delivered by toolsl like <a href="https://mixpanel.com/">Mixpanel</a> and <a href="http://www.kissmetrics.com/">Kissmetrics</a>. This sometimes leads excited analysts to forget all the analytics possibilities that are <strong>not</strong> supported by OLAP tools:</p>
 
 <ol>
 <li>Path / journey analysis</li>
@@ -719,7 +726,8 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 
 <p>That is not to take anything away from OLAP tools, just to remind users that they are one in an arsenal of analytic techniques, that Snowplow makes it possible to leverage with web analytics data.</p>
 
-<p>Back to <a href='#top'>top</a>.</p>
+<p>Back to <a href="#top">top</a>.</p>
+
 </div>
 
  <div id="sidebar">
@@ -745,12 +753,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 		
 		<ul>
 			
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -890,138 +892,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1081,9 +951,145 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
 					
 				
 					
@@ -1107,7 +1113,9 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
-									
+				
+					
+				
 					
 				
 					
@@ -1220,16 +1228,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
 					
 				
 					
@@ -1253,6 +1251,16 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1313,12 +1321,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 			
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -1454,138 +1456,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -1645,12 +1515,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1668,6 +1532,12 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1783,12 +1653,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1806,6 +1670,12 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1921,12 +1791,6 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1944,6 +1808,12 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -2059,6 +1929,138 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -2082,6 +2084,12 @@ Category -&gt; Subcategory -&gt; Product</code></pre>
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					

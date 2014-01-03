@@ -71,22 +71,23 @@
 			12 Nov 2012
 			<h1>Snowplow 0.6.0 released, with the new StorageLoader</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let&#8217;s start by introducing StorageLoader:</p>
+			
+<p>We’re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let’s start by introducing StorageLoader:</p>
 
-<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
+<h2 id="introducing_storageloader">Introducing StorageLoader</h2>
 
 <p>Up until now, Snowplow has stored all its data in S3, where it can be queried in Hive. However, our vision with Snowplow has always been to enable to the broadest set of analyses on Snowplow data as possible. That means making it as easy as possible to keep up to date versions of Snowplow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
 
-<p><img src='/static/img/SnowplowLoader.jpg' alt='snowplow-loader-image' /></p>
+<p><img src="/static/img/SnowplowLoader.jpg" alt="snowplow-loader-image" /></p>
 
-<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href="http://www.infobright.org/">Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
 
 <ul>
-<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow&#8217;s granular data)</li>
+<li><a href="https://developers.google.com/bigquery">Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow’s granular data)</li>
 
-<li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
+<li><a href="http://skydb.io">SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
 
-<li><a href='http://www.postgresql.org'>PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
+<li><a href="http://www.postgresql.org">PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
 </ul>
 <!--more-->
 <p>There are significant advantages to storing data in Infobright instead of (or as well as) S3:</p>
@@ -96,12 +97,12 @@
 
 <li>There are a wide range of analytics tools that plug directly into Infobright. (Any tool that plugs into MySQL.) These can now be run directly on top of Snowplow data. (These tools include R and Tableau.)</li>
 
-<li>For more details on the pros and cons of storage in S3 vs Infobright, see our <a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'>guide to choosing between the two</a>.</li>
+<li>For more details on the pros and cons of storage in S3 vs Infobright, see our <a href="https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module">guide to choosing between the two</a>.</li>
 </ul>
 
 <p>As you can hopefully get a sense looking at our roadmap for other databases to support, there are obvious advantages to using some of the other databases on our roadmapGoing forwards, we expect that many companies using Snowplow will store that Snowplow data in more than one store, to enable a very broad range of analytics from different types of tools.</p>
 
-<h2 id='using_the_storageloader'>Using the StorageLoader</h2>
+<h2 id="using_the_storageloader">Using the StorageLoader</h2>
 
 <p>You can configure StorageLoader with the details of the Infobright table to insert your Snowplow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your Snowplow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
 
@@ -110,20 +111,20 @@
 <p>The following setup guides should be helpful in terms of setting up StorageLoader:</p>
 
 <ul>
-<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house Snowplow data</li>
+<li><a href="https://github.com/snowplow/snowplow/wiki/infobright-storage-setup">Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house Snowplow data</li>
 
-<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load Snowplow data into Infobright</li>
+<li><a href="https://github.com/snowplow/snowplow/wiki/StorageLoader-setup">StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load Snowplow data into Infobright</li>
 </ul>
 
-<h2 id='the_codebase'>The codebase</h2>
+<h2 id="the_codebase">The codebase</h2>
 
-<p>If you want to take a look at the code, you can find it in the main repository here: <a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>4-storage/storage-loader/</a></p>
+<p>If you want to take a look at the code, you can find it in the main repository here: <a href="https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader">4-storage/storage-loader/</a></p>
 
-<h2 id='getting_help'>Getting help</h2>
+<h2 id="getting_help">Getting help</h2>
 
-<p>If you have any problems getting StorageLoader working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>If you have any problems getting StorageLoader working, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
 
-<h2 id='other_fixes_in_060'>Other fixes in 0.6.0</h2>
+<h2 id="other_fixes_in_060">Other fixes in 0.6.0</h2>
 
 <p>We have made a number of other fixes across Snowplow to prepare the ground for StorageLoader:</p>
 
@@ -133,9 +134,10 @@
 
 <p>The <strong>non-Hive format HiveQL script</strong> has been bumped to 0.0.2 and now uses the new 0 or 1 approach to booleans. This is necessary so that true/false values can be successfully loaded into Infobright.</p>
 
-<p>The <strong>setup_infobright.sql</strong> script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates &#8216;boolean&#8217; columns as tinyint(1)s anyway.</p>
+<p>The <strong>setup_infobright.sql</strong> script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates ‘boolean’ columns as tinyint(1)s anyway.</p>
 
 <p>We will keep you posted as we roll out support for additional database options in StorageLoader! (And welcome suggestinos for other databases we should build support for.)</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -186,23 +188,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -220,22 +205,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -257,19 +256,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

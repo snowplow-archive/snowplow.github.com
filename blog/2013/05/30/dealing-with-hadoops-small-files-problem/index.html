@@ -71,51 +71,56 @@
 			30 May 2013
 			<h1>Dealing with Hadoop's small files problem</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Hadoop has a serious Small File Problem. It&#8217;s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href='http://blog.cloudera.com/blog/2009/02/the-small-files-problem/'>Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
-<img src='/static/img/blog/2013/05/plowing-small-files.jpg' />
+			
+<p>Hadoop has a serious Small File Problem. It’s widely known that Hadoop struggles to run MapReduce jobs that involve thousands of small files: Hadoop much prefers to crunch through tens or hundreds of files sized at or around the magic 128 megabytes. The technical reasons for this are well explained in this <a href="http://blog.cloudera.com/blog/2009/02/the-small-files-problem/">Cloudera blog post</a> - what is less well understood is how badly small files can slow down your Hadoop job, and what to do about it.</p>
+
+<p><img src='/static/img/blog/2013/05/plowing-small-files.jpg' /></p>
+
 <p>In this blog post we will discuss the small files problem in terms of our experiences with it at Snowplow. <strong>And we will argue that dealing with the small files problem - if you have it - is the single most important optimisation you can perform on your MapReduce process.</strong></p>
 <!--more-->
-<h2 id='background'>Background</h2>
+<h2 id="background">Background</h2>
 
-<p>To give some necessary background on our architecture: Snowplow event trackers send user events to a pixel hosted on CloudFront, which logs those raw events to Amazon S3. Amazon&#8217;s CloudFront logging generates many small log files in S3: a relatively low-traffic e-commerce site using Snowplow generated 26,372 CloudFront log files over a six month period, containing 83,110 events - that&#8217;s just 3.2 events per log file.</p>
+<p>To give some necessary background on our architecture: Snowplow event trackers send user events to a pixel hosted on CloudFront, which logs those raw events to Amazon S3. Amazon’s CloudFront logging generates many small log files in S3: a relatively low-traffic e-commerce site using Snowplow generated 26,372 CloudFront log files over a six month period, containing 83,110 events - that’s just 3.2 events per log file.</p>
 
-<p>Once the events have been collected in S3, <a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'>Snowplow&#8217;s Hadoop job</a> (written in <a href='https://github.com/twitter/scalding/wiki'>Scalding</a>) processes them, validating them and then enriching them with referer, geo-location and similar data; these enriched events are then written back to S3.</p>
+<p>Once the events have been collected in S3, <a href="https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl">Snowplow’s Hadoop job</a> (written in <a href="https://github.com/twitter/scalding/wiki">Scalding</a>) processes them, validating them and then enriching them with referer, geo-location and similar data; these enriched events are then written back to S3.</p>
 
-<p>So you can see how our Enrichment process ran pretty directly into Hadoop&#8217;s small files problem. But quantifying the impact of small files on our job&#8217;s performance was impossible until we had a solution in place&#8230;</p>
+<p>So you can see how our Enrichment process ran pretty directly into Hadoop’s small files problem. But quantifying the impact of small files on our job’s performance was impossible until we had a solution in place</p>
 
-<h2 id='quantifying_the_small_file_problem'>Quantifying the small file problem</h2>
+<h2 id="quantifying_the_small_file_problem">Quantifying the small file problem</h2>
 
-<p>This week we implemented a solution to aggregate our tiny CloudFront logs into more sensibly sized input files - this enhancement will be released as part of <a href='https://github.com/snowplow/snowplow/issues?milestone=22&amp;page=1&amp;state=open'>Snowplow 0.8.6</a> shortly.</p>
+<p>This week we implemented a solution to aggregate our tiny CloudFront logs into more sensibly sized input files - this enhancement will be released as part of <a href="https://github.com/snowplow/snowplow/issues?milestone=22&page=1&state=open">Snowplow 0.8.6</a> shortly.</p>
 
 <p>In testing this code and running before- and after- performance tests, we realised just how badly the small file problem was slowing down our Enrichment process. This screenshot shows you what we found:</p>
-<img src='/static/img/blog/2013/05/small-files-before-after.png' />
-<p>That&#8217;s right - aggregating with the small files first reduced total processing time from 2 hours 57 minutes to just 9 minutes - of which 3 minutes was the aggregation, and 4 minutes was running our actual Enrichment process. That&#8217;s a speedup of <strong>1,867%</strong>.</p>
+
+<p><img src='/static/img/blog/2013/05/small-files-before-after.png' /></p>
+
+<p>That’s right - aggregating with the small files first reduced total processing time from 2 hours 57 minutes to just 9 minutes - of which 3 minutes was the aggregation, and 4 minutes was running our actual Enrichment process. That’s a speedup of <strong>1,867%</strong>.</p>
 
 <p>To make the comparison as helpful as possible, here is the exact specification of the before- and after- test. We have also added a second after- run with a more realistic cluster size.</p>
-<table><thead><tr><th>Metric</th><th>Before (with small files)</th><th>After (with small files aggregated)</th><th>After (with smaller cluster)</th></tr></thead><tbody><tr><td style='text-align: left;'><strong>Source log files</strong></td><td style='text-align: left;'>26,372</td><td style='text-align: left;'>26,372</td><td style='text-align: left;'>26,372</td>
-</tr><tr><td style='text-align: left;'><strong>Files read by job</strong></td><td style='text-align: left;'>Source log files</td><td style='text-align: left;'>Aggregated log files</td><td style='text-align: left;'>Aggregated log files</td>
-</tr><tr><td style='text-align: left;'><strong>Location of files</strong></td><td style='text-align: left;'>Amazon S3</td><td style='text-align: left;'>HDFS on Core instances</td><td style='text-align: left;'>HDFS on Core instances</td>
-</tr><tr><td style='text-align: left;'><strong>File compression</strong></td><td style='text-align: left;'>Gzip</td><td style='text-align: left;'>LZO</td><td style='text-align: left;'>LZO</td>
-</tr><tr><td style='text-align: left;'><strong>part- files out</strong></td><td style='text-align: left;'>23,618</td><td style='text-align: left;'>141</td><td style='text-align: left;'>141</td>
-</tr><tr><td style='text-align: left;'><strong>Events out</strong></td><td style='text-align: left;'>83,110</td><td style='text-align: left;'>83,110</td><td style='text-align: left;'>83,110</td>
-</tr><tr><td style='text-align: left;'><strong>Cluster</strong></td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td><td style='text-align: left;'>1 x m1.large, 18 x m1.medium</td><td style='text-align: left;'>1 x m1.small, 1 x m1.small</td>
-</tr><tr><td style='text-align: left;'><strong>Execution time</strong></td><td style='text-align: left;'><strong>177 minutes</strong></td><td style='text-align: left;'><strong>9 minutes</strong></td><td style='text-align: left;'><strong>39 minutes</strong></td>
-</tr><tr><td style='text-align: left;'><strong>Aggregate step time</strong></td><td style='text-align: left;'>-</td><td style='text-align: left;'>3 minutes</td><td style='text-align: left;'>11 minutes</td>
-</tr><tr><td style='text-align: left;'><strong>ETL step time</strong></td><td style='text-align: left;'>166 minutes</td><td style='text-align: left;'>4 minutes</td><td style='text-align: left;'>25 minutes</td>
-</tr><tr><td style='text-align: left;'><strong>Norm. instance hours</strong></td><td style='text-align: left;'>120</td><td style='text-align: left;'>40</td><td style='text-align: left;'>2</td>
-</tr></tbody></table>
-<p><strong>Health warning:</strong> this is one single benchmark, measuring the performance of the <a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'>Snowplow Hadoop job</a> using a single data set. We encourage you to run your own benchmarks.</p>
+<table><thead><tr><th>Metric</th><th>Before (with small files)</th><th>After (with small files aggregated)</th><th>After (with smaller cluster)</th></tr></thead><tbody><tr><td style="text-align: left;"><strong>Source log files</strong></td><td style="text-align: left;">26,372</td><td style="text-align: left;">26,372</td><td style="text-align: left;">26,372</td></tr>
+<tr><td style="text-align: left;"><strong>Files read by job</strong></td><td style="text-align: left;">Source log files</td><td style="text-align: left;">Aggregated log files</td><td style="text-align: left;">Aggregated log files</td></tr>
+<tr><td style="text-align: left;"><strong>Location of files</strong></td><td style="text-align: left;">Amazon S3</td><td style="text-align: left;">HDFS on Core instances</td><td style="text-align: left;">HDFS on Core instances</td></tr>
+<tr><td style="text-align: left;"><strong>File compression</strong></td><td style="text-align: left;">Gzip</td><td style="text-align: left;">LZO</td><td style="text-align: left;">LZO</td></tr>
+<tr><td style="text-align: left;"><strong>part- files out</strong></td><td style="text-align: left;">23,618</td><td style="text-align: left;">141</td><td style="text-align: left;">141</td></tr>
+<tr><td style="text-align: left;"><strong>Events out</strong></td><td style="text-align: left;">83,110</td><td style="text-align: left;">83,110</td><td style="text-align: left;">83,110</td></tr>
+<tr><td style="text-align: left;"><strong>Cluster</strong></td><td style="text-align: left;">1 x m1.large, 18 x m1.medium</td><td style="text-align: left;">1 x m1.large, 18 x m1.medium</td><td style="text-align: left;">1 x m1.small, 1 x m1.small</td></tr>
+<tr><td style="text-align: left;"><strong>Execution time</strong></td><td style="text-align: left;"><strong>177 minutes</strong></td><td style="text-align: left;"><strong>9 minutes</strong></td><td style="text-align: left;"><strong>39 minutes</strong></td></tr>
+<tr><td style="text-align: left;"><strong>Aggregate step time</strong></td><td style="text-align: left;">-</td><td style="text-align: left;">3 minutes</td><td style="text-align: left;">11 minutes</td></tr>
+<tr><td style="text-align: left;"><strong>ETL step time</strong></td><td style="text-align: left;">166 minutes</td><td style="text-align: left;">4 minutes</td><td style="text-align: left;">25 minutes</td></tr>
+<tr><td style="text-align: left;"><strong>Norm. instance hours</strong></td><td style="text-align: left;">120</td><td style="text-align: left;">40</td><td style="text-align: left;">2</td></tr>
+</tbody></table>
+<p><strong>Health warning:</strong> this is one single benchmark, measuring the performance of the <a href="https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl">Snowplow Hadoop job</a> using a single data set. We encourage you to run your own benchmarks.</p>
 
 <p>This is an astonishing speed-up, which shows how badly the small files problem was impacting our Hadoop job. And aggregating the small files had another beneficial effect: the much smaller number of <code>part-</code> output files meant much faster loading of events into Redshift.</p>
 
 <p>So how did we fix the small files problem for Snowplow? In the next section we will discuss possible solutions for you to consider, and in the last section we will go into some more detail on the solution we chose.</p>
 
-<h2 id='options_for_dealing_with_small_files_on_hadoop'>Options for dealing with small files on Hadoop</h2>
+<h2 id="options_for_dealing_with_small_files_on_hadoop">Options for dealing with small files on Hadoop</h2>
 
 <p>As we did our background research into solutions to the small files problem, three main schools of thought emerged:</p>
 
 <ol>
-<li><strong>Change your &#8220;feeder&#8221; software</strong> so it doesn&#8217;t produce small files (or perhaps files at all). In other words, if small files are the problem, change your upstream code to stop generating them</li>
+<li><strong>Change your “feeder” software</strong> so it doesn’t produce small files (or perhaps files at all). In other words, if small files are the problem, change your upstream code to stop generating them</li>
 
 <li><strong>Run an offline aggregation process</strong> which aggregates your small files and re-uploads the aggregated files ready for processing</li>
 
@@ -124,14 +129,14 @@
 
 <p>For us, option 1 was out of the question, as we have no control over how CloudFront writes its log files.</p>
 
-<p>Option 2 was interesting - and we have had Snowplow users such as 99designs successfully adopt this approach; if you are interested in exploring this further, <a href='https://github.com/larsyencken'>Lars Yencken</a> from 99designs has shared a <a href='https://gist.github.com/larsyencken/4076413'>CloudFront log aggregation script in Python</a> as a gist. However, overall option 2 seemed to us to introduce more complexity - with a new long-running process to run, and potentially fragility - with a manifest file now to maintain. We had super-interesting discussions with the Snowplow community about this in <a href='https://groups.google.com/forum/#!topic/snowplow-user/xdhegsztJlA'>this Google Groups thread</a> and <a href='https://github.com/snowplow/snowplow/issues/82'>this GitHub issue</a>.</p>
+<p>Option 2 was interesting - and we have had Snowplow users such as 99designs successfully adopt this approach; if you are interested in exploring this further, <a href="https://github.com/larsyencken">Lars Yencken</a> from 99designs has shared a <a href="https://gist.github.com/larsyencken/4076413">CloudFront log aggregation script in Python</a> as a gist. However, overall option 2 seemed to us to introduce more complexity - with a new long-running process to run, and potentially fragility - with a manifest file now to maintain. We had super-interesting discussions with the Snowplow community about this in <a href="https://groups.google.com/forum/#!topic/snowplow-user/xdhegsztJlA">this Google Groups thread</a> and <a href="https://github.com/snowplow/snowplow/issues/82">this GitHub issue</a>.</p>
 
 <p>In the end, though, we opted for option 3, for a few reasons:</p>
 
 <ul>
 <li>We are starting a Hadoop cluster anyway to run our ETL job, so this reduces the number of additional moving parts required</li>
 
-<li>We hoped for performance improvements in moving the small files to the cluster&#8217;s local HDFS filesystem during the aggregation</li>
+<li>We hoped for performance improvements in moving the small files to the cluster’s local HDFS filesystem during the aggregation</li>
 
 <li>We hoped that accessing Amazon S3 from a cluster rather than a single machine would mean more parallel connections to S3</li>
 </ul>
@@ -139,50 +144,50 @@
 <p>With that decided, we then looked for options to aggregate and compact small files on Hadoop, identifying three possible solutions:</p>
 
 <ol>
-<li><a href='https://github.com/edwardcapriolo/filecrush'><strong>filecrush</strong></a> - a highly configurable tool by <a href='https://github.com/edwardcapriolo'>Edward Capriolo</a> to &#8220;crush&#8221; small files on HDFS. It supports a rich set of configuration arguments and is available as a jarfile (<a href='http://www.jointhegrid.com/hadoop_filecrush/'>download it here</a>) ready to run on your cluster. It&#8217;s a sophisticated tool - for example, by default it won&#8217;t bother crushing a file which is within 75% of the HDFS block size already. Unfortunately, it does not work yet with Amazon&#8217;s s3:// paths, only hdfs:// paths - and our <a href='https://github.com/edwardcapriolo/filecrush/pull/2'>pull request</a> to add this functionality is incomplete</li>
+<li><a href="https://github.com/edwardcapriolo/filecrush"><strong>filecrush</strong></a> - a highly configurable tool by <a href="https://github.com/edwardcapriolo">Edward Capriolo</a> to “crush” small files on HDFS. It supports a rich set of configuration arguments and is available as a jarfile (<a href="http://www.jointhegrid.com/hadoop_filecrush/">download it here</a>) ready to run on your cluster. It’s a sophisticated tool - for example, by default it won’t bother crushing a file which is within 75% of the HDFS block size already. Unfortunately, it does not work yet with Amazon’s s3:// paths, only hdfs:// paths - and our <a href="https://github.com/edwardcapriolo/filecrush/pull/2">pull request</a> to add this functionality is incomplete</li>
 
-<li><a href='https://github.com/nathanmarz/dfs-datastores/blob/develop/dfs-datastores/src/main/java/com/backtype/hadoop/Consolidator.java'><strong>Consolidator</strong></a> - a Hadoop file consolidation tool from the <a href='https://github.com/nathanmarz/dfs-datastores'>dfs-datastores</a> library, written by <a href='https://github.com/nathanmarz'>Nathan Marz</a>. There is scant documentation for this - we could only find one paragraph, <a href='https://groups.google.com/forum/?fromgroups#!topic/cascalog-user/ovYSq2vTyYE'>in this email thread</a>. It has fewer capabilities than filecrush, and could do with a CLI-like wrapper to invoke it (we started writing just such a wrapper but then we found filecrush)</li>
+<li><a href="https://github.com/nathanmarz/dfs-datastores/blob/develop/dfs-datastores/src/main/java/com/backtype/hadoop/Consolidator.java"><strong>Consolidator</strong></a> - a Hadoop file consolidation tool from the <a href="https://github.com/nathanmarz/dfs-datastores">dfs-datastores</a> library, written by <a href="https://github.com/nathanmarz">Nathan Marz</a>. There is scant documentation for this - we could only find one paragraph, <a href="https://groups.google.com/forum/?fromgroups#!topic/cascalog-user/ovYSq2vTyYE">in this email thread</a>. It has fewer capabilities than filecrush, and could do with a CLI-like wrapper to invoke it (we started writing just such a wrapper but then we found filecrush)</li>
 
-<li><a href='http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_s3distcp.html'><strong>S3DistCp</strong></a> - created by Amazon as an S3-friendly adaptation of Hadoop&#8217;s <a href='http://hadoop.apache.org/docs/stable/distcp.html'>DistCp</a> utility for HDFS. Don&#8217;t be fooled by the name - if you are running on Elastic MapReduce, then this can deal with your small files problem using its <code>--groupBy</code> option for aggregating files (which the original DistCp seems to lack)</li>
+<li><a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_s3distcp.html"><strong>S3DistCp</strong></a> - created by Amazon as an S3-friendly adaptation of Hadoop’s <a href="http://hadoop.apache.org/docs/stable/distcp.html">DistCp</a> utility for HDFS. Don’t be fooled by the name - if you are running on Elastic MapReduce, then this can deal with your small files problem using its <code>--groupBy</code> option for aggregating files (which the original DistCp seems to lack)</li>
 </ol>
 
 <p>After trying to work with filecrush and Consolidator, ultimately we went with S3DistCp for Snowplow. In the next section, we will look at exactly how we set it up.</p>
 
-<h2 id='running_s3distcp'>Running S3DistCp</h2>
+<h2 id="running_s3distcp">Running S3DistCp</h2>
 
-<p>Once we had chosen S3DistCp, we had to update our ETL process to include it in our jobflow. Luckily, the <a href='http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_s3distcp.html'>S3DistCp documentation</a> has an example on aggregating CloudFront files:</p>
+<p>Once we had chosen S3DistCp, we had to update our ETL process to include it in our jobflow. Luckily, the <a href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_s3distcp.html">S3DistCp documentation</a> has an example on aggregating CloudFront files:</p>
 
 <pre><code>./elastic-mapreduce --jobflow j-3GY8JC4179IOK --jar \
 /home/hadoop/lib/emr-s3distcp-1.0.jar \
---args &#39;--src,s3://myawsbucket/cf,\
+--args '--src,s3://myawsbucket/cf,\
 --dest,hdfs:///local,\
 --groupBy,.*XABCD12345678.([0-9]+-[0-9]+-[0-9]+-[0-9]+).*,\
 --targetSize,128,\
---outputCodec,lzo,--deleteOnSuccess&#39;</code></pre>
+--outputCodec,lzo,--deleteOnSuccess'</code></pre>
 
-<p>Note that as well as aggregating the small files into 128 megabyte files, this step also changes the encoding to <a href='http://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Oberhumer'>LZO</a>. As the Amazon documentation explains it:</p>
+<p>Note that as well as aggregating the small files into 128 megabyte files, this step also changes the encoding to <a href="http://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Oberhumer">LZO</a>. As the Amazon documentation explains it:</p>
 
-<p><em>&#8220;Data compressed using LZO can be split into multiple maps as it is decompressed, so you don&#8217;t have to wait until the compression is complete, as you do with Gzip. This provides better performance when you analyze the data using Amazon EMR.&#8221;</em></p>
+<p><em>“Data compressed using LZO can be split into multiple maps as it is decompressed, so you don’t have to wait until the compression is complete, as you do with Gzip. This provides better performance when you analyze the data using Amazon EMR.”</em></p>
 
 <p>We only needed to make a few changes to this example code for our own ETL:</p>
 
 <ol>
-<li>We can&#8217;t predict the prefix on the CloudFront log files - and it certainly won&#8217;t be <code>XABCD12345678</code>, so it made more sense to drop this</li>
+<li>We can’t predict the prefix on the CloudFront log files - and it certainly won’t be <code>XABCD12345678</code>, so it made more sense to drop this</li>
 
 <li>Grouping files to the hour is overkill - we can roll up to the day and S3DistCp will happily split files if they are larger than <code>targetSize</code></li>
 
-<li><code>--deleteOnSuccess</code> is dangerous - we don&#8217;t want to delete our source data and leave the only copy on a transient Hadoop cluster</li>
+<li><code>--deleteOnSuccess</code> is dangerous - we don’t want to delete our source data and leave the only copy on a transient Hadoop cluster</li>
 </ol>
 
 <p>Given the above, our updated <code>--groupBy</code> regular expression was:</p>
 
 <pre><code>&quot;.*\.([0-9]+-[0-9]+-[0-9]+)-[0-9]+\..*&quot;</code></pre>
 
-<p>Now, all we needed to do was add the call to S3DistCp into our jobflow before our main ETL step. We use the excellent <a href='https://github.com/rslifka/elasticity'>Elasticity</a> Ruby library by <a href='https://github.com/rslifka'>Rob Slifka</a> to execute our jobs, so calling S3DistCp was a matter of adding the extra step to our jobflow in Ruby:</p>
+<p>Now, all we needed to do was add the call to S3DistCp into our jobflow before our main ETL step. We use the excellent <a href="https://github.com/rslifka/elasticity">Elasticity</a> Ruby library by <a href="https://github.com/rslifka">Rob Slifka</a> to execute our jobs, so calling S3DistCp was a matter of adding the extra step to our jobflow in Ruby:</p>
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_input</span> <span class='o'>=</span> <span class='s2'>&quot;hdfs:///local/snowplow-logs&quot;</span>
 
 <span class='c1'># Create the Hadoop MR step for the file crushing</span>
-<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='no'>Elasticity</span><span class='o'>::</span><span class='no'>CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
+<span class='n'>filecrush_step</span> <span class='o'>=</span> <span class='ss'>Elasticity</span><span class='p'>:</span><span class='ss'>:CustomJarStep</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s2'>&quot;/home/hadoop/lib/emr-s3distcp-1.0.jar&quot;</span><span class='p'>)</span> 
 
 <span class='n'>filecrush_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
   <span class='s2'>&quot;--src&quot;</span>               <span class='p'>,</span> <span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:processing</span><span class='o'>]</span><span class='p'>,</span>
@@ -195,8 +200,7 @@
 
 <span class='c1'># Add to our jobflow</span>
 <span class='vi'>@jobflow</span><span class='o'>.</span><span class='n'>add_step</span><span class='p'>(</span><span class='n'>filecrush_step</span><span class='p'>)</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>And then we had to update our ETL job to take the <code>--dest</code> of the S3DistCp step as its own input:</p>
 <div class='highlight'><pre><code class='ruby'><span class='n'>hadoop_step</span><span class='o'>.</span><span class='n'>arguments</span> <span class='o'>=</span> <span class='o'>[</span>
             <span class='s2'>&quot;com.snowplowanalytics.snowplow.enrich.hadoop.EtlJob&quot;</span><span class='p'>,</span> <span class='c1'># Job to run</span>
@@ -207,11 +211,11 @@
             <span class='s2'>&quot;--output_folder&quot;</span>     <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out</span><span class='o'>]</span><span class='p'>),</span>
             <span class='s2'>&quot;--bad_rows_folder&quot;</span>   <span class='p'>,</span> <span class='n'>partition</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>config</span><span class='o'>[</span><span class='ss'>:s3</span><span class='o'>][</span><span class='ss'>:buckets</span><span class='o'>][</span><span class='ss'>:out_bad_rows</span><span class='o'>]</span><span class='p'>)</span>
           <span class='o'>]</span>
-</code></pre>
-</div>
-<p>And that was it! If you want to see all of the code excerpted above, you can find it in the <a href='https://github.com/snowplow/snowplow/blob/feature/perf-improvements/3-enrich/emr-etl-runner/lib/snowplow-emr-etl-runner/emr_jobs.rb'>Snowplow project on GitHub</a>. We did not have to make any changes to our main Hadoop ETL job, because Elastic MapReduce can handle LZO-compressed files invisibly to the job reading them. And no doubt the switch to LZO also contributed to the excellent performance we saw above.</p>
+</code></pre></div>
+<p>And that was it! If you want to see all of the code excerpted above, you can find it in the <a href="https://github.com/snowplow/snowplow/blob/feature/perf-improvements/3-enrich/emr-etl-runner/lib/snowplow-emr-etl-runner/emr_jobs.rb">Snowplow project on GitHub</a>. We did not have to make any changes to our main Hadoop ETL job, because Elastic MapReduce can handle LZO-compressed files invisibly to the job reading them. And no doubt the switch to LZO also contributed to the excellent performance we saw above.</p>
 
-<p>So that&#8217;s everything - hopefully this post has helped to illustrate just how badly small files can slow down your Hadoop job, and what you can do about it: if you have a small file problem on Hadoop, there&#8217;s now no excuse not to fix it!</p>
+<p>So that’s everything - hopefully this post has helped to illustrate just how badly small files can slow down your Hadoop job, and what you can do about it: if you have a small file problem on Hadoop, there’s now no excuse not to fix it!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -262,23 +266,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -296,22 +283,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -333,19 +334,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

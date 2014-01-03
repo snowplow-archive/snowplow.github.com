@@ -71,7 +71,8 @@
 			20 Dec 2012
 			<h1>Snowplow 0.6.4 released, with Infobright improvements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			
+<p>We’re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
 
 <ol>
 <li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
@@ -82,16 +83,16 @@
 <p>Before we start - a big thanks to the community members who helped out on this release:</p>
 
 <ul>
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+<li><a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> @ <a href="http://en.overblog.com/">OverBlog</a> worked closely with us on the updated Infobright table definition</li>
 
-<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
+<li><a href="https://github.com/mmoulton">Mike Moulton</a> @ <a href="http://meltmedia.com/">meltmedia</a> for flagging the missing Hive table definition</li>
 </ul>
 
-<p>We&#8217;ll take a look at both updates below:</p>
+<p>We’ll take a look at both updates below:</p>
 <!--more-->
-<h2 id='upgraded_infobright_table_definition'>Upgraded Infobright table definition</h2>
+<h2 id="upgraded_infobright_table_definition">Upgraded Infobright table definition</h2>
 
-<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
+<p>With help from <a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
 
 <p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
 
@@ -99,7 +100,7 @@
 
 <p>Running this script will create a new table, <code>events_004</code> (version 0.0.4 of the table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
 
-<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
+<p>Once you have run this, don’t forget to update your StorageLoader’s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
 
 <pre><code>:storage:
   :type: infobright
@@ -108,7 +109,7 @@
 
 <p>Done!</p>
 
-<h2 id='clarified_hive_table_definitions'>Clarified Hive table definitions</h2>
+<h2 id="clarified_hive_table_definitions">Clarified Hive table definitions</h2>
 
 <p>We have clarified the two different Hive table definitions, available in this folder:</p>
 
@@ -118,17 +119,18 @@
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q"><code>non-hive-format-table-def.q</code></a>.</p>
 
 <p>Whereas if your <code>config.yml</code> contains:</p>
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q"><code>hive-format-table-def.q</code></a>.</p>
 
-<h2 id='getting_help'>Getting help</h2>
+<h2 id="getting_help">Getting help</h2>
 
-<p>That&#8217;s it! If you have any problems with Snowplow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>That’s it! If you have any problems with Snowplow version 0.6.4, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -179,23 +181,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -213,22 +198,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -250,19 +249,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

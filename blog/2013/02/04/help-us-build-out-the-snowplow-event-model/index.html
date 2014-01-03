@@ -71,37 +71,38 @@
 			04 Feb 2013
 			<h1>Help us build out the Snowplow Event Model</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
+			
+<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
 
 <p>Working out how best to structure the Snowplow event data is key to making Snowplow a success. One of the things that has surprised us, since we started working on Snowplow, is the extent to which our view of the best way to structure that data has changed over time.</p>
 
-<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We&#8217;ve been fortunate to work with a wide range of businesses who&#8217;ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
+<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We’ve been fortunate to work with a wide range of businesses who’ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
 <!--more-->
-<h2 id='from_page_views_to_events__a_quick_look_back_at_the_development_of_the_web'>From page views to events - a quick look back at the development of the web</h2>
+<h2 id="from_page_views_to_events__a_quick_look_back_at_the_development_of_the_web">From page views to events - a quick look back at the development of the web</h2>
 
 <p>Before we get started thinking about the Snowplow event data model, it is helpful to put it in the context of how other web analytics tools model web data, and that in the context of the development of the web.</p>
 
 <p>When the web started out, it was a network of largely static documents that were hyperlinked to one-another. Over time the documents started updating more rapidly, so looked less static. In addition, the development of Flash and then Javascript meant that web pages became more interactive: websites started to look more like interactive applications and less like documents.</p>
 
-<p>The web analytics industry was born in the 1990s, when the web was still a network of hyperlinked documents. The primary &#8220;event&#8221; that web analytics programmes were interested a <em>hit</em>, which referred to a request being made to a web server. (As such, it was more of an &#8220;event&#8221; for the sysadmin than the user navigating the website.) Over time this evolved into the <em>page view</em> - as loading a web pages with multiple elements (e.g. different images) would result in multiple hits. Web analytics packages excelled at tracking <em>page views</em>. As online retail took off, they extended to capturing transactions, and most recently, social events (e.g. <em>liking a product</em>).</p>
+<p>The web analytics industry was born in the 1990s, when the web was still a network of hyperlinked documents. The primary “event” that web analytics programmes were interested a <em>hit</em>, which referred to a request being made to a web server. (As such, it was more of an “event” for the sysadmin than the user navigating the website.) Over time this evolved into the <em>page view</em> - as loading a web pages with multiple elements (e.g. different images) would result in multiple hits. Web analytics packages excelled at tracking <em>page views</em>. As online retail took off, they extended to capturing transactions, and most recently, social events (e.g. <em>liking a product</em>).</p>
 
 <p>As a user, there are millions of things you can do on the web: from checking your bank balance, to messaging a friend, to researching a holiday, to sharing photos of your children. Web analytics packages, however, still only recognise a very small subset of events. To go beyond tracking <em>page views</em> and <em>transactions</em>, web analysts have to use custom event tracking (in Google Analytics), or an unholy combination of eVars and sProps (in SiteCatalyst).</p>
 
-<p>We want to do better with Snowplow. We want to identfy a broad set of events that are useful to a wide range of web analysts across different companies and products, and recognise these in the Snowplow Event Model as first class citizens. We want to design the data structures for these events so that there are named fields to capture the dimensions and metrics for those events that meet the needs of 80% of Snowplow users, and a set of configurable dimensions and metrics to meet the needs of the remaining 20%. Similarly, we recognise that those &#8220;1st class&#8221; events might only meet the needs of 80% of the events that people need to track online, and so we will still need generic &#8220;custom events&#8221; for users to configure to track the rest.</p>
+<p>We want to do better with Snowplow. We want to identfy a broad set of events that are useful to a wide range of web analysts across different companies and products, and recognise these in the Snowplow Event Model as first class citizens. We want to design the data structures for these events so that there are named fields to capture the dimensions and metrics for those events that meet the needs of 80% of Snowplow users, and a set of configurable dimensions and metrics to meet the needs of the remaining 20%. Similarly, we recognise that those “1st class” events might only meet the needs of 80% of the events that people need to track online, and so we will still need generic “custom events” for users to configure to track the rest.</p>
 
 <p>By writing this blog post, we hope to entice readers like you to contribute to that Event Model.</p>
 
-<h2 id='why_bother_with_an_event_model_at_all'>Why bother with an Event Model at all?</h2>
+<h2 id="why_bother_with_an_event_model_at_all">Why bother with an Event Model at all?</h2>
 
 <p>Some of the people we have talked to about the Snowplow Event Model have not been convinced of the need to develop one. These people, who are typically very familiar with NoSQL datastores like Mongo, Riak and Cassandra, sometimes argue that we can do away with a formal model all together and simply stuff a JSON with whatever dimensions and metrics suit, when we come to store the data associated with a specific event.</p>
 
-<p>NoSQL data stores are attractive because they enable users to store data without worrying about a schema. However, that does not mean we can forget about schemas all together: we still need a schema when it comes to querying the data, in order to drive our analysis. Performing even simple OLAP analysis on data in NoSQL stores is significantly harder than on structured data in columnar databases, because we have to work out a schema as part of the analysis. Not only that: but we have to check individual event-level data to test if the dimensions and metrics we&#8217;re exploring using our OLAP analysis are correctly stored for every event we want to explore, and potentially map different fields together to include all the events that we would like. (If this is even possible.) This makes analysis much more involved and complex.</p>
+<p>NoSQL data stores are attractive because they enable users to store data without worrying about a schema. However, that does not mean we can forget about schemas all together: we still need a schema when it comes to querying the data, in order to drive our analysis. Performing even simple OLAP analysis on data in NoSQL stores is significantly harder than on structured data in columnar databases, because we have to work out a schema as part of the analysis. Not only that: but we have to check individual event-level data to test if the dimensions and metrics we’re exploring using our OLAP analysis are correctly stored for every event we want to explore, and potentially map different fields together to include all the events that we would like. (If this is even possible.) This makes analysis much more involved and complex.</p>
 
-<p>Sometimes, this complexity is worth it: if our data structures are evolving so fast that any schema we develop today will be redundant tomorrow - then better to collect the data that&#8217;s available today and work out how to query it another day, then over complicate our data collection by forcing the data into a schema it doesn&#8217;t really fit.</p>
+<p>Sometimes, this complexity is worth it: if our data structures are evolving so fast that any schema we develop today will be redundant tomorrow - then better to collect the data that’s available today and work out how to query it another day, then over complicate our data collection by forcing the data into a schema it doesn’t really fit.</p>
 
 <p>That is not the situation that we are in when it comes to web data, however. With a bit of thought, it is not too difficult to identify a set of events that are meaningful for a wide range of people, and a set of dimensions and metrics that are relevant for each event type. By standardising these in a Event Model, we can develop a standard set of analyses that anyone collecting data which adheres to the model can apply. As an open source community committed to driving innovation in web event analytics, this will make it easier to work collaboratively to develop new approaches to mining web data to learn new and valuable insights.</p>
 
-<h2 id='the_snowplow_event_model_first_class_events_identified_so_far'>The Snowplow Event Model: first class events identified so far</h2>
+<h2 id="the_snowplow_event_model_first_class_events_identified_so_far">The Snowplow Event Model: first class events identified so far</h2>
 
 <p>So far, we have identified the following events as ones we wish to identify as first class citizens. (Some of these are already incorporated in Snowplow as first class citizens, others need to be added.)</p>
 
@@ -123,31 +124,32 @@
 <li>Errors (e.g. an application returning an error)</li>
 </ul>
 
-<p>For each of these events, we expect there to be some specific dimensions and metrics that are likely to be captured. In addition, we need to make it possible for users with particular needs to record their own custom dimensions and metrics associated with those specific events. We have detailed the event-specific fields for each of the above 1st class events on the <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>Canonical Event Model</a> page on the <a href='https://github.com/snowplow/snowplow/wiki'>wiki</a>.</p>
+<p>For each of these events, we expect there to be some specific dimensions and metrics that are likely to be captured. In addition, we need to make it possible for users with particular needs to record their own custom dimensions and metrics associated with those specific events. We have detailed the event-specific fields for each of the above 1st class events on the <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model">Canonical Event Model</a> page on the <a href="https://github.com/snowplow/snowplow/wiki">wiki</a>.</p>
 
 <p>Are there other events that we should add to the above list? Are their fields we should add to any of the specific events listed above? Let us know if so :-).</p>
 
-<p>In addition to the events explicitly recognised by the Event Model, there are likely to be many events that need to be tracked that are not included in the above list. For most of these, we hope that Snowplow users will store them as <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'>custom structured events</a>. Where this is not possible, we plan to enable capturing of <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct'>custom unstructured events</a>, so our friends who like their NoSQL technologies can create whatever JSONs they like to store their event data in.</p>
+<p>In addition to the events explicitly recognised by the Event Model, there are likely to be many events that need to be tracked that are not included in the above list. For most of these, we hope that Snowplow users will store them as <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct">custom structured events</a>. Where this is not possible, we plan to enable capturing of <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct">custom unstructured events</a>, so our friends who like their NoSQL technologies can create whatever JSONs they like to store their event data in.</p>
 
-<h2 id='technical_implications_of_expanding_out_the_event_model'>Technical implications of expanding out the event model</h2>
+<h2 id="technical_implications_of_expanding_out_the_event_model">Technical implications of expanding out the event model</h2>
 
-<p>Currently, Snowplow events data is stored in a single &#8216;fat&#8217; table in either S3 or Infobright. As we build out the number of events that are explicitly included in the event model, along with their associated fields, the table will have to get wider to accommodate those new fields. Clearly, there are implications to doing so - especially as a single row of data, which represents a single event, will only have a subset of those fields populated. (Those that are relevant for the specific event.)</p>
+<p>Currently, Snowplow events data is stored in a single ‘fat’ table in either S3 or Infobright. As we build out the number of events that are explicitly included in the event model, along with their associated fields, the table will have to get wider to accommodate those new fields. Clearly, there are implications to doing so - especially as a single row of data, which represents a single event, will only have a subset of those fields populated. (Those that are relevant for the specific event.)</p>
 
-<p>This is one of the reasons we plan to the storage format of data stored in S3 from the current flat-file structure into <a href='http://avro.apache.org/'>Avro</a>. There are a number of other benefits associated with migrating to Avro - these will be explored in a forthcoming blog post.</p>
+<p>This is one of the reasons we plan to the storage format of data stored in S3 from the current flat-file structure into <a href="http://avro.apache.org/">Avro</a>. There are a number of other benefits associated with migrating to Avro - these will be explored in a forthcoming blog post.</p>
 
 <p>We also plan to make the StorageLoader that loads data into Infobright configurable, so that it only loads fields related to events that the particular business is interested in. If, for example, you do not serve ads to your users, than you will not track ad impressions served. It therefore makes no sense to devote 5 or 6 columns in Infobright to fields which only relate to ad impression tracking like <code>campaign_id</code>, <code>advertiser_id</code> etc. Upgrading the StorageLoader so that it understands that is a priority moving forwards.</p>
 
-<h2 id='help_us_build_out_the_event_model'>Help us build out the Event Model</h2>
+<h2 id="help_us_build_out_the_event_model">Help us build out the Event Model</h2>
 
 <p>A lot about big data is sexy. Unfortunately, data modelling is not. Nonetheless, getting it right will be a huge benefit to the whole Snowplow community and by extension the wider web analytics community. Help us to get it right - by:</p>
 
 <ul>
 <li>Posting ideas and feedback on this blog post</li>
 
-<li>Raising ideas / issues on <a href='https://github.com/snowplow/snowplow/issues'>Github</a>. (Like the <a href='https://github.com/snowplow/snowplow/issues/113'>original suggestion</a> from <a href='https://github.com/kingo55'>Robert Kingston</a> to track <a href='https://github.com/snowplow/snowplow/issues/113'>item views</a>)</li>
+<li>Raising ideas / issues on <a href="https://github.com/snowplow/snowplow/issues">Github</a>. (Like the <a href="https://github.com/snowplow/snowplow/issues/113">original suggestion</a> from <a href="https://github.com/kingo55">Robert Kingston</a> to track <a href="https://github.com/snowplow/snowplow/issues/113">item views</a>)</li>
 
-<li><a href='/about/index.html'>Get in touch with us directly</a> to share your thoughts and ideas</li>
+<li><a href="/about/index.html">Get in touch with us directly</a> to share your thoughts and ideas</li>
 </ul>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -198,23 +200,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -232,22 +217,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -269,19 +268,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

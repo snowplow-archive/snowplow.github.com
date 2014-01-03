@@ -71,27 +71,29 @@
 			25 Oct 2012
 			<h1>Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow&#8217;s Hive-based ETL (extract, transform, load) process on <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a> with minimum fuss.</p>
+			
+<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow’s Hive-based ETL (extract, transform, load) process on <a href="http://aws.amazon.com/elasticmapreduce/">Amazon Elastic MapReduce</a> with minimum fuss.</p>
 
-<p>We are hugely grateful to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
+<p>We are hugely grateful to community member <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
 
-<h2 id='using_emretlrunner'>Using EmrEtlRunner</h2>
+<h2 id="using_emretlrunner">Using EmrEtlRunner</h2>
 
-<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href='http://snowplowanalytics.com/analytics/index.html'>Analyst&#8217;s Cookbook</a>.</p>
+<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href="http://aws.amazon.com/elasticmapreduce/">Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href="http://snowplowanalytics.com/analytics/index.html">Analyst’s Cookbook</a>.</p>
 
-<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'>Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
+<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href="https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner">Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
 <!--more-->
-<h2 id='the_codebase'>The codebase</h2>
+<h2 id="the_codebase">The codebase</h2>
 
-<p>If you want to take a look at the code, you can find it in the main repository here: <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'><code>3-etl/emr-etl-runner/</code></a></p>
+<p>If you want to take a look at the code, you can find it in the main repository here: <a href="https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner"><code>3-etl/emr-etl-runner/</code></a></p>
 
-<h2 id='getting_help'>Getting help</h2>
+<h2 id="getting_help">Getting help</h2>
 
-<p>If you have any problems getting EmrEtlRunner working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>If you have any problems getting EmrEtlRunner working, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
 
-<h2 id='in_the_pipeline'>In the pipeline</h2>
+<h2 id="in_the_pipeline">In the pipeline</h2>
 
-<p>At Snowplow we want to support multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. Our first priority is supporting <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE) for event storage and querying; extending the current ETL process to load Snowplow events into ICE will be the focus of our next few releases, so please stay tuned!</p>
+<p>At Snowplow we want to support multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. Our first priority is supporting <a href="http://www.infobright.org/">Infobright Community Edition</a> (ICE) for event storage and querying; extending the current ETL process to load Snowplow events into ICE will be the focus of our next few releases, so please stay tuned!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -142,23 +144,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -176,22 +161,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -213,19 +212,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

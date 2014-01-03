@@ -71,9 +71,10 @@
 			21 Oct 2012
 			<h1>Infobright Ruby Loader Released</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
+			
+<p>We’re pleased to start the week with the release of a new Ruby gem, our <a href="https://github.com/snowplow/infobright-ruby-loader">Infobright Ruby Loader</a> (IRL).</p>
 
-<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+<p>At Snowplow we’re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href="http://www.infobright.org/">Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
 
 <p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
 
@@ -87,21 +88,22 @@
 <li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
 </ol>
 
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
+<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn’t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
 
-<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
+<p>Our freshly minted <a href="https://github.com/snowplow/infobright-ruby-loader">Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
 
 <ol>
 <li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
 
-<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
+<li><strong>As part of another application</strong> - because it’s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
 </ol>
 
 <p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
 
-<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
+<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href="http://www.infobright.org/Blog/Entry/unscripted/">ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
 
-<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
+<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href="https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md">README</a> in the GitHub repository. And please direct any questions through the <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">usual channels</a>!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -152,23 +154,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -186,22 +171,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -223,19 +222,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

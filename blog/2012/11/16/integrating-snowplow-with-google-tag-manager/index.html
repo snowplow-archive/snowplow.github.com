@@ -71,11 +71,12 @@
 			16 Nov 2012
 			<h1>Integrating Snowplow with Google Tag Manager</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
+			
+<p>A month and a half ago, Google launched <a href="http://www.google.com/tagmanager/">Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
 
-<p><img src='/static/img/gtm.JPG' alt='gtm' /></p>
+<p><img src="/static/img/gtm.JPG" alt="gtm" /></p>
 
-<p>We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>wiki</a>.</p>
+<p>We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup">wiki</a>.</p>
 
 <p>In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:</p>
 
@@ -87,17 +88,18 @@
 <li>One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.</li>
 </ol>
 
-<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'>setting up Google Tag Manager</a> and <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>setting up Snowplow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up Snowplow within <a href='http://www.opentag.qubitproducts.com/'>Qubit&#8217;s OpenTag solution</a> in due course.</p>
+<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm">setting up Google Tag Manager</a> and <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup">setting up Snowplow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up Snowplow within <a href="http://www.opentag.qubitproducts.com/">Qubit’s OpenTag solution</a> in due course.</p>
 
-<p>We&#8217;re very excited by Google&#8217;s launch of Tag Manager, and recommend all new Snowplow users who are not currently using a tag management system integrate one as part of their Snowplow setup. Specifically:</p>
+<p>We’re very excited by Google’s launch of Tag Manager, and recommend all new Snowplow users who are not currently using a tag management system integrate one as part of their Snowplow setup. Specifically:</p>
 
 <ol>
 <li>The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup Snowplow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable</li>
 
-<li>The processing of mapping that data from the structure defined in the tag management system to one which works with Snowplow&#8217;s data structure is the exact reverse of the analysis process that takes Snowplow data and transforms it back into the structure that&#8217;s most natural for the company performing the analysis.</li>
+<li>The processing of mapping that data from the structure defined in the tag management system to one which works with Snowplow’s data structure is the exact reverse of the analysis process that takes Snowplow data and transforms it back into the structure that’s most natural for the company performing the analysis.</li>
 
-<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
+<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker">Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
 </ol>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -148,23 +150,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -182,22 +167,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -219,19 +218,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

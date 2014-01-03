@@ -71,7 +71,8 @@
 			27 Nov 2012
 			<h1>Snowplow 0.6.1 released, with lots of small improvements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
+			
+<p>We’re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
 
 <ol>
 <li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
@@ -88,70 +89,70 @@
 <p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
 
 <ul>
-<li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
+<li><a href="https://github.com/ramn">Simon Andersson</a> @ <a href="http://www.qwaya.com">Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
 
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
+<li><a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> @ <a href="http://en.overblog.com/">OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
 
-<li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
+<li><a href="https://github.com/mtibben">Michael Tibben</a> @ <a href="http://99designs.com">99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
 </ul>
 <!--more-->
-<h2 id='javascript_tracker_updates'>JavaScript tracker updates</h2>
+<h2 id="javascript_tracker_updates">JavaScript tracker updates</h2>
 
-<p>We have released a new version of the JavaScript tracker, <strong>0.8.0</strong>. As always, we are hosting this new version on CloudFront if you don&#8217;t want to host it yourself:</p>
+<p>We have released a new version of the JavaScript tracker, <strong>0.8.0</strong>. As always, we are hosting this new version on CloudFront if you don’t want to host it yourself:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.0/sp.js</code></pre>
 
 <p>But before you update your tags, we need to share a few important things about this new version, including a <strong>breaking change</strong>:</p>
 
-<h3 id='changes_to_the_javascript_api'>Changes to the JavaScript API</h3>
+<h3 id="changes_to_the_javascript_api">Changes to the JavaScript API</h3>
 
-<p>Three main changes have been made to the JavaScript tracker&#8217;s API - please note that the first is a <strong>breaking change</strong>, while the other two deprecate some existing functions (and introduce new ones):</p>
+<p>Three main changes have been made to the JavaScript tracker’s API - please note that the first is a <strong>breaking change</strong>, while the other two deprecate some existing functions (and introduce new ones):</p>
 
 <ol>
-<li>The tracker now GETs <code>i</code> not <code>ice.png</code> <strong>(BREAKING CHANGE)</strong> - version 0.8.0 of the JavaScript tracker now GETs a transparent 1x1 GIF called <code>i</code>, no longer <code>ice.png</code>. If you are using the CloudFront Collector, you <strong>must</strong> upload our <a href='https://github.com/snowplow/snowplow/blob/master/2-collectors/cloudfront-collector/static/i?raw=true'><code>i</code></a> pixel to sit in your S3 bucket alongside <code>ice.png</code>. Don&#8217;t forget to make it publically readable. <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, the node.js collector, already supports <code>i</code></li>
+<li>The tracker now GETs <code>i</code> not <code>ice.png</code> <strong>(BREAKING CHANGE)</strong> - version 0.8.0 of the JavaScript tracker now GETs a transparent 1x1 GIF called <code>i</code>, no longer <code>ice.png</code>. If you are using the CloudFront Collector, you <strong>must</strong> upload our <a href="https://github.com/snowplow/snowplow/blob/master/2-collectors/cloudfront-collector/static/i?raw=true"><code>i</code></a> pixel to sit in your S3 bucket alongside <code>ice.png</code>. Don’t forget to make it publically readable. <a href="https://github.com/shermozle/SnowCannon">SnowCannon</a>, the node.js collector, already supports <code>i</code></li>
 
 <li>The <code>setAccount()</code> function was badly named. We have added a new function, <code>setCollectorCf()</code>, which does the exact same thing, and we will remove <code>setAccount()</code> in a future version. If you continue to use <code>setAccount()</code>, then a warning message will be printed to <code>console.log</code>, but it will still work</li>
 
 <li>The <code>getTracker()</code> function (which not many people need to use) was badly named. As wth point 2 above: we have added <code>getTrackerCf()</code> and <code>getTrackerUrl()</code>, and deprecated <code>getTracker()</code> for now</li>
 </ol>
 
-<p>As always, our JavaScript tracker&#8217;s current API is fully documented on our Wiki, on the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker'>JavaScript Tracker</a> page.</p>
+<p>As always, our JavaScript tracker’s current API is fully documented on our Wiki, on the <a href="https://github.com/snowplow/snowplow/wiki/javascript-tracker">JavaScript Tracker</a> page.</p>
 
-<h3 id='new_tracking_data'>New tracking data</h3>
+<h3 id="new_tracking_data">New tracking data</h3>
 
 <p>Version 0.8.0 of the JavaScript tracker now passes additional data along to the Snowplow collector. This additional data is as follows:</p>
 
 <ul>
 <li><strong>Tracker version</strong> - so you will always know which version of the JavaScript tracker generated a given Snowplow event</li>
 
-<li><strong>User fingerprint</strong> - we are still working on a new collector which supports cross-domain user tracking. In the meantime, we are releasing an experimental feature: a &#8216;user fingerprint&#8217; based on various (hopefully unique) attributes of the user&#8217;s browser. Many thanks to <a href='https://github.com/moncaubeig'>Gilles</a> for contributing this feature; to read more about this, please take a look at <a href='https://github.com/snowplow/snowplow/issues/70'>issue #70</a> in GitHub</li>
+<li><strong>User fingerprint</strong> - we are still working on a new collector which supports cross-domain user tracking. In the meantime, we are releasing an experimental feature: a ‘user fingerprint’ based on various (hopefully unique) attributes of the user’s browser. Many thanks to <a href="https://github.com/moncaubeig">Gilles</a> for contributing this feature; to read more about this, please take a look at <a href="https://github.com/snowplow/snowplow/issues/70">issue #70</a> in GitHub</li>
 
-<li><strong>Timezone</strong> - tells you what timezone the user in, recording the <a href='http://en.wikipedia.org/wiki/Tz_database'>Olsen key</a> for the user&#8217;s timezone</li>
+<li><strong>Timezone</strong> - tells you what timezone the user in, recording the <a href="http://en.wikipedia.org/wiki/Tz_database">Olsen key</a> for the user’s timezone</li>
 
-<li><strong>Color depth</strong> - the bit depth of the browser&#8217;s color palette for displaying images (in bits per pixel)</li>
+<li><strong>Color depth</strong> - the bit depth of the browser’s color palette for displaying images (in bits per pixel)</li>
 </ul>
 
 <p>We have updated the ETL and storage systems (e.g. Hive and Infobright table definitions) to extract and store these new fields.</p>
 
-<p>We have updated the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a> page on our Wiki with these additions.</p>
+<p>We have updated the <a href="https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol">Snowplow Tracker Protocol</a> page on our Wiki with these additions.</p>
 
-<h2 id='etl_and_storage_improvements'>ETL and storage improvements</h2>
+<h2 id="etl_and_storage_improvements">ETL and storage improvements</h2>
 
 <p>This release includes various improvements to Snowplow ETL and storage which are unrelated to the JavaScript tracker changes above. To break these down:</p>
 
-<h3 id='additional_data_being_saved'>Additional data being saved</h3>
+<h3 id="additional_data_being_saved">Additional data being saved</h3>
 
 <ul>
 <li><strong>Useragent</strong> - the raw browser useragent is now being logged in a new <code>useragent</code> field. Previously we were throwing this useful data away</li>
 
-<li><strong>Platform</strong> - the tracker&#8217;s <code>platform</code> type is now extracted and stored. The JavaScript tracker always sets this field to <code>web</code></li>
+<li><strong>Platform</strong> - the tracker’s <code>platform</code> type is now extracted and stored. The JavaScript tracker always sets this field to <code>web</code></li>
 </ul>
 
-<h3 id='bug_fixes'>Bug fixes</h3>
+<h3 id="bug_fixes">Bug fixes</h3>
 
-<p>Just one bug fix - in the StorageLoader, we changed the field encloser for Infobright to <code>NULL</code>, where previously it was <code>&#39;&#39;</code> (two empty quotes). This was to fix <a href='https://github.com/snowplow/snowplow/issues/88'>issue #88</a>, where Infobright was throwing an error and dying if a field&#8217;s value started with a double-quote.</p>
+<p>Just one bug fix - in the StorageLoader, we changed the field encloser for Infobright to <code>NULL</code>, where previously it was <code>''</code> (two empty quotes). This was to fix <a href="https://github.com/snowplow/snowplow/issues/88">issue #88</a>, where Infobright was throwing an error and dying if a field’s value started with a double-quote.</p>
 
-<h3 id='improved_emretlrunner_commandline_options'>Improved EmrEtlRunner command-line options</h3>
+<h3 id="improved_emretlrunner_commandline_options">Improved EmrEtlRunner command-line options</h3>
 
 <p>EmrEtlRunner now has some improved command-line options:</p>
 
@@ -163,38 +164,38 @@
 
 <pre><code>$ bundle exec snowplow-emr-etl-runner --process-bucket s3n://my-logs-to-process --config ./config.yml</code></pre>
 
-<p>Many thanks to <a href='https://github.com/mtibben'>Mike Tibben</a> for contributing these new options!</p>
+<p>Many thanks to <a href="https://github.com/mtibben">Mike Tibben</a> for contributing these new options!</p>
 
-<h3 id='placeholders_for_event_and_event_id'>Placeholders for event and event_id</h3>
+<h3 id="placeholders_for_event_and_event_id">Placeholders for event and event_id</h3>
 
 <ul>
 <li><strong>Event</strong> - we have renamed the <code>event_name</code> field in Infobright to simply <code>event</code>. This is still a placeholder (it will be populated in a future version of Snowplow)</li>
 
-<li><strong>Event ID</strong> - there has been some confusion over the uniqueness of the current <code>txn_id</code> field - see <a href='https://github.com/snowplow/snowplow/issues/89'>issue #89</a> for the discussion. We plan on adding a properly unique <code>event_id</code> for each event in the ETL layer; in the meantime we have added the <code>event_id</code> field in as a placeholder</li>
+<li><strong>Event ID</strong> - there has been some confusion over the uniqueness of the current <code>txn_id</code> field - see <a href="https://github.com/snowplow/snowplow/issues/89">issue #89</a> for the discussion. We plan on adding a properly unique <code>event_id</code> for each event in the ETL layer; in the meantime we have added the <code>event_id</code> field in as a placeholder</li>
 </ul>
 
-<h2 id='upgrading_to_the_new_version'>Upgrading to the new version</h2>
+<h2 id="upgrading_to_the_new_version">Upgrading to the new version</h2>
 
-<h3 id='tracker_and_collector'>Tracker and collector</h3>
+<h3 id="tracker_and_collector">Tracker and collector</h3>
 
-<p>We have discussed above how to update your JavaScript tracker and CloudFront collector to support this new version 0.6.1. If you are using <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, the node.js collector, you don&#8217;t have to modify it - it already supports the new <code>i</code> pixel.</p>
+<p>We have discussed above how to update your JavaScript tracker and CloudFront collector to support this new version 0.6.1. If you are using <a href="https://github.com/shermozle/SnowCannon">SnowCannon</a>, the node.js collector, you don’t have to modify it - it already supports the new <code>i</code> pixel.</p>
 
-<h3 id='etl'>ETL</h3>
+<h3 id="etl">ETL</h3>
 
-<p>To upgrade your ETL system, first re-deploy EmrEtlRunner from GitHub as per the <a href='https://github.com/snowplow/snowplow/wiki/deploying-emretlrunner'>EmrEtlRunner Setup Guide</a>, and then update the ETL dependencies at the bottom of your <code>config.yml</code> file like so:</p>
+<p>To upgrade your ETL system, first re-deploy EmrEtlRunner from GitHub as per the <a href="https://github.com/snowplow/snowplow/wiki/deploying-emretlrunner">EmrEtlRunner Setup Guide</a>, and then update the ETL dependencies at the bottom of your <code>config.yml</code> file like so:</p>
 
 <pre><code>:snowplow:
   :serde_version: 0.5.2
   :hive_hiveql_version: 0.5.1
   :non_hive_hiveql_version: 0.0.3</code></pre>
 
-<h3 id='storage'>Storage</h3>
+<h3 id="storage">Storage</h3>
 
-<h4 id='hive'>Hive</h4>
+<h4 id="hive">Hive</h4>
 
-<p>If you are only using Hive for storage and analytics, you do not need to do anything to support this new release - because we add all new fields to the end of the file format, and field renames (like <code>event_name</code> to <code>event</code>) don&#8217;t affect Hive on Amazon EMR.</p>
+<p>If you are only using Hive for storage and analytics, you do not need to do anything to support this new release - because we add all new fields to the end of the file format, and field renames (like <code>event_name</code> to <code>event</code>) don’t affect Hive on Amazon EMR.</p>
 
-<h4 id='infobright'>Infobright</h4>
+<h4 id="infobright">Infobright</h4>
 
 <p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
 
@@ -202,7 +203,7 @@
 
 <p>Running this script will create a new table, <code>events_003</code> (version 0.0.3 of the table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
 
-<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_003</code> table, not your old <code>events</code> table:</p>
+<p>Once you have run this, don’t forget to update your StorageLoader’s <code>config.yml</code> to load into the new <code>events_003</code> table, not your old <code>events</code> table:</p>
 
 <pre><code>:storage:
   :type: infobright
@@ -211,11 +212,12 @@
 
 <p>Done!</p>
 
-<h2 id='getting_help'>Getting help</h2>
+<h2 id="getting_help">Getting help</h2>
 
-<p>If you have any problems with version 0.6.1, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>If you have any problems with version 0.6.1, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
 
 <p>And do let us know if the new features - such as user fingerprinting - are useful!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -266,23 +268,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -300,22 +285,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -337,19 +336,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

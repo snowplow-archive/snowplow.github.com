@@ -72,7 +72,8 @@
 			09 Jan 2013
 			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			<p>In this blog post, we outline our plans to develop the <a href='https://github.com/snowplow/snowplow/wiki/etl'>ETL</a> (&#8220;extract, transform and load&#8221;) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
+			
+<p>In this blog post, we outline our plans to develop the <a href="https://github.com/snowplow/snowplow/wiki/etl">ETL</a> (“extract, transform and load”) part of the Snowplow stack. Although in many respects the least sexy element of the stack, it is critical to Snowplow, and we intend to re-architect the ETL step in quite significant ways. In this post, we discuss our plans and the rationale behind them, in the hope to get:</p>
 
 <ol>
 <li>Feedback from the community on them</li>
@@ -83,17 +84,17 @@
 <p>We will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#purpose'>Recap: the point of the ETL step</a></li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#purpose">Recap: the point of the ETL step</a></li>
 
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#limitations'>Limitations with the current, Hive-based ETL process</a></li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#limitations">Limitations with the current, Hive-based ETL process</a></li>
 
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#enrichment'>From ETL to enrichment</a>: what we want the ETL step to achieve</li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#enrichment">From ETL to enrichment</a>: what we want the ETL step to achieve</li>
 
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#speed'>Towards a real-time ETL</a>: speeding things up</li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#speed">Towards a real-time ETL</a>: speeding things up</li>
 
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>Moving to Cascading / Scalding</a>: what we plan to do</li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#scalding">Moving to Cascading / Scalding</a>: what we plan to do</li>
 
-<li><a href='/blog/2013/01/09/from-etl-to-enrichment/#benefits'>Benefits of this approach</a>: both in the short and long term</li>
+<li><a href="/blog/2013/01/09/from-etl-to-enrichment/#benefits">Benefits of this approach</a>: both in the short and long term</li>
 </ol>
 
 <p>To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:</p>
@@ -104,18 +105,19 @@
 			08 Jan 2013
 			<h1><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data">Using ChartIO to visualise and interrogate Snowplow data</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			<p>In the last couple of weeks, we have been experimenting with <a href='http://chartio.com/'>ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise Snowplow data. Given the number of requests we get from Snowplow users to recommend tools to assist with analytics on Snowplow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on Snowplow data using ChartIO.</p>
+			
+<p>In the last couple of weeks, we have been experimenting with <a href="http://chartio.com/">ChartIO</a> - a hosted BI tool for visualising data and creating dashboards. So far, we are very impressed - ChartIO is an excellent analytics tool to use to interrogate and visualise Snowplow data. Given the number of requests we get from Snowplow users to recommend tools to assist with analytics on Snowplow data, we thought it well worth sharing why ChartIO is so good, and give some examples of analyses on Snowplow data using ChartIO.</p>
 
-<p><img src='/static/img/blog/2013/01/chartio-0.png' alt='chartio-pic-0' /></p>
+<p><img src="/static/img/blog/2013/01/chartio-0.png" alt="chartio-pic-0" /></p>
 
 <p>In this post we cover:</p>
 
 <ol>
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why'>Why is ChartIO so good?</a></li>
+<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#why">Why is ChartIO so good?</a></li>
 
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup'>Setting up ChartIO to work with Snowplow</a></li>
+<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#setup">Setting up ChartIO to work with Snowplow</a></li>
 
-<li><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement'>Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
+<li><a href="/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data#engagement">Tutorial: using ChartIO to unpick the drivers of engagement with a site</a></li>
 </ol>
 <h2><a name='why'>Why is ChartIO so good?</a></h2>
 <p>ChartIO is great for two reasons:</p>
@@ -126,7 +128,7 @@
 <li><strong>Easy</strong>. ChartIO is easy to use. This is partly because the UI is really nice. (Lots of drag and drop, easy-to-follow workflow.) But it is also because ChartIO is very simple: it lacks a lot of the complexity of more traditional BI tools like Microstrategy and Pentaho. It is a lot simpler even than more recent innovations in the space like Tableau. Whilst this means it is a bit less powerful, the upside is the tool is a lot easier to use than comparable tools.</li>
 </ol>
 
-<p>ChartIO has one enormous advantage that makes it especially well suited to querying Snowplow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>OLAP analysis</a> before they can be used. (We covered how to convert Snowplow data into that format in the <a href='/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html'>analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of Snowplow data</strong>.</p>
+<p>ChartIO has one enormous advantage that makes it especially well suited to querying Snowplow data: it does not require the data to be in a specific format before it will let users chart / graph it. That compares with the vast majority of tools (including Tableau, Qlikview, Pentaho and Microstrategy) that all require that any data is structured in a format suitable for <a href="/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html">OLAP analysis</a> before they can be used. (We covered how to convert Snowplow data into that format in the <a href="/analytics/tools-and-techniques/converting-snowplow-data-into-a-format-suitable-for-olap.html">analytics cookbook</a>.) ChartIO <strong>does</strong> work better with data that is formatted in this way, but it still works beautifully with the data as is. As a result, <strong>ChartIO is, we believe, the easiest way to build graphs and dashboards on top of Snowplow data</strong>.</p>
 <p class='more'><a href='/blog/2013/01/08/using-chartio-to-visualise-and-interrogate-snowplow-data'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -134,22 +136,23 @@
 			07 Jan 2013
 			<h1><a href="/blog/2013/01/07/the-clojure-collector-in-detail">Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
+			
+<p>Last week we released <a href="/blog/2013/01/03/snowplow-0.7.0-released/">Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
 
 <p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.</p>
 
-<p><img src='/static/img/blog/2013/01/engine.jpg' alt='engine' /></p>
+<p><img src="/static/img/blog/2013/01/engine.jpg" alt="engine" /></p>
 
-<h2 id='contents'>Contents</h2>
+<h2 id="contents">Contents</h2>
 
 <ol>
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
+<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#biz-case">The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
 
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
+<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood">Under the hood: the design decisions behind the Clojure Collector</a></li>
 
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
+<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap">Moving forwards: short term Clojure Collector roadmap</a></li>
 
-<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
+<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap">Looking ahead: long term collector roadmap</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/01/07/the-clojure-collector-in-detail'>Read the rest of this entry</a></p>
 		</div>
@@ -158,13 +161,14 @@
 			03 Jan 2013
 			<h1><a href="/blog/2013/01/03/snowplow-0.7.0-released">Snowplow 0.7.0 released, with new Clojure-based collector</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure-based collector</a> designed to run on <a href='http://aws.amazon.com/elasticbeanstalk/'>Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
+			
+<p>Today we are hugely excited to announce the release of Snowplow version <strong>0.7.0</strong>, which includes an experimental new <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector">Clojure-based collector</a> designed to run on <a href="http://aws.amazon.com/elasticbeanstalk/">Amazon Elastic Beanstalk</a>. This release allows you to use Snowplow to uniquely identify and track users across multiple domains - even across a whole content or advertising network.</p>
 
-<p>Many thanks to community member <a href='https://github.com/shermozle'>Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a>, his node.js-based collector for Snowplow.</p>
+<p>Many thanks to community member <a href="https://github.com/shermozle">Simon Rumble</a> for developing many of the ideas underpinning the new collector in <a href="https://github.com/shermozle/SnowCannon">SnowCannon</a>, his node.js-based collector for Snowplow.</p>
 
 <p>To date, the primary collector for Snowplow events has been our CloudFront-based collector. The CloudFront-based collector has been easy to setup and very reliable, but has one main drawback: it does not support user tracking across multiple domains.</p>
 
-<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href='http://maven.snplow.com'>maven.snplow.com</a> will be the same as user=123 on <a href='http://snowplowanalytics.com'>snowplowanalytics.com</a>.</p>
+<p>The Clojure-based collector changes this: it sets a unique user ID server-side and returns it to the browser as a third-party cookie; this user ID is then stored with your Snowplow events, instead of the first-party cookie set by the JavaScript tracker. This means that user=123 on, say, <a href="http://maven.snplow.com">maven.snplow.com</a> will be the same as user=123 on <a href="http://snowplowanalytics.com">snowplowanalytics.com</a>.</p>
 
 <p>And the other good news is that our Clojure collector automatically logs the raw Snowplow events to Amazon S3 - and it logs in the exact same format as the CloudFront-based collector, so we can use the same ETL process for both collectors!</p>
 
@@ -176,13 +180,14 @@
 			02 Jan 2013
 			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
+			
+<p>Happy New Year all! It’s been three months since we <a href="/blog/2012/10/11/attlib-0.0.1-released/">introduced our Attlib project</a>, now renamed to <a href="https://github.com/snowplow/referer-parser">referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
 
 <p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
 
-<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
+<p>Huge thanks to <a href="https://github.com/donspaulding">Don Spaulding</a> @ <a href="http://mirusresearch.com/">Mirus Research</a> for contributing the <a href="https://github.com/snowplow/referer-parser/tree/master/python">Python port</a> of referer-parser; the <a href="https://github.com/snowplow/referer-parser/tree/master/java-scala">Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href="https://github.com/snowplow/snowplow/wiki/etl">Snowplow ETL</a> process in the coming months.</p>
 
-<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
+<p>You can checkout the code on GitHub, in the <a href="https://github.com/snowplow/referer-parser">referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
 <p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -218,23 +223,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -252,22 +240,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -289,19 +291,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

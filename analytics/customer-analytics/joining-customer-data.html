@@ -67,22 +67,25 @@
 </div>
 	
 		<div id="contents">
-<h1 id='joining_snowplow_engagement_data_with_other_sources_of_customer_data_into_customer_datamarts'>Joining Snowplow engagement data with other sources of customer data into customer datamarts</h1>
+
+<h1 id="joining_snowplow_engagement_data_with_other_sources_of_customer_data_into_customer_datamarts">Joining Snowplow engagement data with other sources of customer data into customer datamarts</h1>
 
 <p>The value of data sets increases when they are joined with other, complimentary data sets. No where is this more true than in the case of customer data. Busiensses have for years spend huge sums of money integrating multiple customer data sets (incl. CRM data, financial data, offline sales data, email marketing data etc.) into datawarehouses, datamarts and single customer views to provide a complete picture of their userbase. Until Snowplow, however, integrating web analytics with other customer data sources has always been difficult if not impossible.</p>
 
 <p>In this section, we walk through the process of integrating Snowplow data with other data sources:</p>
 
 <ol>
-<li><a href='#why'>Why integrate web analytics data with other customer data sources</a></li>
+<li><a href="#why">Why integrate web analytics data with other customer data sources</a></li>
 
-<li><a href='#ingredients'>Necessary ingredients for successful integration</a></li>
+<li><a href="#ingredients">Necessary ingredients for successful integration</a></li>
 
-<li><a href='#upload'>Uploading customer data into Snowplow</a></li>
+<li><a href="#upload">Uploading customer data into Snowplow</a></li>
 
-<li><a href='#join'>Joining customer data with Snowplow to create an integrated customer datamart</a></li>
+<li><a href="#join">Joining customer data with Snowplow to create an integrated customer datamart</a></li>
 </ol>
-<a name='why'><h2>1. Why integrate web analytics data with other customer data sources?</h2></a>
+
+<p><a name='why'><h2>1. Why integrate web analytics data with other customer data sources?</h2></a></p>
+
 <p>To date many companies have become very good at using CRM, loyalty and sales data to understand, segment and serve their customer base. Typically, however, they have <strong>not</strong> used web analytics data to understand their customers, even though how users engage with brands and companies through their website and applications provides some of the most revealing data about who a person is, there motivation for engaging with a brand / product / service and how happy they are with that brand / product and service. To illustrate how revealing web analytics data can be, consider:</p>
 
 <ul>
@@ -112,7 +115,9 @@
 
 <li>Social media (e.g. Facebook, Twitter)</li>
 </ul>
-<a name='ingredients'><h2>2. Necessary ingredients for successful integration</h2></a>
+
+<p><a name='ingredients'><h2>2. Necessary ingredients for successful integration</h2></a></p>
+
 <p>Integrating any two data sources requires that:</p>
 
 <ul>
@@ -128,7 +133,9 @@
 
 <li>Web analytics programs are typically bad at reliably identifying users. (Snowplow <em>fixes</em> this problem by exposing a <code>user_id</code>, <code>domain_userid</code> and <code>network_userid</code> and making it striaghtforward to map those user identifiers with identifiers from other systems.)</li>
 </ul>
-<a name='upload'><h2>3. Uploading data into Snowplow</h2></a>
+
+<p><a name='upload'><h2>3. Uploading data into Snowplow</h2></a></p>
+
 <p>In order two join two data sets, you need to be able to run a query across both of them. Typically, this means getting copies of them in the same system. There are three options:</p>
 
 <ol>
@@ -142,18 +149,22 @@
 <p>Whilst all three options are possible, more often then not we recommend companies use option 2 i.e. import the customer data they want to join with Snowplow into Snowplow. (Or more specifically, if they are querying Snowplow data in Hive, import the data into Hive. If they are querying Snowplow data in Redshift, import the data into Redshift.) The reason is relatively straightforward: Snowplow data sets tend to be very large: that is why we use either Hive or Redshift to store and query the data, as both these platforms are built for scale. Other sources of customer data e.g. CRM data are typically much smaller scale, so moving them into Hive / Redshift is usually more straightforward then moving millions of lines of Snowplow data into a non-Hive / non-Redshift data store.</p>
 
 <ol>
-<li><a href='#redshift-import'>Importing your data into Redshift</a></li>
+<li><a href="#redshift-import">Importing your data into Redshift</a></li>
 
-<li><a href='#hive-import'>Importing your data into S3 / Hive</a></li>
+<li><a href="#hive-import">Importing your data into S3 / Hive</a></li>
 </ol>
-<a name='redshift-import'><h3>3.1 Importing your data into Redshift</h3></a>
+
+<p><a name='redshift-import'><h3>3.1 Importing your data into Redshift</h3></a></p>
+
 <p>If you are using Redshift to store and query your Snowplow data, uploading other sources of customer data into your Redshift cluster is reasonably straightforward.</p>
 
-<p>Because uploading data into Redshift is fastest from S3, we generally recommend saving the data in tab delimited format (being careful to remove any tabs from the data), and then uploading those text files to S3. Bulk loading the data from S3 into Redshift is then straightforward. (For details on how to bulk load data from S3 into Redshift - see <a href='http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-S3.html'>here</a>.) Note you will need to create new tables in Redshift with a schema that match the format of the exported data in S3, prior to performing the bulk upload.</p>
+<p>Because uploading data into Redshift is fastest from S3, we generally recommend saving the data in tab delimited format (being careful to remove any tabs from the data), and then uploading those text files to S3. Bulk loading the data from S3 into Redshift is then straightforward. (For details on how to bulk load data from S3 into Redshift - see <a href="http://docs.aws.amazon.com/redshift/latest/dg/t_Loading-data-from-S3.html">here</a>.) Note you will need to create new tables in Redshift with a schema that match the format of the exported data in S3, prior to performing the bulk upload.</p>
 
-<p>To maintain a regular update of data from your other customer data sources into Redshift for analysing alongside Snowplow, it makes sense either to script an ETL process, or to use an ETL tool. Currently there are not any Redshift compatible tools ETL tools that we have tested. However, we expect many ETL tools to roll out Redshift support over the next couple of months. In addition, the Snowplow team can setup those regular ETL steps as part of our <a href='/services/index.html'>professional services</a> offering.</p>
-<a name='hive-import'><h3>3.2 Importing data into Hive</h3></a>
-<p>If you are running Snowplow using Hive on Amazon&#8217;s S3 / EMR infrastructure, uploading data into Hive is a three step process:</p>
+<p>To maintain a regular update of data from your other customer data sources into Redshift for analysing alongside Snowplow, it makes sense either to script an ETL process, or to use an ETL tool. Currently there are not any Redshift compatible tools ETL tools that we have tested. However, we expect many ETL tools to roll out Redshift support over the next couple of months. In addition, the Snowplow team can setup those regular ETL steps as part of our <a href="/services/index.html">professional services</a> offering.</p>
+
+<p><a name='hive-import'><h3>3.2 Importing data into Hive</h3></a></p>
+
+<p>If you are running Snowplow using Hive on Amazon’s S3 / EMR infrastructure, uploading data into Hive is a three step process:</p>
 
 <ol>
 <li>Export the data from your system in a format suitable for Hive. (In practice, this generally means some kind of text-delimited format e.g. tab-delimited or comma-delimited)</li>
@@ -163,7 +174,7 @@
 <li>Create an external table in Hive that references the data, with the correct field definitions</li>
 </ol>
 
-<h4 id='321_exporting_your_data_in_a_format_suitable_for_hive'>3.2.1 Exporting your data in a format suitable for Hive</h4>
+<h4 id="321_exporting_your_data_in_a_format_suitable_for_hive">3.2.1 Exporting your data in a format suitable for Hive</h4>
 
 <p>How you export customer data out of your systems will vary depending on the system. In general, however, nearly all cutomer-data applications will enable you to export customer records as CSV files.</p>
 
@@ -177,13 +188,13 @@
 <li>If possible, the CSV should not contain the column titles themselves, as this will make importing them into Hive more straightforward</li>
 </ol>
 
-<h4 id='322_uploading_data_into_s3'>3.2.2 Uploading data into S3</h4>
+<h4 id="322_uploading_data_into_s3">3.2.2 Uploading data into S3</h4>
 
-<p>Uploading data into S3 is reasonably straight forward: this can be done via the <a href='http://console.aws.amazon.com'>Amazon Web Services UI</a> or an S3 interface tool like <a href='http://www.bucketexplorer.com/'>Bucket Explorer</a>.</p>
+<p>Uploading data into S3 is reasonably straight forward: this can be done via the <a href="http://console.aws.amazon.com">Amazon Web Services UI</a> or an S3 interface tool like <a href="http://www.bucketexplorer.com/">Bucket Explorer</a>.</p>
 
-<h4 id='323_defining_your_data_in_hive'>3.2.3 Defining your data in Hive</h4>
+<h4 id="323_defining_your_data_in_hive">3.2.3 Defining your data in Hive</h4>
 
-<p>Once your data is on S3, you need to tell Hive about it, so you can query it. To do that, you&#8217;ll need to define a Hive table for it:</p>
+<p>Once your data is on S3, you need to tell Hive about it, so you can query it. To do that, you’ll need to define a Hive table for it:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL / Redshift pseudo-code */</span>
 <span class='k'>CREATE</span> <span class='n'>EXTERNAL</span> <span class='k'>TABLE</span> 
 <span class='p'>(</span>
@@ -196,16 +207,16 @@
 <span class='n'>FIELDS</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;,&#39;</span>
 <span class='k'>LINES</span> <span class='k'>TERMINATED</span> <span class='k'>BY</span> <span class='s1'>&#39;\n&#39;</span>
 <span class='n'>LOCATION</span> <span class='s1'>&#39;s3://LOCATION-BUCKET/LOCATION-PATH/&#39;</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>To check that your data has been successfully uploaded, you can run some sample queries within Hive e.g. to view the first 10 rows:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL */</span>
 <span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>FROM</span>  <span class='k'>LIMIT</span> <span class='mi'>10</span><span class='p'>;</span>
-</code></pre>
-</div><a name='join'><h2>4. Joining 3rd party customer data with Snowplow data</h2></a>
+</code></pre></div>
+<p><a name='join'><h2>4. Joining 3rd party customer data with Snowplow data</h2></a></p>
+
 <p>Now that all your customer data sets are available in Redshift or Hive, you are in a position to run an analysis across all customer data sets.&lt;/a&gt;</p>
 
-<p>To do so, however, you need to map users between the different systems: mapping users identified in Snowplow by the <code>domain_userid</code>, <code>network_userid</code> and <code>user_id</code>, with customers as identified by a <code>customer_id</code> (or something similar) in your other customer data sets. This requires firing a Snowplow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be assigned to the Snowplow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href='identifying-users.html#login-events'>identifying users with Snowplow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
+<p>To do so, however, you need to map users between the different systems: mapping users identified in Snowplow by the <code>domain_userid</code>, <code>network_userid</code> and <code>user_id</code>, with customers as identified by a <code>customer_id</code> (or something similar) in your other customer data sets. This requires firing a Snowplow event with the <code>customer_id</code> at some stage in the customer journey when the ID is available, so that it can be assigned to the Snowplow <code>user_id</code>. The most common way of achieving this is to fire the event at login events, as described in the <a href="identifying-users.html#login-events">identifying users with Snowplow</a> section of this Cookbook. Assuming this has been done, you can generate the mapping by executing the following SQL query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL / Redshift */</span>
 <span class='k'>SELECT</span>
 <span class='n'>user_id</span><span class='p'>,</span>
@@ -213,8 +224,7 @@
 <span class='n'>network_userid</span>
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>user_id</span><span class='p'>,</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>network_userid</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>You can then perform queries that join both data tables, the Snowplow <code>events</code> table and your 2nd table of imported customer data via the mapping table above:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* HiveQL / MySQL / Redshift pseudo-code */</span>
 <span class='k'>SELECT</span>
@@ -235,11 +245,11 @@
 <span class='k'>ON</span> <span class='n'>c</span><span class='p'>.</span><span class='n'>user_id</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>user_id</span>
 <span class='k'>JOIN</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>ON</span> <span class='n'>e</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>m</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>;</span>
-</code></pre>
-</div>
-<h2 id='happy_integrating_snowplow_data_with_other_sources_of_customer_data'>Happy integrating Snowplow data with other sources of customer data?</h2>
+</code></pre></div>
+<h2 id="happy_integrating_snowplow_data_with_other_sources_of_customer_data">Happy integrating Snowplow data with other sources of customer data?</h2>
 
-<p>Find out <a href='customer-lifetime-value.html'>how to calculate customer lifetime value</a> using Snowplow</p>
+<p>Find out <a href="customer-lifetime-value.html">how to calculate customer lifetime value</a> using Snowplow</p>
+
 </div>
 
  <div id="sidebar">
@@ -253,18 +263,6 @@
 		
 		<ul>
 			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -400,6 +398,18 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 			
 				
 					
@@ -423,15 +433,7 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -467,7 +469,15 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -549,18 +559,6 @@
 					
 				
 			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -696,6 +694,18 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 			
 				
 					
@@ -719,15 +729,15 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
@@ -755,15 +765,15 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
@@ -867,15 +877,15 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
-				
+									
 					
 				
 					
@@ -903,15 +913,15 @@
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
@@ -1015,15 +1025,7 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -1059,7 +1061,15 @@
 					
 				
 					
-									
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -1160,46 +1170,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1211,6 +1181,46 @@
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1308,22 +1318,6 @@
 				
 					
 				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
 					
 				
 					
@@ -1359,147 +1353,19 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
 					
-									
+				
 					
 				
 					
-									
+				
 					
 				
 					
-									
-					
 				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
 					
 				
 					
@@ -1603,6 +1469,138 @@
 					
 				
 					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -1644,6 +1642,18 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
 					
 				
 					

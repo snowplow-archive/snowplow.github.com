@@ -71,19 +71,21 @@
 			07 Jul 2013
 			<h1>Snowplow 0.8.7 released with JavaScript Tracker improvements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>After a brief summer intermission, we are pleased to announce the release of <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
+			
+<p>After a brief summer intermission, we are pleased to announce the release of <a href="https://github.com/snowplow/snowplow/releases/0.8.7">Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
 
-<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href='https://github.com/mfu0'>mfu0</a> and Snowplow client <a href='http://www.bigcommerce.com/'>BigCommerce</a> for bringing some of these issues to our attention.</p>
+<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href="https://github.com/mfu0">mfu0</a> and Snowplow client <a href="http://www.bigcommerce.com/">BigCommerce</a> for bringing some of these issues to our attention.</p>
 
 <p>As always, the updated minified tracker is available here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.12.0/sp.js</code></pre>
 
-<p>Please note that this release implements the latest version of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
+<p>Please note that this release implements the latest version of the <a href="https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol">Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
 
-<p>This is the first Snowplow release to make use of the new <a href='https://github.com/blog/1547-release-your-software'>GitHub Releases</a> functionality - so do check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>0.8.7 Release Notes</a>.</p>
+<p>This is the first Snowplow release to make use of the new <a href="https://github.com/blog/1547-release-your-software">GitHub Releases</a> functionality - so do check out the <a href="https://github.com/snowplow/snowplow/releases/0.8.7">0.8.7 Release Notes</a>.</p>
 
-<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
+<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it’s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don’t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -134,23 +136,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -168,22 +153,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -205,19 +204,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

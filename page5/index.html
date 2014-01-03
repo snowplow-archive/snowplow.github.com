@@ -72,11 +72,12 @@
 			12 Aug 2013
 			<h1><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we outgrow our &#8220;fat table&#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
+			
+<p>As we outgrow our “fat table” structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
 
-<p>When we blogged about <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc&#8217;s excellent comment - although I would encourage you to read it in full <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>on the blog post</a>:</p>
+<p>When we blogged about <a href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href="https://twitter.com/mglcel">Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc’s excellent comment - although I would encourage you to read it in full <a href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">on the blog post</a>:</p>
 
-<p><em>Hi, we&#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
+<p><em>Hi, we’re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
 
 <p><em>An Actor(id/type) made and Action(verb, context) on another Object(id/type).</em></p>
 
@@ -84,24 +85,24 @@
 
 <p><em>The context itself, owned by the action, is a k/v dictionary.</em></p>
 
-<p>So in designing his event grammar, Loïc was influenced by the <a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'>Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
+<p>So in designing his event grammar, Loïc was influenced by the <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework">Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
 
-<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &#8220;event grammar&#8221; to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
+<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested “event grammar” to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
 
 <p>So, in the rest of this post we will:</p>
 
 <ol>
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'>Introduce the components of our grammar</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar">Introduce the components of our grammar</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'>Model some ecommerce events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce">Model some ecommerce events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'>Model some videogame events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame">Model some videogame events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'>Model some digital media events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media">Model some digital media events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'>Discuss what we have learnt</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings">Discuss what we have learnt</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'>Draw some conclusions</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc">Draw some conclusions</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar'>Read the rest of this entry</a></p>
 		</div>
@@ -110,14 +111,15 @@
 			05 Aug 2013
 			<h1><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href='http://www.postgresql.org/'>PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
+			
+<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href="http://www.postgresql.org/">PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
 
 <p>And if you are already happily using Snowplow with Redshift, there are two other new features to check out:</p>
 
 <ol>
-<li>We have added support for multiple storage targets to Snowplow&#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
+<li>We have added support for multiple storage targets to Snowplow’s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
 
-<li>We have brought back the ability to query your Snowplow events using <a href='http://hive.apache.org/'>HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
+<li>We have brought back the ability to query your Snowplow events using <a href="http://hive.apache.org/">HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
 </ol>
 
 <p>As well as these new features, we have made a large number of improvements across Snowplow:</p>
@@ -129,9 +131,9 @@
 
 <li>We have improved the performance of the Redshift loading code</li>
 
-<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for details)</li>
+<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href="http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html">Redshift <code>COPY</code> documentation</a> for details)</li>
 
-<li>We have moved the Snowplow JavaScript Tracker into <a href='https://github.com/snowplow/snowplow-javascript-tracker'>its own repository</a></li>
+<li>We have moved the Snowplow JavaScript Tracker into <a href="https://github.com/snowplow/snowplow-javascript-tracker">its own repository</a></li>
 
 <li>We have removed the deprecated Hive ETL and Infobright folders from the repository</li>
 </ul>
@@ -139,13 +141,13 @@
 <p>After the fold, we will cover the options for upgrading and using the new functionality:</p>
 
 <ol>
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'>Upgrading</a></li>
+<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading">Upgrading</a></li>
 
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'>Loading events into Postgres</a></li>
+<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres">Loading events into Postgres</a></li>
 
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'>Querying events with HiveQL</a></li>
+<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql">Querying events with HiveQL</a></li>
 
-<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'>Getting help</a></li>
+<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help">Getting help</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support'>Read the rest of this entry</a></p>
 		</div>
@@ -154,35 +156,38 @@
 			19 Jul 2013
 			<h1><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Yesterday at the <a href='http://www.meetup.com/hadoop-users-group-uk/'>Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
+			
+<p>Yesterday at the <a href="http://www.meetup.com/hadoop-users-group-uk/">Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
 
 <p>I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:</p>
-<iframe width='427' height='356' frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/24416560' marginheight='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'> </iframe><div style='margin-bottom:5px'> <strong> <a title='Snowplow presentation to hug uk' target='_blank' href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk'>Snowplow presentation to hug uk</a> </strong> from <strong><a target='_blank' href='http://www.slideshare.net/yalisassoon'>yalisassoon</a></strong> </div>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/24416560' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
 <p>Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!</p>
+
 		</div>
 	
 		<div class="post">
 			10 Jul 2013
 			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
+			
+<p>In a <a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/">previous blog post</a>, we described how we were in the process of building a <a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/">Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
 
-<p><img src='/static/img/blog/2013/07/your-country-needs-you.jpg' alt='your-country-needs-you' /></p>
+<p><img src="/static/img/blog/2013/07/your-country-needs-you.jpg" alt="your-country-needs-you" /></p>
 
-<p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
+<p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/">last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
 
 <ol>
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#events-per-day'>The number of events tracked per day</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#events-per-day">The number of events tracked per day</a></li>
 
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#runs-per-day'>The number of times the enrichment process is run per day</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#runs-per-day">The number of times the enrichment process is run per day</a></li>
 
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#log-files-per-day'>The number of Cloudfront log files generated per day, and the volume of data</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#log-files-per-day">The number of Cloudfront log files generated per day, and the volume of data</a></li>
 
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#emr-details'>The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#emr-details">The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></li>
 
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#output-back-to-s3'>The number of files outputted back to S3, and the size of those files</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#output-back-to-s3">The number of files outputted back to S3, and the size of those files</a></li>
 
-<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#redshift-data-points'>The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></li>
+<li><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#redshift-data-points">The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></li>
 </ol>
 
 <p>We will then share this data back, in an anonymized form, with the community, as part of the model.</p>
@@ -197,30 +202,31 @@
 			09 Jul 2013
 			<h1><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
+			
+<p>Back in March, <a href="https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ">Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
 
-<p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
+<p>Since Rob’s suggestion, we’ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
 
 <ol>
-<li>We replaced the Hive-based ETL with the <a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>Scalding-based enrichment process</a></li>
+<li>We replaced the Hive-based ETL with the <a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/">Scalding-based enrichment process</a></li>
 
-<li>We dealt with the <a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'>small files problem</a>, dramatically reducing EMR costs</li>
+<li>We dealt with the <a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem/">small files problem</a>, dramatically reducing EMR costs</li>
 
-<li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
+<li>We enabled support for <a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances">task and spot instances</a></li>
 </ol>
 
-<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we’ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/">follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
 <h2><a name='details'>What drives AWS costs for Snowplow users?</a></h2>
-<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
+<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector">Cloudfront collector</a> rather than the <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector">Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
 
 <ol>
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront'>Cloudfront costs</a>,</li>
+<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront">Cloudfront costs</a>,</li>
 
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3'>S3 costs</a>,</li>
+<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3">S3 costs</a>,</li>
 
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr'>EMR costs</a> and</li>
+<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr">EMR costs</a> and</li>
 
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift'>Redshift costs</a></li>
+<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift">Redshift costs</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs'>Read the rest of this entry</a></p>
 		</div>
@@ -257,23 +263,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -291,22 +280,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -328,19 +331,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

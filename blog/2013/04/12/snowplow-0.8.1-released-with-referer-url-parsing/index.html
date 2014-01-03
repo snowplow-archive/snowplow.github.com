@@ -71,7 +71,8 @@
 			12 Apr 2013
 			<h1>Snowplow 0.8.1 released with referer URL parsing</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
+			
+<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
 
 <p>Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:</p>
 
@@ -96,42 +97,42 @@
 <p>We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'>Referer parsing implementation</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing">Referer parsing implementation</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'>Some example data</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data">Some example data</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'>Upgrading and usage</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage">Upgrading and usage</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'>Getting help</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more.</p>
 <!--more--><h2><a name='referer-parsing'>1. Referer parsing implementation</a></h2>
 <p>The extraction of the referer URL into its six components is relatively straightforward. The second stage, looking up the referer URL in a database of known referers, is worth discussing in a little more detail.</p>
 
-<p>Our referer analysis process uses the latest version of our separate and standalone <a href='https://github.com/snowplow/referer-parser/tree/feature/social'>referer-parser</a> library. This library comes with a sizeable database of known referers, including search engines, social networks and webmail providers. You can view the library <a href='https://github.com/snowplow/referer-parser/blob/feature/social/referers.yml'>here</a>. It is a straightforward YAML file containing a long list of referers. Because this is an open source list, anyone can contribute additional referers to it. In this way, we hope it will remain one of the most extensive and authoritative lists of referers to use in web analytics.</p>
+<p>Our referer analysis process uses the latest version of our separate and standalone <a href="https://github.com/snowplow/referer-parser/tree/feature/social">referer-parser</a> library. This library comes with a sizeable database of known referers, including search engines, social networks and webmail providers. You can view the library <a href="https://github.com/snowplow/referer-parser/blob/feature/social/referers.yml">here</a>. It is a straightforward YAML file containing a long list of referers. Because this is an open source list, anyone can contribute additional referers to it. In this way, we hope it will remain one of the most extensive and authoritative lists of referers to use in web analytics.</p>
 
 <p>Snowplow feeds the referer URI and page URI to referer-parser to identify which <code>refr_medium</code> this referer URL belongs to:</p>
 
 <ol>
-<li>&#8220;search&#8221; means that this referer is a known search engine</li>
+<li>“search” means that this referer is a known search engine</li>
 
-<li>&#8220;social&#8221; means a social network or similar site</li>
+<li>“social” means a social network or similar site</li>
 
-<li>&#8220;email&#8221; means a webmail provider such as Yahoo! Mail</li>
+<li>“email” means a webmail provider such as Yahoo! Mail</li>
 
-<li>&#8220;internal&#8221; means that the referer was another page on the same domain</li>
+<li>“internal” means that the referer was another page on the same domain</li>
 
-<li>&#8220;unknown&#8221; means that there was a referer, but we couldn&#8217;t identify it as belonging to one of the other categories</li>
+<li>“unknown” means that there was a referer, but we couldn’t identify it as belonging to one of the other categories</li>
 </ol>
 
 <p>If the referer can be found in the referer-parser database, Snowplow stores the name of the refering site in the <code>refr_source</code> field.</p>
 
-<p>Finally, if the referer is a &#8220;search&#8221; referer and Snowplow can pull out a search query from the referer URL, it then stores this search term in the <code>refr_term</code> field.</p>
+<p>Finally, if the referer is a “search” referer and Snowplow can pull out a search query from the referer URL, it then stores this search term in the <code>refr_term</code> field.</p>
 <h2><a name='example-data'>2. Example data</a></h2>
-<p>Here is an excerpt of referer data from an ecommerce retailer - right-click and select &#8220;Open in New Tab&#8221; to see this at full size:</p>
+<p>Here is an excerpt of referer data from an ecommerce retailer - right-click and select “Open in New Tab” to see this at full size:</p>
 
-<p><img src='/static/img/blog/2013/04/parsed-referers.png' alt='parsed-referers-img' /></p>
+<p><img src="/static/img/blog/2013/04/parsed-referers.png" alt="parsed-referers-img" /></p>
 
 <p>As you can see, in this excerpt we have a variety of different referers - some internal pages and some search pages (Google, Google Images, Bing Images and AOL).</p>
 <h2><a name='upgrading-usage'>3. Upgrading and usage</a></h2>
@@ -139,36 +140,37 @@
 
 <p>To upgrade to 0.8.1 from 0.8.0, follow these steps:</p>
 
-<h3 id='31_etl'>3.1 ETL</h3>
+<h3 id="31_etl">3.1 ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
 
 <pre><code>:snowplow:
   :hadoop_etl_version: 0.2.0 # Version of the Hadoop ETL</code></pre>
 
-<h3 id='32_redshift'>3.2 Redshift</h3>
+<h3 id="32_redshift">3.2 Redshift</h3>
 
-<p>We have updated the Redshift table definition, you can find the latest version in the GitHub repository <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'>here</a>.</p>
+<p>We have updated the Redshift table definition, you can find the latest version in the GitHub repository <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql">here</a>.</p>
 
-<p>If you already have your Snowplow data in the previous version of the Redshift events table, then we have written <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.0.1_to_0.1.0.sql'>a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
+<p>If you already have your Snowplow data in the previous version of the Redshift events table, then we have written <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.0.1_to_0.1.0.sql">a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
 
-<p>Also please note that we have had to remove the &#8220;raw&#8221; <code>referrer_url</code> field from our Redshift events table for space reasons. This means that your historical data will lose <strong>all</strong> referer information in your events table unless you run a re-computation, see below.</p>
+<p>Also please note that we have had to remove the “raw” <code>referrer_url</code> field from our Redshift events table for space reasons. This means that your historical data will lose <strong>all</strong> referer information in your events table unless you run a re-computation, see below.</p>
 
-<h3 id='33_optional_recomputation'>3.3 (Optional) Re-computation</h3>
+<h3 id="33_optional_recomputation">3.3 (Optional) Re-computation</h3>
 
 <p>If you would like to see referer details for historic Snowplow events (i.e. events already in your Snowplow events table in Redshift), then we recommend re-running your Snowplow ETL process across all of your historical raw data.</p>
 
 <p>This is also advisable given that we have removed the raw <code>referrer_url</code> field from our Redshift table definition for space reasons.</p>
 
-<p>To re-run your Snowplow ETL process across all your historical data, please see our answer to <a href='https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events'>I want to recompute my Snowplow events, how?</a> on the Troubleshooting wiki page.</p>
+<p>To re-run your Snowplow ETL process across all your historical data, please see our answer to <a href="https://github.com/snowplow/snowplow/wiki/Troubleshooting#wiki-recompute-events">I want to recompute my Snowplow events, how?</a> on the Troubleshooting wiki page.</p>
 
-<h3 id='34_usage'>3.4 Usage</h3>
+<h3 id="34_usage">3.4 Usage</h3>
 
-<p>And that&#8217;s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.</p>
+<p>And that’s it! Once you have made these changes, you should have Snowplow populating the referer details for all new events.</p>
 <h2><a name='help'>4. Getting help</a></h2>
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
 
-<p>You can see the full list of issues delivered in Snowplow 0.8.1 on <a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;page=1&amp;state=closed'>GitHub</a>.</p>
+<p>You can see the full list of issues delivered in Snowplow 0.8.1 on <a href="https://github.com/snowplow/snowplow/issues?milestone=16&page=1&state=closed">GitHub</a>.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -219,23 +221,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -253,22 +238,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -290,19 +289,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

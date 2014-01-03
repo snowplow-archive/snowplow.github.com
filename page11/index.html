@@ -72,24 +72,25 @@
 			03 Mar 2013
 			<h1><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support">Snowplow 0.7.6 released with Redshift data warehouse support</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re excited to announce the immediate release of Snowplow version <strong>0.7.6</strong> with support for storing your Snowplow events in <a href='http://aws.amazon.com/redshift/'>Amazon Redshift</a>.</p>
+			
+<p>We’re excited to announce the immediate release of Snowplow version <strong>0.7.6</strong> with support for storing your Snowplow events in <a href="http://aws.amazon.com/redshift/">Amazon Redshift</a>.</p>
 
-<p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate Snowplow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can&#8217;t wait to see what the Snowplow community do with the new platform!</p>
+<p>We were very excited when Amazon announced Redshift back in late 2012, and we have been working to integrate Snowplow data since Redshift became generally available two weeks ago. Our tests with Redshift since launch have not disappointed - and we can’t wait to see what the Snowplow community do with the new platform!</p>
 
 <p>In this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#why-redshift'>Why Redshift is a great fit for Snowplow data</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#why-redshift">Why Redshift is a great fit for Snowplow data</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#this-version'>Changes in this version</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#this-version">Changes in this version</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#snowplow-redshift'>Setting up Snowplow for Redshift</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#snowplow-redshift">Setting up Snowplow for Redshift</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#upgrading'>Upgrading for Infobright/Hive users</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#upgrading">Upgrading for Infobright/Hive users</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#roadmap'>Roadmap and next steps</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#roadmap">Roadmap and next steps</a></li>
 
-<li><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#help'>Getting help</a></li>
+<li><a href="/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more.</p>
@@ -100,51 +101,54 @@
 			25 Feb 2013
 			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
+			
+<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
 
-<p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow&#8217;s first-party cookies when sent via HTTPS pages.</p>
+<p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href="https://github.com/snowplow/snowplow/pull/147">an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow’s first-party cookies when sent via HTTPS pages.</p>
 
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, Snowplow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
+<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, Snowplow’s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
 
-<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
+<p>So, this release fixes <a href="https://github.com/snowplow/snowplow/issues/181">a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
 
 <p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
 
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+
 		</div>
 	
 		<div class="post">
 			22 Feb 2013
 			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
+			
+<p>Another week, another release! We’re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
 
 <ul>
 <li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
 
 <li>Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)</li>
 
-<li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
+<li>Enable precise ordering of events in a user’s click stream with accuracy correct to the milli-second</li>
 </ul>
 
-<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
+<p>Many thanks to Snowplow users <a href="http://www.simplybusiness.co.uk/">Simply Business</a> and <a href="https://github.com/shermozle">Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
 
 <p>In this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids'>Our new user IDs</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids">Our new user IDs</a></li>
 
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps'>Our new event timestamps</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps">Our new event timestamps</a></li>
 
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes'>Bug fixes</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes">Bug fixes</a></li>
 
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations'>Breaking changes</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations">Breaking changes</a></li>
 
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading'>Upgrading</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading">Upgrading</a></li>
 
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
+<li><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more!</p>
@@ -155,15 +159,20 @@
 			20 Feb 2013
 			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
+			
+<p>On Friday Amazon launched <a href="http://aws.amazon.com/redshift/">Redshift</a>, a fully managed, petabyte-scale data warehouse service. We’ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
 
 <p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
 
-<h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
+<h2 id="an_overview_of_the_workaround">An overview of the workaround</h2>
 
 <p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-
-<p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
+<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
+<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
+<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
+<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
+</code></pre></div>
+<p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href="http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools">here</a>. )</p>
 <p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -171,17 +180,18 @@
 			18 Feb 2013
 			<h1><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp">Reflections on Saturday's Measurecamp</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>On Satuday both Alex and I were lucky enough to attend London&#8217;s second <a href='http://www.measurecamp.org/'>Measurecamp</a>, an unconference dedicated to digital analytics. The venue was packed with smart people sharing some really interesting ideas - we can&#8217;t do justice to all those ideas here, so I&#8217;ve just outlined my favourite two from the day:</p>
+			
+<p>On Satuday both Alex and I were lucky enough to attend London’s second <a href="http://www.measurecamp.org/">Measurecamp</a>, an unconference dedicated to digital analytics. The venue was packed with smart people sharing some really interesting ideas - we can’t do justice to all those ideas here, so I’ve just outlined my favourite two from the day:</p>
 
 <ol>
-<li><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#keywords'>Using keywords to segment audience by product and interest match</a>, courtesy of <a href='https://twitter.com/carmenmardiros'>Carmen Mardiros</a></li>
+<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#keywords">Using keywords to segment audience by product and interest match</a>, courtesy of <a href="https://twitter.com/carmenmardiros">Carmen Mardiros</a></li>
 
-<li><a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#server-side-datalayer'>Transferring commercially sensitive data into your web analytics platform via a server-side dataLayer</a>, courtesy of <a href='https://twitter.com/TechPad'>Matt Clarke</a></li>
+<li><a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#server-side-datalayer">Transferring commercially sensitive data into your web analytics platform via a server-side dataLayer</a>, courtesy of <a href="https://twitter.com/TechPad">Matt Clarke</a></li>
 </ol>
 
-<p>I&#8217;ve also post the slides I&#8217;d put together on <a href='/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#clv'>customer lifetime value</a> for the event: I didn&#8217;t end up sharing these on the day, because the room where the session took place didn&#8217;t have a projector. That was just as well, as I think we had a much more interesting conversation about customer lifetime value as a result.</p>
+<p>I’ve also post the slides I’d put together on <a href="/blog/2013/02/18/ideas-coming-out-of-februarys-measurecamp#clv">customer lifetime value</a> for the event: I didn’t end up sharing these on the day, because the room where the session took place didn’t have a projector. That was just as well, as I think we had a much more interesting conversation about customer lifetime value as a result.</p>
 <h2><a name='keywords'>1. Using keywords to segment audience by product and interest match</a></h2>
-<p>In this rather excellent presentation, <a href='https://twitter.com/carmenmardiros'>Carmen</a> showed how you can use keywords users enter (either in searches directing them to your website, or on internal searches) to classify audience in especially meaningful buckets e.g.</p>
+<p>In this rather excellent presentation, <a href="https://twitter.com/carmenmardiros">Carmen</a> showed how you can use keywords users enter (either in searches directing them to your website, or on internal searches) to classify audience in especially meaningful buckets e.g.</p>
 
 <ul>
 <li>Are they already a customer?</li>
@@ -227,23 +237,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -261,22 +254,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -298,19 +305,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

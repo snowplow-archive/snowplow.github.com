@@ -71,17 +71,18 @@
 			24 Sep 2012
 			<h1>Why set your data free?</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+			
+<p>At Saturday’s <a href="http://ukdaa.co.uk/">Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
 
-<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can’t do with Google Analytics / Omniture?</strong> It’s such a good question I thought I should publish an answer below:</p>
 
-<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
+<h3 id="1_integrate_web_analytics_data_with_other_data_sources">1. Integrate web analytics data with other data sources</h3>
 
 <p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
-<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
-</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behavior of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
-</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
-</tr></tbody></table>
+<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style="text-align: left;">Marketing spend data e.g. AdWords, ad server data</td><td style="text-align: left;">What is the return on my ad spend? How should I optimize my return on ad spend</td></tr>
+<tr><td style="text-align: left;">Customer data e.g. CRM, loyalty</td><td style="text-align: left;">How does the online behavior of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td></tr>
+<tr><td style="text-align: left;">Product / media catalogue data</td><td style="text-align: left;">What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td></tr>
+</tbody></table>
 <p>Snowplow makes integrating web analytics data with other data sources easier in a two ways:</p>
 
 <ol>
@@ -90,9 +91,9 @@
 <li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
 </ol>
 
-<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining Snowplow engagement data with other sources of customer data</a></p>
+<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href="/analytics/customer-analytics/joining-customer-data.html">joining Snowplow engagement data with other sources of customer data</a></p>
 
-<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
+<h3 id="2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want">2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
 
 <p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
 
@@ -106,21 +107,21 @@
 <li>Improvements to conversion rates over time</li>
 </ol>
 <!--more-->
-<p>In contrast, because Snowplow gives you access to the underlying data, it is possible to use BI tools like <a href='http://www.tableausoftware.com/'>Tableau</a> and <a href='http://www.microsoft.com/en-us/bi/powerpivot.aspx'>PowerPivot</a> to quickly slice and dice web analytics data by any dimensions / metrics you want. We&#8217;ll be posting examples of how to do this in the next few days.</p>
+<p>In contrast, because Snowplow gives you access to the underlying data, it is possible to use BI tools like <a href="http://www.tableausoftware.com/">Tableau</a> and <a href="http://www.microsoft.com/en-us/bi/powerpivot.aspx">PowerPivot</a> to quickly slice and dice web analytics data by any dimensions / metrics you want. We’ll be posting examples of how to do this in the next few days.</p>
 
-<h3 id='3_use_machine_learning_tools_on_your_web_analytics_data'>3. Use machine learning tools on your web analytics data</h3>
+<h3 id="3_use_machine_learning_tools_on_your_web_analytics_data">3. Use machine learning tools on your web analytics data</h3>
 
-<p>Machine learning tools, and <a href='http://mahout.apache.org/'>Mahout</a> in particular, have created some new and exciting opportunities to:</p>
+<p>Machine learning tools, and <a href="http://mahout.apache.org/">Mahout</a> in particular, have created some new and exciting opportunities to:</p>
 
 <ol>
-<li>Develop product and content recommendation engines, based on user web behavior. (E.g. users who viewed these content items, also viewed&#8230;)</li>
+<li>Develop product and content recommendation engines, based on user web behavior. (E.g. users who viewed these content items, also viewed…)</li>
 
 <li>Segment your audience by online behavior</li>
 </ol>
 
-<p>Snowplow makes it easy to extract the core input data you would need to feed a machine learning algorithm in a single query. (E.g. a matrix mapping users to products by page views / add to baskets / purchases etc.) We will be exploring ways to integrate Snowplow with <a href='http://mahout.apache.org/'>Mahout</a> in a future blog post.</p>
+<p>Snowplow makes it easy to extract the core input data you would need to feed a machine learning algorithm in a single query. (E.g. a matrix mapping users to products by page views / add to baskets / purchases etc.) We will be exploring ways to integrate Snowplow with <a href="http://mahout.apache.org/">Mahout</a> in a future blog post.</p>
 
-<h3 id='4_view_data_for_individual_users_over_their_entire_lives'>4. View data for individual users over their entire lives</h3>
+<h3 id="4_view_data_for_individual_users_over_their_entire_lives">4. View data for individual users over their entire lives</h3>
 
 <p>Whereas reports on Google Analytics tend to be about visits, page views or transactions, Snowplow lets you slice data by users over multiple visits, opening up a wide range of possibilities:</p>
 
@@ -130,9 +131,10 @@
 <li>Develop more rigorous approaches to attribution modelling, by capturing in granular detail which channels touched a user at different points in their lifecycle</li>
 </ol>
 
-<h3 id='5_interested_in_any__all_of_the_above'>5. Interested in any / all of the above?</h3>
+<h3 id="5_interested_in_any__all_of_the_above">5. Interested in any / all of the above?</h3>
 
-<p>Then <a href='/product/get-started.html'>get started</a> with Snowplow, or <a href='/about/index.html'>get in touch</a> to find out more!</p>
+<p>Then <a href="/product/get-started.html">get started</a> with Snowplow, or <a href="/about/index.html">get in touch</a> to find out more!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -183,23 +185,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -217,22 +202,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -254,19 +253,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

@@ -72,20 +72,21 @@
 			15 Feb 2013
 			<h1><a href="/blog/2013/02/15/snowplow-0.7.3-released">Snowplow 0.7.3 released, tracking additional data</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
+			
+<p>We’re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
 
 <ul>
 <li>A new Event Vendor field</li>
 
 <li>The Page URL split out into its component parts (scheme, host, port, path, querystring, fragment/anchor)</li>
 
-<li>The web page&#8217;s character set</li>
+<li>The web page’s character set</li>
 
-<li>The web page&#8217;s width and height</li>
+<li>The web page’s width and height</li>
 
-<li>The browser&#8217;s viewport (i.e. visible width and height)</li>
+<li>The browser’s viewport (i.e. visible width and height)</li>
 
-<li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
+<li>For page pings, we are now tracking the user’s scrolling during the last ping period (four fields)</li>
 </ul>
 
 <p>These fields should make a new set of analyses on Snowplow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
@@ -93,36 +94,37 @@
 <p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#new-fields'>The new fields</a></li>
+<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#new-fields">The new fields</a></li>
 
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes'>Bug fixes</a></li>
+<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes">Bug fixes</a></li>
 
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes'>Breaking changes</a></li>
+<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes">Breaking changes</a></li>
 
-<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
+<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#upgrade">Upgrading</a></li>
 </ol>
 <h2><a name='new-fields'>1. New fields</a></h2>
 <p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on Snowplow data.</p>
 
 <p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
-<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
-</tr><tr><td style='text-align: left;'><code>page_urlscheme</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Scheme aka protocol, e.g. &#8220;https&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlhost</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Host aka domain, e.g. &#8220;www.snowplowanalytics.com&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlport</code></td><td style='text-align: left;'>int</td><td style='text-align: left;'>Port if specified, 80 if not</td>
-</tr><tr><td style='text-align: left;'><code>page_urlpath</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Path to page, e.g. &#8220;/product/index.html&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlquery</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Querystring, e.g. &#8220;id=GTM-DLRG&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>page_urlfragment</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Fragment aka anchor, e.g. &#8220;4-conclusion&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>br_viewwidth</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The width of the browser&#8217;s viewport in pixels</td>
-</tr><tr><td style='text-align: left;'><code>br_viewheight</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The height of the browser&#8217;s viewport in pixels</td>
-</tr><tr><td style='text-align: left;'><code>doc_charset</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>The page&#8217;s character encoding, e.g. &#8220;UTF-8&#8221;</td>
-</tr><tr><td style='text-align: left;'><code>doc_width</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total width of the page (incl. non-viewed area)</td>
-</tr><tr><td style='text-align: left;'><code>doc_height</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total height of the page (incl. non-viewed area)</td>
-</tr><tr><td style='text-align: left;'><code>pp_xoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page x offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_xoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page x offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_yoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page y offset seen in the last ping period</td>
-</tr><tr><td style='text-align: left;'><code>pp_yoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page y offset seen in the last ping period</td>
-</tr></tbody></table>
-<p>Don&#8217;t worry if some of these new fields don&#8217;t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
+<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code>event_vendor</code></td><td style="text-align: left;">string</td><td style="text-align: left;">Which company or org. defined this event type</td></tr>
+<tr><td style="text-align: left;"></td><td style="text-align: left;"><code>page_urlscheme</code></td><td style="text-align: left;">string</td></tr>
+<tr><td style="text-align: left;">Scheme aka protocol, e.g. “https”</td><td style="text-align: left;"><code>page_urlhost</code></td><td style="text-align: left;">string</td></tr>
+<tr><td style="text-align: left;">Host aka domain, e.g. “www.snowplowanalytics.com”</td><td style="text-align: left;"><code>page_urlport</code></td><td style="text-align: left;">int</td></tr>
+<tr><td style="text-align: left;">Port if specified, 80 if not</td><td style="text-align: left;"><code>page_urlpath</code></td><td style="text-align: left;">string</td></tr>
+<tr><td style="text-align: left;">Path to page, e.g. “/product/index.html”</td><td style="text-align: left;"><code>page_urlquery</code></td><td style="text-align: left;">string</td></tr>
+<tr><td style="text-align: left;">Querystring, e.g. “id=GTM-DLRG”</td><td style="text-align: left;"></td><td style="text-align: left;"><code>page_urlfragment</code></td></tr>
+<tr><td style="text-align: left;">string</td><td style="text-align: left;">Fragment aka anchor, e.g. “4-conclusion”</td><td style="text-align: left;"><code>br_viewwidth</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The width of the browser’s viewport in pixels</td><td style="text-align: left;"><code>br_viewheight</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The height of the browser’s viewport in pixels</td><td style="text-align: left;"><code>doc_charset</code></td></tr>
+<tr><td style="text-align: left;">string</td><td style="text-align: left;">The page’s character encoding, e.g. “UTF-8”</td><td style="text-align: left;"><code>doc_width</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The total width of the page (incl. non-viewed area)</td><td style="text-align: left;"><code>doc_height</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The total height of the page (incl. non-viewed area)</td><td style="text-align: left;"><code>pp_xoffset_min</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Minimum page x offset seen in the last ping period</td><td style="text-align: left;"><code>pp_xoffset_max</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Maximum page x offset seen in the last ping period</td><td style="text-align: left;"><code>pp_yoffset_min</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Minimum page y offset seen in the last ping period</td><td style="text-align: left;"><code>pp_yoffset_max</code></td></tr>
+<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Maximum page y offset seen in the last ping period</td></tr>
+</tbody></table>
+<p>Don’t worry if some of these new fields don’t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
 <p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -130,13 +132,14 @@
 			08 Feb 2013
 			<h1><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p><em>Snowplow&#8217;s own <a href='https://github.com/alexanderdean'>Alexander Dean</a> was recently asked to write an article for the <a href='http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&amp;a_bid=45f0d439'>Software Developer&#8217;s Journal edition on Hadoop</a> The kind folks at the Software Developer&#8217;s Journal have allowed us to reprint his article in full below.</em></p>
+			
+<p><em>Snowplow’s own <a href="https://github.com/alexanderdean">Alexander Dean</a> was recently asked to write an article for the <a href="http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&a_bid=45f0d439">Software Developer’s Journal edition on Hadoop</a> The kind folks at the Software Developer’s Journal have allowed us to reprint his article in full below.</em></p>
 
-<p><em>Alex started writing Hive UDFs as part of the process to write the <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers'>Snowplow log deserializer</a> - the custom SerDe used to parse Snowplow logs generated by the Cloudfront and Clojure collectors so they can be processed in the Snowplow ETL step.</em></p>
+<p><em>Alex started writing Hive UDFs as part of the process to write the <a href="https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers">Snowplow log deserializer</a> - the custom SerDe used to parse Snowplow logs generated by the Cloudfront and Clojure collectors so they can be processed in the Snowplow ETL step.</em></p>
 
-<h2 id='article_synopsis'>Article Synopsis</h2>
+<h2 id="article_synopsis">Article Synopsis</h2>
 
-<p>In this article you will learn how to write a user-defined function (&#8220;UDF&#8221;) to work with the Apache Hive platform. We will start gently with an introduction to Hive, then move on to developing the UDF and writing tests for it. We will write our UDF in Java, but use Scala&#8217;s SBT as our build tool and write our tests in Scala with Specs2.</p>
+<p>In this article you will learn how to write a user-defined function (“UDF”) to work with the Apache Hive platform. We will start gently with an introduction to Hive, then move on to developing the UDF and writing tests for it. We will write our UDF in Java, but use Scala’s SBT as our build tool and write our tests in Scala with Specs2.</p>
 
 <p>In order to get the most out of this article, you should be comfortable programming in Java. You do not need to have any experience with Apache Hive, HiveQL (the Hive query language) or indeed Hive UDFs - I will introduce all of these concepts from first principles. Experience with Scala is advantageous, but not necessary.</p>
 <p class='more'><a href='/blog/2013/02/08/writing-hive-udfs-and-serdes'>Read the rest of this entry</a></p>
@@ -146,11 +149,12 @@
 			04 Feb 2013
 			<h1><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
+			
+<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
 
 <p>Working out how best to structure the Snowplow event data is key to making Snowplow a success. One of the things that has surprised us, since we started working on Snowplow, is the extent to which our view of the best way to structure that data has changed over time.</p>
 
-<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We&#8217;ve been fortunate to work with a wide range of businesses who&#8217;ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
+<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We’ve been fortunate to work with a wide range of businesses who’ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
 <p class='more'><a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -158,15 +162,16 @@
 			29 Jan 2013
 			<h1><a href="/blog/2013/01/29/snowplow-0.7.2-released">Snowplow 0.7.2 released, with the new no-JavaScript tracker</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.2</strong>. As well as a couple of bug fixes, this release includes our second Snowplow tracker - the <a href='/no-js-tracker.html'>No-JS Tracker</a>, to be used in web environments where a JavaScript-based tracker is not an option.</p>
+			
+<p>We’re excited to announce the release of Snowplow version <strong>0.7.2</strong>. As well as a couple of bug fixes, this release includes our second Snowplow tracker - the <a href="/no-js-tracker.html">No-JS Tracker</a>, to be used in web environments where a JavaScript-based tracker is not an option.</p>
 
 <p>One of the bug fixes is particularly important: we are recommending that <strong>all users of the Clojure-based Collector upgrade</strong> to the new version (0.2.0) due to a serious bug in the way that event timestamps were recorded.</p>
 
-<p>But first let&#8217;s look at the No-JS Tracker, and then talk about the other fixes:</p>
+<p>But first let’s look at the No-JS Tracker, and then talk about the other fixes:</p>
 
-<h2 id='introducing_the_nojavascript_tracker'>Introducing the No-JavaScript Tracker</h2>
+<h2 id="introducing_the_nojavascript_tracker">Introducing the No-JavaScript Tracker</h2>
 
-<p>The <a href='/no-js-tracker.html'>No-JS Tracker</a> (or &#8216;pixel tracker&#8217;) can be used to log web events in environments that do not support Javascript. Examples of events include:</p>
+<p>The <a href="/no-js-tracker.html">No-JS Tracker</a> (or ‘pixel tracker’) can be used to log web events in environments that do not support Javascript. Examples of events include:</p>
 
 <ul>
 <li>Views an HTML email</li>
@@ -176,7 +181,7 @@
 <li>Views a page on a 3rd party hosting site</li>
 </ul>
 
-<p>Our <a href='/no-js-tracker.html'>No-JS Tracking tag wizard</a> makes it easier to generate pure-HTML tracking tags. Were you to embed these in email marketing messages, for example, you would be able to compare the behavior of users on your website who had opened specific messages with those who had not. The <a href='/no-js-tracker.html'>No-JS Tracker</a> enables you to track a broader set of user events in Snowplow, so providing greater coverage of your users&#8217; journeys. For more information on the <a href='/no-js-tracker.html'>No-JS tracker</a> see the <a href='/blog/2013/01/29/introducing-the-no-js-tracker/'>blog post</a>.</p>
+<p>Our <a href="/no-js-tracker.html">No-JS Tracking tag wizard</a> makes it easier to generate pure-HTML tracking tags. Were you to embed these in email marketing messages, for example, you would be able to compare the behavior of users on your website who had opened specific messages with those who had not. The <a href="/no-js-tracker.html">No-JS Tracker</a> enables you to track a broader set of user events in Snowplow, so providing greater coverage of your users’ journeys. For more information on the <a href="/no-js-tracker.html">No-JS tracker</a> see the <a href="/blog/2013/01/29/introducing-the-no-js-tracker/">blog post</a>.</p>
 <p class='more'><a href='/blog/2013/01/29/snowplow-0.7.2-released'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -184,18 +189,21 @@
 			29 Jan 2013
 			<h1><a href="/blog/2013/01/29/introducing-the-no-js-tracker">Introducing the No-Javascript pixel tracker</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>The <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) enables companies running Snowplow to track users in environments that do not support Javascript. In this blog post we will cover:</p>
+			
+<p>The <a href="/no-js-tracker.html">No-Javascript tracker</a> (pixel tracker) enables companies running Snowplow to track users in environments that do not support Javascript. In this blog post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#why'>The purpose of the No-Javascript tracker (pixel tracker)</a></li>
+<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker#why">The purpose of the No-Javascript tracker (pixel tracker)</a></li>
 
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#mechanics'>How it works</a></li>
+<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker#mechanics">How it works</a></li>
 
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#collector-considerations'>Considerations when using the No-JS tracker (pixel tracker) with the Clojure collector in particular</a></li>
+<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker#collector-considerations">Considerations when using the No-JS tracker (pixel tracker) with the Clojure collector in particular</a></li>
 
-<li><a href='/blog/2013/01/29/introducing-the-no-js-tracker#roadmap'>Next steps on the Snowplow tracker roadmap</a></li>
+<li><a href="/blog/2013/01/29/introducing-the-no-js-tracker#roadmap">Next steps on the Snowplow tracker roadmap</a></li>
 </ol>
-<a name='why'><h2>What is the purpose of the No-Javascript tracker (pixel tracker)?</h2> </a>
+
+<p><a name='why'><h2>What is the purpose of the No-Javascript tracker (pixel tracker)?</h2> </a></p>
+
 <p>Our aim with Snowplow has been to enables companies to track user events across <strong>all</strong> platforms and devices. That means enabling tracking offline events, as well as online events, and mobile events, as well as web events.</p>
 
 <p>There is a whole class of web event that Snowplow users may want to capture, but which are not possible to track using our standard Javascript tracker because they are environments that do not support Javascript. This includes:</p>
@@ -208,7 +216,7 @@
 <li>Views of pages on 3rd party hosting sites e.g. Github</li>
 </ol>
 
-<p>In these cases, you can use the <a href='/no-js-tracker.html'>No-Javascript tracker</a> (pixel tracker) to track events directly into your Snowplow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behavior, for example.</p>
+<p>In these cases, you can use the <a href="/no-js-tracker.html">No-Javascript tracker</a> (pixel tracker) to track events directly into your Snowplow stack. Doing so enables you to analyse complete customer journeys: tying together data on the emails a user has opened with their subsequent web browsing behavior, for example.</p>
 <p class='more'><a href='/blog/2013/01/29/introducing-the-no-js-tracker'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -244,23 +252,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -278,22 +269,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -315,19 +320,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

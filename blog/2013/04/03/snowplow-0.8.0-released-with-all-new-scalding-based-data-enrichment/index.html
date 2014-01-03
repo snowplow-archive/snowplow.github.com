@@ -71,22 +71,23 @@
 			03 Apr 2013
 			<h1>Snowplow 0.8.0 released with all-new Scalding-based data enrichment</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
+			
+<p>A new month, a new release! We’re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
 
-<p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
+<p>This release has been heavily informed by our January blog post, <a href="/blog/2013/01/09/from-etl-to-enrichment/#scalding">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href="https://github.com/twitter/scalding">Scalding</a>, a Scala API built on top of <a href="http://www.cascading.org">Cascading</a>, the Hadoop ETL framework.</p>
 
 <p>In the rest of this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'>The benefits of the new ETL</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits">The benefits of the new ETL</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'>Limitations of the new ETL</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations">Limitations of the new ETL</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'>A note for Infobright/Hive users</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note">A note for Infobright/Hive users</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'>Upgrading and usage</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage">Upgrading and usage</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'>Getting help</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more.</p>
@@ -96,40 +97,40 @@
 <ol>
 <li><strong>Fewer moving parts</strong> - the new ETL process no longer requires Hive running on top of Hadoop. This should make it simpler to setup and more robust</li>
 
-<li><strong>Data validation</strong> - the new ETL process runs a set of validation checks on each raw line of Snowplow log data. If a line does not pass validation, then the line along with its validation errors is written to a new bucket for &#8220;bad rows&#8221;</li>
+<li><strong>Data validation</strong> - the new ETL process runs a set of validation checks on each raw line of Snowplow log data. If a line does not pass validation, then the line along with its validation errors is written to a new bucket for “bad rows”</li>
 
-<li><strong>Better handling of unexpected errors</strong> - if you set your ETL process to continue on unexpected errors, any raw lines which trigger unexpected errors will appear in a new &#8220;errors&#8221; bucket</li>
+<li><strong>Better handling of unexpected errors</strong> - if you set your ETL process to continue on unexpected errors, any raw lines which trigger unexpected errors will appear in a new “errors” bucket</li>
 
-<li><strong>Fewer Redshift import errors</strong> - we now truncate six &#8220;high-risk&#8221; fields (<code>useragent</code>, <code>page_title</code> et al) and validate that <code>ev_value</code> is a float, to prevent the most common Redshift load errors</li>
+<li><strong>Fewer Redshift import errors</strong> - we now truncate six “high-risk” fields (<code>useragent</code>, <code>page_title</code> et al) and validate that <code>ev_value</code> is a float, to prevent the most common Redshift load errors</li>
 
-<li><strong>Stronger technical foundation for our roadmap</strong> - the foundations are now in-place for us adding more enrichment of our Snowplow events (e.g. <a href='https://github.com/snowplow/snowplow/issues?milestone=16&amp;state=open'>referer parsing</a> and <a href='https://github.com/snowplow/snowplow/issues?milestone=17&amp;state=open'>geo-location</a> - both coming soon), and the &#8220;gang of three&#8221; cross-row ETL processes which we are planning (<a href='https://github.com/snowplow/snowplow/issues/20'>one</a>, <a href='https://github.com/snowplow/snowplow/issues/169'>two</a>, <a href='https://github.com/snowplow/snowplow/issues/187'>three</a>)</li>
+<li><strong>Stronger technical foundation for our roadmap</strong> - the foundations are now in-place for us adding more enrichment of our Snowplow events (e.g. <a href="https://github.com/snowplow/snowplow/issues?milestone=16&state=open">referer parsing</a> and <a href="https://github.com/snowplow/snowplow/issues?milestone=17&state=open">geo-location</a> - both coming soon), and the “gang of three” cross-row ETL processes which we are planning (<a href="https://github.com/snowplow/snowplow/issues/20">one</a>, <a href="https://github.com/snowplow/snowplow/issues/169">two</a>, <a href="https://github.com/snowplow/snowplow/issues/187">three</a>)</li>
 </ol>
 <h2><a name='limitations'>2. Limitations of the new ETL</a></h2>
 <p>We want to be very clear about the limitations of the new ETL process as it stands today:</p>
 
 <ol>
-<li><strong>Redshift only</strong> - the new ETL process only supports writing out in Redshift format. We discuss this further in <a href='#infobright-hive-note'>A note for Infobright/Hive users</a> below.</li>
+<li><strong>Redshift only</strong> - the new ETL process only supports writing out in Redshift format. We discuss this further in <a href="#infobright-hive-note">A note for Infobright/Hive users</a> below.</li>
 
-<li><strong>Performance</strong> - the new ETL process takes almost twice as long as the old Hive process. This is because it is essentially running twice: once to generate the Redshift output, and once to generate the &#8220;bad rows&#8221;: in a Hadoop world these two outputs are handled sequentially as separate MapReduce jobs</li>
+<li><strong>Performance</strong> - the new ETL process takes almost twice as long as the old Hive process. This is because it is essentially running twice: once to generate the Redshift output, and once to generate the “bad rows”: in a Hadoop world these two outputs are handled sequentially as separate MapReduce jobs</li>
 
-<li><strong>Small files problem</strong> - being Hadoop-based, our ETL inherits Hadoop&#8217;s <a href='http://amilaparanawithana.blogspot.co.uk/2012/06/small-file-problem-in-hadoop.html'>&#8220;small files problem&#8221;</a>. Above around 3,000 raw Snowplow log files, the job can slow down considerably, so aim to keep your runs smaller than this</li>
+<li><strong>Small files problem</strong> - being Hadoop-based, our ETL inherits Hadoop’s <a href="http://amilaparanawithana.blogspot.co.uk/2012/06/small-file-problem-in-hadoop.html">“small files problem”</a>. Above around 3,000 raw Snowplow log files, the job can slow down considerably, so aim to keep your runs smaller than this</li>
 
 <li><strong>Prototype</strong> - please treat the new ETL process as a prototype. We <strong>strongly recommend</strong> trying it out away from your existing Snowplow installation rather than upgrading your existing process in-place</li>
 </ol>
 
 <p>On points 2 and 3: rest assured that improving the performance of the new Hadoop ETL (not least by tackling the small files problem) is a key priority for the Snowplow Analytics team going forwards.</p>
 <h2><a name='upgrading-usage'>3. A note for Infobright/Hive users</a></h2>
-<p>If you are using Infobright or plain-Hive to store your Snowplow data, we understand that you&#8217;ll be feeling a little left out of this release. Unfortunately, supporting Redshift, Infobright and Hive all in this version 1 simply wasn&#8217;t feasible from a development-effort perspective.</p>
+<p>If you are using Infobright or plain-Hive to store your Snowplow data, we understand that you’ll be feeling a little left out of this release. Unfortunately, supporting Redshift, Infobright and Hive all in this version 1 simply wasn’t feasible from a development-effort perspective.</p>
 
 <p>This does not mean that we are giving up on Hive and Infobright: on the contrary, we have big plans for both data storage targets.</p>
 
-<p>For <strong>Hive users</strong> - we are working on a new Avro-based storage format for Snowplow events. Being based on <a href='http://avro.apache.org/'>Avro</a>, it should be less fragile than our existing flatfile approach, easily queryable from Hive using the <a href='https://cwiki.apache.org/Hive/avroserde-working-with-avro-from-hive.html'>AvroSerde</a>, and <em>faster</em> to query (because data is stored more efficiently in binary format). Evolving the Avro schema to incorporate our <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>event dictionary</a> will also be much more straightforward. This will be the 0.9.x release series and should come later in Q2 or early Q3.</p>
+<p>For <strong>Hive users</strong> - we are working on a new Avro-based storage format for Snowplow events. Being based on <a href="http://avro.apache.org/">Avro</a>, it should be less fragile than our existing flatfile approach, easily queryable from Hive using the <a href="https://cwiki.apache.org/Hive/avroserde-working-with-avro-from-hive.html">AvroSerde</a>, and <em>faster</em> to query (because data is stored more efficiently in binary format). Evolving the Avro schema to incorporate our <a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">event dictionary</a> will also be much more straightforward. This will be the 0.9.x release series and should come later in Q2 or early Q3.</p>
 
 <p>For <strong>Infobright users</strong> - we will be adding Infobright support into the new Hadoop-based ETL later this year. If you would rather not wait, we recommend switching to Redshift now or switching to PostgreSQL support when this is released in late Q2.</p>
 
 <p>We should also stress: it is totally safe for Infobright/Hive users to upgrade to 0.8.0: the Hive-based ETL process continues to work as before, and we will be continuing to support the Hive ETL with bug fixes etc for the foreseeable future.</p>
 
-<p>As always, you can check out upcoming features on our <a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'>Product roadmap</a> wiki page.</p>
+<p>As always, you can check out upcoming features on our <a href="https://github.com/snowplow/snowplow/wiki/Product-roadmap">Product roadmap</a> wiki page.</p>
 <h2><a name='limitations'>4. Upgrading and usage</a></h2>
 <p>Upgrading is simply a matter of:</p>
 
@@ -141,9 +142,9 @@
 
 <p>Nothing else is changed in this release.</p>
 
-<p>You can see the template for the new <code>config.yml</code> file format <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>here</a>. The new format introduces a few new configuration options:</p>
+<p>You can see the template for the new <code>config.yml</code> file format <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml">here</a>. The new format introduces a few new configuration options:</p>
 
-<h3 id='updated_and_new_buckets'>Updated and new buckets</h3>
+<h3 id="updated_and_new_buckets">Updated and new buckets</h3>
 
 <p>Under <code>:buckets:</code> we have changed the path to our hosted assets:</p>
 
@@ -154,28 +155,29 @@
 <pre><code>:out_bad_rows: ADD HERE # Leave blank for Hive ETL.
 :out_errors: ADD HERE # Leave blank for Hive ETL.</code></pre>
 
-<p>The <code>out_bad_rows</code> bucket will contain any raw Snowplow log lines which did not pass the ETL&#8217;s validation. If you set <code>continue_on_unexpected_error</code> to true, then the <code>out_errors</code> bucket will contain any raw Snowplow log lines which caused an unexpected error.</p>
+<p>The <code>out_bad_rows</code> bucket will contain any raw Snowplow log lines which did not pass the ETL’s validation. If you set <code>continue_on_unexpected_error</code> to true, then the <code>out_errors</code> bucket will contain any raw Snowplow log lines which caused an unexpected error.</p>
 
-<h3 id='new_etl_configuration'>New ETL configuration</h3>
+<h3 id="new_etl_configuration">New ETL configuration</h3>
 
 <p>Under <code>:etl:</code> we have added:</p>
 
 <pre><code>:job_name: Snowplow ETL # Give your job a name
-:implementation: hadoop # Or &#39;hive&#39; for legacy ETL</code></pre>
+:implementation: hadoop # Or 'hive' for legacy ETL</code></pre>
 
 <p>The <code>job_name</code> should make it easier to identify your ETL job in the Elastic MapReduce console.</p>
 
-<p>Change <code>implementation</code> to &#8220;hive&#8221; to use our alternative Hive-based ETL process.</p>
+<p>Change <code>implementation</code> to “hive” to use our alternative Hive-based ETL process.</p>
 
-<h3 id='new_version'>New version</h3>
+<h3 id="new_version">New version</h3>
 
 <p>Under <code>:snowplow:</code> we have added a new version to track our new ETL process:</p>
 
 <pre><code>:hadoop_etl_version: 0.1.0</code></pre>
 
-<p>That&#8217;s it! Once you have made those configuration changes, you should be up-and-running with the new ETL process.</p>
+<p>That’s it! Once you have made those configuration changes, you should be up-and-running with the new ETL process.</p>
 <h2><a name='help'>5. Getting help</a></h2>
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -226,23 +228,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -260,22 +245,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -297,19 +296,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

@@ -71,11 +71,12 @@
 			12 Aug 2013
 			<h1>Towards universal event analytics - building an event grammar</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we outgrow our &#8220;fat table&#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
+			
+<p>As we outgrow our “fat table” structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
 
-<p>When we blogged about <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc&#8217;s excellent comment - although I would encourage you to read it in full <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>on the blog post</a>:</p>
+<p>When we blogged about <a href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href="https://twitter.com/mglcel">Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc’s excellent comment - although I would encourage you to read it in full <a href="http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">on the blog post</a>:</p>
 
-<p><em>Hi, we&#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
+<p><em>Hi, we’re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
 
 <p><em>An Actor(id/type) made and Action(verb, context) on another Object(id/type).</em></p>
 
@@ -83,95 +84,105 @@
 
 <p><em>The context itself, owned by the action, is a k/v dictionary.</em></p>
 
-<p>So in designing his event grammar, Loïc was influenced by the <a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'>Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
+<p>So in designing his event grammar, Loïc was influenced by the <a href="http://en.wikipedia.org/wiki/Resource_Description_Framework">Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
 
-<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &#8220;event grammar&#8221; to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
+<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested “event grammar” to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
 
 <p>So, in the rest of this post we will:</p>
 
 <ol>
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'>Introduce the components of our grammar</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar">Introduce the components of our grammar</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'>Model some ecommerce events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce">Model some ecommerce events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'>Model some videogame events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame">Model some videogame events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'>Model some digital media events</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media">Model some digital media events</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'>Discuss what we have learnt</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings">Discuss what we have learnt</a></li>
 
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'>Draw some conclusions</a></li>
+<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc">Draw some conclusions</a></li>
 </ol>
-<!--more--><a name='grammar'> </a><h2>1. The components of our grammar</h2>
+<!--more-->
+<p><a name='grammar'> </a></p>
+<h2>1. The components of our grammar</h2>
 <p>All of the human languages mentioned above (and many, many others) share the same fundamental building blocks in their grammars for describing an event with a verb in the <em>active voice</em>:</p>
 
-<p><img src='/static/img/blog/2013/08/event-grammar.png' alt='grammar' /></p>
+<p><img src="/static/img/blog/2013/08/event-grammar.png" alt="grammar" /></p>
 
 <p>To go through these in turn:</p>
 
 <ul>
-<li><strong>Subject</strong>, or noun in the <em>nominative</em> case. This is the entity which is carrying out the action: &#8221;<strong>I</strong> wrote a letter&#8221;</li>
+<li><strong>Subject</strong>, or noun in the <em>nominative</em> case. This is the entity which is carrying out the action: ”<strong>I</strong> wrote a letter”</li>
 
-<li><strong>Verb</strong>, this describes the action being done by the Subject: &#8220;I <strong>wrote</strong> a letter&#8221;</li>
+<li><strong>Verb</strong>, this describes the action being done by the Subject: “I <strong>wrote</strong> a letter”</li>
 
-<li><strong>Direct Object</strong>, or simply <em>Object</em> or noun in the <em>accusative</em> case. This is the entity to which the action is being done: &#8220;I wrote <strong>a letter</strong>&#8221;</li>
+<li><strong>Direct Object</strong>, or simply <em>Object</em> or noun in the <em>accusative</em> case. This is the entity to which the action is being done: “I wrote <strong>a letter</strong>”</li>
 
-<li><strong>Indirect Object</strong>, or noun in the <em>dative</em> case. A slightly more tricky concept: this is the entity indirectly affected by the action: &#8220;I sent the letter <em>to</em> <strong>Tom</strong>&#8221;</li>
+<li><strong>Indirect Object</strong>, or noun in the <em>dative</em> case. A slightly more tricky concept: this is the entity indirectly affected by the action: “I sent the letter <em>to</em> <strong>Tom</strong>”</li>
 
-<li><strong>Prepositional Object</strong>. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: &#8220;I put the letter <em>in</em> <strong>an envelope</strong>&#8221;. In a language such as German, prepositional objects will be found in the <em>accusative</em>, <em>dative</em> or <em>genitive</em> case depending on the preposition used</li>
+<li><strong>Prepositional Object</strong>. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: “I put the letter <em>in</em> <strong>an envelope</strong>”. In a language such as German, prepositional objects will be found in the <em>accusative</em>, <em>dative</em> or <em>genitive</em> case depending on the preposition used</li>
 
-<li><strong>Context</strong>. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: &#8220;I posted the letter <strong>on Tuesday from Boston</strong>&#8221;</li>
+<li><strong>Context</strong>. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: “I posted the letter <strong>on Tuesday from Boston</strong>”</li>
 </ul>
 
-<p>With these grammatical building blocks defined, let&#8217;s now put them through their paces modelling some digital events - starting with some online retail events:</p>
-<a name='ecommerce'> </a><h2>2. Modelling some ecommerce events</h2>
+<p>With these grammatical building blocks defined, let’s now put them through their paces modelling some digital events - starting with some online retail events:</p>
+
+<p><a name='ecommerce'> </a></p>
+<h2>2. Modelling some ecommerce events</h2>
 <p>Here are some ecommerce events mapped to our grammatical model:</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-ecomm1.png' alt='ecomm1' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-ecomm1.png" alt="ecomm1" /></p>
 
 <p>In this event, a shopper (Subject) views (Verb) a t-shirt (Direct Object) while browsing an online store (Context).</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-ecomm2.png' alt='ecomm2' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-ecomm2.png" alt="ecomm2" /></p>
 
 <p>Here we introduce an Indirect Object which has been affected by the event: the shopper (Subject) adds (Verb) a t-shirt (Direct Object) to her shopping basket (Indirect Object). Again, this is while browsing the online store (Context).</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-ecomm3.png' alt='ecomm3' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-ecomm3.png" alt="ecomm3" /></p>
 
 <p>Here we have an Object introduced by preposition: the shopper (Subject) pays (Verb) for his order (Prepositional Object). This is all within the checkout flow (Context).</p>
-<a name='videogame'> </a><h2>3. Modelling some videogame events</h2>
+
+<p><a name='videogame'> </a></p>
+<h2>3. Modelling some videogame events</h2>
 <p>So far so good, but how well does this model work with events generated by a gaming session?</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-videogame1.png' alt='videogame1' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-videogame1.png" alt="videogame1" /></p>
 
 <p>In a gifting screen within the game (Context), the player (Subject) gifts (Verb) some gold (Direct Object) to another player (Indirect Object).</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-videogame2.png' alt='videogame2' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-videogame2.png" alt="videogame2" /></p>
 
 <p>During a two-player skirmish (Context), the first player (Subject) kills (Verb) the second player (Direct Object) using a nailgun (Prepositional Object). This illustrates how your end-users can be the Object of events, not just their Subjects.</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-videogame3.png' alt='videogame3' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-videogame3.png" alt="videogame3" /></p>
 
 <p>Here we illustrate a reflexive verb: through grinding (Context), the player (Subject) levels herself up (Verb, reflexive). A reflexive Verb is one where the Subject and the Object are the same.</p>
-<a name='media'> </a><h2>4. Modelling some digital media events</h2>
-<p>This seems to be working well! Finally, let&#8217;s map our new event grammar onto the world of digital media and publishing:</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-media1.png' alt='media1' /></p>
+<p><a name='media'> </a></p>
+<h2>4. Modelling some digital media events</h2>
+<p>This seems to be working well! Finally, let’s map our new event grammar onto the world of digital media and publishing:</p>
+
+<p><img src="/static/img/blog/2013/08/grammar-media1.png" alt="media1" /></p>
 
 <p>While consuming media on your site (Context), a user (Subject) reads (Verb) an article (Direct Object).</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-media2.png' alt='media2' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-media2.png" alt="media2" /></p>
 
 <p>Wanting to share content socially (Context), a user (Subject) shares (Verb) a video (Direct Object) on Twitter (Prepositional Object). Also note that Twitter here is a proper noun (not a common noun).</p>
 
-<p><img src='/static/img/blog/2013/08/grammar-media3.png' alt='media3' /></p>
+<p><img src="/static/img/blog/2013/08/grammar-media3.png" alt="media3" /></p>
 
 <p>Working from the moderation UI (Context), an administrator (Subject) bans (Verb) user #23 (Direct Object). This illustrates how an end-user can be the Object of an event, and how someone other than an end-user can be the Subject of the event.</p>
-<a name='learnings'> </a><h2>5. What have we learnt</h2>
-<p>As you can see, it is relatively straightforward to map any of the digital events above into these six &#8220;slots&#8221; of: Subject, Verb, Object, Indirect Object, Prepositional Object and Context. This is unsurprising: our core grammar has been unambiguously describing events in many different human languages across thousands of years.</p>
+
+<p><a name='learnings'> </a></p>
+<h2>5. What have we learnt</h2>
+<p>As you can see, it is relatively straightforward to map any of the digital events above into these six “slots” of: Subject, Verb, Object, Indirect Object, Prepositional Object and Context. This is unsurprising: our core grammar has been unambiguously describing events in many different human languages across thousands of years.</p>
 
 <p>Going through the above exercise, several further things have become clear to us that we will want to factor into the Snowplow event grammar going forwards:</p>
 
-<h3 id='implicit_subjects_are_a_mistake'>Implicit Subjects are a mistake</h3>
+<h3 id="implicit_subjects_are_a_mistake">Implicit Subjects are a mistake</h3>
 
 <p>Most web and event analytics systems make the mistake of making the Subject of the event implicit:</p>
 
@@ -182,7 +193,7 @@
 
 <p>Going further, it is particularly dangerous to assume that the Subject of every event is your end-user or customer, because we have seen cases where this is not the case.</p>
 
-<h3 id='an_entity_can_be_subject_or_object_or_both_across_multiple_events'>An entity can be Subject or Object or both across multiple events</h3>
+<h3 id="an_entity_can_be_subject_or_object_or_both_across_multiple_events">An entity can be Subject or Object or both across multiple events</h3>
 
 <p>As per these gaming examples:</p>
 
@@ -195,23 +206,23 @@ Admin bans user #1</code></pre>
 
 <p>Most analytics systems miss the fact that an end-user (for example) is not merely the implicit Subject of multiple events, but is in fact an entity which is the Subject and the Object of different events.</p>
 
-<h3 id='we_can_keep_our_verbs_really_simple'>We can keep our Verbs really simple</h3>
+<h3 id="we_can_keep_our_verbs_really_simple">We can keep our Verbs really simple</h3>
 
 <p>All of the events above were modelled simply using verbs in the <em>active voice</em>, not the <em>passive voice</em>:</p>
 
 <ul>
-<li>Active voice: &#8220;I watch a video&#8221;</li>
+<li>Active voice: “I watch a video”</li>
 
-<li>Passive voice: &#8220;the video was watched by Alex&#8221;</li>
+<li>Passive voice: “the video was watched by Alex”</li>
 </ul>
 
-<p>We don&#8217;t need to use passive voice for our event model, because we can always derive (if needed) a passive voice event from our active voice event.</p>
+<p>We don’t need to use passive voice for our event model, because we can always derive (if needed) a passive voice event from our active voice event.</p>
 
-<p>Going further, Verbs conjugate in lots of other ways (tense, person, mood etc) - but again we don&#8217;t need to include any of this into our event model: all of this can be derived (if needed) from our event&#8217;s Context.</p>
+<p>Going further, Verbs conjugate in lots of other ways (tense, person, mood etc) - but again we don’t need to include any of this into our event model: all of this can be derived (if needed) from our event’s Context.</p>
 
-<h3 id='context_is_king'>Context is king</h3>
+<h3 id="context_is_king">Context is king</h3>
 
-<p>Our idea of Context does not map cleanly onto a singular grammatical component, but it is just too useful to exclude. In fact, de facto we already have a rich web context for Snowplow events in our <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model'>Canonical event model</a>, including:</p>
+<p>Our idea of Context does not map cleanly onto a singular grammatical component, but it is just too useful to exclude. In fact, de facto we already have a rich web context for Snowplow events in our <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model">Canonical event model</a>, including:</p>
 
 <ul>
 <li>When the event occurred</li>
@@ -220,12 +231,15 @@ Admin bans user #1</code></pre>
 
 <li>Properties of the device on which the event occurred</li>
 </ul>
-<a name='learnings'> </a><h2>6. Conclusions</h2>
-<p>We hope this has been an interesting exploration of how we can potentially adapt and simplify the grammar of human languages to express a new grammar for digital events. We are really excited about the possibilities this opens up - initially around expressing such a grammar in our new <a href='http://avro.apache.org/'>Avro</a> event model, and later hopefully in graph databases such as <a href='http://www.neo4j.org/'>Neo4J</a>.</p>
 
-<p>Of course, we have only just started to sketch out this new event model, and we hope that it will prompt a wider debate with the Snowplow and analytics communities. We are excited to evolve these ideas and build a model for universal event analytics with you, together - and we look forward to continuing the conversation on our <a href='https://groups.google.com/d/forum/snowplow-user'>snowplow-user mailing list</a>.</p>
+<p><a name='learnings'> </a></p>
+<h2>6. Conclusions</h2>
+<p>We hope this has been an interesting exploration of how we can potentially adapt and simplify the grammar of human languages to express a new grammar for digital events. We are really excited about the possibilities this opens up - initially around expressing such a grammar in our new <a href="http://avro.apache.org/">Avro</a> event model, and later hopefully in graph databases such as <a href="http://www.neo4j.org/">Neo4J</a>.</p>
 
-<p>And finally, many thanks again to <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> for sharing his original Actor-Action-Object idea on our blog!</p>
+<p>Of course, we have only just started to sketch out this new event model, and we hope that it will prompt a wider debate with the Snowplow and analytics communities. We are excited to evolve these ideas and build a model for universal event analytics with you, together - and we look forward to continuing the conversation on our <a href="https://groups.google.com/d/forum/snowplow-user">snowplow-user mailing list</a>.</p>
+
+<p>And finally, many thanks again to <a href="https://twitter.com/mglcel">Loïc Dias Da Silva</a> for sharing his original Actor-Action-Object idea on our blog!</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -276,23 +290,6 @@ Admin bans user #1</code></pre>
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -310,22 +307,36 @@ Admin bans user #1</code></pre>
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -347,19 +358,22 @@ Admin bans user #1</code></pre>
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

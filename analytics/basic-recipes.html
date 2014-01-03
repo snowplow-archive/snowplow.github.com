@@ -67,49 +67,53 @@
 </div>
 	
 		<div id="contents">
-<a name='top'><h1>Bread and butter web analytics queries</h1></a>
+
+<p><a name='top'><h1>Bread and butter web analytics queries</h1></a></p>
+
 <p>The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are <em>not</em> the queries that Snowplow was designed to perform: we built Snowplow to enable analysts to run queries on web analytics data that are <strong>not</strong> possible with other web analytics programs. These queries return the results that <strong>all</strong> web analytics queries return. However, running them can be useful for an analyst to validate Snowplow has been setup correctly (by comparing the output against e.g. Google Analytics), and help her get familiar with writing queries in Snowplow.</p>
 
-<p>For users who are getting started with Snowplow, but are not that familiar with SQL, we recommend consulting our <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>quick-start guide to using SQL</a>.</p>
+<p>For users who are getting started with Snowplow, but are not that familiar with SQL, we recommend consulting our <a href="/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html">quick-start guide to using SQL</a>.</p>
 
 <p>The following queries will work with both Redshift and PostgreSQL. It should not take much to edit them so that they work with Hive.</p>
 
 <ol>
-<li><a href='#counting-unique-visitors'>Number of unique visitors</a></li>
+<li><a href="#counting-unique-visitors">Number of unique visitors</a></li>
 
-<li><a href='#counting-visits'>Number visits</a></li>
+<li><a href="#counting-visits">Number visits</a></li>
 
-<li><a href='#counting-pageviews'>Number of pageviews</a></li>
+<li><a href="#counting-pageviews">Number of pageviews</a></li>
 
-<li><a href='#counting-events'>Number of events</a></li>
+<li><a href="#counting-events">Number of events</a></li>
 
-<li><a href='#pages-per-visit'>Pages per visit</a></li>
+<li><a href="#pages-per-visit">Pages per visit</a></li>
 
-<li><a href='#bounce-rate'>Bounce rate</a></li>
+<li><a href="#bounce-rate">Bounce rate</a></li>
 
-<li><a href='#new-visits'>% New visits</a></li>
+<li><a href="#new-visits">% New visits</a></li>
 
-<li><a href='#duration'>Average visitor duration</a></li>
+<li><a href="#duration">Average visitor duration</a></li>
 
-<li><a href='#language'>Demographics: language</a></li>
+<li><a href="#language">Demographics: language</a></li>
 
-<li><a href='#location'>Demographics: location</a></li>
+<li><a href="#location">Demographics: location</a></li>
 
-<li><a href='#new-vs-returning'>Behavior: new vs returning</a></li>
+<li><a href="#new-vs-returning">Behavior: new vs returning</a></li>
 
-<li><a href='#frequency'>Behavior: frequency</a></li>
+<li><a href="#frequency">Behavior: frequency</a></li>
 
-<li><a href='#recency'>Behavior: recency</a></li>
+<li><a href="#recency">Behavior: recency</a></li>
 
-<li><a href='#engagement'>Behavior: engagement</a></li>
+<li><a href="#engagement">Behavior: engagement</a></li>
 
-<li><a href='#browser'>Technology: browser</a></li>
+<li><a href="#browser">Technology: browser</a></li>
 
-<li><a href='#os'>Technology: operating system</a></li>
+<li><a href="#os">Technology: operating system</a></li>
 
-<li><a href='#mobile'>Technology: mobile</a></li>
+<li><a href="#mobile">Technology: mobile</a></li>
 </ol>
-<a name='counting-unique-visitors'><h2>1. Number of unique visitors </h2></a>
+
+<p><a name='counting-unique-visitors'><h2>1. Number of unique visitors </h2></a></p>
+
 <p>The number of unique visitors can be calculated by summing the number of distinct <code>domain_userid</code>s in a specified time period. (Because each user is assigned a unique domain_userid, based on a lack of Snowplow tracking cookies on their browser):</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -119,14 +123,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/uniques-by-day-chartio.png' alt='uniques-by-day' /></p>
+<p><img src="/static/img/analytics/basic-recipes/uniques-by-day-chartio.png" alt="uniques-by-day" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='counting-visits'><h2>2. Number of visits</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='counting-visits'><h2>2. Number of visits</h2></a></p>
+
 <p>Because each user might visit a site more than once, summing the number of <code>domain_userid</code>s returns the number if <em>visitors</em>, NOT the number of <em>visits</em>. Every time a user visits the site, however, Snowplow assigns that session with a <code>domain_sessionidx</code> (e.g. <code>1</code> for their first visit, <code>2</code> for their second.) Hence, to count the number of visits in a time period, we concatenate the unique <code>domain_userid</code> with the <code>domain_sessionidx</code> and then count the number of distinct concatenated entry in the events table:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -136,15 +141,16 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visits-by-day-chartio.png' alt='visits-by-day' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visits-by-day-chartio.png" alt="visits-by-day" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='counting-pageviews'><h2>3. Number of page views</h2></a>
-<p>Page views are one type of event that are stored in the Snowplow events table. They can easily be identified using the <code>event</code> field, which is set to &#8216;page_view&#8217;.</p>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='counting-pageviews'><h2>3. Number of page views</h2></a></p>
+
+<p>Page views are one type of event that are stored in the Snowplow events table. They can easily be identified using the <code>event</code> field, which is set to ‘page_view’.</p>
 
 <p>To count the number of page views by day, then we simply execute the following query:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
@@ -156,15 +162,16 @@
 <span class='k'>AND</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png' alt='pageviews-by-day' /></p>
+<p><img src="/static/img/analytics/basic-recipes/pageviews-by-day-chartio.png" alt="pageviews-by-day" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='counting-events'><h2>4. Number of events</h2></a>
-<p>Although the number of page views is a standard metric in web analytics, this reflects the web&#8217;s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='counting-events'><h2>4. Number of events</h2></a></p>
+
+<p>Although the number of page views is a standard metric in web analytics, this reflects the web’s history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)</p>
 
 <p>As a result, counting the total number of events (including page views but also other AJAX events) is actually a more meaningful thing to do than to count the number of page views, as we have done above. We recommend setting up Snowplow so that <em>all</em> events / actions that a user takes are tracked. Hence, running the below queries should return a total sum of events on the site by time period:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
@@ -176,14 +183,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/events-by-day-chartio.png' alt='events-by-day' /></p>
+<p><img src="/static/img/analytics/basic-recipes/events-by-day-chartio.png" alt="events-by-day" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='pages-per-visit'><h2>5. Pages per visit</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='pages-per-visit'><h2>5. Pages per visit</h2></a></p>
+
 <p>The number of pages per visit can be calculated by visit very straightforwardly:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -193,8 +201,7 @@
 <span class='k'>WHERE</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>AND</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span> 
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then aggregate our data by number of pages per visit, to produce a frequency table:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>basic_recipes</span><span class='p'>.</span><span class='n'>pages_per_visit</span> <span class='k'>AS</span>
@@ -212,15 +219,16 @@
 <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>page_view_per_visit</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png' alt='page-views-per-visit-frequency-table-chartio' /></p>
+<p><img src="/static/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png" alt="page-views-per-visit-frequency-table-chartio" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='bounce-rate'><h2>6. Bounce rate</h2></a>
-<p>First we need to identify all the sessions that were &#8216;bounces&#8217;. These are visits where there is only a single event captured: the initial page view:</p>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='bounce-rate'><h2>6. Bounce rate</h2></a></p>
+
+<p>First we need to identify all the sessions that were ‘bounces’. These are visits where there is only a single event captured: the initial page view:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
 <span class='n'>domain_userid</span><span class='p'>,</span>
@@ -231,8 +239,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>This query returns a line of data for every session. For each, it logs a timestamp, the number of events, and a flag that is set to 1 if the visitor bounced.</p>
 
 <p>To calculate bounce rate by day, we take the above table, aggregate the results by day, sum the number of bounces and divide it by the total number of sessions:</p>
@@ -253,19 +260,20 @@
 <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p>Note that we have to cast sum(bounces) as a &#8216;real&#8217; number, to force Redshift / PostgreSQL to output a real number rather than an integer for the bounce rate.</p>
+</code></pre></div>
+<p>Note that we have to cast sum(bounces) as a ‘real’ number, to force Redshift / PostgreSQL to output a real number rather than an integer for the bounce rate.</p>
 
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png' alt='fraction-of-visits-per-day-that-bounce' /></p>
+<p><img src="/static/img/analytics/basic-recipes/fraction-of-visits-per-day-that-bounce-chartio.png" alt="fraction-of-visits-per-day-that-bounce" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='new-visits'><h2>7. % New visits</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='new-visits'><h2>7. % New visits</h2></a></p>
+
 <p>A new visit is easily identified as a visit where the domain_sessionidx = 1. Hence, to calculate the % of new visits, we need to sum all the visits where <code>domain_sessionidx</code> = 1 and divide by the total number of visits, in the time period.</p>
 
-<p>First, we create a table with every visit stored, and identify which visits were &#8220;new&#8221;:</p>
+<p>First, we create a table with every visit stored, and identify which visits were “new”:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
 <span class='nf'>MIN</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;time_first_touch&quot;</span><span class='p'>,</span>
@@ -275,8 +283,7 @@
 <span class='k'>FROM</span> <span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we aggregate the visits over our desired time period, and calculate the fraction of them that are new:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -293,14 +300,15 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png' alt='fraction-of-visits-per-day-where-the-visitor-is-new' /></p>
+<p><img src="/static/img/analytics/basic-recipes/fraction-of-visits-per-day-where-the-visitor-is-new-chartio.png" alt="fraction-of-visits-per-day-where-the-visitor-is-new" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='duration'><h2>8. Average visitor duration</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='duration'><h2>8. Average visitor duration</h2></a></p>
+
 <p>To calculate this, 1st we need to calculate the duration of every visit:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -312,9 +320,8 @@
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p>Then we simply average visit durations over the time period we&#8217;re interested e.g. by day:</p>
+</code></pre></div>
+<p>Then we simply average visit durations over the time period we’re interested e.g. by day:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
 <span class='nf'>DATE_TRUNC</span><span class='p'>(</span><span class='s1'>&#39;day&#39;</span><span class='p'>,</span> <span class='n'>start_time</span><span class='p'>)</span> <span class='k'>AS</span> <span class='s2'>&quot;Date&quot;</span><span class='p'>,</span>
@@ -332,10 +339,11 @@
 <span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='mi'>1</span>
 <span class='k'>order</span> <span class='k'>by</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
-<p><a href='#top'>Back to top</a></p>
-<a name='language'><h2>9. Demographics: language</h2></a>
+</code></pre></div>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='language'><h2>9. Demographics: language</h2></a></p>
+
 <p>For each event the browser language is stored in the <code>br_language</code> field. As a result, counting the number of visitors in a time period by language is trivial:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -345,14 +353,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>br_lang</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visitors-by-language-chartio.png' alt='visitors-by-language-chartio' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visitors-by-language-chartio.png" alt="visitors-by-language-chartio" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='location'><h2>10. Demographics: location</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='location'><h2>10. Demographics: location</h2></a></p>
+
 <p>We can identify the geographic location of users using the <code>geo_country</code>, <code>geo_region</code>, <code>geo_city</code>, <code>geo_zipcode</code>, <code>geo_latitude</code> and <code>geo_longitude</code> fields.</p>
 
 <p>To calculate the number of visitors in the last month by country, simply execute:</p>
@@ -364,16 +373,17 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visitors-by-country-chartio.png' alt='visitors-by-country' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visitors-by-country-chartio.png" alt="visitors-by-country" /></p>
 
-<p>To create a geographical plot, you&#8217;ll need to use another tool like <a href='http://cran.r-project.org/'>R</a> or <a href='http://www.tableausoftware.com/'>Tableau</a>.</p>
+<p>To create a geographical plot, you’ll need to use another tool like <a href="http://cran.r-project.org/">R</a> or <a href="http://www.tableausoftware.com/">Tableau</a>.</p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='new-vs-returning'><h2>11. Behavior: new vs returning</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='new-vs-returning'><h2>11. Behavior: new vs returning</h2></a></p>
+
 <p>Within a given time period, we can compare the number of new visitors (for whom <code>domain_sessionidx</code> = 1) with returning visitors (for whom <code>domain_sessionidx</code> &gt; 1):</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -384,8 +394,7 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we can aggregate them by time period, to get the total new vs returning e.g. by day:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -402,14 +411,15 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>)</span> <span class='n'>v</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day-chartio.png' alt='new-vs-returning-visits-by-day' /></p>
+<p><img src="/static/img/analytics/basic-recipes/new-vs-returning-visits-by-day-chartio.png" alt="new-vs-returning-visits-by-day" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='frequency'><h2>12. Behavior: frequency</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='frequency'><h2>12. Behavior: frequency</h2></a></p>
+
 <p>We can plot the distribution of visits in a time period by the number of visits each visitor has performed:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span>
 <span class='n'>domain_sessionidx</span> <span class='k'>as</span> <span class='ss'>&quot;Number of visits&quot;</span><span class='p'>,</span>
@@ -418,14 +428,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits.png' alt='distribution-of-visitors-by-number-of-visits' /></p>
+<p><img src="/static/img/analytics/basic-recipes/distribution-of-visitors-by-number-of-visits.png" alt="distribution-of-visitors-by-number-of-visits" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='recency'><h2>13. Behavior: recency</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='recency'><h2>13. Behavior: recency</h2></a></p>
+
 <p>We can plot the distribution of visits by the number of days since the previous visit. To do this, we first identify all the visits in our time period:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -436,8 +447,7 @@
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can join the above table with a similar table, but join each visit to data for the previous visit, so we can calculate the number of days between visits:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -473,8 +483,7 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='p'>)</span> <span class='n'>p</span> <span class='k'>on</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>previous_domain_sessionidx</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>domain_sessionidx</span>
 <span class='k'>and</span> <span class='n'>n</span><span class='p'>.</span><span class='n'>domain_userid</span> <span class='o'>=</span> <span class='n'>p</span><span class='p'>.</span><span class='n'>domain_userid</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Finally, we group the results by the number of days between visits, to plot a frequency table:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -517,14 +526,15 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/days-since-last-visit-in-chartio.png' alt='days-since-last-visit-in-chartio' /></p>
+<p><img src="/static/img/analytics/basic-recipes/days-since-last-visit-in-chartio.png" alt="days-since-last-visit-in-chartio" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='engagement'><h2>14. Behavior: engagement</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='engagement'><h2>14. Behavior: engagement</h2></a></p>
+
 <p>Google Analytics provides two sets of metrics to indicate <em>engagement</em>:</p>
 
 <ol>
@@ -549,8 +559,7 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Then we aggregate the results for each bucket, so we have frequency by bucket:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>SELECT</span>
@@ -574,11 +583,10 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We can then plot the results in ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visits-by-duration-chartio.png' alt='visits-by-duration-chartio' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visits-by-duration-chartio.png" alt="visits-by-duration-chartio" /></p>
 
 <p>We can also look at the number of page views per visit:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSLQ */</span> 
@@ -590,8 +598,7 @@
 <span class='k'>where</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>and</span> <span class='n'>event</span> <span class='o'>=</span> <span class='s1'>&#39;page_view&#39;</span>
 <span class='k'>group</span> <span class='k'>by</span> <span class='n'>domain_userid</span><span class='p'>,</span> <span class='n'>domain_sessionidx</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>We then aggregate those results together by the number of page views per visit</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Redshift / PostgreSLQ */</span>
 <span class='k'>SELECT</span>
@@ -609,14 +616,15 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visits-in-last-month-by-page-depth-chartio.png' alt='visits-in-the-last-month-by-page-depth' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visits-in-last-month-by-page-depth-chartio.png" alt="visits-in-the-last-month-by-page-depth" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='browser'><h2>15. Technology: browser</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='browser'><h2>15. Technology: browser</h2></a></p>
+
 <p>Browser details are stored in the events table in the <code>br_name</code>, <code>br_family</code>, <code>br_version</code>, <code>br_type</code>, <code>br_renderingengine</code>, <code>br_features</code> and <code>br_cookies</code> fields.</p>
 
 <p>Looking at the distribution of visits by browser is straightforward:</p>
@@ -628,14 +636,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>In ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png' alt='visits-by-browser-type' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visits-by-browser-type-chartio.png" alt="visits-by-browser-type" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='os'><h2>16. Technology: operating system</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='os'><h2>16. Technology: operating system</h2></a></p>
+
 <p>Operating system details are stored in the events table in the <code>os_name</code>, <code>os_family</code> and <code>os_manufacturer</code> fields.</p>
 
 <p>Looking at the distribution of visits by operating system is straightforward:</p>
@@ -648,14 +657,15 @@
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='nb'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span> 
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>2</span> <span class='k'>DESC</span><span class='p'>;</span> 
-</code></pre>
-</div>
+</code></pre></div>
 <p>Again, we can plot the results in ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/visits-by-operating-system-chartio.png' alt='visits-by-operating-system' /></p>
+<p><img src="/static/img/analytics/basic-recipes/visits-by-operating-system-chartio.png" alt="visits-by-operating-system" /></p>
 
-<p><a href='#top'>Back to top</a></p>
-<a name='mobile'><h2>17. Technology: mobile</h2></a>
+<p><a href="#top">Back to top</a></p>
+
+<p><a name='mobile'><h2>17. Technology: mobile</h2></a></p>
+
 <p>To work out how the number of visits in a given time period splits between visitors on mobile and those not, simply execute the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* Redshift / PostgreSQL */</span>
 <span class='k'>CREATE</span> <span class='n'>VIEW</span> <span class='n'>basic_recipes</span><span class='p'>.</span><span class='n'>technology_mobile</span> <span class='k'>AS</span>
@@ -665,13 +675,13 @@
 <span class='k'>FROM</span> <span class='s2'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>WHERE</span> <span class='n'>collector_tstamp</span> <span class='o'>&gt;</span> <span class='k'>current_date</span> <span class='o'>-</span> <span class='kt'>integer</span> <span class='s1'>&#39;31&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>Plotting the results in ChartIO:</p>
 
-<p><img src='/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop-chartio.png' alt='split-in-visits-by-mobile-vs-desktop' /></p>
+<p><img src="/static/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop-chartio.png" alt="split-in-visits-by-mobile-vs-desktop" /></p>
 
-<p><a href='#top'>Back to top</a></p>
+<p><a href="#top">Back to top</a></p>
+
 </div>
 
  <div id="sidebar">
@@ -681,6 +691,30 @@
 		
 		<ul>
 			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -705,18 +739,6 @@
 					
 				
 					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
 				
 					
 				
@@ -727,19 +749,7 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+									
 					
 				
 					
@@ -833,6 +843,30 @@
 					
 				
 					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -840,6 +874,12 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -855,36 +895,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -975,6 +985,30 @@
 					
 				
 					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 				
 					
 				
@@ -982,6 +1016,12 @@
 				
 					
 									
+					
+				
+					
+				
+					
+				
 					
 				
 					
@@ -997,36 +1037,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1117,34 +1127,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1162,6 +1144,34 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1259,34 +1269,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 						
 							
 							<li class="active"><a href="/analytics/basic-recipes.html" class="active">Basic recipes</a></li>
@@ -1311,114 +1293,6 @@
 					
 				
 					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-			
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
 				
 					
 				
@@ -1439,13 +1313,11 @@
 					
 				
 					
-				
+									
 					
 				
 					
-				
-					
-				
+									
 					
 				
 					
@@ -1539,34 +1411,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1584,6 +1428,34 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1677,34 +1549,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1722,6 +1566,34 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1815,34 +1687,6 @@
 					
 				
 					
-				
-					
-				
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-									
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
 									
 					
 				
@@ -1860,6 +1704,34 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					
@@ -1953,6 +1825,40 @@
 					
 				
 					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
 				
 					
 				
@@ -1981,6 +1887,82 @@
 					
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 									
 					
 				
@@ -1998,6 +1980,34 @@
 				
 					
 				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+				
+					
+				
+					
+				
+					
+									
+					
+				
+					
+									
 					
 				
 					

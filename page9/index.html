@@ -72,7 +72,9 @@
 			10 May 2013
 			<h1><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from">Where does your traffic *really* come from?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<img src='/static/img/blog/2013/05/lone-traveller.jpg' />
+			
+<p><img src='/static/img/blog/2013/05/lone-traveller.jpg' /></p>
+
 <p>Web analysts spend a lot of time exploring where visitors to their websites come from:</p>
 
 <ul>
@@ -86,15 +88,15 @@
 <p>Unfortunately, identifying where your visitors come from is <strong>not</strong> as straightforward as it often seems. In this post, we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#how'>How, technically, can we determine where visitors have come from?</a></li>
+<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from/#how">How, technically, can we determine where visitors have come from?</a></li>
 
-<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#errors'>Potential sources of errors</a></li>
+<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from#errors">Potential sources of errors</a></li>
 
-<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#ga'>Problems with relying on the Google Analytics approach, and why the Snowplow approach is superior</a></li>
+<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from#ga">Problems with relying on the Google Analytics approach, and why the Snowplow approach is superior</a></li>
 
-<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords'>Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on an ad that was not shown on a Google domain</a></li>
+<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords">Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on an ad that was not shown on a Google domain</a></li>
 
-<li><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion'>Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from</a></li>
+<li><a href="/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion">Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/05/10/where-does-your-traffic-really-come-from'>Read the rest of this entry</a></p>
 		</div>
@@ -103,16 +105,17 @@
 			08 May 2013
 			<h1><a href="/blog/2013/05/08/snowplow-0.8.2-released-with-clojure-collector-enhancements">Snowplow 0.8.2 released with Clojure Collector enhancements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
+			
+<p>We’re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
 
-<p>Many thanks to community member <a href='https://github.com/butlermh'>Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
+<p>Many thanks to community member <a href="https://github.com/butlermh">Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
 
 <p>This release bumps the Clojure Collector to version <strong>0.4.0</strong>. There are three main changes to the Collector:</p>
 
 <ol>
-<li>Building the Collector&#8217;s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
+<li>Building the Collector’s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
 
-<li>We have fixed a bug (<a href='https://github.com/snowplow/snowplow/issues/220'>#220</a>) where occasionally the Collector&#8217;s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
+<li>We have fixed a bug (<a href="https://github.com/snowplow/snowplow/issues/220">#220</a>) where occasionally the Collector’s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
 
 <li>Some code tidy-up, including making the Clojure Collector work with newer versions of Leiningen</li>
 </ol>
@@ -120,49 +123,55 @@
 <p>To upgrade to this release:</p>
 
 <ol>
-<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
+<li>Download the new warfile by right-clicking on <a href="http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war">this link</a> and selecting “Save As…”</li>
 
 <li>Log in to your Amazon Elastic Beanstalk console</li>
 
-<li>Browse to your Collector&#8217;s application</li>
+<li>Browse to your Collector’s application</li>
 
-<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
+<li>Click the “Upload New Version” and upload your warfile</li>
 </ol>
 
-<p>And that should be it. Thanks again to Mark for his contribution to this release - and we&#8217;re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
+<p>And that should be it. Thanks again to Mark for his contribution to this release - and we’re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
+
 		</div>
 	
 		<div class="post">
 			23 Apr 2013
 			<h1><a href="/blog/2013/04/23/performing-funnel-analysis-with-snowplow">Funnel analysis with Snowplow (Platform analytics part 1)</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>Eleven days ago</a>, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a set of recipes covering how to measure the performance of <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>content pages</a> and <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>product pages</a>.</p>
+			
+<p><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow/">Eleven days ago</a>, we started building out the <a href="/analytics/catalog-analytics/overview.html">Catalog Analytics</a> section of the <a href="/analytics/index.html">Analytics Cookbook</a>, with a set of recipes covering how to measure the performance of <a href="/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html">content pages</a> and <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">product pages</a>.</p>
 
-<p>Today we&#8217;ve published the first set of recipes in the new <a href='/analytics/platform-analytics/overview.html'>platform analytics</a> section of the Cookbook. By &#8216;platform analytics&#8217;, we mean analytics performed to answer questions about how your platform (or &#8216;website&#8217;, &#8216;application&#8217; or &#8216;product&#8217;) performs. This is one of the most important branches of analytics that can be performed with clickstream, event data.</p>
+<p>Today we’ve published the first set of recipes in the new <a href="/analytics/platform-analytics/overview.html">platform analytics</a> section of the Cookbook. By ‘platform analytics’, we mean analytics performed to answer questions about how your platform (or ‘website’, ‘application’ or ‘product’) performs. This is one of the most important branches of analytics that can be performed with clickstream, event data.</p>
 
-<p>The first recipes published cover how to perform <a href='/analytics/platform-analytics/funnel-analysis.html'>funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
+<p>The first recipes published cover how to perform <a href="/analytics/platform-analytics/funnel-analysis.html">funnel analysis</a> with Snowplow, like the example below, that compares the purchase funnel for an online shop by month.</p>
 
-<p><img src='/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg' alt='funnel-analysis' /></p>
+<p><img src="/static/img/analytics/platform-analytics/funnel-analysis/visualization-in-tableau.jpg" alt="funnel-analysis" /></p>
 
-<p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users &#8216;drop out&#8217; of the funnel.</p>
+<p>Funnel analysis is an important example of platform analytics. Snowplow makes it straightforward to define and analyse funnels on the fly: unlike Google Analytics, you do not have to predefine funnels in advance, then collect data, before you can analyse how users progress through them. This is important as it makes it possible to spot e.g. that your visitors are using your platform in a particular (perhaps unexpected) way, and then immediately drill into how many exactly, are doing so, and at what point in that workflow do different users ‘drop out’ of the funnel.</p>
 
 <p>In addition, Snowplow also makes it easy to compare multiple funnels (e.g. like the time series example above, or, instead, comparing how successfully different audience segments progress through different funnels).</p>
 
-<p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/about/index.html'>getting in touch</a> directly.</p>
+<p>This will be the first of many platform analytics recipes - if there are specific analyses you’d like us to cover, or would like to contribute yourself, then let us know below or by <a href="/about/index.html">getting in touch</a> directly.</p>
+
 		</div>
 	
 		<div class="post">
 			18 Apr 2013
 			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>This is the second part in our blog post series on Catalog Analytics. The <a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>first part</a> was published last week.</em></p>
+			
+<p><em>This is the second part in our blog post series on Catalog Analytics. The <a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow/">first part</a> was published last week.</em></p>
 
-<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
+<p>Last week, we started building out the <a href="/analytics/catalog-analytics/overview.html">Catalog Analytics</a> section of the <a href="/analytics/index.html">Analytics Cookbook</a>, with a section documenting how to <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
 
-<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
+<p>This week, we’ve added an extra section to the cookbook, covering <a href="/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html">how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
 
 <p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
-<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
+
+<p><a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a></p>
+
 <p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
 <p class='more'><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Read the rest of this entry</a></p>
 		</div>
@@ -171,7 +180,8 @@
 			12 Apr 2013
 			<h1><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing">Snowplow 0.8.1 released with referer URL parsing</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
+			
+<p>Just nine days after our Snowplow 0.8.0 release, we are pleased to have our next release ready: Snowplow <strong>0.8.1</strong>. With the last release we promised that the new Scalding-based ETL/enrichment process would lay a strong technical foundation for our roadmap - and hopefully this release bears that out!</p>
 
 <p>Until this release, Snowplow has provided users the raw referer URL, from which analysts can deduce who the referer was. In this release, Snowplow processes that referer URL to identify what drove a visitor to your website, specifically:</p>
 
@@ -196,13 +206,13 @@
 <p>We will publish a post on how to use the data in a blog post in the near-future. In the rest of this post, then, we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing'>Referer parsing implementation</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#referer-parsing">Referer parsing implementation</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data'>Some example data</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#example-data">Some example data</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage'>Upgrading and usage</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#upgrading-usage">Upgrading and usage</a></li>
 
-<li><a href='/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help'>Getting help</a></li>
+<li><a href="/blog/2013/04/12/snowplow-0.8.1-released-with-referer-url-parsing#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more.</p>
@@ -241,23 +251,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -275,22 +268,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -312,19 +319,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

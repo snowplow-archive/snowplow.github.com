@@ -72,23 +72,28 @@
 			31 Oct 2012
 			<h1><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
+			
+<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href="http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/">Universal Analytics</a>. In this post, we look at:</p>
 
 <ol>
-<li><a href='#what'>The actual features Google has announced</a></li>
+<li><a href="#what">The actual features Google has announced</a></li>
 
-<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting Snowplow</a></li>
+<li><a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow">How those advances change the case for companies considering adopting Snowplow</a></li>
 </ol>
 
-<p><img src='/static/img/google-analytics-universal-analytics.png' alt='universal-analytics-image' /></p>
-<a name='what'><h2>1. What changes has Google announced?</h2></a>
-<p>The most significant change Google has announced is the new <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href='#new-data-points'>new data points</a> businesses can <em>feed</em> GA, before considering <a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'>what that means for GA&#8217;s reporting capabilities</a>.</p>
-<a name='new-data-points'><h3>1.1 Custom user identifiers</h3></a>
-<p>The first new data points that businesses can feed into Google Analytics is a user&#8217;s <code>client_id</code> (basically, a customer ID) as defined on the business&#8217;s own systems.</p>
+<p><img src="/static/img/google-analytics-universal-analytics.png" alt="universal-analytics-image" /></p>
 
-<p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google&#8217;s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
+<p><a name='what'><h2>1. What changes has Google announced?</h2></a></p>
 
-<p>For businesses using GA, being able to augment Google&#8217;s user identification with their own internal <code>client_id</code>s is a significant step forwards for two reasons:</p>
+<p>The most significant change Google has announced is the new <a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/">Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href="#new-data-points">new data points</a> businesses can <em>feed</em> GA, before considering <a href="/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities">what that means for GA’s reporting capabilities</a>.</p>
+
+<p><a name='new-data-points'><h3>1.1 Custom user identifiers</h3></a></p>
+
+<p>The first new data points that businesses can feed into Google Analytics is a user’s <code>client_id</code> (basically, a customer ID) as defined on the business’s own systems.</p>
+
+<p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google’s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
+
+<p>For businesses using GA, being able to augment Google’s user identification with their own internal <code>client_id</code>s is a significant step forwards for two reasons:</p>
 
 <ol>
 <li>Many GA users (especially those with applications or properties where users login, or those with a loyalty card scheme) can identify their own users reliably on specific platforms, devices and physical stores. By adding this additional user identification data into GA, GA will be more accurate at identifying the same user in different places reliably, moving us further from a world in which we rely on persistent cookies dropped on browsers with unique identifiers, to one where users are more robustly identified via logins, payments and loyalty schemes. These approaches will still use cookies, but as part of a broader set of user identification business processes that actively involve the user in the identification process</li>
@@ -102,15 +107,16 @@
 			25 Oct 2012
 			<h1><a href="/blog/2012/10/25/snowplow-0.5.0-released">Snowplow 0.5.0 released, now with a Ruby gem to run Snowplow's ETL process on Amazon EMR</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow&#8217;s Hive-based ETL (extract, transform, load) process on <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a> with minimum fuss.</p>
+			
+<p>We have just released Snowplow <strong>0.5.0</strong>, with an all-new component, the Snowplow EmrEtlRunner. EmrEtlRunner is a Ruby application to run Snowplow’s Hive-based ETL (extract, transform, load) process on <a href="http://aws.amazon.com/elasticmapreduce/">Amazon Elastic MapReduce</a> with minimum fuss.</p>
 
-<p>We are hugely grateful to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
+<p>We are hugely grateful to community member <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a> for his contributions to EmrEtlRunner: thanks to Michael, EmrEtlRunner is more efficient, more flexible and more robust than it otherwise would have been - and ready sooner. Many thanks Michael!</p>
 
-<h2 id='using_emretlrunner'>Using EmrEtlRunner</h2>
+<h2 id="using_emretlrunner">Using EmrEtlRunner</h2>
 
-<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href='http://aws.amazon.com/elasticmapreduce/'>Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href='http://snowplowanalytics.com/analytics/index.html'>Analyst&#8217;s Cookbook</a>.</p>
+<p>EmrEtlRunner is a Ruby application which you can setup on your server to regularly take your raw Snowplow logs (as stored in CloudFront access logs) and apply the Hive-based ETL process to them using <a href="http://aws.amazon.com/elasticmapreduce/">Amazon Elastic MapReduce</a>. This ETL process populates a Hive-format events table which you can then use with the HiveQL recipes in our <a href="http://snowplowanalytics.com/analytics/index.html">Analyst’s Cookbook</a>.</p>
 
-<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href='https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner'>Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
+<p>For detailed instructions on installing, running and scheduling EmrEtlRunner on your server, please see the <a href="https://github.com/snowplow/snowplow/wiki/Deploying-EmrEtlRunner">Deploying EmrEtlRunner</a> guide on the Snowplow Analytics wiki.</p>
 <p class='more'><a href='/blog/2012/10/25/snowplow-0.5.0-released'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -146,9 +152,10 @@
 			21 Oct 2012
 			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
+			
+<p>We’re pleased to start the week with the release of a new Ruby gem, our <a href="https://github.com/snowplow/infobright-ruby-loader">Infobright Ruby Loader</a> (IRL).</p>
 
-<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+<p>At Snowplow we’re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href="http://www.infobright.org/">Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
 
 <p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
 
@@ -162,39 +169,41 @@
 <li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
 </ol>
 
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
+<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn’t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
 
-<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
+<p>Our freshly minted <a href="https://github.com/snowplow/infobright-ruby-loader">Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
 
 <ol>
 <li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
 
-<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
+<li><strong>As part of another application</strong> - because it’s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
 </ol>
 
 <p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
 
-<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
+<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href="http://www.infobright.org/Blog/Entry/unscripted/">ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
 
-<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
+<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href="https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md">README</a> in the GitHub repository. And please direct any questions through the <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">usual channels</a>!</p>
+
 		</div>
 	
 		<div class="post">
 			12 Oct 2012
 			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
+			
+<p>Last night I gave a presentation to the clever folks at Hive London covering three things:</p>
 
 <ol>
 <li>How big data technologies like Apache Hive are transforming web analytics</li>
 
-<li>Howe we&#8217;ve used Hive in Snowplow development</li>
+<li>Howe we’ve used Hive in Snowplow development</li>
 
 <li>How the role of Hive has changed at Snowplow over time, including a comparison of Hive against other technologies.</li>
 </ol>
 
 <p>The slides from the presentation are below. As always, any questions / comments, please post them below.</p>
-<iframe width='427' height='356' frameborder='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' marginheight='0' marginwidth='0' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px'>  </iframe>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/14696456' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'>  </iframe>
 		</div>
 	
 
@@ -229,23 +238,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -263,22 +255,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -300,19 +306,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

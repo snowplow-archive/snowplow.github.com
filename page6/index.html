@@ -72,25 +72,25 @@
 			09 Jul 2013
 			<h1><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
+			
+<p>We are pleased to announce the addition of <a href="https://github.com/snowplow/referer-parser/tree/master/dotnet">.NET support (C#)</a> to our standalone <a href="https://github.com/snowplow/referer-parser">referer-parser</a> library. Many thanks to <a href="https://github.com/swijnands">Sepp Wijnands</a> at <a href="http://www.iperform.nl/">iPerform Software</a> for contributing this latest port!</p>
 
 <p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
 
-<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href="https://github.com/snowplow/referer-parser/tree/master/python">Python</a> and now to <a href="https://github.com/snowplow/referer-parser/tree/master/dotnet">Dot Net</a>.</p>
 
 <p>Here is a taster for using the library from C Sharp:</p>
-<div class='highlight'><pre><code class='c'><span class='n'>using</span> <span class='n'>RefererParser</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
 
-<span class='n'>string</span> <span class='n'>refererUrl</span> <span class='o'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
-<span class='n'>string</span> <span class='n'>pageUrl</span>    <span class='o'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
+<span class='kt'>string</span> <span class='n'>refererUrl</span> <span class='p'>=</span> <span class='s'>&quot;http://www.google.com/search?q=gateway+oracle+cards+denise+linn&amp;hl=en&amp;client=safari&quot;</span><span class='p'>;</span>
+<span class='kt'>string</span> <span class='n'>pageUrl</span>    <span class='p'>=</span> <span class='s'>&quot;http:/www.psychicbazaar.com/shop&quot;</span><span class='p'>;</span> <span class='c1'>// Our current URL</span>
 
-<span class='n'>var</span> <span class='n'>referer</span> <span class='o'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='n'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
+<span class='kt'>var</span> <span class='n'>referer</span> <span class='p'>=</span> <span class='n'>Parser</span><span class='p'>.</span><span class='n'>Parse</span><span class='p'>(</span><span class='k'>new</span> <span class='n'>Uri</span><span class='p'>(</span><span class='n'>refererUrl</span><span class='p'>),</span> <span class='n'>pageUrl</span><span class='p'>);</span>
 
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Medium</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Search&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Source</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;Google&quot;</span>
 <span class='n'>Console</span><span class='p'>.</span><span class='n'>WriteLine</span><span class='p'>(</span><span class='n'>r</span><span class='p'>.</span><span class='n'>Term</span><span class='p'>);</span> <span class='c1'>// =&gt; &quot;gateway oracle cards denise linn&quot;</span>
-</code></pre>
-</div>
+</code></pre></div>
 <p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
 <p class='more'><a href='/blog/2013/07/09/dotnet-support-added-to-referer-parser'>Read the rest of this entry</a></p>
 		</div>
@@ -99,37 +99,39 @@
 			07 Jul 2013
 			<h1><a href="/blog/2013/07/07/snowplow-0.8.7-released">Snowplow 0.8.7 released with JavaScript Tracker improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>After a brief summer intermission, we are pleased to announce the release of <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
+			
+<p>After a brief summer intermission, we are pleased to announce the release of <a href="https://github.com/snowplow/snowplow/releases/0.8.7">Snowplow <strong>0.8.7</strong></a>. This is a small release, primarily consisting of bug fixes for the JavaScript Tracker, which is bumped to version 0.12.0.</p>
 
-<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href='https://github.com/mfu0'>mfu0</a> and Snowplow client <a href='http://www.bigcommerce.com/'>BigCommerce</a> for bringing some of these issues to our attention.</p>
+<p>As well as some tweaks and improvements, this release fixes bugs which only occurred on older versions of Internet Explorer, and fixes a bug which prevented the <code>setCustomUrl()</code> method from working properly. Many thanks to community member <a href="https://github.com/mfu0">mfu0</a> and Snowplow client <a href="http://www.bigcommerce.com/">BigCommerce</a> for bringing some of these issues to our attention.</p>
 
 <p>As always, the updated minified tracker is available here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.12.0/sp.js</code></pre>
 
-<p>Please note that this release implements the latest version of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol'>Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
+<p>Please note that this release implements the latest version of the <a href="https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol">Snowplow Tracker Protocol</a>, whereby custom structured event fields now start with <code>se_</code> rather than <code>ev_</code>. This change is backwards compatible with all versions of the Hadoop-based ETL, but <strong>not</strong> with the Hive-based ETL. If you are still using the Hive ETL, we <strong>strongly</strong> recommend you upgrade to the Hadoop ETL.</p>
 
-<p>This is the first Snowplow release to make use of the new <a href='https://github.com/blog/1547-release-your-software'>GitHub Releases</a> functionality - so do check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.7'>0.8.7 Release Notes</a>.</p>
+<p>This is the first Snowplow release to make use of the new <a href="https://github.com/blog/1547-release-your-software">GitHub Releases</a> functionality - so do check out the <a href="https://github.com/snowplow/snowplow/releases/0.8.7">0.8.7 Release Notes</a>.</p>
 
-<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
+<p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it’s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don’t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
+
 		</div>
 	
 		<div class="post">
 			03 Jul 2013
 			<h1><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
+			
+<p>We are very pleased to announce the release of our <a href="https://github.com/snowplow/snowplow-lua-tracker">SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker">JavaScript</a>, <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker">no-JavaScript (aka pixel)</a> and <a href="https://github.com/snowplow/snowplow-arduino-tracker">Arduino</a> Trackers.</p>
 
-<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
+<p>As a lightweight, easily-embeddable scripting language, <a href="http://www.lua.org/">Lua</a> is available in a huge number of different computing environments and platforms, from <a href="http://www.wowwiki.com/Lua">World of Warcraft</a> through <a href="http://openresty.org/">OpenResty</a> to <a href="http://www.adobe.com/devnet/photoshoplightroom.html">Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here’s a taster:</p>
 <div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
 <span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
 <span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre>
-</div>
-<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
+</code></pre></div>
+<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow’s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href="http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/">High-Fidelity Analytics</a>, this tracker:</p>
 
 <ol>
-<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
+<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href="http://olivinelabs.com/busted/">Busted</a></li>
 
 <li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
 </ol>
@@ -137,11 +139,11 @@
 <p>After the jump we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
+<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events">Supported events</a></li>
 
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
+<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example">Usage example</a></li>
 
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
+<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more">Finding out more</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
 		</div>
@@ -150,19 +152,20 @@
 			02 Jul 2013
 			<h1><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
+			
+<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
 
-<p>We&#8217;ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month&#8217;s <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/'>0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
+<p>We’ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month’s <a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/">0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
 
 <p>In this post, we explain how to use browser caching to significantly reduce the size of your Cloudfront bills.</p>
 
 <ol>
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs'>Understanding Cloudfront costs and the potential savings</a></li>
+<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs">Understanding Cloudfront costs and the potential savings</a></li>
 
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
+<li><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update">How to update your files in S3 to get them to cache in your users’ browsers</a></li>
 </ol>
 
-<p><img src='/static/img/blog/2013/07/breaking-bad-money.jpg' alt='money' /></p>
+<p><img src="/static/img/blog/2013/07/breaking-bad-money.jpg" alt="money" /></p>
 <p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -171,23 +174,23 @@
 			<h1><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity">Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><i>This post is a response to an excellent, but old, blog post by <a href='http://www.gilliganondata.com/index.php/about/'>Tim Wilson</a> called <a href='http://www.gilliganondata.com/index.php/2011/08/09/web-analytics-platforms-are-fundamentally-broken/'>Web Analytics Platforms are Fundamentally Broken</a>, authored back in August 2011. Tim made the case (that is still true today) that web analytics is hard, and part of that hardness is because web analytics platforms are fundamentally broken. After Tim published his post, a very interesting conversation ensued on <a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'>Google+</a>. Reading through it, I was struck by how many of the points raised are still relevant today, and how many of the participants touched on issues that were central to our thinking when when we conceived of Snowplow.</i></p><p><i>One thing that I feel was sorely lacking from the discussion around <i>hardness</i> in web analytics was an effort to distinguish different sources of complexity. In this post, I identify some of those sources, and outline strategies for dealing with them. At the end of the post, I consider the extent to which web analytics platforms can help overcome that complexity, and argue that Omniture Sitecatalyst actually creates additional complexity because of the way it has been architected technically. I end by concluding that <strong>web analytics will continue to be hard because there are no straightforward ways to address every source of complexity, but that tools like Sitecatalyst make it harder than it needs to be</strong>.</i></p>
-<p><img src='/static/img/blog/2013/06/rubiks-cube.png' alt='rubiks-cube' /></p>
+<p><img src="/static/img/blog/2013/06/rubiks-cube.png" alt="rubiks-cube" /></p>
 
-<h2 id='what_is_it_that_makes_web_analytics_difficult'>What is it that makes web analytics difficult?</h2>
+<h2 id="what_is_it_that_makes_web_analytics_difficult">What is it that makes web analytics difficult?</h2>
 
 <p>The following all make web analytics hard.</p>
 
 <ol>
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data'>Large, complex, high volume, high velocity data</a></li>
+<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data">Large, complex, high volume, high velocity data</a></li>
 
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata'>Lots of contextual knowledge requried to understand the data</a></li>
+<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata">Lots of contextual knowledge requried to understand the data</a></li>
 
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions'>The business questions that people want to use the data to answer are hard</a></li>
+<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions">The business questions that people want to use the data to answer are hard</a></li>
 
-<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools'>Poorly architected tools make the previous three complexities <em>harder</em> to deal with</a></li>
+<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools">Poorly architected tools make the previous three complexities <em>harder</em> to deal with</a></li>
 </ol>
 
-<p>Much of the discussion around Tim&#8217;s original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture&#8217;s SiteCatalyst (around which much of the discussion about Tim&#8217;s blog post focused) actually manages to make things worse.</p>
+<p>Much of the discussion around Tim’s original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture’s SiteCatalyst (around which much of the discussion about Tim’s blog post focused) actually manages to make things worse.</p>
 <p class='more'><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -223,23 +226,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -257,22 +243,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -294,19 +294,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

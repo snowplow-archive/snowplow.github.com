@@ -71,15 +71,17 @@
 			20 May 2013
 			<h1>Performing market basket analysis on web analytics data with R</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We have just added a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>new recipe</a> to the <a href='/analytics/index.html'>Analytics Cookbook</a>: one that walks through the process of performing a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using <a href='http://www.r-project.org/'>R</a> and the <a href='http://cran.r-project.org/web/packages/arules/index.html'>arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I&#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
-<p style='text-align: center'><img width='400' src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' /></p>
-<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&#8217;s <em>users who bought this product also bought these items</em>&#8230;</p>
+			
+<p>We have just added a <a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html">new recipe</a> to the <a href="/analytics/index.html">Analytics Cookbook</a>: one that walks through the process of performing a <a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html">market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using <a href="http://www.r-project.org/">R</a> and the <a href="http://cran.r-project.org/web/packages/arules/index.html">arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I’d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
+<p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /></p>
+<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon’s <em>users who bought this product also bought these items</em></p>
 <!--more-->
 <p>Although people usually think of market basket analysis with respect to retailer transaction data, exactly the same algorithms and approaches can be uses with viewing data on media sites. The results of this type of analysis can be used to inform website design (how items are grouped together) and to power recommendation engines and targeted marketing. (E.g. advertising content items or products that people are more likely to be interested in, based on their past behavior.)</p>
 
-<p>This is the first recipe that primarily uses <a href='http://www.r-project.org/'>R</a>. We&#8217;re big fans of R at Snowplow, and a big motivation in building Snowplow was to enable the use of sophisticated data analysis tools like R on granular event-level data. We have a number of other recipes for R we hope to publish in the near future. This is the third recipe added to the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Cookbook</a>.</p>
+<p>This is the first recipe that primarily uses <a href="http://www.r-project.org/">R</a>. We’re big fans of R at Snowplow, and a big motivation in building Snowplow was to enable the use of sophisticated data analysis tools like R on granular event-level data. We have a number of other recipes for R we hope to publish in the near future. This is the third recipe added to the <a href="/analytics/catalog-analytics/overview.html">catalog analytics</a> section of the <a href="/analytics/index.html">Cookbook</a>.</p>
 
-<p>As always, if there are specific types of analysis you&#8217;d like us to cover, then <a href='/about/index.html'>get in touch</a>, either directly or by dropping us a comment below.</p>
+<p>As always, if there are specific types of analysis you’d like us to cover, then <a href="/about/index.html">get in touch</a>, either directly or by dropping us a comment below.</p>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -130,23 +132,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -164,22 +149,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -201,19 +200,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

@@ -72,18 +72,19 @@
 			12 Apr 2013
 			<h1><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow">Measuring product page performance with Snowplow (Catalog Analytics part 1)</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalog analytics for retailers. Today, we&#8217;ve published the <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>first recipes</a> in the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Snowplow Analytics Cookbook</a>. These cover <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>how to measure and compare the performance of different product pages on an ecommerce site</a>, using plots like the one below:</p>
+			
+<p>We built Snowplow to enable businesses to execute the widest range of analytics on their web event data. One area of analysis we are particularly excited about is catalog analytics for retailers. Today, we’ve published the <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">first recipes</a> in the <a href="/analytics/catalog-analytics/overview.html">catalog analytics</a> section of the <a href="/analytics/index.html">Snowplow Analytics Cookbook</a>. These cover <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">how to measure and compare the performance of different product pages on an ecommerce site</a>, using plots like the one below:</p>
 
-<p><img src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' alt='Example-catalog-analytics' /></p>
+<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg" alt="Example-catalog-analytics" /></p>
 
 <p>In this blog post, we will briefly outline:</p>
 
 <ul>
-<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#what'>What is catalog analytics?</a></li>
+<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow#what">What is catalog analytics?</a></li>
 
-<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#today'>What recipes have been published today?</a></li>
+<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow#today">What recipes have been published today?</a></li>
 
-<li><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow#tomorrow'>What catalog analytics recipes can we expect published in the next few weeks and months?</a></li>
+<li><a href="/blog/2013/04/12/online-catalog-analytics-with-snowplow#tomorrow">What catalog analytics recipes can we expect published in the next few weeks and months?</a></li>
 </ul>
 <p class='more'><a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow'>Read the rest of this entry</a></p>
 		</div>
@@ -92,27 +93,28 @@
 			10 Apr 2013
 			<h1><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>A key goal of the Snowplow project is enabling <strong>high-fidelity analytics</strong> for businesses running Snowplow.</p>
+			
+<p>A key goal of the Snowplow project is enabling <strong>high-fidelity analytics</strong> for businesses running Snowplow.</p>
 
 <p>What do we mean by high-fidelity analytics? Simply put, high-fidelity analytics means Snowplow faithfully recording <em>all</em> customer events in a rich, granular, non-lossy and unopinionated way.</p>
 
-<p>This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that&#8217;s made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it&#8217;s an important one.</p>
+<p>This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that’s made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it’s an important one.</p>
 
 <p>Surprisingly, ensuring your data is high fidelity is <strong>not</strong> something that is enforced by other analytics products.</p>
 
-<p><img src='/static/img/blog/2013/04/high-fidelity-2000.jpg' alt='high-fidelity' /></p>
+<p><img src="/static/img/blog/2013/04/high-fidelity-2000.jpg" alt="high-fidelity" /></p>
 
 <p>Why is Snowplow so unusual in aiming for high-fidelity analytics? Most often, analytics vendors sacrifice the goal of high-fidelity data at the altar of these three compromises:</p>
 
 <ol>
-<li><strong>Premature aggregation</strong> - when the data store gets too large, or the reports take too long to generate, it&#8217;s tempting to perform the aggregation and roll-up of the raw event data earlier, sometimes even at the point of collection. Of course this offers a huge potential performance boost to the tool, but at the cost of a huge degree of customer data fidelity</li>
+<li><strong>Premature aggregation</strong> - when the data store gets too large, or the reports take too long to generate, it’s tempting to perform the aggregation and roll-up of the raw event data earlier, sometimes even at the point of collection. Of course this offers a huge potential performance boost to the tool, but at the cost of a huge degree of customer data fidelity</li>
 
-<li><strong>Ignoring bad news</strong> - the nature of event data means that often incomplete, corrupted or plain wrong data is sent in to the analytics tool by the event trackers. Handling bad event data is complicated (let&#8217;s go shopping!). Instead of dealing with the complexity, most analytics packages just throw the bad data away silently; this is why tag audit companies like <a href='http://www.observepoint.com/'>ObservePoint</a> exist</li>
+<li><strong>Ignoring bad news</strong> - the nature of event data means that often incomplete, corrupted or plain wrong data is sent in to the analytics tool by the event trackers. Handling bad event data is complicated (let’s go shopping!). Instead of dealing with the complexity, most analytics packages just throw the bad data away silently; this is why tag audit companies like <a href="http://www.observepoint.com/">ObservePoint</a> exist</li>
 
-<li><strong>Being over-opinionated</strong> - customer analytics is full of challenging questions which need answering before you can analyse the data: do I track users by their first-party cookie, third-party cookie, business ID and/or IP address? Do I use the server clock, or the user&#8217;s clock to log the event time? When does a user session start and end? Because these questions can be difficult to answer, most analytics tools don&#8217;t ask them: instead they take an opinionated view of the &#8220;right answer&#8221; and silently enforce that view through their event collection, storage and analysis. By the time users realize that the logic enforced is one that does not work for their business, they are already tied to that vendor and the imperfect data set they have created with that vendor to date.</li>
+<li><strong>Being over-opinionated</strong> - customer analytics is full of challenging questions which need answering before you can analyse the data: do I track users by their first-party cookie, third-party cookie, business ID and/or IP address? Do I use the server clock, or the user’s clock to log the event time? When does a user session start and end? Because these questions can be difficult to answer, most analytics tools don’t ask them: instead they take an opinionated view of the “right answer” and silently enforce that view through their event collection, storage and analysis. By the time users realize that the logic enforced is one that does not work for their business, they are already tied to that vendor and the imperfect data set they have created with that vendor to date.</li>
 </ol>
 
-<p>To deliver on the goal of high-fidelity analytics, then, we&#8217;re trying to steer Snowplow around these three common pitfalls as best we can.</p>
+<p>To deliver on the goal of high-fidelity analytics, then, we’re trying to steer Snowplow around these three common pitfalls as best we can.</p>
 
 <p>We have talked in detail on our website and wiki about avoiding pitfall #1, Premature aggregation. In short: we do <strong>no</strong> aggregation - Snowplow users have access to granular, event level data, so that they can work out how best they should aggregate it for each type of analysis they wish to perform.</p>
 
@@ -126,22 +128,23 @@
 			03 Apr 2013
 			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
+			
+<p>A new month, a new release! We’re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
 
-<p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
+<p>This release has been heavily informed by our January blog post, <a href="/blog/2013/01/09/from-etl-to-enrichment/#scalding">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href="https://github.com/twitter/scalding">Scalding</a>, a Scala API built on top of <a href="http://www.cascading.org">Cascading</a>, the Hadoop ETL framework.</p>
 
 <p>In the rest of this post we will cover:</p>
 
 <ol>
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'>The benefits of the new ETL</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits">The benefits of the new ETL</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'>Limitations of the new ETL</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations">Limitations of the new ETL</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'>A note for Infobright/Hive users</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note">A note for Infobright/Hive users</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'>Upgrading and usage</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage">Upgrading and usage</a></li>
 
-<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'>Getting help</a></li>
+<li><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help">Getting help</a></li>
 </ol>
 
 <p>Read on below the fold to find out more.</p>
@@ -152,50 +155,53 @@
 			25 Mar 2013
 			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
+			
+<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href="http://www.arduino.cc/">Arduino</a> open-source electronics prototyping platform. The <a href="https://github.com/snowplow/snowplow-arduino-tracker">Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
 
-<p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
+<p>We chose this as our first non-Web tracker because we’re hugely excited about the potential of sophisticated analytics for the <a href="http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/">Internet of Things</a>, following in the footsteps of great projects like <a href="https://cosm.com/">Cosm</a> and <a href="http://exosite.com/">Exosite</a>. And of course, Snowplow’s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already “machine-scale”!</p>
 
-<p><img src='/static/img/blog/2013/03/arduino-board-photo.jpg' alt='arduino-photo' /></p>
+<p><img src="/static/img/blog/2013/03/arduino-board-photo.jpg" alt="arduino-photo" /></p>
 
-<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
+<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can’t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
 
 <ol>
 <li>Deploying a set of Snowplow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home</li>
 
-<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href='http://arduino.cc/blog/category/wireless/rfid/'>RFID readers</a> and Snowplow</li>
+<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href="http://arduino.cc/blog/category/wireless/rfid/">RFID readers</a> and Snowplow</li>
 
-<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino&#8217;s <a href='http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps'>3G and GPS</a> shields</li>
+<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino’s <a href="http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps">3G and GPS</a> shields</li>
 </ol>
 
-<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at <a href='https://github.com/alexanderdean/arduino-temp-tracker'>alexanderdean/arduino-temp-tracker</a>.</p>
+<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at <a href="https://github.com/alexanderdean/arduino-temp-tracker">alexanderdean/arduino-temp-tracker</a>.</p>
 
 <p>Want to find out more? To get started using our event tracker for Arduino, check out:</p>
 
 <ul>
-<li>The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>GitHub repository</a></li>
+<li>The <a href="https://github.com/snowplow/snowplow-arduino-tracker">GitHub repository</a></li>
 
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'>Technical Documentation</a></li>
+<li>The <a href="https://github.com/snowplow/snowplow/wiki/Arduino-Tracker">Technical Documentation</a></li>
 
-<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'>Setup Guide</a></li>
+<li>The <a href="https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup">Setup Guide</a></li>
 </ul>
 
 <p>Happy making!</p>
+
 		</div>
 	
 		<div class="post">
 			20 Mar 2013
 			<h1><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p><em>The Snowplow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the Snowplow project literally could not exist.</em></p>
+			
+<p><em>The Snowplow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the Snowplow project literally could not exist.</em></p>
 
-<p><em>As part of our &#8220;Inside the Plow&#8221; series, we will also be showcasing some of these core components of the Snowplow stack, and talking to their creators. To kick us off, we are delighted to have <a href='https://twitter.com/robslifka'>Rob Slifka</a>, VP of <a href='http://www.sharethrough.com/engineering'>Engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> in San Francisco, talking to us about his <a href='https://github.com/rslifka/elasticity'>Elasticity</a> project. For those who aren&#8217;t aware: Elasticity is a Ruby library which we use as part of our <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>, to make it easy to automate the Snowplow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.</em></p>
+<p><em>As part of our “Inside the Plow” series, we will also be showcasing some of these core components of the Snowplow stack, and talking to their creators. To kick us off, we are delighted to have <a href="https://twitter.com/robslifka">Rob Slifka</a>, VP of <a href="http://www.sharethrough.com/engineering">Engineering</a> at <a href="http://www.sharethrough.com">Sharethrough</a> in San Francisco, talking to us about his <a href="https://github.com/rslifka/elasticity">Elasticity</a> project. For those who aren’t aware: Elasticity is a Ruby library which we use as part of our <a href="https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner">EmrEtlRunner</a>, to make it easy to automate the Snowplow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.</em></p>
 
-<p><em>With the introductions done, let&#8217;s hand over to Rob to tell us a bit about himself, Elasticity and what he&#8217;s working on next:</em></p>
+<p><em>With the introductions done, let’s hand over to Rob to tell us a bit about himself, Elasticity and what he’s working on next:</em></p>
 
-<p><img src='/static/img/blog/2013/03/rob-slifka.jpeg' alt='rob-slifka-img' /></p>
+<p><img src="/static/img/blog/2013/03/rob-slifka.jpeg" alt="rob-slifka-img" /></p>
 
-<p>Thanks Alex! Quick bit about me: I&#8217;ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href='http://www.sharethrough.com/engineering'>engineering</a> at <a href='http://www.sharethrough.com'>Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href='https://github.com/rslifka/elasticity'>Elasticity</a> comes in.</p>
+<p>Thanks Alex! Quick bit about me: I’ve been in software development since the mid 90s working on everything from Java Swing (design automation tools) to embedded Jetty (email encryption) and now a mixture of Ruby and Scala. Since 2010, I’ve been responsible for <a href="http://www.sharethrough.com/engineering">engineering</a> at <a href="http://www.sharethrough.com">Sharethrough</a> - an ad tech company based out of San Francisco. We’re building a native advertising platform based on the belief that advertising is no longer sustainable as banners and punch-the-monkey ads and has begun the transition to engaging, non-interruptive choice-based experiences. One thing that a lot of people outside of ad tech don’t realize is that online advertising is synonymous with scale and some of the most interesting technology problems are driven from those demands. This is where <a href="https://github.com/rslifka/elasticity">Elasticity</a> comes in.</p>
 <p class='more'><a href='/blog/2013/03/20/rob-slifka-elasticity'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -231,23 +237,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -265,22 +254,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -302,19 +305,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

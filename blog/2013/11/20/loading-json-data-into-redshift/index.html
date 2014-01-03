@@ -71,51 +71,83 @@
 			20 Nov 2013
 			<h1>Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Very many of our Professional Services projects involve forking the Snowplow codebase so that specific clients can use it to load their event data, stored as JSONs, into Amazon Redshift, so that they can use BI tools to create dashboards and mine that data.</p>
+			
+<p>Very many of our Professional Services projects involve forking the Snowplow codebase so that specific clients can use it to load their event data, stored as JSONs, into Amazon Redshift, so that they can use BI tools to create dashboards and mine that data.</p>
 
-<p><img src='/static/img/blog/2013/11/container-ship.jpg' alt='container-ship-image' /></p>
+<p><img src="/static/img/blog/2013/11/container-ship.jpg" alt="container-ship-image" /></p>
 
-<p>We&#8217;ve been surprised quite how many companies have gone down the road of using JSONs to store their event data. In this blog post, we look at:</p>
+<p>We’ve been surprised quite how many companies have gone down the road of using JSONs to store their event data. In this blog post, we look at:</p>
 
 <ul>
-<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#why'>Why logging event data as JSONs has become so popular</a></li>
+<li><a href="/blog/2013/11/20/loading-json-data-into-redshift/#why">Why logging event data as JSONs has become so popular</a></li>
 
-<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#weaknesses'>The limitations of this approach</a></li>
+<li><a href="/blog/2013/11/20/loading-json-data-into-redshift/#weaknesses">The limitations of this approach</a></li>
 
-<li><a href='/blog/2013/11/20/loading-json-data-into-redshift/#solution'>Using the Snowplow tech stack to load JSON data into Redshift</a></li>
+<li><a href="/blog/2013/11/20/loading-json-data-into-redshift/#solution">Using the Snowplow tech stack to load JSON data into Redshift</a></li>
 </ul>
 <!--more--><h2><a name='why'>Why has logging event data as JSONs has become so popular?</a></h2>
 <p>There are four reasons logging event data as JSONs has become as popular as it is:</p>
 
-<h3 id='1_easy_to_implement'>1. Easy to implement</h3>
+<h3 id="1_easy_to_implement">1. Easy to implement</h3>
 
-<p>Representing an event as a JSON is an extremely simple, easy-to-understand approach. Let&#8217;s look at an example, a video play event represented as a JSON:</p>
-
+<p>Representing an event as a JSON is an extremely simple, easy-to-understand approach. Let’s look at an example, a video play event represented as a JSON:</p>
+<div class='highlight'><pre><code class='json'><span class='p'>{</span>
+    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
+    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
+        <span class='nt'>&quot;viewer_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
+        <span class='nt'>&quot;video_id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
+        <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
+        <span class='nt'>&quot;author_id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span>
+    <span class='p'>}</span>
+<span class='p'>}</span>
+</code></pre></div>
 <p>The JSON is very easy to read and comprehend. Crucially for application developers, it is straightforward to compose.</p>
 
 <p>Note that there are many ways we could choose to represent a video play event with a JSON. We might want e.g. to use nesting, to capture a richer data set both about the video itself, and about the user who watched it:</p>
+<div class='highlight'><pre><code class='json'><span class='p'>{</span>
+    <span class='nt'>&quot;event_name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;play_video&quot;</span><span class='p'>,</span>
+    <span class='nt'>&quot;properties&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+        <span class='nt'>&quot;timestamp&quot;</span><span class='p'>:</span> <span class='mi'>1384855393</span><span class='p'>,</span>
+        <span class='nt'>&quot;viewer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;19A34Bdt1190&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;age&quot;</span><span class='p'>:</span> <span class='mi'>28</span><span class='p'>,</span>
+            <span class='nt'>&quot;gender&quot;</span><span class='p'>:</span> <span class='s2'>&quot;male&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;member&quot;</span><span class='p'>:</span> <span class='kc'>true</span>
+        <span class='p'>},</span>
+        <span class='nt'>&quot;video&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+            <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='mi'>234101234</span><span class='p'>,</span>
+            <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;Another skateboarding dog&quot;</span><span class='p'>,</span>
+            <span class='nt'>&quot;producer&quot;</span><span class='p'>:</span> <span class='p'>{</span>
+                <span class='nt'>&quot;id&quot;</span><span class='p'>:</span> <span class='s2'>&quot;asdf987023s&quot;</span><span class='p'>,</span>
+                <span class='nt'>&quot;name&quot;</span><span class='p'>:</span> <span class='s2'>&quot;michaeldouglasboy&quot;</span><span class='p'>,</span>
+                <span class='nt'>&quot;joined&quot;</span><span class='p'>:</span> <span class='s2'>&quot;2012-09-29&quot;</span>
+            <span class='p'>}</span>
+        <span class='p'>}</span>
+    <span class='p'>}</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>In the above example, we’ve used nesting to group related fields (fields related to the viewer, fields related to the video, and fields related to the producer of the video). Again, even with all the additional data, the JSON is easy for the human eye to parse, and the nesting provides a tidy way of structuring our data.</p>
 
-<p>In the above example, we&#8217;ve used nesting to group related fields (fields related to the viewer, fields related to the video, and fields related to the producer of the video). Again, even with all the additional data, the JSON is easy for the human eye to parse, and the nesting provides a tidy way of structuring our data.</p>
+<h3 id="2_flexible">2. Flexible</h3>
 
-<h3 id='2_flexible'>2. Flexible</h3>
+<p>JSONs are flexible. If one day, an application developer decides she wants to add a new field to the “play_video” JSON, there’s nothing stopping her!</p>
 
-<p>JSONs are flexible. If one day, an application developer decides she wants to add a new field to the &#8220;play_video&#8221; JSON, there&#8217;s nothing stopping her!</p>
+<p>Typically, application developers can create new JSONs to represent new event types over time, and update the structure of JSONs for existing event types over time (adding or dropping fields), as they see fit. If the analytics system is simply logging the JSONs, there’s no need to update any downstream analytics infrastructure in light of changes to the JSON schema.</p>
 
-<p>Typically, application developers can create new JSONs to represent new event types over time, and update the structure of JSONs for existing event types over time (adding or dropping fields), as they see fit. If the analytics system is simply logging the JSONs, there&#8217;s no need to update any downstream analytics infrastructure in light of changes to the JSON schema.</p>
+<h3 id="3_wellsupported">3. Well-supported</h3>
 
-<h3 id='3_wellsupported'>3. Well-supported</h3>
+<p>Lots of analytics applications store event data as JSONs, including <a href="https://www.kissmetrics.com/">Kissmetrics</a>, <a href="https://mixpanel.com/">Mixpanel</a>, <a href="https://keen.io/">KeenIO</a> and <a href="http://www.swrve.com/">Swrve</a>. At Snowplow, we’re in the process of building out support for <a href="https://github.com/snowplow/snowplow/wiki/Developer-FAQ#wiki-unstructtimeline">unstructured events</a>, where events are represented as JSONs.</p>
 
-<p>Lots of analytics applications store event data as JSONs, including <a href='https://www.kissmetrics.com/'>Kissmetrics</a>, <a href='https://mixpanel.com/'>Mixpanel</a>, <a href='https://keen.io/'>KeenIO</a> and <a href='http://www.swrve.com/'>Swrve</a>. At Snowplow, we&#8217;re in the process of building out support for <a href='https://github.com/snowplow/snowplow/wiki/Developer-FAQ#wiki-unstructtimeline'>unstructured events</a>, where events are represented as JSONs.</p>
+<h3 id="4_seemingly_easy_to_analyze_using_hive_and_json_serde">4. <em>Seemingly</em> easy to analyze using Hive and JSON Serde</h3>
 
-<h3 id='4_seemingly_easy_to_analyze_using_hive_and_json_serde'>4. <em>Seemingly</em> easy to analyze using Hive and JSON Serde</h3>
-
-<p>JSONs, stored as flat files in S3 or HDFS <em>should</em> be easy to analyze using Hive and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a>. (We&#8217;ve blogged an example of this <a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'>here</a>.) You &#8216;simply&#8217; specify the schema as part of your Hive table definitions, implicit in the JSON. for each event type, and then you can query the data using SQL statements, as if it was a relational database. Easy peasy!</p>
+<p>JSONs, stored as flat files in S3 or HDFS <em>should</em> be easy to analyze using Hive and the <a href="https://github.com/rcongiu/Hive-JSON-Serde">JSON serde</a>. (We’ve blogged an example of this <a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/">here</a>.) You ‘simply’ specify the schema as part of your Hive table definitions, implicit in the JSON. for each event type, and then you can query the data using SQL statements, as if it was a relational database. Easy peasy!</p>
 <h2><a name='weaknesses'>The limitations of this approach</a></h2>
 <p>Unfortunately, querying the JSON data is not as easy as it first appears:</p>
 
 <ol>
-<li>
-<p>It is not always obvious, to the analyst creating the Hive table definitions, what the schema / structure for each event type should be. The analyst can visually inspect some of the data to get some idea, but it is impossible to tell:</p>
+<li>It is not always obvious, to the analyst creating the Hive table definitions, what the schema / structure for each event type should be. The analyst can visually inspect some of the data to get some idea, but it is impossible to tell:</li>
+</ol>
 
 <ul>
 <li>Whether they have spotted all the possible fields that might appear. (E.g. there may be some that are sparsely populated, but very important when they are filled in.)</li>
@@ -124,15 +156,11 @@
 
 <li>Remember that application developers have been free to keep modifying and updating event schemas over time, with no requirement to document or sense-check any of these updates. The analyst suffers, as a consequence, as she has to work out how that schema has evolved, in order to interrogate the data.</li>
 </ul>
-</li>
 
-<li>
-<p>When exploding nested data into separate tables, it is can be hard to identify on what key that data should be joined to the parent table. A nice feature of JSONs is their ability to nest data, but unless we can explode that nested data out, querying it is not going to be easy.</p>
-</li>
+<ol>
+<li>When exploding nested data into separate tables, it is can be hard to identify on what key that data should be joined to the parent table. A nice feature of JSONs is their ability to nest data, but unless we can explode that nested data out, querying it is not going to be easy.</li>
 
-<li>
-<p>It can be hard (if not impossible) for analysts and application developers to spot &#8220;errors&#8221; in the JSON at the point the event data is generated and captured. It is very easy for mistakes to creep in: JSONs are very fragile (a missing comma or inverted comma will break a JSON.) There&#8217;s also no way to check the type of individual field.</p>
-</li>
+<li>It can be hard (if not impossible) for analysts and application developers to spot “errors” in the JSON at the point the event data is generated and captured. It is very easy for mistakes to creep in: JSONs are very fragile (a missing comma or inverted comma will break a JSON.) There’s also no way to check the type of individual field.</li>
 </ol>
 
 <p>When Amazon Redshift was launched earlier this year, many companies wanted to load their event data into Redshift, to enable faster querying than was possible in Apache Hive, and also so that they could use BI and analytics tools to create dashboards, visaulize and mine the data. Unfortunately, loading JSON data into Redshift is even harder:</p>
@@ -140,10 +168,10 @@
 <ol>
 <li>Redshift tables have traditional schemas where each field has a fixed type. To make loading data into Redshift reliable, you really want to enforce the strong types on variables all the way through the data pipeline, from data collection. However, JSONs do not support strong typing or schemas.</li>
 
-<li>Any input line that does not conform to the Redshift schema fails to load. Many companies are then stuck between two unappealing approaches: junk data that doesn&#8217;t fit the schema (which may be a significant subset of the data), or only load a very small subset of the fields that have been reliably collected across the different event types. (Thereby relaxing the requirements on input data to successfully load, but again, effectively loosing a lot of the richness in the raw JSON data set.)</li>
+<li>Any input line that does not conform to the Redshift schema fails to load. Many companies are then stuck between two unappealing approaches: junk data that doesn’t fit the schema (which may be a significant subset of the data), or only load a very small subset of the fields that have been reliably collected across the different event types. (Thereby relaxing the requirements on input data to successfully load, but again, effectively loosing a lot of the richness in the raw JSON data set.)</li>
 </ol>
 <h2><a name='solution'>Using the Snowplow tech stack to load JSON data into Redshift</a></h2>
-<p>The Snowplow stack can be forked so that Snowplow transforms JSON data and loads it into Redshift. We&#8217;ve found this is a much better approach then building an ETL pipeline using e.g. Apache Hive and the JSON serde, because Snowplow has a lot of validation capabilities. We&#8217;ll discuss this in a second - first, let&#8217;s overview the process for adapting Snowplow to load your custom JSONs into Redshift:</p>
+<p>The Snowplow stack can be forked so that Snowplow transforms JSON data and loads it into Redshift. We’ve found this is a much better approach then building an ETL pipeline using e.g. Apache Hive and the JSON serde, because Snowplow has a lot of validation capabilities. We’ll discuss this in a second - first, let’s overview the process for adapting Snowplow to load your custom JSONs into Redshift:</p>
 
 <ol>
 <li>We develop an event dictionary for the client, which catalogs all the different events in their application and the fields that are captured with each of those events.</li>
@@ -155,29 +183,30 @@
 <li>We then modify the Snowplow stack to unpick the JSONs (as per the JSON -&gt; dictionary mapping) and write the data back to S3 in a format suitable for loading directly into Redshift (as per the dictionary -&gt; Redshift table definitions mapping)</li>
 </ol>
 
-<p>As mentioned above, the key to making this work is to use Snowplow&#8217;s rich validation capabilities. We use these to:</p>
+<p>As mentioned above, the key to making this work is to use Snowplow’s rich validation capabilities. We use these to:</p>
 
 <ol>
 <li>Check that the input data conforms to the schemas specified</li>
 
-<li>Output any data that does not conform to the schema to a &#8220;bad buckeet&#8221;. This means that the &#8220;good data&#8221; will successfully load into Redshift, while we don&#8217;t lose any &#8220;bad data&#8221;. We can now easily spot errors as they arise (by ensuring that the ETL process is run every few hours) and deal with them immediately. It also means that the &#8220;bad&#8221; data can be inspected, updated, reprocessed, and then loaded into Redshift, which is much preferable to simpy dropping it.</li>
+<li>Output any data that does not conform to the schema to a “bad buckeet”. This means that the “good data” will successfully load into Redshift, while we don’t lose any “bad data”. We can now easily spot errors as they arise (by ensuring that the ETL process is run every few hours) and deal with them immediately. It also means that the “bad” data can be inspected, updated, reprocessed, and then loaded into Redshift, which is much preferable to simpy dropping it.</li>
 </ol>
 
-<p>Going forwards, we plan to build out the validation capability, so that as well as simply checking if incoming JSONs adhere to the schema, Snowplow will also spot &#8220;orphaned data&#8221; (i.e. name / value pairs in the JSON that are not accommodated in the schema) so that the schema can be updated to incorporate this data, and we save it from being lost.</p>
+<p>Going forwards, we plan to build out the validation capability, so that as well as simply checking if incoming JSONs adhere to the schema, Snowplow will also spot “orphaned data” (i.e. name / value pairs in the JSON that are not accommodated in the schema) so that the schema can be updated to incorporate this data, and we save it from being lost.</p>
 
-<h2 id='interested_in_talking_to_the_snowplow_team_about_loading_your_json_data_into_redshift'>Interested in talking to the Snowplow team about loading your JSON data into Redshift?</h2>
+<h2 id="interested_in_talking_to_the_snowplow_team_about_loading_your_json_data_into_redshift">Interested in talking to the Snowplow team about loading your JSON data into Redshift?</h2>
 
-<p>View our info on the <a href='/services/pipelines.html'>Professional Services pages</a>, or <a href='/about/index.html'>get in touch</a> to discuss your requirements.</p>
+<p>View our info on the <a href="/services/pipelines.html">Professional Services pages</a>, or <a href="/about/index.html">get in touch</a> to discuss your requirements.</p>
 
-<h2 id='references'>References</h2>
+<h2 id="references">References</h2>
 
-<p>We&#8217;re not the only people who think storing event data as JSONs is not a great. For more opinions:</p>
+<p>We’re not the only people who think storing event data as JSONs is not a great. For more opinions:</p>
 
 <ul>
-<li><a href='http://nathanmarz.com/blog/thrift-graphs-strong-flexible-schemas-on-hadoop.html'>Nathan Marz</a> wrote a blog post back in 2010, highlighting their weaknesses, as part of presenting an alternative, graph-based model.</li>
+<li><a href="http://nathanmarz.com/blog/thrift-graphs-strong-flexible-schemas-on-hadoop.html">Nathan Marz</a> wrote a blog post back in 2010, highlighting their weaknesses, as part of presenting an alternative, graph-based model.</li>
 
-<li>The <a href='http://vldb.org/pvldb/vol5/p1771_georgelee_vldb2012.pdf'>Unified Logging Infrastructure for Data Analytics at Twitter</a> gives a very clear description of how this approach breaks down at scale. (See particularly section 3.1.)</li>
+<li>The <a href="http://vldb.org/pvldb/vol5/p1771_georgelee_vldb2012.pdf">Unified Logging Infrastructure for Data Analytics at Twitter</a> gives a very clear description of how this approach breaks down at scale. (See particularly section 3.1.)</li>
 </ul>
+
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -228,23 +257,6 @@
 	</ul>
 
 	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -262,22 +274,36 @@
 		
 		</ul>		
 	
-		<h1>Research</h1>
+		<h1>Releases</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+			
+				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+			
+				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
+			
+				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Analytics</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -299,19 +325,22 @@
 		
 		</ul>		
 	
-		<h1>Releases</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

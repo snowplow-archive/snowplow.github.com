@@ -71,38 +71,37 @@
 			18 Dec 2012
 			<h1>Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
+			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
 
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href="https://github.com/mmoulton">Mike Moulton</a> @ <a href="http://meltmedia.com/">meltmedia</a>, <a href="https://github.com/ramn">Simon Andersson</a> @ <a href="http://www.qwaya.com">Qwaya</a> and <a href="https://github.com/mtibben">Michael Tibben</a> @ <a href="http://99designs.com">99designs</a>.</p>
+<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
 
-<p>We’ll take a look at both fixes below:</p>
+<p>We&#8217;ll take a look at both fixes below:</p>
 <!--more-->
-<h2 id="javascript_tracker_fixes">JavaScript tracker fixes</h2>
+<h2 id='javascript_tracker_fixes'>JavaScript tracker fixes</h2>
 
-<p>This release fixes the issues in the JavaScript tracker raised in <a href="https://github.com/snowplow/snowplow/issues/103">issue 103</a>.</p>
+<p>This release fixes the issues in the JavaScript tracker raised in <a href='https://github.com/snowplow/snowplow/issues/103'>issue 103</a>.</p>
 
 <p>These issues stemmed from the splitting of the JavaScript into multiple files in Snowplow version 0.6.1 (JavaScript tracker version 0.8.0). We do not believe these bugs affected Snowplow data collection, but they are well worth fixing.</p>
 
-<p>Many thanks to <a href="https://github.com/mtibben">Michael Tibben</a> and <a href="https://github.com/ramn">Simon Andersson</a> for their help in squashing these bugs!</p>
+<p>Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> and <a href='https://github.com/ramn'>Simon Andersson</a> for their help in squashing these bugs!</p>
 
 <p>With these fixes we have bumped the JavaScript Tracker to version 0.8.2; the updated minified tracker is available as always here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.2/sp.js</code></pre>
 
-<h2 id="hiveql_script_fix">HiveQL script fix</h2>
+<h2 id='hiveql_script_fix'>HiveQL script fix</h2>
 
-<p>This release also fixes a bug (<a href="https://github.com/snowplow/snowplow/pull/112">issue 112</a>) in the HiveQL file used to generate the <strong>Hive-format</strong> Snowplow event files.</p>
+<p>This release also fixes a bug (<a href='https://github.com/snowplow/snowplow/pull/112'>issue 112</a>) in the HiveQL file used to generate the <strong>Hive-format</strong> Snowplow event files.</p>
 
 <p>This bug prevented the ETL from running if you were using EmrEtlRunner to generate Hive-format Snowplow event files - in other words if you had set:</p>
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>in your EmrEtlRunner’s <code>config.yml</code> file.</p>
+<p>in your EmrEtlRunner&#8217;s <code>config.yml</code> file.</p>
 
-<p>Many thanks to <a href="https://github.com/mmoulton">Mike Moulton</a> for spotting and fixing this one!</p>
+<p>Many thanks to <a href='https://github.com/mmoulton'>Mike Moulton</a> for spotting and fixing this one!</p>
 
-<p>With this fix we have bumped the Hive-format HiveQL file to version 0.5.2. To start using the new file, all you need to do is update your EmrEtlRunner’s <code>config.yml</code> file by changing:</p>
+<p>With this fix we have bumped the Hive-format HiveQL file to version 0.5.2. To start using the new file, all you need to do is update your EmrEtlRunner&#8217;s <code>config.yml</code> file by changing:</p>
 
 <pre><code>:hive_hiveql_version: 0.5.1</code></pre>
 
@@ -110,10 +109,9 @@
 
 <pre><code>:hive_hiveql_version: 0.5.2</code></pre>
 
-<h2 id="getting_help">Getting help</h2>
+<h2 id='getting_help'>Getting help</h2>
 
-<p>If you have any problems with Snowplow version 0.6.3, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
-
+<p>If you have any problems with Snowplow version 0.6.3, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

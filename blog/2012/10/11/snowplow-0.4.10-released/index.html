@@ -71,8 +71,7 @@
 			11 Oct 2012
 			<h1>Snowplow 0.4.10 released</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
+			<p>We have just released version <strong>0.4.10</strong> of Snowplow - people using 0.4.8 can jump straight to this version. This version updates:</p>
 
 <ol>
 <li>snowplow.js to version 0.7.0</li>
@@ -80,9 +79,9 @@
 <li>the Hive deserializer to version 0.4.9</li>
 </ol>
 
-<p>Big thanks to community members <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a> and <a href="https://github.com/ramn">Simon Andersson</a> from <a href="http://www.qwaya.com">Qwaya</a> for their most-helpful contributions to this release!</p>
+<p>Big thanks to community members <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> and <a href='https://github.com/ramn'>Simon Andersson</a> from <a href='http://www.qwaya.com'>Qwaya</a> for their most-helpful contributions to this release!</p>
 
-<h2 id="main_changes">Main changes</h2>
+<h2 id='main_changes'>Main changes</h2>
 
 <p>The main changes are as follows:</p>
 
@@ -94,11 +93,11 @@
 <li>We fixed a bug in the Hive deserializer where a partially-processed row was returned even if a fatal error was found in the row (now, a null row is returned instead)</li>
 </ul>
 
-<p>The rest of the changes were all enhancements to the Hive deserializer’s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <!--more--></p>
+<p>The rest of the changes were all enhancements to the Hive deserializer&#8217;s Specs2 test suite - these improvements should help to accelerate work on the deserializer (we have lots of cool new stuff we want to add to the deserializer!). <!--more--></p>
 
-<h2 id="new_event_table_fields">New event table fields</h2>
+<h2 id='new_event_table_fields'>New event table fields</h2>
 
-<p>The new fields in the event table all relate directly to additional tracking functionality which was added to the JavaScript tracker in <a href="/blog/2012/09/06/snowplow-0.4.7-released/">Snowplow 0.4.7</a>. Specifically:</p>
+<p>The new fields in the event table all relate directly to additional tracking functionality which was added to the JavaScript tracker in <a href='/blog/2012/09/06/snowplow-0.4.7-released/'>Snowplow 0.4.7</a>. Specifically:</p>
 
 <ol>
 <li>The <code>setSiteId()</code> functionality is now extracted to the <code>app_id</code> field (short for application ID)</li>
@@ -106,26 +105,25 @@
 <li>The ecommerce tracking functionality is now extracted to a set of <code>tr_</code> and <code>ti_</code> fields</li>
 </ol>
 
-<p>For details on the new fields, please review our latest <a href="/analytics/snowplow-table-structure.html">Hive events table definition</a> - there is now a column indicating in which version a given field was added.</p>
+<p>For details on the new fields, please review our latest <a href='/analytics/snowplow-table-structure.html'>Hive events table definition</a> - there is now a column indicating in which version a given field was added.</p>
 
-<h2 id="how_to_get_the_new_version">How to get the new version</h2>
+<h2 id='how_to_get_the_new_version'>How to get the new version</h2>
 
-<p>As usual, the new version of the Hive deserializer is available from the GitHub repository’s <a href="https://github.com/snowplow/snowplow/downloads">Downloads</a> section as <strong>snowplow-log-deserializers-0.4.9.jar</strong>.</p>
+<p>As usual, the new version of the Hive deserializer is available from the GitHub repository&#8217;s <a href='https://github.com/snowplow/snowplow/downloads'>Downloads</a> section as <strong>snowplow-log-deserializers-0.4.9.jar</strong>.</p>
 
-<p>The updated snowplow.js is <a href="https://raw.github.com/snowplow/snowplow/master/1-trackers/javascript-tracker/js/snowplow.js">available in our GitHub repository</a> for you to minify and upload, or alternatively you can use the one on our CDN:</p>
+<p>The updated snowplow.js is <a href='https://raw.github.com/snowplow/snowplow/master/1-trackers/javascript-tracker/js/snowplow.js'>available in our GitHub repository</a> for you to minify and upload, or alternatively you can use the one on our CDN:</p>
 
 <pre><code>https://d1fc8wv8zag5ca.cloudfront.net/0.7.0/sp.js</code></pre>
 
-<p>If you have any problems with either of these components, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a>!</p>
+<p>If you have any problems with either of these components, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a>!</p>
 
-<h2 id="a_note_on_backwards_compatibility_for_the_events_table">A note on backwards compatibility for the events table</h2>
+<h2 id='a_note_on_backwards_compatibility_for_the_events_table'>A note on backwards compatibility for the events table</h2>
 
 <p>We will continue to add extra fields to the Snowplow events table as we add extra capabilities to the ETL process - for example, we are working on functionality to extract geo-location information from IP addresses via MaxMind.</p>
 
-<p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don’t explicitly query a new field.</p>
+<p>Starting with our new <code>app_id</code> field, we will be adding all such new fields to the <strong>end</strong> of our Hive events table definition. This will mean that you will <strong>not</strong> have to re-run the ETL process across all your historic raw logs, provided you do <strong>not</strong> need the data found in the new fields. This is because a Hive query across both the old event table format and the new table format works as long as you don&#8217;t explicitly query a new field.</p>
 
-<p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we’ll take advantage of this to improve backwards compatibility for our events table!</p>
-
+<p>In other words, Hive is futureproofed against new fields being added to the end of your underlying data files, and we&#8217;ll take advantage of this to improve backwards compatibility for our events table!</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

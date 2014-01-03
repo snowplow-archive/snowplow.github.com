@@ -67,33 +67,29 @@
 </div>
 	
 		<div id="contents">
-
-<p><a name='top'><h1>Getting started analyzing Snowplow data with R</h1></a></p>
-
+<a name='top'><h1>Getting started analyzing Snowplow data with R</h1></a>
 <p>This guide is geared towards data analysts who have limited or no experience with R. It aims to get the reader started with R through concrete examples with Snowplow data - so that by the end of the guide, the reader can pull Snowplow data into R, play around with it and plot it. That should leave the reader comfortable enough to use other resources to build out her knowledge of R, and give her enough knowledge to start using R to perform productive analytics on Snowplow data.</p>
 
 <ol>
-<li><a href="#why">Why use R?</a></li>
+<li><a href='#why'>Why use R?</a></li>
 
-<li><a href="#start">Getting started: plotting the number of uniques per day</a></li>
+<li><a href='#start'>Getting started: plotting the number of uniques per day</a></li>
 
-<li><a href="#intro-to-data-frames">Having a look at the data: an introduction to data frames in R</a></li>
+<li><a href='#intro-to-data-frames'>Having a look at the data: an introduction to data frames in R</a></li>
 
-<li><a href="#1st-plot">Creating our first plot</a></li>
+<li><a href='#1st-plot'>Creating our first plot</a></li>
 
-<li><a href="#more-complex-example">A more complicated example: comparing visit characteristics by a range of dimensions</a></li>
+<li><a href='#more-complex-example'>A more complicated example: comparing visit characteristics by a range of dimensions</a></li>
 
-<li><a href="#factors">Introducing factors in R</a></li>
+<li><a href='#factors'>Introducing factors in R</a></li>
 
-<li><a href="#more-interesting-plots">Producing some more interesting plots with ggplot2</a></li>
+<li><a href='#more-interesting-plots'>Producing some more interesting plots with ggplot2</a></li>
 
-<li><a href="#further-reading">Where to go from here</a></li>
+<li><a href='#further-reading'>Where to go from here</a></li>
 </ol>
 
 <p>In the first section of this guide, we outline why R is such an excellent tool to use. Next (sections 2 to 4), we work through how to pull a simple data set from Snowplow and visualize it in R. In sections 5 to 7, we work through a more complicated set of examples: one in which we pull a more involved data set from Snowplow, and visualize it in a number of ways that are difficult with traditional BI / OLAP tools in Excel.</p>
-
-<p><a name='why'><h2>1. Why use R?</h2></a></p>
-
+<a name='why'><h2>1. Why use R?</h2></a>
 <p>R is a fantastic analytics tool. To date, however, only a minority of web analysts use it. To list just some of what makes it so excellent, especially when compared with traditional general purpose tools like Excel, and BI tools like Tableau:</p>
 
 <ul>
@@ -105,7 +101,7 @@
 
 <li>It is blindingly fast to both perform complicated analytics and generate beautiful visualizations. The syntax is incredibly concise - what you can achieve in one line of R can take hours of working through menus and options on other systems.</li>
 
-<li>It helps you think through what you do with your data in a more rigorous way. R forces you to define your data types much more specifically than either Excel or BI tools like Tableau. That rigour is helpful - it means you do things faster, and you’re less liable to make mistakes.</li>
+<li>It helps you think through what you do with your data in a more rigorous way. R forces you to define your data types much more specifically than either Excel or BI tools like Tableau. That rigour is helpful - it means you do things faster, and you&#8217;re less liable to make mistakes.</li>
 
 <li>It is great at statistics. Traditional BI tools and Excel <em>suck</em> at statistics. Sure you can calculate means, medians, quartiles etc. But actually pulling these together into meaningful distribution plots, or plotting how they change over time, is a pain in these tools, which are much better at counting and summing data. R is simply much better at statistics</li>
 
@@ -122,11 +118,9 @@
 
 <p>In this guide, we cover them by working through practical examples with Snowplow data, paying special attention to covering some of those key concepts and idiosyncracies.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='start'><h2>2. Getting started: plotting the number of unique visitors by day</h2></a></p>
-
-<p><em>If you have not installed R yet, instructions on doing so can be found <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data">here</a>.</em></p>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='start'><h2>2. Getting started: plotting the number of unique visitors by day</h2></a>
+<p><em>If you have not installed R yet, instructions on doing so can be found <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>here</a>.</em></p>
 
 <p>This guide assumes you have installed R, and installed the <code>RPostgreSQL</code> package required to get R to talk to PostgreSQL databases including Amazon Redshift. If you have not, installed this, you can do so by executing the following at the R prompt:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.package<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
@@ -136,7 +130,7 @@
 <p>Now we need to tell R to use the package:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> library<span class='p'>(</span><span class='s'>&quot;RPostgreSQL&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>The library lets us execute a SQL query against our data in Redshift, and pulls the result of the query into R as a data frame. (We’ll explain a bit about data frames shortly.) The query we want to execute, to find out how many unique visitors we’ve received to our site by day, is:</p>
+<p>The library lets us execute a SQL query against our data in Redshift, and pulls the result of the query into R as a data frame. (We&#8217;ll explain a bit about data frames shortly.) The query we want to execute, to find out how many unique visitors we&#8217;ve received to our site by day, is:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>SELECT</span> 
 <span class='n'>to_char</span><span class='p'>(</span><span class='n'>collector_tstamp</span><span class='p'>,</span> <span class='s1'>&#39;YYYY-MM-DD&#39;</span><span class='p'>)</span> <span class='k'>AS</span> <span class='ss'>&quot;date&quot;</span><span class='p'>,</span>
 <span class='k'>count</span><span class='p'>(</span><span class='k'>distinct</span><span class='p'>(</span><span class='n'>domain_userid</span><span class='p'>))</span> <span class='k'>AS</span> <span class='n'>uniques</span>
@@ -148,7 +142,7 @@
 <div class='highlight'><pre><code class='r'>drv <span class='o'>&lt;-</span> dbDriver<span class='p'>(</span><span class='s'>&quot;PostgreSQL&quot;</span><span class='p'>)</span>
 con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class='p'>,</span> host<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER HOST DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span> port<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PORT DETAILS HERE&gt;&gt;&quot;</span><span class='p'>,</span>dbname<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER DB NAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> user<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER USERNAME HERE&gt;&gt;&quot;</span><span class='p'>,</span> password<span class='o'>=</span><span class='s'>&quot;&lt;&lt;ENTER PASSWORD HERE&gt;&gt;&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>(For detials about where to find your host, port, dbname and username see the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data">setup guide</a>.)</p>
+<p>(For detials about where to find your host, port, dbname and username see the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-R-to-perform-more-sophisticated-analysis-on-your-Snowplow-data'>setup guide</a>.)</p>
 
 <p>Now we can execute the query, and assign it to a variable called <code>uniquesByDay</code>, by executing the following:</p>
 <div class='highlight'><pre><code class='r'>uniquesByDay <span class='o'>&lt;-</span> dbGetQuery<span class='p'>(</span>con<span class='p'>,</span> <span class='s'>&quot;</span>
@@ -163,14 +157,12 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 </code></pre></div>
 <p>Note how double inverted commas have to be escaped with a backslash.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='intro-to-data-frames'><h2>3. Having a look at the data: an introduction to data frames in R</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='intro-to-data-frames'><h2>3. Having a look at the data: an introduction to data frames in R</h2></a>
 <p>We can have a look at the <code>uniquesByDay</code> variable by simply entering it at the command line:</p>
 <div class='highlight'><pre><code class='r'>uniquesByDay
 </code></pre></div>
-<p>R responds by dumping the contents of the variable to the screen. We see that the data is in the form of a table with three columns. The first column is the row number, the second column is the <code>date</code> column, and the third is the <code>uniques</code> column. We can view just the top 5 lines of data by entering <code>head(uniquesByDay)</code> at the prompt. We’ve pasted the contents of the screen, including what R returns, in our case:</p>
+<p>R responds by dumping the contents of the variable to the screen. We see that the data is in the form of a table with three columns. The first column is the row number, the second column is the <code>date</code> column, and the third is the <code>uniques</code> column. We can view just the top 5 lines of data by entering <code>head(uniquesByDay)</code> at the prompt. We&#8217;ve pasted the contents of the screen, including what R returns, in our case:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> head<span class='p'>(</span>uniquesByDay<span class='p'>)</span>
         date uniques
 <span class='m'>1</span> <span class='m'>2013-02-22</span>      <span class='m'>78</span>
@@ -216,16 +208,14 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 </code></pre></div>
 <p>This confirms that the type of the first column has been set to a date format.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='1st-plot'><h2>4. Creating our first plot</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='1st-plot'><h2>4. Creating our first plot</h2></a>
 <p>There are a number of built in and additional libraries for plotting data visualizations in R. We recommend starting out with the absolutely excellent <code>ggplot2</code>.</p>
 
 <p>First, install the <code>ggplot2</code> package, if you have not done so previously:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.packages<span class='p'>(</span><span class='s'>&quot;ggplot2&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>Now that it’s installed, you can load the library:</p>
+<p>Now that it&#8217;s installed, you can load the library:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> library<span class='p'>(</span><span class='s'>&quot;ggplot2&quot;</span><span class='p'>)</span>
 </code></pre></div>
 <p>Now we can plot the number of uniques over time, using the <code>qplot</code> (quickplot) command:</p>
@@ -233,17 +223,15 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 </code></pre></div>
 <p>The plot appears in a new window:</p>
 
-<p><img src="/static/img/analytics/tools/r/uniques-by-day.png" alt="uniques-by-day" /></p>
+<p><img alt='uniques-by-day' src='/static/img/analytics/tools/r/uniques-by-day.png' /></p>
 
-<p>Back to <a href="#top">top</a>.</p>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='more-complex-example'><h2>5. A more complicated example: comparing visit characteristics by a range of dimensions</h2></a>
+<p>The previous example a was simple enough start. It didn&#8217;t enable us to do anything that could not easily be achieved using any other visualization tool.</p>
 
-<p><a name='more-complex-example'><h2>5. A more complicated example: comparing visit characteristics by a range of dimensions</h2></a></p>
+<p>In our second example, we&#8217;ll pull a more complicated data set from Snowplow, and try out some visualizations in GGPlot2 (boxplot and jittered scattergrams) that I think are awesome at conveying distribution information, and are not well supported by other tools.</p>
 
-<p>The previous example a was simple enough start. It didn’t enable us to do anything that could not easily be achieved using any other visualization tool.</p>
-
-<p>In our second example, we’ll pull a more complicated data set from Snowplow, and try out some visualizations in GGPlot2 (boxplot and jittered scattergrams) that I think are awesome at conveying distribution information, and are not well supported by other tools.</p>
-
-<p>For this example, we’re going to look at visit data by a number of different dimensions, and produce different plots to see how different visit characteristics vary with those different dimensions. This is classically something that is well supported by a BI / OLAP tool like Tableau. The example shows that R has those same capabilities, and in addition, a broader set of visualizations to enable us to unpick relationships between metrics and dimensions.</p>
+<p>For this example, we&#8217;re going to look at visit data by a number of different dimensions, and produce different plots to see how different visit characteristics vary with those different dimensions. This is classically something that is well supported by a BI / OLAP tool like Tableau. The example shows that R has those same capabilities, and in addition, a broader set of visualizations to enable us to unpick relationships between metrics and dimensions.</p>
 
 <p>First, we need to design a SQL query to pull the cut of data we want. In this case, we want visit level data. We want to capture the following metrics for each visit:</p>
 
@@ -256,7 +244,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <p>With the following dimensions:</p>
 
 <ul>
-<li>Whether or not the user visited our “services” page. (A goal of ours is to drive visitors to buy our services.)</li>
+<li>Whether or not the user visited our &#8220;services&#8221; page. (A goal of ours is to drive visitors to buy our services.)</li>
 
 <li>The landing page the visitor arrived on</li>
 
@@ -410,7 +398,7 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <span class='s'>	AND t.time_of_first_touch = r.collector_tstamp</span>
 <span class='s'>&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>Our <code>visits</code> data frame is more complicated than the <code>uniquesByDay</code> data frame we created last time. Let’s inspect the structure:</p>
+<p>Our <code>visits</code> data frame is more complicated than the <code>uniquesByDay</code> data frame we created last time. Let&#8217;s inspect the structure:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>visits<span class='p'>)</span>
 <span class='s'>&#39;data.frame&#39;</span><span class='o'>:</span>	<span class='m'>21521</span> obs. of  <span class='m'>13</span> variables<span class='o'>:</span>
  <span class='o'>$</span> domain_userid         <span class='o'>:</span> chr  <span class='s'>&quot;602978179116344f&quot;</span> <span class='s'>&quot;eb11ac6179052d3d&quot;</span> <span class='s'>&quot;20e77808d8778a3b&quot;</span> <span class='s'>&quot;eb11ac6179052d3d&quot;</span> <span class='kc'>...</span>
@@ -428,17 +416,15 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
  <span class='o'>$</span> number_of_events      <span class='o'>:</span> num  <span class='m'>5</span> <span class='m'>4</span> <span class='m'>5</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>6</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>32</span> <span class='kc'>...</span>
 <span class='o'>&gt;</span> 
 </code></pre></div>
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='factors'><h2>6. Introducing factors in R</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='factors'><h2>6. Introducing factors in R</h2></a>
 <p>This is a convenient moment to take a quick aside from our example and introduce factors in R.</p>
 
 <p>In data analysis, we can distinguish three types of variable:</p>
-<table><thead><tr><th><strong>Type of variable</strong></th><th><strong>Description</strong></th><th><strong>Example</strong></th></tr></thead><tbody><tr><td style="text-align: left;">Continuous</td><td style="text-align: left;">A variable that can take any value with a range</td><td style="text-align: left;">Height of a person, session length</td></tr>
-<tr><td style="text-align: left;">Ordinal</td><td style="text-align: left;">A discrete (not continuous) variable, but one in which there is an order</td><td style="text-align: left;">Sizes of T-shirt (small / medium / large)</td></tr>
-<tr><td style="text-align: left;">Nominal</td><td style="text-align: left;">A discrete (not continuous) variable, where there is no inherent order between values</td><td style="text-align: left;">Landing pages</td></tr>
-</tbody></table>
+<table><thead><tr><th><strong>Type of variable</strong></th><th><strong>Description</strong></th><th><strong>Example</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Continuous</td><td style='text-align: left;'>A variable that can take any value with a range</td><td style='text-align: left;'>Height of a person, session length</td>
+</tr><tr><td style='text-align: left;'>Ordinal</td><td style='text-align: left;'>A discrete (not continuous) variable, but one in which there is an order</td><td style='text-align: left;'>Sizes of T-shirt (small / medium / large)</td>
+</tr><tr><td style='text-align: left;'>Nominal</td><td style='text-align: left;'>A discrete (not continuous) variable, where there is no inherent order between values</td><td style='text-align: left;'>Landing pages</td>
+</tr></tbody></table>
 <p>Continuous variables in R are typically numeric. Ordinal and nominal variables are factors. We can tell R which of the columns in our data frame are factors. This will help R</p>
 
 <ol>
@@ -450,11 +436,11 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
 <p><code>domain_userid</code>, for example, is a factor: it can take one of a finite (but large) number of values of cookies set. It is an unordered factor, because there is no hierarchy between values. We can tell R it is factor by entering:</p>
 <div class='highlight'><pre><code class='r'>visits<span class='o'>$</span>domain_userid <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>domain_userid<span class='p'>)</span>
 </code></pre></div>
-<p>If we inspect the structure of that column, we’ll see it is now a factor:</p>
+<p>If we inspect the structure of that column, we&#8217;ll see it is now a factor:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> str<span class='p'>(</span>visits<span class='o'>$</span>domain_userid<span class='p'>)</span>
  Factor w<span class='o'>/</span> <span class='m'>9621</span> levels <span class='s'>&quot;&quot;</span><span class='p'>,</span><span class='s'>&quot;0002ade0b7018c82&quot;</span><span class='p'>,</span>..<span class='o'>:</span> <span class='m'>3661</span> <span class='m'>8850</span> <span class='m'>1268</span> <span class='m'>8850</span> <span class='m'>596</span> <span class='m'>1142</span> <span class='m'>1619</span> <span class='m'>8850</span> <span class='m'>8695</span> <span class='m'>426</span> <span class='kc'>...</span>
 </code></pre></div>
-<p>Let’s update the status of our other dimensions in the same way:</p>
+<p>Let&#8217;s update the status of our other dimensions in the same way:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> visits<span class='o'>$</span>domain_sessionidx <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>domain_sessionidx<span class='p'>)</span>
 <span class='o'>&gt;</span> visits<span class='o'>$</span>geo_country <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>geo_country<span class='p'>)</span>
 <span class='o'>&gt;</span> visits<span class='o'>$</span>br_type <span class='o'>&lt;-</span> as.factor<span class='p'>(</span>visits<span class='o'>$</span>br_type<span class='p'>)</span>
@@ -484,18 +470,16 @@ con <span class='o'>&lt;-</span> dbConnect<span class='p'>(</span>drv<span class
  <span class='o'>$</span> number_of_events      <span class='o'>:</span> num  <span class='m'>5</span> <span class='m'>4</span> <span class='m'>5</span> <span class='m'>1</span> <span class='m'>1</span> <span class='m'>4</span> <span class='m'>6</span> <span class='m'>2</span> <span class='m'>5</span> <span class='m'>32</span> <span class='kc'>...</span>
 <span class='o'>&gt;</span> 
 </code></pre></div>
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='more-interesting-plots'><h2>7. Producing some more interesting plots</h2></a></p>
-
-<p>Let’s start by examining the breadth and depth of engagement by visit:</p>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='more-interesting-plots'><h2>7. Producing some more interesting plots</h2></a>
+<p>Let&#8217;s start by examining the breadth and depth of engagement by visit:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;point&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/breadth-and-depth-engagement.png" alt="basic-bread-and-depth" /></p>
+<p><img alt='basic-bread-and-depth' src='/static/img/analytics/tools/r/breadth-and-depth-engagement.png' /></p>
 
 <p>That is <em>kind of</em> interesting: it shows that we have visitors who engage very deeply with only one page on our site (e.g. the visitor at the top left of the scatter) <strong>and</strong> we have visitors who engage lightly across a broad range of pages (bottom right) and deeply with a lot of pages (top right). However, most of the points are in the bottom left, and they are too closely spaced to see how closely packed they are.</p>
 
-<p>We can get a clearer view if we plot a jitter plot: this “jitters” points left and right about where they would otherwise be plotted, making it easier to identify areas with a high concentration of points:</p>
+<p>We can get a clearer view if we plot a jitter plot: this &#8220;jitters&#8221; points left and right about where they would otherwise be plotted, making it easier to identify areas with a high concentration of points:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;jitter&quot;</span><span class='p'>,</span> alpha<span class='o'>=</span>I<span class='p'>(</span><span class='m'>5</span><span class='o'>/</span><span class='m'>100</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>250</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_x_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
@@ -503,28 +487,28 @@ scale_x_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span c
 Warning message<span class='o'>:</span>
 Removed <span class='m'>69</span> rows containing missing values <span class='p'>(</span>geom_point<span class='p'>)</span>.
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/jitter-with-transparency.png" alt="jitter-with-transparency" /></p>
+<p><img alt='jitter-with-transparency' src='/static/img/analytics/tools/r/jitter-with-transparency.png' /></p>
 
-<p>Note: we have changed the plot type from “point” to “jitter” to jitter each point. The “alpha” argument is responsible for point transparency: we have set it to 5% (i.e. 20 points in one place will be required to create a black spot). The <code>scale_y_continuous</code> and <code>scale_x_continuous</code> arguments scale the x and y axes so that we zoom in on the point of the graph where most of our visits lie. R has kindly reminded us that some of our points lie outside this range, and so have been been removed.</p>
+<p>Note: we have changed the plot type from &#8220;point&#8221; to &#8220;jitter&#8221; to jitter each point. The &#8220;alpha&#8221; argument is responsible for point transparency: we have set it to 5% (i.e. 20 points in one place will be required to create a black spot). The <code>scale_y_continuous</code> and <code>scale_x_continuous</code> arguments scale the x and y axes so that we zoom in on the point of the graph where most of our visits lie. R has kindly reminded us that some of our points lie outside this range, and so have been been removed.</p>
 
 <p>The graph shows us that the majority of visitors do not engage deeply. It actually appears that engagement is likely to be <em>deeper</em> if a visitor visits <em>fewer</em> pages. That is interesting: we can explore if using a boxplot:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>factor<span class='p'>(</span>distinct_pages_visited<span class='p'>),</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span> <span class='o'>+</span> 
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>500</span><span class='p'>))</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/boxplot.png" alt="boxplot" /></p>
+<p><img alt='boxplot' src='/static/img/analytics/tools/r/boxplot.png' /></p>
 
 <p>The boxplot shows that our earlier intuition was wrong: engagement depth increases <em>with</em> breadth. We had thought looking at the jittered plot that a higher proportion of people who only engaged with one page engaged more deeply. Now we can see that this was false: it looked to be the case, because the absolute number of people engaging deeply who only look at one page is higher than the actual number who engage deeply with a broader set. The boxplot controls for the difference in absolute numbers: we are instead looking at the distribution within each breadth level.</p>
 
 <p>One thing to notice is that when producing the boxplot, we plot <code>factor(distinct_pages_visited)</code> on the x-axis rather than simply <code>distinct_pages_visited</code>. That is because whereas a scatter or jitter plot can be produced by plotting a continuous variable on the x-axis, a boxplot requires a discrete variable. Applying the <code>factor</code> function converts our continuous variable into a discrete variable very simply: in general, R makes converting one type of variable into another very simple.</p>
 
-<p>The boxplot above was interesting: it showed very clearly a relationship between breadth and depth of engagement by visit. Let’s use the same plot, but this time to compare breadth of engagement by landing page:</p>
+<p>The boxplot above was interesting: it showed very clearly a relationship between breadth and depth of engagement by visit. Let&#8217;s use the same plot, but this time to compare breadth of engagement by landing page:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/messy-boxplot.png" alt="messy-boxplot" /></p>
+<p><img alt='messy-boxplot' src='/static/img/analytics/tools/r/messy-boxplot.png' /></p>
 
 <p>Ouch - this graph is very messy: breadth of engagement does appear to vary by landing page, but there are too many (100+) landing pages to make the analysis straight forward. What we want is to plot the results just for the top 10 landing pages, by number of visits.</p>
 
-<p>To do this, let’s start by identifying the top 10 landing pages by number of visits. This is a straightforward query to write in SQL: luckily a package is available for R called <code>sqldf</code> that enables you to to execute SQL statements against data frames in R directly, and returns the results as a new data frame:</p>
+<p>To do this, let&#8217;s start by identifying the top 10 landing pages by number of visits. This is a straightforward query to write in SQL: luckily a package is available for R called <code>sqldf</code> that enables you to to execute SQL statements against data frames in R directly, and returns the results as a new data frame:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> install.packages<span class='p'>(</span><span class='s'>&quot;sqldf&quot;</span><span class='p'>)</span>
 <span class='o'>&gt;</span> library<span class='p'>(</span><span class='s'>&quot;sqldf&quot;</span><span class='p'>)</span>
 Loading required package<span class='o'>:</span> DBI
@@ -536,7 +520,7 @@ Loading required package<span class='o'>:</span> RSQLite
 Loading required package<span class='o'>:</span> RSQLite.extfuns
 <span class='o'>&gt;</span> topLandingPages <span class='o'>=</span> sqldf<span class='p'>(</span><span class='s'>&quot;select landing_page, count(*) as cnt from visits group by landing_page order by cnt desc limit 10&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p>We’ve now created a data frame with two columns: <code>landing_page</code> (with the landing page name) and <code>cnt</code> (with the count of visits). There are 10 lines of data in the frame, which corresopnd to the top 10 landing pages by number of visits.</p>
+<p>We&#8217;ve now created a data frame with two columns: <code>landing_page</code> (with the landing page name) and <code>cnt</code> (with the count of visits). There are 10 lines of data in the frame, which corresopnd to the top 10 landing pages by number of visits.</p>
 
 <p>We can now use this to create a subset of the <code>visit</code> data so we only include visits where the landing page is in our top 10 list:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> visitsSubset <span class='o'>&lt;-</span> subset<span class='p'>(</span>visits<span class='p'>,</span> landing_page <span class='o'>%in%</span> topLandingPage<span class='o'>$</span>landing_page<span class='p'>)</span>
@@ -550,23 +534,23 @@ ordered<span class='o'>=</span><span class='kc'>TRUE</span><span class='p'>)</sp
 <p>We can now plot breadth of engagement by landing page, just for the top landing page:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visitsSubset<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/boxplot-messy-axis.png" alt="boxplot-messy-axis" /></p>
+<p><img alt='boxplot-messy-axis' src='/static/img/analytics/tools/r/boxplot-messy-axis.png' /></p>
 
 <p>We can tidy up the x-axis by aligning the labels on the axis vertically, by adding <code> + theme(axis.text.x = element_text(angle=90, vjust=0.4))</code> to our command. We can also hide the outliers on our plot, to make it clear, by adding <code>outlier.shape=NA</code>:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> distinct_pages_visited<span class='p'>,</span> data<span class='o'>=</span>visitsSubset<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>,</span> outlier.shape<span class='o'>=</span><span class='kc'>NA</span><span class='p'>)</span> <span class='o'>+</span> 
 theme<span class='p'>(</span>axis.text.x <span class='o'>=</span> element_text<span class='p'>(</span>angle<span class='o'>=</span><span class='m'>90</span><span class='p'>,</span> vjust<span class='o'>=</span><span class='m'>0.4</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>15</span><span class='p'>))</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/tidy-boxplot-engagement-breadth-by-landing-page.png" alt="tidy-boxplot-breadth-of-engagement" /></p>
+<p><img alt='tidy-boxplot-breadth-of-engagement' src='/static/img/analytics/tools/r/tidy-boxplot-engagement-breadth-by-landing-page.png' /></p>
 
 <p>The results are very interesting: visitors who land on the homepage and analytics cookbook are much more likely to engage more broadly with content on the site, rather than visitors who land on the specific blog posts (e.g. on writing Hive UDFs or dealing with Hadoop small files problem.)</p>
 
-<p>Let’s see if there is a similar pattern in the <em>depth</em> of engagement by landing page. (This is likely: remember we showed in our first boxplot that visitors who engage more broadly are more likely to also engage more deeply.)</p>
+<p>Let&#8217;s see if there is a similar pattern in the <em>depth</em> of engagement by landing page. (This is likely: remember we showed in our first boxplot that visitors who engage more broadly are more likely to also engage more deeply.)</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>landing_page<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visitsSubset<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>,</span> outlier.shape<span class='o'>=</span><span class='kc'>NA</span><span class='p'>)</span> <span class='o'>+</span> 
 theme<span class='p'>(</span>axis.text.x <span class='o'>=</span> element_text<span class='p'>(</span>angle<span class='o'>=</span><span class='m'>90</span><span class='p'>,</span> vjust<span class='o'>=</span><span class='m'>0.4</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/boxplot-depth-of-engagement-by-landing-page.png" alt="tidy-boxplot-depth-of-engagement" /></p>
+<p><img alt='tidy-boxplot-depth-of-engagement' src='/static/img/analytics/tools/r/boxplot-depth-of-engagement-by-landing-page.png' /></p>
 
 <p>The impact of landing page on depth of engagement is not nearly as pronounced as that between landing page and depth of engagement. That is likely to be because of both:</p>
 
@@ -576,53 +560,50 @@ scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span c
 <li>The design of the homepage and analytics cookbook homepage encourage users to explore beyond the page much more forcefully than the links that surround individual blog posts.</li>
 </ul>
 
-<p>Let’s now have a look and see if breadth of engagement changes depending on the referer type. To do this, we simply swap out <code>landing_page</code> as our x-axis dimension (first argument in <code>qplot</code>) and swap in <code>refr_medium</code>. Also note that we have switched back to using our original data frame <code>visits</code>, rather than the subset we created for the landing page analysis:</p>
+<p>Let&#8217;s now have a look and see if breadth of engagement changes depending on the referer type. To do this, we simply swap out <code>landing_page</code> as our x-axis dimension (first argument in <code>qplot</code>) and swap in <code>refr_medium</code>. Also note that we have switched back to using our original data frame <code>visits</code>, rather than the subset we created for the landing page analysis:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>refr_medium<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> geom<span class='o'>=</span><span class='s'>&quot;boxplot&quot;</span><span class='p'>,</span> outlier.shape<span class='o'>=</span><span class='kc'>NA</span><span class='p'>)</span> <span class='o'>+</span>
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>30</span><span class='p'>))</span>
 </code></pre></div>
 <p>Visitors from email and search tend to engage more deeply with the Snowplow content. Are they more likely to buy our services, though?</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>refr_medium<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> fill<span class='o'>=</span>visited_services_page geom<span class='o'>=</span><span class='s'>&quot;bar&quot;</span><span class='p'>,</span> position<span class='o'>=</span><span class='s'>&quot;fill&quot;</span><span class='p'>)</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/barchart-conversion-by-refr-medium.png" alt="barchart-conversion-by-refr-medium" /></p>
+<p><img alt='barchart-conversion-by-refr-medium' src='/static/img/analytics/tools/r/barchart-conversion-by-refr-medium.png' /></p>
 
 <p>Note that <code>position=&quot;fill&quot;</code> makes each bar on our bar graph extend 100%.</p>
 
-<p>The chart is interesting - it suggests that even though e.g. direct visitors engage less deeply, overall, they are more likely to visit our services pages (and hence convert) than visitors from search. The relationship between level of engagement and conversion isn’t straightforward - we can explore it by comparing our engagement scatter plots (breadth vs depth) for visitors that did visit the services page, with those that do not:</p>
+<p>The chart is interesting - it suggests that even though e.g. direct visitors engage less deeply, overall, they are more likely to visit our services pages (and hence convert) than visitors from search. The relationship between level of engagement and conversion isn&#8217;t straightforward - we can explore it by comparing our engagement scatter plots (breadth vs depth) for visitors that did visit the services page, with those that do not:</p>
 <div class='highlight'><pre><code class='r'><span class='o'>&gt;</span> qplot<span class='p'>(</span>distinct_pages_visited<span class='p'>,</span> number_of_events<span class='p'>,</span> data<span class='o'>=</span>visits<span class='p'>,</span> 
 facets <span class='o'>=</span> visited_services_pages <span class='o'>~</span>.<span class='p'>,</span>geom<span class='o'>=</span><span class='s'>&quot;jitter&quot;</span><span class='p'>,</span> alpha<span class='o'>=</span>I<span class='p'>(</span><span class='m'>5</span><span class='o'>/</span><span class='m'>100</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_y_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>250</span><span class='p'>))</span> <span class='o'>+</span> 
 scale_x_continuous<span class='p'>(</span>limits<span class='o'>=</span>c<span class='p'>(</span><span class='m'>0</span><span class='p'>,</span><span class='m'>20</span><span class='p'>))</span>
 </code></pre></div>
-<p><img src="/static/img/analytics/tools/r/facetted-scatter.png" alt="facetted-scatter-plot" /></p>
+<p><img alt='facetted-scatter-plot' src='/static/img/analytics/tools/r/facetted-scatter.png' /></p>
 
 <p>We used the <code>facet</code> argument above to ask R to plot us two version of the scatter plot, one for visits where the services pages were visted, and one for visits where they were not, to see if the overall pattern of engagement for the two groups is different. The results are interesting: they suggest that in both cases, there is a strong relationship between breadth and depth of engagement. (These are highly correlated.) However, visitors that visited the services pages are <em>more likely</em> to engage both more deeply and more broadly, overall, than those who do not, as evidenced from the lower fraction of points at the bottom right of the graph. (Further visualization work is required to specify this more precisely.)</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='further-reading'><h2>8. Where to go from here?</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='further-reading'><h2>8. Where to go from here?</h2></a>
 <p>This tutorial barely scratches the surface of what is possible with R. The purpose of it is to give enough familiarity with basic R functions around fetching data, managing data via data frames, and plotting data, that the reader will be able to get up and running with R on top of Snowplow data.</p>
 
 <p>There is a wealth of material on R available. The following are some recommended resources:</p>
 
 <ul>
-<li><a href="http://www.manning.com/kabacoff/">R in Action</a>. An excellent and thorough overview of R, with lots of straightforward-to-follow examples</li>
+<li><a href='http://www.manning.com/kabacoff/'>R in Action</a>. An excellent and thorough overview of R, with lots of straightforward-to-follow examples</li>
 
-<li>Hacley Wickham’s excellent <a href="http://www.amazon.com/gp/product/0387981403">ggplot2</a> book. Written by the author of <code>ggplot2</code>, this covers the actual graphics grammar implemented by this excellent library</li>
+<li>Hacley Wickham&#8217;s excellent <a href='http://www.amazon.com/gp/product/0387981403'>ggplot2</a> book. Written by the author of <code>ggplot2</code>, this covers the actual graphics grammar implemented by this excellent library</li>
 
-<li><a href="http://www.r-bloggers.com/">R-bloggers</a>. Regular updates, recipes and R-related news</li>
+<li><a href='http://www.r-bloggers.com/'>R-bloggers</a>. Regular updates, recipes and R-related news</li>
 </ul>
 
 <p>We will be buildling out the number of recipes in the Snowplow Analytics cookbook that use R. At the moment, we have:</p>
 
 <ul>
-<li><a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html">Performing market basket analysis with R</a></li>
+<li><a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>Performing market basket analysis with R</a></li>
 
-<li><strong>More to come</strong></li>
+<li><strong>More to come</strong>&#8230;</li>
 </ul>
 
-<p>Back to <a href="#top">top</a>.</p>
-
+<p>Back to <a href='#top'>top</a>.</p>
 </div>
 
  <div id="sidebar">

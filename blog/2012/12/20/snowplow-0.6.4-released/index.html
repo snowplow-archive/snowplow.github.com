@@ -71,8 +71,7 @@
 			20 Dec 2012
 			<h1>Snowplow 0.6.4 released, with Infobright improvements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
 
 <ol>
 <li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
@@ -83,16 +82,16 @@
 <p>Before we start - a big thanks to the community members who helped out on this release:</p>
 
 <ul>
-<li><a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> @ <a href="http://en.overblog.com/">OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
 
-<li><a href="https://github.com/mmoulton">Mike Moulton</a> @ <a href="http://meltmedia.com/">meltmedia</a> for flagging the missing Hive table definition</li>
+<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
 </ul>
 
-<p>We’ll take a look at both updates below:</p>
+<p>We&#8217;ll take a look at both updates below:</p>
 <!--more-->
-<h2 id="upgraded_infobright_table_definition">Upgraded Infobright table definition</h2>
+<h2 id='upgraded_infobright_table_definition'>Upgraded Infobright table definition</h2>
 
-<p>With help from <a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
+<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
 
 <p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
 
@@ -100,7 +99,7 @@
 
 <p>Running this script will create a new table, <code>events_004</code> (version 0.0.4 of the table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
 
-<p>Once you have run this, don’t forget to update your StorageLoader’s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
+<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
 
 <pre><code>:storage:
   :type: infobright
@@ -109,7 +108,7 @@
 
 <p>Done!</p>
 
-<h2 id="clarified_hive_table_definitions">Clarified Hive table definitions</h2>
+<h2 id='clarified_hive_table_definitions'>Clarified Hive table definitions</h2>
 
 <p>We have clarified the two different Hive table definitions, available in this folder:</p>
 
@@ -119,18 +118,17 @@
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your Snowplow events will be stored in the format shown in <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q"><code>non-hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
 
 <p>Whereas if your <code>config.yml</code> contains:</p>
 
 <pre><code>:storage_format: non-hive</code></pre>
 
-<p>then your Snowplow events will be stored in the format shown in <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q"><code>hive-format-table-def.q</code></a>.</p>
+<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
 
-<h2 id="getting_help">Getting help</h2>
+<h2 id='getting_help'>Getting help</h2>
 
-<p>That’s it! If you have any problems with Snowplow version 0.6.4, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
-
+<p>That&#8217;s it! If you have any problems with Snowplow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

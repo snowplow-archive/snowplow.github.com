@@ -71,29 +71,27 @@
 			16 Jan 2013
 			<h1>Scala MaxMind GeoIP library released</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>A short blog post this, to announce the release of <a href="https://github.com/snowplow/scala-maxmind-geoip"><strong>Scala MaxMind GeoIP</strong></a>, our Scala wrapper for the MaxMind <a href="http://www.maxmind.com/download/geoip/api/java/">Java Geo-IP</a> library.</p>
+			<p>A short blog post this, to announce the release of <a href='https://github.com/snowplow/scala-maxmind-geoip'><strong>Scala MaxMind GeoIP</strong></a>, our Scala wrapper for the MaxMind <a href='http://www.maxmind.com/download/geoip/api/java/'>Java Geo-IP</a> library.</p>
 
-<p>We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to <a href="https://github.com/twitter/scalding">Scalding</a>. We extracted this as a separate library for two main reasons:</p>
+<p>We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to <a href='https://github.com/twitter/scalding'>Scalding</a>. We extracted this as a separate library for two main reasons:</p>
 
 <ol>
-<li><strong>Being good open-source citizens</strong> - as with our <a href="https://github.com/snowplow/referer-parser">referer-parser</a> library, we believe this library willl be useful to the wider community of software developers, not just Snowplow users</li>
+<li><strong>Being good open-source citizens</strong> - as with our <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library, we believe this library willl be useful to the wider community of software developers, not just Snowplow users</li>
 
-<li><strong>Keeping Snowplow’s footprint small</strong> - at Snowplow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that ‘do everything’ are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes</li>
+<li><strong>Keeping Snowplow&#8217;s footprint small</strong> - at Snowplow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that &#8216;do everything&#8217; are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes</li>
 </ol>
 
-<p>On to the library: for Scala developers, the main benefits of using <a href="https://github.com/snowplow/scala-maxmind-geoip">scala-maxmind-geoip</a> over the MaxMind Java library are:</p>
+<p>On to the library: for Scala developers, the main benefits of using <a href='https://github.com/snowplow/scala-maxmind-geoip'>scala-maxmind-geoip</a> over the MaxMind Java library are:</p>
 
 <ul>
 <li><strong>Easier to setup/test</strong> - the SBT project definition automatically pulls down the latest MaxMind Java code and <code>GeoLiteCity.dat</code></li>
 
 <li><strong>Better type safety</strong> - the MaxMind Java library is somewhat null-happy. This library uses Option boxing wherever possible</li>
 
-<li><strong>Better performance</strong> - as well as or instead of using MaxMind’s own caching (<code>GEOIP_MEMORY_CACHE</code>), you can also configure an LRU (Least Recently Used) cache of variable size</li>
+<li><strong>Better performance</strong> - as well as or instead of using MaxMind&#8217;s own caching (<code>GEOIP_MEMORY_CACHE</code>), you can also configure an LRU (Least Recently Used) cache of variable size</li>
 </ul>
 
-<p>That’s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
-
+<p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

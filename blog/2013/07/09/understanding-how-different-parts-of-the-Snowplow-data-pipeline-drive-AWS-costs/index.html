@@ -71,31 +71,30 @@
 			09 Jul 2013
 			<h1>Unpicking the Snowplow data pipeline and how it drives AWS costs</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>Back in March, <a href="https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ">Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
+			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
 
-<p>Since Rob’s suggestion, we’ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
+<p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
 
 <ol>
-<li>We replaced the Hive-based ETL with the <a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/">Scalding-based enrichment process</a></li>
+<li>We replaced the Hive-based ETL with the <a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>Scalding-based enrichment process</a></li>
 
-<li>We dealt with the <a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem/">small files problem</a>, dramatically reducing EMR costs</li>
+<li>We dealt with the <a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'>small files problem</a>, dramatically reducing EMR costs</li>
 
-<li>We enabled support for <a href="/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances">task and spot instances</a></li>
+<li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
 </ol>
 
-<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we’ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/">follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
+<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
 <h2><a name='details'>What drives AWS costs for Snowplow users?</a></h2>
-<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector">Cloudfront collector</a> rather than the <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector">Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
+<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
 
 <ol>
-<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront">Cloudfront costs</a>,</li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront'>Cloudfront costs</a>,</li>
 
-<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3">S3 costs</a>,</li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3'>S3 costs</a>,</li>
 
-<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr">EMR costs</a> and</li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr'>EMR costs</a> and</li>
 
-<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift">Redshift costs</a></li>
+<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift'>Redshift costs</a></li>
 </ol>
 <!--more--><h3><a name='cloudfront'>1. Cloudfront costs</a></h3>
 <p>Snowplow uses Cloudfront to serve both <code>sp.js</code>, the Snowplow Javascript, and the Snowplow pixel <code>i</code>. Broadly, Cloudfront costs scale linearly with the volume of data served out of Cloudfront, with a couple of provisos:</p>
@@ -108,7 +107,7 @@
 
 <p>Modelling the costs is therefore reasonably straightforward. The <code>i</code> pixel is served with every event tracked: so we can calculate the cost of serving <code>i</code> based on the size of <code>i</code> (it is 37 bytes), the number of events, and the geographic split of visitors by Amazon region. The costs scale almost linearly with the number of events tracked per day.</p>
 
-<p>Modelling the cost of serving <code>sp.js</code> is a little trickier. As discussed in our blog post on <a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/">browser caching</a>, it is possible to set <code>sp.js</code> so that it is only served once per unique visitor, rather than once per event. Because <code>sp.js</code> is 37KB (so a lot larger than <code>i</code>), this has a significant impact on your Cloudfront costs. From a modelling perspective, then, we should estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.</p>
+<p>Modelling the cost of serving <code>sp.js</code> is a little trickier. As discussed in our blog post on <a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/'>browser caching</a>, it is possible to set <code>sp.js</code> so that it is only served once per unique visitor, rather than once per event. Because <code>sp.js</code> is 37KB (so a lot larger than <code>i</code>), this has a significant impact on your Cloudfront costs. From a modelling perspective, then, we should estimate costs, based on the number of unique visitors per month, and their geographic distribution by Amazon regions. The costs scale almost linearly with the number of unique visitors to the site / network.</p>
 <h3><a name='s3'>2. S3 costs</a></h3>
 <p>Snowplow uses S3 to store event data. Amazon charges for S3 based on:</p>
 
@@ -118,13 +117,13 @@
 <li>The number of requests for that data (in the form of <code>GET</code> / <code>PUT</code> / <code>COPY</code> requests)</li>
 </ul>
 
-<p>Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how large a ‘typical’ row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and then multiply by Amazon S3’s cost per GB.</p>
+<p>Modelling how the volume of data grows with increasing numbers of events, and over time (as the amount of data stored in S3 grows, because Snowplow users generally never throw data away) is straightforward: we calculate how large a &#8216;typical&#8217; row of Snowplow data is in the raw collector logs, and then in the enriched Snowplow event files. We then assume one row of each type for every event that has been tracked, sum to find the total required storage space, and then multiply by Amazon S3&#8217;s cost per GB.</p>
 
 <p>What is more tricky is modelling the number of requests to S3 for the files. To understand why, we need to examine the Snowplow data pipeline, and in particular, the part of the pipeline that takes the raw data generated by the Snowplow collector, cleans that data, enriches it, and uploads the enriched data into Amazon Redshift for analysis.</p>
 
-<p>The first part of the data pipeline is orchestrated by <a href="https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner">EmrEtlRunner</a>. This performs the bulk of data processing work:</p>
+<p>The first part of the data pipeline is orchestrated by <a href='https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner'>EmrEtlRunner</a>. This performs the bulk of data processing work:</p>
 
-<p><img src="/static/img/blog/2013/07/emr-etl-runner-steps.png" alt="emr-etl-runner" /></p>
+<p><img alt='emr-etl-runner' src='/static/img/blog/2013/07/emr-etl-runner-steps.png' /></p>
 
 <p>This encapsulates the bulk of the data processing:</p>
 
@@ -142,9 +141,9 @@
 
 <p>In addition, one <code>GET</code> request is executed per raw collector log file, when the data is read from S3 for the purposes of writing into HDFS.</p>
 
-<p>The second part of the data pipeline is orchestrated by the <a href="https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader">StorageLoader</a>:</p>
+<p>The second part of the data pipeline is orchestrated by the <a href='https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader'>StorageLoader</a>:</p>
 
-<p><img src="/static/img/blog/2013/07/storage-loader-steps.png" alt="storage-loader" /></p>
+<p><img alt='storage-loader' src='/static/img/blog/2013/07/storage-loader-steps.png' /></p>
 
 <p>This is a much simpler stage of the data processing pipeline:</p>
 
@@ -156,7 +155,7 @@
 
 <p>Again, for modelling purposes, we note that a single <code>GET</code> request is executed for each enriched event file (when the file is read for the purposes of copying the data into Redshift). and then a <code>COPY</code> request is executed for that file to move it from the in to the out bucket.</p>
 
-<p>This means that we can accurately forecast costs based on the number of raw collector log files generated and the number of enriched event files generated. Unfortunately, modelling how this number scales with visitors / page views and events is <em>not</em> straightforward because it is not clear how the number of collector log files and Snowplow event files scales with numbers of events tracked. This is one of the things <a href="#help">we hope the community can help us with</a>, by providing us with data points to help us unpick the relevant relationships.</p>
+<p>This means that we can accurately forecast costs based on the number of raw collector log files generated and the number of enriched event files generated. Unfortunately, modelling how this number scales with visitors / page views and events is <em>not</em> straightforward because it is not clear how the number of collector log files and Snowplow event files scales with numbers of events tracked. This is one of the things <a href='#help'>we hope the community can help us with</a>, by providing us with data points to help us unpick the relevant relationships.</p>
 
 <p>To articulate our challenge: we need to understand</p>
 
@@ -168,21 +167,21 @@
 
 <p>We have working hypotheses for what determines both numbers. We need to validate these with the Snowplow community, and quantify the relationships mathematically, based on data points shared by members of our community:</p>
 
-<p>We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has <em>lots</em> of servers at each edge location, so this tailing off might only happen at very large volumes.) We’d therefore expect a graph like the one below, if we plotted numbers of log files vs events:</p>
+<p>We believe that Amazon Cloudfront generates one log file per server per edge location every hour. That means that Snowplow users who do not track large volumes of traffic, will generate a surprisingly large number of log files, each with very low volumes of data. (E.g. 1-5 rows.) As traffic levels climb, the number of log files will increase (more requests to more edge locations is bound to hit more Cloudfront servers), but that this tails off reasonably rapidly once there are enough visitors that most servers are hit at most edge locations every hour. (We guess that Amazon has <em>lots</em> of servers at each edge location, so this tailing off might only happen at very large volumes.) We&#8217;d therefore expect a graph like the one below, if we plotted numbers of log files vs events:</p>
 
-<p><img src="/static/img/blog/2013/07/line-graph.png" alt="line-graph" /></p>
+<p><img alt='line-graph' src='/static/img/blog/2013/07/line-graph.png' /></p>
 
 <p>In the case of forecasting the number of Snowplow Event files: this should be more straightforward. We believe that the Scalding Enrichment Process generates one output file for every input file that it receives. The Scalding Enrichment process does <em>not</em> operate on the raw collector logs: to speed up data processing (and reduce costs), these are aggregated using S3DistCopy prior to being fed into the Enrichment Process. This <em>should</em> aggregate the input log files so they are as close to 128MB each as possible. If one output file is produced for each input file, then they will have the same number of rows: it is likely that there is reasonably constant relationship between the size of the two, that mean they are of similar, but not identical, size. (Because they have roughly the same data, but in different formats with different levels of row-level enrichments.) If that is right, then the number of event files should scale almost linearly with the number of events recorded: almost because given the large maximum file size (roughly 128MBs) the graph would look more like a series of step functions, where a new step change occurs each time an additional 128MBs of events are recorded:</p>
 
-<p><img src="/static/img/blog/2013/07/step-function.png" alt="step-function" /></p>
+<p><img alt='step-function' src='/static/img/blog/2013/07/step-function.png' /></p>
 
-<p>As we <a href="#help">explain below</a>, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.</p>
+<p>As we <a href='#help'>explain below</a>, we hope to plot the above graphs with data points volunteered by Snowplow users, to see if we are correct, and then use to drive the model.</p>
 <h3><a name='emr'>3. EMR costs</a></h3>
 <p>Snowplow uses EMR to run the Enrichment process on the raw logs created by the collector. Because the process is powered by Hadoop, it should scale linearly: double the number of lines of data to be processed, the time to process should double. Double the number of machines in the cluster, the processing time should be halved.</p>
 
 <p>Amazon charges for EMR based on the number of boxes in the cluster, the size of those boxes and the time the cluster is live for. Amazon rounds up the nearest hour: as a result, we would expect the cost of the daily job to be a step function.</p>
 
-<p><img src="/static/img/blog/2013/07/emr-costs.png" alt="emr-costs" /></p>
+<p><img alt='emr-costs' src='/static/img/blog/2013/07/emr-costs.png' /></p>
 
 <p>We need to work out how many lines of data we can expect each Amazon box to process in one hour. Getting a handle on these figures will also mean we can advise Snowplow users what size of cluster to spin up based on the number of events processed per run.</p>
 <h3><a name='redshift'>1.4 Redshift costs</a></h3>
@@ -190,16 +189,15 @@
 
 <p>Amazon charges per Redshift node, where each node provides a 2TB of storage (for standard XL nodes) or 16TB of storage (for 8XL nodes). As a result, we can model Redshift costs simply as a function of the volume of data stored (itself just a function of the number of events tracked per day, and the number of days Snowplow has been running). As for EMR, we expect a step function (with a big increase in cost each time an additional 2TB node is required):</p>
 
-<p><img src="/static/img/blog/2013/07/redshift-costs.png" alt="redshift-costs" /></p>
+<p><img alt='redshift-costs' src='/static/img/blog/2013/07/redshift-costs.png' /></p>
 
-<h2 id="wrapping_up">Wrapping up</h2>
+<h2 id='wrapping_up'>Wrapping up</h2>
 
-<p>One of the things we realised when we started the modelling exercise, was that we had not sufficiently documented the workings of the Snowplow data pipeline. This blog post is a first stab at addressing that shortfall. We hope it’s useful for those interested in how Snowplow works, and will be using the diagrams etc. in the <a href="https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation">technical documentation</a> section of the <a href="https://github.com/snowplow/snowplow/wiki">Snowplow Wiki</a>.</p>
+<p>One of the things we realised when we started the modelling exercise, was that we had not sufficiently documented the workings of the Snowplow data pipeline. This blog post is a first stab at addressing that shortfall. We hope it&#8217;s useful for those interested in how Snowplow works, and will be using the diagrams etc. in the <a href='https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation'>technical documentation</a> section of the <a href='https://github.com/snowplow/snowplow/wiki'>Snowplow Wiki</a>.</p>
 
 <p>We also hope this post is interesting for anyone with an interest in modelling technology costs (and AWS costs in particular).</p>
 
-<p>Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, <a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/">you can help us build that model</a>, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a <a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/">follow on post</a>.</p>
-
+<p>Lastly, we hope that this has piqued the interest of any Snowplow user who would value the Total Cost of Ownership model. As alluded to above, <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>you can help us build that model</a>, by providing us with the data points we need to validate the above hypothesised relationships, and model them accurately. We detail how you can help, exactly, in a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow on post</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

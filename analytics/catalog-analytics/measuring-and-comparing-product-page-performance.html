@@ -67,24 +67,20 @@
 </div>
 	
 		<div id="contents">
-
-<p><a name='top'><h1>Measuring product page performance</h1></a></p>
-
+<a name='top'><h1>Measuring product page performance</h1></a>
 <ol>
-<li><a href="#add-to-basket">Measuring what fraction of users to a product page add the product to their basket</a></li>
+<li><a href='#add-to-basket'>Measuring what fraction of users to a product page add the product to their basket</a></li>
 
-<li><a href="#visualising">Visualising the data in an actionable scatter plot</a></li>
+<li><a href='#visualising'>Visualising the data in an actionable scatter plot</a></li>
 
-<li><a href="#sophisticated-approaches">More sophisticated approaches to measuring product page performance</a></li>
+<li><a href='#sophisticated-approaches'>More sophisticated approaches to measuring product page performance</a></li>
 </ol>
-
-<p><a name='add-to-basket'><h3>1. Measuring what fraction of users to a product page add the product to their basket</h3></a></p>
-
+<a name='add-to-basket'><h3>1. Measuring what fraction of users to a product page add the product to their basket</h3></a>
 <p>The primary purpose of product pages on a retailer site is to drive users to add the products listed to their baskets.</p>
 
 <p>A straightforward (if crude) way of measuring <em>how good a product page is</em> then is to measure what fraction of users who visit the page go on to add that product to their basket.</p>
 
-<p>To calculate the fraction of users who’ve visited a product page that have gone on to add one or more of those products to their basket, we start by calculating the number of uniques per product page:</p>
+<p>To calculate the fraction of users who&#8217;ve visited a product page that have gone on to add one or more of those products to their basket, we start by calculating the number of uniques per product page:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span> 
 <span class='n'>page_urlpath</span><span class='p'>,</span>
@@ -104,19 +100,19 @@
 <p>Note that the query above is specific to a particular retailer: Psychic Bazaar. You will need to modify your version of the query so that results are only shown for product pages (rather than catalog pages, home pages etc), by modifying the <code>WHERE</code> clause. You may also want to limit the query to a specific period of time, by adding a set of date conditions (using <code>collecor_dt</code>) to the <code>WHERE</code> clause.</p>
 
 <p>The results of the above query look something like this:</p>
-<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>uniques</strong></th><th><strong>page_views</strong></th></tr></thead><tbody><tr><td style="text-align: left;">/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style="text-align: right;">53</td><td style="text-align: right;">104</td></tr>
-<tr><td style="text-align: left;">/oracles/125-mlle-lenormand-cartomancy-deck.html</td><td style="text-align: right;">51</td><td style="text-align: right;">80</td></tr>
-<tr><td style="text-align: left;">/oracles/226-gateway-oracle-cards.html</td><td style="text-align: right;">49</td><td style="text-align: right;">67</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td></tr>
-</tbody></table>
+<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>uniques</strong></th><th><strong>page_views</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style='text-align: right;'>53</td><td style='text-align: right;'>104</td>
+</tr><tr><td style='text-align: left;'>/oracles/125-mlle-lenormand-cartomancy-deck.html</td><td style='text-align: right;'>51</td><td style='text-align: right;'>80</td>
+</tr><tr><td style='text-align: left;'>/oracles/226-gateway-oracle-cards.html</td><td style='text-align: right;'>49</td><td style='text-align: right;'>67</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
 <p>Now that we have number of unique visitors per page, we need to find out how many of them added one or more of each product to their basket.</p>
 
-<p>On our example website (<a href="http://www.psychicbazaar.com/">www.psychicbazaar.com</a>), add to baskets are recorded using the <a href="https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events">structured event tracking</a> method. The five fields are set as follows:</p>
+<p>On our example website (<a href='http://www.psychicbazaar.com/'>www.psychicbazaar.com</a>), add to baskets are recorded using the <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event tracking</a> method. The five fields are set as follows:</p>
 
 <ul>
-<li><code>se_category</code> = ‘ecomm’</li>
+<li><code>se_category</code> = &#8216;ecomm&#8217;</li>
 
-<li><code>se_action</code> = ‘action’</li>
+<li><code>se_action</code> = &#8216;action&#8217;</li>
 
 <li><code>se_label</code> = product SKU</li>
 
@@ -147,10 +143,10 @@
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>3</span> <span class='k'>DESC</span><span class='p'>;</span>
 </code></pre></div>
 <p>The results of the above query look something like this:</p>
-<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>product_sku</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>number_of_add_to_baskets</strong></th><th><strong>number_of_products_added_to_baket</strong></th></tr></thead><tbody><tr><td style="text-align: left;">/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style="text-align: left;">PBZ00274</td><td style="text-align: right;">14</td><td style="text-align: right;">16</td><td style="text-align: right;">16</td></tr>
-<tr><td style="text-align: left;">/tarot-cards/121-the-gothic-tarot.html</td><td style="text-align: left;">PBZ00110</td><td style="text-align: right;">14</td><td style="text-align: right;">15</td><td style="text-align: right;">15</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: left;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td></tr>
-</tbody></table>
+<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>product_sku</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>number_of_add_to_baskets</strong></th><th><strong>number_of_products_added_to_baket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/290-the-piatnik-historical-cartomancy-collection.html</td><td style='text-align: left;'>PBZ00274</td><td style='text-align: right;'>14</td><td style='text-align: right;'>16</td><td style='text-align: right;'>16</td>
+</tr><tr><td style='text-align: left;'>/tarot-cards/121-the-gothic-tarot.html</td><td style='text-align: left;'>PBZ00110</td><td style='text-align: right;'>14</td><td style='text-align: right;'>15</td><td style='text-align: right;'>15</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
 <p>We can now combine the two above tables into a single query, and calculate the fraction of visitors to each page that go on to add the product to their basket:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -197,61 +193,59 @@
 <span class='k'>ON</span> <span class='n'>pv</span><span class='p'>.</span><span class='n'>page_urlpath</span> <span class='o'>=</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>page_urlpath</span>
 </code></pre></div>
 <p>The results of the query look something like this:</p>
-<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>fraction_that_add_to_basket</strong></th></tr></thead><tbody><tr><td style="text-align: left;">/tarot-cards/244-el-gran-tarot-esoterico.html</td><td style="text-align: right;">132</td><td style="text-align: right;">17</td><td style="text-align: right;">0.128</td></tr>
-<tr><td style="text-align: left;">/jewellery/151-gold-hamsa-on-black-thread-bracelet.htm</td><td style="text-align: right;">105</td><td style="text-align: right;">2</td><td style="text-align: right;">0.190</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td></tr>
-</tbody></table>
+<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>fraction_that_add_to_basket</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/tarot-cards/244-el-gran-tarot-esoterico.html</td><td style='text-align: right;'>132</td><td style='text-align: right;'>17</td><td style='text-align: right;'>0.128</td>
+</tr><tr><td style='text-align: left;'>/jewellery/151-gold-hamsa-on-black-thread-bracelet.htm</td><td style='text-align: right;'>105</td><td style='text-align: right;'>2</td><td style='text-align: right;'>0.190</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
 <p>We can plot the results to compare products between pages:</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/top-product-page-by-fraction-of-uniques-that-add-to-basket.jpg" alt="add-to-basket-rate-by-product-page" /></p>
+<p><img alt='add-to-basket-rate-by-product-page' src='/static/img/analytics/catalog-analytics/product-page-performance/top-product-page-by-fraction-of-uniques-that-add-to-basket.jpg' /></p>
 
 <p>The above plot is interesting: it makes it easy to compare conversion rates between products and product pages. In the next section we will evolve our analysis using a scatter plot to visualize the product page performance.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='visualising'><h3>Visualising the data in an actionable scatter-plot</h3></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='visualising'><h3>Visualising the data in an actionable scatter-plot</h3></a>
 <p>In this section, we are going to build a scatter plot which compares the number of uniques that view each product with the number of uniques that add the product to basket, with the size of each dot being the number of uniques that buy the product.</p>
 
 <p>Here is a preview of the scatter plot we will generate:</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg" alt="scatter-plot" /></p>
+<p><img alt='scatter-plot' src='/static/img/analytics/catalog-analytics/product-page-performance/scatter-plot.jpg' /></p>
 
-<p>The good thing about the above scatter plot is that it is incredibly <em>actionable</em>. Before we look at how it is actionable, let’s explore the plot briefly.</p>
+<p>The good thing about the above scatter plot is that it is incredibly <em>actionable</em>. Before we look at how it is actionable, let&#8217;s explore the plot briefly.</p>
 
-<h4 id="understanding_the_plot">Understanding the plot</h4>
+<h4 id='understanding_the_plot'>Understanding the plot</h4>
 
 <p>Each product (i.e. product page) is marked on the plot by a circle. The position of the circle on the left-right axis indicates how many times that product page has been viewed: so the products over to the right of the plot are ones with highly trafficked product pages.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide1.JPG" alt="expl1" /></p>
+<p><img alt='expl1' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide1.JPG' /></p>
 
 <p>The position on the top-bottom axis indicates the number of unique users who have added the product to their baskets. Products that are higher up have been added to basket more frequently than those lower down.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide2.JPG" alt="expl2" /></p>
+<p><img alt='expl2' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide2.JPG' /></p>
 
 <p>We can tell how well-converting a product page is by looking at the height of its position on the graph, relative to its distance from the left axis. Products that are positioned high up, but over to the left, are added to basket a lot, even if they do not attract many visitors. They are therefore highly converting product pages.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide3.JPG" alt="expl3" /></p>
+<p><img alt='expl3' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide3.JPG' /></p>
 
-<h4 id="why_is_the_scatter_plot_so_actionable">Why is the scatter plot so actionable?</h4>
+<h4 id='why_is_the_scatter_plot_so_actionable'>Why is the scatter plot so actionable?</h4>
 
-<p>Let’s look at why the plot is so <strong>actionable</strong>. To take one example: any products located in the lower right corner are highly trafficked but low converting - any effort spent fixing those product pages (e.g. by checking the copy, updating the product images or lowering the price) should be rewarded with a significant sales uplift, given the number of people visiting those pages:</p>
+<p>Let&#8217;s look at why the plot is so <strong>actionable</strong>. To take one example: any products located in the lower right corner are highly trafficked but low converting - any effort spent fixing those product pages (e.g. by checking the copy, updating the product images or lowering the price) should be rewarded with a significant sales uplift, given the number of people visiting those pages:</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide4.JPG" alt="expl4" /></p>
+<p><img alt='expl4' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide4.JPG' /></p>
 
 <p>In our plot above that means checking the product page for the <em>Gateway Oracle Cards</em> and the <em>Celtic Ogham Set</em> for example. In contrast, products located in the top left of the plot are very highly converting, but low trafficked pages. We should drive more traffic to these pages, either by positioning those products more prominently on catalog pages, for example, or by spending marketing dollars driving more traffic to those pages specifically. Again, that investment should result in a significant uplift in sales, given how highly converting those products are.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide5.JPG" alt="expl5" /></p>
+<p><img alt='expl5' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide5.JPG' /></p>
 
 <p>Products in the top right are already performing well - this analysis suggests that we focus our efforts on the two groups of products identified above.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide6.JPG" alt="expl6" /></p>
+<p><img alt='expl6' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide6.JPG' /></p>
 
 <p>Similarly, products in the lower left corner are performing poorly - but it is not clear whether this is because they have low traffic levels and /or are poor at driving conversions. We should invest in improving the performance of these pages, but the return on that investment is likely to be smaller (or harder to achieve) than the two opportunities identified above.</p>
 
-<p><img src="/static/img/analytics/catalog-analytics/product-page-performance/Slide7.JPG" alt="expl7" /></p>
+<p><img alt='expl7' src='/static/img/analytics/catalog-analytics/product-page-performance/Slide7.JPG' /></p>
 
-<h4 id="producing_the_plot">Producing the plot</h4>
+<h4 id='producing_the_plot'>Producing the plot</h4>
 
 <p>To produce the plot we need to the same data as above, but need to include in addition data on the number of uniques who go on to purchase each product. This additional data can be delivered via the following query:</p>
 <div class='highlight'><pre><code class='mysql'><span class='cm'>/* PostgreSQL / Redshift */</span>
@@ -321,16 +315,14 @@
 <span class='k'>ON</span> <span class='n'>ab</span><span class='p'>.</span><span class='n'>product_sku</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>.</span><span class='n'>ti_sku</span><span class='p'>;</span>
 </code></pre></div>
 <p>This produces a result set that looks like this:</p>
-<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>uniques_that_purchase</strong></th></tr></thead><tbody><tr><td style="text-align: left;">/oracles/266-magical-messages-from-the-fairies-oracle-cards.html</td><td style="text-align: right;">89</td><td style="text-align: right;">14</td><td style="text-align: right;">7</td></tr>
-<tr><td style="text-align: left;">/tarot-cards/127-petrak-tarot.html</td><td style="text-align: right;">82</td><td style="text-align: right;">21</td><td style="text-align: right;">18</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td><td style="text-align: right;"></td></tr>
-</tbody></table>
+<table><thead><tr><th><strong>page_urlpath</strong></th><th><strong>unique_visitors</strong></th><th><strong>uniques_that_add_to_basket</strong></th><th><strong>uniques_that_purchase</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>/oracles/266-magical-messages-from-the-fairies-oracle-cards.html</td><td style='text-align: right;'>89</td><td style='text-align: right;'>14</td><td style='text-align: right;'>7</td>
+</tr><tr><td style='text-align: left;'>/tarot-cards/127-petrak-tarot.html</td><td style='text-align: right;'>82</td><td style='text-align: right;'>21</td><td style='text-align: right;'>18</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
 <p>We can produce the scatter plot directly in Tableau, for example, by using the above query to import the data, dragging the <code>page_urlpath</code> dimension and three metrics in the above table onto the pane and then clicking on the scatter plot icon.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='sophisticated-approaches'><h3>3. More sophisticated approaches to measuring product page performance</h3></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='sophisticated-approaches'><h3>3. More sophisticated approaches to measuring product page performance</h3></a>
 <p>The above approach to measuring product performance assumes that all the users who land on a product page are just as likely to add the product to their basket, and as a result, any difference in conversion rates between product pages relates to how good that product page is.</p>
 
 <p>That assumption is nearly always false: a user who visits a website specifically to buy a product is much more likely to convert that one who is browsing, but open to being upsold. When we perform the above analysis on a large data set, that might not matter because the <em>average</em> likelihood to purchase prior to viewing the page might be similar. But it might not be.</p>
@@ -349,7 +341,7 @@
 
 <p>Identifying if the user is in the market to buy <em>something</em> or not is a bit tricker. If they are systematically viewing a range of products, then the chances are that they belong in Bucket Two. If they have come to the website to enter a competition or read a blog post, on the other hand, they probably belong in bucket three.</p>
 
-<p><em>Note: there are more rigorous ways of identifying which bucket a user belong in e.g. using machine learning to identify behaviors that are indicative of a user belonging in each bucket. We will be covering these in a future set of recipes in the <a href="/analytics/customer-analytics/overview.html">customer analytics</a> section of the cookbook.</em></p>
+<p><em>Note: there are more rigorous ways of identifying which bucket a user belong in e.g. using machine learning to identify behaviors that are indicative of a user belonging in each bucket. We will be covering these in a future set of recipes in the <a href='/analytics/customer-analytics/overview.html'>customer analytics</a> section of the cookbook.</em></p>
 
 <p>Once we have categorised our users into different buckets, we should compare conversion rates for each product page against each audience segment. It is especially instructive to identify low conversion rates for Buckets One and Two. For example, if a product page is relatively poor at converting users in Bucket One, that suggests that maybe:</p>
 
@@ -371,10 +363,9 @@
 <li>There are other, more attractive products on offer, either within the website or on competitor sites</li>
 </ul>
 
-<p>In addition, a relatively high conversion rate for users in Bucket Three suggests that we have a “hero” product in the catalog: one that people buy even though they haven’t come to the website to make a purchase. This is a product we should be marketing intensively.</p>
+<p>In addition, a relatively high conversion rate for users in Bucket Three suggests that we have a &#8220;hero&#8221; product in the catalog: one that people buy even though they haven&#8217;t come to the website to make a purchase. This is a product we should be marketing intensively.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
+<p>Back to <a href='#top'>top</a>.</p>
 </div>
 
  <div id="sidebar">

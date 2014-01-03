@@ -71,18 +71,17 @@
 			03 Jul 2013
 			<h1>Snowplow Tracker for Lua event analytics released</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We are very pleased to announce the release of our <a href="https://github.com/snowplow/snowplow-lua-tracker">SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker">JavaScript</a>, <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker">no-JavaScript (aka pixel)</a> and <a href="https://github.com/snowplow/snowplow-arduino-tracker">Arduino</a> Trackers.</p>
+			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
 
-<p>As a lightweight, easily-embeddable scripting language, <a href="http://www.lua.org/">Lua</a> is available in a huge number of different computing environments and platforms, from <a href="http://www.wowwiki.com/Lua">World of Warcraft</a> through <a href="http://openresty.org/">OpenResty</a> to <a href="http://www.adobe.com/devnet/photoshoplightroom.html">Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here’s a taster:</p>
+<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
 <div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
 <span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
 <span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
 </code></pre></div>
-<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow’s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href="http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/">High-Fidelity Analytics</a>, this tracker:</p>
+<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
 
 <ol>
-<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href="http://olivinelabs.com/busted/">Busted</a></li>
+<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
 
 <li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
 </ol>
@@ -90,11 +89,11 @@
 <p>After the jump we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events">Supported events</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
 
-<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example">Usage example</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
 
-<li><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more">Finding out more</a></li>
+<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
 </ol>
 <!--more--><h2><a name='supported-events'>1. Supported events</a></h2>
 <p>The Lua Tracker supports three types of event:</p>
@@ -132,14 +131,13 @@
                                          <span class='p'>}</span>
                           <span class='p'>)</span>
 </code></pre></div>
-<p>And that’s it!</p>
+<p>And that&#8217;s it!</p>
 <h2><a name='usage example'>3. Finding out more</a></h2>
-<p>To read through the complete API for this Lua event tracker, please see the <a href="https://github.com/snowplow/snowplow/wiki/Lua-Tracker">Lua Tracker page</a> on the Snowplow wiki.</p>
+<p>To read through the complete API for this Lua event tracker, please see the <a href='https://github.com/snowplow/snowplow/wiki/Lua-Tracker'>Lua Tracker page</a> on the Snowplow wiki.</p>
 
-<p>For setting up the tracker in various Lua environments (including <a href="http://luarocks.org/repositories/rocks/">LuaRocks</a>), please see the <a href="https://github.com/snowplow/snowplow/wiki/Lua-tracker-setup">Lua Tracker Setup page</a> on the Snowplow wiki.</p>
+<p>For setting up the tracker in various Lua environments (including <a href='http://luarocks.org/repositories/rocks/'>LuaRocks</a>), please see the <a href='https://github.com/snowplow/snowplow/wiki/Lua-tracker-setup'>Lua Tracker Setup page</a> on the Snowplow wiki.</p>
 
-<p>To check out the code itself, please see our <a href="https://github.com/snowplow/snowplow-lua-tracker">snowplow-lua-tracker</a> repository in GitHub.</p>
-
+<p>To check out the code itself, please see our <a href='https://github.com/snowplow/snowplow-lua-tracker'>snowplow-lua-tracker</a> repository in GitHub.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

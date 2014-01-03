@@ -71,33 +71,31 @@
 			22 Jan 2013
 			<h1>Snowplow 0.7.1 released, with easier-to-run Ruby apps</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re happy to announce the release of Snowplow version <strong>0.7.1</strong>. This release is designed to make it much easier to install and run the two Snowplow Ruby applications:</p>
+			<p>We&#8217;re happy to announce the release of Snowplow version <strong>0.7.1</strong>. This release is designed to make it much easier to install and run the two Snowplow Ruby applications:</p>
 
 <ol>
-<li><a href="https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner">EmrEtlRunner</a> - which runs the Snowplow ETL job</li>
+<li><a href='https://github.com/snowplow/snowplow/tree/master/3-etl/emr-etl-runner'>EmrEtlRunner</a> - which runs the Snowplow ETL job</li>
 
-<li><a href="https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader">StorageLoader</a> - which loads Snowplow events into Infobright</li>
+<li><a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>StorageLoader</a> - which loads Snowplow events into Infobright</li>
 </ol>
 
 <p>From the feedback we received, setting up and running these two Ruby apps was the most challenging (and error-prone) part of the Snowplow experience. Many thanks to all of those in the community who reported bugs with our original approach and suggested fixes!</p>
 
-<p>To streamline this process and reduce the chances of problems occurring, we have updated both Ruby apps to work in a <a href="https://rvm.io/integration/bundler/">RVM+Bundler</a> environment, inline with Ruby community best practice. Specifically, we have:</p>
+<p>To streamline this process and reduce the chances of problems occurring, we have updated both Ruby apps to work in a <a href='https://rvm.io/integration/bundler/'>RVM+Bundler</a> environment, inline with Ruby community best practice. Specifically, we have:</p>
 
 <ul>
-<li>Created a simple <a href="https://github.com/snowplow/snowplow/wiki/Ruby-and-RVM-setup">guide to setting up Ruby and RVM</a> ready for Snowplow</li>
+<li>Created a simple <a href='https://github.com/snowplow/snowplow/wiki/Ruby-and-RVM-setup'>guide to setting up Ruby and RVM</a> ready for Snowplow</li>
 
 <li>Updated both of our Ruby apps to use RVM and Bundler</li>
 
 <li>Updated our cronjob shell scripts to work with RVM and Bundler</li>
 
-<li>Updated the setup guides (<a href="https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-setup">EmrEtlRunner</a>; <a href="https://github.com/snowplow/snowplow/wiki/StorageLoader-setup">StorageLoader</a>) for both apps to follow RVM and Bundler best practice</li>
+<li>Updated the setup guides (<a href='https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-setup'>EmrEtlRunner</a>; <a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader</a>) for both apps to follow RVM and Bundler best practice</li>
 </ul>
 
 <p>This release bumps EmrEtlRunner to version 0.0.8 and StorageLoader to version 0.0.4.</p>
 
-<p>And that’s it! Hopefully this release fixes all of the Ruby-related issues encountered by Snowplow users - but of course there might still be a couple of teething issues. If you spot anything that still doesn’t seem right, do please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
-
+<p>And that&#8217;s it! Hopefully this release fixes all of the Ruby-related issues encountered by Snowplow users - but of course there might still be a couple of teething issues. If you spot anything that still doesn&#8217;t seem right, do please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

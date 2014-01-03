@@ -71,26 +71,25 @@
 			24 May 2013
 			<h1>Snowplow 0.8.5 released with ETL bug fixes</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.5</strong>. This is a bug fixing release, following on from our launch last week of Snowplow 0.8.4 with geo-IP lookups.</p>
+			<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.5</strong>. This is a bug fixing release, following on from our launch last week of Snowplow 0.8.4 with geo-IP lookups.</p>
 
-<p>This release fixes one showstopper issue with Snowplow 0.8.4, and also includes a set of smaller enhancements to help the Scalding ETL better handle “bad quality” event data from webpages. We recommend everybody on the Snowplow 0.8.x series upgrade to this version.</p>
+<p>This release fixes one showstopper issue with Snowplow 0.8.4, and also includes a set of smaller enhancements to help the Scalding ETL better handle &#8220;bad quality&#8221; event data from webpages. We recommend everybody on the Snowplow 0.8.x series upgrade to this version.</p>
 
-<p>Many thanks to community members <a href="https://github.com/petervanwesep">Peter van Wesep</a> and <a href="https://github.com/rgabo">Gabor Ratky</a> for their help identifying and debugging the issues fixed in this release!</p>
+<p>Many thanks to community members <a href='https://github.com/petervanwesep'>Peter van Wesep</a> and <a href='https://github.com/rgabo'>Gabor Ratky</a> for their help identifying and debugging the issues fixed in this release!</p>
 
 <p>In this post we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#showstopper">The showstopper bug fix</a></li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#showstopper'>The showstopper bug fix</a></li>
 
-<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#other-improvements">Other improvements</a></li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#other-improvements'>Other improvements</a></li>
 
-<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#upgrading">Upgrading</a></li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#upgrading'>Upgrading</a></li>
 
-<li><a href="/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#help">Getting help</a></li>
+<li><a href='/blog/2013/05/24/snowplow-0.8.5-released-with-etl-bug-fixes#help'>Getting help</a></li>
 </ol>
 <!--more--><h2><a name='showstopper'>1. The showstopper bug fix</a></h2>
-<p>Many thanks to Peter van Wesep for spotting the <a href="https://github.com/snowplow/snowplow/issues/258">showstopper issue</a> in the Snowplow 0.8.4 release: when the Snowplow ETL process was run from an Amazon Web Services account other than Snowplow’s own, the Hadoop ETL code was unable to read the MaxMind geo-IP data file from an S3:// link hosted from a Snowplow public bucket. This issue did not affect users who are self-hosting the ETL assets.</p>
+<p>Many thanks to Peter van Wesep for spotting the <a href='https://github.com/snowplow/snowplow/issues/258'>showstopper issue</a> in the Snowplow 0.8.4 release: when the Snowplow ETL process was run from an Amazon Web Services account other than Snowplow&#8217;s own, the Hadoop ETL code was unable to read the MaxMind geo-IP data file from an S3:// link hosted from a Snowplow public bucket. This issue did not affect users who are self-hosting the ETL assets.</p>
 
 <p>This has now been fixed - we now provide the MaxMind geo-IP file on an HTTP:// link, and the Scalding ETL downloads it and adds it to HDFS before running.</p>
 <h2><a name='other-improvements'>2. Other improvements</a></h2>
@@ -122,28 +121,28 @@
 
 <p>Alternatively, if you are still using Infobright with the legacy Hive ETL, you can upgrade your Infobright events table, to version 0.0.9.</p>
 
-<p>Let’s take these in turn:</p>
+<p>Let&#8217;s take these in turn:</p>
 
-<h3 id="hadoop_etl">Hadoop ETL</h3>
+<h3 id='hadoop_etl'>Hadoop ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to the latest version of the Hadoop ETL:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.1</span> <span class='c1'># Version of the Hadoop ETL</span>
 </code></pre></div>
-<h3 id="emretlrunner">EmrEtlRunner</h3>
+<h3 id='emretlrunner'>EmrEtlRunner</h3>
 
 <p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.5 release) on GitHub:</p>
 
 <pre><code>$ git clone git://github.com/snowplow/snowplow.git
 $ git checkout 0.8.5</code></pre>
 
-<h3 id="redshift_events_table">Redshift events table</h3>
+<h3 id='redshift_events_table'>Redshift events table</h3>
 
-<p>We have updated the Redshift table definition - you can find the latest version in the GitHub repository <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql">here</a>.</p>
+<p>We have updated the Redshift table definition - you can find the latest version in the GitHub repository <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/table-def.sql'>here</a>.</p>
 
-<p>If you already have your Snowplow data in the previous version of the Redshift events table, we have written <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.0_to_0.2.1.sql">a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
+<p>If you already have your Snowplow data in the previous version of the Redshift events table, we have written <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.0_to_0.2.1.sql'>a migration script</a> to handle the upgrade. <strong>Please review this script carefully before running and check that you are happy with how it handles the upgrade.</strong></p>
 
-<h3 id="infobright_events_table">Infobright events table</h3>
+<h3 id='infobright_events_table'>Infobright events table</h3>
 
 <p>If you are storing your events in Infobright Community Edition, you can also update your table definition. To make this easier for you, we have created a script:</p>
 
@@ -151,16 +150,15 @@ $ git checkout 0.8.5</code></pre>
 
 <p>Running this script will create a new table, <code>events_009</code> (version 0.0.9 of the Infobright table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events_008</code> table, which will not be modified in any way.</p>
 
-<p>Once you have run this, don’t forget to update your StorageLoader’s <code>config.yml</code> to load into the new <code>events_009</code> table, not your old <code>events_008</code> table:</p>
+<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_009</code> table, not your old <code>events_008</code> table:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:storage</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:table</span><span class='p-Indicator'>:</span>    <span class='l-Scalar-Plain'>events_009</span> <span class='c1'># NOT &quot;events_008&quot; any more</span>
 </code></pre></div>
 <p>Done!</p>
 <h2><a name='help'>4. Getting help</a></h2>
-<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
-<p>You can see the full list of issues delivered in Snowplow 0.8.5 on <a href="https://github.com/snowplow/snowplow/issues?milestone=24&page=1&state=closed">GitHub</a>.</p>
-
+<p>You can see the full list of issues delivered in Snowplow 0.8.5 on <a href='https://github.com/snowplow/snowplow/issues?milestone=24&amp;page=1&amp;state=closed'>GitHub</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

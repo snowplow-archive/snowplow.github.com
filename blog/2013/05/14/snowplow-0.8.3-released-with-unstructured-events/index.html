@@ -71,33 +71,32 @@
 			14 May 2013
 			<h1>Snowplow 0.8.3 released with unstructured events</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
+			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
 
 <p><strong>Please note that this release only adds unstructured events to the JavaScript Tracker - adding unstructured events to our Enrichment process and storage targets is on the roadmap - but rest assured we are working on it!</strong></p>
 
-<p>Many thanks to community members <a href="https://github.com/rgabo">Gabor Ratky</a>, <a href="https://github.com/tarsolya">Andras Tarsoly</a> and <a href="https://github.com/lackac">Laszlo Bacsi</a>, all from <a href="http://secretsaucepartners.com/">Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href="https://github.com/snowplow/snowplow/pull/198">original GitHub pull request</a>.)</p>
+<p>Many thanks to community members <a href='https://github.com/rgabo'>Gabor Ratky</a>, <a href='https://github.com/tarsolya'>Andras Tarsoly</a> and <a href='https://github.com/lackac'>Laszlo Bacsi</a>, all from <a href='http://secretsaucepartners.com/'>Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href='https://github.com/snowplow/snowplow/pull/198'>original GitHub pull request</a>.)</p>
 
 <p>In the rest of this post, then, we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition">What are unstructured events?</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition'>What are unstructured events?</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when">When to use unstructured events?</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when'>When to use unstructured events?</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage">Usage</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage'>Usage</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading">Upgrading</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading'>Upgrading</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap">Roadmap for unstructured events</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap'>Roadmap for unstructured events</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help">Getting help</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help'>Getting help</a></li>
 </ol>
 <!--more--><h2><a name='definition'>1. What are unstructured events?</a></h2>
-<p><a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct">Custom unstructured events</a> are user events which do not fit one of the existing Snowplow event types (page views, ecommerce transactions etc), and do not fit easily into our existing <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct">custom structured event</a> format. A custom unstructured event consists of two elements:</p>
+<p><a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customunstruct'>Custom unstructured events</a> are user events which do not fit one of the existing Snowplow event types (page views, ecommerce transactions etc), and do not fit easily into our existing <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'>custom structured event</a> format. A custom unstructured event consists of two elements:</p>
 
 <ul>
-<li>A <code>name</code>, e.g. “Game saved” or “returned-order”</li>
+<li>A <code>name</code>, e.g. &#8220;Game saved&#8221; or &#8220;returned-order&#8221;</li>
 
 <li>A set of <code>name: value</code> properties (also known as a hash, associative array or dictionary)</li>
 </ul>
@@ -112,7 +111,7 @@
 <li>Where you want to track events which have unpredictable or frequently changing properties</li>
 </ol>
 
-<p><strong>Note:</strong> because unstructured events are <em>not</em> currently processed by the ETL and enrichment step, or added to storage, we recommend using <a href="https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct">custom structured events</a> for custom events types, assuming that you can fit your events into our custom structured event schema.</p>
+<p><strong>Note:</strong> because unstructured events are <em>not</em> currently processed by the ETL and enrichment step, or added to storage, we recommend using <a href='https://github.com/snowplow/snowplow/wiki/canonical-event-model#wiki-customstruct'>custom structured events</a> for custom events types, assuming that you can fit your events into our custom structured event schema.</p>
 <h2><a name='usage'>3. Usage</a></h2>
 <p>Tracking an unstructured event with the JavaScript Tracker is very straightforward - use the <code>trackUnstructEvent(name, properties)</code> function.</p>
 
@@ -129,7 +128,7 @@
                 <span class='p'>}</span>
             <span class='p'>]);</span>
 </code></pre></div>
-<p>We have written a <a href="/blog/2013/05/14/snowplow-unstructured-events-guide">follow-up blog post</a> to provide more information on using the new <code>trackUnstructEvent</code> functionality - please <a href="/blog/2013/05/14/snowplow-unstructured-events-guide">read this post</a> for more information.</p>
+<p>We have written a <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>follow-up blog post</a> to provide more information on using the new <code>trackUnstructEvent</code> functionality - please <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>read this post</a> for more information.</p>
 <h2><a name='upgrading'>4. Upgrading</a></h2>
 <p>There are two components to upgrade in this release:</p>
 
@@ -141,21 +140,21 @@
 
 <p>If you are running the Clojure Collector, you must upgrade the Clojure Collector <strong>before</strong> upgrading the JavaScript Tracker, or you will experience some data loss.</p>
 
-<h3 id="clojure_collector">Clojure Collector</h3>
+<h3 id='clojure_collector'>Clojure Collector</h3>
 
 <p>This release bumps the Clojure Collector to version <strong>0.5.0</strong>. To upgrade to this release:</p>
 
 <ol>
-<li>Download the new warfile by right-clicking on <a href="http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war">this link</a> and selecting “Save As…”</li>
+<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
 
 <li>Log in to your Amazon Elastic Beanstalk console</li>
 
-<li>Browse to your Collector’s application</li>
+<li>Browse to your Collector&#8217;s application</li>
 
-<li>Click the “Upload New Version” and upload your warfile</li>
+<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
 </ol>
 
-<h3 id="javascript_tracker">JavaScript Tracker</h3>
+<h3 id='javascript_tracker'>JavaScript Tracker</h3>
 
 <p>Please update your website(s) or tag manager to use the latest version of the JavaScript Tracker, which is version 0.11.2. As always, the updated minified tracker is available here:</p>
 
@@ -173,14 +172,13 @@
 <li><strong>Storing Snowplow events in PostgreSQL</strong>. Postgres has a JSON datatype, although the querying capabilities on that JSON datatype are so-far very primitive. Nonetheless, it should be possible to at least store the unstructured event properties in an appropriate JSON field in Postgres</li>
 </ol>
 
-<p>If you have a preference for one of the two above options, or a suggested third approach, then <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">get in touch</a> and let us know as soon as possible, as we are thining through these alternatives now.</p>
+<p>If you have a preference for one of the two above options, or a suggested third approach, then <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>get in touch</a> and let us know as soon as possible, as we are thining through these alternatives now.</p>
 
-<p>Please keep an eye on our <a href="https://github.com/snowplow/snowplow/wiki/Product-roadmap">Roadmap wiki page</a> to see how Snowplow’s support for unstructured events evolves.</p>
+<p>Please keep an eye on our <a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'>Roadmap wiki page</a> to see how Snowplow&#8217;s support for unstructured events evolves.</p>
 <h2><a name='help'>6. Getting help</a></h2>
-<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
-<p>And if you want to find out more about the syntax for <code>trackUnstructEvent</code>, do checkout our <a href="/blog/2013/05/14/snowplow-unstructured-events-guide">Snowplow Unstructured Events Guide</a>, which was also published today.</p>
-
+<p>And if you want to find out more about the syntax for <code>trackUnstructEvent</code>, do checkout our <a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Snowplow Unstructured Events Guide</a>, which was also published today.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

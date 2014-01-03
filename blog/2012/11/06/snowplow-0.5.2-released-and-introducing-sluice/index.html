@@ -71,42 +71,40 @@
 			06 Nov 2012
 			<h1>Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we’ll also use this post to introduce our new Ruby gem, called Sluice.</p>
+			<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we&#8217;ll also use this post to introduce our new Ruby gem, called Sluice.</p>
 
-<p>Many thanks to community member <a href="https://github.com/testower">Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
+<p>Many thanks to community member <a href='https://github.com/testower'>Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
 
-<h2 id="bugs_fixed">Bugs fixed</h2>
+<h2 id='bugs_fixed'>Bugs fixed</h2>
 
-<p><strong><a href="https://github.com/snowplow/snowplow/issues/71">Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/71'>Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
 
 <pre><code>...
 :snowplow:
   :serde_version: 0.4.9
 ...</code></pre>
 
-<p><strong><a href="https://github.com/snowplow/snowplow/issues/72">Issue 72</a></strong>: Tom’s testing also identified a bug in EmrEtlRunner’s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/72'>Issue 72</a></strong>: Tom&#8217;s testing also identified a bug in EmrEtlRunner&#8217;s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
 <!--more-->
-<h2 id="a_new_feature_skip">A new feature: –skip</h2>
+<h2 id='a_new_feature_skip'>A new feature: &#8211;skip</h2>
 
-<p>A new release which only contains bug fixes is a boring release, so we have also implemented a new <code>--skip</code> option for EmrEtlRunner (<a href="https://github.com/snowplow/snowplow/issues/58">issue #58</a>). You can use this when you call EmrEtlRunner like so:</p>
+<p>A new release which only contains bug fixes is a boring release, so we have also implemented a new <code>--skip</code> option for EmrEtlRunner (<a href='https://github.com/snowplow/snowplow/issues/58'>issue #58</a>). You can use this when you call EmrEtlRunner like so:</p>
 
 <pre><code>$ bundle exec snowplow-emr-etl-runner &lt;...&gt; --skip staging OR --skip emr</code></pre>
 
 <p>This option skips the work steps <strong>up to and including</strong> the specified step. To give an example: <code>--skip emr</code> skips both moving the raw logs to the Staging Bucket <strong>and</strong> running the ETL process on Amazon EMR, i.e. EmrEtlRunner will <strong>only</strong>* perform the final archiving step.</p>
 
-<p><code>--skip</code> is useful if you encounter a problem midway through your ETL process: you can fix the problem and then skip the steps which ran okay, rather than re-processing from the start. We find it especially helpful when we’re testing new versions of EmrEtlRunner.</p>
+<p><code>--skip</code> is useful if you encounter a problem midway through your ETL process: you can fix the problem and then skip the steps which ran okay, rather than re-processing from the start. We find it especially helpful when we&#8217;re testing new versions of EmrEtlRunner.</p>
 
-<h2 id="and_introducing_sluice">And introducing Sluice</h2>
+<h2 id='and_introducing_sluice'>And introducing Sluice</h2>
 
 <p>At Snowplow Analytics we are committed to making our software as modular and loosely-coupled as possible. Where we have functionality which could be more widely used, we aim to extract it into standalone modules for developers to use even if they are not implementing Snowplow.</p>
 
-<p>We have followed this approach with the parallel file-copy code for Amazon S3 added to EmrEtlRunner by community member <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a>: we have moved this code out of EmrEtlRunner into a new Ruby gem, called Sluice. Sluice now has its own <a href="https://github.com/snowplow/sluice">GitHub repository</a>, and has been published on <a href="http://rubygems.org/gems/sluice">RubyGems.org</a>. It’s called Sluice because, like <a href="https://github.com/cwensel">Chris Wensel</a> (Cascading), we believe in flowing-water metaphors for ETL tools :-)</p>
+<p>We have followed this approach with the parallel file-copy code for Amazon S3 added to EmrEtlRunner by community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a>: we have moved this code out of EmrEtlRunner into a new Ruby gem, called Sluice. Sluice now has its own <a href='https://github.com/snowplow/sluice'>GitHub repository</a>, and has been published on <a href='http://rubygems.org/gems/sluice'>RubyGems.org</a>. It&#8217;s called Sluice because, like <a href='https://github.com/cwensel'>Chris Wensel</a> (Cascading), we believe in flowing-water metaphors for ETL tools :-)</p>
 
 <p>Sluice is used by our EmrEtlRunner, and is also a dependency for the StorageLoader Ruby application which we are currently developing.</p>
 
-<p>We hope to build out Sluice as a general-purpose Ruby toolkit for cloud-friendly ETL over the coming months - and would love contributors! Our view is that, in a world of cloud services like Amazon S3, Google BigQuery and Elastic MapReduce, it makes most sense to take a programmatic approach to ETL, rather than contort the historic, application-based approach of <a href="http://www.talend.com">Talend</a>, <a href="http://www.pentaho.com/explore/pentaho-data-integration/">Pentaho DI</a> et al. We see Sluice as part of that toolkit for programmatic ETL, alongside great tools such as <a href="http://www.cascading.org">Cascading</a>, Rob Slifka’s <a href="https://github.com/rslifka/elasticity">Elasticity</a> and <a href="http://palletops.com">Pallet</a>.</p>
-
+<p>We hope to build out Sluice as a general-purpose Ruby toolkit for cloud-friendly ETL over the coming months - and would love contributors! Our view is that, in a world of cloud services like Amazon S3, Google BigQuery and Elastic MapReduce, it makes most sense to take a programmatic approach to ETL, rather than contort the historic, application-based approach of <a href='http://www.talend.com'>Talend</a>, <a href='http://www.pentaho.com/explore/pentaho-data-integration/'>Pentaho DI</a> et al. We see Sluice as part of that toolkit for programmatic ETL, alongside great tools such as <a href='http://www.cascading.org'>Cascading</a>, Rob Slifka&#8217;s <a href='https://github.com/rslifka/elasticity'>Elasticity</a> and <a href='http://palletops.com'>Pallet</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

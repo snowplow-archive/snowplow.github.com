@@ -67,41 +67,34 @@
 </div>
 	
 		<div id="contents">
-
-<h1 id="performing_cohort_analyses_with_snowplow">Performing cohort analyses with Snowplow</h1>
+<h1 id='performing_cohort_analyses_with_snowplow'>Performing cohort analyses with Snowplow</h1>
 
 <ol>
-<li><a href="#what">What is cohort analysis?</a></li>
+<li><a href='#what'>What is cohort analysis?</a></li>
 
-<li><a href="#steps">Steps to performing a cohort analysis</a></li>
+<li><a href='#steps'>Steps to performing a cohort analysis</a></li>
 </ol>
-
-<p><a name='what'><h2>What is a cohort analysis?</h2></a></p>
-
+<a name='what'><h2>What is a cohort analysis?</h2></a>
 <p>A cohort analysis is a longitudal study that compares two or more groups of customers / users (cohorts) over a period of time. The term cohort analysis therefore encompasses a wide variety of analyses:</p>
 
 <ol>
-<li><strong>We can vary our cohort definitions, depending on what we want to test</strong>. (For example, if we wanted to see if customers acquired from particular marketing channels were more valuable over their lifetimes, we’d define our cohorts based on the customer acquisition channel. On the other hand, if we wanted to see if we’ve got better at converting freemium users to paid users over time, we’d compare cohorts of users who started with the service a long time ago, with those that started more recently: defining our cohorts by month joined.)</li>
+<li><strong>We can vary our cohort definitions, depending on what we want to test</strong>. (For example, if we wanted to see if customers acquired from particular marketing channels were more valuable over their lifetimes, we&#8217;d define our cohorts based on the customer acquisition channel. On the other hand, if we wanted to see if we&#8217;ve got better at converting freemium users to paid users over time, we&#8217;d compare cohorts of users who started with the service a long time ago, with those that started more recently: defining our cohorts by month joined.)</li>
 
 <li><strong>We can vary the metric we are comparing between are cohorts</strong>. (For example, comparing the average lifetime value of customers in each cohort, or retention levels by cohort)</li>
 </ol>
 
-<p>For more detail on the variations possible with cohort analyses, see <a href="http://www.keplarllp.com/blog/2012/05/on-the-wide-variety-of-different-cohort-analyses-possible-with-snowplow">this Keplar blog post</a>.</p>
-
-<p><a name='steps'><h2>Steps to performing a cohort analysis</h2></a></p>
-
+<p>For more detail on the variations possible with cohort analyses, see <a href='http://www.keplarllp.com/blog/2012/05/on-the-wide-variety-of-different-cohort-analyses-possible-with-snowplow'>this Keplar blog post</a>.</p>
+<a name='steps'><h2>Steps to performing a cohort analysis</h2></a>
 <p>All cohort analyses can be performed with the following steps:</p>
 
 <ol>
-<li><a href="#cohort-definition">Cohort definition</a>: write a query that links each user ID (usually the <code>domain_userid</code> or <code>network_userid</code>) with with the appropriate cohort (group)</li>
+<li><a href='#cohort-definition'>Cohort definition</a>: write a query that links each user ID (usually the <code>domain_userid</code> or <code>network_userid</code>) with with the appropriate cohort (group)</li>
 
-<li><a href="#metric-definition">Metric definition</a>: write a query that calculates the required metric for each user</li>
+<li><a href='#metric-definition'>Metric definition</a>: write a query that calculates the required metric for each user</li>
 
-<li><a href="#combinetheresults">Combine the results</a> from the above two queries to calculate an aggregated metric for each cohort</li>
+<li><a href='#combinetheresults'>Combine the results</a> from the above two queries to calculate an aggregated metric for each cohort</li>
 </ol>
-
-<p><a name='cohort-definition'><h2>1. Cohort definition</h2></a></p>
-
+<a name='cohort-definition'><h2>1. Cohort definition</h2></a>
 <p>Regardless of the type of cohort analysis we want to perform, we start by mapping user IDs to cohorts:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Pseudo-SQL */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>user_cohort_map</span> <span class='k'>AS</span>
@@ -111,7 +104,7 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="1a_defining_cohorts_by_when_a_user_first_visits_the_website">1a. Defining cohorts by when a user first visits the website</h3>
+<h3 id='1a_defining_cohorts_by_when_a_user_first_visits_the_website'>1a. Defining cohorts by when a user first visits the website</h3>
 
 <p>In this case we want to compare users who first visited us in January with those that first visited us in February, March, April etc.</p>
 
@@ -124,7 +117,7 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="1b_definine_a_cohort_by_when_a_user_first_performed_a_specific_action">1b. Definine a cohort by when a user first performed a specific action</h3>
+<h3 id='1b_definine_a_cohort_by_when_a_user_first_performed_a_specific_action'>1b. Definine a cohort by when a user first performed a specific action</h3>
 
 <p>For many SaaS providers, it is not when a user first visits the site that is really important, but when a user actually signed up for a service, or performed some other specific action for the first time.</p>
 
@@ -138,13 +131,13 @@
 <span class='k'>WHERE</span> <span class='n'>se_action</span> <span class='o'>=</span> <span class='s1'>&#39;sign-up&#39;</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='n'>domain_userid</span><span class='p'>;</span>
 </code></pre></div>
-<p>Note that the above query assumes that a signup is tracked using <a href="https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events">custom structured event tracking</a>, where the event action field is set to ‘sign-up’.</p>
+<p>Note that the above query assumes that a signup is tracked using <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>custom structured event tracking</a>, where the event action field is set to &#8216;sign-up&#8217;.</p>
 
-<h3 id="1c_definine_a_cohort_by_the_channel_a_user_was_acquired_on">1c. Definine a cohort by the channel a user was acquired on</h3>
+<h3 id='1c_definine_a_cohort_by_the_channel_a_user_was_acquired_on'>1c. Definine a cohort by the channel a user was acquired on</h3>
 
 <p>This is important if we want to e.g. compare the lifetime value of customers acquired from different channels.</p>
 
-<p>In this case, we need to look again at the first time a user visited the site, see how they were referred to the site, and then classify them by cohort accordingly. If we were interested in compare users who’d found the site organically, vs those from CPC campaigns, vs those referred from 3rd party sites, for example, we’d look at the <code>mkt_medium</code> field:</p>
+<p>In this case, we need to look again at the first time a user visited the site, see how they were referred to the site, and then classify them by cohort accordingly. If we were interested in compare users who&#8217;d found the site organically, vs those from CPC campaigns, vs those referred from 3rd party sites, for example, we&#8217;d look at the <code>mkt_medium</code> field:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>cohort_dfn_by_paid_channel_acquired_by_month</span> <span class='k'>AS</span>
 <span class='k'>SELECT</span>
@@ -188,12 +181,10 @@
 <span class='p'>)</span> <span class='n'>t</span>
 <span class='k'>WHERE</span> <span class='n'>r</span> <span class='o'>=</span> <span class='mi'>1</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="1d_other_ways_to_define_cohorts">1d. Other ways to define cohorts</h3>
+<h3 id='1d_other_ways_to_define_cohorts'>1d. Other ways to define cohorts</h3>
 
-<p>Snowplow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of Snowplow. (This data will need to be uploaded to Snowplow before it can be used.) For more information, <a href="mailto:contact@snowplowanalytics.com">get in touch</a>.</p>
-
-<p><a name='metric-definition'><h2>2. Metric definitions</h2></a></p>
-
+<p>Snowplow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of Snowplow. (This data will need to be uploaded to Snowplow before it can be used.) For more information, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
+<a name='metric-definition'><h2>2. Metric definitions</h2></a>
 <p>As a second step, we need to define a query that measure the <em>thing</em> we want to compare between our cohorts. We therefore need to populate a table like the one below:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* Pseudo-SQL */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>metric_by_user</span>  <span class='k'>AS</span>
@@ -206,7 +197,7 @@
 </code></pre></div>
 <p>There is a wide range <code>metric_value</code>s we might want to compare between cohorts: most either get at how engaged a particular cohort is, or how valuable a particular cohort is.</p>
 
-<h3 id="2a_measuring_user_retention">2a. Measuring user retention</h3>
+<h3 id='2a_measuring_user_retention'>2a. Measuring user retention</h3>
 
 <p>Tracking retention levels by cohort is one of the most common types of cohort analysis. In this case, we simply check to see how many of our original cohort return, each time period, to continue to use our service.</p>
 
@@ -219,9 +210,9 @@
 <span class='k'>FROM</span> <span class='ss'>&quot;atomic&quot;</span><span class='p'>.</span><span class='n'>events</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="2b_measuring_user_engagement">2b. Measuring user engagement</h3>
+<h3 id='2b_measuring_user_engagement'>2b. Measuring user engagement</h3>
 
-<p>There are a <a href="/analytics/customer-analytics/user-engagement.html">wide variety of ways to measure user engagement</a>. Here we give just a couple of examples:</p>
+<p>There are a <a href='/analytics/customer-analytics/user-engagement.html'>wide variety of ways to measure user engagement</a>. Here we give just a couple of examples:</p>
 
 <p>To start with, we could look at the number days per month that a user visited our website:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
@@ -240,7 +231,7 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<p>Alternatively, we might want to just look at the average number of visits per month. (Maybe we’re doing the analysis for a search or affiliate site, that aims to build a loyal base of repeat users who visit the site frequently but then get off it quickly onto other sites where they make purchases.)</p>
+<p>Alternatively, we might want to just look at the average number of visits per month. (Maybe we&#8217;re doing the analysis for a search or affiliate site, that aims to build a loyal base of repeat users who visit the site frequently but then get off it quickly onto other sites where they make purchases.)</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>engagement_users_by_visits_per_month</span> <span class='k'>AS</span> 
 <span class='k'>SELECT</span>
@@ -258,9 +249,9 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="2c_measuring_customer_value">2c. Measuring customer value</h3>
+<h3 id='2c_measuring_customer_value'>2c. Measuring customer value</h3>
 
-<p>There are a <a href="/analytics/customer-analytics/customer-lifetime-value.html">wide variety of ways to measure customer value and lifetime value</a>. Here we give just one example - for a retailer that wants to compare purchase value per month:</p>
+<p>There are a <a href='/analytics/customer-analytics/customer-lifetime-value.html'>wide variety of ways to measure customer value and lifetime value</a>. Here we give just one example - for a retailer that wants to compare purchase value per month:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>clv_total_transaction_value_by_user_by_month</span> <span class='k'>AS</span>
 <span class='k'>SELECT</span>
@@ -278,12 +269,10 @@
 	<span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>,</span><span class='mi'>4</span> <span class='p'>)</span> <span class='k'>AS</span> <span class='n'>t</span> <span class='c1'>-- deduped transaction table</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<h3 id="2d_other_metrics_to_compare">2d. Other metrics to compare</h3>
+<h3 id='2d_other_metrics_to_compare'>2d. Other metrics to compare</h3>
 
-<p>Snowplow makes it possible to compare a large number of other metrics. For specific help / questions, <a href="mailto:contact@snowplowanalytics.com">get in touch</a>.</p>
-
-<p><a name='combinetheresults'><h2>3. Combining the results in the final cohort analysis</h2></a></p>
-
+<p>Snowplow makes it possible to compare a large number of other metrics. For specific help / questions, <a href='mailto:contact@snowplowanalytics.com'>get in touch</a>.</p>
+<a name='combinetheresults'><h2>3. Combining the results in the final cohort analysis</h2></a>
 <p>To perform the actual cohort analysis, we <code>JOIN</code> our two tables: the user-cohort-map table and our user-metric table, and aggregate results by cohort by time period so that we can compare them alongside each other. For example, if we want to do a cohort analysis, that uses the date that a user first touches our website to define cohort and compares retention rates by cohort, the following query does the tricky:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>cohort_retention_by_month_first_touch</span> <span class='k'>AS</span>
@@ -299,7 +288,7 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>;</span>
 </code></pre></div>
-<p>If we’d like to compare retention rates between cohorts defined by referer channels:</p>
+<p>If we&#8217;d like to compare retention rates between cohorts defined by referer channels:</p>
 <div class='highlight'><pre><code class='sql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>CREATE</span> <span class='k'>VIEW</span> <span class='n'>recipes_customer</span><span class='p'>.</span><span class='n'>cohort_retention_by_week_by_refr_acquired</span> <span class='k'>AS</span>
 <span class='k'>SELECT</span> 
@@ -315,8 +304,7 @@
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mi'>1</span><span class='p'>,</span><span class='mi'>2</span><span class='p'>,</span><span class='mi'>3</span><span class='p'>;</span>
 </code></pre></div>
-<p>For more about cohort analyses and performing them on Snowplow, view the <a href="http://www.keplarllp.com/blog/2012/05/performing-cohort-analysis-on-web-analytics-data-using-snowplow">blog post series</a> on <a href="http://www.keplarllp.com">Keplar LLP</a>.</p>
-
+<p>For more about cohort analyses and performing them on Snowplow, view the <a href='http://www.keplarllp.com/blog/2012/05/performing-cohort-analysis-on-web-analytics-data-using-snowplow'>blog post series</a> on <a href='http://www.keplarllp.com'>Keplar LLP</a>.</p>
 </div>
 
  <div id="sidebar">

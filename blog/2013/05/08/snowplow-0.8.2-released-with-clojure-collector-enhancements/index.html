@@ -71,17 +71,16 @@
 			08 May 2013
 			<h1>Snowplow 0.8.2 released with Clojure Collector enhancements</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
+			<p>We&#8217;re pleased to announce the immediate availability of Snowplow <strong>0.8.2</strong>. This release updates the Clojure Collector only; if you are using the CloudFront Collector, then no upgrade to 0.8.2 is necessary.</p>
 
-<p>Many thanks to community member <a href="https://github.com/butlermh">Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
+<p>Many thanks to community member <a href='https://github.com/butlermh'>Mark H. Butler</a> for his major contributions to this release - much appreciated Mark!</p>
 
 <p>This release bumps the Clojure Collector to version <strong>0.4.0</strong>. There are three main changes to the Collector:</p>
 
 <ol>
-<li>Building the Collector’s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
+<li>Building the Collector&#8217;s warfile is now much simpler, thanks to a new <code>lein aws</code> command contributed by Mark</li>
 
-<li>We have fixed a bug (<a href="https://github.com/snowplow/snowplow/issues/220">#220</a>) where occasionally the Collector’s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
+<li>We have fixed a bug (<a href='https://github.com/snowplow/snowplow/issues/220'>#220</a>) where occasionally the Collector&#8217;s event logging would log <code>&quot;&quot;</code> (empty string) rather than <code>&quot;-&quot;</code> for a missing referer. While rare, when this occurred this would cause the Snowplow ETL process to break (requiring manual editing of the offending log file)</li>
 
 <li>Some code tidy-up, including making the Clojure Collector work with newer versions of Leiningen</li>
 </ol>
@@ -89,17 +88,16 @@
 <p>To upgrade to this release:</p>
 
 <ol>
-<li>Download the new warfile by right-clicking on <a href="http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war">this link</a> and selecting “Save As…”</li>
+<li>Download the new warfile by right-clicking on <a href='http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.4.0-standalone.war'>this link</a> and selecting &#8220;Save As&#8230;&#8221;</li>
 
 <li>Log in to your Amazon Elastic Beanstalk console</li>
 
-<li>Browse to your Collector’s application</li>
+<li>Browse to your Collector&#8217;s application</li>
 
-<li>Click the “Upload New Version” and upload your warfile</li>
+<li>Click the &#8220;Upload New Version&#8221; and upload your warfile</li>
 </ol>
 
-<p>And that should be it. Thanks again to Mark for his contribution to this release - and we’re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
-
+<p>And that should be it. Thanks again to Mark for his contribution to this release - and we&#8217;re excited to have some further community contributions coming very soon to Snowplow, so watch this space!</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

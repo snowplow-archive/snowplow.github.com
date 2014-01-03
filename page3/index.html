@@ -72,24 +72,23 @@
 			22 Oct 2013
 			<h1><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p><em>We wanted to follow-up our recent <a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/">launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
+			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
 
-<p><img src="/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG" alt="final-cohort-analysis-summary" /></p>
+<p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
 
-<p>In this post, we’ll cover how to perform a cohort analysis using <a href="http://chartio.com/">ChartIO</a> and Snowplow.</p>
+<p>In this post, we&#8217;ll cover how to perform a cohort analysis using <a href='http://chartio.com/'>ChartIO</a> and Snowplow.</p>
 
-<h2 id="recap_what_is_cohort_analysis">Recap: what is Cohort Analysis</h2>
+<h2 id='recap_what_is_cohort_analysis'>Recap: what is Cohort Analysis</h2>
 
-<p>We have described cohort analysis at length in the <a href="/analytics/customer-analytics/cohort-analysis.html">Analyst Cookbook</a>. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:</p>
+<p>We have described cohort analysis at length in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:</p>
 
 <ol>
 <li>how you group people into cohorts (cohort definition), and</li>
 
-<li>the characteristic that you’re comparing between cohort over time.</li>
+<li>the characteristic that you&#8217;re comparing between cohort over time.</li>
 </ol>
 
-<p>In digital media people generally use the phrase ‘cohort analysis’ to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
+<p>In digital media people generally use the phrase &#8216;cohort analysis&#8217; to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
 <p class='more'><a href='/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -97,8 +96,7 @@
 			21 Oct 2013
 			<h1><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
+			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
 
 <ol>
 <li>Custom trackers and collector logging formats</li>
@@ -118,7 +116,7 @@
 <li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
 </ol>
 
-<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a “middle ground” between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
+<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
 
 <p>If possible, the following approach would make an attractive middle ground:</p>
 
@@ -130,9 +128,9 @@
 <li>These scripts can be written in a popular and easy-to-learn scripting language</li>
 </ol>
 
-<p>Two technologies stood out as promising: Java’s <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine">ScriptEngine</a> and Mozilla’s <a href="https://developer.mozilla.org/en/docs/Rhino">Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
+<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
 
-<p>The first step to test if this approach is viable, was to test out Rhino and Scala’s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed</p>
+<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
 <p class='more'><a href='/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -140,26 +138,23 @@
 			18 Oct 2013
 			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href="http://snowplowanalytics.com/analytics/index.html">Analysts Cookbook</a> and ‘baked them’ into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
+			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
 
 <ol>
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background">Background on this release</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
 
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema">Reorganizing the Snowplow database</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
 
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use">Seeing a recipe in action: charting the number of uniques over time</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
 
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube">Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
 
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup">Installing this release</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
 
-<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps">Next steps: where to go from here</a></li>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
 </ol>
-
-<p><a name='background'><h2>1. Background on this release</h2></a></p>
-
-<p>One of the things we’ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
+<a name='background'><h2>1. Background on this release</h2></a>
+<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
 
 <p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
 
@@ -171,12 +166,11 @@
 			07 Oct 2013
 			<h1><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Applications for the new Snowplow Analytics open source internship program are now open! At Snowplow we are passionate about enterprise-strength open-source technology, and we are hugely excited to be offering paid internships for open source hackers this winter.</p>
+			<p>Applications for the new Snowplow Analytics open source internship program are now open! At Snowplow we are passionate about enterprise-strength open-source technology, and we are hugely excited to be offering paid internships for open source hackers this winter.</p>
 
-<p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our “winterns” will work directly on and contribute to data engineering projects within the <a href="https://github.com/snowplow">Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
+<p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &#8220;winterns&#8221; will work directly on and contribute to data engineering projects within the <a href='https://github.com/snowplow'>Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
 
-<p><img src="/static/img/blog/2013/10/billion-dollar-brain.png" alt="billion-dollar-brain" /></p>
+<p><img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /></p>
 <p class='more'><a href='/blog/2013/10/07/announcing-our-winter-open-source-internship-program'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -184,24 +178,23 @@
 			01 Oct 2013
 			<h1><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>As of yesterday, the <a href="https://github.com/snowplow/snowplow">Snowplow repository on GitHub</a> now has over 500 stars! We’re hugely excited to reach this milestone, having picked up <strong>300 new watchers</strong> since our <a href="/blog/2013/01/20/snowplow-hits-202-stars">last milestone</a> in January.</p>
+			<p>As of yesterday, the <a href='https://github.com/snowplow/snowplow'>Snowplow repository on GitHub</a> now has over 500 stars! We&#8217;re hugely excited to reach this milestone, having picked up <strong>300 new watchers</strong> since our <a href='/blog/2013/01/20/snowplow-hits-202-stars'>last milestone</a> in January.</p>
 
 <p>Many thanks to everyone in the Snowplow community and on GitHub for their continuing support and interest!</p>
 
-<p>Here’s a quick round-up of the most popular open source analytics projects on GitHub:</p>
+<p>Here&#8217;s a quick round-up of the most popular open source analytics projects on GitHub:</p>
 
 <ul>
-<li><a href="https://github.com/mnutt/hummingbird">Hummingbird</a> (real-time web analytics) - 2,299 stars</li>
+<li><a href='https://github.com/mnutt/hummingbird'>Hummingbird</a> (real-time web analytics) - 2,299 stars</li>
 
-<li><a href="https://github.com/piwik/piwik">Piwik</a> (web analytics) - 1,290 stars</li>
+<li><a href='https://github.com/piwik/piwik'>Piwik</a> (web analytics) - 1,290 stars</li>
 
-<li><a href="https://github.com/Countly/countly-server">Countly</a> (mobile analytics) - 798 stars</li>
+<li><a href='https://github.com/Countly/countly-server'>Countly</a> (mobile analytics) - 798 stars</li>
 
-<li><a href="https://github.com/snowplow/snowplow">Snowplow</a> - 501 stars</li>
+<li><a href='https://github.com/snowplow/snowplow'>Snowplow</a> - 501 stars</li>
 </ul>
 
-<p>So we’re in the challenger position but definitely nipping at the heels of the alternatives!</p>
+<p>So we&#8217;re in the challenger position but definitely nipping at the heels of the alternatives!</p>
 <p class='more'><a href='/blog/2013/10/01/snowplow-passes-500-stars'>Read the rest of this entry</a></p>
 		</div>
 	

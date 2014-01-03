@@ -71,26 +71,25 @@
 			07 Jan 2013
 			<h1>Understanding the thinking behind the Clojure Collector, and mapping out its development going forwards</h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
-			
-<p>Last week we released <a href="/blog/2013/01/03/snowplow-0.7.0-released/">Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
+			<p>Last week we released <a href='/blog/2013/01/03/snowplow-0.7.0-released/'>Snowplow 0.7.0</a>: which included a new Clojure Collector, with some significant new functionality for content networks and ad networks in particular. In this post we explain a lot of the thinking behind the Clojure Collector architecture, before taking a look ahead at the short and long-term development roadmap for the collector.</p>
 
 <p>This is the first in a series of posts we write where describe in some detail the thinking behind the architecture and design of Snowplow components, and discuss how we plan to develop those components over time. The purpose of doing so is to engage people like yourself: developers and analysts in the Snowplow community, in a discussion about how best to evolve Snowplow. The reasoning is simple: we have had many fantastic ideas and contributions from community members that have proved invaluable in driving Snowplow development, and we want to encourage more of these conversations and contributions, to help make Snowplow great.</p>
 
-<p><img src="/static/img/blog/2013/01/engine.jpg" alt="engine" /></p>
+<p><img alt='engine' src='/static/img/blog/2013/01/engine.jpg' /></p>
 
-<h2 id="contents">Contents</h2>
+<h2 id='contents'>Contents</h2>
 
 <ol>
-<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#biz-case">The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#biz-case'>The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></li>
 
-<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood">Under the hood: the design decisions behind the Clojure Collector</a></li>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#under-the-hood'>Under the hood: the design decisions behind the Clojure Collector</a></li>
 
-<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap">Moving forwards: short term Clojure Collector roadmap</a></li>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#short-term-roadmap'>Moving forwards: short term Clojure Collector roadmap</a></li>
 
-<li><a href="/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap">Looking ahead: long term collector roadmap</a></li>
+<li><a href='/blog/2013/01/07/the-clojure-collector-in-detail#long-term-roadmap'>Looking ahead: long term collector roadmap</a></li>
 </ol>
 <!--more--><h2><a name='biz-case'>1. The business case for a new collector: understanding the limitations of the Cloudfront Collector</a></h2>
-<p>We launched Snowplow with the <a href="https://github.com/snowplow/snowplow/wiki/setting-up-the-cloudfront-collector">Cloudfront Collector</a>. The Cloudfront Collector is simple:</p>
+<p>We launched Snowplow with the <a href='https://github.com/snowplow/snowplow/wiki/setting-up-the-cloudfront-collector'>Cloudfront Collector</a>. The Cloudfront Collector is simple:</p>
 
 <ol>
 <li>The Snowplow tracking pixel is served from Amazon Cloudfront</li>
@@ -100,66 +99,65 @@
 <li>Events and associated data points we want to capture are stored as name / value pairs and appended to the query string for the tracking pixel, so that they are automatically logged.</li>
 </ol>
 
-<p>The Cloudfront Collector is so simple that many people express surprise that there are so few files in the appropriate section of the <a href="https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector">Snowplow repo</a>. (It’s just a <code>readme</code> and the tracking pixel.) In spite of that simplicity, however, the Cloudfront Collector boasts two key strengths:</p>
+<p>The Cloudfront Collector is so simple that many people express surprise that there are so few files in the appropriate section of the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Snowplow repo</a>. (It&#8217;s just a <code>readme</code> and the tracking pixel.) In spite of that simplicity, however, the Cloudfront Collector boasts two key strengths:</p>
 
 <ol>
 <li><strong>Simplicity</strong>. Simplicity is a strength: because it has no moving parts, the Cloudfront Collector is incredibly robust. It makes no decisions. All it does is faithfully log requests made to the tracking pixel. There is very little that can go wrong with it. (Nothing if Cloudfront stays live.)</li>
 
-<li><strong>Scalability</strong>. By using Amazon’s content distribution network (CDN) to serve the tracking pixel and log requests for the tracking pixel, we can be confident that businesses using the Cloudfront Collector will be able to comfortably track millions of requests per hour. Amazon’s CDN has been designed to be elastic: it responds automatically to spikes in demand, so you can be confident that even in during peak demand periods, all your data will successfully be captured and stored.</li>
+<li><strong>Scalability</strong>. By using Amazon&#8217;s content distribution network (CDN) to serve the tracking pixel and log requests for the tracking pixel, we can be confident that businesses using the Cloudfront Collector will be able to comfortably track millions of requests per hour. Amazon&#8217;s CDN has been designed to be elastic: it responds automatically to spikes in demand, so you can be confident that even in during peak demand periods, all your data will successfully be captured and stored.</li>
 </ol>
 
 <p>Nonetheless, there are two major limitations to the Cloudfront Collector:</p>
 
 <ol>
-<li><strong>Unable to track users across domains</strong>. Because Snowplow has been designed to be scalable, we’ve had a lot of interest in it from media groups, content networks and ad networks. All of these companies want to track individual users across multiple websites. This is not directly supported by the Cloudfront Collector: because it has no moving parts, user identification has to be performed client side, by the <a href="https://github.com/snowplow/snowplow/wiki/javascript-tracker-setup">Javascript tracker</a> using first party cookies. As a result, <code>user_id</code>s that are set on one domain cannot be accessed on another domain, even if both domains are owned and operated by the same company.</li>
+<li><strong>Unable to track users across domains</strong>. Because Snowplow has been designed to be scalable, we&#8217;ve had a lot of interest in it from media groups, content networks and ad networks. All of these companies want to track individual users across multiple websites. This is not directly supported by the Cloudfront Collector: because it has no moving parts, user identification has to be performed client side, by the <a href='https://github.com/snowplow/snowplow/wiki/javascript-tracker-setup'>Javascript tracker</a> using first party cookies. As a result, <code>user_id</code>s that are set on one domain cannot be accessed on another domain, even if both domains are owned and operated by the same company.</li>
 
 <li><strong>Not real-time</strong>. Cloudfront log files typically appear in S3 3-4 hours after the requests logged were made. As a result, if you rely on the Cloudfront cCollector for your web analytics data, you will always be looking at data that is at least 3-4 hours old.</li>
 </ol>
 
 <p>The Clojure Collector explicitly addresses the first issue identified above: it has a single moving part, which checks if a <code>user_id</code> has been set for this user: if so, it logs that <code>user_id</code>. If not, it sets a <code>user_id</code> (server side), and stores that <code>user_id</code> in a cookie on the collectors own domain, accessible from any website running Snowplow that uses the same collector.</p>
 
-<p>The Clojure Collector does not explicitly address the second issue related to the speed at which data is logged for analysis. Although it logs data faster than the Cloudfront Collector (logs are rotated to S3 hourly), this is still not fast enough for real time analysis. However, it is fast enough that the processing bottleneck shifts from the collector to the ETL step: this is something we plan on addressing in the near future. (More on this <a href="#long-term-roadmap">later</a>.)</p>
+<p>The Clojure Collector does not explicitly address the second issue related to the speed at which data is logged for analysis. Although it logs data faster than the Cloudfront Collector (logs are rotated to S3 hourly), this is still not fast enough for real time analysis. However, it is fast enough that the processing bottleneck shifts from the collector to the ETL step: this is something we plan on addressing in the near future. (More on this <a href='#long-term-roadmap'>later</a>.)</p>
 <h2><a name='under-the-hood'>2. Under the hood: the design decisions behind the Clojure Collector</a></h2>
 <p>We made three important design decisions when building the Clojure Collector:</p>
 
-<h3 id="1_built_for_elastic_beanstalk">1. Built for Elastic Beanstalk</h3>
+<h3 id='1_built_for_elastic_beanstalk'>1. Built for Elastic Beanstalk</h3>
 
 <p>We built the Clojure Collector specifically for Elastic Beanstalk. This has a number of important advantages:</p>
 
 <ul>
-<li><strong>Comfortably scales to handle spikes in demand</strong>. Elastic Beanstalk is <strong>elastic</strong> in the same way as Cloudfront is <strong>elastic</strong>. It makes it easy to scale services to handle spikes in demand, which is crucial if we’re going to continue to track events data during spikes in service usage.</li>
+<li><strong>Comfortably scales to handle spikes in demand</strong>. Elastic Beanstalk is <strong>elastic</strong> in the same way as Cloudfront is <strong>elastic</strong>. It makes it easy to scale services to handle spikes in demand, which is crucial if we&#8217;re going to continue to track events data during spikes in service usage.</li>
 
 <li><strong>Automatic logging to S3</strong>. Elastic Beanstalk supports a configuration option that automatically rotates Tomcat access logs to Elastic Beanstalk hourly. By using this feature, we were able to save ourselves having to build build a process to manage that log rotation, and save our users the hassle of installing and maintaining the process.</li>
 </ul>
 
 <p>Amazon Elastic Beanstalk supports open source applications built for the JVM, or PHP, Python and Ruby web apps. Of the four, it was clear that JVM was the most performative platform to build a Collector in.</p>
 
-<h3 id="2_minimal_moving_parts">2. Minimal moving parts</h3>
+<h3 id='2_minimal_moving_parts'>2. Minimal moving parts</h3>
 
 <p>The Clojure collector <em>only</em> sets <code>user_id</code>s and expiry dates on those <code>user_id</code>s. It does <em>nothing</em> else: keeping it as simple as possible.</p>
 
-<h3 id="3_log_files_formats_match_those_produced_by_cloudfront">3. Log files formats match those produced by Cloudfront</h3>
+<h3 id='3_log_files_formats_match_those_produced_by_cloudfront'>3. Log files formats match those produced by Cloudfront</h3>
 
-<p>The least wieldy part of the Snowplow stack today is the <a href="https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module">ETL step</a>. This parses the log files produced by the collector, extracts the relevant data points and loads them into S3 for processing by Hadoop/Hive and/or Infobright for processing in a wide range of tools e.g. <a href="http://chartio.com">ChartIO</a> or <a href="http://www.r-project.org/">R</a>.</p>
+<p>The least wieldy part of the Snowplow stack today is the <a href='https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module'>ETL step</a>. This parses the log files produced by the collector, extracts the relevant data points and loads them into S3 for processing by Hadoop/Hive and/or Infobright for processing in a wide range of tools e.g. <a href='http://chartio.com'>ChartIO</a> or <a href='http://www.r-project.org/'>R</a>.</p>
 
-<p>We have plans to replace the current <a href="https://github.com/snowplow/snowplow/wiki/hive-etl-setup">Hive-based ETL process</a> with an all new process based on <a href="https://github.com/twitter/scalding">Scalding</a>. (More on this in the next blog post in this series.) In the meantime, however, we did not want to have to write a new Hive deserializer to parse log files that match a new format: instead, we customised Tomcat in the Clojure Collector to output log files that matched the Cloudfront logging format. (This involved writing a custom <a href="[tomcat-cf-access-valve]">Tomact Access Valve</a> and tailoring <a href="https://github.com/snowplow/snowplow/blob/master/2-collectors/clojure-collector/war-resources/.ebextensions/server.xml">Tomcat’s server.xml</a>.) As a result, the new Clojure Collector plays well with the existing ETL process.</p>
+<p>We have plans to replace the current <a href='https://github.com/snowplow/snowplow/wiki/hive-etl-setup'>Hive-based ETL process</a> with an all new process based on <a href='https://github.com/twitter/scalding'>Scalding</a>. (More on this in the next blog post in this series.) In the meantime, however, we did not want to have to write a new Hive deserializer to parse log files that match a new format: instead, we customised Tomcat in the Clojure Collector to output log files that matched the Cloudfront logging format. (This involved writing a custom <a href='[tomcat-cf-access-valve]'>Tomact Access Valve</a> and tailoring <a href='https://github.com/snowplow/snowplow/blob/master/2-collectors/clojure-collector/war-resources/.ebextensions/server.xml'>Tomcat&#8217;s server.xml</a>.) As a result, the new Clojure Collector plays well with the existing ETL process.</p>
 <h2><a name='short-term-roadmap'>3. Moving forwards: short term Clojure Collector roadmap</a></h2>
 <p>This is the initial release of the Clojure Collector. If it will be deployed by large media companies, content networks and ad networks, it is important that we learn how to configure it to function well at scale. To this end, we are looking for help, from members of the Snowplow community (particularly those with an interest in tracking users across domains), to help with the following:</p>
 
 <ol>
-<li>Load testing the collector. Test how fast the collector responds to increasing number of requests per second, and how this varies by the size of instance offered by Amazon. (E.g. how does the curve differ for an m1.small instance than an m1.large instance?) It should be possible to use a tool like <a href="http://www.joedog.org/siege-home/">Siege</a> or <a href="http://httpd.apache.org/docs/2.2/programs/ab.html">Apache Bench</a> to test response levels and response times at increasing levels of request concurrency, and plot one against the other.</li>
+<li>Load testing the collector. Test how fast the collector responds to increasing number of requests per second, and how this varies by the size of instance offered by Amazon. (E.g. how does the curve differ for an m1.small instance than an m1.large instance?) It should be possible to use a tool like <a href='http://www.joedog.org/siege-home/'>Siege</a> or <a href='http://httpd.apache.org/docs/2.2/programs/ab.html'>Apache Bench</a> to test response levels and response times at increasing levels of request concurrency, and plot one against the other.</li>
 
 <li>On the basis of the above, working out the optimal way of setting up the Clojure Collector on Elastic Beanstalk. It would be good to answer two questions in particular: what size instance is it most cost effective to use, and what should trigger the starting up of an additional instance to cope with a spike in traffic? Amazon makes it possible to specify custom KPI to use to trigger scaling of services on Elastic Beanstalk, and it may be that doing so results in much improved performance and reliability from the Collector.</li>
 </ol>
 
-<p>Because we haven’t been able to perform the above tests to date, we’re still calling the Clojure Collector an experimental release, adn recommend that companies using it in production run it alongside the Cloudfront Collector.</p>
+<p>Because we haven&#8217;t been able to perform the above tests to date, we&#8217;re still calling the Clojure Collector an experimental release, adn recommend that companies using it in production run it alongside the Cloudfront Collector.</p>
 <h2><a name='long-term-roadmap'>4. Looking ahead: long term collector roadmap</a></h2>
-<p>Long term we need to move the whole Snowplow so that it’s processing data faster, closer to real-time. This primarily means moving the <a href="https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module">ETL</a> process from a Hadoop, batch-based process that is run at regular intervals to a stream-based, always on process, using a technology like <a href="http://storm-project.net/">Storm</a>. In the next post in this blog post series, we will elaborate further on our proposed developments for this part of the Snowplow stack. When the time comes, however, we will need to build a new collector, or modify an existing collector, to work in a stream-based system. (So that rather than rely on the processing of logs, each new event logged generates a message in a queue that kicks of a set of analytic processing tasks that end with the data being stored in S3 / Infobright.)</p>
+<p>Long term we need to move the whole Snowplow so that it&#8217;s processing data faster, closer to real-time. This primarily means moving the <a href='https://github.com/snowplow/snowplow/wiki/choosing-an-etl-module'>ETL</a> process from a Hadoop, batch-based process that is run at regular intervals to a stream-based, always on process, using a technology like <a href='http://storm-project.net/'>Storm</a>. In the next post in this blog post series, we will elaborate further on our proposed developments for this part of the Snowplow stack. When the time comes, however, we will need to build a new collector, or modify an existing collector, to work in a stream-based system. (So that rather than rely on the processing of logs, each new event logged generates a message in a queue that kicks of a set of analytic processing tasks that end with the data being stored in S3 / Infobright.)</p>
 
-<h2 id="want_to_get_involved">Want to get involved?</h2>
+<h2 id='want_to_get_involved'>Want to get involved?</h2>
 
-<p>Want to help us develop the Clojure Collector, or some other part of the Snowplow stack? Have an idea about what we should be doing better, or differently? Then <a href="/about/index.html">get in touch</a>. We’d love to hear from you.</p>
-
+<p>Want to help us develop the Clojure Collector, or some other part of the Snowplow stack? Have an idea about what we should be doing better, or differently? Then <a href='/about/index.html'>get in touch</a>. We&#8217;d love to hear from you.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				 

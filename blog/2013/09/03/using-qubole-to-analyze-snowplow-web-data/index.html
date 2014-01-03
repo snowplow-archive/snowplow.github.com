@@ -71,20 +71,19 @@
 			03 Sep 2013
 			<h1>Using Qubole to crunch your Snowplow web data using Apache Hive</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>We’ve just published a getting-started guide to using <a href="http://www.qubole.com/#All">Qubole</a>, a managed Big Data service, to query your Snowpow data. You can read the guide <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive">here</a>.</p>
+			<p>We&#8217;ve just published a getting-started guide to using <a href='http://www.qubole.com/#All'>Qubole</a>, a managed Big Data service, to query your Snowpow data. You can read the guide <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'>here</a>.</p>
 
-<p><img src="/static/img/blog/2013/09/qubole-logo.png" alt="qubole-logo" /></p>
+<p><img alt='qubole-logo' src='/static/img/blog/2013/09/qubole-logo.png' /></p>
 
 <p>Snowplow delivers event data to users in a number of different places:</p>
 
 <ol>
 <li>Amazon Redshift or PostgreSQL, so you can analyze the data using traditional analytics and BI tools</li>
 
-<li>Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. <a href="http://mahout.apache.org/">Mahout</a>, <a href="http://hive.apache.org/">Hive</a> and <a href="http://pig.apache.org/">Pig</a>, on EMR</li>
+<li>Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. <a href='http://mahout.apache.org/'>Mahout</a>, <a href='http://hive.apache.org/'>Hive</a> and <a href='http://pig.apache.org/'>Pig</a>, on EMR</li>
 </ol>
 
-<p>Since we started offering support for Amazon Redshift and more recently PostgreSQL, our focus on the blog and in the <a href="/analytics/index.html">Analytics Cookbook</a> has been on using traditional analytics tools e.g. <a href="http://www.tableausoftware.com/">Tableau</a>, <a href="http://cran.r-project.org/">R</a> and <a href="http://office.microsoft.com/en-gb/excel/">Excel</a> to crunch the data. However, there are a host of reasons when you might want to crunch the data using one of the new generation of big data tools. Two give two examples:</p>
+<p>Since we started offering support for Amazon Redshift and more recently PostgreSQL, our focus on the blog and in the <a href='/analytics/index.html'>Analytics Cookbook</a> has been on using traditional analytics tools e.g. <a href='http://www.tableausoftware.com/'>Tableau</a>, <a href='http://cran.r-project.org/'>R</a> and <a href='http://office.microsoft.com/en-gb/excel/'>Excel</a> to crunch the data. However, there are a host of reasons when you might want to crunch the data using one of the new generation of big data tools. Two give two examples:</p>
 
 <ol>
 <li>You may want to join your Snowplow data with other data sets, and those data sets are not structured. (E.g. they are in JSON, or custom text file formats.)</li>
@@ -92,20 +91,19 @@
 <li>You want to use specific algorithms or libraries that have been built for big data tools e.g. Mahout recommendation or clustering algorithms.</li>
 </ol>
 <!--more-->
-<p>For situations when you want to use big data tools to crunch your Snowplow and other data in S3, an increasingly attractive alternative to doing that in EMR is to use <a href="http://www.qubole.com/#All">Qubole</a>.</p>
+<p>For situations when you want to use big data tools to crunch your Snowplow and other data in S3, an increasingly attractive alternative to doing that in EMR is to use <a href='http://www.qubole.com/#All'>Qubole</a>.</p>
 
-<p><img src="/static/img/blog/2013/09/qubole-ui.png" alt="qubole-ui" /></p>
+<p><img alt='qubole-ui' src='/static/img/blog/2013/09/qubole-ui.png' /></p>
 
-<p><a href="http://www.qubole.com/#All">Qubole</a> runs on top of Amazon Web Services. It interfaces directly with S3, in just the same way that EMR does. However, Qubole is a significantly more polished product than EMR. Data scientists can explore their data in S3, create tables and query those tables all via an easy-to-use web UI. You can test queries on samples of the data, easily run and monitor multiple queries in parallel and download the results of queries directly to your local computer, so you can quickly visualize it in Excel or R.</p>
+<p><a href='http://www.qubole.com/#All'>Qubole</a> runs on top of Amazon Web Services. It interfaces directly with S3, in just the same way that EMR does. However, Qubole is a significantly more polished product than EMR. Data scientists can explore their data in S3, create tables and query those tables all via an easy-to-use web UI. You can test queries on samples of the data, easily run and monitor multiple queries in parallel and download the results of queries directly to your local computer, so you can quickly visualize it in Excel or R.</p>
 
-<p>It’s not just the UI that makes using Qubole a lot nicer than EMR. Qubole handles the behind the scenes scaling of your cluster, so you don’t have to. Queries that do not require map reduce jobs to produce outputs, e.g. reading data directly from S3, can be executed without spinning up clusters (and so return much faster). Clusters that are no longer used, are automatically shut down. (Am I the only person who’s got in trouble for leaving a big cluster running over night?)</p>
+<p>It&#8217;s not just the UI that makes using Qubole a lot nicer than EMR. Qubole handles the behind the scenes scaling of your cluster, so you don&#8217;t have to. Queries that do not require map reduce jobs to produce outputs, e.g. reading data directly from S3, can be executed without spinning up clusters (and so return much faster). Clusters that are no longer used, are automatically shut down. (Am I the only person who&#8217;s got in trouble for leaving a big cluster running over night?)</p>
 
-<p>Qubole is a particular nice service if you want to use Apache Hive. It was developed by the same engineers who originally built Apache Hive at Facebook. In the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive">guide to getting started with Qubole</a>, which we have just published, we walk Snowplow users through the process of running their first query Apache Hive query on Snowplow data with Qubole.</p>
+<p>Qubole is a particular nice service if you want to use Apache Hive. It was developed by the same engineers who originally built Apache Hive at Facebook. In the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'>guide to getting started with Qubole</a>, which we have just published, we walk Snowplow users through the process of running their first query Apache Hive query on Snowplow data with Qubole.</p>
 
-<p>We intend to follow-up the getting started guide with a set of recipes for using both <a href="http://hive.apache.org/">Hive</a> and <a href="http://mahout.apache.org/">Mahout</a> via Qubole. Stay tuned!</p>
+<p>We intend to follow-up the getting started guide with a set of recipes for using both <a href='http://hive.apache.org/'>Hive</a> and <a href='http://mahout.apache.org/'>Mahout</a> via Qubole. Stay tuned!</p>
 
-<p>As always, we welcome comments and feedback - especially on how you find the combination of Qubole’s data crunching capability, on Snowplow’s granular event-level data.</p>
-
+<p>As always, we welcome comments and feedback - especially on how you find the combination of Qubole&#8217;s data crunching capability, on Snowplow&#8217;s granular event-level data.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

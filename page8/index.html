@@ -72,18 +72,15 @@
 			22 May 2013
 			<h1><a href="/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing">Measuring how much traffic individual items in your catalog drive to your website</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>We have just added a <a href="/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html">new recipe</a> to the <a href="/analytics/catalog-analytics/overview.html">catalog analytics</a> section of the <a href="/analytics/index.html">Analytics Cookbook</a>. This recipe describes:</p>
+			<p>We have just added a <a href='/analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html'>new recipe</a> to the <a href='/analytics/catalog-analytics/overview.html'>catalog analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>. This recipe describes:</p>
 
 <ol>
 <li>How to measure how effectively different items in your catalog drive visits to your website.</li>
 
 <li>How to use the data to unpick <em>how</em> each item drives that traffic.</li>
 </ol>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a></p>
-
-<p>In digital marketing, we can distinguish classic “outbound marketing”, where we <em>push</em> visitors to our website using paid ad campaigns, for example, with ”<a href="http://en.wikipedia.org/wiki/Inbound_marketing">inbound market</a>”, where we <em>pull</em> visitors into our site by producing attractive, linkable content.</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a>
+<p>In digital marketing, we can distinguish classic &#8220;outbound marketing&#8221;, where we <em>push</em> visitors to our website using paid ad campaigns, for example, with &#8221;<a href='http://en.wikipedia.org/wiki/Inbound_marketing'>inbound market</a>&#8221;, where we <em>pull</em> visitors into our site by producing attractive, linkable content.</p>
 <p class='more'><a href='/blog/2013/05/22/measuring-how-much-individual-items-in-your-catalog-contribute-to-inbound-marketing'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -91,10 +88,9 @@
 			20 May 2013
 			<h1><a href="/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow">Performing market basket analysis on web analytics data with R</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>We have just added a <a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html">new recipe</a> to the <a href="/analytics/index.html">Analytics Cookbook</a>: one that walks through the process of performing a <a href="/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html">market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using <a href="http://www.r-project.org/">R</a> and the <a href="http://cran.r-project.org/web/packages/arules/index.html">arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I’d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
+			<p>We have just added a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>new recipe</a> to the <a href='/analytics/index.html'>Analytics Cookbook</a>: one that walks through the process of performing a <a href='/analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html'>market basket analysis</a>, to identify associations between products and/or content items based on user purchase / viewing behavior. The recipe covers performing the analysis on Snowplow data using <a href='http://www.r-project.org/'>R</a> and the <a href='http://cran.r-project.org/web/packages/arules/index.html'>arules</a> package in particular. Although the example walked through uses Snowplow data, the same approach <em>can</em> be used with other data sets: I&#8217;d be interested in finding out if members of the #measure community can describe how to do the comparable analysis using data from Google Analytics.</p>
 <p style='text-align: center'><img src='/static/img/analytics/catalog-analytics/market-basket-analysis/market-basket-analysis-scatter-plot-arulesviz.JPG' width='400' /></p>
-<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon’s <em>users who bought this product also bought these items</em></p>
+<p>Market basket analysis is the mining of transaction data to identify associations between different items. This is typically performed by retailers who use it to identify products that a customer is likely to buy, given the products that they have already bought (or added to basket): most famously, it is the approach behind Amazon&#8217;s <em>users who bought this product also bought these items</em>&#8230;</p>
 <p class='more'><a href='/blog/2013/05/20/performing-market-basket-analysis-with-r-arules-and-snowplow'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -102,29 +98,24 @@
 			16 May 2013
 			<h1><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip">Snowplow 0.8.4 released with MaxMind geo-IP lookups</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.4</strong>. This is a big release, which adds geo-IP lookups to the Snowplow Enrichment stage, using the excellent <a href="http://dev.maxmind.com/geoip/legacy/geolite">GeoLite City database</a> from <a href="http://www.maxmind.com">MaxMind, Inc</a>. This has been one of the most requested features from the Snowplow community, so we are delighted to launch it. Now you can determine the location of your website visitors directly from the Snowplow events table, and plot that data on a wide range of mapping tools including <a href="http://kb.tableausoftware.com/articles/knowledgebase/mapping-basics">Tableau</a> or <a href="http://wrobstory.github.io/2013/04/python-maps-chloropleth.html">Vincent</a>:</p>
-
-<p><a href='/static/img/blog/2013/05/pbz-global-visitors.jpg'><img src='/static/img/blog/2013/05/pbz-global-visitors.jpg' /></a></p>
-
+			<p>We are pleased to announce the immediate availability of Snowplow <strong>0.8.4</strong>. This is a big release, which adds geo-IP lookups to the Snowplow Enrichment stage, using the excellent <a href='http://dev.maxmind.com/geoip/legacy/geolite'>GeoLite City database</a> from <a href='http://www.maxmind.com'>MaxMind, Inc</a>. This has been one of the most requested features from the Snowplow community, so we are delighted to launch it. Now you can determine the location of your website visitors directly from the Snowplow events table, and plot that data on a wide range of mapping tools including <a href='http://kb.tableausoftware.com/articles/knowledgebase/mapping-basics'>Tableau</a> or <a href='http://wrobstory.github.io/2013/04/python-maps-chloropleth.html'>Vincent</a>:</p>
+<a href='/static/img/blog/2013/05/pbz-global-visitors.jpg'><img src='/static/img/blog/2013/05/pbz-global-visitors.jpg' /></a>
 <p><em>Click on the image above to enlarge it</em></p>
 
 <p>Here is some example geo-IP data:</p>
-
-<p><a href='/static/img/blog/2013/05/geoip-data.png'><img src='/static/img/blog/2013/05/geoip-data.png' /></a></p>
-
+<a href='/static/img/blog/2013/05/geoip-data.png'><img src='/static/img/blog/2013/05/geoip-data.png' /></a>
 <p><em>Click on the image above to enlarge it</em></p>
 
 <p>As well as geo-IP enrichment, there are a number of other code improvements to the Hadoop ETL, plus some minor improvements to EmrEtlRunner and some corresponding updates to the Redshift table. In this post we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#geoip">The new geo-IP capabilities</a></li>
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#geoip'>The new geo-IP capabilities</a></li>
 
-<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#other-changes">Other changes</a></li>
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#other-changes'>Other changes</a></li>
 
-<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#upgrading">Upgrading</a></li>
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#upgrading'>Upgrading</a></li>
 
-<li><a href="/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#help">Getting help</a></li>
+<li><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip#help'>Getting help</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip'>Read the rest of this entry</a></p>
 		</div>
@@ -133,23 +124,22 @@
 			14 May 2013
 			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Earlier today we <a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
+			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
 
-<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow’s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
+<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
 
 <p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
 
 <p>In the rest of this post, then, we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage">Basic usage</a></li>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object">The <code>properties</code> JavaScript object</a></li>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes">Supported datatypes</a></li>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-unstructured-events-guide#help">Getting help</a></li>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry</a></p>
 		</div>
@@ -158,27 +148,26 @@
 			14 May 2013
 			<h1><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
+			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
 
 <p><strong>Please note that this release only adds unstructured events to the JavaScript Tracker - adding unstructured events to our Enrichment process and storage targets is on the roadmap - but rest assured we are working on it!</strong></p>
 
-<p>Many thanks to community members <a href="https://github.com/rgabo">Gabor Ratky</a>, <a href="https://github.com/tarsolya">Andras Tarsoly</a> and <a href="https://github.com/lackac">Laszlo Bacsi</a>, all from <a href="http://secretsaucepartners.com/">Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href="https://github.com/snowplow/snowplow/pull/198">original GitHub pull request</a>.)</p>
+<p>Many thanks to community members <a href='https://github.com/rgabo'>Gabor Ratky</a>, <a href='https://github.com/tarsolya'>Andras Tarsoly</a> and <a href='https://github.com/lackac'>Laszlo Bacsi</a>, all from <a href='http://secretsaucepartners.com/'>Secret Sauce Partners</a>, for contributing this great feature: Gabor and his team took JavaScript unstructured events from an item on our roadmap to a code-complete feature, big thanks guys! (And if you are interested in seeing how the design and implementation of this powerful feature evolved, do have a read of the <a href='https://github.com/snowplow/snowplow/pull/198'>original GitHub pull request</a>.)</p>
 
 <p>In the rest of this post, then, we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition">What are unstructured events?</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#definition'>What are unstructured events?</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when">When to use unstructured events?</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#when'>When to use unstructured events?</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage">Usage</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#usage'>Usage</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading">Upgrading</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#upgrading'>Upgrading</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap">Roadmap for unstructured events</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#roadmap'>Roadmap for unstructured events</a></li>
 
-<li><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help">Getting help</a></li>
+<li><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events/#help'>Getting help</a></li>
 </ol>
 <p class='more'><a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>Read the rest of this entry</a></p>
 		</div>

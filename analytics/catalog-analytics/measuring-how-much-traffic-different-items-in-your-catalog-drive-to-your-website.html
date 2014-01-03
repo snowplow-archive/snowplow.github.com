@@ -67,57 +67,53 @@
 </div>
 	
 		<div id="contents">
+<a name='top'><h1>Measure how much traffic different items in your catalog drive to your website. (How much do individual items contribute to your inbound marketing?)</h1></a>
+<p>In our <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>earlier recipe</a> for <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measuring product page performance</a>, we measured how good individual product pages on a retailer&#8217;s site was by how effectively each page drove users to add products to their basket. The assumption underlying this measurement technique is that the primary purpose of a product page on a retailer site is to drive purchases of the product.</p>
 
-<p><a name='top'><h1>Measure how much traffic different items in your catalog drive to your website. (How much do individual items contribute to your inbound marketing?)</h1></a></p>
-
-<p>In our <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">earlier recipe</a> for <a href="/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html">measuring product page performance</a>, we measured how good individual product pages on a retailer’s site was by how effectively each page drove users to add products to their basket. The assumption underlying this measurement technique is that the primary purpose of a product page on a retailer site is to drive purchases of the product.</p>
-
-<p>In our <a href="/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html">earlier recipe</a> for <a href="/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html">measuring content page performance</a>, we measured how good individual content pages on a media site are by how long users engage with them, and what fraction of the page users view. The assumption underlying this measurement technique is that the primary purpose of a content page is to drive engagement.</p>
+<p>In our <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>earlier recipe</a> for <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>measuring content page performance</a>, we measured how good individual content pages on a media site are by how long users engage with them, and what fraction of the page users view. The assumption underlying this measurement technique is that the primary purpose of a content page is to drive engagement.</p>
 
 <p>In fact, items in your catalog, be they products on a retailers website, articles on a newspaper site, or videos on a media site, are not there solely for the purposes of driving purchases or increasing site engagement. There are a number of functions that each item might perform - to give just two examples:</p>
 
 <ol>
-<li>Items in your catalog drive visitors to your site. Having a large and deep catalog improves your website’s search rankings across a wider range of keywords, because you have more content, more pages, and more internal links. Having more items also increases the likelihood of people linking into your content, further boosting search ranking. It means you have more landing pages to push traffic to with paid campaigns, providing you with more advertising opportunities. Adding items to your catalog is a form of <a href="http://en.wikipedia.org/wiki/Inbound_marketing">inbound marketing</a>: it serves to <em>pull</em> visitors to your site. (Vs more traditional <em>outbound marketing</em>, where you <em>push</em> visitors to your website e.g. by running paid advertising campaigns.)</li>
+<li>Items in your catalog drive visitors to your site. Having a large and deep catalog improves your website&#8217;s search rankings across a wider range of keywords, because you have more content, more pages, and more internal links. Having more items also increases the likelihood of people linking into your content, further boosting search ranking. It means you have more landing pages to push traffic to with paid campaigns, providing you with more advertising opportunities. Adding items to your catalog is a form of <a href='http://en.wikipedia.org/wiki/Inbound_marketing'>inbound marketing</a>: it serves to <em>pull</em> visitors to your site. (Vs more traditional <em>outbound marketing</em>, where you <em>push</em> visitors to your website e.g. by running paid advertising campaigns.)</li>
 
-<li>Items in your catalog can growing average basket value. An item on a retailer site might not pull in much traffic itself, perhaps because there are not many people on the internet deliberately seeking out that product. However it might make a compelling upsell for customers who’ve come to your website to buy a different item on your catalog: maybe it’s a low cost but high margin product like spectacle cleaning fluid, or paper clips.</li>
+<li>Items in your catalog can growing average basket value. An item on a retailer site might not pull in much traffic itself, perhaps because there are not many people on the internet deliberately seeking out that product. However it might make a compelling upsell for customers who&#8217;ve come to your website to buy a different item on your catalog: maybe it&#8217;s a low cost but high margin product like spectacle cleaning fluid, or paper clips.</li>
 </ol>
 
-<p>In this post, we’ll run through how to measure how effectively different items on your catalog drive traffic to your website. We’ll run our analyses against one examples site: <a href="http://www.psychicbazaar.com/">psychicbazaar.com</a>, to show how this technique can be used in practice. Although our examples are from a retailer site, the same technique can also be applied to media / content sites.</p>
+<p>In this post, we&#8217;ll run through how to measure how effectively different items on your catalog drive traffic to your website. We&#8217;ll run our analyses against one examples site: <a href='http://www.psychicbazaar.com/'>psychicbazaar.com</a>, to show how this technique can be used in practice. Although our examples are from a retailer site, the same technique can also be applied to media / content sites.</p>
 
-<p>We’ll use <a href="http://www.tableausoftware.com/">Tableau</a> to perform the analysis. However, the methodology is generic: the same analysis can be performed using other tools (e.g. <a href="http://www.r-project.org/">R</a> or <a href="http://www.microsoft.com/en-us/bi/PowerPivot.aspx">Microsoft PowerPivot</a>).</p>
+<p>We&#8217;ll use <a href='http://www.tableausoftware.com/'>Tableau</a> to perform the analysis. However, the methodology is generic: the same analysis can be performed using other tools (e.g. <a href='http://www.r-project.org/'>R</a> or <a href='http://www.microsoft.com/en-us/bi/PowerPivot.aspx'>Microsoft PowerPivot</a>).</p>
 
-<p>The analysis depends on being able to extract a specific cut of web analytics data. (More on this in the <a href="#methodology">next section</a>.) Snowplow makes it easy to extract the required cut of data. We have not checked whether it is possible to pull this cut of data from other web analytics platforms (e.g. <a href="http://www.google.co.uk/analytics/">Google Analytics</a>), and if so, how to do so. If it is possible, however, the analysis described below should be possible for users who do not have Snowplow.</p>
+<p>The analysis depends on being able to extract a specific cut of web analytics data. (More on this in the <a href='#methodology'>next section</a>.) Snowplow makes it easy to extract the required cut of data. We have not checked whether it is possible to pull this cut of data from other web analytics platforms (e.g. <a href='http://www.google.co.uk/analytics/'>Google Analytics</a>), and if so, how to do so. If it is possible, however, the analysis described below should be possible for users who do not have Snowplow.</p>
 
-<h2 id="contents">Contents</h2>
+<h2 id='contents'>Contents</h2>
 
 <p>The recipe is divided into the following sections:</p>
 
 <ol>
-<li><a href="#methodology">Methodology</a></li>
+<li><a href='#methodology'>Methodology</a></li>
 
-<li><a href="#data">Performing the analysis: measuring how good each item is at driving visits to our website</a></li>
+<li><a href='#data'>Performing the analysis: measuring how good each item is at driving visits to our website</a></li>
 
-<li><a href="#drill">Drilling into our data: understanding <em>how</em> our top performing products are generating traffic</a></li>
+<li><a href='#drill'>Drilling into our data: understanding <em>how</em> our top performing products are generating traffic</a></li>
 
-<li><a href="#drillfurther">Drilling in further: is paid or organic search driving the bulk of product-focused traffic?</a></li>
+<li><a href='#drillfurther'>Drilling in further: is paid or organic search driving the bulk of product-focused traffic?</a></li>
 
-<li><a href="#otherchannels">What other channels are driving traffic to our best performing items?</a></li>
+<li><a href='#otherchannels'>What other channels are driving traffic to our best performing items?</a></li>
 
-<li><a href="#plotovertime">Plotting traffic driven by item, by item, over time</a></li>
+<li><a href='#plotovertime'>Plotting traffic driven by item, by item, over time</a></li>
 
-<li><a href="#recap">Recap: pulling it all together</a></li>
+<li><a href='#recap'>Recap: pulling it all together</a></li>
 </ol>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='methodology'><h2>1. Methodology</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='methodology'><h2>1. Methodology</h2></a>
 <p>The methodology for performing this analysis is straightforward:</p>
 
 <ul>
 <li>Identify each item in our catalog.</li>
 
-<li>For each item, identify the “item page”. (This is the product page in the case of an online retailer, or the article page in the case of e.g. a news site.)</li>
+<li>For each item, identify the &#8220;item page&#8221;. (This is the product page in the case of an online retailer, or the article page in the case of e.g. a news site.)</li>
 
 <li>Measure the number of visits / visitors to our website where the item page is the landing page. (I.e. the first page in the session.) In each of these cases, we can assume that the visitor came to our site in order to view this item.</li>
 
@@ -128,22 +124,20 @@
 <li>Lastly, we look at how each item drives traffic over time, to contrast items which drive strong traffic levels over a short period (e.g. current affairs blog posts) with seasonal items (e.g. winter coats) and evergreen items (e.g. technical tutorials)</li>
 </ul>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='data'><h2>2. Performing the analysis: measuring how good each item is at driving visits to our website</h2></a></p>
-
-<p>The structure of Snowplow data makes doing the above analysis very straightforward. We can identify page views using the <code>event</code> field (“event” = ‘page_view’). We can identify whether a page view is a landing page by the referer: specifically, the <code>refr_medium</code> field. This can take any one of six values:</p>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='data'><h2>2. Performing the analysis: measuring how good each item is at driving visits to our website</h2></a>
+<p>The structure of Snowplow data makes doing the above analysis very straightforward. We can identify page views using the <code>event</code> field (&#8220;event&#8221; = &#8216;page_view&#8217;). We can identify whether a page view is a landing page by the referer: specifically, the <code>refr_medium</code> field. This can take any one of six values:</p>
 
 <ul>
-<li>“search” if the referer is a recognised search engine</li>
+<li>&#8220;search&#8221; if the referer is a recognised search engine</li>
 
-<li>“social” if the referer is a recognised social network</li>
+<li>&#8220;social&#8221; if the referer is a recognised social network</li>
 
-<li>“email” if the referer is a recognised email client</li>
+<li>&#8220;email&#8221; if the referer is a recognised email client</li>
 
-<li>“internal” if the referer is our website</li>
+<li>&#8220;internal&#8221; if the referer is our website</li>
 
-<li>“unknown” if snowplow does not specifically recognise the referer</li>
+<li>&#8220;unknown&#8221; if snowplow does not specifically recognise the referer</li>
 
 <li>NULL if the referer header is blank (e.g. if the visitor typed the URL directly into their browser)</li>
 </ul>
@@ -163,7 +157,7 @@
 </code></pre></div>
 <p>Note that we group our results by page, so we get a single line for each page. The sum of all the records for each page is the number of page views, where that page is a landing page. We also calculate the number of visits and uniques, by counting the number of distinct users and sessions.</p>
 
-<p>To start with, lets perform the analysis on <a href="http://www.psychicbazaar.com/">Psychic Bazaar</a>. We want to execute the above query, but <strong>only</strong> return lines for pages which are product page. (So ignore entries for e.g. the home page or category pages.) We can do this by filtering results based on URL:</p>
+<p>To start with, lets perform the analysis on <a href='http://www.psychicbazaar.com/'>Psychic Bazaar</a>. We want to execute the above query, but <strong>only</strong> return lines for pages which are product page. (So ignore entries for e.g. the home page or category pages.) We can do this by filtering results based on URL:</p>
 <div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
 	<span class='n'>page_urlpath</span> <span class='k'>AS</span> <span class='s-Name'>&quot;Item page&quot;</span><span class='p'>,</span>
@@ -180,14 +174,10 @@
 	<span class='k'>OR</span> <span class='p'>(</span><span class='n'>page_urlpath</span> <span class='k'>LIKE</span> <span class='s1'>&#39;/jewellery/%&#39;</span><span class='p'>)</span> <span class='p'>)</span>
 <span class='k'>GROUP</span> <span class='k'>BY</span> <span class='mf'>1</span>
 <span class='k'>ORDER</span> <span class='k'>BY</span> <span class='mf'>4</span> <span class='k'>DESC</span><span class='p'>;</span>
-</code></pre></div>
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/1.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.png' /></a></p>
-
-<p>We can plot the results in Tableau: create a new data connection from Tableau to Redshift using the above query. (For detailed instructions on how to pull specific cuts of Snowplow data from Redshift into Tableau, refer to the <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data">guide to setting up Tableau to work with Snowplow / Redshift guide</a>). Simply drag the “Item page” dimension to the rows shelf and one of the measures into the worksheet. In the example below we’ve listed “visits driven to the site” by page view:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG' /></a></p>
-
-<p>Now we can plot a histogram by clicking on the histogram image on the “Show Me” toolbar. To tidy up the histogram, we’ve replaced the “Item page” dimension with a calculated field “Item Name” in Tableau which removes the leading “/«CATEGORY NAME»” and trailing “.html” from the “Item page” field (which was the item URL), using the following formula:</p>
+</code></pre></div><a href='/static/img/analytics/catalog-analytics/driving-traffic/1.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.png' /></a>
+<p>We can plot the results in Tableau: create a new data connection from Tableau to Redshift using the above query. (For detailed instructions on how to pull specific cuts of Snowplow data from Redshift into Tableau, refer to the <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Tableau-to-analyze-your-Snowplow-data'>guide to setting up Tableau to work with Snowplow / Redshift guide</a>). Simply drag the &#8220;Item page&#8221; dimension to the rows shelf and one of the measures into the worksheet. In the example below we&#8217;ve listed &#8220;visits driven to the site&#8221; by page view:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/1.JPG' /></a>
+<p>Now we can plot a histogram by clicking on the histogram image on the &#8220;Show Me&#8221; toolbar. To tidy up the histogram, we&#8217;ve replaced the &#8220;Item page&#8221; dimension with a calculated field &#8220;Item Name&#8221; in Tableau which removes the leading &#8220;/&#171;CATEGORY NAME&#187;&#8221; and trailing &#8220;.html&#8221; from the &#8220;Item page&#8221; field (which was the item URL), using the following formula:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>REPLACE(</span>
 <span class='go'>	REPLACE(</span>
 <span class='go'>		REPLACE(</span>
@@ -198,29 +188,25 @@
 <span class='go'>	,&quot;/jewellery/&quot;, &quot;&quot;)</span>
 <span class='go'>, &quot;.html&quot;, &quot;&quot;)</span>
 </code></pre></div>
-<p>We’ve also added a calculated field called “Product category” that infers the product category from the item page URL using the following formula:</p>
+<p>We&#8217;ve also added a calculated field called &#8220;Product category&#8221; that infers the product category from the item page URL using the following formula:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>IF(CONTAINS([item page], &quot;/tarot-cards/&quot;)) THEN &quot;Tarot&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/oracles/&quot;)) THEN &quot;Oracle&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/jewellery/&quot;)) THEN &quot;Jewellery&quot;</span>
 <span class='go'>ELSEIF (CONTAINS([item page], &quot;/pendula/&quot;)) THEN &quot;Pendulum&quot;</span>
 <span class='go'>ELSE &quot;Not classified&quot; END</span>
 </code></pre></div>
-<p>We then added the “Product category” field to the color dimension. Our graph looks as follows:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a></p>
-
+<p>We then added the &#8220;Product category&#8221; field to the color dimension. Our graph looks as follows:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/2.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg' /></a>
 <p><em>Note: the above graph is truncated - click on it to view the full result set</em></p>
 
 <p>Two things become immediate apparent from the above graph:</p>
 
 <ul>
-<li>There is wide variation in how much traffic different product pages drive to our website: some items in our catalog drive much more inbound marketing than others. “Gypsy fortune telling cards” and “Art deco fortune telling cards” have both driven more than 100 visits in the time period we’re examining. By contrast, there are 22 items that have only driven one or two visits to the site. Also note that our SQL query will not return product pages which have driven no traffic to the site. Psychic Bazaar offers c.300 SKUs, and our result set contains 292 products, so there are an additional 8 products that generated no traffic at all.</li>
+<li>There is wide variation in how much traffic different product pages drive to our website: some items in our catalog drive much more inbound marketing than others. &#8220;Gypsy fortune telling cards&#8221; and &#8220;Art deco fortune telling cards&#8221; have both driven more than 100 visits in the time period we&#8217;re examining. By contrast, there are 22 items that have only driven one or two visits to the site. Also note that our SQL query will not return product pages which have driven no traffic to the site. Psychic Bazaar offers c.300 SKUs, and our result set contains 292 products, so there are an additional 8 products that generated no traffic at all.</li>
 
 <li>In spite of the wide variation, there are no real step changes in the traffic by product page: across the SKUs there is a pretty even distribution. (We have plotted this explicitly below.)</li>
 </ul>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/3.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/3.JPG' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/3.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/3.JPG' /></a>
 <p>Two important things that the graphs do not tell us:</p>
 
 <ol>
@@ -229,12 +215,10 @@
 <li>How evenly over time the traffic was generated?</li>
 </ol>
 
-<p>We will drill into the data to answer these two questions in the <a href="#drill">next two sections</a>.</p>
+<p>We will drill into the data to answer these two questions in the <a href='#drill'>next two sections</a>.</p>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='drill'><h2>3. Drilling into our data: understanding <em>how</em> our top performing products are generating traffic</h2></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='drill'><h2>3. Drilling into our data: understanding *how* our top performing products are generating traffic</h2></a>
 <p>We can examine <em>how</em> our top performing products (for inbound marketing) drive traffic to our site by going back to our Snowplow data in Redshift, and executing the following query:</p>
 <div class='highlight'><pre><code class='psql'><span class='cm'>/* PostgreSQL / Redshift */</span>
 <span class='k'>SELECT</span>
@@ -262,15 +246,11 @@
 </code></pre></div>
 <p>Note that this query pulls many more fields into Snowplow than the previous query: crucially it pulls the <code>collector_tstamp</code> (so we can look at traffic over time) and the marketing and referer fields (so we can see on which channel each product drove traffic).</p>
 
-<p>Because we’re pulling more fields from Snowplow, we are not going to aggregate our data by product as we did before in the SQL - instead, we’ll do the aggregation in Tableau. (This will give us more flexibility to slice and dice the dimensions against one another in Tableau.)</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/2.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2.png' /></a></p>
-
-<p>To pull our new cut of data into Tableau, click on the “Data” menu and select “Connect to data”. Create a new connection to Redshift, but this time enter the new query in the Custom SQL pane. Our new data source is listed alongside our first source, in the “Data” pane in Tableau.</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG' /></a></p>
-
-<p>Because we’re aggregating our data in Tableau rather than SQL, we need to create our metrics (uniques, visits and page views) in Tableau. To create a new calculated field for “uniques”, right click on the measures pane, select “Create calculated field”, give your new field the name “uniques” and enter the following calculation:</p>
+<p>Because we&#8217;re pulling more fields from Snowplow, we are not going to aggregate our data by product as we did before in the SQL - instead, we&#8217;ll do the aggregation in Tableau. (This will give us more flexibility to slice and dice the dimensions against one another in Tableau.)</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/2.png'><img src='/static/img/analytics/catalog-analytics/driving-traffic/2.png' /></a>
+<p>To pull our new cut of data into Tableau, click on the &#8220;Data&#8221; menu and select &#8220;Connect to data&#8221;. Create a new connection to Redshift, but this time enter the new query in the Custom SQL pane. Our new data source is listed alongside our first source, in the &#8220;Data&#8221; pane in Tableau.</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/4.JPG' /></a>
+<p>Because we&#8217;re aggregating our data in Tableau rather than SQL, we need to create our metrics (uniques, visits and page views) in Tableau. To create a new calculated field for &#8220;uniques&#8221;, right click on the measures pane, select &#8220;Create calculated field&#8221;, give your new field the name &#8220;uniques&#8221; and enter the following calculation:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>COUNTD([domain_userid])</span>
 </code></pre></div>
 <p>This counts the number of distinct <code>domain_userid</code>: it is the same way we previously calculated the number of uniques in the SQL.</p>
@@ -278,15 +258,11 @@
 <p>Create a visits metric in the same way, but this time enter the following formula:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>COUNTD([domain_userid + STR(domain_sessionidx)])</span>
 </code></pre></div>
-<p>Lastly, we need to create a metric for “page views”. Remember: each line of our data represents a single page view, so we can simply rename the “Number of records” field to “Page views”. Our measures pane now looks as follows:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG' /></a></p>
-
-<p>Now we can plot the number of visits driven by each type of product, and break that down by referer type. To start off, let’s plot the number of visits by product, as before, but this time, drag “refr_medium” into the color shelf, so that we breakdown visits by the referer type:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG' /></a></p>
-
-<p>Note that to keep the plot tidy, we’ve replaced the <code>page_url</code> field with an <code>Item name</code> field that is calculated based on the <code>page_url</code> field using the same formula as we did for our previous cut of data:</p>
+<p>Lastly, we need to create a metric for &#8220;page views&#8221;. Remember: each line of our data represents a single page view, so we can simply rename the &#8220;Number of records&#8221; field to &#8220;Page views&#8221;. Our measures pane now looks as follows:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/5.JPG' /></a>
+<p>Now we can plot the number of visits driven by each type of product, and break that down by referer type. To start off, let&#8217;s plot the number of visits by product, as before, but this time, drag &#8220;refr_medium&#8221; into the color shelf, so that we breakdown visits by the referer type:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG' /></a>
+<p>Note that to keep the plot tidy, we&#8217;ve replaced the <code>page_url</code> field with an <code>Item name</code> field that is calculated based on the <code>page_url</code> field using the same formula as we did for our previous cut of data:</p>
 <div class='highlight'><pre><code class='rout'><span class='go'>REPLACE(</span>
 <span class='go'>	REPLACE(</span>
 <span class='go'>		REPLACE(</span>
@@ -300,99 +276,68 @@
 <p>The visualization tells us three things:</p>
 
 <ol>
-<li>For our top performing pages by amount of traffic generated, search appears to be the primary channel on which that traffic is acquired. It would be interesting to know whether this is orgnaic search traffic, or the result of SEM against specific keywords. We will drill into this <a href="#drillfurther">next</a>.</li>
+<li>For our top performing pages by amount of traffic generated, search appears to be the primary channel on which that traffic is acquired. It would be interesting to know whether this is orgnaic search traffic, or the result of SEM against specific keywords. We will drill into this <a href='#drillfurther'>next</a>.</li>
 
 <li>For a significant minority of those visits, there is no referer information. (I.e. <code>refr_medium</code> is blank.)</li>
 
-<li>For some of our top performers (e.g. the Gipsy Fortune telling cards and the Goddesses and Sirens) there is a signifcant set of visits for whom <code>refr_medium</code> is unknown. We can drill into <a href="#otherchannels">later</a>.</li>
+<li>For some of our top performers (e.g. the Gipsy Fortune telling cards and the Goddesses and Sirens) there is a signifcant set of visits for whom <code>refr_medium</code> is unknown. We can drill into <a href='#otherchannels'>later</a>.</li>
 </ol>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='drillfurther'><h2>4. Drilling in further: is paid or organic search driving the bulk of product-focused traffic?</h2></a></p>
-
-<p>To answer the above question, we’re going to do a plot just for our top performers. Create a new sheet, drag the “Item name” to the rows pane, drag visits to the field pane and sort the items by visits (descending). Now select the top 10 results, right click and select “Keep only”.</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/7.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/7.JPG' /></a></p>
-
-<p>Now drag <code>refr_medium</code> and <code>mkt_medium</code> to the columns pane. We can now distinguish natural search traffic (where <code>refr_medium</code> = ‘search’ and <code>mkt_medium</code> IS NULL) with organic search traffic (where <code>refr_medium</code> = ‘search’ and <code>mkt_medium</code> = ‘cpc’):</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/8.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/8.JPG' /></a></p>
-
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='drillfurther'><h2>4. Drilling in further: is paid or organic search driving the bulk of product-focused traffic?</h2></a>
+<p>To answer the above question, we&#8217;re going to do a plot just for our top performers. Create a new sheet, drag the &#8220;Item name&#8221; to the rows pane, drag visits to the field pane and sort the items by visits (descending). Now select the top 10 results, right click and select &#8220;Keep only&#8221;.</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/7.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/7.JPG' /></a>
+<p>Now drag <code>refr_medium</code> and <code>mkt_medium</code> to the columns pane. We can now distinguish natural search traffic (where <code>refr_medium</code> = &#8216;search&#8217; and <code>mkt_medium</code> IS NULL) with organic search traffic (where <code>refr_medium</code> = &#8216;search&#8217; and <code>mkt_medium</code> = &#8216;cpc&#8217;):</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/8.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/8.JPG' /></a>
 <p>We can now see that the picture is somewhat nuanced: for <em>most</em> products it is natural search that is driving traffic to those products. For a handful, however (Gipsy Fortune Telling cards, Gods and Titans) is it paid search marketing.</p>
 
 <p>This begs a couple of questions, both of which are important to the business:</p>
 
 <ul>
-<li>Why is there such a differential in the amount of traffic driven by product from paid search marketing? It is unlikely to be accounted for by differences in search volumes. (Because some of those products have very high levels of natural search traffic.) Is it because terms are more competitive for some products than others? Or is it because not enough effort has been put to setting up specific campaigns for each product? Maybe there’s an opportunity to market those products more aggressively using search engine marketing? (Especially if we measure the conversion rate for visitors who land on those pages, and discover that it is high.)</li>
+<li>Why is there such a differential in the amount of traffic driven by product from paid search marketing? It is unlikely to be accounted for by differences in search volumes. (Because some of those products have very high levels of natural search traffic.) Is it because terms are more competitive for some products than others? Or is it because not enough effort has been put to setting up specific campaigns for each product? Maybe there&#8217;s an opportunity to market those products more aggressively using search engine marketing? (Especially if we measure the conversion rate for visitors who land on those pages, and discover that it is high.)</li>
 
 <li>Why is there such a differential in the amount of natural search driven to each product? Again - is this a reflection of competitor activity? (Which seems unlikely given that some of the products recieve large volumes of paid search traffic.) Is there better content / copy on the pages that do better with natural search? Are there more inbound links? It should be straightforward to test both of the above, and improve the content or encourage more links, if some of the pages that perform less well are found to be lacking when compared to those that are doing better.</li>
 </ul>
 
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='otherchannels'><h2>5. What other channels are driving traffic to our best performing items?</h2></a></p>
-
-<p>In section 3.2, we saw that for some products a signicant portion of the traffic they were generating was from non-search channels, where <code>refr_medium</code> = ‘unknown’. (This encapsulates all referers that Snowplow does not recognise as a search or social referer.) It would be nice to drill into who those referers are.</p>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='otherchannels'><h2>5. What other channels are driving traffic to our best performing items?</h2></a>
+<p>In section 3.2, we saw that for some products a signicant portion of the traffic they were generating was from non-search channels, where <code>refr_medium</code> = &#8216;unknown&#8217;. (This encapsulates all referers that Snowplow does not recognise as a search or social referer.) It would be nice to drill into who those referers are.</p>
 
 <p>To do that, let take our previous plot:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/6.JPG' /></a>
 <p>Use ctrl + mouse click to select just those products where a significant fraction of the traffic they generate is non-search, right click and select keep only:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/9.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/9.JPG' /></a></p>
-
-<p>We’ve select three produts to drill into. Now let’s filter our data so we only look at the non-search, non-direct traffic. Drag <code>refr_medium</code> to the filter pane and select only ‘unknown’ results appear.</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/10.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/10.JPG' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/9.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/9.JPG' /></a>
+<p>We&#8217;ve select three produts to drill into. Now let&#8217;s filter our data so we only look at the non-search, non-direct traffic. Drag <code>refr_medium</code> to the filter pane and select only &#8216;unknown&#8217; results appear.</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/10.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/10.JPG' /></a>
 <p>Now drag <code>refr_medium</code> out of the color mark and drag <code>refr_urlhost</code> in: this tells us the domain of the referer:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/11.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/11.JPG' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/11.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/11.JPG' /></a>
 <p>We can look at just the visualization export:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/12.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/12.jpg' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/12.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/12.jpg' /></a>
 <p>The results are very illuminating:</p>
 
 <ul>
-<li>For two of our top performing products (by amount of traffic attracted to the site), a single referer is responsible for the bulk of traffic: that is ‘www.mydivination.com’ for the IJJ Swiss Tarot, and ‘www.ecauldron.com’ for the Goddesses and Sirens deck.</li>
+<li>For two of our top performing products (by amount of traffic attracted to the site), a single referer is responsible for the bulk of traffic: that is &#8216;www.mydivination.com&#8217; for the IJJ Swiss Tarot, and &#8216;www.ecauldron.com&#8217; for the Goddesses and Sirens deck.</li>
 
-<li>For Gipsy Fortune cards, the top two referers are eBay and Amazon. Remember that this product drives most of its traffic through CPC marketing: in fact all the traffic driven from Amazon and eBay is due to Adwords. (For more details, see this <a href="/blog/2013/05/10/where-does-your-traffic-really-come-from/">blog post</a> on <a href="/blog/2013/05/10/where-does-your-traffic-really-come-from/">where does your traffic <em>really</em> come from</a>).</li>
+<li>For Gipsy Fortune cards, the top two referers are eBay and Amazon. Remember that this product drives most of its traffic through CPC marketing: in fact all the traffic driven from Amazon and eBay is due to Adwords. (For more details, see this <a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/'>blog post</a> on <a href='/blog/2013/05/10/where-does-your-traffic-really-come-from/'>where does your traffic <em>really</em> come from</a>).</li>
 </ul>
-
-<p><a name='plotovertime'><h2>6. Plotting traffic driven by item, by item, over time</h2></a></p>
-
+<a name='plotovertime'><h2>6. Plotting traffic driven by item, by item, over time</h2></a>
 <p>We can use the cut of Snowplow data we currently have in Tableau to plot the traffic generated by each product over time.</p>
 
-<p>To do so, create a new sheet in your Tableau workbook, drag “Item name” to the rows pane, “collector_tstamp” to the columns pane and “Visits” to the fields pane. Sort “Item name” by visits descending. (Click on the “Item name” drop down in the rows pane, select “sort”, then the “Descending” checkbox and “Visits” from the “Fields” dropdown.) Click on the area chart icon in the “Show me” tool bar. Drag the “refr_medium” field to the color box, so we can split the traffic by referer type. Adjust the granularity on the “collector_tstamp” field to suit your data. You should see a plot like this:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/13.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/13.jpg' /></a></p>
-
+<p>To do so, create a new sheet in your Tableau workbook, drag &#8220;Item name&#8221; to the rows pane, &#8220;collector_tstamp&#8221; to the columns pane and &#8220;Visits&#8221; to the fields pane. Sort &#8220;Item name&#8221; by visits descending. (Click on the &#8220;Item name&#8221; drop down in the rows pane, select &#8220;sort&#8221;, then the &#8220;Descending&#8221; checkbox and &#8220;Visits&#8221; from the &#8220;Fields&#8221; dropdown.) Click on the area chart icon in the &#8220;Show me&#8221; tool bar. Drag the &#8220;refr_medium&#8221; field to the color box, so we can split the traffic by referer type. Adjust the granularity on the &#8220;collector_tstamp&#8221; field to suit your data. You should see a plot like this:</p>
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/13.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/13.jpg' /></a>
 <p>Note that to conserve space, we have only plotted results for our top 10 products.</p>
 
 <p>If we look the graph for Goddessess and Sirens item, we see that our referer (www.mydivination.com) has driven a steady flow of traffic to the website over time. In contrast, if we look at the graph for Goddesses and Sirens, non-search referral traffic (i.e. www.ecauldron.com) drove a strong spike in visits on the week beginning the 3rd of February, but then no traffic since February 17th. That suggests that the link from ecauldron.com to Psychic Bazaar was on a blog post, or some other content item with a limited shelf life, in stark contrast to the content on mydivination.com, that appears to be much more evergreen.</p>
 
 <p>We can confirm this hypothesis by looking at the actual content with the link. The referring web address is given in the <code>refr_urlpath</code> dimension. To fish this out, create a new worksheet, drag <code>refr_urlhost</code> to the filters section and create a filter so that <strong>only</strong> records from mydivination.com and ecauldron.com appear:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/14.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/14.jpg' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/14.jpg'><img src='/static/img/analytics/catalog-analytics/driving-traffic/14.jpg' /></a>
 <p>Then drag <code>refr_urlhost</code> and <code>refr_urlpath</code> into the rows pane and <code>Visits</code> into the fields pane:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/15.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/15.JPG' /></a></p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/15.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/15.JPG' /></a>
 <p>We can see that the page on www.ecauldron.com that drove users was a forum thread: over time, this is likely to update so that the link to Snowplow was pushed out of. In contrast, the links from www.mydivination.com are from evergreen pages: pages that refer to the type of Tarot deck, that are shown to people either researching the decks or using the decks to perform readings. (Activities that can happen at any time of the year.) An example page is shown below:</p>
-
-<p><a href='/static/img/analytics/catalog-analytics/driving-traffic/16.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/16.JPG' /></a></p>
-
-<p>Back to <a href="#top">top</a>.</p>
-
-<p><a name='recap'>7. Recap: pulling it all together</a></p>
-
-<p>In this recipe, we’ve covered how we can measure how much individual items in our catalog contribute to inbound marketing, by measuring the number of visits that land on each item-page over time. We’ve also shown how to use a combination of Tableau (or any OLAP tool) to slice and dice our data in different ways, so that we can see not only measure how much each item contributes to inbound marketing, but <em>how</em> that contribution is made, and how it has varied over time.</p>
-
+<a href='/static/img/analytics/catalog-analytics/driving-traffic/16.JPG'><img src='/static/img/analytics/catalog-analytics/driving-traffic/16.JPG' /></a>
+<p>Back to <a href='#top'>top</a>.</p>
+<a name='recap'>7. Recap: pulling it all together</a>
+<p>In this recipe, we&#8217;ve covered how we can measure how much individual items in our catalog contribute to inbound marketing, by measuring the number of visits that land on each item-page over time. We&#8217;ve also shown how to use a combination of Tableau (or any OLAP tool) to slice and dice our data in different ways, so that we can see not only measure how much each item contributes to inbound marketing, but <em>how</em> that contribution is made, and how it has varied over time.</p>
 </div>
 
  <div id="sidebar">

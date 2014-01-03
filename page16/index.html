@@ -72,8 +72,7 @@
 			27 Nov 2012
 			<h1><a href="/blog/2012/11/27/snowplow-0.6.1-released">Snowplow 0.6.1 released, with lots of small improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
 
 <ol>
 <li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
@@ -90,11 +89,11 @@
 <p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
 
 <ul>
-<li><a href="https://github.com/ramn">Simon Andersson</a> @ <a href="http://www.qwaya.com">Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
+<li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
 
-<li><a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> @ <a href="http://en.overblog.com/">OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
 
-<li><a href="https://github.com/mtibben">Michael Tibben</a> @ <a href="http://99designs.com">99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
+<li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
 </ul>
 <p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry</a></p>
 		</div>
@@ -103,12 +102,11 @@
 			16 Nov 2012
 			<h1><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating Snowplow with Google Tag Manager</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>A month and a half ago, Google launched <a href="http://www.google.com/tagmanager/">Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
+			<p>A month and a half ago, Google launched <a href='http://www.google.com/tagmanager/'>Google Tag Manager</a> (GTM), a free tag management solution. That was a defining moment in tag management history as it will no doubt bring tag management, until now the preserve of big enterprises, into the mainstream.</p>
 
-<p><img src="/static/img/gtm.JPG" alt="gtm" /></p>
+<p><img alt='gtm' src='/static/img/gtm.JPG' /></p>
 
-<p>We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup">wiki</a>.</p>
+<p>We have spent some time testing how to get Snowplow tags working well with Google Tag Manager, and have documented our recommended approach to setting up Snowplow with GTM on the <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>wiki</a>.</p>
 
 <p>In the course of reading the literature on tag management and Google Tag Manager in particular, we were struck by a number of issues and misconceptions:</p>
 
@@ -120,41 +118,39 @@
 <li>One of the tag management features most regularly trumpetted by digital and marketing analysts is that it frees them from having to liaise with their webmasters to add new tags and change existing tag setups. Even with a tag management solution in place, however, this may still be necessary if not all the data that the analyst wants passed through to their analytics package is available in the tag maangement system.</li>
 </ol>
 
-<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm">setting up Google Tag Manager</a> and <a href="https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup">setting up Snowplow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up Snowplow within <a href="http://www.opentag.qubitproducts.com/">Qubit’s OpenTag solution</a> in due course.</p>
+<p>As a step towards addressing the above issues, we have produced a step-by-step guide to both <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-setup-gtm'>setting up Google Tag Manager</a> and <a href='https://github.com/snowplow/snowplow/wiki/Integrating%20javascript%20tags%20with%20Google%20Tag%20Manager#wiki-snowplow-setup'>setting up Snowplow within GTM</a>. We hope you find it useful. We plan to produce a similar guide to setting up Snowplow within <a href='http://www.opentag.qubitproducts.com/'>Qubit&#8217;s OpenTag solution</a> in due course.</p>
 
-<p>We’re very excited by Google’s launch of Tag Manager, and recommend all new Snowplow users who are not currently using a tag management system integrate one as part of their Snowplow setup. Specifically:</p>
+<p>We&#8217;re very excited by Google&#8217;s launch of Tag Manager, and recommend all new Snowplow users who are not currently using a tag management system integrate one as part of their Snowplow setup. Specifically:</p>
 
 <ol>
 <li>The exercise that companies need to go through when setting up a tag management platform i.e. thinking through all the data points that they want to pass to their tag management system so that they can be passed on to whatever tags are managed in the system, is the same process they should go through when they setup Snowplow, with a view to enabling the widest possible set of analyses on their web analytics data. So even though that exercise is not easy, it is valuable</li>
 
-<li>The processing of mapping that data from the structure defined in the tag management system to one which works with Snowplow’s data structure is the exact reverse of the analysis process that takes Snowplow data and transforms it back into the structure that’s most natural for the company performing the analysis.</li>
+<li>The processing of mapping that data from the structure defined in the tag management system to one which works with Snowplow&#8217;s data structure is the exact reverse of the analysis process that takes Snowplow data and transforms it back into the structure that&#8217;s most natural for the company performing the analysis.</li>
 
-<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href="https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker">Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
+<li>Once the tag management system has been installed, it becomes easy to upgrade the tags and / or change the configuration. There are a number of improvements we plan to make to our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>Javascript tracker</a>, and having a tag management program will make it easier for companies to take advantage of those upgrades.</li>
 </ol>
-
 		</div>
 	
 		<div class="post">
 			12 Nov 2012
 			<h1><a href="/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader">Snowplow 0.6.0 released, with the new StorageLoader</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let’s start by introducing StorageLoader:</p>
+			<p>We&#8217;re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let&#8217;s start by introducing StorageLoader:</p>
 
-<h2 id="introducing_storageloader">Introducing StorageLoader</h2>
+<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
 
 <p>Up until now, Snowplow has stored all its data in S3, where it can be queried in Hive. However, our vision with Snowplow has always been to enable to the broadest set of analyses on Snowplow data as possible. That means making it as easy as possible to keep up to date versions of Snowplow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
 
-<p><img src="/static/img/SnowplowLoader.jpg" alt="snowplow-loader-image" /></p>
+<p><img alt='snowplow-loader-image' src='/static/img/SnowplowLoader.jpg' /></p>
 
-<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href="http://www.infobright.org/">Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
 
 <ul>
-<li><a href="https://developers.google.com/bigquery">Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow’s granular data)</li>
+<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow&#8217;s granular data)</li>
 
-<li><a href="http://skydb.io">SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
+<li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
 
-<li><a href="http://www.postgresql.org">PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
+<li><a href='http://www.postgresql.org'>PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
 </ul>
 <p class='more'><a href='/blog/2012/11/12/snowplow-0.6.0-released-with-storage-loader'>Read the rest of this entry</a></p>
 		</div>
@@ -163,21 +159,20 @@
 			06 Nov 2012
 			<h1><a href="/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice">Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we’ll also use this post to introduce our new Ruby gem, called Sluice.</p>
+			<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we&#8217;ll also use this post to introduce our new Ruby gem, called Sluice.</p>
 
-<p>Many thanks to community member <a href="https://github.com/testower">Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
+<p>Many thanks to community member <a href='https://github.com/testower'>Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
 
-<h2 id="bugs_fixed">Bugs fixed</h2>
+<h2 id='bugs_fixed'>Bugs fixed</h2>
 
-<p><strong><a href="https://github.com/snowplow/snowplow/issues/71">Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/71'>Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
 
 <pre><code>...
 :snowplow:
   :serde_version: 0.4.9
 ...</code></pre>
 
-<p><strong><a href="https://github.com/snowplow/snowplow/issues/72">Issue 72</a></strong>: Tom’s testing also identified a bug in EmrEtlRunner’s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/72'>Issue 72</a></strong>: Tom&#8217;s testing also identified a bug in EmrEtlRunner&#8217;s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
 <p class='more'><a href='/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -185,24 +180,23 @@
 			01 Nov 2012
 			<h1><a href="/blog/2012/11/01/snowplow-0.5.1-released">Snowplow 0.5.1 released, with lots of small improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
+			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
 
 <ol>
 <li>Improving the robustness of the ETL process</li>
 
-<li>Laying the foundations for loading Snowplow events into <a href="http://www.infobright.org/">Infobright Community Edition</a> (ICE)</li>
+<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
 </ol>
 
 <p>To take each of these themes in turn:</p>
 
-<h2 id="1_a_more_robust_etl_process">1. A more robust ETL process</h2>
+<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
 
-<p>The Hive deserializer now has improved error handling - many thanks to community member <a href="https://github.com/mtibben">Michael Tibben</a> from <a href="http://99designs.com">99designs</a> for his help here!</p>
+<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
 
 <p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
 
-<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner’s <a href="https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml">configuration file</a> to support this:</p>
+<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
 
 <pre><code>:etl:
   :continue_on_unexpected_error: false</code></pre>

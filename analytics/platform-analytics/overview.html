@@ -67,26 +67,22 @@
 </div>
 	
 		<div id="contents">
-
-<p><a name='top'><h1>Platform analytics</h1></a></p>
-
+<a name='top'><h1>Platform analytics</h1></a>
 <ol>
-<li><a href="#what">What do we mean by “platform analytics”?</a></li>
+<li><a href='#what'>What do we mean by &#8220;platform analytics&#8221;?</a></li>
 
-<li><a href="#why">No one talks about “platform analytics”. Why is that?</a></li>
+<li><a href='#why'>No one talks about &#8220;platform analytics&#8221;. Why is that?</a></li>
 
-<li><a href="#same-or-different">Does it make sense to have the same recipes for online retailers as for media sites and SaaS businesses?</a></li>
+<li><a href='#same-or-different'>Does it make sense to have the same recipes for online retailers as for media sites and SaaS businesses?</a></li>
 
-<li><a href="#difficult">Why is platform analytics difficult?</a></li>
+<li><a href='#difficult'>Why is platform analytics difficult?</a></li>
 
-<li><a href="#recipes">Platform analytics recipes</a></li>
+<li><a href='#recipes'>Platform analytics recipes</a></li>
 </ol>
+<a name='what'><h2>1. What do we mean by "platform analytics"</h2></a>
+<p>Any type of digital business (i.e. business with a significant online presence) depends heavily on their online product / platform / website / application working as effectively as possible. (Whether you use the term &#8216;product&#8217;, &#8216;platform&#8217;, &#8216;website&#8217; or &#8216;application&#8217; really depends on what type of digital business you work at. In the analytics cookbook, we&#8217;ll use the term &#8216;platform&#8217;, to make it easy to distinguish &#8216;platform analytics&#8217; from &#8217;<a href='/analytics/platform-analytics/overview.html'>catalog analytics</a>&#8217;, as both are sometimes confusingly referred to as &#8216;product analytics&#8217;.) Digital businesses may spend the bulk of their resources evolving their platform, to provide their users with the best possible experience, and stay ahead of the competition.</p>
 
-<p><a name='what'><h2>1. What do we mean by &quot;platform analytics&quot;</h2></a></p>
-
-<p>Any type of digital business (i.e. business with a significant online presence) depends heavily on their online product / platform / website / application working as effectively as possible. (Whether you use the term ‘product’, ‘platform’, ‘website’ or ‘application’ really depends on what type of digital business you work at. In the analytics cookbook, we’ll use the term ‘platform’, to make it easy to distinguish ‘platform analytics’ from ’<a href="/analytics/platform-analytics/overview.html">catalog analytics</a>’, as both are sometimes confusingly referred to as ‘product analytics’.) Digital businesses may spend the bulk of their resources evolving their platform, to provide their users with the best possible experience, and stay ahead of the competition.</p>
-
-<p>We use the term “platform analytics” to refer to any analysis that is geared towards driving those platform development decisions. This includes analysis conducted to answer any of the following questions:</p>
+<p>We use the term &#8220;platform analytics&#8221; to refer to any analysis that is geared towards driving those platform development decisions. This includes analysis conducted to answer any of the following questions:</p>
 
 <ol>
 <li>How well is my platform performing?</li>
@@ -101,18 +97,16 @@
 
 <li>What was the actual return on investment in delivering those specific platform upgrades?</li>
 </ol>
-
-<p><a name='why'><h2>No one talks about platform analytics. Why is that?</h2></a></p>
-
-<p>The idea that you can use data to drive product development decisions is now widely accepted. Perhaps the most common examples of what we’re calling ‘platform analytics’ is:</p>
+<a name='why'><h2>No one talks about platform analytics. Why is that?</h2></a>
+<p>The idea that you can use data to drive product development decisions is now widely accepted. Perhaps the most common examples of what we&#8217;re calling &#8216;platform analytics&#8217; is:</p>
 
 <ol>
 <li>The use of A/B and multivariant testing to optimize e.g. the location and colour of UI elements, for example, on a website.</li>
 
-<li>What we call ‘funnel analytics’.</li>
+<li>What we call &#8216;funnel analytics&#8217;.</li>
 </ol>
 
-<p>The idea that this is a small part of a much broader discipline called ‘platform analytics’ is still controversial, however. As far as we are aware (please let us know if we are wrong), there are not a lot of resources out there to guide analysts to use clickstream event data to do things like:</p>
+<p>The idea that this is a small part of a much broader discipline called &#8216;platform analytics&#8217; is still controversial, however. As far as we are aware (please let us know if we are wrong), there are not a lot of resources out there to guide analysts to use clickstream event data to do things like:</p>
 
 <ol>
 <li>Identifying where your platform is functioning well, and where it needs improving</li>
@@ -120,10 +114,8 @@
 <li>Quantifying the return on upgrades to your platform</li>
 </ol>
 
-<p>Doing this sort of analysis is difficult. (We elaborate on why that is the case <a href="#difficult">below</a>.) Nonetheless, we hope to show that it can be incredibly powerful tool to drive strategic as well as tactical decision making about product development. One of our big hopes in developing Snowplow, is that by ‘setting the underlying data free’, we’ll help to enable a new wave of innovation in platform analytics that goes well beyond the A/B testing, funnel analysis and Sankey diagrams, that have categorised this discipline up until now.</p>
-
-<p><a name='same-or-different'><h2>Does it make sense to have the same recipes for online retailers as for media sites and SaaS businesses?</h2></a></p>
-
+<p>Doing this sort of analysis is difficult. (We elaborate on why that is the case <a href='#difficult'>below</a>.) Nonetheless, we hope to show that it can be incredibly powerful tool to drive strategic as well as tactical decision making about product development. One of our big hopes in developing Snowplow, is that by &#8216;setting the underlying data free&#8217;, we&#8217;ll help to enable a new wave of innovation in platform analytics that goes well beyond the A/B testing, funnel analysis and Sankey diagrams, that have categorised this discipline up until now.</p>
+<a name='same-or-different'><h2>Does it make sense to have the same recipes for online retailers as for media sites and SaaS businesses?</h2></a>
 <p>Different digital platforms are designed to serve very different functions. We should therefore expect that platform analytics for e.g. an online retailer would look totally different to platform analytics for an online book-keeping application, for example.</p>
 
 <p>There are, however, similarities in the tasks we perform when we do catalog analytics, that mean that similar techniques and approaches can be used in both cases. When we perform catalog analytics, we nearly always seek to understand:</p>
@@ -137,9 +129,7 @@
 </ol>
 
 <p>These questions are general enough that they apply across businesses. The techniques to manipulate data to answer them are also similar, regardless of the type of business. So even though platform analytics looks different for different kind of businesses, the same tools and techniques can be used across them.</p>
-
-<p><a name='difficult'><h2>Why is platform analytics difficult?</h2></a></p>
-
+<a name='difficult'><h2>Why is platform analytics difficult?</h2></a>
 <p>Platform analysis is fundamentally difficult because although we can use data to understand how uses <em>actually behaved</em> i.e. what their journeys look like, it is hard to unpick to what extent the journey is a function of:</p>
 
 <ol>
@@ -149,19 +139,16 @@
 </ol>
 
 <p>Trying to unpick the causes of user behavior is an art, not a science. The good platform analyst needs to be aware of this ambiguity, and draw on a combination of intuition and statistics to make hypotheses about the interaction of the two above factors, that can then be tested in a rigorous way using the data.</p>
-
-<p><a name='recipes'><h2>Platform analytics recipes</h2></a></p>
-
+<a name='recipes'><h2>Platform analytics recipes</h2></a>
 <ol>
-<li><a href="/analytics/platform-analytics/funnel-analysis.html">Funnel analysis</a></li>
+<li><a href='/analytics/platform-analytics/funnel-analysis.html'>Funnel analysis</a></li>
 
-<li><a href="/analytics/platform-analytics/sankey-diagrams-with-d3-js.html">Visualizing user journeys using Sankey diagrams with D3.js</a></li>
+<li><a href='/analytics/platform-analytics/sankey-diagrams-with-d3-js.html'>Visualizing user journeys using Sankey diagrams with D3.js</a></li>
 
 <li><em>More coming soon</em></li>
 </ol>
 
-<p>Back to <a href="#top">top</a>.</p>
-
+<p>Back to <a href='#top'>top</a>.</p>
 </div>
 
  <div id="sidebar">

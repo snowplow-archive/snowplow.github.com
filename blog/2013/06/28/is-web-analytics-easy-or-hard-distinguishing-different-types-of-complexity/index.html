@@ -72,28 +72,28 @@
 			<h1>Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p><i>This post is a response to an excellent, but old, blog post by <a href='http://www.gilliganondata.com/index.php/about/'>Tim Wilson</a> called <a href='http://www.gilliganondata.com/index.php/2011/08/09/web-analytics-platforms-are-fundamentally-broken/'>Web Analytics Platforms are Fundamentally Broken</a>, authored back in August 2011. Tim made the case (that is still true today) that web analytics is hard, and part of that hardness is because web analytics platforms are fundamentally broken. After Tim published his post, a very interesting conversation ensued on <a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'>Google+</a>. Reading through it, I was struck by how many of the points raised are still relevant today, and how many of the participants touched on issues that were central to our thinking when when we conceived of Snowplow.</i></p><p><i>One thing that I feel was sorely lacking from the discussion around <i>hardness</i> in web analytics was an effort to distinguish different sources of complexity. In this post, I identify some of those sources, and outline strategies for dealing with them. At the end of the post, I consider the extent to which web analytics platforms can help overcome that complexity, and argue that Omniture Sitecatalyst actually creates additional complexity because of the way it has been architected technically. I end by concluding that <strong>web analytics will continue to be hard because there are no straightforward ways to address every source of complexity, but that tools like Sitecatalyst make it harder than it needs to be</strong>.</i></p>
-<p><img src="/static/img/blog/2013/06/rubiks-cube.png" alt="rubiks-cube" /></p>
+<p><img alt='rubiks-cube' src='/static/img/blog/2013/06/rubiks-cube.png' /></p>
 
-<h2 id="what_is_it_that_makes_web_analytics_difficult">What is it that makes web analytics difficult?</h2>
+<h2 id='what_is_it_that_makes_web_analytics_difficult'>What is it that makes web analytics difficult?</h2>
 
 <p>The following all make web analytics hard.</p>
 
 <ol>
-<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data">Large, complex, high volume, high velocity data</a></li>
+<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data'>Large, complex, high volume, high velocity data</a></li>
 
-<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata">Lots of contextual knowledge requried to understand the data</a></li>
+<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata'>Lots of contextual knowledge requried to understand the data</a></li>
 
-<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions">The business questions that people want to use the data to answer are hard</a></li>
+<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions'>The business questions that people want to use the data to answer are hard</a></li>
 
-<li><a href="/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools">Poorly architected tools make the previous three complexities <em>harder</em> to deal with</a></li>
+<li><a href='/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools'>Poorly architected tools make the previous three complexities <em>harder</em> to deal with</a></li>
 </ol>
 
-<p>Much of the discussion around Tim’s original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture’s SiteCatalyst (around which much of the discussion about Tim’s blog post focused) actually manages to make things worse.</p>
+<p>Much of the discussion around Tim&#8217;s original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture&#8217;s SiteCatalyst (around which much of the discussion about Tim&#8217;s blog post focused) actually manages to make things worse.</p>
 <!--more--><h3><a name='data'>1. Large, complex, high volume, high velocity data</a></h3>
-<p>Web data is complicated. And not just for the obvious reasons that there’s a lot of it, and it is generated very quickly:</p>
+<p>Web data is complicated. And not just for the obvious reasons that there&#8217;s a lot of it, and it is generated very quickly:</p>
 
 <ul>
-<li>It is not obvious what data you should be capturing, and what you shouldn’t. You can push just about any sort of data into your tracking tags - so how do you decide what needs capturing, and what does not?</li>
+<li>It is not obvious what data you should be capturing, and what you shouldn&#8217;t. You can push just about any sort of data into your tracking tags - so how do you decide what needs capturing, and what does not?</li>
 
 <li>The range of activities that a user can engage with on the modern web is enormous. People shop, bank, research, collaborate with one-another, create documents, give presentations, flirt, pay taxes and more online. How do we capture and structure data to convey the breadth and depth of these different activities, in such a way that we can analyze them later?</li>
 
@@ -112,9 +112,9 @@
 <h3><a name='metadata'>2. Lots of contextual knowledge required to understand the data</a></h3>
 <p>Raw web event data is hard to make sense of: we need contextual knowledge to do so. To give two examples:</p>
 
-<h4 id="2a_how_do_i_infer_attributes_about_the_objects_and_actions_i_am_interested_in_from_the_data_and_crucially_the_scope_of_those_attributes">2a. How do I infer attributes about the objects and actions I am interested in from the data, and crucially, the scope of those attributes?</h4>
+<h4 id='2a_how_do_i_infer_attributes_about_the_objects_and_actions_i_am_interested_in_from_the_data_and_crucially_the_scope_of_those_attributes'>2a. How do I infer attributes about the objects and actions I am interested in from the data, and crucially, the scope of those attributes?</h4>
 
-<p>Let’s take the example of a user on a shopping site who buys a pair of running shoes. There are several things we <em>might</em> infer from the data:</p>
+<p>Let&#8217;s take the example of a user on a shopping site who buys a pair of running shoes. There are several things we <em>might</em> infer from the data:</p>
 
 <ul>
 <li>The user runs</li>
@@ -128,11 +128,11 @@
 <li>The users name</li>
 </ul>
 
-<p>Whether we should make the above inferences from the data, and whether we use those inferences in other analyses down the line, are decisions that can only been taken based on our broader understanding of the business and the ways users engage with it. That kind of contextual knowledge isn’t stored in the data itself. These types of decisions look different depending on the type of entity we are dealing with (customer vs product vs article vs company etc.) and the type of decisions and reasoning we need to perform about that entity.</p>
+<p>Whether we should make the above inferences from the data, and whether we use those inferences in other analyses down the line, are decisions that can only been taken based on our broader understanding of the business and the ways users engage with it. That kind of contextual knowledge isn&#8217;t stored in the data itself. These types of decisions look different depending on the type of entity we are dealing with (customer vs product vs article vs company etc.) and the type of decisions and reasoning we need to perform about that entity.</p>
 
-<p>What is interesting about the above is that these decisions are reasonably straightforward for a data analyst with the data in front of her to make: we all know, for example, that changes in a person’s gender are unusual, and so if the user is a man today, he is likely to still be a man in 6 months time. But they are <strong>not</strong> straightforward for a technology platform to make.</p>
+<p>What is interesting about the above is that these decisions are reasonably straightforward for a data analyst with the data in front of her to make: we all know, for example, that changes in a person&#8217;s gender are unusual, and so if the user is a man today, he is likely to still be a man in 6 months time. But they are <strong>not</strong> straightforward for a technology platform to make.</p>
 
-<h4 id="2b_does_the_eventstream_look_like_this_because_a_the_user_wanted_to_perform_this_action_b_the_website_pushed_the_user_into_performing_this_series_of_actions_or_c_the_way_the_web_analytics_tool_captures_the_data">2b. Does the event-stream look like this because (a) the user wanted to perform this action, (b) the website pushed the user into performing this series of actions or (c) the way the web analytics tool captures the data?</h4>
+<h4 id='2b_does_the_eventstream_look_like_this_because_a_the_user_wanted_to_perform_this_action_b_the_website_pushed_the_user_into_performing_this_series_of_actions_or_c_the_way_the_web_analytics_tool_captures_the_data'>2b. Does the event-stream look like this because (a) the user wanted to perform this action, (b) the website pushed the user into performing this series of actions or (c) the way the web analytics tool captures the data?</h4>
 
 <p>Interpreting web event data is hard because it is a function of all the above. To analyse web data, you need to appreciate all three factors. Unfortunately, you cannot control for all of them. A/B testing means you can control for site design, to a limited extent, and comparing user actions between different sets of users enables you to control (a little bit) for user intention. Exercising that control, though, is very difficult. For the most part, web analysts are like astrophysicists, able to capture data, but limited in the experiments they can run to unpick the impact of different factors on that data.</p>
 
@@ -161,9 +161,9 @@
 
 <li>Who are my most valuable customers? How can I spot them early?</li>
 
-<li>What are the events in a customer’s lifetime that drive loyalty? What are the things we can do to encourage them?</li>
+<li>What are the events in a customer&#8217;s lifetime that drive loyalty? What are the things we can do to encourage them?</li>
 
-<li>What are the moments in a customer’s lifetime where something going wrong destroys customer loyalty? Which are hurting my business (and my customers) the most?</li>
+<li>What are the moments in a customer&#8217;s lifetime where something going wrong destroys customer loyalty? Which are hurting my business (and my customers) the most?</li>
 
 <li>How do my customers segment by behavior? By attitude? Which segments are important to understand, to deliver excellent customer service?</li>
 
@@ -184,34 +184,33 @@
 <h3><a name='tools'>4. Poorly architected tools make the above <i>harder</i> to deal with, rather than <i>easier</i></a></h3>
 <p>The above sources of complexity make it clear why web analytics is hard. They present challenges for both web analysts, and web analytics tools.</p>
 
-<p>One approach to dealing with that complexity is to “disguise it”. The web analytics tools hides the underlying complexity behind a UI that presents specific cuts of the data. Many of the contributors to the <a href="https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz">Google+ thread</a> argued that this was how GA manages to be simpler than SiteCatalyst. Certainly, you can hide <em>all</em> the complexity behind a simple dashboard. But then, you can’t use a dashboard to answer any of the above questions. In this case, what you gain in simplicity, you lose in power and transparency.</p>
+<p>One approach to dealing with that complexity is to &#8220;disguise it&#8221;. The web analytics tools hides the underlying complexity behind a UI that presents specific cuts of the data. Many of the contributors to the <a href='https://plus.google.com/109933174446684687846/posts/fCNTrop8HJz'>Google+ thread</a> argued that this was how GA manages to be simpler than SiteCatalyst. Certainly, you can hide <em>all</em> the complexity behind a simple dashboard. But then, you can&#8217;t use a dashboard to answer any of the above questions. In this case, what you gain in simplicity, you lose in power and transparency.</p>
 
-<p>Another approach, which is the one we have taken at Snowplow, is to expose the underlying data to the user in a format (data model) that is as easy as possible to understand, and in a data store that is easy to connect multiple different analytics tools. This doesn’t disguise any of the complexity: instead, it exposes it all to the analyst. For many analysts, that is a terrifying prospect. But for some, it is truly liberating: the analyst can now use the analytic and technical approach she prefers to develop answers and insights, unconstrained by any assumed logic in the web analytics tool.</p>
+<p>Another approach, which is the one we have taken at Snowplow, is to expose the underlying data to the user in a format (data model) that is as easy as possible to understand, and in a data store that is easy to connect multiple different analytics tools. This doesn&#8217;t disguise any of the complexity: instead, it exposes it all to the analyst. For many analysts, that is a terrifying prospect. But for some, it is truly liberating: the analyst can now use the analytic and technical approach she prefers to develop answers and insights, unconstrained by any assumed logic in the web analytics tool.</p>
 
-<p>A third approach, taken by Omniture with Sitecatalyst, manages to exacerbate the complexity because of two poor decisions made around Sitecatalyst’s technical architecture:</p>
+<p>A third approach, taken by Omniture with Sitecatalyst, manages to exacerbate the complexity because of two poor decisions made around Sitecatalyst&#8217;s technical architecture:</p>
 
-<h4 id="4a_sitecatalysts_data_model_is_not_event_or_entitycentric">4a. Sitecatalysts data model is not event or entity-centric</h4>
+<h4 id='4a_sitecatalysts_data_model_is_not_event_or_entitycentric'>4a. Sitecatalysts data model is not event or entity-centric</h4>
 
-<p>To implement Sitecat, you have to translate the events that occur on your website, and the entities a user navigating on your website engages with, into the arcane world of Traffic Variables, Success Events, Conversion Variables and Saint Classifications. Your data model is, in many cases, flatted to fit a set of pre-defined fields in Omniture. Contrast that with the much simpler, event-centric approach taken by just about everyone that’s developed a platform in the last five years, including Mixpanel, Kissmetrics, KeenIO, Google Analytics and of course Snowplow.</p>
+<p>To implement Sitecat, you have to translate the events that occur on your website, and the entities a user navigating on your website engages with, into the arcane world of Traffic Variables, Success Events, Conversion Variables and Saint Classifications. Your data model is, in many cases, flatted to fit a set of pre-defined fields in Omniture. Contrast that with the much simpler, event-centric approach taken by just about everyone that&#8217;s developed a platform in the last five years, including Mixpanel, Kissmetrics, KeenIO, Google Analytics and of course Snowplow.</p>
 
-<h4 id="4b_in_sitecatalyst_data_capture_and_data_reporting_are_incredibly_tightly_coupled">4b. In Sitecatalyst, data capture and data reporting are incredibly tightly coupled</h4>
+<h4 id='4b_in_sitecatalyst_data_capture_and_data_reporting_are_incredibly_tightly_coupled'>4b. In Sitecatalyst, data capture and data reporting are incredibly tightly coupled</h4>
 
-<p><em>How</em> you capture a data point in Sitecatalyst determines which reports that data point is used in, and how that data point is used subsequently. That is why, at a simplistic level, you absolutely need to understand Traffic Variables, Success Events, Conversion Variables and Saint Classifications, and how Sitecatalyst treats each of them, in order to do a Sitecatalyst implementation properly. That makes implementations significantly more complicated than the need to be, and they make the impact of “bad” implementations much more catastrophic than they need to be.</p>
+<p><em>How</em> you capture a data point in Sitecatalyst determines which reports that data point is used in, and how that data point is used subsequently. That is why, at a simplistic level, you absolutely need to understand Traffic Variables, Success Events, Conversion Variables and Saint Classifications, and how Sitecatalyst treats each of them, in order to do a Sitecatalyst implementation properly. That makes implementations significantly more complicated than the need to be, and they make the impact of &#8220;bad&#8221; implementations much more catastrophic than they need to be.</p>
 
 <p>In contrast, with Snowplow, <strong>no</strong> restrictions are placed on how you use any data based on how you choose to capture it. That is because data analysis is completely decoupled from data capture: we only enable you to capture and warehouse your data. You then do whatever you want with it, often in a different tool.</p>
 
-<p>There is another fundamental disadvantages that arises from the tight coupling data capture and data reporting in Sitecatalyst: it is not possible to use Sitecatalyst to develop definitions, definitions and metrics which evolve over time, as you better understand your data. To give perhaps the most common example: if you want to categorise your users based on their behaviour on their site, you cannot do that in Sitecatalyst, apply those definitions to your data, and then evolve those definitions: either you have them on day one, and store them via the Javascript, or you don’t. You can’t perform an analysis on user behaviour, and then retrospectively categorize users based on the output of that analysis. (Companies generally export Sitecatalyst data out and ingest it in a datawarehouse, and then do the segmentation there.)</p>
+<p>There is another fundamental disadvantages that arises from the tight coupling data capture and data reporting in Sitecatalyst: it is not possible to use Sitecatalyst to develop definitions, definitions and metrics which evolve over time, as you better understand your data. To give perhaps the most common example: if you want to categorise your users based on their behaviour on their site, you cannot do that in Sitecatalyst, apply those definitions to your data, and then evolve those definitions: either you have them on day one, and store them via the Javascript, or you don&#8217;t. You can&#8217;t perform an analysis on user behaviour, and then retrospectively categorize users based on the output of that analysis. (Companies generally export Sitecatalyst data out and ingest it in a datawarehouse, and then do the segmentation there.)</p>
 
-<p>Given the two massive disadvantages to the tight data coupling, it seems only fair to ask if there are any benefits associated with it. There is one that is worth exploring: when you collect your data properly in Sitecatalyst, Sitecat then ensures that that data point accommodated in every report it features. By taking more effort earlier on (at implementation time) to get your data to fit into Sitecat’s rigid data model, you can then breathe easy down the line that anyone using the data via the UI is restricted so that they only use the data properly: they don’t, for example, mix dimensions and metrics with different scope.</p>
+<p>Given the two massive disadvantages to the tight data coupling, it seems only fair to ask if there are any benefits associated with it. There is one that is worth exploring: when you collect your data properly in Sitecatalyst, Sitecat then ensures that that data point accommodated in every report it features. By taking more effort earlier on (at implementation time) to get your data to fit into Sitecat&#8217;s rigid data model, you can then breathe easy down the line that anyone using the data via the UI is restricted so that they only use the data properly: they don&#8217;t, for example, mix dimensions and metrics with different scope.</p>
 
-<p>We think this “advantage” is not really worth anything. We think it is much easier to work out what dimensions and metrics you should, and should not, plot against one another when you have the data in front of you, but that it is much harder when the data is just an idea at implementation time. Worse, if you cut your data in a way that doesn’t make sense down the line, it is an easy mistake to spot and fix. In contrast, if you stuff up a Sitecat implementation, it can be hard to fix, and costly, and you might have lost months of data in the meantime.</p>
+<p>We think this &#8220;advantage&#8221; is not really worth anything. We think it is much easier to work out what dimensions and metrics you should, and should not, plot against one another when you have the data in front of you, but that it is much harder when the data is just an idea at implementation time. Worse, if you cut your data in a way that doesn&#8217;t make sense down the line, it is an easy mistake to spot and fix. In contrast, if you stuff up a Sitecat implementation, it can be hard to fix, and costly, and you might have lost months of data in the meantime.</p>
 
-<p>To Omniture’s credit, the two technical decisions made above were committed in the late 1990s, when the web looked very different, and so they were not such bad decisions. Since then, Omniture has had to accommodate growing complexity in the web by making incremental approaches to their platform, rather than reinventing the core platform with a fresh perspective, the way we’ve been able to with Snowplow. But that provides little comfort for the company that has to reimplement Sitecatalyst because they got the implementation wrong the first time.</p>
+<p>To Omniture&#8217;s credit, the two technical decisions made above were committed in the late 1990s, when the web looked very different, and so they were not such bad decisions. Since then, Omniture has had to accommodate growing complexity in the web by making incremental approaches to their platform, rather than reinventing the core platform with a fresh perspective, the way we&#8217;ve been able to with Snowplow. But that provides little comfort for the company that has to reimplement Sitecatalyst because they got the implementation wrong the first time.</p>
 
-<h2 id="so_web_analytics_is_very_hard">So web analytics is very hard!</h2>
+<h2 id='so_web_analytics_is_very_hard'>So web analytics is very hard!</h2>
 
 <p>Yes! Web analytics is hard. But tools like Sitecatalyst make it harder than it needs to be, especially at implementation time. The idea that implementing Sitecatalyst is more difficult than Google Analytics or Snowplow because Sitecatalyst is more powerful than GA is only partly true at best. It is more difficult because reporting and data capture are too tightly coupled, and the data model is totally unnatural to the uninitiated.</p>
-
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

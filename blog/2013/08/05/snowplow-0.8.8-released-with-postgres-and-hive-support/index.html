@@ -71,15 +71,14 @@
 			05 Aug 2013
 			<h1>Snowplow 0.8.8 released with Postgres and Hive support</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href="http://www.postgresql.org/">PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
+			<p>We are pleased to announce the immediate release of Snowplow 0.8.8. This is a big release for us: it adds the ability to store your Snowplow events in the popular <a href='http://www.postgresql.org/'>PostgreSQL</a> open-source database. This has been the most requested Snowplow feature all summer, so we are delighted to finally release it.</p>
 
 <p>And if you are already happily using Snowplow with Redshift, there are two other new features to check out:</p>
 
 <ol>
-<li>We have added support for multiple storage targets to Snowplow’s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
+<li>We have added support for multiple storage targets to Snowplow&#8217;s StorageLoader. This means that you can configure StorageLoader to load into three different Redshift databases, one PostgreSQL database and one Redshift - whatever</li>
 
-<li>We have brought back the ability to query your Snowplow events using <a href="http://hive.apache.org/">HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
+<li>We have brought back the ability to query your Snowplow events using <a href='http://hive.apache.org/'>HiveQL</a>. Regardless of which storage target(s) you are using, you can now also run HiveQL queries against your Snowplow events stored in Amazon S3</li>
 </ol>
 
 <p>As well as these new features, we have made a large number of improvements across Snowplow:</p>
@@ -91,9 +90,9 @@
 
 <li>We have improved the performance of the Redshift loading code</li>
 
-<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href="http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html">Redshift <code>COPY</code> documentation</a> for details)</li>
+<li>We have added a configuration option for setting <code>MAXERROR</code> when loading into Redshift (see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for details)</li>
 
-<li>We have moved the Snowplow JavaScript Tracker into <a href="https://github.com/snowplow/snowplow-javascript-tracker">its own repository</a></li>
+<li>We have moved the Snowplow JavaScript Tracker into <a href='https://github.com/snowplow/snowplow-javascript-tracker'>its own repository</a></li>
 
 <li>We have removed the deprecated Hive ETL and Infobright folders from the repository</li>
 </ul>
@@ -101,13 +100,13 @@
 <p>After the fold, we will cover the options for upgrading and using the new functionality:</p>
 
 <ol>
-<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading">Upgrading</a></li>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#upgrading'>Upgrading</a></li>
 
-<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres">Loading events into Postgres</a></li>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#postgres'>Loading events into Postgres</a></li>
 
-<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql">Querying events with HiveQL</a></li>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#hiveql'>Querying events with HiveQL</a></li>
 
-<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help">Getting help</a></li>
+<li><a href='/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support#help'>Getting help</a></li>
 </ol>
 <!--more--><h2><a name='upgrading'>1. Upgrading</a></h2>
 <p>There are <strong>three components</strong> to upgrade in this release:</p>
@@ -120,9 +119,9 @@
 <li>StorageLoader, to version 0.1.0, and its configuration file</li>
 </ul>
 
-<p>Let’s take these in turn:</p>
+<p>Let&#8217;s take these in turn:</p>
 
-<h3 id="hadoop_etl">Hadoop ETL</h3>
+<h3 id='hadoop_etl'>Hadoop ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
@@ -130,7 +129,7 @@
 </code></pre></div>
 <p>Read on for the rest of the changes you will need to make to <code>config.yml</code>.</p>
 
-<h3 id="emretlrunner">EmrEtlRunner</h3>
+<h3 id='emretlrunner'>EmrEtlRunner</h3>
 
 <p>You need to upgrade your EmrEtlRunner installation to the latest code (0.8.8 release) on GitHub:</p>
 
@@ -139,7 +138,7 @@ $ git checkout 0.8.8
 $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment</code></pre>
 
-<p>Next, you need to update the format of your <code>config.yml</code> - the format has been simplified significantly. The new format (<a href="https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample">as found on GitHub</a>) looks like this:</p>
+<p>Next, you need to update the format of your <code>config.yml</code> - the format has been simplified significantly. The new format (<a href='https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample'>as found on GitHub</a>) looks like this:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
   <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
@@ -175,7 +174,7 @@ $ bundle install --deployment</code></pre>
 </code></pre></div>
 <p>Note that the <code>:snowplow:</code> section has been mostly removed, with <code>:hadoop_etl_version:</code> moving into the <code>:etl:</code> section.</p>
 
-<h3 id="storageloader">StorageLoader</h3>
+<h3 id='storageloader'>StorageLoader</h3>
 
 <p>You need to upgrade your StorageLoader installation to the latest code (0.8.8 release) on GitHub:</p>
 
@@ -184,7 +183,7 @@ $ git checkout 0.8.8
 $ cd snowplow/4-storage/storage-loader
 $ bundle install --deployment</code></pre>
 
-<p>Next, you need to update the format of your <code>config.yml</code> - the format has been updated to support multiple storage targets. The new format (<a href="https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample">as found on GitHub</a>) looks like this:</p>
+<p>Next, you need to update the format of your <code>config.yml</code> - the format has been updated to support multiple storage targets. The new format (<a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/redshift.yml.sample'>as found on GitHub</a>) looks like this:</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
   <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
@@ -206,18 +205,18 @@ $ bundle install --deployment</code></pre>
     <span class='l-Scalar-Plain'>:password</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span> 
     <span class='l-Scalar-Plain'>:maxerror</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>1</span> <span class='c1'># Stop loading on first error, or increase to permit more load errors</span>
 </code></pre></div>
-<p>Note the new <code>:maxerror:</code> setting - see the <a href="http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html">Redshift <code>COPY</code> documentation</a> for more on this.</p>
+<p>Note the new <code>:maxerror:</code> setting - see the <a href='http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html'>Redshift <code>COPY</code> documentation</a> for more on this.</p>
 
 <p>To add another Redshift storage target, just add another configuration block under <code>:targets:</code>, starting with <code>- :name:</code>.</p>
 
-<p>To add a new Postgres storage target, read on</p>
+<p>To add a new Postgres storage target, read on&#8230;</p>
 <h2><a name='postgres'>2. Loading events into Postgres</a></h2>
 <p>Loading events into Postgres is quite straightforward:</p>
 
 <ol>
-<li>Upgrade to the latest version of Snowplow <a href="#upgrading">as described above</a></li>
+<li>Upgrade to the latest version of Snowplow <a href='#upgrading'>as described above</a></li>
 
-<li>If you don’t have one already, setup a Postgres database server</li>
+<li>If you don&#8217;t have one already, setup a Postgres database server</li>
 
 <li>Create a <code>snowplow</code> database within Postgres</li>
 
@@ -226,9 +225,9 @@ $ bundle install --deployment</code></pre>
 <li>Configure StorageLoader to load into Postgres</li>
 </ol>
 
-<p>For help on steps 2-4, please see our new guide, <a href="https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL">Setting up PostgreSQL</a>. You can find the new PostgreSQL script on GitHub, <a href="https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/table-def.sql">here</a>.</p>
+<p>For help on steps 2-4, please see our new guide, <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-PostgreSQL'>Setting up PostgreSQL</a>. You can find the new PostgreSQL script on GitHub, <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/table-def.sql'>here</a>.</p>
 
-<p>For step 5, you should create a StorageLoader configuration file which looks like this (<a href="https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/postgres.yml.sample">as found on GitHub</a>):</p>
+<p>For step 5, you should create a StorageLoader configuration file which looks like this (<a href='https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/postgres.yml.sample'>as found on GitHub</a>):</p>
 <div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:aws</span><span class='p-Indicator'>:</span>
   <span class='l-Scalar-Plain'>:access_key_id</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
   <span class='l-Scalar-Plain'>:secret_access_key</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>ADD HERE</span>
@@ -252,16 +251,16 @@ $ bundle install --deployment</code></pre>
 </code></pre></div>
 <p>Make sure to set <code>:folder:</code> to a local directory where you can download the Snowplow event files to, ready for loading into your local Postgres database server.</p>
 <h2><a name='hiveql'>3. Querying events with HiveQL</a></h2>
-<p>The new release makes it possible again to query your Snowplow events directly on Amazon S3 using <a href="http://hive.apache.org/">HiveQL</a>.</p>
+<p>The new release makes it possible again to query your Snowplow events directly on Amazon S3 using <a href='http://hive.apache.org/'>HiveQL</a>.</p>
 
 <p>Steps are as follows:</p>
 
 <ol>
-<li>Upgrade to the latest version of Snowplow <a href="#upgrading">as described above</a></li>
+<li>Upgrade to the latest version of Snowplow <a href='#upgrading'>as described above</a></li>
 
 <li>Wait for Snowplow to run at least once following the upgrade</li>
 
-<li>Follow the instructions in our updated guide, <a href="https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools">Running Hive using the command line tools</a></li>
+<li>Follow the instructions in our updated guide, <a href='https://github.com/snowplow/snowplow/wiki/Running-Hive-using-the-command-line-tools'>Running Hive using the command line tools</a></li>
 </ol>
 
 <p>If you want to run HiveQL queries across your historical event data (i.e. from before the upgrade), this is possible too. You will need to rename the timestamped folders in your event archive from the old format to the new format, by prepending <code>run=</code>. So for example, change:</p>
@@ -274,10 +273,9 @@ $ bundle install --deployment</code></pre>
 
 <p>One this is done for all folders, all of your historic event files should be correctly partitioned ready for Hive to query.</p>
 <h2><a name='help'>4. Getting help</a></h2>
-<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 
-<p>For more details on this release, please check out the <a href="https://github.com/snowplow/snowplow/releases/0.8.8">0.8.8 Release Notes</a> on GitHub.</p>
-
+<p>For more details on this release, please check out the <a href='https://github.com/snowplow/snowplow/releases/0.8.8'>0.8.8 Release Notes</a> on GitHub.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

@@ -71,20 +71,19 @@
 			05 Jun 2013
 			<h1>Tracking Olark chat events with Snowplow</h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>As some of you will have noticed, we recently installed <a href="http://www.olark.com/">Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
+			<p>As some of you will have noticed, we recently installed <a href='http://www.olark.com/'>Olark</a> on the Snowplow website. Olark powers the chat box you see on the bottom right of the screen: if you click on it, and if one of the Snowplow team is at their desks, you can talk directly to us.</p>
 
-<p><img src="/static/img/blog/2013/06/olark/olark-logo.png" alt="olark-logo" /></p>
+<p><img alt='olark-logo' src='/static/img/blog/2013/06/olark/olark-logo.png' /></p>
 
-<p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href="http://www.olark.com/customer/portal/articles/337453-getting-started-guide">quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
+<p>Setting up Olark was an incredibly easy process - the Olark team provides a very straightforward <a href='http://www.olark.com/customer/portal/articles/337453-getting-started-guide'>quick start guide</a>. We tested Olark for a week on the Snowplow website - we wanted to see:</p>
 
 <ol>
 <li>Whether people visiting the site would want to chat to us.</li>
 
-<li>Whether the chats were “useful” i.e. did they drive visitors to become Snowplow users? Did they help us identify content on the site that was confusing and needed clarification? Does it help drive sales of <a href="http://snowplowanalytics.com/services/index.html">Snowplow professional services</a>.</li>
+<li>Whether the chats were &#8220;useful&#8221; i.e. did they drive visitors to become Snowplow users? Did they help us identify content on the site that was confusing and needed clarification? Does it help drive sales of <a href='http://snowplowanalytics.com/services/index.html'>Snowplow professional services</a>.</li>
 </ol>
 
-<p>What became clear very quickly was that only a minority of visitors to the Snowplow site were interested in chatting. However, the “usefulness” of those chats was very high - already two professional services contracts have been won off the back of initial conversations powered by Olark. And in addition, we learnt a lot about where out content needs clarifying.</p>
+<p>What became clear very quickly was that only a minority of visitors to the Snowplow site were interested in chatting. However, the &#8220;usefulness&#8221; of those chats was very high - already two professional services contracts have been won off the back of initial conversations powered by Olark. And in addition, we learnt a lot about where out content needs clarifying.</p>
 
 <p>The testing of Olark to date has been qualitative however. Longer term, we want to assess the value Olark adds quantitatively. To do this, naturally, we turn to Snowplow. We want to track Olark chat events in Snowplow, so that we can then analyze the Snowplow data to understand:</p>
 
@@ -98,21 +97,21 @@
 <li>How good (quick) we are at responding to visitors reaching out to us via Olark?</li>
 </ol>
 
-<p>In this blog post, we will describe how we used <a href="https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events">Snowplow structured events</a> to track Olark chat events. In a future blog post, we will analyze the data collected in Snowplow, to show how to answer the four questions outlined above. (We’ll write this once we’ve been running Olark for a while, so have a good data set to use to peform the analysis.)</p>
+<p>In this blog post, we will describe how we used <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>Snowplow structured events</a> to track Olark chat events. In a future blog post, we will analyze the data collected in Snowplow, to show how to answer the four questions outlined above. (We&#8217;ll write this once we&#8217;ve been running Olark for a while, so have a good data set to use to peform the analysis.)</p>
 <!--more-->
-<h2 id="tracking_olark_chat_events_in_snowplow">Tracking Olark chat events in Snowplow</h2>
+<h2 id='tracking_olark_chat_events_in_snowplow'>Tracking Olark chat events in Snowplow</h2>
 
-<p>Olark provides an easy-to-use Javascript API, that lets us call our own Javascript functions when an Olark chat event happens. There are two that are relevant for us - an event that fires when a visitor pings a message to an “operator” (i.e. the Snowplow team) via the Olark client:</p>
+<p>Olark provides an easy-to-use Javascript API, that lets us call our own Javascript functions when an Olark chat event happens. There are two that are relevant for us - an event that fires when a visitor pings a message to an &#8220;operator&#8221; (i.e. the Snowplow team) via the Olark client:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
 </code></pre></div>
-<p>…and an event that fires when an operator pings a message to a visitor:</p>
+<p>&#8230;and an event that fires when an operator pings a message to a visitor:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToVisitor&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='c1'>// our custom function here</span>
 <span class='p'>});</span>
 </code></pre></div>
-<p>We’re running Google Tag Manager on the Snowplow website, so we want to push an event into the GTM dataLayer when a chat event happens, so that that event is visible to Snowplow tags configured in GTM. To do this, we add the following Javascript to our page template:</p>
+<p>We&#8217;re running Google Tag Manager on the Snowplow website, so we want to push an event into the GTM dataLayer when a chat event happens, so that that event is visible to Snowplow tags configured in GTM. To do this, we add the following Javascript to our page template:</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>olark</span><span class='p'>(</span><span class='s1'>&#39;api.chat.onMessageToOperator&#39;</span><span class='p'>,</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>event</span><span class='p'>)</span> <span class='p'>{</span>
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToOperator&#39;</span><span class='p'>});</span>
 <span class='p'>});</span>
@@ -121,9 +120,9 @@
     <span class='nx'>dataLayer</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>({</span><span class='s1'>&#39;event&#39;</span><span class='o'>:</span> <span class='s1'>&#39;olarkMessageToVisitor&#39;</span><span class='p'>});</span>
 <span class='p'>});</span>
 </code></pre></div>
-<p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href="https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events">structured event</a> when a visitor messages the operator:</p>
+<p>Now that chat events trigger notifications in the dataLayer, we can create Snowplow tags via the GTM interface to track these events. We load up GTM, and create a new tag to trigger a <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events'>structured event</a> when a visitor messages the operator:</p>
 
-<p><img src="/static/img/blog/2013/06/olark/gtm-create-tag.JPG" alt="gtm-create-tag-1" /></p>
+<p><img alt='gtm-create-tag-1' src='/static/img/blog/2013/06/olark/gtm-create-tag.JPG' /></p>
 
 <p>Two things are worth noting about the tag. Firstly, the tag itself is very straightforward:</p>
 <div class='highlight'><pre><code class='html'><span class='c'>&lt;!-- Snowplow event tracking --&gt;</span>
@@ -132,24 +131,23 @@
 <span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackStructEvent&#39;</span><span class='p'>,</span> <span class='s1'>&#39;contact&#39;</span><span class='p'>,</span> <span class='s1'>&#39;olark_chat&#39;</span><span class='p'>,</span> <span class='s1'>&#39;message_to_operator&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>,</span> <span class='s1'>&#39;&#39;</span><span class='p'>]);</span>
 <span class='nt'>&lt;/script&gt;</span>
 </code></pre></div>
-<p>Secondly, we’ve created a rule that fires the tag when an event occurs in the dataLayer called ‘olarkMessageToOperator’. This is triggered by Javascript that we added to out page template.</p>
+<p>Secondly, we&#8217;ve created a rule that fires the tag when an event occurs in the dataLayer called &#8216;olarkMessageToOperator&#8217;. This is triggered by Javascript that we added to out page template.</p>
 
 <p>Now that our first tag is setup, we need to create an analogous tag, one that fires when the operator sends a message to the visitor. (Rather than the visitor sending a message to the operator.) This is done as shown below:</p>
 
-<p><img src="/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG" alt="gtm-create-tag-2" /></p>
+<p><img alt='gtm-create-tag-2' src='/static/img/blog/2013/06/olark/gtm-create-tag-2.JPG' /></p>
 
-<p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We’ll be able to analyze:</p>
+<p>And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow whenever they send a message to us, and another line of data every time we send a message back. We&#8217;ll be able to analyze:</p>
 
 <ul>
 <li>How quickly we respond to messages from visitors</li>
 
-<li>When visitors tend respond to messages from us. (When should we reach out, and when we shouldn’t.)</li>
+<li>When visitors tend respond to messages from us. (When should we reach out, and when we shouldn&#8217;t.)</li>
 
-<li>What impact chats on Olark have, in aggregate on visitor’s subsequent behavior on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)</li>
+<li>What impact chats on Olark have, in aggregate on visitor&#8217;s subsequent behavior on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)</li>
 </ul>
 
-<p>We’ll cover how to perform the above analysis in a future blog post.</p>
-
+<p>We&#8217;ll cover how to perform the above analysis in a future blog post.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">

@@ -71,21 +71,20 @@
 			15 Feb 2013
 			<h1>Snowplow 0.7.3 released, tracking additional data</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
+			<p>We&#8217;re excited to announce the release of Snowplow version <strong>0.7.3</strong>. This release adds a set of <strong>16 all-new fields</strong> to our event model:</p>
 
 <ul>
 <li>A new Event Vendor field</li>
 
 <li>The Page URL split out into its component parts (scheme, host, port, path, querystring, fragment/anchor)</li>
 
-<li>The web page’s character set</li>
+<li>The web page&#8217;s character set</li>
 
-<li>The web page’s width and height</li>
+<li>The web page&#8217;s width and height</li>
 
-<li>The browser’s viewport (i.e. visible width and height)</li>
+<li>The browser&#8217;s viewport (i.e. visible width and height)</li>
 
-<li>For page pings, we are now tracking the user’s scrolling during the last ping period (four fields)</li>
+<li>For page pings, we are now tracking the user&#8217;s scrolling during the last ping period (four fields)</li>
 </ul>
 
 <p>These fields should make a new set of analyses on Snowplow data, including analysing how deeply users engage with different web pages (e.g. what percentage of a web page have they viewed, and how fast). In addition, it should make some analyses easier, e.g. aggregating (and comparing) metrics by page by page and domain.</p>
@@ -93,76 +92,75 @@
 <p>In addition, the new release includes some minor bug fixes. In this post we will cover:</p>
 
 <ol>
-<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#new-fields">The new fields</a></li>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#new-fields'>The new fields</a></li>
 
-<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes">Bug fixes</a></li>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#bug-fixes'>Bug fixes</a></li>
 
-<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes">Breaking changes</a></li>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#breaking-changes'>Breaking changes</a></li>
 
-<li><a href="/blog/2013/02/15/snowplow-0.7.3-released#upgrade">Upgrading</a></li>
+<li><a href='/blog/2013/02/15/snowplow-0.7.3-released#upgrade'>Upgrading</a></li>
 </ol>
 <h2><a name='new-fields'>1. New fields</a></h2>
 <p>We are hugely excited to be including 16 new fields in this release - we believe that these fields should unlock a whole host of new analyses on Snowplow data.</p>
 
 <p>For completeness, we list out all of the new fields below. Note that all of the new fields are available in both the S3 (aka Hive) and Infobright (aka non-Hive) storage outputs:</p>
-<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code>event_vendor</code></td><td style="text-align: left;">string</td><td style="text-align: left;">Which company or org. defined this event type</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: left;"><code>page_urlscheme</code></td><td style="text-align: left;">string</td></tr>
-<tr><td style="text-align: left;">Scheme aka protocol, e.g. “https”</td><td style="text-align: left;"><code>page_urlhost</code></td><td style="text-align: left;">string</td></tr>
-<tr><td style="text-align: left;">Host aka domain, e.g. “www.snowplowanalytics.com”</td><td style="text-align: left;"><code>page_urlport</code></td><td style="text-align: left;">int</td></tr>
-<tr><td style="text-align: left;">Port if specified, 80 if not</td><td style="text-align: left;"><code>page_urlpath</code></td><td style="text-align: left;">string</td></tr>
-<tr><td style="text-align: left;">Path to page, e.g. “/product/index.html”</td><td style="text-align: left;"><code>page_urlquery</code></td><td style="text-align: left;">string</td></tr>
-<tr><td style="text-align: left;">Querystring, e.g. “id=GTM-DLRG”</td><td style="text-align: left;"></td><td style="text-align: left;"><code>page_urlfragment</code></td></tr>
-<tr><td style="text-align: left;">string</td><td style="text-align: left;">Fragment aka anchor, e.g. “4-conclusion”</td><td style="text-align: left;"><code>br_viewwidth</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The width of the browser’s viewport in pixels</td><td style="text-align: left;"><code>br_viewheight</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The height of the browser’s viewport in pixels</td><td style="text-align: left;"><code>doc_charset</code></td></tr>
-<tr><td style="text-align: left;">string</td><td style="text-align: left;">The page’s character encoding, e.g. “UTF-8”</td><td style="text-align: left;"><code>doc_width</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The total width of the page (incl. non-viewed area)</td><td style="text-align: left;"><code>doc_height</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">The total height of the page (incl. non-viewed area)</td><td style="text-align: left;"><code>pp_xoffset_min</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Minimum page x offset seen in the last ping period</td><td style="text-align: left;"><code>pp_xoffset_max</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Maximum page x offset seen in the last ping period</td><td style="text-align: left;"><code>pp_yoffset_min</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Minimum page y offset seen in the last ping period</td><td style="text-align: left;"><code>pp_yoffset_max</code></td></tr>
-<tr><td style="text-align: left;">integer</td><td style="text-align: left;">Maximum page y offset seen in the last ping period</td></tr>
-</tbody></table>
-<p>Don’t worry if some of these new fields don’t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
+<table><thead><tr><th>Field</th><th>Datatype</th><th>Description</th></tr></thead><tbody><tr><td style='text-align: left;'><code>event_vendor</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Which company or org. defined this event type</td>
+</tr><tr><td style='text-align: left;'><code>page_urlscheme</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Scheme aka protocol, e.g. &#8220;https&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlhost</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Host aka domain, e.g. &#8220;www.snowplowanalytics.com&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlport</code></td><td style='text-align: left;'>int</td><td style='text-align: left;'>Port if specified, 80 if not</td>
+</tr><tr><td style='text-align: left;'><code>page_urlpath</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Path to page, e.g. &#8220;/product/index.html&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlquery</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Querystring, e.g. &#8220;id=GTM-DLRG&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>page_urlfragment</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>Fragment aka anchor, e.g. &#8220;4-conclusion&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>br_viewwidth</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The width of the browser&#8217;s viewport in pixels</td>
+</tr><tr><td style='text-align: left;'><code>br_viewheight</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The height of the browser&#8217;s viewport in pixels</td>
+</tr><tr><td style='text-align: left;'><code>doc_charset</code></td><td style='text-align: left;'>string</td><td style='text-align: left;'>The page&#8217;s character encoding, e.g. &#8220;UTF-8&#8221;</td>
+</tr><tr><td style='text-align: left;'><code>doc_width</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total width of the page (incl. non-viewed area)</td>
+</tr><tr><td style='text-align: left;'><code>doc_height</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>The total height of the page (incl. non-viewed area)</td>
+</tr><tr><td style='text-align: left;'><code>pp_xoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page x offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_xoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page x offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_yoffset_min</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Minimum page y offset seen in the last ping period</td>
+</tr><tr><td style='text-align: left;'><code>pp_yoffset_max</code></td><td style='text-align: left;'>integer</td><td style='text-align: left;'>Maximum page y offset seen in the last ping period</td>
+</tr></tbody></table>
+<p>Don&#8217;t worry if some of these new fields don&#8217;t make immediate sense based on the descriptions above - we will take a look at each of these fields in the sub-sections below:</p>
 <!--more-->
-<h3 id="11_event_vendor">1.1 Event vendor</h3>
+<h3 id='11_event_vendor'>1.1 Event vendor</h3>
 
-<p>As we have <a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">previously blogged</a>, we are in the process of developing the Snowplow event model: the list of first-class events for which we’ve defined a structured data model. As we stressed in the <a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">blog post</a>, we well understand that different models will be appropriate for different websites and applications, and that model we develop will not be ideal for everyone. In the future, we plan to enable different companies to develop their own first class data model within Snowplow. As a first step in this direction, we have added the <strong>Event vendor</strong> field to the Snowplow data model: when a company develops its own event data model, it will be identifiable to that vendor using this field. This will open up the possibility of:</p>
+<p>As we have <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>previously blogged</a>, we are in the process of developing the Snowplow event model: the list of first-class events for which we&#8217;ve defined a structured data model. As we stressed in the <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>blog post</a>, we well understand that different models will be appropriate for different websites and applications, and that model we develop will not be ideal for everyone. In the future, we plan to enable different companies to develop their own first class data model within Snowplow. As a first step in this direction, we have added the <strong>Event vendor</strong> field to the Snowplow data model: when a company develops its own event data model, it will be identifiable to that vendor using this field. This will open up the possibility of:</p>
 
 <ol>
-<li>Ingesting proprietary events from third-party systems (e.g. <code>event_vendor</code>=”com.sendgrid” or “com.appnexus”)</li>
+<li>Ingesting proprietary events from third-party systems (e.g. <code>event_vendor</code>=&#8221;com.sendgrid&#8221; or &#8220;com.appnexus&#8221;)</li>
 
-<li>Ingesting clickstream events from other analytics services (e.g. <code>event_vendor</code>=”com.adobe” or “com.mixpanel”)</li>
+<li>Ingesting clickstream events from other analytics services (e.g. <code>event_vendor</code>=&#8221;com.adobe&#8221; or &#8220;com.mixpanel&#8221;)</li>
 
-<li>Tracking custom events defined by a specific Snowplow user (e.g. <code>event_vendor</code>=”au.com.asnowplowuser”)</li>
+<li>Tracking custom events defined by a specific Snowplow user (e.g. <code>event_vendor</code>=&#8221;au.com.asnowplowuser&#8221;)</li>
 </ol>
 
-<p>At the moment, however, all events will have an <code>event_vendor</code> field that will be “com.snowplowanalytics” (using the Java package-style naming convention).</p>
+<p>At the moment, however, all events will have an <code>event_vendor</code> field that will be &#8220;com.snowplowanalytics&#8221; (using the Java package-style naming convention).</p>
 
-<h3 id="12_page_url_components">1.2 Page URL components</h3>
+<h3 id='12_page_url_components'>1.2 Page URL components</h3>
 
 <p>We have split the <code>page_url</code> into its six component parts (the unprocessed <code>page_url</code> field is left unchanged). Having these fields broken out should make it much easier to do page URL-based analyses, such as aggregating data for specific <code>page_url</code>s (ignoring query strings) or investigating HTTPS traffic.</p>
 
-<h3 id="13_viewport_fields">1.3 Viewport fields</h3>
+<h3 id='13_viewport_fields'>1.3 Viewport fields</h3>
 
 <p>Each event now tracks the current viewport of the browser - in other words, the viewable area (width x height) current available within the browser.</p>
 
 <p>This will enable analysts to distinguish browsing behavior based on viewport size, and see if there are specific events on a customer journey that trigger a user resizing his / her browser. (Which is a useful user-experience indicator.)</p>
 
-<h3 id="14_document_width_and_height">1.4 Document width and height</h3>
+<h3 id='14_document_width_and_height'>1.4 Document width and height</h3>
 
 <p>We are now tracking the complete width and height of the current document (aka web page) on each event. This tells you the total width and height of the current page, as perceived by the browser. This measures the whole document - i.e. including the non-viewable part of the document.</p>
 
 <p>This can be used in conjunction with the new viewport fields (above) and page ping offsets (below) to analyse what fraction of a document a user has engaged with, and over what time period.</p>
 
-<h3 id="15_page_ping_offsets">1.5 Page ping offsets</h3>
+<h3 id='15_page_ping_offsets'>1.5 Page ping offsets</h3>
 
 <p>These four new offset fields are perhaps the most complex new additions. First of all: these fields are only set if you <code>enableActivityTracking()</code> on your site. In a nutshell, activity tracking:</p>
 
 <ul>
 <li>Silently checks for user activity (mouse movements, scrolling, key presses etc) on a page for a specified time period (e.g. 10 seconds)</li>
 
-<li>If any user activity was detected in those 10 seconds, the tracker sends a “page ping” back to Snowplow. (No user activity, no page ping)</li>
+<li>If any user activity was detected in those 10 seconds, the tracker sends a &#8220;page ping&#8221; back to Snowplow. (No user activity, no page ping)</li>
 
 <li>This is then repeated for each new time period, until the user navigates away from the page</li>
 </ul>
@@ -171,14 +169,12 @@
 
 <p><strong>Simply put: these new offset fields are designed to provide a clear view of how your users scroll around your webpages over time.</strong> (Especially when combined with the viewport and document width and height fields also listed above.)</p>
 
-<p>Huge thanks to <a href="https://github.com/kingo55">Rob Kingston</a> for providing the original idea and implementation around page ping offsets, and helping us to test our implementation!</p>
+<p>Huge thanks to <a href='https://github.com/kingo55'>Rob Kingston</a> for providing the original idea and implementation around page ping offsets, and helping us to test our implementation!</p>
 
-<h3 id="16_document_characterset">1.6 Document characterset</h3>
+<h3 id='16_document_characterset'>1.6 Document characterset</h3>
 
-<p>Each event now tracks the document’s charset where available (not all browsers set this).</p>
-
-<p><a name='bug-fixes'><h2>2. Bug fixes</h2></a></p>
-
+<p>Each event now tracks the document&#8217;s charset where available (not all browsers set this).</p>
+<a name='bug-fixes'><h2>2. Bug fixes</h2></a>
 <p>As well as the new fields introduced above, this release also includes a small set of bug fixes in the JavaScript tracker which are worth noting:</p>
 
 <ol>
@@ -186,34 +182,29 @@
 
 <li>The activity tracking (page ping) behavior was too fragile: if a single monitoring period elapsed with no activity, then all future monitoring would be cancelled. This could easily lead to on-page activity not being recorded. This has now been fixed</li>
 </ol>
-
-<p><a name='breaking-changes'><h2>3. Breaking changes and deprecations</h2></a></p>
-
+<a name='breaking-changes'><h2>3. Breaking changes and deprecations</h2></a>
 <p>The following table tracks the breaking changes and deprecations in this version. <strong>When upgrading to the latest version of the JavaScript tracker (0.10.0), please update your JavaScript tags as per the instructions below to avoid problems:</strong></p>
-<table><thead><tr><th>Type of change</th><th>Component</th><th>Change</th><th>Comment</th></tr></thead><tbody><tr><td style="text-align: left;">Breaking change</td><td style="text-align: left;">JavaScript tracker</td><td style="text-align: left;"><code>setAccount()</code> removed</td><td style="text-align: left;">Use <code>setCollectorCf()</code> instead</td></tr>
-<tr><td style="text-align: left;">Breaking change</td><td style="text-align: left;">JavaScript tracker</td><td style="text-align: left;"><code>setTracker()</code> removed</td><td style="text-align: left;">Use <code>getTrackerCf()</code> instead</td></tr>
-<tr><td style="text-align: left;">Breaking change</td><td style="text-align: left;">JavaScript tracker</td><td style="text-align: left;"><code>setHeartBeatTimer()</code> removed</td><td style="text-align: left;">Use <code>enableActivityTracking()</code> instead</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: left;">Deprecation</td><td style="text-align: left;">JavaScript tracker</td><td style="text-align: left;"><code>trackEvent()</code> deprecated</td></tr>
-<tr><td style="text-align: left;">Use <code>trackStructEvent()</code> instead</td><td style="text-align: left;">Data change</td><td style="text-align: left;">S3 &amp; Infobright storage</td><td style="text-align: left;"><code>event</code>=”custom” changed</td></tr>
-<tr><td style="text-align: left;">Changed to <code>event</code>=”struct”</td></tr>
-</tbody></table>
+<table><thead><tr><th>Type of change</th><th>Component</th><th>Change</th><th>Comment</th></tr></thead><tbody><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setAccount()</code> removed</td><td style='text-align: left;'>Use <code>setCollectorCf()</code> instead</td>
+</tr><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setTracker()</code> removed</td><td style='text-align: left;'>Use <code>getTrackerCf()</code> instead</td>
+</tr><tr><td style='text-align: left;'>Breaking change</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>setHeartBeatTimer()</code> removed</td><td style='text-align: left;'>Use <code>enableActivityTracking()</code> instead</td>
+</tr><tr><td style='text-align: left;'>Deprecation</td><td style='text-align: left;'>JavaScript tracker</td><td style='text-align: left;'><code>trackEvent()</code> deprecated</td><td style='text-align: left;'>Use <code>trackStructEvent()</code> instead</td>
+</tr><tr><td style='text-align: left;'>Data change</td><td style='text-align: left;'>S3 &amp; Infobright storage</td><td style='text-align: left;'><code>event</code>=&#8221;custom&#8221; changed</td><td style='text-align: left;'>Changed to <code>event</code>=&#8221;struct&#8221;</td>
+</tr></tbody></table>
 <p>The first three changes are simply cleanup: we are removing tracker methods which we previously deprecated some time ago.</p>
 
-<p>The last two changes are us starting to re-structure our event tracking - we are making space in our event model to support unstructured events, which will be coming soon. Please check out our previous blog post, <a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/">Help us build out the Snowplow Event Model</a> for more background on this.</p>
-
-<p><a name='upgrade'><h2>4. Upgrading</h2></a></p>
-
+<p>The last two changes are us starting to re-structure our event tracking - we are making space in our event model to support unstructured events, which will be coming soon. Please check out our previous blog post, <a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>Help us build out the Snowplow Event Model</a> for more background on this.</p>
+<a name='upgrade'><h2>4. Upgrading</h2></a>
 <p>Upgrading is a three-step process:</p>
 
-<h3 id="41_javascript_tracker">4.1 JavaScript tracker</h3>
+<h3 id='41_javascript_tracker'>4.1 JavaScript tracker</h3>
 
 <p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.10.0. As always, the updated minified tracker is available here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.10.0/sp.js</code></pre>
 
-<p><strong>Don’t forget to update your Snowplow tags as per the updates in <a href="#breaking-changes">breaking changes</a> and deprecations above.</strong></p>
+<p><strong>Don&#8217;t forget to update your Snowplow tags as per the updates in <a href='#breaking-changes'>breaking changes</a> and deprecations above.</strong></p>
 
-<h3 id="42_etl">4.2 ETL</h3>
+<h3 id='42_etl'>4.2 ETL</h3>
 
 <p>If you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest versions of the Hive serde and HiveQL scripts:</p>
 
@@ -222,7 +213,7 @@
   :hive_hiveql_version: 0.5.5
   :non_hive_hiveql_version: 0.0.6</code></pre>
 
-<h3 id="43_infobright">4.3 Infobright</h3>
+<h3 id='43_infobright'>4.3 Infobright</h3>
 
 <p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. To make this easier for you, we have created two scripts:</p>
 
@@ -233,7 +224,7 @@
 
 <p>Running this script will create a new table, <code>events_006</code> (version 0.0.6 of the Infobright table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
 
-<p>Once you have run this, don’t forget to update your StorageLoader’s <code>config.yml</code> to load into the new <code>events_006</code> table, not your old <code>events</code> table:</p>
+<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_006</code> table, not your old <code>events</code> table:</p>
 
 <pre><code>:storage:
   :type: infobright
@@ -242,10 +233,9 @@
 
 <p>Done!</p>
 
-<h2 id="5_getting_help">5. Getting help</h2>
+<h2 id='5_getting_help'>5. Getting help</h2>
 
-<p>As always, if you do run into any issues or don’t understand any of the above changes, please <a href="https://github.com/snowplow/snowplow/issues">raise an issue</a> or get in touch with us via <a href="https://github.com/snowplow/snowplow/wiki/Talk-to-us">the usual channels</a>.</p>
-
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

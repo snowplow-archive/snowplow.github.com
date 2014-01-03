@@ -72,8 +72,7 @@
 			26 Dec 2012
 			<h1><a href="/blog/2012/12/26/snowplow-0.6.5-released">Snowplow 0.6.5 released, with improved event tracking</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
+			<p>We&#8217;re excited to announce our next Snowplow release - version <strong>0.6.5</strong>, a Boxing Day release for Snowplow!</p>
 
 <p>This is a big release for us, as it introduces the idea of <strong>event types</strong> - every event sent by the JavaScript tracker to the collector now has an <code>event</code> field which specifies what type of event it is. This should be really helpful for a couple of things:</p>
 
@@ -87,18 +86,18 @@
 
 <p>Here is a taster of how Snowplow event data looks with the new event types and event IDs:</p>
 
-<p><img src="/static/img/blog/2012/event_and_event_id_fields.png" alt="events-screenshot" /></p>
+<p><img alt='events-screenshot' src='/static/img/blog/2012/event_and_event_id_fields.png' /></p>
 
 <p>These are not the only improvements in this version - here are the rest:</p>
 
 <ul>
-<li>We have cleaned up the code for on-page activity tracking (“page pings”)</li>
+<li>We have cleaned up the code for on-page activity tracking (&#8220;page pings&#8221;)</li>
 
-<li>We have fixed a bug that affected ad impression tracking - thanks <a href="https://github.com/talkspoon">Alan Z</a>!</li>
+<li>We have fixed a bug that affected ad impression tracking - thanks <a href='https://github.com/talkspoon'>Alan Z</a>!</li>
 
 <li>The ETL no longer dies if a raw event has a corrupted querystring (e.g. the <code>&amp;refr=</code> parameter was not escaped)</li>
 
-<li>The JavaScript tracker’s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
+<li>The JavaScript tracker&#8217;s build script, <code>snowpak.sh</code>, now has a combine-only option (no minification), which is helpful for testing purposes</li>
 
 <li>The JavaScript tracker has a new method, <code>attachUserId(boolean)</code>, which can be used to stop the tracker sending a <code>&amp;uid=xxx</code> parameter</li>
 
@@ -113,8 +112,7 @@
 			20 Dec 2012
 			<h1><a href="/blog/2012/12/20/snowplow-0.6.4-released">Snowplow 0.6.4 released, with Infobright improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We’re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
 
 <ol>
 <li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
@@ -125,12 +123,12 @@
 <p>Before we start - a big thanks to the community members who helped out on this release:</p>
 
 <ul>
-<li><a href="https://github.com/moncaubeig">Gilles Moncaubeig</a> @ <a href="http://en.overblog.com/">OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
 
-<li><a href="https://github.com/mmoulton">Mike Moulton</a> @ <a href="http://meltmedia.com/">meltmedia</a> for flagging the missing Hive table definition</li>
+<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
 </ul>
 
-<p>We’ll take a look at both updates below:</p>
+<p>We&#8217;ll take a look at both updates below:</p>
 <p class='more'><a href='/blog/2012/12/20/snowplow-0.6.4-released'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -138,12 +136,11 @@
 			18 Dec 2012
 			<h1><a href="/blog/2012/12/18/snowplow-0.6.3-released">Snowplow 0.6.3 released, with JavaScript and HiveQL bug fixes</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
+			<p>Today we are releasing Snowplow version <strong>0.6.3</strong> - another clean-up release following on from the 0.6.2 release. This release bumps the JavaScript Tracker to version 0.8.2, and the Hive-data-format HiveQL file to version 0.5.2.</p>
 
-<p>Many thanks to the community members who contributed bug fixes to this release: <a href="https://github.com/mmoulton">Mike Moulton</a> @ <a href="http://meltmedia.com/">meltmedia</a>, <a href="https://github.com/ramn">Simon Andersson</a> @ <a href="http://www.qwaya.com">Qwaya</a> and <a href="https://github.com/mtibben">Michael Tibben</a> @ <a href="http://99designs.com">99designs</a>.</p>
+<p>Many thanks to the community members who contributed bug fixes to this release: <a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a>, <a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> and <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a>.</p>
 
-<p>We’ll take a look at both fixes below:</p>
+<p>We&#8217;ll take a look at both fixes below:</p>
 <p class='more'><a href='/blog/2012/12/18/snowplow-0.6.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -151,19 +148,18 @@
 			17 Dec 2012
 			<h1><a href="/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau">Transforming Snowplow data so that it can be interrogataed in BI / OLAP tools like Tableau, Qlikview and Pentaho</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			
-<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
+			<p>Because Snowplow does not ship with any sort of user interface, we get many enquiries from current and prospective users who would like to interrogate Snowplow data with popular BI tools like Tableau or Qlikview.</p>
 <p style='text-align:center;'><img alt='olap cube' src='/static/img/olap/example-cube-2.png' width='250' /></p>
 <p>Unfortunately, it is not possible to run a tool like Tableau directly on top of the Snowplow events table. That is because these tools require the data to be in a particular format: one in which each line of data is made up of a combination of dimension and metrics fields, such that it is straightforward for the reporting tool to understand how to aggregate metrics by different combinations of dimensions. To give a very simple example of a data set that would play nicely with a reporting tool like Tableau:</p>
-<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style="text-align: left;">UK</td><td style="text-align: left;">Sept 2012</td><td style="text-align: left;">Hats</td><td style="text-align: left;">137</td><td style="text-align: right;">1779.63</td></tr>
-<tr><td style="text-align: left;">UK</td><td style="text-align: left;">Oct 2012</td><td style="text-align: left;">Hats</td><td style="text-align: left;">193</td><td style="text-align: right;">2507.07</td></tr>
-<tr><td style="text-align: left;">UK</td><td style="text-align: left;">Oct 2012</td><td style="text-align: left;">Shoes</td><td style="text-align: left;">15</td><td style="text-align: right;">1125.00</td></tr>
-<tr><td style="text-align: left;">France</td><td style="text-align: left;">Oct 2012</td><td style="text-align: left;">Hats</td><td style="text-align: left;">288</td><td style="text-align: right;">2877.12</td></tr>
-<tr><td style="text-align: left;"></td><td style="text-align: left;"></td><td style="text-align: left;"></td><td style="text-align: left;"></td><td style="text-align: right;"></td></tr>
-</tbody></table>
+<table><thead><tr><th>Country</th><th>Date</th><th>Product</th><th>Number Sold</th><th>Revenue</th></tr></thead><tbody><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Sept 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>137</td><td style='text-align: right;'>1779.63</td>
+</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>193</td><td style='text-align: right;'>2507.07</td>
+</tr><tr><td style='text-align: left;'>UK</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Shoes</td><td style='text-align: left;'>15</td><td style='text-align: right;'>1125.00</td>
+</tr><tr><td style='text-align: left;'>France</td><td style='text-align: left;'>Oct 2012</td><td style='text-align: left;'>Hats</td><td style='text-align: left;'>288</td><td style='text-align: right;'>2877.12</td>
+</tr><tr><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: left;'>&#8230;</td><td style='text-align: right;'>&#8230;</td>
+</tr></tbody></table>
 <p>Reporting tools like Tableau recognise that the two right hand columns (number sold and revenue) are metrics, and that analysts will want to examine how those metrics vary by country, time and product (all of which are dimensions). They will give analysts easy-to-use tools to enable them to slice, dice, drill up and drill down those metrics by different combinations of those dimensions. Enabling those operations is straightforward for the reporting tool, because it knows it knows if the analyst wants to report product sales in the UK over time, to filter all results by country (so only lines of data from the UK are included), and display sales of each type of product by month.</p>
 
-<p>This type of dimensional analysis is called <a href="http://en.wikipedia.org/wiki/Online_analytical_processing">OLAP</a>, and has a long and venerable history in business intelligence. Although the term ‘OLAP’ is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
+<p>This type of dimensional analysis is called <a href='http://en.wikipedia.org/wiki/Online_analytical_processing'>OLAP</a>, and has a long and venerable history in business intelligence. Although the term &#8216;OLAP&#8217; is no longer fashionable, this type of analysis is still the predominant one used by anyone who relies on PivotTables in Excel or any mainstream BI tool including Tableau, Qlikview, Microstrategy, Pentaho etc.</p>
 <p class='more'><a href='/blog/2012/12/17/transforming-snowplow-data-so-it-can-be-interrogated-by-olap-tools-like-tableau'>Read the rest of this entry</a></p>
 		</div>
 	
@@ -171,23 +167,21 @@
 			28 Nov 2012
 			<h1><a href="/blog/2012/11/28/snowplow-0.6.2-released">Snowplow 0.6.2 released, with JavaScript tracker bug fixes</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday’s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
+			<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
 
 <pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
 
 <p>This release fixes two bugs:</p>
 
 <ol>
-<li><a href="https://github.com/snowplow/snowplow/pull/101">Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href="https://github.com/mtibben">Michael Tibben</a> @ <a href="http://99designs.com">99designs</a> for spotting this so quickly and fixing</li>
+<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
 
-<li><a href="https://github.com/snowplow/snowplow/issues/102">Issue #102</a> - there was a trailing space in our initialization code, <a href="https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js"><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
+<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
 </ol>
 
-<p>The JavaScript Tracker’s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
+<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
 
-<p>Finally, if you haven’t yet read our tutorial on <a href="https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager">Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
-
+<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
 		</div>
 	
 

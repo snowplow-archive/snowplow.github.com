@@ -71,12 +71,11 @@
 			09 Jul 2013
 			<h1>.NET (C#) support added to referer-parser</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			
-<p>We are pleased to announce the addition of <a href="https://github.com/snowplow/referer-parser/tree/master/dotnet">.NET support (C#)</a> to our standalone <a href="https://github.com/snowplow/referer-parser">referer-parser</a> library. Many thanks to <a href="https://github.com/swijnands">Sepp Wijnands</a> at <a href="http://www.iperform.nl/">iPerform Software</a> for contributing this latest port!</p>
+			<p>We are pleased to announce the addition of <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>.NET support (C#)</a> to our standalone <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library. Many thanks to <a href='https://github.com/swijnands'>Sepp Wijnands</a> at <a href='http://www.iperform.nl/'>iPerform Software</a> for contributing this latest port!</p>
 
 <p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.</p>
 
-<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href="https://github.com/snowplow/referer-parser/tree/master/python">Python</a> and now to <a href="https://github.com/snowplow/referer-parser/tree/master/dotnet">Dot Net</a>.</p>
+<p>As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python</a> and now to <a href='https://github.com/snowplow/referer-parser/tree/master/dotnet'>Dot Net</a>.</p>
 
 <p>Here is a taster for using the library from C Sharp:</p>
 <div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='nn'>RefererParser</span><span class='p'>;</span>
@@ -92,28 +91,27 @@
 </code></pre></div>
 <p>After the jump we will hear from author Sepp Wijnands and then provide some brief next steps for using the library from .NET.</p>
 <!--more-->
-<h2 id="a_brief_interview_with_author_sepp_wijnands">A brief interview with author Sepp Wijnands</h2>
+<h2 id='a_brief_interview_with_author_sepp_wijnands'>A brief interview with author Sepp Wijnands</h2>
 
-<p>We asked <a href="https://github.com/swijnands">Sepp</a> to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:</p>
+<p>We asked <a href='https://github.com/swijnands'>Sepp</a> to tell us a little bit about himself, iPerform Software and why he ported referer-parser to the Dot Net platform:</p>
 
-<p><em><a href="http://www.iperform.nl/">iPerform Software</a> (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.</em></p>
+<p><em><a href='http://www.iperform.nl/'>iPerform Software</a> (website in Dutch) helps companies in the Benelux succeed with their integration and web application needs. Our focus lies on modern Line of Business web applications, and pride ourselves with the ability to integrate almost anything and everything.</em></p>
 
-<p><em>One of our customers had a feature request about getting (directly) notified when a very specific set of keywords is used when somebody enters the website via Google or Bing (or ….) searches.</em></p>
+<p><em>One of our customers had a feature request about getting (directly) notified when a very specific set of keywords is used when somebody enters the website via Google or Bing (or &#8230;.) searches.</em></p>
 
-<p><em>While we could probably have used an existing third-party analytics platform to do the job, one of the great things about the referer-parser project is that the <a href="https://github.com/snowplow/referer-parser/blob/master/referers.yml">referer database</a> is very complete, and using the referer-parser library we can be in full control how and when notifications are send.</em></p>
+<p><em>While we could probably have used an existing third-party analytics platform to do the job, one of the great things about the referer-parser project is that the <a href='https://github.com/snowplow/referer-parser/blob/master/referers.yml'>referer database</a> is very complete, and using the referer-parser library we can be in full control how and when notifications are send.</em></p>
 
-<p><em>The referer-parser solution is currently deployed and fully up-and-running. And so far, the customer couldn’t be happier!</em></p>
+<p><em>The referer-parser solution is currently deployed and fully up-and-running. And so far, the customer couldn&#8217;t be happier!</em></p>
 
 <p><em>So, thanks again for the fabulous referer-parser project!</em></p>
 
-<h2 id="installation">Installation</h2>
+<h2 id='installation'>Installation</h2>
 
 <p>Interested in using the .NET port of referer-parser? A NuGet Package is available, under package id RefererParser.</p>
 
-<h2 id="find_out_more">Find out more</h2>
+<h2 id='find_out_more'>Find out more</h2>
 
-<p>For more information, please check out the <a href="https://github.com/snowplow/referer-parser/blob/master/dotnet/README.md">project README</a> for the .NET port of referer-parser.</p>
-
+<p>For more information, please check out the <a href='https://github.com/snowplow/referer-parser/blob/master/dotnet/README.md'>project README</a> for the .NET port of referer-parser.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

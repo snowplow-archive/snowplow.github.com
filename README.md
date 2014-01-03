@@ -187,9 +187,14 @@ Now switch to the master branch
 
 	git checkout master
 
-Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.)
+Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.) On Ubuntu / OSX:
 
 	cp -r _site/* . && rm -rf _site/
+
+On Windows:
+
+	cp _site/* -recurse ./
+	remove-item _site/* -recurse
 
 Now add and commit your changes:
 

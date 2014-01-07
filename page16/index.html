@@ -69,6 +69,27 @@
 		<div id="contents">
 	
 		<div class="post">
+			28 Nov 2012
+			<h1><a href="/blog/2012/11/28/snowplow-0.6.2-released">Snowplow 0.6.2 released, with JavaScript tracker bug fixes</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Today we are releasing Snowplow version <strong>0.6.2</strong> - a clean-up release after yesterday&#8217;s 0.6.1 release. This release bumps the JavaScript Tracker to version 0.8.1; the updated minified tracker is available as always here:</p>
+
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.8.1/sp.js</code></pre>
+
+<p>This release fixes two bugs:</p>
+
+<ol>
+<li><a href='https://github.com/snowplow/snowplow/pull/101'>Issue #101</a> - we had left in a <code>console.log()</code> in the production version, which should only have been printed in debug mode. Harmless but worth taking out. Many thanks to <a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> for spotting this so quickly and fixing</li>
+
+<li><a href='https://github.com/snowplow/snowplow/issues/102'>Issue #102</a> - there was a trailing space in our initialization code, <a href='https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/src/init.js'><code>init.js</code></a>, which could cause some issues in Internet Explorer. Many thanks to community member Alan Z for raising</li>
+</ol>
+
+<p>The JavaScript Tracker&#8217;s API and the Tracker Protocol are unchanged. We recommend upgrading to using the new JavaScript Tracker version 0.8.1 over the previous 0.8.0.</p>
+
+<p>Finally, if you haven&#8217;t yet read our tutorial on <a href='https://github.com/snowplow/snowplow/wiki/Integrating-javascript-tags-with-Google-Tag-Manager'>Integrating the JavaScript Tracker with Google Tag Manager</a>, we would recommend taking a look - it makes these sorts of upgrades much easier.</p>
+		</div>
+	
+		<div class="post">
 			27 Nov 2012
 			<h1><a href="/blog/2012/11/27/snowplow-0.6.1-released">Snowplow 0.6.1 released, with lots of small improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -176,33 +197,6 @@
 <p class='more'><a href='/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			01 Nov 2012
-			<h1><a href="/blog/2012/11/01/snowplow-0.5.1-released">Snowplow 0.5.1 released, with lots of small improvements</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
-
-<ol>
-<li>Improving the robustness of the ETL process</li>
-
-<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
-</ol>
-
-<p>To take each of these themes in turn:</p>
-
-<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
-
-<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
-
-<p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
-
-<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
-
-<pre><code>:etl:
-  :continue_on_unexpected_error: false</code></pre>
-<p class='more'><a href='/blog/2012/11/01/snowplow-0.5.1-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -211,7 +205,7 @@
 			<a href="/page15" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 16 of 19</span>
+		<span class="page_number">Page: 16 of 20</span>
 		
 			<a href="/page17" class="next">Next</a>
 		
@@ -222,6 +216,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
@@ -229,8 +225,6 @@
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
-		
-			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
 	</ul>
 
@@ -256,6 +250,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
@@ -263,8 +259,6 @@
 				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 			
 				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		

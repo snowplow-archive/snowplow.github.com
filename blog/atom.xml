@@ -4,13 +4,83 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-07T09:18:20+00:00</updated>
+  <updated>2014-01-07T16:44:51+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements"/>
+    <title>Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</title>
+    <updated>2014-01-07T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are very pleased to announce the immediate availability of &lt;a href='https://github.com/snowplow/snowplow/releases/tag/0.8.12'&gt;Snowplow 0.8.12&lt;/a&gt;. We have quite a packed schedule of releases planned over the next few weeks - and we are kicking off with 0.8.12, which consists of various small improvements to our Scalding-based Enrichment process, plus some architectural re-work to prepare for the coming releases (in particular, &lt;a href='http://aws.amazon.com/kinesis/'&gt;Amazon Kinesis&lt;/a&gt; support).&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#background'&gt;Background on this release&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#improvements'&gt;Scalding Enrichment improvements&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#rearchitecting'&gt;Re-architecting our Enrichment process&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#install'&gt;Installing this release&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;a name='background'&gt;&lt;h2&gt;1. Background on this release&lt;/h2&gt;&lt;/a&gt;
+&lt;p&gt;This release has two core objectives:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;To make a set of small improvemnts to our Scalding-based Enrichment process&lt;/li&gt;
+
+&lt;li&gt;To re-architect our Enrichment process to make it usable from Amazon Kinesis&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will detail both of these after the jump.&lt;/p&gt;
+&lt;!--more--&gt;&lt;a name='improvements'&gt;&lt;h2&gt;2. Scalding Enrichment improvements&lt;/h2&gt;&lt;/a&gt;
+&lt;p&gt;The improvements made to our Scalding Enrichment process in this release are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have updated our user-agent parsing library to its latest version, thanks to Rob Kingston for the suggestion (&lt;a href='https://github.com/snowplow/snowplow/issues/416'&gt;#416&lt;/a&gt;)&lt;/li&gt;
+
+&lt;li&gt;We have fixed an issue where Snowplow raw events without a page URI were automatically sent to the bad bucket. As a general purpose event analytics platform, raw events are no longer automatically expected to have an associated page URI. Thanks to Simon Rumble for this suggestion (&lt;a href='https://github.com/snowplow/snowplow/issues/399'&gt;#399&lt;/a&gt;)&lt;/li&gt;
+
+&lt;li&gt;We have added missing validation for fields which the Tracker Protocol expects to be set to &amp;#8216;0&amp;#8217; or &amp;#8216;1&amp;#8217; (&lt;a href='https://github.com/snowplow/snowplow/issues/408'&gt;#408&lt;/a&gt;)&lt;/li&gt;
+
+&lt;li&gt;We have added missing validation of the numeric fields in ecommerce transactions (&lt;a href='https://github.com/snowplow/snowplow/issues/400'&gt;#400&lt;/a&gt;)&lt;/li&gt;
+
+&lt;li&gt;We have tweaked the code which parses CloudFront access logs to make it a little more permissive of missing fields if they are not required by Snowplow (&lt;a href='https://github.com/snowplow/snowplow/issues/410'&gt;#410&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Additionally we have also upgraded some of the Enrichment process&amp;#8217;s underlying components: Scala to 2.10.3, Scalding to 0.8.11, SBT to 0.13.0 and sbt-assembly to 0.10.0.&lt;/p&gt;
+
+&lt;p&gt;Finally, although not exactly an Enrichment improvement, we have now fixed a bug in &lt;a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/postgres-analytics/cubes/cube-pages.sql'&gt;&lt;code&gt;cube-pages.sql&lt;/code&gt;&lt;/a&gt;, bumping this to 0.1.1. Many thanks to community member Matt Walker for this fix!&lt;/p&gt;
+&lt;a name='rearchitecting'&gt;&lt;h3&gt;3. Re-architecting our Enrichment process&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;Here at Snowplow we are hugely excited about the recent release of &lt;a href='http://aws.amazon.com/kinesis/'&gt;Amazon Kinesis&lt;/a&gt;, a fully managed service for continuous data processing. We plan to use Kinesis to enable real-time collection and processing of Snowplow event data: as well as enabling us to deliver real-time reporting via Amazon Redshift, this also opens up the possibility of building operational systems on top of the Snowplow event stream.&lt;/p&gt;
+
+&lt;p&gt;As a first step, Brandon, one of our Snowplow winterns, is working on a new Snowplow collector which will collect raw Snowplow events and sink them onto a further Kinesis stream; for more details on this collector see &lt;a href='http://snowplowanalytics.com/blog/2013/12/20/introducing-our-snowplow-winterns/'&gt;this blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The next logical step is to create a &amp;#8220;Kinesis application&amp;#8221;, which reads raw events off one Kinesis stream, enriches them using our existing Scala Enrichment code, and then writes the enriched events back to another Kinesis stream for further processing or storage (e.g. drip feeding into Amazon Redshift).&lt;/p&gt;
+
+&lt;p&gt;The only problem? Our existing Scala Enrichment code was tightly coupled to our Scalding/Cascading Scala project - making it hard to re-use it in a future Kinesis application. This 0.8.12 release fixes this with some &amp;#8216;software surgery&amp;#8217;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='rearchitect-img' src='/static/img/blog/2014/01/common-enrich-rearchitect.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Thus the new &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-common-enrich'&gt;Scala Common Enrich&lt;/a&gt; is a shared library for processing raw Snowplow events into validated and enriched Snowplow events. Common Enrich is designed to be used within a &amp;#8220;host&amp;#8221; enrichment process: initially our existing &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-hadoop-enrich'&gt;Scala Hadoop Enrich&lt;/a&gt; process, but it should be relatively straightforward to also embed this in a Kinesis application.&lt;/p&gt;
+
+&lt;p&gt;If you are using the existing Scalding-based Enrichment process, the only difference you should notice is the new composite &lt;code&gt;v_etl&lt;/code&gt; for Snowplow events: &amp;#8220;hadoop-0.3.6-common-0.1.0&amp;#8221;.&lt;/p&gt;
+&lt;a name='install'&gt;&lt;h3&gt;4. Installing this release&lt;/h3&gt;&lt;/a&gt;
+&lt;p&gt;Assuming you are using EmrEtlRunner, you simply need to update your configuration file, &lt;code&gt;config.yml&lt;/code&gt;, to use the latest version of the Hadoop ETL:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;&lt;span class='l-Scalar-Plain'&gt;:snowplow&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt;
+  &lt;span class='l-Scalar-Plain'&gt;:hadoop_etl_version&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;0.3.6&lt;/span&gt; &lt;span class='c1'&gt;# Version of the Hadoop ETL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And that&amp;#8217;s it! As always, you can find more detail on the tickets in this release under the &lt;a href='https://github.com/snowplow/snowplow/releases/tag/0.8.12'&gt;Snowplow v0.8.12&lt;/a&gt; release in GitHub.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2013/12/20/introducing-our-snowplow-winterns</id>

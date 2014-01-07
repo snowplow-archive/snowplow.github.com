@@ -69,6 +69,30 @@
 		<div id="contents">
 	
 		<div class="post">
+			01 Oct 2013
+			<h1><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>As of yesterday, the <a href='https://github.com/snowplow/snowplow'>Snowplow repository on GitHub</a> now has over 500 stars! We&#8217;re hugely excited to reach this milestone, having picked up <strong>300 new watchers</strong> since our <a href='/blog/2013/01/20/snowplow-hits-202-stars'>last milestone</a> in January.</p>
+
+<p>Many thanks to everyone in the Snowplow community and on GitHub for their continuing support and interest!</p>
+
+<p>Here&#8217;s a quick round-up of the most popular open source analytics projects on GitHub:</p>
+
+<ul>
+<li><a href='https://github.com/mnutt/hummingbird'>Hummingbird</a> (real-time web analytics) - 2,299 stars</li>
+
+<li><a href='https://github.com/piwik/piwik'>Piwik</a> (web analytics) - 1,290 stars</li>
+
+<li><a href='https://github.com/Countly/countly-server'>Countly</a> (mobile analytics) - 798 stars</li>
+
+<li><a href='https://github.com/snowplow/snowplow'>Snowplow</a> - 501 stars</li>
+</ul>
+
+<p>So we&#8217;re in the challenger position but definitely nipping at the heels of the alternatives!</p>
+<p class='more'><a href='/blog/2013/10/01/snowplow-passes-500-stars'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			30 Sep 2013
 			<h1><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -163,32 +187,6 @@
 <p>And that&#8217;s it! You may also want to re-run your Snowplow process against your CloudFront logs starting from the 17th August to recover the events wrongly identified as &#8220;bad rows&#8221;.</p>
 		</div>
 	
-		<div class="post">
-			03 Sep 2013
-			<h1><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We&#8217;ve just published a getting-started guide to using <a href='http://www.qubole.com/#All'>Qubole</a>, a managed Big Data service, to query your Snowpow data. You can read the guide <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'>here</a>.</p>
-
-<p><img alt='qubole-logo' src='/static/img/blog/2013/09/qubole-logo.png' /></p>
-
-<p>Snowplow delivers event data to users in a number of different places:</p>
-
-<ol>
-<li>Amazon Redshift or PostgreSQL, so you can analyze the data using traditional analytics and BI tools</li>
-
-<li>Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. <a href='http://mahout.apache.org/'>Mahout</a>, <a href='http://hive.apache.org/'>Hive</a> and <a href='http://pig.apache.org/'>Pig</a>, on EMR</li>
-</ol>
-
-<p>Since we started offering support for Amazon Redshift and more recently PostgreSQL, our focus on the blog and in the <a href='/analytics/index.html'>Analytics Cookbook</a> has been on using traditional analytics tools e.g. <a href='http://www.tableausoftware.com/'>Tableau</a>, <a href='http://cran.r-project.org/'>R</a> and <a href='http://office.microsoft.com/en-gb/excel/'>Excel</a> to crunch the data. However, there are a host of reasons when you might want to crunch the data using one of the new generation of big data tools. Two give two examples:</p>
-
-<ol>
-<li>You may want to join your Snowplow data with other data sets, and those data sets are not structured. (E.g. they are in JSON, or custom text file formats.)</li>
-
-<li>You want to use specific algorithms or libraries that have been built for big data tools e.g. Mahout recommendation or clustering algorithms.</li>
-</ol>
-<p class='more'><a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -197,7 +195,7 @@
 			<a href="/page3" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 4 of 19</span>
+		<span class="page_number">Page: 4 of 20</span>
 		
 			<a href="/page5" class="next">Next</a>
 		
@@ -208,6 +206,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
@@ -215,8 +215,6 @@
 			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 		
 			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
-		
-			<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
 		
 	</ul>
 
@@ -242,6 +240,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
@@ -249,8 +249,6 @@
 				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
 			
 				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
-			
-				<li><a href="/blog/2013/07/09/dotnet-support-added-to-referer-parser">.NET (C#) support added to referer-parser</a></li>
 			
 		
 		</ul>		

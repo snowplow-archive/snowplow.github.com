@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-03T16:33:26+00:00</updated>
+  <updated>2014-01-07T09:18:20+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -2882,7 +2882,7 @@ $ git checkout 0.8.6&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;To give some necessary background on our architecture: Snowplow event trackers send user events to a pixel hosted on CloudFront, which logs those raw events to Amazon S3. Amazon&amp;#8217;s CloudFront logging generates many small log files in S3: a relatively low-traffic e-commerce site using Snowplow generated 26,372 CloudFront log files over a six month period, containing 83,110 events - that&amp;#8217;s just 3.2 events per log file.&lt;/p&gt;
 
-&lt;p&gt;Once the events have been collected in S3, &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'&gt;Snowplow&amp;#8217;s Hadoop job&lt;/a&gt; (written in &lt;a href='https://github.com/twitter/scalding/wiki'&gt;Scalding&lt;/a&gt;) processes them, validating them and then enriching them with referer, geo-location and similar data; these enriched events are then written back to S3.&lt;/p&gt;
+&lt;p&gt;Once the events have been collected in S3, &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-hadoop-enrich'&gt;Snowplow&amp;#8217;s Hadoop job&lt;/a&gt; (written in &lt;a href='https://github.com/twitter/scalding/wiki'&gt;Scalding&lt;/a&gt;) processes them, validating them and then enriching them with referer, geo-location and similar data; these enriched events are then written back to S3.&lt;/p&gt;
 
 &lt;p&gt;So you can see how our Enrichment process ran pretty directly into Hadoop&amp;#8217;s small files problem. But quantifying the impact of small files on our job&amp;#8217;s performance was impossible until we had a solution in place&amp;#8230;&lt;/p&gt;
 
@@ -2907,7 +2907,7 @@ $ git checkout 0.8.6&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;ETL step time&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;166 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;4 minutes&lt;/td&gt;&lt;td style='text-align: left;'&gt;25 minutes&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;&lt;strong&gt;Norm. instance hours&lt;/strong&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;120&lt;/td&gt;&lt;td style='text-align: left;'&gt;40&lt;/td&gt;&lt;td style='text-align: left;'&gt;2&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;Health warning:&lt;/strong&gt; this is one single benchmark, measuring the performance of the &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-etl'&gt;Snowplow Hadoop job&lt;/a&gt; using a single data set. We encourage you to run your own benchmarks.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Health warning:&lt;/strong&gt; this is one single benchmark, measuring the performance of the &lt;a href='https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-hadoop-enrich'&gt;Snowplow Hadoop job&lt;/a&gt; using a single data set. We encourage you to run your own benchmarks.&lt;/p&gt;
 
 &lt;p&gt;This is an astonishing speed-up, which shows how badly the small files problem was impacting our Hadoop job. And aggregating the small files had another beneficial effect: the much smaller number of &lt;code&gt;part-&lt;/code&gt; output files meant much faster loading of events into Redshift.&lt;/p&gt;
 

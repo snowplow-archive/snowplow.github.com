@@ -107,13 +107,13 @@
 
 <p>To give a very specific example: at Snowplow we are very interested in whether or not visitors to our website visit the &#8216;services&#8217; pages, for example, as that indicates that they are potentially interested in our Pro Services offering.</p>
 
-<p>We can add a dimension to our <a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/looker-metadata-model/events.lookml'><code>events.lookerml</code></a> model that categorises whether a specific event has occurred on a services page or not:</p>
+<p>We can add a dimension to our <a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/lookml/events.lookml'><code>events.lookerml</code></a> model that categorises whether a specific event has occurred on a services page or not:</p>
 <div class='highlight'><pre><code class='yaml'>  <span class='c1'># Snowplow-website specific dimension</span>
   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>dimension</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>occurred_on_services_page</span>
     <span class='l-Scalar-Plain'>type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>yesno</span>
     <span class='l-Scalar-Plain'>sql</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>${page_urlpath} LIKE &#39;%services%&#39;</span>
 </code></pre></div>
-<p>We can then create a metric that counts the number of events that occur on services pages, further down the <a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/looker-metadata-model/events.lookml'><code>events.lookerml</code></a> definition:</p>
+<p>We can then create a metric that counts the number of events that occur on services pages, further down the <a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/lookml/events.lookml'><code>events.lookerml</code></a> definition:</p>
 <div class='highlight'><pre><code class='yaml'>  <span class='c1'># Snowplow-website specific metric</span>
   <span class='p-Indicator'>-</span> <span class='l-Scalar-Plain'>measure</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>events_on_services_page_count</span>
     <span class='l-Scalar-Plain'>type</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>count</span>

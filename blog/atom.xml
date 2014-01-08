@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-08T12:35:08+00:00</updated>
+  <updated>2014-01-08T13:50:01+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -125,13 +125,13 @@
 
 &lt;p&gt;To give a very specific example: at Snowplow we are very interested in whether or not visitors to our website visit the &amp;#8216;services&amp;#8217; pages, for example, as that indicates that they are potentially interested in our Pro Services offering.&lt;/p&gt;
 
-&lt;p&gt;We can add a dimension to our &lt;a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/looker-metadata-model/events.lookml'&gt;&lt;code&gt;events.lookerml&lt;/code&gt;&lt;/a&gt; model that categorises whether a specific event has occurred on a services page or not:&lt;/p&gt;
+&lt;p&gt;We can add a dimension to our &lt;a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/lookml/events.lookml'&gt;&lt;code&gt;events.lookerml&lt;/code&gt;&lt;/a&gt; model that categorises whether a specific event has occurred on a services page or not:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;  &lt;span class='c1'&gt;# Snowplow-website specific dimension&lt;/span&gt;
   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;dimension&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;occurred_on_services_page&lt;/span&gt;
     &lt;span class='l-Scalar-Plain'&gt;type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;yesno&lt;/span&gt;
     &lt;span class='l-Scalar-Plain'&gt;sql&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;${page_urlpath} LIKE &amp;#39;%services%&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We can then create a metric that counts the number of events that occur on services pages, further down the &lt;a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/looker-metadata-model/events.lookml'&gt;&lt;code&gt;events.lookerml&lt;/code&gt;&lt;/a&gt; definition:&lt;/p&gt;
+&lt;p&gt;We can then create a metric that counts the number of events that occur on services pages, further down the &lt;a href='https://github.com/snowplow/snowplow/blob/master/5-analytics/looker-analytics/lookml/events.lookml'&gt;&lt;code&gt;events.lookerml&lt;/code&gt;&lt;/a&gt; definition:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='yaml'&gt;  &lt;span class='c1'&gt;# Snowplow-website specific metric&lt;/span&gt;
   &lt;span class='p-Indicator'&gt;-&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;measure&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;events_on_services_page_count&lt;/span&gt;
     &lt;span class='l-Scalar-Plain'&gt;type&lt;/span&gt;&lt;span class='p-Indicator'&gt;:&lt;/span&gt; &lt;span class='l-Scalar-Plain'&gt;count&lt;/span&gt;

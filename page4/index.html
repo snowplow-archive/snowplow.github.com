@@ -69,6 +69,46 @@
 		<div id="contents">
 	
 		<div class="post">
+			18 Oct 2013
+			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
+
+<ol>
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
+
+<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
+</ol>
+<a name='background'><h2>1. Background on this release</h2></a>
+<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
+
+<p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
+
+<p>This release aims to bridge that gap: we are providing a range of recipes and cubes as SQL views into the atomic Snowplow data; all of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
+<p class='more'><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			07 Oct 2013
+			<h1><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Applications for the new Snowplow Analytics open source internship program are now open! At Snowplow we are passionate about enterprise-strength open-source technology, and we are hugely excited to be offering paid internships for open source hackers this winter.</p>
+
+<p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &#8220;winterns&#8221; will work directly on and contribute to data engineering projects within the <a href='https://github.com/snowplow'>Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
+
+<p><img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /></p>
+<p class='more'><a href='/blog/2013/10/07/announcing-our-winter-open-source-internship-program'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			01 Oct 2013
 			<h1><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -138,55 +178,6 @@
 <p class='more'><a href='/blog/2013/09/27/how-much-does-snowplow-cost-to-run'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			11 Sep 2013
-			<h1><a href="/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole">Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the distinguishing features of the Snowplow data pipeline is the handling of &#8220;bad&#8221; data. Every row of incoming, raw data is validated. When a row fails validation, it is logged in a &#8220;bad rows&#8221; bucket on S3 alongside the error message that was generated by the failed validation. That means you can keep track of the number of rows that fail validation, and have the opportunity to update and then reprocess those bad rows. (This makes Snowplow different from traditional web analytics platforms, that simply ignore bad rows of data, and provide no insight into the volume of incoming data that ends up being ignored.)</p>
-
-<p>This functionality was crucial in spotting that, in mid-August, Amazon made an <a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'>undocumented update the CloudFront collector file format</a>. This resulted in a sudden spike in the number of &#8220;bad rows&#8221; generated by Snowplow, as the <code>cs-uri-query</code> field format changed from the format the Enrichment process expected. (For details of the change, see <a href='/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change/'>this blog post</a>, and the links in it.) Amazon has since rolled back the update, and we have since updated Snowplow to be able to process rows in both formats. However, Snowplow users will have three weeks of data with lines of data missing, that ideally need to be reprocessed using the updated Snowplow version.</p>
-<img src='/static/img/blog/2013/09/black_sheep.jpg' title='black sheet - can you spot bad data?' width='300' />
-<p>In this blog post, we will walk through:</p>
-
-<ol>
-<li>How to use <a href='http://hive.apache.org/'>Apache Hive</a>, <a href='http://www.qubole.com/'>Qubole</a> and <a href='https://github.com/rcongiu'>Robert Congui&#8217;s</a> <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to monitor the number of bad rows generated over time</li>
-
-<li>How to use the same tools to reprocess the bad rows of data, so that they are added to your Snowplow data in Redshift / PostgreSQL</li>
-</ol>
-
-<p>The steps necessary to reprocess the data will be very similar to those required regardless of the reason that the reprocessing is necessary: as a result, this blog post should be useful for anyone interested in using the bad rows functionality to debug and improve the robustness of their event data collection. It should also be useful for anyone interested in using <a href='http://hive.apache.org/'>Hive</a> and the <a href='https://github.com/rcongiu/Hive-JSON-Serde'>JSON serde</a> to process JSON data in S3. (Bad row data is stored by Snowplow in JSON format.) We will use <a href='http://www.qubole.com/'>Qubole</a>, our preferred platform for running Hive jobs on data in S3, which we previously introduced in <a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>this blog post</a>.</p>
-
-<ol>
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#how-snowplow-handles-bad-rows'>Understanding how Snowplow handles bad rows</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#processing-bad-rows-data-using-json-serde-hive-qubole'>Processing the bad rows data using the JSON serde, Hive and Qubole</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#plot-bad-rows-over-time'>Plotting the number of bad rows over time</a></li>
-
-<li><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/#processing-bad-rows'>Reprocessing bad rows</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			05 Sep 2013
-			<h1><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the immediate availability of Snowplow 0.8.9. This release was necessitated by an unannounced change Amazon made to the CloudFront access log file format on 17th August, discussed in this <a href='https://forums.aws.amazon.com/thread.jspa?messageID=484509&amp;#484509'>AWS Forum thread</a> and this <a href='https://groups.google.com/forum/#!topic/snowplow-user/HWeSkiiXbdQ'>snowplow-user email thread</a>.</p>
-
-<p>Essentially, Amazon switched from URL-encoding all &#8221;%&#8221;&#8221; signs found in the <code>cs-uri-query</code> field, to only URL-encoding them if they were not already escaped, i.e. were not followed by &#8220;25&#8221; (&#8220;%25&#8221;). This unannounced change was in contradiction to the existing <a href='http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>CloudFront access log technical specification</a>, which was not updated.</p>
-
-<p>Snowplow expects &#8221;%&#8221; signs to be double-encoded, and so decodes them twice. Unfortunately, if a URL contains a space (e.g. in a referer search term), then constructing a URI object from this double-decoded string will fail, the event will be rejected by Snowplow validation and be logged to the bad-rows bucket (not loaded into Redshift). Assuming you are using the CloudFront collector, if you check your bad-rows bucket for Snowplow ETL runs before and after August 17th, expect to see a large increase in the number of bad-rows after the 17th.</p>
-
-<p>On 5th September, Amazon decided to reverse this change, but this still leaves Snowplow users with three weeks&#8217; worth of CloudFront logs in the wrong format. Therefore, we have released Snowplow 0.8.9, which adds support for both single- and double-encoded &#8221;%&#8221; signs in the <code>cs-uri-query</code> field.</p>
-
-<p>Assuming you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.4</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre></div>
-<p>And that&#8217;s it! You may also want to re-run your Snowplow process against your CloudFront logs starting from the 17th August to recover the events wrongly identified as &#8220;bad rows&#8221;.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -206,15 +197,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+		
+			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+		
 			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
-			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-		
-			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 		
 	</ul>
 
@@ -240,15 +231,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 		
 		</ul>		

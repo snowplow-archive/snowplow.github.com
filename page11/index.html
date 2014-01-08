@@ -69,6 +69,67 @@
 		<div id="contents">
 	
 		<div class="post">
+			03 Apr 2013
+			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>A new month, a new release! We&#8217;re excited to announce the immediate availability of Snowplow version <strong>0.8.0</strong>. This has been our most complex release to date: we have done a full rewrite our ETL (aka enrichment) process, adding a few nice data quality enhancements along the way.</p>
+
+<p>This release has been heavily informed by our January blog post, <a href='/blog/2013/01/09/from-etl-to-enrichment/#scalding'>The Snowplow development roadmap for the ETL step - from ETL to enrichment</a>. In technical terms, we have ported our existing ETL process (which was a combination of HiveQL scripts plus a custom Java deserializer) to a new Hadoop-only ETL process which does not require Hive. The new ETL process is written in Scala, using <a href='https://github.com/twitter/scalding'>Scalding</a>, a Scala API built on top of <a href='http://www.cascading.org'>Cascading</a>, the Hadoop ETL framework.</p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#benefits'>The benefits of the new ETL</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#limitations'>Limitations of the new ETL</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#infobright-hive-note'>A note for Infobright/Hive users</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#upgrading-usage'>Upgrading and usage</a></li>
+
+<li><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more.</p>
+<p class='more'><a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			25 Mar 2013
+			<h1><a href="/blog/2013/03/25/snowplow-tracker-for-arduino-released-sensor-and-event-analytics-for-the-internet-of-things">Snowplow Arduino Tracker released - sensor and event analytics for the internet of things</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Today we are releasing our first non-Web tracker for Snowplow - an event tracker for the <a href='http://www.arduino.cc/'>Arduino</a> open-source electronics prototyping platform. The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Snowplow Arduino Tracker</a> lets you track sensor and event-stream information from one or more IP-connected Arduino boards.</p>
+
+<p>We chose this as our first non-Web tracker because we&#8217;re hugely excited about the potential of sophisticated analytics for the <a href='http://www.forbes.com/sites/ericsavitz/2013/01/14/ces-2013-the-break-out-year-for-the-internet-of-things/'>Internet of Things</a>, following in the footsteps of great projects like <a href='https://cosm.com/'>Cosm</a> and <a href='http://exosite.com/'>Exosite</a>. And of course, Snowplow&#8217;s extremely-scalable architecture is a great fit for the huge volumes of events and sensor readings which machines are able to generate - you could say that we are already &#8220;machine-scale&#8221;!</p>
+
+<p><img alt='arduino-photo' src='/static/img/blog/2013/03/arduino-board-photo.jpg' /></p>
+
+<p>As far as we know, this is the first time an event analytics platform has released a dedicated tracker for the maker community; we can&#8217;t wait to see what the Arduino and Snowplow communities will use it for! Some ideas we had were:</p>
+
+<ol>
+<li>Deploying a set of Snowplow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home</li>
+
+<li>Tracking the movement of products around your shop/warehouse/factory using Arduino, <a href='http://arduino.cc/blog/category/wireless/rfid/'>RFID readers</a> and Snowplow</li>
+
+<li>Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino&#8217;s <a href='http://www.cooking-hacks.com/index.php/documentation/tutorials/arduino-3g-gprs-gsm-gps'>3G and GPS</a> shields</li>
+</ol>
+
+<p>In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at <a href='https://github.com/alexanderdean/arduino-temp-tracker'>alexanderdean/arduino-temp-tracker</a>.</p>
+
+<p>Want to find out more? To get started using our event tracker for Arduino, check out:</p>
+
+<ul>
+<li>The <a href='https://github.com/snowplow/snowplow-arduino-tracker'>GitHub repository</a></li>
+
+<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker'>Technical Documentation</a></li>
+
+<li>The <a href='https://github.com/snowplow/snowplow/wiki/Arduino-Tracker-Setup'>Setup Guide</a></li>
+</ul>
+
+<p>Happy making!</p>
+		</div>
+	
+		<div class="post">
 			20 Mar 2013
 			<h1><a href="/blog/2013/03/20/rob-slifka-elasticity">Inside the Plow - Rob Slifka's Elasticity</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -131,62 +192,6 @@
 <p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 		</div>
 	
-		<div class="post">
-			22 Feb 2013
-			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
-
-<ul>
-<li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
-
-<li>Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)</li>
-
-<li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
-</ul>
-
-<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
-
-<p>In this post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids'>Our new user IDs</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps'>Our new event timestamps</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes'>Bug fixes</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations'>Breaking changes</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading'>Upgrading</a></li>
-
-<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
-</ol>
-
-<p>Read on below the fold to find out more!</p>
-<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			20 Feb 2013
-			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>On Friday Amazon launched <a href='http://aws.amazon.com/redshift/'>Redshift</a>, a fully managed, petabyte-scale data warehouse service. We&#8217;ve been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.</p>
-
-<p>In the course of building out Snowplow support for Redshift, we need to bulk load data stored in S3 into Redshift, programmatically. Unfortunately, the Redshift Java SDK is very slow at inserts, so not suitable bulk loading. We found a simple workaround that might be helpful for anyone who wishes to bulk load data into Redshift from S3, and have documented it below.</p>
-
-<h2 id='an_overview_of_the_workaround'>An overview of the workaround</h2>
-
-<p>Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:</p>
-<div class='highlight'><pre><code class='postgresql'><span class='k'>copy</span> <span class='n'>events</span> 
-<span class='k'>from</span> <span class='s1'>&#39;s3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD&#39;</span> 
-<span class='n'>credentials</span> <span class='s1'>&#39;aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY&#39;</span> 
-<span class='k'>delimiter</span> <span class='s1'>&#39;\t&#39;</span><span class='p'>;</span>
-</code></pre></div>
-<p>However, these queries can only be executed in a SQL client running a JDBC or ODBC driver compatible with Redshift. (Links to those drivers can be found <a href='http://docs.aws.amazon.com/redshift/latest/gsg/before-you-begin.html#getting-started-download-tools'>here</a>. )</p>
-<p class='more'><a href='/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -206,15 +211,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+		
+			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+		
 			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
-			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-		
-			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 		
 	</ul>
 
@@ -240,15 +245,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 		
 		</ul>		

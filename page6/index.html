@@ -69,6 +69,49 @@
 		<div id="contents">
 	
 		<div class="post">
+			19 Jul 2013
+			<h1><a href="/blog/2013/07/19/snowplow-presentation-to-hadoop-user-group-london-aws-event">Snowplow presentation at the Hadoop User Group London AWS event</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Yesterday at the <a href='http://www.meetup.com/hadoop-users-group-uk/'>Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
+
+<p>I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:</p>
+<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/24416560' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
+<p>Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!</p>
+		</div>
+	
+		<div class="post">
+			10 Jul 2013
+			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
+
+<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+
+<p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
+
+<ol>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#events-per-day'>The number of events tracked per day</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#runs-per-day'>The number of times the enrichment process is run per day</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#log-files-per-day'>The number of Cloudfront log files generated per day, and the volume of data</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#emr-details'>The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#output-back-to-s3'>The number of files outputted back to S3, and the size of those files</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#redshift-data-points'>The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></li>
+</ol>
+
+<p>We will then share this data back, in an anonymized form, with the community, as part of the model.</p>
+
+<p>We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you), we will <em>also</em> send each person that provides data a <strong>free Snowplow T-shirt</strong> in their size.</p>
+
+<p>In the rest of this post, we provide simple instructions for pulling the relevant data from Amazon.</p>
+<p class='more'><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			09 Jul 2013
 			<h1><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -145,57 +188,6 @@
 <p>Finally, we should mention that this is the last Snowplow release with the JavaScript Tracker as part of the main Snowplow repository. As the number of Snowplow trackers grows (it&#8217;s now four and counting), it makes more sense for each tracker to have its own repository, bug tracker, CI configuration and so forth. Don&#8217;t worry though - the JavaScript Tracker will remain <em>primus inter pares</em> among the Snowplow trackers. We will make this split in the next Snowplow release.</p>
 		</div>
 	
-		<div class="post">
-			03 Jul 2013
-			<h1><a href="/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released">Snowplow Tracker for Lua event analytics released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are very pleased to announce the release of our <a href='https://github.com/snowplow/snowplow-lua-tracker'>SnowplowTracker for Lua event analytics</a>. This is our fourth tracker to be released, following on from our <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker'>JavaScript</a>, <a href='https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker'>no-JavaScript (aka pixel)</a> and <a href='https://github.com/snowplow/snowplow-arduino-tracker'>Arduino</a> Trackers.</p>
-
-<p>As a lightweight, easily-embeddable scripting language, <a href='http://www.lua.org/'>Lua</a> is available in a huge number of different computing environments and platforms, from <a href='http://www.wowwiki.com/Lua'>World of Warcraft</a> through <a href='http://openresty.org/'>OpenResty</a> to <a href='http://www.adobe.com/devnet/photoshoplightroom.html'>Adobe Lightroom</a>. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here&#8217;s a taster:</p>
-<div class='highlight'><pre><code class='lua'><span class='kd'>local</span> <span class='n'>t</span> <span class='o'>=</span> <span class='n'>snowplow</span><span class='p'>.</span><span class='n'>newTrackerForCf</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>d3rkrsqld9gmqf&quot;</span> <span class='p'>)</span>
-<span class='n'>t</span><span class='p'>:</span><span class='n'>setAppId</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>my-warcraft-addon&quot;</span> <span class='p'>)</span>
-<span class='kd'>local</span> <span class='n'>s</span><span class='p'>,</span> <span class='n'>msg</span> <span class='o'>=</span> <span class='n'>t</span><span class='p'>:</span><span class='n'>trackStructEvent</span><span class='p'>(</span> <span class='s2'>&quot;</span><span class='s'>shop&quot;</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>add-to-basket&quot;</span><span class='p'>,</span> <span class='kc'>nil</span><span class='p'>,</span> <span class='s2'>&quot;</span><span class='s'>armour-vi&quot;</span><span class='p'>,</span> <span class='mi'>2</span> <span class='p'>)</span>
-</code></pre></div>
-<p>We are hugely excited about our new event tracker for Lua. The first analytics tracker ever released for the Lua language, SnowplowTracker continues Snowplow&#8217;s push into the tracking and analysis of non-Web events. Moreover, as part of our commitment to <a href='http://snowplowanalytics.com/blog/2013/04/10/snowplow-event-validation/'>High-Fidelity Analytics</a>, this tracker:</p>
-
-<ol>
-<li>Is our first to include a full suite of unit and integration tests, built using the excellent <a href='http://olivinelabs.com/busted/'>Busted</a></li>
-
-<li>Uses contracts-style argument validation throughout, to prevent incorrectly-structured events from being sent to Snowplow</li>
-</ol>
-
-<p>After the jump we will cover:</p>
-
-<ol>
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#supported-events'>Supported events</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#usage-example'>Usage example</a></li>
-
-<li><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released#read-more'>Finding out more</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			02 Jul 2013
-			<h1><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
-
-<p>We&#8217;ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month&#8217;s <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/'>0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
-
-<p>In this post, we explain how to use browser caching to significantly reduce the size of your Cloudfront bills.</p>
-
-<ol>
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs'>Understanding Cloudfront costs and the potential savings</a></li>
-
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
-</ol>
-
-<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
-<p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -215,15 +207,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+		
+			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+		
 			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
-			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-		
-			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 		
 	</ul>
 
@@ -249,15 +241,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 		
 		</ul>		

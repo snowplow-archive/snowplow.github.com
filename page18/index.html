@@ -69,6 +69,71 @@
 		<div id="contents">
 	
 		<div class="post">
+			24 Oct 2012
+			<h1><a href="/blog/2012/10/24/web-analytics-with-tableau-and-snowplow">Performing web analytics on Snowplow data using Tableau - a video demo</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>People who see Snowplow for the first time often ask us to <i>"show Snowplow in action"</i>. It is one thing to tell someone that having access to their customer- and event-level data will open up whole new analysis possibilities, but it is another thing to demonstrate those possibilities.</p>
+
+<p>Demonstrating Snowplow is tricky because currently, Snowplow only gives you access to data: we have no snazzy front-end UI to show off. The good news is that there are a lot of smart people developing fast, powerful and easy-to-use reporting tools. And because Snowplow gives you access to underlying customer- and event-level data, it is easy to analyse Snowplow data in nearly all of these tools. One such tool is <a href="http://www.tableausoftware.com/">Tableau</a> - we like Tableau as it is fast and intuitive, making it easy for us to perform train-of-thought analyses on Snowplow data. (We will explain more on how to connect Tableau to Snowplow data in a future blog post.)</p>
+
+<p>In the following series of videos, we start to show how Snowplow lets you use <a href="http://www.tableausoftware.com/">Tableau</a> for exploring your web analytics data. In the first video, we introduce Tableau and talk through the Tableau worksheet created with Snowplow data for an online retailer:</p>
+
+<video width="648" height="563" controls>
+
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4"  type="video/mp4" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm" type="video/webm" />
+	<source src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv"  type="video/ogg" />
+	<object width="648" height="563" type="application/x-shockwave-flash" data="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf">
+		<param name="movie" value="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.swf" />
+		<param name="flashvars" value="controlbar=over&amp;image=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg&amp;file=http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4" />
+		<img src="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1-thumb.jpg" width="648" height="563" alt="Web analytics with Tableau and Snowplow introductory video"
+		     title="No video playback capabilities, please download the video below" />
+	</object> 
+</video>
+
+<p class="note"><i>Having trouble viewing the video above? You may download the videos in your format of choice:<a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.mp4">"MP4"</a>, <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.ogv">"Ogg"</a> or <a href="http://static.snowplowanalytics.com/videos/tableau/example-cube/tableau-intro-1.webm">WebM</a> formats.</i></p>
+
+<p class='more'><a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			21 Oct 2012
+			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
+
+<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
+
+<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
+
+<ol>
+<li>Scale to terabytes (although not petabytes, unlike Hive)</li>
+
+<li>Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR</li>
+
+<li>Significantly faster query times – typically seconds, not minutes</li>
+
+<li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
+</ol>
+
+<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
+
+<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
+
+<ol>
+<li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
+
+<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
+</ol>
+
+<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
+
+<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
+
+<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
+		</div>
+	
+		<div class="post">
 			12 Oct 2012
 			<h1><a href="/blog/2012/10/12/how-the-role-of-hive-is-changing-at-snowplow">How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -163,80 +228,6 @@
 <p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <p class='more'><a href='/blog/2012/10/11/attlib-0.0.1-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			24 Sep 2012
-			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
-
-<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
-
-<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
-
-<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
-<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
-</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behavior of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
-</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
-</tr></tbody></table>
-<p>Snowplow makes integrating web analytics data with other data sources easier in a two ways:</p>
-
-<ol>
-<li>All your Snowplow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
-
-<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
-</ol>
-
-<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining Snowplow engagement data with other sources of customer data</a></p>
-
-<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
-
-<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
-
-<ol>
-<li>Number of unique visitors by product page</li>
-
-<li>Different sources of traffic by product page (and how this changes over time)</li>
-
-<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
-
-<li>Improvements to conversion rates over time</li>
-</ol>
-<p class='more'><a href='/blog/2012/09/24/what-does-snowplow-let-you-do'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			14 Sep 2012
-			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">Snowplow 0.4.8 released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow version <strong>0.4.8</strong>, with a set of enhancements to the existing Hive deserializer:</p>
-
-<ol>
-<li>The Hive deserializer now supports Amazon&#8217;s new CloudFront log file format (launched 12 September 2012) as well as the older format</li>
-
-<li>The Hive deserializer now supports a tracking pixel called simply <code>i</code> (saving some characters versus <code>ice.png</code>) (<a href='https://github.com/snowplow/snowplow/issues/35'>issue #35</a>)</li>
-
-<li>The Hive deserializer now works if the CloudFront distribution has Forward Query String = yes (<a href='https://github.com/snowplow/snowplow/pull/39'>issue #39</a>)</li>
-
-<li>The Hive deserializer no longer dies if the calling page&#8217;s querystring is malformed</li>
-</ol>
-
-<p>Many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> in Melbourne for contributing the Forward Query String = yes fix!</p>
-
-<h2 id='new_cloudfront_log_file_format'>New CloudFront log file format</h2>
-
-<p>On 12th September 2012, Amazon <a href='http://aws.amazon.com/about-aws/whats-new/2012/09/04/cloudfront-support-for-cookies-and-price-classes/'>rolled out a new CloudFront log file format</a>, adding three additional fields onto the end of each line:</p>
-
-<ul>
-<li><strong>cs(Cookie)</strong>, the cookie header in the request (if any). Logging of this field is optional.</li>
-
-<li><strong>x-edge-result-type</strong>, the result type of each HTTP(s) request (for example, cache hit/miss/error).</li>
-
-<li><strong>x-edge-request-id</strong>, an encrypted string that uniquely identifies a request to help AWS troubleshoot/debug any issues.</li>
-</ul>
-
-<p>As always, please consult the Amazon CloudFront <a href='http://docs.amazonwebservices.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>Developer Guide</a> for more information on these fields. <p class='more'><a href='/blog/2012/09/14/snowplow-0.4.8-released'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -256,15 +247,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+		
+			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+		
 			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
 			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
-			<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-		
-			<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 		
 	</ul>
 
@@ -290,15 +281,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-				<li><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></li>
-			
-				<li><a href="/blog/2013/08/05/snowplow-0.8.8-released-with-postgres-and-hive-support">Snowplow 0.8.8 released with Postgres and Hive support</a></li>
 			
 		
 		</ul>		

@@ -4,6 +4,10 @@
 /* 
  * General page layout 
  */
+#universe {
+  width: 100%;
+  height: 100%; }
+
 #container {
   width: 960px;
   display: block;
@@ -38,38 +42,19 @@
     text-decoration: underline; }
   #container img {
     border-style: none; }
-  #container .shortcolumn {
-    display: inline;
-    float: left;
-    width: 276px;
-    height: 260px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #d2d4db; }
-    #container .shortcolumn h2 {
-      margin-top: 10px; }
-    #container .shortcolumn li {
-      margin-bottom: 3px; }
+  #container .strip {
+    width: 100%;
+    min-height: 5px;
+    display: block;
+    overflow: auto; }
   #container .column {
     display: inline;
     float: left;
-    width: 276px;
-    height: 400px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 440px;
     margin-left: 10px;
     margin-right: 10px;
     padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #d2d4db; }
+    padding-right: 10px; }
     #container .column h2 {
       margin-top: 10px; }
     #container .column li {
@@ -93,9 +78,9 @@
       font-size: 16px;
       text-align: right; }
   #container .big-button {
-    width: 250px;
-    height: 30px;
-    line-height: 30px;
+    width: 210px;
+    height: 40px;
+    line-height: 40px;
     /* To vertically center text */
     background-color: #d2d4db;
     padding-top: 0px;
@@ -104,7 +89,7 @@
     padding-right: 0px;
     margin-bottom: 20px;
     text-align: center;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     border-width: 1px;
     border-style: solid;
@@ -112,9 +97,9 @@
     #container .big-button a {
       color: #1f294d;
       text-decoration: none;
-      width: 250px;
+      width: 210px;
       /* Make as wide as button to maximize clickable area */
-      height: 30px;
+      height: 40px;
       /* Make as high as button to maximize clickable area */
       float: left; }
     #container .big-button:hover {
@@ -124,11 +109,15 @@
   #container #left-button {
     display: inline;
     float: left;
-    margin-left: 150px; }
+    margin-left: 95px; }
+  #container #center-button {
+    display: inline;
+    float: left;
+    margin-left: 70px; }
   #container #right-button {
     display: inline;
-    float: right;
-    margin-right: 150px; }
+    float: left;
+    margin-left: 70px; }
   #container #generateTagForm {
     width: 650px;
     border: 2px;
@@ -302,12 +291,14 @@
       height: 25px;
       float: left;
       margin-left: 10px;
-      background-color: #d2d4db;
+      /* background-color: $a1; */
       text-align: center;
       font-size: 14px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #d2d4db; }
+      /* Remove box around menu items
+      border-width: 1px; 
+      border-style: solid; 
+      border-color: $a1;
+      */ }
       #header #menu li:hover {
         background: #1f294d; }
         #header #menu li:hover a {

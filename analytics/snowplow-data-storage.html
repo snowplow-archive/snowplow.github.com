@@ -48,9 +48,9 @@
 	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-DLRG');</script>
 	<!-- End Google Tag Manager -->
-
-	<div id="container">
-		<div id="header" class="span-24">
+	<div id="universe">
+		<div id="container">
+			<div id="header" class="span-24">
   <div id="logo">
     <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
   </div>
@@ -66,7 +66,7 @@
   </div>
 </div>
 	
-		<div id="contents">
+			<div id="contents">
 <h1 id='understanding_how_your_snowplow_data_is_stored'>Understanding how your Snowplow data is stored</h1>
 
 <p>Currently, Snowplow supports storing your data in three locations: <a href='#s3'>Amazon S3</a>, Amazon <a href='#redshift'>Redshift</a> and <a href='#postgres'>PostgreSQL</a>. We are working to support <a href='#other'>a growing range of data storage options</a> - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug directly into that data. Many Snowplow uses already store data on <em>both</em> S3 <em>and</em> Redshift / PostgreSQL, to exploit tools that work well with both storage solutions. (More on this <a href='#more'>further down the page</a>.)</p>
@@ -1572,9 +1572,10 @@
 	</p>
 </div>
 
-		<div id="footer">
+			<div id="footer">
 	<p>Copyright © Snowplow Analytics Limited 2012 - 2013.  All rights reserved</p>
 </div>
+		</div>
 	</div>
 		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
 	  	<script type="text/javascript">

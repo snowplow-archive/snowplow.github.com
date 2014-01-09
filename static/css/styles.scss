@@ -22,6 +22,11 @@ $b1: #D5DAEB;
  * General page layout 
  */
 
+#universe {
+	width: 100%;
+	height: 100%;
+}
+
 #container {
 
 
@@ -46,52 +51,25 @@ $b1: #D5DAEB;
 
 	img {  border-style: none; } /* Ensure on IE that linked images don't get a blue border */
 	
-
-	.shortcolumn {
-		display: inline;
-		float: left;
-		width: 276px;
-		height: 260px;
-		margin-top: 10px;
-		margin-bottom: 10px;
-		margin-left: 10px;
-		margin-right: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		background-color: $a1;
-
-		h2 {
-			margin-top: 10px;
-		}
-
-		li {
-			margin-bottom: 3px;
-		}
+	.strip {
+		width: 100%;
+		min-height: 5px;
+		display: block;
+		overflow: auto;
 	}
-
 
 	.column {
 		display: inline;
 		float: left;
-		width: 276px;
-		height: 400px;
-		margin-top: 10px;
-		margin-bottom: 10px;
+		width: 440px;
 		margin-left: 10px;
 		margin-right: 10px;
 		padding-left: 10px;
 		padding-right: 10px;
-		padding-top: 10px;
-		padding-bottom: 10px;
-		background-color: $a1;
-
-
+		
 		h2 {
 			margin-top: 10px;
 		}
-
 
 		li {
 			margin-bottom: 3px;
@@ -123,9 +101,9 @@ $b1: #D5DAEB;
 	}
 
 	.big-button {
-		width: 250px;
-		height: 30px;
-		line-height: 30px; /* To vertically center text */
+		width: 210px;
+		height: 40px;
+		line-height: 40px; /* To vertically center text */
 		background-color: $a1;
 		padding-top: 0px;
 		padding-bottom: 0px;
@@ -133,7 +111,7 @@ $b1: #D5DAEB;
 		padding-right: 0px;
 		margin-bottom: 20px;
 		text-align: center;
-		font-size: 15px;
+		font-size: 16px;
 		font-weight: bold;
 		border-width: 1px;
 		border-style: solid;
@@ -141,8 +119,8 @@ $b1: #D5DAEB;
 		a {
 			color: $a5;
 			text-decoration: none;
-			width: 250px; /* Make as wide as button to maximize clickable area */
-			height: 30px; /* Make as high as button to maximize clickable area */
+			width: 210px; /* Make as wide as button to maximize clickable area */
+			height: 40px; /* Make as high as button to maximize clickable area */
 			float: left;
 		}
 		&:hover {
@@ -156,13 +134,19 @@ $b1: #D5DAEB;
 	#left-button {
 		display: inline;
 		float: left;
-		margin-left: 150px;
+		margin-left: 95px;
+	}
+
+	#center-button {
+		display: inline;
+		float: left;
+		margin-left: 70px;
 	}
 
 	#right-button {
 		display: inline;
-		float: right;
-		margin-right: 150px;
+		float: left;
+		margin-left: 70px;
 	}
 
 	#generateTagForm {
@@ -403,16 +387,18 @@ $b1: #D5DAEB;
 			height: 25px;
 			float: left;
 			margin-left: 10px;
-			background-color: $a1;
+			/* background-color: $a1; */
 			text-align: center;
 			font-size: 14px;
+			/* Remove box around menu items
 			border-width: 1px; 
 			border-style: solid; 
 			border-color: $a1;
+			*/
 			&:hover { 
 				background: $a5;
 				a {
-					color: $a1;
+					color: $a1; 
 				}
 			}
 			a {

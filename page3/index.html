@@ -70,6 +70,17 @@
 	
 		<div class="post">
 			28 Oct 2013
+			<h1><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We were very flattered to be invited by the team at <a href='http://www.code-n.org/#about/main'>code_n</a> to enter their competition to identify &#8220;outstanding young companies and promote their groundbreaking business models&#8221;. This year&#8217;s competition is focused on data, and has the motto <em>Driving the Data Revolution</em>.</p>
+
+<p>As part of our application process, we put together a short video introducing Snowplow. You can watch the video below.</p>
+<iframe width='420' frameborder='0' src='//www.youtube.com/embed/p49quiYRsgE' height='315' allowfullscreen='1'> </iframe>
+<p>We look forward to finding out if our application has been successful!</p>
+		</div>
+	
+		<div class="post">
+			28 Oct 2013
 			<h1><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
 			<p>This winter we are recruiting <a href='http://snowplowanalytics.com/blog/2013/10/07/announcing-our-winter-open-source-internship-program/'>interns</a> to join the Snowplow team to work on discrete projects.</p>
@@ -165,48 +176,6 @@
 <p class='more'><a href='/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			21 Oct 2013
-			<h1><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
-
-<ol>
-<li>Custom trackers and collector logging formats</li>
-
-<li>Custom event models</li>
-
-<li>Custom business logic that impacts on the way their event data is processed</li>
-</ol>
-
-<p>To date, we have relied on three main techniques to help Snowplow users meet these requirements:</p>
-
-<ol>
-<li>Adding additional configuration options into the core Enrichment process (e.g. IP address anonymization, coming in 0.8.11)</li>
-
-<li>Working with users on bespoke re-writes of the Snowplow Enrichment process (mostly forks of the Scalding ETL job)</li>
-
-<li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
-</ol>
-
-<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
-
-<p>If possible, the following approach would make an attractive middle ground:</p>
-
-<ol>
-<li>Pass one or more user-authored scripts into our Scalding ETL at runtime</li>
-
-<li>The user-authored script(s) are executed against each row of event data</li>
-
-<li>These scripts can be written in a popular and easy-to-learn scripting language</li>
-</ol>
-
-<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
-
-<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
-<p class='more'><a href='/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -226,6 +195,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
@@ -234,24 +205,14 @@
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
-			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Research</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -269,6 +230,17 @@
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -294,6 +266,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+			
 				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 			
 				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
@@ -302,27 +276,22 @@
 			
 				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

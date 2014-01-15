@@ -69,6 +69,40 @@
 			<div id="contents">
 	
 		<div class="post">
+			10 Apr 2013
+			<h1><a href="/blog/2013/04/10/snowplow-event-validation">Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>A key goal of the Snowplow project is enabling <strong>high-fidelity analytics</strong> for businesses running Snowplow.</p>
+
+<p>What do we mean by high-fidelity analytics? Simply put, high-fidelity analytics means Snowplow faithfully recording <em>all</em> customer events in a rich, granular, non-lossy and unopinionated way.</p>
+
+<p>This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that&#8217;s made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it&#8217;s an important one.</p>
+
+<p>Surprisingly, ensuring your data is high fidelity is <strong>not</strong> something that is enforced by other analytics products.</p>
+
+<p><img alt='high-fidelity' src='/static/img/blog/2013/04/high-fidelity-2000.jpg' /></p>
+
+<p>Why is Snowplow so unusual in aiming for high-fidelity analytics? Most often, analytics vendors sacrifice the goal of high-fidelity data at the altar of these three compromises:</p>
+
+<ol>
+<li><strong>Premature aggregation</strong> - when the data store gets too large, or the reports take too long to generate, it&#8217;s tempting to perform the aggregation and roll-up of the raw event data earlier, sometimes even at the point of collection. Of course this offers a huge potential performance boost to the tool, but at the cost of a huge degree of customer data fidelity</li>
+
+<li><strong>Ignoring bad news</strong> - the nature of event data means that often incomplete, corrupted or plain wrong data is sent in to the analytics tool by the event trackers. Handling bad event data is complicated (let&#8217;s go shopping!). Instead of dealing with the complexity, most analytics packages just throw the bad data away silently; this is why tag audit companies like <a href='http://www.observepoint.com/'>ObservePoint</a> exist</li>
+
+<li><strong>Being over-opinionated</strong> - customer analytics is full of challenging questions which need answering before you can analyse the data: do I track users by their first-party cookie, third-party cookie, business ID and/or IP address? Do I use the server clock, or the user&#8217;s clock to log the event time? When does a user session start and end? Because these questions can be difficult to answer, most analytics tools don&#8217;t ask them: instead they take an opinionated view of the &#8220;right answer&#8221; and silently enforce that view through their event collection, storage and analysis. By the time users realize that the logic enforced is one that does not work for their business, they are already tied to that vendor and the imperfect data set they have created with that vendor to date.</li>
+</ol>
+
+<p>To deliver on the goal of high-fidelity analytics, then, we&#8217;re trying to steer Snowplow around these three common pitfalls as best we can.</p>
+
+<p>We have talked in detail on our website and wiki about avoiding pitfall #1, Premature aggregation. In short: we do <strong>no</strong> aggregation - Snowplow users have access to granular, event level data, so that they can work out how best they should aggregate it for each type of analysis they wish to perform.</p>
+
+<p>We will blog more about our ideas to combat #3, Being over-opinionated, in the future.</p>
+
+<p>For the rest of this blog post, though, we will look at our solution to pitfall #2, Ignoring bad news: namely, <strong>event validation</strong>.</p>
+<p class='more'><a href='/blog/2013/04/10/snowplow-event-validation'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			03 Apr 2013
 			<h1><a href="/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment">Snowplow 0.8.0 released with all-new Scalding-based data enrichment</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -173,25 +207,6 @@
 <p class='more'><a href='/blog/2013/03/03/snowplow-0.7.6-released-with-redshift-data-warehouse-support'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			25 Feb 2013
-			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
-
-<p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow&#8217;s first-party cookies when sent via HTTPS pages.</p>
-
-<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, Snowplow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
-
-<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
-
-<p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
-
-<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
-
-<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -211,6 +226,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
@@ -219,24 +236,14 @@
 		
 			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 		
-			<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-		
 	</ul>
 
 	
-		<h1>Other</h1>
+		<h1>Research</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		
@@ -254,6 +261,17 @@
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -279,6 +297,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+			
 				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
 			
 				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
@@ -287,27 +307,22 @@
 			
 				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
 			
-				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
-			
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
-		
-		</ul>		
-	
-		<h1>Research</h1>
-		<ul>
-		
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

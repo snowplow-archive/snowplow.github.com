@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Quick start guide to learning SQL to query Snowplow data published - Snowplow Analytics</title>
+	<title>Scala Forex library by wintern Jiawen Zhou released - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,20 +68,88 @@
 	
 			<div id="contents">
 		<div class="post">
-			19 Nov 2013
-			<h1>Quick start guide to learning SQL to query Snowplow data published</h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Whilst it is possible to use different BI tools to query Snowplow data with limited or no knowledge of SQL, to really get the full power of Snowplow you need to know some SQL.</p>
+			17 Jan 2014
+			<h1>Scala Forex library by wintern Jiawen Zhou released</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are proud to announce the release of our new <a href='https://github.com/snowplow/scala-forex'>Scala Forex</a> library, developed by <a href='/blog/2013/12/20/introducing-our-snowplow-winterns/'>Snowplow wintern Jiawen Zhou</a>. Jiawen joined us in the Snowplow offices in London this winter and was tasked with taking Scala Forex from a README file to an enterprise-strength Scala library for foreign exchange operations. One month later and we are hugely excited to be sharing her work with the community!</p>
 
-<p>To help Snowplow users who are not familiar with SQL, or those who could do with a refreshing their knowledge, we&#8217;ve put together a <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>quick start guide</a> on the <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>Analytics Cookbook</a>. The purpose of the guide is to get the reader up to speed with all the core SQL concepts, especially those that are relevant for slicing and dicing Snowplow data, as quickly as possible.</p>
+<p>Scala Forex is a high-performance Scala library for performing exchange rate lookups and currency conversions, leveraging the excellent <a href='https://openexchangerates.org/signup?r=snowplow'>Open Exchange Rates web service</a>. We are excited to be working with <a href='https://openexchangerates.org/signup?r=snowplow'>Open Exchange Rates</a>, Snowplow&#8217;s second external data provider after MaxMind.</p>
 
-<p>We hope the guide is useful. Any feedback would be gratefully received. We&#8217;d also love to point people at other resources for learning SQL: if there are any you can recommend, then please do add them via the comments section below.</p>
+<p>In Jiawen&#8217;s own words:</p>
 
-<p>The quick start guide can be found <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>here</a>.</p>
+<p><img alt='jiawen-img' src='/static/img/blog/2014/01/jiawen-scala-forex.png' /></p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/01/17/scala-forex-library-released/#rationale'>Why we wrote this library</a></li>
+
+<li><a href='/blog/2014/01/17/scala-forex-library-released/#architecture'>How the library is architected</a></li>
+
+<li><a href='/blog/2014/01/17/scala-forex-library-released/#usage'>How to use the library</a></li>
+
+<li><a href='/blog/2014/01/17/scala-forex-library-released/#thanks'>Thanks</a></li>
+</ol>
+<!--more--><h2><a name='rationale'>Why we wrote this library</a></h2>
+<p>Late last year a Snowplow customer asked us if we could add currency conversions into their custom Snowplow implementation. This seemed like a great idea to explore, and we started to sketch out an approach:</p>
+
+<ol>
+<li>Add a new currency field into our ecommerce transaction tracking, to indicate the currency of the transaction (see <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/34'>this ticket</a> for the JavaScript)</li>
+
+<li>In our Enrichment process, convert all transactions to the Snowplow user&#8217;s &#8220;base currency&#8221;</li>
+
+<li>In our Storage targets, store both the original transaction value and the value converted to the user&#8217;s base currency, for easy revenue analysis</li>
+</ol>
+
+<p>The big missing piece for the above was a Scala library to handle currency conversions. We had some very specific requirements for this library:</p>
+
+<ol>
+<li>It had to support close to all of the world&#8217;s national currencies</li>
+
+<li>It had to support historical (&#8220;end of day&#8221;) currency conversions. This is because a Snowplow Enrichment process can be run over many days or months of historical event data</li>
+
+<li>It had to minimize the number of external web service calls. Running in an environment like Hadoop or Kinesis, we cannot afford to call a web service each time for millions of individual events</li>
+</ol>
+
+<p>Custom building a Scala library calling out to the <a href='https://openexchangerates.org/signup?r=snowplow'>Open Exchange Rates web service</a> seemed the right way to meet these requirements, and so Scala Forex was born!</p>
+<h2><a name='architecture'>How the library is architected</a></h2>
+<p>Scala Forex makes heavy use of the Joda-Money and Joda-Time libraries in its public API. These are enterprise-grade Java libraries for working with currency, money and time, and we were keen not to re-invent the wheel!</p>
+
+<p>Under the covers, Jiawen&#8217;s library makes heavy use of two &#8220;least recently used&#8221; (LRU) caches, one to hold historic exchange rates and one to hold recent rates. It is these LRU caches which minimize calls out to the <a href='https://openexchangerates.org/signup?r=snowplow'>Open Exchange Rates web service</a>, which is critical for performance (and cost) reasons.</p>
+
+<p>The library is thoroughly tested using Specs2 (including Specs2 tables), and Mockito to verify cache behaviour. The library is integrated into Travis CI for continuous testing.</p>
+<h2><a name='usage'>How to use the library</a></h2>
+<p>Using the library is straightforward: you initialize Scala Forex with general and OER-specific configuration, and then use a simple Scala DSL to both look up exchange rates and perform currency conversions.</p>
+
+<p>For detailed guidance on configuring the library, please see the <a href='https://github.com/snowplow/scala-forex#22-configuration'>Configuration section</a> of the Scala Forex README.</p>
+<h3>Exchange rate lookups</h3>
+<p>Once initialized, an exchange rate lookup is as simple as:</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>val</span> <span class='n'>jpy2gbp</span> <span class='k'>=</span> <span class='n'>fx</span><span class='o'>.</span><span class='n'>rate</span><span class='o'>(</span><span class='s'>&quot;JPY&quot;</span><span class='o'>).</span><span class='n'>to</span><span class='o'>(</span><span class='s'>&quot;GBP&quot;</span><span class='o'>).</span><span class='n'>nowish</span>
+</code></pre></div>
+<p>Here&#8217;s a slightly more complex example, of looking up a historic rate:</p>
+<div class='highlight'><pre><code class='scala'><span class='c1'>// Base currency is USD</span>
+<span class='k'>val</span> <span class='n'>tradeDate</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>DateTime</span><span class='o'>(</span><span class='mi'>2011</span><span class='o'>,</span> <span class='mi'>3</span><span class='o'>,</span> <span class='mi'>13</span><span class='o'>,</span> <span class='mi'>11</span><span class='o'>,</span> <span class='mi'>39</span><span class='o'>,</span> <span class='mi'>27</span><span class='o'>,</span> <span class='mi'>567</span><span class='o'>,</span> <span class='nc'>DateTimeZone</span><span class='o'>.</span><span class='n'>forID</span><span class='o'>(</span><span class='s'>&quot;America/New_York&quot;</span><span class='o'>))</span>
+<span class='k'>val</span> <span class='n'>usd2yen</span> <span class='k'>=</span> <span class='n'>fx</span><span class='o'>.</span><span class='n'>rate</span><span class='o'>.</span><span class='n'>to</span><span class='o'>(</span><span class='s'>&quot;JPY&quot;</span><span class='o'>).</span><span class='n'>at</span><span class='o'>(</span><span class='n'>tradeDate</span><span class='o'>)</span>
+</code></pre></div>
+<p>For detailed help on currency lookups, please see the <a href='https://github.com/snowplow/scala-forex#31-rate-lookup'>Rate Lookup section</a> of the Scala Forex README.</p>
+<h3>Currency conversions</h3>
+<p>A currency conversion can be as simple as:</p>
+<div class='highlight'><pre><code class='scala'><span class='c1'>// Base currency is GBP</span>
+<span class='k'>val</span> <span class='n'>gbpPriceInEuros</span> <span class='k'>=</span> <span class='n'>fx</span><span class='o'>.</span><span class='n'>convert</span><span class='o'>(</span><span class='mf'>9.99</span><span class='o'>).</span><span class='n'>to</span><span class='o'>(</span><span class='s'>&quot;EUR&quot;</span><span class='o'>).</span><span class='n'>now</span>
+</code></pre></div>
+<p>Here&#8217;s a slightly more complex example, of converting a trade using the end of day rate:</p>
+<div class='highlight'><pre><code class='scala'><span class='k'>val</span> <span class='n'>eodDate</span> <span class='k'>=</span> <span class='k'>new</span> <span class='nc'>DateTime</span><span class='o'>(</span><span class='mi'>2011</span><span class='o'>,</span> <span class='mi'>3</span><span class='o'>,</span> <span class='mi'>13</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>,</span> <span class='mi'>0</span><span class='o'>)</span>
+<span class='k'>val</span> <span class='n'>tradeInYen</span> <span class='k'>=</span> <span class='n'>fx</span><span class='o'>.</span><span class='n'>convert</span><span class='o'>(</span><span class='mi'>10000</span><span class='o'>,</span> <span class='s'>&quot;GBP&quot;</span><span class='o'>).</span><span class='n'>to</span><span class='o'>(</span><span class='s'>&quot;JPY&quot;</span><span class='o'>).</span><span class='n'>at</span><span class='o'>(</span><span class='n'>eodDate</span><span class='o'>)</span>
+</code></pre></div>
+<p>For detailed help on currency conversions, please see the <a href='https://github.com/snowplow/scala-forex#32-currency-conversion'>Currency Conversion section</a> of the Scala Forex README.</p>
+<h2><a name='thanks'>Thanks</a></h2>
+<p>And that&#8217;s it; huge thanks to Jiawen Zhou for delivering such a sophisticated library in such a short time - and in a language she had never used before!</p>
+
+<p>We hope that you find the Scala Forex library helpful - and stay tuned for when we can integrate it into Snowplow as part of our planned new currency enrichment capabilities!</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
 </div>
 
 			</div> 

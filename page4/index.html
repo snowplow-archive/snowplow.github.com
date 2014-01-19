@@ -69,6 +69,30 @@
 			<div id="contents">
 	
 		<div class="post">
+			22 Oct 2013
+			<h1><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p><em>We wanted to follow-up our recent <a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/'>launch of Snowplow 0.8.10</a>, with inbuilt SQL recipes and cubes, with a few posts demonstrating how you can use those views to quickly perform analytics on your Snowplow data. This is the first of those posts.</em></p>
+
+<p><img alt='final-cohort-analysis-summary' src='/static/img/blog/2013/10/cohort-analysis/final-cohort-analysis.JPG' /></p>
+
+<p>In this post, we&#8217;ll cover how to perform a cohort analysis using <a href='http://chartio.com/'>ChartIO</a> and Snowplow.</p>
+
+<h2 id='recap_what_is_cohort_analysis'>Recap: what is Cohort Analysis</h2>
+
+<p>We have described cohort analysis at length in the <a href='/analytics/customer-analytics/cohort-analysis.html'>Analyst Cookbook</a>. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:</p>
+
+<ol>
+<li>how you group people into cohorts (cohort definition), and</li>
+
+<li>the characteristic that you&#8217;re comparing between cohort over time.</li>
+</ol>
+
+<p>In digital media people generally use the phrase &#8216;cohort analysis&#8217; to refer to measurements of retention rates for different cohorts, where cohorts are defined by <em>when</em> a user was acquired. In that way, SaaS companies, for example, can compare how well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)</p>
+<p class='more'><a href='/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			21 Oct 2013
 			<h1><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -174,30 +198,6 @@
 <p class='more'><a href='/blog/2013/10/01/snowplow-passes-500-stars'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			30 Sep 2013
-			<h1><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Although it is no longer part of the core Snowplow stack, Apache Hive is the gateway drug that got us started on Hadoop. As some of our <a href='http://snowplowanalytics.com/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>recent</a> <a href='http://snowplowanalytics.com/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'>blog posts</a> testify, Hive is still very much a part of our big data toolkit, and this will continue as we use it to roll out new features. (E.g. for analyzing custom unstructured events.) I suspect that many Hadoopers started out with Hive, before experimenting with the myriad other tools to crunch data using Hadoop.</p>
-
-<p>We were therefore delighted to be invited to review <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>Apache Hive Essentials How-to</a>, a new guide to Hive written by Darren Lee from <a href='http://www.bizo.com/home'>Bizo</a>.</p>
-<a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>
-	<img title='Hive how to guide' src='/static/img/blog/2013/09/instant-apache-hive-essentials.png' />
-</a>
-<p>For me, there are two totally different categories of technical book that I enjoy in completely different ways:</p>
-
-<ol>
-<li>Books that help me use tools more effectively: so I do more in less time.</li>
-
-<li>Books that change the way I see the tools I use. These books step back from the practicalities of using the particular tools they cover to situate them in their proper context, and compare their usage with other tools. My favorite example in this cateogry is <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'>Seven Languages in Seven Weeks</a>.</li>
-</ol>
-
-<p>Often, technical books fail because they try and accomplish <em>both</em> of the above.</p>
-
-<p>Fortunately, that is <strong>not</strong> true of the <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>Apache Hive Essentials How-to</a>. This is an uncompromisingly practical, focused book, that makes essential reading for anyone working with Hive.</p>
-<p class='more'><a href='/blog/2013/09/30/book-review-instant-hive-essentials-how-to'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -217,6 +217,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+		
 			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
 		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
@@ -225,16 +227,22 @@
 		
 			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 		
-			<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
-		
 	</ul>
 
 	
-		<h1>Research</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		
@@ -243,6 +251,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
@@ -250,19 +260,6 @@
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
 			
 				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-				<li><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Recruitment</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
-			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		
@@ -301,19 +298,22 @@
 		
 		</ul>		
 	
-		<h1>Other</h1>
+		<h1>Recruitment</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
 			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
 			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
 			
 		
 		</ul>		

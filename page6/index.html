@@ -69,6 +69,32 @@
 			<div id="contents">
 	
 		<div class="post">
+			03 Sep 2013
+			<h1><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We&#8217;ve just published a getting-started guide to using <a href='http://www.qubole.com/#All'>Qubole</a>, a managed Big Data service, to query your Snowpow data. You can read the guide <a href='https://github.com/snowplow/snowplow/wiki/Setting-up-Qubole-to-analyze-Snowplow-data-using-Apache-Hive'>here</a>.</p>
+
+<p><img alt='qubole-logo' src='/static/img/blog/2013/09/qubole-logo.png' /></p>
+
+<p>Snowplow delivers event data to users in a number of different places:</p>
+
+<ol>
+<li>Amazon Redshift or PostgreSQL, so you can analyze the data using traditional analytics and BI tools</li>
+
+<li>Amazon S3, so you can analyze that data using Hadoop-backed, big data tools e.g. <a href='http://mahout.apache.org/'>Mahout</a>, <a href='http://hive.apache.org/'>Hive</a> and <a href='http://pig.apache.org/'>Pig</a>, on EMR</li>
+</ol>
+
+<p>Since we started offering support for Amazon Redshift and more recently PostgreSQL, our focus on the blog and in the <a href='/analytics/index.html'>Analytics Cookbook</a> has been on using traditional analytics tools e.g. <a href='http://www.tableausoftware.com/'>Tableau</a>, <a href='http://cran.r-project.org/'>R</a> and <a href='http://office.microsoft.com/en-gb/excel/'>Excel</a> to crunch the data. However, there are a host of reasons when you might want to crunch the data using one of the new generation of big data tools. Two give two examples:</p>
+
+<ol>
+<li>You may want to join your Snowplow data with other data sets, and those data sets are not structured. (E.g. they are in JSON, or custom text file formats.)</li>
+
+<li>You want to use specific algorithms or libraries that have been built for big data tools e.g. Mahout recommendation or clustering algorithms.</li>
+</ol>
+<p class='more'><a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			12 Aug 2013
 			<h1><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -157,7 +183,7 @@
 			<p>Yesterday at the <a href='http://www.meetup.com/hadoop-users-group-uk/'>Hadoop User Group</a>, I was very fortunate to get the opportunity to speak about Snowplow at the event focused specifically on Amazon Web Services, and Redshift in particular.</p>
 
 <p>I hope the talk was interesting to the participants who attended. I described how we use Cloudfront and Elastic Beanstalk to get event data into AWS for processing by EMR, and how we push the output of our EMR-based enrichment process into Redshift for analysis. The slides I presented are below:</p>
-<iframe frameborder='0' height='356' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/24416560' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='427'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' target='_blank' title='Snowplow presentation to hug uk'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
+<iframe marginheight='0' width='427' height='356' scrolling='no' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/24416560' frameborder='0'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/yalisassoon/snowplow-presentation-to-hug-uk' title='Snowplow presentation to hug uk' target='_blank'>Snowplow presentation to hug uk</a> </strong> from <strong><a href='http://www.slideshare.net/yalisassoon' target='_blank'>yalisassoon</a></strong> </div>
 <p>Many thanks to Dan Harvey for organising the event, Ian and Ianni from Amazon for their presentations, and Amazon for sponsoring the event!</p>
 		</div>
 	
@@ -193,38 +219,6 @@
 <p class='more'><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			09 Jul 2013
-			<h1><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Back in March, <a href='https://groups.google.com/forum/#!searchin/snowplow-user/cloudfront$20cost/snowplow-user/b_HPkt3nwzo/Ms-J54e8bUYJ'>Robert Kingston suggested</a> that we develop a Total Cost of Ownership model for Snowplow: something that would enable a user or prospective user to accurately estimate their Amazon Web Services monthly charges going forwards, and see how those costs vary with different traffic levels. We thought this was an excellent idea.</p>
-
-<p>Since Rob&#8217;s suggestion, we&#8217;ve made a number of important changes to the Snowplow platform that have changed the way Snowplow costs scale with the number of events served:</p>
-
-<ol>
-<li>We replaced the Hive-based ETL with the <a href='/blog/2013/04/03/snowplow-0.8.0-released-with-all-new-scalding-based-data-enrichment/'>Scalding-based enrichment process</a></li>
-
-<li>We dealt with the <a href='/blog/2013/05/30/dealing-with-hadoops-small-files-problem/'>small files problem</a>, dramatically reducing EMR costs</li>
-
-<li>We enabled support for <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances'>task and spot instances</a></li>
-</ol>
-
-<p>As a result of the pending updates, we held off building the model. But now that they have been delivered, we have started putting together the model. In this post we&#8217;ll walk through the Snowplow data pipeline in detail, and show how different parts of the pipeline drive different AWS costs. In a <a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/'>follow-on post</a>, we will ask Snowplow users to share with us data points to help us accurately model those costs.</p>
-<h2><a name='details'>What drives AWS costs for Snowplow users?</a></h2>
-<p>It is worth distinguishing the different AWS services, and examining how each scales with volume of events per day, and over time. If we take a <em>typical</em> Snowplow user (i.e. one running the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector'>Cloudfront collector</a> rather than the <a href='https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector'>Clojure collector</a>), and storing their data on Redshift for analysis, rather than analyzing their data in S3 using EMR) then we need to account for:</p>
-
-<ol>
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#cloudfront'>Cloudfront costs</a>,</li>
-
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#s3'>S3 costs</a>,</li>
-
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#emr'>EMR costs</a> and</li>
-
-<li><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/#redshift'>Redshift costs</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -233,7 +227,7 @@
 			<a href="/page5" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 6 of 20</span>
+		<span class="page_number">Page: 6 of 21</span>
 		
 			<a href="/page7" class="next">Next</a>
 		
@@ -244,6 +238,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 		
 			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
@@ -252,31 +248,14 @@
 		
 			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 		
-			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
@@ -285,25 +264,6 @@
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -325,13 +285,36 @@
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -341,6 +324,17 @@
 		
 			
 				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

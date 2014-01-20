@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>The three eras of business data processing - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+	<div id="universe">
+		<div id="container">
+			<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+			<div id="contents">
+		<div class="post">
+			20 Jan 2014
+			<h1>The three eras of business data processing</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Every so often, a work emerges that captures and disseminates the bleeding edge so effectively as to define a new norm. For those of us working in eventstream analytics, that moment came late in 2013 with the publication of Jay Kreps&#8217; monograph <a href='http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying'>The Log: What every software engineer should know about real-time data&#8217;s unifying abstraction</a>. Anyone involved in the operation or analysis of a digital business ought to read Jay&#8217;s piece in its entirety. His central point, convincingly argued, is that every digital business should be (re-)structured around a centralized event firehose which:</p>
+
+<ol>
+<li>aggregates events from disparate source systems,</li>
+
+<li>stores them in what Jay calls a &#8220;unified log&#8221;, and</li>
+
+<li>enables data processing applications to operate on this stream</li>
+</ol>
+
+<p>Sounds familiar? At Snowplow we believe passionately in putting a continuous stream of immutable events at the heart of your digital business, and we want Snowplow to power this &#8220;digital nervous system&#8221; for companies large and small. Jay&#8217;s monograph validated our approach-to-date (e.g. on the importance of <a href='http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/'>building an event grammar</a>), but also moved our thinking forwards in a number of ways.</p>
+
+<p>In the rest of this blog post, rather than simply re-hashing Jay&#8217;s thoughtpiece, I want to create a new baseline by mapping out the historical and ongoing evolution of business data processing, extending up to the unified log espoused by Jay. I have split this evolution into two distinct eras which I have lived through and experienced firsthand, plus a third era which is soon approaching:</p>
+
+<ol>
+<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#classic-era'>The Classic Era - the pre-big data, pre-SaaS era of operational systems and batch-loaded data warehouses</a></li>
+
+<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#hybrid-era'>The Hybrid Era - today&#8217;s hotchpotch of different systems and approaches</a></li>
+
+<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#unified-era'>The Unified Era - a future enabled by continuous data processing on a unified log</a></li>
+
+<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#closing-thoughts'>Closing thoughts</a></li>
+</ol>
+
+<p>We&#8217;ll explore each of these eras in turn:</p>
+<!--more--><h2><a name='classic-era'>The Classic Era</a></h2>
+<p>When I started work at Deloitte Consulting 12 years ago, even forward-thinking businesses still primarily operated a disparate set of on-premise transactional systems. Each of these systems would feature: an internal &#8220;local loop&#8221; for data processing; its own data silo; and, when unavoidable, point-to-point connections to peer systems. To give the Management team a much-needed view <em>across</em> these systems, a &#8220;Ralph Kimball&#8221; data warehouse might be added, typically fed from the transactional systems overnight by a set of batch ETL processes. Where present, this provided a <em>single version of the truth</em>.</p>
+
+<p>The whole system looked something like this - using the case of a retailer for our example:</p>
+
+<p><img alt='classic-era-img' src='/static/img/blog/2014/01/classic-era.png' /></p>
+
+<p>And that was pretty much it. In truth, most businesses still run on a close descendant of this approach, albeit with more SaaS services mixed in. However, some businesses, particularly those in fast-moving sectors like retail and media, have made the leap to what we might call the Hybrid Era:</p>
+<h2><a name='hybrid-era'>The Hybrid Era</a></h2>
+<p>The Hybrid Era is characterized by companies operating a real hotchpotch of different transactional and analytics systems - some on-premise packages, some from SaaS vendors, plus some home-grown systems.</p>
+
+<p>It is hard to generalize what these architectures look like - again we see strong local loops and data silos, but we also see attempts at &#8220;log everything&#8221; approaches with Hadoop and/or systems monitoring. There tends to be a mix of near-real-time processing for narrow analytics use cases like product recommendations, plus separate batch processing efforts into Hadoop or a classic data warehouse. We see attempts to bulk export data from external SaaS vendors for warehousing, and efforts to feed these external systems with the data they require for their own local loops.</p>
+
+<p>Keeping our multi-channel retailer in mind, here is what her architecture looks like now:</p>
+
+<p><img alt='hybrid-era-img' src='/static/img/blog/2014/01/hybrid-era.png' /></p>
+
+<p>This looks complicated, but is really something of a simplification - most businesses will have a much more complex systems landscape. But even with this simplification, we can see some real limitations of this approach:</p>
+
+<ol>
+<li><strong>There is no single version of the truth</strong> - data is now warehoused in multiple places, split depending on the data volumes and the analytics latency required</li>
+
+<li><strong>Decisioning has become fragmented</strong> - the number of local systems loops, each operating on siloed data, has grown since the Classic Era. These loops represent a highly fragmented approach to making near-real-time decisions from data</li>
+
+<li><strong>Point-to-point connections have proliferated</strong> - as the number of systems has grown, the number of point-to-point connections has exploded. Many of these connections are fragile or incomplete; getting sufficiently-granular and timely data out of external SaaS systems is particularly challenging</li>
+
+<li><strong>Analytics can have low latency or wide data coverage, but not both</strong> - where stream processing is selected for low latency, it becomes effectively another local loop. The warehouses aim for much wider data coverage, but at the cost of duplication of data and high latency</li>
+</ol>
+<h2><a name='unified-era'>The Unified Era</a></h2>
+<p>These two eras bring us up to the present day, and the coming Unified Era of data processing. The key innovation is placing what Jay calls a unified log at the heart of all of our data collection and processing. A unified log is an append-only log to which we write all events generated by our applications. Going further, it:</p>
+
+<ul>
+<li>Can be read from at low latency</li>
+
+<li>Is readable by multiple applications simultaneously, and different applications can have different &#8220;cursor positions&#8221;</li>
+
+<li>Only holds a few days&#8217; worth of data. But we can archive the historic log in HDFS or S3</li>
+</ul>
+
+<p>Let&#8217;s see what this architecture looks like conceptually:</p>
+
+<p><img alt='unified-era-img' src='/static/img/blog/2014/01/unified-era.png' /></p>
+
+<p>A few things should be clear, especially in contrast to the earlier eras:</p>
+
+<ol>
+<li><strong>All systems can and should write to the unified log</strong> - third-party SaaS vendors can emit events via webhooks and streaming APIs. In the case where vendors cannot provide an eventstream (e.g. with web analytics), those services are brought back in-house</li>
+
+<li><strong>We have a single version of the truth</strong> - together, the unified log plus Hadoop archive represent our single version of the truth. They contain exactly the same data - our eventstream - they just have different time windows of data</li>
+
+<li><strong>The single version of the truth is upstream from the datawarehouse</strong> - in the classic era, the datawarehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, the log provides the single version of the truth: as a result, operational system (e.g. recommendation and ad targeting systems) compute on the same versions of truths as analysts producing business reports</li>
+
+<li><strong>Point-to-point connections have largely gone away</strong> - in their place, applications can append to the unified log and other applications can read their writes</li>
+
+<li><strong>Local loops have been unbundled</strong> - in place of local silos, applications can collaborate on real-time decisioning via the unified log</li>
+</ol>
+<h2><a name='closing-thoughts'>Closing thoughts</a></h2>
+<p>This has been something of a whirlwind tour through the evolution of data processing for business, as we have experienced it here at Snowplow (and before Snowplow). I have tried to delineate this evolution into three distinct eras - you may not agree entirely with the terminology or the facets of each era, but I hope it has prompted some ideas about where eventstream analytics is coming from and where it is heading. For us at Snowplow, we are convinced that the unified log is a breakthrough concept in understanding how best to engineer digital businesses. And we plan to evolve Snowplow to help enable this &#8220;digital nervous system&#8221; for <strong>your</strong> business.</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+		
+			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+		
+			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+		
+			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+		
+			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+		
+	</ul>
+
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+			
+				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
+				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+			
+				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
+			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+			<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2014.  All rights reserved</p>
+</div>
+		</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

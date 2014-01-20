@@ -69,6 +69,34 @@
 			<div id="contents">
 	
 		<div class="post">
+			07 Jan 2014
+			<h1><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are very pleased to announce the immediate availability of <a href='https://github.com/snowplow/snowplow/releases/tag/0.8.12'>Snowplow 0.8.12</a>. We have quite a packed schedule of releases planned over the next few weeks - and we are kicking off with 0.8.12, which consists of various small improvements to our Scalding-based Enrichment process, plus some architectural re-work to prepare for the coming releases (in particular, <a href='http://aws.amazon.com/kinesis/'>Amazon Kinesis</a> support).</p>
+
+<ol>
+<li><a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#background'>Background on this release</a></li>
+
+<li><a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#improvements'>Scalding Enrichment improvements</a></li>
+
+<li><a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#rearchitecting'>Re-architecting our Enrichment process</a></li>
+
+<li><a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/#install'>Installing this release</a></li>
+</ol>
+<a name='background'><h2>1. Background on this release</h2></a>
+<p>This release has two core objectives:</p>
+
+<ol>
+<li>To make a set of small improvemnts to our Scalding-based Enrichment process</li>
+
+<li>To re-architect our Enrichment process to make it usable from Amazon Kinesis</li>
+</ol>
+
+<p>We will detail both of these after the jump.</p>
+<p class='more'><a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			20 Dec 2013
 			<h1><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -105,7 +133,7 @@
 <p>The event was for graduates interested in careers in Data Science careers. It&#8217;s a great initiative and we were very happy to support it.</p>
 
 <p>I gave the first talk on how data scientists and big data technolgies, including Snowplow, are fundamentally changing the way that people think about use web analytics data specifically, and digital event data more generally. I went on to describe why we believe event data is such an interesting data set to work with. We&#8217;ll see if any of the participants are more excited about digital event data as a result. I&#8217;ve embedded my slides below:</p>
-<div id='pres'><iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/28874690' width='476'> </iframe></div>
+<div id='pres'><iframe marginheight='0' width='476' height='400' scrolling='no' marginwidth='0' src='http://www.slideshare.net/slideshow/embed_code/28874690' frameborder='0'> </iframe></div>
 <p>Eddie Bells gave a very interesting talk about the data infrastructure at <a href='http://www.lyst.com/'>Lyst</a>, particularly around scraping and structuring (including classifying) data.</p>
 
 <p>Martin Goodson followed up with a fascinating talk highlighting the enormous amount of money wasted in online retail because of a lack of sound statistical approach to techniques like A/B and multivariant testing. I hope to post links to both Martin&#8217;s and Eddie&#8217;s slides in due course.</p>
@@ -133,19 +161,6 @@
 <p class='more'><a href='/blog/2013/11/20/loading-json-data-into-redshift'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			19 Nov 2013
-			<h1><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Whilst it is possible to use different BI tools to query Snowplow data with limited or no knowledge of SQL, to really get the full power of Snowplow you need to know some SQL.</p>
-
-<p>To help Snowplow users who are not familiar with SQL, or those who could do with a refreshing their knowledge, we&#8217;ve put together a <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>quick start guide</a> on the <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>Analytics Cookbook</a>. The purpose of the guide is to get the reader up to speed with all the core SQL concepts, especially those that are relevant for slicing and dicing Snowplow data, as quickly as possible.</p>
-
-<p>We hope the guide is useful. Any feedback would be gratefully received. We&#8217;d also love to point people at other resources for learning SQL: if there are any you can recommend, then please do add them via the comments section below.</p>
-
-<p>The quick start guide can be found <a href='/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html'>here</a>.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -154,7 +169,7 @@
 			<a href="/blog.html">Previous</a>
 			
 		
-		<span class="page_number">Page: 2 of 20</span>
+		<span class="page_number">Page: 2 of 21</span>
 		
 			<a href="/page3" class="next">Next</a>
 		
@@ -165,6 +180,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 		
 			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
@@ -173,31 +190,14 @@
 		
 			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 		
-			<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-		
 	</ul>
 
-	
-		<h1>Other</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
-			
-				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
-			
-				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
-			
-		
-		</ul>		
 	
 		<h1>Releases</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
@@ -206,25 +206,6 @@
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 			
 				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Analytics</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
-			
-				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
-			
-				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
-			
-				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
-			
-				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -246,13 +227,36 @@
 		
 		</ul>		
 	
-		<h1>Recruitment</h1>
+		<h1>Other</h1>
 		<ul>
 		
 			
-				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
-				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
 			
 		
 		</ul>		
@@ -262,6 +266,17 @@
 		
 			
 				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
 			
 		
 		</ul>		

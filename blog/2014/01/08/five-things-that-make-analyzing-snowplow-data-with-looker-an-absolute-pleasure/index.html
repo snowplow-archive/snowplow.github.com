@@ -86,11 +86,11 @@
 </ol>
 <a name='any-dimension-or-metric-combination'><h2>1. Slice and dice any combination of dimension and metrics</h2></a>
 <p>With Looker, you can slice your Snowplow data by <em>any</em> dimension / metric combination. To give some illustrative examples - we can plot the number of visits, bounce rate, pages per visit and events per visit by landing page:</p>
-<a href='/static/img/blog/2014/01/looker/metrics-by-landing-page.JPG'><img title='Querying metrics by landing page' src='/static/img/blog/2014/01/looker/metrics-by-landing-page.JPG' /></a><!--more-->
+<a href='/static/img/blog/2014/01/looker/metrics-by-landing-page.JPG'><img src='/static/img/blog/2014/01/looker/metrics-by-landing-page.JPG' title='Querying metrics by landing page' /></a><!--more-->
 <p>We may want to plot the number of <em>new</em> visitors by landing page over time:</p>
-<a href='/static/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG'><img title='Plotting the number of visits by landing page over time' src='/static/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG'><img src='/static/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG' title='Plotting the number of visits by landing page over time' /></a>
 <p>Or perhaps we want to compare the number of transactions by customers based on the channel they were <em>first</em> acquired on (first touch referer source):</p>
-<a href='/static/img/blog/2014/01/looker/metrics-by-original-mkt-source.JPG'><img title='Number of visitor-level metrics plotted by original (first touch) marketing channel' src='/static/img/blog/2014/01/looker/metrics-by-original-mkt-source.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/metrics-by-original-mkt-source.JPG'><img src='/static/img/blog/2014/01/looker/metrics-by-original-mkt-source.JPG' title='Number of visitor-level metrics plotted by original (first touch) marketing channel' /></a>
 <p>Creating the above slices of data is as simple as selecting the dimension / metric combination from the long list provided in the Looker UI.</p>
 <a name='define-your-own-metrics-and-dimensions'><h2>2. Quickly and easily define dimensions and metrics that are specific to your business using Looker's light-weight metadata model</h2></a>
 <p>Looker&#8217;s metadata model makes it very easy to define and analyze busines specific:</p>
@@ -121,27 +121,27 @@
       <span class='l-Scalar-Plain'>occurred_on_services_page</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>yes</span>
 </code></pre></div>
 <p>Both the above dimension and metric will now be available to include in any report produced in the Explorer. For example, we can now compare the number of events that occurred on services page by marketing campaign, landing page or over time.</p>
-<a href='/static/img/blog/2014/01/looker/events-on-services-page-by-day.JPG'><img title='Plotting the number of events on services pages by day' src='/static/img/blog/2014/01/looker/events-on-services-page-by-day.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/events-on-services-page-by-day.JPG'><img src='/static/img/blog/2014/01/looker/events-on-services-page-by-day.JPG' title='Plotting the number of events on services pages by day' /></a>
 <p>We can define additional derived metrics (e.g. average events on a service page per visitor / session) or dimensions (e.g. classify visitors by whether or not they have visited the services pages at all) by simply extending the metadata model. The Looker metadata model is flexible enough to extend with your business, as you become more sophisticated in your use of data.</p>
 <a name='drill-up-and-down'><h2>3. Drill-up and drill-down to visitor-level and event-level data</h2></a>
 <p>To illustrate this, let&#8217;s start by comparing visit and engagement levels by refer medium for the last month (i.e. a session-level analysis):</p>
-<a href='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-refer-medium.JPG'><img title='Visit numbers and engagement levels by referer medium' src='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-refer-medium.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-refer-medium.JPG'><img src='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-refer-medium.JPG' title='Visit numbers and engagement levels by referer medium' /></a>
 <p>We can see visitors referered from other websites appear to engage more deeply, on average. We can explore that further, to see if it is true across e.g. all landing pages, by clicking on the <strong>Landing Page Count</strong> (which is &#8220;7&#8221; and circled above):</p>
 
 <p>This opens another view, which lets us compare events per visit and bounce rates by the seven different landing pages that users refered to our websites from other websites were driven to. It looks like users refered from external websites to our recipe on market basket analysis engaged particularly deeply with our website:</p>
-<a href='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-landing-page.JPG'><img title='Visit numbers and engagement levels by landing page' src='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-landing-page.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-landing-page.JPG'><img src='/static/img/blog/2014/01/looker/visit-and-engagement-levels-by-landing-page.JPG' title='Visit numbers and engagement levels by landing page' /></a>
 <p>We can explore this further by clicking on the visit count to see the actual visits. For example, if we click on the &#8220;17&#8221; visits to the market basket analysis (circled above)&#8230;</p>
-<a href='/static/img/blog/2014/01/looker/visits-to-market-basket-analaysis-recipe.JPG'><img title='Exploring visits that land on teh market basket analysis recipe post' src='/static/img/blog/2014/01/looker/visits-to-market-basket-analaysis-recipe.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/visits-to-market-basket-analaysis-recipe.JPG'><img src='/static/img/blog/2014/01/looker/visits-to-market-basket-analaysis-recipe.JPG' title='Exploring visits that land on teh market basket analysis recipe post' /></a>
 <p>&#8230;we are shown an actual list of the 17 visits, including the cookie ID and the time each visitor spent on the website. (Note that all but the 3rd visitor were visiting our website for the first time).</p>
 
 <p>It looks like the 9th visitor on the list was on our website for a particularly long period of time - let&#8217;s click on &#8220;Event Stream&#8221; (circled above) to find out what he / she actually did on the website:</p>
-<a href='/static/img/blog/2014/01/looker/session-complete-event-stream.JPG'><img title='Drilling in to the individual event stream for a particular session' src='/static/img/blog/2014/01/looker/session-complete-event-stream.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/session-complete-event-stream.JPG'><img src='/static/img/blog/2014/01/looker/session-complete-event-stream.JPG' title='Drilling in to the individual event stream for a particular session' /></a>
 <p>We are now shown the <em>complete event stream</em> for that user on that session. Incredibly, the visitor <em>only</em> visited that recipe page (did not navigate to any other pages on our website).</p>
 <a name='dashboards'><h2>4. Dashboards are a starting point for more involved analysis</h2></a>
 <p>It is straightforward in Looker to develop customized dashboards. The following is an example of one included in our <a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support'>Looker release</a>:</p>
-<a href='/static/img/blog/2014/01/looker/7-day-dashboard.JPG'><img title='7 day dashboard built in Looker on top of Snowplow data' src='/static/img/blog/2014/01/looker/7-day-dashboard.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/7-day-dashboard.JPG'><img src='/static/img/blog/2014/01/looker/7-day-dashboard.JPG' title='7 day dashboard built in Looker on top of Snowplow data' /></a>
 <p>Most BI tools offer great dashboarding facilities. What we like particularly about Looker&#8217;s is that clicking on any of the graphs sends you straight into the Explorer, so you can then start slicing / dicing and drilling in as described in the sections above. For example, if you clicked on the data point circled above (representing the number of visits from search engines to the website on January 6th) brings up a list of all those different sessions. We can then click on the <strong>Event Stream</strong> for any of those sessions to see what actually occurred.</p>
-<a href='/static/img/blog/2014/01/looker/session-drilldown.JPG'><img title='Drilling down into an individual session' src='/static/img/blog/2014/01/looker/session-drilldown.JPG' /></a><a name='data-server'><h2>5. Access your data from <i>any</i> application: Looker as a general purpose data server</h2></a>
+<a href='/static/img/blog/2014/01/looker/session-drilldown.JPG'><img src='/static/img/blog/2014/01/looker/session-drilldown.JPG' title='Drilling down into an individual session' /></a><a name='data-server'><h2>5. Access your data from <i>any</i> application: Looker as a general purpose data server</h2></a>
 <p>As well as enabling users to plot graphs directly in Looker, it is also possible to use Looker as a data server to make your data easily available to other applications to visualize.</p>
 
 <p>You can set Looker up to make specific slices of data available at designated URLs, in JSON, CSV or tab-delimited format, so that it can easily be ingested and refreshed from any application, including:</p>
@@ -155,7 +155,7 @@
 </ul>
 
 <p>Say for example the following cut of data was important to us (the number of visits and events per visitor by web page, for the last week):</p>
-<a href='/static/img/blog/2014/01/looker/visits-and-events-per-visitor-by-page-for-last-week.JPG'><img title='Visits and events per visitor by page for last week' src='/static/img/blog/2014/01/looker/visits-and-events-per-visitor-by-page-for-last-week.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/visits-and-events-per-visitor-by-page-for-last-week.JPG'><img src='/static/img/blog/2014/01/looker/visits-and-events-per-visitor-by-page-for-last-week.JPG' title='Visits and events per visitor by page for last week' /></a>
 <p>We can use Looker to publish the data to a URL. We&#8217;ve published the above view to the following URLs - check them out in your browser to see how easy it is to fetch the data:</p>
 
 <ul>
@@ -169,7 +169,7 @@
 </ul>
 
 <p>You can see how the data looks in Google Spreadsheets below:</p>
-<a href='/static/img/blog/2014/01/looker/google-spreadsheet.JPG'><img title='Snowplow data served live into Google Spreadsheet by Looker' src='/static/img/blog/2014/01/looker/google-spreadsheet.JPG' /></a>
+<a href='/static/img/blog/2014/01/looker/google-spreadsheet.JPG'><img src='/static/img/blog/2014/01/looker/google-spreadsheet.JPG' title='Snowplow data served live into Google Spreadsheet by Looker' /></a>
 <p>Because the data is being served live, it is always up-to-date. Pretty cool, huh?</p>
 
 <h2 id='want_to_get_started_with_looker'>Want to get started with Looker?</h2>
@@ -225,40 +225,6 @@
 	</ul>
 
 	
-		<h1>Releases</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
-			
-				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-			
-				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
-			
-				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-		
-		</ul>		
-	
-		<h1>Inside the Plow</h1>
-		<ul>
-		
-			
-				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-			
-				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
-			
-				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
-			
-				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
-			
-				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
-			
-		
-		</ul>		
-	
 		<h1>Other</h1>
 		<ul>
 		
@@ -272,6 +238,23 @@
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
 				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
+				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
+			
+				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		
@@ -293,11 +276,32 @@
 		
 		</ul>		
 	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+			
+				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
+			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+		
+		</ul>		
+	
 		<h1>Research</h1>
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+			
 				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
 			
 		
 		</ul>		

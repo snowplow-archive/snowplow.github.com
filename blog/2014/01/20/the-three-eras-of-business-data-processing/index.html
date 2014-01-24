@@ -109,7 +109,7 @@
 
 <p>It is hard to generalize what these architectures look like - again we see strong local loops and data silos, but we also see attempts at &#8220;log everything&#8221; approaches with Hadoop and/or systems monitoring. There tends to be a mix of near-real-time processing for narrow analytics use cases like product recommendations, plus separate batch processing efforts into Hadoop or a classic data warehouse. We see attempts to bulk export data from external SaaS vendors for warehousing, and efforts to feed these external systems with the data they require for their own local loops.</p>
 
-<p>Keeping our multi-channel retailer in mind, here is what her architecture looks like now:</p>
+<p>Keeping our multi-channel retailer in mind, here is what their architecture looks like now:</p>
 
 <p><img alt='hybrid-era-img' src='/static/img/blog/2014/01/hybrid-era.png' /></p>
 
@@ -146,14 +146,16 @@
 
 <li><strong>We have a single version of the truth</strong> - together, the unified log plus Hadoop archive represent our single version of the truth. They contain exactly the same data - our eventstream - they just have different time windows of data</li>
 
-<li><strong>The single version of the truth is upstream from the datawarehouse</strong> - in the classic era, the datawarehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, the log provides the single version of the truth: as a result, operational system (e.g. recommendation and ad targeting systems) compute on the same versions of truths as analysts producing business reports</li>
+<li><strong>The single version of the truth is upstream from the datawarehouse</strong> - in the classic era, the data warehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, it is now the log that provides the single version of the truth: as a result, your operational systems (e.g. product recommendations and ad targeting) work off the exact same data as your analysts use for ad hoc analytics and management reporting</li>
 
 <li><strong>Point-to-point connections have largely gone away</strong> - in their place, applications can append to the unified log and other applications can read their writes</li>
 
 <li><strong>Local loops have been unbundled</strong> - in place of local silos, applications can collaborate on real-time decisioning via the unified log</li>
 </ol>
 <h2><a name='closing-thoughts'>Closing thoughts</a></h2>
-<p>This has been something of a whirlwind tour through the evolution of data processing for business, as we have experienced it here at Snowplow (and before Snowplow). I have tried to delineate this evolution into three distinct eras - you may not agree entirely with the terminology or the facets of each era, but I hope it has prompted some ideas about where eventstream analytics is coming from and where it is heading. For us at Snowplow, we are convinced that the unified log is a breakthrough concept in understanding how best to engineer digital businesses. And we plan to evolve Snowplow to help enable this &#8220;digital nervous system&#8221; for <strong>your</strong> business.</p>
+<p>This has been something of a whirlwind tour through the evolution of data processing for business, as we have experienced it here at Snowplow - and before Snowplow.</p>
+
+<p>I have tried to delineate this evolution into three distinct eras - you may not agree entirely with the terminology or the facets of each era, but I hope it has prompted some ideas about where eventstream analytics is coming from and where it is heading. For us at Snowplow, we are convinced that the unified log is a breakthrough concept in understanding how best to engineer digital businesses. And we plan to evolve Snowplow to help enable this &#8220;digital nervous system&#8221; for <strong>your</strong> business.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
@@ -191,6 +193,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
@@ -199,14 +203,14 @@
 		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
-			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
 				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
@@ -215,8 +219,6 @@
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

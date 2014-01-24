@@ -69,6 +69,27 @@
 			<div id="contents">
 	
 		<div class="post">
+			06 Nov 2012
+			<h1><a href="/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice">Snowplow 0.5.2 released, and introducing the Sluice Ruby gem</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Another week, another release: Snowplow <strong>0.5.2</strong>! This is a small release, consisting just of a small set of bug fixes and improvements to EmrEtlRunner - although we&#8217;ll also use this post to introduce our new Ruby gem, called Sluice.</p>
+
+<p>Many thanks to community member <a href='https://github.com/testower'>Tom Erik Støwer</a> for his testing of EmrEtlRunner over the weekend, which helped us to identify and fix these bugs:</p>
+
+<h2 id='bugs_fixed'>Bugs fixed</h2>
+
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/71'>Issue 71</a></strong>: the template <code>config.yml</code> (in the GitHub repo and in the wiki) was specifying an out-of-date version for the Hive deserializer. We have updated this to specify version <strong>0.5.0</strong> of the serde, like so:</p>
+
+<pre><code>...
+:snowplow:
+  :serde_version: 0.4.9
+...</code></pre>
+
+<p><strong><a href='https://github.com/snowplow/snowplow/issues/72'>Issue 72</a></strong>: Tom&#8217;s testing also identified a bug in EmrEtlRunner&#8217;s log archiving, which only occurs if the Processing Bucket contains sub-folders. This has now been fixed too.</p>
+<p class='more'><a href='/blog/2012/11/06/snowplow-0.5.2-released-and-introducing-sluice'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			01 Nov 2012
 			<h1><a href="/blog/2012/11/01/snowplow-0.5.1-released">Snowplow 0.5.1 released, with lots of small improvements</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -169,43 +190,6 @@
 <p class='more'><a href='/blog/2012/10/24/web-analytics-with-tableau-and-snowplow'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			21 Oct 2012
-			<h1><a href="/blog/2012/10/21/infobright-ruby-loader-released">Infobright Ruby Loader Released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re pleased to start the week with the release of a new Ruby gem, our <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL).</p>
-
-<p>At Snowplow we&#8217;re committed to supporting multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. One of the alternative data stores we are working with is <a href='http://www.infobright.org/'>Infobright</a>, a columnar database which is available in open source and commercial versions.</p>
-
-<p>For all but the largest Snowplow users, columnar databases such as Infobright should be an attractive alternative to doing all of your analysis in Hive. The main advantages of columnar databases are as follows:</p>
-
-<ol>
-<li>Scale to terabytes (although not petabytes, unlike Hive)</li>
-
-<li>Fixed cost (dedicated RAM-heavy analytics server), versus pay-as-you-go querying on Amazon EMR</li>
-
-<li>Significantly faster query times – typically seconds, not minutes</li>
-
-<li>Plug in to many analytics front ends e.g. Tableau, Qlikview, R</li>
-</ol>
-
-<p>So, open source columnar databases like Infobright Community Edition (ICE) are a good fit for Snowplow analytics. Unfortunately, when we started to load Snowplow event logs into ICE, we realised that there wasn&#8217;t a good data-loading solution for Infobright in Ruby, our ETL language of choice. So, we built one :-)</p>
-
-<p>Our freshly minted <a href='https://github.com/snowplow/infobright-ruby-loader'>Infobright Ruby Loader</a> (IRL) can be used in two different ways:</p>
-
-<ol>
-<li><strong>As a command-line tool</strong> - for manual loading of data into Infobright at the command-line. No Ruby expertise required</li>
-
-<li><strong>As part of another application</strong> - because it&#8217;s a Ruby gem with a Ruby API, IRL can be integrated into larger Ruby ETL processes</li>
-</ol>
-
-<p>We will be using IRL at Snowplow as part of our larger ETL process to load Snowplow events into ICE for analysis - we hope to roll this out within the next few weeks.</p>
-
-<p>In the meantime, we hope that IRL is useful to people in the Infobright community who need to run data loads at the command-line; IRL was inspired by <a href='http://www.infobright.org/Blog/Entry/unscripted/'>ParaFlex</a>, an excellent Bash script from the Infobright team to perform parallel loading of Infobright, and can be used as a direct alternative to ParaFlex.</p>
-
-<p>To find out more about our Infobright Ruby Loader, please check out the detailed <a href='https://github.com/snowplow/infobright-ruby-loader/blob/master/README.md'>README</a> in the GitHub repository. And please direct any questions through the <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>usual channels</a>!</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -225,6 +209,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
@@ -233,14 +219,14 @@
 		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
-			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
 				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
@@ -249,8 +235,6 @@
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

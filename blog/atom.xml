@@ -4,13 +4,39 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-20T17:30:45+00:00</updated>
+  <updated>2014-01-24T13:46:38+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014"/>
+    <title>The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</title>
+    <updated>2014-01-21T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Both Yali and myself will be visiting New York this February, and I will be heading on to Boston too. If you&amp;#8217;re interested in meeting up to discuss Snowplow, event analytics or big data processing more generally, we&amp;#8217;d love to arrange a meeting.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='brooklyn-bridge' src='/static/img/blog/2014/01/brooklyn-bridge.jpg' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Yali will be in NYC between February 9th and 12th, including attending the &lt;a href='http://www.meetup.com/Looker-User-Group-NY/events/156298422/'&gt;Looker user group NYC meetup&lt;/a&gt; on February 11th.&lt;/p&gt;
+
+&lt;p&gt;Alex will be visiting later on in the month:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New York City, February 20th - 25th&lt;/li&gt;
+
+&lt;li&gt;Boston, February 26th - 27th&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Reach out to us at yali@ or alex@ (email addresses on our full domain) to setup a meet, suggest an event we should attend or for anything else East Coast-related!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing</id>
@@ -59,7 +85,7 @@
 
 &lt;p&gt;It is hard to generalize what these architectures look like - again we see strong local loops and data silos, but we also see attempts at &amp;#8220;log everything&amp;#8221; approaches with Hadoop and/or systems monitoring. There tends to be a mix of near-real-time processing for narrow analytics use cases like product recommendations, plus separate batch processing efforts into Hadoop or a classic data warehouse. We see attempts to bulk export data from external SaaS vendors for warehousing, and efforts to feed these external systems with the data they require for their own local loops.&lt;/p&gt;
 
-&lt;p&gt;Keeping our multi-channel retailer in mind, here is what her architecture looks like now:&lt;/p&gt;
+&lt;p&gt;Keeping our multi-channel retailer in mind, here is what their architecture looks like now:&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt='hybrid-era-img' src='/static/img/blog/2014/01/hybrid-era.png' /&gt;&lt;/p&gt;
 
@@ -96,14 +122,16 @@
 
 &lt;li&gt;&lt;strong&gt;We have a single version of the truth&lt;/strong&gt; - together, the unified log plus Hadoop archive represent our single version of the truth. They contain exactly the same data - our eventstream - they just have different time windows of data&lt;/li&gt;
 
-&lt;li&gt;&lt;strong&gt;The single version of the truth is upstream from the datawarehouse&lt;/strong&gt; - in the classic era, the datawarehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, the log provides the single version of the truth: as a result, operational system (e.g. recommendation and ad targeting systems) compute on the same versions of truths as analysts producing business reports&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The single version of the truth is upstream from the datawarehouse&lt;/strong&gt; - in the classic era, the data warehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, it is now the log that provides the single version of the truth: as a result, your operational systems (e.g. product recommendations and ad targeting) work off the exact same data as your analysts use for ad hoc analytics and management reporting&lt;/li&gt;
 
 &lt;li&gt;&lt;strong&gt;Point-to-point connections have largely gone away&lt;/strong&gt; - in their place, applications can append to the unified log and other applications can read their writes&lt;/li&gt;
 
 &lt;li&gt;&lt;strong&gt;Local loops have been unbundled&lt;/strong&gt; - in place of local silos, applications can collaborate on real-time decisioning via the unified log&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;&lt;a name='closing-thoughts'&gt;Closing thoughts&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;This has been something of a whirlwind tour through the evolution of data processing for business, as we have experienced it here at Snowplow (and before Snowplow). I have tried to delineate this evolution into three distinct eras - you may not agree entirely with the terminology or the facets of each era, but I hope it has prompted some ideas about where eventstream analytics is coming from and where it is heading. For us at Snowplow, we are convinced that the unified log is a breakthrough concept in understanding how best to engineer digital businesses. And we plan to evolve Snowplow to help enable this &amp;#8220;digital nervous system&amp;#8221; for &lt;strong&gt;your&lt;/strong&gt; business.&lt;/p&gt;</content>
+&lt;p&gt;This has been something of a whirlwind tour through the evolution of data processing for business, as we have experienced it here at Snowplow - and before Snowplow.&lt;/p&gt;
+
+&lt;p&gt;I have tried to delineate this evolution into three distinct eras - you may not agree entirely with the terminology or the facets of each era, but I hope it has prompted some ideas about where eventstream analytics is coming from and where it is heading. For us at Snowplow, we are convinced that the unified log is a breakthrough concept in understanding how best to engineer digital businesses. And we plan to evolve Snowplow to help enable this &amp;#8220;digital nervous system&amp;#8221; for &lt;strong&gt;your&lt;/strong&gt; business.&lt;/p&gt;</content>
   </entry>
   
   <entry>

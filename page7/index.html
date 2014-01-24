@@ -69,6 +69,38 @@
 			<div id="contents">
 	
 		<div class="post">
+			10 Jul 2013
+			<h1><a href="/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model">Help us build out the Snowplow Total Cost of Ownership Model</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>In a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>previous blog post</a>, we described how we were in the process of building a <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>Total Cost of Ownership model</a> for Snowplow: something that would enable a Snowplow user, or prospective user, to accurately forecast their AWS bill going forwards based on their traffic levels.</p>
+
+<p><img alt='your-country-needs-you' src='/static/img/blog/2013/07/your-country-needs-you.jpg' /></p>
+
+<p>To build that model, though, we need <strong>your help</strong>. In order to ensure that our model is accurate and robust, we need to make sure that the relationships we believe exist between the number of events tracked, and the number and size of files generated, as detailed in the <a href='/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/'>last post</a>, are correct, and that we have modelled them accurately. To that end, we are asking Snowplow users to help us by providing the following data:</p>
+
+<ol>
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#events-per-day'>The number of events tracked per day</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#runs-per-day'>The number of times the enrichment process is run per day</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#log-files-per-day'>The number of Cloudfront log files generated per day, and the volume of data</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#emr-details'>The amount of time taken to enrich the data in EMR (and the size of cluster used to perform the enrichment)</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#output-back-to-s3'>The number of files outputted back to S3, and the size of those files</a></li>
+
+<li><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model/#redshift-data-points'>The total number of lines of data in Redshift, and the amount of Redshift capacity used</a></li>
+</ol>
+
+<p>We will then share this data back, in an anonymized form, with the community, as part of the model.</p>
+
+<p>We recognise that that is a fair few data points! To thank Snowplow users for their trouble in providing them (as well as building a model for you), we will <em>also</em> send each person that provides data a <strong>free Snowplow T-shirt</strong> in their size.</p>
+
+<p>In the rest of this post, we provide simple instructions for pulling the relevant data from Amazon.</p>
+<p class='more'><a href='/blog/2013/07/10/help-us-build-out-the-snowplow-total-cost-of-ownership-model'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			09 Jul 2013
 			<h1><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -176,26 +208,6 @@
 <p class='more'><a href='/blog/2013/07/03/snowplow-tracker-for-lua-event-analytics-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			02 Jul 2013
-			<h1><a href="/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control">Reduce your Cloudfront costs with cache control</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>One of the reasons Snowplow is very popular with very large publishers and online advertising networks is that the cost of using Snowplow to track user behavior across your website or network is significantly lower than with our commercial competitors, and that difference becomes more pronounced as the number of users and events you track per day increases.</p>
-
-<p>We&#8217;ve been very focused on reducing the cost of running Snowplow further. Most of our efforts have focused on EMR costs (see especially last month&#8217;s <a href='/blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/'>0.8.6 release</a>), as EMR costs tend to make up the bulk of Snowplow users AWS bills. However, for Snowplow uses tracking billions of events per month, Cloudfront costs also become significant.</p>
-
-<p>In this post, we explain how to use browser caching to significantly reduce the size of your Cloudfront bills.</p>
-
-<ol>
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#costs'>Understanding Cloudfront costs and the potential savings</a></li>
-
-<li><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/#update'>How to update your files in S3 to get them to cache in your users&#8217; browsers</a></li>
-</ol>
-
-<p><img alt='money' src='/static/img/blog/2013/07/breaking-bad-money.jpg' /></p>
-<p class='more'><a href='/blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -215,6 +227,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
@@ -223,14 +237,14 @@
 		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
-			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
 				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
@@ -239,8 +253,6 @@
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

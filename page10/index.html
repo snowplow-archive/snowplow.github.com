@@ -70,6 +70,30 @@
 	
 		<div class="post">
 			14 May 2013
+			<h1><a href="/blog/2013/05/14/snowplow-unstructured-events-guide">A guide to unstructured events in Snowplow 0.8.3</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Earlier today we <a href='/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events'>announced the release of Snowplow 0.8.3</a>, which updated our JavaScript Tracker to add the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>.</p>
+
+<p>In our earlier blog post we briefly introduced the capabilities of <code>trackUnstructEvent</code> with some example code. In this blog post, we will take a detailed look at Snowplow&#8217;s custom unstructured events functionality, so you can understand how best to send unstructured events to Snowplow.</p>
+
+<p>Understanding the unstructured event format is important because our Enrichment process does not yet extract unstructured events, so you will not get any feedback yet from the ETL as to whether you are tracking them correctly. (Nor do we have validation for unstructured event properties in our JavaScript Tracker yet.)</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#basic-usage'>Basic usage</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#properties-object'>The <code>properties</code> JavaScript object</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#supported-datatypes'>Supported datatypes</a></li>
+
+<li><a href='/blog/2013/05/14/snowplow-unstructured-events-guide#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2013/05/14/snowplow-unstructured-events-guide'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			14 May 2013
 			<h1><a href="/blog/2013/05/14/snowplow-0.8.3-released-with-unstructured-events">Snowplow 0.8.3 released with unstructured events</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
 			<p>We&#8217;re pleased to announce the release of Snowplow <strong>0.8.3</strong>. This release updates our JavaScript Tracker to version 0.11.2, adding the ability to send custom unstructured events to a Snowplow collector with <code>trackUnstructEvent()</code>. The Clojure Collector is also bumped to 0.5.0, to include some important bug fixes.</p>
@@ -179,22 +203,6 @@
 <p>This will be the first of many platform analytics recipes - if there are specific analyses you&#8217;d like us to cover, or would like to contribute yourself, then let us know below or by <a href='/about/index.html'>getting in touch</a> directly.</p>
 		</div>
 	
-		<div class="post">
-			18 Apr 2013
-			<h1><a href="/blog/2013/04/18/measuring-content-page-performance-with-snowplow">Measuring content page performance with Snowplow (Catalog Analytics part 2)</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>This is the second part in our blog post series on Catalog Analytics. The <a href='/blog/2013/04/12/online-catalog-analytics-with-snowplow/'>first part</a> was published last week.</em></p>
-
-<p>Last week, we started building out the <a href='/analytics/catalog-analytics/overview.html'>Catalog Analytics</a> section of the <a href='/analytics/index.html'>Analytics Cookbook</a>, with a section documenting how to <a href='/analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html'>measure the effectiveness of your product pages</a>. Those recipes were geared specifically towards retailers.</p>
-
-<p>This week, we&#8217;ve added an extra section to the cookbook, covering <a href='/analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html'>how to measure engagement levels with content pages</a>. The recipes covered should be of interest to any company that produces content-rich web pages. (Indeed, all the example analytics were performed using data from this very website.) However, they should be of special interest to publishers and newspaper sites that depend on driving high levels of user engagement with content to make money</p>
-
-<p>In the new section, we cover a range of recipes, including comparing web pages by what fraction of them is read, on average, by visitors to those pages:</p>
-<a href='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg'><img src='/static/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg' /></a>
-<p>Plotting the distribution of visitors to a particular web page by the fraction of the web page that they have viewed:</p>
-<p class='more'><a href='/blog/2013/04/18/measuring-content-page-performance-with-snowplow'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -214,6 +222,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
@@ -222,14 +232,14 @@
 		
 			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
-			<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
 				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
 			
@@ -238,8 +248,6 @@
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
 			
 				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
-			
-				<li><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></li>
 			
 		
 		</ul>		

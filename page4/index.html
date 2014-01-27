@@ -69,6 +69,44 @@
 			<div id="contents">
 	
 		<div class="post">
+			28 Oct 2013
+			<h1><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We were very flattered to be invited by the team at <a href='http://www.code-n.org/#about/main'>code_n</a> to enter their competition to identify &#8220;outstanding young companies and promote their groundbreaking business models&#8221;. This year&#8217;s competition is focused on data, and has the motto <em>Driving the Data Revolution</em>.</p>
+
+<p>As part of our application process, we put together a short video introducing Snowplow. You can watch the video below.</p>
+<iframe allowfullscreen='1' frameborder='0' height='315' src='//www.youtube.com/embed/p49quiYRsgE' width='420'> </iframe>
+<p>We look forward to finding out if our application has been successful!</p>
+		</div>
+	
+		<div class="post">
+			28 Oct 2013
+			<h1><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>This winter we are recruiting <a href='http://snowplowanalytics.com/blog/2013/10/07/announcing-our-winter-open-source-internship-program/'>interns</a> to join the Snowplow team to work on discrete projects.</p>
+
+<p>A number of the candidates we have interviewed have expressed an interest in working with us to develop new analytics approaches on Snowplow data. In particular, we&#8217;ve had a lot of interest in piloting machine learning approaches to:</p>
+
+<ul>
+<li>Segmenting audience by behaviour</li>
+
+<li>Leveraging libraries for content / product recommendation (e.g. PredictionIO, Mahout, Weka)</li>
+
+<li>Developing and testing new approaches to attribution</li>
+</ul>
+
+<p>We are very keen, however, that any of the above projects be executed on a real data set, for a real Snowplow user, to answer real business questions.</p>
+
+<p><img alt='call-for-data' src='/static/img/blog/2013/10/call.jpg' /></p>
+
+<p>To that end, we are now making an offer to the Snowplow community: do you have a Snowplow data set and one or more business questions that you think would benefit from anyone of the above approaches? Would you be willing to &#8220;share&#8221; your data?</p>
+
+<p>We will want to blog about the approach and the results of our winterns&#8217; work with the wider community, so we recognize that this may rule out a number of Snowplow users. Still, we are happy to work with whoever signs up to publish the work in a way that doesn&#8217;t give away commercial secrets. And for companies that are willing to let us loose on their data, you will hopefully get some highly valuable insights at zero cost.</p>
+
+<p>Interested? Email us at <a href='mailto:data@snowplowanalytics.com'>data@snowplowanalytics.com</a>.</p>
+		</div>
+	
+		<div class="post">
 			23 Oct 2013
 			<h1><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -138,76 +176,6 @@
 <p class='more'><a href='/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			21 Oct 2013
-			<h1><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we have got to know the Snowplow community better, it has become clear that many members have very specific event processing requirements including:</p>
-
-<ol>
-<li>Custom trackers and collector logging formats</li>
-
-<li>Custom event models</li>
-
-<li>Custom business logic that impacts on the way their event data is processed</li>
-</ol>
-
-<p>To date, we have relied on three main techniques to help Snowplow users meet these requirements:</p>
-
-<ol>
-<li>Adding additional configuration options into the core Enrichment process (e.g. IP address anonymization, coming in 0.8.11)</li>
-
-<li>Working with users on bespoke re-writes of the Snowplow Enrichment process (mostly forks of the Scalding ETL job)</li>
-
-<li>Helping users to implement additional processing steps downstream of the current Enrichment/Storage processes (e.g. building reporting cubes in Hive or Redshift)</li>
-</ol>
-
-<p>Each of these approaches has its strengths and weaknesses, and we will certainly continue to develop and improve all three. But we also want to explore if there is a &#8220;middle ground&#8221; between configuration options and fully bespoke code: can we somehow make the Snowplow Enrichment process user-scriptable?</p>
-
-<p>If possible, the following approach would make an attractive middle ground:</p>
-
-<ol>
-<li>Pass one or more user-authored scripts into our Scalding ETL at runtime</li>
-
-<li>The user-authored script(s) are executed against each row of event data</li>
-
-<li>These scripts can be written in a popular and easy-to-learn scripting language</li>
-</ol>
-
-<p>Two technologies stood out as promising: Java&#8217;s <a href='http://docs.oracle.com/javase/6/docs/technotes/guides/scripting/programmer_guide/#jsengine'>ScriptEngine</a> and Mozilla&#8217;s <a href='https://developer.mozilla.org/en/docs/Rhino'>Rhino</a>. ScriptEngine is a technology bundled with J2SE 6+ which allows dynamic languages to be evaluated at runtime from Java; Rhino is an implementation of JavaScript written in Java and available to any JVM app through ScriptEngine.</p>
-
-<p>The first step to test if this approach is viable, was to test out Rhino and Scala&#8217;s inter-operation to see what was possible. In the rest of this blog post, we will reproduce that investigation as an interactive REPL (read–eval–print loop) session. To follow along, you will need to have SBT and Scala installed&#8230;</p>
-<p class='more'><a href='/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			18 Oct 2013
-			<h1><a href="/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes">Snowplow 0.8.10 released with analytics cubes and recipes 'baked in'</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are pleased to announce the release of Snowplow 0.8.10. In this release, we have taken many of the SQL recipes we have covered in the <a href='http://snowplowanalytics.com/analytics/index.html'>Analysts Cookbook</a> and &#8216;baked them&#8217; into Snowplow by providing them as views that can be added directly to your Snowplow data in Amazon Redshift or PostgreSQL.</p>
-
-<ol>
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#background'>Background on this release</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#schema'>Reorganizing the Snowplow database</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#recipe-use'>Seeing a recipe in action: charting the number of uniques over time</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#visitor-cube'>Seeing a cube in action: interrogating the visitors cube in Tableau</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#setup'>Installing this release</a></li>
-
-<li><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes/#next-steps'>Next steps: where to go from here</a></li>
-</ol>
-<a name='background'><h2>1. Background on this release</h2></a>
-<p>One of the things we&#8217;ve learnt from many new Snowplow users, is that they want to get up and running analyzing Snowplow data as fast as possible: often by putting a familiar business intelligence tool directly on top of Snowplow data, to start exploring and visualizing that data.</p>
-
-<p>For those users, a frustration with Snowplow is that each analysis typically starts with having to write a SQL query on the Snowplow data, to transform it into a format suitable for analysing in a BI / OLAP tool. Whilst we believe it is a strength that Snowplow gives you the flexibility to design and structure a wide range of different analyses, we recognise that for new users in particular, it would be nicer if they could dive straight into the data in their BI tool of choice.</p>
-
-<p>This release aims to bridge that gap: we are providing a range of recipes and cubes as SQL views into the atomic Snowplow data; all of these are suitable for being loaded into BI tools like Excel, ChartIO and Tableau, directly.</p>
-<p class='more'><a href='/blog/2013/10/18/snowplow-0.8.10-released-with-analytics-recipes-and-cubes'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -227,15 +195,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -261,15 +229,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

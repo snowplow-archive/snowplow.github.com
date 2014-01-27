@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0 - Snowplow Analytics</title>
+	
+
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<link href="/static/css/styles.css" type="text/css" rel="stylesheet" />
+	<link href="/static/css/pygments.css" type="text/css" rel="stylesheet" />
+	
+	<!--For the homepage slider-->
+	<link rel="stylesheet" href="/static/css/nivo-slider.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/static/css/nivo-slider-theme-default.css" type="text/css" media="screen" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="/static/js/jquery-nivo-slider-pack.js" type="text/javascript" ></script>
+	<!--MathJax http://www.mathjax.org/-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+	      tex2jax: {
+	        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+	      }
+	    });
+	    MathJax.Hub.Queue(function() {
+	        var all = MathJax.Hub.getAllJax(), i;
+	        for(i=0; i < all.length; i += 1) {
+	            all[i].SourceElement().parentNode.className += ' has-jax';
+	        }
+    	});
+	</script>
+	<!-- end mathjax -->
+	<!-- typekit -->
+	<script type="text/javascript" src="//use.typekit.net/noo1diw.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- end typekit -->
+</head>
+<body>
+	<!-- Google Tag Manager -->
+	<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-DLRG"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-DLRG');</script>
+	<!-- End Google Tag Manager -->
+	<div id="universe">
+		<div id="container">
+			<div id="header" class="span-24">
+  <div id="logo">
+    <h1><a href="/"><img src="/static/img/snowplow-logo-website.png" title="Snowplow Analytics" /></a></h1>
+  </div>
+  <div id="menu" class="span-15">
+    <ul>
+      <li ><a href="/product/index.html">Product</a></li>
+      <li ><a href="/services/index.html">Services</a></li>
+      <li ><a href="/analytics/index.html">Analytics</a></li>
+      <li ><a href="/technology/index.html">Technology</a></li>
+      <li  class="active" ><a href="/blog.html">Blog</a></li>
+      <li ><a id="mail" href="/about/index.html">About</a></li>
+    </ul>
+  </div>
+</div>
+	
+			<div id="contents">
+		<div class="post">
+			27 Jan 2014
+			<h1>A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Earlier today we <a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/'>announced the release of Snowplow JavaScript Tracker 0.13.0</a>, which updated all of our <code>track...()</code> methods to support a new argument for setting custom JSON contexts.</p>
+
+<p>In our earlier blog post we introduced the idea of custom contexts only very briefly. In this blog post, we will take a detailed look at Snowplow&#8217;s custom contexts functionality, so you can understand how best to attach custom contexts to your existing Snowplow events.</p>
+
+<p>Understanding the custom context format is important because our Enrichment process does not yet extract custom contexts, so you will not get any feedback yet from the Enrichment process as to whether you are adding them correctly; nor do we have validation for custom context properties in our JavaScript Tracker yet.</p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#sigs'>Updated method signatures</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#contexts'>The <code>contexts</code> JavaScript object</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#eg'>A detailed example</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#help'>Getting help</a></li>
+</ol>
+
+<p>Let&#8217;s get started after the jump.</p>
+<!--more--><h2><a name='sigs'>1. Updated method signatures</a></h2>
+<p>You can add custom contexts to any of the existing <code>track...()</code> methods, and in the case of our transaction tracking, with the two <code>add...()</code> methods.</p>
+
+<p>For completeness, here is the full list of updated tracking methods. Note that <code>contexts</code> is always the last argument:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>trackPageView</span><span class='p'>(</span><span class='nx'>customTitle</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span>
+<span class='nx'>trackStructEvent</span><span class='p'>(</span><span class='nx'>category</span><span class='p'>,</span> <span class='nx'>action</span><span class='p'>,</span> <span class='nx'>label</span><span class='p'>,</span> <span class='nx'>property</span><span class='p'>,</span> <span class='nx'>value</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span>
+<span class='nx'>trackUnstructEvent</span><span class='p'>(</span><span class='nx'>name</span><span class='p'>,</span> <span class='nx'>properties</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span> 
+<span class='nx'>addTrans</span><span class='p'>(</span><span class='nx'>orderId</span><span class='p'>,</span> <span class='nx'>affiliation</span><span class='p'>,</span> <span class='nx'>total</span><span class='p'>,</span> <span class='nx'>tax</span><span class='p'>,</span> <span class='nx'>shipping</span><span class='p'>,</span> <span class='nx'>city</span><span class='p'>,</span> <span class='nx'>state</span><span class='p'>,</span> <span class='nx'>country</span><span class='p'>,</span> <span class='nx'>currency</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span> 
+<span class='nx'>addItem</span><span class='p'>(</span><span class='nx'>orderId</span><span class='p'>,</span> <span class='nx'>sku</span><span class='p'>,</span> <span class='nx'>name</span><span class='p'>,</span> <span class='nx'>category</span><span class='p'>,</span> <span class='nx'>price</span><span class='p'>,</span> <span class='nx'>quantity</span><span class='p'>,</span> <span class='nx'>currency</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span>
+</code></pre></div>
+<p>A few notes on this:</p>
+
+<ul>
+<li>If you set the <code>contexts</code> argument on a <code>trackPageView</code>, the same context will be attached to all page pings too (assuming you have <code>enableActivityTracking</code> enabled)</li>
+
+<li>Remember that transactions and their child items are processed as separate Snowplow events. Duplicate your transaction <code>contexts</code> argument into your items&#8217; <code>contexts</code> argument if you need the transaction context available to the transaction item events</li>
+
+<li>If you want to add custom context but don&#8217;t want to set all the prior arguments, just pad out your function call with empty arguments:</li>
+</ul>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>,</span>
+              <span class='p'>,</span> <span class='c1'>// &lt;- Skip the custom page title (get page title automatically instead)</span>
+              <span class='p'>{</span> <span class='nx'>page</span><span class='o'>:</span> <span class='p'>{</span>
+                  <span class='nx'>category</span><span class='o'>:</span> <span class='s1'>&#39;sport&#39;</span><span class='p'>,</span>
+                  <span class='nx'>last_updated$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2014</span><span class='p'>,</span><span class='mi'>1</span><span class='p'>,</span><span class='mi'>26</span><span class='p'>)</span>
+                <span class='p'>}</span>
+              <span class='p'>}</span>
+           <span class='p'>]);</span>
+</code></pre></div><h2><a name='contexts'>2. The "contexts" JavaScript object</a></h2>
+<p>The <code>contexts</code> argument to any <code>track...()</code> or <code>add...()</code> method is always optional. If set, it must be a JSON taking the form:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span> <span class='s2'>&quot;context1_name&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+    <span class='cm'>/* context1 JSON */</span>
+  <span class='p'>},</span>
+  <span class='s2'>&quot;context2_name&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+    <span class='cm'>/* context2 JSON */</span>
+  <span class='p'>},</span>
+  <span class='p'>...</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>If the <code>contexts</code> argument is set, it must be a JSON including at least one name: property pair, where:</p>
+
+<ol>
+<li>The name is the name for an individual context entry</li>
+
+<li>The property is a JSON holding name: property pairs for this context entry</li>
+</ol>
+
+<p>A few dos and don&#8217;ts for context names:</p>
+
+<ul>
+<li><strong>Do</strong> name each context entry however you like</li>
+
+<li><strong>Do</strong> use a context name to identify a set of associated data points which make sense to your business</li>
+
+<li><strong>Do</strong> use the same contexts across multiple different events and event types</li>
+
+<li><strong>Don&#8217;t</strong> use multiple different context names to refer to the same set of data points</li>
+</ul>
+
+<p>A few dos and don&#8217;ts for the JSONs inside each context entry JSONs:</p>
+
+<ul>
+<li><strong>Do</strong> use any of the data types supported by <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent'>custom unstructured events</a></li>
+
+<li><strong>Do</strong> use Snowplow datatype suffixes if the data type would otherwise be unclear</li>
+
+<li><strong>Don&#8217;t</strong> nest properties - as with custom unstructured events, the structure must be flat</li>
+</ul>
+<h2><a name='eg'>3. A detailed example</a></h2><h3>Introduction</h3>
+<p>A detailed example should make custom contexts a little more real.</p>
+
+<p>Let&#8217;s take a retailer and Snowplow user who sells movie memorabilia online, particularly movie posters. For every movie poster, our retailer cares about the name of the movie, the country which printed the movie poster and the year the poster was printed. She has also done some work understanding her customer base, and can assign all of her visitors a propensity-to-buy score and a customer segment as soon as they add something to their basket.</p>
+<h3>Definition of custom contexts</h3>
+<p>Based on the above, our retailer will define two custom contexts. The first describes a given movie poster:</p>
+<div class='highlight'><pre><code class='javascript'><span class='s2'>&quot;movie_poster&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+  <span class='s2'>&quot;movie_name&quot;</span><span class='o'>:</span> <span class='nx'>xxx</span><span class='p'>,</span>
+  <span class='s2'>&quot;poster_country&quot;</span><span class='o'>:</span> <span class='nx'>xxx</span><span class='p'>,</span>
+  <span class='s2'>&quot;poster_year$dt&quot;</span><span class='o'>:</span> <span class='nx'>xxx</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>And then the second context describes the customer:</p>
+<div class='highlight'><pre><code class='javascript'><span class='s2'>&quot;customer&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+  <span class='s2'>&quot;p_buy&quot;</span><span class='o'>:</span> <span class='nx'>xxx</span><span class='p'>,</span>
+  <span class='s2'>&quot;segment&quot;</span><span class='o'>:</span> <span class='nx'>xxx</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>With her two custom contexts defined, our retailer is now ready to update her Snowplow installation to start collecting this additional data.</p>
+<h3>Definition of custom contexts</h3>
+<p>When a visitor arrives on a page advertising a movie poster, our retailer adds this context to the page view event:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>,</span>
+              <span class='p'>,</span>                            <span class='c1'>// &lt;- No custom page title</span>
+              <span class='p'>{</span> <span class='s2'>&quot;movie_poster&quot;</span><span class='o'>:</span> <span class='p'>{</span>          <span class='c1'>// &lt;- Context entry</span>
+                  <span class='s2'>&quot;movie_name&quot;</span><span class='o'>:</span> <span class='s2'>&quot;Solaris&quot;</span><span class='p'>,</span>
+                  <span class='s2'>&quot;poster_country&quot;</span><span class='o'>:</span> <span class='s2'>&quot;JP&quot;</span><span class='p'>,</span>
+                  <span class='s2'>&quot;poster_year$dt&quot;</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>1978</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>)</span>
+                <span class='p'>}</span>
+              <span class='p'>}</span>
+           <span class='p'>]);</span>
+</code></pre></div>
+<p>When the visitor clicks the add to basket button on this poster, the website fires a custom unstructured event to track the add to basket. This time we send the &#8220;customer&#8221; context as well as the &#8220;movie_poster&#8221; context:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackUnstructEvent&#39;</span><span class='p'>,</span>
+              <span class='s1'>&#39;add-to-basket&#39;</span><span class='p'>,</span>             <span class='c1'>// &lt;- Event name</span>
+              <span class='p'>{</span> <span class='s2'>&quot;button&quot;</span><span class='o'>:</span> <span class='s2'>&quot;img-overlay&quot;</span><span class='p'>,</span>   <span class='c1'>// &lt;- Event properties</span>
+                <span class='s2'>&quot;stock-level&quot;</span><span class='o'>:</span> <span class='mi'>2</span> 
+              <span class='p'>},</span>
+              <span class='p'>{</span> <span class='s2'>&quot;movie_poster&quot;</span><span class='o'>:</span> <span class='p'>{</span>          <span class='c1'>// &lt;- First context entry</span>
+                  <span class='s2'>&quot;movie_name&quot;</span><span class='o'>:</span> <span class='s2'>&quot;Solaris&quot;</span><span class='p'>,</span>
+                  <span class='s2'>&quot;poster_country&quot;</span><span class='o'>:</span> <span class='s2'>&quot;JP&quot;</span><span class='p'>,</span>
+                  <span class='s2'>&quot;poster_year$dt&quot;</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>1978</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>,</span> <span class='mi'>1</span><span class='p'>)</span>
+                <span class='p'>},</span>
+                <span class='s2'>&quot;customer&quot;</span><span class='o'>:</span> <span class='p'>{</span>              <span class='c1'>// &lt;- Second context entry</span>
+                  <span class='s2'>&quot;p_buy&quot;</span><span class='o'>:</span> <span class='mf'>0.23</span><span class='p'>,</span>
+                  <span class='s2'>&quot;segment&quot;</span><span class='o'>:</span> <span class='s2'>&quot;whale&quot;</span>
+                <span class='p'>}</span>
+              <span class='p'>}</span>
+           <span class='p'>]);</span>
+</code></pre></div>
+<p>The visitor seems to be having doubts - they head to the contact page and fill out a form. This time we still track the &#8220;customer&#8221; context (with a reduced propensity-to-buy score), but it doesn&#8217;t make sense to record this event against any given &#8220;movie_poster&#8221;, so we don&#8217;t include that context:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackStructEvent&#39;</span><span class='p'>,</span>
+              <span class='s1'>&#39;comms&#39;</span><span class='p'>,</span>                     <span class='c1'>// &lt;- Category</span>
+              <span class='s1'>&#39;feedback-form&#39;</span><span class='p'>,</span>             <span class='c1'>// &lt;- Action</span>
+              <span class='p'>,</span>                            <span class='c1'>// &lt;- No label</span>
+              <span class='p'>,</span>                            <span class='c1'>// &lt;- No property</span>
+              <span class='p'>,</span>                            <span class='c1'>// &lt;- No value</span>
+              <span class='p'>{</span> <span class='s2'>&quot;customer&quot;</span><span class='o'>:</span> <span class='p'>{</span>              <span class='c1'>// &lt;- Context entry</span>
+                  <span class='s2'>&quot;p_buy&quot;</span><span class='o'>:</span> <span class='mf'>0.13</span><span class='p'>,</span>
+                  <span class='s2'>&quot;segment&quot;</span><span class='o'>:</span> <span class='s2'>&quot;whale&quot;</span>
+                <span class='p'>}</span>
+              <span class='p'>}</span>
+           <span class='p'>]);</span>
+</code></pre></div>
+<p>And that completes our example. By defining and implementing these two custom contexts, our retailer has promoted some of her most business-critical data points to the level of first class entities in Snowplow.</p>
+
+<p>This additional context has made standard Snowplow events such as page views much more valuable to her, and should later make it easy to analyze these business-critical data points across multiple event types.</p>
+<h2><a name='help'>4. Getting help</a></h2>
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above guide, please do get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+
+<p>If you have any ideas or feedback for Snowplow&#8217;s evolving approach to custom contexts, do please share them, either in the comments below or through the usual channels. And please keep an eye on our <a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'>Roadmap wiki page</a> to see how Snowplow&#8217;s support for custom contexts evolves!</p>
+			<div class="author_summary">
+				<h2>About the author</h2>
+				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
+  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+</div>
+
+			</div> 
+			<div id="comments">
+	<h2>Questions? Comments? Join the debate!</h2>
+	 <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+            /* var disqus_identifier =  ; // unique ID so that disqus fetches the correct comments for each post
+            var disqus_url =  ;
+            var disqus_title =  ; */
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+		</div>
+		<p>Return to the <a href="/blog.html">main blog page</a></p>
+		
+
+</div>
+
+<div id="sidebar">
+	<h1>Recent posts</h1>
+	<ul>
+		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
+			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+		
+			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+		
+			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+		
+	</ul>
+
+	
+		<h1>Other</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
+			
+				<li><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></li>
+			
+				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
+			
+				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
+			
+				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Releases</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
+				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
+			
+				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
+			
+				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Analytics</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></li>
+			
+				<li><a href="/blog/2013/11/19/quickstart-guide-to-using-sql-with-snowplow-data-published">Quick start guide to learning SQL to query Snowplow data published</a></li>
+			
+				<li><a href="/blog/2013/10/28/call-for-data-this-winter">Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.</a></li>
+			
+				<li><a href="/blog/2013/10/22/cohort-analysis-with-using-new-sql-recipes-and-chartio">Using the new SQL views to perform cohort analysis with ChartIO</a></li>
+			
+				<li><a href="/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data">Using Qubole to crunch your Snowplow web data using Apache Hive</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Inside the Plow</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
+			
+				<li><a href="/blog/2013/11/20/loading-json-data-into-redshift">Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges</a></li>
+			
+				<li><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></li>
+			
+				<li><a href="/blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs">Unpicking the Snowplow data pipeline and how it drives AWS costs</a></li>
+			
+				<li><a href="/blog/2013/05/30/dealing-with-hadoops-small-files-problem">Dealing with Hadoop's small files problem</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Research</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
+			
+				<li><a href="/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript">Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript</a></li>
+			
+				<li><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></li>
+			
+		
+		</ul>		
+	
+		<h1>Recruitment</h1>
+		<ul>
+		
+			
+				<li><a href="/blog/2013/12/20/introducing-our-snowplow-winterns">Introducing our Snowplow winterns</a></li>
+			
+				<li><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></li>
+			
+		
+		</ul>		
+	
+
+	<h1>Useful links</h1>
+	<ul>
+		<li><a href="/blog/atom.xml">Atom feed</a></li>
+	</ul>
+	<!--<strong>Tags</strong> -->
+</div>
+
+			<div id="footer">
+	<p>Copyright © Snowplow Analytics Limited 2012 - 2014.  All rights reserved</p>
+</div>
+		</div>
+	</div>
+		<!-- Following Javascript function used by Disqus to count the number of comments for each blog post and display in the main index -->
+	  	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'snowplow'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        </script>
+        <!-- begin olark code -->
+		<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+		f[z]=function(){
+		(a.s=a.s||[]).push(arguments)};var a=f[z]._={
+		},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+		f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+		0:+new Date};a.P=function(u){
+		a.p[u]=new Date-a.p[0]};function s(){
+		a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+		hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+		return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+		b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+		b.contentWindow[g].open()}catch(w){
+		c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+		var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+		b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+		loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+		/* custom configuration goes here (www.olark.com/documentation) */
+		olark.identify('9752-503-10-5227');/*]]>*/</script><noscript><a href="https://www.olark.com/site/9752-503-10-5227/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+		<!-- end olark code -->
+		<!-- Track Olark chats in GTM (so can pass data onto Snowplow) -->
+		<script type="text/javascript">
+		olark('api.chat.onMessageToOperator', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToOperator'});
+		});
+		olark('api.chat.onMessageToVisitor', function(event) {
+		    dataLayer.push({'event': 'olarkMessageToVisitor'});
+		});
+		</script>
+		<!-- end track olark code -->
+
+
+</body>
+</html>

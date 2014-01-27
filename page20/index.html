@@ -69,6 +69,95 @@
 			<div id="contents">
 	
 		<div class="post">
+			11 Oct 2012
+			<h1><a href="/blog/2012/10/11/attlib-0.0.1-released">Attlib - an open source library for extracting search marketing attribution data from referrer URLs</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p><strong>Update 17-Dec-12</strong>: We have renamed Attlib to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, to make it clearer what Attlib does: parse referer URLs. The repository has been updated accordingly. Some of the example code below is out-of-date now: we recommend checking out the <a href='https://github.com/snowplow/referer-parser'>repository</a> for more information.</p>
+
+<p>Last night we published <a href='https://github.com/snowplow/referer-parser'>Attlib</a>, an open source Ruby library for extracting search marketing attribution data from referer (sic) URLs. In this post we talk through:</p>
+
+<ol>
+<li><a href='#what_attlib_does'>What Attlib does, and how to use it</a></li>
+
+<li><a href='#install'>Installing Attlib</a></li>
+
+<li><a href='#search_engine_yaml'>The search_engine.yml file</a></li>
+
+<li><a href='#snowplow_stack'>Attlib as part of the Snowplow stack</a></li>
+
+<li><a href='#other_languages'>Attlib in other languages</a></li>
+
+<li><a href='#snowplow_components_as_standalone_projects'>Making components of Snowplow available as standalone open source projects</a></li>
+</ol>
+<a name='what_attlib_does' />
+<h3 id='what_attlib_does_and_how_to_use_it'>What Attlib does, and how to use it</h3>
+
+<p>Attlib is straightforward Ruby library for extracting seach marketing attribution data from referrer URLs. You give it a referer URL to parse: it then lets you now whether the URL is from a search engine. If it is, it will tell you which search engine it is, and what keywords were typed. (If those keywords are included in the query string - this is no longer the case for users logged in to Google, as documented <a href='http://googlewebmastercentral.blogspot.co.uk/2011/10/accessing-search-query-data-for-your.html'>here</a>.)</p>
+<div class='highlight'><pre><code class='ruby'><span class='nb'>require</span> <span class='s1'>&#39;attlib&#39;</span>
+
+<span class='n'>r</span> <span class='o'>=</span> <span class='no'>Referrer</span><span class='o'>.</span><span class='n'>new</span><span class='p'>(</span><span class='s1'>&#39;http://images.google.ca/imgres?q=hermetic+tarot&amp;hl=en&amp;biw=1189&amp;bih=521&amp;tbm=isch&amp;tbnid=BuQ_IyUbc25usM:&amp;imgrefurl=http://www.psychicbazaar.com/tarot-cards/15-the-hermetic-tarot.html&amp;imgurl=http://mdm.pbzstatic.com/tarot/the-hermetic-tarot/card-4.png&amp;w=1064&amp;h=1551&amp;ei=ue9AUMe7Osn9iwLZ-4H4Dw&amp;zoom=1&amp;iact=hc&amp;vpx=107&amp;vpy=48&amp;dur=2477&amp;hovh=271&amp;hovw=186&amp;tx=133&amp;ty=157&amp;sig=115588264602219115047&amp;page=4&amp;tbnh=162&amp;tbnw=120&amp;start=57&amp;ndsp=19&amp;ved=1t:429,r:12,s:57,i:291&#39;</span><span class='p'>)</span>
+
+<span class='n'>r</span><span class='o'>.</span><span class='n'>is_search_engine?</span> <span class='c1'># True</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>search_engine</span> <span class='c1'># &#39;Google Images&#39;</span>
+<span class='n'>r</span><span class='o'>.</span><span class='n'>keywords</span> 	<span class='c1'># &#39;hermetic tarot&#39;</span>
+</code></pre></div><a name='install' />
+<h3 id='installing_attlib'>Installing Attlib</h3>
+
+<p>Attlib is available via a Ruby Gem. To install, simply run the following at the command line:</p>
+
+<pre><code>sudo gem install attlib</code></pre>
+
+<p>The sourcecode is available on <a href='https://github.com/snowplow/referer-parser'>Github</a></p>
+<a name='search_engine_yaml' />
+<h3 id='the_search_enginesyml_file'>The search_engines.yml file</h3>
+
+<p>Extracting search engine names and keywords from a referer URL is pretty straightforward. What is more complicated is keeping track of the myriad search engines that are out there, operating in different countries, the myriad domains they operate on, and the different query parameters that each of them uses to store the keywords.</p>
+
+<p>Because the space is constantly evolving, none of this information (about search engines, parameters and domains) has been hard coded into Attlib. All of it is available in the <a href='https://github.com/snowplow/referer-parser/blob/master/search.yml'>search_engines.yml</a> file, in the <a href='https://github.com/snowplow/attlib/tree/master'>data</a> in the repo. <p class='more'><a href='/blog/2012/10/11/attlib-0.0.1-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			24 Sep 2012
+			<h1><a href="/blog/2012/09/24/what-does-snowplow-let-you-do">Why set your data free?</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>At Saturday&#8217;s <a href='http://ukdaa.co.uk/'>Measure Camp</a>, I had the chance to introduce Snowplow to a large number of some incredibly thoughtful and insightful people in the web analytics industry.</p>
+
+<p>With each person, I started by explaining that Snowplow gave them direct access to their customer-level and event-level data. The response I got in nearly all cases was: <strong>what does having direct access to my web analytics data enable me to do, that I can&#8217;t do with Google Analytics / Omniture?</strong> It&#8217;s such a good question I thought I should publish an answer below:</p>
+
+<h3 id='1_integrate_web_analytics_data_with_other_data_sources'>1. Integrate web analytics data with other data sources</h3>
+
+<p>Integrating your web analytics data with other data sets enables you to answer a wide range of valuable business questions:</p>
+<table><thead><tr><th><strong>Data source</strong></th><th><strong>Example business questions</strong></th></tr></thead><tbody><tr><td style='text-align: left;'>Marketing spend data e.g. AdWords, ad server data</td><td style='text-align: left;'>What is the return on my ad spend? How should I optimize my return on ad spend</td>
+</tr><tr><td style='text-align: left;'>Customer data e.g. CRM, loyalty</td><td style='text-align: left;'>How does the online behavior of my differnet customer segments vary by segment? Do online promotions drive offline sales? (Or vice versa?)</td>
+</tr><tr><td style='text-align: left;'>Product / media catalogue data</td><td style='text-align: left;'>What are my most profitable product lines? Do different types of products attract different customer segments? What are the products that drive the most visits?</td>
+</tr></tbody></table>
+<p>Snowplow makes integrating web analytics data with other data sources easier in a two ways:</p>
+
+<ol>
+<li>All your Snowplow data is directly accessible in Apache Hive or Infobright. (So no expensive export process is required, prior to linking the data sets.)</li>
+
+<li>Custom variables and event tracking give you plenty of opportunity to join e.g. customer IDs or campaigns names to enable <code>JOIN</code>s across data set</li>
+</ol>
+
+<p>For more details on how to perform <code>JOIN</code>s between Snowplow data and other sources, see refer to the guide to <a href='/analytics/customer-analytics/joining-customer-data.html'>joining Snowplow engagement data with other sources of customer data</a></p>
+
+<h3 id='2_slice_and_dice_your_data_by_any_combination_of_dimensions__metrics_you_want'>2. Slice and dice your data by any combination of dimensions / metrics you want</h3>
+
+<p>Google Analytics in particular only lets users create reports about of set combinations of dimensions and metrics. Examples of combinations that are <strong>not supported</strong> include:</p>
+
+<ol>
+<li>Number of unique visitors by product page</li>
+
+<li>Different sources of traffic by product page (and how this changes over time)</li>
+
+<li>Engagement levels (e.g. number of visits, number of page views, conversion rates) by traffic source</li>
+
+<li>Improvements to conversion rates over time</li>
+</ol>
+<p class='more'><a href='/blog/2012/09/24/what-does-snowplow-let-you-do'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			14 Sep 2012
 			<h1><a href="/blog/2012/09/14/snowplow-0.4.8-released">Snowplow 0.4.8 released</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -158,41 +247,6 @@
 <p>Exciting times for everybody who likes storing atomic event data cheaply and safely - stay tuned!</p>
 		</div>
 	
-		<div class="post">
-			20 Aug 2012
-			<h1><a href="/blog/2012/08/20/snowplow-0.4.6-released">Snowplow 0.4.6 released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Over the weekend we released Snowplow version <strong>0.4.6</strong>. This was a minor release that added a new capability into the Snowplow JavaScript tracker.</p>
-
-<p>Specifically, with the JavaScript you can now specify your own collector URL, rather than simply pass in an account ID which resolves to a CloudFront bucket.</p>
-
-<p>You can use this feature in your JavaScript invocation code like so:</p>
-<div class='highlight'><pre><code class='javascript'><span class='c'>&lt;!--</span> <span class='nx'>Snowplow</span> <span class='nx'>starts</span> <span class='nx'>plowing</span> <span class='o'>--&gt;</span>
-<span class='o'>&lt;</span><span class='nx'>script</span> <span class='nx'>type</span><span class='o'>=</span><span class='s2'>&quot;text/javascript&quot;</span><span class='o'>&gt;</span>
-<span class='kd'>var</span> <span class='nx'>_snaq</span> <span class='o'>=</span> <span class='nx'>_snaq</span> <span class='o'>||</span> <span class='p'>[];</span>
-
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setCollectorUrl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;collector.mydomain.com&#39;</span><span class='p'>]);</span>
-<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;trackPageView&#39;</span><span class='p'>]);</span>
-
-<span class='p'>(</span><span class='kd'>function</span><span class='p'>()</span> <span class='p'>{</span>
-<span class='p'>...</span>
-</code></pre></div>
-<p>Where <code>collector.mydomain.com</code> is the URL to your own collector.</p>
-
-<p>We added this capability to Snowplow in support of Simon Rumble&#8217;s excellent <a href='https://github.com/shermozle/SnowCannon'>SnowCannon</a> prototype node.js collector for Snowplow. Going forwards you can of course use this custom URL to send your Snowplow events to any kind of collector on a domain you control.</p>
-
-<p>Anyway I hope you like the feature and let us know how you get on with it!</p>
-		</div>
-	
-		<div class="post">
-			14 Aug 2012
-			<h1><a href="/blog/2012/08/14/updated-hive-serde-released">Updated Hive SerDe released</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>One of the key elements in the Snowplow technology stack is the Hive SerDe. This is what makes it possible for Elastic MapReduce to read the Cloudfront log files generated by the Snowplow javascript trackings tags, extarct the relevant fields and make these available in Hive as a nice, clean query table. (The structure of the Hive table is documented <a href='https://github.com/snowplow/snowplow/wiki/Hive-data-structure'>here</a>).</p>
-
-<p>A number of improvements have been made in the new versions. However, the most significant is that the 5 utm_marketing fields have been added, so that campaign attributes are now available for analytics.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -212,15 +266,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -246,15 +300,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

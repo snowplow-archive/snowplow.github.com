@@ -69,6 +69,42 @@
 			<div id="contents">
 	
 		<div class="post">
+			15 Jan 2014
+			<h1><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p><em>Of all the developments on the Snowplow roadmap, the one that we are most excited about is porting the Snowplow data pipeline to Amazon Kinesis to deliver real-time data processing. We will publish a separate post outlining why we are so excited about this. (Hint: it&#8217;s about a lot more than simply real-time analytics on Snowplow data.) This blog post is intended to provide a starting point for developers who are interested in diving into Kinesis.</em></p>
+
+<p>In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis using two very simple Kinesis apps:</p>
+
+<ol>
+<li>The <a href='https://github.com/snowplow/kinesis-example-scala-producer'>kinesis-example-scala-producer</a>: this will create a Kinesis stream and write records to it</li>
+
+<li>The <a href='https://github.com/snowplow/kinesis-example-scala-producer'>kinesis-example-scala-consumer</a>: this will consume the Kinesis stream created by the producer</li>
+</ol>
+
+<p>The source code for both is available on the <a href='https://github.com/snowplow'>Snowplow repo</a>.</p>
+<p class='more'><a href='/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			08 Jan 2014
+			<h1><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>We are very pleased to announce the release of Snowplow 0.8.13. This release makes it easy for Snowplow users to get started analyzing their Snowplow data with <a href='http://looker.com/'>Looker</a>, by providing an initial Snowplow data model for Looker so that a whole host of standard dimensions, metrics, entities and events are recognized in the Looker query interface.</p>
+<a href='/static/img/blog/2014/01/looker/7-days-dashboard-quickstart.JPG'><img src='/static/img/blog/2014/01/looker/7-days-dashboard-quickstart.JPG' title='7 day web analytics dashboard built with Snowplow data and Looker UI' /></a>
+<p>In this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#special'>What&#8217;s so special about analyzing Snowplow data with Looker?</a></li>
+
+<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#what'>What does the Looker metadata model deliver?</a></li>
+
+<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#install'>How to install the metadata model</a></li>
+</ol>
+<p class='more'><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			08 Jan 2014
 			<h1><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -130,39 +166,6 @@
 <p class='more'><a href='/blog/2013/12/20/introducing-our-snowplow-winterns'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			10 Dec 2013
-			<h1><a href="/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data">Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><img alt='Looker-screenshot' src='/static/img/blog/2013/12/looker-screenshot.png' /></p>
-
-<p>In the last few weeks, we have been experimenting with using <a href='http://looker.com'>Looker</a> as a front-end to analsye Snowplow data. We&#8217;ve really liked what we&#8217;ve seen: Looker works beautifully with Snowplow. Over the next few weeks, we&#8217;ll share example analyses and visualizations of Snowplow data in Looker, and dive into Looker in more detail. In this post, we&#8217;ll take a step back and walk through some context to explain why we are so excited about Looker.</p>
-
-<ol>
-<li><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#limitations'>Understanding the limitations that arise when you use traditional Business Intelligence (BI) tools (like Tableau) to analyse Snowplow data</a></li>
-
-<li><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data/#enter-looker'>How Looker takes a fresh approach to BI, and why that overcomes the limitations Snowplow users have working with other solutions</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/12/10/introducing-looker-a-fresh-approach-to-bi-on-snowplow-data'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			04 Dec 2013
-			<h1><a href="/blog/2013/12/04/snowplow-at-the-graduate-data-science-initiative">The first Graduate Data Science Initiative event in London</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Last night, I was very privilage to speak at the first meeting of the <a href='http://www.meetup.com/Graduate-Data-Science-Initiative/'>Graduate Data Science Initiative meetup</a>, alongside Martin Goodson from Qubit and Eddie Bells from Lyst.</p>
-
-<p>The event was for graduates interested in careers in Data Science careers. It&#8217;s a great initiative and we were very happy to support it.</p>
-
-<p>I gave the first talk on how data scientists and big data technolgies, including Snowplow, are fundamentally changing the way that people think about use web analytics data specifically, and digital event data more generally. I went on to describe why we believe event data is such an interesting data set to work with. We&#8217;ll see if any of the participants are more excited about digital event data as a result. I&#8217;ve embedded my slides below:</p>
-<div id='pres'><iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/28874690' width='476'> </iframe></div>
-<p>Eddie Bells gave a very interesting talk about the data infrastructure at <a href='http://www.lyst.com/'>Lyst</a>, particularly around scraping and structuring (including classifying) data.</p>
-
-<p>Martin Goodson followed up with a fascinating talk highlighting the enormous amount of money wasted in online retail because of a lack of sound statistical approach to techniques like A/B and multivariant testing. I hope to post links to both Martin&#8217;s and Eddie&#8217;s slides in due course.</p>
-
-<p>Many thanks to Fatos and Amir for organising the event. We hope it continues to flourish, and look forward to continuing to support this and similar initiatives to bring more talented graduates into data science.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -182,15 +185,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -216,15 +219,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

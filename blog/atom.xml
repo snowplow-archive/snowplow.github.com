@@ -4,13 +4,319 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-24T13:46:38+00:00</updated>
+  <updated>2014-01-27T18:47:30+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts"/>
+    <title>Snowplow JavaScript Tracker 0.13.0 released with custom contexts</title>
+    <updated>2014-01-27T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#8217;re pleased to announce the immediate availability of the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.13.0'&gt;Snowplow JavaScript Tracker version 0.13.0&lt;/a&gt;. This is the first new release of the Snowplow JavaScript Tracker since separating it from the main Snowplow repository last year.&lt;/p&gt;
+
+&lt;p&gt;The primary objective of this release was to introduce some key new tracking capabilities, in preparation for adding these to our Enrichment process. Secondarily, we also wanted to perform some outstanding housekeeping and tidy-up of the newly-independent repository.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post, then, we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts'&gt;New feature: custom contexts&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#currency'&gt;New feature: transaction currencies&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#platform'&gt;New feature: specifying the tracking platform&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#tidyup'&gt;Project tidy-up&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#upgrading'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='contexts'&gt;1. New feature: custom contexts&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The most exciting new feature is the addition of custom contexts to all of our &lt;code&gt;track...()&lt;/code&gt; methods for event tracking.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note that this release only adds custom contexts to the JavaScript Tracker. Adding custom contexts to our Enrichment process and Storage targets is on the roadmap - but rest assured we are working on it!&lt;/strong&gt;&lt;/p&gt;
+&lt;h3&gt;1.1 What are custom contexts?&lt;/h3&gt;
+&lt;p&gt;Context is what describes the circumstances surrounding an individual event - for example, when the event happened, where it happened, or how it happened. For the original blog post where we introduced our ideas around event context, see &lt;a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/'&gt;Towards universal event analytics - building an event grammar&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Our JavaScript Tracker already captures lots of standard web context by default: event time, user timezone, monitor color depth, browser features etc. This new feature will allow you to define and track your own custom contexts - ones which make sense to &lt;em&gt;your&lt;/em&gt; business.&lt;/p&gt;
+
+&lt;p&gt;Think &amp;#8220;custom variables&amp;#8221; but much more powerful and flexible!&lt;/p&gt;
+&lt;h3&gt;1.2 When to use custom contexts?&lt;/h3&gt;
+&lt;p&gt;Custom contexts are great for a couple of use cases:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Whenever you want to augment a standard Snowplow event type with some additional data&lt;/li&gt;
+
+&lt;li&gt;If your business has a set of crosscutting data points/models which you want to record against multiple event types&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;You can attach custom contexts to any Snowplow event type - even custom unstructured events.&lt;/p&gt;
+&lt;h3&gt;1.3 Usage&lt;/h3&gt;
+&lt;p&gt;To support custom contexts, we have added a new argument, called &lt;code&gt;contexts&lt;/code&gt;, onto the end of each &lt;code&gt;track...()&lt;/code&gt; and &lt;code&gt;add...()&lt;/code&gt; method. For example, here is the new signature for tracking a page view:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='kd'&gt;function&lt;/span&gt; &lt;span class='nx'&gt;trackPageView&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;customTitle&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;contexts&lt;/code&gt; argument is always optional on any event call. If set, it must be a JSON taking the form:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;context1_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='p'&gt;...&lt;/span&gt;
+  &lt;span class='p'&gt;},&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;context2_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='p'&gt;...&lt;/span&gt;
+  &lt;span class='p'&gt;},&lt;/span&gt;
+  &lt;span class='p'&gt;...&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The format of the JSON properties for each individual context follows the exact same rules as our &lt;a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent'&gt;unstructured events&amp;#8217; JSON properties&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you are interested in finding out more about custom contexts, we have written a &lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/'&gt;follow-up blog post&lt;/a&gt; - please &lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/'&gt;read this post&lt;/a&gt; for more information.&lt;/p&gt;
+&lt;h3&gt;1.4 Roadmap&lt;/h3&gt;
+&lt;p&gt;We are well aware that this release is only the start of adding custom contexts to Snowplow. We are working on a common solution to Enriching and Storing both unstructured events and custom contexts.&lt;/p&gt;
+
+&lt;p&gt;Please keep an eye on our &lt;a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'&gt;Roadmap wiki page&lt;/a&gt; to see how Snowplow&amp;#8217;s support for custom contexts (and unstructured events) evolves.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='currency'&gt;2. New feature: transaction currencies&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have updated our ecommerce tracking methods to add support for setting the currency which the transaction took place in.&lt;/p&gt;
+
+&lt;p&gt;The new &lt;code&gt;currency&lt;/code&gt; argument is the penultimate argument (the last before &lt;code&gt;context&lt;/code&gt;, see above) to both the &lt;code&gt;addTrans()&lt;/code&gt; and &lt;code&gt;addItem()&lt;/code&gt; methods. Use it like so:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;addTrans&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;           &lt;span class='c1'&gt;// order ID - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;Acme Clothing&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;  &lt;span class='c1'&gt;// affiliation or store name&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;11.99&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;          &lt;span class='c1'&gt;// total - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;1.29&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;           &lt;span class='c1'&gt;// tax&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;5&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;              &lt;span class='c1'&gt;// shipping&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;San Jose&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;       &lt;span class='c1'&gt;// city&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;California&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;     &lt;span class='c1'&gt;// state or province&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;USA&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;            &lt;span class='c1'&gt;// country&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;USD&amp;#39;&lt;/span&gt;             &lt;span class='c1'&gt;// currency&lt;/span&gt;
+  &lt;span class='p'&gt;]);&lt;/span&gt;
+
+&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;addItem&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;           &lt;span class='c1'&gt;// order ID - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;DD44&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;           &lt;span class='c1'&gt;// SKU/code - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;T-Shirt&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;        &lt;span class='c1'&gt;// product name&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;Green Medium&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;   &lt;span class='c1'&gt;// category or variation&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;11.99&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;          &lt;span class='c1'&gt;// unit price - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;1&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;              &lt;span class='c1'&gt;// quantity - required&lt;/span&gt;
+    &lt;span class='s1'&gt;&amp;#39;USD&amp;#39;&lt;/span&gt;             &lt;span class='c1'&gt;// currency&lt;/span&gt;
+  &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Please make sure to pass in the valid &lt;a href='http://en.wikipedia.org/wiki/ISO_4217#Active_codes'&gt;ISO 4217&lt;/a&gt; code for your currency. This will ensure that your ecommerce transactions are compatible with the currency conversion enrichment we are currently developing (see &lt;a href='/blog/2014/01/17/scala-forex-library-released/'&gt;this blog post&lt;/a&gt; for details).&lt;/p&gt;
+
+&lt;p&gt;Don&amp;#8217;t forget to set the currency on &lt;strong&gt;both&lt;/strong&gt; the parent transaction and its child items.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='platform'&gt;3. New feature: specifying the tracking platform&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Many thanks to community member &lt;a href='https://github.com/rcs'&gt;Ryan Sorensen&lt;/a&gt; for contributing the new &lt;code&gt;setPlatform()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;p&gt;This allows you to override the default tracking platform (&amp;#8220;web&amp;#8221;) with another of the &lt;a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#11-application-parameters'&gt;platform values supported in the Snowplow Tracker Protocol&lt;/a&gt;. For example, to set the platform to &amp;#8220;mob&amp;#8221; for mobile:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setPlatform&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;mob&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Thanks for your contribution Ryan!&lt;/p&gt;
+&lt;h2&gt;&lt;a name='tidyup'&gt;4. Project tidy-up&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have taken advantage of the move to a separate repository to perform some much needed tidy-up of the tracker codebase:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Added a complete &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/blob/master/CHANGELOG'&gt;historic CHANGELOG&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Back-filled git tags for all of the tracker&amp;#8217;s releases&lt;/li&gt;
+
+&lt;li&gt;Restructured the folders&lt;/li&gt;
+
+&lt;li&gt;Added a package.json&lt;/li&gt;
+
+&lt;li&gt;Added a node.js-friendly .gitignore&lt;/li&gt;
+
+&lt;li&gt;Added some useful helper functions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As well as tidying up the repository, these updates should lay the groundwork for us replacing our custom &lt;code&gt;snowpak.sh&lt;/code&gt; Bash build script with a Grunt-based build process in the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues?milestone=3&amp;amp;page=1&amp;amp;state=open'&gt;next release&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='upgrading'&gt;5. Upgrading&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, the updated minified tracker is available here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.13.0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please note that as of this release, we are moving the Snowplow JavaScript Tracker to true &lt;a href='http://semver.org/spec/v2.0.0.html'&gt;semantic versioning&lt;/a&gt;. This means that going forwards we are also making this tracker available as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where 0 is the semantic MAJOR version. If you prefer, you can use this URI path and then get new features and bug fixes automatically as we roll-out MINOR and PATCH updates to the tracker. Any breaking changes will mean a new MAJOR version, which will be hosted on &lt;code&gt;/1/sp.js&lt;/code&gt;, i.e. it won&amp;#8217;t break your existing installation.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;6. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Check out the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.13.0'&gt;v0.13.0 release page&lt;/a&gt; on GitHub for the full list of changes made in this version.&lt;/p&gt;
+
+&lt;p&gt;As always, if you run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide"/>
+    <title>A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</title>
+    <updated>2014-01-27T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Earlier today we &lt;a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/'&gt;announced the release of Snowplow JavaScript Tracker 0.13.0&lt;/a&gt;, which updated all of our &lt;code&gt;track...()&lt;/code&gt; methods to support a new argument for setting custom JSON contexts.&lt;/p&gt;
+
+&lt;p&gt;In our earlier blog post we introduced the idea of custom contexts only very briefly. In this blog post, we will take a detailed look at Snowplow&amp;#8217;s custom contexts functionality, so you can understand how best to attach custom contexts to your existing Snowplow events.&lt;/p&gt;
+
+&lt;p&gt;Understanding the custom context format is important because our Enrichment process does not yet extract custom contexts, so you will not get any feedback yet from the Enrichment process as to whether you are adding them correctly; nor do we have validation for custom context properties in our JavaScript Tracker yet.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#sigs'&gt;Updated method signatures&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#contexts'&gt;The &lt;code&gt;contexts&lt;/code&gt; JavaScript object&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#eg'&gt;A detailed example&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let&amp;#8217;s get started after the jump.&lt;/p&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='sigs'&gt;1. Updated method signatures&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You can add custom contexts to any of the existing &lt;code&gt;track...()&lt;/code&gt; methods, and in the case of our transaction tracking, with the two &lt;code&gt;add...()&lt;/code&gt; methods.&lt;/p&gt;
+
+&lt;p&gt;For completeness, here is the full list of updated tracking methods. Note that &lt;code&gt;contexts&lt;/code&gt; is always the last argument:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;trackPageView&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;customTitle&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='nx'&gt;trackStructEvent&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;action&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;label&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;property&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;value&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;span class='nx'&gt;trackUnstructEvent&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;name&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;properties&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; 
+&lt;span class='nx'&gt;addTrans&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;orderId&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;affiliation&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;total&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;tax&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;shipping&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;city&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;state&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;country&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;currency&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt; 
+&lt;span class='nx'&gt;addItem&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;orderId&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;sku&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;name&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;price&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;quantity&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;currency&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='nx'&gt;contexts&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A few notes on this:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If you set the &lt;code&gt;contexts&lt;/code&gt; argument on a &lt;code&gt;trackPageView&lt;/code&gt;, the same context will be attached to all page pings too (assuming you have &lt;code&gt;enableActivityTracking&lt;/code&gt; enabled)&lt;/li&gt;
+
+&lt;li&gt;Remember that transactions and their child items are processed as separate Snowplow events. Duplicate your transaction &lt;code&gt;contexts&lt;/code&gt; argument into your items&amp;#8217; &lt;code&gt;contexts&lt;/code&gt; argument if you need the transaction context available to the transaction item events&lt;/li&gt;
+
+&lt;li&gt;If you want to add custom context but don&amp;#8217;t want to set all the prior arguments, just pad out your function call with empty arguments:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+              &lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// &amp;lt;- Skip the custom page title (get page title automatically instead)&lt;/span&gt;
+              &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='nx'&gt;page&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+                  &lt;span class='nx'&gt;category&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;sport&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='nx'&gt;last_updated$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2014&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;26&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+              &lt;span class='p'&gt;}&lt;/span&gt;
+           &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;&lt;a name='contexts'&gt;2. The &quot;contexts&quot; JavaScript object&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;contexts&lt;/code&gt; argument to any &lt;code&gt;track...()&lt;/code&gt; or &lt;code&gt;add...()&lt;/code&gt; method is always optional. If set, it must be a JSON taking the form:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;context1_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='cm'&gt;/* context1 JSON */&lt;/span&gt;
+  &lt;span class='p'&gt;},&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;context2_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='cm'&gt;/* context2 JSON */&lt;/span&gt;
+  &lt;span class='p'&gt;},&lt;/span&gt;
+  &lt;span class='p'&gt;...&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If the &lt;code&gt;contexts&lt;/code&gt; argument is set, it must be a JSON including at least one name: property pair, where:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The name is the name for an individual context entry&lt;/li&gt;
+
+&lt;li&gt;The property is a JSON holding name: property pairs for this context entry&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A few dos and don&amp;#8217;ts for context names:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Do&lt;/strong&gt; name each context entry however you like&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Do&lt;/strong&gt; use a context name to identify a set of associated data points which make sense to your business&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Do&lt;/strong&gt; use the same contexts across multiple different events and event types&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Don&amp;#8217;t&lt;/strong&gt; use multiple different context names to refer to the same set of data points&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A few dos and don&amp;#8217;ts for the JSONs inside each context entry JSONs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Do&lt;/strong&gt; use any of the data types supported by &lt;a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent'&gt;custom unstructured events&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Do&lt;/strong&gt; use Snowplow datatype suffixes if the data type would otherwise be unclear&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Don&amp;#8217;t&lt;/strong&gt; nest properties - as with custom unstructured events, the structure must be flat&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;a name='eg'&gt;3. A detailed example&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;A detailed example should make custom contexts a little more real.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s take a retailer and Snowplow user who sells movie memorabilia online, particularly movie posters. For every movie poster, our retailer cares about the name of the movie, the country which printed the movie poster and the year the poster was printed. She has also done some work understanding her customer base, and can assign all of her visitors a propensity-to-buy score and a customer segment as soon as they add something to their basket.&lt;/p&gt;
+&lt;h3&gt;Definition of custom contexts&lt;/h3&gt;
+&lt;p&gt;Based on the above, our retailer will define two custom contexts. The first describes a given movie poster:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='s2'&gt;&amp;quot;movie_poster&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;movie_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='nx'&gt;xxx&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;poster_country&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='nx'&gt;xxx&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;poster_year$dt&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='nx'&gt;xxx&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then the second context describes the customer:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='s2'&gt;&amp;quot;customer&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;p_buy&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='nx'&gt;xxx&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+  &lt;span class='s2'&gt;&amp;quot;segment&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='nx'&gt;xxx&lt;/span&gt;
+&lt;span class='p'&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With her two custom contexts defined, our retailer is now ready to update her Snowplow installation to start collecting this additional data.&lt;/p&gt;
+&lt;h3&gt;Definition of custom contexts&lt;/h3&gt;
+&lt;p&gt;When a visitor arrives on a page advertising a movie poster, our retailer adds this context to the page view event:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackPageView&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+              &lt;span class='p'&gt;,&lt;/span&gt;                            &lt;span class='c1'&gt;// &amp;lt;- No custom page title&lt;/span&gt;
+              &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;movie_poster&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;          &lt;span class='c1'&gt;// &amp;lt;- Context entry&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;movie_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;Solaris&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;poster_country&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;JP&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;poster_year$dt&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;1978&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+              &lt;span class='p'&gt;}&lt;/span&gt;
+           &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When the visitor clicks the add to basket button on this poster, the website fires a custom unstructured event to track the add to basket. This time we send the &amp;#8220;customer&amp;#8221; context as well as the &amp;#8220;movie_poster&amp;#8221; context:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackUnstructEvent&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+              &lt;span class='s1'&gt;&amp;#39;add-to-basket&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;             &lt;span class='c1'&gt;// &amp;lt;- Event name&lt;/span&gt;
+              &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;button&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;img-overlay&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;   &lt;span class='c1'&gt;// &amp;lt;- Event properties&lt;/span&gt;
+                &lt;span class='s2'&gt;&amp;quot;stock-level&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;2&lt;/span&gt; 
+              &lt;span class='p'&gt;},&lt;/span&gt;
+              &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;movie_poster&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;          &lt;span class='c1'&gt;// &amp;lt;- First context entry&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;movie_name&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;Solaris&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;poster_country&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;JP&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;poster_year$dt&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;1978&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1&lt;/span&gt;&lt;span class='p'&gt;)&lt;/span&gt;
+                &lt;span class='p'&gt;},&lt;/span&gt;
+                &lt;span class='s2'&gt;&amp;quot;customer&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;              &lt;span class='c1'&gt;// &amp;lt;- Second context entry&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;p_buy&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;0.23&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;segment&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;whale&amp;quot;&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+              &lt;span class='p'&gt;}&lt;/span&gt;
+           &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The visitor seems to be having doubts - they head to the contact page and fill out a form. This time we still track the &amp;#8220;customer&amp;#8221; context (with a reduced propensity-to-buy score), but it doesn&amp;#8217;t make sense to record this event against any given &amp;#8220;movie_poster&amp;#8221;, so we don&amp;#8217;t include that context:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;trackStructEvent&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+              &lt;span class='s1'&gt;&amp;#39;comms&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;                     &lt;span class='c1'&gt;// &amp;lt;- Category&lt;/span&gt;
+              &lt;span class='s1'&gt;&amp;#39;feedback-form&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;             &lt;span class='c1'&gt;// &amp;lt;- Action&lt;/span&gt;
+              &lt;span class='p'&gt;,&lt;/span&gt;                            &lt;span class='c1'&gt;// &amp;lt;- No label&lt;/span&gt;
+              &lt;span class='p'&gt;,&lt;/span&gt;                            &lt;span class='c1'&gt;// &amp;lt;- No property&lt;/span&gt;
+              &lt;span class='p'&gt;,&lt;/span&gt;                            &lt;span class='c1'&gt;// &amp;lt;- No value&lt;/span&gt;
+              &lt;span class='p'&gt;{&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;customer&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;              &lt;span class='c1'&gt;// &amp;lt;- Context entry&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;p_buy&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mf'&gt;0.13&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;
+                  &lt;span class='s2'&gt;&amp;quot;segment&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;whale&amp;quot;&lt;/span&gt;
+                &lt;span class='p'&gt;}&lt;/span&gt;
+              &lt;span class='p'&gt;}&lt;/span&gt;
+           &lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And that completes our example. By defining and implementing these two custom contexts, our retailer has promoted some of her most business-critical data points to the level of first class entities in Snowplow.&lt;/p&gt;
+
+&lt;p&gt;This additional context has made standard Snowplow events such as page views much more valuable to her, and should later make it easy to analyze these business-critical data points across multiple event types.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above guide, please do get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you have any ideas or feedback for Snowplow&amp;#8217;s evolving approach to custom contexts, do please share them, either in the comments below or through the usual channels. And please keep an eye on our &lt;a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'&gt;Roadmap wiki page&lt;/a&gt; to see how Snowplow&amp;#8217;s support for custom contexts evolves!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014</id>
@@ -3923,7 +4229,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Integer&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number without decimal&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$int&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Floating point&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number with decimal&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$flt&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Geo-coordinates&lt;/td&gt;&lt;td style='text-align: left;'&gt;Longitude and latitude&lt;/td&gt;&lt;td style='text-align: left;'&gt;[Number, Number]&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$geo&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
-&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Date&lt;/td&gt;&lt;td style='text-align: left;'&gt;Date and time (ms precision)&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$tm&lt;/code&gt;, &lt;code&gt;$tms&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
+&lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Date&lt;/td&gt;&lt;td style='text-align: left;'&gt;Date and time (ms precision)&lt;/td&gt;&lt;td style='text-align: left;'&gt;Number&lt;/td&gt;&lt;td style='text-align: left;'&gt;&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$ts&lt;/code&gt;, &lt;code&gt;$tms&lt;/code&gt;&lt;/td&gt;&lt;td style='text-align: left;'&gt;Yes&lt;/td&gt;
 &lt;/tr&gt;&lt;tr&gt;&lt;td style='text-align: left;'&gt;Array&lt;/td&gt;&lt;td style='text-align: left;'&gt;Array of values&lt;/td&gt;&lt;td style='text-align: left;'&gt;[x, y, z]&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;&lt;td style='text-align: left;'&gt;-&lt;/td&gt;
 &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;Let&amp;#8217;s go through each of these in turn, providing some examples as we go:&lt;/p&gt;
@@ -3984,7 +4290,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;$dt&lt;/code&gt; - the Number of days since the epoch&lt;/li&gt;
 
-&lt;li&gt;&lt;code&gt;$tm&lt;/code&gt; - the Number of seconds since the epoch&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$ts&lt;/code&gt; - the Number of seconds since the epoch&lt;/li&gt;
 
 &lt;li&gt;&lt;code&gt;$tms&lt;/code&gt; - the Number of milliseconds since the epoch. This is the default for JavaScript Dates if no type suffix supplied&lt;/li&gt;
 &lt;/ul&gt;
@@ -3994,8 +4300,8 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
     &lt;span class='nx'&gt;birthday$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;1980&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;11&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as birthday$dt: 3996&lt;/span&gt;
     &lt;span class='nx'&gt;birthday2$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;3996&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// ^ Same as above&lt;/span&gt;
     
-    &lt;span class='nx'&gt;registered$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2013&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;05&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;13&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;14&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;20&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as registered$tm: 1371129610&lt;/span&gt;
-    &lt;span class='nx'&gt;registered2$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// Same as above&lt;/span&gt;
+    &lt;span class='nx'&gt;registered$ts&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='mi'&gt;2013&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;05&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;13&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;14&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;20&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt;&lt;span class='mi'&gt;10&lt;/span&gt;&lt;span class='p'&gt;),&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as registered$ts: 1371129610&lt;/span&gt;
+    &lt;span class='nx'&gt;registered2$ts&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// Same as above&lt;/span&gt;
     
     &lt;span class='nx'&gt;last_action$tms&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1368454114215&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='c1'&gt;// Accurate to milliseconds&lt;/span&gt;
     &lt;span class='nx'&gt;last_action2&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='k'&gt;new&lt;/span&gt; &lt;span class='nb'&gt;Date&lt;/span&gt;&lt;span class='p'&gt;()&lt;/span&gt; &lt;span class='c1'&gt;// Sent to Snowplow as last_action2$tms: 1368454114215&lt;/span&gt;
@@ -4006,12 +4312,12 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Two warnings:&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;If you specify a JavaScript Number but do not add a valid Date suffix (&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$tm&lt;/code&gt; or &lt;code&gt;$tms&lt;/code&gt;), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date&lt;/li&gt;
+&lt;li&gt;If you specify a JavaScript Number but do not add a valid Date suffix (&lt;code&gt;$dt&lt;/code&gt;, &lt;code&gt;$ts&lt;/code&gt; or &lt;code&gt;$tms&lt;/code&gt;), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date&lt;/li&gt;
 
 &lt;li&gt;If you specify a JavaScript Number but add the wrong Date suffix, then the Date will be incorrectly interpreted by Snowplow, for example:&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
-    &lt;span class='nx'&gt;last_ping$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt; &lt;span class='c1'&gt;// Should have been $tm. Snowplow will interpret this as the year 3756521449&lt;/span&gt;
+    &lt;span class='nx'&gt;last_ping$dt&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='mi'&gt;1371129610&lt;/span&gt; &lt;span class='c1'&gt;// Should have been $ts. Snowplow will interpret this as the year 3756521449&lt;/span&gt;
 &lt;span class='p'&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id='arrays'&gt;Arrays&lt;/h3&gt;
@@ -4026,7 +4332,7 @@ $ git checkout 0.8.4&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;By contrast, the following are all allowed:&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='p'&gt;{&lt;/span&gt;
     &lt;span class='nx'&gt;sizes&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;xs&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;s&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;xxl&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
-    &lt;span class='nx'&gt;session_starts$tm&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1064329730&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1341127611&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
+    &lt;span class='nx'&gt;session_starts$ts&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='mi'&gt;1371129610&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1064329730&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mi'&gt;1341127611&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt;
     &lt;span class='nx'&gt;check_ins$geo&lt;/span&gt;&lt;span class='o'&gt;:&lt;/span&gt; &lt;span class='p'&gt;[[&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;88.21337&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;40.11041&lt;/span&gt;&lt;span class='p'&gt;],&lt;/span&gt; &lt;span class='p'&gt;[&lt;/span&gt;&lt;span class='o'&gt;-&lt;/span&gt;&lt;span class='mf'&gt;78.81557&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='mf'&gt;30.22047&lt;/span&gt;&lt;span class='p'&gt;]]&lt;/span&gt;
 &lt;span class='p'&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;&lt;a name='help'&gt;4. Getting help&lt;/a&gt;&lt;/h2&gt;

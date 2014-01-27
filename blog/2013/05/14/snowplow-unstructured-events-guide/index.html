@@ -130,7 +130,7 @@
 </tr><tr><td style='text-align: left;'>Integer</td><td style='text-align: left;'>Number without decimal</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$int</code></td><td style='text-align: left;'>Yes</td>
 </tr><tr><td style='text-align: left;'>Floating point</td><td style='text-align: left;'>Number with decimal</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$flt</code></td><td style='text-align: left;'>Yes</td>
 </tr><tr><td style='text-align: left;'>Geo-coordinates</td><td style='text-align: left;'>Longitude and latitude</td><td style='text-align: left;'>[Number, Number]</td><td style='text-align: left;'><code>$geo</code></td><td style='text-align: left;'>Yes</td>
-</tr><tr><td style='text-align: left;'>Date</td><td style='text-align: left;'>Date and time (ms precision)</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$dt</code>, <code>$tm</code>, <code>$tms</code></td><td style='text-align: left;'>Yes</td>
+</tr><tr><td style='text-align: left;'>Date</td><td style='text-align: left;'>Date and time (ms precision)</td><td style='text-align: left;'>Number</td><td style='text-align: left;'><code>$dt</code>, <code>$ts</code>, <code>$tms</code></td><td style='text-align: left;'>Yes</td>
 </tr><tr><td style='text-align: left;'>Array</td><td style='text-align: left;'>Array of values</td><td style='text-align: left;'>[x, y, z]</td><td style='text-align: left;'>-</td><td style='text-align: left;'>-</td>
 </tr></tbody></table>
 <p>Let&#8217;s go through each of these in turn, providing some examples as we go:</p>
@@ -191,7 +191,7 @@
 <ul>
 <li><code>$dt</code> - the Number of days since the epoch</li>
 
-<li><code>$tm</code> - the Number of seconds since the epoch</li>
+<li><code>$ts</code> - the Number of seconds since the epoch</li>
 
 <li><code>$tms</code> - the Number of milliseconds since the epoch. This is the default for JavaScript Dates if no type suffix supplied</li>
 </ul>
@@ -201,8 +201,8 @@
     <span class='nx'>birthday$dt</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>1980</span><span class='p'>,</span><span class='mi'>11</span><span class='p'>,</span><span class='mi'>10</span><span class='p'>),</span> <span class='c1'>// Sent to Snowplow as birthday$dt: 3996</span>
     <span class='nx'>birthday2$dt</span><span class='o'>:</span> <span class='mi'>3996</span><span class='p'>,</span> <span class='c1'>// ^ Same as above</span>
     
-    <span class='nx'>registered$tm</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>05</span><span class='p'>,</span><span class='mi'>13</span><span class='p'>,</span><span class='mi'>14</span><span class='p'>,</span><span class='mi'>20</span><span class='p'>,</span><span class='mi'>10</span><span class='p'>),</span> <span class='c1'>// Sent to Snowplow as registered$tm: 1371129610</span>
-    <span class='nx'>registered2$tm</span><span class='o'>:</span> <span class='mi'>1371129610</span><span class='p'>,</span> <span class='c1'>// Same as above</span>
+    <span class='nx'>registered$ts</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>(</span><span class='mi'>2013</span><span class='p'>,</span><span class='mi'>05</span><span class='p'>,</span><span class='mi'>13</span><span class='p'>,</span><span class='mi'>14</span><span class='p'>,</span><span class='mi'>20</span><span class='p'>,</span><span class='mi'>10</span><span class='p'>),</span> <span class='c1'>// Sent to Snowplow as registered$ts: 1371129610</span>
+    <span class='nx'>registered2$ts</span><span class='o'>:</span> <span class='mi'>1371129610</span><span class='p'>,</span> <span class='c1'>// Same as above</span>
     
     <span class='nx'>last_action$tms</span><span class='o'>:</span> <span class='mi'>1368454114215</span><span class='p'>,</span> <span class='c1'>// Accurate to milliseconds</span>
     <span class='nx'>last_action2</span><span class='o'>:</span> <span class='k'>new</span> <span class='nb'>Date</span><span class='p'>()</span> <span class='c1'>// Sent to Snowplow as last_action2$tms: 1368454114215</span>
@@ -213,12 +213,12 @@
 <p><strong>Two warnings:</strong></p>
 
 <ol>
-<li>If you specify a JavaScript Number but do not add a valid Date suffix (<code>$dt</code>, <code>$tm</code> or <code>$tms</code>), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date</li>
+<li>If you specify a JavaScript Number but do not add a valid Date suffix (<code>$dt</code>, <code>$ts</code> or <code>$tms</code>), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date</li>
 
 <li>If you specify a JavaScript Number but add the wrong Date suffix, then the Date will be incorrectly interpreted by Snowplow, for example:</li>
 </ol>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
-    <span class='nx'>last_ping$dt</span><span class='o'>:</span> <span class='mi'>1371129610</span> <span class='c1'>// Should have been $tm. Snowplow will interpret this as the year 3756521449</span>
+    <span class='nx'>last_ping$dt</span><span class='o'>:</span> <span class='mi'>1371129610</span> <span class='c1'>// Should have been $ts. Snowplow will interpret this as the year 3756521449</span>
 <span class='p'>}</span>
 </code></pre></div>
 <h3 id='arrays'>Arrays</h3>
@@ -233,7 +233,7 @@
 <p>By contrast, the following are all allowed:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
     <span class='nx'>sizes</span><span class='o'>:</span> <span class='p'>[</span><span class='s1'>&#39;xs&#39;</span><span class='p'>,</span> <span class='s1'>&#39;s&#39;</span><span class='p'>,</span> <span class='s1'>&#39;l&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xl&#39;</span><span class='p'>,</span> <span class='s1'>&#39;xxl&#39;</span><span class='p'>],</span>
-    <span class='nx'>session_starts$tm</span><span class='o'>:</span> <span class='p'>[</span><span class='mi'>1371129610</span><span class='p'>,</span> <span class='mi'>1064329730</span><span class='p'>,</span> <span class='mi'>1341127611</span><span class='p'>],</span>
+    <span class='nx'>session_starts$ts</span><span class='o'>:</span> <span class='p'>[</span><span class='mi'>1371129610</span><span class='p'>,</span> <span class='mi'>1064329730</span><span class='p'>,</span> <span class='mi'>1341127611</span><span class='p'>],</span>
     <span class='nx'>check_ins$geo</span><span class='o'>:</span> <span class='p'>[[</span><span class='o'>-</span><span class='mf'>88.21337</span><span class='p'>,</span> <span class='mf'>40.11041</span><span class='p'>],</span> <span class='p'>[</span><span class='o'>-</span><span class='mf'>78.81557</span><span class='p'>,</span> <span class='mf'>30.22047</span><span class='p'>]]</span>
 <span class='p'>}</span>
 </code></pre></div><h2><a name='help'>4. Getting help</a></h2>
@@ -277,15 +277,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -311,15 +311,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

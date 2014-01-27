@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.6.0 released, with the new StorageLoader - Snowplow Analytics</title>
+	<title>Snowplow JavaScript Tracker 0.13.0 released with custom contexts - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,74 +68,137 @@
 	
 			<div id="contents">
 		<div class="post">
-			12 Nov 2012
-			<h1>Snowplow 0.6.0 released, with the new StorageLoader</h1>
+			27 Jan 2014
+			<h1>Snowplow JavaScript Tracker 0.13.0 released with custom contexts</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re very pleased to start the week by releasing a new version of Snowplow - version <strong>0.6.0</strong>. This is a big release for us - as it includes the first version of our all-new StorageLoader. The release also includes a small set of tweaks and bug fixes across the existing Snowplow components, but let&#8217;s start by introducing StorageLoader:</p>
+			<p>We&#8217;re pleased to announce the immediate availability of the <a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.13.0'>Snowplow JavaScript Tracker version 0.13.0</a>. This is the first new release of the Snowplow JavaScript Tracker since separating it from the main Snowplow repository last year.</p>
 
-<h2 id='introducing_storageloader'>Introducing StorageLoader</h2>
+<p>The primary objective of this release was to introduce some key new tracking capabilities, in preparation for adding these to our Enrichment process. Secondarily, we also wanted to perform some outstanding housekeeping and tidy-up of the newly-independent repository.</p>
 
-<p>Up until now, Snowplow has stored all its data in S3, where it can be queried in Hive. However, our vision with Snowplow has always been to enable to the broadest set of analyses on Snowplow data as possible. That means making it as easy as possible to keep up to date versions of Snowplow data in many different types of database. The StorageLoader is a key component to fulfilling that vision.</p>
+<p>In the rest of this post, then, we will cover:</p>
 
-<p><img alt='snowplow-loader-image' src='/static/img/SnowplowLoader.jpg' /></p>
+<ol>
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts'>New feature: custom contexts</a></li>
 
-<p>StorageLoader is a Ruby application that downloads Snowplow event files from S3 and loads them into an alternative database. It has been built to make keeping an up to date version of your Snowplow data in other databases as easy as possible. Currently, it only supports loading the data into <a href='http://www.infobright.org/'>Infobright Community Edition (ICE)</a> - a high-performance columnar database based on MySQL. However, we plan to extend it over the next few months to support a range of other databases including:</p>
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#currency'>New feature: transaction currencies</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#platform'>New feature: specifying the tracking platform</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#tidyup'>Project tidy-up</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#help'>Getting help</a></li>
+</ol>
+<!--more--><h2><a name='contexts'>1. New feature: custom contexts</a></h2>
+<p>The most exciting new feature is the addition of custom contexts to all of our <code>track...()</code> methods for event tracking.</p>
+
+<p><strong>Please note that this release only adds custom contexts to the JavaScript Tracker. Adding custom contexts to our Enrichment process and Storage targets is on the roadmap - but rest assured we are working on it!</strong></p>
+<h3>1.1 What are custom contexts?</h3>
+<p>Context is what describes the circumstances surrounding an individual event - for example, when the event happened, where it happened, or how it happened. For the original blog post where we introduced our ideas around event context, see <a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/'>Towards universal event analytics - building an event grammar</a>.</p>
+
+<p>Our JavaScript Tracker already captures lots of standard web context by default: event time, user timezone, monitor color depth, browser features etc. This new feature will allow you to define and track your own custom contexts - ones which make sense to <em>your</em> business.</p>
+
+<p>Think &#8220;custom variables&#8221; but much more powerful and flexible!</p>
+<h3>1.2 When to use custom contexts?</h3>
+<p>Custom contexts are great for a couple of use cases:</p>
+
+<ol>
+<li>Whenever you want to augment a standard Snowplow event type with some additional data</li>
+
+<li>If your business has a set of crosscutting data points/models which you want to record against multiple event types</li>
+</ol>
+
+<p>You can attach custom contexts to any Snowplow event type - even custom unstructured events.</p>
+<h3>1.3 Usage</h3>
+<p>To support custom contexts, we have added a new argument, called <code>contexts</code>, onto the end of each <code>track...()</code> and <code>add...()</code> method. For example, here is the new signature for tracking a page view:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>function</span> <span class='nx'>trackPageView</span><span class='p'>(</span><span class='nx'>customTitle</span><span class='p'>,</span> <span class='nx'>contexts</span><span class='p'>)</span>
+</code></pre></div>
+<p>The <code>contexts</code> argument is always optional on any event call. If set, it must be a JSON taking the form:</p>
+<div class='highlight'><pre><code class='javascript'><span class='p'>{</span> <span class='s2'>&quot;context1_name&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+    <span class='p'>...</span>
+  <span class='p'>},</span>
+  <span class='s2'>&quot;context2_name&quot;</span><span class='o'>:</span> <span class='p'>{</span>
+    <span class='p'>...</span>
+  <span class='p'>},</span>
+  <span class='p'>...</span>
+<span class='p'>}</span>
+</code></pre></div>
+<p>The format of the JSON properties for each individual context follows the exact same rules as our <a href='https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent'>unstructured events&#8217; JSON properties</a>.</p>
+
+<p>If you are interested in finding out more about custom contexts, we have written a <a href='/blog/2014/01/27/snowplow-custom-contexts-guide/'>follow-up blog post</a> - please <a href='/blog/2014/01/27/snowplow-custom-contexts-guide/'>read this post</a> for more information.</p>
+<h3>1.4 Roadmap</h3>
+<p>We are well aware that this release is only the start of adding custom contexts to Snowplow. We are working on a common solution to Enriching and Storing both unstructured events and custom contexts.</p>
+
+<p>Please keep an eye on our <a href='https://github.com/snowplow/snowplow/wiki/Product-roadmap'>Roadmap wiki page</a> to see how Snowplow&#8217;s support for custom contexts (and unstructured events) evolves.</p>
+<h2><a name='currency'>2. New feature: transaction currencies</a></h2>
+<p>We have updated our ecommerce tracking methods to add support for setting the currency which the transaction took place in.</p>
+
+<p>The new <code>currency</code> argument is the penultimate argument (the last before <code>context</code>, see above) to both the <code>addTrans()</code> and <code>addItem()</code> methods. Use it like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addTrans&#39;</span><span class='p'>,</span>
+    <span class='s1'>&#39;1234&#39;</span><span class='p'>,</span>           <span class='c1'>// order ID - required</span>
+    <span class='s1'>&#39;Acme Clothing&#39;</span><span class='p'>,</span>  <span class='c1'>// affiliation or store name</span>
+    <span class='s1'>&#39;11.99&#39;</span><span class='p'>,</span>          <span class='c1'>// total - required</span>
+    <span class='s1'>&#39;1.29&#39;</span><span class='p'>,</span>           <span class='c1'>// tax</span>
+    <span class='s1'>&#39;5&#39;</span><span class='p'>,</span>              <span class='c1'>// shipping</span>
+    <span class='s1'>&#39;San Jose&#39;</span><span class='p'>,</span>       <span class='c1'>// city</span>
+    <span class='s1'>&#39;California&#39;</span><span class='p'>,</span>     <span class='c1'>// state or province</span>
+    <span class='s1'>&#39;USA&#39;</span><span class='p'>,</span>            <span class='c1'>// country</span>
+    <span class='s1'>&#39;USD&#39;</span>             <span class='c1'>// currency</span>
+  <span class='p'>]);</span>
+
+<span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;addItem&#39;</span><span class='p'>,</span>
+    <span class='s1'>&#39;1234&#39;</span><span class='p'>,</span>           <span class='c1'>// order ID - required</span>
+    <span class='s1'>&#39;DD44&#39;</span><span class='p'>,</span>           <span class='c1'>// SKU/code - required</span>
+    <span class='s1'>&#39;T-Shirt&#39;</span><span class='p'>,</span>        <span class='c1'>// product name</span>
+    <span class='s1'>&#39;Green Medium&#39;</span><span class='p'>,</span>   <span class='c1'>// category or variation</span>
+    <span class='s1'>&#39;11.99&#39;</span><span class='p'>,</span>          <span class='c1'>// unit price - required</span>
+    <span class='s1'>&#39;1&#39;</span><span class='p'>,</span>              <span class='c1'>// quantity - required</span>
+    <span class='s1'>&#39;USD&#39;</span>             <span class='c1'>// currency</span>
+  <span class='p'>]);</span>
+</code></pre></div>
+<p>Please make sure to pass in the valid <a href='http://en.wikipedia.org/wiki/ISO_4217#Active_codes'>ISO 4217</a> code for your currency. This will ensure that your ecommerce transactions are compatible with the currency conversion enrichment we are currently developing (see <a href='/blog/2014/01/17/scala-forex-library-released/'>this blog post</a> for details).</p>
+
+<p>Don&#8217;t forget to set the currency on <strong>both</strong> the parent transaction and its child items.</p>
+<h2><a name='platform'>3. New feature: specifying the tracking platform</a></h2>
+<p>Many thanks to community member <a href='https://github.com/rcs'>Ryan Sorensen</a> for contributing the new <code>setPlatform()</code> method.</p>
+
+<p>This allows you to override the default tracking platform (&#8220;web&#8221;) with another of the <a href='https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#11-application-parameters'>platform values supported in the Snowplow Tracker Protocol</a>. For example, to set the platform to &#8220;mob&#8221; for mobile:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setPlatform&#39;</span><span class='p'>,</span> <span class='s1'>&#39;mob&#39;</span><span class='p'>]);</span>
+</code></pre></div>
+<p>Thanks for your contribution Ryan!</p>
+<h2><a name='tidyup'>4. Project tidy-up</a></h2>
+<p>We have taken advantage of the move to a separate repository to perform some much needed tidy-up of the tracker codebase:</p>
 
 <ul>
-<li><a href='https://developers.google.com/bigquery'>Google Big Query</a> for fast analysis of massive data sets. (This could be very powerful for rapid analytics across Snowplow&#8217;s granular data)</li>
+<li>Added a complete <a href='https://github.com/snowplow/snowplow-javascript-tracker/blob/master/CHANGELOG'>historic CHANGELOG</a></li>
 
-<li><a href='http://skydb.io'>SkyDB</a> for event path analysis and other, broader types of event stream analytics</li>
+<li>Back-filled git tags for all of the tracker&#8217;s releases</li>
 
-<li><a href='http://www.postgresql.org'>PostgreSQL</a> for web analytics for web properties where the levels of traffic are not Facebook-scale</li>
-</ul>
-<!--more-->
-<p>There are significant advantages to storing data in Infobright instead of (or as well as) S3:</p>
+<li>Restructured the folders</li>
 
-<ul>
-<li>In many cases, query times are much faster</li>
+<li>Added a package.json</li>
 
-<li>There are a wide range of analytics tools that plug directly into Infobright. (Any tool that plugs into MySQL.) These can now be run directly on top of Snowplow data. (These tools include R and Tableau.)</li>
+<li>Added a node.js-friendly .gitignore</li>
 
-<li>For more details on the pros and cons of storage in S3 vs Infobright, see our <a href='https://github.com/snowplow/snowplow/wiki/choosing-a-storage-module'>guide to choosing between the two</a>.</li>
+<li>Added some useful helper functions</li>
 </ul>
 
-<p>As you can hopefully get a sense looking at our roadmap for other databases to support, there are obvious advantages to using some of the other databases on our roadmapGoing forwards, we expect that many companies using Snowplow will store that Snowplow data in more than one store, to enable a very broad range of analytics from different types of tools.</p>
+<p>As well as tidying up the repository, these updates should lay the groundwork for us replacing our custom <code>snowpak.sh</code> Bash build script with a Grunt-based build process in the <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues?milestone=3&amp;page=1&amp;state=open'>next release</a>.</p>
+<h2><a name='upgrading'>5. Upgrading</a></h2>
+<p>As always, the updated minified tracker is available here:</p>
 
-<h2 id='using_the_storageloader'>Using the StorageLoader</h2>
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.13.0/sp.js</code></pre>
 
-<p>You can configure StorageLoader with the details of the Infobright table to insert your Snowplow events into, and then you schedule StorageLoader (e.g. in a cronjob) to regularly download your Snowplow events and load them into Infobright. StorageLoader can run as soon as EmrEtlRunner has completed its job (and we include a script to run both in one go).</p>
+<p>Please note that as of this release, we are moving the Snowplow JavaScript Tracker to true <a href='http://semver.org/spec/v2.0.0.html'>semantic versioning</a>. This means that going forwards we are also making this tracker available as:</p>
 
-<p>With this setup, you will have your Snowplow events easily accessible and queryable in a local Infobright instance - but you can still fall back to querying the data in Hive if you wish.</p>
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0/sp.js</code></pre>
 
-<p>The following setup guides should be helpful in terms of setting up StorageLoader:</p>
+<p>where 0 is the semantic MAJOR version. If you prefer, you can use this URI path and then get new features and bug fixes automatically as we roll-out MINOR and PATCH updates to the tracker. Any breaking changes will mean a new MAJOR version, which will be hosted on <code>/1/sp.js</code>, i.e. it won&#8217;t break your existing installation.</p>
+<h2><a name='help'>6. Getting help</a></h2>
+<p>Check out the <a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.13.0'>v0.13.0 release page</a> on GitHub for the full list of changes made in this version.</p>
 
-<ul>
-<li><a href='https://github.com/snowplow/snowplow/wiki/infobright-storage-setup'>Infobright storage setup guide</a> walks you through the process of installing Infobright and setting it up to house Snowplow data</li>
-
-<li><a href='https://github.com/snowplow/snowplow/wiki/StorageLoader-setup'>StorageLoader setup guide</a> walks you through installing and configuring StorageLoader to regularly load Snowplow data into Infobright</li>
-</ul>
-
-<h2 id='the_codebase'>The codebase</h2>
-
-<p>If you want to take a look at the code, you can find it in the main repository here: <a href='https://github.com/snowplow/snowplow/tree/master/4-storage/storage-loader'>4-storage/storage-loader/</a></p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>If you have any problems getting StorageLoader working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-
-<h2 id='other_fixes_in_060'>Other fixes in 0.6.0</h2>
-
-<p>We have made a number of other fixes across Snowplow to prepare the ground for StorageLoader:</p>
-
-<p><strong>EmrEtlRunner</strong> has been bumped to 0.0.5, including upgrading it to Sluice 0.0.4 (which has some bug fixes around S3 path handling).</p>
-
-<p>The <strong>Hive deserializer</strong> has been bumped to 0.5.1, and now outputs booleans such as <code>br_cookies</code> as 0 or 1 (instead of true or false) for the non-Hive output.</p>
-
-<p>The <strong>non-Hive format HiveQL script</strong> has been bumped to 0.0.2 and now uses the new 0 or 1 approach to booleans. This is necessary so that true/false values can be successfully loaded into Infobright.</p>
-
-<p>The <strong>setup_infobright.sql</strong> script has been bumped to 0.0.2 - we have changed the columns defined as booleans to be tinyint(1)s. This is just a formality, because Infobright creates &#8216;boolean&#8217; columns as tinyint(1)s anyway.</p>
-
-<p>We will keep you posted as we roll out support for additional database options in StorageLoader! (And welcome suggestinos for other databases we should build support for.)</p>
+<p>As always, if you run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

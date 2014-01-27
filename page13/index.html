@@ -69,6 +69,61 @@
 			<div id="contents">
 	
 		<div class="post">
+			25 Feb 2013
+			<h1><a href="/blog/2013/02/25/snowplow-0.7.5-released-with-important-javascript-fix">Snowplow 0.7.5 released with important JavaScript fix</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are releasing Snowplow version <strong>0.7.5</strong> - which upgrades the JavaScript tracker to version <strong>0.11.1</strong>. This is a small but important release - because we are fixing an issue introduced in Snowplow version a month ago: <strong>if you are on versions 0.9.1 to 0.11.0 of the JavaScript tracker, please upgrade!</strong></p>
+
+<p>Essentially, version 0.9.1 of the JavaScript tracker (released in Snowplow 0.7.2) fixed <a href='https://github.com/snowplow/snowplow/pull/147'>an old bug</a> which we inherited from the Piwik JavaScript tracker when we forked it early last year; this bug was stopping the secure flag from being set on Snowplow&#8217;s first-party cookies when sent via HTTPS pages.</p>
+
+<p>Unfortunately, fixing this bug caused a larger problem: sending cookies securely from HTTPS pages meant that HTTP pages could no longer read the cookies, causing the cookies to be regenerated. As a result, Snowplow&#8217;s <code>domain_userid</code> field (the first-party user ID) was being <strong>reset</strong> when a user browsed from an HTTPS page (e.g. checkout) back to an HTTP page.</p>
+
+<p>So, this release fixes <a href='https://github.com/snowplow/snowplow/issues/181'>a nasty bug</a>. Thanks to the Piwik team for their help in brainstorming this problem!</p>
+
+<p>Please update your website(s) to use the latest version of the JavaScript tracker, which is version 0.11.1. As always, the updated minified tracker is available here:</p>
+
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.11.1/sp.js</code></pre>
+
+<p>As always, if you do run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+		</div>
+	
+		<div class="post">
+			22 Feb 2013
+			<h1><a href="/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics">Snowplow 0.7.4 released for better eventstream analytics</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Another week, another release! We&#8217;re excited to announce Snowplow version <strong>0.7.4</strong>. The primary purpose of this release is to clean up and rationalise our event data model, in particular around <strong>user IDs</strong> and <strong>event timestamps</strong>. This release should lay the foundations for more sophisticated eventstream analytics (such as funnel analysis), by:</p>
+
+<ul>
+<li>Enabling companies to assign custom user IDs (e.g. when a customer logs on)</li>
+
+<li>Distinguish between IDs set at a domain level (via first-party cookies) and at a network level (via third-party cookies)</li>
+
+<li>Enable precise ordering of events in a user&#8217;s click stream with accuracy correct to the milli-second</li>
+</ul>
+
+<p>Many thanks to Snowplow users <a href='http://www.simplybusiness.co.uk/'>Simply Business</a> and <a href='https://github.com/shermozle'>Simon Rumble</a> (APN) for suggesting many of these changes and helping us to design them.</p>
+
+<p>In this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#user-ids'>Our new user IDs</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#event-tstamps'>Our new event timestamps</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#bug-fixes'>Bug fixes</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#deprecations'>Breaking changes</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics#help'>Getting help</a></li>
+</ol>
+
+<p>Read on below the fold to find out more!</p>
+<p class='more'><a href='/blog/2013/02/22/snowplow-0.7.4-released-for-better-eventstream-analytics'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			20 Feb 2013
 			<h1><a href="/blog/2013/02/20/transferring-data-from-s3-to-redshift-at-the-command-line">Bulk loading data from Amazon S3 into Redshift at the command line</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -174,34 +229,6 @@
 <p class='more'><a href='/blog/2013/02/15/snowplow-0.7.3-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			08 Feb 2013
-			<h1><a href="/blog/2013/02/08/writing-hive-udfs-and-serdes">Writing Hive UDFs - a tutorial</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p><em>Snowplow&#8217;s own <a href='https://github.com/alexanderdean'>Alexander Dean</a> was recently asked to write an article for the <a href='http://sdjournal.org/apache-hadoop-ecosystem/?a_aid=bartoszmiedeksza&amp;a_bid=45f0d439'>Software Developer&#8217;s Journal edition on Hadoop</a> The kind folks at the Software Developer&#8217;s Journal have allowed us to reprint his article in full below.</em></p>
-
-<p><em>Alex started writing Hive UDFs as part of the process to write the <a href='https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers'>Snowplow log deserializer</a> - the custom SerDe used to parse Snowplow logs generated by the Cloudfront and Clojure collectors so they can be processed in the Snowplow ETL step.</em></p>
-
-<h2 id='article_synopsis'>Article Synopsis</h2>
-
-<p>In this article you will learn how to write a user-defined function (&#8220;UDF&#8221;) to work with the Apache Hive platform. We will start gently with an introduction to Hive, then move on to developing the UDF and writing tests for it. We will write our UDF in Java, but use Scala&#8217;s SBT as our build tool and write our tests in Scala with Specs2.</p>
-
-<p>In order to get the most out of this article, you should be comfortable programming in Java. You do not need to have any experience with Apache Hive, HiveQL (the Hive query language) or indeed Hive UDFs - I will introduce all of these concepts from first principles. Experience with Scala is advantageous, but not necessary.</p>
-<p class='more'><a href='/blog/2013/02/08/writing-hive-udfs-and-serdes'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			04 Feb 2013
-			<h1><a href="/blog/2013/02/04/help-us-build-out-the-snowplow-event-model">Help us build out the Snowplow Event Model</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>At its beating heart, Snowplow is a platform for capturing, storing and analysing event-data, with a real focus on web event data.</p>
-
-<p>Working out how best to structure the Snowplow event data is key to making Snowplow a success. One of the things that has surprised us, since we started working on Snowplow, is the extent to which our view of the best way to structure that data has changed over time.</p>
-
-<p>In this blog post, we outline our vision for the Snowplow event data model. We do so to elicit feedback and invite collaboration with the wider Snowplow community. Developing a data model that will work well for <strong>everyone</strong> will only be possible with input from a broad set of people from a wide range of companies performing analytics on a wide range of businesses. We&#8217;ve been fortunate to work with a wide range of businesses who&#8217;ve helped shape our thinking so far. We hope to talk to many more to help us on our journey to develop the Snowplow Event Model.</p>
-<p class='more'><a href='/blog/2013/02/04/help-us-build-out-the-snowplow-event-model'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -221,15 +248,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -255,15 +282,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

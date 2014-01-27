@@ -69,6 +69,58 @@
 			<div id="contents">
 	
 		<div class="post">
+			27 Jan 2014
+			<h1><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re pleased to announce the immediate availability of the <a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.13.0'>Snowplow JavaScript Tracker version 0.13.0</a>. This is the first new release of the Snowplow JavaScript Tracker since separating it from the main Snowplow repository last year.</p>
+
+<p>The primary objective of this release was to introduce some key new tracking capabilities, in preparation for adding these to our Enrichment process. Secondarily, we also wanted to perform some outstanding housekeeping and tidy-up of the newly-independent repository.</p>
+
+<p>In the rest of this post, then, we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts'>New feature: custom contexts</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#currency'>New feature: transaction currencies</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#platform'>New feature: specifying the tracking platform</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#tidyup'>Project tidy-up</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#upgrading'>Upgrading</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#help'>Getting help</a></li>
+</ol>
+<p class='more'><a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
+			27 Jan 2014
+			<h1><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Earlier today we <a href='/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/'>announced the release of Snowplow JavaScript Tracker 0.13.0</a>, which updated all of our <code>track...()</code> methods to support a new argument for setting custom JSON contexts.</p>
+
+<p>In our earlier blog post we introduced the idea of custom contexts only very briefly. In this blog post, we will take a detailed look at Snowplow&#8217;s custom contexts functionality, so you can understand how best to attach custom contexts to your existing Snowplow events.</p>
+
+<p>Understanding the custom context format is important because our Enrichment process does not yet extract custom contexts, so you will not get any feedback yet from the Enrichment process as to whether you are adding them correctly; nor do we have validation for custom context properties in our JavaScript Tracker yet.</p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#sigs'>Updated method signatures</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#contexts'>The <code>contexts</code> JavaScript object</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#eg'>A detailed example</a></li>
+
+<li><a href='/blog/2014/01/27/snowplow-custom-contexts-guide/#help'>Getting help</a></li>
+</ol>
+
+<p>Let&#8217;s get started after the jump.</p>
+<p class='more'><a href='/blog/2014/01/27/snowplow-custom-contexts-guide'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			21 Jan 2014
 			<h1><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -147,42 +199,6 @@
 <p class='more'><a href='/blog/2014/01/17/scala-forex-library-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			15 Jan 2014
-			<h1><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p><em>Of all the developments on the Snowplow roadmap, the one that we are most excited about is porting the Snowplow data pipeline to Amazon Kinesis to deliver real-time data processing. We will publish a separate post outlining why we are so excited about this. (Hint: it&#8217;s about a lot more than simply real-time analytics on Snowplow data.) This blog post is intended to provide a starting point for developers who are interested in diving into Kinesis.</em></p>
-
-<p>In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis using two very simple Kinesis apps:</p>
-
-<ol>
-<li>The <a href='https://github.com/snowplow/kinesis-example-scala-producer'>kinesis-example-scala-producer</a>: this will create a Kinesis stream and write records to it</li>
-
-<li>The <a href='https://github.com/snowplow/kinesis-example-scala-producer'>kinesis-example-scala-consumer</a>: this will consume the Kinesis stream created by the producer</li>
-</ol>
-
-<p>The source code for both is available on the <a href='https://github.com/snowplow'>Snowplow repo</a>.</p>
-<p class='more'><a href='/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide'>Read the rest of this entry</a></p>
-		</div>
-	
-		<div class="post">
-			08 Jan 2014
-			<h1><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>We are very pleased to announce the release of Snowplow 0.8.13. This release makes it easy for Snowplow users to get started analyzing their Snowplow data with <a href='http://looker.com/'>Looker</a>, by providing an initial Snowplow data model for Looker so that a whole host of standard dimensions, metrics, entities and events are recognized in the Looker query interface.</p>
-<a href='/static/img/blog/2014/01/looker/7-days-dashboard-quickstart.JPG'><img src='/static/img/blog/2014/01/looker/7-days-dashboard-quickstart.JPG' title='7 day web analytics dashboard built with Snowplow data and Looker UI' /></a>
-<p>In this post we will cover:</p>
-
-<ol>
-<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#special'>What&#8217;s so special about analyzing Snowplow data with Looker?</a></li>
-
-<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#what'>What does the Looker metadata model deliver?</a></li>
-
-<li><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support/#install'>How to install the metadata model</a></li>
-</ol>
-<p class='more'><a href='/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -200,15 +216,15 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+		
+			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
-			<li><a href="/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide">Amazon Kinesis tutorial - a getting started guide</a></li>
-		
-			<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 		
 	</ul>
 
@@ -234,15 +250,15 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
+			
+				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
+			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
-			
-				<li><a href="/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements">Snowplow 0.8.12 released with a variety of improvements to the Scalding Enrichment process</a></li>
-			
-				<li><a href="/blog/2013/10/22/snowplow-0.8.11-released-supports-all-cloudfront-file-formats-and-other-improvements">Snowplow 0.8.11 released - supports all Cloudfront log file formats and host of small improvements for power users</a></li>
 			
 		
 		</ul>		

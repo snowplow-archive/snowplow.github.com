@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-27T18:47:30+00:00</updated>
+  <updated>2014-01-28T17:51:32+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -136,9 +136,9 @@
 
 &lt;p&gt;As well as tidying up the repository, these updates should lay the groundwork for us replacing our custom &lt;code&gt;snowpak.sh&lt;/code&gt; Bash build script with a Grunt-based build process in the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues?milestone=3&amp;amp;page=1&amp;amp;state=open'&gt;next release&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;&lt;a name='upgrading'&gt;5. Upgrading&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;As always, the updated minified tracker is available here:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;UPDATED&lt;/strong&gt; After an important post-release bug fix, the updated minified tracker is available here:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.13.0/sp.js&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Please note that as of this release, we are moving the Snowplow JavaScript Tracker to true &lt;a href='http://semver.org/spec/v2.0.0.html'&gt;semantic versioning&lt;/a&gt;. This means that going forwards we are also making this tracker available as:&lt;/p&gt;
 

@@ -69,6 +69,30 @@
 			<div id="contents">
 	
 		<div class="post">
+			30 Sep 2013
+			<h1><a href="/blog/2013/09/30/book-review-instant-hive-essentials-how-to">Book review - Apache Hive Essentials How-to</a></h1>
+			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
+			<p>Although it is no longer part of the core Snowplow stack, Apache Hive is the gateway drug that got us started on Hadoop. As some of our <a href='http://snowplowanalytics.com/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data/'>recent</a> <a href='http://snowplowanalytics.com/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/'>blog posts</a> testify, Hive is still very much a part of our big data toolkit, and this will continue as we use it to roll out new features. (E.g. for analyzing custom unstructured events.) I suspect that many Hadoopers started out with Hive, before experimenting with the myriad other tools to crunch data using Hadoop.</p>
+
+<p>We were therefore delighted to be invited to review <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>Apache Hive Essentials How-to</a>, a new guide to Hive written by Darren Lee from <a href='http://www.bizo.com/home'>Bizo</a>.</p>
+<a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>
+	<img src='/static/img/blog/2013/09/instant-apache-hive-essentials.png' title='Hive how to guide' />
+</a>
+<p>For me, there are two totally different categories of technical book that I enjoy in completely different ways:</p>
+
+<ol>
+<li>Books that help me use tools more effectively: so I do more in less time.</li>
+
+<li>Books that change the way I see the tools I use. These books step back from the practicalities of using the particular tools they cover to situate them in their proper context, and compare their usage with other tools. My favorite example in this cateogry is <a href='http://pragprog.com/book/btlang/seven-languages-in-seven-weeks'>Seven Languages in Seven Weeks</a>.</li>
+</ol>
+
+<p>Often, technical books fail because they try and accomplish <em>both</em> of the above.</p>
+
+<p>Fortunately, that is <strong>not</strong> true of the <a href='http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention'>Apache Hive Essentials How-to</a>. This is an uncompromisingly practical, focused book, that makes essential reading for anyone working with Hive.</p>
+<p class='more'><a href='/blog/2013/09/30/book-review-instant-hive-essentials-how-to'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			27 Sep 2013
 			<h1><a href="/blog/2013/09/27/how-much-does-snowplow-cost-to-run">How much does Snowplow cost to run, vs the competition?</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -165,44 +189,6 @@
 <p class='more'><a href='/blog/2013/09/03/using-qubole-to-analyze-snowplow-web-data'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			12 Aug 2013
-			<h1><a href="/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar">Towards universal event analytics - building an event grammar</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>As we outgrow our &#8220;fat table&#8221; structure for Snowplow events in Redshift, we have been spending more time thinking about how we can model digital events in Snowplow in the most universal, flexible and future-proof way possible.</p>
-
-<p>When we blogged about <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>building out the Snowplow event model</a> earlier this year, a comment left on that post by <a href='https://twitter.com/mglcel'>Loïc Dias Da Silva</a> made us realize that we were missing an even more fundamental point: defining a Snowplow event <strong>grammar</strong> to underpin our Snowplow event dictionary. Here is part of Loïc&#8217;s excellent comment - although I would encourage you to read it in full <a href='http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/'>on the blog post</a>:</p>
-
-<p><em>Hi, we&#8217;re also working on an event model for our global eventing platform but our events currently are more macro, inspired by RDF in a sense:</em></p>
-
-<p><em>An Actor(id/type) made and Action(verb, context) on another Object(id/type).</em></p>
-
-<p><em>Each Actor, Action and Object can hold k/v properties.</em></p>
-
-<p><em>The context itself, owned by the action, is a k/v dictionary.</em></p>
-
-<p>So in designing his event grammar, Loïc was influenced by the <a href='http://en.wikipedia.org/wiki/Resource_Description_Framework'>Resource Description Framework</a>, the W3C specifications for modelling relationships to web resources.</p>
-
-<p>An event grammar inspired by RDF is certainly interesting, but I am using a much older, more sophisticated and more tested &#8220;event grammar&#8221; to write this sentence: the <strong>grammar of human language</strong>. Why not start, then, from the core grammar underpinning English, Latin, Greek, German and other languages to see just how far this approach can take us in modelling events in the digital world?</p>
-
-<p>So, in the rest of this post we will:</p>
-
-<ol>
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#grammar'>Introduce the components of our grammar</a></li>
-
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#ecommerce'>Model some ecommerce events</a></li>
-
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#videogame'>Model some videogame events</a></li>
-
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#media'>Model some digital media events</a></li>
-
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#learnings'>Discuss what we have learnt</a></li>
-
-<li><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar#conc'>Draw some conclusions</a></li>
-</ol>
-<p class='more'><a href='/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -222,6 +208,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
+		
 			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
 		
 			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
@@ -230,14 +218,14 @@
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
-			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
 			
 				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
@@ -246,8 +234,6 @@
 				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
 		
 		</ul>		

@@ -69,6 +69,36 @@
 			<div id="contents">
 	
 		<div class="post">
+			27 Nov 2012
+			<h1><a href="/blog/2012/11/27/snowplow-0.6.1-released">Snowplow 0.6.1 released, with lots of small improvements</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.1</strong>. This release includes updates:</p>
+
+<ol>
+<li><strong>Additional data collection</strong>. The Javascript tracker has been updated to capture additional data points, including a user fingerprint (which can be used as a <code>user_id</code> for companies tracking users across domains), the tracker version, browser timezone and color depth</li>
+
+<li><strong>Javascript tracker updates</strong>. A number of updates have been made to make the Javascript tracker more robust</li>
+
+<li><strong>Updates to the ETL flow</strong> so that the <code>user_agent</code> string and <code>platform</code> captured and stored in Hive / Infobright</li>
+
+<li><strong>Improved EmrEtlRunner command line options</strong> now provide more flexibility when writing your data to storage</li>
+
+<li><strong>Bug fixes</strong> related to loading Snowplow data into Infobright</li>
+</ol>
+
+<p>Before we start - a big thanks to the community members who helped out on this release in a big way:</p>
+
+<ul>
+<li><a href='https://github.com/ramn'>Simon Andersson</a> @ <a href='http://www.qwaya.com'>Qwaya</a> substantially re-factored the JavaScript tracker, splitting it into multiple smaller files, which made our work significantly easier :-)</li>
+
+<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> contributed the user fingerprinting code - thanks Gilles!</li>
+
+<li><a href='https://github.com/mtibben'>Michael Tibben</a> @ <a href='http://99designs.com'>99designs</a> continued his great work on EmrEtlRunner with improved command line options</li>
+</ul>
+<p class='more'><a href='/blog/2012/11/27/snowplow-0.6.1-released'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			16 Nov 2012
 			<h1><a href="/blog/2012/11/16/integrating-snowplow-with-google-tag-manager">Integrating Snowplow with Google Tag Manager</a></h1>
 			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
@@ -173,36 +203,6 @@
 <p class='more'><a href='/blog/2012/11/01/snowplow-0.5.1-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			31 Oct 2012
-			<h1><a href="/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow">Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow</a></h1>
-			 <span class="author">Author: <a href="/yali.html" rel="author">Yali Sassoon </a></span>
-			<p>Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as <a href='http://cutroni.com/blog/2012/10/29/universal-analytics-the-next-generation-of-google-analytics/'>Universal Analytics</a>. In this post, we look at:</p>
-
-<ol>
-<li><a href='#what'>The actual features Google has announced</a></li>
-
-<li><a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow'>How those advances change the case for companies considering adopting Snowplow</a></li>
-</ol>
-
-<p><img alt='universal-analytics-image' src='/static/img/google-analytics-universal-analytics.png' /></p>
-<a name='what'><h2>1. What changes has Google announced?</h2></a>
-<p>The most significant change Google has announced is the new <a href='https://developers.google.com/analytics/devguides/collection/protocol/v1/'>Measurement Protocol</a>, which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what <a href='#new-data-points'>new data points</a> businesses can <em>feed</em> GA, before considering <a href='/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities'>what that means for GA&#8217;s reporting capabilities</a>.</p>
-<a name='new-data-points'><h3>1.1 Custom user identifiers</h3></a>
-<p>The first new data points that businesses can feed into Google Analytics is a user&#8217;s <code>client_id</code> (basically, a customer ID) as defined on the business&#8217;s own systems.</p>
-
-<p>Previously, Google Analytics identified unique users using their own <code>cookie_id</code>s. Google&#8217;s <code>cookie_id</code>s are an excellent starting point for identifying users, because so many users have Google accounts (thanks to their myriad mass-market services, including Gmail, YouTube, Google Play etc): consumers using these services on multiple devices identify themselves to Google when they login, meaning that Google can marry their <code>cookie_id</code>s for these users on all the different devices they use. Our assumption is that Google already use this to reliably identify individual users across multiple platforms and devices.</p>
-
-<p>For businesses using GA, being able to augment Google&#8217;s user identification with their own internal <code>client_id</code>s is a significant step forwards for two reasons:</p>
-
-<ol>
-<li>Many GA users (especially those with applications or properties where users login, or those with a loyalty card scheme) can identify their own users reliably on specific platforms, devices and physical stores. By adding this additional user identification data into GA, GA will be more accurate at identifying the same user in different places reliably, moving us further from a world in which we rely on persistent cookies dropped on browsers with unique identifiers, to one where users are more robustly identified via logins, payments and loyalty schemes. These approaches will still use cookies, but as part of a broader set of user identification business processes that actively involve the user in the identification process</li>
-
-<li>It should make it easier for GA users to join GA data with other customer data sets on those <code>client_id</code>s. This is more of a nuanced point, as it was still possible previously to add customer IDs to GA as custom variables and use that to do joining</li>
-</ol>
-<p class='more'><a href='/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -222,6 +222,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
+		
 			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
 		
 			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
@@ -230,14 +232,14 @@
 		
 			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
-			<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-		
 	</ul>
 
 	
 		<h1>Other</h1>
 		<ul>
 		
+			
+				<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
 			
 				<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 			
@@ -246,8 +248,6 @@
 				<li><a href="/blog/2013/11/11/round-up-and-thank-you-for-the-budapest-bi-conference-last-week">A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile</a></li>
 			
 				<li><a href="/blog/2013/10/28/yali-and-alex-introduce-snowplow-to-code-n">Our video introduction of Snowplow to code_n</a></li>
-			
-				<li><a href="/blog/2013/10/23/snowplow-team-in-budapest-to-speak-at-open-analytics-conference">Join the Snowplow team in Budapest the first week of November</a></li>
 			
 		
 		</ul>		

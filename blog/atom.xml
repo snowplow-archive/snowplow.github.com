@@ -4,13 +4,57 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-28T17:51:32+00:00</updated>
+  <updated>2014-01-30T19:52:49+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/01/30/inaugural-amazon-kinesis-meetup</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/01/30/inaugural-amazon-kinesis-meetup"/>
+    <title>Inaugural meetup of the Amazon Kinesis - London User Group</title>
+    <updated>2014-01-30T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Yesterday evening saw the &lt;a href='http://www.meetup.com/kinesis-london/events/155043952/'&gt;inaugural meetup&lt;/a&gt; of the &lt;a href='http://www.meetup.com/kinesis-london/'&gt;London User Group for Amazon Kinesis&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At Snowplow we have been working with &lt;a href='http://aws.amazon.com/kinesis/'&gt;Kinesis&lt;/a&gt; since its first announcement, and we were keen to organize a Kinesis-centric meetup for the tech community here in London and the South-East. And it looks like our excitement about Kinesis is widely shared - there were almost 40 &amp;#8220;Kinetics&amp;#8221; attending the first meetup. Huge thanks to &lt;a href='http://www.just-eat.co.uk/'&gt;Just Eat&lt;/a&gt; for hosting all of us in their offices and keeping us all fed with pizza and beer!&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='kinesis-meetup' src='/static/img/blog/2014/01/kinesis-meetup.jpg' /&gt;&lt;/p&gt;
+
+&lt;p&gt;More on the talks after the jump:&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;There were two talks at the event:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://twitter.com/IanMeyers'&gt;Ian Meyers&lt;/a&gt;, Solutions Architect at AWS, gave an excellent introduction to Amazon Kinesis. Ian took us through the main envisaged use cases, the key technical concepts and some example application architectures, before fielding a great set of questions&lt;/li&gt;
+
+&lt;li&gt;I gave a talk on &amp;#8220;Snowplow and Kinesis&amp;#8221;. I briefly introduced Snowplow, explained why we were excited about Kinesis (drawing on my &lt;a href='http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing/'&gt;&amp;#8220;three eras&amp;#8221; blog post&lt;/a&gt;) and then set out how we are updating Snowplow to run on Kinesis. I concluded with a live demo of what we have running on Kinesis so far&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It was particularly encouraging to see so many great questions asked by the participants - there was clearly a ton of stream processing and message queue expertise in the room! It was also great to chat to people already trialling Kinesis.&lt;/p&gt;
+
+&lt;p&gt;The slides I presented are below:&lt;/p&gt;
+&lt;iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/30634807' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='476'&gt; &lt;/iframe&gt;&lt;div style='margin-bottom:5px'&gt; &lt;strong&gt; &lt;a href='http://www.slideshare.net/alexanderdean/kinesis-meetup-1' target='_blank' title='Snowplow presentation to London Kinesis UG'&gt;Snowplow presentation to London Kinesis UG&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href='http://www.slideshare.net/alexanderdean' target='_blank'&gt;alexanderdean&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
+&lt;p&gt;The live demo gave a sneak peak at the two new Kinesis-based Snowplow components coming in &lt;a href='https://github.com/snowplow/snowplow/issues?milestone=33&amp;amp;page=1&amp;amp;state=closed'&gt;version 0.9.0&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The new Scala Stream Collector - running on my laptop, receiving Snowplow raw events over HTTP and putting them to a Kinesis raw events stream&lt;/li&gt;
+
+&lt;li&gt;The new Scala Kinesis Enrich - running on an EC2 box, receiving Snowplow raw events from Kinesis and putting them to a Snowplow enriched events stream&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I&amp;#8217;m afraid that I don&amp;#8217;t (yet!) have a way of recreating or sharing the live demo - this is something we will hopefully come back to following the 0.9.0 release.&lt;/p&gt;
+
+&lt;p&gt;It was a great evening - and hopefully the first of many as the Kinesis community takes shape here in the UK! A big thank you to Peter Mounce and the Just Eat Engineering team for being such excellent hosts, and a warm thanks for Ian Meyers for giving us the inside track on Amazon Kinesis!&lt;/p&gt;
+
+&lt;p&gt;Do please &lt;a href='http://www.meetup.com/kinesis-london/'&gt;join the group&lt;/a&gt; to be kept up-to-date with upcoming meetups, and if you would like to give a talk, email us on &lt;a href='mailto:kinesis-ug@snowplowanalytics.com'&gt;kinesis-ug@snowplowanalytics.com&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts</id>

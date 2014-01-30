@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.5.1 released, with lots of small improvements - Snowplow Analytics</title>
+	<title>Inaugural meetup of the Amazon Kinesis - London User Group - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,62 +68,42 @@
 	
 			<div id="contents">
 		<div class="post">
-			01 Nov 2012
-			<h1>Snowplow 0.5.1 released, with lots of small improvements</h1>
+			30 Jan 2014
+			<h1>Inaugural meetup of the Amazon Kinesis - London User Group</h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We have just released Snowplow <strong>0.5.1</strong>! Rather than one large new feature, version 0.5.1 is an incremental release which contains lots of small fixes and improvements to the ETL and storage sub-systems. The two big themes of these updates are:</p>
+			<p>Yesterday evening saw the <a href='http://www.meetup.com/kinesis-london/events/155043952/'>inaugural meetup</a> of the <a href='http://www.meetup.com/kinesis-london/'>London User Group for Amazon Kinesis</a>.</p>
 
-<ol>
-<li>Improving the robustness of the ETL process</li>
+<p>At Snowplow we have been working with <a href='http://aws.amazon.com/kinesis/'>Kinesis</a> since its first announcement, and we were keen to organize a Kinesis-centric meetup for the tech community here in London and the South-East. And it looks like our excitement about Kinesis is widely shared - there were almost 40 &#8220;Kinetics&#8221; attending the first meetup. Huge thanks to <a href='http://www.just-eat.co.uk/'>Just Eat</a> for hosting all of us in their offices and keeping us all fed with pizza and beer!</p>
 
-<li>Laying the foundations for loading Snowplow events into <a href='http://www.infobright.org/'>Infobright Community Edition</a> (ICE)</li>
-</ol>
+<p><img alt='kinesis-meetup' src='/static/img/blog/2014/01/kinesis-meetup.jpg' /></p>
 
-<p>To take each of these themes in turn:</p>
-
-<h2 id='1_a_more_robust_etl_process'>1. A more robust ETL process</h2>
-
-<p>The Hive deserializer now has improved error handling - many thanks to community member <a href='https://github.com/mtibben'>Michael Tibben</a> from <a href='http://99designs.com'>99designs</a> for his help here!</p>
-
-<p>Firstly, the Hive deserializer is now setup to log warnings (rather than die) on non-critical data quality issues.</p>
-
-<p>Additionally, there is now an option (switched off by default) to continue processing even on unexpected row-level errors (such as an input file not matching the expected CloudFront format). We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> to support this:</p>
-
-<pre><code>:etl:
-  :continue_on_unexpected_error: false</code></pre>
+<p>More on the talks after the jump:</p>
 <!--more-->
-<p>Switch this to &#8216;true&#8217; to continue processing on unexpected row-level errors.</p>
+<p>There were two talks at the event:</p>
 
-<h2 id='2_groundwork_for_infobright_compatibility'>2. Groundwork for Infobright compatibility</h2>
+<ul>
+<li><a href='https://twitter.com/IanMeyers'>Ian Meyers</a>, Solutions Architect at AWS, gave an excellent introduction to Amazon Kinesis. Ian took us through the main envisaged use cases, the key technical concepts and some example application architectures, before fielding a great set of questions</li>
 
-<p>We have added a table definition (and supporting scripts) for setting up a Snowplow events table in Infobright - you can find these in the main repository under <a href='https://github.com/snowplow/snowplow/tree/master/4-storage/infobright-storage'><code>snowplow/4-storage/infobright-storage</code></a>.</p>
+<li>I gave a talk on &#8220;Snowplow and Kinesis&#8221;. I briefly introduced Snowplow, explained why we were excited about Kinesis (drawing on my <a href='http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing/'>&#8220;three eras&#8221; blog post</a>) and then set out how we are updating Snowplow to run on Kinesis. I concluded with a live demo of what we have running on Kinesis so far</li>
+</ul>
 
-<p>Some early ETL design decisions meant that the Snowplow event files being generated before 0.5.1 were not compatible with being loaded into Infobright (or similar relational databases like Postgres or MySQL). We have made some updates to the ETL process in 0.5.1 to fix this:</p>
+<p>It was particularly encouraging to see so many great questions asked by the participants - there was clearly a ton of stream processing and message queue expertise in the room! It was also great to chat to people already trialling Kinesis.</p>
+
+<p>The slides I presented are below:</p>
+<iframe frameborder='0' height='400' marginheight='0' marginwidth='0' scrolling='no' src='http://www.slideshare.net/slideshow/embed_code/30634807' style='border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px' width='476'> </iframe><div style='margin-bottom:5px'> <strong> <a href='http://www.slideshare.net/alexanderdean/kinesis-meetup-1' target='_blank' title='Snowplow presentation to London Kinesis UG'>Snowplow presentation to London Kinesis UG</a> </strong> from <strong><a href='http://www.slideshare.net/alexanderdean' target='_blank'>alexanderdean</a></strong> </div>
+<p>The live demo gave a sneak peak at the two new Kinesis-based Snowplow components coming in <a href='https://github.com/snowplow/snowplow/issues?milestone=33&amp;page=1&amp;state=closed'>version 0.9.0</a>:</p>
 
 <ol>
-<li>In the Hive deserializer, we now convert tabs to 4 spaces to prevent a stray tab from breaking our load into Infobright</li>
+<li>The new Scala Stream Collector - running on my laptop, receiving Snowplow raw events over HTTP and putting them to a Kinesis raw events stream</li>
 
-<li>Databases like Infobright don&#8217;t support Hive&#8217;s <code>ARRAY&lt;STRING&gt;</code> syntax, so we have updated the Hive deserializer to also output individual booleans for the browser features, alongside the browser features array</li>
-
-<li>We have created a new HiveQL script which outputs Snowplow event files in a format which can be easily loaded into Infobright - this is called <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/hive-etl/hiveql/non-hive-rolling-etl.q'><code>non-hive-rolling-etl.q</code></a></li>
-
-<li>We have added a configuration option to the EmrEtlRunner&#8217;s <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration file</a> so that you can choose whether to output Hive-format or non-Hive-format event files</li>
+<li>The new Scala Kinesis Enrich - running on an EC2 box, receiving Snowplow raw events from Kinesis and putting them to a Snowplow enriched events stream</li>
 </ol>
 
-<p>On point 4: we believe that most people will want to load their Snowplow event files into other database systems, such as Infobright (or eventually, Postgres, Google BigQuery, SkyDB etc). Therefore, the default setting for the <a href='https://github.com/snowplow/snowplow/blob/master/3-etl/emr-etl-runner/config/config.yml'>configuration option</a> in the EmrEtlRunner is to output your Snowplow event files in the non-Hive-format:</p>
+<p>I&#8217;m afraid that I don&#8217;t (yet!) have a way of recreating or sharing the live demo - this is something we will hopefully come back to following the 0.9.0 release.</p>
 
-<pre><code>:etl:
-  :storage_format: non-hive</code></pre>
+<p>It was a great evening - and hopefully the first of many as the Kinesis community takes shape here in the UK! A big thank you to Peter Mounce and the Just Eat Engineering team for being such excellent hosts, and a warm thanks for Ian Meyers for giving us the inside track on Amazon Kinesis!</p>
 
-<p>As the comment says, if you will <strong>only</strong> be doing analysis in Hive, you could switch this setting to &#8216;hive&#8217; and benefit from the slightly-tweaked, Hive-friendly file format.</p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>If you have any problems getting version 0.5.1 working, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
-
-<h2 id='in_the_pipeline'>In the pipeline</h2>
-
-<p>At Snowplow we want to support multiple different storage and analytics options for Snowplow events, alongside our current Hive-based approach. This version 0.5.1 provides the building blocks for our Infobright support - for the next release, we are working on a Storage Loader component to download your event files from Amazon S3 and load them into your local Infobright instance. We&#8217;ll keep you posted on our progress here!</p>
+<p>Do please <a href='http://www.meetup.com/kinesis-london/'>join the group</a> to be kept up-to-date with upcoming meetups, and if you would like to give a talk, email us on <a href='mailto:kinesis-ug@snowplowanalytics.com'>kinesis-ug@snowplowanalytics.com</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
 				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">

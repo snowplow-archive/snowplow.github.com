@@ -69,6 +69,33 @@
 			<div id="contents">
 	
 		<div class="post">
+			16 Jan 2013
+			<h1><a href="/blog/2013/01/16/scala-maxmind-geoip-released">Scala MaxMind GeoIP library released</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>A short blog post this, to announce the release of <a href='https://github.com/snowplow/scala-maxmind-geoip'><strong>Scala MaxMind GeoIP</strong></a>, our Scala wrapper for the MaxMind <a href='http://www.maxmind.com/download/geoip/api/java/'>Java Geo-IP</a> library.</p>
+
+<p>We have extracted Scala MaxMind GeoIP from our current (ongoing) work porting our ETL process from Apache Hive to <a href='https://github.com/twitter/scalding'>Scalding</a>. We extracted this as a separate library for two main reasons:</p>
+
+<ol>
+<li><strong>Being good open-source citizens</strong> - as with our <a href='https://github.com/snowplow/referer-parser'>referer-parser</a> library, we believe this library willl be useful to the wider community of software developers, not just Snowplow users</li>
+
+<li><strong>Keeping Snowplow&#8217;s footprint small</strong> - at Snowplow we believe very strongly in building modular, loosely-coupled software. Massive monolithic systems that &#8216;do everything&#8217; are a nightmare to test, maintain and extend - so we prefer to build small, standalone components and libraries which we (and the community) can then compose into larger pipelines and processes</li>
+</ol>
+
+<p>On to the library: for Scala developers, the main benefits of using <a href='https://github.com/snowplow/scala-maxmind-geoip'>scala-maxmind-geoip</a> over the MaxMind Java library are:</p>
+
+<ul>
+<li><strong>Easier to setup/test</strong> - the SBT project definition automatically pulls down the latest MaxMind Java code and <code>GeoLiteCity.dat</code></li>
+
+<li><strong>Better type safety</strong> - the MaxMind Java library is somewhat null-happy. This library uses Option boxing wherever possible</li>
+
+<li><strong>Better performance</strong> - as well as or instead of using MaxMind&#8217;s own caching (<code>GEOIP_MEMORY_CACHE</code>), you can also configure an LRU (Least Recently Used) cache of variable size</li>
+</ul>
+
+<p>That&#8217;s it! And if you have any problems with this Scala library for MaxMind GeoIP lookups, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+		</div>
+	
+		<div class="post">
 			09 Jan 2013
 			<h1><a href="/blog/2013/01/09/from-etl-to-enrichment">The Snowplow development roadmap for the ETL step - from ETL to enrichment</a></h1>
 			 <span class="author">Author: <a href="" rel="author"> </a></span>
@@ -172,20 +199,6 @@
 <p class='more'><a href='/blog/2013/01/03/snowplow-0.7.0-released'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			02 Jan 2013
-			<h1><a href="/blog/2013/01/02/referer-parser-ported-to-3-more-languages">referer-parser now with Java, Scala and Python support</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Happy New Year all! It&#8217;s been three months since we <a href='/blog/2012/10/11/attlib-0.0.1-released/'>introduced our Attlib project</a>, now renamed to <a href='https://github.com/snowplow/referer-parser'>referer-parser</a>, and we are pleased to announce that referer-parser is now available in three additional languages: Java, Scala and Python.</p>
-
-<p>To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer <em>(sic)</em> URLs. You supply referer-parser with a referer URL; it then tells you whether the URL is from a search engine - and if so, which search engine it is, and what keywords the user supplied to arrive at your page.</p>
-
-<p>Huge thanks to <a href='https://github.com/donspaulding'>Don Spaulding</a> @ <a href='http://mirusresearch.com/'>Mirus Research</a> for contributing the <a href='https://github.com/snowplow/referer-parser/tree/master/python'>Python port</a> of referer-parser; the <a href='https://github.com/snowplow/referer-parser/tree/master/java-scala'>Java/Scala port</a> was developed by us in-house and it will be a key addition to our <a href='https://github.com/snowplow/snowplow/wiki/etl'>Snowplow ETL</a> process in the coming months.</p>
-
-<p>You can checkout the code on GitHub, in the <a href='https://github.com/snowplow/referer-parser'>referer-parser repository</a>, or read on below the fold for some code examples in the new languages:</p>
-<p class='more'><a href='/blog/2013/01/02/referer-parser-ported-to-3-more-languages'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -194,7 +207,7 @@
 			<a href="/page15" class="previous">Previous</a>
 			
 		
-		<span class="page_number">Page: 16 of 21</span>
+		<span class="page_number">Page: 16 of 22</span>
 		
 			<a href="/page17" class="next">Next</a>
 		
@@ -205,6 +218,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
+		
 			<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
 		
 			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
@@ -212,8 +227,6 @@
 			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
 		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
-		
-			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 	</ul>
 
@@ -239,6 +252,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
+			
 				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
 			
 				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
@@ -246,8 +261,6 @@
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
-			
-				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 			
 		
 		</ul>		

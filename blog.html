@@ -69,6 +69,40 @@
 			<div id="contents">
 	
 		<div class="post">
+			04 Feb 2014
+			<h1><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>We are hugely excited to announce the release of Snowplow 0.9.0. This release introduces our initial <strong>beta</strong> support for <a href='http://aws.amazon.com/kinesis/'>Amazon Kinesis</a> in the Snowplow Collector and Enrichment components, and was developed in close collaboration with Snowplow wintern <a href='/blog/2013/12/20/introducing-our-snowplow-winterns/'>Brandon Amos</a>.</p>
+
+<p>At Snowplow we are hugely excited about Kinesis&#8217;s potential, not just to enable near-real-time event analytics, but more fundamentally to serve as a business&#8217;s unified log, aka its &#8220;digital nervous system&#8221;. This is a concept we introduced recently in our blog post <a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/'>The three eras of business data processing</a>, and further explored at the <a href='/blog/2014/01/30/inaugural-amazon-kinesis-meetup/'>inaugural Kinesis London meetup</a>.</p>
+
+<p>Before we get further into this release, let&#8217;s see what Brandon has to say:</p>
+
+<p><img alt='brandon-img' src='/static/img/blog/2014/02/brandon-kinesis.png' /></p>
+
+<p>Brandon discussed his Snowplow winternship further in <a href='http://bamos.github.io/2014/01/20/snowplow/'>his own excellent blog post</a>.</p>
+
+<p>In the rest of this post we will cover:</p>
+
+<ol>
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#overview'>Overview of this release</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#stream-collector'>Scala Stream Collector</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#kinesis-enrich'>Scala Kinesis Enrich</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#local-mode'>Bonus feature: Snowplow local mode</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#help'>Getting help</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#roadmap-contrib'>Roadmap and contributing</a></li>
+
+<li><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#thanks'>Thanks</a></li>
+</ol>
+<p class='more'><a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			30 Jan 2014
 			<h1><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -155,45 +189,13 @@
 <p>Reach out to us at yali@ or alex@ (email addresses on our full domain) to setup a meet, suggest an event we should attend or for anything else East Coast-related!</p>
 		</div>
 	
-		<div class="post">
-			20 Jan 2014
-			<h1><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>Every so often, a work emerges that captures and disseminates the bleeding edge so effectively as to define a new norm. For those of us working in eventstream analytics, that moment came late in 2013 with the publication of Jay Kreps&#8217; monograph <a href='http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying'>The Log: What every software engineer should know about real-time data&#8217;s unifying abstraction</a>. Anyone involved in the operation or analysis of a digital business ought to read Jay&#8217;s piece in its entirety. His central point, convincingly argued, is that every digital business should be (re-)structured around a centralized event firehose which:</p>
-
-<ol>
-<li>aggregates events from disparate source systems,</li>
-
-<li>stores them in what Jay calls a &#8220;unified log&#8221;, and</li>
-
-<li>enables data processing applications to operate on this stream</li>
-</ol>
-
-<p>Sounds familiar? At Snowplow we believe passionately in putting a continuous stream of immutable events at the heart of your digital business, and we want Snowplow to power this &#8220;digital nervous system&#8221; for companies large and small. Jay&#8217;s monograph validated our approach-to-date (e.g. on the importance of <a href='http://snowplowanalytics.com/blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/'>building an event grammar</a>), but also moved our thinking forwards in a number of ways.</p>
-
-<p>In the rest of this blog post, rather than simply re-hashing Jay&#8217;s thoughtpiece, I want to create a new baseline by mapping out the historical and ongoing evolution of business data processing, extending up to the unified log espoused by Jay. I have split this evolution into two distinct eras which I have lived through and experienced firsthand, plus a third era which is soon approaching:</p>
-
-<ol>
-<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#classic-era'>The Classic Era - the pre-big data, pre-SaaS era of operational systems and batch-loaded data warehouses</a></li>
-
-<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#hybrid-era'>The Hybrid Era - today&#8217;s hotchpotch of different systems and approaches</a></li>
-
-<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#unified-era'>The Unified Era - a future enabled by continuous data processing on a unified log</a></li>
-
-<li><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/#closing-thoughts'>Closing thoughts</a></li>
-</ol>
-
-<p>We&#8217;ll explore each of these eras in turn:</p>
-<p class='more'><a href='/blog/2014/01/20/the-three-eras-of-business-data-processing'>Read the rest of this entry</a></p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
 		
 			<span class="previous">Previous</span>
 		
-		<span class="page_number">Page: 1 of 21</span>
+		<span class="page_number">Page: 1 of 22</span>
 		
 			<a href="/page2" class="next">Next</a>
 		
@@ -204,6 +206,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
+		
 			<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
 		
 			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
@@ -211,8 +215,6 @@
 			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
 		
 			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
-		
-			<li><a href="/blog/2014/01/20/the-three-eras-of-business-data-processing">The three eras of business data processing</a></li>
 		
 	</ul>
 
@@ -238,6 +240,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
+			
 				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
 			
 				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
@@ -245,8 +249,6 @@
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
 			
 				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
-			
-				<li><a href="/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure">Five things that make analyzing Snowplow data in Looker an absolute pleasure</a></li>
 			
 		
 		</ul>		

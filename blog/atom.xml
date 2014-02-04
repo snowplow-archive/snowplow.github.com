@@ -4,13 +4,140 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-01-30T19:52:49+00:00</updated>
+  <updated>2014-02-04T18:29:52+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support"/>
+    <title>Snowplow 0.9.0 released with beta Amazon Kinesis support</title>
+    <updated>2014-02-04T00:00:00+00:00</updated>
+    <author>
+      <name>Alex</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We are hugely excited to announce the release of Snowplow 0.9.0. This release introduces our initial &lt;strong&gt;beta&lt;/strong&gt; support for &lt;a href='http://aws.amazon.com/kinesis/'&gt;Amazon Kinesis&lt;/a&gt; in the Snowplow Collector and Enrichment components, and was developed in close collaboration with Snowplow wintern &lt;a href='/blog/2013/12/20/introducing-our-snowplow-winterns/'&gt;Brandon Amos&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At Snowplow we are hugely excited about Kinesis&amp;#8217;s potential, not just to enable near-real-time event analytics, but more fundamentally to serve as a business&amp;#8217;s unified log, aka its &amp;#8220;digital nervous system&amp;#8221;. This is a concept we introduced recently in our blog post &lt;a href='/blog/2014/01/20/the-three-eras-of-business-data-processing/'&gt;The three eras of business data processing&lt;/a&gt;, and further explored at the &lt;a href='/blog/2014/01/30/inaugural-amazon-kinesis-meetup/'&gt;inaugural Kinesis London meetup&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Before we get further into this release, let&amp;#8217;s see what Brandon has to say:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='brandon-img' src='/static/img/blog/2014/02/brandon-kinesis.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;Brandon discussed his Snowplow winternship further in &lt;a href='http://bamos.github.io/2014/01/20/snowplow/'&gt;his own excellent blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the rest of this post we will cover:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#overview'&gt;Overview of this release&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#stream-collector'&gt;Scala Stream Collector&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#kinesis-enrich'&gt;Scala Kinesis Enrich&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#local-mode'&gt;Bonus feature: Snowplow local mode&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#help'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#roadmap-contrib'&gt;Roadmap and contributing&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/#thanks'&gt;Thanks&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='overview'&gt;1. Overview of this release&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The following diagram sets out our planned data flow leveraging Kinesis. The colourized components are part of the 0.9.0 release; components in grey are yet to be implemented:&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='architecture-img' src='/static/img/blog/2014/02/090-kinesis-architecture.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, 0.9.0 consists of two key components:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A new Scala Stream Collector, which collects raw Snowplow events over HTTP and writes them to a Kinesis stream as Thrift-serialized records&lt;/li&gt;
+
+&lt;li&gt;A new Scala Kinesis Enrich component, which reads raw Snowplow events from the raw Kinesis stream, validates and enriches them and writes them back to an enriched Kinesis event stream&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Please note that the 0.9.0 release makes &lt;strong&gt;no changes&lt;/strong&gt; to the existing, batch-based Snowplow flow leveraging Amazon S3 &amp;amp; Elastic MapReduce.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#8217;s go over each of the two new components in a little more detail in the following two sections:&lt;/p&gt;
+&lt;h2&gt;&lt;a name='stream-collector'&gt;2. Scala Stream Collector&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The &lt;a href='https://github.com/snowplow/snowplow/wiki/Scala-Stream-Collector'&gt;Scala Stream Collector&lt;/a&gt; is a Snowplow event collector, written in Scala. The Scala Stream Collector allows near-real time processing of a Snowplow raw event stream. It also sets a third-party cookie, like the Clojure Collector.&lt;/p&gt;
+
+&lt;p&gt;The Scala Stream Collector receives raw Snowplow events over HTTP, serializes them to a Thrift record format, and then writes them to a sink. Currently supported sinks are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Amazon Kinesis&lt;/li&gt;
+
+&lt;li&gt;&lt;code&gt;stdout&lt;/code&gt; for a custom stream collection process&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;To setup the Scala Stream Collector, please see the &lt;a href='https://github.com/snowplow/snowplow/wiki/Setting-up-the-Scala-stream-Collector'&gt;Scala Stream Collector Setup Guide&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a name='kinesis-enrich'&gt;3. Scala Kinesis Enrich&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Scala Kinesis Enrich is a Kinesis application, built using the Kinesis Client Library and &lt;a href='https://github.com/cloudify/scalazon'&gt;scalazon&lt;/a&gt;, which:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reads&lt;/strong&gt; raw Snowplow events off a Kinesis stream populated by the Scala Stream Collector&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Validates&lt;/strong&gt; each raw event&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Enriches&lt;/strong&gt; each event (e.g. infers the location of the user from his/her IP address)&lt;/li&gt;
+
+&lt;li&gt;&lt;strong&gt;Writes&lt;/strong&gt; the enriched Snowplow event to another Kinesis stream&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As well as working with Kinesis streams, Scala Kinesis Enrich can also be configured to work with Unix &lt;code&gt;stdio&lt;/code&gt; streams.&lt;/p&gt;
+
+&lt;p&gt;Under the covers, Scala Kinesis Enrich makes use of scala-common-enrich, our Snowplow Enrichment library which we extracted from our Hadoop Enrichment process in the &lt;a href='/blog/2014/01/07/snowplow-0.8.12-released-with-scalding-enrichment-improvements/'&gt;0.8.12 Snowplow release&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To setup Scala Kinesis Enrich, please see the &lt;a href='https://github.com/snowplow/snowplow/wiki/setting-up-scala-kinesis-enrich'&gt;Scala Kinesis Enrich Setup Guide&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a name='local-mode'&gt;4. Bonus feature: Snowplow local mode&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;When developing the new collector and enrichment components, we realized that there were strong parallels between the Kinesis stream processing paradigm and conventional Unix &lt;code&gt;stdio&lt;/code&gt; I/O streams. As a result, we added the ability for:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Scala Stream Collector to write Snowplow raw events to &lt;code&gt;stdout&lt;/code&gt; instead of a Kinesis stream&lt;/li&gt;
+
+&lt;li&gt;Scala Kinesis Enrich to read Snowplow raw events from &lt;code&gt;stdin&lt;/code&gt;, and write enriched events to &lt;code&gt;stdout&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This has a nice side-effect: it is possible to run Snowplow in a &amp;#8220;local mode&amp;#8221;, where you simply pipe the output of Scala Stream Collector directly into Scala Kinesis Enrich, and can then see the generated enriched events printed to your console. You can run Snowplow in local mode with a shell script like this:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='c'&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class='nb'&gt;echo&lt;/span&gt; &lt;span class='s2'&gt;&amp;quot;Piping local collector into local enrichment...&amp;quot;&lt;/span&gt;
+./snowplow-stream-collector-0.1.0 --config ./collector.conf &lt;span class='se'&gt;\&lt;/span&gt;
+| ./snowplow-kinesis-enrich-0.1.0 --config ./enrich.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make sure to set the sources and sinks in your configuration files to the relevant &lt;code&gt;stdio&lt;/code&gt; settings.&lt;/p&gt;
+
+&lt;p&gt;Snowplow local mode could be helpful for debugging Snowplow tracker implementations before putting tags live - let us know how you get on with it!&lt;/p&gt;
+&lt;h2&gt;&lt;a name='getting-help'&gt;5. Getting help&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As always, if you do run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For more details on this release, please check out the &lt;a href='https://github.com/snowplow/snowplow/releases/0.9.0'&gt;0.9.0 Release Notes&lt;/a&gt; on GitHub.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='roadmap-contrib'&gt;6. Roadmap and contributing&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have identified three major tasks required to bring our Kinesis-based, beta-quality implementation towards parity with our production-quality EMR-based implementation:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Implementing the raw event to S3 sink as a Kinesis app&lt;/li&gt;
+
+&lt;li&gt;Implementing the enriched event to Redshift drip-feeder as a Kinesis app&lt;/li&gt;
+
+&lt;li&gt;Performance testing and tuning (e.g. reviewing our Kinesis checkpointing approach)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Necessarily we have to balance these tasks against the work we are committed to for our existing batch-based Snowplow flow leveraging Amazon S3 and Elastic MapReduce.&lt;/p&gt;
+
+&lt;p&gt;If you are interested in contributing towards the Kinesis workstream, or sponsoring us to accelerate their release, then do &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;get in touch&lt;/a&gt;!&lt;/p&gt;
+&lt;h2&gt;&lt;a name='overview'&gt;7. Thanks&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;And that&amp;#8217;s it - but this post would not be complete without us saying a huge &amp;#8220;thank you&amp;#8221; to Snowplow wintern &lt;a href='https://github.com/bamos'&gt;Brandon Amos&lt;/a&gt; for his massive contribution to this release!&lt;/p&gt;
+
+&lt;p&gt;As you can see from &lt;a href='/blog/2013/12/20/introducing-our-snowplow-winterns/'&gt;our original winternship blog post&lt;/a&gt;, the original plan was for Brandon to come onboard for a month and ship the Scala Stream Collector. In fact, Brandon delivered the new collector &lt;em&gt;in his first two weeks&lt;/em&gt; and was able to then turn his attention to Scala Kinesis Enrich, which he built in the remaining fortnight. All built using Kinesis, a platform he had never used before, and all with tests and wiki documentation - truly a heroic contribution to Snowplow!&lt;/p&gt;
+
+&lt;p&gt;Thanks again Brandon!&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2014/01/30/inaugural-amazon-kinesis-meetup</id>

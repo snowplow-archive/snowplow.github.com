@@ -69,6 +69,18 @@
 			<div id="contents">
 	
 		<div class="post">
+			07 Oct 2013
+			<h1><a href="/blog/2013/10/07/announcing-our-winter-open-source-internship-program">Announcing our winter open source internship program</a></h1>
+			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
+			<p>Applications for the new Snowplow Analytics open source internship program are now open! At Snowplow we are passionate about enterprise-strength open-source technology, and we are hugely excited to be offering paid internships for open source hackers this winter.</p>
+
+<p>Snowplow Analytics is looking for one or two open source interns this winter (December through February), for 3-6 week paid internships. Our &#8220;winterns&#8221; will work directly on and contribute to data engineering projects within the <a href='https://github.com/snowplow'>Snowplow open source stack</a>. We have lots of ideas for cool projects to do around Snowplow - and if you have any suggestions of your own, we would love to hear them!</p>
+
+<p><img alt='billion-dollar-brain' src='/static/img/blog/2013/10/billion-dollar-brain.png' /></p>
+<p class='more'><a href='/blog/2013/10/07/announcing-our-winter-open-source-internship-program'>Read the rest of this entry</a></p>
+		</div>
+	
+		<div class="post">
 			01 Oct 2013
 			<h1><a href="/blog/2013/10/01/snowplow-passes-500-stars">Snowplow passes 500 stars on GitHub</a></h1>
 			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
@@ -168,25 +180,6 @@
 <p class='more'><a href='/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole'>Read the rest of this entry</a></p>
 		</div>
 	
-		<div class="post">
-			05 Sep 2013
-			<h1><a href="/blog/2013/09/05/snowplow-0.8.9-released-to-handle-cloudfront-log-file-format-change">Snowplow 0.8.9 released to handle CloudFront log file format change</a></h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We are pleased to announce the immediate availability of Snowplow 0.8.9. This release was necessitated by an unannounced change Amazon made to the CloudFront access log file format on 17th August, discussed in this <a href='https://forums.aws.amazon.com/thread.jspa?messageID=484509&amp;#484509'>AWS Forum thread</a> and this <a href='https://groups.google.com/forum/#!topic/snowplow-user/HWeSkiiXbdQ'>snowplow-user email thread</a>.</p>
-
-<p>Essentially, Amazon switched from URL-encoding all &#8221;%&#8221;&#8221; signs found in the <code>cs-uri-query</code> field, to only URL-encoding them if they were not already escaped, i.e. were not followed by &#8220;25&#8221; (&#8220;%25&#8221;). This unannounced change was in contradiction to the existing <a href='http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#LogFileFormat'>CloudFront access log technical specification</a>, which was not updated.</p>
-
-<p>Snowplow expects &#8221;%&#8221; signs to be double-encoded, and so decodes them twice. Unfortunately, if a URL contains a space (e.g. in a referer search term), then constructing a URI object from this double-decoded string will fail, the event will be rejected by Snowplow validation and be logged to the bad-rows bucket (not loaded into Redshift). Assuming you are using the CloudFront collector, if you check your bad-rows bucket for Snowplow ETL runs before and after August 17th, expect to see a large increase in the number of bad-rows after the 17th.</p>
-
-<p>On 5th September, Amazon decided to reverse this change, but this still leaves Snowplow users with three weeks&#8217; worth of CloudFront logs in the wrong format. Therefore, we have released Snowplow 0.8.9, which adds support for both single- and double-encoded &#8221;%&#8221; signs in the <code>cs-uri-query</code> field.</p>
-
-<p>Assuming you are using EmrEtlRunner, you need to update your configuration file, <code>config.yml</code>, to use the latest version of the Hadoop ETL:</p>
-<div class='highlight'><pre><code class='yaml'><span class='l-Scalar-Plain'>:snowplow</span><span class='p-Indicator'>:</span>
-  <span class='l-Scalar-Plain'>:hadoop_etl_version</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>0.3.4</span> <span class='c1'># Version of the Hadoop ETL</span>
-</code></pre></div>
-<p>And that&#8217;s it! You may also want to re-run your Snowplow process against your CloudFront logs starting from the 17th August to recover the events wrongly identified as &#8220;bad rows&#8221;.</p>
-		</div>
-	
 
 	<!-- Pagination links -->
 	<div class="pagination">
@@ -206,6 +199,8 @@
 	<h1>Recent posts</h1>
 	<ul>
 		
+			<li><a href="/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released">Snowplow JavaScript Tracker 0.14.0 released with new features</a></li>
+		
 			<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
 		
 			<li><a href="/blog/2014/01/30/inaugural-amazon-kinesis-meetup">Inaugural meetup of the Amazon Kinesis - London User Group</a></li>
@@ -213,8 +208,6 @@
 			<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
 		
 			<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
-		
-			<li><a href="/blog/2014/01/21/snowplow-team-in-nyc-and-boston-in-feb-2014">The Snowplow team will be in New York and Boston in February - get in touch if you'd like to meet</a></li>
 		
 	</ul>
 
@@ -240,6 +233,8 @@
 		<ul>
 		
 			
+				<li><a href="/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released">Snowplow JavaScript Tracker 0.14.0 released with new features</a></li>
+			
 				<li><a href="/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support">Snowplow 0.9.0 released with beta Amazon Kinesis support</a></li>
 			
 				<li><a href="/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts">Snowplow JavaScript Tracker 0.13.0 released with custom contexts</a></li>
@@ -247,8 +242,6 @@
 				<li><a href="/blog/2014/01/27/snowplow-custom-contexts-guide">A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0</a></li>
 			
 				<li><a href="/blog/2014/01/17/scala-forex-library-released">Scala Forex library by wintern Jiawen Zhou released</a></li>
-			
-				<li><a href="/blog/2014/01/08/snowplow-0.8.13-released-with-looker-support">Snowplow 0.8.13 released with Looker support</a></li>
 			
 		
 		</ul>		

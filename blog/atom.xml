@@ -4,13 +4,115 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-02-04T18:29:52+00:00</updated>
+  <updated>2014-02-12T17:40:27+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
     <email>contact@snowplowanalytics.com</email>
   </author>
 
+  
+  <entry>
+    <id>http://snowplowanalytics.com/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released</id>
+    <link type="text/html" rel="alternate" href="http://snowplowanalytics.com/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released"/>
+    <title>Snowplow JavaScript Tracker 0.14.0 released with new features</title>
+    <updated>2014-02-12T00:00:00+00:00</updated>
+    <author>
+      <name>Fred</name>
+      <uri>http://snowplowanalytics.com/</uri>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Alex writes: this is the first blog post - and code release - by Snowplow &amp;#8220;springtern&amp;#8221; Fred Blundun. Stay tuned for another blog post soon introducing Fred!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We are pleased to announce the release of the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.14.0'&gt;Snowplow JavaScript Tracker version 0.14.0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this release we have introduced some new tracking options and compressed our tracker for better load times. We have also updated our build process to use &lt;a href='[http://gruntjs.com/'&gt;Grunt&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This blog post will cover the following changes:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;New feature: gzipping&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#cookie'&gt;New feature: set user ID from a cookie&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#querystring'&gt;New feature: set user ID from a querystring&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#iframe'&gt;New feature: pass a referrer through an iframe&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#donottrack'&gt;New feature: respecting Do Not Track&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#grunt'&gt;New build process&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#structure'&gt;Other structural improvements&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--more--&gt;&lt;h2&gt;&lt;a name='gzipping'&gt;1. New feature: gzipping&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Our hosted JavaScript JavaScript Tracker is now gzipped for CloudFront delivery using a Grunt plugin. This decreases the file size by about 70%, improving load times and perceived website speed. All modern browsers support gzipping (&lt;a href='http://webmasters.stackexchange.com/questions/22217/which-browsers-handle-content-encoding-gzip-and-which-of-them-has-any-special'&gt;reference&lt;/a&gt;).&lt;/p&gt;
+&lt;h2&gt;&lt;a name='cookie'&gt;2. New feature: set user ID from a cookie&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;This new function allows you to set the visitor&amp;#8217;s business user ID to the value of a first-party cookie. Its signature is:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='kd'&gt;function&lt;/span&gt; &lt;span class='nx'&gt;setUserIdFromCookie&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;cookieName&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;For example, this code:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setUserIdFromCookie&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;_sp_id.4209&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;will look for a cookie whose name is &amp;#8220;_sp_id.4209&amp;#8221;. If one is found, the user ID will be set to the value of that cookie.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='querystring'&gt;3. New feature: set user ID from a querystring&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have added support for setting the visitor&amp;#8217;s business user ID from a field in the querystring of either the current page&amp;#8217;s URL or the referring page&amp;#8217;s URL. The signatures for the new functions are:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='kd'&gt;function&lt;/span&gt; &lt;span class='nx'&gt;setUserIdFromLocation&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;querystringField&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;span class='kd'&gt;function&lt;/span&gt; &lt;span class='nx'&gt;setUserIdFromReferrer&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;querystringField&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;For example, to set the user&amp;#8217;s ID to the value of the &amp;#8220;id&amp;#8221; field in the local querystring, use:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setUserIdFromLocation&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And to set it to the value of the &amp;#8220;id&amp;#8221; field in the referrer querystring, use:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([[&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;setUserIdFromReferrer&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='s1'&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;]]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2&gt;&lt;a name='iframe'&gt;4. New feature: pass a referrer through an iframe&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You can now pass the referrer back to Snowplow from inside an iframe. To do this, set &lt;code&gt;referrer=x&lt;/code&gt; in the querystring of the iframe&amp;#8217;s URL, where &amp;#8216;x&amp;#8217; is the required referrer. This also works if you set &lt;code&gt;referer=x&lt;/code&gt; (with one &amp;#8216;r&amp;#8217;).&lt;/p&gt;
+
+&lt;p&gt;Many thanks to community member &lt;a href='https://github.com/joshspivey'&gt;Josh Spivey&lt;/a&gt; for this idea and some suggested code!&lt;/p&gt;
+&lt;h2&gt;&lt;a name='donottrack'&gt;5. New feature: respecting Do Not Track&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Most browsers offer a Do Not Track feature, allowing users to request not to be tracked by websites. You can now respect that preference with:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='kd'&gt;function&lt;/span&gt; &lt;span class='nx'&gt;respectDoNotTrack&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='nx'&gt;enable&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Use this function like so:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='javascript'&gt;&lt;span class='nx'&gt;_snaq&lt;/span&gt;&lt;span class='p'&gt;.&lt;/span&gt;&lt;span class='nx'&gt;push&lt;/span&gt;&lt;span class='p'&gt;([&lt;/span&gt;&lt;span class='s1'&gt;&amp;#39;respectDoNotTrack&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;,&lt;/span&gt; &lt;span class='kc'&gt;true&lt;/span&gt;&lt;span class='p'&gt;]);&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If the browser&amp;#8217;s Do Not Track feature is enabled, the above code will prevent the Snowplow JavaScript Tracker from either setting first-party cookies or sending events to a collector.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='grunt'&gt;6. Switched to Grunt-based build process&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have replaced our custom &lt;code&gt;snowpak.sh&lt;/code&gt; Bash script with a standardised &lt;a href='[http://gruntjs.com/'&gt;Grunt&lt;/a&gt; file. This let us use Grunt plugins to automate the build process, from file concatentation and YUI Compression through to uploading to S3 and CloudFront invalidation.&lt;/p&gt;
+
+&lt;p&gt;It should also help us move to a more modular project structure and add a test suite in the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues?milestone=4&amp;amp;page=1&amp;amp;state=open'&gt;next release&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='structure'&gt;7. Other structural improvements&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;We have also:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Moved cookie-related functionality into a new file &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/77'&gt;(#77)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Moved requestStringBuilder into a new file &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/55'&gt;(#55)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Moved functions to detect browser attributes into a new file &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/37'&gt;(#37)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Removed getLegacyCookieName &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/50'&gt;(#50)&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;Removed the legacy Piwik debug code &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/65'&gt;(#65)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;&lt;a name='upgrading'&gt;8. Upgrading &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;The upgraded minified tracker is available here:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0.14.0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are currently using the path:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http(s)://d1fc8wv8zag5ca.cloudfront.net/0/sp.js&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;then you will get the new version automatically.&lt;/p&gt;
+&lt;h2&gt;&lt;a name='help'&gt;9. Getting help &lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Check out the &lt;a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.14.0'&gt;v0.14.0 release page&lt;/a&gt; on GitHub for the full list of changes made in this version.&lt;/p&gt;
+
+&lt;p&gt;As always, if you run into any issues or don&amp;#8217;t understand any of the above changes, please &lt;a href='https://github.com/snowplow/snowplow/issues'&gt;raise an issue&lt;/a&gt; or get in touch with us via &lt;a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'&gt;the usual channels&lt;/a&gt;.&lt;/p&gt;</content>
+  </entry>
   
   <entry>
     <id>http://snowplowanalytics.com/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support</id>

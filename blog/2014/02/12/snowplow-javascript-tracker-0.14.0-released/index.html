@@ -2,7 +2,7 @@
 <html>
 <head>
 	
-	<title>Snowplow 0.6.4 released, with Infobright improvements - Snowplow Analytics</title>
+	<title>Snowplow JavaScript Tracker 0.14.0 released with new features - Snowplow Analytics</title>
 	
 
 	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -68,71 +68,104 @@
 	
 			<div id="contents">
 		<div class="post">
-			20 Dec 2012
-			<h1>Snowplow 0.6.4 released, with Infobright improvements</h1>
-			 <span class="author">Author: <a href="/alex.html" rel="author">Alex Dean </a></span>
-			<p>We&#8217;re happy to announce our next Snowplow release - version <strong>0.6.4</strong>. This release includes updates:</p>
+			12 Feb 2014
+			<h1>Snowplow JavaScript Tracker 0.14.0 released with new features</h1>
+			 <span class="author">Author: <a href="/fred.html" rel="author">Fred Blundun </a></span>
+			<p><em>Alex writes: this is the first blog post - and code release - by Snowplow &#8220;springtern&#8221; Fred Blundun. Stay tuned for another blog post soon introducing Fred!</em></p>
+
+<p>We are pleased to announce the release of the <a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.14.0'>Snowplow JavaScript Tracker version 0.14.0</a>.</p>
+
+<p>In this release we have introduced some new tracking options and compressed our tracker for better load times. We have also updated our build process to use <a href='[http://gruntjs.com/'>Grunt</a>.</p>
+
+<p>This blog post will cover the following changes:</p>
 
 <ol>
-<li>An upgraded Infobright table definition which scales to millions of pageviews easily</li>
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'>New feature: gzipping</a></li>
 
-<li>Clarified Hive table definitions</li>
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#cookie'>New feature: set user ID from a cookie</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#querystring'>New feature: set user ID from a querystring</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#iframe'>New feature: pass a referrer through an iframe</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#donottrack'>New feature: respecting Do Not Track</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#grunt'>New build process</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#structure'>Other structural improvements</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'>Upgrading</a></li>
+
+<li><a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'>Getting help</a></li>
 </ol>
+<!--more--><h2><a name='gzipping'>1. New feature: gzipping</a></h2>
+<p>Our hosted JavaScript JavaScript Tracker is now gzipped for CloudFront delivery using a Grunt plugin. This decreases the file size by about 70%, improving load times and perceived website speed. All modern browsers support gzipping (<a href='http://webmasters.stackexchange.com/questions/22217/which-browsers-handle-content-encoding-gzip-and-which-of-them-has-any-special'>reference</a>).</p>
+<h2><a name='cookie'>2. New feature: set user ID from a cookie</a></h2>
+<p>This new function allows you to set the visitor&#8217;s business user ID to the value of a first-party cookie. Its signature is:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>function</span> <span class='nx'>setUserIdFromCookie</span><span class='p'>(</span><span class='nx'>cookieName</span><span class='p'>);</span>
+</code></pre></div>
+<p>For example, this code:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;setUserIdFromCookie&#39;</span><span class='p'>,</span> <span class='s1'>&#39;_sp_id.4209&#39;</span><span class='p'>]);</span>
+</code></pre></div>
+<p>will look for a cookie whose name is &#8220;_sp_id.4209&#8221;. If one is found, the user ID will be set to the value of that cookie.</p>
+<h2><a name='querystring'>3. New feature: set user ID from a querystring</a></h2>
+<p>We have added support for setting the visitor&#8217;s business user ID from a field in the querystring of either the current page&#8217;s URL or the referring page&#8217;s URL. The signatures for the new functions are:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>function</span> <span class='nx'>setUserIdFromLocation</span><span class='p'>(</span><span class='nx'>querystringField</span><span class='p'>);</span>
+<span class='kd'>function</span> <span class='nx'>setUserIdFromReferrer</span><span class='p'>(</span><span class='nx'>querystringField</span><span class='p'>);</span>
+</code></pre></div>
+<p>For example, to set the user&#8217;s ID to the value of the &#8220;id&#8221; field in the local querystring, use:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([[</span><span class='s1'>&#39;setUserIdFromLocation&#39;</span><span class='p'>,</span> <span class='s1'>&#39;id&#39;</span><span class='p'>]]);</span>
+</code></pre></div>
+<p>And to set it to the value of the &#8220;id&#8221; field in the referrer querystring, use:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([[</span><span class='s1'>&#39;setUserIdFromReferrer&#39;</span><span class='p'>,</span> <span class='s1'>&#39;id&#39;</span><span class='p'>]]);</span>
+</code></pre></div><h2><a name='iframe'>4. New feature: pass a referrer through an iframe</a></h2>
+<p>You can now pass the referrer back to Snowplow from inside an iframe. To do this, set <code>referrer=x</code> in the querystring of the iframe&#8217;s URL, where &#8216;x&#8217; is the required referrer. This also works if you set <code>referer=x</code> (with one &#8216;r&#8217;).</p>
 
-<p>Before we start - a big thanks to the community members who helped out on this release:</p>
+<p>Many thanks to community member <a href='https://github.com/joshspivey'>Josh Spivey</a> for this idea and some suggested code!</p>
+<h2><a name='donottrack'>5. New feature: respecting Do Not Track</a></h2>
+<p>Most browsers offer a Do Not Track feature, allowing users to request not to be tracked by websites. You can now respect that preference with:</p>
+<div class='highlight'><pre><code class='javascript'><span class='kd'>function</span> <span class='nx'>respectDoNotTrack</span><span class='p'>(</span><span class='nx'>enable</span><span class='p'>);</span>
+</code></pre></div>
+<p>Use this function like so:</p>
+<div class='highlight'><pre><code class='javascript'><span class='nx'>_snaq</span><span class='p'>.</span><span class='nx'>push</span><span class='p'>([</span><span class='s1'>&#39;respectDoNotTrack&#39;</span><span class='p'>,</span> <span class='kc'>true</span><span class='p'>]);</span> 
+</code></pre></div>
+<p>If the browser&#8217;s Do Not Track feature is enabled, the above code will prevent the Snowplow JavaScript Tracker from either setting first-party cookies or sending events to a collector.</p>
+<h2><a name='grunt'>6. Switched to Grunt-based build process</a></h2>
+<p>We have replaced our custom <code>snowpak.sh</code> Bash script with a standardised <a href='[http://gruntjs.com/'>Grunt</a> file. This let us use Grunt plugins to automate the build process, from file concatentation and YUI Compression through to uploading to S3 and CloudFront invalidation.</p>
+
+<p>It should also help us move to a more modular project structure and add a test suite in the <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues?milestone=4&amp;page=1&amp;state=open'>next release</a>.</p>
+<h2><a name='structure'>7. Other structural improvements</a></h2>
+<p>We have also:</p>
 
 <ul>
-<li><a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> @ <a href='http://en.overblog.com/'>OverBlog</a> worked closely with us on the updated Infobright table definition</li>
+<li>Moved cookie-related functionality into a new file <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/77'>(#77)</a></li>
 
-<li><a href='https://github.com/mmoulton'>Mike Moulton</a> @ <a href='http://meltmedia.com/'>meltmedia</a> for flagging the missing Hive table definition</li>
+<li>Moved requestStringBuilder into a new file <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/55'>(#55)</a></li>
+
+<li>Moved functions to detect browser attributes into a new file <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/37'>(#37)</a></li>
+
+<li>Removed getLegacyCookieName <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/50'>(#50)</a></li>
+
+<li>Removed the legacy Piwik debug code <a href='https://github.com/snowplow/snowplow-javascript-tracker/issues/65'>(#65)</a></li>
 </ul>
+<h2><a name='upgrading'>8. Upgrading </a></h2>
+<p>The upgraded minified tracker is available here:</p>
 
-<p>We&#8217;ll take a look at both updates below:</p>
-<!--more-->
-<h2 id='upgraded_infobright_table_definition'>Upgraded Infobright table definition</h2>
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0.14.0/sp.js</code></pre>
 
-<p>With help from <a href='https://github.com/moncaubeig'>Gilles Moncaubeig</a> we have upgraded the Infobright table definition so that it can easily scale to loading millions of new Snowplow events per day. It also supports much longer <code>br_lang</code> and <code>page_url</code> fields, which should prevent you from occasional load errors.</p>
+<p>If you are currently using the path:</p>
 
-<p>If you are using Infobright Community Edition for analysis, you will need to update your table definition. This is a little complex, because Infobright does not support in-place table or column renames. To make this easier for you, we have created a script:</p>
+<pre><code>http(s)://d1fc8wv8zag5ca.cloudfront.net/0/sp.js</code></pre>
 
-<pre><code>4-storage/infobright-storage/migrate_to_004.sh</code></pre>
+<p>then you will get the new version automatically.</p>
+<h2><a name='help'>9. Getting help </a></h2>
+<p>Check out the <a href='https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/0.14.0'>v0.14.0 release page</a> on GitHub for the full list of changes made in this version.</p>
 
-<p>Running this script will create a new table, <code>events_004</code> (version 0.0.4 of the table definition) in your <code>snowplow</code> database, copying across all your data from your existing <code>events</code> table, which will not be modified in any way.</p>
-
-<p>Once you have run this, don&#8217;t forget to update your StorageLoader&#8217;s <code>config.yml</code> to load into the new <code>events_004</code> table, not your old <code>events</code> table:</p>
-
-<pre><code>:storage:
-  :type: infobright
-  :database: snowplow
-  :table:    events_004 # NOT &quot;events_003&quot; any more</code></pre>
-
-<p>Done!</p>
-
-<h2 id='clarified_hive_table_definitions'>Clarified Hive table definitions</h2>
-
-<p>We have clarified the two different Hive table definitions, available in this folder:</p>
-
-<p>4-storage/hive-storage</p>
-
-<p>Which format your Snowplow event files are in will depend on how your EmrEtlRunner is configured. If your <code>config.yml</code> contains:</p>
-
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/non-hive-format-table-def.q'><code>non-hive-format-table-def.q</code></a>.</p>
-
-<p>Whereas if your <code>config.yml</code> contains:</p>
-
-<pre><code>:storage_format: non-hive</code></pre>
-
-<p>then your Snowplow events will be stored in the format shown in <a href='https://github.com/snowplow/snowplow/blob/master/4-storage/hive-storage/hive-format-table-def.q'><code>hive-format-table-def.q</code></a>.</p>
-
-<h2 id='getting_help'>Getting help</h2>
-
-<p>That&#8217;s it! If you have any problems with Snowplow version 0.6.4, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
+<p>As always, if you run into any issues or don&#8217;t understand any of the above changes, please <a href='https://github.com/snowplow/snowplow/issues'>raise an issue</a> or get in touch with us via <a href='https://github.com/snowplow/snowplow/wiki/Talk-to-us'>the usual channels</a>.</p>
 			<div class="author_summary">
 				<h2>About the author</h2>
-				<div class="author_image"><img src="https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg" /></div> <div class="author_spiel">
-  <a href="/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexatkeplar">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
+				<div class="author_image"><img src="https://plus.google.com/s2/photos/profile/113917031846021461080" /></div> <div class="author_spiel">
+  <a href="/fred.html">Fred</a> is an intern at Snowplow Analytics. You can find him on <a href="https://plus.google.com/u/0/113917031846021461080" rel="author">Google+</a> and <a href="" <a href="uk.linkedin.com/pub/fred-blundun/8a/16a/722">LinkedIn</a>
 </div>
 
 			</div> 

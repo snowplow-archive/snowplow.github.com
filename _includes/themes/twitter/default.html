@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+    <meta name="author" content="{{ site.author.name }}">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
+    <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ ASSET_PATH }}/css/pygments.css" type="text/css" rel="stylesheet" /> <!--Added by Snowplow-->
+    <link href="{{ ASSET_PATH }}/css/snowplow.css" rel="stylesheet" type="text/css"> <!--Added by Snowplow-->
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+
+    {% include snowplow/fonts-and-presentation/typekit-fonts %}
+    {% include snowplow/fonts-and-presentation/mathjax %}
+
+  </head>
+
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container-narrow">
+          <!--
+          Replace generic site title with Snowplow logo
+          <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
+          -->
+          <a class="brand" href="{{ HOME_PATH }}" style="padding:0 0 0 0px"><img src="/assets/img/snowplow-logo-website.png" /></a>
+          <ul class="nav">
+            <!--
+            Instead of dynamically generating navigation pane based on which group of pages
+            is set to 'navigation', hardcode, and use group to generate sidemnu dynamically.
+            {% assign pages_list = site.pages %}  
+            {% assign group = 'navigation' %}  
+            {% include JB/pages_list %}  
+            -->
+            {% if page.group == 'product' %}
+            <li class="active"><a href="/product/index.html" class="active">Product</a></li>
+            {% else %}
+            <li><a href="/product/index.html">Product</a></li>
+            {% endif %}
+            {% if page.group == 'services' %}
+            <li class="active"><a href="/services/index.html" class="active">Services</a></li>  
+            {% else %}
+            <li><a href="/services/index.html">Services</a></li>  
+            {% endif %}
+            {% if page.group == 'analytics' %}
+            <li class="active"><a href="/analytics/index.html" class="active">Analytics</a></li>
+            {% else %}
+            <li><a href="/analytics/index.html">Analytics</a></li>
+            {% endif %}
+            {% if page.url contains 'blog' %}
+            <li class="active"><a href="/blog/index.html" class="active">Blog</a></li>
+            {% else %}
+            <li><a href="/blog/index.html">Blog</a></li>
+            {% endif %}
+            {% if page.group == 'about'%}
+            <li class="active"><a href="/about/index.html" class="active">About</a></li>
+            {% else %}
+            <li><a href="/about/index.html">About</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-narrow">
+
+      <div class="content">
+        {{ content }}
+      </div>
+      <hr>
+      <footer>
+        <p class="text-center">&copy; 2012 - {{ site.time | date: '%Y' }} {{ site.author.name }}
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div>
+
+    {% include JB/analytics %}
+  </body>
+</html>

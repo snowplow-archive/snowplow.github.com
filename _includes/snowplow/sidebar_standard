@@ -1,0 +1,124 @@
+<ul class="nav nav-list">
+  <!-- If we are in the analytics section, we need to loop through each sub_group and display the appropriate side menu items -->
+
+  {% if group == 'analytics' %}
+    {% if sub_group == 'overview' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'overview' %}
+            {% if node.weight == weight %}
+              {% if node.url == page.url %}
+                <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+              {% else %}
+                <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/index.html">Analytics overview</a></li>
+    {% endif %}
+    <li class="divider"></li>
+ 
+    {% if page.sub_group == 'customer' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.sub_group == 'customer' %}
+          {% if node.weight == weight %}
+            {% if node.url == page.url %}
+              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+            {% else %}
+              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/customer-analytics/overview.html">Customer analytics</li>
+    {% endif %}
+    <li class="divider"></li>
+
+    {% if page.sub_group == 'catalog' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.sub_group == 'catalog' %}
+          {% if node.weight == weight %}
+            {% if node.url == page.url %}
+              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+            {% else %}
+              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/catalog-analytics/overview.html">Catalog analytics</li>
+    {% endif %}
+    <li class="divider"></li>
+
+    {% if page.sub_group == 'platform' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.sub_group == 'platform' %}
+          {% if node.weight == weight %}
+            {% if node.url == page.url %}
+              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+            {% else %}
+              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/platform-analytics/overview.html">Platform analytics</li>
+    {% endif %}
+    <li class="divider"></li>
+
+    {% if page.sub_group == 'tools-and-techniques' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.sub_group == 'tools-and-techniques' %}
+          {% if node.weight == weight %}
+            {% if node.url == page.url %}
+              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+            {% else %}
+              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/tools-and-techniques/overview.html">Tools and techniques</li>
+    {% endif %}
+  
+  {% else %}
+  <!-- Otherwise not an analytics page, so just need group level pages -->
+
+	  {% for weight in (1..10) %}
+	    {% for node in pages_list %}
+	      {% if node.weight == weight %}
+	        {% if node.shortened-link != null %}
+	          {% if group == node.group %}
+	            {% if page.url == node.url %}
+	            <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+	            {% else %}
+	            <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+	            {% endif %}
+	          {% endif %}
+	        {% endif %}
+	      {% endif %}
+	    {% endfor %}
+	  {% endfor %}
+  {% endif %}
+
+</ul>
+
+
+

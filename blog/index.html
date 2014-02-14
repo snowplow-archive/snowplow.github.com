@@ -1,0 +1,41 @@
+---
+title: Blog
+group: blog
+layout: page
+category: blog
+description: The Snowplow blog - thoughts, musing and tutorials on event analytics from the Snowplow team
+weight: 4
+---
+
+{% include JB/setup %}
+
+<!-- This loops through the paginated posts -->
+{% for post in paginator.posts %}
+	  <div class="date muted"><small>{{ post.date | date_to_long_string }}</small></div>
+    {% for author in site.data.authors %}
+      {% if author.name == post.author %} 
+      <a href="{{ author.url }}">{{ author.full_name }}</a> 
+      {% endif %}   
+    {% endfor %}
+    <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+    <div class="content">{{ post.excerpt }}</div>
+    <p><a href="{{ post.url }}">Read the rest of the post...</a></p>
+    <hr>
+{% endfor %}
+
+<!-- Pagination links -->
+<div class="pagination">
+  <ul>
+    {% if paginator.previous_page %}
+      <a href="/blog/page{{ paginator.previous_page }}" class="previous">Previous</a>
+    {% else %}
+      <span class="previous">Previous</span>
+    {% endif %}
+    <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    {% if paginator.next_page %}
+      <a href="/blog/page{{ paginator.next_page }}" class="next">Next</a>
+    {% else %}
+      <span class="next ">Next</span>
+    {% endif %}
+  </ul>
+</div> 

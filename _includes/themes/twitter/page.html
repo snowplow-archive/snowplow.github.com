@@ -1,0 +1,45 @@
+<!-- We do not want the page title and tag line to automatically appear on each page 
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+-->
+
+<div class="row-fluid">
+
+  <!-- If page is homepage render without side bar i.e. just contents, taking up full 12 columns -->
+  {% if page.group == 'homepage' %}
+  <div class="span12">
+    {{ content }}
+  </div>
+  <!-- If blog page or author page render blog side bar -->
+  {% elsif page.url contains 'blog' %}
+  <div class="span9">
+  	{{ content }}
+  </div>
+  <div class="span3">
+  	<!-- Blog sidebar -->
+  	{% include snowplow/sidebar_blog %}
+  </div>
+  {% elsif page.url contains 'author' %}
+  <div class="span9">
+    {{ content }}
+  </div>
+  <div class="span3">
+    <!-- Blog sidebar -->
+    {% include snowplow/sidebar_blog %}
+  </div>
+
+  {% else %}
+  <!-- otherwise render standard sidebar -->
+  <div class="span9">
+  	{{ content }}
+  </div>
+  <div class="span3">
+  	<!-- Standard sidebar -->
+  	{% assign pages_list = site.pages %}  
+    {% assign group = page.group %} 
+    {% assign sub_group = page.sub_group %} 
+    {% include snowplow/sidebar_standard %}
+  </div>
+  {% endif %}
+</div>

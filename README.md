@@ -32,7 +32,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 <a name="website-update" />
 ### Updating the website
 
-1. [A note about plugins and Github pages](#1-a-note-about-plugins-and-github-pages)
+1. [A note about Jekyll and Github pages](#1-a-note-about-plugins-and-github-pages)
 2. [Making changes locally](#2-making-changes-locally)
 3. [Adding a new blog post](#3-adding-a-new-blog-post)
 4. [Adding pages to the website (not the blog)](#4-adding-pages-to-the-website-not-the-blog)
@@ -42,70 +42,17 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 8. [Previewing changes locally](#8-previewing-the-changes-locally)
 9. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
 
-#### 1. A note about plugins and Github pages
+#### 1. A note about Jekyll and Github pages
 
-The Snowplow Analytics website uses Jekyll plugins for additional functionality. (E.g. pagination). These are **not** supported by Github pages. As a result, we have to use a workaround. (Kindly provided by [Alexandre Rademaker](http://arademaker.github.com/) [here](http://arademaker.github.com/blog/2011/12/01/github-pages-jekyll-plugins.html))
-
-1. All source files for the website (e.g. markdown files etc.) are stored in the **source** branch (or in a dedicated branch just for that update e.g. "post/my-new-post")
-2. Jekyll should be run locally to generate the static html files locally
-3. These static files (saved in the `_site` folder) should be copied to the root directory on the master branch
-4. These static files are the ones that are then served on Github pages
-5. As a result, **does not** need to process the files in Github pages. That is why the `.nojekyll` file is included in the master branch
-
-As all the Jekyll processing is performed locally, you need to make sure that Jekyll and all the plugins used are installed on your local machine. Because Jekyll runs on top of Ruby, you'll need a copy of Ruby locally, and then you'll need to install:
-
-1. [jekyll](https://github.com/mojombo/jekyll). To install the gem execute `sudo gem install jekyll`.
-2. [jekyll-pagination](https://github.com/blackwinter/jekyll-pagination). To install the gem execute `sudo gem install jekyll-pagination`.
-3. [Pygments](http://pygments.org/). To install, `sudo apt-get install python-pygments`
-4. [Sass](http://sass-lang.com/). (If you want to edit the CSS.) To install, `sudo gem install sass`. To use, edit `static/css/styles.scss` and then execute `sass static/css/styles.scss:static/css/styles.css` to generate the geniune CSS from the SCSS.
-
-To make things easier, you can make use of our [dev-environment] [dev-environment], which can be provisioned with all the required dependencies. To set this up:
-
-First: make sure you have both Virtual Box and Vagrant installed locally.
-
-Secondly, clone the [dev-environment] [dev-enviornment]:
-
-	$ git clone git@github.com:snowplow/dev-environment.git
-
-Build the VM:
-
-	$ cd dev-environment
-	$ vagrant up
-
-Once the basic box is provisioned, you need to run two ansible playbooks to install Ruby, RVM, Jekyll and the other required gems. First SSH into the VM:
-
-	$ vagrant ssh
-
-Then install Ruby via the playbook:
-
-	$ ansible-playbook /vagrant/ansible-playbooks/ruby.yaml --inventory-file=/home/vagrant/ansible_hosts --connection=local
-
-Exit the VM and then re-enter it. (This is necessary to switch on RVM and switch to using Ruby 1.9.3):
-
-	$ exit
-	$ vagrant ssh
-
-Then install Jekyll and the required Jekyll plugins:
-
-	$ ansible-playbook /vagrant/ansible-playbooks/jekyll.yaml --inventory-file=/home/vagrant/ansible_hosts --connection=local
-
-Great! Now you have your development environment setup. Now you can download this repo. We recommend you do this in the host:
-
-	$ exit
-	$ git clone git@github.com:snowplow/snowplow.github.com.git
-
-More explanation on how to update the site is given below:
+NEED TO UPDATE THIS CONTENT
 
 #### 2. Making changes locally
 
-In your host, switch to the source branch to update the source files
-
-	git checkout source
-	git pull 	# to ensure you're working on the latest version
-
-Make the relevant changes to the site. To add a new blog post, for example, see the next section: 
+NEED TO UPDATE THIS CONTENT
 
 #### 3. Adding a new blog post
+
+NEED TO UPDATE THIS CONTENT
 
 This is straightforward. Create a new markdown file in the _posts directory, with the filename format `YYYY-MM--DD-title.md`.
 
@@ -121,6 +68,8 @@ In the file add the following [YAML Front Matter](https://github.com/mojombo/jek
 Then type in the rest of the post, in markdown, as normal.
 
 #### 4. Adding pages to the website (not the blog)
+
+NEED TO UPDATE THIS CONTENT
 
 Adding a page to the rest of the site is reasonably straightforward.
 
@@ -139,9 +88,13 @@ Note that if you're adding content to the Analytics section, you'll need to spec
 
 #### 5. Embedding images
 
+NEED TO UPDATE THIS CONTENT
+
 Images are committed to the appropriate /img folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
 	
 #### 6. Links between pages
+
+NEED TO UPDATE THIS CONTENT
 
 When adding links to between pages on the site:
 
@@ -150,11 +103,15 @@ When adding links to between pages on the site:
 
 #### 7. Side menus
 
+NEED TO UPDATE THIS CONTENT
+
 Side menus should automatically update with new blog posts / web pages as appropriate.
 
 When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/sidebar_analytics`, `_sidebar_contact.html` etc. files. (There is one file for each side menu.)
 
 #### 8. Previewing the changes locally
+
+NEED TO UPDATE THIS CONTENT
 
 This is advisable before performing any commits :-). To preview the site on your host machine, you'll need to build it in the VM (guest machine):
 
@@ -172,38 +129,6 @@ from the repo directory, (which will recompile it).
 
 #### 9. Committing your changes and deploying them to Github Pages
 
-Once you are happy with the updates you've made to the website, you need to deploy them to production.
-
-Remember: source files are stored in the `source` branch. (Which you have been editting.) To deploy, we need to get Jekyll to generate the static html pages, copy them to our master repo and then push them to Github. To do this:
-
-Firstly add and commit the changes made to the source repo. Do this in the host (rather than the guest VM)
-
-	$ exit
-	// make relevant changes and updates to the site
-	$ git add .
-	$ git commit -m "{{enter description of changes made}}"
-
-Now switch to the master branch
-
-	git checkout master
-
-Now we want to copy the static html files for the website into the root folder of the master branch. These will be the pages served by Github Pages. (Remember - we also add the `.nojekyll` file so Github pages doesn't use Jekyll to do any processing after we've finished the upload.) On Ubuntu / OSX:
-
-	cp -r _site/* . && rm -rf _site/
-
-On Windows:
-
-	cp _site/* -recurse ./
-	remove-item _site/* -recurse
-
-Now add and commit your changes:
-
-    git add . && git commit -a
-
-And finally push both the source and master branches to origin
-
-	git push --all origin
-
-All done! You should see the updates pushed to the live site in a matter of minutes. (You may need to clear the browser cache to see them.)
+NEED TO UPDATE THIS CONTENT
 
 [dev-environment]: https://github.com/snowplow/dev-environment

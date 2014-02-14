@@ -4,7 +4,7 @@
   <title>The Snowplow Analytics Blog</title>
   <link href="http://snowplowanalytics.com/"/>
   <link type="application/atom+xml" rel="self" href="http://snowplowanalytics.com/blog/atom.xml"/>
-  <updated>2014-02-12T17:40:27+00:00</updated>
+  <updated>2014-02-14T14:37:44+00:00</updated>
   <id>http://snowplowanalytics.com/</id>
   <author>
     <name>The Snowplow Analytics Team</name>
@@ -30,23 +30,23 @@
 &lt;p&gt;This blog post will cover the following changes:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;New feature: gzipping&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#gzipping'&gt;New feature: gzipping&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#cookie'&gt;New feature: set user ID from a cookie&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#cookie'&gt;New feature: set user ID from a cookie&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#querystring'&gt;New feature: set user ID from a querystring&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#querystring'&gt;New feature: set user ID from a querystring&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#iframe'&gt;New feature: pass a referrer through an iframe&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#iframe'&gt;New feature: pass a referrer through an iframe&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#donottrack'&gt;New feature: respecting Do Not Track&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#donottrack'&gt;New feature: respecting Do Not Track&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#grunt'&gt;New build process&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#grunt'&gt;New build process&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#structure'&gt;Other structural improvements&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#structure'&gt;Other structural improvements&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#gzipping'&gt;Upgrading&lt;/a&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.13.0-released/#gzipping'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href='/blog/2014/02/12/snowplow-javascript-tracker-0.14.0-released/#gzipping'&gt;Getting help&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;!--more--&gt;&lt;h2&gt;&lt;a name='gzipping'&gt;1. New feature: gzipping&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Our hosted JavaScript JavaScript Tracker is now gzipped for CloudFront delivery using a Grunt plugin. This decreases the file size by about 70%, improving load times and perceived website speed. All modern browsers support gzipping (&lt;a href='http://webmasters.stackexchange.com/questions/22217/which-browsers-handle-content-encoding-gzip-and-which-of-them-has-any-special'&gt;reference&lt;/a&gt;).&lt;/p&gt;

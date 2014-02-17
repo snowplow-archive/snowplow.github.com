@@ -42,11 +42,13 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 8. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
 
 
+<a name="2-making-changes-locally" />
 #### 1. Making changes locally
 
 Once you have the repo cloned locally, you can make changes to it. More details on specific changes (e.g. adding a blog post etc.) can be found below.
 
-#### 3. Adding a new blog post
+<a name="3-adding-a-new-blog-post" />
+#### 2. Adding a new blog post
 
 
 This is straightforward. Create a new markdown file in the _posts directory, with the filename format `YYYY-MM--DD-title.md`.
@@ -66,7 +68,8 @@ category: Releases
 
 Then type in the rest of the post, in markdown, as normal.
 
-#### 4. Adding pages to the website (not the blog)
+<a name="4-adding-pages-to-the-website-not-the-blog" />
+#### 3. Adding pages to the website (not the blog)
 
 Adding a page to the rest of the site is reasonably straightforward.
 
@@ -86,24 +89,28 @@ weight: 1 # How far up in the sidebar the page should appear relative to other p
 ---
 ```
 
-#### 5. Embedding images
+<a name="5-embedding-images" />
+#### 4. Embedding images
 
 Images are committed to the appropriate `assets/img` folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
 	
-#### 6. Links between pages
+<a name="6-links-between-pages" />
+#### 5. Links between pages
 
 When adding links to between pages on the site:
 
 1. Always use relative URLs e.g. `/analytics/catalogue-analytics/overview.html`
 2. Remember all URLs end in `.html`
 
-#### 7. Side menus
+<a name="7-side-menus" />
+#### 6. Side menus
 
 Side menus should automatically update with new blog posts / web pages as appropriate.
 
 When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/snowplow/sidebar_standard` and `_includes/snowplow/sidebar_blog`.
 
-#### 8. Previewing the changes locally
+<a name="8-previewing-the-changes-locally" />
+#### 7. Previewing the changes locally
 
 We **strongly** advise you compile and preview the site locally before pushing updates to production.
 
@@ -142,8 +149,8 @@ Now navigate to the `snowplow.github.com` repo in the dev-environment and build 
 
 Once the site has been compiled, it should be viewable on the host. Type 'localhost:4001' on your browser to access it. (Note that the dev-environment Vagrantfile forwards port 4000 on the VM to 4001 on the host.)
 
-
-#### 9. Committing your changes and deploying them to Github Pages
+<a name="9-committing-your-changes-and-deploying-them-to-github-pages" />
+#### 8. Committing your changes and deploying them to Github Pages
 
 When you are happy with the updates:
 

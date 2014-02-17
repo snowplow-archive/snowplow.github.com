@@ -8,13 +8,13 @@ The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [
 
 The content covers:
 
-1. What Snowplow is, including why we developed Snowplow, and how Snowplow differs from other approaches to web analytics
+1. What Snowplow is, including why we developed Snowplow, and how Snowplow differs from other approaches to web and event analytics
 2. How Snowplow works, from a technical standpoint
 3. How we plan to develop Snowplow
 4. How to perform analyses using Snowplow
 5. Overview of the Professional Services we offer around Snowplow
 
-All content is copyright (c) 2012 Snowplow Analytics Ltd and not to be reused without permission. 
+All content is copyright (c) 2012-2014 Snowplow Analytics Ltd and not to be reused without permission. 
 
 
 ## Adding new content and editing existing content
@@ -32,44 +32,41 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 <a name="website-update" />
 ### Updating the website
 
-1. [A note about Jekyll and Github pages](#1-a-note-about-plugins-and-github-pages)
-2. [Making changes locally](#2-making-changes-locally)
-3. [Adding a new blog post](#3-adding-a-new-blog-post)
-4. [Adding pages to the website (not the blog)](#4-adding-pages-to-the-website-not-the-blog)
-5. [Embedding images](#5-embedding-images)
-6. [Links between pages](#6-links-between-pages)
-7. [Side menus](#7-side-menus)
-8. [Previewing changes locally](#8-previewing-the-changes-locally)
-9. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
+1. [Making changes locally](#2-making-changes-locally)
+2. [Adding a new blog post](#3-adding-a-new-blog-post)
+3. [Adding pages to the website (not the blog)](#4-adding-pages-to-the-website-not-the-blog)
+4. [Embedding images](#5-embedding-images)
+5. [Links between pages](#6-links-between-pages)
+6. [Side menus](#7-side-menus)
+7. [Previewing changes locally](#8-previewing-the-changes-locally)
+8. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
 
-#### 1. A note about Jekyll and Github pages
 
-NEED TO UPDATE THIS CONTENT
+#### 1. Making changes locally
 
-#### 2. Making changes locally
-
-NEED TO UPDATE THIS CONTENT
+Once you have the repo cloned locally, you can make changes to it. More details on specific changes (e.g. adding a blog post etc.) can be found below.
 
 #### 3. Adding a new blog post
 
-NEED TO UPDATE THIS CONTENT
 
 This is straightforward. Create a new markdown file in the _posts directory, with the filename format `YYYY-MM--DD-title.md`.
 
 In the file add the following [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter) to the top of the post:
 
-	---
-	layout: blog-post
-	shortenedlink: {{TITLE YOU WANT TO APPEAR ON THE BLOG SIDEBAR}}
-	title: {{FULL TITLE DISPLAYED AT THE TOP OF THE POST}}
-	tags: {{ANY TAGS}}
-	---
+```yaml
+---
+layout: post # Should be set to post for all blog posts, page for all other pages (except homepage)
+shortenedlink: JavaScript Tracker 0.14.0 released # Link that will appear in the side menu
+title: Snowplow JavaScript Tracker 0.14.0 released with new features # Page title will appear in the browser
+tags: [snowplow, javascript, tracker] 
+author: Fred
+category: Releases
+---
+```
 
 Then type in the rest of the post, in markdown, as normal.
 
 #### 4. Adding pages to the website (not the blog)
-
-NEED TO UPDATE THIS CONTENT
 
 Adding a page to the rest of the site is reasonably straightforward.
 
@@ -77,24 +74,23 @@ First, create an appropriately titled markdown file and save it to the appropria
 
 Second, add a [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter) to the top of the Markdown file e.g.:
 
-	---
-	layout: section
-	category: {{e.g. 'product', 'services', 'analytics', 'contact'}}
-	title: {{PAGE TITLE (used in side menu)}} 
-	weight: {{INTEGER INDICATING WHERE ON THE SIDE MENU THIS SHOULD APPEAR i.e. 1 = top spot}}
-	---
-
-Note that if you're adding content to the Analytics section, you'll need to specify the 'analytics_category' you want the page to belong to e.g. 'product', 'catalogue' etc, as pages are currently divided into these subsections
+```yaml
+---
+layout: page
+group: analytics # Primary grouping for page
+sub_group: overview # Sub groups are used to divide page content in the analytics section
+title: The Snowplow Analytics cookbook # Title as sent to the browser
+shortened-link: Analytics Cookbook # Title as displayed in the sidebar
+description: The Snowplow Analytics Cookbook contains a wealth of recipes for using Snowplow data to answer your business questions. # Description as passed to Google
+weight: 1 # How far up in the sidebar the page should appear relative to other pages
+---
+```
 
 #### 5. Embedding images
 
-NEED TO UPDATE THIS CONTENT
-
-Images are committed to the appropriate /img folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
+Images are committed to the appropriate `assets/img` folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
 	
 #### 6. Links between pages
-
-NEED TO UPDATE THIS CONTENT
 
 When adding links to between pages on the site:
 
@@ -103,32 +99,57 @@ When adding links to between pages on the site:
 
 #### 7. Side menus
 
-NEED TO UPDATE THIS CONTENT
-
 Side menus should automatically update with new blog posts / web pages as appropriate.
 
-When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/sidebar_analytics`, `_sidebar_contact.html` etc. files. (There is one file for each side menu.)
+When the side menu is generated (Jekyll compiles the site) it fetches all the different pages, filters them by category and uses this to populate all the menus. To see how this is done, refer to the `_includes/snowplow/sidebar_standard` and `_includes/snowplow/sidebar_blog`.
 
 #### 8. Previewing the changes locally
 
-NEED TO UPDATE THIS CONTENT
+We **strongly** advise you compile and preview the site locally before pushing updates to production.
 
-This is advisable before performing any commits :-). To preview the site on your host machine, you'll need to build it in the VM (guest machine):
+In order to compile the website locally, you will need be running [Jekyll] (http://rubygems.org/gems/jekyll). This site was developed using Jekyll v1.4.3.
+
+We recommend using the [Vagrant] (http://www.vagrantup.com/) and the [Snowplow development environment] (https://github.com/snowplow/dev-environment).
+
+First, clone the dev environment:
+
+	$ git clone --recursive https://github.com/snowplow/dev-environment.git 
+	$ cd dev-environment
+	$ vagrant up
+
+Note that we use the `--recursive` flag to clone in [ansible-playbooks] (https://github.com/snowplow/ansible-playbooks) as a submodule. 
+
+Now SSH into the VM and install the relevant Ruby dependencies:
 
 	$ vagrant ssh
-	$ cd /vagrant/snowplow.github.com
-	$ jekyll --server
+	$ ansible-playbook /vagrant/ansible-playbooks/generic/ruby/ruby-rvm.yaml \
+		--inventory-file=/home/vagrant/ansible_hosts --connection=local
 
-This will build the website and serve it to port localhost:4000. The Vagrant box is setup to forward this to localhost:4001 on your host machine, so open up a browser and enter `localhost:4001`. You should see the updated website displayed.
+Exit out of the terminal, and then SSH back in (to make sure that Ruby 1.9.3 is running):
 
-Remember, if you don't like what you see, and modify the site, to preview the changes, you'll need to CTRL-C out of Jekyll, then re-run 
+	$ exit
+	$ vagrant ssh 
 
-	jekyll --server
+Now install Jekyll
 
-from the repo directory, (which will recompile it).
+	$ gem install jekyll
+
+Now navigate to the `snowplow.github.com` repo in the dev-environment and build it using:
+
+	$ jekyll serve
+
+*In most cases people clone the `snowplow.github.com` repo into the `dev-environment` repo on the host machine, in which case on the VM it can be found in `/vagrant/snowplow.github.com`*
+
+Once the site has been compiled, it should be viewable on the host. Type 'localhost:4001' on your browser to access it. (Note that the dev-environment Vagrantfile forwards port 4000 on the VM to 4001 on the host.)
+
 
 #### 9. Committing your changes and deploying them to Github Pages
 
-NEED TO UPDATE THIS CONTENT
+When you are happy with the updates:
+
+1. Merge them with the master branch
+2. Push the master branch to origin
+
+The good people at Github will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [Github pages] (http://pages.github.com/).
 
 [dev-environment]: https://github.com/snowplow/dev-environment

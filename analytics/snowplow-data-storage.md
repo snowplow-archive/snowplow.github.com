@@ -9,7 +9,7 @@ weight: 3
 
 # Understanding how your Snowplow data is stored
 
-Currently, Snowplow supports storing your data in three locations: [Amazon S3] (#s3), Amazon [Redshift] (#redshift) and [PostgreSQL] (#postgres). We are working to support [a growing range of data storage options] (#other) - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug directly into that data. Many Snowplow uses already store data on _both_ S3 _and_ Redshift / PostgreSQL, to exploit tools that work well with both storage solutions. (More on this [further down the page](#more).)
+Currently, Snowplow supports storing your data in three storage targets: [Amazon S3] (#s3), Amazon [Redshift] (#redshift) and [PostgreSQL] (#postgres). We are working to support [a growing range of data storage options] (#other) - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug directly into that data. Many Snowplow uses already store data on _both_ S3 _and_ Redshift / PostgreSQL, to exploit tools that work well with both storage solutions. 
 
 Understanding how your Snowplow data is stored and formatted will better position you to analyse that data using a broad range of tools.
 
@@ -21,7 +21,7 @@ Storing your Snowplow data in Amazon Redshift has a number of benefits:
 
 * Amazon Redshift is a fully-managed service
 * Amazon Redshift scales up to handle Petabytes of data
-* Redshift clusters can be scaled up over time: Amazon makes it easy to add nodes
+* Redshift clusters can be scaled up over time: Amazon makes it easy to add and remove nodes
 * A wide range of analytics tools can be plugged directly into Redshift via well-supported PostgreSQL JDBC and ODBC drivers. (E.g. it works particularly well with [Looker][looker], [ChartIO][chartio] and [Tableau][tableau], for example.) 
 * Redshift supports a broad set of SQL functionality
 * Redshift is highly cost effective: costing as little as $1000 per TB per year
@@ -59,7 +59,7 @@ For a guide to getting started using Hive to query your data in S3, see the [get
 
 <h2><a name="other">Other storage options on the roadmap</a></h2>
 
-We plan to incorporate [Neo4J] [neo4j] and [SkyDB] [skydb] to enable richer querying of time series event data.
+We plan to incorporate [Neo4J] [neo4j], [SkyDB] [skydb], [Google BigQuery] [bigquery] and [Elastic Search] [elastic-search] to enable richer querying of time series event data.
 
 
 [Learn more][table-structure] about how data is structured.
@@ -101,3 +101,6 @@ We plan to incorporate [Neo4J] [neo4j] and [SkyDB] [skydb] to enable richer quer
 [postgres-img]: /assets/img/analytics/tools/postgres.png
 [emr]: http://aws.amazon.com/elasticmapreduce/
 [qubole]: http://qubole.com/
+[looker]: http://looker.com/
+[bigquery]: http://www.elasticsearch.org/
+[elastic-search]: http://www.elasticsearch.org/

@@ -31,7 +31,7 @@ At its heart, Snowplow is a platform for capturing, storing and analysing event-
 Currently, whether the data is stored in Redshift, PostgreSQL or S3, Snowplow data is structured as a single fat table. Each line represents a single event. Each line is "fat" because there are a large number of fields (98 at the time of writing). This is not surprising - there are:
 
 * Fields that relate to contextual data, and  are common across all events and platform (e.g. fields that relate to the subject of the event, often a consumer or user)
-* Fields that are platform specific (e.g. `page_url`, `page_title`, `page_referrer`, `br_features` for web events)
+* Fields that are platform specific (e.g. fields related to browser, operating system and device for web events)
 * Fields that are event specific (e.g. `tr_orderid`, `ti_sku`, `tr_price` for transaction events)
 
 A [complete list of fields by type] [canonical-event-model] is given on the [wiki] [canonical-event-model].

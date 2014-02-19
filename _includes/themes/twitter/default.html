@@ -50,9 +50,9 @@
             <!--
             Instead of dynamically generating navigation pane based on which group of pages
             is set to 'navigation', hardcode, and use group to generate sidemnu dynamically.
-            {% assign pages_list = site.pages %}  
-            {% assign group = 'navigation' %}  
-            {% include JB/pages_list %}  
+              {% assign pages_list = site.pages %}  
+              {% assign group = 'navigation' %}  
+              {% include JB/pages_list %}  
             -->
             {% if page.group == 'product' %}
             <li class="active"><a href="/product/index.html" class="active">Product</a></li>

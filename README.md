@@ -126,20 +126,20 @@ First, clone the dev environment:
 
 Note that we use the `--recursive` flag to clone in [ansible-playbooks] (https://github.com/snowplow/ansible-playbooks) as a submodule. 
 
-Now SSH into the VM and install the relevant Ruby dependencies:
+Now SSH into the VM and run the [snowplow-website.yml] Ansible Playbook, which installs Ruby, RVM and Jekyll:
 
 	$ vagrant ssh
-	$ ansible-playbook /vagrant/ansible-playbooks/generic/ruby/ruby-rvm.yaml \
+	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
 		--inventory-file=/home/vagrant/ansible_hosts --connection=local
 
-Exit out of the terminal, and then SSH back in (to make sure that Ruby 1.9.3 is running):
+Note that there is a bug we still need to fix, which means the final step in the playbook, which installs Jekyll, doesn't successfully run first time: you need to exit the terminal after you first run the playbook, then log back in and run it again:
 
 	$ exit
 	$ vagrant ssh 
+	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
+		--inventory-file=/home/vagrant/ansible_hosts --connection=local
 
-Now install Jekyll
-
-	$ gem install jekyll
+Now everything should be ready!
 
 Now navigate to the `snowplow.github.com` repo in the dev-environment and build it using:
 

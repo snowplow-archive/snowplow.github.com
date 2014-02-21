@@ -1,8 +1,8 @@
 ---
-layout: blog-post
+layout: post
 shortenedlink: JavaScript Tracker 1.0.0 released
 title: Snowplow JavaScript Tracker 1.0.0 released with new features
-tags: snowplow javascript tracker
+tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases
 ---
@@ -37,7 +37,7 @@ Set `enable` to `true` to turn on user fingerprinting. The optional `hashseed` a
 Note that user fingerprinting is now turned off by default. `enableUserFingerprinting` must be explicitly used to turn it on, like so:
 
 {% highlight javascript %}
-_snaq.push(['enableUserFingerprinting, true]);
+_snaq.push(['enableUserFingerprinting', true]);
 {% endhighlight %}
 
 
@@ -112,23 +112,3 @@ As always, if you run into any issues or don't understand any of the above chang
 [91]: https://github.com/snowplow/snowplow-javascript-tracker/issues/91
 [86]: https://github.com/snowplow/snowplow-javascript-tracker/issues/86
 [102]: https://github.com/snowplow/snowplow-javascript-tracker/issues/102
-
-Added extra meta-data to package.json (#83)
-Moved part of banner.js into Gruntfile with grunt-concat's banner option so its values are based on package.json (#82)
-Started using Browserify for modules (#74)
-Replaced some/all of lib/.js with modules (#7)
-Added user fingerprinting on/off switch and configurable hash seed (#7)
-Deprecated trackImpression (#66)
-Removed attachUserId as fully deprecated now (#64)
-Removed setSiteId as fully deprecated now (#63)
-Removed getVisitor-Id, -Info as fully deprecated now (#62)
-Removed trackEvent as fully deprecated now (#61)
-Tightened public API for SnowPlow (#29)
-Renamed SnowPlow everywhere to Snowplow (#69)
-Prepended window. or SnowPlow.windowAlias. onto _snaq everywhere (#39)
-Removed legacy Piwik plugin framework (#56)
-Rebased with 0.14.0 (#87)
-Moved hasSessionStorage and hasLocalStorage into detectors.js (#91)
-Wrote tests for AsyncQueueProxy (#100)
-Added Travis CI to the project (#103) (TODO)
-Added a built with Grunt button to the README (#102)

@@ -1,7 +1,7 @@
 ---
 layout: post
 shortenedlink: JavaScript Tracker 1.0.0 released
-title: Snowplow JavaScript Tracker 1.0.0 released with new features
+title: Snowplow JavaScript Tracker 1.0.0 released
 tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases

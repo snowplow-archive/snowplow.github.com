@@ -69,6 +69,11 @@
             {% else %}
             <li><a href="/analytics/index.html">Analytics</a></li>
             {% endif %}
+            {% if page.group == 'technology' %}
+            <li class="active"><a href="/technology/index.html" class="active">Technology</a></li>  
+            {% else %}
+            <li><a href="/technology/index.html">Technology</a></li>  
+            {% endif %}
             {% if page.url contains 'blog' %}
             <li class="active"><a href="/blog/index.html" class="active">Blog</a></li>
             {% else %}

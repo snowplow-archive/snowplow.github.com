@@ -50,7 +50,7 @@ Do please [join the group] [kinesis-london] to be kept up-to-date with upcoming 
 [just-eat]: http://www.just-eat.co.uk/
 [ianmeyers]: https://twitter.com/IanMeyers
 
-[three-eras]: http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing/
+[three-eras]: /blog/2014/01/20/the-three-eras-of-business-data-processing/
 [090-issues]: https://github.com/snowplow/snowplow/issues?milestone=33&page=1&state=closed
 
 [email]: mailto:kinesis-ug@snowplowanalytics.com

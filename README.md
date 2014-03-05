@@ -129,14 +129,14 @@ Note that we use the `--recursive` flag to clone in [ansible-playbooks] (https:/
 Now SSH into the VM and run the [snowplow-website.yml] Ansible Playbook, which installs Ruby, RVM and Jekyll:
 
 	$ vagrant ssh
-	$ ansible-playbook /vagrant/ansible-playbooks/vendor/com.snowplowanalytics/snowplow.github.com.yaml \
+	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
 		--inventory-file=/home/vagrant/ansible_hosts --connection=local
 
 Note that there is a bug we still need to fix, which means the final step in the playbook, which installs Jekyll, doesn't successfully run first time: you need to exit the terminal after you first run the playbook, then log back in and run it again:
 
 	$ exit
 	$ vagrant ssh 
-	$ ansible-playbook /vagrant/ansible-playbooks/vendor/com.snowplowanalytics/snowplow.github.com.yaml \
+	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
 		--inventory-file=/home/vagrant/ansible_hosts --connection=local
 
 Now everything should be ready!

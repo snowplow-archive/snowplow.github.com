@@ -35,12 +35,14 @@ In fact a large proportion of Snowplow's existing Canonical Event Model is descr
 
 Context and Snowplow today
 
-Today, our Canonical Event Model contains some XX fields, and by our reckoning XX of those fields relate to context
+Today, our Canonical Event Model contains some XX fields, and by our reckoning XX of those fields relate to _event context_ in one form or another. Here is a brief summary of the context already present:
 
 << ADD TABLE >>
 
 
-As you can see, 
+As you can see, our Canonical Event Model is full of context. But not all of this context is created equal - in the next section we will explore where context comes from, and how reliable it is.
+
+
 
 Here are some examples of contextual information which are captured by the Snowplow JavaScript Tracker 
 

@@ -7,7 +7,9 @@ author: Alex
 category: Research
 ---
 
-Here at Snowplow we recently added a new feature called "custom contexts" to our JavaScript Tracker (although not yet into our Enrichment process or Storage targets). To accompany the feature release we published a [User Guide for Custom Contexts] [context-user-guide] - a practical, hands-on guide to populating custom contexts from JavaScript. We want to now follow this up with a post on the underlying theory of event context: what it is, how it is generated and why it is so useful for analytics. "Event context" isn't a phrase widely used in the analytics industry - and you have to go back to our blog post [Towards Universal Event Analytics] [towards-universal-analytics] for our first description of it:
+Here at Snowplow we recently added a new feature called "custom contexts" to our JavaScript Tracker (although not yet into our Enrichment process or Storage targets).
+
+To accompany the feature release we published a [User Guide for Custom Contexts] [context-user-guide] - a practical, hands-on guide to populating custom contexts from JavaScript. We want to now follow this up with a post on the underlying theory of event context: what it is, how it is generated and why it is so useful for analytics. "Event context" isn't a phrase widely used in the analytics industry - and you have to go back to our blog post [Towards Universal Event Analytics] [towards-universal-analytics] for our first description of it:
 
 _**Context**. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: "I posted the letter **on Tuesday from Boston**"_
 
@@ -49,7 +51,7 @@ Today, our [Canonical Event Model] [canonical-event-model] contains 98 fields, a
 | Narratorial      | `v_tracker`, `v_collector`, `v_etl`                                    | Who narrated this event (our data pipeline)                |
 | Antecedental     | `refr_urlpath`, `mkt_medium`, `mkt_campaign` etc                       | What occurred prior to (and potentially caused) this event |
 
-As you can see, our Canonical Event Model is full of context. But not all of this context is created equal - in the next section we will explore where context comes from, and how reliable it is.
+As you can see, our Canonical Event Model is chock full of context! But not all of this context is created equal - in the next section we will explore where context comes from, and how reliable it is.
 
 <h2><a name="sources">Sources of context</a></h2>
 

@@ -13,7 +13,11 @@ _**Context**. Not a grammatical term, but we will use context to describe the ph
 
 This was a good start but there is much more to be said about event context. In this blog post, we will cover the theory of event context, grounding it in some examples of context being collected or derived by Snowplow today. I'll then look at some ideas around context sources, followed by some  before finishing with some thoughts on why event context is so powerful for analytics:
 
-<< TOC >>
+1. [Event context: the theory](/blog/2014/03/11/building-an-event-grammar-understanding-context/#theory)
+2. [Context and Snowplow today](/blog/2014/03/11/building-an-event-grammar-understanding-context/#snowplow)
+3. [Sources of context](/blog/2014/03/11/building-an-event-grammar-understanding-context/#sources)
+4. [One man's context...](/blog/2014/03/11/building-an-event-grammar-understanding-context/#prepositions)
+5. [The power of context](/blog/2014/03/11/building-an-event-grammar-understanding-context/#conclusion)
 
 <!--more-->
 
@@ -21,7 +25,7 @@ This was a good start but there is much more to be said about event context. In 
 
 In our earlier blog post, Towards Universal Event Analytics, event context was a little crowded out by the entities (subjects and objects) and verbs which composed our event grammar:
 
-<< IMAGE >>
+![grammar] [grammar]
 
 Compared to the colourful entities and verbs, event context looked like simply "the intangible everything else" - the amorphous whitespace around our core event. Nothing could be further from the truth - event context is in fact tangible, easily recorded and hugely valuable for analysis.
 
@@ -61,7 +65,7 @@ To dive into a couple of examples:
 
 For a simple comparison between primary and secondary context, consider our two event timestamps:
 
-<< IMAGE >>
+[timestamps]: [timestamps]
 
 Both of these are pieces of temporal context, but they originate from different places. And interestingly, they have very different reliability profiles and thus use-cases:
 
@@ -74,29 +78,35 @@ Thus for absolute analyses across multiple users, `collector_tstamp` provides th
 
 Additionally, it is possible to _derive_ new context from one or more pieces of existing context. Here is an illustration of this:
 
-<< IMAGE >>
+[derived]: [derived]
 
 As you can see here, we collect `ip_address` and `collector_tstamp` as pieces of secondary context in the collector. Then in the Enrichment phase, we are able to derive a new set of geographical context (`geo_country`, `geo_region` etc) by performing a MaxMind geo-IP lookup on the user's `ip_address`.
 
 To push this example further: we could potentially then use the `collector_stamp`, `geo_latitude` and `geo_longitude` to derive meteorological context from that information. This is not an Enrichment currently supported by Snowplow, but it is a great example of a second-order derived context.
 
-<h2><a name="sources">One man's context...</a></h2>
+<h2><a name="prepositions">One man's context...</a></h2>
 
 There's one more complexity I'd like to discuss before wrapping up, which could be summed up by:
 
 _One event's context is another event's object (or subject or...)_
 
-Let's demonstrate this by comparing two different events:
+Let's demonstrate this by comparing two events. In the first, a customer is viewing a web page:
 
-<< IMAGE >>
+[view]: [view]
 
-The first event is simple: a customer is viewing a web page. The second event is a little more complex: the customer is adding an item to their basket - but they are still on a web page, which now serves as spatial context for the event. Thus we can see that one event's direct object becomes context for another event; in both events, we are modelling some kind of `web_page` entity, but it serves different functions in both events.
+In the second event, the customer is now adding an item to their basket:
+
+[add]: [add]
+
+But crucially, in the second event, the customer is still on a web page. This web page is no longer the direct object of the event - but it is still relevant information: it gives us spatial context, on where the event took place.
+
+Thus we can see that one event's direct object becomes context for another event; in both events, we are modelling some kind of `web_page` entity, but it serves different functions in both events.
 
 We introduced a closely-related concept in our blog post [Towards Universal Event Analytics] [towards-universal-analytics] with talk of prepositional objects:
 
 _the first player (Subject) kills (Verb) the second player (Direct Object) _using a nailgun_ (Prepositional Object)_
 
-As we evolve our event grammar further, we will need to consider whether prepositional objects and context should be treated separately, or merged into one broader bucket.
+As we evolve our event grammar further, we will need to consider whether prepositional objects and context should be treated separately, or merged into one broader concept.
 
 <h2><a name="conclusion">The power of context</a></h2>
 
@@ -113,3 +123,5 @@ But the challenge of context is not just to accrete as much context as possible 
 [context-user-guide]: /blog/2014/01/27/snowplow-custom-contexts-guide/
 [towards-universal-analytics]: 2013/08/12/towards-universal-event-analytics-building-an-event-grammar/
 [canonical-event-model]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
+
+[grammar]: /assets/img/blog/2014/03/event-grammar.png

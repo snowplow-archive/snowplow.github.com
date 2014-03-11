@@ -13,7 +13,7 @@ To accompany the feature release we published a [User Guide for Custom Contexts]
 
 _**Context**. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: "I posted the letter **on Tuesday from Boston**"_
 
-This was a good start but there is much more to be said about event context. In this blog post, we will cover the theory of event context, grounding it in some examples of context being collected or derived by Snowplow today. I'll then look at some ideas around context sources, followed by some  before finishing with some thoughts on why event context is so powerful for analytics:
+This was a good start but there is much more to be said about event context. In this blog post, we will cover the theory of event context, grounding it in some examples of context being collected or derived by Snowplow today. I'll then look at some ideas around sources of context, followed by some notes on the relationship between context and prepositional objects. Finally I'll conclude with some thoughts on why event context is so powerful for analytics:
 
 1. [Event context: the theory](/blog/2014/03/11/building-an-event-grammar-understanding-context/#theory)
 2. [Context and Snowplow today](/blog/2014/03/11/building-an-event-grammar-understanding-context/#snowplow)
@@ -74,7 +74,7 @@ As you can see, our Canonical Event Model is chock full of context! But not all 
 
 <h2><a name="sources">Sources of context</a></h2>
 
-It might be natural to assume that all event context is captured at the point of creating ("tracking" in Snowplow language) an event. In fact things are not that simple - we can segment context based on its source:
+It might be natural to assume that all event context is captured at the point of creating ("tracking" in Snowplow language) an event. In fact things are not that simple - but we can think of context coming from three distinct sources:
 
 1. **Primary context:** context which was captured directly at the point of creating the event
 2. **Secondary context:** context can be captured further down the event pipeline, for example at the point of _collecting_ the event
@@ -103,7 +103,7 @@ Additionally, it is possible to _derive_ new context from one or more pieces of 
 
 As you can see here, we collect `ip_address` and `collector_tstamp` as pieces of secondary context in the collector. Then in the Enrichment phase, we are able to derive a new set of geographical context (`geo_latitude`, `geo_longitude` etc) by performing a MaxMind geo-IP lookup on the user's `ip_address`.
 
-To push this example further: we could potentially then use the `collector_stamp`, `geo_latitude` and `geo_longitude` to derive meteorological context from that information. This is not an Enrichment currently supported by Snowplow, but it is a great example of a second-order derived context.
+To push this example further: we could potentially then use the `collector_tstamp`, `geo_latitude` and `geo_longitude` to derive weather context from that information. This is not an Enrichment currently supported by Snowplow, but it is a great example of a second-order derived context.
 
 <h2><a name="prepositions">One man's context...</a></h2>
 

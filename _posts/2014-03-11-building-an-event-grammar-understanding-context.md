@@ -100,7 +100,7 @@ In the second event, the customer is now adding an item to their basket:
 
 But crucially, in the second event, the customer is still on a web page. This web page is no longer the direct object of the event - but it is still relevant information: it gives us spatial context, on where the event took place.
 
-Thus we can see that one event's direct object becomes context for another event; in both events, we are modelling some kind of `web_page` entity, but it serves different functions in both events.
+Thus we can see that one event's direct object becomes context for another event; in both events, we are modelling some kind of `web_page` entity, but it serves different roles in both events.
 
 We introduced a closely-related concept in our blog post [Towards Universal Event Analytics] [towards-universal-analytics] with talk of prepositional objects:
 

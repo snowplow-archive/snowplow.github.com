@@ -65,7 +65,7 @@ To dive into a couple of examples:
 
 For a simple comparison between primary and secondary context, consider our two event timestamps:
 
-[timestamps]: [timestamps]
+![timestamps] [timestamps]
 
 Both of these are pieces of temporal context, but they originate from different places. And interestingly, they have very different reliability profiles and thus use-cases:
 
@@ -78,7 +78,7 @@ Thus for absolute analyses across multiple users, `collector_tstamp` provides th
 
 Additionally, it is possible to _derive_ new context from one or more pieces of existing context. Here is an illustration of this:
 
-[derived]: [derived]
+![derived] [derived]
 
 As you can see here, we collect `ip_address` and `collector_tstamp` as pieces of secondary context in the collector. Then in the Enrichment phase, we are able to derive a new set of geographical context (`geo_latitude`, `geo_longitude` etc) by performing a MaxMind geo-IP lookup on the user's `ip_address`.
 
@@ -92,11 +92,11 @@ _One event's context is another event's object (or subject or...)_
 
 Let's demonstrate this by comparing two events. In the first, a customer is viewing a web page:
 
-[view]: [view]
+![view] [view]
 
 In the second event, the customer is now adding an item to their basket:
 
-[add]: [add]
+![add] [add]
 
 But crucially, in the second event, the customer is still on a web page. This web page is no longer the direct object of the event - but it is still relevant information: it gives us spatial context, on where the event took place.
 

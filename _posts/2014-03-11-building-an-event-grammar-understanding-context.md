@@ -80,7 +80,7 @@ Additionally, it is possible to _derive_ new context from one or more pieces of 
 
 [derived]: [derived]
 
-As you can see here, we collect `ip_address` and `collector_tstamp` as pieces of secondary context in the collector. Then in the Enrichment phase, we are able to derive a new set of geographical context (`geo_country`, `geo_region` etc) by performing a MaxMind geo-IP lookup on the user's `ip_address`.
+As you can see here, we collect `ip_address` and `collector_tstamp` as pieces of secondary context in the collector. Then in the Enrichment phase, we are able to derive a new set of geographical context (`geo_latitude`, `geo_longitude` etc) by performing a MaxMind geo-IP lookup on the user's `ip_address`.
 
 To push this example further: we could potentially then use the `collector_stamp`, `geo_latitude` and `geo_longitude` to derive meteorological context from that information. This is not an Enrichment currently supported by Snowplow, but it is a great example of a second-order derived context.
 
@@ -104,7 +104,7 @@ Thus we can see that one event's direct object becomes context for another event
 
 We introduced a closely-related concept in our blog post [Towards Universal Event Analytics] [towards-universal-analytics] with talk of prepositional objects:
 
-_the first player (Subject) kills (Verb) the second player (Direct Object) _using a nailgun_ (Prepositional Object)_
+_the first player (Subject) kills (Verb) the second player (Direct Object) **using a nailgun (Prepositional Object)**_
 
 As we evolve our event grammar further, we will need to consider whether prepositional objects and context should be treated separately, or merged into one broader concept.
 
@@ -125,3 +125,7 @@ But the challenge of context is not just to accrete as much context as possible 
 [canonical-event-model]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
 
 [grammar]: /assets/img/blog/2014/03/event-grammar.png
+[timestamps]: /assets/img/blog/2014/03/timestamps.png
+[derived]: /assets/img/blog/2014/03/derived.png
+[view]: /assets/img/blog/2014/03/view.png
+[add]: /assets/img/blog/2014/03/add.png

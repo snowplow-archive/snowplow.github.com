@@ -43,13 +43,32 @@ In fact a large proportion of Snowplow's existing Canonical Event Model is descr
 
 Today, our [Canonical Event Model] [canonical-event-model] contains 98 fields, and by our reckoning 57 of those fields solely relate to _event context_ in one form or another. Here is a brief summary of the context already present:
 
-| Context category | Example fields                                                         | Description                                                |
-|:-----------------|:-----------------------------------------------------------------------|:-----------------------------------------------------------|
-| Temporal         | `dvce_tstamp`, `collector_tstamp`, `os_timezone`, `domain_sessionidx`  | When this event took place                                 | 
-| Geographical     | `geo_country`, `geo_region`, `geo_city` etc                            | Where in the real-world this event took place              |
-| Environmental    | `platform`, `br_name`, `os_family`, `dvce_ismobile`, `doc_charset` etc | The computing environment in which this event took place   |
-| Narratorial      | `v_tracker`, `v_collector`, `v_etl`                                    | Who narrated this event (our data pipeline)                |
-| Antecedental     | `refr_urlpath`, `mkt_medium`, `mkt_campaign` etc                       | What occurred prior to (and potentially caused) this event |
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Context category</th>
+			<th>Example fields</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>Temporal</strong></td><td><ul><li>dvce_tstamp</li><li>collector_tstamp</li><li>os_timezone</li></ul></td><td>When this event took place</td>
+		</tr>
+		<tr>
+			<td><strong>Geographical</strong></td><td><ul><li>geo_latitude</li><li>geo_longitude</li><li>geo_country</li></ul></td><td>Where in the real-world this event took place</td>
+		</tr>
+		<tr>
+			<td><strong>Environmental</strong></td><td><ul><li>platform</li><li>br_name</li><li>os_family</li></ul></td><td>The computing environment in which this event took place</td>
+		</tr>
+		<tr>
+			<td><strong>Narratorial</strong></td><td><ul><li>v_tracker</li><li>v_collector</li><li>v_etl</li></ul></td><td>Who narrated this event (our data pipeline)</td>
+		</tr>
+		<tr>
+			<td><strong>Antecedental</strong></td><td><ul><li>refr_urlpath</li><li>mkt_medium</li><li>mkt_campaign</li></ul></td><td>What occurred prior to (and potentially caused) this event</td>
+		</tr>
+	</tbody>
+</table>
 
 As you can see, our Canonical Event Model is chock full of context! But not all of this context is created equal - in the next section we will explore where context comes from, and how reliable it is.
 

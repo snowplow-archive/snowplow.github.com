@@ -23,7 +23,7 @@ My slides from the meetup are after the jump:
 
 It was great making my first trip to Tel Aviv - sad that it was only a flying visit, but I am leaving with a great first impression of the city and the technology community there!
 
-**If you are in the Israeli tech/analytics scene and would like to meet with the Snowplow team, then Yali will be in Israel between April 30 and May 11th and happy to meet - do [get in touch] [talk-to-us]!**
+**If you are in the Israeli tech/analytics scene and would like to meet with the Snowplow team, then Yali will be in Israel between April 30 and May 11th and keen to meet - do [get in touch] [talk-to-us]!**
 
 [meetup]: http://www.meetup.com/Big-Data-Israel/events/168389362/
 [zaponet]: http://www.zaponet.com/

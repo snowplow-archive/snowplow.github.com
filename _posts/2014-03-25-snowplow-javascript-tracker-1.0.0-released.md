@@ -7,39 +7,48 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the [SnowPlow JavaScript Tracker version 1.0.0] [100-release].
+We are pleased to announce the release of the [Snowplow JavaScript Tracker version 1.0.0] [100-release].
 
 This release adds new options for user fingerprinting and makes some minor changes to the tracker API. In addition, we have moved to a module-based project structure and added automated testing.
 
 This post will cover the following topics:
 
-1. [New feature: user fingerprint options](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#hash)
-2. [Changes to the Snowplow API](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#api)
-3. [Move to modules](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#modules)
-4. [Automated testing](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#tests)
-5. [Removed deprecated functionality](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#deprecated)
-6. [Other structural improvements](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#structure)
-7. [Upgrading](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#upgrading)
-8. [Getting help](/blog/2014/02/xx/snowplow-javascript-tracker-1.0.0-released/#help)
+1. [New feature: user fingerprint options](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#hash)
+2. [Changes to the Snowplow API](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#api)
+3. [Move to modules](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#modules)
+4. [Automated testing](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#tests)
+5. [Removed deprecated functionality](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#deprecated)
+6. [Other structural improvements](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#structure)
+7. [Upgrading](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#upgrading)
+8. [Getting help](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#help)
 
 <!--more-->
 
 <h2><a name="hash">1. New feature: user fingerprint options</a></h2>
 
-This version adds a new function to control user fingerprinting:
+The Snowplow JavaScript Tracker uses a "user fingerprint" to identify users based on various features of their browser.
+
+This version adds two new functions to control user fingerprinting: `enableUserFingerprinting` and `setUserFingerprintSeed`.
 
 {% highlight javascript %}
-function enableUserFingerprinting(enable, hashSeed)
+function enableUserFingerprinting(enable)
+
+function setUserFingerprintSeed(seed)
 {% endhighlight %}
 
-Set `enable` to `true` to turn on user fingerprinting. The optional `hashseed` argument lets you use a custom hash seed for user fingerprinting. If this argument is not supplied, the default hash seed will be used.
-
-Note that user fingerprinting is now turned off by default. `enableUserFingerprinting` must be explicitly used to turn it on, like so:
+User fingerprinting is turned on by default, but can be turned off like this:
 
 {% highlight javascript %}
-_snaq.push(['enableUserFingerprinting', true]);
+_snaq.push(['enableUserFingerprinting', false]);
 {% endhighlight %}
 
+If you want to choose the seed used to generate the user fingerprint, use `setUserFingerprintSeed` like this:
+
+{% highlight javascript %}
+_snaq.push(['setUserFingerprintSeed', 746392851]);
+{% endhighlight %}
+
+If you do not set a custom hash seed, the default seed will be used instead.
 
 <h2><a name="api">1. Changes to the Snowplow API</a></h2>
 
@@ -49,11 +58,11 @@ In addition, the global `SnowPlow` object has been renamed to `Snowplow`. This w
 
 <h2><a name="modules">1. Move to modules</a></h2>
 
-We have organised our code into modules using [Browserify] [browserify]. Browserify recursively analyzes the dependencies of the Tracker and combines all the required modules into a single bundle. This allowed us to replace much of our code with external [npm] [npm] modules.
+We have organised our code into modules using [Browserify] [browserify]. Browserify recursively analyzes the dependencies of the Tracker and combines all the required modules into a single bundle. This allowed us to replace much of our code with external [npm] [npm] modules and a custom [lodash] [lodash] library.
 
 <h2><a name="tests">1. Automated testing</a></h2>
 
-We have started to use [Intern] [intern] for non-functional testing of our asynchronous queue and payload builder modules. We have also added [Travis CI] [travis] to the project. Travis runs the Intern tests every time the Javascript Tracker repository is altered, preventing errors from going unnoticed. We plan to expand the test suite to include functional tests in version 1.1.0.
+We have started to use [Intern] [intern] for non-functional testing of our asynchronous queue and payload builder modules. We have also added [Travis CI] [travis] to the project. Travis runs the Intern tests every time the Javascript Tracker repository is altered, preventing errors from going unnoticed. We plan to expand the test suite to include functional tests in version 2.0.0.
 
 <h2><a name="deprecated">1. Removed deprecated functionality</a></h2>
 
@@ -65,13 +74,13 @@ Five deprecated functions have been removed:
 * `getVisitorInfo` should be replaced with getDomainUserInfo.
 * `trackEvent` should be replaced with `getStructEvent`, which allows you to set a [context] [contexts] parameter.
 
-Finally, `trackImpression` has been deprecated in preparation for the addition of `trackAdImpression` in v1.0.0.
+Finally, `trackImpression` has been deprecated in preparation for the addition of `trackAdImpression` in version 2.0.0.
 
 <h2><a name="structure">7. Other structural improvements</a></h2>
 
 We have also:
 
-* Added meta-data to our package.json including a description and keywords for the project [#83] [83]
+* Added meta-data to our package.json including a description and keywords [#83] [83]
 * Moved the banner into our Gruntfile and dynamically templated in information from our package.json [#82] [82]
 * Removed the legacy Piwik plugin framework [#56] [56]
 * Named our Grunt tasks [#86] [86]
@@ -100,6 +109,7 @@ As always, if you run into any issues or don't understand any of the above chang
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/
 [browserify]: http://browserify.org/
 [npm]: https://www.npmjs.org/
+[lodash]: http://lodash.com/
 [intern]: [http://theintern.io/]
 [travis]: [https://travis-ci.org/]
 

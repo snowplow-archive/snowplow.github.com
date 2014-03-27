@@ -110,8 +110,8 @@ As always, if you run into any issues or don't understand any of the above chang
 [browserify]: http://browserify.org/
 [npm]: https://www.npmjs.org/
 [lodash]: http://lodash.com/
-[intern]: [http://theintern.io/]
-[travis]: [https://travis-ci.org/]
+[intern]: http://theintern.io/
+[travis]: https://travis-ci.org/
 
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

@@ -9,18 +9,18 @@ category: Releases
 
 We are pleased to announce the release of the [Snowplow JavaScript Tracker version 1.0.0] [100-release].
 
-This release adds new options for user fingerprinting and makes some minor changes to the tracker API. In addition, we have moved to a module-based project structure and added automated testing.
+This release adds new options for user fingerprinting and makes some minor changes to the Tracker API. In addition, we have moved to a module-based project structure and added automated testing.
 
 This post will cover the following topics:
 
-1. [New feature: user fingerprint options](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#hash)
-2. [Changes to the Snowplow API](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#api)
-3. [Move to modules](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#modules)
-4. [Automated testing](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#tests)
-5. [Removed deprecated functionality](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#deprecated)
-6. [Other structural improvements](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#structure)
-7. [Upgrading](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#upgrading)
-8. [Getting help](/blog/2014/03/25/snowplow-javascript-tracker-1.0.0-released/#help)
+1. [New feature: user fingerprint options](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#hash)
+2. [Changes to the Snowplow API](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#api)
+3. [Move to modules](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#modules)
+4. [Automated testing](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#tests)
+5. [Removed deprecated functionality](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#deprecated)
+6. [Other structural improvements](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#structure)
+7. [Upgrading](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#upgrading)
+8. [Getting help](/blog/2014/03/27/snowplow-javascript-tracker-1.0.0-released/#help)
 
 <!--more-->
 
@@ -58,23 +58,23 @@ In addition, the global `SnowPlow` object has been renamed to `Snowplow`. This w
 
 <h2><a name="modules">1. Move to modules</a></h2>
 
-We have organised our code into modules using [Browserify] [browserify]. Browserify recursively analyzes the dependencies of the Tracker and combines all the required modules into a single bundle. This allowed us to replace much of our code with external [npm] [npm] modules and a custom [lodash] [lodash] library.
+We have organised our code into modules using [Browserify] [browserify]. Browserify recursively analyzes the dependencies of the Tracker and combines all the required modules into a single bundle. This allowed us to replace much of our code with external [npm] [npm] modules and a minimal [lodash] [lodash] library.
 
 <h2><a name="tests">1. Automated testing</a></h2>
 
-We have started to use [Intern] [intern] for non-functional testing of our asynchronous queue and payload builder modules. We have also added [Travis CI] [travis] to the project. Travis runs the Intern tests every time the Javascript Tracker repository is altered, preventing errors from going unnoticed. We plan to expand the test suite to include functional tests in version 2.0.0.
+We have started to use [Intern] [intern] for non-functional testing of our asynchronous queue and payload builder modules. We have also added [Travis CI] [travis] to the project. Travis runs the Intern tests every time the Javascript Tracker repository is altered, preventing errors from going unnoticed. We plan to expand the test suite to include functional tests in coming versions.
 
 <h2><a name="deprecated">1. Removed deprecated functionality</a></h2>
 
 Five deprecated functions have been removed:
 
-* `attachUserId` is removed because there is no longer any need to enable or disable specific user IDs.
-* `setSiteId` should be replaced with setAppId.
-* `getVisitorId` should be replaced with getDomainUserId.
-* `getVisitorInfo` should be replaced with getDomainUserInfo.
-* `trackEvent` should be replaced with `getStructEvent`, which allows you to set a [context] [contexts] parameter.
+* `attachUserId` is removed because there is no longer any need to enable or disable specific user IDs
+* `setSiteId` should be replaced with `setAppId`
+* `getVisitorId` should be replaced with `getDomainUserId`
+* `getVisitorInfo` should be replaced with `getDomainUserInfo`
+* `trackEvent` should be replaced with `getStructEvent`, the new name for this
 
-Finally, `trackImpression` has been deprecated in preparation for the addition of `trackAdImpression` in version 2.0.0.
+Finally, `trackImpression` has been deprecated in preparation for the addition of an all-new `trackAdImpression` in a coming version.
 
 <h2><a name="structure">7. Other structural improvements</a></h2>
 
@@ -97,7 +97,7 @@ If you use the path:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/1/sp.js
 
-then you will automatically get new minor versions and patches as they are released.
+then you will automatically get new semantic-minor versions and patches as they are released.
 
 <h2><a name="help">6. Getting help</a></h2>
 

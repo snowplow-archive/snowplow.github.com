@@ -1,10 +1,10 @@
 ---
 layout: page
 group: about
-title: About the company behind the Snowplow platform
+title: Get in touch with the Snowplow Team
 description: Get in touch with the Snowplow team
-shortened-link: About us
-weight: 5
+shortened-link: Contact us
+weight: 1
 ---
 
 # Get in touch

@@ -75,7 +75,7 @@ We have big plans for the Snowplow Python Tracker, including but not limited to:
 * Adding support for more Python versions
 * Improving the public API
 * Adding extra functionality currently only found in our JavaScript Tracker
-* Making it easy to batch multiple events and send to Snowplow via a queue (e.g. Redis)
+* Adding support for batched send of multiple events (e.g. via Redis)
 
 If there are other features you would like to see, feel free to [add an issue] [issues] to the repository.
 

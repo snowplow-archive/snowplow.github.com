@@ -2,10 +2,12 @@
 layout: page
 group: about
 title: The team behind the Snowplow platform
-shortened-link: Team
+shortened-link: Our team
 description: The team building Snowplow
-weight: 6
+weight: 2
 ---
+
+# Our team
 
 
 <div class="row">

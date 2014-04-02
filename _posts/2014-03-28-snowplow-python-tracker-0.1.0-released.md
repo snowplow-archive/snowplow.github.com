@@ -28,7 +28,7 @@ In the rest of this post we will cover:
 
 The release version of this tracker (0.1.0) is available on PyPI, the Python Package Index repository as [snowplow-tracker] [pypi].
 
-If you haven’t already, start by downloading and installing the tracker. The easiest way is with pip:
+If you haven't already, start by downloading and installing the tracker. The easiest way is with pip:
 
 {% highlight bash %}
 $ pip install snowplow-tracker --upgrade

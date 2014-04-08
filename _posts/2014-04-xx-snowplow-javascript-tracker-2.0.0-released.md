@@ -1,13 +1,13 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 1.0.0 released
-title: Snowplow JavaScript Tracker 1.0.0 released
+shortenedlink: JavaScript Tracker 2.0.0 released
+title: Snowplow JavaScript Tracker 2.0.0 released
 tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the [Snowplow JavaScript Tracker vrsion 2.0.0] [200-release]. This release makes some changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
+We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [200-release]. This release makes some changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
 
 This blog post will cover the following changes:
 
@@ -29,47 +29,16 @@ Load sp.js using the following script:
 
 {% highlight html %}
 <script async=true>
-;(function(p,l,o,w,i,n,g) {
-  p.scriptRequestManager = p.scriptRequestManager || (function(a) {
-    var scriptQueue = [];
-    function enqueueScriptRequest(src) {
-      scriptQueue.push(src);
-      if (scriptQueue.length === 1) {
-        sendScriptRequest();
-      }
-    }
-    function sendScriptRequest() {
-      if (scriptQueue.length > 0) {
-        var newScript = l.createElement(o),
-            initialScript = l.getElementsByTagName(o)[0];
-        newScript.async = 1;
-        newScript.onload = function() {
-          scriptQueue.shift();
-          sendScriptRequest();
-        }
-        newScript.onerror = function() {
-          p['GlobalSnowplowNamespace'].shift();
-          newScript.onload();
-        }
-        newScript.src = scriptQueue[0];
-        initialScript.parentNode.insertBefore(newScript, initialScript);
-      }
-    }
-    return {enqueueScriptRequest: enqueueScriptRequest}
-  })();
-  p['GlobalSnowplowNamespace'] = p['GlobalSnowplowNamespace']||[];
-  p['GlobalSnowplowNamespace'].push(i);
-  p[i] = p[i] || function() {
-    (p[i].q = p[i].q||[]).push(arguments);
-  };
-  p[i].q = p[i].q || [];
-  scriptRequestManager.enqueueScriptRequest(w, i);
 
-}(window, document, 'script', '../../dist/snowplow.js', 'snowplow_name_here'));
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","../../dist/snowplow.js","snowplow_name_here"));
+
 </script>
 {% endhighlight %}
 
-You can replace `'snowplow_name_here'` with any string that would be a valid JavaScript variable name. As can be seen in the examples below, this string becomes the name of the Snowplow function which you will call. The general template for using tracker methods is this:
+You can replace `"snowplow_name_here"` with any string that would be a valid JavaScript variable name. As can be seen in the examples below, this string becomes the name of the Snowplow function which you will call. The general template for using tracker methods is this:
 
 {% highlight javascript %}
 {{Snowplow function name}}({{tracker method name}}, {{tracker method argument 1}}, {{tracker method argument 2}}... );

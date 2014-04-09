@@ -89,9 +89,9 @@ We have also:
 
 <h2><a name="upgrading">7. Upgrading </a></h2>
 
-The upgraded minified tracker is available here:
+**UPDATED** After an important post-release bug fix, the updated minified tracker is available here:
 
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/1.0.0/sp.js
+    http(s)://d1fc8wv8zag5ca.cloudfront.net/1.0.1/sp.js
 
 If you use the path:
 

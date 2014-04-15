@@ -7,16 +7,16 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the [Snowplow Python Tracker version 0.2.0][repo]. This release adds support for Python 2.7, makes some improvements to the Tracker API, and expands the test suite.
+We are happy to announce the release of the [Snowplow Python Tracker version 0.2.0] [repo]. This release adds support for Python 2.7, makes some improvements to the Tracker API, and expands the test suite.
 
 This post will cover:
 
-1. [Changes to the API](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#api)
-2. [Python 2.7](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#compatibility)
-3. [Integration tests](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#tests)
-4. [Other improvements](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#other)
-5. [Upgrading](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#upgrading)
-6. [Talking to us](/blog/2014/04/xx/snowplow-python-tracker-0.2.0-released/#talking)
+1. [Changes to the API](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#api)
+2. [Python 2.7](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#compatibility)
+3. [Integration tests](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#tests)
+4. [Other improvements](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#other)
+5. [Upgrading](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#upgrading)
+6. [Talking to us](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#talking)
 
 <!--more-->
 
@@ -28,13 +28,13 @@ The call to import the tracker module has not changed:
 from snowplow_tracker.tracker import Tracker
 {% endhighlight %}
 
-Tracker initialisation has been simplified:
+Tracker initialization has been simplified:
 
 {% highlight python %}
 t = Tracker("d3rkrsqld9gmqf.cloudfront.net")
 {% endhighlight %}
 
-Note that the method to set a collector URL based purely on a Cloudfront subdomain has been removed: you have to pass the whole string "d3rkrsqld9gmqf.cloudfront.net", not just "d3rkrsqld9gmqf".
+Note that the method to set a collector URL based purely on a Cloudfront subdomain has been removed: you should now pass the whole host string "d3rkrsqld9gmqf.cloudfront.net", not just "d3rkrsqld9gmqf".
 
 You can also provide a tracker name argument:
 
@@ -44,17 +44,17 @@ t = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf")
 
 Every event fired by `t` will have a tracker namespace field with value "cf". This means that you can match events to the tracker which created them.
 
-There is one other major improvement to the API: tracker methods no longer require you to supply every argument. Arguments which are not supplied default to `None` and will not be added to the event. For example, the `track_ecommerce_transaction` method takes up to nine arguments, but only `order_id` and `tr_total_value` are mandatory. Suppose we want to call `track_ecommerce_transaction` with just the two mandatory parameters and the optional `tr_country` parameter. This is how to do it:
+There is one other major improvement to the API: tracker methods no longer require you to supply every argument. Arguments which are not supplied default to `None` and will not be added to the event. For example, the `track_ecommerce_transaction` method takes up to nine arguments, but only `order_id` and `total_value` are mandatory. Suppose we want to call `track_ecommerce_transaction` with just the two mandatory parameters and the optional `country` parameter. This is how to do it:
 
 {% highlight python %}
-t.track_ecommerce_transaction("12e4ba", 19.99, tr_country="France")
+t.track_ecommerce_transaction("12e4ba", 19.99, country="France")
 {% endhighlight %}
 
 As part of this change, the order of arguments for certain methods has been changed so that all keyword arguments come after all non-keyword arguments. For more information on which arguments are required and which are not, on the names of keyword arguments, and on the new order of arguments, see the [wiki] [wiki].
 
 <h2><a name="compatibility">2. Python 2.7</a></h2>
 
-The Snowplow Python Tracker is now fully compatible with Python 2.7. Going forwards, we intend to maintain support for both Python 3.3 and Python 2.7.
+The Snowplow Python Tracker is now fully compatible with Python 2.7. Going forwards, we intend to maintain support for both Python 3.3 and Python 2.7, as well as adding support for other Python versions as they are requested.
 
 <h2><a name="tests">3. Integration tests </a></h2>
 
@@ -89,7 +89,7 @@ For more information on getting started with the Snowplow Python Tracker, see th
 
 <h2><a name="talking">6. Talking to us</a></h2>
 
-This is only the second version of the Snowplow Python Tracker, so please [get in touch] [talk-to-us] to get help setting up or let us know what features you would like us to add next. And [raise an issue] [issues] if you spot any bugs!
+The Snowplow Python Tracker is still very young, so please do [get in touch] [talk-to-us] if you need help setting it up or have features you would like us to add next. And [raise an issue] [issues] if you spot any bugs!
 
 [55]: https://github.com/snowplow/snowplow-python-tracker/issues/55
 [63]: https://github.com/snowplow/snowplow-python-tracker/issues/63

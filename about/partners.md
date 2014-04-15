@@ -4,7 +4,7 @@ group: about
 title: The Snowplow partner ecosystem
 shortened-link: Our partners
 description: The team building Snowplow
-weight: 3
+weight: 4
 ---
 
 # Our partners

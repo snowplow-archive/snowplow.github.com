@@ -17,7 +17,7 @@ category: Analytics
 4. [Snowplow: a radically different approach to identity stitching](/blog/2014/04/16/identity-stitching/#radical-approach-to-identity-stitching)  
 5. [The benefits of decoupling data collection and business logic](/blog/2014/04/16/identity-stitching/#benefits)
 
-## What is identity stitching and why does it matter?
+<h2><a name="what">1. What is identity stitching and why does it matter?</a></h2>
 
 *Identity stitching* is the process of identifing all the different events on a particular user's journey and stitching them together to form a complete record of that journey. Identity stitching is a key step in any customer-centric analysis: if we cannot reliably identify who is performing a particular action, we cannot accurately:
 
@@ -31,13 +31,13 @@ This is one reason why companies often like to get users to identify themselves 
 
 <!--more-->
 
-## Different approaches to identity stitching in the case where users log in
+<h2><a name="login">2. Different approaches to identity stitching in the case where users log in</a></h2>
 
-Even when users log in to a website, however, identity stitching is not straightforward. To take an obvious example - a user may visit a site multiple times before he / she registers for that service, which is nearly always a prerequisite before he / she can log in. This represents a key part of the user journey that companies will want to analyze (especially when optimizing their customer acquisition spend). However, as [Shay Sharon explains] [shay-sharon-post], Mixpanel does not correctly attribute event data from sessions that occurred before the user registered - only from earlier events in the the session he / she first logged in. As [Yeshua Cohen explains] [analytics-ninja-post], Universal Analytics has the same limitation. Only KISSmetrics manages stitch together data from those earlier sessions to the user ID that was passed in subsequently.
+Even when users log in to a website, however, identity stitching is not straightforward. To take an obvious example - a user may visit a site multiple times before he / she registers for that service, which is nearly always a prerequisite before he / she can log in. This represents a key part of the user journey that companies will want to analyze (especially when optimizing their customer acquisition spend). However, as [Shay Sharon explains] [shay-sharon-post], Mixpanel does not correctly attribute event data from sessions that occurred before the user registered - only from earlier events in the the session he / she first logged in. As [Yeshua Cohen explains] [analytics-ninja-post], Universal Analytics has the same limitation. Only KISSmetrics manages to stitch together data from those earlier sessions to the user ID that was passed in subsequently.
 
-There are other cases, however, where KISSmetrics gets it wrong. To give one example, where two users visit a website from the same computer, but only the second user logs in, KISSmetrics will erroneously count those two users as the same person. (For details, see [Shay Sharon's post] [shay-sharon-post] - he explains the intricacies of each particular case much more clearly than I can.)
+There are other cases, however, where KISSmetrics gets it wrong. To give one example, where two users visit a website from the same computer, but only the second user logs in, KISSmetrics will erroneously count those two users as the same person. 
 
-## Limitations in the approach taken by all three solutions
+<h2><a name="limitations">3. Limitations in the approach taken by KISSmetrics, Mixpanel and Universal Analytics</a></h2>
 
 If we take a step back, we can see that there are three reasons that all three solutions have particular weaknesses:
 
@@ -45,7 +45,7 @@ If we take a step back, we can see that there are three reasons that all three s
 2. They all take a one-size fits all approach i.e. the same identity stitching algorithm has to be used by all their customers.
 3. They have to decide who a user is (i.e. perform the identity stitching) at the point where the data is collected (i.e. when each event in the customer journey occurs). There is limited opportunity to reprocess historic data on the basis of new data that has come to light.
 
-## Snowplow: a radically different approach to identity stitching
+<h2><a name="radical-approach-to-identity-stitching">4.Snowplow: a radically different approach to identity stitching</a></h2>
 
 Snowplow takes a radically different approach to identity stitching:
 
@@ -75,7 +75,15 @@ If any of the above are true, a totally different approach to identity stitching
 3. With Snowplow you have your complete historical data set to hand, and can apply your algorithm to that data set in its entirity. As a result, it does not matter when in the user journey a key bit of identification data is made available to Snowplow, it is easy to apply that to all your data retrospectively.
 4. With Snowplow, you can evolve your approach to identity stitching over time. For example, you can monitor the number of times that multiple users sign in from the same computer - and if this becomes very common, be more careful to distinguish different users with the same cookie IDs. Alternatively, you might spot that this behaviour only occurs for specific computers on specific IP addresses, and so data from those IP addresses should be treated differently to data from other IP addresses. You can even develop or employ machine-learning approaches: based on a subset of data where you know exactly who the user is, infer behavioural patterns that suggest that for example, other distinct sets of cookie IDs really represent the same user.
 
+<h2><a name="benefits">5. The benefits of decoupling data collection and business logic</a></h2>
 
+In general at Snowplow, we believe strongly in decoupling event-data collection from applying business logic to that data collection. The reason is simple - for a rapidly evolving business, our business logic will change over time. If the analytics system is going to be able just to keep pace with the business (and really, we believe that the data should be driving that change, rather than playing catch-up), it needs to be possible to evolve the way business logic is implemented in the analytics system over time. By decoupling the collection of event data from the application of business logic, we buy ourselves a lot of flexibility.
+
+It turns out that identity stitching is just one type of business logic that benefits from this approach. Rules for defining sessions, segmenting audience, assigning users to cohorts, categorising and classifying content items and media and even defining KPIs can all change over time. To date, Snowplow is the only web analytics platform that enables that type of flexibility. 
+
+## Interested in finding out more about how Snowplow can benefit your business?
+
+Then [get in touch] [contact] with our team!
 
 [analytics-ninja-post]: http://www.analytics-ninja.com/blog/2014/04/googles-universal-analytics-out-of-beta.html
 [shay-sharon-post]: http://blog.intlock.com/full-customer-journey-part-iimanaging-user-identities-google-universal-mixpanel-kissmetrics/
@@ -88,3 +96,4 @@ If any of the above are true, a totally different approach to identity stitching
 [custom-contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/
 [kissmetrics-approach]: http://support.kissmetrics.com/getting-started/understanding-identities.html
 [mixpanel-approach]: https://mixpanel.com/help/questions/articles/assigning-your-own-unique-ids-to-users
+[contact]: /about/index.html

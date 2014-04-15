@@ -1,3 +1,6 @@
+# Markdown format
+markdown: kramdown
+
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /blog/:year/:month/:day/:title 

@@ -16,7 +16,7 @@ This post will cover:
 3. [Integration tests](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#tests)
 4. [Other improvements](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#other)
 5. [Upgrading](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#upgrading)
-6. [Talking to us](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#talking)
+6. [Support](/blog/2014/04/15/snowplow-python-tracker-0.2.0-released/#support)
 
 <!--more-->
 
@@ -87,7 +87,7 @@ $ easy_install -U snowplow-tracker
 
 For more information on getting started with the Snowplow Python Tracker, see the [setup page] [setup].
 
-<h2><a name="talking">6. Talking to us</a></h2>
+<h2><a name="support">6. Support</a></h2>
 
 The Snowplow Python Tracker is still very young, so please do [get in touch] [talk-to-us] if you need help setting it up or have features you would like us to add next. And [raise an issue] [issues] if you spot any bugs!
 

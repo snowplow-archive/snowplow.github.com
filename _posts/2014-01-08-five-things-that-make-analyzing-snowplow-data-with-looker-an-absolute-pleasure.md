@@ -15,17 +15,23 @@ category: Releases
 4. [Dashboards are a strating point for more involved analysis](/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure/#dashboards)
 5. [Access your data from *any* application: Looker as a general purpose data server](/blog/2014/01/08/five-things-that-make-analyzing-snowplow-data-with-looker-an-absolute-pleasure/#data-server)
 
+<div class="html">
 <a name="any-dimension-or-metric-combination"><h2>1. Slice and dice any combination of dimension and metrics</h2></a>
+</div>
 
 With Looker, you can slice your Snowplow data by *any* dimension / metric combination. To give some illustrative examples - we can plot the number of visits, bounce rate, pages per visit and events per visit by landing page:
 
+<div class="html">
 <a href="/assets/img/blog/2014/01/looker/metrics-by-landing-page.JPG"><img src="/assets/img/blog/2014/01/looker/metrics-by-landing-page.JPG" title="Querying metrics by landing page" /></a>
+</div>
 
 <!--more-->
 
 We may want to plot the number of *new* visitors by landing page over time:
 
+<div class="html">
 <a href="/assets/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG"><img src="/assets/img/blog/2014/01/looker/new-visitors-by-landing-page-over-time.JPG" title="Plotting the number of visits by landing page over time" /></a>
+</div>
 
 Or perhaps we want to compare the number of transactions by customers based on the channel they were *first* acquired on (first touch referer source):
 
@@ -33,7 +39,9 @@ Or perhaps we want to compare the number of transactions by customers based on t
 
 Creating the above slices of data is as simple as selecting the dimension / metric combination from the long list provided in the Looker UI.
 
+<div class="html">
 <a name="define-your-own-metrics-and-dimensions"><h2>2. Quickly and easily define dimensions and metrics that are specific to your business using Looker's light-weight metadata model</h2></a>
+</div>
 
 Looker's metadata model makes it very easy to define and analyze busines specific:
 
@@ -69,7 +77,9 @@ Both the above dimension and metric will now be available to include in any repo
 
 We can define additional derived metrics (e.g. average events on a service page per visitor / session) or dimensions (e.g. classify visitors by whether or not they have visited the services pages at all) by simply extending the metadata model. The Looker metadata model is flexible enough to extend with your business, as you become more sophisticated in your use of data.
 
+<div class="html">
 <a name="drill-up-and-down"><h2>3. Drill-up and drill-down to visitor-level and event-level data</h2></a>
+</div>
 
 To illustrate this, let's start by comparing visit and engagement levels by refer medium for the last month (i.e. a session-level analysis):
 

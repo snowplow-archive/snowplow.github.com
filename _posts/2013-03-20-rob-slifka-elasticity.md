@@ -1,5 +1,5 @@
 ---
-layout: blog-post
+layout: post
 shortenedlink: Rob Slifka's Elasticity
 title: Inside the Plow - Rob Slifka's Elasticity
 tags: snowplow emr elasticity mapreduce
@@ -7,11 +7,11 @@ author: Alex
 category: Inside the Plow
 ---
 
-<p class="lead">The Snowplow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the Snowplow project literally could not exist.</p>
+*The Snowplow platform is built standing on the shoulders of a whole host of different open source frameworks, libraries and tools. Without the amazing ongoing work by these individuals, companies and not-for-profits, the Snowplow project literally could not exist.*
 
-<p class="lead">As part of our "Inside the Plow" series, we will also be showcasing some of these core components of the Snowplow stack, and talking to their creators. To kick us off, we are delighted to have [Rob Slifka] [rob-slifka-twitter], VP of [Engineering] [sharethrough-engineering] at [Sharethrough] [sharethrough] in San Francisco, talking to us about his [Elasticity] [elasticity] project. For those who aren't aware: Elasticity is a Ruby library which we use as part of our [EmrEtlRunner] [emr-etl-runner], to make it easy to automate the Snowplow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.</p>
+*As part of our "Inside the Plow" series, we will also be showcasing some of these core components of the Snowplow stack, and talking to their creators. To kick us off, we are delighted to have [Rob Slifka] [rob-slifka-twitter], VP of [Engineering] [sharethrough-engineering] at [Sharethrough] [sharethrough] in San Francisco, talking to us about his [Elasticity] [elasticity] project. For those who aren't aware: Elasticity is a Ruby library which we use as part of our [EmrEtlRunner] [emr-etl-runner], to make it easy to automate the Snowplow ETL Job on Amazon Elastic MapReduce. The Elasticity library is a great piece of tech - and indeed was a major factor in us deciding to write EmrEtlRunner in Ruby.*
 
-<p class="lead">With the introductions done, let's hand over to Rob to tell us a bit about himself, Elasticity and what he's working on next:</p>
+*With the introductions done, let's hand over to Rob to tell us a bit about himself, Elasticity and what he's working on next:*
 
 ![rob-slifka-img][rob-slifka-img]
 

@@ -14,12 +14,15 @@ Earlier this week, Google announced a series of significant advances in Google A
 
 ![universal-analytics-image] [google-universal-analytics-image]
 
+<div class="html">
 <a name="what"><h2>1. What changes has Google announced?</h2></a>
+</div>
 
 The most significant change Google has announced is the new [Measurement Protocol] [measurement-protocol], which enables businesses using GA to capture much more data. This will make it possible for Google to deliver a much broader range of reports, of higher business value, than was previously possible. To understand the changes, we start by considering what [new data points](#new-data-points) businesses can _feed_ GA, before considering [what that means for GA's reporting capabilities](/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#reporting-capabilities).
 
-
+<div class="html">
 <a name="new-data-points"><h3>1.1 Custom user identifiers</h3></a>
+</div>
 
 The first new data points that businesses can feed into Google Analytics is a user's `client_id` (basically, a customer ID) as defined on the business's own systems.
 
@@ -32,7 +35,9 @@ For businesses using GA, being able to augment Google's user identification with
 
 <!--more-->
 
+<div class="html">
 <a name="customer-journey"><h3>1.2 Capturing events across a user's entire customer journey (not just the web, not just digital interactions)</h3></a>
+</div>
 
 We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer's complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented "single customer views" have typically struggled incorporating web behavior in those views.
 
@@ -43,7 +48,9 @@ The Measurement Protocol can also be used to capture events on digital platforms
 Taken together, this means it will be possible for Google Analytics to offer reports detailing customer behavior across the complete customer journey. Building on this, it should also be possible for GA to enable analysts to calculate [customer lifetime value] [clv] (if the value of different events was passed in with the events): this is one of the most important metrics in customer analytics, and one that has been conspicuous by its absence from web analytics outside of solutions like [Snowplow] [clv] until now. The Measurement Protocol potentially means a huge increase in the scope and value of reports that it should be possible to generate in Google Analytics.
 
 
+<div class="html">
 <a name="cost-data"><h3>1.3 Capturing customer-acquisition cost data</h3></a>
+</div>
 
 One of the most common types of analytics performed on web data is working out the return on marketing investment for different customer-acquisition channels. To perform this analysis, we need to combine:
 
@@ -59,16 +66,18 @@ The [Measurement Protocol] [measurement-protocol] enables businesses to define a
 
 As well as enabling businesses to add custom dimension and metric values to individual event tracking calls, Google also lets businesses bulk upload multiple dimensions at a time into the GA, if a relationship between those custom dimensions and dimensions already in GA can be defined, and GA knows what values to ascribe events already in it to those new dimensions, based on that defined relationship. To give an example: you could upload the product names/SKUs associated with each web page, enabling reporting on page views by SKU. Or, you could upload a range of product metadata (e.g. book titles and authors) and associate that with an ISBN custom field.
 
-
+<div class="html">
 <a name="reporting-capabilities"><h3>1.5 What new reporting is enabled through the capture of all these additional data points?</h3></a> 
+</div>
 
 Taken together, the additional data that businesses can feed into Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:
 
 1. **Customer analytics**. We have long argued that web analytics packages including GA are too focused on sessions, page views and conversions, and neglect the broader, more valuable customer analytics that underpin the most successful businesses in the world. With these new data points, GA has the raw data to produce useful customer reports including customer lifetime value, and analysis of user behaviors over their entire journeys. No longer will web analysts using GA be confined to viewing actions over an isolated session: now they can slice and dice metrics by users over their user journeys spanning multiple site visits.
 2. **Event analytics** across platforms, on and offline. GA can now report on user's complete journey, not just what they do on websites, but also their behaviors on other digital platforms (esp.  mobile) and offline.
 
-<a name="whysnowplow" />
+<div class="html">
 <a name="whysnowplow"><h2>2. How do the advances in GA change the case for adopting Snowplow?</h2></a> 
+</div>
 
 Prior to the latest announcement, the case for adopting Snowplow alongside your GA implementation was as follows:
 

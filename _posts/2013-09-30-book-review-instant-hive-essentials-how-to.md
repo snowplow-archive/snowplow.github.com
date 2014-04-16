@@ -11,9 +11,11 @@ Although it is no longer part of the core Snowplow stack, Apache Hive is the gat
 
 We were therefore delighted to be invited to review [Apache Hive Essentials How-to][book-review], a new guide to Hive written by Darren Lee from [Bizo][bizo].
 
+<div class="html">
 <a href="http://www.packtpub.com/apache-hive-essentials-how-to/book?utm_source=blog&amp;utm_medium=link&amp;utm_campaign=bookmention">
 	<img src="/assets/img/blog/2013/09/instant-apache-hive-essentials.png" title="Hive how to guide" />
 </a>
+</div>
 
 
 For me, there are two totally different categories of technical book that I enjoy in completely different ways:

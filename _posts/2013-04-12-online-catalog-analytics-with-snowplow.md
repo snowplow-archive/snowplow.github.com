@@ -19,7 +19,9 @@ In this blog post, we will briefly outline:
 
 <!--more-->
 
+<div class="html">
 <a name="what"><h3>What is catalog analytics?</h3></a>
+</div>
 
 For very many online businesses, a "catalog" is a central part of the user-proposition. For a retailer, for example, a catalog is the collection of products they are selling. For a media site, a catalog is the collection of content items (be they articles or videos) offered. For an affiliate site, a catalog is the collection of links or offers available. For a vertical search site, a catalog is the list of indexed entries presented to the user.
 
@@ -29,7 +31,9 @@ Understanding how well different items in that catalog "perform" is key to enabl
 2. Present catalog items more effectively - e.g. by surfacing more popular items, using search and recommendation to enable users to dive more deeply into the catalog, or personalise the items shown based on user or item data
 3. Optimize the existing catalog items - e.g. by tweaking product prices, adjusting content copy and so on
 
+<div class="html">
 <a name="today"><h3>Which catalog analytics recipes have been published today?</h3></a>
+</div>
 
 Today, we published a [set of recipes to enable businesses to compare the performance of product pages] [recipes]. The published analysis is particularly relevant to online retailers - it makes it easy for them to identify:
 
@@ -40,7 +44,9 @@ Today, we published a [set of recipes to enable businesses to compare the perfor
 
 You can check out the recipes [here] [recipes].
 
+<div class="html">
 <a name="tomorrow"><h3>Which catalog analytics recipes will be published next?</h3></a> 
+</div>
 
 These recipes are just the start in what we hope will develop into a long series of recipes for catalog analytics. Some of the other recipes that we plan to add include:
 

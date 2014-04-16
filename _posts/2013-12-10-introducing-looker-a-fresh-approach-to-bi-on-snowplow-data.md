@@ -15,7 +15,9 @@ In the last few weeks, we have been experimenting with using [Looker] [looker] a
 
 <!--more-->
 
+<div class="html">
 <a name="limitations"><h2>The limitations that arise when you use traditional Business Intelligence (BI) tools to analyse Snowplow data</h2></a>
+</div>
 
 Our vision for Snowplow is to enable companies to capture and store granular, event-level data from their websites and applications, so that they can perform any type of analysis on that data, including joining that event data with other data sets. 
 
@@ -34,7 +36,9 @@ There are two problems with using the above approach with Snowplow data in Amazo
 1. [The volume of data in Redshift is simply too large to load into the BI tool's own data processing engine. (Which is generally optimized for in-memory computation.)](#volume)  
 2. [Deriving dimensions and metrics from the underlying Snowplow data is not trivial](#mapping)  
 
+<div class="html">
 <a name="volume"><h3>1.1 There is too much data in Redshift to load into the BI tool's own analytics engine</h3></a>
+</div>
 
 BI tools like Tableau have very fast in-memory analytics engines. This is important because when you are slicing and dicing different combinations of dimensions and metrics, you do not want to have to wait tens of minutes for the table or graph to update. Unfortunately, this approach does not work well with Snowplow data in Redshift, because the volume of underlying event-level data is too great to load in-memory. 
 
@@ -46,7 +50,9 @@ The primary workaround with Snowplow data is to reduce the volume of data loaded
 
 The problem with all of the above approaches is that they limit the flexibility that the end-user of the BI tool has to query the data . Aggregating the data to a visit / session level prevents the user drilling in to specific visitors or sessions identified as part of the analysis. Limiting the number of columns loaded limits the number of dimensions and metrics that an end user can slice and dice the data by. And limiting the data loaded in by time period or user segment limits the number of segments or time periods that an analyst can explore data for.
 
+<div class="html">
 <a name="mapping"><h3>1.2 Deriving dimensions and metrics from the underlying Snowplow data is not trivial</h3></a>
+</div>
 
 The other feature of Snowplow data that BI tools typically struggle with is inferring many of the most useful dimensions and metrics from the underlying event data.
 
@@ -86,11 +92,15 @@ As a result, companies that have implemented e.g. Tableau on top of Snowplow, ty
 1. [Looker does not load data into its own data processing engine. Instead, it uses the underlying database to perform the computations.](#processing-engine)
 2. [Looker has a lightweight meta-data model that makes it easy to derive a comprehensive set of dimensions and metrics on top of the underlying data.](#meta-data-layer)
 
+<div class="html">
 <a name="processing-engine"><h3>1. Looker uses the underlying database to crunch the data</h3></a>
+</div>
 
 If you have your data in an database like Amazon Redshift that is optmized for running analytics queries across large data sets, it makes to run your queries on the data in Amazon Redshift. Looker does that: every time you slice / dice combinations of metrics and dimensions in the Looker Explorer, plot a graph or draw a dashboard, Looker translates the actions in the user interface into SQL and runs that SQL on Redshift. Rather then spend time developing their own in-memory data processing architecture, the Looker team have concentrated instead on generating highly performant SQL. As a result, when you're exploring Snowplow data in Looker, you are exploring the complete data set.  
 
+<div class="html">
 <a name="meta-data-layer"><h3>2. Looker has a light-weight meta-data model, that makes it easy to derive dimensions and metrics from the underlying Snowplow data</h3></a>
+</div>
 
 Looker boasts a very expressive metadata model. You can create a model that understands different entities - for example: visitors, sessions and events. Events can be derived directly from the 'atomic.events' table. In contrast, sessions and visitors are derived from aggregations on that data. The model is rich enough that you can express links between different entities: visitor A has visited the website on three separate occasions: Looker will let you drill into each of those three sessions and view the underlying event stream for each of them.  (You can have as many entities as you like in your model: we typically include geographic data, referers, devices, browsers and event types in the models we've built using Looker.) 
 

@@ -24,7 +24,9 @@ In the rest of this post we will cover:
 
 <!--more-->
 
+<div class="html">
 <h2><a name="rationale">Why we wrote this library</a></h2>
+</div>
 
 Late last year a Snowplow customer asked us if we could add currency conversions into their custom Snowplow implementation. This seemed like a great idea to explore, and we started to sketch out an approach:
 
@@ -40,7 +42,9 @@ The big missing piece for the above was a Scala library to handle currency conve
 
 Custom building a Scala library calling out to the [Open Exchange Rates web service] [ore-signup] seemed the right way to meet these requirements, and so Scala Forex was born!
 
+<div class="html">
 <h2><a name="architecture">How the library is architected</a></h2>
+</div>
 
 Scala Forex makes heavy use of the Joda-Money and Joda-Time libraries in its public API. These are enterprise-grade Java libraries for working with currency, money and time, and we were keen not to re-invent the wheel!
 
@@ -48,13 +52,17 @@ Under the covers, Jiawen's library makes heavy use of two "least recently used" 
 
 The library is thoroughly tested using Specs2 (including Specs2 tables), and Mockito to verify cache behaviour. The library is integrated into Travis CI for continuous testing.
 
+<div class="html">
 <h2><a name="usage">How to use the library</a></h2>
+</div>
 
 Using the library is straightforward: you initialize Scala Forex with general and OER-specific configuration, and then use a simple Scala DSL to both look up exchange rates and perform currency conversions.
 
 For detailed guidance on configuring the library, please see the [Configuration section] [readme-config] of the Scala Forex README.
 
+<div class="html">
 <h3>Exchange rate lookups</h3>
+</div>
 
 Once initialized, an exchange rate lookup is as simple as:
 
@@ -72,7 +80,9 @@ val usd2yen = fx.rate.to("JPY").at(tradeDate)
 
 For detailed help on currency lookups, please see the [Rate Lookup section] [readme-rate] of the Scala Forex README.
 
+<div class="html">
 <h3>Currency conversions</h3>
+</div>
 
 A currency conversion can be as simple as:
 
@@ -90,7 +100,9 @@ val tradeInYen = fx.convert(10000, "GBP").to("JPY").at(eodDate)
 
 For detailed help on currency conversions, please see the [Currency Conversion section] [readme-convert] of the Scala Forex README.
 
+<div class="html">
 <h2><a name="thanks">Thanks</a></h2>
+</div>
 
 And that's it; huge thanks to Jiawen Zhou for delivering such a sophisticated library in such a short time - and in a language she had never used before!
 

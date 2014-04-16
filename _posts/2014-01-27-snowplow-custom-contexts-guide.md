@@ -24,7 +24,9 @@ Let's get started after the jump.
 
 <!--more-->
 
+<div class="html">
 <h2><a name="sigs">1. Updated method signatures</a></h2>
+</div>
 
 You can add custom contexts to any of the existing `track...()` methods, and in the case of our transaction tracking, with the two `add...()` methods.
 
@@ -55,7 +57,9 @@ _snaq.push(['trackPageView',
            ]);
 {% endhighlight %}
 
+<div class="html">
 <h2><a name="contexts">2. The "contexts" JavaScript object</a></h2>
+</div>
 
 The `contexts` argument to any `track...()` or `add...()` method is always optional. If set, it must be a JSON taking the form:
 
@@ -88,15 +92,19 @@ A few dos and don'ts for the JSONs inside each context entry JSONs:
 * **Do** use Snowplow datatype suffixes if the data type would otherwise be unclear
 * **Don't** nest properties - as with custom unstructured events, the structure must be flat
 
+<div class="html">
 <h2><a name="eg">3. A detailed example</a></h2>
 
 <h3>Introduction</h3>
+</div>
 
 A detailed example should make custom contexts a little more real.
 
 Let's take a retailer and Snowplow user who sells movie memorabilia online, particularly movie posters. For every movie poster, our retailer cares about the name of the movie, the country which printed the movie poster and the year the poster was printed. She has also done some work understanding her customer base, and can assign all of her visitors a propensity-to-buy score and a customer segment as soon as they add something to their basket.
 
+<div class="html">
 <h3>Definition of custom contexts</h3>
+</div>
 
 Based on the above, our retailer will define two custom contexts. The first describes a given movie poster:
 
@@ -119,7 +127,9 @@ And then the second context describes the customer:
 
 With her two custom contexts defined, our retailer is now ready to update her Snowplow installation to start collecting this additional data.
 
+<div class="html">
 <h3>Definition of custom contexts</h3>
+</div>
 
 When a visitor arrives on a page advertising a movie poster, our retailer adds this context to the page view event:
 
@@ -177,7 +187,9 @@ And that completes our example. By defining and implementing these two custom co
 
 This additional context has made standard Snowplow events such as page views much more valuable to her, and should later make it easy to analyze these business-critical data points across multiple event types.
 
+<div class="html">
 <h2><a name="help">4. Getting help</a></h2>
+</div>
 
 As always, if you do run into any issues or don't understand any of the above guide, please do get in touch with us via [the usual channels] [talk-to-us].
 

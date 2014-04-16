@@ -14,7 +14,9 @@ The [No-Javascript tracker] [no-js-wizard] (pixel tracker) enables companies run
 3. [Considerations when using the No-JS tracker (pixel tracker) with the Clojure collector in particular](/blog/2013/01/29/introducing-the-no-js-tracker#collector-considerations)
 4. [Next steps on the Snowplow tracker roadmap](/blog/2013/01/29/introducing-the-no-js-tracker#roadmap)
 
+<div class="html">
 <a name="why" ><h2>What is the purpose of the No-Javascript tracker (pixel tracker)?</h2> </a>
+</div>
 
 Our aim with Snowplow has been to enables companies to track user events across **all** platforms and devices. That means enabling tracking offline events, as well as online events, and mobile events, as well as web events.
 
@@ -28,7 +30,9 @@ In these cases, you can use the [No-Javascript tracker] [no-js-wizard] (pixel tr
 
 <!--more-->
 
+<div class="html">
 <a name="mechanics"><h2>How it works</h2></a>
+</div>
 
 The standard Javascript tracker 
 
@@ -72,7 +76,9 @@ The data points passed are:
 
 As a result, is it necessary to generate a unique tag for each individual web page / email newsletter that you want to track. To make it easier to generate the tag, we have [created a wizard] [no-js-wizard]
 
+<div class="html">
 <a name="collector-considerations"><h2>Considerations when using the No-JS tracker with the Clojure collector in particular</h2></a>
+</div>
 
 The [No-Javascript tracker] [no-js-wizard] works with **both** the [Cloudfront collector] [cloudfront-collector] and the cross-domain [Clojure collector] [clojure-collector]. However, there is an important difference between the way it works with each collector, that has implications for:
 
@@ -90,7 +96,9 @@ In contrast, when using the Clojure collector with the [No-JS tracker] [no-js-wi
 
 However, you need to make sure that you are allowed to drop a cookie on a user, on a web page owned and managed by a partner or 3rd party service provider. It is **your** responsibility to ensure that you only drop cookies on web pages where the owners of the web page / service provider are happy for you to do so. There are many examples of providers who do not: for example [eBay explicitly does not allow you to drop cookies on your listings pages] [ebay]. Snowplow takes **no** responsibility for your use of the [No-JS tracker] [no-js-wizard]. It is your responsibility to ensure that you abide by the terms and conditions of any 3rd party services and hosting companies you employ this tracking technology on, and we urge extreme caution when deploying the [No-Javascript tracker] [no-js-wizard] in conjunction wiht the [Clojure collector] [clojure-collector] on sites owned and operated by 3rd parties. 
 
+<div class="html">
 <a name="roadmap"><h2>Next steps on the Snowplow tracker roadmap</h2></a>
+</div>
 
 The [No-JS tracker] [no-js-wizard] is only our second tracker: to fulfil our vision of supporting event-data collection across many more platforms, we need to launch a wide range of new trackers. 
 

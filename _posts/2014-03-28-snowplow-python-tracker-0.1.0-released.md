@@ -24,7 +24,9 @@ In the rest of this post we will cover:
 
 <!--more-->
 
+<div class="html">
 <h2><a name="get">How to install the tracker</a></h2>
+</div>
 
 The release version of this tracker (0.1.0) is available on PyPI, the Python Package Index repository as [snowplow-tracker] [pypi].
 
@@ -44,7 +46,9 @@ Please note that we currently only support Python 3.3, but we have plans to add 
 
 And that's it! You're now ready to start using the tracker.
 
+<div class="html">
 <h2><a name="usage">How to use the tracker</a></h2>
+</div>
 
 Require the Tracker module in your Python code like so:
 
@@ -68,7 +72,9 @@ t.track_page_view("www.example.com", "example", "www.referrer.com")
 
 And that's it! Please check out the [Python Tracker documentation] [tracker-doc] on the wiki for the tracker's full API.
 
+<div class="html">
 <h2><a name="roadmap">Roadmap</a></h2>
+</div>
 
 We have big plans for the Snowplow Python Tracker, including but not limited to:
 
@@ -79,7 +85,9 @@ We have big plans for the Snowplow Python Tracker, including but not limited to:
 
 If there are other features you would like to see, feel free to [add an issue] [issues] to the repository.
 
+<div class="html">
 <h2><a name="thanks">Thanks</a></h2>
+</div>
 
 And that's it; huge thanks to Anuj More for his work taking the Snowplow Python Tracker from a concept to a packaged initial release! This was Anuj's first professional development work in Python - and a hugely important release for us.
 

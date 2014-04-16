@@ -24,7 +24,9 @@ This post will cover the following topics:
 
 <!--more-->
 
+<div class="html">
 <h2><a name="hash">1. New feature: user fingerprint options</a></h2>
+</div>
 
 The Snowplow JavaScript Tracker uses a "user fingerprint" to identify users based on various features of their browser.
 
@@ -50,21 +52,29 @@ _snaq.push(['setUserFingerprintSeed', 746392851]);
 
 If you do not set a custom hash seed, the default seed will be used instead.
 
+<div class="html">
 <h2><a name="api">2. Changes to the Snowplow API</a></h2>
+</div>
 
 The move to modules has allowed us to tighten our public API, making our helper functions private.
 
 In addition, the global `SnowPlow` object has been renamed to `Snowplow`. This will only affect users who have implemented the synchronous tracker.
 
+<div class="html">
 <h2><a name="modules">3. Move to modules</a></h2>
+</div>
 
 We have organised our code into modules using [Browserify] [browserify]. Browserify recursively analyzes the dependencies of the Tracker and combines all the required modules into a single bundle. This allowed us to replace much of our code with external [npm] [npm] modules and a minimal [lodash] [lodash] library.
 
+<div class="html">
 <h2><a name="tests">4. Automated testing</a></h2>
+</div>
 
 We have started to use [Intern] [intern] for non-functional testing of our asynchronous queue and payload builder modules. We have also added [Travis CI] [travis] to the project. Travis runs the Intern tests every time the Javascript Tracker repository is altered, preventing errors from going unnoticed. We plan to expand the test suite to include functional tests in coming versions.
 
+<div class="html">
 <h2><a name="deprecated">5. Removed deprecated functionality</a></h2>
+</div>
 
 Five deprecated functions have been removed:
 
@@ -76,7 +86,9 @@ Five deprecated functions have been removed:
 
 Finally, `trackImpression` has been deprecated in preparation for the addition of an all-new `trackAdImpression` in a coming version.
 
+<div class="html">
 <h2><a name="structure">6. Other structural improvements</a></h2>
+</div>
 
 We have also:
 
@@ -87,7 +99,9 @@ We have also:
 * Added a "Built with Grunt" badge to the README [#102] [102]
 * Relocated some helper functions for consistency [#91] [91]
 
+<div class="html">
 <h2><a name="upgrading">7. Upgrading </a></h2>
+</div>
 
 **UPDATED** After an important post-release bug fix, the updated minified tracker is available here:
 
@@ -99,7 +113,9 @@ If you use the path:
 
 then you will automatically get new semantic-minor versions and patches as they are released.
 
+<div class="html">
 <h2><a name="help">8. Getting help</a></h2>
+</div>
 
 Check out the [v1.0.0 release page] [100-release] on GitHub for the full list of changes made in this version.
 

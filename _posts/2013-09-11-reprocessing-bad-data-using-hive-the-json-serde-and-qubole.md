@@ -27,7 +27,9 @@ The steps necessary to reprocess the data will be very similar to those required
 
 <!--more-->
 
+<div class="html">
 <a name="how-snowplow-handles-bad-rows"><h2>1. Understanding how Snowplow handles bad rows</h2></a>
+</div>
 
 The Snowplow enrichment process takes input lines of data, in the form of collector logs. It validates the format of the data in each of those lines. If the format is as expected, it performs the relevant enrichments on that data (e.g. referer parsing, geo-IP lookups), and writes the enriched data to the Out Bucket on S3, from where it can be loaded into Redshift / PostgreSQL. If the input line of data fails the validation, it gets written to the Bad Rows Bucket on S3.
 
@@ -65,7 +67,9 @@ An example row generated for the Snowplow website, caused by Amazon's CloudFront
 }
 {% endhighlight %}
 
+<div class="html">
 <a name="processing-bad-rows-data-using-json-serde-hive-qubole"><h2>2. Processing the bad rows data using the JSON serde, Hive and Qubole</h2> </a>
+</div>
 
 There are a couple of ways to process JSON data in Hive. For this tutorial, we're going to use Roberto Congiu's [Hive-JSON-Serde] [json-serde]. This is our preferred method of working with JSONs in Hive, where your complete data set is stored as a series of JSONs. (When you have a single JSON-formatted field in a regular Hive table, we recommend using the `get_json_object` UDF to parse the JSON data.)
 
@@ -102,7 +106,9 @@ Our table is partitioned by `run` - each time the Snowplow enrichment process is
 ALTER TABLE `bad_rows` RECOVER PARTITIONS;
 {% endhighlight %}
 
+<div class="html">
 <a name="plot-bad-rows-over-time"><h2>3. Plotting the number of bad rows over time</h2></a>
+</div>
 
 We run the Snowplow ETL once a day. As a result, each "run" represents one days worth of data. By counting the number of bad rows per run, we effectively calculate the number of bad rows of data generated per day. We can do that by executing the following query:
 
@@ -136,7 +142,9 @@ Notice:
 * We have *no* bad rows before August 17th, when Amazon updated their Cloudfront log format
 * We then have bad rows every day since. (In our case, this varies between 2-25. This is on the Snowplow site, which attracts c.200 uniques per day.)
 
+<div class="html">
 <a name="processing-bad-rows"><h2>4. Reprocessing bad rows</h2></a>
+</div>
 
 Using plots like the one above to spot emerging problems with your Snowplow data pipeline is one thing. When you've identified the cause of the problem, and fixed it (as we have), you then need to reprocess those bad lines of data.
 

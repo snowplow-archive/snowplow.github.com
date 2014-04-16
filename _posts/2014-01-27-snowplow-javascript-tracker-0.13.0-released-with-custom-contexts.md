@@ -22,13 +22,17 @@ In the rest of this post, then, we will cover:
 
 <!--more-->
 
+<div class="html">
 <h2><a name="contexts">1. New feature: custom contexts</a></h2>
+</div>
 
 The most exciting new feature is the addition of custom contexts to all of our `track...()` methods for event tracking.
 
 **Please note that this release only adds custom contexts to the JavaScript Tracker. Adding custom contexts to our Enrichment process and Storage targets is on the roadmap - but rest assured we are working on it!**
 
+<div class="html">
 <h3>1.1 What are custom contexts?</h3>
+</div>
 
 Context is what describes the circumstances surrounding an individual event - for example, when the event happened, where it happened, or how it happened. For the original blog post where we introduced our ideas around event context, see [Towards universal event analytics - building an event grammar] [event-grammar-post].
 
@@ -36,7 +40,9 @@ Our JavaScript Tracker already captures lots of standard web context by default:
 
 Think "custom variables" but much more powerful and flexible!
 
+<div class="html">
 <h3>1.2 When to use custom contexts?</h3>
+</div>
 
 Custom contexts are great for a couple of use cases:
 
@@ -45,7 +51,9 @@ Custom contexts are great for a couple of use cases:
 
 You can attach custom contexts to any Snowplow event type - even custom unstructured events.
 
+<div class="html">
 <h3>1.3 Usage</h3>
+</div>
 
 To support custom contexts, we have added a new argument, called `contexts`, onto the end of each `track...()` and `add...()` method. For example, here is the new signature for tracking a page view:
 
@@ -76,7 +84,9 @@ We are well aware that this release is only the start of adding custom contexts 
 
 Please keep an eye on our [Roadmap wiki page] [roadmap] to see how Snowplow's support for custom contexts (and unstructured events) evolves.
 
+<div class="html">
 <h2><a name="currency">2. New feature: transaction currencies</a></h2>
+</div>
 
 We have updated our ecommerce tracking methods to add support for setting the currency which the transaction took place in.
 
@@ -110,7 +120,9 @@ Please make sure to pass in the valid [ISO 4217] [iso-4217] code for your curren
 
 Don't forget to set the currency on **both** the parent transaction and its child items.
 
+<div class="html">
 <h2><a name="platform">3. New feature: specifying the tracking platform</a></h2>
+</div>
 
 Many thanks to community member [Ryan Sorensen] [rcs] for contributing the new `setPlatform()` method.
 
@@ -122,7 +134,9 @@ _snaq.push(['setPlatform', 'mob']);
 
 Thanks for your contribution Ryan!
 
+<div class="html">
 <h2><a name="tidyup">4. Project tidy-up</a></h2>
+</div>
 
 We have taken advantage of the move to a separate repository to perform some much needed tidy-up of the tracker codebase:
 
@@ -135,7 +149,9 @@ We have taken advantage of the move to a separate repository to perform some muc
 
 As well as tidying up the repository, these updates should lay the groundwork for us replacing our custom `snowpak.sh` Bash build script with a Grunt-based build process in the [next release] [0140-issues].
 
+<div class="html">
 <h2><a name="upgrading">5. Upgrading</a></h2>
+</div>
 
 **UPDATED** After an important post-release bug fix, the updated minified tracker is available here:
 
@@ -147,7 +163,9 @@ Please note that as of this release, we are moving the Snowplow JavaScript Track
 
 where 0 is the semantic MAJOR version. If you prefer, you can use this URI path and then get new features and bug fixes automatically as we roll-out MINOR and PATCH updates to the tracker. Any breaking changes will mean a new MAJOR version, which will be hosted on `/1/sp.js`, i.e. it won't break your existing installation.
 
+<div class="html">
 <h2><a name="help">6. Getting help</a></h2>
+</div>
 
 Check out the [v0.13.0 release page] [0130-release] on GitHub for the full list of changes made in this version.
 

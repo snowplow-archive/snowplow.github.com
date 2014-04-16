@@ -35,13 +35,15 @@ In the rest of this blog post I'll talk about:
 <h2><a name="challenges">1. Challenges of running Spark on EMR</a></h2>
 </div>
 
-We actually started work on the Spark Example Project in 2013 when we first heard about Spark and saw the AWS tutorial, XXX by [XXX] [xxx]. We spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of [XXX] [xxx] ([XXX] [xxx]) and [XXX] [xxx] ([XXX] [xxx]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark developed.
+I actually started work on the Spark Example Project back in 2013. I spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of Ian O'Connell ([SparkEMRBootstrap] [ianoc-emr]) and Daithi O Crualaoich ([spark-emr] [daithi-emr]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark improved.
 
-Happily on Saturday I noticed that the same AWS tutorial had been updated in early March, with scripts to deploy Spark 0.8.1 to an EMR cluster. Logging on to the master node, I found a script called `xxx`, designed to run one of Amazon's example Spark jobs, which had been pre-assembled into a fat jar.
+Happily on Saturday I noticed that Amazon's tutorial, [Run Spark and Shark on Amazon Elastic MapReduce] [tutorial], had been updated in early March, with scripts to deploy Spark 0.8.1 to an EMR cluster. Logging on to the master node, I found a script called `~/spark/run-example`, designed to run one of Amazon's example Spark jobs, which had been pre-assembled into a fat jar.
 
-It wasn't a lot of work to take the `xxx` script, and adapt it so that it could be used to run any pre-assembled Spark fat jar: that script is now available for anyone to invoke on Elastic MapReduce here:
+It wasn't a lot of work to adapt the `~/spark/run-example` script so that it could be used to run any pre-assembled Spark fat jar: that script is now available for anyone to invoke on Elastic MapReduce here:
 
-xxx
+{% highlight bash %}
+[s3://snowplow-hosted-assets/common/spark/run-spark-job-0.1.0.sh] [spark-script]
+{% endhighlight %}
 
 Once this was working, it was just a matter of reverting our Spark Example Project to Spark 0.8.1, testing it thoroughly and updating the documentation!
 
@@ -136,7 +138,7 @@ As always with Snowplow releases, if you do run into any issues or don't underst
 <h2><a name="thoughts">4. Thoughts on Spark</a></h2>
 </div>
 
-Although it is early days, I was impressed with Spark, and very pleased to have it running on Elastic MapReduce in the same fashion as our existing Scalding jobs.
+Although it is still early days, I was impressed with Spark, and very pleased to have it running on Elastic MapReduce in the same fashion as our existing Scalding jobs.
 
 In particular, I like Spark's use of in-memory processing, where in contrast Hadoop jobs can be rather disk-intensive. I also like Spark's narrow focus: where Hadoop is an entire data ecosystem (file system, cluster management, job scheduling etc), Spark is much more manageable in scope, being designed to work with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
 
@@ -154,26 +156,27 @@ Separately, we will look into integrating Spark Streaming into our [Snowplow Kin
 
 Stay tuned for more from Snowplow about Spark and Spark Streaming in the future!
 
-[jr0cket]: https://github.com/jr0cket
-
 [hack-the-tower]: http://www.hackthetower.co.uk/
 [hack-the-tower-apr]: http://www.meetup.com/london-scala/events/173280452/
-[]
+[jr0cket]: https://github.com/jr0cket
+[ianoc-emr]: https://github.com/ianoc/SparkEMRBootstrap
+[daithi-emr]: https://github.com/daithiocrualaoich/spark-emr
 
-[forum-post]: xxx
-[emr]: http://aws.amazon.com/elasticmapreduce/
+[forum-post]: https://forums.aws.amazon.com/thread.jspa?messageID=458398
+[tutorial]: http://aws.amazon.com/articles/4926593393724923
+[kinesis-spark-streaming]: https://github.com/apache/spark/pull/223
+
 [spark-example-project]: https://github.com/snowplow/spark-example-project
 [scalding-example-project]: https://github.com/snowplow/scalding-example-project
+[spark-script]: http://d2io1hx8u877l0.cloudfront.net/common/spark/run-spark-job-0.1.0.jar
 
+[emr]: http://aws.amazon.com/elasticmapreduce/
 [spark]: http://spark.apache.org/
 [mesos]: http://mesos.apache.org/
 [akka]: http://akka.io/
 [hdfs]: http://hadoop.apache.org/docs/r1.2.1/hdfs_design.html
 
-[kinesis-spark-streaming]: xxx
-
-[snowplow-kinesis]: xxx
-
+[snowplow-kinesis]: /blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/
 [hello-txt]: https://github.com/snowplow/spark-example-project/raw/master/data/hello.txt
 [emr-client]: http://aws.amazon.com/developertools/2264
 

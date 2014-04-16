@@ -7,7 +7,15 @@ author: Alex
 category: Releases
 ---
 
-On Saturday I attended the regular Hack the Tower day at the Salesforce office in London, with lots of members of the London Java and Scala User Groups. It's an opportunity to catch up with others in the Scala community in London, share tips and tricks, and work on longer-term strategic projects. It's also an opportunity to code against the backdrop of some of the best views in London (see below)!
+On Saturday I attended [Hack the Tower] [hack-the-tower], the monthly collaborative hackday for the London Java and Scala user groups hosted at the Salesforce offices here. It's an opportunity to catch up with others in the Scala community, and to work collaboratively on non-core projects which may have longer term value for Snowplow. It also means I can hack against the backdrop of some of the best views in London (see below)! Many thanks as always to John Stevenson of Salesforce for hosting us. 
+
+Over the last few Hack the Towers, I have been teaming up with other Scala heads to try out [Apache Spark] [apache-spark], a cluster computing framework and potential challenger to Hadoop. The particular challenge I set myself this month was to complete our [Spark Example Project] [spark-example-project], which is a clone of our popular [Scalding Example Project] [scalding-example-project]. Most tutorials introducing data processing frameworks like Scalding or Spark assume that you are working with a local cluster in an interactive (e.g. REPL-based) fashion. At Snowplow, we are much more interested in creating self-contained jobs which can be run on Amazon's Elastic MapReduce with a minimum of supervision, so that is what I set out to template in the Spark Example Project.
+
+In the rest of this blog post, I will set out:
+
+* Challenges of running Spark on EMR
+* How to use Spark Example Project
+* Spark and Snowplow
 
 I've been working with Spark at Hack the Tower. Started on a Spark Example Project some time ago - with the intention of repeating the Scalding Example Project which has been a popular starting point for a lot of developers starting to work with Scalding, especially on Elastic MapReduce.
 
@@ -23,3 +31,10 @@ xxx
 
 At the risk of repeating the README, XXXX.
 
+
+Snowplow and Spark
+
+
+[hack-the-tower]: http://www.hackthetower.co.uk/
+[hack-the-tower-apr]: http://www.meetup.com/london-scala/events/173280452/
+[]

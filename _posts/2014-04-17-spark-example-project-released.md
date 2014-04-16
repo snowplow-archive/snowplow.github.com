@@ -23,7 +23,7 @@ In the rest of this blog post I'll talk about:
 * Thoughts on Spark
 * Spark and Snowplow
 
-1. [Challenges of running Spark on EMR](/blog/2014/04/17/spark-example-project-released/#api)
+1. [Challenges of running Spark on EMR](/blog/2014/04/17/spark-example-project-released/#challenges)
 2. [How to use Spark Example Project](/blog/2014/04/17/spark-example-project-released/#usage)
 3. [Getting help](/blog/2014/04/17/spark-example-project-released/#help)
 4. [Thoughts on Spark](/blog/2014/04/17/spark-example-project-released/#thoughts)
@@ -57,13 +57,17 @@ Getting up-and-running with the Spark Example Project should be relatively strai
 
 Assuming you already have [SBT] [sbt] installed:
 
+{% highlight bash %}
 $ git clone git://github.com/snowplow/spark-example-project.git
 $ cd spark-example-project
 $ sbt assembly
+{% endhighlight %}
 
 The 'fat jar' is now available as:
 
+{% highlight bash %}
 target/spark-example-project-0.2.0.jar
+{% endhighlight %}
 
 <div class="html">
 <h3>2.2 Deploying</h3>
@@ -79,7 +83,7 @@ Next, upload the data file [`data/hello.txt`] [hello-txt] to S3.
 
 Finally, you are ready to run this job using the [Amazon Ruby EMR client] [emr-client]:
 
-```
+{% highlight bash %}
 $ elastic-mapreduce --create --name "Spark Example Project" --instance-type m1.xlarge --instance-count 3 \
   --bootstrap-action s3://elasticmapreduce/samples/spark/0.8.1/install-spark-shark.sh --bootstrap-name "Install Spark/Shark" \
   --jar s3://elasticmapreduce/libs/script-runner/script-runner.jar --step-name "Run Spark Example Project" \
@@ -89,7 +93,7 @@ $ elastic-mapreduce --create --name "Spark Example Project" --instance-type m1.x
   --arg com.snowplowanalytics.spark.WordCountJob \
   --arg s3n://{{IN_BUCKET}}/hello.txt \
   --arg s3n://{{OUT_BUCKET}}/results
-```
+{% endhighlight %}
 
 Replace `{{JAR_BUCKET}}`, `{{IN_BUCKET}}` and `{{OUT_BUCKET}}` with the appropriate paths.
 
@@ -99,20 +103,26 @@ Replace `{{JAR_BUCKET}}`, `{{IN_BUCKET}}` and `{{OUT_BUCKET}}` with the appropri
 
 Once the output has completed, you should see a folder structure like this in your output bucket:
 
- results
- |
- +- _SUCCESS
- +- part-00000
- +- part-00001
+{% highlight bash %}
+results
+|
++- _SUCCESS
++- part-00000
++- part-00001
+{% endhighlight %}
 
 Download the files and check that `part-00000` contains:
 
+{% highlight bash %}
 (hello,1)
 (world,2)
+{% endhighlight %}
 
 while `part-00001` contains:
 
+{% highlight bash %}
 (goodbye,1)
+{% endhighlight %}
 
 And that's it!
 
@@ -120,13 +130,15 @@ And that's it!
 <h2><a name="help">3. Getting help</a></h2>
 </div>
 
+As always with Snowplow releases, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+
 <div class="html">
 <h2><a name="thoughts">4. Thoughts on Spark</a></h2>
 </div>
 
-Although it is early days, I was impressed with Spark, and very pleased to have it running on Elastic MapReduce in exactly the same fashion as our existing Scalding jobs.
+Although it is early days, I was impressed with Spark, and very pleased to have it running on Elastic MapReduce in the same fashion as our existing Scalding jobs.
 
-In particular, I like Spark's use of in-memory processing, where in contrast Hadoop can be rather disk-intensive. I also like Spark's tight focus: where Hadoop is an entire data ecosystem (file system, cluster management, job scheduling etc), Spark is much more manageable, being designed to work with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
+In particular, I like Spark's use of in-memory processing, where in contrast Hadoop jobs can be rather disk-intensive. I also like Spark's narrow focus: where Hadoop is an entire data ecosystem (file system, cluster management, job scheduling etc), Spark is much more manageable in scope, being designed to work with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
 
 Separately, at Snowplow are also closely following the Spark Streaming project, and excited about Amazon's [work adding Kinesis support] [kinesis-spark-streaming] there.
 
@@ -155,14 +167,15 @@ Stay tuned for more from Snowplow about Spark and Spark Streaming in the future!
 
 [spark]: http://spark.apache.org/
 [mesos]: http://mesos.apache.org/
-[akka]: 
-[hdfs]: 
+[akka]: http://akka.io/
+[hdfs]: http://hadoop.apache.org/docs/r1.2.1/hdfs_design.html
 
 [kinesis-spark-streaming]: xxx
-
 
 [snowplow-kinesis]: xxx
 
 [hello-txt]: https://github.com/snowplow/spark-example-project/raw/master/data/hello.txt
 [emr-client]: http://aws.amazon.com/developertools/2264
 
+[issues]: https://github.com/snowplow/spark-example-project/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

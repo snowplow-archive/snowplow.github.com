@@ -85,13 +85,13 @@ $ elastic-mapreduce --create --name "Spark Example Project" --instance-type m1.x
   --jar s3://elasticmapreduce/libs/script-runner/script-runner.jar --step-name "Run Spark Example Project" \
   --step-action TERMINATE_JOB_FLOW \
   --arg s3://snowplow-hosted-assets/common/spark/run-spark-job-0.1.0.sh \
-  --arg s3://{{JAR_BUCKET}}/spark-example-project-0.2.0.jar \
+  --arg s3://{JAR_BUCKET}/spark-example-project-0.2.0.jar \
   --arg com.snowplowanalytics.spark.WordCountJob \
-  --arg s3n://{{IN_BUCKET}}/hello.txt \
-  --arg s3n://{{OUT_BUCKET}}/results
+  --arg s3n://{IN_BUCKET}/hello.txt \
+  --arg s3n://{OUT_BUCKET}/results
 {% endhighlight %}
 
-Replace `{{JAR_BUCKET}}`, `{{IN_BUCKET}}` and `{{OUT_BUCKET}}` with the appropriate paths.
+Replace `{JAR_BUCKET}`, `{IN_BUCKET}` and `{OUT_BUCKET}` with the appropriate paths.
 
 <div class="html">
 <h3>2.4 Verifying</h3>

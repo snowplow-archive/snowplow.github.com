@@ -31,7 +31,7 @@ In the rest of this blog post I'll talk about:
 <h2><a name="challenges">1. Challenges of running Spark on EMR</a></h2>
 </div>
 
-I actually started work on the Spark Example Project back in 2013. I spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of Ian O'Connell ([SparkEMRBootstrap] [ianoc-emr]) and Daithi O Crualaoich ([spark-emr] [daithi-emr]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark improved.
+I actually started work on [Spark Example Project] [spark-example-project] last year. I spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of Ian O'Connell ([SparkEMRBootstrap] [ianoc-emr]) and Daithi O Crualaoich ([spark-emr] [daithi-emr]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark improved.
 
 Happily on Saturday I noticed that Amazon's tutorial, [Run Spark and Shark on Amazon Elastic MapReduce] [tutorial], had been updated in early March, including with bootstrap scripts to deploy Spark 0.8.1 to an EMR cluster. Logging on to the master node, I found a script called `~/spark/run-example`, designed to run any of Amazon's example Spark jobs, each pre-assembled into a fat jar on the cluster.
 
@@ -126,7 +126,7 @@ And that's it!
 <h2><a name="help">3. Getting help</a></h2>
 </div>
 
-As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+We hope you find [Spark Example Project] [spark-example-project] useful. As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
 
 <div class="html">
 <h2><a name="thoughts">4. Thoughts on Spark</a></h2>

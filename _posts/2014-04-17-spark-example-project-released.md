@@ -33,13 +33,11 @@ In the rest of this blog post I'll talk about:
 
 I actually started work on the Spark Example Project back in 2013. I spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of Ian O'Connell ([SparkEMRBootstrap] [ianoc-emr]) and Daithi O Crualaoich ([spark-emr] [daithi-emr]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark improved.
 
-Happily on Saturday I noticed that Amazon's tutorial, [Run Spark and Shark on Amazon Elastic MapReduce] [tutorial], had been updated in early March, with scripts to deploy Spark 0.8.1 to an EMR cluster. Logging on to the master node, I found a script called `~/spark/run-example`, designed to run one of Amazon's example Spark jobs, which had been pre-assembled into a fat jar.
+Happily on Saturday I noticed that Amazon's tutorial, [Run Spark and Shark on Amazon Elastic MapReduce] [tutorial], had been updated in early March, including with bootstrap scripts to deploy Spark 0.8.1 to an EMR cluster. Logging on to the master node, I found a script called `~/spark/run-example`, designed to run any of Amazon's example Spark jobs, each pre-assembled into a fat jar on the cluster.
 
-It wasn't a lot of work to adapt the `~/spark/run-example` script so that it could be used to run any pre-assembled Spark fat jar: that script is now available for anyone to invoke on Elastic MapReduce here:
+It wasn't a lot of work to adapt the `~/spark/run-example` script so that it could be used to run any pre-assembled Spark fat jar available on S3 (or HDFS): that script is now available for anyone to invoke on Elastic MapReduce here:
 
-{% highlight bash %}
 [s3://snowplow-hosted-assets/common/spark/run-spark-job-0.1.0.sh] [spark-script]
-{% endhighlight %}
 
 Once this was working, it was just a matter of reverting our Spark Example Project to Spark 0.8.1, testing it thoroughly and updating the documentation!
 

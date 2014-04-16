@@ -19,12 +19,6 @@ The particular challenge I set myself this month was to complete our [Spark Exam
 
 In the rest of this blog post I'll talk about:
 
-* Challenges of running Spark on EMR
-* How to use Spark Example Project
-* Getting help
-* Thoughts on Spark
-* Spark and Snowplow
-
 1. [Challenges of running Spark on EMR](/blog/2014/04/17/spark-example-project-released/#challenges)
 2. [How to use Spark Example Project](/blog/2014/04/17/spark-example-project-released/#usage)
 3. [Getting help](/blog/2014/04/17/spark-example-project-released/#help)

@@ -11,6 +11,8 @@ On Saturday I attended [Hack the Tower] [hack-the-tower], the monthly collaborat
 
 It's an opportunity to catch up with others in the Scala community, and to work collaboratively on non-core projects which may have longer-term value for us here at Snowplow. It also means I can code against the backdrop of some of the best views in London (see below)! Many thanks as always to [John Stevenson] [jr0cket] of Salesforce for hosting us. 
 
+![salesforce-view] [salesforce-view-img]
+
 Over the last few months I have been teaming up with other Scala hackers to try out [Apache Spark] [spark], a cluster computing framework and potential challenger to Hadoop.
 
 The particular challenge I set myself this month was to complete our [Spark Example Project] [spark-example-project], which is a clone of our popular [Scalding Example Project] [scalding-example-project]. Most howtos for data processing frameworks like Scalding or Spark assume that you are working with a local cluster in an interactive (e.g. REPL-based) fashion. At Snowplow, we are much more interested in creating self-contained jobs which can be run on Amazon's [Elastic MapReduce] [emr] with a minimum of supervision, so that is what I wanted to template in the Spark Example Project.
@@ -159,6 +161,8 @@ Stay tuned for more from Snowplow about Spark and Spark Streaming in the future!
 [hack-the-tower]: http://www.hackthetower.co.uk/
 [hack-the-tower-apr]: http://www.meetup.com/london-scala/events/173280452/
 [jr0cket]: https://github.com/jr0cket
+[salesforce-view-img]: /assets/img/blog/2014/04/salesforce-heron-tower.jpg
+
 [ianoc-emr]: https://github.com/ianoc/SparkEMRBootstrap
 [daithi-emr]: https://github.com/daithiocrualaoich/spark-emr
 

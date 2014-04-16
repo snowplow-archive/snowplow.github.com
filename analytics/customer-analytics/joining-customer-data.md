@@ -18,7 +18,9 @@ In this section, we walk through the process of integrating Snowplow data with o
 3. [Uploading customer data into Snowplow](#upload)
 4. [Joining customer data with Snowplow to create an integrated customer datamart](#join)
 
+<div class="html">
 <a name="why"><h2>1. Why integrate web analytics data with other customer data sources?</h2></a>
+</div>
 
 To date many companies have become very good at using CRM, loyalty and sales data to understand, segment and serve their customer base. Typically, however, they have **not** used web analytics data to understand their customers, even though how users engage with brands and companies through their website and applications provides some of the most revealing data about who a person is, there motivation for engaging with a brand / product / service and how happy they are with that brand / product and service. To illustrate how revealing web analytics data can be, consider:
 
@@ -38,7 +40,9 @@ Potential sources of customer data to integrate with:
 * Marketing databases (e.g. email, direct mail, ad server)
 * Social media (e.g. Facebook, Twitter)
 
+<div class="html">
 <a name="ingredients"><h2>2. Necessary ingredients for successful integration</h2></a>
+</div>
 
 Integrating any two data sources requires that:
 
@@ -50,7 +54,9 @@ Given the two above requirements, it becomes clear why web analytics data has no
 * Web analytics data volumes are typically enormous, making *copying* the data hard. (Snowplow *fixes* this problem by enabling you to import your data into Snowplow, rather than export your web analytics data out of it.)
 * Web analytics programs are typically bad at reliably identifying users. (Snowplow *fixes* this problem by exposing a `user_id`, `domain_userid` and `network_userid` and making it striaghtforward to map those user identifiers with identifiers from other systems.)
 
+<div class="html">
 <a name="upload"><h2>3. Uploading data into Snowplow</h2></a>
+</div>
 
 In order two join two data sets, you need to be able to run a query across both of them. Typically, this means getting copies of them in the same system. There are three options:
 
@@ -63,8 +69,9 @@ Whilst all three options are possible, more often then not we recommend companie
 1. [Importing your data into Redshift] (#redshift-import)
 2. [Importing your data into S3 / Hive](#hive-import)
 
-
+<div class="html">
 <a name="redshift-import"><h3>3.1 Importing your data into Redshift</h3></a>
+</div>
 
 If you are using Redshift to store and query your Snowplow data, uploading other sources of customer data into your Redshift cluster is reasonably straightforward. 
 
@@ -72,8 +79,9 @@ Because uploading data into Redshift is fastest from S3, we generally recommend 
 
 To maintain a regular update of data from your other customer data sources into Redshift for analysing alongside Snowplow, it makes sense either to script an ETL process, or to use an ETL tool. Currently there are not any Redshift compatible tools ETL tools that we have tested. However, we expect many ETL tools to roll out Redshift support over the next couple of months. In addition, the Snowplow team can setup those regular ETL steps as part of our [professional services][pro-services] offering.
 
-
+<div class="html">
 <a name="hive-import"><h3>3.2 Importing data into Hive</h3></a>
+</div>
 
 If you are running Snowplow using Hive on Amazon's S3 / EMR infrastructure, uploading data into Hive is a three step process:
 
@@ -121,8 +129,9 @@ To check that your data has been successfully uploaded, you can run some sample 
 SELECT * FROM {{table_name}} LIMIT 10;
 {% endhighlight %}
 
-
+<div class="html">
 <a name="join"><h2>4. Joining 3rd party customer data with Snowplow data</h2></a>
+</div>
 
 Now that all your customer data sets are available in Redshift or Hive, you are in a position to run an analysis across all customer data sets.</a>
 

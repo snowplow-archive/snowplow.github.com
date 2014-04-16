@@ -25,13 +25,16 @@ Open source
 
 Snowplow lets you [do more with your data] [do-more-with-your-data]. Find out [what] [do-more-with-your-data]. 
 
-<a href="get-started.html">
-	<button class="btn btn-large btn-primary" type="button">Get started</button>
-</a>
+<div class="html">
+	<a href="get-started.html">
+		<button class="btn btn-large btn-primary" type="button">Get started</button>
+	</a>
 
-<img src="/assets/img/APN_Standard_Technology_Partner.png" title="Amazon Web Services Technology Partner" width="250" />
+	<img src="/assets/img/APN_Standard_Technology_Partner.png" title="Amazon Web Services Technology Partner" width="250" />
+</div>
 
 *Snowplow Analytics is proud to be an Amazon Web Services Technology Partner.*
+
 
 [do-more-with-your-data]: do-more-with-your-data.html
 [get-started]: get-started.html

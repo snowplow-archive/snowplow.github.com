@@ -13,12 +13,14 @@ We are very fortunate to partner with some of the most exciting and innovative c
 
 We have three types of partners in our ecosystem:
 
-1. [Technology partners] (#technology)
-2. [Implementation partners] (#implementation)
-3. [Data partners] (#data)
-4. [Supporting organisations] (#support)
+1. [Technology partners](#technology)
+2. [Implementation partners](#implementation)
+3. [Data partners](#data)
+4. [Supporting organisations](#support)
 
+<div class="html">
 <a name="technology"><h2>1. Technology partners</h2></a>
+</div>
 
 We are fortunate be partnering with organisations at the cutting-edge of analytics services and cloud-based data services.
 
@@ -54,7 +56,9 @@ We are fortunate be partnering with organisations at the cutting-edge of analyti
 	</tr>
 </table>
 
+<div class="html">
 <a name="implementation"><h2>2. Implementation partners</h2></a>
+</div>
 
 Our implementation partners work with business both to integrate Snowplow tracking (including developing client-specific event dictionaries) and drive insight from the Snowplow data.
 
@@ -71,7 +75,9 @@ We are in talks with a range of different companies, of different sizes and spec
 	</tr>
 </table>
 
+<div class="html">
 <a name="data"><h2>3. Data partners</h2> </a>
+</div>
 
 Our data partners make it possible to infer additional data points to append to individual events as part of the Snowplow enrichment process.
 
@@ -92,7 +98,9 @@ Our data partners make it possible to infer additional data points to append to 
 
 For more details see [Alex's blog post on context] [context-blog-post].
 
+<div class="html">
 <a name="support"><h2>4. Supporting organisations</h2></a>
+</div>
 
 We are grateful to the following organisations for their ongoing support of Snowplow.
 

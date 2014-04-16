@@ -7,9 +7,9 @@ shortened-link: Basic recipes
 weight: 5
 ---
 
-
+<div class="html">
 <a name="top"><h1>Bread and butter web analytics queries</h1></a>
-
+</div>
 
 The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are *not* the queries that Snowplow was designed to perform: we built Snowplow to enable analysts to run queries on web analytics data that are **not** possible with other web analytics programs. These queries return the results that **all** web analytics queries return. However, running them can be useful for an analyst to validate Snowplow has been setup correctly (by comparing the output against e.g. Google Analytics), and help her get familiar with writing queries in Snowplow.
 
@@ -35,7 +35,9 @@ The following queries will work with both Redshift and PostgreSQL. It should not
 16. [Technology: operating system](#os)
 17. [Technology: mobile](#mobile)
 
- <a name="counting-unique-visitors"><h2>1. Number of unique visitors </h2></a>
+<div class="html">
+<a name="counting-unique-visitors"><h2>1. Number of unique visitors </h2></a>
+</div>
 
 The number of unique visitors can be calculated by summing the number of distinct `domain_userid`s in a specified time period. (Because each user is assigned a unique domain_userid, based on a lack of Snowplow tracking cookies on their browser):
 
@@ -56,7 +58,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="counting-visits"><h2>2. Number of visits</h2></a>
+<div class="html">
+<a name="counting-visits"><h2>2. Number of visits</h2></a>
+</div>
 
 Because each user might visit a site more than once, summing the number of `domain_userid`s returns the number if *visitors*, NOT the number of *visits*. Every time a user visits the site, however, Snowplow assigns that session with a `domain_sessionidx` (e.g. `1` for their first visit, `2` for their second.) Hence, to count the number of visits in a time period, we concatenate the unique `domain_userid` with the `domain_sessionidx` and then count the number of distinct concatenated entry in the events table:
 
@@ -77,7 +81,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="counting-pageviews"><h2>3. Number of page views</h2></a>
+<div class="html">
+<a name="counting-pageviews"><h2>3. Number of page views</h2></a>
+</div>
 
 Page views are one type of event that are stored in the Snowplow events table. They can easily be identified using the `event` field, which is set to 'page_view'.
 
@@ -101,7 +107,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="counting-events"><h2>4. Number of events</h2></a>
+<div class="html">
+<a name="counting-events"><h2>4. Number of events</h2></a>
+</div>
 
 Although the number of page views is a standard metric in web analytics, this reflects the web's history as a set of hyperlinked documents rather than the modern reality of web applications that are comprise lots of AJAX events (that need not necessarily result in a page load.)
 
@@ -167,7 +175,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="bounce-rate"><h2>6. Bounce rate</h2></a>
+</div>
 
 First we need to identify all the sessions that were 'bounces'. These are visits where there is only a single event captured: the initial page view:
 
@@ -216,7 +226,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="new-visits"><h2>7. % New visits</h2></a>
+</div>
 
 A new visit is easily identified as a visit where the domain_sessionidx = 1. Hence, to calculate the % of new visits, we need to sum all the visits where `domain_sessionidx` = 1 and divide by the total number of visits, in the time period.
 
@@ -260,7 +272,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="duration"><h2>8. Average visitor duration</h2></a>
+</div>
 
 To calculate this, 1st we need to calculate the duration of every visit:
 
@@ -301,7 +315,9 @@ order by 1;
 
 [Back to top](#top)
 
+<div class="html">
 <a name="language"><h2>9. Demographics: language</h2></a>
+</div>
 
 For each event the browser language is stored in the `br_language` field. As a result, counting the number of visitors in a time period by language is trivial:
 
@@ -322,7 +338,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="location"><h2>10. Demographics: location</h2></a>
+</div>
 
 We can identify the geographic location of users using the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude` and `geo_longitude` fields.
 
@@ -347,7 +365,9 @@ To create a geographical plot, you'll need to use another tool like [R] [r] or [
 
 [Back to top](#top)
 
- <a name="new-vs-returning"><h2>11. Behavior: new vs returning</h2></a>
+<div class="html">
+<a name="new-vs-returning"><h2>11. Behavior: new vs returning</h2></a>
+</div>
 
 Within a given time period, we can compare the number of new visitors (for whom `domain_sessionidx` = 1) with returning visitors (for whom `domain_sessionidx` > 1): 
 
@@ -389,7 +409,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="frequency"><h2>12. Behavior: frequency</h2></a>
+</div>
 
 We can plot the distribution of visits in a time period by the number of visits each visitor has performed:
 
@@ -409,7 +431,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="recency"><h2>13. Behavior: recency</h2></a>
+<div class="html">
+<a name="recency"><h2>13. Behavior: recency</h2></a>
+</div>
 
 We can plot the distribution of visits by the number of days since the previous visit. To do this, we first identify all the visits in our time period:
 
@@ -516,7 +540,9 @@ In ChartIO:
 
 [Back to top](#top)
 
+<div class="html">
 <a name="engagement"><h2>14. Behavior: engagement</h2></a>
+</div>
 
 Google Analytics provides two sets of metrics to indicate *engagement*:
 
@@ -616,7 +642,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="browser"><h2>15. Technology: browser</h2></a>
+<div class="html">
+<a name="browser"><h2>15. Technology: browser</h2></a>
+</div>
 
 Browser details are stored in the events table in the `br_name`, `br_family`, `br_version`, `br_type`, `br_renderingengine`, `br_features` and `br_cookies` fields.
 
@@ -640,7 +668,9 @@ In ChartIO:
 
 [Back to top](#top)
 
- <a name="os"><h2>16. Technology: operating system</h2></a>
+<div class="html">
+<a name="os"><h2>16. Technology: operating system</h2></a>
+</div>
 
 Operating system details are stored in the events table in the `os_name`, `os_family` and `os_manufacturer` fields.
 
@@ -664,7 +694,9 @@ Again, we can plot the results in ChartIO:
 
 [Back to top](#top)
 
- <a name="mobile"><h2>17. Technology: mobile</h2></a>
+<div class="html">
+<a name="mobile"><h2>17. Technology: mobile</h2></a>
+</div>
 
 To work out how the number of visits in a given time period splits between visitors on mobile and those not, simply execute the following query:
 

@@ -35,9 +35,12 @@ Granular data means you can join e.g. customer-data at an individual customer le
 
 ### What will you do with your web event data? 
 
-<a href="get-started.html">
-	<button class="btn btn-large btn-primary" type="button">Get started</button>
-</a>
+<div class="html">
+	<a href="get-started.html">
+		<button class="btn btn-large btn-primary" type="button">Get started</button>
+	</a>
+</div>
+
 
 [looker]: http://www.looker.com
 [sci-kit-learn]: http://scikit-learn.org/stable/

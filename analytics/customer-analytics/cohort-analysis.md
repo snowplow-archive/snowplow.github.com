@@ -12,7 +12,9 @@ weight: 6
 1. [What is cohort analysis?](#what)
 2. [Steps to performing a cohort analysis](#steps)
 
- <a name="what"><h2>What is a cohort analysis?</h2></a>
+<div class="html">
+<a name="what"><h2>What is a cohort analysis?</h2></a>
+</div>
 
 A cohort analysis is a longitudal study that compares two or more groups of customers / users (cohorts) over a period of time. The term cohort analysis therefore encompasses a wide variety of analyses:
 
@@ -21,7 +23,9 @@ A cohort analysis is a longitudal study that compares two or more groups of cust
 
 For more detail on the variations possible with cohort analyses, see [this Keplar blog post] [varieties-of-cohort-analyses].
 
+<div class="html">
 <a name="steps"><h2>Steps to performing a cohort analysis</h2></a>
+</div>
 
 All cohort analyses can be performed with the following steps:
 
@@ -29,7 +33,9 @@ All cohort analyses can be performed with the following steps:
 2. [Metric definition](#metric-definition): write a query that calculates the required metric for each user
 3. [Combine the results](#combinetheresults) from the above two queries to calculate an aggregated metric for each cohort
 
+<div class="html">
 <a name="cohort-definition"><h2>1. Cohort definition</h2></a>
+</div>
 
 Regardless of the type of cohort analysis we want to perform, we start by mapping user IDs to cohorts:
 
@@ -142,7 +148,9 @@ WHERE r = 1;
 
 Snowplow makes it possible to define cohorts based on a wide variety of criteria, including definitions obtained from data that exists outside of Snowplow. (This data will need to be uploaded to Snowplow before it can be used.) For more information, [get in touch] [get-in-touch].
 
+<div class="html">
 <a name="metric-definition"><h2>2. Metric definitions</h2></a>
+</div>
 
 As a second step, we need to define a query that measure the _thing_ we want to compare between our cohorts. We therefore need to populate a table like the one below:
 

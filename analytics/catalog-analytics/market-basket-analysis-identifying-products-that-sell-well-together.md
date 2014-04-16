@@ -7,7 +7,9 @@ shortened-link: Market basket analysis
 weight: 4
 ---
 
+<div class="html">
 <a name="top"><h1>Market basket analysis: identifying products and content that go well together</h1></a>
+</div>
 
 [Affinity analysis] [affinity-analysis] and [association rule learning] [association-rule-learning] encompasses a broad set of analytics techniques aimed at uncovering the associations and connections between specific objects: these might be visitors to your website (customers or audience), products in your store, or content items on your media site. Of these, "market basket analysis" is perhaps the most famous example. In a market basket analysis, you look to see if there are combinations of products that frequently co-occur in transactions. For example, maybe people who buy flour and casting sugar, also tend to buy eggs (because a high proportion of them are planning on baking a cake). A retailer can use this information to inform:
 
@@ -28,8 +30,9 @@ There are a wide range of algorithms, available on a wide variety of platforms, 
 4. [Interpreting the results: using the analysis to drive business decision-making](#business)
 5. [Expanding on the analysis - zooming out from the basket to look a customer behavior over longer periods and different events](#expand)
 
-
+<div class="html">
 <a name="metrics"><h2>1. Market basket analysis: the basics</h2></a>
+</div>
 
 ### Terminology
 
@@ -81,7 +84,9 @@ When we perform market basket analysis, then, we are looking for rules with a li
 
 Back to [top](#top).
 
+<div class="html">
 <a name="apriori"><h2>2. Performing marketing basket analysis using the apriori algorithm using R and the arules package</h2></a>
+</div>
 
 Just to recap: the purpose of this analysis is to generate a set of rules that link two or more products together. Each of these rules should have a lift greater than one. In addition, we are interested in the support and confidence of those rules: higher confidence rules are ones where there is a higher probability of items on the RHS being part of the transaction given the presence of items on the LHS. We'd expect recommendations based on these rules to drive a higher response rate, for example. We're also better off actioning rules with higher support first, as these will be applicable to a wider range of instances.
 
@@ -188,7 +193,9 @@ The last two rules are interesting though: they suggest that people who buy the 
 
 Back to [top](#top).
 
+<div class="html">
 <a name="arulesviz"><h2>3. Managing large result sets: visualizing rules using the arulesViz package</h2></a> 
+</div>
 
 In the previous example we set the parameters for support and confidence so that only a small set of rules were returned. As mentioned, however, it is often better to return a larger set, to increase the chances that we generate more relevant rules for our business.
 
@@ -219,7 +226,9 @@ How many rules we generate, and how we prioritise which rules we action, depend 
 
 Back to [top](#top).
 
+<div class="html">
 <a name="business"><h2>4. Using the analysis to drive business decision-making</h2></a>
+</div>
 
 Before we use the data to make any kind of business decision, it is important that we take a step back and remember something important:
 
@@ -246,7 +255,9 @@ How we use the analysis has significant implications for the analysis itself: if
 
 Back to [top](#top).
 
+<div class="html">
 <a name="expand"><h2>5. Expanding on the analysis: zooming out from the basket to look a customer behavior over longer periods and different events</h2></a>
+</div>
 
 In the above example, we used actual transaction events to identify associations between products for an online retailer.
 

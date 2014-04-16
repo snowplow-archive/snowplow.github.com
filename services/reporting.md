@@ -18,7 +18,9 @@ Learn more about our approach to designing and implementing KPI, dashboards and 
 3. [Project output](#output)
 4. [Learn more](#learn-more)
 
+<div class="html">
 <a name="context"><h2>Context</h2></a>
+</div>
 
 When properly designed and delivered, a small set of KPI can enable a team to:
 
@@ -33,18 +35,24 @@ KPI are therefore enormously valuable. Unfortunately, KPI, especially KPI based 
 3. KPI are typically not designed with the levers that a team can pull in mind. As a result, they are not *actionable*: people look at them and think "that's interesting", but the numbers they look at don't lead them to make quick decisions that have a meaningful impact
 4. KPIs fail to distinguish different *types* of users and the *type* of activity they are engaged with
 
+<div class="html">
 <a name="approach"><h2>Approach</h2></a> 
+</div>
 
 1. We work with our clients to understand (i) their goals, (ii) the key success factors for achieving those goals, (iii) the levers at their disposal for reaching those goals and (iv) how their audience segment and the different kinds of activity their visitors engage in on their websites
 2. We look at the complete set of data available to measure progress against those goals, and analyse: (i) what has happened to date, (ii) how relevant different data points are, and (iii) how sensitive to key success factors
 3. On the basis of the above we design and mockup an easy to read KPI dashboard, and iterate this with the client. (This may or may not include Snowplow data, as appropriate.)
 4. When the client is happy with the dashboard we implement it technically.
 
+<div class="html">
 <a name="output"><h2>Output</h2></a>
+</div>
 
 The output of the project is either a working set of dashboards and reports, delivered on a timely basis, or a complete specification for the client's development team to deliver those reports.
 
+<div class="html">
 <a name="learn-more"><h2>Sounds interesting?</h2></a>
+<div class="html">
 
 [Get in touch] [get-in-touch] with the Snowplow team to discuss your requirements.
 

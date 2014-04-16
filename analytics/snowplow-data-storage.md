@@ -9,11 +9,13 @@ weight: 3
 
 # Understanding how your Snowplow data is stored
 
-Currently, Snowplow supports storing your data in three storage targets: [Amazon S3] (#s3), Amazon [Redshift] (#redshift) and [PostgreSQL] (#postgres). We are working to support [a growing range of data storage options] (#other) - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug directly into that data. Many Snowplow uses already store data on _both_ S3 _and_ Redshift / PostgreSQL, to exploit tools that work well with both storage solutions. 
+Currently, Snowplow supports storing your data in three storage targets: [Amazon S3](#s3), Amazon [Redshift](#redshift) and [PostgreSQL](#postgres). We are working to support [a growing range of data storage options](#other) - this is because where your data lives has important implications for the type of analysis tools you can use to process that data. The more storage locations we make it easy for you to pipe your Snowplow data, the more analysis tools you will be able to plug directly into that data. Many Snowplow uses already store data on _both_ S3 _and_ Redshift / PostgreSQL, to exploit tools that work well with both storage solutions. 
 
 Understanding how your Snowplow data is stored and formatted will better position you to analyse that data using a broad range of tools.
 
+<div class="html">
 <h2><a name="redshift">Storage in Redshift</a></h2>
+</div>
 
 ![redshift-logo] [redshift-logo]
 
@@ -28,7 +30,9 @@ Storing your Snowplow data in Amazon Redshift has a number of benefits:
 
 Data is stored in Redshfit as a single 'fat table'.
 
+<div class="html">
 <h2><a name="postgres">Storage in PostgreSQL</a></h2>
+</div>
 
 ![postgres-logo] [postgres-img]
 
@@ -39,7 +43,9 @@ Whilst Snowplow has been built to be scalable, many companies use Snowplow that 
 
 PostgreSQL is especially easy to setup on Amazon RDS.
 
+<div class="html">
 <h2><a name="s3">Storage in Amazon S3</a></h2>
+</div>
 
 ![s3-logo] [s3-logo]
 
@@ -56,8 +62,9 @@ Going forwards, our intention is to change the format of data stored in S3 to us
 For a guide to getting started using Hive to query your data in S3, see the [getting started] [getting-started-with-hive] section on the [setup guide] [setup-guide].
 
 
-
+<div>
 <h2><a name="other">Other storage options on the roadmap</a></h2>
+</div>
 
 We plan to incorporate [Neo4J] [neo4j], [SkyDB] [skydb], [Google BigQuery] [bigquery] and [Elastic Search] [elastic-search] to enable richer querying of time series event data.
 

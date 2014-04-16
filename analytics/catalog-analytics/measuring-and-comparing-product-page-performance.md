@@ -7,13 +7,17 @@ shortened-link: Product page performance
 weight: 2
 ---
 
+<div class="html">
 <a name="top"><h1>Measuring product page performance</h1></a>
+</div>
 
 1. [Measuring what fraction of users to a product page add the product to their basket](#add-to-basket)
 2. [Visualising the data in an actionable scatter plot](#visualising)
 3. [More sophisticated approaches to measuring product page performance](#sophisticated-approaches)
 
+<div class="html">
 <a name="add-to-basket"><h3>1. Measuring what fraction of users to a product page add the product to their basket</h3></a>
+</div>
 
 The primary purpose of product pages on a retailer site is to drive users to add the products listed to their baskets.
 
@@ -157,7 +161,9 @@ The above plot is interesting: it makes it easy to compare conversion rates betw
 
 Back to [top](#top).
 
+<div class="html">
 <a name="visualising"><h3>Visualising the data in an actionable scatter-plot</h3></a>
+</div>
 
 In this section, we are going to build a scatter plot which compares the number of uniques that view each product with the number of uniques that add the product to basket, with the size of each dot being the number of uniques that buy the product.
 
@@ -286,7 +292,9 @@ We can produce the scatter plot directly in Tableau, for example, by using the a
 
 Back to [top](#top).
 
+<div class="html">
 <a name="sophisticated-approaches"><h3>3. More sophisticated approaches to measuring product page performance</h3></a>
+</div>
 
 The above approach to measuring product performance assumes that all the users who land on a product page are just as likely to add the product to their basket, and as a result, any difference in conversion rates between product pages relates to how good that product page is. 
 

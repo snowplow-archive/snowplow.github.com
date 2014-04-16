@@ -7,7 +7,9 @@ shortened-link: Content page performance
 weight: 3
 ---
 
+<div class="html">
 <a name="top"><h1>Measuring content page performance</h1></a>
+</div>
 
 The recipes below all use the Snowplow page ping event to understand how a user engages with a particular web page over time. The recipes are divided into seven sections. In the first section, we introduce the page ping event: how to set it up and what data is captured with each event. In sections two and three, we use that data to visualize the behavior of a single user, first as he / she navigates through your website, and secondly as he / she navigates through a web page.
 
@@ -23,7 +25,9 @@ The contents is given below:
 6. [Measuring what fraction of each web page users view](#fraction)
 7. [Content page performance matrix: comparing popularity and engagement levels by page](#matrix)
 
+<div class="html">
 <a name="page_pings"><h2>1. Understanding page ping events</h2></a>
+</div>
 
 Snowplow includes a specific event type to help understand how users engage with pages over time: Page Pings. This is a feature of the [Javascript tracker] [js-tracker].
 
@@ -44,7 +48,9 @@ The first ping would occur 30 seconds after page load, and subsequent pings will
 
 Back to [top](#top).
 
+<div class="html">
 <a name="single-user-journey"><h2>2. Visualizing an individual user journey through your website</h2></a>
+</div>
 
 We can pull up a stream of the page view and page ping events for a particular user over time executing a query like this:
 
@@ -67,14 +73,18 @@ We can visualize the above user journey in Tableau:
 
 * Connect Tableau to your Redshift / Infobright instance, but instead of connecting to your Snowplow events table directly, execute the above custom SQL
 
+<div class="html">
 <p style="text-align: center"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/tableau-custom-sql.JPG" width="250" /></p>
+</div>
 
 * Drag the `tstamp` dimension into the columns shelf and set it to show 'seconds'. (Rather than the default 'years')
 * Drag the `page_urlpath` dimension to the rows shelf. You should now see a Gantt-style view of the user journey through the different web pages
 * To make the visualization clearer, list the `page_urlpath` in the order in which this user visited them. To do that, click on the `page_urlpath` in the rows shelf, select 'sort' from the dropdown, and select 'Sort by... Field'. In the field dropdown, select `tstamp` and in the aggregation dropdown, select `Minimum`. (So the pages are organised by when the user first touched them.) Click 'Apply'
 * To make the visualization easier to read, drag `page_urlpath` from the dimensions pane to the 'Color' mark. You should now see a visualization like the one shown below: (Click to zoom in.)
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/customer-journey-1.jpg" /></a>
+</div>
 
 A number of things become apparent very quickly:
 
@@ -85,7 +95,9 @@ A number of things become apparent very quickly:
 
 Back to [top](#top).
 
+<div class="html">
 <a name="single-page"><h2>3. Visualizing how a user engages with a particular web page over time</h2></a>
+</div>
 
 We can use Snowplow data not just to visualize a user's interaction with the different pages on a website, but also zoom in on his / her interaction with a particular web page.
 
@@ -112,7 +124,9 @@ AND page_urlpath LIKE '%etl-to-enrichment%';
 
 We can load that data into Tableau:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/interaction-one-user-one-page-data.jpg" /></a>
+</div>
 
 From the above data we can see that:
 
@@ -121,17 +135,23 @@ From the above data we can see that:
 
 We can visualize how the user scrolls down the page over time in Tableau, by plotting either the `pp_yoffset_min` or `pp_yoffset_max` against time in seconds. (To do this, simply drag `tstamp` to the columns shelf, drag `ppy_offset_min` or `pp_yoffset_max` to the rows shelf, and select the line graph.) A plot like the following appears:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG"></a>
+</div>
 
 The most striking thing about the above graph is that the user appears to read the top of the page in fair detail (spending a good 30 seconds there) before scrolling down almost 4000 pixels in a single (10 second) ping period. That becomes less surprising if we look at the actual blog post itself. (We've added the pixel dimensions to the image of the post below.)
 
+<div class="html">
 <p style="text-align: center"><a href="/assets/img/analytics/catalog-analytics/content-page-performance/from-etl-to-enrichment-page-with-measurements.JPG"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/from-etl-to-enrichment-page-with-measurements.JPG"></a></p>
+</div>
 
 It appears that the user quickly scrolled over the flow chart that extends from c.600 pixels down the post to c.3200 pixels down the post, and is scrolling through on either side much more slowly (and we hope, carefully), than the image itself.
 
 Back to [top](#top).
 
+<div class="html">
 <a name="compare-time-on-page"><h2>4. Comparing how long users spend on different web pages</h2></a>
+</div>
 
 In the previous three sections, we looked in detail at the page ping event, and how to use data generated by page ping events to map a user's interaction with a website adn a particular webpage over time.
 
@@ -196,7 +216,9 @@ ORDER BY u.uniques DESC;
 
 Let's pull that data into Tableau and plot average pings per page for each page:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page.jpg"></a>
+</div>
 
 The data shows that there is wide variation in the average time that users dwell on each web page. It is heartening to see that our blog post on [writing UDFs and Serdes for Hive] [hive-udf] drove high levels of engagement (13.3 page pings ~ 2 minutes of viewing), as did our recent set of analytics recipes covering [measuring and comparing product page performance] [product-page-performance].
 
@@ -204,15 +226,21 @@ At the bottom of the list we can identify pages that attracted **no** page pings
 
 This touches on an important point: not all pages are designed to perform the same function and when we are applying an analysis like this, we should only be comparing pages that *are* designed to perform the same function, specifically driving engagement. Let's refine the above analysis by including *only* results for blog posts. We can do this by dragging the `page_urlpath` dimension into the filters pane, select 'wildcard' from the tab menu and instruct Tableau to include only `page_urlpath` that start with '/blog/':
 
+<div class="html">
 <p style="text-align: center"><a href="/assets/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/filter-only-blog-pages.JPG" width="250"></a></p>
+</div>
 
 We can now compare how long users spent on different blog pages:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-per-page-blog-only.jpg"></a>
+</div>
 
 Back to [top](#top).
 
+<div class="html">
 <a name="adjusting-for-page-length"><h2>5. Adjusting for the impact of page height</h2></a>
+</div>
 
 We may want to compare the page height with the average amount of time spent on a page: after all, we should not expect that someone would spend as long on a page with a little content as a page with a lot.
 
@@ -251,13 +279,17 @@ To visualize the data, we're going to create a scatter plot, where each point re
 
 To do this, load the above data into Tableau. Drag the `page_urlpath` to the rows shelf, and the `doc_height` and `average_pings_per_unique_per_page` to the measures pane. Click on the scatter plot - you should see something like the following plot. Each circle on the plot represents one page on our website. The height of the circle represents the average number of pings per user for that page - so how long users spend on it. The distance of each point to the right represents the height of the document - so larger webpages are further to the right. (We've also dragged the `unqiues` metric to the 'size' pane, so that the size of each circle represents the number of unique visitors to that page.)
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-vs-doc-height.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/average-pings-vs-doc-height.jpg"></a>
+</div>
 
 The graph suggests that on the Snowplow website, at least, there **is** a relationship between document height and average pings per page. (We could measure the strength of the relationship formally, by calculating the correlation coefficient.) However, there are a number of outliers: we can identify pages on the website that only attract low levels of engagement relative to their length (e.g. our v0.7.4 release post), and pages that drive significant levels of engagement relative to their length (e.g. the 0.4.6 release post, or the 'analysing data with Snowplow' page.)
 
 Back to [top](#top).
 
+<div class="html">
 <a name="fraction"><h2>6. Measuring what fraction of each web page users view</h2></a>
+</div>
 
 One question we may have regarding long web pages is: what percentage of uses make it to the bottom of the page?
 
@@ -288,7 +320,9 @@ GROUP BY domain_userid, page_urlpath;
 
 Feeding the data into Tableau, we can plot the average fraction of each web page viewed (where average is calculated across all users who visited that page), by simply dragging the `page_urlpath` dimension to the rows shelf, dragging the `fraction_read` metric into the table and changing the aggregation function Tableau performs on the metric from `SUM` to `AVERAGE`. In the below graph, we've also filtered the results so that only `page_urlpaths` for pages belonging to the analytics section of our website our displayed:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/fraction-of-web-page-read.jpg" /></a>
+</div>
 
 It appears that half our recipe web pages are read to the end by nearly everyone. A number, however, are not. (We're losing people before they get to the end of the [basic recipes] [basic-recipes] or [measuring user engagement] [measuring-user-engagement] pages.)
 
@@ -301,19 +335,25 @@ We can plot the distributionwith the same cut of data in Tableau, but this time 
 * Drag the `Number of records` metric into the table: we want to know how many people in each bin, and each record represents one user
 * As an extra, we've added a quick table calculation to our metric (`SUM(Number of Records)`) so that instead of showing us the actual number of users in each bin, it shows us what percentage of all the users who visited this page are in each bin:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/distribution-of-readers-by-fraction-of-hive-udf-post-read.jpg" /></a>
+</div>
 
 Under a quarter of users have made it to the end of this post. 70% of visitors make it through 80% of the post. That is a good result: it suggests that most users who are on this page are interested (so should be on it), and make it through most of the way. However, if there's a key piece of information that's only available in the very last section, a large number of those visitors will have missed it.
 
 Back to [top](#top).
 
+<div class="html">
 <a name="matrix"><h2>7. Content page performance matrix: comparing popularity and engagement levels by page</h2></a>
+</div>
 
 One of the recipes we presented in the [measuring product page performance] [product-page-performance-2] section of the cookbook was to create an actionable scatter plot, that showed each product by the number of people who viewed it and the number that added it to their basket. This made it easy to identify products that should be marketed more aggressively (because they are highly converting, but not many people see them) and product page that need to be updated (because they are highly trafficked, but poor converters).
 
 We can produce an analagous matrix for content pages, by plotting each based on the number of visitors (one axis) vs engagement level (average page pings per page) on the other axis:
 
+<div class="html">
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/content-page-matrix.jpg"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/content-page-matrix.jpg"></a>
+</div>
 
 For the Snowplow website, the plot is not so revealing. For a newspaper site, however, the results might be much more so: pages appearing in the top left section of the scatter are stories with high levels of engagement and low levels of traffic. It makes sense to drive more traffic to these pages e.g. via a "recommended now" section, or via directed marketing spend, for example. 
 

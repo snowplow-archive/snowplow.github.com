@@ -19,8 +19,9 @@ Learn more about our approach to analytics projects below:
 4. [Examples of our work](#examples)
 5. [Learn more](#learn-more)
 
-
+<div class="html">
 <a name="context"><h2>1. Context</h2></a>
+</div>
 
 The profliferation of data (especially customer data) means there are more opportunities to use it to make the right platform development and marketing decisions.
 
@@ -30,8 +31,9 @@ However, there are often barriers to using data to drive decision making:
 * **Technical skills shortage**. In the absense of a clean data warehouse that brings together all the relevant customer data sources, programming expertise is required to perform the necessary ETL and data crunching
 * **Analytic skills shortage**. Even with the relevant technical expertise, significant analytic work is required to turn web analytics and other customer data into a meaningful picture of a customer-base, and then use that knowledge to inform decision making. That analytic process encompasses refining commercial decisions down to specific questions that can be tested with data, identifying the relevant data sources before designing and executing the analyses
  
-
+<div class="html">
 <a name="approach"><h2>2. Our approach</h2></a>
+</div>
 
 1. Work with the client to **refine the business decision / question** into a subset of discrete questions that can be addressed in a data-driven way
 2. In parallel with the above, **audit all available data sources**
@@ -39,15 +41,17 @@ However, there are often barriers to using data to drive decision making:
 4. **Pull the analyses together** into a coherent powerpoint deck that addresses the business question head on
 5. **Present and iterate the findings with the client**, drawing on client knowledge of their customer-base not captured in the data to colour the analyses
 
-
+<div class="html">
 <a name="output"><h2>3. Project output</h2></a>
+</div>
 
 The primary output of any analytics project is a Powerpoint deck that directly addresses the business question posed, and weaves the different analyses performed into a coherent narrative in support of a specific recommendation for the client.
 
 Some illustrateive analyses from past projects are shown below, to give a flavour of the analyses we produce.
 
-
+<div class="html">
 <a name="examples"><h2>4. Examples</h2></a>
+</div>
 
 ### Example consumer analytics: engagement levels over time
 
@@ -80,8 +84,9 @@ The analysis revealed a number of commercially significant findings:
 
 Note: the above graph was produced using two data sets exported out of Google Analytics and joined together. (Ecomm sales data and page view data.) A better two metrics to plot on the X-axis and Y-axis would be "unique users who viewed page" and "unique users who bought the product". This is possible with Snowplow data, but not with data exported from GA.
 
-
+<div class="html">
 <a name="learn-more"><h2>Sounds interesting?</h2></a>
+</div>
 
 [Get in touch] [get-in-touch] with the Snowplow team to discuss your project. 
 

@@ -7,7 +7,9 @@ shortened-link: Get started with R
 weight: 3
 ---
 
+<div class="html">
 <a name="top"><h1>Getting started analyzing Snowplow data with R</h1></a>
+</div>
 
 This guide is geared towards data analysts who have limited or no experience with R. It aims to get the reader started with R through concrete examples with Snowplow data - so that by the end of the guide, the reader can pull Snowplow data into R, play around with it and plot it. That should leave the reader comfortable enough to use other resources to build out her knowledge of R, and give her enough knowledge to start using R to perform productive analytics on Snowplow data.
 
@@ -22,7 +24,9 @@ This guide is geared towards data analysts who have limited or no experience wit
 
 In the first section of this guide, we outline why R is such an excellent tool to use. Next (sections 2 to 4), we work through how to pull a simple data set from Snowplow and visualize it in R. In sections 5 to 7, we work through a more complicated set of examples: one in which we pull a more involved data set from Snowplow, and visualize it in a number of ways that are difficult with traditional BI / OLAP tools in Excel. 
 
+<div class="html">
 <a name="why"><h2>1. Why use R?</h2></a>
+</div>
 
 R is a fantastic analytics tool. To date, however, only a minority of web analysts use it. To list just some of what makes it so excellent, especially when compared with traditional general purpose tools like Excel, and BI tools like Tableau:
 
@@ -43,7 +47,9 @@ In this guide, we cover them by working through practical examples with Snowplow
 
 Back to [top](#top).
 
+<div class="html">
 <a name="start"><h2>2. Getting started: plotting the number of unique visitors by day</h2></a>
+</div>
 
 *If you have not installed R yet, instructions on doing so can be found [here][install-r].*
 
@@ -98,7 +104,9 @@ Note how double inverted commas have to be escaped with a backslash.
 
 Back to [top](#top).
 
+<div class="html">
 <a name="intro-to-data-frames"><h2>3. Having a look at the data: an introduction to data frames in R</h2></a>
+</div>
 
 We can have a look at the `uniquesByDay` variable by simply entering it at the command line:
 
@@ -169,7 +177,9 @@ This confirms that the type of the first column has been set to a date format.
 
 Back to [top](#top).
 
+<div class="html">
 <a name="1st-plot"><h2>4. Creating our first plot</h2></a>
+</div>
 
 There are a number of built in and additional libraries for plotting data visualizations in R. We recommend starting out with the absolutely excellent `ggplot2`.
 
@@ -397,7 +407,9 @@ Our `visits` data frame is more complicated than the `uniquesByDay` data frame w
 
 Back to [top](#top).
 
+<div class="html">
 <a name="factors"><h2>6. Introducing factors in R</h2></a>
+</div>
 
 This is a convenient moment to take a quick aside from our example and introduce factors in R.
 
@@ -465,7 +477,9 @@ We can view the updated structure of the data frame:
 
 Back to [top](#top).
 
+<div class="html">
 <a name="more-interesting-plots"><h2>7. Producing some more interesting plots</h2></a>
+</div>
 
 Let's start by examining the breadth and depth of engagement by visit:
 
@@ -614,7 +628,9 @@ We used the `facet` argument above to ask R to plot us two version of the scatte
 
 Back to [top](#top).
 
+<div class="html">
 <a name="further-reading"><h2>8. Where to go from here?</h2></a>
+</div>
 
 This tutorial barely scratches the surface of what is possible with R. The purpose of it is to give enough familiarity with basic R functions around fetching data, managing data via data frames, and plotting data, that the reader will be able to get up and running with R on top of Snowplow data.
 

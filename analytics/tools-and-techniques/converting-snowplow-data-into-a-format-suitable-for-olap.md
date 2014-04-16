@@ -7,7 +7,9 @@ shortened-link: Convert Snowplow data into a format suitable for OLAP
 weight: 4
 ---
 
+<div class="html">
 <h1><a name="top">Converting Snowplow data into a format suitable for OLAP reporting tools e.g. Tableau, Qlikview, Pentaho, Microstrategy</a></h1>
+</div>
 
 Snowplow data is stored in a log file format, where each line of data represents one "event" on a particular user journey. This data structure is unsuitable for traditional BI / analysis tools like Tableau, Qlikview, Pentaho or Microstrategy which require that the data be structured in a format suitable for OLAP analysis. (Sometimes also called _pivot tables_.) In this section of the cookbook, we describe how to restructure Snowplow event data into a format suitable for OLAP analysis, so that it can be interrogated using tools like Tableau and Qlikview.
 
@@ -15,7 +17,7 @@ Although this guide is written specifically for Snowplow data, the basic approac
 
 In this recipe, we give an overview of OLAP reporting tools before walking through the steps necessary to convert Snowplow log file format data into a format suitable for data analysis. (So that it can be interrogated by tools like Tableau, Qlikview, Microstrategy etc.)
 
-1. [Why use OLAP?] (#why)
+1. [Why use OLAP?](#why)
 2. [What is OLAP exactly?](#what)
 3. [What structure does the data need to be in to support an OLAP cube?](#structure)
 4. [Some practical considerations related to databases and tables](#practical)
@@ -24,8 +26,9 @@ In this recipe, we give an overview of OLAP reporting tools before walking throu
 7. [Interrogating the data with Qlikview](#qlikview-test)
 8. [Limitations in OLAP analysis](#limitations)
 
-
+<div class="html">
 <a name="why" ><h3>1. Why use OLAP?</h3> </a>
+</div>
 
 OLAP tools like Tableau, Qlikview, Pentaho and Microstrategy are very popular amongst data analysts because they 
 
@@ -41,7 +44,9 @@ OLAP tools are especially well suited for Snowplow web analytics data:
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="what"><h3>2. What is OLAP exactly?</h3> </a>
+</div>
 
 #### 2.1 OLAP overview
 
@@ -49,11 +54,13 @@ OLAP is an approach for analysing multi-dimensional data. OLAP stands for "onlin
 
 An OLAP cube is a multi-dimensional array of data. Data points are made up of one or more metrics. (In our cases, uniques, visits, page views, transactions, revenue, number of content items consumed etc.) Data can be viewed by a range of different dimensions. (In our case, examples include time of day, day in the week, time of the year, year, customer cohort, type of device, type of browser etc.) An OLAP reporting tool makes it easy for analysts to view the metrics they want, sliced by the particular dimensions they're interested in. So, for example, if an analyst wanted to see if conversion rates had been improving over time, they might slice the conversion rates metric by the time dimension (e.g. by month), to view if there had been an improvement. If there had been an improvement, they might then drill down to see if that improvement had been across the board: was it true of all customer segments, across all device types etc.?
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/example-cube.png" alt="olap cube" width="250"/></p>
+</div>
 
 When we say OLAP cube, then, we visualise a "cube" of data points (i.e. metrics) at the intersection of multiple dimensions. (Three in the case of a cube, but more often there are more dimensions. Technically we should talk in terms of a "hyper-cube", but it doens't really matter.)
 
-Back to [top] (#top).
+Back to [top](#top).
 
 #### 2.2 OLAP operations
 
@@ -61,13 +68,17 @@ Back to [top] (#top).
 
 We "slice" data when we pick two dimensions to view a particular metric by. The analogy is to take a "slice" through an OLAP cube to produce a 2D data set.
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/slice.png" alt="slice olap cube" width="180"/></p>
+</div>
 
 #### 2.2.2. Dice data
 
 Rather than slice data into two dimensions, we might want to create a subcube with more than 2 dimensions. This operation is called "dice".
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/dice.png" alt="dice olap cube" width="140" /></p>
+</div>
 
 #### 2.2.3. Drill up and drill down
 
@@ -92,11 +103,15 @@ Pivoting means swaping one dimension for another. Typically this is used in two 
 1. With an initial data set, to spot if there are interesting relationships between particular dimensions (e.g. product mix by city or conversion rate by time of day).
 2. To better understand a relationship once one has been spotted. (Does product mix _only_ vary by city? Or is it actually that user segments vary by city, and it is user segment that is predictive of product mix?)
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/pivot.png" alt="pivot olap cube" width="140" /></p>
+</div>
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="structure"><h3>3. What structure does the data need to be in to support an OLAP cube?</h3></a>
+</div>
 
 In traditional OLAP parlance, at the heart of OLAP data is a "fact table". In Snowplow paralance, that fact table is really an "events" table. There are two key requirements to fulfil to ensure that events data is structured in a format suitable for processing by an OLAP tool like Tableau:
 
@@ -161,23 +176,31 @@ In both the above cases, we take data that we deduce about a dimension from scan
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="practical"><h3>4. Some practical considerations related to star schemas and columnar databases</h3></a>
+</div>
 
 OLAP has a long history (which means it is an old technology). In the literatue on OLAP, data structures are typically described in terms of star schemas: a denormalized data structure with a central "fact table" of the actual events that occured, linked to dimensions table (by lookups) that shed light on each individual action.
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/star-schema.png" alt="pivot olap cube" /></p>
 
 <p style="font-size:small;text-align:right">Image taken from <a href="http://en.wikipedia.org/wiki/Star_schema">Wikipedia</a></p>
+</div>
 
 Columar databases like Infobright mean organising data formally in a star schema is no longer necessary: we still store denormalized data, but effectively collapse all the dimension tables into the fact table, to create a single "fat" fact table with all the relevant dimensions:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/desired-structure-for-olap.png" alt="desired structure" width="500" /></p>
+</div>
 
 Columnar databases make this possible because they make "columns cheap": query times are a function of the number of columns in the query - any that are unused are ignored. Having all the columns in a single table makes querying significantly easier: it means no joins are necessary. It also means tools like Tableau can run directly on our data table, without having to peform any joins themselves. (Which is generally a time consuming operation.)
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="conversion"><h3>5. Converting Snowplow event log data into dimensional OLAP structure: step by step guide</h3></a>
+</div>
 
 Converting Snowplow event log data into a dimensional OLAP struture is a four step process
 
@@ -187,7 +210,9 @@ Converting Snowplow event log data into a dimensional OLAP struture is a four st
 4. [Work out how to compute each line of data](#compute)
 5. [Generate the OLAP data](#generate)
 
+<div class="html">
 <h3><a name="structure-2">5.1 Define the structure of our OLAP data table, including both metric and dimension columns</a></h3>
+</div>
 
 ### 5.1.1 Metrics
 
@@ -294,7 +319,9 @@ Remember - we're only including a handful of dimensions to keep this tutorial ma
 
 We discussed the merits and costs or keeping more granular data in your OLAP cube. For the sakes of this example, we're going aggregate data by page by visit. That means we will be able to look at the number of page views and number of unique page views by visit, but not analyse e.g. for users who look at a particular web page twice in one session e.g. how many page views they viewed in between the two of the same page.
 
+<div class="html">
 <h3><a name="define">5.3 Define our table</a></h3>
+</div>
 
 To return to our example, we are now in a position to define the structure of the OLAP data as it would look in <a name="table-def">Infobright</a>:
 
@@ -340,7 +367,9 @@ If we were aggregating our data to a the visit level (so we have one line of dat
 
 Similarly, if we were to aggregate our data to the user level (so we have one line of data for each user), we could have a column for both the uniques and visits metrics, where the uniques column would be set to `1` on every data line and the value of `visits` would vary depending on the number of visits by user. However, we would not be able to perform any page level analysis with our data set.
 
+<div class="html">
 <h3><a name="compute">5.4 Work out how to compute each line of data</a></h3>
+</div>
 
 There are a number of tools we can use to generate out OLAP data set from our Snowplow data set. In this example, we're going to assume our events data is in Infobright, and we'll generate our OLAP data set using just SQL. Note: the same SQL should work equally well to generate an output data set in Hive. However, we would **not** want our OLAP data to live in Hive, as querying it would be much slower than if that data lived in a columnar database like Infobright. Train-of-thought analysis (which OLAP reporting tools excel at) is only possible if querying is fast, and Hive/ map reduce is not fast.
 
@@ -561,7 +590,9 @@ ON page_views.user_id = users.user_id
 
 The above query will return Snowplow data in a format suitable for processing in an OLAP reporting tool like Tableau.
 
+<div class="html">
 <h3><a name="generate">5.5 Generate the OLAP data</a></h3>
+</div>
 
 Generating the data required is as simple as running the above query. However, using SQL statements to generate versions of the Snowplow events data to use in OLAP reporting tools is not computationally efficient: in particular, it requires multiple passes through the entire data set and several joins between subtables derived from the events table, all of which are pretty costly.
 
@@ -584,31 +615,43 @@ We're ready to connect our OLAP reporting tool of choice (e.g. Tableau, Qlikview
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="tableau-test"><h3>6. Interrogating the data with Tableau</h3></a>
+</div>
 
 Connecting Tableau desktop edition to Infobright is a bit fiddly: in most cases, your data will be on a remote Infobright instance and you'll want to establish an SSH connection between the PC running Tableau and that instance. Instructions on how to do this is beyond the scope of this tutorial, but a decent explanation of how to setup a tunnel using [Putty][putty] can be found [here][putty-ssh-tunnel-tutorial].
 
 Once you have setup your tunnel, launch Tableau and select **connect to data**. Select **MySQL** from the list of options:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/tableau-1.JPG" alt="connect tableau to data" width="350"/></p>
+</div>
 
 In our case I've setup Putty to forward requests to `localhost:1234` to my remote Infobright instance. The server name and port number you'll need to enter will be determined by the nature of the tunnel you've established.
 
 Enter the username and password to log into your Infobright instance and click **Connect**. Select the database you created the table in: your table should be visible:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/tableau-2.JPG" alt="olap cube"/></p>
+</div>
 
 You'll be given an option as to how much of the data you want imported into Tableau's fast data engine. If your data set isn't too large, you can try importing all of it. Otherwise, select "import some data" or "Connect live"". Your workbook should launch:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/tableau-3.JPG" alt="olap cube"/></p>
+</div>
 
 Tableau's made some guesses as to which one of our columns are dimensions and which are metrics. If the field is numeric, Tableau assumes it is a metric. If it's not, it assumes it's a dimension. That works for _most_ of our fields, but not for `visit_id` (which is a dimension). Simply drag `visit_id` from the **Measures** pane to the **Dimensions pane**:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/tableau-4.JPG" alt="olap cube"/></p>
+</div>
 
 Now we need to add our two missing metrics: `uniques` and `visits`. To add `uniques`, right click on `user_id` (in the dimensions pane) and select **Create calculated field**. Tableau gives us the opportunity to create a new, calcultaed field. Fill in the name and formula as below:
 
+<div class="html">
 <p style="text-align:center;"><img src="/assets/img/olap/tableau-5.JPG" alt="calculated field - uniques" width="550" /></p>
+</div>
 
 Click **OK**: `Uniques` will now be listed as a **Measure**. Now we need to create a new calculated field for **Visits**:
 
@@ -618,13 +661,17 @@ Now we're all set! We can drag and drop our fields and metrics to our heart's co
 
 Back to [top] (#top).
 
+<div class="html">
 <a name="qlikview-test"><h3>7. Interrogating the data with Qlikview</h3></a>
+</div>
 
 TO WRITE
 
-Back to [top] (#top).
+Back to [top](#top).
 
+<div class="html">
 <a name="limitations"><h3>8. Limitations in OLAP analysis</h3></a>
+</div>
 
 One of the things that people often note when running tools like Tableau on top of Snowplow data is that it is quick and easy to put together the vast majority of reports delivered by standard analytics package like Google Analytics and even the type of cohort analysis delivered by toolsl like [Mixpanel][mixpanel] and [Kissmetrics][kissmetrics]. This sometimes leads excited analysts to forget all the analytics possibilities that are **not** supported by OLAP tools:
 
@@ -635,7 +682,7 @@ One of the things that people often note when running tools like Tableau on top 
 
 That is not to take anything away from OLAP tools, just to remind users that they are one in an arsenal of analytic techniques, that Snowplow makes it possible to leverage with web analytics data.
 
-Back to [top] (#top).
+Back to [top](#top).
 
 
 

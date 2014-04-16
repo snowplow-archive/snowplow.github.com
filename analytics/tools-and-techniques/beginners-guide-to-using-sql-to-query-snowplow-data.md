@@ -11,23 +11,23 @@ weight: 2
 
 The purpose of this guide is to get the user unfamiliar with SQL up and running  and querying Snowplow data in Redshift or PostgreSQL as quickly as possible, learning by example. 
 
-1. [Before you get started: install a SQL GUI] (#gui)
-2. [An overview of the Snowplow table and views] (#overview)
-3. [The basic structure of a SQL query] (#basic-structure)  
-  a. [The SELECT clause] (#select)  
-  b. [The FROM clause] (#from)  
-  c. [The WHERE clause] (#where)  
-  d. [The LIMIT clause] (#limit)  
-4. [Aggregating data] (#aggregate)  
-  a. [COUNT DISTINCT examples] (#count-distinct)  
-  b. [The GROUP BY clause] (#group-by)   
-  c. [A handy shortcut] (#shortcut)    
-  d. [Grouping by different date values] (#dates)
-5. [Combining simple queries] (#combining-queries)  
-  a. [Using the output of one query as the input for another query] (#output-input)  
-  b. [Joining result sets by common keys] (#joins)  
-6. [Windowing functions] (#window)
-7. [Other useful functions and clauses] (#other)
+1. [Before you get started: install a SQL GUI](#gui)
+2. [An overview of the Snowplow table and views](#overview)
+3. [The basic structure of a SQL query](#basic-structure)  
+  a. [The SELECT clause](#select)  
+  b. [The FROM clause](#from)  
+  c. [The WHERE clause](#where)  
+  d. [The LIMIT clause](#limit)  
+4. [Aggregating data](#aggregate)  
+  a. [COUNT DISTINCT examples](#count-distinct)  
+  b. [The GROUP BY clause](#group-by)   
+  c. [A handy shortcut](#shortcut)    
+  d. [Grouping by different date values](#dates)
+5. [Combining simple queries](#combining-queries)  
+  a. [Using the output of one query as the input for another query](#output-input)  
+  b. [Joining result sets by common keys](#joins)  
+6. [Windowing functions](#window)
+7. [Other useful functions and clauses](#other)
 
 
 <h2><a name="gui">1. Before you get started: install a SQL GUI</a></h2>
@@ -46,7 +46,7 @@ Navicat is available across platforms and can be downloaded from [here] [navicat
 
 The rest of this tutorial assumes you are running Navicat. However, it should still be straightforward to follow using an alternative SQL front-end of your choosing.
 
-Back to [top] (#top).
+Back to [top](#top).
 
 <h2><a name="overview">2. An overview of the Snowplow tables and views</a></h2>
 
@@ -244,7 +244,7 @@ FROM atomic.events
 
 Note that each user is assigned a first party cookie ID, so by counting the number of different cookie IDs, we can calculate the number of uniques to our website.
 
-Also note that we have added a `AS "Uniques"` to the end of our `SELECT` statement. This instructs Redshift / PostgreSQL to name the output of that field "Uniques". This is nice aesthetically - it doesn't change the actual substance of the query. However, it can be useful when [chaining multiple SQL statements together] (#combining-queries), as a way to refer back to specific aggregations performed by earlier steps.
+Also note that we have added a `AS "Uniques"` to the end of our `SELECT` statement. This instructs Redshift / PostgreSQL to name the output of that field "Uniques". This is nice aesthetically - it doesn't change the actual substance of the query. However, it can be useful when [chaining multiple SQL statements together](#combining-queries), as a way to refer back to specific aggregations performed by earlier steps.
 
 What if we want to count the number of visits to our website? It's possible that one or more of our visitors has visited the site on more than one occasion. On each occasion, he / she will have the same cookie ID (i.e. value for `domain_userid`), but a different `domain_sessionidx` value. (This will be 1 for the user's first visit, 2 for his / her second visit etc.) To calculate this, then we need to count the number of distinct `domain_userid` - `domain_sessionidx` combinations. We can concatenate the two together using the PosgreSQL [concatenate function] [concatenate], which is represented by the `||` symbol:
 

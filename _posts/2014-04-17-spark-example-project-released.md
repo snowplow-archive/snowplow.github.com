@@ -126,23 +126,23 @@ And that's it!
 <h2><a name="help">3. Getting help</a></h2>
 </div>
 
-As always with Snowplow releases, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
 
 <div class="html">
 <h2><a name="thoughts">4. Thoughts on Spark</a></h2>
 </div>
 
-Although it is still early days, I was impressed with Spark, and very pleased to have it running on Elastic MapReduce in the same fashion as our existing Scalding jobs.
+Although it is still early days, I was impressed with Spark, and very pleased to get it running on Elastic MapReduce in the same fashion as our existing Scalding jobs.
 
-In particular, I like Spark's use of in-memory processing, where in contrast Hadoop jobs can be rather disk-intensive. I also like Spark's narrow focus: where Hadoop is an entire data ecosystem (file system, cluster management, job scheduling etc), Spark is much more manageable in scope, being designed to work with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
+In particular, I like Spark's pragmatic use of in-memory processing, where in contrast Hadoop jobs can be very disk-intensive. I also like Spark's narrow focus: where Hadoop is an entire data ecosystem (file system, cluster management, job scheduling etc), Spark is much more manageable in scope, being designed to work well with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
 
-Separately, at Snowplow are also closely following the Spark Streaming project, and excited about Amazon's [work adding Kinesis support] [kinesis-spark-streaming] there.
+Separately, at Snowplow we are also closely following the Spark Streaming project, and paying particular attention to Amazon's [work adding Kinesis support] [kinesis-spark-streaming] there.
 
 <div class="html">
 <h2><a name="snowplow-spark">5. Snowplow and Spark</a></h2>
 </div>
 
-We are excited at Snowplow about the long-term potential for Apache Spark as a data processing framework to use alongside or potentially in places instead of Hadoop.
+We are excited at Snowplow about the long-term potential for Apache Spark as a data processing framework for us to use alongside or potentially in places instead of Hadoop.
 
 As a first step, we plan to pilot writing bespoke data processing jobs for Professional Services clients in Spark, where previously we would have used Scalding. If this goes well, we may experiment with running the Snowplow Enrichment process (scala-common-enrich) from inside Spark.
 

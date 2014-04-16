@@ -17,7 +17,13 @@ In the rest of this blog post then I'll talk about:
 * How to use Spark Example Project
 * Spark and Snowplow
 
-Challenges of running Spark on EMR
+
+
+<!--more-->
+
+<div class="html">
+<h2><a name="what">1. Challenges of running Spark on EMR</a></h2>
+</div>
 
 We actually built an initial version of the Spark Example Project in 2013 when we first heard about Spark through the AWS tutorial, XXX by [XXX] [xxx]. We spent some time trying to get the project working on Elastic MapReduce: we wanted to be able to assemble a "fat jar" which we could deploy to S3 and then run on Elastic MapReduce via the API in a non-interactive way. This wasn't possible at the time, despite the valiant efforts of [XXX] [xxx] ([XXX] [xxx]) and [XXX] [xxx] ([XXX] [xxx]), and [our own questioning] [forum-post]. And so I paused on the project, to revisit when EMR's support for Spark progressed.
 
@@ -29,13 +35,26 @@ xxx
 
 Once this was working, it was just a matter of reverting our Spark Example Project to Spark 0.8.1, testing it thoroughly and updating the documentation!
 
-How to use Spark Example Project
+<div class="html">
+<h2><a name="what">2. How to use Spark Example Project</a></h2>
+</div>
 
 
 
 
-Snowplow and Spark
+<div class="html">
+<h2><a name="what">3. Snowplow and Spark</a></h2>
+</div>
 
+We are excited at Snowplow about the long-term potential for Spark as a data processing framework to use alongside or potentially even instead of Hadoop.
+
+In particular, we like Spark's use of in-memory processing, where in contrast Hadoop is rather disk-intensive. We also appreciate Spark's tight focus compared to Hadoop: where Hadoop is an entire data ecosystem with a file system, cluster management, job scheduling, data processing etc, Spark takes a much narrower brief, being designed to work with other great technology such as [Apache Mesos] [mesos], [Typesafe Akka] [akka], [HDFS] [hdfs] et al.
+
+We are also excited about the Spark Streaming project, and integrating that into our [Snowplow Kinesis flow] [snowplow-kinesis].
+
+As a first step, we plan to leverage our [Spark Example Project] [spark-example-project] as a starting point for bespoke MapReduce work for clients. If this work goes well, we may experiment with running the Snowplow Enrichment process (scala-common-enrich) from inside Spark.
+
+Stay tuned for more from Snowplow about Spark and Spark Streaming in the future!
 
 [hack-the-tower]: http://www.hackthetower.co.uk/
 [hack-the-tower-apr]: http://www.meetup.com/london-scala/events/173280452/
@@ -44,4 +63,6 @@ Snowplow and Spark
 [forum-post]: xxx
 [spark-example-project]: https://github.com/snowplow/spark-example-project
 [scalding-example-project]: https://github.com/snowplow/scalding-example-project
+
+[snowplow-kinesis]: xxx
 

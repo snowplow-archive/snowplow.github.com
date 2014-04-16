@@ -7,15 +7,15 @@ author: Alex
 category: Releases
 ---
 
-On Saturday I attended [Hack the Tower] [hack-the-tower], the monthly collaborative hackday for the London Java and Scala user groups hosted at the Salesforce offices here.
+On Saturday I attended [Hack the Tower] [hack-the-tower], the monthly collaborative hackday for the London Java and Scala user groups hosted at the Salesforce offices in Liverpool Street.
 
 It's an opportunity to catch up with others in the Scala community, and to work collaboratively on non-core projects which may have longer-term value for us here at Snowplow. It also means I can code against the backdrop of some of the best views in London (see below)! Many thanks as always to [John Stevenson] [jr0cket] of Salesforce for hosting us. 
 
 ![salesforce-view] [salesforce-view-img]
 
-Over the last few months I have been teaming up with other Scala hackers to try out [Apache Spark] [spark], a cluster computing framework and potential challenger to Hadoop.
+Over the last few months I have been teaming up with other Scala devs at Hack the Tower to try out [Apache Spark] [spark], a cluster computing framework and potential challenger to Hadoop.
 
-The particular challenge I set myself this month was to complete our [Spark Example Project] [spark-example-project], which is a clone of our popular [Scalding Example Project] [scalding-example-project]. Most howtos for data processing frameworks like Scalding or Spark assume that you are working with a local cluster in an interactive (e.g. REPL-based) fashion. At Snowplow, we are much more interested in creating self-contained jobs which can be run on Amazon's [Elastic MapReduce] [emr] with a minimum of supervision, so that is what I wanted to template in the Spark Example Project.
+The particular challenge I set myself this month was to complete our [Spark Example Project] [spark-example-project], which is a clone of our popular [Scalding Example Project] [scalding-example-project]. Most howtos for data processing frameworks like Scalding or Spark assume that you are working with a local cluster in an interactive (e.g. REPL-based) fashion. At Snowplow, we are much more interested in creating self-contained jobs which can be run on Amazon's [Elastic MapReduce] [emr] with a minimum of supervision, and this is what I wanted to template in the Spark Example Project.
 
 In the rest of this blog post I'll talk about:
 

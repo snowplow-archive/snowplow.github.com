@@ -10,8 +10,8 @@ weight: 3
 
 There are two ways you can go to get started with Snowplow today:
 
-1. [Sign up for a Snowplow trial account] (#trial)
-2. [Setup Snowplow yourself] (#diy)
+1. [Sign up for a Snowplow trial account](#trial)
+2. [Setup Snowplow yourself](#diy)
 
 <div class="html">
 	<a name="trial"><h2>1. Signup for a Snowplow trial</h2></a> 
@@ -19,13 +19,14 @@ There are two ways you can go to get started with Snowplow today:
 
 Email [trial@snowplowanalytics.com] (mailto:trial@snowplowanalytics.com) with your contact details and we will set you up with a Snowplow trial account, hosted by the Snowplow team. In the event that you like it, we can migrate the account to one hosted on your own AWS account.
 
-
+<div class="html">
 <a href="/about/index.html">
 	<button class="btn btn-large btn-primary" type="button">Request a free trial</button>
 </a>
 
 
 <a name="diy"><h2>2. Setup Snowplow yourself</h2></a> 
+</div>
 
 Snowplow is open source. All the code is available on [Github] [github-repo]. Full instructions walking you through how to [setup Snowplow] [setup-guide] can be found on the [wiki] [setup-guide].
 

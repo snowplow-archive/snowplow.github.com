@@ -17,7 +17,7 @@ There are two ways you can go to get started with Snowplow today:
 	<a name="trial"><h2>1. Signup for a Snowplow trial</h2></a> 
 </div>
 
-Email [trial@snowplowanalytics.com] (mailto:trial@snowplowanalytics.com) with your contact details and we will set you up with a Snowplow trial account, hosted by the Snowplow team. In the event that you like it, we can migrate the account to one hosted on your own AWS account.
+Email [trial@snowplowanalytics.com](mailto:trial@snowplowanalytics.com) with your contact details and we will set you up with a Snowplow trial account, hosted by the Snowplow team. In the event that you like it, we can migrate the account to one hosted on your own AWS account.
 
 <div class="html">
 <a href="/about/index.html">

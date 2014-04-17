@@ -164,7 +164,7 @@ Stay tuned for more from Snowplow about Spark and Spark Streaming in the future!
 
 [spark-example-project]: https://github.com/snowplow/spark-example-project
 [scalding-example-project]: https://github.com/snowplow/scalding-example-project
-[spark-script]: http://d2io1hx8u877l0.cloudfront.net/common/spark/run-spark-job-0.1.0.jar
+[spark-script]: http://d2io1hx8u877l0.cloudfront.net/common/spark/run-spark-job-0.1.0.sh
 
 [sbt]: http://www.scala-sbt.org/
 [emr]: http://aws.amazon.com/elasticmapreduce/

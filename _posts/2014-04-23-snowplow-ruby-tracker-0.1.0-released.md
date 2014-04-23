@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the new [Snowplow Ruby Tracker] [repo]. This is a Ruby gem designed to send Snowplow events to a Snowplow collector from a Ruby or Rails environment. The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. This post will cover installing and setting up the Tracker, and provide some basic information about its features.
+We are happy to announce the release of the new [Snowplow Ruby Tracker] [repo]. This is a Ruby gem designed to send Snowplow events to a Snowplow collector from a Ruby or Rails environment. This post will cover installing and setting up the Tracker, and provide some basic information about its features:
 
 1. [How to install the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#get)
 2. [How to use the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#usage)
@@ -32,7 +32,7 @@ To add the Snowplow Ruby Tracker as a dependency to your own Ruby gem, edit your
 gem 'snowplow-tracker'
 {% endhighlight %}
 
-The [setup page] [setup] has more information on the Tracker's dependencies.
+The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. The [setup page] [setup] has more information on the Tracker's dependencies.
 
 <h2><a name=usage>2. How to use the tracker</a></h2>
 

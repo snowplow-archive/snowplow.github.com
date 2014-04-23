@@ -56,9 +56,7 @@ Set some additional information:
 
 {% highlight ruby %}
 tracker.set_user_id('a73e94')
-
 tracker.set_platform('mob')
-
 tracker.set_lang('en')
 {% endhighlight %}
 

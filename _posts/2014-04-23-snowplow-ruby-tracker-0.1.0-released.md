@@ -34,7 +34,7 @@ To add the Snowplow Ruby Tracker as a dependency to your own Ruby gem, edit your
 gem 'snowplow-tracker'
 {% endhighlight %}
 
-The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. The [setup page] [setup] has more information on the Tracker's dependencies.
+The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. The [setup page] [setup] has more information on the Tracker's own dependencies.
 
 <div class="html">
 <h2><a name="usage">2. How to use the tracker</a></h2>
@@ -95,13 +95,15 @@ tracker.track_ecommerce_transaction({
 
 {% endhighlight %}
 
+For in-depth usage information on the Snowplow Ruby Tracker, see the [wiki page] [wiki].
+
 <div class="html">
 <h2><a name="usage">3. Features</a></h2>
 </div>
 
-The functionality of the Snowplow Ruby Tracker is very similar to that of the Snowplow Python Tracker. It has support for the same Snowplow events, and custom contexts can be attached to every event. The [contracts] [contracts] library for Ruby provides type checking. We have written a test suite using [RSpec] [rspec] and [webmock] [webmock].
+The functionality and architecture of the Snowplow Ruby Tracker is very similar to that of the Snowplow Python Tracker. It has support for the same Snowplow events, and custom contexts can be attached to every event.
 
-For in-depth information on the Snowplow Ruby Tracker, see the [wiki page] [wiki].
+The [contracts] [contracts] library for Ruby provides type checking. We have written a test suite using [RSpec] [rspec] and [webmock] [webmock].
 
 <div class="html">
 <h2><a name="help">4. Getting help</a></h2>

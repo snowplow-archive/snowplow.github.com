@@ -11,7 +11,7 @@ We are happy to announce the release of the new [Snowplow Ruby Tracker] [repo]. 
 
 1. [How to install the tracker](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#get)
 2. [How to use the tracker](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#usage)
-3. [Roadmap](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#roadmap)
+3. [Features](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#roadmap)
 4. [Getting in touch](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#contact)
 
 <!--more-->

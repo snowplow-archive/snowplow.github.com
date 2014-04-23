@@ -109,4 +109,4 @@ Since this is the first release of the Ruby Tracker, we're keen to hear people's
 [wiki]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/Ruby-tracker-setup
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
-[issues]: https://github.com/snowplow/snowplow/issues
+[issues]: https://github.com/snowplow/snowplow-ruby-tracker/issues

@@ -9,14 +9,16 @@ category: Releases
 
 We are happy to announce the release of the new [Snowplow Ruby Tracker] [repo]. This is a Ruby gem designed to send Snowplow events to a Snowplow collector from a Ruby or Rails environment. This post will cover installing and setting up the Tracker, and provide some basic information about its features:
 
-1. [How to install the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#get)
+1. [How to install the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#install)
 2. [How to use the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#usage)
 3. [Features](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#roadmap)
-4. [Getting in touch](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#contact)
+4. [Getting help](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#help)
 
 <!--more-->
 
-<h2><a name=get>1. How to install the tracker</a></h2>
+<div class="html">
+<h2><a name="install">1. How to install the tracker</a></h2>
+</div>
 
 The Snowplow Ruby Tracker is published to [RubyGems] [rubygems], the Ruby community's gem hosting service. This makes it easy to install the Tracker locally, or add it as a dependency into your own Ruby app.
 
@@ -34,7 +36,9 @@ gem 'snowplow-tracker'
 
 The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. The [setup page] [setup] has more information on the Tracker's dependencies.
 
-<h2><a name=usage>2. How to use the tracker</a></h2>
+<div class="html">
+<h2><a name="usage">2. How to use the tracker</a></h2>
+</div>
 
 Require the Snowplow Tracker like this:
 
@@ -91,13 +95,17 @@ tracker.track_ecommerce_transaction({
 
 {% endhighlight %}
 
-<h2><a name=usage>3. Features</a></h2>
+<div class="html">
+<h2><a name="usage">3. Features</a></h2>
+</div>
 
 The functionality of the Snowplow Ruby Tracker is very similar to that of the Snowplow Python Tracker. It has support for the same Snowplow events, and custom contexts can be attached to every event. The [contracts] [contracts] library for Ruby provides type checking. We have written a test suite using [RSpec] [rspec] and [webmock] [webmock].
 
 For in-depth information on the Snowplow Ruby Tracker, see the [wiki page] [wiki].
 
-<h2><a name=contact>4. Getting in touch</a></h2>
+<div class="html">
+<h2><a name="help">4. Getting help</a></h2>
+</div>
 
 Since this is the first release of the Ruby Tracker, we're keen to hear people's opinions. If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. And [raise an issue] [issues] if you spot any bugs!
 

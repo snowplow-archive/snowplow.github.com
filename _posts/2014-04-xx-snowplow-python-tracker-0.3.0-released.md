@@ -15,7 +15,8 @@ In the rest of the post we will cover:
 2. [Disabling contracts](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#contracts)
 3. [Ecommerce tracking](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#ecommerce)
 4. [Custom contexts](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#contexts)
-5. [Event vendors](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#vendor)
+5. [Event vendors](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#event-vendor)
+6. [Context vendors](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#context-vendor)
 6. [Tracking method return values](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#other)
 7. [Other improvements](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#other)
 8. [Upgrading](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#upgrading)
@@ -29,7 +30,7 @@ Several optional configuration arguments have been added to the `Tracker` class'
 
 {% highlight python %}
 def __init__(self, collector_uri,
-             namespace=None, app_id=None, encode_base64=True, contracts=True):
+             namespace=None, app_id=None, context_vendor=None, encode_base64=True, contracts=True):
 {% endhighlight %}
 
 The example below would initialize a tracker whose name is "cf" for an application whose ID is "ae9f587d23". It would disable Pycontracts. It does not change the default behaviour of Base64-encoding event data.
@@ -37,12 +38,18 @@ The example below would initialize a tracker whose name is "cf" for an applicati
 {% highlight python %}
 from snowplow_tracker.tracker import Tracker
 
-t = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf", "ae9f587d23", contracts=False)
+t = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf", "ae9f587d23", "com.example", False)
 {% endhighlight %}
 
 <h2><a name="contracts">2. Disabling contracts</a></h2>
 
-The Python Tracker uses the [Pycontracts][contracts] module for type checking, so a runtime error will be raised if you pass a method a parameter of the wrong type. This check does introduce a performance hit, so we have added the option to disable contracts when configuring a tracker (see [Tracker initialization](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#tracker-initialization)). 
+The Python Tracker uses the [Pycontracts][contracts] module for type checking, so a runtime error will be raised if you pass a method a parameter of the wrong type. This check does introduce a performance hit, so we have added the option to disable contracts when configuring a tracker by setting the `contracts` argument to `False`:
+
+{% highlight python %}
+from snowplow_tracker.tracker import Tracker
+
+t = Tracker("d3rkrsqld9gmqf.cloudfront.net", contracts=False)
+{% endhighlight %}
 
 <h2><a name="ecommerce">3. Ecommerce tracking</a></h2>
 
@@ -114,11 +121,23 @@ t.track_page_view("http://www.films.com", "Homepage", context={
 })
 {% endhighlight %}
 
+In order to avoid confusion between custom contexts defined by different companies, you can fill in the `context_vendor` argument when initializing a tracker:
+
+{% highlight python %}
+from snowplow_tracker.tracker import Tracker
+
+t = Tracker("d3rkrsqld9gmqf.cloudfront.net", context_vendor="com.example")
+{% endhighlight %}
+
+Then whenever the tracker fires an event with a custom context, the event will include the context vendor you provide.
+
+The context vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for an event developed at the company with domain name "example.com".
+
 For more on custom contexts, see the [blog post][contexts] which introduced them for the Snowplow JavaScript Tracker.
 
-<h2><a name="vendor">5. Event vendors</a></h2>
+<h2><a name="event-vendor">5. Event vendors</a></h2>
 
-The event vendor parameter represents the company who developed the model for an event. All events other than custom unstructured events have "com.snowplowanalytics" in their event vendor field.
+The event vendor parameter represents the company who developed the model for an event. It is analogous to the context vendor parameter, although it is not part of tracker construction. All events other than custom unstructured events have "com.snowplowanalytics" in their event vendor field.
 
 Custom unstructured events now have an `event_vendor` field:
 
@@ -135,7 +154,7 @@ t.track_unstruct_event("viewed_product",  {
 }, "com.your_company"
 {% endhighlight %}
 
-The event vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for an event developed at the company with domain name "example.com".
+The event vendor string should follow the same rules as the context vendor string.
 
 <h2><a = name="return">6. Tracking method return values</a></h2>
 

@@ -9,16 +9,16 @@ category: Releases
 
 We are happy to announce the release of the new [Snowplow Ruby Tracker] [repo]. This is a Ruby gem designed to send Snowplow events to a Snowplow collector from a Ruby or Rails environment. The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0. This post will cover installing and setting up the Tracker, and provide some basic information about its features.
 
-1. [How to install the tracker](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#get)
-2. [How to use the tracker](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#usage)
-3. [Features](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#roadmap)
-4. [Getting in touch](/blog/2014/xx/xx-snowplow-ruby-tracker-0.1.0-released/#contact)
+1. [How to install the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#get)
+2. [How to use the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#usage)
+3. [Features](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#roadmap)
+4. [Getting in touch](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#contact)
 
 <!--more-->
 
 <h2><a name=get>1. How to install the tracker</a></h2>
 
-The Snowplow Ruby Tracker is published to RubyGems, the Ruby community's gem hosting service. This makes it easy to install the Tracker locally, or add it as a dependency into your own Ruby app.
+The Snowplow Ruby Tracker is published to [RubyGems] [rubygems], the Ruby community's gem hosting service. This makes it easy to install the Tracker locally, or add it as a dependency into your own Ruby app.
 
 To install the Tracker locally:
 
@@ -42,7 +42,7 @@ Require the Snowplow Tracker like this:
 require 'snowplow-tracker'
 {% endhighlight %}
 
-Initialize a tracker like this:
+Initialize a Tracker like this:
 
 {% highlight ruby %}
 tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'cf', '')
@@ -104,6 +104,8 @@ Since this is the first release of the Ruby Tracker, we're keen to hear people's
 [contracts]: https://rubygems.org/gems/contracts
 [rspec]: https://rubygems.org/gems/rspec
 [webmock]: https://rubygems.org/gems/webmock
+
+[rubygems]: http://rubygems.org/gems/snowplow-tracker
 
 [repo]: https://github.com/snowplow/snowplow-ruby-tracker
 [wiki]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker

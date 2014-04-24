@@ -107,6 +107,7 @@ The context argument is a Python dictionary. Each of its keys is the name of a c
         "movie_name": "Solaris",
         "poster_country": "JP",
         "poster_year$dt": new Date(1978, 1, 1)
+    }
 }
 {% endhighlight %}
 
@@ -118,6 +119,7 @@ t.track_page_view("http://www.films.com", "Homepage", context={
         "movie_name": "Solaris",
         "poster_country": "JP",
         "poster_year$dt": new Date(1978, 1, 1)
+    }
 })
 {% endhighlight %}
 
@@ -131,7 +133,7 @@ t = Tracker("d3rkrsqld9gmqf.cloudfront.net", context_vendor="com.example")
 
 Then whenever the tracker fires an event with a custom context, the event will include the context vendor you provide.
 
-The context vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for an event developed at the company with domain name "example.com".
+The context vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for contexts developed at the company with domain name "example.com".
 
 For more on custom contexts, see the [blog post][contexts] which introduced them for the Snowplow JavaScript Tracker.
 

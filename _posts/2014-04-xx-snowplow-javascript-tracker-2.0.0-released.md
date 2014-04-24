@@ -34,7 +34,7 @@ Load sp.js using the following script:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 
 </script>
 {% endhighlight %}
@@ -60,14 +60,14 @@ function newTracker(namespace, endpoint, argmap)
 It constructs a new tracker based on three arguments: the name of the new tracker, the endpoint to which events should be logged, and an "argmap" of optional settings. An example:
 
 {% highlight javascript %}
-snowplow_name_here('newTracker', 'primary', 'd3rkrsqld9gmqf.cloudfront.net', {
+window.snowplow_name_here('newTracker', 'primary', 'd3rkrsqld9gmqf.cloudfront.net', {
 	cookieName: '_example_cookie_name_'
 	encodeBase64: false,
 	appId: 'CFe23a'
 	platform: 'mob'
 });
 
-snowplow_name_here('newTracker', 'secondary', 'dzrdr5gkt9b5hp.cloudfront.net', {
+window.snowplow_name_here('newTracker', 'secondary', 'dzrdr5gkt9b5hp.cloudfront.net', {
 	cookieName: '_example_cookie_name_'
 	encodeBase64: true,
 	appId: 'CFe23a'
@@ -80,13 +80,13 @@ This creates two trackers called "primary" and "secondary" logging events to dif
 You can specify which tracker or trackers should execute a method by appending their names to the end of the method name, separating the two with a colon. To only have the primary tracker track a page view event:
 
 {% highlight javascript %}
-snowplow_name_here('trackPageView:primary');
+window.snowplow_name_here('trackPageView:primary');
 {% endhighlight %}
 
 To have more than one tracker execute a method, separate the tracker names with semicolons:
 
 {% highlight javascript %}
-snowplow_name_here('trackPageView:primary;secondary');
+window.snowplow_name_here('trackPageView:primary;secondary');
 {% endhighlight %}
 
 If you do not provide a list of tracker namespaces when calling a method, every tracker you have created will execute that method.
@@ -110,7 +110,7 @@ The `pseudoClicks` argument can be used to turn on pseudo click tracking, which 
 Use `enableLinkClickTracking like this:
 
 {% highlight javascript %}
-snowplow_name_here('enableLinkClickTracking', 'internal' ,'true');
+window.snowplow_name_here('enableLinkClickTracking', 'internal' ,'true');
 {% endhighlight %}
 
 You can also use the `trackLinkClick` method to manually track a single link click:
@@ -122,7 +122,7 @@ function trackLinkClick(elementId, elementClasses, elementTarget, targetUrl, con
 Use it like this:
 
 {% highlight javascript %}
-snowplow_name_here('trackLinkClick', 'first-link', 'link-class', '', 'http://www.example.com');
+window.snowplow_name_here('trackLinkClick', 'first-link', 'link-class', '', 'http://www.example.com');
 {% endhighlight %}
 
 (`elementTarget` refers to the link's target attribute, which can specifies where the linked document is opened - for example, a new tab or a new window.)
@@ -152,7 +152,7 @@ Thanks to [@rcs][rcs], events fired while a user is offline are no longer lost f
 This release implements event vendors and context vendors. The event vendor makes it possible to distinguish between unstructured events defined by different companies:
 
 {% highlight javascript %}
-trackUnstructEvent('Viewed Product', {
+window.snowplow_name_here('trackUnstructEvent', 'com.my_company', 'Viewed Product', {
 
 		product_id: 'ASO01043',
 		category: 'Dresses',
@@ -162,9 +162,10 @@ trackUnstructEvent('Viewed Product', {
 		sizes: ['xs', 's', 'l', 'xl', 'xxl'],
 		available_since$dt: new Date(2013,3,7)
 
-	}, "com.my_company"  // event vendor
-);
+});
 {% endhighlight %}
+
+Note that the event vendor argument comes before the event name and event properties arguments.
 
 The context vendor is similar. When initializing a tracker, you can set a `contextVendor` field in the argmap. Then whenever the tracker fires an event with a custom context, the context vendor will be attached to the event.
 

@@ -16,10 +16,11 @@ This blog post will cover the following changes:
 3. [New feature: link click tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#link-click)
 4. [New feature: ad tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#ads)
 5. [New feature: offline tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#offline)
-6. [Functional tests](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
-7. [Other improvements](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#other)
-8. [Upgrading](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
-9. [Getting help](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#help)
+6. [Event vendors and context vendors](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#vendors)
+7. [Functional tests](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
+8. [Other improvements](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#other)
+9. [Upgrading](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
+10. [Getting help](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#help)
 
 <!--more-->
 
@@ -30,10 +31,10 @@ Load sp.js using the following script:
 {% highlight html %}
 <script async=true>
 
-	;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-	p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-	};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-	n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow"));
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow"));
 
 </script>
 {% endhighlight %}
@@ -146,11 +147,32 @@ For an example of all three functions in action on a page with three distinct ad
 
 Thanks to [@rcs][rcs], events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in `localStorage` so that the unsent events can be remembered even after the leaving the page.
 
-<h2><a name="tests">6. Functional tests</a></h2>
+<h2><a name="vendors">6. Event vendors and context vendors</a></h2>
+
+This release implements event vendors and context vendors. The event vendor makes it possible to distinguish between unstructured events defined by different companies:
+
+{% highlight javascript %}
+trackUnstructEvent('Viewed Product', {
+
+		product_id: 'ASO01043',
+		category: 'Dresses',
+		brand: 'ACME',
+		returning: true,
+		price: 49.95,
+		sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+		available_since$dt: new Date(2013,3,7)
+
+	}, "com.my_company"  // event vendor
+);
+{% endhighlight %}
+
+The context vendor is similar. When initializing a tracker, you can set a `contextVendor` field in the argmap. Then whenever the tracker fires an event with a custom context, the context vendor will be attached to the event.
+
+<h2><a name="tests">7. Functional tests</a></h2>
 
 We have expanded our test suite to include functional tests for our helpers.js and detectors.js modules, run using [Sauce Labs][sauce-labs]. The results of the the tests for different browser / OS combinations can be seen in the new "Testing" section of the README.
 
-<h2><a name="other">7. Other improvements</a></h2>
+<h2><a name="other">8. Other improvements</a></h2>
 
 We have also:
 
@@ -165,7 +187,7 @@ We have also:
 * Fixed the link in the code climate button in the README [#149] [149]
 * Deleted the obsolete example file ads/sync.html [#182]
 
-<h2><a name="upgrading">8. Upgrading </a></h2>
+<h2><a name="upgrading">9. Upgrading </a></h2>
 
 The upgraded minified tracker is available here:
 
@@ -177,7 +199,7 @@ If you use the path:
 
 then you will automatically get new semantic-minor versions and patches as they are released.
 
-<h2><a name="help">9. Getting help</a></h2>
+<h2><a name="help">10. Getting help</a></h2>
 
 Check out the [v2.0.0 release page] [200-release] on GitHub for the full list of changes made in this version.
 

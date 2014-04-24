@@ -141,19 +141,19 @@ For more on custom contexts, see the [blog post][contexts] which introduced them
 
 The event vendor parameter represents the company who developed the model for an event. It is analogous to the context vendor parameter, although it is not part of tracker construction. All events other than custom unstructured events have "com.snowplowanalytics" in their event vendor field.
 
-Custom unstructured events now have an `event_vendor` field:
+Custom unstructured events now have a mandatory `event_vendor` initial field:
 
 {% highlight python %}
-def track_unstruct_event(self, event_name, dict_, event_vendor=None, context=None):
+def track_unstruct_event(self, event_vendor, event_name, dict_, context=None):
 {% endhighlight %}
 
 Use it like this:
 
 {% highlight python %}
-t.track_unstruct_event("viewed_product",  {
+t.track_unstruct_event("com.your_company", "viewed_product",  {
 	"product_id": "ASO01043",
 	"price": 49.95
-}, "com.your_company"
+})
 {% endhighlight %}
 
 The event vendor string should follow the same rules as the context vendor string.

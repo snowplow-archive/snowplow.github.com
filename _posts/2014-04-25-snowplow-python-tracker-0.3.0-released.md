@@ -22,7 +22,7 @@ In the rest of the post we will cover:
 8. [Upgrading](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#upgrading)
 9. [Support](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#support)
 
-<!-- more -->
+<!--more-->
 
 <h2><a name="tracker-initialization">1. Tracker initialization</a></h2>
 

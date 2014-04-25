@@ -11,16 +11,16 @@ We are pleased to announce the release of the [Snowplow Python Tracker version 0
 
 In the rest of the post we will cover:
 
-1. [Tracker initialization](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#tracker-initialization)
-2. [Disabling contracts](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#contracts)
-3. [Ecommerce tracking](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#ecommerce)
-4. [Custom contexts](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#contexts)
-5. [Event vendors](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#event-vendor)
-6. [Context vendors](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#context-vendor)
-6. [Tracking method return values](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#other)
-7. [Other improvements](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#other)
-8. [Upgrading](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#upgrading)
-9. [Support](/blog/2014/04/xx/snowplow-python-tracker-0.3.0-released/#support)
+1. [Tracker initialization](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#tracker-initialization)
+2. [Disabling contracts](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#contracts)
+3. [Ecommerce tracking](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#ecommerce)
+4. [Custom contexts](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#contexts)
+5. [Event vendors](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#event-vendor)
+6. [Context vendors](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#context-vendor)
+6. [Tracking method return values](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#other)
+7. [Other improvements](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#other)
+8. [Upgrading](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#upgrading)
+9. [Support](/blog/2014/04/25/snowplow-python-tracker-0.3.0-released/#support)
 
 <!-- more -->
 
@@ -43,7 +43,7 @@ t = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf", "ae9f587d23", "com.example", 
 
 <h2><a name="contracts">2. Disabling contracts</a></h2>
 
-The Python Tracker uses the [Pycontracts][contracts] module for type checking, so a runtime error will be raised if you pass a method a parameter of the wrong type. This check does introduce a performance hit, so we have added the option to disable contracts when configuring a tracker by setting the `contracts` argument to `False`:
+The Python Tracker uses the [Pycontracts][contracts] module for type checking, so a runtime error will be raised if you pass a method a parameter of the wrong type. This check does introduce a performance hit, so we have added the option to disable Pycontracts when configuring a tracker by setting the `contracts` argument to `False`:
 
 {% highlight python %}
 from snowplow_tracker.tracker import Tracker
@@ -53,7 +53,7 @@ t = Tracker("d3rkrsqld9gmqf.cloudfront.net", contracts=False)
 
 <h2><a name="ecommerce">3. Ecommerce tracking</a></h2>
 
-In previous versions of the Python Tracker, you had to individually call a tracking method for each item in the transaction and for the transaction as a whole. The new version has a single method called `track_ecommerce_transaction` that is called once per transaction. This is its signature:
+In previous versions of the Python Tracker, you had to individually call a tracking method for each item in the ecommerce transaction and for the transaction as a whole. The new version has a single method called `track_ecommerce_transaction` that is called once per transaction. This is its signature:
 
 {% highlight python %}
 def track_ecommerce_transaction(self, order_id, total_value,
@@ -65,7 +65,7 @@ def track_ecommerce_transaction(self, order_id, total_value,
 
 The required fields are `order_id`, `total_value`, and `items`.
 
-The interesting argument is `items`. This should be an array, each of whose entries is a dictionary containing data about a single item in the transaction. The mandatory fields in the dictionary are `sku`, `price`, and `quantity`.
+The relevant argument here is `items`. This should be an array, each of whose entries is a dictionary containing data about a single item in the transaction. The mandatory fields in the dictionary are `sku`, `price`, and `quantity`.
 
 An example may help. The call to track an ecommerce transaction in which two items are sold might look like this:
 
@@ -85,7 +85,7 @@ t.track_ecommerce_transaction("6a8078be", 45, city="London", currency="GBP", ite
     }])
 {% endhighlight %}             
 
-This will fire three events: one for each item and one for the transaction as a whole. The `order_id` and `currency` fields will be attached to all three events; the `total_value` and `city` fields will only be attached to the transaction event, not the transaction item events.
+This will fire three events: one for each transaction item and one for the transaction as a whole. The `order_id` and `currency` fields will be attached to all three events; the `total_value` and `city` fields will only be attached to the transaction event, not the transaction item events.
 
 The three events are guaranteed to have the same `dtm` and `tid` fields, where `dtm` is the timestamp and `tid` is a random 6-digit transaction ID attached to every Snowplow event.
 
@@ -123,7 +123,7 @@ t.track_page_view("http://www.films.com", "Homepage", context={
 })
 {% endhighlight %}
 
-In order to avoid confusion between custom contexts defined by different companies, you can fill in the `context_vendor` argument when initializing a tracker:
+In order to avoid confusion between custom contexts defined by different companies, fill in the `context_vendor` argument when initializing a tracker:
 
 {% highlight python %}
 from snowplow_tracker.tracker import Tracker
@@ -133,18 +133,18 @@ t = Tracker("d3rkrsqld9gmqf.cloudfront.net", context_vendor="com.example")
 
 Then whenever the tracker fires an event with a custom context, the event will include the context vendor you provide.
 
-The context vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for contexts developed at the company with domain name "example.com".
+The context vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "uk.co.example_biz" for contexts developed at the company with domain name "example-biz.co.uk".
 
-For more on custom contexts, see the [blog post][contexts] which introduced them for the Snowplow JavaScript Tracker.
+For more on custom contexts, see the [blog post][contexts] which introduced them in the Snowplow JavaScript Tracker.
 
 <h2><a name="event-vendor">5. Event vendors</a></h2>
 
-The event vendor parameter represents the company who developed the model for an event. It is analogous to the context vendor parameter, although it is not part of tracker construction. All events other than custom unstructured events have "com.snowplowanalytics" in their event vendor field.
+The event vendor parameter represents the company who developed the model for an event. It is analogous to the context vendor parameter, although it is not part of tracker construction. All events other than custom unstructured events have "com.snowplowanalytics" automatically set in their event vendor field.
 
 Custom unstructured events now have a mandatory `event_vendor` initial field:
 
 {% highlight python %}
-def track_unstruct_event(self, event_vendor, event_name, dict_, context=None):
+def track_unstruct_event(self, event_vendor, event_name, dict_, context=None, tstamp=None):
 {% endhighlight %}
 
 Use it like this:
@@ -160,7 +160,7 @@ The event vendor string should follow the same rules as the context vendor strin
 
 <h2><a = name="return">6. Tracking method return values</a></h2>
 
-Each tracking method now has a return value based on the status code of the request it fired. If the code is between 0 and 400, it returns a tuple whose first element is `true` and whose second is the code:
+Each tracking method now returns a tuple based on the status code of the request it fired. If the code is between 0 and 400, it returns a tuple whose first element is `true` and whose second is the code:
 
 {% highlight python %}
 (true, 200)
@@ -203,7 +203,7 @@ For more information on getting started with the Snowplow Python Tracker, see th
 
 <h2><a name="support">9. Support</a></h2>
 
-[get in touch] [talk-to-us] of you need help setting up the Snowplow Python Tracker or want to suggest a new feature. The Snowplow Python Tracker is still young, so [raise an issue] [issues] if you find any bugs.
+Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Python Tracker or want to suggest a new feature. The Snowplow Python Tracker is still young, so of course do [raise an issue] [issues] if you find any bugs.
 
 [48]: https://github.com/snowplow/snowplow-python-tracker/issues/48
 [63]: https://github.com/snowplow/snowplow-python-tracker/issues/63

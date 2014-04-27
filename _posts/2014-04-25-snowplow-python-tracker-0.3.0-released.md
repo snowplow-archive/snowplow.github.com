@@ -158,7 +158,7 @@ t.track_unstruct_event("com.your_company", "viewed_product",  {
 
 The event vendor string should follow the same rules as the context vendor string.
 
-<h2><a = name="return">6. Tracking method return values</a></h2>
+<h2><a name="return">6. Tracking method return values</a></h2>
 
 Each tracking method now returns a tuple based on the status code of the request it fired. If the code is between 0 and 400, it returns a tuple whose first element is `true` and whose second is the code:
 

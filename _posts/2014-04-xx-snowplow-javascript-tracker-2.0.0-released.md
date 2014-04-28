@@ -132,11 +132,11 @@ window.snowplow_name_here('trackLinkClick', 'first-link', 'link-class', '', 'htt
 This release adds three new ad tracking functions: `trackAdImpression`, `trackAdClick`, and `trackAdConversion`. Each of these fires a special unstructured event. Here are their function signatures:
 
 {% highlight javascript %}
-function trackAdImpression(impressionId, costIfCpm, bannerId, zoneId, advertiserId, costModel, campaignId, context)
+function trackAdImpression(impressionId, costModel, targetUrl, cost, bannerId, zoneId, advertiserId, campaignId, context)
 
-function trackAdClick(clickId, costIfCpc, targetUrl, bannerId, zoneId, impressionId, advertiserId, costModel, campaignId, context)
+function trackAdClick(targetUrl, clickId, costModel, cost, targetUrl, bannerId, zoneId, impressionId, advertiserId, campaignId, context)
 
-function trackAdConversion(conversionId, costIfCpa, category, action, property, initialValue, advertiserId, costModel, campaignId, context)
+function trackAdConversion(conversionId, costModel, cost, category, action, property, initialValue, advertiserId, campaignId, context)
 {% endhighlight %}
 
 Use `trackAdImpression` and `trackAdClick` on the page with your ad, and `trackAdConversion` on the page to which your ad directs the user. The timestamp of the ad click event can be used to match it to the right ad conversion event.

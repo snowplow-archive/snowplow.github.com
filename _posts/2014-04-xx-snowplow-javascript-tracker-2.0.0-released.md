@@ -116,13 +116,13 @@ window.snowplow_name_here('enableLinkClickTracking', 'internal' ,'true');
 You can also use the `trackLinkClick` method to manually track a single link click:
 
 {% highlight javascript %}
-function trackLinkClick(elementId, elementClasses, elementTarget, targetUrl, context);
+function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, context);
 {% endhighlight %}
 
 Use it like this:
 
 {% highlight javascript %}
-window.snowplow_name_here('trackLinkClick', 'first-link', 'link-class', '', 'http://www.example.com');
+window.snowplow_name_here('trackLinkClick', 'http://www.example.com', 'first-link', 'link-class');
 {% endhighlight %}
 
 (`elementTarget` refers to the link's target attribute, which can specifies where the linked document is opened - for example, a new tab or a new window.)

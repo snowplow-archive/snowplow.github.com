@@ -2,7 +2,7 @@
 layout: post
 shortenedlink: JavaScript Tracker 2.0.0 released
 title: Snowplow JavaScript Tracker 2.0.0 released
-tags: [snowplow, javascript, tracker]
+tags: [snowplow, javascript, tracker, browser, analytics]
 author: Fred
 category: Releases
 ---
@@ -11,16 +11,16 @@ We are happy to announce the release of the [Snowplow JavaScript Tracker version
 
 This blog post will cover the following changes:
 
-1. [Changes to the Snowplow API](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#api)
-2. [New feature: tracker namespacing](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#tracker-namespacing)
-3. [New feature: link click tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#link-click)
-4. [New feature: ad tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#ads)
-5. [New feature: offline tracking](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#offline)
-6. [Event vendors and context vendors](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#vendors)
-7. [Functional tests](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
-8. [Other improvements](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#other)
-9. [Upgrading](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
-10. [Getting help](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#help)
+1. [Changes to the Snowplow API](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#api)
+2. [New feature: tracker namespacing](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#tracker-namespacing)
+3. [New feature: link click tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#link-click)
+4. [New feature: ad tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#ads)
+5. [New feature: offline tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#offline)
+6. [Event vendors and context vendors](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#vendors)
+7. [Functional tests](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
+8. [Other improvements](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#other)
+9. [Upgrading](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
+10. [Getting help](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#help)
 
 <!--more-->
 
@@ -39,13 +39,13 @@ n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag
 </script>
 {% endhighlight %}
 
-You can replace `"snowplow_name_here"` with any string that would be a valid JavaScript variable name. As can be seen in the examples below, this string becomes the name of the Snowplow function which you will call. The general template for using tracker methods is this:
+You can replace `"snowplow_name_here"` with any string that would be a valid JavaScript variable name. As can be seen in the examples below, this string becomes the Snowplow function which you will call. The general template for using tracker methods is this:
 
 {% highlight javascript %}
-{{Snowplow function name}}({{tracker method name}}, {{tracker method argument 1}}, {{tracker method argument 2}}... );
+{{Snowplow function}}({{tracker method name}}, {{tracker method argument 1}}, {{tracker method argument 2}}... );
 {% endhighlight %}
 
-This Snowplow function namespacing means that even if there are two Snowplow users on the same web page, there will be no conflict as long as they have chosen different Snowplow function names.
+If you believe there could be another copy of Snowplow running on a given website, rename the Snowplow function to something unique to you, to guarantee that there won't be a conflict between the two copies. This is particularly important for widget, advertising and analytics companies using Snowplow - because your customers may be using Snowplow themselves.
 
 <h2><a name="tracker-namespacing">2. New feature: tracker namespacing</h2></a>
 
@@ -198,7 +198,7 @@ If you use the path:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2/sp.js
 
-then you will automatically get new semantic-minor versions and patches as they are released.
+then you will automatically get new semantic-minor and semantic-patch versions as they are released.
 
 <h2><a name="help">10. Getting help</a></h2>
 

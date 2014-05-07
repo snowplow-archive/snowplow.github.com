@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [200-release]. This release makes some changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
+We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [200-release]. This release makes some significant changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
 
 This blog post will cover the following changes:
 

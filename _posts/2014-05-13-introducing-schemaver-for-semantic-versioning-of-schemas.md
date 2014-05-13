@@ -68,7 +68,7 @@ Syntactically this feels similar to SemVer - but as you can see from the increme
 Let's make SchemaVer a little more concrete with some examples using JSON Schema, in reverse order:
 
 <div class="html">
-<h3><a name="addition">2.1 `ADDITION`</a></h3>
+<h3><a name="addition">2.1 ADDITION</a></h3>
 </div>
 
 We have an existing JSON Schema, let's call this 1-0-0:
@@ -109,7 +109,7 @@ Now we want to add an additional field to our schema:
 Because our new `impressionId` field is **not** a required field, and because version 1-0-0 had `additionalProperties` set to false, we know that all historical data will work with this new schema. Therefore we are looking at an `ADDITION`, bumping the schema version to 1-0-1.
 
 <div class="html">
-<h3><a name="addition">2.2 `REVISION`</a></h3>
+<h3><a name="addition">2.2 REVISION</a></h3>
 </div>
 
 Let's now make our JSON Schema support `additionalProperties` - constituting another `ADDITION`, so we are now on 1-0-2:
@@ -157,7 +157,7 @@ After a while, we add a new field, `cost`:
 Will this new schema validate all historical data? It's not definite - because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number). So we are effectively making a `REVISION` to the data schema - bumping to 1-1-0 (resetting `ADDITION` to 0).
 
 <div class="html">
-<h3><a name="addition">2.3 `MODEL`</a></h3>
+<h3><a name="addition">2.3 MODEL</a></h3>
 </div>
 
 Oh dear. We have just realized that we can identify our clicks through a unique `clickId` - no need to be storing the `bannerId` or `impressionId`. Here is our new JSON Schema:

@@ -73,7 +73,7 @@ Let's make SchemaVer more concrete with some examples using JSON Schema, in reve
 <h3><a name="addition">2.1 ADDITION</a></h3>
 </div>
 
-We have an existing JSON Schema, let's call this 1-0-0:
+We have an existing JSON Schema, let's call this `1-0-0`:
 
 {% highlight json %}
 {
@@ -108,15 +108,15 @@ Now we want to add an additional field to our schema:
 }
 {% endhighlight %}
 
-Because our new `impressionId` field is **not** a required field, and because version 1-0-0 had `additionalProperties` set to false, we know that all historical data will work with this new schema.
+Because our new `impressionId` field is **not** a required field, and because version `1-0-0` had `additionalProperties` set to false, we know that all historical data will work with this new schema.
 
-Therefore we are looking at an `ADDITION`, and so we bump the schema version to 1-0-1.
+Therefore we are looking at an `ADDITION`, and so we bump the schema version to `1-0-1`.
 
 <div class="html">
 <h3><a name="addition">2.2 REVISION</a></h3>
 </div>
 
-Let's now make our JSON Schema support `additionalProperties` - this constitutes another `ADDITION`, so we are now on 1-0-2:
+Let's now make our JSON Schema support `additionalProperties` - this constitutes another `ADDITION`, so we are now on `1-0-2`:
 
 {% highlight json %}
 {
@@ -160,7 +160,7 @@ After a while, we add a new field, `cost`:
 
 Will this new schema validate all historical data? Unfortunately we can't be certain, because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number).
 
-So we are effectively making a `REVISION` to the data schema - so we bump the version to 1-1-0 (resetting `ADDITION` to 0).
+So we are effectively making a `REVISION` to the data schema - so we bump the version to `1-1-0` (resetting `ADDITION` to 0).
 
 <div class="html">
 <h3><a name="addition">2.3 MODEL</a></h3>

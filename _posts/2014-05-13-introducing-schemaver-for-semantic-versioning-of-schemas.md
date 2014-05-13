@@ -46,26 +46,28 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
 
 It is important to understand what backwards compatibility means here. For SemVer, backwards compatibility is about providing guarantees (through version numbers), that a piece of software can update its dependency on a SemVer-respecting dependency without either:
 
-1. Its code interfacing with the dependency's public API breaking
-2. The semantics of the dependency's pre-existing functionality changing - e.g. `.multiply()` suddenly starts dividing 
+1. its code interfacing with the dependency's public API breaking, _or_:
+2. the semantics of the dependency's existing functionality changing - e.g. `.multiply()` suddenly starts dividing 
 
-Semantic Versioning is a great fit for managing the evolution of software in a way that protects the users of that software. But it's not a great fit for versioning schemas, because schemas are not used in the same way as software is.
+Semantic Versioning is a great fit for managing the evolution of software in a way that protects the users of that software. But it's not a great fit for versioning schemas, because schemas are used in a fundamentally different way to software.
 
 <div class="html">
 <h2><a name="schemaver">2. SchemaVer</a></h2>
 </div>
 
-When versioning a data schema, we are concerned with the backwards-compatibility between the new schema and existing data represented in earlier versions of the schema. This is the fundamental building block of SchemaVer, and explains the divergence from SemVer. Let's propose a simple formula for SchemaVer:
+When versioning a data schema, we are concerned with the backwards-compatibility between the new schema and existing data represented in earlier versions of the schema. This is the fundamental building block of SchemaVer, and explains the divergence from SemVer.
+
+Let's propose a simple formula for SchemaVer:
 
 Given a version number `MODEL-REVISION-ADDITION`, increment the:
 
-* `MODEL` when you make a breaking schema change which will prevent interaction with all historical data
-* `REVISION` when you make a schema change which _may_ prevent interaction with some historical data
+* `MODEL` when you make a breaking schema change which will prevent interaction with any historical data
+* `REVISION` when you make a schema change which _may_ prevent interaction with _some_ historical data
 * `ADDITION` when you make a schema change that is compatible with all historical data
 
 Syntactically this feels similar to SemVer - but as you can see from the increment rules, the semantics of each element are very different from SemVer.
 
-Let's make SchemaVer a little more concrete with some examples using JSON Schema, in reverse order:
+Let's make SchemaVer more concrete with some examples using JSON Schema, in reverse order:
 
 <div class="html">
 <h3><a name="addition">2.1 ADDITION</a></h3>
@@ -106,13 +108,15 @@ Now we want to add an additional field to our schema:
 }
 {% endhighlight %}
 
-Because our new `impressionId` field is **not** a required field, and because version 1-0-0 had `additionalProperties` set to false, we know that all historical data will work with this new schema. Therefore we are looking at an `ADDITION`, bumping the schema version to 1-0-1.
+Because our new `impressionId` field is **not** a required field, and because version 1-0-0 had `additionalProperties` set to false, we know that all historical data will work with this new schema.
+
+Therefore we are looking at an `ADDITION`, and so we bump the schema version to 1-0-1.
 
 <div class="html">
 <h3><a name="addition">2.2 REVISION</a></h3>
 </div>
 
-Let's now make our JSON Schema support `additionalProperties` - constituting another `ADDITION`, so we are now on 1-0-2:
+Let's now make our JSON Schema support `additionalProperties` - this constitutes another `ADDITION`, so we are now on 1-0-2:
 
 {% highlight json %}
 {
@@ -154,13 +158,15 @@ After a while, we add a new field, `cost`:
 }
 {% endhighlight %}
 
-Will this new schema validate all historical data? It's not definite - because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number). So we are effectively making a `REVISION` to the data schema - bumping to 1-1-0 (resetting `ADDITION` to 0).
+Will this new schema validate all historical data? We can't be certain - because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number).
+
+So we are effectively making a `REVISION` to the data schema - so we bump the version to 1-1-0 (resetting `ADDITION` to 0).
 
 <div class="html">
 <h3><a name="addition">2.3 MODEL</a></h3>
 </div>
 
-Oh dear. We have just realized that we can identify our clicks through a unique `clickId` - no need to be storing the `bannerId` or `impressionId`. Here is our new JSON Schema:
+Oh dear - we have just realized that we can identify our clicks through a unique `clickId` - no need to be storing the `bannerId` or `impressionId`. Here is our new JSON Schema:
 
 {% highlight json %}
 {
@@ -180,29 +186,35 @@ Oh dear. We have just realized that we can identify our clicks through a unique 
 }
 {% endhighlight %}
 
-We have changed our `MODEL` - we can have no reasonable expectation that any of the historical data can interact with this schema. So our new version is `2-0-0`. We also decided to use the "reboot" of the `MODEL` to switch `additionalProperties` back to false, because it helps us avoid unnecessary `REVISION`s.
+We have changed our `MODEL` - because we can have no reasonable expectation that any of the historical data can interact with this schema. That means our new version is `2-0-0`.
+
+Note that we also decided to use this "reboot" of the `MODEL` to change `additionalProperties` back to false, because it helps us avoid unnecessary `REVISION`s.
 
 <div class="html">
 <h2><a name="design">3. Design considerations</a></h2>
 </div>
 
-If we have designed SchemaVer right, then hopefully it should now seem simple, perhaps even obvious. However, we evaluated and discarded many different options while designing SchemaVer.
+If we have designed SchemaVer right, then hopefully it should seem straightforward, perhaps even obvious. However, we evaluated and discarded many different options while designing SchemaVer. We'll go through some of these in this section, to "show our working".
 
-The names `MODEL`, `ADDITION` and `REVISION` went through many revisions. We are pretty happy with these now.
+First off, the names `MODEL`, `ADDITION` and `REVISION` went through many revisions. We are pretty happy with these now.
 
 Initially we were keen to use periods (`.`s) to separate the version elements, to allow existing SemVer libraries to work with SchemaVer. Unfortunately, we realized that an analyst looking at a table definition versioned as `1.0.5` would have no idea if the table was schema'ed using SemVer or SchemaVer. So we needed a visual cue to indicate that this was SchemaVer - hence the hyphens.
 
-We experimented with ways to make `SchemaVer` fully deterministic - in other words, could we come up with a formula whereby a computer could correctly auto-increment the SchemaVer just by studying the new and previous schema definition? We have succeeded in making `ADDITION` fully deterministic - but there are clearly shades of grey in the separation of `MODEL` and `REVISION`. We think those shades of grey are useful - allowing schema authors to exercise their own discretion in not incrementing the `MODEL` unless absolutely necessary.
+We experimented with ways to make `SchemaVer` fully deterministic - in other words, could we come up with a formula whereby a computer could correctly auto-increment the SchemaVer just by studying the new and previous schema definition?
+
+We _have_ succeeded in making `ADDITION` fully deterministic - but there are clearly shades of grey in the separation of `MODEL` and `REVISION`. We think those shades of grey are useful - because they allow schema authors to exercise their own discretion in not incrementing the `MODEL` unless absolutely necessary.
 
 <div class="html">
 <h2><a name="usecases">4. Use cases</a></h2>
 </div>
 
-We plan to use SchemaVer throughout Snowplow to add semantic versioning to all of our data structures. In fact the process of designing SchemaVer has already helped us - it has made us much more aware of the types of schema constraints which lead to `MODEL`, `REVISION` and `ADDITION` increments. We are going to work to minimize `MODEL` and `REVISION` increments for Snowplow schemas - and we would encourage our community to the same when schema'ing their custom contexts and unstructured events.
+We plan to use SchemaVer throughout Snowplow to add semantic versioning to all of our data structures. In fact the process of designing SchemaVer has already helped us: it has made us much more aware of the types of schema constraints which lead to `MODEL`, `REVISION` and `ADDITION` increments. We are going to work to minimize `MODEL` and `REVISION` increments for Snowplow schemas - and we would encourage our community to the same when schema'ing their custom contexts and unstructured events.
 
-More broadly, we believe there are some interesting potential use cases for SchemaVer outside of Snowplow. For example, in RESTful APIs: many of these are versioned at the API level ("Desk.com API v2"), but we would like to see the data structures returned from API GET requests conforming to publically available, SchemaVer-versioned JSON Schemas. This would make interactions with RESTful APIs much less error-prone.
+We hope that SchemaVer is useful outside of just JSON Schema versioning. We are exploring approaches to versioning database table definitions with SchemaVer, and hope to start a dialog with the Apache Avro community, who have a lot of prior experience attempting to uniquely identify, validate and version schemas (see e.g. [AVRO-1006] [avro-1006]).
 
-As a final note: we hope that SchemaVer is useful outside of JSON Schema versioning. We are exploring approaches to versioning database table definitions with SchemaVer, and hope to start a dialog with the Apache Avro community, who have a lot of prior experience attempting to uniquely identify, validate and version schemas (see e.g. [AVRO-1006] [avro-1006]).
+More broadly, we believe there are some interesting potential use cases for SchemaVer outside of Snowplow. For example in RESTful APIs: many of these are versioned at the API level ("Desk.com API v2"), but we would like to see the data structures returned from API GET requests conforming to publically available, SchemaVer-versioned JSON Schemas. This would make interactions with RESTful APIs much less error-prone.
+
+We are also keen to explore interesting potential use cases for SchemaVer in other document-oriented software systems, such as CMSes, ecommerce solutions and NoSQL datastores.
 
 <div class="html">
 <h2><a name="feedback">5. Call for feedback</a></h2>

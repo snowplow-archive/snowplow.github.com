@@ -234,7 +234,7 @@ We are also keen to explore adjacent use cases for SchemaVer in other document-o
 
 Above all, we would like to stress that this is a draft proposal, and we would love to get feedback from the Snowplow community and beyond on semantic schema versioning. Now is the best time for us to get feedback - before we have started to formalize SchemaVer into the coming Snowplow releases.
 
-So do **[please get in touch] [talk-to-us]** if you have thoughts on SchemaVer or our proposed specification - we'd love to make this a more collaborative effort!
+So do **[please get in touch] [talk-to-us]** if you have thoughts on semantic schema versioning or our proposed SchemaVer specification - we'd love to make this a more collaborative effort!
 
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/0.9.2/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/CanonicalOutput.scala
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol

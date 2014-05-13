@@ -190,7 +190,7 @@ Oh dear - we have just realized that we can identify our clicks through a unique
 
 We have changed our `MODEL` - because we can have no reasonable expectation that any of the historical data can interact with this schema. That means our new version is `2-0-0`.
 
-Note that we also decided to use this "reboot" of the `MODEL` to change `additionalProperties` back to false, because it helps us avoid unnecessary `REVISION`s.
+Note that we also decided to use this "reboot" of the `MODEL` to change `additionalProperties` back to false, because (as we have learnt) it will help us to avoid unnecessary `REVISION`s in the future.
 
 <div class="html">
 <h3><a name="notes">2.4 A few supplementary rules</a></h3>

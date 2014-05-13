@@ -226,7 +226,7 @@ We hope that SchemaVer is useful outside of just JSON Schema versioning. We are 
 
 More broadly, we believe that there are some interesting potential use cases for SchemaVer outside of Snowplow. For example in RESTful APIs: many of these are versioned at the API level ("Desk.com API v2"), but we would like to see the data structures returned from API GET requests conforming to publically available, SchemaVer-versioned JSON Schemas. This would make interactions with RESTful APIs much less error-prone.
 
-We are also keen to explore interesting potential use cases for SchemaVer in other document-oriented software systems, such as CMSes, ecommerce solutions and NoSQL datastores.
+We are also keen to explore adjacent use cases for SchemaVer in other document-oriented software systems, such as CMSes, ecommerce solutions and NoSQL datastores.
 
 <div class="html">
 <h2><a name="feedback">5. Call for feedback</a></h2>

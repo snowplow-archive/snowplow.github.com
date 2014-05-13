@@ -7,10 +7,10 @@ author: Alex
 category: Research
 ---
 
-> There are only two types of developer:
-> the developer who versions his code, and `developer_new_newer_newest_v2`.
-
 As we start to re-structure Snowplow away from [implicit data models] [enriched-event-pojo] and [wiki-based tracker protocols] [tracker-protocol] towards formal schemas (initially Thrift and JSON Schema, later Apache Avro), we have started to think about schema versioning.
+
+> "There are only two types of developer:
+> the developer who versions his code, and developer_new_newer_newest_v2"
 
 Proper versioning software is taken for granted these days - there are various different approaches, but at Snowplow we are big believers in [Semantic Versioning] [semver] (SemVer for short). Here is creator Tom Preston-Werner explaining the crucial semantic aspect of SemVer: _"under this scheme, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next"_.
 

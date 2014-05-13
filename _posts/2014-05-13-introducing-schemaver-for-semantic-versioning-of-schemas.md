@@ -158,7 +158,7 @@ After a while, we add a new field, `cost`:
 }
 {% endhighlight %}
 
-Will this new schema validate all historical data? We can't be certain - because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number).
+Will this new schema validate all historical data? Unfortunately we can't be certain, because there could be historical JSONs where the analyst added their own `cost` field, possibly set to a string rather than a number (or a negative number).
 
 So we are effectively making a `REVISION` to the data schema - so we bump the version to 1-1-0 (resetting `ADDITION` to 0).
 

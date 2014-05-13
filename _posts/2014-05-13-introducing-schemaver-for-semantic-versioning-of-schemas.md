@@ -14,9 +14,9 @@ As we start to re-structure Snowplow away from [implicit data models] [enriched-
 
 Proper versioning software is taken for granted these days - there are various different approaches, but at Snowplow we are big believers in [Semantic Versioning] [semver] (SemVer for short). Here is creator Tom Preston-Werner explaining the crucial semantic aspect of SemVer: _"under this scheme, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next"_.
 
-We looked around and couldn't find much prior art around semantic versioning of data schemas. The Avro community seem to have gone down [something of a rabbithole] [avro-schema-rabbithole] with their schema versioning - something we were eager to avoid at Snowplow.
+We looked around and couldn't find much prior art around semantic versioning of data schemas. The Avro community seems to have gone down [something of a rabbithole] [avro-schema-rabbithole] with their schema versioning - something we were eager to avoid at Snowplow.
 
-Our initial thought was just to fall back to SemVer for schema versioning - after all, database table definitions are a form of schema, and we have been using SemVer for ours ([example] [redshift-ddl]) without issue for some time. However, the more we dug into it, the more we realized that SemVer was not the right fit, and we needed something new - something we are called SchemaVer
+Our initial thought was just to fall back to SemVer for schema versioning - after all, database table definitions are a form of schema, and we have been using SemVer for ours ([example] [redshift-ddl]) for some time. However, the more we dug into it, the more we realized that SemVer was not the right fit for semantic versioning of schemas, and we would need to come up with something new. We are calling this new formula for semantically versioning schemas "SchemaVer".
 
 In the rest of the post, I will go through:
 

@@ -210,9 +210,9 @@ We _have_ succeeded in making `ADDITION` fully deterministic - but there are cle
 
 We plan to use SchemaVer throughout Snowplow to add semantic versioning to all of our data structures. In fact the process of designing SchemaVer has already helped us: it has made us much more aware of the types of schema constraints which lead to `MODEL`, `REVISION` and `ADDITION` increments. We are going to work to minimize `MODEL` and `REVISION` increments for Snowplow schemas - and we would encourage our community to the same when schema'ing their custom contexts and unstructured events.
 
-We hope that SchemaVer is useful outside of just JSON Schema versioning. We are exploring approaches to versioning database table definitions with SchemaVer, and hope to start a dialog with the Apache Avro community, who have a lot of prior experience attempting to uniquely identify, validate and version schemas (see e.g. [AVRO-1006] [avro-1006]).
+We hope that SchemaVer is useful outside of just JSON Schema versioning. We are exploring approaches to versioning database table definitions with SchemaVer, and hope to start a dialog with the Apache Avro community, who have a lot of prior experience attempting to uniquely identify, validate and version data schemas (see e.g. [AVRO-1006] [avro-1006]).
 
-More broadly, we believe there are some interesting potential use cases for SchemaVer outside of Snowplow. For example in RESTful APIs: many of these are versioned at the API level ("Desk.com API v2"), but we would like to see the data structures returned from API GET requests conforming to publically available, SchemaVer-versioned JSON Schemas. This would make interactions with RESTful APIs much less error-prone.
+More broadly, we believe that there are some interesting potential use cases for SchemaVer outside of Snowplow. For example in RESTful APIs: many of these are versioned at the API level ("Desk.com API v2"), but we would like to see the data structures returned from API GET requests conforming to publically available, SchemaVer-versioned JSON Schemas. This would make interactions with RESTful APIs much less error-prone.
 
 We are also keen to explore interesting potential use cases for SchemaVer in other document-oriented software systems, such as CMSes, ecommerce solutions and NoSQL datastores.
 

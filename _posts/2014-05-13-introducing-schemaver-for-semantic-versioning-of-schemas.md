@@ -7,6 +7,8 @@ author: Alex
 category: Research
 ---
 
+_Initial SemVer draft: 13 March 2014. Draft authors: Alexander Dean, Frederick Blundun._
+
 As we start to re-structure Snowplow away from [implicit data models] [enriched-event-pojo] and [wiki-based tracker protocols] [tracker-protocol] towards formal schemas (initially Thrift and JSON Schema, later Apache Avro), we have started to think about schema versioning.
 
 <blockquote>

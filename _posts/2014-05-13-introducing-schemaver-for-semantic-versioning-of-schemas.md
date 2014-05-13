@@ -208,7 +208,7 @@ We _have_ succeeded in making `ADDITION` fully deterministic - but there are cle
 <h2><a name="usecases">4. Use cases</a></h2>
 </div>
 
-We plan to use SchemaVer throughout Snowplow to add semantic versioning to all of our data structures. In fact the process of designing SchemaVer has already helped us: the process has made us much more aware of the types of schema constraints (and lack of constraints) which lead to `MODEL`, `REVISION` and `ADDITION` increments. We are going to work to minimize `MODEL` and `REVISION` increments for Snowplow schemas - and we would encourage our community to the same when schema'ing their custom contexts and unstructured events.
+We plan to use SchemaVer throughout Snowplow to add semantic versioning to all of our data structures. In fact the process of designing SchemaVer has already helped us: the process has made us much more aware of the types of schema constraints (and lack of constraints) which lead to `MODEL`, `REVISION` and `ADDITION` increments. We are now actively working to minimize `MODEL` and `REVISION` increments for Snowplow schemas - and we would encourage our community to do the same when creating schemas for their custom contexts and unstructured events.
 
 We hope that SchemaVer is useful outside of just JSON Schema versioning. We are exploring approaches to versioning database table definitions with SchemaVer, and hope to start a dialog with the Apache Avro community, who have a lot of prior experience attempting to uniquely identify, validate and version data schemas (see e.g. [AVRO-1006] [avro-1006]).
 

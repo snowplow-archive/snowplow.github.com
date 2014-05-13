@@ -25,7 +25,7 @@ In the rest of the post, I will go through:
 1. [SemVer](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#semver) - providing some background for those who are unfamiliar with it
 2. [SchemaVer](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#schemaver) - providing our formula for using SchemaVer
 3. [Design considerations](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#design) - explaining why SchemaVer is structured the way it is
-4. [Use cases for SchemaVer](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#usecases) - where should we be using SchemaVer
+4. [Use cases](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#usecases) - where should we be using SchemaVer
 5. [Call for feedback](/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/#feedback) - SchemaVer is a draft, and we would love feedback before we formalize it in Snowplow
 
 <!--more-->
@@ -191,6 +191,16 @@ We have changed our `MODEL` - because we can have no reasonable expectation that
 Note that we also decided to use this "reboot" of the `MODEL` to change `additionalProperties` back to false, because it helps us avoid unnecessary `REVISION`s.
 
 <div class="html">
+<h3><a name="notes">2.4 A few supplementary rules</a></h3>
+</div>
+
+At this point we should probably add a few supplementary rules around SchemaVer, especially as they differ from SemVer:
+
+* We use hyphens (`-`s) to separate the version parts, not periods (`.`s) as in SemVer
+* Versioning starts from 1, not 0 as in SemVer
+* SemVer has a "get out of jail free" card, where you start your initial development release at 0.1.0 and then increment the minor version for each subsequent release. There is no equivalent for SchemaVer: we don't start on an unstable development version 0
+
+<div class="html">
 <h2><a name="design">3. Design considerations</a></h2>
 </div>
 
@@ -198,7 +208,9 @@ If we have designed SchemaVer right, then hopefully it should seem straightforwa
 
 First off, the names `MODEL`, `ADDITION` and `REVISION` went through many revisions. We are pretty happy with these now.
 
-Initially we were keen to use periods (`.`s) to separate the version elements, to allow existing SemVer libraries to work with SchemaVer. Unfortunately, we realized that an analyst looking at a table definition versioned as `1.0.5` would have no idea if the table was schema'ed using SemVer or SchemaVer. So we needed a visual cue to indicate that this was SchemaVer - hence the hyphens.
+Initially we were keen to use periods to separate the version elements, to allow existing SemVer libraries to work with SchemaVer. Unfortunately, we realized that an analyst looking at a table definition versioned as `1.0.5` would have no idea if the table was schema'ed using SemVer or SchemaVer. So we needed a visual cue to indicate that this was SchemaVer - hence the hyphens.
+
+We gave some serious thought to recreating SemVer's unstable `MAJOR` version 0 idea. On balance, this seemed a bad idea for SchemaVer: because invariably `MODEL` version 0s will go into production, and then we lose our all-important guarantees about the relationship between schema versions and the historical data.
 
 We experimented with ways to make `SchemaVer` fully deterministic - in other words, could we come up with a formula whereby a computer could correctly auto-increment the SchemaVer just by studying the new and previous schema definition?
 

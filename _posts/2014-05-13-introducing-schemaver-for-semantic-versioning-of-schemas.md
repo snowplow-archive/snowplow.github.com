@@ -9,8 +9,10 @@ category: Research
 
 As we start to re-structure Snowplow away from [implicit data models] [enriched-event-pojo] and [wiki-based tracker protocols] [tracker-protocol] towards formal schemas (initially Thrift and JSON Schema, later Apache Avro), we have started to think about schema versioning.
 
-> "There are only two types of developer:
-> the developer who versions his code, and developer_new_newer_newest_v2"
+<blockquote>
+"There are only two types of developer:
+the developer who versions his code, and developer_new_newer_newest_v2"
+</blockquote>
 
 Proper versioning software is taken for granted these days - there are various different approaches, but at Snowplow we are big believers in [Semantic Versioning] [semver] (SemVer for short). Here is creator Tom Preston-Werner explaining the crucial semantic aspect of SemVer: _"under this scheme, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next"_.
 
@@ -34,11 +36,13 @@ In the rest of the post, I will go through:
 
 If you are a business/web analyst or data scientist rather than coder, you may not be familiar with [Semantic Versioning] [semver]. SemVer provides a simple formula for managing the version of your software as you roll out new versions. That formula has some edge cases, but at its simplest it looks like:
 
-> Given a version number MAJOR.MINOR.PATCH, increment the:
->
->    MAJOR version when you make incompatible API changes,
->    MINOR version when you add functionality in a backwards-compatible manner, and
->    PATCH version when you make backwards-compatible bug fixes.
+<blockquote>
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+	MAJOR version when you make incompatible API changes,
+    MINOR version when you add functionality in a backwards-compatible manner, and
+    PATCH version when you make backwards-compatible bug fixes.
+</blockquote>
 
 It is important to understand what backwards compatibility means here. For SemVer, backwards compatibility is about providing guarantees (through version numbers), that a piece of software can update its dependency on a SemVer-respecting dependency without either:
 

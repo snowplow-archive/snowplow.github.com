@@ -37,11 +37,11 @@ In the rest of the post, I will go through:
 If you are a business/web analyst or data scientist rather than coder, you may not be familiar with [Semantic Versioning] [semver]. SemVer provides a simple formula for managing the version of your software as you roll out new versions. That formula has some edge cases, but at its simplest it looks like:
 
 <blockquote>
-Given a version number MAJOR.MINOR.PATCH, increment the:
-
-- MAJOR version when you make incompatible API changes,<br />
-- MINOR version when you add functionality in a backwards-compatible manner, and<br />
-- PATCH version when you make backwards-compatible bug fixes.
+Given a version number MAJOR.MINOR.PATCH, increment:<br />
+<br />
+- MAJOR when you make incompatible API changes,<br />
+- MINOR when you add functionality in a backwards-compatible manner, and<br />
+- PATCH when you make backwards-compatible bug fixes.
 </blockquote>
 
 It is important to understand what backwards compatibility means here. For SemVer, backwards compatibility is about providing guarantees (through version numbers), that a piece of software can update its dependency on a SemVer-respecting dependency without either:

@@ -14,7 +14,7 @@ As we start to re-structure Snowplow away from [implicit data models] [enriched-
 the developer who versions his code, and developer_new_newer_newest_v2"
 </blockquote>
 
-Proper versioning of software is taken for granted these days - there are various different approaches, but at Snowplow we are big believers in [Semantic Versioning] [semver] (SemVer for short). Here is creator Tom Preston-Werner explaining the crucial semantic aspect of SemVer: "Under this scheme, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next."
+Proper versioning of _software_ is taken for granted these days - there are various different approaches, but at Snowplow we are big believers in [Semantic Versioning] [semver] (SemVer for short). Here is creator Tom Preston-Werner explaining the crucial semantic aspect of SemVer: "Under this scheme, version numbers and the way they change convey meaning about the underlying code and what has been modified from one version to the next."
 
 We looked around and couldn't find much prior art around semantic versioning of data schemas. The Avro community seems to have gone down [something of a rabbithole] [avro-schema-rabbithole] with their schema versioning - something we are keen to avoid at Snowplow.
 
@@ -61,9 +61,9 @@ Let's propose a simple formula for SchemaVer:
 
 Given a version number `MODEL-REVISION-ADDITION`, increment the:
 
-* `MODEL` when you make a breaking schema change which will prevent interaction with any historical data
+* `MODEL` when you make a breaking schema change which will prevent interaction with _any_ historical data
 * `REVISION` when you make a schema change which _may_ prevent interaction with _some_ historical data
-* `ADDITION` when you make a schema change that is compatible with all historical data
+* `ADDITION` when you make a schema change that is compatible with _all_ historical data
 
 Syntactically this feels similar to SemVer - but as you can see from the increment rules, the semantics of each element are very different from SemVer.
 

@@ -20,7 +20,7 @@ Proper versioning of _software_ is taken for granted these days - there are vari
 
 We looked around and couldn't find much prior art around semantic versioning of data schemas. The Avro community seems to have gone down [something of a rabbithole] [avro-schema-rabbithole] with their schema versioning - something we are keen to avoid at Snowplow.
 
-Our initial thought was just to fall back to SemVer for schema versioning - after all, database table definitions are a form of schema, and we have been using SemVer for ours ([example] [redshift-ddl]) for some time. However, the more we dug into it, the more we realized that SemVer was not the right fit for semantic versioning of schemas, and we would need to come up with something new. We are calling this new formula for semantically versioning schemas "SchemaVer".
+Our initial thought was just to fall back to SemVer for schema versioning - after all, database table definitions are a form of schema, and we have been using SemVer for ours ([example] [redshift-ddl]) for some time. However, the more we dug into it, the more we realized that SemVer was not the right fit for semantic versioning of schemas, and we would need to come up with something new. We are calling this new versioning formula for data schemas "SchemaVer".
 
 In the rest of the post, I will go through:
 
@@ -200,7 +200,7 @@ At this point we should probably add a few supplementary rules around SchemaVer,
 
 * We use hyphens (`-`s) to separate the version parts, not periods (`.`s) as in SemVer
 * Versioning starts from 1, not 0 as in SemVer
-* SemVer has a "get out of jail free" card, where you start your initial development release at 0.1.0 and then increment the minor version for each subsequent release. There is no equivalent for SchemaVer: we don't start on an unstable development version 0
+* SemVer has a "get out of jail free" card, where you start your initial development release at 0.1.0 and then increment the `MINOR` version for each subsequent release. There is no equivalent for SchemaVer: we don't start on an unstable development version 0
 
 <div class="html">
 <h2><a name="design">3. Design considerations</a></h2>

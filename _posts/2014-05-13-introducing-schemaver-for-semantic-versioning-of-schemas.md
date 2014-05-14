@@ -212,7 +212,7 @@ First off, the names `MODEL`, `ADDITION` and `REVISION` went through many revisi
 
 Initially we were keen to use periods to separate the version elements, to allow existing SemVer libraries to work with SchemaVer. Unfortunately, we realized that an analyst looking at a table definition versioned as `1.0.5` would have no idea if the table was schema'ed using SemVer or SchemaVer. So we needed a visual cue to indicate that this was SchemaVer - hence the hyphens.
 
-We gave some serious thought to recreating SemVer's unstable `MAJOR` version 0 idea. On balance, this seemed a bad idea for SchemaVer: because invariably `MODEL` version 0s will go into production, and then we lose our all-important guarantees about the relationship between schema versions and the historical data.
+We gave some serious thought to recreating SemVer's unstable `MAJOR` version 0 idea. On balance, this seemed a bad idea for SchemaVer: because inevitably some `MODEL` version 0s will go into production, and then we lose our all-important guarantees about the relationship between schema versions and the historical data.
 
 We experimented with ways to make `SchemaVer` fully deterministic - in other words, could we come up with a formula whereby a computer could correctly auto-increment the SchemaVer just by studying the new and previous schema definition?
 

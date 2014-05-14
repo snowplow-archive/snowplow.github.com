@@ -15,9 +15,13 @@ In yesterday's blog post, we introduced a key building block for our data modell
 
 In the rest of the post, we will cover:
 
-1. xxx
-2. yyy
-3. zzz
+1. [The problem](/blog/2014/05/14/introducing-self-describing-json/#problem)
+2. [Self-describing JSON Schemas](/blog/2014/05/14/introducing-self-describing-json/#sdjs)
+3. [Self-describing JSONs](/blog/2014/05/14/introducing-self-describing-json/#sdj)
+4. [Putting all this into practice](/blog/2014/05/14/introducing-self-describing-json/#practice)
+5. [Prior art](/blog/2014/05/14/introducing-self-describing-json/#priorart)
+6. [Next steps](/blog/2014/05/14/introducing-self-describing-json/#next)
+7. [Call for feedback](/blog/2014/05/14/introducing-self-describing-json/#feedback)
 
 Let's get started.
 
@@ -220,12 +224,85 @@ How do we validate that the JSON is self-describing? We have created a simple JS
 So there we go: this approach will let you validate any self-describing JSON against the schema it claims to adhere to.
 
 <div class="html">
-<h2><a name="practice">5. XXX</a></h2>
+<h2><a name="priorart">5. Prior art</a></h2>
 </div>
 
+We were surprised not to find much existing discussion around self-description of schemas and objects in the JSON community. The [JSON Schema 04 specification] [js-draft04] _does_ have a section on what it calls "correlating" JSON instances with their respective JSON Schemas:
+
+<blockquote>
+8. Recommended correlation mechanisms for use with the HTTP protocol<br />
+<br />
+   It is acknowledged by this specification that the majority of<br />
+   interactive JSON Schema processing will be over HTTP.  This section<br />
+   therefore gives recommendations for materializing an instance/schema<br />
+   correlation using mechanisms currently available for this protocol.<br />
+   An instance is said to be described by one (or more) schema(s).<br />
+<br />
+8.1. Correlation by means of the "Content-Type" header<br />
+<br />
+   It is RECOMMENDED that a MIME type parameter by the name of "profile"<br />
+   be appended to the "Content-Type" header of the instance being<br />
+   processed.  If present, the value of this parameter MUST be a valid<br />
+   URI, and this URI SHOULD resolve to a valid JSON Schema.  The MIME<br />
+   type MUST be "application/json", or any other subtype.<br />
+<br />
+   An example of such a header would be:<br />
+<br />
+   Content-Type: application/my-media-type+json;<br />
+             profile=http://example.com/my-hyper-schema#<br />
+<br />
+8.2. Correlation by means of the "Link" header<br />
+<br />
+   When using the "Link" header, the relation type used MUST be<br />
+   "describedBy", as defined by RFC 5988, section 5.3 [RFC5988].  The<br />
+   target URI of the "Link" header MUST be a valid JSON Schema.<br />
+<br />
+   An example of such a header would be:<br />
+<br />
+   Link: <http://example.com/my-hyper-schema#>; rel="describedBy"<br />
+</blockquote>
+
+The idea of appending the JSON Schema to the content-type as a `profile` is an interesting one, but it has a few major drawbacks:
+
+1. It is limited to HTTP-based interactions
+2. The user will have to create some bespoke data structure to record the `profile` alongside the data
+3. Recording the full URI to the schema is brittle - what if the location of the JSON Schema changes?
+
+We found more discussion of self-describing objects with their schemas (or at least schema versions) in the Avro community, including this:
+
+<blockquote>
+"If you’re storing records in a database one-by-one, you may end up with different schema versions written at different times, and so you have to annotate each record with its schema version. If storing the schema itself is too much overhead, you can use a hash of the schema, or a sequential schema version number. You then need a schema registry where you can look up the exact schema definition for a given version number."
+</blockquote>
+
+From Martin Kleppmann's excellent article, [Schema evolution in Avro, Protocol Buffers and Thrift] [schema-evolution].
+
+We also found something a little similar to self-describing JSON in the Kiji project, which [uses Avro heavily] [kiji-avro]:
+
+<blockquote>
+Kiji uses something we call protocol versioning to get around this issue. Each record type that we intend to operate on has a field named version which is a string. The Kiji TableLayoutDesc Avro record (what your JSON table layout files interact with) includes a version field which today you should set to "layout-1.1".<br />
+<br />
+In Kiji, a protocol version includes a protocol name and a version number in major.minor.revision format. The protocol name is a sanity check on what kind of record this version pertains to. For example, Kiji table layouts all contain a protocol name of “layout”; this prevents the most basic error of trying to parse a similar but unrelated JSON record object in a place where it shouldn’t be.<br />
+<br />
+The version number is a standard version number that follows semantic versioning: the major version changes when an incompatible change is introduced; the minor version for a compatible new feature; and the revision for a bug fix.
+</blockquote>
+
+The Kiji project uses Semantic Versioning rather than [SchemaVer] [schemaver]; it's not clear what a "bug fix" is in the context of a schema definition.
 
 <div class="html">
-<h2><a name="feedback">6. Call for feedback</a></h2>
+<h2><a name="next">6. Next steps</a></h2>
+</div>
+
+We are hugely excited about the potential for self-describing JSONs at Snowplow. Specifically, we think they will bring significant benefits for Snowplow users in terms of:
+
+1. Documenting what types of [unstructured events] [unstructured-events] and [custom contexts] [custom-contexts] you are sending into Snowplow
+2. Enabling Snowplow to validate that your unstructured events and custom contexts conform to your schemas
+
+As well as making it easy for Snowplow users to use this new functionality, we intend to "dog food" self-describing JSONs, for example by replacing our [wiki-based Tracker Protocol] [tracker-protocol] with a self-describing JSON Schema equivalent.
+
+Now that we have a format for self-describing JSONs, the next step is to come up with some form of schema registry or repository to hold them in. Stay tuned for a blog post on this coming soon!
+
+<div class="html">
+<h2><a name="feedback">7. Call for feedback</a></h2>
 </div>
 
 Above all, we would like to stress that this is a draft proposal, and we would love to get feedback from the Snowplow community and beyond on self-describing JSONs and JSON Schemas. Now is the best time for us to get feedback - before we have started to formalize this into the coming Snowplow releases.
@@ -235,13 +312,16 @@ So do **[please get in touch] [talk-to-us]** if you have thoughts on self-descri
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/0.9.2/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/CanonicalOutput.scala
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
 
-[custom-contexts]: 
-[unstructured-events]: 
+[custom-contexts]: /blog/2014/01/27/snowplow-custom-contexts-guide/
+[unstructured-events]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent
 
 [schemaver]: /blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 
 [js-draft04]: http://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
 [self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics/self_desc_schema/jsonschema/1-0-0
 [self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics/self_desc/jsonschema/1-0-0
+
+[schema-evolution]: http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html
+[kiji-avro]: http://www.kiji.org/2013/04/25/versioned-data-structures-and-avro/
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

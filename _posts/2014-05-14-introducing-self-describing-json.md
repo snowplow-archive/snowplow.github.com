@@ -24,7 +24,7 @@ Let's get started.
 <!--more-->
 
 <div class="html">
-<h2><a name="xxx">1. xxx</a></h2>
+<h2><a name="problem">1. The problem</a></h2>
 </div>
 
 Let's say we have a JSON which looks like this:
@@ -56,12 +56,20 @@ And, finally, we know a few things about this schema:
 * This is a JSON Schema
 * It was created by us (Snowplow Analytics)
 * It is version 1-0-0 as per [SchemaVer] [schemaver]
-* It describes a click on an ad
+* It describes an ad click
 
-So far, so good. But we now have a few problems:
+So far, so good. But we now have a few serious gaps in our knowledge:
 
-1. All our knowledge about the schema is _implicit knowledge_ - it's not written down anywhere, and the schema itself does not know these four key facts about itself
-2. Even worse, 
+1. All our knowledge about the schema is _implicit knowledge_ - it's not written down anywhere
+2. The JSON Schema itself does not know these four key facts about itself
+3. The individual JSON has no direct association with its schema
+
+Combined, these knowledge gaps leave us in a tight spot: when we come back to a folder full of our JSONs, how will we know how to validate them? This is where self-describing JSON comes in:
+
+* We want the JSON Schema to contain a description of itself
+* We want the individual JSONs to record which JSON Schema they are associated with
+
+
 
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/0.9.2/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/CanonicalOutput.scala
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol

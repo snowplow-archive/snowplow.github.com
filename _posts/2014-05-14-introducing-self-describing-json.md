@@ -182,12 +182,12 @@ Phew! What this means in short is that we should create a JSON Schema document d
 
 [http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
 
-Don't worry about the URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the path structure is identical to our space-efficient `schema` field format.
+Don't worry about the URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the path structure matches our space-efficient `schema` field format above.
 
 The JSON Schema enforces a few formatting rules for the `self` fields:
 
 * `name` and `format` must consist of only letters, numbers, underscores (`_`s) and hyphens (`-`s)
-* `vendor` supports the same characters plus period (`.`)
+* `vendor` supports the same characters plus periods (`.`)
 * `version` must be in [SchemaVer] [schemaver]
 
 Next, we can revise our JSON Schema to flag that it is a self-describing JSON Schema:
@@ -212,7 +212,7 @@ Next, we can revise our JSON Schema to flag that it is a self-describing JSON Sc
 }
 {% endhighlight %}
 
-As per the `self_desc` JSON Schema definition, note that:
+As per the `self-desc` JSON Schema definition, note that:
 
 * The four fields `vendor`, `name`, `format`, `version` are all required strings
 * No additional fields are allowed within `self`
@@ -226,7 +226,7 @@ How do we validate that the JSON is self-describing? We have created a simple JS
 
 [http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/instance/jsonschema/1-0-0] [self-desc]
 
-So there we go: this approach lets you validate any self-describing JSON against the schema it claims to adhere to.
+So there we go: this two-step approach lets you validate any self-describing JSON against the schema it claims to adhere to.
 
 <div class="html">
 <h2><a name="priorart">5. Prior art</a></h2>
@@ -254,32 +254,20 @@ We were surprised not to find much existing discussion around self-description o
    An example of such a header would be:<br />
 <br />
    Content-Type: application/my-media-type+json;<br />
-             profile=http://example.com/my-hyper-schema#<br />
-<br />
-8.2. Correlation by means of the "Link" header<br />
-<br />
-   When using the "Link" header, the relation type used MUST be<br />
-   "describedBy", as defined by RFC 5988, section 5.3 [RFC5988].  The<br />
-   target URI of the "Link" header MUST be a valid JSON Schema.<br />
-<br />
-   An example of such a header would be:<br />
-<br />
-   Link: <http://example.com/my-hyper-schema#>; rel="describedBy"<br />
+             profile=http://example.com/my-hyper-schema#
 </blockquote>
 
 The idea of appending the JSON Schema to the content-type as a `profile` is an interesting one, but it has a few major drawbacks:
 
 1. It is limited to HTTP-based interactions
-2. The user will have to create some bespoke data structure to record the `profile` alongside the data
+2. On receipt, the user will have to create some bespoke data structure to record the `profile` alongside the data
 3. Recording the full URI to the schema is brittle - what if the location of the JSON Schema changes?
 
-We found more discussion of self-describing objects with their schemas (or at least schema versions) in the Avro community, including this:
+We found more discussion of self-describing objects with their schemas (or at least schema versions) in the Avro community, including this from Martin Kleppmann's excellent article, [Schema evolution in Avro, Protocol Buffers and Thrift] [schema-evolution].
 
 <blockquote>
 "If you’re storing records in a database one-by-one, you may end up with different schema versions written at different times, and so you have to annotate each record with its schema version. If storing the schema itself is too much overhead, you can use a hash of the schema, or a sequential schema version number. You then need a schema registry where you can look up the exact schema definition for a given version number."
 </blockquote>
-
-From Martin Kleppmann's excellent article, [Schema evolution in Avro, Protocol Buffers and Thrift] [schema-evolution].
 
 We also found something a little similar to self-describing JSON in the Kiji project, which [uses Avro heavily] [kiji-avro]:
 
@@ -291,7 +279,7 @@ In Kiji, a protocol version includes a protocol name and a version number in maj
 The version number is a standard version number that follows semantic versioning: the major version changes when an incompatible change is introduced; the minor version for a compatible new feature; and the revision for a bug fix.
 </blockquote>
 
-The Kiji project uses Semantic Versioning rather than [SchemaVer] [schemaver]; it's not clear what a "bug fix" is in the context of a schema definition.
+The Kiji project uses Semantic Versioning rather than our just-released [SchemaVer] [schemaver]; it's not clear what a "bug fix" is in the context of a schema definition.
 
 <div class="html">
 <h2><a name="next">6. Next steps</a></h2>

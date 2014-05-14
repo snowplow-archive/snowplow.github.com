@@ -180,15 +180,21 @@ And finally:
 
 Phew! What this means in short is that we should create a JSON Schema document defining our `self` extension to JSON Schema. We have done this and made this available at this URI:
 
-[http://iglucentral.com/schemas/com.snowplowanalytics/self_desc_schema/jsonschema/1-0-0] [self-desc-schema]
+[http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
 
 Don't worry about the URI for now - we will come back to Iglu Central Repository and the proposed path structure in a future blog post. For now, just notice that the path structure is identical to our space-efficient `schema` field format.
+
+The JSON Schema enforces a few formatting rules for the `self` fields:
+
+* `name` and `format` must consist of only letters, numbers, underscores (`_`s) and hyphens (`-`s)
+* `vendor` supports the same characters plus period (`.`)
+* `version` must be in [SchemaVer] [schemaver]
 
 Next, we can revise our JSON Schema to flag that it is a self-describing JSON Schema:
 
 {% highlight json %}
 {
-	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics/self_desc_schema/jsonschema/1-0-0",
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/schema/jsonschema/1-0-0",
 	"self": {
         "vendor": "com.snowplowanalytics",
         "name": "ad_click",
@@ -208,7 +214,6 @@ Next, we can revise our JSON Schema to flag that it is a self-describing JSON Sc
 
 As per the `self_desc` JSON Schema definition, note that:
 
-* The `self` field is required in a self-describing JSON Schema
 * The four fields `vendor`, `name`, `format`, `version` are all required strings
 * No additional fields are allowed within `self`
 
@@ -219,9 +224,9 @@ How do we now validate a self-describing JSON against its JSON Schema? We do it 
 
 How do we validate that the JSON is self-describing? We have created a simple JSON Schema for that very purpose:
 
-[http://iglucentral.com/schemas/com.snowplowanalytics/self_desc/jsonschema/1-0-0] [self-desc]
+[http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/instance/jsonschema/1-0-0] [self-desc]
 
-So there we go: this approach will let you validate any self-describing JSON against the schema it claims to adhere to.
+So there we go: this approach lets you validate any self-describing JSON against the schema it claims to adhere to.
 
 <div class="html">
 <h2><a name="priorart">5. Prior art</a></h2>
@@ -318,8 +323,8 @@ So do **[please get in touch] [talk-to-us]** if you have thoughts on self-descri
 [schemaver]: /blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 
 [js-draft04]: http://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
-[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics/self_desc_schema/jsonschema/1-0-0
-[self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics/self_desc/jsonschema/1-0-0
+[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/schema/jsonschema/1-0-0
+[self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/instance/jsonschema/1-0-0
 
 [schema-evolution]: http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html
 [kiji-avro]: http://www.kiji.org/2013/04/25/versioned-data-structures-and-avro/

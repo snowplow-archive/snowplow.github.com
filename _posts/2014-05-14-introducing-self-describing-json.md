@@ -182,7 +182,7 @@ Phew! What this means in short is that we should create a JSON Schema document d
 
 [http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
 
-Don't worry about the URI for now - we will come back to Iglu Central Repository and the proposed path structure in a future blog post. For now, just notice that the path structure is identical to our space-efficient `schema` field format.
+Don't worry about the URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the path structure is identical to our space-efficient `schema` field format.
 
 The JSON Schema enforces a few formatting rules for the `self` fields:
 
@@ -304,7 +304,7 @@ We are hugely excited about the potential for self-describing JSONs at Snowplow.
 
 As well as making it easy for Snowplow users to use this new functionality, we intend to "dog food" self-describing JSONs, for example by replacing our [wiki-based Tracker Protocol] [tracker-protocol] with a self-describing JSON Schema equivalent.
 
-Now that we have a format for self-describing JSONs, the next step is to come up with some form of schema registry or repository to hold them in. Stay tuned for a blog post on this coming soon!
+Now that we have a format for self-describing JSONs, the next step is to come up with some form of "schema registry" or repository to hold them in. Stay tuned for a blog post on this coming soon!
 
 <div class="html">
 <h2><a name="feedback">7. Call for feedback</a></h2>

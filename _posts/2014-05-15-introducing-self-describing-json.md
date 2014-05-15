@@ -85,11 +85,11 @@ Let's add a new property, `self`, to describe our JSON Schema:
 {
 	"$schema": "http://json-schema.org/schema#",
 	"self": {
-        "vendor": "com.snowplowanalytics",
-        "name": "ad_click",
-        "format": "jsonschema",
-        "version": "1-0-0"
-    }
+		"vendor": "com.snowplowanalytics",
+		"name": "ad_click",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	}
 	"type": "object",
 	"properties": {
 		"bannerId": {

@@ -302,7 +302,7 @@ We are hugely excited about the potential for self-describing JSONs at Snowplow.
 1. Documenting what types of [unstructured events] [unstructured-events] and [custom contexts] [custom-contexts] you are sending into Snowplow
 2. Enabling Snowplow to validate that your unstructured events and custom contexts conform to your schemas
 
-As well as making it easy for Snowplow users to use this new functionality, we intend to "dog food" self-describing JSONs, for example by replacing our [wiki-based Tracker Protocol] [tracker-protocol] with a self-describing JSON Schema equivalent.
+As well as making it easy for Snowplow users to use this new functionality, we intend to "dogfood" self-describing JSONs, for example by replacing our [wiki-based Tracker Protocol] [tracker-protocol] with a self-describing JSON Schema equivalent.
 
 Now that we have a format for self-describing JSONs, the next step is to come up with some form of "schema registry" or repository to hold them in. Stay tuned for a blog post on this coming soon!
 

@@ -129,10 +129,10 @@ How can we associate an individual JSON with its JSON Schema? Let's try a slight
 
 We have made a couple of important changes here:
 
-* We have added a new top-level field, `schema`, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
-* We have moved the JSON's original property inside a `data` field. This sandboxing will prevent any accidental collisions should the JSON already have a `schema` field
+1. We have added a new top-level field, `schema`, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
+2. We have moved the JSON's original property inside a `data` field. This sandboxing will prevent any accidental collisions should the JSON already have a `schema` field
 
-Between our self-describing JSON Schemas and our self-describing JSONs, we have filled in all of our knowledge gaps. This should make schema evolution and working with historical data much simpler.
+Between our self-describing JSON Schemas and our self-describing JSONs, we have joined up all of our implicit knowledge about this JSON instance and its JSON Schema. This should make schema evolution and working with historical data much simpler.
 
 <div class="html">
 <h2><a name="practice">4. Putting all this into practice</a></h2>
@@ -155,7 +155,6 @@ And then:
 6. The "$schema" keyword<br />
 <br />
 6.1. Purpose<br />
-<br />
 <br />
    The "$schema" keyword is both used as a JSON Schema version<br />
    identifier and the location of a resource which is itself a JSON<br />
@@ -313,8 +312,8 @@ So do **[please get in touch] [talk-to-us]** if you have thoughts on self-descri
 [schemaver]: /blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 
 [js-draft04]: http://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
-[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/schema/jsonschema/1-0-0
-[self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/instance/jsonschema/1-0-0
+[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0
+[self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/instance/jsonschema/1-0-0
 
 [schema-evolution]: http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html
 [kiji-avro]: http://www.kiji.org/2013/04/25/versioned-data-structures-and-avro/

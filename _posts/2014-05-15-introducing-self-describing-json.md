@@ -197,11 +197,11 @@ Next, we can revise our JSON Schema to flag that this is a self-describing JSON 
 {
 	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics/self-desc/schema/jsonschema/1-0-0",
 	"self": {
-        "vendor": "com.snowplowanalytics",
-        "name": "ad_click",
-        "format": "jsonschema",
-        "version": "1-0-0"
-    }
+		"vendor": "com.snowplowanalytics",
+		"name": "ad_click",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
 	"type": "object",
 	"properties": {
 		"bannerId": {

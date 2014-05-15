@@ -218,7 +218,18 @@ As per the `self-desc` JSON Schema definition, note that:
 * The four fields `vendor`, `name`, `format`, `version` are all required strings
 * No additional fields are allowed within `self`
 
-How do we now validate a self-describing JSON against its JSON Schema? We do it in a two-pass fashion:
+And how do we now validate a self-describing JSON against its JSON Schema? To recap, our JSON instance looks like this:
+
+{% highlight json %}
+{
+	"schema": "com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+	"data": {
+		"bannerId": "4732ce23d345"
+	}
+}
+{% endhighlight %}
+
+We can validate this in a two-pass fashion:
 
 1. First pass: validate that the JSON is self-describing
 2. Second pass: take the `data` field from the JSON, and validate it against the JSON Schema identified by the `schema` field
@@ -264,7 +275,7 @@ The idea of appending the JSON Schema to the content-type as a `profile` is an i
 2. On receipt, the user will have to create some bespoke data structure to record the `profile` alongside the data
 3. Recording the full URI to the schema is brittle - what if the location of the JSON Schema changes?
 
-We found more discussion of self-describing objects with their schemas (or at least schema versions) in the Avro community, including this from Martin Kleppmann's excellent article, [Schema evolution in Avro, Protocol Buffers and Thrift] [schema-evolution].
+We found more discussion of self-describing objects with their schemas (or at least schema versions) in the Avro community, including this from Martin Kleppmann's excellent article, [Schema evolution in Avro, Protocol Buffers and Thrift] [schema-evolution]:
 
 <blockquote>
 "If you’re storing records in a database one-by-one, you may end up with different schema versions written at different times, and so you have to annotate each record with its schema version. If storing the schema itself is too much overhead, you can use a hash of the schema, or a sequential schema version number. You then need a schema registry where you can look up the exact schema definition for a given version number."

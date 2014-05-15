@@ -89,7 +89,7 @@ Let's add a new property, `self`, to describe our JSON Schema:
 		"name": "ad_click",
 		"format": "jsonschema",
 		"version": "1-0-0"
-	}
+	},
 	"type": "object",
 	"properties": {
 		"bannerId": {

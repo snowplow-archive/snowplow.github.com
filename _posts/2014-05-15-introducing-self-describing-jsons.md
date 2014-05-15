@@ -291,7 +291,7 @@ In Kiji, a protocol version includes a protocol name and a version number in maj
 The version number is a standard version number that follows semantic versioning: the major version changes when an incompatible change is introduced; the minor version for a compatible new feature; and the revision for a bug fix.
 </blockquote>
 
-The Kiji project uses Semantic Versioning rather than our just-released [SchemaVer] [schemaver]; it's not clear what a "bug fix" is in the context of a schema definition.
+The Kiji project uses Semantic Versioning rather than our just-released [SchemaVer] [schemaver] - it's not clear what their "bug fix" is in the context of a schema definition.
 
 <div class="html">
 <h2><a name="next">6. Next steps</a></h2>

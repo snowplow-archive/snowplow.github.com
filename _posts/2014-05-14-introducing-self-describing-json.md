@@ -15,13 +15,13 @@ In Tuesday's blog post, we introduced a key building block for our data modellin
 
 In the rest of the post, we will cover:
 
-1. [The problem](/blog/2014/05/14/introducing-self-describing-json/#problem)
-2. [Self-describing JSON Schemas](/blog/2014/05/14/introducing-self-describing-json/#sdjs)
-3. [Self-describing JSONs](/blog/2014/05/14/introducing-self-describing-json/#sdj)
-4. [Putting all this into practice](/blog/2014/05/14/introducing-self-describing-json/#practice)
-5. [Prior art](/blog/2014/05/14/introducing-self-describing-json/#priorart)
-6. [Next steps](/blog/2014/05/14/introducing-self-describing-json/#next)
-7. [Call for feedback](/blog/2014/05/14/introducing-self-describing-json/#feedback)
+1. [The problem](/blog/2014/05/15/introducing-self-describing-json/#problem)
+2. [Self-describing JSON Schemas](/blog/2014/05/15/introducing-self-describing-json/#sdjs)
+3. [Self-describing JSONs](/blog/2014/05/15/introducing-self-describing-json/#sdj)
+4. [Putting all this into practice](/blog/2014/05/15/introducing-self-describing-json/#practice)
+5. [Prior art](/blog/2014/05/15/introducing-self-describing-json/#priorart)
+6. [Next steps](/blog/2014/05/15/introducing-self-describing-json/#next)
+7. [Call for feedback](/blog/2014/05/15/introducing-self-describing-json/#feedback)
 
 Let's get started.
 

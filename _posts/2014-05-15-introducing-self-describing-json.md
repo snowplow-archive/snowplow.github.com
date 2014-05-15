@@ -101,14 +101,16 @@ Let's add a new property, `self`, to describe our JSON Schema:
 }
 {% endhighlight %}
 
-We've managed to detail everything we know about this JSON Schema:
+We have now managed to detail everything we know about this JSON Schema:
 
 * `vendor` tells us who created this JSON Schema
 * `name` tells us the type of object described in this JSON Schema
-* `format` tells us that this is a JSON Schema (versus some other schema technology)
+* `format` tells us that this is a JSON Schema (versus some other schema approach)
 * `version` tells us the version of this JSON Schema (using [SchemaVer] [schemaver])
 
-This is a good start - our implicit knowledge about this JSON Schema is now captured against the JSON Schema itself. Anywhere the JSON Schema goes, this super-important information about the JSON Schema goes too. But we still don't have an association between the individual JSON objects and the JSON Schema - let's fix this next.
+This is a good start: our implicit knowledge about this JSON Schema is now captured against the JSON Schema itself. Anywhere the JSON Schema goes, this all-important information about the JSON Schema goes too.
+
+But we still don't have an association between the individual JSON objects and the JSON Schema - let's fix this next.
 
 <div class="html">
 <h2><a name="sdj">3. Self-describing JSONs</a></h2>

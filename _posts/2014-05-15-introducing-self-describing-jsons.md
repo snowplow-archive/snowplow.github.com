@@ -179,7 +179,9 @@ And finally:
    be one of the predefined values.<br />
 </blockquote>
 
-Phew! What this means in short is that we should create a JSON Schema document defining our `self` extension to JSON Schema. We have done this and made this available at this URI:
+Phew! What this means in short is that we should create a JSON Schema document defining our `self` extension to JSON Schema. This will become the new master JSON Schema (indicated with `$schema`) for all self-describing JSON Schemas.
+
+We have done this and made this available at this URI:
 
 [http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
 

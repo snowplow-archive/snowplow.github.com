@@ -183,7 +183,7 @@ Phew! What this means in short is that we should create a JSON Schema document d
 
 [http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
 
-Don't worry about the URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the path structure matches our space-efficient `schema` field format above.
+Don't worry about that URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the URI's path structure matches our space-efficient `schema` field format above.
 
 The JSON Schema enforces a few formatting rules for the `self` fields:
 
@@ -191,7 +191,7 @@ The JSON Schema enforces a few formatting rules for the `self` fields:
 * `vendor` supports the same characters plus periods (`.`)
 * `version` must be in [SchemaVer] [schemaver]
 
-Next, we can revise our JSON Schema to flag that it is a self-describing JSON Schema:
+Next, we can revise our JSON Schema to flag that this is a self-describing JSON Schema - note the updated `$schema` field:
 
 {% highlight json %}
 {

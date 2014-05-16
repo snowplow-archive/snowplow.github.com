@@ -14,7 +14,7 @@ In the rest of the post we will cover:
 1. [The Subject class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#subject)
 2. [The Emitter classes](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#emitter)
 3. [Tracker method return values](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#return)
-4. [logging](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#logging)
+4. [Logging](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#logging)
 5. [Pycontracts](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#contracts)
 6. [The RedisWorker class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#worker)
 7. [JSON schemas](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#schemas)
@@ -134,7 +134,7 @@ You can create your own custom emitter class, either from scratch or by subclass
 
 <h2><a name="return">3. Tracker method return values</a></h2>
 
-If you are using the synchronous Emitter instance and call a tracker method which causes the emitter to send a request, that tracker method will return the status code for the request:
+If you are using the synchronous Emitter and call a tracker method which causes the emitter to send a request, that tracker method will return the status code for the request:
 
 {% highlight python %}
 e = Emitter("d3rkrsqld9gmqf.cloudfront.net")

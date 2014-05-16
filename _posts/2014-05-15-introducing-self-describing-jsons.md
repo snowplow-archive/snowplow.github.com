@@ -120,7 +120,7 @@ How can we associate an individual JSON with its JSON Schema? Let's try a slight
 
 {% highlight json %}
 {
-	"schema": "com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+	"schema": "iglu://com.snowplowanalytics/ad_click/jsonschema/1-0-0",
 	"data": {
 		"bannerId": "4732ce23d345"
 	}
@@ -131,6 +131,8 @@ We have made a couple of important changes here:
 
 1. We have added a new top-level field, `schema`, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
 2. We have moved the JSON's original property inside a `data` field. This sandboxing will prevent any accidental collisions should the JSON already have a `schema` field
+
+Don't worry about the `iglu://` protocol for now - we will come back to this in a future blog post.
 
 Between our self-describing JSON Schemas and our self-describing JSONs, we have joined up all of our implicit knowledge about this JSON instance and its JSON Schema. This should make schema evolution and working with historical data much simpler.
 
@@ -224,7 +226,7 @@ And how do we now validate a self-describing JSON against its JSON Schema? To re
 
 {% highlight json %}
 {
-	"schema": "com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+	"schema": "iglu://com.snowplowanalytics/ad_click/jsonschema/1-0-0",
 	"data": {
 		"bannerId": "4732ce23d345"
 	}

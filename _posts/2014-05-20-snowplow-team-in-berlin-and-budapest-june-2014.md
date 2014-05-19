@@ -23,7 +23,7 @@ He also plans to demo Kinesis!
 
 The following day, he will be giving a half day, *From zero to Hadoop*, walking through how to run a range of simple (but powerful) Hadoop jobs on Elastic Mapreduce, including both Pig scripts, Scalding Jobs and using HBase with Hadoop.
 
-Alex will be in Berlin from June 3rd to 6th. If you'd like to grab Alex when he's in Budapest, reach out to him on alex at snowplowanalytics dot com.
+Alex will be in Budapest from June 3rd to 6th. If you'd like to grab Alex when he's in Budapest, reach out to him on alex at snowplowanalytics dot com.
 
 
 #### [Digital Analytics Hub] [da-hub-berlin] event in Berlin

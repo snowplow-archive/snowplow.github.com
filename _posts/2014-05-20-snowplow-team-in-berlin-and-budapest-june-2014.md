@@ -19,7 +19,7 @@ Alex will be giving a talk at the Budapest DW Forum on Thursday 5th June on our 
 * Buildin a lambda architecture with Kinesis and EMR
 * Moving form a batch to a streaming mindset
 
-For more information, check out [Talks page](http://2014.budapestdwforum.com/talks/#alexdean) on the Budapest DW Forum 2014 website.
+For more information, check out the [Talks page](http://2014.budapestdwforum.com/talks/#alexdean) on the Budapest DW Forum 2014 website.
 
 The following day, he will be giving a half day, *From zero to Hadoop*, walking through how to run a range of simple (but powerful) Hadoop jobs on Elastic Mapreduce, including both Pig scripts, Scalding Jobs and using HBase with Hadoop.
 

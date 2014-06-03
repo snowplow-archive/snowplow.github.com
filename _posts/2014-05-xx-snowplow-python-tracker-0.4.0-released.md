@@ -17,7 +17,7 @@ In the rest of the post we will cover:
 4. [Logging](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#logging)
 5. [Pycontracts](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#contracts)
 6. [The RedisWorker class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#worker)
-7. [JSON schemas](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#schemas)
+7. [Self-describing JSONs](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#schemas)
 8. [Other improvements](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#other)
 9. [Upgrading](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#upgrading)
 10. [Support](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#support)
@@ -210,9 +210,9 @@ r.run()
 
 This will set up a worker which will run indefinitely, taking events from the Redis list with key "snowplow_redis_key" and inputting them to an AsyncEmitter, which will send them to a cloudfront collector. If the process receives a SIGINT signal (for example, due to a Ctrl-C keyboard interrupt), cleanup will occur before exiting to ensure no events are lost.
 
-<h2><a name="schemas">7. JSON schemas</a></h2>
+<h2><a name="schemas">7. Self-describing JSONs</a></h2>
 
-The format for tracking an unstructured event has changed:
+Snowplow unstructured events and custom contexts are now defined using [JSON schema][json-schema], and should be passed to the Tracker using [self-describing JSONs][self-describing-jsons]. Here is an example of the new format for unstructured events:
 
 {% highlight python %}
 
@@ -226,24 +226,29 @@ t.track_unstruct_event({
 
 {% endhighlight %}
 
-The "schema" field refers to the JSON schema against which the contents of the "data" field should be validated.
+The `data` field contains the actual properties of the event and the `schema` field points to the JSON schema against which the contents of the `data` field should be validated.
 
-The format for custom contexts has also changed:
+Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must (if provided) be a non-empty array: 
 
 {% highlight python %}
 
 t.track_page_view("localhost", None, "http://www.referrer.com", [{
-	"schema": "com.example/user/jsonschema/1-0-3", 
-	"data": {
-		"user_type": "tester"
-	}
+    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    data: {
+        pageType: 'test',
+        lastUpdated: new Date(2014,1,26)
+    }
+},
+{
+    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    data: {
+      userType: 'tester'
+    }
 }])
 
-The context argument is a non-empty array. Each element of the array is a Python dictionary containing a "schema" field and a "data" field.
-
-For more information on these changes and JSON schema, see this [blog post][schemaver].
-
 {% endhighlight %}
+
+This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
 
 <h2><a name="other">8. Other improvements </a></h2>
 
@@ -277,7 +282,8 @@ Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Pyth
 
 [celery]: http://www.celeryproject.org/
 [redis]: http://redis.io/
-[schemaver]: http://snowplowanalytics.com/blog/
+[json-schema]: http://json-schema.org/
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
 [repo]: https://github.com/snowplow/snowplow-python-tracker
 [contracts]: https://github.com/AndreaCensi/contracts

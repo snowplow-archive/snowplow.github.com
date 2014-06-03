@@ -16,7 +16,7 @@ This blog post will cover the following changes:
 3. [New feature: link click tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#link-click)
 4. [New feature: ad tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#ads)
 5. [New feature: offline tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#offline)
-6. [Event vendors and context vendors](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#vendors)
+6. [Self-describing JSONs](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#schemas)
 7. [Functional tests](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
 8. [Other improvements](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#other)
 9. [Upgrading](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
@@ -147,27 +147,46 @@ For an example of all three functions in action on a page with three distinct ad
 
 Thanks to [@rcs][rcs], events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in `localStorage` so that the unsent events can be remembered even after the leaving the page.
 
-<h2><a name="vendors">6. Event vendors and context vendors</a></h2>
+<h2><a name="schemas">6. Self-describing JSONs</a></h2>
 
-This release implements event vendors and context vendors. The event vendor makes it possible to distinguish between unstructured events defined by different companies:
+Snowplow unstructured events and custom contexts are now defined using [JSON schema][json-schema], and should be passed to the Tracker using [self-describing JSONs][self-describing-jsons]. Here is an example of the new format for unstructured events:
 
 {% highlight javascript %}
-window.snowplow_name_here('trackUnstructEvent', 'com.my_company', 'Viewed Product', {
-
-		product_id: 'ASO01043',
-		category: 'Dresses',
-		brand: 'ACME',
-		returning: true,
-		price: 49.95,
-		sizes: ['xs', 's', 'l', 'xl', 'xxl'],
-		available_since$dt: new Date(2013,3,7)
-
+window.snowplow_name_here('trackUnstructEvent', {
+    schema: 'iglu://com.acme_company/viewed_product/jsonschema/2-0-0',
+    data: {
+        productId: 'ASO01043',
+        category: 'Dresses',
+        brand: 'ACME',
+        returning: true,
+        price: 49.95,
+        sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+        availableSince: new Date(2013,3,7)
+    }
 });
 {% endhighlight %}
 
-Note that the event vendor argument comes before the event name and event properties arguments.
+The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated.
 
-The context vendor is similar. When initializing a tracker, you can set a `contextVendor` field in the argmap. Then whenever the tracker fires an event with a custom context, the context vendor will be attached to the event.
+Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be an array: 
+
+{% highlight javascript %}
+window.snowplow_name_here('trackPageView', null , [{
+    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    data: {
+        pageType: 'test',
+        lastUpdated: new Date(2014,1,26)
+    }
+},
+{
+    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    data: {
+      userType: 'tester',
+    }
+}]);
+{% endhighlight %}
+
+This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
 
 <h2><a name="tests">7. Functional tests</a></h2>
 
@@ -208,6 +227,8 @@ As always, if you run into any issues or don't understand any of the above chang
 
 [rcs]: https://github.com/snowplow/snowplow-javascript-tracker/pull/24
 [sauce-labs]: https://saucelabs.com/home
+[json-schema]: http://json-schema.org/
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
 [200-release]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.0.0
 [ad-example]: https://github.com/snowplow/snowplow-javascript-tracker/blob/master/examples/ads/async.html

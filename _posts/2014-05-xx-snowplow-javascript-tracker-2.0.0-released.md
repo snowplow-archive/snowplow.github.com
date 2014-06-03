@@ -166,9 +166,9 @@ window.snowplow_name_here('trackUnstructEvent', {
 });
 {% endhighlight %}
 
-The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated.
+The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested.
 
-Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be an array: 
+Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array: 
 
 {% highlight javascript %}
 window.snowplow_name_here('trackPageView', null , [{
@@ -185,6 +185,8 @@ window.snowplow_name_here('trackPageView', null , [{
     }
 }]);
 {% endhighlight %}
+
+Note that if the `contexts` argument is provided, it cannot be an empty array.
 
 This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
 

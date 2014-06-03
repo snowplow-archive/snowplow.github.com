@@ -226,7 +226,7 @@ t.track_unstruct_event({
 
 {% endhighlight %}
 
-The `data` field contains the actual properties of the event and the `schema` field points to the JSON schema against which the contents of the `data` field should be validated.
+The `data` field contains the actual properties of the event and the `schema` field points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested.
 
 Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must (if provided) be a non-empty array: 
 

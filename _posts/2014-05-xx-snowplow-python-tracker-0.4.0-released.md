@@ -18,9 +18,8 @@ In the rest of the post we will cover:
 5. [Pycontracts](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#contracts)
 6. [The RedisWorker class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#worker)
 7. [Self-describing JSONs](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#schemas)
-8. [Other improvements](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#other)
-9. [Upgrading](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#upgrading)
-10. [Support](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#support)
+8. [Upgrading](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#upgrading)
+9. [Support](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#support)
 
 <!--more-->
 
@@ -250,14 +249,9 @@ t.track_page_view("localhost", None, "http://www.referrer.com", [{
 
 This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
 
-<h2><a name="other">8. Other improvements </a></h2>
+As part of this change we have also removed type hint suffices from unstructured events and custom contexts. Now that JSON schemas are responsible for type checking, there is no need to include types a a part of field names.
 
-We have also:
-
-* Improved test coverage up to 80% [#73][73]
-* Removed type hint suffices from unstructured events [#36][36]
-
-<h2><a name="upgrading">9. Upgrading</a></h2>
+<h2><a name="upgrading">8. Upgrading</a></h2>
 
 The release version of this tracker (0.4.0) is available on PyPI, the Python Package Index repository, as [snowplow-tracker] [pypi]. Download and install it with pip:
 
@@ -273,7 +267,7 @@ $ easy_install -U snowplow-tracker
 
 For more information on getting started with the Snowplow Python Tracker, see the [setup page] [setup].
 
-<h2><a name="support">10. Support</a></h2>
+<h2><a name="support">9. Support</a></h2>
 
 Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Python Tracker or want to suggest a new feature. The Snowplow Python Tracker is still young, so of course do [raise an issue] [issues] if you find any bugs.
 

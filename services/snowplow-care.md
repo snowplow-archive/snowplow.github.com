@@ -36,12 +36,12 @@ weight: 6
 			<td><strong>Consulting</strong></td><td><ul><li>No consulting included</li></ul></td><td><ul><li>One day of consulting on signup</li></ul></td>
 		</tr>
 		<tr>
-			<td><strong>Price</strong></td><td><ul><li>Free</li></ul></td><td><ul><li>$1000 per month</li></ul></td>
+			<td><strong>Price</strong></td><td><ul><li>Free</li></ul></td><td><ul><li>$1500 per month</li></ul></td>
 		</tr>
 	</tbody>
 </table>
 
-Snowplow Care is priced at $1000 per month.
+Snowplow Care is priced at $1500 per month.
 
 ## Sounds interesting?
 

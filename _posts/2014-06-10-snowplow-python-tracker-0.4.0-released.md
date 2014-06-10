@@ -7,7 +7,9 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the Snowplow Python Tracker version 0.4.0. This version introduces the Subject class, which lets you keep track of multiple users at once, and several Emitter classes, which let you send events asynchronously, pass them to a Celery worker, or even send them to a Redis database. We have added support for sending batches of events in POST requests, although the Snowplow collectors do not yet support POST requests. We have also made changes to the format of unstructured events and custom contexts, to support our new work around [self-describing JSON Schemas] [self-describing].
+We are happy to announce the release of the Snowplow Python Tracker version 0.4.0.
+
+This version introduces the Subject class, which lets you keep track of multiple users at once, and several Emitter classes, which let you send events asynchronously, pass them to a Celery worker, or even send them to a Redis database. We have added support for sending batches of events in POST requests, although the Snowplow collectors do not yet support POST requests. We have also made changes to the format of unstructured events and custom contexts, to support our new work around [self-describing JSON Schemas] [self-describing].
 
 In the rest of the post we will cover:
 

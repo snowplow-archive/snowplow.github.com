@@ -7,7 +7,9 @@ author: Alex
 category: Research
 ---
 
-_Initial self-describing JSON draft. Date: 14 March 2014. Draft authors: Alexander Dean, Frederick Blundun._
+_Initial self-describing JSON draft. Date: 14 May 2014. Draft authors: Alexander Dean, Frederick Blundun._
+
+_Updated 10 June 2014. Changed `iglu://` references to `iglu:` as these resource identifiers do not point to specific hosts._
 
 At Snowplow we have been thinking a lot about how to add schemas to our data models, in place of the [implicit data models] [enriched-event-pojo] and [wiki-based tracker protocols] [tracker-protocol] that we have today. Crucially, whatever we come up with must also work for Snowplow users, who want to be able to add schemas to their own [unstructured events] [unstructured-events] and [custom contexts] [custom-contexts] in Snowplow.
 
@@ -120,7 +122,7 @@ How can we associate an individual JSON with its JSON Schema? Let's try a slight
 
 {% highlight json %}
 {
-	"schema": "iglu://com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics/ad_click/jsonschema/1-0-0",
 	"data": {
 		"bannerId": "4732ce23d345"
 	}
@@ -132,7 +134,7 @@ We have made a couple of important changes here:
 1. We have added a new top-level field, `schema`, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
 2. We have moved the JSON's original property inside a `data` field. This sandboxing will prevent any accidental collisions should the JSON already have a `schema` field
 
-Don't worry about the `iglu://` protocol for now - we will come back to this in a future blog post.
+Don't worry about the `iglu:` protocol for now - we will come back to this in a future blog post.
 
 Between our self-describing JSON Schemas and our self-describing JSONs, we have joined up all of our implicit knowledge about this JSON instance and its JSON Schema. This should make schema evolution and working with historical data much simpler.
 
@@ -226,7 +228,7 @@ And how do we now validate a self-describing JSON against its JSON Schema? To re
 
 {% highlight json %}
 {
-	"schema": "iglu://com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics/ad_click/jsonschema/1-0-0",
 	"data": {
 		"bannerId": "4732ce23d345"
 	}

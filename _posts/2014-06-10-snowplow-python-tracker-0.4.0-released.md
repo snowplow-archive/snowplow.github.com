@@ -143,7 +143,7 @@ If you are using the synchronous Emitter and call a tracker method which causes 
 e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
 t = Tracker(e)
 
-print(t.track_page_view("http://www.example.com"))   # should print 200
+print(t.track_page_view("http://www.example.com")) # Prints 200
 {% endhighlight %}
 
 This is useful for initial testing.

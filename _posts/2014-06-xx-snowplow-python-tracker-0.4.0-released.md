@@ -7,25 +7,25 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the Snowplow Python Tracker version 0.4.0. This version introduces the Subject class, which lets you keep track of multiple users at once, and several Emitter classes, which let you send events asynchronously, pass them to a Celery worker, or send them to a Redis database. We have added support for sending batches of events in POST requests, although the Snowplow collectors do not yet support POST requests. We have also made changes to the format of unstructured events and custom contexts, introducing JSON schemas.
+We are happy to announce the release of the Snowplow Python Tracker version 0.4.0. This version introduces the Subject class, which lets you keep track of multiple users at once, and several Emitter classes, which let you send events asynchronously, pass them to a Celery worker, or even send them to a Redis database. We have added support for sending batches of events in POST requests, although the Snowplow collectors do not yet support POST requests. We have also made changes to the format of unstructured events and custom contexts, to support our new work around [self-describing JSON Schemas] [self-describing].
 
 In the rest of the post we will cover:
 
-1. [The Subject class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#subject)
-2. [The Emitter classes](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#emitter)
-3. [Tracker method return values](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#return)
-4. [Logging](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#logging)
-5. [Pycontracts](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#contracts)
-6. [The RedisWorker class](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#worker)
-7. [Self-describing JSONs](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#schemas)
-8. [Upgrading](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#upgrading)
-9. [Support](/blog/2014/05/xx/snowplow-python-tracker-0.4.0-released/#support)
+1. [The Subject class](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#subject)
+2. [The Emitter classes](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#emitter)
+3. [Tracker method return values](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#return)
+4. [Logging](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#logging)
+5. [Pycontracts](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#contracts)
+6. [The RedisWorker class](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#worker)
+7. [Self-describing JSONs](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#schemas)
+8. [Upgrading](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#upgrading)
+9. [Support](/blog/2014/06/10/snowplow-python-tracker-0.4.0-released/#support)
 
 <!--more-->
 
 <h2><a name="subject">1. The Subject class</a></h2>
 
-An instance of the Subject class represents a user who can be the subject of events in the subject - verb - object event model. Although you can create a Tracker instance without a Subject, you won't be able to add information about like user ID and timezone to your events.
+An instance of the Subject class represents a user who is performing an event in the **Subject**-**Verb**-**Direct Object** model proposed in our [Snowplow event grammar] [event-grammar]. Although you can create a Tracker instance without a Subject, you won't be able to add information such as user ID and timezone to your events without one.
 
 If you are tracking more than one user at once, create a separate Subject instance for each. An example:
 
@@ -45,7 +45,7 @@ s1 = Subject()
 s1.set_platform("pc")
 s1.set_user_id("0a78f2867de")
 
-# Set s1 as the tracker subject
+# Set s1 as the Tracker's subject
 # All events fired will have the information we set about s1 attached
 t.set_subject(s1)
 
@@ -70,12 +70,12 @@ t.track_page_view("http://www.example.com")
 It is also possible to set the subject during Tracker initialization:
 
 {% highlight python %}
-t = Tracker(emitter=e, _subject=s1, namespace="cf", app_id="CF63A")
+t = Tracker(emitter=e, subject=s1, namespace="cf", app_id="CF63A")
 {% endhighlight %}
 
 <h2><a name="emitter">2. The Emitter classes</a></h2>
 
-Trackers must be initialized with an emitter.
+Trackers must be initialized with an Emitter.
 
 This is the signature of the constructor for the base Emitter class:
 
@@ -85,9 +85,9 @@ def __init__(self, endpoint,
              buffer_size=None, on_success=None, on_failure=None):
 {% endhighlight %}
 
-The only field which must be set is the `endpoint`, which is the collector to which the emitter logs events. `port` is the port to connect to, `protocol` is either `"http"` or `"https"`, and `method` is either GET or POST.
+The only field which must be set is the `endpoint`, which is the collector to which the emitter logs events. `port` is the port to connect to, `protocol` is either `"http"` or `"https"`, and `method` is either "get" or "post".
 
-When the emitter receives an event, it adds it to a buffer. When the queue is full, all events in the queue get sent to the collector. The buffer_size argument allows you to customize the queue size. By default, it is 1 for GET requests and 10 for POST requests. If the emitter is configured to send POST requests, then instead of sending one for every event in the buffer, it will send a sing request containing all those events in JSON format.
+When the emitter receives an event, it adds it to a buffer. When the queue is full, all events in the queue get sent to the collector. The buffer_size argument allows you to customize the queue size. By default, it is 1 for GET requests and 10 for POST requests. If the emitter is configured to send POST requests, then instead of sending one for every event in the buffer, it will send a single request containing all those events in JSON format.
 
 `on_success` is an optional callback that will execute whenever the queue is flushed successfully, that is, whenever every request sent has status code 200. It will be passed one argument: the number of events that were sent.
 
@@ -99,11 +99,11 @@ The AsyncEmitter class works just like the base Emitter class, but uses threads,
 
 <h3>CeleryEmitter</h3>
 
-The CeleryEmitter class works just like the base Emitter class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your PYTHONPATH, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can un the worker using this command:
+The CeleryEmitter class works just like the base Emitter class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your `PYTHONPATH`, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can run the worker using this command:
 
 {% highlight bash %}
 celery -A snowplow_tracker.emitters worker --loglevel=debug
-{% endhighlight %
+{% endhighlight %}
 
 Note that `on_success` and `on_failure` callbacks cannot be supplied to this emitter.
 
@@ -115,7 +115,7 @@ Use a RedisEmitter instance to store events in a [Redis][redis] database for lat
 def __init__(self, rdb=None, key="snowplow"):
 {% endhighlight %}
 
-`rdb` should be an instance of either the Redis or StrictRedis class, found in the redis module. If it is not supplied, a default will be used. `key` is the key used to store events in the database. It defaults to "snowplow". The format for event storage is a Redis list of JSON strings.
+`rdb` should be an instance of either the `Redis` or `StrictRedis` class, found in the redis module. If it is not supplied, a default will be used. `key` is the key used to store events in the database. It defaults to "snowplow". The format for event storage is a Redis list of JSON strings.
 
 <h3>Flushing</h3>
 
@@ -183,7 +183,7 @@ from snowplow_tracker import disable_contracts
 disable_contracts()
 {% endhighlight %}
 
-This improves performance.
+Switch off Pycontracts to improve performance in production.
 
 <h2><a name="worker">6. The RedisWorker class</a></h2>
 
@@ -207,7 +207,7 @@ r.run()
 
 {% endhighlight %}
 
-This will set up a worker which will run indefinitely, taking events from the Redis list with key "snowplow_redis_key" and inputting them to an AsyncEmitter, which will send them to a cloudfront collector. If the process receives a SIGINT signal (for example, due to a Ctrl-C keyboard interrupt), cleanup will occur before exiting to ensure no events are lost.
+This will set up a worker which will run indefinitely, taking events from the Redis list with key "snowplow_redis_key" and inputting them to an AsyncEmitter, which will send them to a Collector. If the process receives a SIGINT signal (for example, due to a Ctrl-C keyboard interrupt), cleanup will occur before exiting to ensure no events are lost.
 
 <h2><a name="schemas">7. Self-describing JSONs</a></h2>
 
@@ -216,7 +216,7 @@ Snowplow unstructured events and custom contexts are now defined using [JSON sch
 {% highlight python %}
 
 t.track_unstruct_event({
-	"schema": "com.acme/viewed_product/jsonschema/2-1-0", 
+	"schema": "iglu:com.acme/viewed_product/jsonschema/2-1-0", 
 	"data": {
 		"product_id": "ASO01043", 
 		"price": 49.95
@@ -232,14 +232,14 @@ Custom contexts work similarly. Since and event can have multiple contexts attac
 {% highlight python %}
 
 t.track_page_view("localhost", None, "http://www.referrer.com", [{
-    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
         pageType: 'test',
         lastUpdated: new Date(2014,1,26)
     }
 },
 {
-    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {
       userType: 'tester'
     }
@@ -247,7 +247,7 @@ t.track_page_view("localhost", None, "http://www.referrer.com", [{
 
 {% endhighlight %}
 
-This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
+The above example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
 
 As part of this change we have also removed type hint suffices from unstructured events and custom contexts. Now that JSON schemas are responsible for type checking, there is no need to include types a a part of field names.
 
@@ -271,6 +271,11 @@ For more information on getting started with the Snowplow Python Tracker, see th
 
 Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Python Tracker or want to suggest a new feature. The Snowplow Python Tracker is still young, so of course do [raise an issue] [issues] if you find any bugs.
 
+For more details on this release, please check out the [0.4.0 Release Notes] [release-040] on GitHub.
+
+[self-describing]: /blog/2014/06/06/making-snowplow-schemas-flexible-a-technical-approach/
+[event-grammar]: /blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/
+
 [73]: https://github.com/snowplow/snowplow-python-tracker/issues/73
 [36]: https://github.com/snowplow/snowplow-python-tracker/issues/36
 
@@ -286,3 +291,4 @@ Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Pyth
 [setup]: https://github.com/snowplow/snowplow/wiki/Python-tracker-setup
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [issues]: https://github.com/snowplow/snowplow/issues
+[release-040]: https://github.com/snowplow/snowplow-python-tracker/releases/tag/0.4.0

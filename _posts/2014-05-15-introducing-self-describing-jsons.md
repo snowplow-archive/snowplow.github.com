@@ -187,7 +187,7 @@ Phew! What this means in short is that we should create a JSON Schema document d
 
 We have done this and made this available at this URI:
 
-[http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0] [self-desc-schema]
+[http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#] [self-desc-schema]
 
 Don't worry about that URI for now - we will return to Iglu and the proposed path structure in a future blog post. For now, just notice that the URI's path structure matches our space-efficient `schema` field format above.
 
@@ -201,7 +201,7 @@ Next, we can revise our JSON Schema to flag that this is a self-describing JSON 
 
 {% highlight json %}
 {
-	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0",
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
 	"self": {
 		"vendor": "com.snowplowanalytics",
 		"name": "ad_click",
@@ -330,7 +330,7 @@ So do **[please get in touch] [talk-to-us]** if you have thoughts on self-descri
 [schemaver]: /blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 
 [js-draft04]: http://tools.ietf.org/html/draft-zyp-json-schema-04#section-5.6
-[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0
+[self-desc-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#
 [self-desc]: http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/instance/jsonschema/1-0-0
 
 [schema-evolution]: http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html

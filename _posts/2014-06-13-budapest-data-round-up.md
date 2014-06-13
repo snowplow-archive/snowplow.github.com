@@ -52,9 +52,9 @@ Many thanks to Tamás Izsák for his help organizing the workshop!
 
 <h2><a name="conclusion">Closing thoughts</a></h2>
 
-I had a great time at the [Budapest Data event] [budapest-dw-forum] - met many new people, learnt about some great open source projects, and had an opportunity to talk about some of the most exciting aspects of what we're doing with Snowplow.
+I had a great time at [Budapest Data] [budapest-dw-forum] - met many new people, learnt about some great open source projects, and had an opportunity to talk about some of the most exciting aspects of what we're doing with Snowplow.
 
-Giving the Hadoop workshop was also a great experience: it made me realize that the big data and Hadoop communities need to do a lot more in terms of outreach to help seasoned BI and data warehousing practitioners to "jump the fence" into the world of big data, MapReduce and indeed stream processing.
+Giving the Hadoop workshop was also a great experience: it made me realize that the big data and Hadoop communities need to do a lot more in terms of outreach to help seasoned BI and data warehousing practitioners to "jump the fence" into the world of big data, MapReduce and stream processing.
 
 Thanks again to Bence Arató and the whole team for organizing [Budapest Data] [budapest-dw-forum]!
 

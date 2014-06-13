@@ -42,15 +42,19 @@ It was great hearing more about the Apache Giraph and (soon to be Apache) Strato
 
 Hadoop is everywhere these days, but it can seem like a complex, intimidating ecosystem to those who have yet to jump in. On the Friday afternoon I gave a three-hour Hadoop workshop, with the goal of getting conference attendees with no prior experience at Hadoop writing and running jobs on Elastic MapReduce.
 
-It was a lot of fun - setting up Virtualbox and Vagrant took a lot longer than I foresaw, but once this was done we were able to work through the first of my three example Hadoop jobs together. We didn't have time to get into the Scalding jobs - next time! Here are the slides for the workshop:
+It was a lot of fun - setting up Virtualbox and Vagrant took a lot longer than I foresaw, but once this was done we were able to work through the first of my three example Hadoop jobs together. Unfortunately we ran out of time to tackle the two example Scalding jobs - next time!
+
+Here are the slides for the workshop (any credentials etc have been deleted since the workshop):
 
 <iframe src="http://www.slideshare.net/slideshow/embed_code/35561513" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/yalisassoon/big-data-meetup-budapest-adding-data-schemas-to-snowplow" title="Big data meetup budapest adding data schemas to snowplow" target="_blank">Big data meetup budapest adding data schemas to snowplow</a> </strong> from <strong><a href="http://www.slideshare.net/yalisassoon" target="_blank">yalisassoon</a></strong> </div>
 
-Many thanks to Izsák Tamás for his help organizing the workshop!
+Many thanks to Tamás Izsák for his help organizing the workshop!
 
 <h2><a name="conclusion">Closing thoughts</a></h2>
 
-I had a great time at the [Budapest Data event] [budapest-dw-forum] - met many new people, learnt about some great open source projects, and had an opportunity to talk about some of the most exciting aspects of what we're doing with Snowplow. Giving the Hadoop workshop was also a great experience: it made me realize that the big data and Hadoop communities need to do a lot more in terms of outreach to help get seasoned BI and data warehousing practitioners to cross the fence into the world of big data, MapReduce and indeed stream processing.
+I had a great time at the [Budapest Data event] [budapest-dw-forum] - met many new people, learnt about some great open source projects, and had an opportunity to talk about some of the most exciting aspects of what we're doing with Snowplow.
+
+Giving the Hadoop workshop was also a great experience: it made me realize that the big data and Hadoop communities need to do a lot more in terms of outreach to help seasoned BI and data warehousing practitioners to "jump the fence" into the world of big data, MapReduce and indeed stream processing.
 
 Thanks again to Bence Arató and the whole team for organizing [Budapest Data] [budapest-dw-forum]!
 

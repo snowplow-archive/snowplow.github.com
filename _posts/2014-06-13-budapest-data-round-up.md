@@ -20,7 +20,7 @@ My first talk was on the Wednesday afternoon, where I spoke about our process of
 
 Here are the slides:
 
-<iframe src="http://www.slideshare.net/slideshow/embed_code/35561513" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/yalisassoon/big-data-meetup-budapest-adding-data-schemas-to-snowplow" title="Big data meetup budapest adding data schemas to snowplow" target="_blank">Big data meetup budapest adding data schemas to snowplow</a> </strong> from <strong><a href="http://www.slideshare.net/yalisassoon" target="_blank">yalisassoon</a></strong> </div>
+<iframe src="http://www.slideshare.net/slideshow/embed_code/35842830" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/alexanderdean/continuous-data-processing-with-kinesis-at-snowplow" title="Continuous Data Processing with Kinesis at Snowplow" target="_blank">Continuous Data Processing with Kinesis at Snowplow</a> </strong> from <strong><a href="http://www.slideshare.net/alexanderdean" target="_blank">alexanderdean</a></strong> </div>
 
 Read on after the fold for the slides from my second talk and workshop...
 
@@ -46,7 +46,7 @@ It was a lot of fun - setting up Virtualbox and Vagrant took a lot longer than I
 
 Here are the slides for the workshop (any credentials etc have been deleted since the workshop):
 
-<iframe src="http://www.slideshare.net/slideshow/embed_code/35561513" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/yalisassoon/big-data-meetup-budapest-adding-data-schemas-to-snowplow" title="Big data meetup budapest adding data schemas to snowplow" target="_blank">Big data meetup budapest adding data schemas to snowplow</a> </strong> from <strong><a href="http://www.slideshare.net/yalisassoon" target="_blank">yalisassoon</a></strong> </div>
+<iframe src="http://www.slideshare.net/slideshow/embed_code/35842664" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/alexanderdean/from-zero-to-hadoop" title="From Zero to Hadoop: a tutorial for getting started writing Hadoop jobs on Amazon Elastic MapReduce" target="_blank">From Zero to Hadoop: a tutorial for getting started writing Hadoop jobs on Amazon Elastic MapReduce</a> </strong> from <strong><a href="http://www.slideshare.net/alexanderdean" target="_blank">alexanderdean</a></strong> </div>
 
 Many thanks to Tamás Izsák for his help organizing the workshop!
 

@@ -24,6 +24,8 @@ Here are the slides:
 
 <iframe src="http://www.slideshare.net/slideshow/embed_code/35842830" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/alexanderdean/continuous-data-processing-with-kinesis-at-snowplow" title="Continuous Data Processing with Kinesis at Snowplow" target="_blank">Continuous Data Processing with Kinesis at Snowplow</a> </strong> from <strong><a href="http://www.slideshare.net/alexanderdean" target="_blank">alexanderdean</a></strong> </div>
 
+Many thanks to Gergely Daróczi of [Rapporter](http://rapporter.net) for facilitating.
+
 Read on after the fold for the slides from my second talk and workshop...
 
 <!--more-->

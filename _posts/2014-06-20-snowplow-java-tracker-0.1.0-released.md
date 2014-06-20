@@ -1,8 +1,8 @@
 ---
 layout: post
-shortenedlink: Snowplow Python Tracker 0.1.0 released
-title: Snowplow Python Tracker 0.1.0 by wintern Anuj More released
-tags: [snowplow, analytics, python, django, tracker]
+shortenedlink: Snowplow Java Tracker 0.1.0 released
+title: Snowplow Java Tracker 0.1.0 by Kevin Gleason released
+tags: [snowplow, analytics, java, jvm, tracker]
 author: Alex
 category: Releases
 ---

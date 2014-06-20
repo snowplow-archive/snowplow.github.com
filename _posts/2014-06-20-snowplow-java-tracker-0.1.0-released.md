@@ -15,12 +15,12 @@ The Snowplow Java Tracker is a simple client library for Snowplow, designed to s
 
 In the rest of this post we will cover:
 
-1. [Background to the tracker](#background)
-2. [Java compatibility](#compatibility)
-3. [How to install the tracker](/blog/2014/03/28/snowplow-python-tracker-0.1.0-released/#get)
-4. [How to use the tracker](/blog/2014/03/28/snowplow-python-tracker-0.1.0-released/#usage)
-5. [Roadmap](/blog/2014/03/28/snowplow-python-tracker-0.1.0-released/#roadmap)
-6. [Thanks](/blog/2014/03/28/snowplow-python-tracker-0.1.0-released/#thanks)
+1. [Background to the tracker](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#background)
+2. [Java compatibility](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#compatibility)
+3. [How to install the tracker](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#get)
+4. [How to use the tracker](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#usage)
+5. [Roadmap](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#roadmap)
+6. [Thanks](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#thanks)
 
 <!--more-->
 

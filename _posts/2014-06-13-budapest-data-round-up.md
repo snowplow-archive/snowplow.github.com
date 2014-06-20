@@ -11,7 +11,9 @@ So the [Budapest Data event] [budapest-dw-forum] (aka Budapest DW Forum) is over
 
 In this blog post I want to share my two talks and my "Zero to Hadoop" workshop with the wider Snowplow community.
 
+<div class="html">
 <h2><a name="kinesis">Continuous data processing with Kinesis at Snowplow</a></h2>
+</div>
 
 My first talk was on the Wednesday afternoon, where I spoke about our process of porting Snowplow to Kinesis, to give our users access to their Snowplow event stream in near-real-time. Areas I talked about included:
 
@@ -30,7 +32,9 @@ Read on after the fold for the slides from my second talk and workshop...
 
 <!--more-->
 
+<div class="html">
 <h2><a name="schemas">Adding data schemas to Snowplow</a></h2>
+</div>
 
 On the Thursday evening I gave a flash talk about data schemas and Snowplow at the [Budapest Big Data Meetup][bbdm], alongside other talks by Wouter De Bie (Spotify), Claudio Martella ([Apache Giraph] [giraph]) and Stephan Ewen ([Stratosphere] [stratosphere]).
 
@@ -44,6 +48,10 @@ It was great hearing more about the Apache Giraph and (soon to be Apache) Strato
 
 <h2><a name="workshop">From zero to Hadoop workshop</a></h2>
 
+<div class="html">
+<h2><a name="workshop">From zero to Hadoop workshop</a></h2>
+</div>
+
 Hadoop is everywhere these days, but it can seem like a complex, intimidating ecosystem to those who have yet to jump in. On the Friday afternoon I gave a three-hour Hadoop workshop, with the goal of getting conference attendees with no prior experience at Hadoop writing and running jobs on Elastic MapReduce.
 
 It was a lot of fun - setting up Virtualbox and Vagrant took a lot longer than I foresaw, but once this was done we were able to work through the first of my three example Hadoop jobs together. Unfortunately we ran out of time to tackle the two tutorial Scalding jobs - next time!
@@ -54,7 +62,9 @@ Here are the slides for the workshop (any credentials etc have been deleted sinc
 
 Many thanks to Tamás Izsák for his help organizing the workshop!
 
+<div class="html">
 <h2><a name="conclusion">Closing thoughts</a></h2>
+</div>
 
 I had a great time at [Budapest Data] [budapest-dw-forum] - met many new people, learnt about some great open source projects, and had an opportunity to talk about some of the most exciting aspects of what we're doing with Snowplow.
 

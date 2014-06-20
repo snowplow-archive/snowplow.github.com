@@ -46,8 +46,6 @@ You can read some more commentary on these slides in Yali's [blog post from last
 
 It was great hearing more about the Apache Giraph and (soon to be Apache) Stratosphere projects - we hope to try out both of these for Snowplow use cases soon!
 
-<h2><a name="workshop">From zero to Hadoop workshop</a></h2>
-
 <div class="html">
 <h2><a name="workshop">From zero to Hadoop workshop</a></h2>
 </div>

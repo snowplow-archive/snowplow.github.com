@@ -54,14 +54,14 @@ Here is the Gradle setup for example:
 
 {% highlight groovy %}
 repositories {
-	...
+    ...
     maven {
         url "http://maven.snplow.com/releases"
     }
 }
 
 dependencies {
-	...
+    ...
     // Snowplow Java Tracker
     compile 'com.snowplowanalytics:snowplow-java-tracker:0.1.0'
 }

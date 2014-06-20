@@ -53,7 +53,6 @@ The release version of this tracker (0.1.0) is available within Snowplow's Maven
 Here is the Gradle setup for example:
 
 {% highlight groovy %}
-```groovy
 repositories {
 	...
     maven {
@@ -66,7 +65,6 @@ dependencies {
     // Snowplow Java Tracker
     compile 'com.snowplowanalytics:snowplow-java-tracker:0.1.0'
 }
-```
 {% endhighlight %}
 
 <div class="html">

@@ -101,7 +101,7 @@ We have big plans for the Snowplow Java Tracker, including but not limited to:
 * Adding more documentation ([issue #1] [issue-1])
 * Adapting the tracker to support Android ([issue #17] [issue-17])
 * Making it easier to send self-describing JSONs using Java annotations ([issue #27] [issue-27])
-* Adding support for batched send of multiple events (e.g. via Akka) ([issue #18] [issue-18])
+* Adding support for batched send of multiple events, e.g. via Akka ([issue #18] [issue-18])
 
 If there are other features you would like to see, feel free to [add an issue] [issues] to the repository.
 

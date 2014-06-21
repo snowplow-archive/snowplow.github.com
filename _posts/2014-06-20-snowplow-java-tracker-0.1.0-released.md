@@ -48,7 +48,7 @@ We have not yet tested the tracker from Scala, Clojure or JRuby.
 <h2><a name="get">How to install the tracker</a></h2>
 </div>
 
-The release version of this tracker (0.1.0) is available within Snowplow's Maven repository. We have instructions for installing the tracker for Maven, Gradle and SBT in the [Java Tracker Setup guide] [tracker-setup-guide].
+The release version of this tracker (0.1.0) is available within Snowplow's Maven repository. We have instructions for installing the tracker for Maven, Gradle and SBT in the [Java Tracker Setup guide] [setup-doc].
 
 Here is the Gradle setup for example:
 

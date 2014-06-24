@@ -15,7 +15,7 @@ weight: 2
 5. [Visaulizing funnel analysis with Tableau](#tableau)
 6. [Visualizing funnel analysis with R](#r)
 
-<a name="overview"><h2>1. An overview of funnel analysis</h2></a>
+<h2><a name="overview">1. An overview of funnel analysis</a></h2>
 
 Funnel analysis is one of the two most common types of platform analytics performed with web analytics data.
 
@@ -58,7 +58,7 @@ If you have a lot of users accidentally starting a workflow, it is likely that y
 
 In an ideal world, you should **only include users / visitors in a funnel analysis who have clearly (through their online behavior) expressed a desire for the outcome of the workflow**. If you run an online shop, for example, you should include all visitors who've come to your site to buy products, but exclude users who are visiting e.g. to look up your contact details, or want to arrange a refund, for example.
 
-<a name="difficult-to-distinguish-workflow"><h3>Can we distinguish different workflows in our platform clearly?</h3></a>
+<h3><a name="difficult-to-distinguish-workflow">Can we distinguish different workflows in our platform clearly?</a></h3>
 
 On some platforms it is very easy to define one or more workflows. On a lead-generation microsite, for example, there is generally *nothing* for a user to do *except* for filling in a webform and submitting their details.
 
@@ -70,7 +70,7 @@ The less clearly we can distinguish users with different intentions and differen
 
 Back to [top](#top).
 
-<a name="any-funnel"><h2>3. With Snowplow, you can analyse <strong>any funnel</strong></h2></a>
+<h2><a name="any-funnel">3. With Snowplow, you can analyse <strong>any funnel</strong></a></h2>
 
 In web analytics, funnel analyses have been made especially popular by Google Analytics.
 
@@ -82,7 +82,7 @@ In the rest of this recipe, we run through the process of performing a funnel an
 
 Back to [top](#top).
 
-<a name="example"><h2>4. Performing funnel analysis in Snowplow: a worked example</h2></a>
+<h2><a name="example">4. Performing funnel analysis in Snowplow: a worked example</a></h2>
 
 For our worked example, we're going to perform a funnel analysis for an online retailer: [www.psychicbazaar.com] (http://www.psychicbazaar.com/index.php). We're going to look at the purchase funnel, and the following specific steps on it:
 
@@ -316,7 +316,7 @@ Now that we have our data ready, we can visualize and interrogate it further in 
 
 Back to [top](#top).
 
-<a name="tableau"><h2>5. Visualizing funnel analysis with Tableau</h2></a>
+<h2><a name="tableau">5. Visualizing funnel analysis with Tableau</a></h2>
 
 First, create a new data source in Tableau, and execute the above query to pull the required data from Snowplow into Tableau.
 

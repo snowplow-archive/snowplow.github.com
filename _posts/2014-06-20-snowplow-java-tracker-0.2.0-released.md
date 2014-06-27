@@ -23,7 +23,7 @@ I'll talk more about the new additions made further down in this post:
 
 <h2><a name="constructor">1. Tracker constructor</a></h2>
 
-One of the TrackerC constructors seemed unnecessary so we decided to remove it. The only way to construct a Tracker object is with the following signature:
+One of the TrackerC constructors seemed unnecessary so we decided to remove it. The only way to construct a Tracker object now is with the following signature:
 
 {% highlight java %}
 public TrackerC(String collector_uri, String namespace, String app_id, boolean base64_encode, boolean contracts)
@@ -49,18 +49,18 @@ We are standardizing on Jackson for all JSON manipulation on the JVM, so it made
 
 <h2><a name="transaction-item">4. TransactionItem class</a></h2>
 
-Initially, when calling `trackEcommerceTransactionItem`, you passed in a `List<Map<String, String>>` that represented a transaction item. This was weakly typed and we felt we can do better by providing a `TransactionItem` class that can be used to create individual items. This lets you pass a `List<TransactionItem>` to the tracker instead.
+Initially, when calling `trackEcommerceTransactionItem`, you passed in a `List<Map<String, String>>` that represented a transaction item. This was weakly typed, and we felt we could do better by providing a `TransactionItem` class that can be used to create individual items. This lets you pass a `List<TransactionItem>` to the tracker instead.
 
 <h2><a name="constant-parameter">5. Constant & Parameter classes</a></h2>
 
 An early introduction of a Constant & Parameter class that would be used to store various string constants and keys from the [Snowplow Tracker Protocol][tracker-protocol] respectively. We wanted to keep a unified place to keep code clean and place for users to add their own keys for unstructured events.
 
 <h2><a name="misc">6. Miscellaneous</a></h2>
-Some minor changes include some initial unit tests, Travis build support, renamed classes & general code clean up.
+Some minor changes include initial unit tests, Travis build support, renamed classes, and general code clean up.
 
 <h2><a name="support">7. Support</a></h2>
 
-The Snowplow Java Tracker is quite new and is rapidly being developed. We'd love to hear of any feature suggestions from you, or even help setting up the tracker. Feel free to [get in touch][talk-to-us] with us or [raise an issue] if you find any bugs.
+The Snowplow Java Tracker is quite new and is rapidly being developed. We'd love to hear of any feature suggestions from you, or even help setting up the tracker. Feel free to [get in touch][talk-to-us] with us, or [raise an issue][issues] if you find any bugs.
 
 For more details on this release, please check out the [0.2.0 Release Notes] [release-020] on GitHub.
 
@@ -68,7 +68,7 @@ For more details on this release, please check out the [0.2.0 Release Notes] [re
 [changelog]: https://github.com/snowplow/snowplow-java-tracker/blob/master/CHANGELOG
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
 [issues]: https://github.com/snowplow/snowplow/issues
-[release-040]: https://github.com/snowplow/snowplow-java-tracker/releases/tag/0.2.0
+[release-020]: https://github.com/snowplow/snowplow-java-tracker/releases/tag/0.2.0
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 
 [original-post]: /blog/2014/06/20/snowplow-java-tracker-0.1.0-released/

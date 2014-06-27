@@ -26,6 +26,6 @@
   full_name: Jonathan Almeida
   github: jonalmeida
   url:    /authors/jonathan.html
-  avatar: http://www.country933.com/files/no.png
+  avatar: https://en.gravatar.com/userimage/25956470/c890dad6419acf6e7a9f99b6edd3cb15.jpg?size=120
   spiel:  |
-        Add something here + get gravatar url
+        <a href="/authors/jonathan.html">Jonathan</a> is an intern as Snowplow Analytics. You can find in him on <a href="www.google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.

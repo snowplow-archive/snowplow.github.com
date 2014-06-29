@@ -11,16 +11,16 @@ We are hugely excited to announce the release of Iglu, our first new product sin
 
 Iglu is a machine-readable schema repository initially supporting JSON Schemas. It is a key building block of the next Snowplow release, 0.9.5, which will validate incoming unstructured events and custom contexts using JSON Schema.
 
-As far as we know, Iglu is the first machine-readable schema repository for JSON Schema, and the first technology which supports schema resolution from multiple public and private schema repositories.
+As far as we know, Iglu is the first machine-readable schema repository for JSON Schema, and the first technology which supports schema resolution from multiple public and (soon) private schema repositories.
 
 In the rest of this post we will cover:
 
-1. [On the importance of schemas](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#schemas)
-2. [The origins of Iglu](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#origins)
-3. [Iglu architecture](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#architecture)
-4. [Using Iglu](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#usage)
-5. [Limitations and roadmap](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/#roadmap)
-6. [Getting help](/blog/2014/04/30/snowplow-0.9.2-released-for-new-cloudfront-log-format/#help)
+1. [On the importance of schemas](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#schemas)
+2. [The origins of Iglu](/blog/2014/0x/x/iglu-schema-repository-0.1.0-released/#origins)
+3. [Iglu architecture](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#architecture)
+4. [Using Iglu](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#usage)
+5. [Limitations and roadmap](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#roadmap)
+6. [Getting help](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#help)
 
 <!--more-->
 
@@ -93,6 +93,8 @@ We made a further design decision that the JSON sent in to Snowplow should repor
 We called this format a [self-describing JSON] [self-describing-jsons-post]. The `iglu:` entry is what we started calling a schema key, consisting of the following parts:
 
 << IMAGE >>
+
+We explained the origins of SchemaVer, our schema versioning system, in our blog post [Introducing SchemaVer for semantic versioning of schemas] [schemaver-post]. 
 
 <div class="html">
 <h3><a name="a-repo">2.2 A schema repository</a></h3>
@@ -210,10 +212,10 @@ While heavily influenced by our requirements for Snowplow, we have deliberately 
 
 If you are interested in using Iglu without Snowplow, then we would recommend reading the [Iglu wiki] [iglu-wiki] in detail. Wherever you find blocking gaps in the documentation, do please [raise an issue] [iglu-issues] in GitHub.
 
-For an in-depth understanding of how Iglu works, we recommend browsing through the source for the [Iglu Scala client] [iglu-scala-client]. The next Snowplow release, 0.9.5, will make heavy use of our new Scala client for Iglu, so the client code is a good starting point for understanding the underlying design of Iglu.
+For an in-depth understanding of how Iglu works, we recommend browsing through the source for the [Iglu Scala client] [iglu-scala-client-github]. The next Snowplow release, 0.9.5, will make heavy use of our new Scala client for Iglu, so the client code is a good starting point for understanding the underlying design of Iglu.
 
 <div class="html">
-<h2><a name="usage">5. Limitations and roadmap</a></h2>
+<h2><a name="roadmap">5. Limitations and roadmap</a></h2>
 </div>
 
 We have deliberately tried to keep the scope of Iglu 0.1.0 as minimal as possible. The major known technical limitations at this time are:
@@ -235,16 +237,24 @@ We are hugely excited about the release of Iglu - we hope that the Snowplow comm
 
 [json-schema]: http://json-schema.org/
 
-[schema-ver-post]: xxx
-[self-describing-jsons-post]: xxx
+[schemaver-post]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
+[self-describing-jsons-post]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
 [rubygems]: http://rubygems.org/
 [maven-central]: http://search.maven.org/
-
+[schema-org]: http://schema.org/
 [sample-json-schemas]: https://github.com/fge/sample-json-schemas
 [xml-org]: http://www.xml.org/
 
 [avro-1124]: https://issues.apache.org/jira/browse/AVRO-1124
 [camus-schema-registry]: https://github.com/linkedin/camus/tree/master/camus-schema-registry
 
+[iglu-wiki]: https://github.com/snowplow/iglu/wiki
+[iglu-issues]: https://github.com/snowplow/iglu/issues?milestone=&page=1&state=open
+[iglu-scala-client-github]: https://github.com/snowplow/iglu-scala-client
+
 [iglucentral-github]: https://github.com/snowplow/iglu-central
+[iglucentral-website]: http://iglucentral.com
+
+[product-roadmap]: https://github.com/snowplow/iglu/wiki/Product-roadmap
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

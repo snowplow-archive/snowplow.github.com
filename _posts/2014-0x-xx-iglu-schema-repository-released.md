@@ -73,7 +73,34 @@ But as we started to experiment with JSON Schema, it became obvious that JSON Sc
 As you've seen, we made the design decision that whenever a developer or analyst wanted to send in any JSON to Snowplow, they should first create a [JSON Schema] [json-schema] for that event. Here is an example JSON Schema for a `video_played` event based on the Mixpanel example above:
 
 ```json
-TO COME
+{
+	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+	"description": "Schema for a video_played event",
+	"self": {
+		"vendor": "com.channel2.vod",
+		"name": "video_played",
+		"format": "jsonschema",
+		"version": "1-0-0"
+	},
+	"type": "object",
+	"properties": {
+		"length": {
+			"type": "number"
+		},
+		"id": {
+			"type": "string"
+		},
+		"tags": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+	},
+	"required": ["length", "id"],
+	"additionalProperties": false
+}
+
 ```
 
 (Note that this is actually a [self-describing JSON Schema] [self-describing-jsons-post].

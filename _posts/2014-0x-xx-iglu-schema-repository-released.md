@@ -15,12 +15,12 @@ As far as we know, Iglu is the first machine-readable schema repository for JSON
 
 In the rest of this post we will cover:
 
-1. [On the importance of schemas](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#schemas)
-2. [The origins of Iglu](/blog/2014/0x/x/iglu-schema-repository-0.1.0-released/#origins)
-3. [Iglu architecture](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#architecture)
-4. [Using Iglu](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#usage)
-5. [Limitations and roadmap](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#roadmap)
-6. [Getting help](/blog/2014/0x/xx/iglu-schema-repository-0.1.0-released/#help)
+1. [On the importance of schemas](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#schemas)
+2. [The origins of Iglu](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#origins)
+3. [Iglu architecture](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#architecture)
+4. [Using Iglu](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#usage)
+5. [Limitations and roadmap](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#roadmap)
+6. [Getting help](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#help)
 
 <!--more-->
 
@@ -36,11 +36,11 @@ Snowplow is evolving from a web analytics platform into a general event analytic
 
 Historically, there have been two historic approaches to dealing with the explosion of possible event types:
 
-<< IMAGE >>
+![custom-variables-vs-schema-less-jsons-img] [custom-variables-vs-schema-less-jsons-img]
 
 Custom variables as used by Google Analytics, SiteCatalyst, Piwik and other web analytics packages are extremely limited - we plan to explore these limitations in a future blog post. Schema-less JSONs as offered by Mixpanel, KISSmetrics and others are much more powerful, but they have a different set of problems:
 
-<< IMAGE >>
+![schema-less-json-issues-img] [schema-less-json-issues-img]
 
 <div class="html">
 <h3><a name="schema-loss">1.2 On schema loss</a></h3>
@@ -100,7 +100,6 @@ As you've seen, we made the design decision that whenever a developer or analyst
 	"required": ["length", "id"],
 	"additionalProperties": false
 }
-
 ```
 
 (Note that this is actually a [self-describing JSON Schema] [self-describing-jsons-post].
@@ -119,7 +118,7 @@ We made a further design decision that the JSON sent in to Snowplow should repor
 
 We called this format a [self-describing JSON] [self-describing-jsons-post]. The `iglu:` entry is what we started calling a schema key, consisting of the following parts:
 
-<< IMAGE >>
+![iglu-schema-key-img] [iglu-schema-key-img]
 
 We explained the origins of SchemaVer, our schema versioning system, in our blog post [Introducing SchemaVer for semantic versioning of schemas] [schemaver-post]. 
 
@@ -192,7 +191,7 @@ Iglu consists of three key technical aspects:
 
 These pieces fit together like this:
 
-<< IMAGE >>
+![iglu-technical-architecture] [iglu-technical-architecture]
 
 <div class="html">
 <h3><a name="iglu-central">3.3 Iglu Central</a></h3>
@@ -204,7 +203,7 @@ We are using Iglu Central to host all of the JSON Schemas which are used in diff
 
 Here is an illustration of various Iglu clients talking to Iglu Central; we also show an Iglu Central mirror for a client working behind a firewall:
 
-<< IMAGE >>
+![iglu-central-img] [iglu-central-img]
 
 As far as we know, Iglu Central is the first public **machine-readable** schema repository - all prior efforts we have seen are human-browsable directories of articles about schemas (e.g. [schema.org] [schema-org]).
 
@@ -262,26 +261,29 @@ When we created Snowplow at the beginning of 2012, it didn't need a lot of expla
 
 We are hugely excited about the release of Iglu - we hope that the Snowplow community shares our excitement. Let's work together to make end-to-end-schemas a reality for web and event analytics.
 
-[json-schema]: http://json-schema.org/
-
 [schemaver-post]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons-post]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
+[json-schema]: http://json-schema.org/
 [rubygems]: http://rubygems.org/
 [maven-central]: http://search.maven.org/
 [schema-org]: http://schema.org/
 [sample-json-schemas]: https://github.com/fge/sample-json-schemas
 [xml-org]: http://www.xml.org/
-
 [avro-1124]: https://issues.apache.org/jira/browse/AVRO-1124
 [camus-schema-registry]: https://github.com/linkedin/camus/tree/master/camus-schema-registry
+
+[custom-variables-vs-schema-less-jsons-img]: /assets/img/blog/2014/07/custom-variables-vs-schema-less-jsons.png
+[schema-less-json-issues-img]: /assets/img/blog/2014/07/schema-less-json-issues.png
+[iglu-schema-key-img]: /assets/img/blog/2014/07/iglu-schema-key.png
+[iglu-technical-architecture]: /assets/img/blog/2014/07/iglu-technical-architecture.png
+[iglu-central-img]: /assets/img/blog/2014/07/iglu-central.png
 
 [iglu-wiki]: https://github.com/snowplow/iglu/wiki
 [iglu-issues]: https://github.com/snowplow/iglu/issues?milestone=&page=1&state=open
 [iglu-scala-client-github]: https://github.com/snowplow/iglu-scala-client
-
 [iglucentral-github]: https://github.com/snowplow/iglu-central
 [iglucentral-website]: http://iglucentral.com
-
 [product-roadmap]: https://github.com/snowplow/iglu/wiki/Product-roadmap
+
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

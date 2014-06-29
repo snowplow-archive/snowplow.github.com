@@ -50,13 +50,13 @@ The issues illustrated above primarily relate to the lack of a defined schema fo
 
 As a result, the business analyst or data scientist typically has to maintain a mental model of the source data schemas when using the analytics system:
 
-<< IMAGE >>
+![schema-loss-img] [schema-loss-img]
 
 This is a hugely error-prone and wasteful exercise:
 
 * Each analyst has to maintain their own mental model of the source data schemas
-* Source data schemas evolve over time. Analysts have to factor this evolution into their analyses (e.g. "proportion of new users providing their age _since the optional age field was introduced on 1st May")
-* There are no safeguards that the events sent in weren't corrupted or off-schema in some way
+* Source data schemas evolve over time. Analysts have to factor this evolution into their analyses (e.g. "what is the proportion of new users providing their age _since the optional age field was introduced on 1st May_?")
+* There are no safeguards that the events have not been corrupted or diverged from schema in some way
 
 <div class="html">
 <h2><a name="origins">2. The origins of Iglu</a></h2>
@@ -275,6 +275,7 @@ We are hugely excited about the release of Iglu - we hope that the Snowplow comm
 
 [custom-variables-vs-schema-less-jsons-img]: /assets/img/blog/2014/07/custom-variables-vs-schema-less-jsons.png
 [schema-less-json-issues-img]: /assets/img/blog/2014/07/schema-less-json-issues.png
+[schema-loss-img]: /assets/img/blog/2014/07/schema-loss.png
 [iglu-schema-key-img]: /assets/img/blog/2014/07/iglu-schema-key.png
 [iglu-technical-architecture]: /assets/img/blog/2014/07/iglu-technical-architecture.png
 [iglu-central-img]: /assets/img/blog/2014/07/iglu-central.png

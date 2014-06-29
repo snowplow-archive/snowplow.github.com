@@ -259,7 +259,7 @@ Our first development priority for Iglu is creating a RESTful schema repository 
 
 When we created Snowplow at the beginning of 2012, it didn't need a lot of explanation - as an open source web analytics system, it fitted into a well-understood software category. As a schema repository, Iglu is a much more unusual beast - so do please [get in touch] [talk-to-us] and tell us your feedback, ask any questions or contribute!
 
-We are hugely excited about the release of Iglu - we hope that the Snowplow community shares our excitement. Let's work together to make end-to-end-schemas a reality for web and event analytics.
+We are hugely excited about the release of Iglu - we hope that the Snowplow community shares our excitement. Let's work together to make end-to-end-schemas a reality for web and event analytics. And stay tuned for the Snowplow 0.9.5 release (coming soon) for some more guidance on using Iglu with Snowplow!
 
 [schemaver-post]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons-post]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/

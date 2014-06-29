@@ -116,7 +116,7 @@ We made a further design decision that the JSON sent in to Snowplow should repor
 }
 ```
 
-We called this format a [self-describing JSON] [self-describing-jsons-post]. The `iglu:` entry is what we started calling a schema key, consisting of the following parts:
+We called this format a [self-describing JSON] [self-describing-jsons-post]. The `iglu:` entry is what we are calling an Iglu "schema key", consisting of the following parts:
 
 ![iglu-schema-key-img] [iglu-schema-key-img]
 
@@ -135,7 +135,7 @@ Next, we needed somewhere to store JSON Schemas like `video_played` above - a ho
 
 It became obvious that we needed some kind of "registry" or "repository" of schemas:
 
-<< IMAGE >>
+![snowplow-plus-iglu-img] [snowplow-plus-iglu-img]
 
 <div class="html">
 <h3><a name="reqs">2.3 Locking down our requirements</a></h3>
@@ -277,6 +277,7 @@ We are hugely excited about the release of Iglu - we hope that the Snowplow comm
 [schema-less-json-issues-img]: /assets/img/blog/2014/07/schema-less-json-issues.png
 [schema-loss-img]: /assets/img/blog/2014/07/schema-loss.png
 [iglu-schema-key-img]: /assets/img/blog/2014/07/iglu-schema-key.png
+[snowplow-plus-iglu-img]: /assets/img/blog/2014/07/snowplow-plus-iglu.png
 [iglu-technical-architecture]: /assets/img/blog/2014/07/iglu-technical-architecture.png
 [iglu-central-img]: /assets/img/blog/2014/07/iglu-central.png
 

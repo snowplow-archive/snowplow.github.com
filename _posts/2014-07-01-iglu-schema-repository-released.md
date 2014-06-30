@@ -72,7 +72,7 @@ But as we started to experiment with JSON Schema, it became obvious that JSON Sc
 
 As you've seen, we made the design decision that whenever a developer or analyst wanted to send in any JSON to Snowplow, they should first create a [JSON Schema] [json-schema] for that event. Here is an example JSON Schema for a `video_played` event based on the Mixpanel example above:
 
-```json
+{% highlight json %}
 {
 	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
 	"description": "Schema for a video_played event",
@@ -100,13 +100,13 @@ As you've seen, we made the design decision that whenever a developer or analyst
 	"required": ["length", "id"],
 	"additionalProperties": false
 }
-```
+{% endhighlight %}
 
-(Note that this is actually a [self-describing JSON Schema] [self-describing-jsons-post].
+(Note that this is actually a [self-describing JSON Schema] [self-describing-jsons-post].)
 
 We made a further design decision that the JSON sent in to Snowplow should report the exact JSON Schema that could be used to validate it. Rather than embed the JSON Schema inside the JSON, which would be extremely wasteful of space, we came up with a convenient short-hand that looked like this:
 
-```json
+{% highlight json %}
 {
 	"schema": "iglu:com.channel2.vod/video_played/jsonschema/1-0-0",
 	"data":	{
@@ -114,7 +114,7 @@ We made a further design decision that the JSON sent in to Snowplow should repor
 		"id":     "hY7gQrO"
 	}
 }
-```
+{% endhighlight %}
 
 We called this format a [self-describing JSON] [self-describing-jsons-post]. The `iglu:` entry is what we are calling an Iglu "schema key", consisting of the following parts:
 
@@ -169,7 +169,7 @@ The main differences we could ascertain between our requirements and the Avro ef
 
 1. The focus on Apache Avro versus our priorities around JSON Schema support
 2. The Avro efforts seemed to assume that each user would install one, private schema repository. We envisage a de-centralized set of private schema repositories plus a central public repository - so fundamentally resolving schemas from N repositories, not 1
-3. The Avro community does not seem to have a semantic versioning approach to schemas like [[SchemaVer]]. This would make reasoning about schema-data compatibility difficult and 
+3. The Avro community does not seem to have a semantic versioning approach to schemas like [SchemaVer] [SchemaVer]. This would make reasoning about schema-data compatibility difficult and 
 
 Given these differences, we decided to take the learnings from the Avro community and start work on our own repository technology designed to meet Snowplow's specific requirements around schemas: Iglu.
 
@@ -226,7 +226,7 @@ Based on our early internal testing of Iglu, we envisage that a Snowplow user wi
 3. Create their own Iglu schema repository and host their JSON Schemas in it
 4. Configure their Snowplow Enrichment process to fetch these JSON Schemas from their private repository
 
-Separately, we hope that software vendors, analysts and data scientists will contribute their own schemas to Iglu Central; it would be awesome in particular if companies offering streaming APIs or webhooks would publish JSON Schemas for their event streams into Iglu Central. Let's schema all the things!
+Separately, we hope that software vendors, analysts and data scientists will contribute their own schemas to Iglu Central; it would be awesome in particular if companies offering streaming APIs or webhooks would publish JSON Schemas for their event streams into Iglu Central. Let's schema everything!
 
 We will discuss how to use Iglu with Snowplow in much more detail following the release of Snowplow 0.9.5.
 
@@ -291,3 +291,5 @@ We are hugely excited about the release of Iglu - we hope that the Snowplow comm
 [product-roadmap]: https://github.com/snowplow/iglu/wiki/Product-roadmap
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[SchemaVer]: /blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
+[rubygems-org]: https://rubygems.org/

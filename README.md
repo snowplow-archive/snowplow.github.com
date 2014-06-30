@@ -143,6 +143,8 @@ Now everything should be ready!
 
 Now navigate to the `snowplow.github.com` repo in the dev-environment and build it using:
 
+        $ export LC_ALL=en_US.UTF-8
+        $ export LANG=en_US.UTF-8
 	$ jekyll serve
 
 *In most cases people clone the `snowplow.github.com` repo into the `dev-environment` repo on the host machine, in which case on the VM it can be found in `/vagrant/snowplow.github.com`*

@@ -36,7 +36,7 @@ Snowplow is evolving from a web analytics platform into a general event analytic
 <h3><a name="event-explosion">1.1 Dealing with the explosion in events</a></h3>
 </div>
 
-Historically, there have been two historic approaches to dealing with the explosion of possible event types:
+Historically, there have been two approaches to dealing with the explosion of possible event types:
 
 ![custom-variables-vs-schema-less-jsons-img] [custom-variables-vs-schema-less-jsons-img]
 

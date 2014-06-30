@@ -20,7 +20,7 @@ In the rest of this post we will cover:
 3. [Iglu architecture](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#architecture)
 4. [Using Iglu](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#usage)
 5. [Limitations and roadmap](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#roadmap)
-6. [Getting help](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#help)
+6. [Learning more and getting help](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#help)
 
 <!--more-->
 
@@ -254,10 +254,12 @@ We have deliberately tried to keep the scope of Iglu 0.1.0 as minimal as possibl
 Our first development priority for Iglu is creating a RESTful schema repository server which allows users to publish new schemas to the repository, and has some basic authentication to keep schemas private. For more details on what is coming next in Iglu, check out the [Product roadmap] [product-roadmap] on the wiki.
 
 <div class="html">
-<h2><a name="help">6. Getting help</a></h2>
+<h2><a name="help">6. Learning more and getting help</a></h2>
 </div>
 
 When we created Snowplow at the beginning of 2012, it didn't need a lot of explanation - as an open source web analytics system, it fitted into a well-understood software category. As a schema repository, Iglu is a much more unusual beast - so do please [get in touch] [talk-to-us] and tell us your feedback, ask any questions or contribute!
+
+The key resource for learning more about Iglu is the [Iglu wiki] [iglu-wiki] on GitHub - do check it out. Wherever you find blocking gaps in the documentation, please [raise an issue] [iglu-issues] in GitHub.
 
 We are hugely excited about the release of Iglu - we hope that the Snowplow community shares our excitement. Let's work together to make end-to-end-schemas a reality for web and event analytics. And stay tuned for the Snowplow 0.9.5 release (coming soon) for some more guidance on using Iglu with Snowplow!
 

@@ -95,17 +95,67 @@ The name of the tracker that fired an event will always be added to the querystr
 
 <h2><a name="link-click">3. New feature: link click tracking</a></h2>
 
+*Note: Link click tracking is implemented using the new self-describing JSON format for unstructured events and so rely on Snowplow 0.9.5.*
+
 You can now track link click events using `enableLinkClickTracking`. This method only needs to be called once. Then whenever a link is clicked, a link click event will automatically be fired. The event will include the link element's CSS id and classes, as well as the destination URL.
 
 Here is the method's signature:
 
 {% highlight javascript %}
-function enableLinkClickTracking(excludedClasses, pseudoClicks, context)
+function enableLinkClickTracking(criterion, pseudoClicks, context)
 {% endhighlight %}
 
-The `excludedClasses` argument can be either a string or an array of strings. If a user clicks on a link one of whose classes is in `excludedClasses`, no event will be fired. For example, you could use this argument to prevent clicks on internal links from being tracked.
+Use it like this to turn on click tracking for every link:
 
-The `pseudoClicks` argument can be used to turn on pseudo click tracking, which listens not for click events but for successive mouseup and mousedown events over the same link. This is useful because some browsers, such as Firefox, do not generate click events for the middle mouse button.
+{% highlight javascript %}
+window.snowplow_name_here('enableLinkClickTracking');
+{% endhighlight %}
+
+The `criterion` argument lets you fine-tune which links you want to be tracked with either a whitelist, a blacklist, or a filter function.
+
+**1. Blacklists**
+
+A blacklist is an array of CSS class names of links which should not be tracked. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
+
+{% highlight javascript %}
+window.snowplow_name_here('enableLinkClickTracking', {'blacklist': ['barred', 'untracked']});
+{% endhighlight %}
+
+If there is only one class name you wish to blacklist, it doesn't have to be in an array:
+
+{% highlight javascript %}
+window.snowplow_name_here('enableLinkClickTracking', {'blacklist': 'barred'});
+{% endhighlight %}
+
+**2. Whitelists**
+
+A whitelist is the opposite of a blacklist. Use this and only clicks on links having one of the whitelisted classes will be tracked.
+
+{% highlight javascript %}
+window.snowplow_name_here('enableLinkClickTracking', {'whitelist': ['unbarred', 'tracked']});
+{% endhighlight %}
+
+If there is only one class name you wish to whitelist, it doesn't have to be in an array:
+
+{% highlight javascript %}
+window.snowplow_name_here('enableLinkClickTracking', {'whitelist': 'unbarred'});
+{% endhighlight %}
+
+**3. Filter functions**
+
+Finally, if neither of the above options provides fine enough control, you can use a filter function instead. It should take one argument, the link element, and return either `true` (in which case clicks on the link will be tracked) or `false` (in which case they won't be).
+
+The following code will enable click tracking for those and only those links which have an `id` attribute:
+
+{% highlight javascript %}
+function myFilter (linkElement) {
+  return typeof linkElement.id !== "undefined";
+}
+
+snowplow_name_here('enableLinkClickTracking', {'filter': myFilter});
+{% endhighlight %}
+
+The `pseudoClicks` argument can be used to turn on pseudo click tracking, which listens not for click events but for successive mouseup and mousedown events over the same link. This is useful because some browsers, including Firefox, do not generate click events for the middle mouse button.
 
 Use `enableLinkClickTracking like this:
 
@@ -126,6 +176,12 @@ window.snowplow_name_here('trackLinkClick', 'http://www.example.com', 'first-lin
 {% endhighlight %}
 
 (`elementTarget` refers to the link's target attribute, which can specifies where the linked document is opened - for example, a new tab or a new window.)
+
+Finally, if links get added to the document after calling `enableLinkClickTracking`, use `refreshLinkClick` tracking to add click tracking to all new links which meet any criterion you have already set up using `enableLinkClickTracking`:
+
+{% highlight javascript %}
+window.snowplow_name_here('refreshLinkClickTracking');
+{% endhighlight %}
 
 <h2><a name="ads">4. New feature: ad tracking</a></h2>
 
@@ -149,11 +205,13 @@ Thanks to [@rcs][rcs], events fired while a user is offline are no longer lost f
 
 <h2><a name="schemas">6. Self-describing JSONs</a></h2>
 
+*Note: The new self-describing JSON format for unstructured events relies on Snowplow 0.9.5.*
+
 Snowplow unstructured events and custom contexts are now defined using [JSON schema][json-schema], and should be passed to the Tracker using [self-describing JSONs][self-describing-jsons]. Here is an example of the new format for unstructured events:
 
 {% highlight javascript %}
 window.snowplow_name_here('trackUnstructEvent', {
-    schema: 'iglu://com.acme_company/viewed_product/jsonschema/2-0-0',
+    schema: 'iglu:com.acme_company/viewed_product/jsonschema/2-0-0',
     data: {
         productId: 'ASO01043',
         category: 'Dresses',
@@ -166,20 +224,20 @@ window.snowplow_name_here('trackUnstructEvent', {
 });
 {% endhighlight %}
 
-The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested.
+The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested. The user who sent in the above event would need to have defined a schema for a `viewed_product` event. The schema would probably describe which fields the JSON can contain, which of those fields are required and which are optional, and the type of data found in each field.
 
 Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array: 
 
 {% highlight javascript %}
 window.snowplow_name_here('trackPageView', null , [{
-    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
         pageType: 'test',
         lastUpdated: new Date(2014,1,26)
     }
 },
 {
-    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {
       userType: 'tester',
     }

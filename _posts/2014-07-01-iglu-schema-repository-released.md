@@ -7,6 +7,8 @@ author: Alex
 category: Releases
 ---
 
+![snowplow-plus-iglu-img] [snowplow-plus-iglu-img]
+
 We are hugely excited to announce the release of Iglu, our first new product since launching our Snowplow prototype two and a half years ago.
 
 Iglu is a machine-readable schema repository initially supporting JSON Schemas. It is a key building block of the next Snowplow release, 0.9.5, which will validate incoming unstructured events and custom contexts using JSON Schema.
@@ -15,12 +17,12 @@ As far as we know, Iglu is the first machine-readable schema repository for JSON
 
 In the rest of this post we will cover:
 
-1. [On the importance of schemas](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#schemas)
-2. [The origins of Iglu](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#origins)
-3. [Iglu architecture](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#architecture)
-4. [Using Iglu](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#usage)
-5. [Limitations and roadmap](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#roadmap)
-6. [Learning more and getting help](/blog/2014/07/xx/iglu-schema-repository-0.1.0-released/#help)
+1. [On the importance of schemas](/blog/2014/07/01/iglu-schema-repository-released/#schemas)
+2. [The origins of Iglu](/blog/2014/07/01/iglu-schema-repository-released/#origins)
+3. [Iglu architecture](/blog/2014/07/01/iglu-schema-repository-released/#architecture)
+4. [Using Iglu](/blog/2014/07/01/iglu-schema-repository-released/#usage)
+5. [Limitations and roadmap](/blog/2014/07/01/iglu-schema-repository-released/#roadmap)
+6. [Learning more and getting help](/blog/2014/07/01/iglu-schema-repository-released/#help)
 
 <!--more-->
 
@@ -169,7 +171,7 @@ The main differences we could ascertain between our requirements and the Avro ef
 
 1. The focus on Apache Avro versus our priorities around JSON Schema support
 2. The Avro efforts seemed to assume that each user would install one, private schema repository. We envisage a de-centralized set of private schema repositories plus a central public repository - so fundamentally resolving schemas from N repositories, not 1
-3. The Avro community does not seem to have a semantic versioning approach to schemas like [SchemaVer] [SchemaVer]. This would make reasoning about schema-data compatibility difficult and 
+3. The Avro community does not seem to have a semantic versioning approach to schemas like [SchemaVer] [SchemaVer]. This would make reasoning about schema-data compatibility difficult  
 
 Given these differences, we decided to take the learnings from the Avro community and start work on our own repository technology designed to meet Snowplow's specific requirements around schemas: Iglu.
 

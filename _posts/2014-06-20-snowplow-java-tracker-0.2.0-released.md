@@ -21,6 +21,8 @@ I'll talk more about the new additions made further down in this post:
 6. [Miscellaneous](/blog/2014/06/20/snowplow-java-tracker-0.2.0-released/#misc)
 7. [Support](/blog/2014/06/20/snowplow-java-tracker-0.2.0-released/#support)
 
+<!--more-->
+
 <h2><a name="constructor">1. Tracker constructor</a></h2>
 
 One of the TrackerC constructors seemed unnecessary so we decided to remove it. The only way to construct a Tracker object now is with the following signature:

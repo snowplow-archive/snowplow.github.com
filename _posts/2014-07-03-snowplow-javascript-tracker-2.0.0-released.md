@@ -42,7 +42,7 @@ n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag
 You can replace `"snowplow_name_here"` with any string that would be a valid JavaScript variable name. As can be seen in the examples below, this string becomes the Snowplow function which you will call. The general template for using tracker methods is this:
 
 {% highlight javascript %}
-{{Snowplow function}}({{tracker method name}}, {{tracker method argument 1}}, {{tracker method argument 2}}... );
+snowplow_function(tracker_method_name, tracker_method_argument_1, tracker_method_argument_2, ...);
 {% endhighlight %}
 
 If you believe there could be another copy of Snowplow running on a given website, rename the Snowplow function to something unique, to guarantee that there won't be a conflict between the two copies. This is particularly important for widget, advertising and analytics companies using Snowplow - because your customers may be using Snowplow themselves.

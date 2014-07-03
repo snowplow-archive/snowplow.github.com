@@ -20,7 +20,7 @@ This blog post will cover the following changes:
 7. [Functional tests](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#tests)
 8. [Other improvements](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#other)
 9. [Upgrading](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#upgrading)
-10. [Getting help](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#help)
+10. [Documentation and getting help](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#help)
 
 <!--more-->
 
@@ -286,7 +286,9 @@ The upgraded minified tracker is available here:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js
 
-<h2><a name="help">10. Getting help</a></h2>
+<h2><a name="help">10. Documentation and getting help</a></h2>
+
+You can find the [full API documentation] [api-docs] for the Snowplow JavaScript Tracker version 2.0.0 on the Snowplow wiki.
 
 Check out the [v2.0.0 release page] [release-200] on GitHub for the full list of changes made in this version.
 
@@ -308,6 +310,8 @@ As always, if you run into any issues or don't understand any of the above chang
 [ad-click-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
 [ad-conversion-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
 [webpage-schema-org]: http://schema.org/WebPage
+
+[api-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 
 [88]: https://github.com/snowplow/snowplow-javascript-tracker/issues/88
 [112]: https://github.com/snowplow/snowplow-javascript-tracker/issues/112

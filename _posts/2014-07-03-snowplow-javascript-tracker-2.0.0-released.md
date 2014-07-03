@@ -207,7 +207,7 @@ The JSON Schemas for these new events are all available on Iglu Central:
 * [Ad click JSON Schema] [ad-click-json-schema]
 * [Ad conversion JSON Schema] [ad-conversion-json-schema]
 
-Use `trackAdImpression` and `trackAdClick` on the page with your ad, and `trackAdConversion` on the page to which your ad directs the user.
+Use `trackAdImpression` and `trackAdClick` on the page where your ad is served, and `trackAdConversion` on the page(s) where users convert.
 
 For an example of all three functions in action on a page with three distinct ads, see [this file] [ad-example].
 

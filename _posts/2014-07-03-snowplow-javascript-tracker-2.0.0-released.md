@@ -288,7 +288,7 @@ The upgraded minified tracker is available here:
 
 <h2><a name="help">10. Getting help</a></h2>
 
-Check out the [v2.0.0 release page] [200-release] on GitHub for the full list of changes made in this version.
+Check out the [v2.0.0 release page] [release-200] on GitHub for the full list of changes made in this version.
 
 As always, if you run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
 

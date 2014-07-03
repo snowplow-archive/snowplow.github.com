@@ -16,7 +16,7 @@ This blog post will cover the following changes:
 3. [New feature: link click tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#link-click)
 4. [New feature: ad tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#ads)
 5. [New feature: offline tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#offline)
-6. [Self-describing JSONs](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#schemas)
+6. [Self-describing JSONs](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#schemas)
 7. [Functional tests](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#tests)
 8. [Other improvements](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#other)
 9. [Upgrading](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#upgrading)

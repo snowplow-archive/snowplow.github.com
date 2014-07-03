@@ -11,16 +11,16 @@ We are happy to announce the release of the [Snowplow JavaScript Tracker version
 
 This blog post will cover the following changes:
 
-1. [Changes to the Snowplow API](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#api)
-2. [New feature: tracker namespacing](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#tracker-namespacing)
-3. [New feature: link click tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#link-click)
-4. [New feature: ad tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#ads)
-5. [New feature: offline tracking](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#offline)
+1. [Changes to the Snowplow API](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#api)
+2. [New feature: tracker namespacing](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#tracker-namespacing)
+3. [New feature: link click tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#link-click)
+4. [New feature: ad tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#ads)
+5. [New feature: offline tracking](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#offline)
 6. [Self-describing JSONs](/blog/2014/04/xx/snowplow-javascript-tracker-2.0.0-released/#schemas)
-7. [Functional tests](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#tests)
-8. [Other improvements](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#other)
-9. [Upgrading](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#upgrading)
-10. [Getting help](/blog/2014/05/xx/snowplow-javascript-tracker-2.0.0-released/#help)
+7. [Functional tests](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#tests)
+8. [Other improvements](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#other)
+9. [Upgrading](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#upgrading)
+10. [Getting help](/blog/2014/07/03/snowplow-javascript-tracker-2.0.0-released/#help)
 
 <!--more-->
 
@@ -45,11 +45,11 @@ You can replace `"snowplow_name_here"` with any string that would be a valid Jav
 {{Snowplow function}}({{tracker method name}}, {{tracker method argument 1}}, {{tracker method argument 2}}... );
 {% endhighlight %}
 
-If you believe there could be another copy of Snowplow running on a given website, rename the Snowplow function to something unique to you, to guarantee that there won't be a conflict between the two copies. This is particularly important for widget, advertising and analytics companies using Snowplow - because your customers may be using Snowplow themselves.
+If you believe there could be another copy of Snowplow running on a given website, rename the Snowplow function to something unique, to guarantee that there won't be a conflict between the two copies. This is particularly important for widget, advertising and analytics companies using Snowplow - because your customers may be using Snowplow themselves.
 
 <h2><a name="tracker-namespacing">2. New feature: tracker namespacing</h2></a>
 
-New in version 2.0.0 is the ability to have multiple trackers running at once. This is useful if you want to log events to more than one collector. You can even choose which trackers fire which events.
+New in version 2.0.0 is the ability to have multiple trackers running at once. This is useful if you want to log events to more than one collector - for example, you could send events to both our tried-and-tested CloudFront Collector and our experimental Scala Stream Collector. You can even choose which trackers fire which events.
 
 To initialize a new tracker, use the newly-introduced method `newTracker`:
 
@@ -61,16 +61,16 @@ It constructs a new tracker based on three arguments: the name of the new tracke
 
 {% highlight javascript %}
 window.snowplow_name_here('newTracker', 'primary', 'd3rkrsqld9gmqf.cloudfront.net', {
-	cookieName: '_example_cookie_name_'
+	cookieName: '_example_cookie_name_',
 	encodeBase64: false,
-	appId: 'CFe23a'
+	appId: 'CFe23a',
 	platform: 'mob'
 });
 
 window.snowplow_name_here('newTracker', 'secondary', 'dzrdr5gkt9b5hp.cloudfront.net', {
-	cookieName: '_example_cookie_name_'
+	cookieName: '_example_cookie_name_',
 	encodeBase64: true,
-	appId: 'CFe23a'
+	appId: 'CFe23a',
 	platform: 'mob'
 });
 {% endhighlight %}
@@ -89,15 +89,17 @@ To have more than one tracker execute a method, separate the tracker names with 
 window.snowplow_name_here('trackPageView:primary;secondary');
 {% endhighlight %}
 
-If you do not provide a list of tracker namespaces when calling a method, every tracker you have created will execute that method.
+If you do not provide a list of tracker namespaces when calling a method, every tracker that you have created will execute that method.
 
 The name of the tracker that fired an event will always be added to the querystring in a newfield, `tna`.
 
 <h2><a name="link-click">3. New feature: link click tracking</a></h2>
 
-*Note: Link click tracking is implemented using the new self-describing JSON format for unstructured events and so rely on Snowplow 0.9.5.*
+*Note: Link click tracking is implemented using the new self-describing JSON format for unstructured events. Loading link clicks into Redshift will depend on Snowplow 0.9.5, coming soon.*
 
 You can now track link click events using `enableLinkClickTracking`. This method only needs to be called once. Then whenever a link is clicked, a link click event will automatically be fired. The event will include the link element's CSS id and classes, as well as the destination URL.
+
+The [JSON Schema for a link click] [link-click-json-schema] is available on Iglu Central.
 
 Here is the method's signature:
 
@@ -113,9 +115,11 @@ window.snowplow_name_here('enableLinkClickTracking');
 
 The `criterion` argument lets you fine-tune which links you want to be tracked with either a whitelist, a blacklist, or a filter function.
 
-**1. Blacklists**
+<div class="html">
+<h3><a name="link-click-blacklists">3.1 Blacklists</a></h3>
+</div>
 
-A blacklist is an array of CSS class names of links which should not be tracked. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
+A blacklist is an array of CSS class names for links which should **not** be tracked. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
 
 {% highlight javascript %}
 window.snowplow_name_here('enableLinkClickTracking', {'blacklist': ['barred', 'untracked']});
@@ -127,9 +131,11 @@ If there is only one class name you wish to blacklist, it doesn't have to be in 
 window.snowplow_name_here('enableLinkClickTracking', {'blacklist': 'barred'});
 {% endhighlight %}
 
-**2. Whitelists**
+<div class="html">
+<h3><a name="link-click-whitelist">3.2 Whitelists</a></h3>
+</div>
 
-A whitelist is the opposite of a blacklist. Use this and only clicks on links having one of the whitelisted classes will be tracked.
+A whitelist is the opposite of a blacklist. With this option, **only** clicks on links belonging to one of the whitelisted classes will be tracked.
 
 {% highlight javascript %}
 window.snowplow_name_here('enableLinkClickTracking', {'whitelist': ['unbarred', 'tracked']});
@@ -141,9 +147,11 @@ If there is only one class name you wish to whitelist, it doesn't have to be in 
 window.snowplow_name_here('enableLinkClickTracking', {'whitelist': 'unbarred'});
 {% endhighlight %}
 
-**3. Filter functions**
+<div class="html">
+<h3><a name="link-click-filters">3.3 Filter functions</a></h3>
+</div>
 
-Finally, if neither of the above options provides fine enough control, you can use a filter function instead. It should take one argument, the link element, and return either `true` (in which case clicks on the link will be tracked) or `false` (in which case they won't be).
+Finally, if neither of the above options provides finegrained-enough control, you can use a filter function instead. It should take one argument, the link element, and return either `true` (in which case clicks on the link will be tracked) or `false` (in which case they won't be).
 
 The following code will enable click tracking for those and only those links which have an `id` attribute:
 
@@ -155,12 +163,12 @@ function myFilter (linkElement) {
 snowplow_name_here('enableLinkClickTracking', {'filter': myFilter});
 {% endhighlight %}
 
-The `pseudoClicks` argument can be used to turn on pseudo click tracking, which listens not for click events but for successive mouseup and mousedown events over the same link. This is useful because some browsers, including Firefox, do not generate click events for the middle mouse button.
+The `pseudoClicks` argument can be used to turn on pseudo-click tracking, which listens not for click events but for successive mouseup and mousedown events over the same link. This is useful because some browsers, including Firefox, do not generate click events for the middle mouse button.
 
 Use `enableLinkClickTracking like this:
 
 {% highlight javascript %}
-window.snowplow_name_here('enableLinkClickTracking', 'internal' ,'true');
+window.snowplow_name_here('enableLinkClickTracking', 'internal', true);
 {% endhighlight %}
 
 You can also use the `trackLinkClick` method to manually track a single link click:
@@ -172,12 +180,10 @@ function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, con
 Use it like this:
 
 {% highlight javascript %}
-window.snowplow_name_here('trackLinkClick', 'http://www.example.com', 'first-link', 'link-class');
+window.snowplow_name_here('trackLinkClick', 'http://www.example.com', 'first-link', ['link-class'], '_blank');
 {% endhighlight %}
 
-(`elementTarget` refers to the link's target attribute, which can specifies where the linked document is opened - for example, a new tab or a new window.)
-
-Finally, if links get added to the document after calling `enableLinkClickTracking`, use `refreshLinkClick` tracking to add click tracking to all new links which meet any criterion you have already set up using `enableLinkClickTracking`:
+Finally, if you add links to the document after calling `enableLinkClickTracking`, use `refreshLinkClick` tracking to add click tracking to all new links which meet any criterion you have already set up using `enableLinkClickTracking`:
 
 {% highlight javascript %}
 window.snowplow_name_here('refreshLinkClickTracking');
@@ -185,7 +191,7 @@ window.snowplow_name_here('refreshLinkClickTracking');
 
 <h2><a name="ads">4. New feature: ad tracking</a></h2>
 
-This release adds three new ad tracking functions: `trackAdImpression`, `trackAdClick`, and `trackAdConversion`. Each of these fires a special unstructured event. Here are their function signatures:
+This release adds three new ad tracking functions: `trackAdImpression`, `trackAdClick`, and `trackAdConversion`. Each of these fires a dedicated unstructured event. Here are their function signatures:
 
 {% highlight javascript %}
 function trackAdImpression(impressionId, costModel, targetUrl, cost, bannerId, zoneId, advertiserId, campaignId, context)
@@ -195,17 +201,23 @@ function trackAdClick(targetUrl, clickId, costModel, cost, targetUrl, bannerId, 
 function trackAdConversion(conversionId, costModel, cost, category, action, property, initialValue, advertiserId, campaignId, context)
 {% endhighlight %}
 
-Use `trackAdImpression` and `trackAdClick` on the page with your ad, and `trackAdConversion` on the page to which your ad directs the user. The timestamp of the ad click event can be used to match it to the right ad conversion event.
+The JSON Schemas for these new events are all available on Iglu Central:
+
+* [Ad impression JSON Schema] [ad-impression-json-schema]
+* [Ad click JSON Schema] [ad-click-json-schema]
+* [Ad conversion JSON Schema] [ad-conversion-json-schema]
+
+Use `trackAdImpression` and `trackAdClick` on the page with your ad, and `trackAdConversion` on the page to which your ad directs the user.
 
 For an example of all three functions in action on a page with three distinct ads, see [this file] [ad-example].
 
 <h2><a name="offline">5. New feature: offline tracking</a></h2>
 
-Thanks to [@rcs][rcs], events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in `localStorage` so that the unsent events can be remembered even after the leaving the page.
+Thanks to community member [Ryan Sorensen][rcs]'s contribution, events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in `localStorage` so that the unsent events can be remembered even after the leaving the page.
 
 <h2><a name="schemas">6. Self-describing JSONs</a></h2>
 
-*Note: The new self-describing JSON format for unstructured events relies on Snowplow 0.9.5.*
+*Note: The new self-describing JSON format for unstructured events relies on Snowplow 0.9.5, coming soon.*
 
 Snowplow unstructured events and custom contexts are now defined using [JSON schema][json-schema], and should be passed to the Tracker using [self-describing JSONs][self-describing-jsons]. Here is an example of the new format for unstructured events:
 
@@ -226,18 +238,20 @@ window.snowplow_name_here('trackUnstructEvent', {
 
 The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested. The user who sent in the above event would need to have defined a schema for a `viewed_product` event. The schema would probably describe which fields the JSON can contain, which of those fields are required and which are optional, and the type of data found in each field.
 
-Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array: 
+Custom contexts work similarly. Since an event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array: 
 
 {% highlight javascript %}
 window.snowplow_name_here('trackPageView', null , [{
-    schema: "iglu:com.example_company/page/jsonschema/1-2-1",
+    schema: 'iglu:org.schema/WebPage/jsonschema/1-0-0',
     data: {
-        pageType: 'test',
-        lastUpdated: new Date(2014,1,26)
+        author: 'Yali Sassoon',
+        inLanguage: 'en-US',
+        datePublished: new Date(2014,1,26),
+        keywords: ['analytics', 'redshift']
     }
 },
 {
-    schema: "iglu:com.example_company/user/jsonschema/2-0-0",
+    schema: 'iglu:com.acme/user/jsonschema/2-0-0',
     data: {
       userType: 'tester',
     }
@@ -246,7 +260,7 @@ window.snowplow_name_here('trackPageView', null , [{
 
 Note that if the `contexts` argument is provided, it cannot be an empty array.
 
-This example shows a page view event with two custom contexts attached: one describing the page and another describing the user.
+This example shows a page view event with two custom contexts attached: one describing the page using [schema.org's WebPage schema] [webpage-schema-org], and another describing the user.
 
 <h2><a name="tests">7. Functional tests</a></h2>
 
@@ -259,25 +273,18 @@ We have also:
 * Moved fixUpUrl, our proxy detection function, into its own file, lib/proxies.js [#112] [112]
 * Fixed the duplication of the querystring parameter lookup function [#111] [111]
 * Started rigorously checking whether a page is cached by Yahoo [#142] [142]
-* Added tests for proxies.js
 * Replaced cookie.js with an external module, browser-cookie-lite [#88] [88]
 * Removed references to the legacy referrer cookie [#118] [118]
-* Fixed the warnings generated by the Closure Compiler (thanks @steve-gh!)
+* Fixed the warnings generated by the Closure Compiler (thanks @steve-gh!) [#170] [170]
 * Upgraded Intern to version 1.5.0 [#119] [119]
 * Fixed the link in the code climate button in the README [#149] [149]
-* Deleted the obsolete example file ads/sync.html [#182]
+* Deleted the obsolete example file ads/sync.html [#182] [182]
 
 <h2><a name="upgrading">9. Upgrading </a></h2>
 
 The upgraded minified tracker is available here:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js
-
-If you use the path:
-
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/2/sp.js
-
-then you will automatically get new semantic-minor and semantic-patch versions as they are released.
 
 <h2><a name="help">10. Getting help</a></h2>
 
@@ -295,6 +302,12 @@ As always, if you run into any issues or don't understand any of the above chang
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 
+[link-click-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
+[ad-impression-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
+[ad-click-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+[ad-conversion-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
+[webpage-schema-org]: http://schema.org/WebPage
+
 [112]: https://github.com/snowplow/snowplow-javascript-tracker/issues/112
 [111]: https://github.com/snowplow/snowplow-javascript-tracker/issues/111
 [142]: https://github.com/snowplow/snowplow-javascript-tracker/issues/142
@@ -303,4 +316,5 @@ As always, if you run into any issues or don't understand any of the above chang
 [123]: https://github.com/snowplow/snowplow-javascript-tracker/issues/123
 [124]: https://github.com/snowplow/snowplow-javascript-tracker/issues/124
 [149]: https://github.com/snowplow/snowplow-javascript-tracker/issues/149
+[170]: https://github.com/snowplow/snowplow-javascript-tracker/issues/170
 [182]: https://github.com/snowplow/snowplow-javascript-tracker/issues/182

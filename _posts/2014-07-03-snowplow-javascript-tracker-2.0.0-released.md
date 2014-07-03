@@ -286,6 +286,8 @@ The upgraded minified tracker is available here:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js
 
+Please note that you will need to update your Snowplow JavaScript tags significantly from the 1.x.x versions to support [the new v2.0.0 API] [api-docs].
+
 <h2><a name="help">10. Documentation and getting help</a></h2>
 
 You can find the [full API documentation] [api-docs] for the Snowplow JavaScript Tracker version 2.0.0 on the Snowplow wiki.

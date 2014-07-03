@@ -213,7 +213,7 @@ For an example of all three functions in action on a page with three distinct ad
 
 <h2><a name="offline">5. New feature: offline tracking</a></h2>
 
-Thanks to community member [Ryan Sorensen][rcs]'s contribution, events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in `localStorage` so that the unsent events can be remembered even after the leaving the page.
+Thanks to community member [Ryan Sorensen][rcs]'s contribution, events fired while a user is offline are no longer lost forever. If the Tracker detects that an event has not successfully reached the collector due to the user being offline, the event will be added to a queue and will be sent once connectivity has been restored. The queue is held in browser Local Storage so that the unsent events can be remembered even after the leaving the page.
 
 <h2><a name="schemas">6. Self-describing JSONs</a></h2>
 
@@ -308,6 +308,7 @@ As always, if you run into any issues or don't understand any of the above chang
 [ad-conversion-json-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
 [webpage-schema-org]: http://schema.org/WebPage
 
+[88]: https://github.com/snowplow/snowplow-javascript-tracker/issues/88
 [112]: https://github.com/snowplow/snowplow-javascript-tracker/issues/112
 [111]: https://github.com/snowplow/snowplow-javascript-tracker/issues/111
 [142]: https://github.com/snowplow/snowplow-javascript-tracker/issues/142

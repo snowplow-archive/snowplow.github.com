@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [200-release]. This release makes some significant changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
+We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [release-200]. This release makes some significant changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
 
 This blog post will cover the following changes:
 
@@ -297,7 +297,7 @@ As always, if you run into any issues or don't understand any of the above chang
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
-[200-release]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.0.0
+[release-200]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.0.0
 [ad-example]: https://github.com/snowplow/snowplow-javascript-tracker/blob/master/examples/ads/async.html
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

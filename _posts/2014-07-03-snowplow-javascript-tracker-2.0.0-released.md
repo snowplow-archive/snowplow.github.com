@@ -47,7 +47,7 @@ snowplow_function(tracker_method_name, tracker_method_argument_1, tracker_method
 
 If you believe there could be another copy of Snowplow running on a given website, rename the Snowplow function to something unique, to guarantee that there won't be a conflict between the two copies. This is particularly important for widget, advertising and analytics companies using Snowplow - because your customers may be using Snowplow themselves.
 
-<h2><a name="tracker-namespacing">2. New feature: tracker namespacing</h2></a>
+<h2><a name="tracker-namespacing">2. New feature: tracker namespacing</a></h2>
 
 New in version 2.0.0 is the ability to have multiple trackers running at once. This is useful if you want to log events to more than one collector - for example, you could send events to both our tried-and-tested CloudFront Collector and our experimental Scala Stream Collector. You can even choose which trackers fire which events.
 

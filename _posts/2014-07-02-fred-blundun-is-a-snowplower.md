@@ -1,9 +1,9 @@
 ---
 layout: post
-shortenedlink: Fred Blundun is a Snowplower
+shortenedlink: Fred Blundun is a Snowplower!
 title: Fred Blundun is a Snowplower
 tags: [fred blundun, data engineer, hiring]
-author: Fred
+author: Alex
 category: Inside the Plow
 ---
 
@@ -11,15 +11,15 @@ You have probably seen a new name behind blog posts, new software releases and e
 
 ![fred-img] [fred-img]
 
-Fred joined us a data engineer this spring. Fred is a Mathematics graduate from Cambridge University; data engineering at Snowplow is his first full-time role in software.
+Fred joined us a Data Engineer this spring. Fred is a Mathematics graduate from Cambridge University; data engineering at Snowplow is his first full-time role in software.
 
-Since starting at Snowplow, Fred has already made his presence felt with some great new tracker releases, including:
+Fred hit the ground running at Snowplow with some great new tracker releases, including:
 
 * The [Snowplow Python Tracker] [snowplow-python-tracker] versions 0.2.0 thru 0.4.0
 * The [Snowplow Ruby Tracker] [snowplow-ruby-tracker]'s initial release
-* The [Snowplow JavaScript Tracker] [snowplow-javascript-tracker] - multiple releases culminating in the huge [version 2.0.0] [js-tracker-200] just announced
+* The [Snowplow JavaScript Tracker] [snowplow-javascript-tracker] - multiple releases culminating in the major update [version 2.0.0] [js-tracker-200] just announced
 
-Fred also co-authored our recent designs for [SchemaVer] [schemaver] and [self-describing JSONs] [self-describing-jsons] which have been instrumental in architecting [Iglu] [iglu].
+Fred also co-authored our recent designs for [SchemaVer] [schemaver] and [self-describing JSONs] [self-describing-jsons], which have been instrumental in architecting [Iglu] [iglu].
 
 He is now working on an overhaul of our event enrichment engine in Snowplow core, coming soon.
 

@@ -75,7 +75,7 @@ window.snowplow_name_here('newTracker', 'secondary', 'dzrdr5gkt9b5hp.cloudfront.
 });
 {% endhighlight %}
 
-This creates two trackers called "primary" and "secondary" logging events to different Cloudfront subdomains. (Note that the full string "d3rkrsqld9gmqf.cloudfront.net" must be used instead of just "d3rkrsqld9gmqf"). Events logged by the primary tracker will not be Base64-encoded; events logged by the secondary tracker will be. Both trackers use the same cookie name. If you do not set a cookie name, the default `'_sp_'` will be used. Setting a custom cookie name is recommended, as it prevents conflicts when two Snowplow users on the same web page attempt to read and write the same cookie.
+This creates two trackers called "primary" and "secondary" logging events to different Cloudfront subdomains. (Note that the full string `"d3rkrsqld9gmqf.cloudfront.net"` must be used instead of just `"d3rkrsqld9gmqf"`). Events logged by the primary tracker will not be Base64-encoded; events logged by the secondary tracker will be. Both trackers use the same cookie name. If you do not set a cookie name, the default `'_sp_'` will be used. Setting a custom cookie name is recommended, as it prevents conflicts when two Snowplow users on the same web page attempt to read and write the same cookie.
 
 You can specify which tracker or trackers should execute a method by appending their names to the end of the method name, separating the two with a colon. To only have the primary tracker track a page view event:
 
@@ -116,7 +116,7 @@ window.snowplow_name_here('enableLinkClickTracking');
 The `criterion` argument lets you fine-tune which links you want to be tracked with either a whitelist, a blacklist, or a filter function.
 
 <div class="html">
-<h3><a name="link-click-blacklists">3.1 Blacklists</a></h3>
+<h3><a name="link-click-blacklist">3.1 Blacklists</a></h3>
 </div>
 
 A blacklist is an array of CSS class names for links which should **not** be tracked. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:

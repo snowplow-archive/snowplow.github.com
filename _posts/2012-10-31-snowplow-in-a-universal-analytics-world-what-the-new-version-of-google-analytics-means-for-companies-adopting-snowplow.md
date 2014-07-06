@@ -9,8 +9,8 @@ category: Other
 
 Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as [Universal Analytics] [justin-cutroni-summary]. In this post, we look at:
 
-1. [The actual features Google has announced](#what)
-2. [How those advances change the case for companies considering adopting Snowplow](/blog/2012/10/31/snowplow-proposition-in-a-universal-analytics-world-what-the-new-version-of-ga-means-for-snowplow-adoption#whysnowplow)
+1. [The actual features Google has announced](/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow/#what)
+2. [How those advances change the case for companies considering adopting Snowplow](/blog/2012/10/31/snowplow-in-a-universal-analytics-world-what-the-new-version-of-google-analytics-means-for-companies-adopting-snowplow#whysnowplow)
 
 ![universal-analytics-image] [google-universal-analytics-image]
 

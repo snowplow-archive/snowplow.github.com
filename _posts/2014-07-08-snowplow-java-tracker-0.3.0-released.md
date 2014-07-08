@@ -45,10 +45,8 @@ trackScreenView("Main View", "pageId", contextMap, 1234567L);
 trackScreenView("Main View", "pageId", contextMap, 0);
 {% endhighlight %}
 
-
 <h2><a name="logging">3. Logging with SLF4J</a></h2>
 We've added some initial debug logging to our trackers using SLF4J. should make it easier to debug issues should any arise. While there is only debug level logging, we are looking to add some info level in the future if needed.
-
 
 <h2><a name="dependency">4. Dependency updates</a></h2>
 The Jackson library that we introduced in our previous 0.2.0 release has been updated from 1.9.3 to 2.4.1.1. This was done to stay on the latest stable release and shouldn't need any change from your side.

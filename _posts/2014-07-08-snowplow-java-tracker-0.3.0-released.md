@@ -16,7 +16,7 @@ You can find more on the new additions futher down in this post:
 1. [Strings replaced with Maps for Context](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#maps)
 2. [Timestamp for Trackers](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#timestamp)
 3. [Logging with SLF4J](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#logging)
-4. [Jackson version upgraded](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#jackson)
+4. [Dependency updates](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#dependency)
 5. [Unit testing](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#tests)
 6. [Support](/blog/2014/07/08/snowplow-java-tracker-0.3.0-released/#support)
 
@@ -49,8 +49,11 @@ trackScreenView("Main View", "pageId", contextMap, 0);
 <h2><a name="logging">3. Logging with SLF4J</a></h2>
 We've added some initial debug logging to our trackers using SLF4J. should make it easier to debug issues should any arise. While there is only debug level logging, we are looking to add some info level in the future if needed.
 
-<h2><a name="jackson">4. Jackson version upgraded</a></h2>
+
+<h2><a name="dependency">4. Dependency updates</a></h2>
 The Jackson library that we introduced in our previous 0.2.0 release has been updated from 1.9.3 to 2.4.1.1. This was done to stay on the latest stable release and shouldn't need any change from your side.
+
+We've changed the `slf4j-api` library to `slf4j-simple` (which includes `slf4j-api`) from version 1.7.5 to 1.7.7.
 
 <h2><a name="tests">5. Unit testing</a></h2>
 More unit tests have been added to the project for continued stability checks, majority of which are for the PayloadMap class. Feel free to use some of them as example code.

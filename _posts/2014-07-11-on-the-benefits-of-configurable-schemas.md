@@ -161,10 +161,10 @@ As I've explained in this post, this approach is fundamentally different to the 
 
 Then [get in touch] [contact] with the Snowplow team.
 
-[image1]: /assets/img/blog/2014/07/
-[image2]: /assets/img/blog/2014/07/
+[image1]: /assets/img/blog/2014/07/too-many-people-to-fit-in-the-train.jpg
+[image2]: /assets/img/blog/2014/07/leaky-data-pipeline.png
 [contact]: /about/index.html
-[kinesis]:
-[kafka]:
-[adobe]:
-[google]:
+[kinesis]: http://aws.amazon.com/kinesis/
+[kafka]: http://kafka.apache.org/
+[adobe]: http://www.adobe.com/uk/solutions/digital-analytics.html
+[google]: http://www.google.com/analytics/

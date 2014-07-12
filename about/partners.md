@@ -87,8 +87,8 @@ Our data partners make it possible to infer additional data points to append to 
 		<th>Description</th>
 	</thead>
 	<tr>
-		<td><a href="http://www.maxmind.com/en/home"><img src="/assets/img/maxmind_small.gif" title="Maxmind" /></a></td>
-		<td>Maxmind's Geo-IP database enables Snowplow users to infer the location of their users, based on their IP addresses.</td>
+		<td><a href="http://www.maxmind.com/?rId=snowplow"><img src="/assets/img/maxmind_small.gif" title="Maxmind" /></a></td>
+		<td>MaxMind's Geo-IP database enables Snowplow users to infer the location of their users, based on their IP addresses.</td>
 	</tr>
 	<tr>
 		<td><a href="https://openexchangerates.org/"><img src="/assets/img/open-exchange-rates_small.png" title="Open Exchange Rates" /></a></td>

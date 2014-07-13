@@ -9,7 +9,7 @@ category: Releases
 
 Today we are introducing the release of the [Snowplow Java Tracker version 0.3.0][repo].
 
-Similar to the [previous 0.2.0 release][original-post], this too is a mixture of minor & stability fixes. We've made only a few minor interface changes, so it shouldn't affect current users of the Java Tracke too much.
+Similar to the [previous 0.2.0 release][original-post], this too is a mixture of minor & stability fixes. We've made only a few minor interface changes, so it shouldn't affect current users of the Java Tracker too much.
 
 You can find more on the new additions futher down in this post:
 

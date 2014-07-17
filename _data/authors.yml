@@ -29,3 +29,12 @@
   avatar: https://en.gravatar.com/userimage/25956470/c890dad6419acf6e7a9f99b6edd3cb15.jpg?size=120
   spiel:  |
         <a href="/authors/jonathan.html">Jonathan</a> is an intern as Snowplow Analytics. You can find in him on <a href="http://google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.
+
+- name: Ben
+  full_name: Benjamin Fradet
+  github: BenFradet
+  url: /authors/ben.html
+  avatar: https://pbs.twimg.com/profile_images/420847008232906752/xHuzYYsm_400x400.png
+  spiel: |
+        <a href="/authors/ben.html">Ben</a> is an intern as Snowplow Analytics. You can find in him on <a href="http://benfradet.github.io/">Github</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
+

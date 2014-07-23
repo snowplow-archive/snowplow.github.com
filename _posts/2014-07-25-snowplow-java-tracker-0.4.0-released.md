@@ -7,49 +7,47 @@ author: Jonathan
 category: Releases
 ---
 
-We're excited to announce another release of the [Snowplow Java Tracker version 0.4.0][repo]
+We're excited to announce another release of the [Snowplow Java Tracker version 0.4.0] [release-040].
 
-This release is a major change the Java Tracker that we've been preparing for with the previous two releases. The main objective for this release was to get the Tracker to be closely on par with the Python Tracker. In doing so, we've added a new Emitter, TrackerPayload and Subject class along with various changes to the Tracker class.
+This release makes some significant updates to the Java Tracker. The main objective for this release was to bring the Tracker much closer in functional terms to the [Python Tracker] [python-tracker]. In doing so, we've added new `Emitter`, `TrackerPayload` and `Subject` classes along with various changes to the existing `Tracker` class.
 
 Some of the other more notable features in this release is support for POST requests, sending of events asynchronous and event queueing. I'll be covering everything mentioned above in more detail:
 
-1. [Structural improvements](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#structure)
-2. [The Emitter class](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#emitter)
-3. [The TrackerPayload class](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#payload)
-4. [The Subject class](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#subject)
-5. [Google Guava Preconditions](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#preconditions)
-6. [Tracker class constructor](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#constructor)
-7. [Optional context and timestamp](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#optional)
-8. [Miscellaneous](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#misc)
-9. [Support](/blog/2014/07/25/snowplow-java-tracker-0.4.0-released/#support)
+1. [Structural improvements](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#structure)
+2. [The Emitter class](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#emitter)
+3. [The TrackerPayload class](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#payload)
+4. [The Subject class](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#subject)
+5. [Google Guava Preconditions](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#preconditions)
+6. [Tracker class constructor](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#constructor)
+7. [Optional context and timestamp](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#optional)
+8. [Miscellaneous](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#misc)
+9. [Support](/blog/2014/07/23/snowplow-java-tracker-0.4.0-released/#support)
 
 <!--more-->
 
 <h2><a name="structure">1. Structural improvements</a></h2>
 
-It's important to first mention the structural changes that have come with this release since using this version breaks compatibility with older versions of the Tracker. Here is a list of the changes made:
+It's important to first mention the structural changes that have come with this release, since using this version **breaks compatibility** with older versions of the Tracker. Here is a list of the changes made:
 
-- `Tracker` interface and `ContractManager` class have been removed.
-- `TrackerC` class is replaced with `Tracker`.
-- `PayloadMap` interface is replaced with `Payload`.
-- `PayloadMapC` class is replaced with `TrackerPayload`.
+- `Tracker` interface and `ContractManager` class have been removed
+- `TrackerC` class is replaced with `Tracker`
+- `PayloadMap` interface is replaced with `Payload`
+- `PayloadMapC` class is replaced with `TrackerPayload`
 - There are four new enums:
-  - `DevicePlatform` - To specify the build 
-  - `emitter.BufferOption` - To specify buffer queue should behave
-  - `emitter.HttpMethod` - To choose between sending GET or POST requests
-  - `emitter.RequestMethod` - To choose how events should be sent
+  - `DevicePlatform` - to specify the build 
+  - `emitter.BufferOption` - to specify buffer queue should behave
+  - `emitter.HttpMethod` - to choose between sending GET or POST requests
+  - `emitter.RequestMethod` - to choose how events should be sent
 
 <h2><a name="emitter">2. The Emitter class</a></h2>
 
-The Emitter class is used to send events to it
+`Emitter` lets you create multiple instances of it so you can send events to many collectors if you want. The `Emitter` class supports sending event data via GET or POST requests although note that Snowplow will only be supporting POST data in a future release. This can be set using the `HttpMethod` enum. 
 
-Emitter lets you create multiple instances of it so you can send events to many collectors if you want. The Emitter class supports sending event data via GET or POST requests although Snowplow will only be supporting POST data in a future release, this can be set using the `HttpMethod` enum. 
+Events by default are buffered until they reach 10 events and are then sent in a batch. We now support sending events either in a batch or instantly upon being tracked. `BufferOption` is used to let you switch between the two options.
 
-Events by default are bufferred until they reach to 10 events and are then sent in a batch. We offer sending events, either in a batch or instantly upon being tracked. `BufferOption` is used to let you switch between the two options.
+You can also now choose whether events should be sent asynchronously, using the `RequestMethod` enum. 
 
-Another option available is in choosing if events should be sent asynchronously. This can also can be set using the `RequestMethod`. 
-
-*The Emitter by default, sends events synchronously, using GET requests and with a buffer size of 10 events.*
+*The `Emitter` by default, sends events synchronously, using GET requests and with a buffer size of 10 events.*
 
 Here you can find an example of all the options available:
 
@@ -79,10 +77,10 @@ public static void main(String[] args) {
   Tracker tracker1 = new Tracker(emitter1, "cf", "CF63A");
   Tracker tracker2 = new Tracker(emitter2, "cf", "CF63A");
 
-  // Track the user viewing the page which is sent to emitter1
+  // Track the user viewing the page which is sent via emitter1
   tracker1.trackPageView("www.example.com", "Hello, world!", "www.snowplowanalytics.com");
 
-  // Track the user viewing the screen which is sent to emitter2
+  // Track the user viewing the screen which is sent via emitter2
   tracker2.trackScreenView("Main Screen", "a8shnw7");
 
 }
@@ -90,16 +88,15 @@ public static void main(String[] args) {
 
 <h2><a name="payload">3. The TrackerPayload class</a></h2>
 
-The TrackerPayload class implements the new Payload interface. It lets you create Payload similar to a HashMap but made specifically for tracking events.
+The `TrackerPayload` class implements the new `Payload` interface. It lets you create a `Payload` similar to a `HashMap` but made specifically for tracking events.
 
-Currently, it's used by the Tracker class to create each tracking payload, but in the next release, we'll add the ability to add your own Payload into an Unstructured Tracking Event.
-
+Currently, it's used by the `Tracker` class to create each tracking payload, but in the next release, we'll add the ability to add your own `Payload` into an Unstructured Tracking Event.
 
 <h2><a name="subject">4. The Subject class</a></h2>
 
-The Subject class functions similar to it's python counterpart: an instance of the Subject class represents a user who is performing an event in the **Subject**-**Verb**-**Direct Object** model proposed in our [Snowplow event grammar] [event-grammar]. Although you can create a Tracker instance without a Subject, you won't be able to add information such as user ID and timezone to your events without one.
+The `Subject` class functions similar to its Python counterpart: an instance of the `Subject` class represents a user who is performing an event in the **Subject**-**Verb**-**Direct Object** model proposed in our [Snowplow event grammar] [event-grammar]. Although you can create a `Tracker` instance without a `Subject`, you won't be able to add information such as user ID and timezone to your events without one.
 
-Here's an example that shows you how to track more that one user using the Subject class:
+Here's an example that shows you how to track more that one user using the `Subject` class:
 
 {% highlight java %}
 import com.snowplowanalytics.snowplow.tracker.Emitter;
@@ -152,9 +149,7 @@ Tracker tracker = new Tracker(emitter, subject, "cf", "CF63A");
 
 <h2><a name="preconditions">5. Google Guava Preconditions</a></h2>
 
-Removed the ContractManager class in place for Google Guava Precondition checks
-
-We've removed the ContractManager class and replaced it with Google's Precondition check. We check to make sure that trackers are not sending null or empty string parameters when tracking events.
+We've removed the `ContractManager` class and replaced it with Google's Precondition check. We check to make sure that trackers are not sending null or empty string parameters when tracking events.
 
 For example, if were to track a page view without setting the `pageUrl`:
 
@@ -185,7 +180,7 @@ java.lang.IllegalArgumentException: pageUrl cannot be empty
 
 <h2><a name="optional">6. Tracker class constructor</a></h2>
 
-In the Tracker class, you've seen the examples from the previous posts where we've changed the Tracker constructor. To formally mention the changes, we now provide four options for the Tracker constructor:
+In the `Tracker` class, you've seen the examples from the previous posts where we've changed the `Tracker` constructor. To formally mention the changes, we now provide four options for the `Tracker` constructor:
 
 {% highlight java %}
 // Defaults encoding to true, without setting a Subject
@@ -201,11 +196,11 @@ public Tracker(Emitter emitter, String namespace, String appId, boolean base64En
 public Tracker(Emitter emitter, Subject subject, String namespace, String appId, boolean base64Encoded)
 {% endhighlight %}
 
-Under the hood, the way we construct each specific tracking event is done within tracker class. Previously, the PayloadC class would handle this.
+Under the hood, the way we construct each specific tracking event is done within tracker class. Previously, the `PayloadC` class would handle this.
 
 <h2><a name="optional">7. Optional context and timestamp</a></h2>
 
-Similar to the Tracker constructor, we wanted to make it optional for you to set certain parameters without any magic numbers or null values involved.
+Similar to the `Tracker` constructor, we wanted to make it optional for you to set certain parameters without any magic numbers or null values involved.
 
 Each Tracker now has multiple method signatures letting you send a context and/or timestamp depending on your own needs. Here are the method signatures:
 
@@ -231,14 +226,18 @@ public TransactionItem (String order_id, String sku, double price, int quantity,
 
 <h2><a name="misc">8. Miscellaneous</a></h2>
 
-With the new classes being created we're working on more unit tests to compliment them. Have a look at some of them for more examples on how they are being used.
+With the new classes being created, we've also added more unit tests to verify them. Have a look at some of them for more examples on how they are being used.
 
-The Constant and Parameter classes have both been updated to support all the tracking parameters that would be used. This will be more useful when you start creating your own Payload instances.
+The `Constant` and `Parameter` classes have both been updated to support all the tracking parameters that would be used. This will be more useful when you start creating your own `Payload` instances.
 
 <h2><a name="support">9. Support</a></h2>
-Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java Tracker or want to suggest a new feature. The Snowplow Java Tracker is rapidly evolving, so please feel fre to [raise an issue] [issues] if you find any bugs or have any feature requests.
 
-[repo]: https://github.com/snowplow/snowplow-java-tracker/tree/0.4.0
+Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java Tracker or want to suggest a new feature. The Snowplow Java Tracker is rapidly evolving, so please feel free to [raise an issue] [issues] if you find any bugs or have any feature requests.
+
+For more details on this release, please check out the [0.4.0 Release Notes] [release-040] on GitHub.
+
+[release-040]: https://github.com/snowplow/snowplow-java-tracker/releases/tag/0.4.0
+[python-tracker]: https://github.com/snowplow/snowplow-python-tracker
 
 [event-grammar]: /blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar/
 

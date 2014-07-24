@@ -7,7 +7,15 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of Snowplow 0.9.6. This release enhances the available Snowplow enrichments and improves the process of selecting and configuring the enrichments which should be applied.
+We are happy to announce the release of Snowplow 0.9.6. This release does three things:
+
+1. It fixes some important bugs discovered in Snowplow 0.9.5, related to context and event shredding
+2. It introduces new JSON-based configurations for Snowplow's existing enrichments
+3. It extends our geo-IP lookup enrichment to support all five of MaxMind's commercial databases
+
+We are really excited about our new JSON-configurable enrichments. This is the first step on our roadmap to make Snowplow enrichments completely pluggable. In the short-term, it means that we can release new enrichments which won't require you to install a new version of EmrEtlRunner.
+
+The support for the various paid-for MaxMind databases is exciting too. We are very pleased to have MaxMind as our first commercial data partner and would encourage you to check out their IP database offerings.
 
 Below the fold we will cover:
 
@@ -20,14 +28,16 @@ Below the fold we will cover:
 7. [Upgrading](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#upgrading)
 8. [Documentation and help](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#help)
 
+TODO: bug fixes
+
 <!--more-->
 
 <h2><a name="new-format">1. New format for enrichment configuration</a></h2>
 
-The new version of Snowplow supports three configurable enrichments: the anon_ip enrichment, the ip_lookups enrichment, and the referer_parser enrichment. Each of these can be configured using a [self-describing JSON][self-describing-json]. The enrichment configuration JSONs follow a common pattern:
+The new version of Snowplow supports three configurable enrichments: the `anon_ip` enrichment, the `ip_lookups` enrichment, and the `referer_parser` enrichment. Each of these can be configured using a [self-describing JSON][self-describing-json]. The enrichment configuration JSONs follow a common pattern:
 
 {
-    "schema": "iglu:self-describing JSON schema for the enrichment",
+    "schema": "iglu:((self-describing JSON schema for the enrichment))",
 
     "data": {
 
@@ -35,14 +45,14 @@ The new version of Snowplow supports three configurable enrichments: the anon_ip
         "vendor": "enrichment vendor",
         "enabled": true / false,
         "parameters": {
-            (enrichment-specific settings)
+            ((enrichment-specific settings))
         }
     }
 }
 
 The "enabled" field lets you switch the enrichment on or off and the "parameters" field contains the data specific to the enrichment.
 
-These JSONs should then be placed in a single directory, and that directory's filepath should be passed to the EmrEtlRunner as a new option called "enrichments":
+These JSONs should then be placed in a single directory, and that directory's filepath should be passed to the EmrEtlRunner as a new option called `--enrichments`:
 
 {% highlight bash %}
 $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichments config/enrichments
@@ -57,11 +67,13 @@ config/
 		ip_lookups.json
 		referer_parser.json
 
-The JSON files in config/enrichments will then be passed to Snowplow Common Enrich. (Note that only files with the .json file extension will be counted.)
+The JSON files in config/enrichments will then be packaged up by EmrEtlRunner and sent to the Hadoop job. Some notes on this:
+
+* Only files with the `.json` file extension will be packaged up and sent to Hadoop
+* Any enrichment for which no JSON can be found will be disabled in Hadoop
+* Related, the `ip_lookups` and `referer_parser` enrichments no longer automatically happen - you need to provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here][emretlrunner-config-jsons].
 
 In previous versions of Snowplow, it was possible to configure the IP anonymization enrichment in the configuration YAML file. Note that this is no longer possible. See an example of a config.yml with this field removed on Github [here][emretlrunner-config-yml]. 
-
-Also note that the ip_lookups and referer_parser enrichments no longer automatically happen - you need to provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here][emretlrunner-config-jsons].
 
 <h2><a name="anon-ip">2. An example: configuring the anon_ip enrichment</a></h2>
 
@@ -76,7 +88,7 @@ The functionality of the IP anonymization enrichment remains unchanged: it lets 
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
-				"anonOctets": 3
+			"anonOctets": 3
 		}
 	}
 }

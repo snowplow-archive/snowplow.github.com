@@ -20,13 +20,12 @@ The support for the various paid-for [MaxMind] [maxmind] databases is exciting t
 
 Below the fold we will cover:
 
-bug fixes
-
+1. [Important bug fixes for 0.9.5](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#bug-fixes)
 2. [New format for enrichment configuration](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#new-format)
 3. [An example: configuring the anon_ip enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#anon-ip)
 4. [The referer_parser enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#referer-parser)
 5. [The ip_lookups enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#ip-lookups)
-6. [Changes to atomic.events table definitions]
+6. [Changes to the atomic.events table](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#atomic-events)
 7. [Other changes](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#other-changes)
 8. [Upgrading](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#upgrading)
 9. [Documentation and help](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#help)
@@ -35,9 +34,11 @@ bug fixes
 
 <h2><a name="bug-fixes">1. Important bug fixes for 0.9.5</a></h2>
 
+We have identified several bugs in our new shredding functionality released in 0.9.5 a fortnight ago. These are:
+
 * xxx
-* Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
 * xxx
+* We fixed the contract on the `partition_by_run` function in EmrEtlRunner ([#894][894]). This bug was causing issues if `:continue_on_unexpected_error:` was set to `false` with the `:errors:` buckets empty
 
 <h2><a name="new-format">2. New format for enrichment configuration</a></h2>
 
@@ -181,7 +182,7 @@ The `database` field contains the name of the database file.
 
 The `uri` field contains the URI of the bucket in which the database file is found. The GeoLiteCity database is freely hosted by Snowplow at the supplied URI. In this example, the user has purchased the commercial "GeoIPISP.dat" and is hosting it in their own private S3 bucket.
 
-<h2><a name="atomic-events">5. Changes to atomic.events table definition</a></h2>
+<h2><a name="atomic-events">6. Changes to the atomic.events table</a></h2>
 
 We have updated the table definitions to support the extended MaxMind enrichment - see above for the new field names. We have also applied runlength encoding to all Redshift fields which are driven off the IP address ([#883][883]).
 
@@ -189,48 +190,22 @@ To bring the tables inline with the design changes made to contexts and unstruct
 
 Finally, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
 
-=======
-```
-
-The `database` field contains the name of the database file.
-
-The `uri` field contains the URI of the bucket in which the database file is found. The GeoLiteCity database is hosted by Snowplow at the above URI.
-
-<h2><a name="atomic-events">5. Changes to atomic.events table definition</a></h2>
-
-As well as adding fields corresponding to the new MaxMind lookups, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
-We have also deleted the `event_vendor` and `ue_name` fields and renamed `ue_properties` to `unstruct_event`, in accordance with the new format for unstructured events.
->>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 Migration scripts are available for [Redshift][redshift-migration] and [Postgres][postgres-migration].
 
-<h2><a name="other-changes">6. Other changes</a></h2>
+<h2><a name="other-changes">7. Other changes</a></h2>
 
-<<<<<<< HEAD
-We have also made some small improvements to the Hadoop-based Enrichment process:
+We have also made some small but valuable improvements to the Hadoop-based Enrichment process:
 
-* extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
-* Added validation to ensure that the transaction ID field is an integer [#428][428]
-* eid
-=======
-We have also:
+1. We are now extracting `CanonicalInput`'s `userId` as `network_userid` if set (thanks @pkallos!) [#855][855]
+2. We are now validating that the transaction ID field is an integer [#428][428]
+3. **eid**
 
-* extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
-* Applied runlength encoding to all Redshift fields based on IP address [#883][883]
-* Added validation to ensure that the transaction ID field is an integer [#428][428]
-* Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
->>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
+<h2><a name="upgrading">8. Upgrading</a></h2>
 
-<h2><a name="upgrading">7. Upgrading</a></h2>
-
-**EmrEtlRunner**
-
-<<<<<<< HEAD
 <div class="html">
-<h3><a name="upgrading-all">3.1 For all users</a></h3>
+<h3><a name="upgrading-emretlrunner">8.1 Upgrading EmrEtlRunner</a></h3>
 </div>
 
-=======
->>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 You need to update EmrEtlRunner to the latest code (0.9.6 release) on GitHub:
 
 {% highlight bash %}
@@ -240,8 +215,11 @@ $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 {% endhighlight %}
 
-<<<<<<< HEAD
-Next you need to update the `config.yml` file. First update **both** your Hadoop job versions to, respectively:
+<div class="html">
+<h3><a name="upgrading-config">8.2 Updating configuration</a></h3>
+</div>
+
+Update your EmrEtlRunner's `config.yml` file. First update **both** your Hadoop job versions to, respectively:
 
 {% highlight yaml %}
   :versions:
@@ -249,9 +227,7 @@ Next you need to update the `config.yml` file. First update **both** your Hadoop
     :hadoop_shred: 0.2.0 # WAS 0.1.0
 {% endhighlight %}
 
-to:
-
-Next, **completely delete** the `:enrichments:` section at the bottom governing IP address anonymization:
+Next, **completely delete** the `:enrichments:` section at the bottom:
 
 {% highlight yaml %}
 :enrichments:
@@ -264,29 +240,18 @@ For a complete example, see our [sample `config.yml` template] [emretlrunner-con
 
 Finally, if you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
 
-Please check out our [example enrichments directory] [emretlrunner-config-jsons], and review our [configuration guide] [xxx] for the new JSON-based enrichments.
+For help on this, please read our overview above; also check out the [example enrichments directory] [emretlrunner-config-jsons], and review the [configuration guide] [xxx] for the new JSON-based enrichments.
 
-**Storage**
+<div class="html">
+<h3><a name="upgrading-storage">8.3 Migrating atomic.events</a></h3>
+</div>
 
 You need to use the appropriate migration script to update to the new table definition:
 
 * [The Redshift migration script] [redshift-migration]
-* [The Postgres migration script] [postgres-migration]
+* [The PostgreSQL migration script] [postgres-migration]
 
 And that's it - you should be fully upgraded.
-=======
-You also need to update the `config.yml` file as described above, removing any lines relating to IP anonymization or MaxMind. If you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
-
-* [An example `config.yml` file][emretlrunner-config-yml]
-* [An example enrichments directory][emretlrunner-config-jsons]
-
-**Storage**
-
-You need to use the appropriate migration script to update to the new table definition.
-
-* [The Redshift migration script][redshift-migration]
-* [The Postgres migration script][postgres-migration]
->>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 
 <h2><a name="help">8. Documentation and help</a></h2>
 

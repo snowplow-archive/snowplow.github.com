@@ -11,16 +11,17 @@ weight: 1
 
 # What is Snowplow?
 
-Snowplow is an [Event Analytics Platform] [event-analytics-blog-post]
+Snowplow is an [Event Analytics Platform] [event-analytics-blog-post]. It gives you **all your event-level, customer-level data** in your **own**
 
-It delivers:
+* **data warehouse** to power analytics
+* **stream** for real-time processing
 
-* Every line of customer-level, event-level data, in your own, structured data warehouse, so you can perform *any* analysis on that data, with *any* tool of your choice
-* Every line of your customer-level, event level data, in your own [unified log] [unified-log-blog-post], so you can action that data in real-time in your own real-time applications
+Use Snowplow to 
+
+* Enable the [high value analytics] [high-value-analytics] that makes a difference to your business
+* Action your data in [real-time] [real-time]
 
 ## Find out more
-
-Learn
 
 * [Why companies use Snowplow] [why]
 * [Which companies use Snowplow, and how they use it] [who]
@@ -35,7 +36,8 @@ Learn
 </div>
 
 
-
+[high-value-analytics]: /product/why-use-snowplow.html#answer-the-questions-that-matter-to-your-business
+[real-time]: /product/why-use-snowplow.html#action-your-data-in-real-time
 
 [do-more-with-your-data]: do-more-with-your-data.html
 [get-started]: get-started.html

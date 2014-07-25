@@ -25,5 +25,5 @@ Frank & Oak
 Find out more about who [our users] [users] are, and [how they use Snowplow] [users-how].
 
 
-[users-are]: /about/users.html
+[users]: /about/users.html
 [users-how]: /about/users.html#how

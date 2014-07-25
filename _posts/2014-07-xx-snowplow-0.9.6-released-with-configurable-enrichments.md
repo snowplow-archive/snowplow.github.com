@@ -20,16 +20,16 @@ The support for the various paid-for [MaxMind] [maxmind] databases is exciting t
 
 Below the fold we will cover:
 
-1. [New format for enrichment configuration](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#new-format)
-2. [An example: configuring the anon_ip enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#anon-ip)
-3. [The referer_parser enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#referer-parser)
-4. [The ip_lookups enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#ip-lookups)
-5. [Changes to atomic.events table definitions]
-6. [Other changes](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#other-changes)
-7. [Upgrading](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#upgrading)
-8. [Documentation and help](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#help)
+bug fixes
 
-TODO: bug fixes
+2. [New format for enrichment configuration](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#new-format)
+3. [An example: configuring the anon_ip enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#anon-ip)
+4. [The referer_parser enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#referer-parser)
+5. [The ip_lookups enrichment](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#ip-lookups)
+6. [Changes to atomic.events table definitions]
+7. [Other changes](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#other-changes)
+8. [Upgrading](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#upgrading)
+9. [Documentation and help](/blog/2014/07/xx/snowplow-0.9.6-released-with-configurable-enrichments/#help)
 
 <!--more-->
 
@@ -39,16 +39,13 @@ TODO: bug fixes
 * Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
 * xxx
 
-<h2><a name="new-format">1. New format for enrichment configuration</a></h2>
+<h2><a name="new-format">2. New format for enrichment configuration</a></h2>
 
 The new version of Snowplow supports three configurable enrichments: the `anon_ip` enrichment, the `ip_lookups` enrichment, and the `referer_parser` enrichment. Each of these can be configured using a [self-describing JSON][self-describing-json]. The enrichment configuration JSONs follow a common pattern:
 
-{% highlight json %}
 {
-    "schema": "iglu:((self-describing JSON schema for the enrichment))",
-
+    "schema": "iglu:self-describing JSON schema for the enrichment",
     "data": {
-
         "name": "enrichment name",
         "vendor": "enrichment vendor",
         "enabled": true / false,
@@ -59,7 +56,7 @@ The new version of Snowplow supports three configurable enrichments: the `anon_i
 }
 {% endhighlight %}
 
-The "enabled" field lets you switch the enrichment on or off and the "parameters" field contains the data specific to the enrichment.
+The `"enabled"` field lets you switch the enrichment on or off and the `"parameters"` field contains the data specific to the enrichment.
 
 These JSONs should be placed in a single directory, and that directory's filepath should be passed to the EmrEtlRunner as a new command-line option called `--enrichments`:
 
@@ -69,7 +66,7 @@ $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichmen
 
 For example, if you want to configure all three enrichments, your config directory might have this structure:
 
-{% highlight bash %}
+{% highlight yaml %}
 config/
 	config.yml
 	enrichments/
@@ -80,13 +77,13 @@ config/
 
 The JSON files in `config/enrichments` will then be packaged up by EmrEtlRunner and sent to the Hadoop job. Some notes on this:
 
-* The filenames don't matter, but only files with the `.json` file extension will be packaged up and sent to Hadoop
+* The filenames do not matter, but only files with the `.json` file extension will be packaged up and sent to Hadoop
 * Any enrichment for which no JSON can be found will be disabled (i.e. not run) in the Hadoop enrichment code
 * Thus the `ip_lookups` and `referer_parser` enrichments **no longer happen automatically** - you must provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here] [emretlrunner-config-jsons].
 
 In previous versions of Snowplow, it was possible to configure the IP anonymization enrichment in the configuration YAML file. This section of the configuration YAML file has now been removed - use the `anon_ip` configuration JSON instead.
 
-<h2><a name="anon-ip">2. An example: configuring the anon_ip enrichment</a></h2>
+<h2><a name="anon-ip">3. An example: configuring the anon_ip enrichment</a></h2>
 
 The functionality of the IP anonymization enrichment remains unchanged: it lets you anonymize part (or all) of each user's IP address. Here's an example configuration JSON for this enrichment:
 
@@ -108,17 +105,17 @@ The functionality of the IP anonymization enrichment remains unchanged: it lets 
 
 This is a simple enrichment: the only field in "parameters" is "anonOctets", which is the number of octets of each IP address to anonymize. In this case it is set to 3, so 37.157.26.115 would be anonymized to 37.x.x.x.
 
-<h2><a name="referer-parser">3. The referer_parser enrichment</a></h2>
+<h2><a name="referer-parser">4. The `referer_parser` enrichment</a></h2>
 
-Snowplow uses our own [referer-parser project][referer-parser-repo] to extract useful information from refer(r)er URLs. For example, the referer:
+Snowplow uses the [Referer-Parser][referer-parser-repo] to extract useful information from referer URLs. For example, the referer
 
 "http://www.google.com/search?q=snowplow+enrichments&hl=en&client=safari"
 
-would be identified as a Google search with the search terms "snowplow" and "enrichments".
+would be identified as a Google search using the terms "snowplow" and "enrichments".
 
 If the referer URI's host is the same as the current page's host, the referer will be counted as internal.
 
-The latest version of the referer-parser project adds the option to pass in a list of additional domains which should be treated as internal. Snowplow's referer_parser enrichment can now be configured to take advantage of this:
+The latest version of the Referer-Parser adds the option to pass in a list of additional domains which should count as internal. The Referer-Parser enrichment can now be configured to take advantage of this:
 
 {% highlight json %}
 {
@@ -141,7 +138,7 @@ The latest version of the referer-parser project adds the option to pass in a li
 
 Using the above configuration will ensure that all referrals from the internal subdomains "mysubdomain1.acme.com" and "mysubdomain2.acme.com" will be counted as internal rather than unknown.
 
-<h2><a name="ip-lookups">4. The ip_lookups enrichment</a></h2>
+<h2><a name="ip-lookups">5. The ip_lookups enrichment</a></h2>
 
 Previous versions of Snowplow used a free [MaxMind] [maxmind] database to look up a user's geographic location based on their IP address. This version expands on that functionality by adding the option to use other, paid-for, [MaxMind][maxmind] databases to look up additional information. The full list of supported databases:
 
@@ -192,24 +189,48 @@ To bring the tables inline with the design changes made to contexts and unstruct
 
 Finally, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
 
+=======
+```
+
+The `database` field contains the name of the database file.
+
+The `uri` field contains the URI of the bucket in which the database file is found. The GeoLiteCity database is hosted by Snowplow at the above URI.
+
+<h2><a name="atomic-events">5. Changes to atomic.events table definition</a></h2>
+
+As well as adding fields corresponding to the new MaxMind lookups, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
+We have also deleted the `event_vendor` and `ue_name` fields and renamed `ue_properties` to `unstruct_event`, in accordance with the new format for unstructured events.
+>>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 Migration scripts are available for [Redshift][redshift-migration] and [Postgres][postgres-migration].
 
 <h2><a name="other-changes">6. Other changes</a></h2>
 
+<<<<<<< HEAD
 We have also made some small improvements to the Hadoop-based Enrichment process:
 
 * extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
 * Added validation to ensure that the transaction ID field is an integer [#428][428]
 * eid
+=======
+We have also:
+
+* extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
+* Applied runlength encoding to all Redshift fields based on IP address [#883][883]
+* Added validation to ensure that the transaction ID field is an integer [#428][428]
+* Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
+>>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 
 <h2><a name="upgrading">7. Upgrading</a></h2>
 
 **EmrEtlRunner**
 
+<<<<<<< HEAD
 <div class="html">
 <h3><a name="upgrading-all">3.1 For all users</a></h3>
 </div>
 
+=======
+>>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 You need to update EmrEtlRunner to the latest code (0.9.6 release) on GitHub:
 
 {% highlight bash %}
@@ -219,6 +240,7 @@ $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 {% endhighlight %}
 
+<<<<<<< HEAD
 Next you need to update the `config.yml` file. First update **both** your Hadoop job versions to, respectively:
 
 {% highlight yaml %}
@@ -252,6 +274,19 @@ You need to use the appropriate migration script to update to the new table defi
 * [The Postgres migration script] [postgres-migration]
 
 And that's it - you should be fully upgraded.
+=======
+You also need to update the `config.yml` file as described above, removing any lines relating to IP anonymization or MaxMind. If you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
+
+* [An example `config.yml` file][emretlrunner-config-yml]
+* [An example enrichments directory][emretlrunner-config-jsons]
+
+**Storage**
+
+You need to use the appropriate migration script to update to the new table definition.
+
+* [The Redshift migration script][redshift-migration]
+* [The Postgres migration script][postgres-migration]
+>>>>>>> f5e0ad2fe7398e51cfdb4893aec59f975a994756
 
 <h2><a name="help">8. Documentation and help</a></h2>
 

@@ -7,16 +7,16 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow 0.9.6. This release does three things:
+We are pleased to announce the release of Snowplow 0.9.6. This release does four things:
 
-1. It fixes some important bugs discovered in Snowplow 0.9.5, related to context and event shredding
+1. It fixes some important bugs discovered in Snowplow 0.9.5, related to our new shredding functionality
 2. It introduces new JSON-based configurations for Snowplow's existing enrichments
-3. It extends our geo-IP lookup enrichment to support all five of MaxMind's commercial databases
-4. It updates our referer-parsing enrichment to support a user-configurable list of internal domains
+3. It extends our geo-IP lookup enrichment to support all five of [MaxMind] [maxmind]'s commercial databases
+4. It extends our referer-parsing enrichment to support a user-configurable list of internal domains
 
 We are really excited about our new JSON-configurable enrichments. This is the first step on our roadmap to make Snowplow enrichments completely pluggable. In the short-term, it means that we can release new enrichments which won't require you to install a new version of EmrEtlRunner. It also means we can support much more complex (configuration-wise) enrichments than we could previously; finally it also means we can share the same enrichment configurations between our Hadoop and Kinesis-based flows.
 
-The support for the various paid-for MaxMind databases is exciting too - we've been using it internally to see which companies are browsing the Snowplow website! We are very pleased to have MaxMind as our first commercial data partner and would encourage you to check out their IP database offerings.
+The support for the various paid-for [MaxMind] [maxmind] databases is exciting too - we've been using this internally to see which companies are browsing the Snowplow website! We are very pleased to have [MaxMind] [maxmind] as our first commercial data partner and would encourage you to check out their IP database offerings.
 
 Below the fold we will cover:
 
@@ -82,7 +82,7 @@ The JSON files in `config/enrichments` will then be packaged up by EmrEtlRunner 
 
 * The filenames don't matter, but only files with the `.json` file extension will be packaged up and sent to Hadoop
 * Any enrichment for which no JSON can be found will be disabled (i.e. not run) in the Hadoop enrichment code
-* Thus the `ip_lookups` and `referer_parser` enrichments no longer happen automatically - you must provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here] [emretlrunner-config-jsons].
+* Thus the `ip_lookups` and `referer_parser` enrichments **no longer happen automatically** - you must provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here] [emretlrunner-config-jsons].
 
 In previous versions of Snowplow, it was possible to configure the IP anonymization enrichment in the configuration YAML file. This section of the configuration YAML file has now been removed - use the `anon_ip` configuration JSON instead.
 
@@ -110,15 +110,15 @@ This is a simple enrichment: the only field in "parameters" is "anonOctets", whi
 
 <h2><a name="referer-parser">3. The referer_parser enrichment</a></h2>
 
-Snowplow uses our own [referer-parser project][referer-parser-repo] to extract useful information from refer(r)er URLs. For example, the referer
+Snowplow uses our own [referer-parser project][referer-parser-repo] to extract useful information from refer(r)er URLs. For example, the referer:
 
 "http://www.google.com/search?q=snowplow+enrichments&hl=en&client=safari"
 
-would be identified as a Google search using the terms "snowplow" and "enrichments".
+would be identified as a Google search with the search terms "snowplow" and "enrichments".
 
 If the referer URI's host is the same as the current page's host, the referer will be counted as internal.
 
-The latest version of referer-parser adds the option to pass in a list of additional domains which should be treated as internal. The Referer-Parser enrichment can now be configured to take advantage of this:
+The latest version of the referer-parser project adds the option to pass in a list of additional domains which should be treated as internal. Snowplow's referer_parser enrichment can now be configured to take advantage of this:
 
 {% highlight json %}
 {
@@ -143,15 +143,15 @@ Using the above configuration will ensure that all referrals from the internal s
 
 <h2><a name="ip-lookups">4. The ip_lookups enrichment</a></h2>
 
-Previous versions of Snowplow used a free [MaxMind][maxmind] database to look up a user's geographic location based on their IP address. This version expands on that functionality by adding the option to use other, paid-for, MaxMind databases to look up additional information. The full list of supported databases:
+Previous versions of Snowplow used a free [MaxMind] [maxmind] database to look up a user's geographic location based on their IP address. This version expands on that functionality by adding the option to use other, paid-for, [MaxMind][maxmind] databases to look up additional information. The full list of supported databases:
 
-1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The ip_lookups enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. [This blog post][maxmind-post] has more information.
+1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The ip_lookups enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. [This blog post][maxmind-post] has more background information
 
 2) [GeoIP ISP][geoipisp] looks up a user's ISP address. This populates the new `ip_isp` field
 
 3) [GeoIP Organization][geoiporg] looks up a user's organization. This populates the new `ip_organization` field
 
-3) [GeoIP Domain][geoipdomain] looks up the second level domain name associated with a user's IP address. This populates the new `ip_domain` field
+3) [GeoIP Domain][geoipdomain] looks up the second-level domain name associated with a user's IP address. This populates the new `ip_domain` field
 
 5) [GeoIP Netspeed][geoipnetspeed] estimates a user's connection speed. This populates the new `ip_organization` field
 
@@ -173,7 +173,7 @@ An example configuration JSON, using only the free GeoLiteCity database and the 
 			},
 			"organization": {
 				"database": "GeoIPISP.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://acme-proprietary-assets/third-party/maxmind"
 			},
 		}
 	}
@@ -182,12 +182,16 @@ An example configuration JSON, using only the free GeoLiteCity database and the 
 
 The `database` field contains the name of the database file.
 
-The `uri` field contains the URI of the bucket in which the database file is found. The GeoLiteCity database is freely hosted by Snowplow at the supplied URI. In this example, the user has purchased the commercial "GeoIPISP.dat" and is hosting it 
+The `uri` field contains the URI of the bucket in which the database file is found. The GeoLiteCity database is freely hosted by Snowplow at the supplied URI. In this example, the user has purchased the commercial "GeoIPISP.dat" and is hosting it in their own private S3 bucket.
 
 <h2><a name="atomic-events">5. Changes to atomic.events table definition</a></h2>
 
-As well as adding fields corresponding to the new MaxMind lookups, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
-We have also deleted the `event_vendor` and `ue_name` fields and renamed `ue_properties` to `unstruct_event`, in accordance with the new format for unstructured events.
+We have updated the table definitions to support the extended MaxMind enrichment - see above for the new field names. We have also applied runlength encoding to all Redshift fields which are driven off the IP address ([#883][883]).
+
+To bring the tables inline with the design changes made to contexts and unstructured events in recent releases, we have deleted the `event_vendor` and `ue_name` fields and renamed `ue_properties` to `unstruct_event`.
+
+Finally, we have created a new `etl_tstamp` field. This is populated by a timestamp created in the EmrEtlRunner, and describes when ETL for a particular row began.
+
 Migration scripts are available for [Redshift][redshift-migration] and [Postgres][postgres-migration].
 
 <h2><a name="other-changes">6. Other changes</a></h2>
@@ -196,18 +200,15 @@ We have also made some small improvements to the Hadoop-based Enrichment process
 
 * extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
 * Added validation to ensure that the transaction ID field is an integer [#428][428]
-
 * eid
-
-And finally we have updated the table definitions to support the new MaxMind fields and also to bring the tables inline with the design changes made to contexts and unstructured events in recent releases:
-
-* xxx
-* Applied runlength encoding to all Redshift fields which are driven off the IP address [#883][883]
-* xxx
 
 <h2><a name="upgrading">7. Upgrading</a></h2>
 
 **EmrEtlRunner**
+
+<div class="html">
+<h3><a name="upgrading-all">3.1 For all users</a></h3>
+</div>
 
 You need to update EmrEtlRunner to the latest code (0.9.6 release) on GitHub:
 
@@ -231,7 +232,6 @@ to:
 Next, **completely delete** the `:enrichments:` section at the bottom governing IP address anonymization:
 
 {% highlight yaml %}
-
 :enrichments:
   :anon_ip:
     :enabled: true

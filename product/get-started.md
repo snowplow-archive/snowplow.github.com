@@ -11,11 +11,11 @@ weight: 4
 Snowplow is available in two flavours
 
 <div class="row">
-	<div class="span6">
+	<div class="offset1 span5">
 		<h2>Snowplow as a Service</h2>
 		<p>Have the Snowplow team setup and run your Snowplow data pipeline for you.</p>
 	</div>
-	<div class="span6">
+	<div class="span5">
 		<h2>Snowplow OS</h2>
 		<p>Snowplow is open source. Download, setup and run the Snowplow Event Analytics Platform yourself.</p>
 	</div>

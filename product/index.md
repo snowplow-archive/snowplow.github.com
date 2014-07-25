@@ -13,8 +13,8 @@ weight: 1
 
 Snowplow is an [Event Analytics Platform] [event-analytics-blog-post]. It gives you all your **event-level, customer-level data** in your own
 
-* **data warehouse** to power analytics
-* **stream** for real-time processing
+* **Data warehouse** to power analytics
+* **Stream** for real-time processing
 
 Use Snowplow to 
 
@@ -23,9 +23,9 @@ Use Snowplow to
 
 ## Find out more
 
-* [**Why** companies use Snowplow] [why]
-* [**Which** companies use Snowplow, and how they use it] [who]
-* [**How** to get started with Snowplow] [get-started]
+* [*Why* companies use Snowplow] [why]
+* [*Which* companies use Snowplow, and how they use it] [who]
+* [*How* to get started with Snowplow] [get-started]
 
 ## Ready for Snowplow?
 
@@ -40,7 +40,7 @@ Use Snowplow to
 [real-time]: /product/why-use-snowplow.html#action-your-data-in-real-time
 
 [why]: /product/why-use-snowplow.html
-[who]: /who-uses-snowplow.html
+[who]: /product/who-uses-snowplow.html
 [get-started]: get-started.html
 [amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png 
 

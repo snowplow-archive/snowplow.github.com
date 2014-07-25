@@ -13,7 +13,7 @@ weight: 5
 <div class="row">
 	<div class="offset1 span2">
 		<h3>Managed service</h3>
-	<div>
+	</div>
 	<div class="span9">
 		<ul>
 			<li>We setup Snowplow on <em>your</em> own AWS account</li>
@@ -40,7 +40,7 @@ weight: 5
 <div class="row">
 	<div class="offset1 span2">
 		<h3>Managed service</h3>
-	<div>
+	</div>
 	<div class="span9">
 		<ul>
 			<li>Free setup with 12 month contract, £5000 otherwise</li>

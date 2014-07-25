@@ -33,6 +33,12 @@ TODO: bug fixes
 
 <!--more-->
 
+<h2><a name="bug-fixes">1. Important bug fixes for 0.9.5</a></h2>
+
+* xxx
+* Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
+* xxx
+
 <h2><a name="new-format">1. New format for enrichment configuration</a></h2>
 
 The new version of Snowplow supports three configurable enrichments: the `anon_ip` enrichment, the `ip_lookups` enrichment, and the `referer_parser` enrichment. Each of these can be configured using a [self-describing JSON][self-describing-json]. The enrichment configuration JSONs follow a common pattern:
@@ -151,7 +157,7 @@ Previous versions of Snowplow used a free [MaxMind][maxmind] database to look up
 
 An example configuration JSON, using only the free GeoLiteCity database and the proprietary GeoIP ISP database:
 
-```json
+{% highlight json %}
 {
 	"schema": "iglu:com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0",
 
@@ -172,7 +178,7 @@ An example configuration JSON, using only the free GeoLiteCity database and the 
 		}
 	}
 }
-```
+{% endhighlight %}
 
 The `database` field contains the name of the database file.
 
@@ -186,12 +192,18 @@ Migration scripts are available for [Redshift][redshift-migration] and [Postgres
 
 <h2><a name="other-changes">6. Other changes</a></h2>
 
-We have also:
+We have also made some small improvements to the Hadoop-based Enrichment process:
 
 * extracted `CanonicalInput`'s `userId` as `network_userid` (thanks @pkallos!) [#855][855]
-* Applied runlength encoding to all Redshift fields based on IP address [#883][883]
 * Added validation to ensure that the transaction ID field is an integer [#428][428]
-* Fixed the contract on the `partition_by_run` function in EmrEtlRunner so that a folder does not need to be supplied [#894][894]
+
+* eid
+
+And finally we have updated the table definitions to support the new MaxMind fields and also to bring the tables inline with the design changes made to contexts and unstructured events in recent releases:
+
+* xxx
+* Applied runlength encoding to all Redshift fields which are driven off the IP address [#883][883]
+* xxx
 
 <h2><a name="upgrading">7. Upgrading</a></h2>
 
@@ -206,17 +218,40 @@ $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 {% endhighlight %}
 
-You also need to update the `config.yml` file as described above, removing any lines relating to IP anonymization or MaxMind. If you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
+Next you need to update the `config.yml` file. First update **both** your Hadoop job versions to, respectively:
 
-* [An example `config.yml` file][emretlrunner-config-yml]
-* [An example enrichments directory][emretlrunner-config-jsons]
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 0.6.0 # WAS 0.5.0
+    :hadoop_shred: 0.2.0 # WAS 0.1.0
+{% endhighlight %}
+
+to:
+
+Next, **completely delete** the `:enrichments:` section at the bottom governing IP address anonymization:
+
+{% highlight yaml %}
+
+:enrichments:
+  :anon_ip:
+    :enabled: true
+    :anon_octets: 2
+{% endhighlight %}
+
+For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
+
+Finally, if you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
+
+Please check out our [example enrichments directory] [emretlrunner-config-jsons], and review our [configuration guide] [xxx] for the new JSON-based enrichments.
 
 **Storage**
 
-You need to use the appropriate migration script to update to the new table definition.
+You need to use the appropriate migration script to update to the new table definition:
 
-* [The Redshift migration script][redshift-migration]
-* [The Postgres migration script][postgres-migration]
+* [The Redshift migration script] [redshift-migration]
+* [The Postgres migration script] [postgres-migration]
+
+And that's it - you should be fully upgraded.
 
 <h2><a name="help">8. Documentation and help</a></h2>
 

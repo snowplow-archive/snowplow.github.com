@@ -34,15 +34,15 @@ Below the fold we will cover:
 
 <h2><a name="bug-fixes">1. Important bug fixes for 0.9.5</a></h2>
 
-We have identified several bugs in our new shredding functionality released in 0.9.5 a fortnight ago. These are:
+We have identified several bugs in our new shredding functionality released in 0.9.5 a fortnight ago, now fixed in 0.9.6. These are:
 
-* xxx
-* xxx
-* We fixed the contract on the `partition_by_run` function in EmrEtlRunner ([#894][894]). This bug was causing issues if `:continue_on_unexpected_error:` was set to `false` with the `:errors:` buckets empty
+* Trailing empty fields in an enriched event TSV row would cause shredding for that row to fail with a "Line does not match Snowplow enriched event" error. Now fixed ([#921] [921])
+* The StorageLoader now knows to look in Amazon's eu-west-1 region for the `snowplow-hosted-assets` S3 bucket, regardless of which region the user has specified for their own JSON Path files ([#895] [895])
+* We fixed the contract on the `partition_by_run` function in EmrEtlRunner ([#894] [894]). This bug was causing issues if `:continue_on_unexpected_error:` was set to `false` with the `:errors:` buckets empty
 
 <h2><a name="new-format">2. New format for enrichment configuration</a></h2>
 
-The new version of Snowplow supports three configurable enrichments: the `anon_ip` enrichment, the `ip_lookups` enrichment, and the `referer_parser` enrichment. Each of these can be configured using a [self-describing JSON][self-describing-json]. The enrichment configuration JSONs follow a common pattern:
+The new version of Snowplow supports three configurable enrichments: the `anon_ip` enrichment, the `ip_lookups` enrichment, and the `referer_parser` enrichment. Each of these can be configured using a [self-describing JSON] [self-describing-json]. The enrichment configuration JSONs follow a common pattern:
 
 {
     "schema": "iglu:self-describing JSON schema for the enrichment",
@@ -82,7 +82,7 @@ The JSON files in `config/enrichments` will then be packaged up by EmrEtlRunner 
 * Any enrichment for which no JSON can be found will be disabled (i.e. not run) in the Hadoop enrichment code
 * Thus the `ip_lookups` and `referer_parser` enrichments **no longer happen automatically** - you must provide configuration JSONs with the "enabled" field set to `true` if you want them. Sensible default configuration JSONs are available on Github [here] [emretlrunner-config-jsons].
 
-In previous versions of Snowplow, it was possible to configure the IP anonymization enrichment in the configuration YAML file. This section of the configuration YAML file has now been removed - use the `anon_ip` configuration JSON instead.
+The new JSON-based configurations are discussed in further detail on the [Configuring enrichments] [configuring-enrichments] wiki page.
 
 <h2><a name="anon-ip">3. An example: configuring the anon_ip enrichment</a></h2>
 
@@ -143,7 +143,7 @@ Using the above configuration will ensure that all referrals from the internal s
 
 Previous versions of Snowplow used a free [MaxMind] [maxmind] database to look up a user's geographic location based on their IP address. This version expands on that functionality by adding the option to use other, paid-for, [MaxMind][maxmind] databases to look up additional information. The full list of supported databases:
 
-1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The ip_lookups enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. [This blog post][maxmind-post] has more background information
+1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The ip_lookups enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. The paid-for database is more accurate than the free version. [This blog post][maxmind-post] has more background information
 
 2) [GeoIP ISP][geoipisp] looks up a user's ISP address. This populates the new `ip_isp` field
 
@@ -196,27 +196,29 @@ Migration scripts are available for [Redshift][redshift-migration] and [Postgres
 
 We have also made some small but valuable improvements to the Hadoop-based Enrichment process:
 
-1. We are now extracting `CanonicalInput`'s `userId` as `network_userid` if set (thanks @pkallos!) [#855][855]
-2. We are now validating that the transaction ID field is an integer [#428][428]
-3. **eid**
+1. We are now extracting `CanonicalInput`'s `userId` as `network_userid` if set, thanks community member [Phil Kallos] [pkallos]! ([#855] [855])
+2. We are now validating that the transaction ID field is an integer ([#428] [428])
+3. We can now extract the `event_id` UUID from the incoming querystring if set. This should prove very helpful for the Kinesis flow wherever we have at-least-once processing ([#723] [723])
 
 <h2><a name="upgrading">8. Upgrading</a></h2>
 
 <div class="html">
-<h3><a name="upgrading-emretlrunner">8.1 Upgrading EmrEtlRunner</a></h3>
+<h3><a name="upgrading-emretlrunner">8.1 Upgrading EmrEtlRunner and StorageLoader</a></h3>
 </div>
 
-You need to update EmrEtlRunner to the latest code (0.9.6 release) on GitHub:
+You need to update EmrEtlRunner and StorageLoader to the latest code (0.9.6 release) on GitHub:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
 $ git checkout 0.9.6
 $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
+$ cd ../../4-storage/storage-loader
+$ bundle install --deployment
 {% endhighlight %}
 
 <div class="html">
-<h3><a name="upgrading-config">8.2 Updating configuration</a></h3>
+<h3><a name="upgrading-config">8.2 Updating EmrEtlRunner's configuration</a></h3>
 </div>
 
 Update your EmrEtlRunner's `config.yml` file. First update **both** your Hadoop job versions to, respectively:
@@ -238,12 +240,21 @@ Next, **completely delete** the `:enrichments:` section at the bottom:
 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
+<div class="html">
+<h3><a name="upgrading-enrichments">8.3 Adding enrichments</a></h3>
+</div>
+
 Finally, if you wish to use any of the configurable enrichments, you need to create a directory of configuration JSONs and pass that directory to the EmrEtlRunner using the new `--enrichments` option.
 
 For help on this, please read our overview above; also check out the [example enrichments directory] [emretlrunner-config-jsons], and review the [configuration guide] [xxx] for the new JSON-based enrichments.
 
+**Important:** don't forget to update any Bash script that you use to run your EmrEtlRunner job, to include the `--enrichments` argument. If you forget to do this, then all of your enrichments will be switched off. You can see updated versions of these Bash files here:
+
+* [snowplow-emr-etl-runner.sh] [emretlrunner-bash]
+* [snowplow-runner-and-loader.sh] [runner-loader-bash]
+
 <div class="html">
-<h3><a name="upgrading-storage">8.3 Migrating atomic.events</a></h3>
+<h3><a name="upgrading-storage">8.4 Migrating atomic.events</a></h3>
 </div>
 
 You need to use the appropriate migration script to update to the new table definition:
@@ -268,6 +279,9 @@ For more details on this release, please check out the [0.9.6 Release Notes] [sn
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [emretlrunner-config-jsons]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/enrichments
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
+
+[pkallos]: https://github.com/pkallos
+
 [maxmind]: https://www.maxmind.com/en/geolocation_landing?rld=snowplow
 [geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/?rld=snowplow
 [geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
@@ -275,16 +289,23 @@ For more details on this release, please check out the [0.9.6 Release Notes] [sn
 [geoiporg]: https://www.maxmind.com/en/organization?rld=snowplow
 [geoipdomain]: https://www.maxmind.com/en/domain?rld=snowplow
 [geoipnetspeed]: https://www.maxmind.com/en/netspeed?rld=snowplow
+
 [redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.3.0_to_0.4.0.sql
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.2.0_to_0.3.0.sql
 
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/Configuring-enrichments
 [emretlrunner-wiki]: https://github.com/snowplow/snowplow/wiki/2-Using-EmrEtlRunner
 
-[855]: https://github.com/snowplow/snowplow/issues/855
 [428]: https://github.com/snowplow/snowplow/issues/428
+[723]: https://github.com/snowplow/snowplow/issues/723
+[855]: https://github.com/snowplow/snowplow/issues/855
+[883]: https://github.com/snowplow/snowplow/issues/883
 [894]: https://github.com/snowplow/snowplow/issues/894
-[883]: https://github.com/snowplow/snowplow/issues/182
+[895]: https://github.com/snowplow/snowplow/issues/895
+[921]: https://github.com/snowplow/snowplow/issues/921
+
+[emretlrunner-bash]: https://github.com/snowplow/snowplow/blob/0.9.6/3-enrich/emr-etl-runner/bin/snowplow-emr-etl-runner.sh
+[runner-loader-bash]:https://github.com/snowplow/snowplow/blob/0.9.6/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh
 
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

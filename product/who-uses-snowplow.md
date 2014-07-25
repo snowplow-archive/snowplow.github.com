@@ -7,7 +7,7 @@ description: Snowplow is used by some of the most data-sophisticated companies i
 weight: 3
 ---
 
-<h2>Used by some of the most data-sophisticated companies in the world...</h2>
+<h1>Used by some of the most data-sophisticated companies in the world...</h1>
 
 <div class="row">
 	<div class="span4">

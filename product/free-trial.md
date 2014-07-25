@@ -3,7 +3,7 @@ layout: page
 group: product
 title: Sign up for a free Snowplow trial
 shortened-link: Free trial
-weight: 5
+weight: 7
 ---
 
 # Want to give Snowplow a trial?

@@ -2,7 +2,7 @@
 layout: page
 group: product
 title: How to get started with Snowplow today
-shortened-link: Get started!
+shortened-link: Get started
 weight: 4
 ---
 

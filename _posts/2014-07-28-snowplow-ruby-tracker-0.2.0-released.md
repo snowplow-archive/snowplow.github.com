@@ -7,7 +7,11 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This purpose of this release is to bring the Ruby Tracker up to date with the other Snowplow trackers. The most important change is that it now supports self-describing custom contexts and unstructured events. Read on for more information...
+We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This purpose of this release is to bring the Ruby Tracker up to date with the other Snowplow trackers. The most important change is that it now supports self-describing custom contexts and unstructured events. 
+
+Huge thanks go to Elijah Tabb, a.k.a. [ebear][ebear], for contributing the updated `track_unstruct_event` and `track_screen_view` tracker API methods!
+
+Read on for more information...
 
 1. [New tracker initialization method](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#initialization)
 2. [Updated format for unstructured events](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#unstruct-events)
@@ -158,7 +162,7 @@ Useful links:
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. This is only the second release of the Ruby Tracker, so we're keen to hear people's opinions. And [raise an issue] [issues] if you spot any bugs!
 
-[rubygems]: http://rubygems.org/gems/snowplow-tracker
+[ebear]: https://github.com/ebear
 
 [repo]: https://github.com/snowplow/snowplow-ruby-tracker
 [wiki]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker

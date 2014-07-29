@@ -50,17 +50,40 @@ We'll be using Neo4j for our initial experiments because it has two features in 
 
 <p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-code-snippet.PNG"></p>
 
-Not only is Cypher very flexible when we're creating our graph - it also gives us a lot of flexibility when we come to query it. For example, if I want to understand how users navigate from our homepage to our blog index, I can execute a query like the following:
+Not only is Cypher very flexible when we're creating our graph - it also gives us a lot of flexibility when we come to query it. For example, if I know how many step it takes users to navigate from our homepage to our blog index, I can execute a query like the following:
 
 {% highlight r %}
-
+MATCH (blog:Page {id:"snowplowanalytics.com/blog/index.html"}),(st:Page {id:"snowplowanalytics.com/"}),
+p = (st)<-[:OBJECT]-()<-[:PREV*..10]-()-[:OBJECT]->(blog)
+where none(
+	v in NODES(p)[2..LENGTH(p)-1]
+	where v.page = blog.id
+	and v.page = st.id
+)
+return length(p), count(length(p))
+ORDER BY length(p);
 {% endhighlight %}
 
-And get a result like the following:
+This query uses the fact that I've added the page URL as a property of each event to make sure we're not counting paths that visit the homepage or blog more than once. I've also limited the length of a path to 10 steps to keep things reasonable. Based on a dataset with ~250k pageviews, Neo4j took 47 seconds to return the following table.
 
 {% highlight bash %}
-
++------------------------------+
+| length(p) | count(length(p)) |
++------------------------------+
+| 3         | 482              |
+| 4         | 260              |
+| 5         | 244              |
+| 6         | 225              |
+| 7         | 348              |
+| 8         | 168              |
+| 9         | 152              |
+| 10        | 127              |
+| 11        | 102              |
+| 12        | 86               |
++------------------------------+
 {% endhighlight %}
+
+Not that these lengths include the OBJECT edges that take us from the homepage node to its events, and from the blog node to its events, so we need to subtract 2 to get the number of steps taken.
 
 In the next blog post, we'll dive into some more concrete examples of using Cypher and Neo4J to perform pathing analysis on Snowplow event data.
 

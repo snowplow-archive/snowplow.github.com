@@ -38,3 +38,10 @@
   spiel: |
         <a href="/authors/ben.html">Ben</a> is an intern as Snowplow Analytics. You can find in him on <a href="http://benfradet.github.io/">Github</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
 
+- name: Nick
+  full_name: Nick Dingwall
+  github:  NickLars
+  url:     /authors/nick.html
+  avatar:  https://lh5.googleusercontent.com/-5d_wHFjrImM/Uoe5-mE5UlI/AAAAAAAAONU/kU_V8cFC1-E/s451-no/392819_733557949054_709405819_n.jpg
+  spiel:   |
+      <a href="/yali.html">Nick</a> is a Data Science Intern at Snowplow. You can find in him on <a href="https://plus.google.com/105485725640035532673/posts" rel="author">Google+</a> and <a href="uk.linkedin.com/pub/nick-dingwall/24/213/4b4">LinkedIn</a>.

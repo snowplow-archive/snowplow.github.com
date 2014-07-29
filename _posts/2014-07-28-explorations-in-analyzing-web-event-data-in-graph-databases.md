@@ -1,6 +1,6 @@
 ---
 layout: post
-shortenedlink: Graph DB for path analysis
+shortenedlink: Graph DB for event analytics
 title: Can graph databases enable whole new classes of event analytics?
 tags: [snowplow, neo4j, graph database, path analysis]
 author: Nick
@@ -13,25 +13,25 @@ Most of the time, we're analysing data with SQL, and specifically, in Amazon Red
 
 However, when we're doing event analytics, we often want to understand the sequence that events have occurred in. We might want to know, for example:
 
-* How long does it take from users to get from point A to point B on our website or mobile app?
+* How long does it take users to get from point A to point B on our website or mobile app?
 * What are the different paths that people take to get to point C?
 * What are the different paths that people take from point D?
 
 This type of *pathing analysis* is not well supported by traditional SQL databases. That's because organising data in a tabular structure means you have to do multiple table scans and execute expensive window functions to first order events by user, and then sequence them. 
 
-Graph databases represent a new approach to storing and querying data. We've started experimenting with using them to do the above pathing analysis. In this blog post, we'll cover the basics of graph databases, and start to explore some of the experimentation we've done with [Neo4J] [neo4j] in particular. We'll follow this blog post up with more detailed examples.
+Graph databases represent a new approach to storing and querying data. We've started experimenting with using them to try answering some of the questions above. In this blog post, we'll cover the basics of graph databases, and start to explore some of the experimentation we've done with [Neo4J] [neo4j] in particular. We'll follow this blog post with more detailed examples.
 
 <!--more-->
 
 ## Modelling event data in graph databases
 
-Graph databases are oftne talked about with reference to data from social networks. They are used to model data where relationships are important, and that's why Facebook's search tool is called 'Graph Search'. A graph database consists of *nodes*, which we can consider to be objects, and *edges*, which connect nodes. So on Facebook, your friends might be represented as nodes, their photos nodes as well, and we can represent liking one of their photos by creates an edge between the user node and the photo node.
+Graph databases are often talked about with reference to social networks. They are used to model data where relationships are important, and that's why Facebook has a search tool is called 'Graph Search'. A graph database consists of *nodes*, which we can consider to be objects, and directed *edges*, which connect nodes together. So on Facebook, your friends might be represented as nodes, their photos as nodes as well, and we can represent liking one of their photos by creating an edge between the user node and the photo node.
 
 <p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-fb-example.png"></p>
 
-To find out who liked a particular photo, we only need identify the node representing that particular photo, and then to follow its incoming 'LIKED' edges and see where they end up, rather than performing a full table scan of all photos to identify the one we're interested in, then scanning another table of likes to identify which users are linked to the photo, and then scanning the full users table to identify details about the user that liked the photo.
+To find out who liked a particular photo, we only need identify the node representing that photo, and then to follow its incoming 'LIKED' edges and see where they end up, rather than performing a full table scan of all photos to identify the one we're interested in, then scanning another table of likes to identify which users are linked to the photo, and then scanning the full users table to identify details about the user that liked the photo.
 
-For our needs, we want to describe a user's journey through a website. We need to decide how to model that journey as a graph. To start off with, we wanted just to model page view events. We might naively start by adding nodes for our users and for our pages, and then create a VIEWS edge between them. But that wouldn't allow us to track the order of these events - this is critical to the pathing analysis we wish to perform. Instead, we can consider the page view event to be an object in its own right and allocate each page view its own *View* node.
+For our needs, we want to describe a user's journey through a website. We need to decide how to model that journey as a graph. To start off with, we only wanted to model page view events. We might naively start by adding nodes for our users and for our pages, and then create a VIEWS edge between them. But that wouldn't allow us to track the order of these events - this is critical to the pathing analysis we wish to perform. Instead, we can consider the page view event to be an object in its own right and allocate each page view to its own *View* node.
 
 <p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-basic-structure.png"></p>
 
@@ -43,16 +43,16 @@ I've chosen to link the *View* events with 'PREV' edges, rather than 'NEXT', bec
 
 Without the intermediate *View* nodes, it would be computationally expensive to order the page views. As it is, we can just follow the PREV edges (in either direction). And by following a path from the user along a pair consisting of a 'VERB' edge and an 'OBJECT' edge, we can easily get a list of pages the user has visited. And we can also start from a page and go backwards along 'OBJECT' edges to View nodes. This gives us a very flexible tool for analysing users' actions on a website.
 
-We'll be using Neo4j for our initial experiments because it has two features in particular that stand out:
+We'll be using Neo4J for our initial experiments because it has two features in particular that stand out:
 
-1. It has a browser-based interface which automatically creates visualisations of the graph like the ones in this post. This is a real help in building our initial graphs and developing queries against them
-2. We get to use Cypher, its expressive query language, to ask questions of our data. By way of example, to create the edges between Barry and Page 1 above, we first CREATE (or MATCH) the nodes we're interested in and then *draw* the edges between them:
+1. It has a browser-based interface which automatically creates visualisations of the graph like the ones in this post. This is a real help in building our initial graphs and developing queries against them.
+2. We get to use Cypher, its expressive query language, to ask questions of our data. By way of example, to create the edges between Barry and Page 1 above, we first CREATE the nodes we're interested in and then *draw* the edges between them:
 
 <p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-code-snippet.PNG"></p>
 
-Not only is Cypher very flexible when we're creating our graph - it also gives us a lot of flexibility when we come to query it. For example, if I know how many step it takes users to navigate from our homepage to our blog index, I can execute a query like the following:
+Not only is Cypher very flexible when we're creating our graph - it also gives us a lot of flexibility when we come to query it. For example, if I want to find out how many steps it takes users to navigate from our homepage to our blog index, I can execute a query like the following:
 
-{% highlight r %}
+<pre>
 MATCH (blog:Page {id:"snowplowanalytics.com/blog/index.html"}),(st:Page {id:"snowplowanalytics.com/"}),
 p = (st)<-[:OBJECT]-()<-[:PREV*..10]-()-[:OBJECT]->(blog)
 where none(
@@ -62,11 +62,11 @@ where none(
 )
 return length(p), count(length(p))
 ORDER BY length(p);
-{% endhighlight %}
+</pre>
 
-This query uses the fact that I've added the page URL as a property of each event to make sure we're not counting paths that visit the homepage or blog more than once. I've also limited the length of a path to 10 steps to keep things reasonable. Based on a dataset with ~250k pageviews, Neo4j took 47 seconds to return the following table.
+This query uses page URLs stored as properties of View nodes to make sure we're not counting paths that visit the homepage or blog more than once. I've also limited the length of a path to 10 steps to keep things reasonable. Based on a dataset with ~250k page view events, Neo4J took 47 seconds to return the following table.
 
-{% highlight bash %}
+<pre>
 +------------------------------+
 | length(p) | count(length(p)) |
 +------------------------------+
@@ -81,9 +81,9 @@ This query uses the fact that I've added the page URL as a property of each even
 | 11        | 102              |
 | 12        | 86               |
 +------------------------------+
-{% endhighlight %}
+</pre>
 
-Not that these lengths include the OBJECT edges that take us from the homepage node to its events, and from the blog node to its events, so we need to subtract 2 to get the number of steps taken.
+Note that these lengths include the OBJECT edges that take us from the homepage node to its events, and from the blog node to its events, so we need to subtract 2 to get the number of steps taken.
 
 In the next blog post, we'll dive into some more concrete examples of using Cypher and Neo4J to perform pathing analysis on Snowplow event data.
 

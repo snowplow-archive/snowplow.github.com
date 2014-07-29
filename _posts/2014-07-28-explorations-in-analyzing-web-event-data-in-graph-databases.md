@@ -13,11 +13,7 @@ None of these questions is easy to answer using a traditional SQL database. Matc
 
 Graph databases may help to solve this problem. They are used to model data where relationships are important, and that's why Facebook's new search tool is called 'Graph Search'. A graph database consists of *nodes*, which we can consider to be objects, and *edges*, which connect nodes. So on Facebook, your friends are nodes, their photos are nodes, and when you like one of their photos, that creates an edge between your node and the photo's node.
 
-[put image here]
-
-```
-create (you:Profile {id:"You"}), (fr:Profile {id:""}), (photo:Photo {id:"Photo 1"}), (you)-[:FRIEND]->(fr), (you)<-[:FRIEND]-(fr), (fr)-[:ADDED]->(photo),(you)-[:LIKED]->(photo)
-```
+![Simple facebook example] [image1]
 
 To find out who liked a particular photo, we only need to follow its outgoing 'LIKED' edges and see where they end up, rather than searching through a whole database for the photo's ID.
 
@@ -25,9 +21,11 @@ For our needs, we want to describe a user's journey around a website. We might n
 
 ![Basic user-view-page structure] [image2]
 
-Then these View nodes can be linked together to create an order. The diagram below shows a user who has visited Page 1, then Page 2, before returning to Page 1 and finally visiting Page 3. I've chosen to link the *View* events with 'PREV' edges, rather than 'NEXT', because it seems semantically more straightforward to add a 'PREV' edge whenever a new event happens. We can traverse in either direction though, so 'NEXT' can be conceived as going backwards along a 'PREV' edge.
+Then these View nodes can be linked together to create an order. The diagram below shows a user who has visited Page 1, then Page 2, before returning to Page 1 and finally visiting Page 3. 
 
-![Putting events in order] [image2]
+![Putting events in order] [image3]
+
+I've chosen to link the *View* events with 'PREV' edges, rather than 'NEXT', because it seems semantically more straightforward to add a 'PREV' edge whenever a new event happens. We can traverse in either direction though, so 'NEXT' can be conceived as going backwards along a 'PREV' edge.
 
 Without the intermediate *View* nodes, it would be computationally expensive to order the page views. As it is, we can just follow the PREV edges (in either direction).
 
@@ -39,11 +37,12 @@ We'll be using Neo4j for our initial experiments because, although it doesn't sc
 
 ```
 CREATE (u:User {id:"John"}), (v:View {id:"101"}), (p:Page {id:"Page 1"}),
+
 (u)-[:VERB]->(v), (v)-[:OBJECT]->(p)
 ```
 
 The patterns we can draw in Cypher can become increasing intricate when we're doing more complex analysis, and in the next post we'll explore some of these as we dive in and get some data into Neo4j.
 
-
+[image1]: /assets/img/blog/2014/07/Neo4j-fb-example.png
 [image2]: /assets/img/blog/2014/07/Neo4j-basic-structure.png
 [image3]: /assets/img/blog/2014/07/Neo4j-prev-relationships.png

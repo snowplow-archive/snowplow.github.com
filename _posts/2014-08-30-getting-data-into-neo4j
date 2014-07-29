@@ -1,0 +1,103 @@
+---
+layout: post
+shortenedlink: Getting data into Neo4J
+title: A rough and ready guide to getting your data into Neo4J
+tags: [snowplow, neo4j, graph database, path analysis]
+author: Nick
+category: Analytics
+---
+
+In the last post, we built some simple models to describe page view data in a graph database. Now we're going to put some data into that model so that we can start doing some analysis. We're going to need:
+
+1. Nodes for each user, page and events (where an event in this case is a page view).
+2. Edges from users to events, from events to pages, and from each event to its previous event (checking that they are both in the same session).
+
+The user and page nodes have only their user ID or page URL as labels; the event node will need a bit more detail:
+
+* event ID
+* event timestamp (in UNIX format for analysis, and human-readable format)
+* session ID
+* referrer URL
+* user ID
+* page ID
+
+These last two could be read from the graph, but since our paths go between event nodes, but our Cypher queries can be clearer if we add them as properties to the event nodes, and it seems to run more quickly. Consider Paul's visit to the website in the example below. The full path is 001 -> 002 -> 003 -> 004 (i.e. reversing along the PREV edges): reading properties of these nodes means we don't have to follow each OBJECT edge to find the page it's associated with.
+
+<p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-prev-relationships.png"></p>
+
+## Getting the data out of SQL
+
+The following SQL query pulls out one year's worth of data for our event nodes.
+
+{% highlight sql %}
+SELECT
+event_id,
+domain_userid,
+DATEDIFF(s, '19700101', collector_tstamp), -- this calculates the time between 1st January 1970 and the timestamp: i.e. UNIX time
+collector_tstamp,
+concat(refr_urlhost, refr_urlpath), -- we include the host URL to distinguish google.com/ and snowplowanalytics.com/
+concat(page_urlhost, page_urlpath), -- and here we may want to be able to match the URL with the referrer
+domain_sessionidx
+FROM atomic.events
+WHERE collector_tstamp > '2013-07-01'
+AND page_urlpath IS NOT NULL
+AND domain_userid IS NOT NULL
+AND length(page_urlpath) < 150
+AND length(refr_urlpath) < 150
+AND event  = 'page_view'
+GROUP BY 1,2,3,4,5,6,7
+{% highlight %}
+
+We can actually use the same file for our user and page nodes, because the information we need (user ID and page URL respectively) is included.
+
+In fact, we even have the data we need to create the edges from user nodes to event nodes (user ID and event ID), and from event nodes to page nodes (event ID and page URL). So all that's left is the data that links each event to its previous event. We can use SQL window functions to do this, partitioning by user ID and session ID:
+
+{% highlight sql %}
+SELECT
+*
+FROM (
+	SELECT
+	event_id,
+	LAG(event_id,1) OVER (PARTITION BY domain_userid, domain_sessionidx ORDER BY dvce_tstamp)  AS previous_event
+	FROM atomic.events
+	WHERE collector_tstamp > '2013-07-01'
+	AND page_urlpath IS NOT NULL
+	AND domain_userid IS NOT NULL
+	AND event = 'page_view'
+) as t
+WHERE previous_event IS NOT NULL
+{% highlight %}
+
+In both cases, I exported the datasets as tab-separated CSV files (a misnomer I know...) to allow me to use the import tools in Neo4J.
+
+## Getting the nodes into Neo4J
+
+Previously, we got some data in Neo4J by writing CREATE statements and pasting them into the browser console. This was fine for our 8 eight nodes, but pasting 250,000 nodes isn't so straightforward.
+
+One alternative is to use the [LOAD CSV query] [http://docs.neo4j.org/chunked/milestone/cypherdoc-importing-csv-files-with-cypher.html?_ga=1.253852481.859413213.1406641226]. This still uses the browser which significantly slows down the process. In my tests, the [Neo4J Shell Tools] [https://github.com/jexp/neo4j-shell-tools] added data in about half the time. Faster still, apparently, is the [Batch Import tool] [https://github.com/jexp/batch-import], but I couldn't get this working and the Shell Tools proved adequate for datasets of this size, adding nodes in a few seconds and making the edges in less than a minute.
+
+So, if you want to follow along (and assuming you already have Neo4J set up), start by [installing the Shell Tools] [https://github.com/jexp/neo4j-shell-tools]. I moved the two CSVs into the same directory as the Neo4J installation and launched the neo4j-shell.
+
+First, we want to add in the nodes:
+
+<pre>
+import-cypher -d"\t" -i nodes.csv -o nodes-out1.csv create (u:User {id: {domain_userid}})
+</pre>
+
+<pre>
+import-cypher -d"\t" -i nodes.csv -o nodes-out2.csv create (p:Page {id: {page_url}})
+</pre>
+
+<pre>
+import-cypher -d"\t" -i nodes.csv -o nodes-out3.csv create (v:View {id: {event_id}, tstamp:{tstamp}, 
+time:{time}, sesson: {session}, refr:{refr_url}, user:{domain_userid}, page:{page_url}})
+</pre>
+
+We should now have a large number of unconnected nodes in our database. We can check this by searching for them:
+
+<pre>
+MATCH (n:User) RETURN count(n);
+</pre>
+
+(Notice that in the shell, our queries must end in a semi-colon). We can change 'User' above to the two other types of nodes 
+

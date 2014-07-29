@@ -45,7 +45,6 @@ follows:
         "format": "jsonschema",
         "version": "1-0-0"
     },
-
     "type": "object",
     "properties": {
         "clickId": {
@@ -72,19 +71,140 @@ a POST request following this url pattern:
 With our example it would be:
 
 ```
-/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0?json=theJsonDefinedAbove
+/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0?json=ourJson
 ```
 
-<!--here-->
+You should receive a json response like this one:
+
+{% highlight json %}
+{
+    "status": 200,
+    "message": "Schema added successfully"
+}
+{% endhighlight %}
+
+Once you schema is added to the repository you can retrieve it by making a
+GET request:
+
+```
+/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+```
+
+The json response should look like this:
+
+{% highlight json %}
+{
+    "schema": {
+        "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+        "description": "Schema for an ad click event",
+        "self": {
+            "vendor": "com.snowplowanalytics.snowplow",
+            "name": "ad_click",
+            "format": "jsonschema",
+            "version": "1-0-0"
+        },
+        "type": "object",
+        "properties": {
+            "clickId": {
+                "type": "string"
+            },
+            "targetUrl": {
+                "type": "string",
+                "minLength": 1
+            }
+        },
+        "required": ["targetUrl"],
+        "additionalProperties": false
+    },
+    "created": "07/25/2014 07:34:19"
+}
+{% endhighlight %}
 
 As you might have noticed, some metadata comes along with the schema. For now,
 only the date at which point the schema was created follows along but this
 should be extended in the future.
 
-<h2><a name="posts">2. Post requests</a></h2>
+<h2><a name="catalog">2. The catalog service</a></h2>
 
-What if you want to publish your own schemas? Simply make a HTTP POST requests
-following this url pattern:
-<!--image-->
+What if you want to retrieve every version of a schema or every schema belonging
+to a specific vendor, enters the schema service.
+
+By simply truncating the url we used to get a single schema, you will be able to
+get back every schema corresponding to your query.
+
+For example, if you want to retrieve every version of a schema, you will have to
+make a GET request following this pattern:
+
+```
+/vendor/name/format
+```
+
+If we were to have two versions of the preceeding schema `1-0-0` and `1-0-1`
+and the `1-0-1` was defined as:
+
+{% highlight json %}
+{
+    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+    "description": "Schema for an ad click event",
+    "self": {
+        "vendor": "com.snowplowanalytics.snowplow",
+        "name": "ad_click",
+        "format": "jsonschema",
+        "version": "1-0-1"
+    },
+    "type": "object",
+    "properties": {
+        "clickId": {
+            "type": "string"
+        },
+        "impressionId": {
+            "type": "string"
+        },
+        "targetUrl": {
+            "type": "string",
+            "minLength": 1
+        }
+    },
+    "required": ["targetUrl"],
+    "additionalProperties": false
+}
+{% endhighlight %}
+
+You would be able to retrieve them both by making a GET request to:
+
+```
+/com.snowplowanalytics.snowplow/ad_click/jsonschema
+```
+
+Getting back:
+
+{% highlight json %}
+[
+    {
+        "schema": {
+            //the ad_click schema in version 1-0-0
+        },
+        "version": "1-0-0",
+        "created": "07/25/2014 07:34:19"
+    },
+    {
+        "schema": {
+            //the ad_click schema in version 1-0-1
+        },
+        "version": "1-0-1",
+        "created": "07/25/2014 07:34:40"
+    }
+]
+{% endhighlight %}
+
+Notice that this time we get back a bit more metadata with the schema's version
+being added.
+
+It works the same way when you want to retrieve every format, version
+combination of a schema: `vendor/name` (
+`com.snowplowanalytics.snowplow/ad_click` with our example).
+
+Finally if you want to retrieve every schema belonging to a vendor: `vendor` (
+`com.snowplowanalytics.snowplow' with our example).
 
 <h2><a name="valid">3. Schema validation</a></h2>

@@ -1,0 +1,188 @@
+---
+layout: post
+shortenedlink: Getting data into Neo4J
+title: A rough and ready guide to getting your data into Neo4J
+tags: [snowplow, neo4j, graph database, path analysis, neo4J shell tools, cypher, sql]
+author: Nick
+category: Analytics
+---
+
+In the last post, we designed an infrastructure to represent event data in a graph database. Now we're going to put some data into that model so that we can start doing some analysis, which we'll cover in the next post. We'll start by pulling the data out of a SQL database, and then we'll look at how to efficiently import it into Neo4j.
+
+The model below will require 6 types of object:
+
+1. User nodes.
+2. Page nodes.
+3. Event nodes (where for now, an event is always a page view).
+4. Verb edges from user nodes to event nodes.
+5. Object edges from event nodes to user nodes.
+6. Prev edges from an event to its predecessor, where it has a predecessor.
+
+<p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-prev-relationships.png"></p>
+
+<!--more-->
+
+It's worth noticing that the number of *verb* and *object* edges should always match the number of event nodes.
+
+Nodes and edges can also have properties, which, to save time, we should add at the same time as we're creating them. In our model, the edges don't need any properties, and the user and page nodes have only their user ID or page URL respectively. The event node will need a bit more detail:
+
+* event ID
+* event timestamp (in UNIX format for analysis, and in human-readable format)
+* session ID
+* referrer URL
+* user ID
+* page URL
+
+These last two already exist in the graph (in the user and page nodes), but since the paths we're interested in will usually follow *prev* edges, our Cypher queries can be clearer if we have user ID and page URL as properties of the event nodes. This seems to make searches run more quickly too. Consider Paul's visit to the website in the previous example. The path we need is one along the events 001 → 002 → 003 → 004 (i.e. reversing along the *prev* edges): reading properties of these nodes means we don't have to follow each *object* edge to find the page it's associated with.
+
+## Getting the data out of SQL
+
+The following SQL query pulls out one year's worth of data for our Event nodes.
+
+{% highlight sql %}
+SELECT
+event_id,
+domain_userid,
+DATEDIFF(s, '19700101', collector_tstamp), -- this calculates the time between 1st January 1970 and the timestamp: i.e. UNIX time
+collector_tstamp,
+concat(refr_urlhost, refr_urlpath),
+concat(page_urlhost, page_urlpath),
+domain_sessionidx
+FROM atomic.events
+WHERE collector_tstamp > '2013-07-01'
+AND page_urlpath IS NOT NULL
+AND domain_userid IS NOT NULL
+AND length(page_urlpath) < 150
+AND length(refr_urlpath) < 150
+AND event  = 'page_view'
+GROUP BY 1,2,3,4,5,6,7
+{% endhighlight %}
+
+Although this contains all the user IDs and page URLs we're interested in, it's full of duplicates. By creating new files with unique entries, we don't need Neo4J to check for duplicates when it's adding nodes; avoiding a search against each new node means it'll run much more quickly. We want something like:
+
+{% highlight sql %}
+SELECT
+domain_userid
+FROM atomic.events
+WHERE collector_tstamp > '2013-07-01'
+AND page_urlpath IS NOT NULL
+AND domain_userid IS NOT NULL
+AND event  = 'page_view'
+GROUP BY 1
+{% endhighlight %}
+
+and
+
+{% highlight sql %}
+SELECT
+concat(page_urlhost, page_urlpath)
+FROM atomic.events
+WHERE collector_tstamp > '2013-07-01'
+AND page_urlpath IS NOT NULL
+AND domain_userid IS NOT NULL
+AND event  = 'page_view'
+GROUP BY 1
+{% endhighlight %}
+
+You could also include any extra information you want to capture about users or pages, perhaps a location or a page title. The fastest way to do this is while you build the database, but you can still add properties to nodes later.
+
+The first CSV we made contains all the data we'll need to create the *verb* and *object* edges. Since there's one of each for every event node in the dataset, we'll have the correct number of rows in that CSV. So all that remains is to pull the data that represents the *prev* edges. To do this, we can use a window function in our SQL query, partitioning by both user ID and session ID:
+
+{% highlight sql %}
+SELECT
+*
+FROM (
+	SELECT
+	event_id,
+	LAG(event_id,1) OVER (PARTITION BY domain_userid, domain_sessionidx ORDER BY dvce_tstamp)  AS previous_event
+	FROM atomic.events
+	WHERE collector_tstamp > '2013-07-01'
+	AND page_urlpath IS NOT NULL
+	AND domain_userid IS NOT NULL
+	AND event = 'page_view'
+) as t
+WHERE previous_event IS NOT NULL
+{% endhighlight %}
+
+## Getting the nodes into Neo4J
+
+Previously, we got data into Neo4J by writing CREATE statements and pasting them into the browser console. This was fine for our 8 nodes, but pasting 250,000 nodes is somewhat unwieldy, and now that we have our data in CSV format, we have a few more options.
+
+The simplest is to use the [LOAD CSV query] [loadcsv]. But this still uses the browser which significantly slows down the process. In my tests, the [Neo4J Shell Tools] [shell-tools] added data in about half the time. Faster still, apparently, is the [Batch Import tool] [batch-import] , but I couldn't get this working and the Shell Tools proved adequate for datasets of this size, adding nodes in a few seconds and making the edges in less than a minute.
+
+So, if you want to follow along (and assuming you already have Neo4J set up), start by [installing the Shell Tools] [shell-tools]. Move the CSVs (tab separated as a result of experiments with the batch importer) into the same directory as the Neo4J installation and launch the neo4j-shell.
+
+Then let's add in the nodes:
+
+<pre>
+import-cypher -d"\t" -i user_nodes.csv -o user_nodes_out.csv CREATE (u:User {id: {user_id}})
+</pre>
+
+<pre>
+import-cypher -d"\t" -i page_nodes.csv -o page_nodes_out.csv CREATE (p:Page {id: {page_url}})
+</pre>
+
+<pre>
+import-cypher -d"\t" -i view_nodes.csv -o view_nodes_out.csv CREATE (v:View {id: {event_id}, tstamp:{tstamp}, 
+time:{time}, sesson: {session}, refr:{refr_url}, user:{user_id}, page:{page_url}})
+</pre>
+
+We should now have a large number of unconnected nodes in our database. We can check this by searching for them. For example, to find out how many User nodes made their way into the database, we could write:
+
+<pre>
+MATCH (n:User) RETURN count(n);
+</pre>
+
+Notice that in the shell, our queries must end in a semi-colon.
+
+## Getting the edges into Neo4J
+
+Now that our nodes are there, we need to build the edges to connect them. But first, we should tell Neo4J that all these nodes are unique, and to build an index of them. This dramatically speeds up the matching process to find the start and end nodes for each edge. For each node type, we need a line like this:
+
+<pre>
+CREATE CONSTRAINT ON (user:User) ASSERT user.id IS UNIQUE;
+</pre>
+
+if it worked, you should see the indexes as being ONLINE when you type <tt>schema<tt> into the shell. Now we're ready to start adding edges!
+
+<pre>
+import-cypher -d"\t" -i view_nodes.csv -o view_nodes_out2.csv MATCH (u:User {id:{user_id}}), (v:View {id:{event_id}}), (p:Page {id:{page_url}}) CREATE (u)-[:VERB]->(v)-[:OBJECT]->(p)
+</pre>
+
+This should connect the users to their view events, and those view events to the page that was viewed. To finish, we just need to add in our *PREV* edges:
+
+<pre>
+import-cypher -d"\t" -i event_to_previous.csv -o event_to_previous_out.csv MATCH (new:View {id:{event_id}}), (old:View {id:{previous_event}}) CREATE (new)-[:PREV]->(old)
+</pre>
+
+## Visualising the data
+
+The Neo4J browser console does a great job of visualising the data in the database. We can use it to search for some patterns that we expect to find, using the LIMIT command to avoid being inundated. For example:
+
+<pre>
+MATCH (u:User)-[:VERB]->(v:View)-[:OBJECT]-(p:Page)
+RETURN u, v, p
+LIMIT 10
+</pre>
+
+shows us some User-View-Page relationships:
+
+<p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-result-of-import.png"></p>
+
+And we can check that our *PREV* edges are doing what we expect with:
+
+<pre>
+MATCH p=(:Page)--(:View)-[:PREV*1..5]->(:View)--(:Page) // :PREV*1..5 tells Neo4J to search for paths with between 1 and 5 'prev' edges.
+RETURN p
+LIMIT 10
+</pre>
+
+which results in
+
+<p style="text-align:center"><img src="/assets/img/blog/2014/07/Neo4j-result-of-import-2.png"></p>
+
+Now that we've got all of our data into Neo4J, in the next blog post we'll finally be able to start writing queries to perform the sorts of analysis that graph databases make possible.
+
+[loadcsv]: http://docs.neo4j.org/chunked/milestone/cypherdoc-importing-csv-files-with-cypher.html?_ga=1.253852481.859413213.1406641226
+[shell-tools]: https://github.com/jexp/neo4j-shell-tools
+[batch-import]: https://github.com/jexp/batch-import

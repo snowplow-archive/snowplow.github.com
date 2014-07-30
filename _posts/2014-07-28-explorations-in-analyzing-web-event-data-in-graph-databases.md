@@ -85,7 +85,7 @@ This query uses page URLs stored as properties of View nodes to make sure we're 
 
 Note that these lengths include the OBJECT edges that take us from the homepage node to its events, and from the blog node to its events, so we need to subtract 2 to get the number of steps taken.
 
-In the next blog post, we'll dive into some more concrete examples of using Cypher and Neo4J to perform pathing analysis on Snowplow event data.
+In the [next blog post](/blog/2014/07/30/2014-07-30-loading-snowplow-web-event-data-into-graph-databases-for-pathing-analysis/), we'll dive into some more concrete examples of using Cypher and Neo4J to perform pathing analysis on Snowplow event data.
 
 [image1]: /assets/img/blog/2014/07/Neo4j-fb-example.png
 [image2]: /assets/img/blog/2014/07/Neo4j-basic-structure.png

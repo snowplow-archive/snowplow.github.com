@@ -29,7 +29,7 @@ At Snowplow we see unified logs like Kafka and Kinesis as a hugely powerful enab
 
 Hopefully with Unified Log Processing I can start a broader conversation about how as software engineers we should work with events, and how we can place a unified log at the heart of our companies. This a young but hugely important field and there is a lot still to discuss!
 
-**In the meantime, do check out the early access for [Unified Log] [ulp-manning] Processing, and do make sure use of the 50% discount code, mldean, when you get yourself a copy.**
+**In the meantime, do check out the early access for [Unified Log] [ulp-manning] Processing, and make sure to use the 50% discount code, mldean, when you get yourself a copy.**
 
 [ulp-manning]: http://www.manning.com/dean?a_aid=ulpdean&a_bid=b20eb0e9
 [unified-log]: http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying

@@ -1,21 +1,21 @@
 ---
 layout: post
-shtortenedlink: Iglu Server 0.2.0 released
-title: Iglu Server 0.2.0 released
-tags: [iglu, scala, server]
+shortenedlink: Iglu release 2 with new RESTful schema server 
+title: Iglu release 2 with a new RESTful schema server
+tags: [iglu, scala, server, api, restful]
 author: Ben
 category: Releases
 ---
 
-We are pleased to announce the 0.2.0 release of Iglu, our machine-readable
-schema repository for JSON schemas. If you are not familiar with what Iglu is
+We are pleased to announce the second release of Iglu, our machine-readable
+schema repository for JSON Schema. If you are not familiar with what Iglu is
 please read [the blog post for the initial release of Iglu](/blog/2014/07/01/iglu-schema-repository-released/).
 
-This release is the main building block for the future releases and contains
-the most basic functionalities we had in mind when launching Iglu. This takes
-the form of a RESTful api which is meant to be intuitive to use.
+Iglu release 2 introduces a new Scala-based RESTful repository server, which will
+serve as the basis for our future releases, and contains many of the key
+schema-related functionalities we envisioned when designing Iglu. The new Scala repository server is version 0.1.0.
 
-In this post, we will have a look at those different features and notably:
+In this post, we will cover the following aspects of the new repository service:
 
 1. [The schema service](/blog/2014/07/27/iglu-server-0.2.0-released/#schema)
 2. [The catalog service](/blog/2014/07/27/iglu-server-0.2.0-released/#catalog)
@@ -237,7 +237,7 @@ trying to add it to the repository:
 }
 {% endhighlight %}
 
-<h2><a name="auth">4. Api authentication</a></h2>
+<h2><a name="auth">4. API authentication</a></h2>
 
 To restrain access to schemas, we have set up an api key based authentication
 system. Concretely, you will be given a pair of api keys (one with read access
@@ -257,8 +257,8 @@ your own server. Doing so requires a few steps which will be detailed here.
 
 <h3><a name="config">5.1 Modifying the configuration file.</a></h3>
 
-In order to get the server running you will need a postgre instance, the
-connexion details of which can be filled in in the [application.conf file](https://github.com/snowplow/iglu/blob/feature/postgre/2-repositories/scala-repo-server/src/main/resources/application.conf) <!--to modify once it's been merged-->.
+In order to get the server running you will need a PostgreSQL instance, the
+connection details of which can be filled in in the [application.conf file](https://github.com/snowplow/iglu/blob/feature/postgre/2-repositories/scala-repo-server/src/main/resources/application.conf) <!--to modify once it's been merged-->.
 In particular, you will need to modify the `host`, `port`, `dbname`, `username`
 and `password` fields.
 

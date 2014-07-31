@@ -9,7 +9,7 @@ category: Other
 
 I'm pleased to announce that the first three chapters of my new book are now available as part of the [Manning Publications' Early Access Program (MEAP)] [ulp-manning]! Better still, I can share a 50% off code for the book - the code is **mldean** and it expires on Monday 4th August.
 
-The book is called [Unified Log Processing] [ulp-manning] - it's a distillation (and evolution) of my experiences working with event streams over the last two and a half years at Snowplow; it's also heavily influenced by [Jay Kreps' unified log monograph] [unified-log], which I [blogged about] [three-eras] earlier in the year. 
+The book is called [Unified Log Processing] [ulp-manning] - it's a distillation (and evolution) of my experiences working with event streams over the last two and a half years at Snowplow; it's also heavily influenced by [Jay Kreps' unified log monograph] [unified-log], which I [blogged about] [three-eras] earlier in the year. It's great to have the MEAP now available - and it's also Deal of the Day on the Manning website today (Thursday 31st)!
 
 ![cover-img] [cover-img]
 

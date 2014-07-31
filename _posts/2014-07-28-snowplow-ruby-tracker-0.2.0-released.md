@@ -16,7 +16,7 @@ Read on for more information...
 1. [New tracker initialization method](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#initialization)
 2. [Updated format for unstructured events](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#unstruct-events)
 3. [Updated format for custom contexts](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#contexts)
-4. [New UUID field](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#uuid)
+4. [Setting the event ID in the tracker](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#uuid)
 5. [Other improvements](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#improvements)
 6. [Getting help](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#improvements)
 
@@ -138,10 +138,11 @@ t.track_ecommerce_transaction({
 
 Under the hood, this complicated example will send three events: one transaction event and two transaction item events. The transaction event has an array containing one "page_type" custom context attached. The first transaction item event has an array containing one "promotions" custom context attached.
 
+<h2><a name="uuid">4. Setting the event ID in the tracker</a></h2>
 
-<h2><a name="uuid">4. New UUID field</a></h2>
+We are phasing out the old "tid" transaction ID field because, as a random 6-digit number, it wasn't sufficiently unique. It has been replaced with an "eid" field containing a [UUID][uuid]. If set, this "eid" UUID will be used as the "event_id" for this event.
 
-We are phasing out the old "tid" transaction ID field because, as a random 6-digit number, it wasn't sufficiently unique. It has been replaced with an "eid" field containing a [UUID][uuid].
+This is hugely valuable if the Snowplow Enrichment process is running in an at-least-once stream processing system, because you can use the tracker-set event ID to identify duplicates downstream of the Enrichment.
 
 <h2><a name="improvements">5. Other improvements</a></h2>
 
@@ -157,6 +158,7 @@ Useful links:
 
 * The [wiki page][wiki]
 * The [Github repository][repo]
+* The [0.2.0 release notes][tracker-020]
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. This is only the second release of the Ruby Tracker, so we're keen to hear people's opinions. And [raise an issue] [issues] if you spot any bugs!
 
@@ -175,3 +177,5 @@ If you have an idea for a new feature or want help getting things set up, please
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [json-schema]: http://json-schema.org/
 [uuid]: http://en.wikipedia.org/wiki/Universally_unique_identifier
+
+[tracker-020]: https://github.com/snowplow/snowplow-ruby-tracker/releases/tag/0.2.0

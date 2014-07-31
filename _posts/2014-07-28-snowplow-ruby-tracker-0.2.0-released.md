@@ -7,18 +7,18 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This purpose of this release is to bring the Ruby Tracker up to date with the other Snowplow trackers. The most important change is that it now supports self-describing custom contexts and unstructured events. 
+We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This release brings the Ruby Tracker up to date with the other Snowplow trackers, particularly around support of self-describing custom contexts and unstructured events. 
 
-Huge thanks go to Elijah Tabb, a.k.a. [ebear][ebear], for contributing the updated `track_unstruct_event` and `track_screen_view` tracker API methods!
+Huge thanks go to Elijah Tabb, a.k.a. [ebear][ebear], for contributing the updated `track_unstruct_event` and `track_screen_view` tracker API methods among other features!
 
 Read on for more information...
 
-1. [New tracker initialization method](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#initialization)
-2. [Updated format for unstructured events](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#unstruct-events)
-3. [Updated format for custom contexts](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#contexts)
-4. [New UUID field](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#uuid)
-5. [Other improvements](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#improvements)
-6. [Getting help](/blog/2014-07-28-snowplow-ruby-tracker-0.2.0-released/#improvements)
+1. [New tracker initialization method](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#initialization)
+2. [Updated format for unstructured events](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#unstruct-events)
+3. [Updated format for custom contexts](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#contexts)
+4. [New UUID field](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#uuid)
+5. [Other improvements](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#improvements)
+6. [Getting help](/blog/2014/07/31/snowplow-ruby-tracker-0.2.0-released/#improvements)
 
 <!--more-->
 
@@ -43,9 +43,7 @@ t = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'my_tracker_na
 
 <h2><a name="unstruct-events">2. Updated format for unstructured events</a></h2>
 
-Thanks to @ebear for his help getting the `track_unstruct_event` method up to speed with the rest of Snowplow!
-
-Previously, several were used to build an unstructured event: the name of the event, the JSON describing the event, and the event vendor (the company which developed the event model). Now the signature of `track_unstruct_event` has been simplified:
+Previously, several arguments were required to build an unstructured event: the name of the event, the JSON describing the event, and the event vendor (the company that developed the event model). Now the signature of `track_unstruct_event` has been simplified:
 
 {% highlight ruby %}
 Contract @@SelfDescribingJson, Maybe[@@ContextsInput], Maybe[Num] => [Bool, Num]
@@ -92,7 +90,7 @@ t.track_page_view('http://www.example.com', 'title page', 'http://www.referrer.c
 }])
 {% endhighlight %}
 
-When tracking an ecommerce transaction, you can attach an array of custom contexts to each item in the transaction:
+When tracking an ecommerce transaction, you can attach an array of custom contexts which will be sent with the transaction:
 
 {% highlight ruby %}
 t.track_ecommerce_transaction({
@@ -138,7 +136,7 @@ t.track_ecommerce_transaction({
 }])
 {% endhighlight %}
 
-This complicated example will send three events: one transaction event and two transaction item events. The transaction event has an array containing one "page_type" custom context attached. The first transaction item event has an array containing one "promotions" custom context attached.
+Under the hood, this complicated example will send three events: one transaction event and two transaction item events. The transaction event has an array containing one "page_type" custom context attached. The first transaction item event has an array containing one "promotions" custom context attached.
 
 
 <h2><a name="uuid">4. New UUID field</a></h2>

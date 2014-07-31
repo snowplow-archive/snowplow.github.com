@@ -110,11 +110,11 @@ t.track_ecommerce_transaction({
   'sku' => 'pbz0026',
   'price' => 20,
   'quantity' => 1,
-  #context for first item
+  # context for first item
   'context' => [{
-  	'schema' => 'iglu:com.my_company/promotions/jsonschema/1-0-0',
-  	'data' => {
-  	  'promotion_name' => 'half price'
+    'schema' => 'iglu:com.my_company/promotions/jsonschema/1-0-0',
+    'data' => {
+      'promotion_name' => 'half price'
       'promotion_duration' => 24
     }
   }]

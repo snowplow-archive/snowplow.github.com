@@ -30,4 +30,4 @@ At Snowplow we see unified logs like Kafka and Kinesis as a hugely powerful enab
 [three-eras]: http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing/
 [ulp-github]: https://github.com/alexanderdean/Unified-Log-Processing
 
-[fred-img]: /assets/img/blog/2014/07/manning-ulp-cover.jpg
+[cover-img]: /assets/img/blog/2014/07/manning-ulp-cover.jpg

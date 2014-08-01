@@ -84,18 +84,15 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 
 <h4 class="text-info">Interested in Snowplow as a Service?</h4>
 
-* Sign up
-* Apply for a free trial
-* Get in touch with the Snowplow team
 
 <div class="row">
-	<div class="span4">
+	<div class="span3 offset1">
 		<button class="btn btn-success btn-primary" type="button">Sign up</button>
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<button class="btn btn-success" type="button">Free trial</button>
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<button class="btn btn-success" type="button">Get in touch</button>
 	</div>
 </div>
@@ -109,14 +106,8 @@ Support available via our [forum] [forum].
 <h4>Interested in Snowplow OS?</h4>
 
 <div class="row">
-	<div class="span4">
-		<a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">Source repository</button></a>
-	</div>
-	<div class="span4">
-		<a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow"><button class="btn btn-success" type="button">Setup guide</button></a>
-	</div>
-	<div class="span4">
-		<a href="https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation"><button class="btn btn-success" type="button">Technical documentation</button></a>
+	<div class="offset1 span4">
+		<a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a>
 	</div>
 </div>
 

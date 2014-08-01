@@ -165,7 +165,7 @@ weight: 3
 	</div>
 </div>
 
-<h2>User testimonials</h2>
+<h2>So what do our users have to say?</h2>
 
 <div class="row">
 	<div class="span3">

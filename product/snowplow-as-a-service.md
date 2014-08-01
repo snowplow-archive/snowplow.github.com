@@ -8,15 +8,15 @@ weight: 5
 
 # Snowplow as a Service
 
-## Available as a managed or hosted service
+<h4 class="text-info">Available as a managed or hosted service</h4> 
 
 <div class="row">
 	<div class="offset1 span2">
-		<h3>Managed service</h3>
+		<h4>Managed service</h4>
 	</div>
 	<div class="span9">
 		<ul>
-			<li>We setup Snowplow on <em>your</em> own AWS account</li>
+			<li>We setup Snowplow on <strong><em>your</em></strong> own AWS account</li>
 			<li>We take care of running your data pipeline for you</li>
 			<li>All your data stays on your private AWS account</li>
 		</ul>
@@ -24,22 +24,22 @@ weight: 5
 </div>
 <div class="row">
 	<div class="offset1 span2">
-		<h2>Hosted service</h2>
+		<h4>Hosted service</h4>
 	</div>
 	<div class="span9">
 		<ul>
-			<li>We setup Snowplow on <em>our</em> own AWS account</li>
+			<li>We setup Snowplow on <strong><em>our</em></strong> own AWS account</li>
 			<li>We take care of running your data pipeline for you</li>
-			<li>We give you unfettered access to your data on our AWS account</li>
+			<li>We give you unrestricted access to your data on our AWS account</li>
 		</ul>
 	</div>
 </div>
 
-## Pricing
+<h4 class="text-info">Pricing</h4> 
 
 <div class="row">
 	<div class="offset1 span2">
-		<h3>Managed service</h3>
+		<h4>Managed service</h4>
 	</div>
 	<div class="span9">
 		<ul>
@@ -50,7 +50,7 @@ weight: 5
 </div>
 <div class="row">
 	<div class="offset1 span2">
-		<h2>Hosted service</h2>
+		<h4>Hosted service</h4>
 	</div>
 	<div class="span9">
 		<ul>

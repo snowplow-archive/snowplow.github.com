@@ -24,7 +24,9 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 
 <h2 id="saas">Snowplow as a Service</h2>
 
-<p>We setup, run and maintain a dedicated Snowplow stack for you, as a service. We provide ongoing techncal and analytical support, via a dedicated chatroom, email and telephone, to help you get the most value out of your event data.</p>
+<p>We setup, run and maintain a dedicated Snowplow stack for you, as a service.</p> 
+
+<p>We provide ongoing techncal and analytical support, via a dedicated chatroom, email and telephone, to help you get the most value out of your event data.</p>
 
 <h4 class="text-info">Available as a <a href="#managed">managed</a> or <a href="#hosted">hosted service</a></h4> 
 
@@ -80,11 +82,23 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 	</div>
 </div>
 
-<h4 class="success">Interested in Snowplow as a Service?</h4>
+<h4 class="text-info">Interested in Snowplow as a Service?</h4>
 
 * Sign up
 * Apply for a free trial
 * Get in touch with the Snowplow team
+
+<div class="row">
+	<div class="span4">
+		<button class="btn btn-success btn-primary" type="button">Sign up</button>
+	</div>
+	<div class="span4">
+		<button class="btn btn-success" type="button">Free trial</button>
+	</div>
+	<div class="span4">
+		<button class="btn btn-success" type="button">Get in touch</button>
+	</div>
+</div>
 
 <h2 id="os">Snowplow OS</h2>
 
@@ -94,9 +108,17 @@ Support available via our [forum] [forum].
 
 <h4>Interested in Snowplow OS?</h4>
 
-* View the repo
-* View the setup guide
-* View the technical docs
+<div class="row">
+	<div class="span4">
+		<a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">Source repository</button></a>
+	</div>
+	<div class="span4">
+		<a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow"><button class="btn btn-success" type="button">Setup guide</button></a>
+	</div>
+	<div class="span4">
+		<a href="https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation"><button class="btn btn-success" type="button">Technical documentation</button></a>
+	</div>
+</div>
 
 
 

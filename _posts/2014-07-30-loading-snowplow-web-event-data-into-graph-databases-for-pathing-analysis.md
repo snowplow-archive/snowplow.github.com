@@ -189,7 +189,7 @@ Note that <tt>[:PREV*1..5]</tt> tells Neo4J to follow between 1 and 5 previous e
 
 <p style="text-align:center"><a href="/assets/img/blog/2014/07/Neo4j-result-of-import-2.png"><img src="/assets/img/blog/2014/07/Neo4j-result-of-import-2.png"></a></p>
 
-Now that we've got all of our data into Neo4J, in the next blog post we'll finally be able to start writing queries to perform the sorts of analysis that graph databases make possible.
+Now that we've got all of our data into Neo4J, in the [next blog post](/blog/2014/07/31/using-graph-databases-to-perform-pathing-analysis-initial-experimentation-with-neo4j/) we'll finally be able to start writing queries to perform the sorts of analysis that graph databases make possible.
 
 [loadcsv]: http://docs.neo4j.org/chunked/milestone/cypherdoc-importing-csv-files-with-cypher.html?_ga=1.253852481.859413213.1406641226
 [shell-tools]: https://github.com/jexp/neo4j-shell-tools

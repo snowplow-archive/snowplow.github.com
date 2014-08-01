@@ -87,6 +87,8 @@ Note that these lengths include the OBJECT edges that take us from the homepage 
 
 In the [next blog post](/blog/2014/07/30/2014-07-30-loading-snowplow-web-event-data-into-graph-databases-for-pathing-analysis/), we'll dive into some more concrete examples of using Cypher and Neo4J to perform pathing analysis on Snowplow event data.
 
+*Edit: Michael Hunger pointed out in the comments that the 'and' in the last query above should be 'or'. I've updated this in the [third blog post](/blog/2014/07/31/using-graph-databases-to-perform-pathing-analysis-initial-experimentation-with-neo4j/), where we're discussing some of the analysis in more detail.*
+
 [image1]: /assets/img/blog/2014/07/Neo4j-fb-example.png
 [image2]: /assets/img/blog/2014/07/Neo4j-basic-structure.png
 [image3]: /assets/img/blog/2014/07/Neo4j-prev-relationships.png

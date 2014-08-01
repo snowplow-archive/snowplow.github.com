@@ -103,7 +103,7 @@ Download and setup the Snowplow open source stack for yourself.
 
 Support available via our [forum] [forum].
 
-<h4>Interested in Snowplow OS?</h4>
+<h4 class="text-info">Interested in Snowplow OS?</h4>
 
 <div class="row">
 	<div class="offset1 span4">

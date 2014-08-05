@@ -87,7 +87,7 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 
 <div class="row">
 	<div class="span3 offset1">
-		<button class="btn btn-success btn-primary" type="button">Sign up</button>
+		<a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a>
 	</div>
 	<div class="span3">
 		<a href="/product/free-trial.html"><button class="btn btn-success" type="button">Free trial</button></a>

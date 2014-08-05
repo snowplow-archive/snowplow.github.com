@@ -2,6 +2,11 @@ $(function() {
 	$('.error').hide();
 	$('#submission-successful').hide();
 
+	function IsEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	} // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
+
 	// Functions to execute on submitting form
 	$('#submitSnowplowSignup').click(function() {
 		// Hide previous error messages
@@ -36,11 +41,11 @@ $(function() {
 			return false;
 		} 
 
-		if (email == "") {
+		if (!IsEmail(email)) {
 			// Add class 'error' to #groupEmail
 			$('#groupEmail').addClass("error")
 			// Add '<span class="help-inline">Please enter a name</span>' immediately following the #controlsName element
-			$('#controlsEmail').append('<span class="help-inline">Please enter an email</span>')
+			$('#controlsEmail').append('<span class="help-inline">Please enter a valid email</span>')
 			return false;
 		}
 

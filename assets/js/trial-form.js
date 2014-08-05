@@ -5,7 +5,8 @@ $(function() {
 	$('#submitFreeTrialButton').click(function() {
 		// Hide previous error messages
 		$('.help-inline').hide();
-		$('.control-group').removeClass("error")
+		$('.control-group').removeClass("error");
+		$('.submission-successful').hide();
 
 		// Fetch values submitted into form
 		var name = document.getElementById("inputName").value;
@@ -50,9 +51,9 @@ $(function() {
 		});
 
 		// And show success piece...
-		$('#trial-form').append('<h2 class="text-success" id="submission-successful">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p>');
+		$('#trial-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p></div>');
 		// ...then scroll down to it
-		$('html,body').animate({scrollTop: $('#submission-successful').offset().top},'slow');
+		$('html,body').animate({scrollTop: $('.submission-successful').offset().top},'slow');
 			
 		return false; // Do not reload page
 	});

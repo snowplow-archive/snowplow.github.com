@@ -35,8 +35,8 @@ As mentionned previously, our JSON schemas repository takes the form of a
 RESTful api and using the schema service you will be able to interact with
 individual schemas with simple HTTP requests.
 
-For example, let us say you own the `com.snowplowanalytics prefix (the details
-of owning a vendor prefix will be covered in the [api authentication section](/blog/2014/07/27/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as
+For example, let us say you own the `com.snowplowanalytics` prefix (the details
+regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/07/27/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as
 follows:
 
 {% highlight json %}
@@ -119,13 +119,32 @@ The json response should look like this:
         "required": ["targetUrl"],
         "additionalProperties": false
     },
-    "created": "07/25/2014 07:34:19"
+    "createdAt": "07/25/2014 07:34:19"
 }
 {% endhighlight %}
 
 As you might have noticed, some metadata comes along with the schema. For now,
 only the date at which point the schema was created follows along but this
 should be extended in the future.
+
+If you do not need the schema itself and just want to retrieve metadata about a
+schema you can do so by sending a GET request to:
+
+```
+/vendor/name/format/version?filter=metadata
+```
+
+To get back:
+
+{% highlight json %}
+{
+    "vendor": "your.vendor.name",
+    "name": "the_schema_name",
+    "format": "jsonschema",
+    "version": "1-0-0",
+    "createdAt": "08/04/2014 13:19:45"
+}
+{% endhighlight %}
 
 <h2><a name="catalog">2. The catalog service</a></h2>
 
@@ -188,14 +207,14 @@ Getting back:
             //the ad_click schema in version 1-0-0
         },
         "version": "1-0-0",
-        "created": "07/25/2014 07:34:19"
+        "createdAt": "07/25/2014 07:34:19"
     },
     {
         "schema": {
             //the ad_click schema in version 1-0-1
         },
         "version": "1-0-1",
-        "created": "07/25/2014 07:34:40"
+        "createdAt": "07/25/2014 07:34:40"
     }
 ]
 {% endhighlight %}
@@ -218,11 +237,14 @@ Finally if you want to retrieve every schema belonging to a vendor:
 
 (`/com.snowplowanalytics.snowplow` with our example).
 
+Similarly to the schema service, you can, at any point (vendor, name, format),
+add a `filter=metadata` query parameter to retrieve only metadata.
+
 <h2><a name="valid">3. Schema validation</a></h2>
 
 One thing you might have caught on is that every schema you add to the
 repository must be self-describing (I invite you to read
-[the post on self-describing JSON Schemas](self-describing-jsons-post) if you're
+[the post on self-describing JSON Schemas](/blog/2014/05/15/introducing-self-describing-jsons/) if you're
 not familiar with the notion). It basically means that your schema must have a
 `self` property containing itself the following properties: `vendor`, `name`,
 `format`, `version`.
@@ -272,7 +294,7 @@ One thing you will need to do is add a `super` api key manually to the database.
 This api key will be used to generate your clients' api keys.
 
 {% highlight sql %}
-insert into apikeys (uid, vendor, permission, created)
+insert into apikeys (uid, vendor, permission, createdat)
 values ('an-uuid', 'a.vendor', 'super', current_timestamp);
 {% endhighlight %}
 

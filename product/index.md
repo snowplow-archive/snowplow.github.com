@@ -1,9 +1,9 @@
 ---
 layout: page
 group: product
-title: An overview of the Snowplow Analytics event collection and warehousing platform
-shortened-link: Product overview 
-description: Snowplow is the most powerful, flexible, scalable web analytics platform in the world. It gives you direct access to your customer-level and event-level data, so you can perform any analysis on that data.
+title: Snowplow - The Event Analytics Platform
+shortened-link: What is Snowplow?
+description: Snowplow is an Event Analytics Platform. It delivers event line of your own, customer-level, event-level data, from all your channels, platforms and services, into your own structured data warehouse and unified log
 weight: 1
 ---
 
@@ -11,31 +11,37 @@ weight: 1
 
 # What is Snowplow?
 
-Snowplow is the most powerful, flexible, scalable web analytics platform in the world. 
+Snowplow is an *Event Analytics Platform*. It gives you all your **event-level, customer-level data** in your own:
 
-* Direct access to all your customer-level and event-level data
-* Data is structured in an easy-to-query format
-* Data stored on your own Amazon Web Services account (in S3 and optionally Redshift), so you can query it using *any* tool you want 
-* Enterprise-strength. Scales to 100Ms of events per day
+* **Data warehouse** to power analytics
+* **Unified log** for real-time processing
 
-Open source
+Use Snowplow to:
 
-* No vendor lock-in
-* Developed by a growing community passionate about data
+* Enable the **[high value analytics] [high-value-analytics]** that drives your bottom line
+* Action your data in **[real-time] [real-time]**
 
-Snowplow lets you [do more with your data] [do-more-with-your-data]. Find out [what] [do-more-with-your-data]. 
+## Find out more
+
+* [*Why* companies use Snowplow] [why]
+* [*Which* companies use Snowplow, and how they use it] [who]
+* [*How* to get started with Snowplow] [get-started]
+
+## Ready for Snowplow?
 
 <div class="html">
 	<a href="get-started.html">
 		<button class="btn btn-large btn-primary" type="button">Get started</button>
 	</a>
-
-	<img src="/assets/img/APN_Standard_Technology_Partner.png" title="Amazon Web Services Technology Partner" width="250" />
 </div>
 
-*Snowplow Analytics is proud to be an Amazon Web Services Technology Partner.*
 
+[high-value-analytics]: /product/why-use-snowplow.html#answer-the-questions-that-matter-to-your-business
+[real-time]: /product/why-use-snowplow.html#action-your-data-in-real-time
 
-[do-more-with-your-data]: do-more-with-your-data.html
+[why]: /product/why-use-snowplow.html
+[who]: /product/who-uses-snowplow.html
 [get-started]: get-started.html
 [amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png 
+
+[unified-log-blog-post]: /blog/2014/01/20/the-three-eras-of-business-data-processing/

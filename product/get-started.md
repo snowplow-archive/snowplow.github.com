@@ -2,48 +2,117 @@
 layout: page
 group: product
 title: How to get started with Snowplow today
-shortened-link: Get started!
-weight: 3
+shortened-link: Get started
+weight: 4
 ---
 
 # Get started with Snowplow today
 
-There are two ways you can go to get started with Snowplow today:
+Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 
-1. [Sign up for a Snowplow trial account](#trial)
-2. [Setup Snowplow yourself](#diy)
+<div class="row">
+	<div class="offset1 span5">
+		<h4><a href="#saas">Snowplow as a Service</a></h4>
+		<p>Have the Snowplow team setup and run your Snowplow data pipeline for you.</p>
 
-<div class="html">
-	<a name="trial"><h2>1. Signup for a Snowplow trial</h2></a> 
+	</div>
+	<div class="span5">
+		<h4><a href="#os">Snowplow OS</a></h4>
+		<p>Snowplow is open source. Download, setup and run the Snowplow Event Analytics Platform yourself.</p>
+	</div>
 </div>
 
-Email [trial@snowplowanalytics.com](mailto:trial@snowplowanalytics.com) with your contact details and we will set you up with a Snowplow trial account, hosted by the Snowplow team. In the event that you like it, we can migrate the account to one hosted on your own AWS account.
+<h2 id="saas">Snowplow as a Service</h2>
 
-<div class="html">
-<a href="/about/index.html">
-	<button class="btn btn-large btn-primary" type="button">Request a free trial</button>
-</a>
+<p>We setup, run and maintain a dedicated Snowplow stack for you, as a service.</p> 
 
+<p>We provide ongoing techncal and analytical support, via a dedicated chatroom, email and telephone, to help you get the most value out of your event data.</p>
 
-<a name="diy"><h2>2. Setup Snowplow yourself</h2></a> 
+<h4 class="text-info">Available as a <a href="#managed">managed</a> or <a href="#hosted">hosted service</a></h4> 
+
+<div class="row" id="managed">
+	<div class="offset1 span2">
+		<h4>Managed service</h4>
+	</div>
+	<div class="span9" id="managed">
+		<ul>
+			<li>We setup Snowplow on <strong><em>your</em></strong> own AWS account</li>
+			<li>We take care of running your data pipeline for you</li>
+			<li>All your data stays on your private AWS account</li>
+		</ul>
+	</div>
+</div>
+<div class="row" id="hosted">
+	<div class="offset1 span2">
+		<h4>Hosted service</h4>
+	</div>
+	<div class="span9">
+		<ul>
+			<li>We setup Snowplow on <strong><em>our</em></strong> own AWS account</li>
+			<li>We take care of running your data pipeline for you</li>
+			<li>We give you unrestricted access to your data on our AWS account</li>
+		</ul>
+	</div>
 </div>
 
-Snowplow is open source. All the code is available on [Github] [github-repo]. Full instructions walking you through how to [setup Snowplow] [setup-guide] can be found on the [wiki] [setup-guide].
+<h4 class="text-info">Pricing</h4> 
 
-<div class="html">
-	<a href="https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow">
-		<button class="btn btn-large btn-primary" type="button">Setup Snowplow yourself</button>
-	</a>
+<div class="row">
+	<div class="offset1 span2">
+		<h4>Managed service</h4>
+	</div>
+	<div class="span9">
+		<ul>
+			<li>Free setup with 12 month contract, £5000 otherwise</li>
+			<li>£750 per month</li>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="offset1 span2">
+		<h4>Hosted service</h4>
+	</div>
+	<div class="span9">
+		<ul>
+			<li>Less than 10M events per month: £750</li>
+			<li>10M - 100M events per month: £1500</li>
+			<li>100M - 1Bn events per month: £3000</li>
+			<li>1Bn- 10 Bn events per month: £5000</li>
+		</ul>
+	</div>
+</div>
+
+<h4 class="text-info">Interested in Snowplow as a Service?</h4>
+
+
+<div class="row">
+	<div class="span3 offset1">
+		<a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a>
+	</div>
+	<div class="span3">
+		<a href="/product/free-trial.html"><button class="btn btn-success" type="button">Free trial</button></a>
+	</div>
+	<div class="span3">
+		<a href="/about/index.html"><button class="btn btn-success" type="button">Get in touch</button></a>
+	</div>
+</div>
+
+<h2 id="os">Snowplow OS</h2>
+
+Download and setup the Snowplow open source stack for yourself.
+
+Support available via our [forum] [forum].
+
+<h4 class="text-info">Interested in Snowplow OS?</h4>
+
+<div class="row">
+	<div class="offset1 span4">
+		<a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a>
+	</div>
 </div>
 
 
-[setup-guide]: https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow
-[technical-documentation]: https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation
-[github-repo]: https://github.com/snowplow/snowplow
-[tech-architecture]: /technology/index.html
-[pro-services]: /services/index.html
-[contact-us]: /about/index.html
-[aws]: http://aws.amazon.com/
-[github-repo]: https://github.com/snowplow/snowplow
-[analytics-cookbook]: /analytics/index.html
-[blog]: /blog.html
+
+
+[forum]: https://groups.google.com/forum/#!forum/snowplow-user
+

@@ -15,7 +15,7 @@
 --
 -- Compatibility: iglu:com.snowplowanalytics.snowplow-website/trial_form_submitted/jsonschema/1-0-0
 
-CREATE TABLE atomic.com_snowplowanalytics_snowplow_website_trial_form_submitted_1 (
+CREATE TABLE atomic.com_snowplowanalytics_snowplow_website_signup_form_submitted_1 (
 -- Schema of this type
     schema_vendor varchar(128) encode runlength not null,
     schema_name varchar(128) encode runlength not null,
@@ -31,7 +31,9 @@ CREATE TABLE atomic.com_snowplowanalytics_snowplow_website_trial_form_submitted_
     name varchar(64),
     email varchar(64),
     company varchar(64),
-    events_per_month varchar(23) encode text255
+    events_per_month varchar(23) encode text255,
+    service_type varchar(7) encode text255
+
 )
 DISTSTYLE KEY
 -- Optimized join to atomic.events

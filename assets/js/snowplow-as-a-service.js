@@ -2,22 +2,25 @@ $(function() {
 	$('.error').hide();
 	$('#submission-successful').hide();
 
-	$('#submitFreeTrialButton').click(function() {
+	// Functions to execute on submitting form
+	$('#submitSnowplowSignup').click(function() {
 		// Hide previous error messages
 		$('.help-inline').hide();
 		$('.control-group').removeClass("error")
-
+		
 		// Fetch values submitted into form
 		var name = document.getElementById("inputName").value;
 		var email = document.getElementById("inputEmail").value;
 		var company = document.getElementById("inputCompany").value;
 		var eventsPerMonth = document.getElementById("inputEventsPerMonth").value;
+		var serviceType = $('input:radio[name=optionsServiceType]:checked').val();
 
 		var submission = {
 			name: name,
 			email: email,
 			company: company,
-			eventsPerMonth: eventsPerMonth
+			eventsPerMonth: eventsPerMonth,
+			serviceType: serviceType
 		};
 
 		// Now validate form
@@ -45,12 +48,12 @@ $(function() {
 
 		// If passed validation, now submit form to the dataLayer
 		dataLayer.push({
-			'event': 'submit_trial_form',
+			'event': 'submit_signup_form',
 			'submission': submission
 		});
 
 		// And show success piece...
-		$('#trial-form').append('<h2 class="text-success" id="submission-successful">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p>');
+		$('#signup-form').append('<h2 class="text-success" id="submission-successful">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p>');
 		// ...then scroll down to it
 		$('html,body').animate({scrollTop: $('#submission-successful').offset().top},'slow');
 			

@@ -8,7 +8,7 @@ weight: 4
 
 # Get started with Snowplow today
 
-Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
+Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open Source
 
 <div class="row">
 	<div class="offset1 span5">
@@ -17,7 +17,7 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 
 	</div>
 	<div class="span5">
-		<h4><a href="#os">Snowplow OS</a></h4>
+		<h4><a href="#os">Snowplow Open Source</a></h4>
 		<p>Snowplow is open source. Download, setup and run the Snowplow Event Analytics Platform yourself.</p>
 	</div>
 </div>
@@ -97,7 +97,7 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow OS
 	</div>
 </div>
 
-<h2 id="os">Snowplow OS</h2>
+<h2 id="os">Snowplow Open Source</h2>
 
 Download and setup the Snowplow open source stack for yourself.
 

@@ -17,15 +17,15 @@ schema-related functionalities we envisioned when designing Iglu. The new Scala 
 
 In this post, we will cover the following aspects of the new repository service:
 
-1. [The schema service](/blog/2014/07/27/iglu-server-0.2.0-released/#schema)
-2. [The catalog service](/blog/2014/07/27/iglu-server-0.2.0-released/#catalog)
-3. [Schema validation](/blog/2014/07/27/iglu-server-0.2.0-released/#valid)
-4. [Api authentication](/blog/2014/07/27/iglu-server-0.2.0-released/#auth)
-5. [Running your own server](/blog/2014/07/27/iglu-server-0.2.0-released/#diy)
-    1. [Modifying the configuration file](/blog/2014/07/27/iglu-server-0.2.0-released/#config)
-    2. [The super api key](/blog/2014/07/27/iglu-server-0.2.0-released/#super)
-    3. [The api key generation service](/blog/2014/07/27/iglu-server-0.2.0-released/#keygen)
-6. [Support](/blog/2014/07/27/iglu-server-0.2.0-released/#support)
+1. [The schema service](/blog/2014/08/05/iglu-server-0.2.0-released/#schema)
+2. [The catalog service](/blog/2014/08/05/iglu-server-0.2.0-released/#catalog)
+3. [Schema validation](/blog/2014/08/05/iglu-server-0.2.0-released/#valid)
+4. [Api authentication](/blog/2014/08/05/iglu-server-0.2.0-released/#auth)
+5. [Running your own server](/blog/2014/08/05/iglu-server-0.2.0-released/#diy)
+    1. [Modifying the configuration file](/blog/2014/08/05/iglu-server-0.2.0-released/#config)
+    2. [The super api key](/blog/2014/08/05/iglu-server-0.2.0-released/#super)
+    3. [The api key generation service](/blog/2014/08/05/iglu-server-0.2.0-released/#keygen)
+6. [Support](/blog/2014/08/05/iglu-server-0.2.0-released/#support)
 
 <!--more-->
 
@@ -36,7 +36,7 @@ RESTful api and using the schema service you will be able to interact with
 individual schemas with simple HTTP requests.
 
 For example, let us say you own the `com.snowplowanalytics` prefix (the details
-regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/07/27/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as
+regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/05/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as
 follows:
 
 {% highlight json %}

@@ -47,6 +47,7 @@ See what becomes possible when you have direct access to your granular, event-le
 			<div class="controls" id="controlsEventsPerMonth">
 				<select id="inputEventsPerMonth">
 					<option>&lt; 1 million</option>
+					<option>1 - 10 million</option>
 					<option>10 - 100 million</option>
 					<option>100 - 1 billion</option>
 					<option>1 billion +</option>

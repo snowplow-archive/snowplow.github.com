@@ -51,6 +51,7 @@ Enter your details below, and a member of the Snowplow team will be in touch to 
 			<div class="controls" id="controlsEventsPerMonth">
 				<select id="inputEventsPerMonth">
 					<option>&lt; 1 million</option>
+					<option>1 - 10 million</option>
 					<option>10 - 100 million</option>
 					<option>100 - 1 billion</option>
 					<option>1 billion +</option>

@@ -1,7 +1,7 @@
 ---
 layout: page
 group: product
-title: Why use Snowplow?
+title: Who uses Snowplow?
 shortened-link: Who uses Snowplow? 
 description: Snowplow is used by some of the most data-sophisticated companies in the world
 weight: 3

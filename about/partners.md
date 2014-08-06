@@ -115,7 +115,7 @@ We are grateful to the following organisations for their ongoing support of Snow
 	</tr>
 	<tr>
 		<td><a href="http://www.navicat.com/"><img src="/assets/img/navicat_logo_small.jpg" title="Navicat" /></a></td>
-		<td>Naviat is our preferred SQL query tool. The good folks at Navicat have kindly given us open source licenses for their product.</td>
+		<td>Navicat is our preferred SQL query tool. The good folks at Navicat have kindly given us open source licenses for their product.</td>
 	</tr>
 	<tr>
 		<td><a href=""><img src="/assets/img/bizspark_logo_small.jpg" title="Bizspark startup logo" /></a></td>

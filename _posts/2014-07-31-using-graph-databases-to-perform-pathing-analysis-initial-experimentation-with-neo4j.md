@@ -408,3 +408,31 @@ To extend this beyond three pages, we'd need to find another way to filter out j
 In this post, we experimented with using Neo4J to answer increasingly open ended questions about how are users travel through our website. Note that this is very different from the traditional web analytics approach of defining a particular funnel and then seeing *how many* people make it through that funnel: instead, we're exploring how people *actually behave*, in a way that doesn't limit our analysis with our own preconceptions about how people *should behave*.
 
 The results of these early experimentations have been very promising - we've seen how we can use Neo4J to perform very open ended pathing analysis on our granular, event-level Snowplow data - analysis that would be impossible in SQL. We plan to build on these early experimentations, and blog about the results, in the near future!
+
+<hr>
+
+<p class="text-center"><strong>Edit</strong></p>
+
+<p class="text-left">
+Nicole White (see comments below) has done an amazing job of answering the problem I described in the last section. She created <a href="http://gist.neo4j.org/?c21486f569df546769a7">a very informative GraphGist</a> that explains how we can use the <tt>UNWIND</tt> function to count the number of distinct pages in a path of View nodes. By comparing the number of distinct pages to the length of the path, we can exclude paths that have loops.
+</p>
+
+Doing this with 2 *previous* edges returns the same table as above, but this approach allows us to consider longer paths. For example, we can find the ten most common 5-step user journeys with this query:
+
+<pre>
+MATCH p = (:View)<-[:PREV*4]-(:View)
+WITH p, EXTRACT(v IN NODES(p) | v.page) AS pages 
+UNWIND pages AS views 
+WITH p, COUNT(DISTINCT views) AS distinct_views 
+WHERE distinct_views = LENGTH(NODES(p)) 
+RETURN EXTRACT(v in NODES(p) | v.page), count(p)
+ORDER BY count(p) DESC
+LIMIT 10;
+</pre>
+
+As we might by now expect, the most common path, followed 780 times, is to arrive on the homepage and click through the top-level links in turn:
+
+<pre>
+["/","/product/index.html","/services/index.html",
+"/analytics/index.html","/technology/index.html"]
+</pre>

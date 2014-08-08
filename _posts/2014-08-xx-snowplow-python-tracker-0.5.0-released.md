@@ -1,0 +1,85 @@
+---
+layout: post
+shortenedlink: Snowplow Python Tracker 0.4.0 released
+title: Snowplow Python Tracker 0.3.0 released
+tags: [snowplow, analytics, python, django, tracker]
+author: Fred
+category: Releases
+---
+
+We are happy to announce the release of version 0.5.0 of the Snowplow Python Tracker! This release is focused mainly on synchronizing the Python Tracker's support for POST requests with the rest of Snowplow, and doesn't make many changes to the API.
+
+In this post we will cover:
+
+1. [POST requests](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#post)
+2. [New feature: multiple emitters](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#multiple-emitters)
+3. [UUIDs](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#uuid)
+4. [Upgrading](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#upgrading)
+5. [Support](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#support)
+
+<!--more-->
+
+<h2><a name="post">1. Updated POST requests</a></h2>
+
+The POST requests sent by the Python Tracker have been changed in three ways:
+
+* All numerical fields (such as event timestamp) are now converted to strings, so that they can be handled by the same logic that handles fields in GET requests.
+* Instead of being sent to mycollector.cloudfront.com/i, POST requests are now sent to mycollector.cloudfront.com/com.snowplowanalytics.snowplow/tp2 to differentiate them from GET requests.
+* The content-type is now set to "application/json; charset=utf-8".
+
+<h2><a name="multiple-emitters">2. New feature: multiple emitters</a></h2>
+
+It is now possible to create a tracker instance which sends events to multiple emitters by supplying an array of emitters to the tracker constructor:
+
+{% highlight python %}
+from snowplow_tracker.tracker import Tracker
+
+get_emitter = Emitter("d3rkrsqld9gmqf.cloudfront.net")
+post_emitter = Emitter("d3rkrsqld9gmqf.cloudfront.net", method="post")
+
+t = Tracker([get_emitter, post_emitter], namespace="cf", app_id="my-app-id")
+{% endhighlight %}
+
+After constructing the tracker, you can add more emitters:
+
+{% highlight python %}
+new_emitter = Emitter("drywb53f72ag6j.cloudfront.net")
+t.add_emitter(new_emitter)
+{% endhighlight %}
+
+All events created by the tracker will be sent all three emitters.
+
+<h2><a name="uuid">3. UUIDs</a></h2>
+
+Previous versions of the Tracker sent a random 6-digit transaction ID used to prevent duplication of events. These were not sufficiently unique, so we have replaced them with [version 4 UUIDs][uuid]. These consist of 32 hexadecimal characters and make the risk of collision negligible.
+
+<h2><a name="upgrading">4. Upgrading</a></h2>
+
+The release version of this tracker (0.5.0) is available on PyPI, the Python Package Index repository, as [snowplow-tracker] [pypi]. Download and install it with pip:
+
+{% highlight bash %}
+$ pip install snowplow-tracker --upgrade
+{% endhighlight %}
+
+Or with setuptools:
+
+{% highlight bash %}
+$ easy_install -U snowplow-tracker
+{% endhighlight %}
+
+For more information on getting started with the Snowplow Python Tracker, see the [setup page] [setup].
+
+This release is fully backward-compatible with version 0.4.0.
+
+<h2><a name="support">5. Support</a></h2>
+
+Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Python Tracker or want to suggest a new feature. You may find the [wiki page][wiki] useful. And [raise an issue] [issues] if you find any bugs!
+
+
+[repo]: https://github.com/snowplow/snowplow-python-tracker
+[uuid]: http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
+[pypi]: https://pypi.python.org/pypi/snowplow-tracker/0.3.0
+[setup]: https://github.com/snowplow/snowplow/wiki/Python-tracker-setup
+[wiki]: https://github.com/snowplow/snowplow/wiki/Python-Tracker
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[issues]: https://github.com/snowplow/snowplow/issues

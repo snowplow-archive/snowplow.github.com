@@ -11,11 +11,11 @@ We are delighted to announce the release of the first version of the [Snowplow N
 
 This post will cover installing and setting up the Node.js Tracker and introduce its main features.
 
-1. [Background](/blog/2014/08/xx/snowplow-node.js-tracker-0.1.0-released/#background)
-2. [How to install the tracker](/blog/2014/08/xx/snowplow-node.js-tracker-0.1.0-released/#install)
-3. [How to use the tracker](/blog/2014/08/xx/snowplow-node.js-tracker-0.1.0-released/#usage)
-4. [Features](/blog/2014/08/xx/snowplow-node.js-tracker-0.1.0-released/#features)
-5. [Getting help](/blog/2014/08/xx/snowplow-node.js-tracker-0.1.0-released/#help)
+1. [Background](/blog/2014/08/08/snowplow-node.js-tracker-0.1.0-released/#background)
+2. [How to install the tracker](/blog/2014/08/08/snowplow-node.js-tracker-0.1.0-released/#install)
+3. [How to use the tracker](/blog/2014/08/08/snowplow-node.js-tracker-0.1.0-released/#usage)
+4. [Features](/blog/2014/08/08/snowplow-node.js-tracker-0.1.0-released/#features)
+5. [Getting help](/blog/2014/08/08/snowplow-node.js-tracker-0.1.0-released/#help)
 
 <!--more-->
 

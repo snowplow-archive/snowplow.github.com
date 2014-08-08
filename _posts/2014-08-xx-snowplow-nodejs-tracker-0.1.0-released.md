@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are delighted to announce the release of the first version of the [Snowplow Node.js Tracker][repo]. This is an [npm][npm] module designed to send raw Snowplow events to a Snowplow collector from a [Node.js][node-js] environment.
+We are delighted to announce the release of the first version of the [Snowplow Node.js Tracker][repo]. This is an [npm][npm] module designed to send Snowplow events to a Snowplow collector from a [Node.js][node-js] environment.
 
 This post will cover installing and setting up the Node.js Tracker and introduce its main features.
 
@@ -37,6 +37,8 @@ Install the tracker like this:
 cd my-project-root
 npm install snowplow-tracker
 {% endhighlight %}
+
+You can also of course add the Snowplow Node.js Tracker as a dependency in your own JavaScript apps, node-webkit projects and Node.js servers.
 
 For more information, see the [setup page][setup].
 
@@ -86,7 +88,7 @@ t.trackPageView('http://www.example.com', 'example page', 'http://www.referrer.c
 t.trackUnstructEvent({
 	schema: 'iglu:com.acme/product_view/jsonschema/1-0-0',
 	data: {
-		productCategory: 'books'
+		productCategory: 'books',
 		productName: 'Leviathan'
 	}
 });

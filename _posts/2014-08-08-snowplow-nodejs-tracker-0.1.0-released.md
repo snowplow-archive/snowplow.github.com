@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Node.js Tracker 0.1.0
-title: Snowplow Node.js Tracker 0.1.0
+shortenedlink: Snowplow Node.js Tracker 0.1.0 released
+title: Snowplow Node.js Tracker 0.1.0 released
 tags: [snowplow, analytics, node, npm, tracker]
 author: Fred
 category: Releases

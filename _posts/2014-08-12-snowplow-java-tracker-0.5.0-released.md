@@ -99,7 +99,7 @@ The Emitter class now supports callbacks for success/failure of sending events. 
 Emitter emitter = new Emitter(testURL, HttpMethod.GET, new RequestCallback() {
   @Override
   public void onSuccess(int successCount) {
-    System.out.println("Buffer length for POST/GET:" + successCount);
+    System.out.println("Success count for POST/GET:" + successCount);
   }
 
   @Override
@@ -125,15 +125,26 @@ Emitter(String URI, HttpMethod httpMethod)
 
 <h2><a name="buffersize">4. Configuring the buffer</a></h2>
 
-When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked.
+We've changed the default behaviour of the sending events in this update. When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked using `setBufferOption`. It seems more sensible to send GET requests upon arrival since they will never be grouped similar to how POST requests as being sent.
+
+Here is a short example:
+{% highlight java %}
+// By default BufferOption.Instant is set
+Emitter emitter = new Emitter("collector.acme.net", HttpMethod.GET)
+
+// By default BufferOption.Default is set
+Emitter emitter = new Emitter("collector.acme.net", HttpMethod.POST)
+// We can change that if we'd like
+emitter.setBufferOption(BufferOption.Instant)
+{% endhighlight %}
 
 <h2><a name="trackerbug">5. Tracker context bug fix</a></h2>
 
-[A bug existed][56] in our tracking method signatures that would pass the context argument as a `Map`, this has now been fixed to pass in a list of contexts, using the new `SchemaPayload` as mentioned above.
+[A bug existed][56] in our tracking method signatures that would pass the context argument as a `Map`, this has now been fixed to pass in a list of contexts, using the new `SchemaPayload` as mentioned above. The new type for passing the context is `List<SchemaPayload>`.
 
 <h2><a name="misc">6. Miscellaneous</a></h2>
 
-A few miscellaneous changes that have changed in this version, include the addition of some unit tests for the `Subject` class, and Base64 encoding now uses `UTF-8` from `US-ASCII`.
+A few miscellaneous changes that have changed in this version, include the addition of some unit tests for the `Subject` class, and Base64 encoding now uses `UTF-8` instead of `US-ASCII`.
 
 <h2><a name="support">7. Support</a></h2>
 

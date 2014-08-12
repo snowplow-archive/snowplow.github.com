@@ -17,7 +17,7 @@ I'll be covering everything mentioned above in more detail:
 2. [The SchemaPayload Class](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#schemapayload)
 3. [Emitter callback](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#callback)
 4. [Configuring the buffer](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#buffersize)
-5. [Tracker context bug fix](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#trackerbug)
+5. [Tracker context bug fix](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#contextbug)
 6. [Miscellaneouss](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#misc)
 7. [Support](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#support)
 
@@ -125,38 +125,42 @@ Emitter(String URI, HttpMethod httpMethod)
 
 <h2><a name="buffersize">4. Configuring the buffer</a></h2>
 
-We've changed the default behavior of sending events in this update. When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked. It makes most sense to send GET requests upon arrival since they can never be grouped like events sent via POST can be.
+We've changed the default behavior of sending events in this update. When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked. It makes most sense to send GET requests immediately since they cannot be grouped like events sent via POST.
 
 Here is a short example:
 {% highlight java %}
-// By default BufferOption.Instant is set
+// By default BufferOption.Instant is set for GET
 Emitter emitter = new Emitter("collector.acme.net", HttpMethod.GET);
 
-// By default BufferOption.Default is set
+// By default BufferOption.Default is set as the buffer option for POST...
 Emitter emitter = new Emitter("collector.acme.net", HttpMethod.POST);
-// We can still change that if we like
+
+// ... but we can still change that if we like
 emitter.setBufferOption(BufferOption.Instant);
 {% endhighlight %}
 
-<h2><a name="trackerbug">5. Tracker context bug fix</a></h2>
+<h2><a name="contextbug">5. Tracker context bug fix</a></h2>
 
-[A bug existed][56] in our tracking method signatures whereby the context argument was passed as a `Map`. This has now been fixed - now all signatures expect a `List` of contexts, using the new `SchemaPayload` as mentioned above. The new type for passing the context is `List<SchemaPayload>`.
+There was [a bug][56] in our tracking method signatures whereby the context argument was passed as a `Map`. We have now fixed this: all signatures expect a `List` of contexts, using the new `SchemaPayload` as mentioned above. The new type for passing the context is `List<SchemaPayload>`.
 
 <h2><a name="misc">6. Miscellaneous</a></h2>
 
-A few miscellaneous changes that have changed in this version, include the addition of some unit tests for the `Subject` class, and Base64 encoding now uses `UTF-8` instead of `US-ASCII`.
+We have made a few miscellaneous fixes in this version, including:
+
+* We have added some unit tests for the `Subject` class
+* Base64 encoding of unstructured event and context JSONs now uses `UTF-8` not `US-ASCII`
 
 <h2><a name="support">7. Support</a></h2>
 
-Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java Tracker or want to suggest a new feature. If you find any bugs, please do [raise an issue] [issues].
+Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java Tracker or want to suggest a new feature. And of course if you find any bugs, please do [raise an issue] [issues].
 
 For more details on this release, please check out the [0.5.0 Release Notes] [release-050] on GitHub.
 
-[56]:			https://github.com/snowplow/snowplow-java-tracker/issues/56
-[60]:			https://github.com/snowplow/snowplow-java-tracker/issues/60
-[61]:			https://github.com/snowplow/snowplow-java-tracker/issues/61
+[56]: https://github.com/snowplow/snowplow-java-tracker/issues/56
+[60]:	https://github.com/snowplow/snowplow-java-tracker/issues/60
+[61]:	https://github.com/snowplow/snowplow-java-tracker/issues/61
 
-[repo]: 		https://github.com/snowplow/snowplow-java-tracker/tree/0.5.0
-[talk-to-us]:   https://github.com/snowplow/snowplow/wiki/Talk-to-us
-[issues]: 		https://github.com/snowplow/snowplow/issues
-[release-050]: 	https://github.com/snowplow/snowplow-java-tracker/releases/tag/0.5.0
+[repo]: https://github.com/snowplow/snowplow-java-tracker/tree/0.5.0
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[issues]: https://github.com/snowplow/snowplow/issues
+[release-050]: https://github.com/snowplow/snowplow-java-tracker/releases/tag/0.5.0

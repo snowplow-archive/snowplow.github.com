@@ -15,10 +15,11 @@ I'll be covering everything mentioned above in more detail:
 
 1. [Collector endpoint changes for POST requests](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#endpoint)
 2. [The SchemaPayload Class](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#schemapayload)
-3. [Configuring the buffer size](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#buffersize)
-4. [Tracker context bug fix](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#trackerbug)
-5. [Miscellaneouss](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#misc)
-6. [Support](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#support)
+3. [Emitter callback](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#callback)
+4. [Configuring the buffer size](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#buffersize)
+5. [Tracker context bug fix](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#trackerbug)
+6. [Miscellaneouss](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#misc)
+7. [Support](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#support)
 
 <!--more-->
 
@@ -89,19 +90,49 @@ trackPageView(String pageUrl, String pageTitle, String referrer, List<Map> conte
 trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp)
 {% endhighlight %}
 
-<h2><a name="buffersize">3. Configuring the buffer size</a></h2>
+<h2><a name="callback">3. Emitter callback</a></h2>
+The Emitter class now supports callbacks for success/failure of sending events. If events failed to be sent we didn't want to just drop them, but rather give you the option on how to handle that case. You can now pass in a class using the `RequestCallback` interface to the `Emitter` object. Here's an example which should be easier to understand:
+{% highlight java %}
+Emitter emitter = new Emitter(testURL, HttpMethod.GET, new RequestCallback() {
+  @Override
+  public void onSuccess(int bufferLength) {
+    System.out.println("Buffer length for POST/GET:" + bufferLength);
+  }
+
+  @Override
+  public void onFailure(int successCount, List<Payload> failedEvent) {
+    System.out.println("Failure, successCount: " + successCount + "\nfailedEvent:\n" + failedEvent.toString());
+  }
+});
+{% endhighlight %}
+
+If events are all successfully sent, the `onSuccess` method returns the number of successful events sent. If there were any failures, the `onFailure` method returns the successful events sent (if any) and a *list of events* that failed to be sent (i.e. the HTTP state code did not return 200).
+
+We've also added two new Emitter constructors to support callbacks:
+{% highlight java %}
+Emitter(String URI, RequestCallback callback)
+Emitter(String URI, HttpMethod httpMethod, RequestCallback callback)
+{% endhighlight %}
+
+This is an optional feature, so if you choose to not worry about the failed events, you can still use the original `Emitter` constructors:
+{% highlight java %}
+Emitter(String URI)
+Emitter(String URI, HttpMethod httpMethod)
+{% endhighlight %}
+
+<h2><a name="buffersize">4. Configuring the buffer size</a></h2>
 
 When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked.
 
-<h2><a name="trackerbug">4. Tracker context bug fix</a></h2>
+<h2><a name="trackerbug">5. Tracker context bug fix</a></h2>
 
 [A bug existed][56] in our tracking method signatures that would pass the context argument as a `Map`, this has now been fixed to pass in a list of contexts, using the new `SchemaPayload` as mentioned above.
 
-<h2><a name="misc">5. Miscellaneous</a></h2>
+<h2><a name="misc">6. Miscellaneous</a></h2>
 
 A few miscellaneous changes that have changed in this version, include the addition of some unit tests for the `Subject` class, and Base64 encoding now uses `UTF-8` from `US-ASCII`.
 
-<h2><a name="support">6. Support</a></h2>
+<h2><a name="support">7. Support</a></h2>
 
 Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java Tracker or want to suggest a new feature. If you find any bugs, please do [raise an issue] [issues].
 

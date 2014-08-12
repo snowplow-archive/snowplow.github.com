@@ -98,8 +98,8 @@ The Emitter class now supports callbacks for success/failure of sending events. 
 {% highlight java %}
 Emitter emitter = new Emitter(testURL, HttpMethod.GET, new RequestCallback() {
   @Override
-  public void onSuccess(int bufferLength) {
-    System.out.println("Buffer length for POST/GET:" + bufferLength);
+  public void onSuccess(int successCount) {
+    System.out.println("Buffer length for POST/GET:" + successCount);
   }
 
   @Override

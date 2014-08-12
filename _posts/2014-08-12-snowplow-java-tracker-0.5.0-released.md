@@ -25,17 +25,17 @@ I'll be covering everything mentioned above in more detail:
 
 <h2><a name="endpoint">1. Collector endpoint changes for POST requests</a></h2>
 
-We decided to [make a change to the collector endpoint][61] for POST requests that made, so that the URI path would follow the format `/[api_vendor]/[api_version]`. This is similar to how we append `/i` to the collector endpoint. So an example of what the URI would look would be:
+We decided to [make a change to the collector endpoint][61] for POST requests, so that the URI path would follow the format `/[api_vendor]/[api_version]`. This is similar to how we append `/i` to the collector endpoint. So an example of what the URI would look would be:
 
 {% highlight bash %}
-http://d3rkrsqld9gmqf.cloudfront.net/com.snowplowanalytics.snowplow/tp2
+http://collector.acme.net/com.snowplowanalytics.snowplow/tp2
 {% endhighlight %}
 
 If requests are being sent as GET, we default to appending the original `/i` to the end of the collector URI.
 
 <h2><a name="schemapayload">2. The SchemaPayload Class</a></h2>
 
-A new class `SchemaPayload` is added as a wrapper that to be used around your context. The idea behind the class is to make sure that the context added follows are new schema. Hence, a `SchemaPayload` can be used with only it's two main methods `setSchema` and `setData`. Here's an example if your context was a simple map:
+A new class `SchemaPayload` has been added as a wrapper around your custom contexts. The idea is to make sure that each context is a valid self-describing JSON which Snowplow can process. Hence, a `SchemaPayload` instance provides two methods `setSchema` and `setData`. Here's an example if your context was a simple map:
 
 {% highlight java %}
 // Let's say your context is a simple map
@@ -44,7 +44,7 @@ contextMap.put("someContextKey", "someContextValue");
 
 // Create a SchemaPayload to wrap that context
 SchemaPayload schemaPayload = new SchemaPayload();
-// Set the schema you that fits your context as required
+// Set the schema you that describes your context
 schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/my_schema/jsonschema/1-0-0");
 // Set the context as the data
 schemaPayload.setData(contextMap);
@@ -53,11 +53,11 @@ schemaPayload.setData(contextMap);
 ArrayList<SchemaPayload> contextList = new ArrayList<SchemaPayload>();
 contextList.add(schemaPayload);
 
-// For completeness, lets add this context to track a page view without Base64 encoding
+// For completeness, let's add this context to a page view without Base64 encoding
 tracker.trackPageView("www.mypage.com", "My Page", "www.me.com", contextList);
 {% endhighlight %}
 
-What this ends up looking like in a JSON format:
+What this ends up looking like in a JSON format, note the `co` property:
 
 {% highlight javascript %}
 {
@@ -83,6 +83,7 @@ What this ends up looking like in a JSON format:
 {% endhighlight %}
 
 The new class also changes the track methods from accepting a context of `List<Map>` to `List<SchemaPayload>`. Here's an example of the new method signatures:
+
 {% highlight java %}
 // Previous
 trackPageView(String pageUrl, String pageTitle, String referrer, List<Map> context, double timestamp)
@@ -91,7 +92,9 @@ trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayl
 {% endhighlight %}
 
 <h2><a name="callback">3. Emitter callback</a></h2>
-The Emitter class now supports callbacks for success/failure of sending events. If events failed to be sent we didn't want to just drop them, but rather give you the option on how to handle that case. You can now pass in a class using the `RequestCallback` interface to the `Emitter` object. Here's an example which should be easier to understand:
+
+The Emitter class now supports callbacks for success/failure of sending events. If events fail to send, you can now choose how to handle that failure, by passing in a class using the `RequestCallback` interface to the `Emitter` object. Here's an example to make it easier to understand:
+
 {% highlight java %}
 Emitter emitter = new Emitter(testURL, HttpMethod.GET, new RequestCallback() {
   @Override

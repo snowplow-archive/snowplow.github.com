@@ -26,7 +26,7 @@ I'll be covering everything mentioned above in more detail:
 
 <h2><a name="structure">1. Project structure changes</a></h2>
 
-We changed the project structure such that, the Java Tracker is now java-tracker-core as a subproject of the root `snowplow-java-tracker` project. The structure looks something like this:
+We have changed the project structure so that the Java Tracker is now java-tracker-core as a subproject of the root `snowplow-java-tracker` project. The structure looks something like this:
 
 {% highlight bash %}
 snowplow-java-tracker/
@@ -37,7 +37,7 @@ snowplow-java-tracker/
    |_ ...
 {% endhighlight %}
 
-This is part of a re-structuring to make space for a `java-tracker-server` that we're looking to add in the future. What this means for you, is that you only need to fix your dependency to point to `java-tracker-core` instead of `snowplow-java-tracker`.
+This is part of a re-structuring to make space for a `java-tracker-server` that we're looking to add in the future, and to allow code re-use with the Snowplow Android Tracker, which is coming soon. What this means for you, is that you only need to fix your dependency to point to `java-tracker-core` instead of `snowplow-java-tracker`.
 
 If you're pulling the tracker straight from GitHub and you come across any caching warnings, try removing your current Tracker project and do a clean pull.
 

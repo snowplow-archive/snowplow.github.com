@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Python Tracker 0.4.0 released
-title: Snowplow Python Tracker 0.3.0 released
+shortenedlink: Snowplow Python Tracker 0.5.0 released
+title: Snowplow Python Tracker 0.5.0 released
 tags: [snowplow, analytics, python, django, tracker]
 author: Fred
 category: Releases
@@ -26,9 +26,9 @@ In this post we will cover:
 
 The POST requests sent by the Python Tracker have been changed in three ways:
 
-* All numerical fields (such as event timestamp) are now converted to strings, so that they can be handled by the same logic that handles fields in GET requests.
-* Instead of being sent to mycollector.cloudfront.com/i, POST requests are now sent to mycollector.cloudfront.com/com.snowplowanalytics.snowplow/tp2 to differentiate them from GET requests.
-* The content-type is now set to "application/json; charset=utf-8".
+* All numerical fields (such as event timestamp) are now converted to strings, so that they can be handled by the same logic that handles fields in GET requests
+* Instead of being sent to mycollector.cloudfront.com/i, POST requests are now sent to mycollector.cloudfront.com/com.snowplowanalytics.snowplow/tp2 to flag that they use a slightly different tracker protocol from GET requests
+* The content-type for POSTs is now set to "application/json; charset=utf-8"
 
 <h2><a name="multiple-emitters">2. New feature: multiple emitters</a></h2>
 
@@ -68,15 +68,15 @@ In version 0.4.0, the value returned by the tracker methods was variable. If the
 t.track_screen_view("title screen").track_struct_event("products", "viewed product", "magenta paint")
 {% endhighlight %}
 
-This version eliminates former behaviour. All tracker methods now return `self`, and so can be safely chained.
+This version eliminates the former behavior. All tracker methods now return `self`, and so can be safely chained.
 
 <h2><a name="uuid">5. UUIDs</a></h2>
 
-Previous versions of the Tracker sent a random 6-digit transaction ID used to prevent duplication of events. These were not sufficiently unique, so we have replaced them with [version 4 UUIDs][uuid]. These consist of 32 hexadecimal characters and make the risk of collision negligible.
+Previous versions of the Tracker sent a random 6-digit transaction ID used by Snowplow to prevent duplication of events. These were not sufficiently unique, so we have replaced them with [version 4 UUIDs][uuid], which becomes the enriched event's `event_id` (instead of generating a new `event_id` in the Snowplow Enrich process).
 
 <h2><a name="empty-buffer">6. Bug fix: flushing an empty buffer</a></h2>
 
-Version 0.4.0 had a bug where flushing an emitter configured to send POST requests when its buffer was empty caused it to send POST request with no events in. This behaviour has been eliminated.
+Version 0.4.0 had a bug where flushing an emitter configured to send POST requests when its buffer was empty caused it to send POST request with no events in. This behavior has been eliminated.
 
 <h2><a name="upgrading">7. Upgrading</a></h2>
 

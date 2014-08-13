@@ -13,13 +13,13 @@ This release comes with a few changes to the Tracker method signatures to suppor
 
 I'll be covering everything mentioned above in more detail:
 
-1. [Collector endpoint changes for POST requests](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#endpoint)
-2. [The SchemaPayload Class](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#schemapayload)
-3. [Emitter callback](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#callback)
-4. [Configuring the buffer](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#buffersize)
-5. [Tracker context bug fix](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#contextbug)
-6. [Miscellaneouss](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#misc)
-7. [Support](/blog/2014/08/12/snowplow-java-tracker-0.5.0-released/#support)
+1. [Collector endpoint changes for POST requests](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#endpoint)
+2. [The SchemaPayload Class](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#schemapayload)
+3. [Emitter callback](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#callback)
+4. [Configuring the buffer](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#buffersize)
+5. [Tracker context bug fix](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#contextbug)
+6. [Miscellaneouss](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#misc)
+7. [Support](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#support)
 
 <!--more-->
 

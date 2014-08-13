@@ -11,14 +11,14 @@ We are happy to announce the release of version 0.5.0 of the Snowplow Python Tra
 
 In this post we will cover:
 
-1. [POST requests](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#post)
-2. [New feature: multiple emitters](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#multiple-emitters)
-3. [More consistent API for callbacks](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#on-failure)
-4. [More consistent API for tracker methods](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#return-value)
-5. [UUIDs](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#uuid)
-6. [Bug fix: flushing an empty buffer](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#empty-buffer)
-7. [Upgrading](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#upgrading)
-8. [Support](/blog/2014/08/xx/snowplow-python-tracker-0.5.0-released/#support)
+1. [POST requests](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#post)
+2. [New feature: multiple emitters](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#multiple-emitters)
+3. [More consistent API for callbacks](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#on-failure)
+4. [More consistent API for tracker methods](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#return-value)
+5. [UUIDs](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#uuid)
+6. [Bug fix: flushing an empty buffer](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#empty-buffer)
+7. [Upgrading](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#upgrading)
+8. [Support](/blog/2014/08/13/snowplow-python-tracker-0.5.0-released/#support)
 
 <!--more-->
 

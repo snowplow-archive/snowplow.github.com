@@ -13,17 +13,35 @@ This release comes with a few changes to the Tracker method signatures to suppor
 
 I'll be covering everything mentioned above in more detail:
 
-1. [Collector endpoint changes for POST requests](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#endpoint)
-2. [The SchemaPayload Class](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#schemapayload)
-3. [Emitter callback](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#callback)
-4. [Configuring the buffer](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#buffersize)
-5. [Tracker context bug fix](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#contextbug)
-6. [Miscellaneouss](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#misc)
-7. [Support](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#support)
+1. [Project structure changes](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#structure)
+2. [Collector endpoint changes for POST requests](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#endpoint)
+3. [The SchemaPayload Class](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#schemapayload)
+4. [Emitter callback](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#callback)
+5. [Configuring the buffer](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#buffersize)
+6. [Tracker context bug fix](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#trackerbug)
+7. [Miscellaneouss](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#misc)
+8. [Support](/blog/2014/08/13/snowplow-java-tracker-0.5.0-released/#support)
 
 <!--more-->
 
-<h2><a name="endpoint">1. Collector endpoint changes for POST requests</a></h2>
+<h2><a name="structure">1. Project structure changes</a></h2>
+
+We changed the project structure such that, the Java Tracker is now java-tracker-core as a subproject of the root `snowplow-java-tracker` project. The structure looks something like this:
+
+{% highlight bash %}
+snowplow-java-tracker/
+|_ build.gradle
+|_ ...
+|_ java-tracker-core/
+   |_ build.gradle 
+   |_ ...
+{% endhighlight %}
+
+This is part of a re-structuring to make space for a `java-tracker-server` that we're looking to add in the future. What this means for you, is that you only need to fix your dependency to point to `java-tracker-core` instead of `snowplow-java-tracker`.
+
+If you're pulling the tracker straight from GitHub and you come across any caching warnings, try removing your current Tracker project and do a clean pull.
+
+<h2><a name="endpoint">2. Collector endpoint changes for POST requests</a></h2>
 
 We decided to [make a change to the collector endpoint][61] for POST requests, so that the URI path would follow the format `/[api_vendor]/[api_version]`. This is similar to how we append `/i` to the collector endpoint. So an example of what the URI would look would be:
 
@@ -91,7 +109,7 @@ trackPageView(String pageUrl, String pageTitle, String referrer, List<Map> conte
 trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp)
 {% endhighlight %}
 
-<h2><a name="callback">3. Emitter callback</a></h2>
+<h2><a name="callback">4. Emitter callback</a></h2>
 
 The Emitter class now supports callbacks for success/failure of sending events. If events fail to send, you can now choose how to handle that failure, by passing in a class using the `RequestCallback` interface to the `Emitter` object. Here's an example to make it easier to understand:
 
@@ -123,7 +141,7 @@ Emitter(String URI)
 Emitter(String URI, HttpMethod httpMethod)
 {% endhighlight %}
 
-<h2><a name="buffersize">4. Configuring the buffer</a></h2>
+<h2><a name="buffersize">5. Configuring the buffer</a></h2>
 
 We've changed the default behavior of sending events in this update. When you create an `Emitter` and set the `HttpMethod` to send GET requests, we default the Emitter to send events instantly upon being tracked. It makes most sense to send GET requests immediately since they cannot be grouped like events sent via POST.
 
@@ -139,11 +157,11 @@ Emitter emitter = new Emitter("collector.acme.net", HttpMethod.POST);
 emitter.setBufferOption(BufferOption.Instant);
 {% endhighlight %}
 
-<h2><a name="contextbug">5. Tracker context bug fix</a></h2>
+<h2><a name="trackerbug">6. Tracker context bug fix</a></h2>
 
 There was [a bug][56] in our tracking method signatures whereby the context argument was passed as a `Map`. We have now fixed this: all signatures expect a `List` of contexts, using the new `SchemaPayload` as mentioned above. The new type for passing the context is `List<SchemaPayload>`.
 
-<h2><a name="misc">6. Miscellaneous</a></h2>
+<h2><a name="misc">7. Miscellaneous</a></h2>
 
 We have made a few miscellaneous fixes in this version, including:
 
@@ -157,8 +175,8 @@ Please [get in touch] [talk-to-us] if you need help setting up the Snowplow Java
 For more details on this release, please check out the [0.5.0 Release Notes] [release-050] on GitHub.
 
 [56]: https://github.com/snowplow/snowplow-java-tracker/issues/56
-[60]:	https://github.com/snowplow/snowplow-java-tracker/issues/60
-[61]:	https://github.com/snowplow/snowplow-java-tracker/issues/61
+[60]: https://github.com/snowplow/snowplow-java-tracker/issues/60
+[61]: https://github.com/snowplow/snowplow-java-tracker/issues/61
 
 [repo]: https://github.com/snowplow/snowplow-java-tracker/tree/0.5.0
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

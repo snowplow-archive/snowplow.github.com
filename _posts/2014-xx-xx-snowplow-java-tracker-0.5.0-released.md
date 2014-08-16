@@ -37,7 +37,8 @@ snowplow-java-tracker/
    |_ ...
 {% endhighlight %}
 
-This is part of a re-structuring to make space for a `java-tracker-server` that we're looking to add in the future, and to allow code re-use with the Snowplow Android Tracker, which is coming soon. If you're pulling the tracker straight from GitHub and you come across any caching warnings, try removing your current Tracker project and do a clean pull.
+This is part of a re-structuring to make space for a `java-tracker-server` that we're looking to add in the future, and to allow code re-use with the Snowplow Android Tracker, which is coming soon. What this means for you, is that some enum classes have been moved from the `com.snowplowanalytics.snowplow.tracker` package to `com.snowplowanalytics.snowplow.tracker.core`.
+If you're pulling the tracker straight from GitHub and you come across any caching warnings, try removing your current Tracker project and do a clean pull.
 
 <h2><a name="endpoint">2. Collector endpoint changes for POST requests</a></h2>
 

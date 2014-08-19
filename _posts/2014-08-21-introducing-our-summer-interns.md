@@ -39,7 +39,7 @@ You can follow Ben's progress in the Iglu repository, in the [`server-0.2.0`] [i
 
 XXX
 
-[interns-montage]: /assets/img/blog/2014/08/interns.png
+[interns-montage]: /assets/img/blog/2014/08/summer-interns.png
 
 [ios-tracker-develop]: https://github.com/snowplow/snowplow-ios-tracker/tree/develop
 [java-tracker-releases]: https://github.com/snowplow/snowplow-java-tracker/releases

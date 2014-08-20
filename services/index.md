@@ -15,7 +15,6 @@ We offer five services:
 2. [Web and event analytics] [analytics]. We help companies make the most of Snowplow data to answer the business questions that matter to them: including designing research questions, formulating hypotheses and testing and iterating hypotheses with Snowplow event data.
 3. [KPI and dashboards] [reporting]. We design KPI and reporting dashboards on top of Snowplow and other data sets that monitor your progress against the business objectives that matter most to you.
 4. [Custom data warehouses and pipelines built using EMR and Redshift] [pipelines]. We bring our experience delivering sophisticated, scalable, fault-tolerent data pipelines for Snowplow and help companies use the same cutting-edge technology to deliver scalable, reliable data pipelines and ETL processes for their own specific event-models and data sets.
-5. [Snowplow Care premium support package] [care]. We manage your Snowplow data pipeline for you.
 
 
 ## Experts at designing, developing, deploying and using data processing infrastructure

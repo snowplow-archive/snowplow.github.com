@@ -65,30 +65,58 @@ Adding this schema to your own registry of JSON schemas is as simple as making
 a POST request following this url pattern:
 
 ```
-ENDPOINT/schemas/vendor/name/format/version?json={ "some": "json" }
+/api/schemas/vendor/name/format/version
 ```
 
-With our example it would be:
+You have three options to pass the schema you want to add:
 
-```
-ENDPOINT/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0?json=ourJson
-```
+* through the request body
+* through a form parameter named schema
+* through a query parameter named schema
+
+Additionally, you can add an `isPublic` parameter which takes on the value
+`true` or `false` depending on whether or not you want to make your schema
+available to others (it defaults to `false` if not specified).
+
+With our example, if we wanted to keep our schema private and pass the schema
+through the request body, it would be:
+
+{% highlight bash %}
+curl /api/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0 \
+  -X POST \
+  -H "api_key: your_api_key" \
+  -d "{ \"your\": \"json\" }"
+{% endhighlight %}
+
+Or, if we wanted to make our schema public and pass the schema through a query
+parameter:
+
+{% highlight bash %}
+curl /api/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0 \
+  -X POST \
+  -H "api_key: your_api_key" \
+  --data-urlencode "schema={ \"your\": \"json\" }" \
+  -d "isPublic=true"
+{% endhighlight %}
 
 Once the request is processed, you should receive a JSON response like this one:
 
 {% highlight json %}
 {
-    "status": 200,
-    "message": "Schema added successfully"
+    "status": 201,
+    "message": "Schema successfully added",
+    "location": "/api/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0"
 }
 {% endhighlight %}
 
 As soon as your schema is added to the repository you can retrieve it by making
 a GET request:
 
-```
-ENDPOINT/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
-```
+{% highlight bash %}
+curl /api/schemas/com.snowplow/analytics/ad_click/jsonschema/1-0-0
+  -X GET
+  -H "api_key: your_api_key"
+{% endhighlight %}
 
 The JSON response should look like this:
 
@@ -116,13 +144,23 @@ The JSON response should look like this:
         "required": ["targetUrl"],
         "additionalProperties": false
     },
-    "createdAt": "07/25/2014 07:34:19"
+    "metadata": {
+      "location": "/api/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0",
+      "createdAt": "08/19/2014 12:51:15",
+      "permissions": {
+        "read": "private",
+        "write": "private"
+      }
+    }
 }
 {% endhighlight %}
 
-As you might have noticed, some metadata comes along with the schema. For now,
-only the date at which point the schema was created follows along but this
-will be extended in the future.
+As you might have noticed, some metadata comes along with the schema. One
+important thing to note is the `permissions` object which contains the
+read/write authorizations of this specific schema. In particular, the `read`
+field contains the value `public` if your schema is public or `private` if your
+schema is private. The `write` field contains `private` if you have write access
+for this schema or `none` if you do not.
 
 If you do not need the schema itself and just want to retrieve metadata about a
 schema you can do so by sending a GET request to:

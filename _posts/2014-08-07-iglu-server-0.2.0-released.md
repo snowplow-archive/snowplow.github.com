@@ -8,7 +8,7 @@ category: Releases
 ---
 
 We are pleased to announce the second release of Iglu, our machine-readable
-schema repository for JSON Schema. If you are not familiar with what Iglu is
+schema repository for JSON Schema. If you are not familiar with what Iglu is,
 please read [the blog post for the initial release of Iglu](/blog/2014/07/01/iglu-schema-repository-released/).
 
 Iglu release 2 introduces a new Scala-based RESTful repository server, which will
@@ -31,13 +31,10 @@ In this post, we will cover the following aspects of the new repository service:
 
 <h2><a name="schema">1. The schema service</a></h2>
 
-As mentionned previously, our JSON schemas repository takes the form of a
-RESTful api and using the schema service you will be able to interact with
-individual schemas with simple HTTP requests.
+Our JSON schemas repository takes the form of a RESTful API containing various services, the most important of which is the **schema service**. The schema service lets you interact with individual schemas via simple HTTP requests.
 
-For example, let us say you own the `com.snowplowanalytics` prefix (the details
-regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/07/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as
-follows:
+For example, let's say you own the `com.snowplowanalytics` prefix (the details
+regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/07/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
 {
@@ -68,13 +65,13 @@ Adding this schema to your own registry of JSON schemas is as simple as making
 a POST request following this url pattern:
 
 ```
-/vendor/name/format/version?json={ "some": "json" }
+ENDPOINT/schemas/vendor/name/format/version?json={ "some": "json" }
 ```
 
 With our example it would be:
 
 ```
-/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0?json=ourJson
+ENDPOINT/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0?json=ourJson
 ```
 
 Once the request is processed, you should receive a JSON response like this one:
@@ -90,10 +87,10 @@ As soon as your schema is added to the repository you can retrieve it by making
 a GET request:
 
 ```
-/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+ENDPOINT/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
 ```
 
-The json response should look like this:
+The JSON response should look like this:
 
 {% highlight json %}
 {
@@ -125,13 +122,13 @@ The json response should look like this:
 
 As you might have noticed, some metadata comes along with the schema. For now,
 only the date at which point the schema was created follows along but this
-should be extended in the future.
+will be extended in the future.
 
 If you do not need the schema itself and just want to retrieve metadata about a
 schema you can do so by sending a GET request to:
 
 ```
-/vendor/name/format/version?filter=metadata
+ENDPOINT/schemas/vendor/name/format/version?filter=metadata
 ```
 
 To get back:
@@ -148,14 +145,13 @@ To get back:
 
 <h2><a name="catalog">2. The catalog service</a></h2>
 
-What if you want to retrieve every version of a schema or every schema belonging
-to a specific vendor, enters the catalog service.
+The **catalog service** is for retrieving every version of a schema or every schema belonging
+to a specific vendor.
 
-By simply truncating the url we used to get a single schema, you will be able to
+By simply truncating the URI we used to get a single schema, you will be able to
 get back every schema matching your query.
 
-For example, if you want to retrieve every version of a schema, you will have to
-make a GET request following this pattern:
+For example, if you want to retrieve every version of a given schema, simply make a GET request following this pattern:
 
 ```
 /vendor/name/format

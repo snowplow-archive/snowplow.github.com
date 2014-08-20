@@ -1,5 +1,5 @@
 <div class="row-fluid post-full">
-  <div class="span9">
+  <div class="span12">
       <div class="date muted">
         <small>{{ page.date | date_to_long_string }}</small> <br>
         {% for author in site.data.authors %}
@@ -76,9 +76,5 @@
     </div>
     <hr>
     {% include JB/comments %}
-  </div>
-
-  <div class="span3">
-    {% include snowplow/sidebar_blog %}
   </div>
 </div>

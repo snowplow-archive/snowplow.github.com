@@ -22,14 +22,15 @@ In this post, we will cover the following aspects of the new repository service:
     2. [PUT requests](/blog/2014/08/20/iglu-server-0.2.0-released/#put)
     3. [Single GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#get)
     4. [Multiple GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#gets)
+    5. [Swagger support](/blog/2014/08/20/iglu-server-0.2.0-released/#swagger)
 2. [Schema validation and the validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#valid)
     1. [Schema validation when adding a schema](/blog/2014/08/20/iglu-server-0.2.0-released/#schemavalid)
     2. [The validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#validservice)
 3. [Api authentication](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)
 4. [Running your own server](/blog/2014/08/20/iglu-server-0.2.0-released/#diy)
     1. [Modifying the configuration file](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
-    2. [The super api key](/blog/2014/08/20/iglu-server-0.2.0-released/#super)
-    3. [The api key generation service](/blog/2014/08/20/iglu-server-0.2.0-released/#keygen)
+    2. [The super API key](/blog/2014/08/20/iglu-server-0.2.0-released/#super)
+    3. [The API key generation service](/blog/2014/08/20/iglu-server-0.2.0-released/#keygen)
 5. [Support](/blog/2014/08/20/iglu-server-0.2.0-released/#support)
 
 <!--more-->
@@ -37,8 +38,8 @@ In this post, we will cover the following aspects of the new repository service:
 <h2><a name="schema">1. The schema service</a></h2>
 
 Our schema repository takes the form of a RESTful API containing
-various services, the most important of which is the **schema service**. The
-schema service lets you interact with schemas via simple HTTP requests.
+various services, the most important of which is the **schema service**. It
+lets you interact with schemas via simple HTTP requests.
 
 <h3><a name="post">1.1 POST requests</a></h3>
 
@@ -426,6 +427,20 @@ curl \
 You can add a `filter=metadata` query parameter to any of the previous types of
 URLs if you do not need the whole schemas.
 
+<h3><a name="swagger">1.5 Swagger support</a></h3>
+
+We added [Swagger](https://helloreverb.com/developers/swagger) support to our
+API so you don't have to keep coming back to the wiki or this blog post for a
+full API reference and so you can try out things your way.
+
+The Swagger UI is available at the root URL (sentence to review):
+
+![iglu-swagger-img] [iglu-swagger-img]
+
+As mentioned, you will have to enter your API key in the form on the top right
+of the page. Once this is done, you are free to explore the API using the
+Swagger UI.
+
 <h2><a name="valid">3. Schema validation and the validation service</a></h2>
 
 <h3><a name="schemavalid">3.1 Schema validation when adding a schema</a></h3>
@@ -437,7 +452,7 @@ not familiar with the notion). It basically means that your schema must have a
 `self` property containing itself the following properties: `vendor`, `name`,
 `format`, `version`.
 
-If your schema is not self-describing you will get back this json response when
+If your schema is not self-describing you will get back this JSON response when
 trying to add it to the repository:
 
 {% highlight json %}
@@ -467,7 +482,7 @@ HOST/api/schemas/validate/format?schema={ "some": "schema" }
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/validate/jsonschema
+  HOST/api/schemas/validate/jsonschema \
   -X GET
   -H "api_key: your_api_key"
   --data-urlencode "schema={ \"schema\": \"to be validated\" }"
@@ -478,7 +493,7 @@ The `schema` query parameter containing the schema you want to validate.
 For now, only the `jsonschema` format is supported, but more should be supported
 in the future.
 
-Similarly, to a POST request, if the validation fails you will receive the
+Similarly to a POST request, if the validation fails you will receive the
 following response:
 
 {% highlight json %}
@@ -495,7 +510,7 @@ If the validation succeeds, you should get back something like:
 {% highlight json %}
 {
   "status": 200,
-  "message": The schema provided is a valid self-describing schema"
+  "message": "The schema provided is a valid self-describing schema"
 }
 {% endhighlight %}
 
@@ -507,7 +522,7 @@ HOST/api/schemas/validate/vendor/name/format/version?instance={ "some": "instanc
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/validate/com.snowplow.snplw/ad_click/jsonschema/1-0-0
+  HOST/api/schemas/validate/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key" \
   --data-urlencode "instance={ \"instance\": \"to be validated\" }"
@@ -526,11 +541,13 @@ instance is not valid against the schema:
   "report": {}
 {% endhighlight %}
 
+The validation service is also accessible through the Swagger UI.
+
 <h2><a name="auth">4. API authentication</a></h2>
 
 To restrain access to schemas, we have set up an API key based authentication
-system. Concretely, you will be given a pair of api keys (one with read access
-and one with read and write access) per organization. This api key will have to
+system. Concretely, you will be given a pair of API keys (one with read access
+and one with read and write access) per organization. This API key will have to
 be provided with each request through an `api_key` HTTP header as shown in the
 previous examples.
 
@@ -542,7 +559,7 @@ example).
 
 <h2><a name="diy">5. Running your own server</a></h2>
 
-If you feel your json schemas are sensitive intellectual property, you can run
+If you feel your schemas are sensitive intellectual property, you can run
 your own server. Doing so requires a few steps which will be detailed here.
 
 <h3><a name="config">5.1 Modifying the configuration file.</a></h3>
@@ -552,36 +569,53 @@ connection details of which can be filled in in the [application.conf file](http
 In particular, you will need to modify the `host`, `port`, `dbname`, `username`
 and `password` fields.
 
-<h3><a name="super">5.2 The super api key</a></h3>
+<h3><a name="super">5.2 The super API key</a></h3>
 
 Once your `application.conf` file is filled in  properly you can launch the
 server and the necessary tables (`apikeys` and `schemas`) will be created
 automatically.
 
-One thing you will need to do is add a `super` api key manually to the database.
-This api key will be used to generate your clients' api keys.
+One thing you will need to do is add a `super` API key manually to the database.
+This API key will be used to generate your clients' API keys.
 
 {% highlight sql %}
 insert into apikeys (uid, vendor, permission, createdat)
 values ('an-uuid', 'a.vendor', 'super', current_timestamp);
 {% endhighlight %}
 
-<h3><a name="keygen">5.3 The api key generation service</a></h3>
+<h3><a name="keygen">5.3 The API key generation service</a></h3>
 
-Once your super api key has been created, you will be able to use it to generate
-api keys for your clients through the api key generation service.
+Once your super API key has been created, you will be able to use it to generate
+api keys for your clients through the API key generation service.
 
-This service is as simple to use as the schema service and catalog service.
+This service is as simple to use as the schema service and validation service.
 
-To generate a read and write pair of keys for a specific vendor prefix simply
-send a POST request with this url using your super api key in a `api-key` HTTP
-header:
+To generate a read and write pair of keys for a specific vendor prefix/owner
+simply send a POST request with this URL using your super API key in an
+`api_key` HTTP header:
 
 ```
-/apikeygen?owner=the.owner.in.question
+HOST/api/auth/keygen
 ```
 
-You should receive a json response like this one:
+As with the schema service, you have the choice of how you want to pass the new
+API keys' owner :
+
+* through the request body
+* through a form entry named `owner`
+* through a query parameter named `owner`
+
+For example, through a query parameter:
+
+{% highlight bash %}
+curl \
+  HOST/api/auth/keygen \
+  -X POST \
+  -H "api_key: your_super_api_key" \
+  -d "owner=com.snowplow"
+{% endhighlight %}
+
+You should receive a JSON response like this one:
 
 {% highlight json %}
 {
@@ -590,20 +624,38 @@ You should receive a json response like this one:
 }
 {% endhighlight %}
 
-If you want to revoke a specific api key, send a DELETE request like so:
+If you want to revoke a specific API key, send a DELETE request like so:
 
 ```
-/api/auth/keygen?key=some-uuid
+HOST/api/auth/keygen?key=some-uuid
 ```
 
-You can also delete every api keys linked to a specific owner by sending a
+{% highlight bash %}
+curl \
+  HOST/api/auth/keygen \
+  -X DELETE \
+  -H "api_key: your_super_api_key" \
+  -d "key=some-uuid"
+{% endhighlight %}
+
+You can also delete every API key linked to a specific owner by sending a
 DELETE request:
 
 ```
-/api/auth/keygen?owner=the.owner.in.question
+HOST/api/auth/keygen?owner=the.owner.in.question
 ```
+
+{% highligh bash %}
+curl \
+  HOST/api/auth/keygen \
+  -X DELETE \
+  -H "api_key: your_super_api_key" \
+  -d "owner=some.owner"
+{% endhighlight %}
 
 <h2><a name="support">6. Support</a></h2>
 
 If there is a feature you would like to see implemented or if you encounter a
 bug please raise an issue on [the github project page](https://github.com/snowplow/iglu).
+
+[iglu-swagger-img]: /assets/img/blog/2014/08/iglu-swagger.png

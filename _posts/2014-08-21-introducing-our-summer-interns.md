@@ -29,7 +29,7 @@ Jonathan is working on mobile trackers for Snowplow - one of our most highly req
 
 Ben Fradet is our second data engineering intern - he is part way through a two-month internship at Snowplow.
 
-Ben is also based remotely - in Chateauroux, France. Ben will be graduating next year with a master focused on Data Science and Business Intelligence from the University of Technology of Compiègne. Outside of school and his own programming endeavors, Ben likes jogging and mountainbiking. Comes winter he tries to be on the slopes as much as possible - snowboard and skis.
+Ben is also based remotely - in Châteauroux, France. Ben will be graduating next year with a master focused on Data Science and Business Intelligence from the University of Technology of Compiègne. Outside of school and his own programming endeavors, Ben likes jogging and mountainbiking. Comes winter he tries to be on the slopes as much as possible - snowboard and skis.
 
 Ben is working on the yet-to-be-released back-end for [Iglu](/blog/2014/07/01/iglu-schema-repository-released/), Snowplow's new schema product. Ben is building a RESTful schema server for Iglu, coding in Scala and leveraging [Spray] [spray], [Slick] [slick] and [Swagger] [swagger]. Ben's work will provide us with a much more powerful back-end for Iglu, allowing users to publish, test and serve schemas via an easy-to-use RESTful interface. This will be a huge step forward compared to our current approach, which involves uploading schemas to a static website on Amazon S3!
 

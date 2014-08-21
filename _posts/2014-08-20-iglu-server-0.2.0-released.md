@@ -36,7 +36,7 @@ In this post, we will cover the following aspects of the new repository service:
 
 <h2><a name="schema">1. The schema service</a></h2>
 
-Our JSON schemas repository takes the form of a RESTful API containing
+Our schema repository takes the form of a RESTful API containing
 various services, the most important of which is the **schema service**. The
 schema service lets you interact with schemas via simple HTTP requests.
 
@@ -405,6 +405,22 @@ curl \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
+<h4>Public schemas</h4>
+
+You can also retrieve a list of every single public schema thanks to this
+endpoint:
+
+```
+HOST/api/schemas/public
+```
+
+{% highlight bash %}
+curl \
+  HOST/api/schemas/public \
+  -X GET \
+  -H "api_key: your_api_key"
+{% endhighlight %}
+
 <h4>Metadata filter</h4>
 
 You can add a `filter=metadata` query parameter to any of the previous types of
@@ -454,7 +470,7 @@ curl \
   HOST/api/schemas/validate/jsonschema
   -X GET
   -H "api_key: your_api_key"
-  --data-urlencode "schema={ \"json\": \"schema\", \"to be\": \"validated\" }"
+  --data-urlencode "schema={ \"schema\": \"to be validated\" }"
 {% endhighlight %}
 
 The `schema` query parameter containing the schema you want to validate.
@@ -494,15 +510,29 @@ curl \
   HOST/api/schemas/validate/com.snowplow.snplw/ad_click/jsonschema/1-0-0
   -X GET \
   -H "api_key: your_api_key" \
-  --data-urlencode "instance=
+  --data-urlencode "instance={ \"instance\": \"to be validated\" }"
+{% endhighlight %}
+
+As you might have guessed the path indicates the schema to validate against and
+the `instance` query parameter the instance to be validated.
+
+Similarly to validating a schema, you will receive the following JSON if the
+instance is not valid against the schema:
+
+{% highlight json %}
+{
+  "status": 400,
+  "message": "The instance provided is not valid against the schema",
+  "report": {}
 {% endhighlight %}
 
 <h2><a name="auth">4. API authentication</a></h2>
 
-To restrain access to schemas, we have set up an api key based authentication
+To restrain access to schemas, we have set up an API key based authentication
 system. Concretely, you will be given a pair of api keys (one with read access
 and one with read and write access) per organization. This api key will have to
-be provided with each request through an `api-key` HTTP header.
+be provided with each request through an `api_key` HTTP header as shown in the
+previous examples.
 
 For example, let us say your organization is Snowplow Analytics Ltd, you will
 be given a pair of keys for the `com.snowplowanalytics` prefix and will
@@ -563,14 +593,14 @@ You should receive a json response like this one:
 If you want to revoke a specific api key, send a DELETE request like so:
 
 ```
-/apikeygen?key=some-uuid
+/api/auth/keygen?key=some-uuid
 ```
 
 You can also delete every api keys linked to a specific owner by sending a
 DELETE request:
 
 ```
-/apikeygen?owner=the.owner.in.question
+/api/auth/keygen?owner=the.owner.in.question
 ```
 
 <h2><a name="support">6. Support</a></h2>

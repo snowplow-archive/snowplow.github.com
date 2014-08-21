@@ -22,7 +22,7 @@ In this post, we will cover the following aspects of the new repository service:
     2. [PUT requests](/blog/2014/08/20/iglu-server-0.2.0-released/#put)
     3. [Single GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#get)
     4. [Multiple GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#gets)
-2. [Schema validation](/blog/2014/08/20/iglu-server-0.2.0-released/#valid)
+2. [Schema validation and the validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#valid)
 3. [Api authentication](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)
 4. [Running your own server](/blog/2014/08/20/iglu-server-0.2.0-released/#diy)
     1. [Modifying the configuration file](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
@@ -374,7 +374,7 @@ formats:
 {% highlight bash %}
 curl \
   HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema,jsontable/1-0-0 \
-  -X GET
+  -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
@@ -384,11 +384,11 @@ theirs public:
 {% highlight bash %}
 curl \
   HOST/api/schemas/com.snowplow.snplw,some.other.cmpny/ad_click/jsonschema/1-0-0 \
-  -X GET
+  -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
-<h4>Multiple single schema retrieval (to review)</h4>
+<h4>Multiple single schema retrieval (name to review)</h4>
 
 You can retrieve multiple single schemas like so:
 
@@ -397,99 +397,16 @@ HOST/api/schemas/vendor1/name1/format1/version1,vendor2/name2/format2/version2
 ```
 
 {% highlight bash %}
-
+curl \
+  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0,some.other.cmpny/ad_click/jsonschema/1-0-0 \
+  -X GET \
+  -H "api_key: your_api_key"
 {% endhighlight %}
 
-The **catalog service** is for retrieving every version of a schema or every schema belonging
-to a specific vendor.
+<h4>Metadata filter</h4>
 
-By simply truncating the URI we used to get a single schema, you will be able to
-get back every schema matching your query.
-
-For example, if you want to retrieve every version of a given schema, simply make a GET request following this pattern:
-
-```
-/vendor/name/format
-```
-
-If we were to have two versions of the preceeding schema `1-0-0` and `1-0-1`
-and the `1-0-1` was defined as:
-
-{% highlight json %}
-{
-    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-    "description": "Schema for an ad click event",
-    "self": {
-        "vendor": "com.snowplowanalytics.snowplow",
-        "name": "ad_click",
-        "format": "jsonschema",
-        "version": "1-0-1"
-    },
-    "type": "object",
-    "properties": {
-        "clickId": {
-            "type": "string"
-        },
-        "impressionId": {
-            "type": "string"
-        },
-        "targetUrl": {
-            "type": "string",
-            "minLength": 1
-        }
-    },
-    "required": ["targetUrl"],
-    "additionalProperties": false
-}
-{% endhighlight %}
-
-You would be able to retrieve them both by making a GET request to:
-
-```
-/com.snowplowanalytics.snowplow/ad_click/jsonschema
-```
-
-Getting back:
-
-{% highlight json %}
-[
-    {
-        "schema": {
-            //the ad_click schema in version 1-0-0
-        },
-        "version": "1-0-0",
-        "createdAt": "07/25/2014 07:34:19"
-    },
-    {
-        "schema": {
-            //the ad_click schema in version 1-0-1
-        },
-        "version": "1-0-1",
-        "createdAt": "07/25/2014 07:34:40"
-    }
-]
-{% endhighlight %}
-
-Notice that this time we get back a bit more metadata with the schema's version
-being added.
-
-It works the same way if you want to retrieve every version of every format of a
-schema:
-
-```
-/vendor/name
-```
-
-(`com.snowplowanalytics.snowplow/ad_click` with our example).
-
-Finally if you want to retrieve every schema belonging to a vendor:
-
-```/vendor```
-
-(`/com.snowplowanalytics.snowplow` with our example).
-
-Similarly to the schema service, you can, at any point (vendor, name, format),
-add a `filter=metadata` query parameter to retrieve only metadata.
+You can add a `filter=metadata` query parameter to any of the previous types of
+URLs if you do not need the whole schemas.
 
 <h2><a name="valid">3. Schema validation</a></h2>
 
@@ -506,9 +423,13 @@ trying to add it to the repository:
 {% highlight json %}
 {
     "status": 400,
-    "message": "The json provided is not a valid self-describing json"
+    "message": "The schema provided is not a valid self-describing schema"
+    "report": {}
 }
 {% endhighlight %}
+
+The `report` object will contain the full validation failure message for you to
+analyze.
 
 <h2><a name="auth">4. API authentication</a></h2>
 

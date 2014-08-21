@@ -23,6 +23,8 @@ In this post, we will cover the following aspects of the new repository service:
     3. [Single GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#get)
     4. [Multiple GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#gets)
 2. [Schema validation and the validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#valid)
+    1. [Schema validation when adding a schema](/blog/2014/08/20/iglu-server-0.2.0-released/#schemavalid)
+    2. [The validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#validservice)
 3. [Api authentication](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)
 4. [Running your own server](/blog/2014/08/20/iglu-server-0.2.0-released/#diy)
     1. [Modifying the configuration file](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
@@ -45,26 +47,26 @@ regarding owning a vendor prefix will be covered in the [api authentication sect
 
 {% highlight json %}
 {
-    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-    "description": "Schema for an ad click event",
-    "self": {
-        "vendor": "com.snowplow.snplw",
-        "name": "ad_click",
-        "format": "jsonschema",
-        "version": "1-0-0"
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for an ad click event",
+  "self": {
+    "vendor": "com.snowplow.snplw",
+    "name": "ad_click",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "clickId": {
+      "type": "string"
     },
-    "type": "object",
-    "properties": {
-        "clickId": {
-            "type": "string"
-        },
-        "targetUrl": {
-            "type": "string",
-            "minLength": 1
-        }
-    },
-    "required": ["targetUrl"],
-    "additionalProperties": false
+    "targetUrl": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["targetUrl"],
+  "additionalProperties": false
 }
 {% endhighlight %}
 
@@ -112,9 +114,9 @@ Once the request is processed, you should receive a JSON response like this one:
 
 {% highlight json %}
 {
-    "status": 201,
-    "message": "Schema successfully added",
-    "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0"
+  "status": 201,
+  "message": "Schema successfully added",
+  "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0"
 }
 {% endhighlight %}
 
@@ -161,36 +163,36 @@ The JSON response should look like this:
 
 {% highlight json %}
 {
-    "schema": {
-        "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-        "description": "Schema for an ad click event",
-        "self": {
-            "vendor": "com.snowplow.snplw",
-            "name": "ad_click",
-            "format": "jsonschema",
-            "version": "1-0-0"
-        },
-        "type": "object",
-        "properties": {
-            "clickId": {
-                "type": "string"
-            },
-            "targetUrl": {
-                "type": "string",
-                "minLength": 1
-            }
-        },
-        "required": ["targetUrl"],
-        "additionalProperties": false
+  "schema": {
+    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+    "description": "Schema for an ad click event",
+    "self": {
+      "vendor": "com.snowplow.snplw",
+      "name": "ad_click",
+      "format": "jsonschema",
+      "version": "1-0-0"
     },
-    "metadata": {
-      "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
-      "createdAt": "08/19/2014 12:51:15",
-      "permissions": {
-        "read": "private",
-        "write": "private"
+    "type": "object",
+    "properties": {
+      "clickId": {
+        "type": "string"
+      },
+      "targetUrl": {
+        "type": "string",
+        "minLength": 1
       }
+    },
+    "required": ["targetUrl"],
+    "additionalProperties": false
+  },
+  "metadata": {
+    "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
+    "createdAt": "08/19/2014 12:51:15",
+    "permissions": {
+      "read": "private",
+      "write": "private"
     }
+  }
 }
 {% endhighlight %}
 
@@ -222,18 +224,18 @@ To get back:
 
 {% highlight json %}
 {
-    "vendor": "com.snowplow.snplw",
-    "name": "ad_click",
-    "format": "jsonschema",
-    "version": "1-0-0",
-    "metadata": {
-      "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
-      "createdAt": "08/19/2014 12:51:15",
-      "permissions": {
-        "read": "private",
-        "write": "private"
-      }
+  "vendor": "com.snowplow.snplw",
+  "name": "ad_click",
+  "format": "jsonschema",
+  "version": "1-0-0",
+  "metadata": {
+    "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
+    "createdAt": "08/19/2014 12:51:15",
+    "permissions": {
+      "read": "private",
+      "write": "private"
     }
+  }
 }
 {% endhighlight %}
 
@@ -408,11 +410,13 @@ curl \
 You can add a `filter=metadata` query parameter to any of the previous types of
 URLs if you do not need the whole schemas.
 
-<h2><a name="valid">3. Schema validation</a></h2>
+<h2><a name="valid">3. Schema validation and the validation service</a></h2>
+
+<h3><a name="schemavalid">3.1 Schema validation when adding a schema</a></h3>
 
 One thing you might have caught on is that every schema you add to the
 repository must be self-describing (I invite you to read
-[the post on self-describing JSON Schemas](/blog/2014/05/15/introducing-self-describing-jsons/) if you're
+[the post on self-describing JSON Schemas](/blog/2014/05/15/introducing-self-describing-jsons/) if you are
 not familiar with the notion). It basically means that your schema must have a
 `self` property containing itself the following properties: `vendor`, `name`,
 `format`, `version`.
@@ -422,14 +426,76 @@ trying to add it to the repository:
 
 {% highlight json %}
 {
-    "status": 400,
-    "message": "The schema provided is not a valid self-describing schema"
-    "report": {}
+  "status": 400,
+  "message": "The schema provided is not a valid self-describing schema",
+  "report": {}
 }
 {% endhighlight %}
 
 The `report` object will contain the full validation failure message for you to
 analyze.
+
+<h3><a name="validservice">3.2 The validation service</a></h3>
+
+In addition to validating that a schema is self-describing when adding it to
+the repository, we set up a validation service which lets you validate that a
+schema is self-describing without adding it to the repository and also validate
+an instance against its schema.
+
+For example, if you want to make sure your schema will pass validation before
+adding it to the repository:
+
+```
+HOST/api/schemas/validate/format?schema={ "some": "schema" }
+```
+
+{% highlight bash %}
+curl \
+  HOST/api/schemas/validate/jsonschema
+  -X GET
+  -H "api_key: your_api_key"
+  --data-urlencode "schema={ \"json\": \"schema\", \"to be\": \"validated\" }"
+{% endhighlight %}
+
+The `schema` query parameter containing the schema you want to validate.
+
+For now, only the `jsonschema` format is supported, but more should be supported
+in the future.
+
+Similarly, to a POST request, if the validation fails you will receive the
+following response:
+
+{% highlight json %}
+{
+  "status": 400,
+  "message": "The schema provided is not a valid self-describing schema",
+  "report": {}
+{% endhighlight %}
+
+With the report object containing the full validation failure message.
+
+If the validation succeeds, you should get back something like:
+
+{% highlight json %}
+{
+  "status": 200,
+  "message": The schema provided is a valid self-describing schema"
+}
+{% endhighlight %}
+
+You can also validate an instance against its schema:
+
+```
+HOST/api/schemas/validate/vendor/name/format/version?instance={ "some": "instance" }
+```
+
+{% highlight bash %}
+curl \
+  HOST/api/schemas/validate/com.snowplow.snplw/ad_click/jsonschema/1-0-0
+  -X GET \
+  -H "api_key: your_api_key" \
+  --data-urlencode "instance=
+{% endhighlight %}
 
 <h2><a name="auth">4. API authentication</a></h2>
 

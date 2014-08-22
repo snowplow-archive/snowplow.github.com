@@ -501,7 +501,7 @@ following response:
 {
   "status": 400,
   "message": "The schema provided is not a valid self-describing schema",
-  "report": {}
+  "report": { ... }
 {% endhighlight %}
 
 With the report object containing the full validation failure message.
@@ -539,7 +539,7 @@ instance is not valid against the schema:
 {
   "status": 400,
   "message": "The instance provided is not valid against the schema",
-  "report": {}
+  "report": { ... }
 {% endhighlight %}
 
 The validation service is also accessible through the Swagger UI.

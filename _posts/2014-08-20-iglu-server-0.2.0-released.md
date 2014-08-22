@@ -8,14 +8,12 @@ category: Releases
 ---
 
 We are pleased to announce the second release of Iglu, our machine-readable
-schema repository for JSON Schema. If you are not familiar with what Iglu is,
+schema repository system for JSON Schema. If you are not familiar with what Iglu is,
 please read [the blog post for the initial release of Iglu](/blog/2014/07/01/iglu-schema-repository-released/).
 
-Iglu release 2 introduces a new Scala-based RESTful repository server, which will
-serve as the basis for our future releases, and contains many of the key
-schema-related functionalities we envisioned when designing Iglu. The new Scala repository server is version 0.1.0.
+Iglu release 2 introduces a new Scala-based schema server, allowing users to publish, test and serve schemas via an easy-to-use RESTful interface. This is a huge step forward compared to our current approach, which involves uploading schemas to a static website on Amazon S3. The new Scala schema server is version 0.1.0.
 
-In this post, we will cover the following aspects of the new repository service:
+In this post, we will cover the following aspects of the new schema server:
 
 1. [The schema service](/blog/2014/08/20/iglu-server-0.2.0-released/#schema)
     1. [POST requests](/blog/2014/08/20/iglu-server-0.2.0-released/#post)

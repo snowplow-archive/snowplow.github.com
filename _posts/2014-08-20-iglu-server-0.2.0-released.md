@@ -546,17 +546,15 @@ The validation service is also accessible through the Swagger UI.
 
 <h2><a name="auth">4. API authentication</a></h2>
 
-To restrain access to schemas, we have set up an API key based authentication
-system. Concretely, you will be given a pair of API keys (one with read access
-and one with read and write access) per organization. This API key will have to
-be provided with each request through an `api_key` HTTP header as shown in the
-previous examples.
+To restrict access to schemas, we have implemented an API key-based authentication
+system. The administrator of your Scala repository server can generate a pair of API keys (one with read access
+and one with read-and-write access) for each organization. Users of the repository server will need to provide this
+API key with each request through an `api_key` HTTP header as shown in the previous examples.
 
-For example, let us say your organization is Snowplow Analytics Ltd, you will
+For example, let's say that your organization is Snowplow Analytics Ltd, you will
 be given a pair of keys for the `com.snowplowanalytics` prefix and will
-consequently have access to every schema, the vendor of which starts with
-`com.snowplowanalytics` (the `com.snowplowanalytics.snowplow` vendor for
-example).
+consequently have access to every schema whose vendor starts with 
+`com.snowplowanalytics`. For example, you will have access to any schemas assigned to the `com.snowplowanalytics.snowplow` and `com.snowplowanalytics.iglu` vendors.
 
 <h2><a name="diy">5. Running your own server</a></h2>
 

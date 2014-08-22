@@ -430,15 +430,14 @@ URLs if you do not need the whole schemas.
 
 <h3><a name="swagger">1.5 Swagger support</a></h3>
 
-We added [Swagger](https://helloreverb.com/developers/swagger) support to our
-API so you don't have to keep coming back to the wiki or this blog post for a
-full API reference and so you can try out things your way.
+We have added [Swagger](https://helloreverb.com/developers/swagger) support to our
+API so you can explore the repository server's API interactively.
 
-The Swagger UI is available at the root URL (sentence to review):
+The Swagger UI is available at the root URL of your repository server and looks like this:
 
 ![iglu-swagger-img] [iglu-swagger-img]
 
-As mentioned, you will have to enter your API key in the form on the top right
+You will have to enter your API key in the form on the top right
 of the page. Once this is done, you are free to explore the API using the
 Swagger UI.
 
@@ -446,10 +445,10 @@ Swagger UI.
 
 <h3><a name="schemavalid">3.1 Schema validation when adding a schema</a></h3>
 
-One thing you might have caught on is that every schema you add to the
-repository must be self-describing (I invite you to read
+One thing you may have noticed is that every schema you add to the
+repository must be self-describing (please read
 [the post on self-describing JSON Schemas](/blog/2014/05/15/introducing-self-describing-jsons/) if you are
-not familiar with the notion). It basically means that your schema must have a
+not familiar with the concept). It essentially means that your schema must have a
 `self` property containing itself the following properties: `vendor`, `name`,
 `format`, `version`.
 
@@ -460,7 +459,7 @@ trying to add it to the repository:
 {
   "status": 400,
   "message": "The schema provided is not a valid self-describing schema",
-  "report": {}
+  "report": { ... }
 }
 {% endhighlight %}
 
@@ -469,12 +468,13 @@ analyze.
 
 <h3><a name="validservice">3.2 The validation service</a></h3>
 
-In addition to validating that a schema is self-describing when adding it to
-the repository, we set up a validation service which lets you validate that a
-schema is self-describing without adding it to the repository and also validate
-an instance against its schema.
+As well as validating that a schema when adding it to
+the repository, we also provide up a validation service which lets you:
 
-For example, if you want to make sure your schema will pass validation before
+1. Validate that a schema is valid without adding it to the repository
+2. Validate an instance against its schema
+
+For example, if you want to make sure that your schema is a valid self-describing JSON Schema before
 adding it to the repository:
 
 ```
@@ -491,10 +491,10 @@ curl \
 
 The `schema` query parameter containing the schema you want to validate.
 
-For now, only the `jsonschema` format is supported, but more should be supported
+For now, only the `jsonschema` format is supported, but additional schema formats such as JSON Table and Avro will be supported
 in the future.
 
-Similarly to a POST request, if the validation fails you will receive the
+Similarly to a `POST` request, if the validation fails you will receive the
 following response:
 
 {% highlight json %}
@@ -523,13 +523,13 @@ HOST/api/schemas/validate/vendor/name/format/version?instance={ "some": "instanc
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/validate/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/validate/com.acme/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key" \
   --data-urlencode "instance={ \"instance\": \"to be validated\" }"
 {% endhighlight %}
 
-As you might have guessed the path indicates the schema to validate against and
+Here, the path indicates the schema to validate against and
 the `instance` query parameter the instance to be validated.
 
 Similarly to validating a schema, you will receive the following JSON if the

@@ -11,9 +11,9 @@ We are pleased to announce the second release of Iglu, our machine-readable
 schema repository system for JSON Schema. If you are not familiar with what Iglu is,
 please read [the blog post for the initial release of Iglu](/blog/2014/07/01/iglu-schema-repository-released/).
 
-Iglu release 2 introduces a new Scala-based schema server, allowing users to publish, test and serve schemas via an easy-to-use RESTful interface. This is a huge step forward compared to our current approach, which involves uploading schemas to a static website on Amazon S3. The new Scala schema server is version 0.1.0.
+Iglu release 2 introduces a new Scala-based repository server, allowing users to publish, test and serve schemas via an easy-to-use RESTful interface. This is a huge step forward compared to our current approach, which involves uploading schemas to a static website on Amazon S3. The new Scala repository server is version 0.1.0.
 
-In this post, we will cover the following aspects of the new schema server:
+In this post, we will cover the following aspects of the new repository server:
 
 1. [The schema service](/blog/2014/08/20/iglu-server-0.2.0-released/#schema)
     1. [POST requests](/blog/2014/08/20/iglu-server-0.2.0-released/#post)
@@ -35,13 +35,15 @@ In this post, we will cover the following aspects of the new schema server:
 
 <h2><a name="schema">1. The schema service</a></h2>
 
-Our schema repository takes the form of a RESTful API containing
+Our new Scala repository server takes the form of a RESTful API containing
 various services, the most important of which is the **schema service**. It
 lets you interact with schemas via simple HTTP requests.
 
 <h3><a name="post">1.1 POST requests</a></h3>
 
-For example, let's say you own the `com.snowplow` prefix (the details
+Use a `POST` request to the schema service to publish new schemas to your repository.
+
+For example, let's say you own the `com.snowplowanalytics` prefix (the details
 regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
@@ -121,15 +123,15 @@ Once the request is processed, you should receive a JSON response like this one:
 
 <h3><a name="put">1.2 PUT requests</a></h3>
 
-Let us say you have made a mistake in your initial schema which you would like
-to correct. You can make a PUT request in order to correct it following this URL
+Let's say you have made a mistake in your initial schema which you would like
+to correct. You can make a `PUT` request in order to correct it following this URL
 pattern:
 
 ```
 HOST/api/schemas/vendor/name/format/version
 ```
 
-You can pass the new schema as you would for a POST request (body request, query
+You can pass the new schema as you would for a `POST` request (body request, query
 parameter or form data). You can also specify an `isPublic` parameter if you
 would like to change the visibility of your schema (going from a private schema
 to a public one and conversely).
@@ -144,12 +146,12 @@ curl \
   -d "{ \"your\": \"new json\" }"
 {% endhighlight %}
 
-You can also create a schema through a PUT request if it doesn't already exist.
+You can also create a schema through a `PUT` request if it doesn't already exist.
 
 <h3><a name="get">1.3 Single GET requests</a></h3>
 
 As soon as your schema is added to the repository you can retrieve it by making
-a GET request:
+a `GET` request:
 
 {% highlight bash %}
 curl \
@@ -159,6 +161,8 @@ curl \
 {% endhighlight %}
 
 The JSON response should look like this:
+
+** TODO: update this following fix of metadata location.**
 
 {% highlight json %}
 {

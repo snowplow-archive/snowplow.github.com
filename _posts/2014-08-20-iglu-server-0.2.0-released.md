@@ -162,35 +162,32 @@ curl \
 
 The JSON response should look like this:
 
-** TODO: update this following fix of metadata location.**
-
 {% highlight json %}
 {
-  "schema": {
-    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-    "description": "Schema for an Acme Inc ad click event",
-    "self": {
-      "vendor": "com.acme",
-      "name": "ad_click",
-      "format": "jsonschema",
-      "version": "1-0-0"
-    },
-    "type": "object",
-    "properties": {
-      "clickId": {
-        "type": "string"
-      },
-      "targetUrl": {
-        "type": "string",
-        "minLength": 1
-      }
-    },
-    "required": ["targetUrl"],
-    "additionalProperties": false
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for an Acme Inc ad click event",
+  "self": {
+  "vendor": "com.acme",
+  "name": "ad_click",
+  "format": "jsonschema",
+  "version": "1-0-0"
   },
+  "type": "object",
+  "properties": {
+  "clickId": {
+    "type": "string"
+  },
+  "targetUrl": {
+    "type": "string",
+    "minLength": 1
+  }
+  },
+  "required": ["targetUrl"],
+  "additionalProperties": false,
   "metadata": {
     "location": "/api/schemas/com.snowplowanalytics.snplw/ad_click/jsonschema/1-0-0",
     "createdAt": "08/19/2014 12:51:15",
+    "updatedAt": "08/22/2014 17:22:02",
     "permissions": {
       "read": "private",
       "write": "private"
@@ -234,6 +231,7 @@ To get back:
   "metadata": {
     "location": "/api/schemas/com.acme/ad_click/jsonschema/1-0-0",
     "createdAt": "08/19/2014 12:51:15",
+    "updatedAt": "08/22/2014 17:22:02",
     "permissions": {
       "read": "private",
       "write": "private"
@@ -273,7 +271,7 @@ HOST/api/schemas/vendor1,vendor2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.acme,uk.co.acme
+  HOST/api/schemas/com.acme,uk.co.acme \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -296,7 +294,7 @@ HOST/api/schemas/vendor/name
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click
+  HOST/api/schemas/com.acme/ad_click \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -309,7 +307,7 @@ HOST/api/schemas/vendor/name1,name2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.acme/ad_click,ad_impression,ad_conversion
+  HOST/api/schemas/com.acme/ad_click,ad_impression,ad_conversion \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -368,7 +366,7 @@ If you want to retrieve two specific versions of two differents schemas:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click,link_click/jsonschema/1-0-0,1-0-1 \
+  HOST/api/schemas/com.acme/ad_click,link_click/jsonschema/1-0-0,1-0-1 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -378,7 +376,7 @@ formats:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema,jsontable/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema,jsontable/1-0-0 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -502,6 +500,7 @@ following response:
   "status": 400,
   "message": "The schema provided is not a valid self-describing schema",
   "report": { ... }
+}
 {% endhighlight %}
 
 With the report object containing the full validation failure message.
@@ -540,6 +539,7 @@ instance is not valid against the schema:
   "status": 400,
   "message": "The instance provided is not valid against the schema",
   "report": { ... }
+}
 {% endhighlight %}
 
 The validation service is also accessible through the Swagger UI.

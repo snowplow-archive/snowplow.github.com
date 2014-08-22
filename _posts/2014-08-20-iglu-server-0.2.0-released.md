@@ -645,13 +645,15 @@ DELETE request:
 HOST/api/auth/keygen?owner=the.owner.in.question
 ```
 
-{% highligh bash %}
+{% highlight bash %}
 curl \
   HOST/api/auth/keygen \
   -X DELETE \
   -H "api_key: your_super_api_key" \
   -d "owner=some.owner"
 {% endhighlight %}
+
+The API key generation service is also accessible through the Swagger UI.
 
 <h2><a name="support">6. Support</a></h2>
 

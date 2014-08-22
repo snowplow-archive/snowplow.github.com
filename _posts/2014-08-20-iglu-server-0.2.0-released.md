@@ -43,15 +43,15 @@ lets you interact with schemas via simple HTTP requests.
 
 Use a `POST` request to the schema service to publish new schemas to your repository.
 
-For example, let's say you own the `com.snowplowanalytics` prefix (the details
+For example, let's say you own the `com.acme` prefix (the details
 regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
 {
   "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-  "description": "Schema for an ad click event",
+  "description": "Schema for an Acme Inc ad click event",
   "self": {
-    "vendor": "com.snowplow.snplw",
+    "vendor": "com.acme",
     "name": "ad_click",
     "format": "jsonschema",
     "version": "1-0-0"
@@ -93,7 +93,7 @@ through the request body, it would be:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0 \
   -X POST \
   -H "api_key: your_api_key" \
   -d "{ \"your\": \"json\" }"
@@ -104,7 +104,7 @@ parameter:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0 \
   -X POST \
   -H "api_key: your_api_key" \
   --data-urlencode "schema={ \"your\": \"json\" }" \
@@ -117,7 +117,7 @@ Once the request is processed, you should receive a JSON response like this one:
 {
   "status": 201,
   "message": "Schema successfully added",
-  "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0"
+  "location": "/api/schemas/com.acme/ad_click/jsonschema/1-0-0"
 }
 {% endhighlight %}
 
@@ -140,13 +140,13 @@ As an example:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0 \
   -X PUT \
   -H "api_key: your_api_key" \
   -d "{ \"your\": \"new json\" }"
 {% endhighlight %}
 
-You can also create a schema through a `PUT` request if it doesn't already exist.
+You can also *create* a schema through a `PUT` request if it doesn't already exist.
 
 <h3><a name="get">1.3 Single GET requests</a></h3>
 
@@ -155,7 +155,7 @@ a `GET` request:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -168,9 +168,9 @@ The JSON response should look like this:
 {
   "schema": {
     "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
-    "description": "Schema for an ad click event",
+    "description": "Schema for an Acme Inc ad click event",
     "self": {
-      "vendor": "com.snowplow.snplw",
+      "vendor": "com.acme",
       "name": "ad_click",
       "format": "jsonschema",
       "version": "1-0-0"
@@ -189,7 +189,7 @@ The JSON response should look like this:
     "additionalProperties": false
   },
   "metadata": {
-    "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
+    "location": "/api/schemas/com.snowplowanalytics.snplw/ad_click/jsonschema/1-0-0",
     "createdAt": "08/19/2014 12:51:15",
     "permissions": {
       "read": "private",
@@ -199,15 +199,15 @@ The JSON response should look like this:
 }
 {% endhighlight %}
 
-As you might have noticed, some metadata comes along with the schema. One
+As you might have noticed, some metadata from the repository server is inserted into the schema. One
 important thing to note is the `permissions` object which contains the
 read/write authorizations of this specific schema. In particular, the `read`
 field contains the value `public` if your schema is public or `private` if your
 schema is private. The `write` field contains `private` if you have write access
-for this schema or `none` if you do not based on your API key's permission.
+for this schema or `none` if you do not, all according to your API key's permission.
 
-If you do not need the schema itself and just want to retrieve metadata about it
-you can do so by sending a GET request to:
+If you do not need to retrieve the schema itself and just want to check its metadata,
+you can send a `GET` request to:
 
 ```
 HOST/schemas/vendor/name/format/version?filter=metadata
@@ -217,7 +217,7 @@ Like this one:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key" \
   -d "filter=metadata"
@@ -227,12 +227,12 @@ To get back:
 
 {% highlight json %}
 {
-  "vendor": "com.snowplow.snplw",
+  "vendor": "com.acme",
   "name": "ad_click",
   "format": "jsonschema",
   "version": "1-0-0",
   "metadata": {
-    "location": "/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0",
+    "location": "/api/schemas/com.acme/ad_click/jsonschema/1-0-0",
     "createdAt": "08/19/2014 12:51:15",
     "permissions": {
       "read": "private",
@@ -257,15 +257,15 @@ HOST/api/schemas/vendor
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw \
+  HOST/api/schemas/com.acme \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
 You will get back an array of every schema belonging to this vendor.
 
-You can also retrieve every schema of multiple vendors using a comma-separated
-list of vendor:
+You can also retrieve every schema from multiple vendors using a comma-separated
+list of vendors:
 
 ```
 HOST/api/schemas/vendor1,vendor2
@@ -273,21 +273,21 @@ HOST/api/schemas/vendor1,vendor2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw,com.snowplow.iglu
+  HOST/api/schemas/com.acme,uk.co.acme
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
 As you might have assumed you will get back an array of every schema belonging
-to `com.snowplow.snplw` or `com.snowplow.iglu`.
+to `com.acme` or `co.uk.acme`.
 
-One important thing to note is that if you do not own those vendors, you will
-still be able to make those kinds of request but you will only retrieve public
-schemas if any.
+**Please note:** if you do not own those vendors, you will
+still be able to make these request but you will only retrieve public
+schemas (if any).
 
 <h4>Name-based requests</h4>
 
-With the same principle you will be able to get every version of every format
+Using the same approach you can get every version of every format
 of a schema:
 
 ```
@@ -301,22 +301,22 @@ curl \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
-Same goes for multiple names:
+Or try every version of every format of multiple schemas:
 
 ```
-HOST/api/scemas/vendor/name1,name2
+HOST/api/schemas/vendor/name1,name2
 ```
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click,link_click
+  HOST/api/schemas/com.acme/ad_click,ad_impression,ad_conversion
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
 <h4>Format-based requests</h4>
 
-The same concept applies when you want to retrieve every version of a schema:
+The same concept applies when you want to retrieve every version of a schema in a given format (e.g. JSON Schema):
 
 ```
 HOST/api/schemas/vendor/name/format
@@ -324,7 +324,7 @@ HOST/api/schemas/vendor/name/format
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema \
+  HOST/api/schemas/com.acme/ad_click/jsonschema \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -337,7 +337,7 @@ HOST/api/schemas/vendor/name/format1,format2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema,jsontable \
+  HOST/api/schemas/com.acme/ad_click/jsonschema,jsontable \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
@@ -354,15 +354,15 @@ HOST/api/schemas/vendor/name/format/version1,version2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0,1-0-1 \
+  HOST/api/schemas/com.acme/ad_click/jsonschema/1-0-0,1-0-1 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
 <h4>Combinations</h4>
 
-You can also combine those URLs to satisfy your needs, I will give a few
-examples here:
+You can also combine those URLs to satisfy your needs. I will give a few
+examples in this section.
 
 If you want to retrieve two specific versions of two differents schemas:
 
@@ -383,19 +383,19 @@ curl \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
-Or, let us say you want to compare your schema with a company which has made
-theirs public:
+Or let's say you want to compare your schema with a company which has made
+their schema public:
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw,some.other.cmpny/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.snowplow.snowplowanalytics,com.acme/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
-<h4>Multiple single schema retrieval (name to review)</h4>
+<h4>Retrieving multiple disjoint schemas</h4>
 
-You can retrieve multiple single schemas like so:
+You can retrieve multiple schemas which are completely independent of each other like so:
 
 ```
 HOST/api/schemas/vendor1/name1/format1/version1,vendor2/name2/format2/version2
@@ -403,15 +403,14 @@ HOST/api/schemas/vendor1/name1/format1/version1,vendor2/name2/format2/version2
 
 {% highlight bash %}
 curl \
-  HOST/api/schemas/com.snowplow.snplw/ad_click/jsonschema/1-0-0,some.other.cmpny/ad_click/jsonschema/1-0-0 \
+  HOST/api/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0,com.acme/ad_click/jsonschema/1-0-0 \
   -X GET \
   -H "api_key: your_api_key"
 {% endhighlight %}
 
 <h4>Public schemas</h4>
 
-You can also retrieve a list of every single public schema thanks to this
-endpoint:
+You can also retrieve a list of every single public schema with this endpoint:
 
 ```
 HOST/api/schemas/public

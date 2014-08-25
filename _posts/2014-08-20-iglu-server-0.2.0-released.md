@@ -26,9 +26,11 @@ In this post, we will cover the following aspects of the new repository server:
     2. [The validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#validservice)
 3. [Api authentication](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)
 4. [Running your own server](/blog/2014/08/20/iglu-server-0.2.0-released/#diy)
-    1. [Modifying the configuration file](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
-    2. [The super API key](/blog/2014/08/20/iglu-server-0.2.0-released/#super)
-    3. [The API key generation service](/blog/2014/08/20/iglu-server-0.2.0-released/#keygen)
+    1. [Installing the executable jarfile](/blog/2014/08/20/iglu-server-0.2.0-released/#install)
+    2. [Configuring the server](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
+    3. [Launching the server](/blog/2014/08/20/iglu-server-0.2.0-released/#launch)
+    4. [The super API key](/blog/2014/08/20/iglu-server-0.2.0-released/#super)
+    5. [The API key generation service](/blog/2014/08/20/iglu-server-0.2.0-released/#keygen)
 5. [Support](/blog/2014/08/20/iglu-server-0.2.0-released/#support)
 
 <!--more-->
@@ -72,7 +74,7 @@ regarding owning a vendor prefix will be covered in the [api authentication sect
 {% endhighlight %}
 
 Adding this schema to your own registry of JSON schemas is as simple as making
-a POST request following this URL pattern:
+a `POST` request following this URL pattern:
 
 ```
 HOST/api/schemas/vendor/name/format/version
@@ -242,7 +244,7 @@ To get back:
 
 <h3><a name="gets">1.4 Multiple GET requests</a></h3>
 
-If you need to retrieve multiple schemas in one single GET request you can do
+If you need to retrieve multiple schemas in one single `GET` request you can do
 so in a few different ways:
 
 <h4>Vendor-based requests</h4>
@@ -280,7 +282,7 @@ As you might have assumed you will get back an array of every schema belonging
 to `com.acme` or `co.uk.acme`.
 
 **Please note:** if you do not own those vendors, you will
-still be able to make these request but you will only retrieve public
+still be able to make these requests but you will only retrieve public
 schemas (if any).
 
 <h4>Name-based requests</h4>
@@ -343,7 +345,7 @@ curl \
 <h4>Version-based requests</h4>
 
 If you need to retrieve a specific version of a schema we fall back to the case
-of single GET requests which we already covered, but you can also retrieve
+of single `GET` requests which we already covered, but you can also retrieve
 multiple versions:
 
 ```
@@ -439,9 +441,9 @@ You will have to enter your API key in the form on the top right
 of the page. Once this is done, you are free to explore the API using the
 Swagger UI.
 
-<h2><a name="valid">3. Schema validation and the validation service</a></h2>
+<h2><a name="valid">2. Schema validation and the validation service</a></h2>
 
-<h3><a name="schemavalid">3.1 Schema validation when adding a schema</a></h3>
+<h3><a name="schemavalid">2.1 Schema validation when adding a schema</a></h3>
 
 One thing you may have noticed is that every schema you add to the
 repository must be self-describing (please read
@@ -464,7 +466,7 @@ trying to add it to the repository:
 The `report` object will contain the full validation failure message for you to
 analyze.
 
-<h3><a name="validservice">3.2 The validation service</a></h3>
+<h3><a name="validservice">2.2 The validation service</a></h3>
 
 As well as validating that a schema when adding it to
 the repository, we also provide up a validation service which lets you:
@@ -503,7 +505,7 @@ following response:
 }
 {% endhighlight %}
 
-With the report object containing the full validation failure message.
+With the `report` object containing the full validation failure message.
 
 If the validation succeeds, you should get back something like:
 
@@ -544,7 +546,7 @@ instance is not valid against the schema:
 
 The validation service is also accessible through the Swagger UI.
 
-<h2><a name="auth">4. API authentication</a></h2>
+<h2><a name="auth">3. API authentication</a></h2>
 
 To restrain access to schemas, we have set up an API key based authentication
 system. Concretely, you will be given a pair of API keys (one with read access
@@ -558,41 +560,87 @@ consequently have access to every schema, the vendor of which starts with
 `com.snowplowanalytics` (the `com.snowplowanalytics.snowplow` vendor for
 example).
 
-<h2><a name="diy">5. Running your own server</a></h2>
+<h2><a name="diy">4. Running your own server</a></h2>
 
 If you feel your schemas are sensitive intellectual property, you can run
 your own server. Doing so requires a few steps which will be detailed here.
 
-<h3><a name="config">5.1 Modifying the configuration file.</a></h3>
+<h3><a name="install">4.1 Installing the executable jarfile</a></h3>
 
-In order to get the server running you will need a PostgreSQL instance, the
-connection details of which can be filled in in the [application.conf file](https://github.com/snowplow/iglu/blob/master/2-repositories/scala-repo-server/src/main/resources/application.conf).
-In particular, you will need to modify the `host`, `port`, `dbname`, `username`
-and `password` fields.
+You have two options in order to get the jarfile:
 
-<h3><a name="super">5.2 The super API key</a></h3>
+<h4>Download the executable server jarfile directly</h4>
 
-Once your `application.conf` file is filled in  properly you can launch the
+To get a copy, you can download the jarfile directly from
+**LOCATION TO BE DEFINED**
+
+<h4>Compile it from source</h4>
+
+Additionally, you can compile it yourself by cloning the iglu repo:
+
+{% highlight bash %}
+git clone https://github.com/snowplow/iglu.git
+{% endhighlight %}
+
+Navigating to the Scala repository server folder:
+
+{% highlight bash %}
+cd 2-repositories/scala-repo-server/
+{% endhighlight %}
+
+And finally, building the jarfile with sbt:
+
+{% highlight bash %}
+sbt assembly
+{% endhighlight %}
+
+The jarfile will be saved as `name` in the `dir` directory.
+**TO BE COMPLETED**
+
+<h3><a name="config">4.2 Configuring the server</a></h3>
+
+To configure your server you will have to download a copy of our sample
+[application.conf file](https://github.com/snowplow/iglu/blob/master/2-repositories/scala-repo-server/src/main/resources/application.conf)
+and fill in the appropriate values.
+
+First, to get the server running, you will need a PostgreSQL instance, the
+connection details of which can be modified inside your `application.conf` file.
+In particular, you will need to fill in the `postgres.host`, `postgres.port`,
+`postgres.dbname`, `postgrs.username` and `postgres.password` fields.
+
+You can also modify the HTTP server settings `repo-server.interface` and
+`repo-server.port` to fit your needs.
+
+<h3><a name="launch">4.3 Launching the server</a></h3>
+
+Once your `application.conf` file is filled in properly, you can launch the
 server and the necessary tables (`apikeys` and `schemas`) will be created
-automatically.
+automatically:
 
-One thing you will need to do is add a `super` API key manually to the database.
-This API key will be used to generate your clients' API keys.
+{% highlight bash %}
+./name-of-the-file --config application.conf
+{% endhighlight %}
+
+<h3><a name="super">4.4 The super API key</a></h3>
+
+Once the server is launched, you will still need to add a `super` API key
+manually to the database. This API key will be used to generate your clients'
+API keys.
 
 {% highlight sql %}
 insert into apikeys (uid, vendor, permission, createdat)
 values ('an-uuid', 'a.vendor', 'super', current_timestamp);
 {% endhighlight %}
 
-<h3><a name="keygen">5.3 The API key generation service</a></h3>
+<h3><a name="keygen">4.5 The API key generation service</a></h3>
 
 Once your super API key has been created, you will be able to use it to generate
-api keys for your clients through the API key generation service.
+API keys for your clients through the API key generation service.
 
 This service is as simple to use as the schema service and validation service.
 
 To generate a read and write pair of keys for a specific vendor prefix/owner
-simply send a POST request with this URL using your super API key in an
+simply send a `POST` request with this URL using your super API key in an
 `api_key` HTTP header:
 
 ```
@@ -656,7 +704,7 @@ curl \
 
 The API key generation service is also accessible through the Swagger UI.
 
-<h2><a name="support">6. Support</a></h2>
+<h2><a name="support">5. Support</a></h2>
 
 If there is a feature you would like to see implemented or if you encounter a
 bug please raise an issue on [the github project page](https://github.com/snowplow/iglu).

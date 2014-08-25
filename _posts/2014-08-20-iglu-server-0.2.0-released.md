@@ -592,8 +592,8 @@ And finally, building the jarfile with sbt:
 sbt assembly
 {% endhighlight %}
 
-The jarfile will be saved as `name` in the `dir` directory.
-**TO BE COMPLETED**
+The jarfile will be saved as `iglu-server-0.1.0` in the `target/scala.2.10`
+subdirectory.
 
 <h3><a name="config">4.2 Configuring the server</a></h3>
 

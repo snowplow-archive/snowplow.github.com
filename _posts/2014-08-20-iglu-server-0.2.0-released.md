@@ -46,7 +46,7 @@ lets you interact with schemas via simple HTTP requests.
 Use a `POST` request to the schema service to publish new schemas to your repository.
 
 For example, let's say you own the `com.acme` prefix (the details
-regarding owning a vendor prefix will be covered in the [api authentication section](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
+regarding owning a vendor prefix will be covered in the [API authentication section](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
 {

@@ -671,7 +671,7 @@ You should receive a JSON response like this one:
 }
 {% endhighlight %}
 
-If you want to revoke a specific API key, send a DELETE request like so:
+If you want to revoke a specific API key, send a `DELETE` request like so:
 
 ```
 HOST/api/auth/keygen?key=some-uuid
@@ -686,7 +686,7 @@ curl \
 {% endhighlight %}
 
 You can also delete every API key linked to a specific owner by sending a
-DELETE request:
+`DELETE` request:
 
 ```
 HOST/api/auth/keygen?owner=the.owner.in.question

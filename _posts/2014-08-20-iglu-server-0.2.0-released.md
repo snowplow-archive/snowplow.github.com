@@ -287,7 +287,7 @@ schemas (if any).
 
 <h4>Name-based requests</h4>
 
-Using the same approach you can get every version of every format
+Using the same approach, you can get every version of every format
 of a schema:
 
 ```

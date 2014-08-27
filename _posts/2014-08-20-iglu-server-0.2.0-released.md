@@ -548,14 +548,49 @@ The validation service is also accessible through the Swagger UI.
 
 <h2><a name="auth">3. API authentication</a></h2>
 
-To restrict access to schemas, we have implemented an API key-based authentication
-system. The administrator of your Iglu repository server can generate a pair of API keys (one with read access
-and one with read-and-write access) for any given vendor prefix. Users of the repository server will need to provide this
-API key with each request through an `api_key` HTTP header as shown in the previous examples.
+To restrict access to schemas, we have implemented an API key-based
+authentication system. The administrator of your Iglu repository server can
+generate a pair of API keys (one with read access and one with read-and-write
+access) for any given vendor prefix. Users of the repository server will need
+to provide this API key with each request through an `api_key` HTTP header as
+shown in the previous examples.
 
-For example, let's say you work for Acme Inc, and so your administrator
-gives you a pair of keys for the `com.acme` prefix. This lets you access every schema whose vendor starts with 
-`com.acme`, for example you will have access to any schemas assigned to the `com.acme.project1` and `com.acme.project2` vendors.
+For example, let's say you work for Acme Inc, and so the administrator of the
+Iglu repository you are using gives you a pair of keys for the `com.acme` vendor
+prefix.
+One of those API key will have read access and consequently will let you
+retrieve schemas through `GET` requests, the other will have both read and write
+access so you will be able to publish and modify schemas through `POST` and
+`PUT` requests in addition to being able to retrieve them. It is then up to
+you on to distribute those two keys however you want.
+Those keys grants you access to every schema whose vendor starts with
+`com.acme`.
+
+As a concrete example, let's say you request API keys to the aforementionned
+administrator and you get back this couple of API keys:
+
+* `663ee2a1-98a2-4a85-a05b-20f343e4961d` for read access
+* `86da37e8-fdac-406a-8c71-3ae964e75882` for both read and write access
+
+Using the second API key you will be able to create schemas, the vendor of which
+starts with `com.acme`:
+
+{% highlight bash %}
+curl \
+  HOST/api/schemas/com.acme.project1/ad_click/jsonschema/1-0-0 \
+  -X POST \
+  -H "api_key: 86da37e8-fdac-406a-8c71-3ae964e75882" \
+  -d "{ \"your\": \"json\" }"
+{% endhighlight %}
+
+And you will be able to retrieve this schema with either one of those API keys:
+
+{% highlight bash %}
+curl \
+  HOST/api/schemas/com.acme.project1/ad_click/jsonschema/1-0-0 \
+  -X GET \
+  -H "api_key: 663ee2a1-98a2-4a85-a05b-20f343e4961d"
+{% endhighlight %}
 
 <h2><a name="diy">4. Running your own server</a></h2>
 

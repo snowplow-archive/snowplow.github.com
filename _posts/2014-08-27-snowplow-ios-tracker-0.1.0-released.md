@@ -72,14 +72,6 @@ You can easily add some additional information to each event, such as a user ID:
 [tracker setUserId:"a73e94"];
 {% endhighlight %}
 
-For in-depth information on using the Snowplow iOS Tracker, please see the [wiki page] [wiki].
-
-<h2><a name="mobile-context">3. Mobile context</a></h2>
-
-The Tracker automatically grabs the user's timezone, user language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
-
-The Tracker also grabs a set of mobile-specific contextual data, which we add to each event's context array following the [mobile context schema] [mobile-context].
-
 We can then fire some events like so:
 
 {% highlight objective-c %}
@@ -93,6 +85,14 @@ We can then fire some events like so:
                         value:2 
                     timestamp:1369330909];
 {% endhighlight %}
+
+For in-depth information on using the Snowplow iOS Tracker, please see the [wiki page] [wiki].
+
+<h2><a name="mobile-context">3. Mobile context</a></h2>
+
+The Tracker automatically grabs the user's timezone, user language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
+
+The Tracker also grabs a set of mobile-specific contextual data, which we add to each event's context array following the [mobile context schema] [mobile-context].
 
 <h2><a name="under-the-hood">4. Under the hood</a></h2>
 
@@ -111,7 +111,7 @@ This is an initial release of the iOS Tracker and we look forward to further rel
 [cocoapods]: http://cocoapods.org/
 
 [repo]: https://github.com/snowplow/snowplow-ios-tracker
-[mobile-context]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
+[mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
 [wiki]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/iOS-tracker-setup
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

@@ -549,32 +549,30 @@ The validation service is also accessible through the Swagger UI.
 <h2><a name="auth">3. API authentication</a></h2>
 
 To restrict access to schemas, we have implemented an API key-based authentication
-system. The administrator of your Scala repository server can generate a pair of API keys (one with read access
-and one with read-and-write access) for each organization. Users of the repository server will need to provide this
+system. The administrator of your Iglu repository server can generate a pair of API keys (one with read access
+and one with read-and-write access) for any given vendor prefix. Users of the repository server will need to provide this
 API key with each request through an `api_key` HTTP header as shown in the previous examples.
 
-For example, let's say that your organization is Snowplow Analytics Ltd, you will
-be given a pair of keys for the `com.snowplowanalytics` prefix and will
-consequently have access to every schema whose vendor starts with 
-`com.snowplowanalytics`. For example, you will have access to any schemas assigned to the `com.snowplowanalytics.snowplow` and `com.snowplowanalytics.iglu` vendors.
+For example, let's say you work for Acme Inc, and so your administrator
+gives you a pair of keys for the `com.acme` prefix. This lets you access every schema whose vendor starts with 
+`com.acme`, for example you will have access to any schemas assigned to the `com.acme.project1` and `com.acme.project2` vendors.
 
 <h2><a name="diy">4. Running your own server</a></h2>
 
-If you feel your schemas are sensitive intellectual property, you can run
-your own server. Doing so requires a few steps which will be detailed here.
+Running your own Iglu repository server lets you publish, test and serve schemas in support of applications like Snowplow and others.
+Running your own repository server requires a few steps which will be detailed here.
 
 <h3><a name="install">4.1 Installing the executable jarfile</a></h3>
 
 You have two options in order to get the jarfile:
 
-<h4>Download the executable server jarfile directly</h4>
+<h4>1. Download the server jarfile directly</h4>
 
-To get a copy, you can download the jarfile directly from
-**LOCATION TO BE DEFINED**
+To get a pre-built copy, you can download the jarfile from [Snowplow Hosted Assets] [snowplow-hosted-assets], or directly by right-clicking on [this link] [jar-download] and selecting "Save As..."
 
-<h4>Compile it from source</h4>
+<h4>2. Compile it from source</h4>
 
-Additionally, you can compile it yourself by cloning the iglu repo:
+Alternatively, you can compile it yourself by cloning the iglu repo:
 
 {% highlight bash %}
 git clone https://github.com/snowplow/iglu.git
@@ -601,10 +599,13 @@ To configure your server you will have to download a copy of our sample
 [application.conf file](https://github.com/snowplow/iglu/blob/master/2-repositories/scala-repo-server/src/main/resources/application.conf)
 and fill in the appropriate values.
 
-First, to get the server running, you will need a PostgreSQL instance, the
-connection details of which can be modified inside your `application.conf` file.
-In particular, you will need to fill in the `postgres.host`, `postgres.port`,
-`postgres.dbname`, `postgrs.username` and `postgres.password` fields.
+The Scala repository server uses PostgreSQL to store all schemas and related data. Assuming that you already have a PostgreSQL instance available, modify your `application.conf` file with your PostgreSQL connection details:
+
+* `postgres.host`
+* `postgres.port`,
+* `postgres.dbname`
+* `postgrs.username`
+* `postgres.password`
 
 You can also modify the HTTP server settings `repo-server.interface` and
 `repo-server.port` to fit your needs.
@@ -630,6 +631,8 @@ insert into apikeys (uid, vendor, permission, createdat)
 values ('an-uuid', 'a.vendor', 'super', current_timestamp);
 {% endhighlight %}
 
+**IS THIS GLOBAL - IF SO, WHY SPECIFY A VENDOR?**
+
 <h3><a name="keygen">4.5 The API key generation service</a></h3>
 
 Once your super API key has been created, you will be able to use it to generate
@@ -646,7 +649,7 @@ HOST/api/auth/keygen
 ```
 
 As with the schema service, you have the choice of how you want to pass the new
-API keys' owner :
+API keys' owner:
 
 * through the request body
 * through a form entry named `owner`
@@ -704,7 +707,12 @@ The API key generation service is also accessible through the Swagger UI.
 
 <h2><a name="support">5. Support</a></h2>
 
-If there is a feature you would like to see implemented or if you encounter a
-bug please raise an issue on [the github project page](https://github.com/snowplow/iglu).
+And that's it! As always, if there is a feature you would like to see implemented or if you encounter a bug, please raise an issue on [the github project page](https://github.com/snowplow/iglu).
+
+And if you have more general questions about Iglu or clarifications about this release, please do get in touch with us via [the usual channels] [talk-to-us].
+
+[snowplow-hosted-assets]: xxx
+[jar-download]: xxx
 
 [iglu-swagger-img]: /assets/img/blog/2014/08/iglu-swagger.png
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

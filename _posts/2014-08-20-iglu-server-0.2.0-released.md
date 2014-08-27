@@ -169,20 +169,20 @@ The JSON response should look like this:
   "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
   "description": "Schema for an Acme Inc ad click event",
   "self": {
-  "vendor": "com.acme",
-  "name": "ad_click",
-  "format": "jsonschema",
-  "version": "1-0-0"
+    "vendor": "com.acme",
+    "name": "ad_click",
+    "format": "jsonschema",
+    "version": "1-0-0"
   },
   "type": "object",
   "properties": {
-  "clickId": {
-    "type": "string"
-  },
-  "targetUrl": {
-    "type": "string",
-    "minLength": 1
-  }
+    "clickId": {
+      "type": "string"
+    },
+    "targetUrl": {
+      "type": "string",
+      "minLength": 1
+    }
   },
   "required": ["targetUrl"],
   "additionalProperties": false,
@@ -617,7 +617,7 @@ server and the necessary tables (`apikeys` and `schemas`) will be created
 automatically:
 
 {% highlight bash %}
-./name-of-the-file --config application.conf
+./iglu-server-0.1.0 --config application.conf
 {% endhighlight %}
 
 <h3><a name="super">4.4 The super API key</a></h3>
@@ -627,11 +627,9 @@ manually to the database. This API key will be used to generate your clients'
 API keys.
 
 {% highlight sql %}
-insert into apikeys (uid, vendor, permission, createdat)
-values ('an-uuid', 'a.vendor', 'super', current_timestamp);
+insert into apikeys (uid, owner, permission, createdat)
+values ('an-uuid', 'an.owner', 'super', current_timestamp);
 {% endhighlight %}
-
-**IS THIS GLOBAL - IF SO, WHY SPECIFY A VENDOR?**
 
 <h3><a name="keygen">4.5 The API key generation service</a></h3>
 

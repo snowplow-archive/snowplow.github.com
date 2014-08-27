@@ -468,7 +468,7 @@ analyze.
 
 <h3><a name="validservice">2.2 The validation service</a></h3>
 
-As well as validating that a schema when adding it to
+As well as validating that a schema is self-describing when adding it to
 the repository, we also provide up a validation service which lets you:
 
 1. Validate that a schema is valid without adding it to the repository

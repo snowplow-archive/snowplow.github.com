@@ -7,22 +7,26 @@ author: Jonathan
 category: Releases
 ---
 
-We're extremely excited to announce our initial release of the [Snowplow iOS Tracker 0.1.0][repo]
+We're extremely excited to announce our initial release of the [Snowplow iOS Tracker] [repo].
 
-This is one of our highly requested trackers that allows you to track your Snowplow events on your iOS applications and games. This release comes with many features you may already be familiar with in [other Snowplow Trackers][tracker-tag] along with a few extra gems as well!
+Mobile trackers have been one of the Snowplow community's most highly requested features, and we are very pleased to finally have this ready for release. The Snowplow iOS Tracker will allow you to track Snowplow events from your iOS applications and games.
 
-1. [How to install the tracker](/blog/2014/0x/xx/snowplow-ios-tracker-0.1.0-released/#install)
-2. [How to use the tracker](/blog/2014/0x/xx/snowplow-ios-tracker-0.1.0-released/#usage)
-3. [Features](/blog/2014/0x/xx/snowplow-ios-tracker-0.1.0-released/#usage)
-4. [Getting help](/blog/2014/0x/xx/snowplow-ios-tracker-0.1.0-released/#help)
+This release comes with many features you may already be familiar with in [other Snowplow Trackers] [tracker-tag], along with a few extra tricks as well!
+
+1. [How to install the tracker](/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/#install)
+2. [How to use the tracker](/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/#usage)
+3. [Mobile context](/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/#mobile-context)
+4. [Under the hood](/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/#under-the-hood)
+5. [Getting help](/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/#help)
 
 <!--more-->
 
 <h2><a name="install">1. How to install the tracker</a></h2>
 
-The Snowplow iOS Tracker is published as a Pod on CocoaPods, the dependency manager for Objective-C projects. This makes it easy to install the Tracker with minimal effort, as well as the recommended way for the Tracker to be installed.
+The Snowplow iOS Tracker is published as a Pod on [CocoaPods] [cocoapods], the dependency manager for Objective-C projects. This makes it easy to install the Tracker with minimal effort, and is the recommended way for installing the Tracker.
 
 First, make sure you have CocoaPods installed on your machine if you haven't already:
+
 {% highlight bash %}
 $ gem install cocoapods
 {% endhighlight %}
@@ -46,6 +50,7 @@ The Snowplow iOS Tracker is compatible with iOS applications 7.0 and higher. The
 To use the Tracker you need to create a Tracker and Request instance. The `SnowplowRequest` class is used to send events created by the `SnowplowTracker`.
 
 You can create a `SnowplowRequest` instance easily:
+
 {% highlight objective-c %}
 NSURL *url = [NSURL URLWithString:"collector.acme.net"];
 SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:url 
@@ -53,6 +58,7 @@ SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:url
 {% endhighlight %}
 
 And a `SnowplowTracker` in a similar fashion:
+
 {% highlight objective-c %}
 SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:collector 
                                                                 appId:@"AF003" 
@@ -60,16 +66,22 @@ SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:collector
                                                             namespace:@"cloudfront"];
 {% endhighlight %}
 
-You can add some additional information, like a user ID:
+You can easily add some additional information to each event, such as a user ID:
+
 {% highlight objective-c %}
 [tracker setUserId:"a73e94"];
 {% endhighlight %}
 
-The Tracker automatically grabs the users timezone, user language and other similar details without needing you to set it.
+For in-depth information on using the Snowplow iOS Tracker, please see the [wiki page] [wiki].
 
-For mobile specfic contextual data, we grab that information as well as add to the context using the [mobile context schema][mobile-context].
+<h2><a name="mobile-context">3. Mobile context</a></h2>
 
-We can fire some events like so:
+The Tracker automatically grabs the user's timezone, user language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
+
+The Tracker also grabs a set of mobile-specific contextual data, which we add to each event's context array following the [mobile context schema] [mobile-context].
+
+We can then fire some events like so:
+
 {% highlight objective-c %}
 [tracker trackPageView:@"www.example.com" 
                  title:@"example page" 
@@ -82,21 +94,21 @@ We can fire some events like so:
                     timestamp:1369330909];
 {% endhighlight %}
 
-For in-depth usage information on the Snowplow iOS Tracker, see the [wiki page] [wiki].
+<h2><a name="under-the-hood">4. Under the hood</a></h2>
 
-<h2><a name="usage">3. Features</a></h2>
+The Snowplow iOS Tracker comes with a built-in caching feature to store any event that wasn't able to to be sent because of network connectivity failures or if events are unsent before a user exits your application. The events are stored in an sqlite database in the application's Library directory. The Tracker uses the [FMDB][fmdb] SQLite wrapper to do this.
 
-The Snowplow iOS Tracker comes with a built-in caching feature to store any event that wasn't able to to be sent because of network connectivity failures or if events are unsent before a user exits your application. The events are stored in an sqlite database in the application's Library directory. It uses the [FMDB][fmdb] SQLite wrapper to easily do this.
+For sending events, we use the [AFNetworking][afnetworking] library. This simplifies the process of sending network requests, and should make it easier to extend the Tracker in the future.
 
-For sending events, we use the [AFNetworking][afnetworking] library. Sending network requests are much similiar with it, and also future proofs the tracker for new features in the Tracker with how extensible the AFNetworking library is.
+<h2><a name="help">5. Getting help</a></h2>
 
-<h2><a name="help">4. Getting help</a></h2>
-
-This is an initial release of the iOS Tracker and we're hoping to further develop the Tracker. We're looking forward to user feedback, feature requests or possible bugs. Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
+This is an initial release of the iOS Tracker and we look forward to further releases based on your real-world usage of the tracker. We're looking forward to user feedback, feature requests or possible bugs. Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
 
 [tracker-tag]: http://snowplowanalytics.com/tags.html#tracker
 [fmdb]: https://github.com/ccgus/fmdb
 [afnetworking]: https://github.com/AFNetworking/AFNetworking
+
+[cocoapods]: http://cocoapods.org/
 
 [repo]: https://github.com/snowplow/snowplow-ios-tracker
 [mobile-context]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0

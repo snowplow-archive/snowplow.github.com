@@ -651,7 +651,9 @@ server and the necessary tables (`apikeys` and `schemas`) will be created
 automatically:
 
 {% highlight bash %}
-./iglu-server-0.1.0 --config application.conf
+java \
+  -Dconfig.file=/path/to/your/application.conf \
+  -jar iglu-server-0.1.0 com.snowplowanalytics.iglu.server.Boot
 {% endhighlight %}
 
 <h3><a name="super">4.4 The super API key</a></h3>

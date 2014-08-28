@@ -15,23 +15,23 @@ Iglu release 2 introduces a new Scala-based repository server, allowing users to
 
 In this post, we will cover the following aspects of the new repository server:
 
-1. [The schema service](/blog/2014/08/20/iglu-server-0.2.0-released/#schema)
-    1. [POST requests](/blog/2014/08/20/iglu-server-0.2.0-released/#post)
-    2. [PUT requests](/blog/2014/08/20/iglu-server-0.2.0-released/#put)
-    3. [Single GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#get)
-    4. [Multiple GET requests](/blog/2014/08/20/iglu-server-0.2.0-released/#gets)
-    5. [Swagger support](/blog/2014/08/20/iglu-server-0.2.0-released/#swagger)
-2. [Schema validation and the validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#valid)
-    1. [Schema validation when adding a schema](/blog/2014/08/20/iglu-server-0.2.0-released/#schemavalid)
-    2. [The validation service](/blog/2014/08/20/iglu-server-0.2.0-released/#validservice)
-3. [Api authentication](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)
-4. [Running your own server](/blog/2014/08/20/iglu-server-0.2.0-released/#diy)
-    1. [Installing the executable jarfile](/blog/2014/08/20/iglu-server-0.2.0-released/#install)
-    2. [Configuring the server](/blog/2014/08/20/iglu-server-0.2.0-released/#config)
-    3. [Launching the server](/blog/2014/08/20/iglu-server-0.2.0-released/#launch)
-    4. [The super API key](/blog/2014/08/20/iglu-server-0.2.0-released/#super)
-    5. [The API key generation service](/blog/2014/08/20/iglu-server-0.2.0-released/#keygen)
-5. [Support](/blog/2014/08/20/iglu-server-0.2.0-released/#support)
+1. [The schema service](/blog/2014/08/28/iglu-server-0.2.0-released/#schema)
+    1. [POST requests](/blog/2014/08/28/iglu-server-0.2.0-released/#post)
+    2. [PUT requests](/blog/2014/08/28/iglu-server-0.2.0-released/#put)
+    3. [Single GET requests](/blog/2014/08/28/iglu-server-0.2.0-released/#get)
+    4. [Multiple GET requests](/blog/2014/08/28/iglu-server-0.2.0-released/#gets)
+    5. [Swagger support](/blog/2014/08/28/iglu-server-0.2.0-released/#swagger)
+2. [Schema validation and the validation service](/blog/2014/08/28/iglu-server-0.2.0-released/#valid)
+    1. [Schema validation when adding a schema](/blog/2014/08/28/iglu-server-0.2.0-released/#schemavalid)
+    2. [The validation service](/blog/2014/08/28/iglu-server-0.2.0-released/#validservice)
+3. [Api authentication](/blog/2014/08/28/iglu-server-0.2.0-released/#auth)
+4. [Running your own server](/blog/2014/08/28/iglu-server-0.2.0-released/#diy)
+    1. [Installing the executable jarfile](/blog/2014/08/28/iglu-server-0.2.0-released/#install)
+    2. [Configuring the server](/blog/2014/08/28/iglu-server-0.2.0-released/#config)
+    3. [Launching the server](/blog/2014/08/28/iglu-server-0.2.0-released/#launch)
+    4. [The super API key](/blog/2014/08/28/iglu-server-0.2.0-released/#super)
+    5. [The API key generation service](/blog/2014/08/28/iglu-server-0.2.0-released/#keygen)
+5. [Support](/blog/2014/08/28/iglu-server-0.2.0-released/#support)
 
 <!--more-->
 
@@ -46,7 +46,7 @@ lets you interact with schemas via simple HTTP requests.
 Use a `POST` request to the schema service to publish new schemas to your repository.
 
 For example, let's say you own the `com.acme` prefix (the details
-regarding owning a vendor prefix will be covered in the [API authentication section](/blog/2014/08/20/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
+regarding owning a vendor prefix will be covered in the [API authentication section](/blog/2014/08/28/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
 {
@@ -603,7 +603,7 @@ You have two options to get the jarfile:
 
 <h4>1. Download the server jarfile directly</h4>
 
-To get a pre-built copy, you can download the jarfile from [Snowplow Hosted Assets] [snowplow-hosted-assets], or directly by right-clicking on [this link] [jar-download] and selecting "Save As..."
+To get a pre-built copy, you can download the jarfile from [Iglu Hosted Assets] [iglu-hosted-assets], or directly by right-clicking on [this link] [jar-download] and selecting "Save As..."
 
 <h4>2. Compile it from source</h4>
 
@@ -745,8 +745,8 @@ And that's it! As always, if there is a feature you would like to see implemente
 
 And if you have more general questions about Iglu or clarifications about this release, please do get in touch with us via [the usual channels] [talk-to-us].
 
-[snowplow-hosted-assets]: xxx
-[jar-download]: xxx
+[iglu-hosted-assets]: https://github.com/snowplow/iglu/wiki/Hosted-assets
+[jar-download]: http://d3usn368cyagrg.cloudfront.net/2-repositories/scala-repo-server/scala-repo-server-0.1.0
 
 [iglu-swagger-img]: /assets/img/blog/2014/08/iglu-swagger.png
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

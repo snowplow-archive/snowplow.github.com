@@ -746,7 +746,7 @@ And that's it! As always, if there is a feature you would like to see implemente
 And if you have more general questions about Iglu or clarifications about this release, please do get in touch with us via [the usual channels] [talk-to-us].
 
 [iglu-hosted-assets]: https://github.com/snowplow/iglu/wiki/Hosted-assets
-[jar-download]: http://d3usn368cyagrg.cloudfront.net/2-repositories/scala-repo-server/scala-repo-server-0.1.0
+[jar-download]: http://d3usn368cyagrg.cloudfront.net/2-repositories/scala-repo-server/iglu-server-0.1.0
 
 [iglu-swagger-img]: /assets/img/blog/2014/08/iglu-swagger.png
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

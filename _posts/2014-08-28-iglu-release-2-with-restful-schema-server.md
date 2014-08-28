@@ -31,7 +31,7 @@ In this post, we will cover the following aspects of the new repository server:
     3. [Launching the server](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#launch)
     4. [The super API key](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#super)
     5. [The API key generation service](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#keygen)
-5. [Support](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#support)
+5. [Documentation and support](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#support)
 
 <!--more-->
 
@@ -739,14 +739,22 @@ curl \
 
 The API key generation service is also accessible through the Swagger UI.
 
-<h2><a name="support">5. Support</a></h2>
+<h2><a name="support">5. Documentation and support</a></h2>
 
-And that's it! As always, if there is a feature you would like to see implemented or if you encounter a bug, please raise an issue on [the github project page](https://github.com/snowplow/iglu).
+And that's it! As always, if there is a feature you would like to see implemented or if you encounter a bug, please raise an issue on [the GitHub project page](https://github.com/snowplow/iglu).
+
+To find out more about the Scala repository server, check out the documentation here:
+
+* [Technical documentation] [tech-docs]
+* [Setup guide] [setup-guide]
 
 And if you have more general questions about Iglu or clarifications about this release, please do get in touch with us via [the usual channels] [talk-to-us].
 
 [iglu-hosted-assets]: https://github.com/snowplow/iglu/wiki/Hosted-assets
 [jar-download]: http://d3usn368cyagrg.cloudfront.net/2-repositories/scala-repo-server/iglu-server-0.1.0
+
+[tech-docs]: https://github.com/snowplow/iglu/wiki/Scala-repo-server
+[setup-guide]: https://github.com/snowplow/iglu/wiki/Scala-repo-server-setup
 
 [iglu-swagger-img]: /assets/img/blog/2014/08/iglu-swagger.png
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

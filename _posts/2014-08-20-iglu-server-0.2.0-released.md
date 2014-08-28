@@ -662,8 +662,8 @@ manually to the database. This API key will be used to generate your clients'
 API keys.
 
 {% highlight sql %}
-insert into apikeys (uid, owner, permission, createdat)
-values ('an-uuid', 'an.owner', 'super', current_timestamp);
+insert into apikeys (uid, vendor_prefix, permission, createdat)
+values ('an-uuid', '.', 'super', current_timestamp);
 {% endhighlight %}
 
 <h3><a name="keygen">4.5 The API key generation service</a></h3>
@@ -673,7 +673,7 @@ API keys for your clients through the API key generation service.
 
 This service is as simple to use as the schema service and validation service.
 
-To generate a read and write pair of keys for a specific vendor prefix/owner
+To generate a read and write pair of keys for a specific vendor prefix
 simply send a `POST` request with this URL using your super API key in an
 `api_key` HTTP header:
 
@@ -682,11 +682,11 @@ HOST/api/auth/keygen
 ```
 
 As with the schema service, you have the choice of how you want to pass the new
-API keys' owner:
+API keys' vendor prefix:
 
 * through the request body
-* through a form entry named `owner`
-* through a query parameter named `owner`
+* through a form entry named `vendor_prefix`
+* through a query parameter named `vendor_prefix`
 
 For example, through a query parameter:
 
@@ -695,7 +695,7 @@ curl \
   HOST/api/auth/keygen \
   -X POST \
   -H "api_key: your_super_api_key" \
-  -d "owner=com.snowplow"
+  -d "vendor_prefix=com.acme"
 {% endhighlight %}
 
 You should receive a JSON response like this one:
@@ -721,11 +721,11 @@ curl \
   -d "key=some-uuid"
 {% endhighlight %}
 
-You can also delete every API key linked to a specific owner by sending a
-`DELETE` request:
+You can also delete every API key linked to a specific vendor prefix by sending
+a `DELETE` request:
 
 ```
-HOST/api/auth/keygen?owner=the.owner.in.question
+HOST/api/auth/keygen?vendor_prefix=the.vendor.prefix.in.question
 ```
 
 {% highlight bash %}
@@ -733,7 +733,7 @@ curl \
   HOST/api/auth/keygen \
   -X DELETE \
   -H "api_key: your_super_api_key" \
-  -d "owner=some.owner"
+  -d "vendor_prefix=some.vendor.prefix"
 {% endhighlight %}
 
 The API key generation service is also accessible through the Swagger UI.

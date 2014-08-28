@@ -11,9 +11,17 @@ We are proud to release the [Snowplow Android Tracker][repo]; one of the most re
 
 The Android Tracker has been going through a lot preparation as we matured the Java Tracker. We've now based the Android Tracker on the same Java Tracker Core that runs the Java Tracker with a few additions, like tracking geographical location and mobile-specific context data. As such, you'll see many similarities between the two Trackers, which I'll explain in further detail in the rest of the post:
 
-1. [Compatibility](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#compatibility)
-2. [How to install the tracker](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
-3. [How to use the tracker](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
+x. [Compatibility](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#compatibility)
+x. [How to install the tracker](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
+x. [How to use the tracker](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
+x. [Roadmap](/blog/2014/0x/xx/snowplow-android-tracker-0.1.0-released/#roadmap)
+
+<!--more-->
+
+<h2><a name="compatibility">x. Compatibility</a></h2>
+
+The Android Tracker is built to be 
+
 
 [repo]: https://github.com/snowplow/snowplow-android-tracker
 [snplow-tag]: https://github.com/snowplow/snowplow/releases/tag/0.9.7

@@ -558,21 +558,21 @@ shown in the previous examples.
 For example, let's say you work for Acme Inc, and so the administrator of the
 Iglu repository you are using gives you a pair of keys for the `com.acme` vendor
 prefix.
-One of those API key will have read access and consequently will let you
-retrieve schemas through `GET` requests, the other will have both read and write
+
+One of these API keys will have read access and consequently will let you
+retrieve schemas through `GET` requests. The other will have both read and write
 access so you will be able to publish and modify schemas through `POST` and
 `PUT` requests in addition to being able to retrieve them. It is then up to
-you on to distribute those two keys however you want.
-Those keys grants you access to every schema whose vendor starts with
+you on to distribute those two keys however you want. Those keys grants you access to every schema whose vendor starts with
 `com.acme`.
 
-As a concrete example, let's say you request API keys to the aforementionned
-administrator and you get back this couple of API keys:
+As a concrete example, let's say you request API keys from your
+administrator and she sends you get back this pair of API keys:
 
 * `663ee2a1-98a2-4a85-a05b-20f343e4961d` for read access
 * `86da37e8-fdac-406a-8c71-3ae964e75882` for both read and write access
 
-Using the second API key you will be able to create schemas, the vendor of which
+Using the second API key you will be able to create schemas, as long as the vendor
 starts with `com.acme`:
 
 {% highlight bash %}
@@ -599,7 +599,7 @@ Running your own repository server requires a few steps which will be detailed h
 
 <h3><a name="install">4.1 Installing the executable jarfile</a></h3>
 
-You have two options in order to get the jarfile:
+You have two options to get the jarfile:
 
 <h4>1. Download the server jarfile directly</h4>
 
@@ -607,7 +607,7 @@ To get a pre-built copy, you can download the jarfile from [Snowplow Hosted Asse
 
 <h4>2. Compile it from source</h4>
 
-Alternatively, you can compile it yourself by cloning the iglu repo:
+Alternatively, you can compile it yourself by cloning the Iglu repo:
 
 {% highlight bash %}
 git clone https://github.com/snowplow/iglu.git
@@ -619,14 +619,13 @@ Navigating to the Scala repository server folder:
 cd 2-repositories/scala-repo-server/
 {% endhighlight %}
 
-And finally, building the jarfile with sbt:
+And finally, building the jarfile with SBT:
 
 {% highlight bash %}
 sbt assembly
 {% endhighlight %}
 
-The jarfile will be saved as `iglu-server-0.1.0` in the `target/scala.2.10`
-subdirectory.
+The jarfile will be saved as `iglu-server-0.1.0` in the `target/scala.2.10` subdirectory.
 
 <h3><a name="config">4.2 Configuring the server</a></h3>
 

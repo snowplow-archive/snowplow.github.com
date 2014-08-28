@@ -94,6 +94,8 @@ The Tracker automatically grabs the user's timezone, user language and other det
 
 The Tracker also grabs a set of mobile-specific contextual data, which we add to each event's context array following the [mobile context schema] [mobile-context].
 
+If you're using Redshift, you would need to install the mobile_context table using [this script][mobile-script].
+
 <h2><a name="under-the-hood">4. Under the hood</a></h2>
 
 The Snowplow iOS Tracker comes with a built-in caching feature to store any event that wasn't able to to be sent because of network connectivity failures or if events are unsent before a user exits your application. The events are stored in an sqlite database in the application's Library directory. The Tracker uses the [FMDB][fmdb] SQLite wrapper to do this.
@@ -112,6 +114,7 @@ This is an initial release of the iOS Tracker and we look forward to further rel
 
 [repo]: https://github.com/snowplow/snowplow-ios-tracker
 [mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
+[mobile-script]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/mobile_context_1.sql
 [wiki]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/iOS-tracker-setup
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

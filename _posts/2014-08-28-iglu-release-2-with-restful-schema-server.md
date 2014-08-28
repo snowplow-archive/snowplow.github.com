@@ -1,6 +1,6 @@
 ---
 layout: post
-shortenedlink: Iglu release 2 with new RESTful schema server 
+shortenedlink: Iglu release 2 with RESTful schema server 
 title: Iglu release 2 with a new RESTful schema server
 tags: [iglu, scala, server, api, restful]
 author: Ben
@@ -15,23 +15,23 @@ Iglu release 2 introduces a new Scala-based repository server, allowing users to
 
 In this post, we will cover the following aspects of the new repository server:
 
-1. [The schema service](/blog/2014/08/28/iglu-server-0.2.0-released/#schema)
-    1. [POST requests](/blog/2014/08/28/iglu-server-0.2.0-released/#post)
-    2. [PUT requests](/blog/2014/08/28/iglu-server-0.2.0-released/#put)
-    3. [Single GET requests](/blog/2014/08/28/iglu-server-0.2.0-released/#get)
-    4. [Multiple GET requests](/blog/2014/08/28/iglu-server-0.2.0-released/#gets)
-    5. [Swagger support](/blog/2014/08/28/iglu-server-0.2.0-released/#swagger)
-2. [Schema validation and the validation service](/blog/2014/08/28/iglu-server-0.2.0-released/#valid)
-    1. [Schema validation when adding a schema](/blog/2014/08/28/iglu-server-0.2.0-released/#schemavalid)
-    2. [The validation service](/blog/2014/08/28/iglu-server-0.2.0-released/#validservice)
-3. [Api authentication](/blog/2014/08/28/iglu-server-0.2.0-released/#auth)
-4. [Running your own server](/blog/2014/08/28/iglu-server-0.2.0-released/#diy)
-    1. [Installing the executable jarfile](/blog/2014/08/28/iglu-server-0.2.0-released/#install)
-    2. [Configuring the server](/blog/2014/08/28/iglu-server-0.2.0-released/#config)
-    3. [Launching the server](/blog/2014/08/28/iglu-server-0.2.0-released/#launch)
-    4. [The super API key](/blog/2014/08/28/iglu-server-0.2.0-released/#super)
-    5. [The API key generation service](/blog/2014/08/28/iglu-server-0.2.0-released/#keygen)
-5. [Support](/blog/2014/08/28/iglu-server-0.2.0-released/#support)
+1. [The schema service](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#schema)
+    1. [POST requests](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#post)
+    2. [PUT requests](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#put)
+    3. [Single GET requests](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#get)
+    4. [Multiple GET requests](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#gets)
+    5. [Swagger support](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#swagger)
+2. [Schema validation and the validation service](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#valid)
+    1. [Schema validation when adding a schema](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#schemavalid)
+    2. [The validation service](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#validservice)
+3. [Api authentication](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#auth)
+4. [Running your own server](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#diy)
+    1. [Installing the executable jarfile](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#install)
+    2. [Configuring the server](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#config)
+    3. [Launching the server](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#launch)
+    4. [The super API key](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#super)
+    5. [The API key generation service](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#keygen)
+5. [Support](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#support)
 
 <!--more-->
 
@@ -46,7 +46,7 @@ lets you interact with schemas via simple HTTP requests.
 Use a `POST` request to the schema service to publish new schemas to your repository.
 
 For example, let's say you own the `com.acme` prefix (the details
-regarding owning a vendor prefix will be covered in the [API authentication section](/blog/2014/08/28/iglu-server-0.2.0-released/#auth)) and you have a JSON schema defined as follows:
+regarding owning a vendor prefix will be covered in the [API authentication section](/blog/2014/08/28/iglu-release-2-with-restful-schema-server/#auth)) and you have a JSON schema defined as follows:
 
 {% highlight json %}
 {

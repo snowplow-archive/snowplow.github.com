@@ -11,14 +11,14 @@ We are happy to announce the release of the Snowplow Ruby Tracker version 0.3.0.
 
 The rest of this post will cover:
 
-1. [The Subject class](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#subject)
-2. [The Emitter class](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#emitter)
-3. [Chainable methods](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#chainable-methods)
-4. [Logging](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#logging)
-5. [Contracts](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#contracts)
-6. [Other changes](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#changes)
-7. [Upgrading](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#upgrading)
-8. [Getting help](/blog/2014/xx/xx/snowplow-ruby-tracker-0.3.0-released/#help)
+1. [The Subject class](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#subject)
+2. [The Emitter class](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#emitter)
+3. [Chainable methods](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#chainable-methods)
+4. [Logging](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#logging)
+5. [Contracts](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#contracts)
+6. [Other changes](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#changes)
+7. [Upgrading](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#upgrading)
+8. [Getting help](/blog/2014/08/29/snowplow-ruby-tracker-0.3.0-released/#help)
 
 <!--more-->
 
@@ -98,12 +98,12 @@ my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
 
 Every setting in the configuration hash is optional. Here is what they do:
 
-* `:protocol` determines whether events will be sent using HTTP or HTTPS. It defaults to "http".
-* `:method` determines whether events will be sent using GET or POST. It defaults to "get".
+* `:protocol` determines whether events will be sent using HTTP or HTTPS. It defaults to "http"
+* `:method` determines whether events will be sent using GET or POST. It defaults to "get"
 * `:port` determines the port to use
-* `:buffer_size` is the number of events which will be queued before they are all sent, a process called "flushing". When using GET, it defaults to 0 because each event has its own request. When using POST, it defaults to 10, and the buffered events are all sent together in a single request.
-* `:on_success` is a callback which is called every time the buffer is flushed and every event in it is sent successfully (meaning with status code 200). It should accept one argument: the number of requests sent this way.
-* `on_failure` is a callback which is called if the buffer is flushed but not every event is sent successfully. It should accept two arguments: the number of successfully sent events and an array containing the unsuccessful events.
+* `:buffer_size` is the number of events which will be queued before they are all sent, a process called "flushing". When using GET, it defaults to 0 because each event has its own request. When using POST, it defaults to 10, and the buffered events are all sent together in a single request
+* `:on_success` is a callback which is called every time the buffer is flushed and every event in it is sent successfully (meaning with status code 200). It should accept one argument: the number of requests sent this way
+* `on_failure` is a callback which is called if the buffer is flushed but not every event is sent successfully. It should accept two arguments: the number of successfully sent events and an array containing the unsuccessful events
 
 Once the emitter is created, create a tracker like this:
 
@@ -168,12 +168,12 @@ SnowplowTracker::LOGGER.level = Logger::DEBUG
 
 The levels are:
 
-| **Level**      | **Description** |
-|---------------:|:----------------|
-| `FATAL`  | Nothing logged     |
-| `WARN`   | Notification for requests with status code not equal to 200  |
-| `INFO`   | Notification for all requests |
-| `DEBUG`  | Contents of all requests     |
+| **Level**      | **Description**                                             |
+|---------------:|:------------------------------------------------------------|
+| `FATAL`        | Nothing logged                                              |
+| `WARN`         | Notification for requests with status code not equal to 200 |
+| `INFO`         | Notification for all requests                               |
+| `DEBUG`        | Contents of all requests                                    |
 
 <h2><a name="disabling-contracts">5. Disabling contracts</a></h2>
 
@@ -196,7 +196,7 @@ We have also:
 
 <h2><a name="upgrading">7. Upgrading</a></h2>
 
-There are three breaking changes to the API, two of which involving the tracker constructor: the first argument is now an Emitter rather than a string, and there is a new second argument which may be a Subject but otherwise defaults to `nil`. An example of how to update your code:
+There are three breaking changes to the API, two of which involving the tracker constructor: the first argument is now an Emitter rather than a Sstring, and there is a new second argument which may be a Subject but otherwise defaults to `nil`. An example of how to update your code:
 
 {% highlight ruby %}
 # Version 0.2.0
@@ -208,7 +208,7 @@ t = SnowplowTracker::Tracker(e, nil 'my_tracker_namespace', 'my_app_id')
 
 {% endhighlight %}
 
-The final change is that all tracker methods now return the tracker instance.
+The final change is that all tracker methods now return the tracker instance, self.
 
 <h2><a name="help">8. Getting help</a></h2>
 
@@ -216,7 +216,7 @@ Useful links:
 
 * The [wiki page][wiki]
 * The [Github repository][repo]
-* The [0.2.0 release notes][tracker-030]
+* The [0.3.0 release notes][tracker-030]
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. This is only the second release of the Ruby Tracker, so we're keen to hear people's opinions. And [raise an issue] [issues] if you spot any bugs!
 

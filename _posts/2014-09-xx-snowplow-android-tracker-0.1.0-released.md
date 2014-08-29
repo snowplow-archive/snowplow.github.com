@@ -17,10 +17,9 @@ So you'll see many similarities between the two Trackers, which I'll explain in 
 2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
 3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
 4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#mobile-context)
-5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#location)
-6. [Subject class](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
-7. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
-8. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
+5. [The Subject class & location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
+6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
+7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -79,26 +78,9 @@ The Tracker automatically grabs the user's timezone, language and other details,
 
 Similar to the [iOS Tracker] [ios-blog], the Android Tracker also grabs a set of mobile-specific contextual data, for example, the device model, manufacturer and operating system version. This is added to each event's context array following the [mobile context schema] [mobile-context].
 
-<h2><a name="location">5. Location context</a></h2>
+<h2><a name="subject">5. The Subject class & location context</a></h2>
 
-The Tracker can also grab location-based contextual information as part of the [geolocation context][location-context]. To grab the location information you need to add the following permissons to your `AndroidManifest.xml`:
-
-{% highlight html %}
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-{% endhighlight %}
-
-When you create a Subject class, you also need to pass an Android [`Context`] [android-context] to it to retrieve the location information like so:
-
-{% highlight java %}
-Subject subject = new Subject(context);
-{% endhighlight %}
-
-The location information will be added as part of the context array, similar to how it's done with the mobile context.
-
-<h2><a name="subject">6. Subject class</a></h2>
-
-If you create a `Subject` object and pass a [`Context`] [android-context] to it, we're able to extra more useful information from the user's device, such as screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
+If you create a `Subject` instance, it tries to retrieve as much contextual information as it can. This can be the Operating System version, device model & manufacturer. By using the Subject constructor that let's you pass an Android [`Context`] [android-context] to it, the `Subject` class can retrieve more relevant information from the user's device, such as screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
 
 Here an example of how this would look:
 
@@ -110,13 +92,22 @@ Subject subject1 = new Subject();
 Subject subject2 = new Subject(context);
 {% endhighlight %}
 
-<h2><a name="under-the-hood">7. Under the hood</a></h2>
+Another function the Subject class has, is to grab location-based contextual information as part of the [geolocation context][location-context]. To grab the location information you need to add the following permissons to your `AndroidManifest.xml`:
+
+{% highlight html %}
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+{% endhighlight %}
+
+This too, requires you to pass an Android [`Context`] [android-context] to the Subject class. The location information will then be added as part of the context array, similar to how it's done with the mobile context.
+
+<h2><a name="under-the-hood">6. Under the hood</a></h2>
 
 The Android Tracker uses an SQLite database to store events, saving them until they have been successfully sent to a collector (i.e. a 200 HTTP response is received back from the request sent). This is the main reason we requre an Android [Context] [android-context] to be passed to the Emitter.
 
-All requests made, either GET or POST, are sent using an [`AsyncTask`] [async] class to have the requests sent on a background thread, as well as having removed the option to send requests synchronously, similar to how the Java Tracker can.
+All requests made, either GET or POST, are sent using an [`AsyncTask`] [async] class. This lets us send events using a background thread. We've also removed the option to send requests synchronously, similar to how the Java Tracker can do so, to avoid blocking calls on the main UI thread.
 
-<h2><a name="help">8. Getting help</a></h2>
+<h2><a name="help">7. Getting help</a></h2>
 
 This is only our first release of the Android Tracker and we look forward to further releases based on your real-world usage of the tracker.
 

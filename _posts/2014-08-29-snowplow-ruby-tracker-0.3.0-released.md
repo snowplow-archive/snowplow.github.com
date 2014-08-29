@@ -230,6 +230,6 @@ If you have an idea for a new feature or want help getting things set up, please
 [issues]: https://github.com/snowplow/snowplow-ruby-tracker/issues
 
 [37]: https://github.com/snowplow/snowplow-ruby-tracker/issues/37
-[238]: https://github.com/snowplow/snowplow-ruby-tracker/issues/38
+[38]: https://github.com/snowplow/snowplow-ruby-tracker/issues/38
 
 [tracker-030]: https://github.com/snowplow/snowplow-ruby-tracker/releases/tag/0.3.0

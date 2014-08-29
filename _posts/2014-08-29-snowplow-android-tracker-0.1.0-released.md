@@ -102,7 +102,7 @@ Here an example of how this would look:
 Subject subject1 = new Subject();
 
 // We're able to grab more useful information
-Subject subject = new Subject(context);
+Subject subject2 = new Subject(context);
 {% endhighlight %}
 
 <h2><a name="under-the-hood">7. Under the hood</a></h2>

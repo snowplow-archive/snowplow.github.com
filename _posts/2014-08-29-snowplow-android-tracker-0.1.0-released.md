@@ -49,7 +49,7 @@ dependencies {
 
 <h2><a name="how-to-use">3. How to use the tracker</a></h2>
 
-Using the tracker is requires you to import the Tracker module like so:
+Using the tracker requires you to import the Tracker module like so:
 {% highlight java %}
 import com.snowplowanalytics.snowplow.tracker.*;
 {% endhighlight %}
@@ -72,7 +72,7 @@ Check out the [Android Tracker documentation] [tracker-doc] on the wiki for the 
 
 <h2><a name="mobile-context">4. Mobile context</a></h2>
 
-The Tracker automatically grabs the user's timezone, user language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
+The Tracker automatically grabs the user's timezone, language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
 
 Similar to the [iOS Tracker] [ios-blog], the Android Tracker also grabs a set of mobile-specific contextual data, for example, the device model, manufacturer and operating system version. This is added to each event's context array following the [mobile context schema] [mobile-context].
 

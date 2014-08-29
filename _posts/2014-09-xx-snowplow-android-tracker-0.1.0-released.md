@@ -16,10 +16,9 @@ So you'll see many similarities between the two Trackers, which I'll explain in 
 1. [Compatibility](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#compatibility)
 2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
 3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
-4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#mobile-context)
-5. [The Subject class & location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
-6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
-7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
+4. [Mobile & location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
+5. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
+6. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -72,15 +71,9 @@ t1.trackScreenView("HUD > Save Game", "screen23");
 
 Check out the [Android Tracker documentation] [tracker-doc] on the wiki for the tracker's full API.
 
-<h2><a name="mobile-context">4. Mobile context</a></h2>
+<h2><a name="subject">4. Mobile & location context</a></h2>
 
-The Tracker automatically grabs the user's timezone, language and other details, in a similar fashion to the Snowplow JavaScript Tracker.
-
-Similar to the [iOS Tracker] [ios-blog], the Android Tracker also grabs a set of mobile-specific contextual data, for example, the device model, manufacturer and operating system version. This is added to each event's context array following the [mobile context schema] [mobile-context].
-
-<h2><a name="subject">5. The Subject class & location context</a></h2>
-
-If you create a `Subject` instance, it tries to retrieve as much contextual information as it can. This can be the Operating System version, device model & manufacturer. By using the Subject constructor that let's you pass an Android [`Context`] [android-context] to it, the `Subject` class can retrieve more relevant information from the user's device, such as screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
+If you create a `Subject` instance, it tries to retrieve as much contextual information as it can. This can be the operating system version, device model & manufacturer. By using the Subject constructor that let's you pass an Android [`Context`] [android-context] to it, the `Subject` class can retrieve more relevant information from the user's device, such as screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
 
 Here an example of how this would look:
 
@@ -101,13 +94,13 @@ Another function the Subject class has, is to grab location-based contextual inf
 
 This too, requires you to pass an Android [`Context`] [android-context] to the Subject class. The location information will then be added as part of the context array, similar to how it's done with the mobile context.
 
-<h2><a name="under-the-hood">6. Under the hood</a></h2>
+<h2><a name="under-the-hood">5. Under the hood</a></h2>
 
 The Android Tracker uses an SQLite database to store events, saving them until they have been successfully sent to a collector (i.e. a 200 HTTP response is received back from the request sent). This is the main reason we requre an Android [Context] [android-context] to be passed to the Emitter.
 
 All requests made, either GET or POST, are sent using an [`AsyncTask`] [async] class. This lets us send events using a background thread. We've also removed the option to send requests synchronously, similar to how the Java Tracker can do so, to avoid blocking calls on the main UI thread.
 
-<h2><a name="help">7. Getting help</a></h2>
+<h2><a name="help">6. Getting help</a></h2>
 
 This is only our first release of the Android Tracker and we look forward to further releases based on your real-world usage of the tracker.
 

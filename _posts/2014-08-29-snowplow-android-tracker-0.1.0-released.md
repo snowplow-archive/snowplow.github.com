@@ -15,8 +15,10 @@ The Android Tracker has been going through a lot preparation as we matured the [
 2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
 3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
 4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#mobile-context)
-5. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
-6. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
+5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#location)
+6. [Subject class](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
+7. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
+8. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -52,7 +54,7 @@ Using the tracker is requires you to import the Tracker module like so:
 import com.snowplowanalytics.snowplow.tracker.*;
 {% endhighlight %}
 
-We need to create an `Emitter` to send events created by the `Tracker`. The `Emitter` instance requires a [Context] [android-context] instance as well for caching, which we explain more about [later in this post](#under-the-hood). For now, here is an example of how the `Emitter` and `Tracker` are created:
+We need to create an `Emitter` to send events created by the `Tracker`. The `Emitter` instance requires an Android [`Context`] [android-context] instance as well for caching, which we explain more about [later in this post](#under-the-hood). For now, here is an example of how the `Emitter` and `Tracker` are created:
 
 {% highlight java %}
 Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", context, HttpMethod.POST);
@@ -74,13 +76,44 @@ The Tracker automatically grabs the user's timezone, user language and other det
 
 Similar to the [iOS Tracker] [ios-blog], the Android Tracker also grabs a set of mobile-specific contextual data, for example, the device model, manufacturer and operating system version. This is added to each event's context array following the [mobile context schema] [mobile-context].
 
-<h2><a name="under-the-hood">5. Under the hood</a></h2>
+<h2><a name="location">5. Location context</a></h2>
 
-Caching
-AsyncTask
-Location
+The Tracker can also grab location-based contextual information as part of the [geolocation context][location-context]. To grab the location information you need to add the following permissons to your `AndroidManifest.xml`:
+{% highlight html %}
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+{% endhighlight %}
 
-<h2><a name="help">6. Getting help</a></h2>
+When you create a Subject class, you also need to pass an Android [`Context`] [android-context] to it to retrieve the location information like so:
+{% highlight java %}
+Subject subject = new Subject(context);
+{% endhighlight %}
+
+The location information will be added as part of the context array, similar to how it's done with the mobile context.
+
+<h2><a name="subject">6. Subject class</a></h2>
+
+If you create a `Subject` object and pass a [`Context`] [android-context] to it, we're able to extra more useful information from the user's device; screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
+
+Here an example of how this would look:
+
+{% highlight java %}
+// We grab basic information that we're able to
+Subject subject1 = new Subject();
+
+// We're able to grab more useful information
+Subject subject = new Subject(context);
+{% endhighlight %}
+
+<h2><a name="under-the-hood">7. Under the hood</a></h2>
+
+One of the features that makes the Android Tracker different from most, is that it uses an SQLite database to store events created. It saves them until they have been successfully sent to a collector (i.e. a 200 HTTP response is received back from the request sent). This is the main reason we requre an Android [Context] [android-context] to be passed to the Emitter.
+
+All requests made, GET or POST, are sent using an [`AsyncTask`] [async] class to have the requests sent on a background thread, as well as having removed the option to send requests synchronously, similar to how the Java Tracker can.
+
+<h2><a name="help">8. Getting help</a></h2>
+
+This too is an initial release of the Android Tracker and we look forward to further releases based on your real-world usage of the tracker. We're looking forward to user feedback, feature requests or possible bugs. Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
 
 
 [repo]: https://github.com/snowplow/snowplow-android-tracker
@@ -89,7 +122,13 @@ Location
 
 [setup-doc]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup
 [tracker-doc]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[issues]: https://github.com/snowplow/snowplow-android-tracker/issues
 
 [ios-blog]: http://snowplowanalytics.com/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/
 [mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
+[location-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-0-0
+
+[async]: https://developer.android.com/reference/android/os/AsyncTask.html
+[advertise-id]: https://developer.android.com/google/play-services/id.html
 [android-context]: https://developer.android.com/reference/android/content/Context.html

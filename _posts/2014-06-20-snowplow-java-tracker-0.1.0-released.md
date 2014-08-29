@@ -118,7 +118,7 @@ We hope that you find the Snowplow Java Tracker helpful - it is of course still 
 [saggezza]: http://www.saggezza.com/
 
 [setup-doc]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-Setup
-[tracker-doc]: https://github.com/snowplow/snowplow/wiki/Java-Tracker
+[tracker-doc]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
 
 [repo]: https://github.com/snowplow/snowplow-java-tracker
 [issues]: https://github.com/snowplow/snowplow-java-tracker/issues

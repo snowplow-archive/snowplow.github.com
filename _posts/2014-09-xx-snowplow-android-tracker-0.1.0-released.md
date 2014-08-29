@@ -16,9 +16,10 @@ So you'll see many similarities between the two Trackers, which I'll explain in 
 1. [Compatibility](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#compatibility)
 2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
 3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
-4. [Mobile & location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#subject)
-5. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
-6. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
+4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#mobile-context)
+5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#geolocation-context)
+6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
+7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -71,36 +72,46 @@ t1.trackScreenView("HUD > Save Game", "screen23");
 
 Check out the [Android Tracker documentation] [tracker-doc] on the wiki for the tracker's full API.
 
-<h2><a name="subject">4. Mobile & location context</a></h2>
+<h2><a name="mobile-context">4. Mobile context</a></h2>
 
-If you create a `Subject` instance, it tries to retrieve as much contextual information as it can. This can be the operating system version, device model & manufacturer. By using the Subject constructor that let's you pass an Android [`Context`] [android-context] to it, the `Subject` class can retrieve more relevant information from the user's device, such as screen resolution, carrier information but more importantly, the [Advertising ID] [advertise-id].
+If you create a `Subject` instance, it will attach as much contextual information as it can, including by default the operating system version, device model and manufacturer.
+
+If you construct the `Subject` with an Android [`Context`] [android-context], the Tracker will attach additional context about the user's device, such as screen resolution, carrier information and most importantly, the [Advertising ID] [advertise-id].
 
 Here an example of how this would look:
 
 {% highlight java %}
-// We grab basic information that we're able to
+// We attach basic context
 Subject subject1 = new Subject();
 
-// We're able to grab more useful information
+// We attach additional context
 Subject subject2 = new Subject(context);
 {% endhighlight %}
 
-Another function the Subject class has, is to grab location-based contextual information as part of the [geolocation context][location-context]. To grab the location information you need to add the following permissons to your `AndroidManifest.xml`:
+The mobile-specific context is added to each event's context array structured using the [mobile context schema] [mobile-context].
+
+If you're using Redshift, you would need to install the mobile_context table using [this script][mobile-script].
+
+<h2><a name="geolocation-context">5. Geolocation context</a></h2>
+
+The `Subject` class also lets you attach location-based contextual information to your events. To grab the location information you need to add the following permissons to your `AndroidManifest.xml`:
 
 {% highlight html %}
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 {% endhighlight %}
 
-This too, requires you to pass an Android [`Context`] [android-context] to the Subject class. The location information will then be added as part of the context array, similar to how it's done with the mobile context.
+Geolocation context requires you to pass an Android [`Context`] [android-context] to the Subject class. The location information will then be added as part of the context array, structured using the [geolocation context schema] [geolocation-context].
 
-<h2><a name="under-the-hood">5. Under the hood</a></h2>
+If you're using Redshift, you would need to install the geolocation_context table using [this script][geolocation-script].
+
+<h2><a name="under-the-hood">6. Under the hood</a></h2>
 
 The Android Tracker uses an SQLite database to store events, saving them until they have been successfully sent to a collector (i.e. a 200 HTTP response is received back from the request sent). This is the main reason we requre an Android [Context] [android-context] to be passed to the Emitter.
 
-All requests made, either GET or POST, are sent using an [`AsyncTask`] [async] class. This lets us send events using a background thread. We've also removed the option to send requests synchronously, similar to how the Java Tracker can do so, to avoid blocking calls on the main UI thread.
+All requests made, either GET or POST, are sent using an [`AsyncTask`] [async] class. This lets us send events using a background thread. Note that we have removed the option to send requests synchronously, which the Java Tracker can do, to avoid blocking calls on the main UI thread.
 
-<h2><a name="help">6. Getting help</a></h2>
+<h2><a name="help">7. Getting help</a></h2>
 
 This is only our first release of the Android Tracker and we look forward to further releases based on your real-world usage of the tracker.
 
@@ -122,3 +133,9 @@ We're looking forward to user feedback, feature requests or possible bugs. Feel 
 [async]: https://developer.android.com/reference/android/os/AsyncTask.html
 [advertise-id]: https://developer.android.com/google/play-services/id.html
 [android-context]: https://developer.android.com/reference/android/content/Context.html
+
+[mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
+[mobile-script]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/mobile_context_1.sql
+
+[geolocation-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-0-0
+[geolocation-script]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/geolocation_context_1.sql

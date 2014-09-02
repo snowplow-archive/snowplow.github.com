@@ -66,7 +66,7 @@ We also fixed some other smaller issues in EmrEtlRunner:
 
 * We fixed some bugs that had crept in to the behavior of `--process-bucket` ([#973] [973])
 * We renamed the `--process-bucket` option to `--process-enrich` to prevent confusion with `--process-shred` ([#972] [972])
-* XXX
+* We changed the `-s` option for `--skip` to `-x` prevent clash with `-s` for `--start` ([#975] [975])
 
 <div class="html">
 <h3><a name="other-bug-fixes-storageloader">2.3 StorageLoader bug fixes</a></h3>
@@ -140,10 +140,7 @@ As always, if you do run into any issues or don't understand any of the above ch
 [965]: https://github.com/snowplow/snowplow/issues/965
 [972]: https://github.com/snowplow/snowplow/issues/972
 [973]: https://github.com/snowplow/snowplow/issues/973
-
-[xxx]: https://github.com/snowplow/snowplow/issues/xxx
-[xxx]: https://github.com/snowplow/snowplow/issues/xxx
-[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[975]: https://github.com/snowplow/snowplow/issues/975
 
 [hive-ddl]: https://github.com/snowplow/snowplow/blob/0.9.7/4-storage/hive-storage/hiveql/table-def.q
 

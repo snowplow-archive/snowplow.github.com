@@ -44,11 +44,45 @@ This release fixes this bug and also introduces some new functionality to make i
 $ bundle exec bin/snowplow-emr-etl-runner ... --process-shred s3n://my-bucket/enriched/good/run=2014-09-01-03-33-45
 {% endhighlight %}
 
-For more information see XXX.
+Additionally, we have updated EmrEtlRunner's `--skip` functionality, adding an explicit `--skip enrich` option which can be used to shred without enriching.
+
+For more information on these new options, see XXX.
 
 <h2><a name="other-bug-fixes">2. Other bug fixes</a></h2>
 
+<div class="html">
+<h3><a name="other-bug-fixes-hive">2.1 Hive table definition</a></h3>
+</div>
+
+Our [Hive table definition] [hive-ddl] had fallen behind the updated enriched event format released in Snowplow 0.9.6. This has now been updated to parity with our Redshift and Postgres table definitions.
+
+<div class="html">
+<h3><a name="other-bug-fixes-emr-etl-runner">2.2 EmrEtlRunner bug fixes</a></h3>
+</div>
+
+Many thanks to [Elasticity] [elasticity] author [Rob Slifka] [rslifka] for his help in tracking down a nasty bug in EmrEtlRunner's VPC-related code (#XXX). If you have been having issues running Snowplow's Elastic MapReduce job inside an Amazon VPC, this release should help. 
+
+We also fixed some other smaller issues in EmrEtlRunner:
+
+* We fixed some bugs that had crept in to the behavior of `--process-bucket` (#973)
+* We renamed the `--process-bucket` option to `--process-enrich` to prevent confusion with `--process-shred` (#972)
+* XXX
+
+<div class="html">
+<h3><a name="other-bug-fixes-storage-loader">2.3 StorageLoader bug fixes</a></h3>
+</div>
+
+We have made some small but important fixes around the loading of JSONs into Redshift:
+
+1. We removed the `EMPTYASNULL` option on our `COPY` command for loading JSONs (#942). Converting empty strings into nulls was breaking records which had already passed required-field validation in JSON Schema
+2. We added the missing `targetUrl` field to our ad_impression JSON Path file, thanks [XXX] [gisripa] for spotting this (#951)
+3. We made the `jsonpath_assets` parameter in `config.yml` optional, for users who are not using their own JSON Path files (#958)
+
 <h2><a name="other-new-functionality">3. Other new functionality</a></h2>
+
+As mentioned above, it is now possible to load events and JSONs into Redshift from an S3 bucket in a different region to Redshift's own reion. This is done by setting the `REGION` option on the `COPY` commands to the `:s3:region:` parameter found in `config.yml`.
+
+Separately, we have updated and added new git submodules in the [1-trackers sub-folder] [trackers-folder] of the repository.
 
 <h2><a name="upgrading">4. Upgrading</a></h2>
 
@@ -71,7 +105,7 @@ $ bundle install --deployment
 <h3><a name="upgrading-config">4.2 Updating EmrEtlRunner's configuration</a></h3>
 </div>
 
-Update your EmrEtlRunner's `config.yml` file. Update your Hadoop shred job's version to 0.2.1, like so:
+In your EmrEtlRunner's `config.yml` file, update your Hadoop shred job's version to 0.2.1, like so:
 
 {% highlight yaml %}
   :versions:
@@ -97,6 +131,13 @@ As always, if you do run into any issues or don't understand any of the above ch
 
 [emretlrunner-wiki]: https://github.com/snowplow/snowplow/wiki/2-Using-EmrEtlRunner
 
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
+[xxx]: https://github.com/snowplow/snowplow/issues/xxx
 [xxx]: https://github.com/snowplow/snowplow/issues/xxx
 
 [issues]: https://github.com/snowplow/snowplow/issues

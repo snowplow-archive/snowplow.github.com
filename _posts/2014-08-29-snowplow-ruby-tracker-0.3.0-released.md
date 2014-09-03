@@ -200,11 +200,11 @@ There are three breaking changes to the API, two of which involving the tracker 
 
 {% highlight ruby %}
 # Version 0.2.0
-t = SnowplowTracker::Tracker('d3rkrsqld9gmqf.cloudfront.net', 'my_tracker_namespace', 'my_app_id')
+t = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'my_tracker_namespace', 'my_app_id')
 
 # Version 0.3.0
-e = SnowplowTracker::AsyncEmitter('d3rkrsqld9gmqf.cloudfront.net')
-t = SnowplowTracker::Tracker(e, nil 'my_tracker_namespace', 'my_app_id')
+e = SnowplowTracker::AsyncEmitter.new('d3rkrsqld9gmqf.cloudfront.net')
+t = SnowplowTracker::Tracker.new(e, nil 'my_tracker_namespace', 'my_app_id')
 
 {% endhighlight %}
 

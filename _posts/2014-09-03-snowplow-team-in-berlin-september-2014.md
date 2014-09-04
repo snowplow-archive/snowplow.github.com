@@ -9,11 +9,11 @@ category: Other
 
 ![berlin](/assets/img/blog/2014/09/berlin-small.jpg)
 
-Both Alex and I will be in Berlin for two events later this September. I'll be giving a talk at at September's [DAALA Berlin][daala] on September 24th, a monthly digital analytics event organised by [Matthias Bettag][matthias]. I will give an overview of the Snowplow platform, both from an analytical and technical point of view, followed by a talk from Christian Lubash, from [LeROI][leroi], who will cover how he worked with the team at GoEuro to implement Snowplow for a multi-mode trael business. 
+Both Alex and I will be in Berlin for two events later this September. I'll be giving a talk at at September's [DAALA Berlin][daala] on September 24th, a monthly digital analytics event organised by [Matthias Bettag][matthias]. I will give an overview of the Snowplow platform, both from an analytical and technical point of view, followed by a talk from [Christian Lubasch][christian], from [LeROI Marketing][leroi], who will cover how he worked with the team at GoEuro to implement Snowplow for a multi-mode travel business. 
 
 The event will be an opportunity for Snowplow users in Germany to come and share best practice with one another, and for companies that are interested in Snowplow to learn more about our platform and what you can do with it. The event is free - if you are interested you can sign up [here][daala].
 
-The following evening, Alex will be speaking at [Big Data Beers][bigdatabeers], alongside [Roland Vollgraf][roland], a Data Scientist from Zolando. Alex will be providing a technical overview of the Snowplow platform, including looking at how we use a variety of "big data" technologies including Hadoop, Kinesis and Redshift. You can sign up for the event [here][bigdatabeers].
+The following evening, Alex will be speaking at [Big Data Beers][bigdatabeers], alongside [Roland Vollgraf][roland], a Data Scientist from Zalando. Alex will be providing a technical overview of the Snowplow platform, including looking at how we use a variety of "big data" technologies including Hadoop, Kinesis and Redshift. You can sign up for the event [here][bigdatabeers].
 
 <!--more-->
 
@@ -27,3 +27,4 @@ We're really looking forward to both events, and will update this blog post as m
 [roland]: http://de.linkedin.com/pub/roland-vollgraf/78/715/b90
 [contact]: /about/index.html
 [leroi]: http://www.leroi-marketing.de/
+[christian]: de.linkedin.com/in/lubasch/en

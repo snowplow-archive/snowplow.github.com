@@ -27,4 +27,4 @@ We're really looking forward to both events, and will update this blog post as m
 [roland]: http://de.linkedin.com/pub/roland-vollgraf/78/715/b90
 [contact]: /about/index.html
 [leroi]: http://www.leroi-marketing.de/
-[christian]: de.linkedin.com/in/lubasch/en
+[christian]: http://de.linkedin.com/in/lubasch/en

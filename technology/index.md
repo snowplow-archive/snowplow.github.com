@@ -18,11 +18,11 @@ Snowplow consists of five loosely-coupled subsystems.
 
 * Trackers integrate with your application(s) and/or website(s).
 * Trackers generate event data: when an event occurs, they put together a packet of data and send it to a Snowplow collector.
-* We offer two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [No-JS (also called 'pixel') tracker] [no-js-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. emails. 
-* We offer a number of server-side trackers including a [Python tracker] [python-tracker], [Ruby tracker] [ruby-tracker], [Java tracker] [java-tracker] and [Lua tracker] [lua-tracker] for logging events directly from server-side systems. A node-js tracker is currently in development.
-* Mobile trackers will be available shortly: our iOS Tracker should be available by mid-August, with an Android tracker following soon after
+* We have two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [No-JS (also called 'pixel') tracker] [no-js-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. email open events. 
+* We offer a number of server-side trackers including a [Python tracker] [python-tracker], [Ruby tracker] [ruby-tracker], [Java tracker] [java-tracker], [Lua tracker] [lua-tracker] and [Node-JS] [node-js] tracker. A PHP tracker is in development.
+* We have both an [iOS tracker][iOS] and an [Android tracker][android] for capturing events from mobile apps 
 * We offer an [Arduino tracker][arduino-tracker] for capturing data from the Internet of Things.
-* Other server side trackers (Java and Ruby) and mobile trackers (iOS and Android) are on the [product roadmap] [roadmap].
+
 
 The [Snowplow Tracker Protocol] [tracker-protocol] provides a standard way for *any* tracker to feed data into Snowplow. It is documented [here] [tracker-protocol].
 
@@ -41,7 +41,7 @@ The [Snowplow Tracker Protocol] [tracker-protocol] provides a standard way for *
 ### 4. Storage
 
 * Snowplow can be setup to load your event-level and customer-level data into one or more data stores, to enable analytics.
-* Snowplow data is delivered into [Amazon S3] [s3] (for processing by [Hive] [hive] / [Pig] [pig] / [Mahout] [mahout] on EMR). 
+* Snowplow data is delivered into [Amazon S3] [s3] (for processing by [Hive] [hive] / [Pig] [pig] on EMR). 
 * In addition, Snowplow supports loading the data into [Amazon Redshift] [redshift] and [PostgreSQL] [postgres] for analysis in more traditional tools (e.g. [R] [r], [Looker] [looker] and [Excel] [excel]). Amazon Redshift enables Snowplow users to query Petabytes of Snowplow data quickly and conveniently via its Postgres API.
 * Going forwards, we plan to support more storage targets to enable a broader set of analyses, including [Neo4J] [neo4j], [Elastic Search] [elastic-search] and [Google BigQuery] [bigquery].
 
@@ -51,7 +51,7 @@ Snowplow data is stored in each storage option above as close to the [Snowplow C
 
 Once your Snowplow data is available in storage, you can plug it into multiple different tools to crunch that data. Examples include:
 
-* Exploring and mining your data using [Looker] [looker.]
+* Exploring and mining your data using [Looker][looker]
 * Create dashboards and scorecards with the data using [ChartIO] [chartio].
 * Perform [OLAP analysis] [olap] (i.e. slice and dice different metrics against different metrics) using [PivotTables in Excel] [excel] or [Tableau] [tableau].
 * Mine and model the data, to perform marketing, catalog or platform analytics, using [R] [r] or [Python] [python].
@@ -61,7 +61,6 @@ Once your Snowplow data is available in storage, you can plug it into multiple d
 
 * View the [Github repo] [github-repo] to see the source code for each subsystem listed above.
 * View the [technical documentation] [tech-docs] to learn more about each subsystem.
-* View the [setup guide] [setup-guide] for step-by-step instructions on installing individual subsystems, and Snowplow as a whole.
 
 ## Built on AWS
 
@@ -72,13 +71,16 @@ Snowplow is built on top AWS, and makes extensive use of Cloudfront, Elastic Bea
 *We are proud to be an Amazon Web Services Technology Partner.*
 
 
-[js-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker
+[js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
 [no-js-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
 [java-tracker]: https://github.com/snowplow/snowplow-java-tracker
 [ruby-tracker]: https://github.com/snowplow/snowplow-ruby-tracker
 [cf-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector
 [clj-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector
 [scala-stream-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector
+[node-js]: https://github.com/snowplow/snowplow-nodejs-tracker
+[iOS]: https://github.com/snowplow/snowplow-ios-tracker
+[android]: https://github.com/snowplow/snowplow-android-tracker
 
 [scalding]: https://github.com/twitter/scalding
 [cascading]: http://www.cascading.org/

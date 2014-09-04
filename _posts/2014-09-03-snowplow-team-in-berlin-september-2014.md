@@ -9,7 +9,7 @@ category: Other
 
 ![berlin](/assets/img/blog/2014/09/berlin-small.jpg)
 
-Both Alex and I will be in Berlin for two events later this September. I'll be giving a talk at at September's [DAALA Berlin][daala] on September 24th, a monthly digital analytics event organised by [Matthias Bettag][matthias]. I will give an overview of the Snowplow platform, both from an analytical and technical point of view, followed by a talk from Christian Lubash, from [LeROI][leroi], who will be talking about how he worked with the team at GoEuro to implement Snowplow for a multi-mode trael business. 
+Both Alex and I will be in Berlin for two events later this September. I'll be giving a talk at at September's [DAALA Berlin][daala] on September 24th, a monthly digital analytics event organised by [Matthias Bettag][matthias]. I will give an overview of the Snowplow platform, both from an analytical and technical point of view, followed by a talk from Christian Lubash, from [LeROI][leroi], who will cover how he worked with the team at GoEuro to implement Snowplow for a multi-mode trael business. 
 
 The event will be an opportunity for Snowplow users in Germany to come and share best practice with one another, and for companies that are interested in Snowplow to learn more about our platform and what you can do with it. The event is free - if you are interested you can sign up [here][daala].
 

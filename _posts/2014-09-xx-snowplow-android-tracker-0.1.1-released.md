@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Android Tracker 0.1.0 released
-title: Snowplow Android Tracker 0.1.0 released
+shortenedlink: Snowplow Android Tracker 0.1.1 released
+title: Snowplow Android Tracker 0.1.1 released
 tags: [snowplow, analytics, java, android, tracker]
 author: Jonathan
 category: Releases
@@ -13,13 +13,13 @@ The Android Tracker has evolved in tandem with the [Java Tracker][java-repo]. We
 
 So you'll see many similarities between the two Trackers, which I'll explain in further detail in the rest of the post:
 
-1. [Compatibility](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#compatibility)
-2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-install)
-3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#how-to-use)
-4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#mobile-context)
-5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#geolocation-context)
-6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#under-the-hood)
-7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.0-released/#help)
+1. [Compatibility](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#compatibility)
+2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#how-to-install)
+3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#how-to-use)
+4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#mobile-context)
+5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#geolocation-context)
+6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#under-the-hood)
+7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#help)
 
 <!--more-->
 
@@ -29,7 +29,7 @@ The Android Tracker has been built and tested with the Android SDK version 19, b
 
 <h2><a name="how-to-install">2. How to install the tracker</a></h2>
 
-The release version of this tracker (0.1.0) is available within Snowplow's Maven repository. We have instructions for installing the tracker for Maven, Gradle and SBT in the [Android Tracker Setup guide] [setup-doc].
+The release version of this tracker (0.1.1) is available within Snowplow's Maven repository. We have instructions for installing the tracker for Maven, Gradle and SBT in the [Android Tracker Setup guide] [setup-doc].
 
 Here is the Gradle setup for example:
 
@@ -44,7 +44,8 @@ repositories {
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.1'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.3'
 }
 {% endhighlight %}
 
@@ -126,7 +127,7 @@ We're looking forward to user feedback, feature requests or possible bugs. Feel 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [issues]: https://github.com/snowplow/snowplow-android-tracker/issues
 
-[ios-blog]: http://snowplowanalytics.com/blog/2014/09/xx/snowplow-ios-tracker-0.1.0-released/
+[ios-blog]: http://snowplowanalytics.com/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/
 [mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0
 [location-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-0-0
 

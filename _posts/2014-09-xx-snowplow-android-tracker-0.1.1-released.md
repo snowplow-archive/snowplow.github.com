@@ -49,6 +49,12 @@ dependencies {
 }
 {% endhighlight %}
 
+To send the events, you need to update your `AndroidManifest.xml` with the internet access permission:
+
+{% highlight html %}
+<uses-permission android:name="android.permission.INTERNET" /> 
+{% endhighlight %}
+
 <h2><a name="how-to-use">3. How to use the tracker</a></h2>
 
 Using the tracker requires you to import the Tracker module like so:
@@ -77,7 +83,7 @@ Check out the [Android Tracker documentation] [tracker-doc] on the wiki for the 
 
 If you create a `Subject` instance, it will attach as much contextual information as it can, including by default the operating system version, device model and manufacturer.
 
-If you construct the `Subject` with an Android [`Context`] [android-context], the Tracker will attach additional context about the user's device, such as screen resolution, carrier information and most importantly, the [Advertising ID] [advertise-id].
+If you construct the `Subject` with an Android [`Context`] [android-context], the Tracker will attach additional context about the user's device, such as screen resolution, carrier information and most importantly, the [Advertising ID] [advertise-id]. The Advertising ID requires the [Play Services SDK][play-services] to be set-up which you can find in more detail at the [Android Tracker Setup guide] [setup-doc].
 
 Here an example of how this would look:
 
@@ -133,6 +139,7 @@ We're looking forward to user feedback, feature requests or possible bugs. Feel 
 
 [async]: https://developer.android.com/reference/android/os/AsyncTask.html
 [advertise-id]: https://developer.android.com/google/play-services/id.html
+[play-services]: http://developer.android.com/google/play-services/index.html
 [android-context]: https://developer.android.com/reference/android/content/Context.html
 
 [mobile-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0

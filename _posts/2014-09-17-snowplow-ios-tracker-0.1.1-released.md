@@ -13,11 +13,11 @@ Mobile trackers have been one of the Snowplow community's most highly requested 
 
 This release comes with many features you may already be familiar with in [other Snowplow Trackers] [tracker-tag], along with a few extra tricks as well!
 
-1. [How to install the tracker](/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/#install)
-2. [How to use the tracker](/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/#usage)
-3. [Mobile context](/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/#mobile-context)
-4. [Under the hood](/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/#under-the-hood)
-5. [Getting help](/blog/2014/09/xx/snowplow-ios-tracker-0.1.1-released/#help)
+1. [How to install the tracker](/blog/2014/09/17/snowplow-ios-tracker-0.1.1-released/#install)
+2. [How to use the tracker](/blog/2014/09/17/snowplow-ios-tracker-0.1.1-released/#usage)
+3. [Mobile context](/blog/2014/09/17/snowplow-ios-tracker-0.1.1-released/#mobile-context)
+4. [Under the hood](/blog/2014/09/17/snowplow-ios-tracker-0.1.1-released/#under-the-hood)
+5. [Getting help](/blog/2014/09/17/snowplow-ios-tracker-0.1.1-released/#help)
 
 <!--more-->
 

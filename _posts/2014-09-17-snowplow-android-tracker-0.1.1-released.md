@@ -13,13 +13,13 @@ The Android Tracker has evolved in tandem with the [Java Tracker][java-repo]. We
 
 So you'll see many similarities between the two Trackers, which I'll explain in further detail in the rest of the post:
 
-1. [Compatibility](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#compatibility)
-2. [How to install the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#how-to-install)
-3. [How to use the tracker](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#how-to-use)
-4. [Mobile context](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#mobile-context)
-5. [Location context](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#geolocation-context)
-6. [Under the hood](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#under-the-hood)
-7. [Getting help](/blog/2014/09/xx/snowplow-android-tracker-0.1.1-released/#help)
+1. [Compatibility](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#compatibility)
+2. [How to install the tracker](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#how-to-install)
+3. [How to use the tracker](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#how-to-use)
+4. [Mobile context](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#mobile-context)
+5. [Location context](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#geolocation-context)
+6. [Under the hood](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#under-the-hood)
+7. [Getting help](/blog/2014/09/17/snowplow-android-tracker-0.1.1-released/#help)
 
 <!--more-->
 

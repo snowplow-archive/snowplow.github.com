@@ -47,10 +47,21 @@ Create an emitter which will asynchronously send HTTP GET requests:
 var e = new AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net");
 {% endhighlight %}
 
+(It is also possible to specify the protocol, method, and port that the emitter will use, as well as a `bufferSize` which determines the minimum number of events to queue before sending them all, and `onSuccess` and `onFailure` callbacks to be called depending on whether requests are sent successfully.)
+
+Create a subject to hold data about a specific user:
+
+{% highlight csharp %}
+var s = new Subject();
+s.SetUserId("user-567296");
+s.SetTimezone("Europe/London");
+s.SetLang("en");
+{% endhighlight %}
+
 Create a tracker:
 
 {% highlight csharp %}
-var t = new Tracker(e);
+var t = new Tracker(e, s, "my-tracker-namespace", "my-application-id");
 {% endhighlight %}
 
 Send some events:

@@ -14,7 +14,8 @@ This introductory post will cover the following topics:
 1. [Installation](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#install)
 2. [How to use the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#usage)
 3. [Features](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#offline)
-4. [Getting help](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#help)
+4. [Logging](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#logging)
+5. [Getting help](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -120,6 +121,25 @@ t.TrackScreenView("Test screen", "id-0004346", contextsList);
 By default, instances of the Emitter class have offline tracking enabled. This means that if the device is offline when an event is sent, that event will be stored in a message queue. When a NetworkAvailabilityChanged event indicates that connectivity has been established, or when another event has been sent successfully, all events in the queue will be resent.
 
 <div class="html">
+<h2><a name="logging">4. Logging</a></h2>
+</div>
+
+The Emitter and AsyncEmitter classes use [NLog][nlog] to log messages to the console. You can set the logging level using the static `setLogLevel` method:
+
+{% highlight csharp %}
+Emitter.SetLogLevel(Logging.Debug);
+{% endhighlight %}
+
+By default the log level is set to Logging.Info. The possible levels are:
+
+| **Level**      | **Description**                                             |
+|---------------:|:------------------------------------------------------------|
+| `Off`          | Nothing logged                                              |
+| `Warn`         | Notification for requests with status code not equal to 200 |
+| `Info`         | Notification for all requests                               |
+| `Debug`        | Contents of all requests                                    |
+
+<div class="html">
 <h2><a name="help">4. Getting help</a></h2>
 
 Some useful resources:
@@ -134,6 +154,7 @@ This is only the first version of the Snowplow .NET Tracker, so please [raise an
 [repo]: https://github.com/snowplow/snowplow-dotnet-tracker
 [msmq]: http://msdn.microsoft.com/en-us/library/ms711472%28v=vs.85%29.aspx
 [nuget]: https://www.nuget.org/
+[nlog]: http://nlog-project.org/
 [setup]: https://github.com/snowplow/snowplow/wiki/.NET-tracker-setup
 [technical-documentation]: https://github.com/snowplow/snowplow/wiki/.NET-tracker
 [issues]: https://github.com/snowplow/snowplow-dotnet-tracker/issues

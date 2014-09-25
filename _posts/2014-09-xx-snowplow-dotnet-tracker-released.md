@@ -138,10 +138,10 @@ By default, instances of the Emitter class have offline tracking enabled. This m
 The Emitter and AsyncEmitter classes use [NLog][nlog] to log messages to the console. You can set the logging level using the static `setLogLevel` method:
 
 {% highlight csharp %}
-Emitter.SetLogLevel(Logging.Debug);
+Log.SetLogLevel(Log.Level.Debug);
 {% endhighlight %}
 
-By default the log level is set to Logging.Info. The possible levels are:
+By default the log level is set to Log.Level.Info. The possible levels are:
 
 | **Level**      | **Description**                                             |
 |---------------:|:------------------------------------------------------------|

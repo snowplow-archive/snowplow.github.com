@@ -7,15 +7,15 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the first version of the [Snowplow .NET Tracker][repo]. The tracker supports synchronous and asynchronous GET and POST requests and has an offline mode which stores unsent events using [Message Queueing][msmq].
+We are pleased to announce the release of the first version of the [Snowplow .NET Tracker] [repo]. The tracker supports synchronous and asynchronous GET and POST requests and has an offline mode which stores unsent events using [Message Queueing] [msmq].
 
 This introductory post will cover the following topics:
 
-1. [Installation](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#install)
-2. [How to use the tracker](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#usage)
-3. [Features](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#offline)
-4. [Logging](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#logging)
-5. [Getting help](/blog/2014/04/23/snowplow-ruby-tracker-0.1.0-released/#help)
+1. [Installation](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#install)
+2. [How to use the tracker](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#usage)
+3. [Features](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#offline)
+4. [Logging](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#logging)
+5. [Getting help](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -23,7 +23,7 @@ This introductory post will cover the following topics:
 <h2><a name="install">1. Installation</a></h2>
 </div>
 
-The Snowplow .NET Tracker is published to [NuGet][nuget], the .NET package manager. To add it to your project, install it in the Visual Studio Package Manager Console:
+The Snowplow .NET Tracker is published to [NuGet] [nuget], the .NET package manager. To add it to your project, install it in the Visual Studio Package Manager Console:
 
 {% highlight bash %}
 Install-Package snowplow_tracker
@@ -32,7 +32,7 @@ Install-Package snowplow_tracker
 You will also need to add an assembly reference to the .NET Tracker to your project.
 
 <div class="html">
-<h2><a name="usage">1. How to use the tracker</a></h2>
+<h2><a name="usage">2. How to use the tracker</a></h2>
 </div>
 
 Add a using directive to the Snowplow Tracker to your project:
@@ -47,7 +47,7 @@ Create an emitter which will asynchronously send HTTP GET requests:
 var e = new AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net");
 {% endhighlight %}
 
-(It is also possible to specify the protocol, method, and port that the emitter will use, as well as a `bufferSize` which determines the minimum number of events to queue before sending them all, and `onSuccess` and `onFailure` callbacks to be called depending on whether requests are sent successfully.)
+It is also possible to specify the protocol, method, and port that the emitter will use, as well as a `bufferSize` which determines the minimum number of events to queue before sending them all, and `onSuccess` and `onFailure` callbacks to be called depending on whether requests are sent successfully.
 
 Create a subject to hold data about a specific user:
 
@@ -135,7 +135,7 @@ By default, instances of the Emitter class have offline tracking enabled. This m
 <h2><a name="logging">4. Logging</a></h2>
 </div>
 
-The Emitter and AsyncEmitter classes use [NLog][nlog] to log messages to the console. You can set the logging level using the static `setLogLevel` method:
+The Emitter and AsyncEmitter classes use [NLog] [nlog] to log messages to the console. You can set the logging level using the static `setLogLevel` method:
 
 {% highlight csharp %}
 Log.SetLogLevel(Log.Level.Debug);
@@ -151,12 +151,12 @@ By default the log level is set to Log.Level.Info. The possible levels are:
 | `Debug`        | Contents of all requests                                    |
 
 <div class="html">
-<h2><a name="help">4. Getting help</a></h2>
+<h2><a name="help">5. Getting help</a></h2>
 
 Some useful resources:
 
-* The [setup guide][setup]
-* The [technical documentation][technical-documentation]
+* The [setup guide] [setup]
+* The [technical documentation] [technical-documentation]
 
 This is only the first version of the Snowplow .NET Tracker, so please [raise an issue][issues] if you find any bugs. If you have an idea for a new feature or need help getting set up, [get in touch!][talk-to-us]
 

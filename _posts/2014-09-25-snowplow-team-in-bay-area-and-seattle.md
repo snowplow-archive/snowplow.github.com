@@ -11,7 +11,7 @@ I (Alex) will be in the Bay Area and Seattle for two weeks starting from Monday 
 
 ![sf-seattle](/assets/img/blog/2014/09/team-in-sf-seattle.jpg)
 
-I will be based in San Francisco from Monday October 6th, then flying up to Seattle around the 14th or 15th, staying there for the rest of the week. If you are interested in using Snowplow, or partnering with us, then please get in touch! I'll be spending some time down the peninsula in Mountain View and Santa Clara too.
+I will be based in San Francisco from Monday October 6th, then flying up to Seattle around the 14th or 15th, staying there for the rest of the week. If you are interested in using Snowplow, or partnering with us, then please get in touch! I'll be spending some time down the peninsula in Mountain View and Santa Cruz too.
 
 Reach out to me at alex@ (email address on our full domain) to setup a meeting, suggest an event to attend or for anything else Bay Area- or Seattle-related!
 

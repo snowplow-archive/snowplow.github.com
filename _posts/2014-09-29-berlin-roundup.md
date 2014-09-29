@@ -25,7 +25,7 @@ In the evening was a Snowplow-flavored [DAALA Berlin event] [daala] at Volksbar 
 
 <h2><a name="big-data-beers">2. Thursday: co-up and Big Data Beers</a></h2>
 
-On Thursday we de-camped to [co-up] [co-up], our new co-working space in Kreuzburg. Many thanks to co-up for hosting us on Thursday (and me again on Friday) - it's a very programmer-friendly space, with plenty of Club Mate!
+On Thursday we de-camped to [co-up] [co-up-de], our new co-working space in Kreuzburg. Many thanks to co-up for hosting us on Thursday (and me again on Friday) - it's a very programmer-friendly space, with plenty of Club Mate!
 
 In the evening it was time for [Big Data Beers] [bigdatabeers], hosted by German e-commerce giant [Zalando] [zalando] in their offices with views over Alexanderplatz. I was speaking alongside [Roland Vollgraf] [roland], a Data Scientist from Zalando, who gave an excellent talk on how Zalando uses machine learning to determine item weights based on parcel weights.
 

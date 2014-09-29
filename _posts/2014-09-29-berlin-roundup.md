@@ -9,7 +9,7 @@ category: Other
 
 Yali and I are back from the Snowplow team's [trip to Berlin] [berlin-trip] - it was a great visit, seeing plenty of new and old faces alike.
 
-Below the fold we will (briefly) cover:
+Below the fold I will (briefly) cover:
 
 1. [Wednesday: startups roundtable and DAALA](/blog/2014/09/29/berlin-trip-roundup/#daala)
 2. [Thursday: co-up and Big Data Beers](/blog/2014/09/29/berlin-trip-roundup/#big-data-beers)
@@ -31,18 +31,20 @@ In the evening it was time for [Big Data Beers] [bigdatabeers], hosted by German
 
 For my talk I gave a detailed technical introduction to Snowplow:
 
-ADD SLIDES
+<iframe src="//www.slideshare.net/slideshow/embed_code/39644127" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/big-data-beers-introducing-snowplow" title="Big data beers introducing snowplow" target="_blank">Big data beers introducing snowplow</a> </strong> from <strong><a href="//www.slideshare.net/alexanderdean" target="_blank">Alexander Dean</a></strong> </div>
 
 The talk was followed by a very thoughtful question and answer session, which reflected the deep technical experience of the audience. Questions ranged from MQTT support for the internet of things, through to alternatives to Redshift and precisely how the Snowplow JSON shredding process works. The talk also prompted something of a debate about the merits and de-merits of schemas for analytics, which continued into the night!
+
+Many thanks to Stefan Edlich, Pere Ferrera Bertran and Dave Kammeyer for organizing the Big Data Beers!
 
 <h2><a name="thoughts">3. Thoughts on the Berlin ecosystem and Yali's next visit</a></h2>
 
 This was my first trip to Berlin for Snowplow (Yali's second), and I was really impressed by how dynamic and technical the startup scene is there. I look forward to my next trip!
 
-Yali will be back in Berlin on XXX for the XXX - we will provide more details nearer the time.
+Yali will be back in Berlin for the German eMetrics conference in early November - he will be on a panel discussing the future of analytics. We will provide more details nearer the time.
 
 [berlin-trip]: /blog/2014/09/23/snowplow-team-in-berlin-september-2014
-[mobile-analytics]: /blog/2014/09/
+[mobile-analytics]: /blog/2014/09/18/snowplow-0.9.8-released-for-mobile-analytics
 
 [onefootball]: http://www.onefootball.com/
 [zalando]: http://zalando.com/

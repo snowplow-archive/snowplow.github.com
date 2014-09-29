@@ -7,15 +7,15 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the first version of the [Snowplow .NET Tracker] [repo]. The tracker supports synchronous and asynchronous GET and POST requests and has an offline mode which stores unsent events using [Message Queueing] [msmq].
+We are pleased to announce the release of the first version of the [Snowplow .NET Tracker] [repo]. The tracker supports synchronous and asynchronous GET and POST requests and has an offline mode which stores unsent events using [Message Queueing (MSMQ)] [msmq].
 
 This introductory post will cover the following topics:
 
-1. [Installation](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#install)
-2. [How to use the tracker](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#usage)
-3. [Features](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#offline)
-4. [Logging](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#logging)
-5. [Getting help](/blog/2014/09/26/snowplow-dotnet-tracker-0.1.0-released/#help)
+1. [Installation](/blog/2014/09/29/snowplow-dotnet-tracker-0.1.0-released/#install)
+2. [How to use the tracker](/blog/2014/09/29/snowplow-dotnet-tracker-0.1.0-released/#usage)
+3. [Features](/blog/2014/09/29/snowplow-dotnet-tracker-0.1.0-released/#offline)
+4. [Logging](/blog/2014/09/29/snowplow-dotnet-tracker-0.1.0-released/#logging)
+5. [Getting help](/blog/2014/09/29/snowplow-dotnet-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -75,7 +75,7 @@ t.TrackStructEvent("shop", "add-to-basket", null, "red hat", 2);
 
 // Track an ecommerce transaction
 // Use the TransactionItem class for the items within a transaction
-var hat = new TransactionItem("pbz0026", 20, 1);
+var hat = new TransactionItem("pbz0029", 20, 1);
 var shirt = new TransactionItem("pbz0038", 15, 1, "shirt", "clothing");
 var items = new List<TransactionItem> { hat, shirt };
 t.TrackEcommerceTransaction("6a8078be", 35, "affiliation", 3, 0, "Phoenix", "Arizona", "US", "USD", items);

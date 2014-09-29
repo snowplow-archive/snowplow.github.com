@@ -13,7 +13,7 @@ Below the fold I will (briefly) cover:
 
 1. [Wednesday: startups roundtable and DAALA](/blog/2014/09/29/berlin-trip-roundup/#daala)
 2. [Thursday: co-up and Big Data Beers](/blog/2014/09/29/berlin-trip-roundup/#big-data-beers)
-3. [Thoughts on the Berlin ecosystem and Yali's next visit](/blog/2014/09/29/berlin-trip-roundup/#thoughts)
+3. [Thoughts on the Berlin ecosystem and our next visit](/blog/2014/09/29/berlin-trip-roundup/#thoughts)
 
 <!--more-->
 
@@ -37,7 +37,7 @@ The talk was followed by a very thoughtful question and answer session, which re
 
 Many thanks to Stefan Edlich, Pere Ferrera Bertran and Dave Kammeyer for organizing the Big Data Beers!
 
-<h2><a name="thoughts">3. Thoughts on the Berlin ecosystem and Yali's next visit</a></h2>
+<h2><a name="thoughts">3. Thoughts on the Berlin ecosystem and our next visit</a></h2>
 
 This was my first trip to Berlin for Snowplow (Yali's second), and I was really impressed by how dynamic and technical the startup scene is there. I look forward to my next trip!
 

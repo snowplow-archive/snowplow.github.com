@@ -63,7 +63,7 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 	</div>
 	<div class="span9">
 		<ul>
-			<li>Free setup with 12 month contract, £5000 otherwise</li>
+			<li>Free setup with 12 month contract, £10,000 otherwise</li>
 			<li>£750 per month</li>
 		</ul>
 	</div>

@@ -26,7 +26,7 @@ This introductory post will cover the following topics:
 The Snowplow .NET Tracker is published to [NuGet] [nuget], the .NET package manager. To add it to your project, install it in the Visual Studio Package Manager Console:
 
 {% highlight bash %}
-Install-Package snowplow_tracker
+Install-Package Snowplow.Tracker
 {% endhighlight %}
 
 You will also need to add an assembly reference to the .NET Tracker to your project.
@@ -152,6 +152,7 @@ By default the log level is set to Log.Level.Info. The possible levels are:
 
 <div class="html">
 <h2><a name="help">5. Getting help</a></h2>
+</div>
 
 Some useful resources:
 

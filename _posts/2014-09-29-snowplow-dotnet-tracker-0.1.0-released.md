@@ -161,8 +161,6 @@ Some useful resources:
 
 This is only the first version of the Snowplow .NET Tracker, so please [raise an issue][issues] if you find any bugs. If you have an idea for a new feature or need help getting set up, [get in touch!][talk-to-us]
 
-</div>
-
 [repo]: https://github.com/snowplow/snowplow-dotnet-tracker
 [msmq]: http://msdn.microsoft.com/en-us/library/ms711472%28v=vs.85%29.aspx
 [nuget]: https://www.nuget.org/

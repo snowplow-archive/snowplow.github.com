@@ -45,3 +45,11 @@
   avatar:  /assets/img/team/nick.jpg
   spiel:   |
       <a href="/authors/nick.html">Nick</a> is a Data Science Intern at Snowplow. You can find in him on <a href="https://plus.google.com/105485725640035532673/posts" rel="author">Google+</a> and <a href="http://uk.linkedin.com/pub/nick-dingwall/24/213/4b4">LinkedIn</a>.
+
+- name: Josh
+  full_name: Joshua Beemster
+  github: jbeemster
+  url: /authors/josh.html
+  avatar: https://avatars2.githubusercontent.com/u/7984544?v=2&s=460
+  spiel:   |
+      <a href="/authors/josh.html">Josh</a> is an Data Engineering Intern at Snowplow. You can find in him on <a href="https://plus.google.com/104589640512405993119/posts" rel="author">Google+</a> and <a href="http://au.linkedin.com/pub/josh-beemster/81/950/929">LinkedIn</a>.

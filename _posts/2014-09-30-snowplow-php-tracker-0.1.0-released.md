@@ -37,7 +37,7 @@ Then simply run `composer update` from the root of your project to install it.
 <h2><a name="usage">2. How to use the tracker</a></h2>
 </div>
 
-Add a using directive to the Snowplow Tracker to include it in your project:
+Add class aliases to the Snowplow Tracker to include it in your project:
 
 {% highlight php %}
 use Snowplow\Tracker\Tracker;

@@ -64,7 +64,7 @@ $subject->setLanguage("en");
 
 Create a tracker:
 
-{% highlight csharp %}
+{% highlight php %}
 $tracker = new Tracker($emitter, $subject, "my-tracker-namespace", "my-application-id");
 {% endhighlight %}
 

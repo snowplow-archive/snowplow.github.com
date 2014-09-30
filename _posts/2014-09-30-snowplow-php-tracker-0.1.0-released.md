@@ -21,7 +21,7 @@ This introductory post will cover the following topics:
 <h2><a name="install">1. Installation</a></h2>
 </div>
 
-The Snowplow PHP Tracker is published to [Packagist] [packagist], the PHP package archivist. To add it to your project, add it as a requirement in your composer.json file:
+The Snowplow PHP Tracker is published to [Packagist] [packagist], the central repository for Composer PHP packages. To add it to your project, add it as a requirement in your `composer.json` file:
 
 {% highlight json %}
 {
@@ -74,7 +74,7 @@ Send some events:
 // Track a page view
 $tracker->trackPageView("http://www.example.com", "title page");
 
-// Track a structured, add-to-basket, event
+// Track a structured event representing an add-to-basket
 $tracker->trackStructEvent("shop", "add-to-basket", null, "red hat", 2);
 
 // Track an ecommerce transaction

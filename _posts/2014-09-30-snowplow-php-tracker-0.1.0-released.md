@@ -11,9 +11,9 @@ We are pleased to announce the release of the first version of the [Snowplow PHP
 
 This introductory post will cover the following topics:
 
-1. [Installation](/blog/2014/09/26/snowplow-php-tracker-0.1.0-released/#install)
-2. [How to use the tracker](/blog/2014/09/26/snowplow-php-tracker-0.1.0-released/#usage)
-3. [Getting help](/blog/2014/09/26/snowplow-php-tracker-0.1.0-released/#help)
+1. [Installation](/blog/2014/09/30/snowplow-php-tracker-0.1.0-released/#install)
+2. [How to use the tracker](/blog/2014/09/30/snowplow-php-tracker-0.1.0-released/#usage)
+3. [Getting help](/blog/2014/09/30/snowplow-php-tracker-0.1.0-released/#help)
 
 <!--more-->
 

@@ -132,15 +132,14 @@ $tracker->trackScreenView("Test screen", "id-0004346", $contexts);
 
 <div class="html">
 <h2><a name="help">3. Getting help</a></h2>
+</div>
 
 Some useful resources:
 
-* The [setup guide] [setup]
-* The [technical documentation] [technical-documentation]
+* The [setup guide][setup]
+* The [technical documentation][technical-documentation]
 
 This is only the first version of the Snowplow PHP Tracker, so please [raise an issue][issues] if you find any bugs. If you have an idea for a new feature or need help getting set up, [get in touch!][talk-to-us]
-
-</div>
 
 [repo]: https://github.com/snowplow/snowplow-php-tracker
 [packagist]: https://packagist.org/

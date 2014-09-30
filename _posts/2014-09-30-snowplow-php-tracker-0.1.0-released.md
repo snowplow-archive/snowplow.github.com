@@ -26,7 +26,7 @@ The Snowplow PHP Tracker is published to [Packagist] [packagist], the central re
 {% highlight json %}
 {
     "require": {
-        "snowplow/snowplow-tracker": "0.1.0"
+        "snowplow/snowplow-tracker": "dev-master"
     }
 }
 {% endhighlight %}

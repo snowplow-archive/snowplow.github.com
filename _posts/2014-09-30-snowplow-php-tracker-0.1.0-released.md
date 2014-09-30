@@ -25,9 +25,9 @@ The Snowplow PHP Tracker is published to [Packagist] [packagist], the central re
 
 {% highlight json %}
 {
-	"require": {
-		"snowplow/snowplow-tracker": "0.1.0"
-	}
+    "require": {
+        "snowplow/snowplow-tracker": "0.1.0"
+    }
 }
 {% endhighlight %}
 
@@ -79,50 +79,50 @@ $tracker->trackStructEvent("shop", "add-to-basket", null, "red hat", 2);
 
 // Track an ecommerce transaction
 $items = array(
-	array(
-		"sku" => "pbz0026",
-		"price" => 20,
-		"quantity" => 1,
-		"name" => NULL,
-		"category" => NULL
-	),
-	array(
-		"sku" => "pbz0038",
-		"price" => 15,
-		"quantity" => 1,
-		"name" => "shirt",
-		"category" => "clothing"
-	)
+    array(
+        "sku" => "pbz0026",
+        "price" => 20,
+        "quantity" => 1,
+        "name" => NULL,
+        "category" => NULL
+    ),
+    array(
+        "sku" => "pbz0038",
+        "price" => 15,
+        "quantity" => 1,
+        "name" => "shirt",
+        "category" => "clothing"
+    )
 );
 $tracker->trackEcommerceTransaction("6a8078be", 35, "USD", "affiliation", 3, 
-									0, "Phoenix", "Arizona", "US", $items);
+                                    0, "Phoenix", "Arizona", "US", $items);
 
 // Track a Snowplow custom unstructured event
 $event_json = 
 array(
-	"schema" => "iglu:com.acme/test/jsonschema/1-0-0",
-	"data" => array(
-		"page" => "testpage",
-		"user" => "tester"
-	)
+    "schema" => "iglu:com.acme/test/jsonschema/1-0-0",
+    "data" => array(
+        "page" => "testpage",
+        "user" => "tester"
+    )
 );
 $tracker->trackUnstructEvent($event_json);
 
 // Track a screen view event with custom context attached
 $custom_context = array(
-	"schema" => "iglu:com.snowplowanalytics.snowplow/screen_type/jsonschema/1-0-0",
-	"data"=> array(
-		"type" => "test",
-		"public" => false
-	)
+    "schema" => "iglu:com.snowplowanalytics.snowplow/screen_type/jsonschema/1-0-0",
+    "data"=> array(
+        "type" => "test",
+        "public" => false
+    )
 );
 
 $user_context = array(
-	"schema" => "iglu:com.snowplowanalytics.snowplow/user/jsonschema/1-0-0",
-	"data" => array(
-		"age" => 40,
-		"name" => "Ned"
-	)
+    "schema" => "iglu:com.snowplowanalytics.snowplow/user/jsonschema/1-0-0",
+    "data" => array(
+        "age" => 40,
+        "name" => "Ned"
+    )
 );
 
 $contexts = array($custom_context, $user_context);

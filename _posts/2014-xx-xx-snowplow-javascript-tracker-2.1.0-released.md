@@ -175,6 +175,8 @@ The new minified and gzipped JavaScript is available at
 
 Note that this version introduces breaking changes to the `trackPageView`, `enableLinkClickTracking`, and `trackLinkClick` methods, all of which now have an additional penultimate parameter.
 
+The deprecated legacy method `trackImpression` has been removed entirely; use `trackAdImpression` instead.
+
 <h2><a name="other">12. Getting help </a></h2>
 
 Get the full documentation for version 2.1.0 [here][docs].

@@ -10,10 +10,11 @@ category: Releases
 We are pleased to announce the release of Snowplow 0.9.9. This release adds the new `campaign_attribution` enrichment to our enrichment registry. Read on for details...
 
 1. [The `campaign_attribution` enrichment](#campaign-attribution)
-2. [UUID bugfix](#uuid)
-2. [Upgrading](#upgrading)
-3. [Roadmap](roadmap)
-4. [Documentation and help](#help)
+2. [New JSON paths and Redshift DDLs](#jsons)
+3. [UUID bugfix](#uuid)
+4. [Upgrading](#upgrading)
+5. [Roadmap](roadmap)
+6. [Documentation and help](#help)
 
 <!--more-->
 
@@ -125,19 +126,34 @@ To use the new enrichment, add a "campaign_attribution.json" file to your enrich
 
 If you don't want to use this enrichment, you can either set its `enabled` field to `false`, or simply omit it from your enrichments directory.
 
-<h2><a name="uuid">2. UUID bugfix</a></h2>
+<h2><a name="jsons">2. New JSON paths and Redshift DDLs</a></h2>
+
+We have added a number of new unstructured events, all of which are available in version 2.1.0 of the [Snowplow JavaScript Tracker][js-tracker]:
+
+* `add_to_cart`
+* `remove_from_cart`
+* `change_form`
+* `submit_form`
+* `social_interaction`
+* `site_search`
+
+We have also created a new custom context, `PerformanceTiming`, which contains information about the performance of a web page.
+
+For each of these, we have added a JSON path file and a Redshift DDL.
+
+<h2><a name="uuid">3. UUID bugfix</a></h2>
 
 0.9.9 fixes a bug in how Snowplow reads the `event_id` [UUID][uuid-spec]. According to the specification, UUIDs with capital letters are valid on read. This release fixes the bug by downcasing all incoming UUIDs.
 
-<h2><a name="upgrading">3. Upgrading</a></h2>
+<h2><a name="upgrading">4. Upgrading</a></h2>
 
 To use the new enrichment, add a "campaign_attribution.json" file containing a `campaign_attribution` enrichment JSON to your enrichments directory. Note that the previously automatic behaviour of populating the mkt_ fields based on the utm_ querystring fields no longer occurs by default. To reproduce it you must use the standard [Google Analytics configuration][enrichment-example].
 
-<h2><a name="roadmap">4. Roadmap</a></h2>
+<h2><a name="roadmap">5. Roadmap</a></h2>
 
 We plan to extend the `campaign_attribution` enrichment by adding the option to set the `"mapping"` field to "script" to enable JavaScript scripting support. This would allow the use of more complex custom transformations to extract values from the querystring.
 
-<h2><a name="help">5. Documentation and help</a></h2>
+<h2><a name="help">6. Documentation and help</a></h2>
 
 Documentation relating to enrichments is available on the wiki:
 
@@ -148,6 +164,7 @@ As always, if you do run into any issues or don't understand any of the above ch
 
 [enrichment-example]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/enrichments/`campaign_attribution`.json
 [uuid-spec]: http://www.ietf.org/rfc/rfc4122.txt
+[js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
 
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/Configuring-enrichments
 [emretlrunner-wiki]: https://github.com/snowplow/snowplow/wiki/2-Using-EmrEtlRunner

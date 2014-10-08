@@ -52,7 +52,7 @@ When you call the method, it will only attach event listeners to existing forms,
 Use the new `trackAddToCart` and `trackRemoveFromCart` methods to track [`add_to_cart`][add_to_cart] and [`remove_from_cart`][remove_from_cart] events. The signatures of the methods are identical:
 
 {% highlight javascript %}
-trackRemoveFromCart(sku, name, category, price, quantity, currency, context);
+trackRemoveFromCart(sku, name, category, unitPrice, quantity, currency, context);
 {% endhighlight %}
 
 Use them like this:
@@ -88,8 +88,13 @@ trackSiteSearch(terms, filters, totalResults, pageResults, context);
 And an example of `trackSiteSearch` in action:
 
 {% highlight javascript %}
-snowplow('trackSiteSearch', ['event', 'streams'], ['books'], 10, 8);
+snowplow('trackSiteSearch', ['event', 'streams'], {
+  'category': 'books',
+  'safeSearch': true
+}, 10, 8);
 {% endhighlight %}
+
+The `filters` parameter is a dictionary whose values can be strings or booleans.
 
 <h2><a name="performance">2. Page performance context </a></h2>
 

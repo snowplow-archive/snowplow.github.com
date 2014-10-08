@@ -162,6 +162,7 @@ We have also:
 * Moved the context field to the end of the querystring in case it gets truncated [#204][204]
 * Improved the efficiency of link click tracking [#254][254]
 * Extracted link tracking functionality into its own file [#266][266]
+* Made the regular expression used to match IP addresses more strict [#267][267]
 * Renamed the "dist" directory to "deploy" [#216][216]
 * Improved the CodeClimate rating for the project [#150][150]
 * Added further Intern unit tests [#76][76]
@@ -200,6 +201,7 @@ If you have any suggestions for new features or need help getting set up, please
 [204]: https://github.com/snowplow/snowplow-javascript-tracker/issues/204
 [254]: https://github.com/snowplow/snowplow-javascript-tracker/issues/254
 [266]: https://github.com/snowplow/snowplow-javascript-tracker/issues/266
+[267]: https://github.com/snowplow/snowplow-javascript-tracker/issues/267
 [216]: https://github.com/snowplow/snowplow-javascript-tracker/issues/216
 [150]: https://github.com/snowplow/snowplow-javascript-tracker/issues/150
 [76]: https://github.com/snowplow/snowplow-javascript-tracker/issues/76

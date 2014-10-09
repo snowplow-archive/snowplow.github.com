@@ -49,6 +49,12 @@ weight: 1
     		<td>Negotiatiable</td>
     		<td>£0</td>
     	</tr>
+    	<tr>
+    		<td></td>
+    		<td><a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a></td>
+    		<td><a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a></td>
+    		<td><a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a></td>
+    	</tr>
     </tbody>
 </table> 
 
@@ -118,12 +124,6 @@ Notes:
     		<td>Phone, email</td>
     		<td>Phone, email</td>
     		<td>Forum</td>
-    	</tr>
-    	<tr>
-    		<td></td>
-    		<td><a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a></td>
-    		<td><a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a></td>
-    		<td><a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a></td>
     	</tr>
     </tbody>
 </table>

@@ -6,8 +6,12 @@
 
 <div class="row-fluid">
 
-  <!-- If page is homepage render without side bar i.e. just contents, taking up full 12 columns -->
+  <!-- If page is homepage or pricing page render without side bar i.e. just contents, taking up full 12 columns -->
   {% if page.group == 'homepage' %}
+  <div class="span12">
+    {{ content }}
+  </div>
+  {% elsif page.url contains 'pricing' %}
   <div class="span12">
     {{ content }}
   </div>

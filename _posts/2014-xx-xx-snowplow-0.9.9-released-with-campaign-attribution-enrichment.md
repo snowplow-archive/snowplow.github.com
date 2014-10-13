@@ -22,13 +22,13 @@ We are pleased to announce the release of Snowplow 0.9.9. This release adds the 
 
 Snowplow has five fields relating to campaign attributions: `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. In previous versions, the values of these fields were based on the corresponding five Google Analytics querystring fields.
 
-The new `campaign_attribution` enrichment allows you to alter this behaviour. For each of the five fields, you can specify an array of querystring fields to examine for a value with which to populate that field.
+The new `campaign_attribution` enrichment allows you to alter this behavior. For each of the five fields, you can specify an array of querystring fields to examine for a value with which to populate that field.
 
 This is the configuration to use if you want to duplicate the functionality of previous versions, filling in the campaign fields from the utm querystring parameters:
 
 {% highlight json %}
 {
-    "schema": "iglu:com.snowplowanalytics.snowplow/`campaign_attribution`/jsonschema/1-0-0",
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
 
     "data": {
 

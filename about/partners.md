@@ -2,7 +2,7 @@
 layout: page
 group: about
 title: The Snowplow partner ecosystem
-shortened-link: Our partners
+shortened-link: Partners
 description: The team building Snowplow
 weight: 4
 ---

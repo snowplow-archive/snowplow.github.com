@@ -2,13 +2,12 @@
 layout: page
 group: about
 title: The team behind the Snowplow platform
-shortened-link: Our team
+shortened-link: Team
 description: The team building Snowplow
 weight: 2
 ---
 
-# Our team
-
+# The Snowplow Team
 
 <div class="row">
 	<div class="span6">
@@ -34,17 +33,6 @@ weight: 2
 		<p>Fred joins the Snowplow engineering team fresh out of Trinity College, Cambridge University, where he studied Mathematics, specializing in Graph Theory, Logic and Sets and Number Theory. Since finishing his studies, Fred has discovered a love of coding and at Snowplow has thrown himself into Javascript, Ruby and Scala with gusto.</p>
 		<p>When Fred's not building data pipelines, he can often be found playing board games (chess, Shogi and Go) or juggling. Don't mess with Fred - he was Captain of the shooting team at Westminster School.</p>
 	</div>
-	<div class="span6">
-		<h3>Carmen Mardiros <small>Data Scientist</small></h3><br>
-		<img src="/assets/img/team/carmen.png" class="img-rounded" />
-		<br>
-		<p>Carmen Mardiros has over 8 years experience in the digital space. She has successfully run a number of websites as an entrepreneur, actively using data to grow revenue, drive marketing strategy and tactical optimisation.</p>
-		<p>Carmen employs her unique combination of technical, business and marketing knowhow to help companies use data to reach, talk to and convert new customers effectively. She is a firm believer in incremental and iterative improvement in order to minimise wasted resources. She is also extremely passionate about understanding and finding opportunities in complex customer journeys.</p>
-		<p>Carmen has extensive experience with advanced Google Tag Manager and Google Analytics implementations, PowerPivot BI suite and various API technologies. At Snowplow, she leads efforts to develop audience segmentation approaches based on behavioral data.</p>
-	</div>
-</div>
-
-<div class="row">
 	<div class="span6">
 		<h3>Richard Fergie <small>Data Scientist</small></h3><br>
 		<img src="/assets/img/team/richard.png" class="img-rounded" />

@@ -42,7 +42,7 @@ This is the configuration to use if you want to duplicate the functionality of p
                 "mktSource": ["utm_source"],
                 "mktTerm": ["utm_term"],
                 "mktContent": ["utm_content"],
-                "mktCampaign": ["utm_campaign"],
+                "mktCampaign": ["utm_campaign"]
             }
         }
     }

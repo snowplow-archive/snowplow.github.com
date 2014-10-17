@@ -11,11 +11,11 @@ We are pleased to announce the release of the second version of the [Snowplow PH
 
 This introductory post will cover the following topics:
 
-1. [New emitters explained](/blog/2014/10/15/snowplow-php-tracker-0.2.0-released/#emitters)
-2. [Passthrough information additions](/blog/2014/10/15/snowplow-php-tracker-0.2.0-released/#passthroughs)
-3. [Debug mode added](/blog/2014/10/15/snowplow-php-tracker-0.2.0-released/#debug)
-4. [Upgrading](/blog/2014/10/15/snowplow-php-tracker-0.2.0-released/#upgrading)
-5. [Getting help](/blog/2014/10/15/snowplow-php-tracker-0.2.0-released/#help)
+1. [New emitters explained](/blog/2014/10/17/snowplow-php-tracker-0.2.0-released/#emitters)
+2. [Passthrough information additions](/blog/2014/10/17/snowplow-php-tracker-0.2.0-released/#passthroughs)
+3. [Debug mode added](/blog/2014/10/17/snowplow-php-tracker-0.2.0-released/#debug)
+4. [Upgrading](/blog/2014/10/17/snowplow-php-tracker-0.2.0-released/#upgrading)
+5. [Getting help](/blog/2014/10/17/snowplow-php-tracker-0.2.0-released/#help)
 
 <!--more-->
 

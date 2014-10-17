@@ -36,7 +36,7 @@ More information for the PHP Trackers Emitters can be found in the [wiki][techni
 <h2><a name="passthroughs">2. Passthrough information additions</a></h2>
 </div>
 
-This release also adds with it three new functions to add even more information to your events.  You can now set:
+This release also adds with it four new functions to add even more information to your events.  You can now set:
 
 - The clients's ip address: `$subject->setIpAddress("127.0.0.1")`.
 
@@ -44,7 +44,9 @@ This release also adds with it three new functions to add even more information 
 
 - The network user id: `$subject->setNetworkUserId("nuid")`.
 
-All of these bits of information will be passed with every event.
+- The domain user id: `$subject->setDomainUserId("duid")`.
+
+All of these bits of information will be passed with every event sent from the tracker instance.
 
 <div class="html">
 <h2><a name="debug">3. Debug mode added</a></h2>

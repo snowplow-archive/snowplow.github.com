@@ -25,7 +25,7 @@ The rest of this post will cover:
 
 The `ip_address` field in the Snowplow event model is used to look up information about a user's geographical location (among other things - see our [scala-maxmind-iplookups][iplookups] project for more detail). If you have access to a user's IP address, you can add it to all events concerning that user with the `set_ip_address` method:
 
-```python
+```ruby
 subject.set_ip_address("37.157.33.93")
 ```
 
@@ -33,15 +33,15 @@ subject.set_ip_address("37.157.33.93")
 
 The `useragent` field contains information (sometimes called the "browser string") about the user's browser. You can set this field with the `set_useragent` method:
 
-```python
-subject.set_useragent(""Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0"")
+```ruby
+subject.set_useragent("Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0")
 ```
 
 <h2><a name="duid">3. `set_domain_user_id`</a></h2>
 
 The `domain_userid` field in the Snowplow event model refers to the user ID set by the [Snowplow JavaScript Tracker][js-tracker] and stored in the [ID cookie][id-cookie]. If you extract that ID, you can use the `set_domain_user_id` method to associate a subject with it:
 
-```python
+```ruby
 subject.set_domain_user_id("c7aadf5c60a5dff9")
 ```
 
@@ -51,7 +51,7 @@ This is useful if you are tracking events both server-side and client-side and w
 
 The `network_userid` field is a user ID set by the [Snowplow Clojure Collector][clojure-collector] via a third party cookie. Similarly to the `set_domain_user_id` method, the `set_network_user_id` lets you associate a subject with a network user ID:
 
-```python
+```ruby
 subject.set_network_user_id("ecdff4d0-9175-40ac-a8bb-325c49733607")
 ```
 

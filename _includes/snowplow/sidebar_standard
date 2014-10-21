@@ -1,6 +1,7 @@
 <ul class="nav nav-list">
   <!-- If we are in the analytics section, we need to loop through each sub_group and display the appropriate side menu items -->
 
+
   {% if group == 'analytics' %}
     {% if sub_group == 'overview' %}
     {% for weight in (1..10) %}
@@ -20,6 +21,28 @@
     {% endfor %}
     {% else %}
     <li><a href="/analytics/index.html">Analytics overview</a></li>
+    {% endif %}
+    <li class="divider"></li>
+
+  {% if group == 'analytics' %}
+    {% if sub_group == 'foundation' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'foundation' %}
+            {% if node.weight == weight %}
+              {% if node.url == page.url %}
+                <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+              {% else %}
+                <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/event-dictionaries-and-data-modelling/foundational-concepts.html">Foundational concepts</a></li>
     {% endif %}
     <li class="divider"></li>
  

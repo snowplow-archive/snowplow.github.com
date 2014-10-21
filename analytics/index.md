@@ -15,12 +15,11 @@ Snowplow enables analysts to perform a wide variety of both simple and sophistic
 
 In this section of the website (which we are building out to include more and more analyses), we provide a step-by-step guide to performing the different analyses including documenting the actual queries themselves.
 
-## Background to data analysis in Snowplow
-Learn about how Snowplow data is
+## Foundational concepts
 
-1. [produced] [production]
-2. [stored] [stored]
-3. [structured] [structured]
+1. [Event dictionaries and schemas] [event-dictionaries]. Understand events and contexts in order to effectively instrument your website, applications and platforms to collect the right data with the right structure
+2. [Data modelling] [data-modelling]. Understand how to aggregate over the detailed event stream delivered by Snowplow to power reporting and analytics
+
 
 ## Performing analysis in Snowplow
 
@@ -38,3 +37,5 @@ Learn about how Snowplow data is
 [platform-analytics]: platform-analytics/overview.html
 [catalog-analytics]: catalog-analytics/overview.html
 [tools-and-techniques]: tools-and-techniques/overview.html
+[event-dictionaries]: /analytics/event-dictionaries-and-data-models/event-dictionaries-and-schemas.html
+[data-modelling]: /analytics/event-dictionaries-and-data-models/data-modelling.html

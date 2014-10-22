@@ -10,6 +10,8 @@ weight: 2
 
 # Events
 
+## What is an event?
+
 An event is something that occurred in a particular point in time. Examples of events include:
 
 * Load a web page
@@ -19,7 +21,11 @@ An event is something that occurred in a particular point in time. Examples of e
 * Click a link
 * Like a video
 
-Snowplow is an event analytics platform. It is built to track and store events, as they occur. Snowplow delivers a data warehouse of events that represents what has happened in the past. That is a rich and deep data set to mine to try and understand what happened and why, and use it to drive decision making and future outcomes.
+Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, use data to represent the event and send that packet of data, representing the event, into the Snowplow data pipeline where it is:
+
+1. Processed and enriched (e.g. additional data points inferred about the event)
+2. Loaded into a data warehouse to enable analysis 
+3. Loaded into a unified log so that it is available to be consumed by a data-driven system
 
 ## Understand events?
 

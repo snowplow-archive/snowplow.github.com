@@ -4,28 +4,27 @@
 
   {% if group == 'analytics' %}
     {% if sub_group == 'overview' %}
-    {% for weight in (1..10) %}
-      {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
-          {% if node.sub_group == 'overview' %}
-            {% if node.weight == weight %}
-              {% if node.url == page.url %}
-                <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
-              {% else %}
-                <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+      {% for weight in (1..10) %}
+        {% for node in pages_list %}
+          {% if node.group == 'analytics' %}
+            {% if node.sub_group == 'overview' %}
+              {% if node.weight == weight %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
               {% endif %}
             {% endif %}
           {% endif %}
-        {% endif %}
+        {% endfor %}
       {% endfor %}
-    {% endfor %}
     {% else %}
     <li><a href="/analytics/index.html">Analytics overview</a></li>
     {% endif %}
     <li class="divider"></li>
 
-  {% if group == 'analytics' %}
-    {% if sub_group == 'foundation' %}
+    {% if page.sub_group == 'foundation' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
         {% if node.group == 'analytics' %}
@@ -42,7 +41,7 @@
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/event-dictionaries-and-data-modelling/foundational-concepts.html">Foundational concepts</a></li>
+    <li><a href="/analytics/event-dictionaries-and-data-models/foundational-concepts.html">Basic concepts</a></li>
     {% endif %}
     <li class="divider"></li>
  

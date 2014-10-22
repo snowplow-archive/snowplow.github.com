@@ -9,3 +9,6 @@ weight: 4
 ---
 
 # Contexts
+
+
+## Understanding the difference between contexts captured at data collection time, and contexts inferred during enrichment

@@ -18,64 +18,24 @@ It is possible to use Snowplow data to answer questions and generate insight wit
 
 Snowplow is built around the following core concepts:
 
-1. [Events](#events)
-2. [Event dictionaries and schemas](#dictionaries-and-schemas)
-3. [Contexts](#contexts)
+1. [Events](events.html)
+2. [Event dictionaries and schemas](event-dictionaries-and-schemas.html)
+3. [Contexts](contexts.html)
 
 Once you have understood the core concepts, it should be straightforward to understand:
 
-1. [How event data is sent into Snowplow](#sending-data-into-snowplow)
-2. [What the data looks like once it is in Snowplow](#viewing-the-data-in-snowplow)
+1. [How event data is sent into Snowplow](sending-data-into-snowplow.html)
+2. [What the data looks like once it is in Snowplow](#viewing-the-data-in-snowplow.html)
 
 This then provides a solid foundation for understanding how to 
 
-1. [Instrument Snowplow trackers](#)
-2. [Perform basic anayses on Snowplow data]()
-3. [Model Snowplow data: aggregate event level data to create useful intermediary tables to enable faster, more convenient analysis]()
+1. [Instrument Snowplow trackers](instrument-snowplow-trackers.html)
+2. [Perform basic anayses on Snowplow data](perform-basic-analyses-on-snowplow-data.html)
+3. [Model Snowplow data: aggregate event level data to create useful intermediary tables to enable faster, more convenient analysis](model-snowplow-data.html)
 
 
-<h2><a name="events">1. Events</a></h2>
 
-An event is something that occurred in a particular point in time. Examples of events include:
 
-* Load a web page
-* Add an item to basket
-* Load a bank balance
-* Perform a search
-* Click a link
-* Like a video
-
-Snowplow is an event analytics platform. It is built to track and store events, as they occur. Snowplow delivers a data warehouse of events that represents what has happened in the past. That is a rich and deep data set to mine to try and understand what happened and why, and use it to drive decision making and future outcomes.
-
-<h2><a name="dictionaries-and-schemas">2. Event dictionaries and schemas</a></h2>
-
-An event dictionary defines the universe of events that a company is interested in tracking. It provides:
-
-* A centralized record of event definitions. This can be used by analysts and consumers of data more generally to understand exactly what each 'event' in the Snowplow database represents in the real world
-* A schema for each event that defines the fields that can and must be captured when that event is recorded, and what each field means. Note that Snowplow is fleixible enough to enable end-users to define their own event schemas
-* Details on how the relevant tracker has been implemented to capture the event
-
-An example entry in an event dictionary might look like this:
-
-----
-
-#### Event: perform_search
-
-Screenshot
-
-Event schema:
-
-Example data:
-
-Instrumentation guide:
-
------
-
-Event dictionaries serve a number of purposes:
-
-* They aid analysis, by making sure that everyone using the data understands what each line of data 'means'
-* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary
-* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product 
 
 <h2><a name="contexts">3. Contexts</a></h2>
 

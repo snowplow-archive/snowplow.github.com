@@ -15,9 +15,7 @@ The rest of this post will cover:
 2. [`set_useragent_user_id`](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#ua)
 3. [`set_domain_user_id`](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#nuid)
 4. [`set_network_user_id`](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#duid)
-5. [New buffer architecture](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#buffers)
-6. [API changes](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#api)
-7. [Getting help](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#help)
+5. [Getting help](/blog/2014/xx/xx/snowplow-ruby-tracker-0.4.0-released/#help)
 
 <!--more-->
 
@@ -55,30 +53,7 @@ The `network_userid` field is a user ID set by the [Snowplow Clojure Collector][
 subject.set_network_user_id("ecdff4d0-9175-40ac-a8bb-325c49733607")
 ```
 
-<h2><a name="buffers">5. New buffer architecture</a></h2>
-
-Unlike the other parameters, the `network_userid` is not passed on the querystring (in the case of GET requests) or in the request body (in the case of POST requests). Instead it is passed as a cookie in the request header.
-
-In the previous version of the Tracker, when an instance of the Emitter class is configured to send POST requests, it stored events in a buffer until it exceeds a maximum (`buffer_size`, by default equal to 11) and sent them all as a single request. This behaviour is no longer valid: it fails when two events corresponding to different users with different `network_userid`s are sent together.
-
-In this release our approach to buffers has evolved. Each emitter maintains a separate buffer for each distinct `network_userid`. Whenever one of these buffers goes over the size limit, that buffer is flushed, sending all its events in a single POST request. And whenever there are more than 20 nonempty buffers, the least recently created one is flushed. (The value 20 is not hardcoded - it can be configured when creating an emitter.)
-
-This behaviour means that all events are eventually sent while still retaining a high ratio of events to POST requests.
-
-<h2><a name="api">6. API changes</a></h2>
-
-There is just one minor API change. As a result of the new buffer architecture, the `flush` method of the Emitter class not takes two parameters:
-
-```ruby
-Contract Maybe[String], Bool => nil
-def flush(nuid=nil, sync=false)
-```
-
-If the `nuid` parameter is nil, all buffers will be flushed. Otherwise only the buffer corresponding to that nuid will be flushed. (If the nuid is an empty string, the buffer for subjects without a `network_userid` will be flushed.)
-
-As before, the `sync` parameter can be set to `true` to force the AsyncEmitter to flush synchronously.
-
-<h2><a name="help">7. Getting help</a></h2>
+<h2><a name="help">5. Getting help</a></h2>
 
 Useful links:
 

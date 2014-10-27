@@ -138,11 +138,11 @@ To make EmrEtlRunner more robust in scenarios where it is run very frequently (e
 
 <h2><a name="hadoop-enrich">5. Hadoop Enrich fixes and enhancements</a></h2>
 
-0.9.9 fixes a bug in how Snowplow's Hadoop Enrich process validates an incoming (i.e. tracker-generated) `event_id` [UUID][uuid-spec]. According to the specification, UUIDs with capital letters are valid on read. This release fixes the bug by downcasing all incoming UUIDs.
+0.9.9 fixes a bug in how Snowplow's Hadoop Enrichment process validates an incoming (i.e. tracker-generated) `event_id` [UUID][uuid-spec]. According to the specification, UUIDs with capital letters are valid on read. This release fixes the bug by downcasing all incoming UUIDs.
 
 This release also now supports trackers sending in the original client's useragent with the `&ua=` parameter in the [Snowplow Tracker Protocol] [snowplow-tp]. This is useful for situations where your tracker does not reflect the true source of the event (e.g. the Ruby Tracker reporting a user's checkout event in Rails).
 
-Finally, the Hadoop Enrich process introduces some more robust handling of numeric field validation ([#570] [issue-570] and [#1062] [issue-1062]).
+Finally, this version of the Hadoop Enrichment process introduces some more robust handling of numeric field validation ([#570] [issue-570] and [#1062] [issue-1062]).
 
 <h2><a name="upgrading">6. Upgrading</a></h2>
 
@@ -161,42 +161,34 @@ $ cd ../../4-storage/storage-loader
 $ bundle install --deployment
 {% endhighlight %}
 
-**IMPORTANT:** Read on to understand how to update Snowplow's campaign attribution to avoid temporarily breaking attribution.
-
 <div class="html">
-<h3><a name="upgrading-emretlrunner">6.2 Configuring campaign attribution</a></h3>
+<h3><a name="configuring-emretlrunner">6.2 Updating EmrEtlRunner's configuration</a></h3>
 </div>
 
-**If you upgrade to **
+This release bumps the Hadoop Enrichment process to version **0.8.0**.
 
-To use the new enrichment, add a "campaign_attribution.json" file to your enrichments directory (which should be inside your config directory). **If you do not
-
-If you don't want to use this enrichment, you can either set its `enabled` field to `false`, or simply omit it from your enrichments directory.
-
-To use the new enrichment, add a "campaign_attribution.json" file containing a `campaign_attribution` enrichment JSON to your enrichments directory. Note that the previously automatic behaviour of populating the mkt_ fields based on the utm_ querystring fields no longer occurs by default. To reproduce it you must use the standard [Google Analytics configuration][enrichment-example].
-
-<div class="html">
-<h3><a name="upgrading-emretlrunner">3.1 Updating EmrEtlRunner's configuration</a></h3>
-</div>
-
-This release bumps the Hadoop Enrichment process to version **0.7.0**.
-
-In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 0.7.0, like so:
+In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 0.8.0, like so:
 
 {% highlight yaml %}
   :versions:
-    :hadoop_enrich: 0.7.0 # WAS 0.6.0
+    :hadoop_enrich: 0.8.0 # WAS 0.7.0
 {% endhighlight %}
 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
 <div class="html">
-<h3><a name="upgrading-collector">3.2 Updating your Clojure Collector</a></h3>
+<h3><a name="configuring-attribution">6.3 Configuring campaign attribution</a></h3>
 </div>
 
-**Please make sure that you upgrade the Hadoop Enrichment process to 0.7.0 before upgrading your collector.**
+**If you upgrade Hadoop Enrich to version 0.8.0 as above, you MUST also follow these steps, or else campaign attribution will be disabled.**
 
-This release bumps the Clojure Collector to version **0.7.0**. 
+To use the new enrichment, add a "campaign_attribution.json" file containing a `campaign_attribution` enrichment JSON to your enrichments directory. Note that the previously automatic behaviour of populating the mkt_ fields based on the utm_ querystring fields no longer occurs by default. To reproduce it you must use the standard [Google Analytics configuration][enrichment-example].
+
+<div class="html">
+<h3><a name="upgrading-collector">6.4 Updating your Clojure Collector</a></h3>
+</div>
+
+This release bumps the Clojure Collector to version **0.8.0**.
 
 To upgrade to this release:
 
@@ -222,7 +214,9 @@ As always, if you do run into any issues or don't understand any of the above ch
 [js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
 
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/Configuring-enrichments
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [emretlrunner-wiki]: https://github.com/snowplow/snowplow/wiki/2-Using-EmrEtlRunner
+
 [snowplow-tp]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#2-platform-specific-parameters
 
 [kingo55]: https://github.com/kingo55

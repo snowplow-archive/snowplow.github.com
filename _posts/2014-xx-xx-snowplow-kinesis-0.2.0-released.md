@@ -16,7 +16,8 @@ Back in February, we introduced initial support for real-time event analytics us
 5. [Configurable Kinesis endpoint](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#endpoint)
 6. [HTTP request character limit override](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#character-limit)
 7. [Logging](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#logging)
-8. [Getting help](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#help)
+8. [Upgrading](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#upgrading)
+9. [Getting help](/blog/2014/xx/xx/snowplow-kinesis-0.2.0-released/#help)
 
 <!--more-->
 
@@ -92,7 +93,22 @@ Community member Yuval Herziger (@yuvalherziger on GitHub) noticed that version 
 
 Version 0.1.0 used "Console.println" for logging. We have replaced this with [Java logging][slf4j] for richer messages.
 
-<h2><a name="help">8. Getting help</a></h2>
+<h2><a name="upgrading">8. Upgrading</a></h2>
+
+There are several changes you need to make to move to the new versions of the Scala Stream Collector and Scala Kinesis Enrich:
+
+* You must provide a "region" field (with a value like "us-east-1") in the configuration files.
+* You must provide a "resolver" field in the Scala Kinesis Enrich containing the data used to configure the Iglu resolver
+* If you run Scala Kinesis Enrich without the --enrichments option, the IP anonymization enrichment and the IP address lookup enrichment will not run automatically
+
+New templates for the two configuration files can be found on GitHub (you will need to edit the AWS credentials and the stream names):
+
+* [Scala Stream Collector configuration][ssc-conf]
+* [Scala Kinesis Enrich configuration][ske-conf]
+
+And a sample enrichment directory containing sensible configuration JSONs can be found [here][enrichments-example].
+
+<h2><a name="help">9. Getting help</a></h2>
 
 Documentation for the Kinesis flow is available on the [wiki][docs]. If you want help getting set up please [talk to us][talk-to-us]. This is still only the second version, so if you find a bug, [raise an issue][issues]!
 
@@ -102,6 +118,8 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 [iglu]: https://github.com/snowplow/iglu-scala-client
 [slf4j]: http://www.slf4j.org/
 [spray-can]: http://spray.io/documentation/1.1-SNAPSHOT/spray-can/
+[ssc-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
+[ske-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
 [docs]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [issues]: https://github.com/snowplow/snowplow/issues

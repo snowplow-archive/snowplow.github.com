@@ -46,7 +46,7 @@ weight: 1
     	<tr>
     		<td>Greater than 10 billion</td>
     		<td>£750</td>
-    		<td>Negotiatiable</td>
+    		<td>Negotiable</td>
     		<td>£0</td>
     	</tr>
     	<tr>

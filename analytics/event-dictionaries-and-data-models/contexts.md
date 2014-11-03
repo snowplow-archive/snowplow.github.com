@@ -2,8 +2,8 @@
 layout: page
 group: analytics
 sub_group: foundation
-title: Event dictionaries
-shortened-link: Event dictionaries
+title: Contexts
+shortened-link: Contexts
 description: Understanding event dictionaries
 weight: 4
 ---
@@ -15,8 +15,8 @@ When an event occurs, it generally involves a number of entities, and takes plac
 1. A user entity, who performed the search
 2. A web page in which the event occurred
 3. A set of e.g. products that were returned from the search
-
-All the above are examples of 'contexts'. A context is the group of entities associated with events. What makes contexts interesting is that they are common across multiple different event types. For example, the following events for a retailer will all involve a 'product' context:
+ 
+All the above are examples of 'contexts'. A context is the group of entities associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. For example, the following events for a retailer will all involve a 'product' context:
 
 * View product
 * Select product
@@ -42,6 +42,6 @@ product schema
 
 We can then track an add to basket event as follows, we can pass in a handful of fields that are specific to the add to basket event (e.g. the quantity of the product added), and pass the whole product object as a context.
 
-Contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are releavnt.
+Contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
 
 

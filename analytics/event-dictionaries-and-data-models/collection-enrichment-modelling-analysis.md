@@ -2,8 +2,8 @@
 layout: page
 group: analytics
 sub_group: foundation
-title: Data collection vs enrichment vs modelling vs analysis
-shortened-link: Collection, enrichment, modelling, analysis
+title: Stages in the Snowplow data pipeline
+shortened-link: Snowplow data pipeline stages
 description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modelling and analysis
 weight: 6
 ---

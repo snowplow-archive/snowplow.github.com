@@ -41,6 +41,8 @@ The above event would be loaded into a Redshift table with the following schema.
 
 ```
 
+The schemas stored in Iglu are the same documented in the event dictionary. You can think of Iglu as a machine-readable schema repository, and the event dictionary as the human readable schema repository. When Snowplow wants to process or store event data, it will refer to the relevant schemas as stored in Iglu to help it to do so. When a data analyst wants to perform an analysis on the data, however, he / she is more likelyt to consult the event dictionary, where the schema will be available alongside screenshots and descriptions, better enabling her to understand what the data represents.
+
 ## Handling schema evolution
 
 Iglu plays a very important role in Snowplow. Not only does it enable different Snowplow users to define their own different data schemas. It also provides a flexible framework to enable them to evolve those schemas over time. All schemas in Iglu are versioned. If an update is made to a schema where previous events or contexts are still compatible with that schema (for example, one or more additional optional fields are added), Snowplow continues to load the new data, coming in with a reference to the new version of the schema, into the same table as the old data from the schema is still stored. (It just extends the table to accommodate the additional fields.) If, on the other hand, a breaking change is made to the schema, Snowplow will load data that conforms to the new schema into a new table in Amazon Redshift. The old data is still available in the old table. (And indeed, any data sent in with the old version of the schema will continue to be loaded into this table.)
@@ -55,6 +57,8 @@ When you setup Snowplow for the first time, you need to:
 2. Put together an initial version for the schemas of each of the events and contexts you wish to capture
 3. Upload those schemas to an Iglu repo, and configure your Snowplow pipeline to connect with the Iglu repo so that it can fetch the schemas associated with the incoming data
 4. Instrument your tracker(s) to send data into Snowplow with the associated schemas in Iglu 
+
+In the next section, we'll give a [high level overview of the Snowplow data pipeline](collection-enrichment-modelling-analysis.html), before describing in more detail [how to send data into Snowplow](sending-data-into-snowplow.html), and [what the data looks like once it's in Snowplow](viewing-the-event-data-in-snowplow.html).
 
 events:
 contexts:

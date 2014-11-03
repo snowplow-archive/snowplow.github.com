@@ -44,4 +44,8 @@ We can then track an add to basket event as follows, we can pass in a handful of
 
 Contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
 
+## Understand contexts?
+
+Then read on to learn about [Iglu](iglu.html) - the schema repository for handling schemas for your events and contexts.
+
 

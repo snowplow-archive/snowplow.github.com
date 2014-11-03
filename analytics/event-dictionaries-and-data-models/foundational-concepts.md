@@ -19,9 +19,10 @@ It is possible to use Snowplow data to answer questions and generate insight wit
 Snowplow is built around the following core concepts:
 
 1. [Events](events.html)
-2. [Event dictionaries and schemas](event-dictionaries-and-schemas.html)
+2. [Dictionaries and schemas](event-dictionaries-and-schemas.html)
 3. [Contexts](contexts.html)
-4. [Data collection vs enrichment vs modelling vs analysis](collection-enrichment-modelling-analysis.html)
+4. [Iglu](iglu.html)
+5. [Stages in the Snowplow data pipeline](collection-enrichment-modelling-analysis.html)
 
 Once you have understood the core concepts, it should be straightforward to understand:
 

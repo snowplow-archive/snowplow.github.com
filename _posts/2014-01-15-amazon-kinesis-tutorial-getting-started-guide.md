@@ -41,13 +41,13 @@ Once the build is complete, SSH in:
 $ vagrant ssh
 {% endhighlight %}
 
-And now install both Java 1.7 and SBT by running the following two Ansible playbook (from within the VM):
+And now install both Java 1.7 and Scala/SBT by running the following two Ansible playbooks (from within the VM):
 
 {% highlight bash %}
-$ ansible-playbook /vagrant/ansible-playbooks/generic/base.yaml \
+$ ansible-playbook /vagrant/ansible-playbooks/java-7.yml \
   --inventory-file=/home/vagrant/ansible_hosts --connection=local
 
-$ ansible-playbook /vagrant/ansible-playbooks/generic/jvm/jvm-7.yaml \
+$ ansible-playbook /vagrant/ansible-playbooks/scala-sbt.yml \
   --inventory-file=/home/vagrant/ansible_hosts --connection=local
 {% endhighlight %}
 

@@ -173,6 +173,8 @@ We have also:
 * Added further Intern unit tests [#76][76]
 * Added a section to the README for contributors on getting the Vagrant environment set up [#169][169]
 
+Finally, we thank Kevin Simper (@kevinsimper on GitHub) for his contribution preventing the localStorage queue of events from being incorrectly parsed.
+
 <h2><a name="other">11. Upgrading </a></h2>
 
 The new minified and gzipped JavaScript is available at

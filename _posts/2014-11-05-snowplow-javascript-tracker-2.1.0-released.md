@@ -12,22 +12,22 @@ We are delighted to announce the release of version 2.1.0 of the [Snowplow JavaS
 This blog post will cover the following topics:
 
 
-1. [New events](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#events)
-  1.1 [Automatic form tracking](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#forms)
-  1.2 [`add_to_cart` and `remove_from_cart`](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#cart)
-  1.3 [`social_interaction`](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#social)
-  1.4 [`site_search`](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#search)
-2. [Page performance context](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#performance)
-3. [Link content](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#content)
-4. [Tracker core integration](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#core)
-5. [Custom callbacks](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#callbacks)
-6. [`forceSecureTracker`](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#https)
-7. [Outbound queue](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#outbound)
-8. [New default cookie path](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#cookies)
-9. [New example page](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#example)
-10. [Other improvements](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#other)
-11. [Upgrading](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#upgrading)
-12. [Getting help](/blog/2014/11/05/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#help)
+1. [New events](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#events)
+  1.1 [Automatic form tracking](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#forms)
+  1.2 [`add_to_cart` and `remove_from_cart`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#cart)
+  1.3 [`social_interaction`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#social)
+  1.4 [`site_search`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#search)
+2. [Page performance context](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#performance)
+3. [Link content](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#content)
+4. [Tracker core integration](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#core)
+5. [Custom callbacks](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#callbacks)
+6. [`forceSecureTracker`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#https)
+7. [Outbound queue](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#outbound)
+8. [New default cookie path](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#cookies)
+9. [New example page](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#example)
+10. [Other improvements](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#other)
+11. [Upgrading](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#upgrading)
+12. [Getting help](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#help)
 
 <!--more-->
 

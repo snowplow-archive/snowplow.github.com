@@ -117,7 +117,9 @@ trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, elementConte
 
 <h2><a name="core">4. Tracker core integration</a></h2>
 
-The [Snowplow JavaScript Tracker Core][tracker-core] was designed to contain the functionality common to both the client-side JavaScript Tracker and the [Node.js Tracker][nodejs-tracker]. This release integrates the core into the client-side Tracker. As a consequence, the random 6-digit "transaction ID" attached to all events has been replaced by a unique type 4 UUID, which will serve as the `event_id` for this event. This makes the false positive rate for detecting duplicate events negligible.
+The [Snowplow JavaScript Tracker Core][tracker-core] was designed to contain the functionality common to both the client-side JavaScript Tracker and the [Node.js Tracker][nodejs-tracker].
+
+This release integrates the core into the client-side Tracker. As a consequence, the random 6-digit "transaction ID" attached to all events has been replaced by a unique type 4 UUID, which will serve as the `event_id` for this event. This makes the false positive rate for detecting duplicate events negligible.
 
 <h2><a name="callbacks">5. Custom callbacks </a></h2>
 

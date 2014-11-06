@@ -151,7 +151,7 @@ Previous versions of the tracker had a `pageUnloadTimer` which you could use to 
 
 The new [async-large.html][async-large] file shows how the Snowplow JavaScript Tracker works even if two people are independently loading and using it on the same page. It also provides examples of all the new unstructured events.
 
-<h2><a name="other">10. Other improvements</a></h2>
+<h2><a name="other">9. Other improvements</a></h2>
 
 We have also:
 
@@ -166,9 +166,9 @@ We have also:
 
 Finally, we thank Kevin Simper (@kevinsimper on GitHub) for his contribution preventing the `localStorage` queue of events from being incorrectly parsed.
 
-<h2><a name="upgrade">11. Upgrading</a></h2>
+<h2><a name="upgrading">10. Upgrading</a></h2>
 
-<h3><a name="upgrade-js">11.1 JavaScript upgrade</a></h3>
+<h3><a name="upgrade-js">10.1 JavaScript upgrade</a></h3>
 
 The new minified and gzipped JavaScript is available at
 
@@ -178,13 +178,13 @@ The new minified and gzipped JavaScript is available at
 
 The deprecated legacy method `trackImpression` has been removed entirely; use `trackAdImpression` instead.
 
-<h3><a name="upgrade-redshift">11.2 Redshift upgrade</a></h3>
+<h3><a name="upgrade-redshift">10.2 Redshift upgrade</a></h3>
 
 If you are using Amazon Redshift, the new event types and performance context will require you to deploy new tables into your Redshift cluster.
 
 For instructions on this, please see today's [Snowplow 0.9.10 release] [0.9.10-release] blog post.
 
-<h2><a name="other">12. Getting help</a></h2>
+<h2><a name="help">11. Getting help</a></h2>
 
 We have published [full documentation for version 2.1.1][docs].
 

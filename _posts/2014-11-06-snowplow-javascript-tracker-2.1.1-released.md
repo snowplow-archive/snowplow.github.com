@@ -109,7 +109,7 @@ The `link_click` event has been updated to include an optional `content` field. 
 enableLinkClickTracking(criterion, pseudoClicks, trackContent, context);
 {% endhighlight %}
 
-The `enableLinkClickTracking` method, which is used to track individual clicks manually, now accepts an additional string parameter named "content":
+The `trackLinkClick` method, which is used to track individual clicks manually, now accepts an additional string parameter named "content":
 
 {% highlight javascript %}
 trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, elementContent, context);

@@ -17,7 +17,7 @@ This blog post will cover the following topics:
 3. [Link content](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#content)
 4. [Tracker core integration](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#core)
 5. [Custom callbacks](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#callbacks)
-6. [`forceSecureTracker`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#https)
+6. [forceSecureTracker](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#https)
 7. [Outbound queue](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#outbound)
 8. [New example page](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#example)
 9. [Other improvements](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#other)
@@ -42,7 +42,7 @@ Whenever a user submits a form, the Tracker will fire a [`submit_form`][submit_f
 
 When you call the method, it will only attach event listeners to existing forms, so you should call it again whenever you create a new form element. (This is safe - the Tracker will not attach more than one event listener to an element.)
 
-<h3><a name="cart">1.2 `add_to_cart` and `remove_from_cart`</a></h3>
+<h3><a name="cart">1.2 add_to_cart and remove_from_cart</a></h3>
 
 Use the new `trackAddToCart` and `trackRemoveFromCart` methods to track [`add_to_cart`][add_to_cart] and [`remove_from_cart`][remove_from_cart] events. The signatures of the methods are identical:
 
@@ -56,7 +56,7 @@ Use them like this:
 snowplow('trackAddToCart', 'item-000303', 'small waistcoat', 'clothing', 79.99, 2, 'USD');
 {% endhighlight %}
 
-<h3><a name="social">1.3 `social_interaction`</a></h3>
+<h3><a name="social">1.3 social_interaction</a></h3>
 
 The `trackSocialInteraction` method lets you track [`social_interaction`][social_interaction] events on you site. This is its signature:
 
@@ -70,7 +70,7 @@ An example:
 snowplow('trackSocialInteraction', 'like', 'Facebook', 'blog post 0012');
 {% endhighlight %}
 
-<h3><a name="search">1.4 `site_search`</a></h3>
+<h3><a name="search">1.4 site_search</a></h3>
 
 The new `site_search` event describes a user performing a search on a website. It can capture the search terms and search filters used, the number of results found, and the number of results displayed on the first page.
 
@@ -91,7 +91,7 @@ snowplow('trackSiteSearch', ['event', 'streams'], {
 
 The `filters` parameter is a dictionary whose values can be strings or booleans.
 
-<h2><a name="performance">2. Page performance context </a></h2>
+<h2><a name="performance">2. Page performance context</a></h2>
 
 The `trackPageView` method now accepts an additional boolean parameter named "performanceTracking":
 
@@ -101,7 +101,7 @@ trackPageView(customTitle, performanceTracking, context);
 
 If you set this parameter to `true`, a [`PerformanceTiming`][performancetiming] context will be added to the page view event. This context will contain all the data found in the [`window.performance.timing`][navigationtiming] variable, and so can be used to calculate how long the page took to load.
 
-<h2><a name="content">3. Link content </a></h2>
+<h2><a name="content">3. Link content</a></h2>
 
 The `link_click` event has been updated to include an optional `content` field. This will be populated with the `innerHTML` property of the link. The `enableLinkClickTracking` now has a "trackContent" parameter which you must set to `true` to capture the innerHTML of clicked links:
 
@@ -115,7 +115,7 @@ The `enableLinkClickTracking` method, which is used to track individual clicks m
 trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, elementContent, context);
 {% endhighlight %}
 
-<h2><a name="core">4. Tracker core integration </a></h2>
+<h2><a name="core">4. Tracker core integration</a></h2>
 
 The [Snowplow JavaScript Tracker Core][tracker-core] was designed to contain the functionality common to both the client-side JavaScript Tracker and the [Node.js Tracker][nodejs-tracker]. This release integrates the core into the client-side Tracker. As a consequence, the random 6-digit "transaction ID" attached to all events has been replaced by a unique type 4 UUID, which will serve as the `event_id` for this event. This makes the false positive rate for detecting duplicate events negligible.
 
@@ -131,7 +131,7 @@ function snowplowCallback() {
 snowplow(snowplowCallback);
 {% endhighlight %}
 
-<h2><a name="https">6. `forceSecureTracker` </a></h2>
+<h2><a name="https">6. forceSecureTracker</a></h2>
 
 By default, events are sent to a collector using the same protocol ("http" or "https") as the current page. Huge thanks to community member @kujo4pmZ for contributing the option to force the tracker to send all events over https! Just add a `forceSecureTracker` field when creating a tracker:
 
@@ -143,15 +143,15 @@ By default, events are sent to a collector using the same protocol ("http" or "h
         });
 {% endhighlight %}
 
-<h2><a name="outbound">7. Outbound queue </a></h2>
+<h2><a name="outbound">7. Outbound queue</a></h2>
 
 Previous versions of the tracker had a `pageUnloadTimer` which you could use to set a pause between an event being created and the page unloading, to give the tracker time to fire the event. Version 2.1.1 makes the timeout more intelligent: once all queued events have been sent, the page will unload, even if the `pageUnloadTimer` has not yet expired.
 
-<h2><a name="example">8. New example page </a></h2>
+<h2><a name="example">8. New example page</a></h2>
 
 The new [async-large.html][async-large] file shows how the Snowplow JavaScript Tracker works even if two people are independently loading and using it on the same page. It also provides examples of all the new unstructured events.
 
-<h2><a name="other">10. Other improvements </a></h2>
+<h2><a name="other">10. Other improvements</a></h2>
 
 We have also:
 
@@ -186,7 +186,7 @@ For instructions on this, please see the Snowplow 0.9.10 release post (coming so
 
 <h2><a name="other">12. Getting help </a></h2>
 
-Get the full documentation for version 2.1.1 [here][docs].
+We have published [full documentation for version 2.1.1][docs].
 
 If you have any suggestions for new features or need help getting set up, please [get in touch][talk-to-us]. And [raise an issue][issues] if you spot a bug!
 

@@ -182,7 +182,7 @@ The deprecated legacy method `trackImpression` has been removed entirely; use `t
 
 If you are using Amazon Redshift, the new event types and performance context will require you to deploy new tables into your Redshift cluster.
 
-For instructions on this, please see the Snowplow 0.9.10 release post (coming soon).
+For instructions on this, please see today's [Snowplow 0.9.10 release] [0.9.10-release] blog post.
 
 <h2><a name="other">12. Getting help</a></h2>
 
@@ -203,6 +203,8 @@ If you have any suggestions for new features or need help getting set up, please
 [nodejs-tracker]: https://github.com/snowplow/snowplow-nodejs-tracker
 [async-large]: https://github.com/snowplow/snowplow-javascript-tracker/blob/master/examples/web/async-large.html
 [docs]: https://github.com/snowplow/snowplow/wiki/Javascript-Tracker
+
+[0.9.10-release]: /blog/2014/11/06/snowplow-0.9.10-released-for--js-tracker-2.1.0-support
 
 [204]: https://github.com/snowplow/snowplow-javascript-tracker/issues/204
 [254]: https://github.com/snowplow/snowplow-javascript-tracker/issues/254

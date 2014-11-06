@@ -26,7 +26,7 @@ In my talk, I provided an introduction to unified log technology, highlighted so
 
 It was a very technical and experienced audience, which made for some great questions immediately afterwards and in the various one-on-one chats afterwards. I came away from the event with a renewed sense of the importance of robust event modeling, and the importance of our work on JSON Schema, Iglu and SchemaVer.
 
-<h2><a name="highlights">Why your company needs a Unified Log</a></h2>
+<h2><a name="highlights">My highlights from Span</a></h2>
 
 Matthew and the Span Conference team succeeded in packing a huge amount of content and discussion into Span's single day format. There were too many great talks and interactions to mention all of them - but here were some of my highlights:
 

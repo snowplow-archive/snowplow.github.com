@@ -23,11 +23,10 @@ This blog post will cover the following topics:
 5. [Custom callbacks](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#callbacks)
 6. [`forceSecureTracker`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#https)
 7. [Outbound queue](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#outbound)
-8. [New default cookie path](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#cookies)
-9. [New example page](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#example)
-10. [Other improvements](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#other)
-11. [Upgrading](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#upgrading)
-12. [Getting help](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#help)
+8. [New example page](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#example)
+9. [Other improvements](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#other)
+10. [Upgrading](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#upgrading)
+11. [Getting help](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#help)
 
 <!--more-->
 
@@ -122,11 +121,11 @@ trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, elementConte
 
 <h2><a name="core">4. Tracker core integration </a></h2>
 
-The [Snowplow JavaScript Tracker Core][tracker-core] was designed to contain the functionality common to both the client-side JavaScript Tracker and the [Node.js Tracker][nodejs-tracker]. This release integrates the core into the client-side Tracker. As a consequence, the random 6-digit "transaction ID" attached to all events has been replaced by a unique type 4 UUID. This makes the false positive rate for detecting duplicate events negligible.
+The [Snowplow JavaScript Tracker Core][tracker-core] was designed to contain the functionality common to both the client-side JavaScript Tracker and the [Node.js Tracker][nodejs-tracker]. This release integrates the core into the client-side Tracker. As a consequence, the random 6-digit "transaction ID" attached to all events has been replaced by a unique type 4 UUID, which will serve as the `event_id` for this event. This makes the false positive rate for detecting duplicate events negligible.
 
 <h2><a name="callbacks">5. Custom callbacks </a></h2>
 
-You can now specify callback functions which will only be called when sp.js has been loaded and initialized:
+You can now specify callback functions which will only be called when `sp.js` has been loaded and initialized:
 
 {% highlight javascript %}
 function snowplowCallback() {
@@ -152,11 +151,7 @@ By default, events are sent to a collector using the same protocol ("http" or "h
 
 Previous versions of the tracker had a `pageUnloadTimer` which you could use to set a pause between an event being created and the page unloading, to give the tracker time to fire the event. Version 2.1.1 makes the timeout more intelligent: once all queued events have been sent, the page will unload, even if the `pageUnloadTimer` has not yet expired.
 
-<h2><a name="cookies">8. New default cookie path </a></h2>
-
-The Tracker now sets cookies on the path "/", so they will be accessible from any page in the domain. This prevents multiple cookies from being set for a single user.
-
-<h2><a name="example">9. New example page </a></h2>
+<h2><a name="example">8. New example page </a></h2>
 
 The new [async-large.html][async-large] file shows how the Snowplow JavaScript Tracker works even if two people are independently loading and using it on the same page. It also provides examples of all the new unstructured events.
 
@@ -173,17 +168,25 @@ We have also:
 * Added further Intern unit tests [#76][76]
 * Added a section to the README for contributors on getting the Vagrant environment set up [#169][169]
 
-Finally, we thank Kevin Simper (@kevinsimper on GitHub) for his contribution preventing the localStorage queue of events from being incorrectly parsed.
+Finally, we thank Kevin Simper (@kevinsimper on GitHub) for his contribution preventing the `localStorage` queue of events from being incorrectly parsed.
 
-<h2><a name="other">11. Upgrading </a></h2>
+<h2><a name="upgrade">11. Upgrading</a></h2>
+
+<h3><a name="upgrade-js">11.1 JavaScript upgrade</a></h3>
 
 The new minified and gzipped JavaScript is available at
 
 `http(s)://d1fc8wv8zag5ca.cloudfront.net/2.1.1/sp.js``
 
-Note that this version introduces breaking changes to the `trackPageView`, `enableLinkClickTracking`, and `trackLinkClick` methods, all of which now have an additional penultimate parameter.
+**Note that this version introduces BREAKING changes to the `trackPageView`, `enableLinkClickTracking`, and `trackLinkClick` methods, all of which now have an additional penultimate parameter.**
 
 The deprecated legacy method `trackImpression` has been removed entirely; use `trackAdImpression` instead.
+
+<h3><a name="upgrade-redshift">11.2 Redshift upgrade</a></h3>
+
+If you are using Amazon Redshift, the new event types and performance context will require you to deploy new tables into your Redshift cluster.
+
+For instructions on this, please see the Snowplow 0.9.10 release post (coming soon).
 
 <h2><a name="other">12. Getting help </a></h2>
 

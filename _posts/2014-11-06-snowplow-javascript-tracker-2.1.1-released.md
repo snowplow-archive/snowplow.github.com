@@ -1,33 +1,33 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 2.1.0 released
-title: Snowplow JavaScript Tracker 2.1.0 released with new events
+shortenedlink: JavaScript Tracker 2.1.1 released
+title: Snowplow JavaScript Tracker 2.1.1 released with new events
 tags: [snowplow, javascript, tracker, event]
 author: Fred
 category: Releases
 ---
 
-We are delighted to announce the release of version 2.1.0 of the [Snowplow JavaScript Tracker][repo]! This release contains a number of new features, most prominently several new unstructured events.
+We are delighted to announce the release of version 2.1.1 of the [Snowplow JavaScript Tracker][repo]! This release contains a number of new features, most prominently several new unstructured events.
 
 This blog post will cover the following topics:
 
 
-1. [New events](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#events)
-  1.1 [Automatic form tracking](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#forms)
-  1.2 [`add_to_cart` and `remove_from_cart`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#cart)
-  1.3 [`social_interaction`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#social)
-  1.4 [`site_search`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#search)
-2. [Page performance context](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#performance)
-3. [Link content](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#content)
-4. [Tracker core integration](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#core)
-5. [Custom callbacks](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#callbacks)
-6. [`forceSecureTracker`](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#https)
-7. [Outbound queue](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#outbound)
-8. [New default cookie path](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#cookies)
-9. [New example page](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#example)
-10. [Other improvements](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#other)
-11. [Upgrading](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#upgrading)
-12. [Getting help](/blog/2014/11/05/snowplow-javascript-tracker-2.1.0-released-with-custom-contexts/#help)
+1. [New events](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#events)
+  1.1 [Automatic form tracking](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#forms)
+  1.2 [`add_to_cart` and `remove_from_cart`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#cart)
+  1.3 [`social_interaction`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#social)
+  1.4 [`site_search`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#search)
+2. [Page performance context](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#performance)
+3. [Link content](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#content)
+4. [Tracker core integration](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#core)
+5. [Custom callbacks](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#callbacks)
+6. [`forceSecureTracker`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#https)
+7. [Outbound queue](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#outbound)
+8. [New default cookie path](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#cookies)
+9. [New example page](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#example)
+10. [Other improvements](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#other)
+11. [Upgrading](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#upgrading)
+12. [Getting help](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#help)
 
 <!--more-->
 
@@ -150,7 +150,7 @@ By default, events are sent to a collector using the same protocol ("http" or "h
 
 <h2><a name="outbound">7. Outbound queue </a></h2>
 
-Previous versions of the tracker had a `pageUnloadTimer` which you could use to set a pause between an event being created and the page unloading, to give the tracker time to fire the event. Version 2.1.0 makes the timeout more intelligent: once all queued events have been sent, the page will unload, even if the `pageUnloadTimer` has not yet expired.
+Previous versions of the tracker had a `pageUnloadTimer` which you could use to set a pause between an event being created and the page unloading, to give the tracker time to fire the event. Version 2.1.1 makes the timeout more intelligent: once all queued events have been sent, the page will unload, even if the `pageUnloadTimer` has not yet expired.
 
 <h2><a name="cookies">8. New default cookie path </a></h2>
 
@@ -179,7 +179,7 @@ Finally, we thank Kevin Simper (@kevinsimper on GitHub) for his contribution pre
 
 The new minified and gzipped JavaScript is available at
 
-`http(s)://d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js``
+`http(s)://d1fc8wv8zag5ca.cloudfront.net/2.1.1/sp.js``
 
 Note that this version introduces breaking changes to the `trackPageView`, `enableLinkClickTracking`, and `trackLinkClick` methods, all of which now have an additional penultimate parameter.
 
@@ -187,7 +187,7 @@ The deprecated legacy method `trackImpression` has been removed entirely; use `t
 
 <h2><a name="other">12. Getting help </a></h2>
 
-Get the full documentation for version 2.1.0 [here][docs].
+Get the full documentation for version 2.1.1 [here][docs].
 
 If you have any suggestions for new features or need help getting set up, please [get in touch][talk-to-us]. And [raise an issue][issues] if you spot a bug!
 

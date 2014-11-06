@@ -7,16 +7,12 @@ author: Fred
 category: Releases
 ---
 
-We are delighted to announce the release of version 2.1.1 of the [Snowplow JavaScript Tracker][repo]! This release contains a number of new features, most prominently several new unstructured events.
+We are delighted to announce the release of version 2.1.1 of the [Snowplow JavaScript Tracker][repo]! This release contains a number of new features, most prominently several new unstructured events and a context for recording the browser's PerformanceTiming.
 
 This blog post will cover the following topics:
 
 
 1. [New events](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#events)
-  1.1 [Automatic form tracking](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#forms)
-  1.2 [`add_to_cart` and `remove_from_cart`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#cart)
-  1.3 [`social_interaction`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#social)
-  1.4 [`site_search`](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#search)
 2. [Page performance context](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#performance)
 3. [Link content](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#content)
 4. [Tracker core integration](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#core)

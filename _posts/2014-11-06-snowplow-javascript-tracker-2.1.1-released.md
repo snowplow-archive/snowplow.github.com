@@ -184,7 +184,7 @@ If you are using Amazon Redshift, the new event types and performance context wi
 
 For instructions on this, please see the Snowplow 0.9.10 release post (coming soon).
 
-<h2><a name="other">12. Getting help </a></h2>
+<h2><a name="other">12. Getting help</a></h2>
 
 We have published [full documentation for version 2.1.1][docs].
 

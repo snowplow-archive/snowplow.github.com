@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of version 0.4.0 of the Snowplow Ruby Tracker. This release adds several methods to help identify users using client-side data.
+We are pleased to announce the release of version 0.4.0 of the Snowplow Ruby Tracker. This release adds several methods to help identify users using client-side data, making the Ruby Tracker much more powerful when used from a Ruby web or e-commerce framework such as [Rails] [rails], [Sinatra] [sinatra] or [Spree] [spree].
 
 The rest of this post will cover:
 
@@ -72,6 +72,10 @@ Useful links:
 * The [0.4.0 release notes][tracker-040]
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. This is only the second release of the Ruby Tracker, so we're keen to hear people's opinions. And [raise an issue] [issues] if you spot any bugs!
+
+[rails]: rubyonrails.org
+[sinatra]: http://www.sinatrarb.com/
+[spree]: http://spreecommerce.com/
 
 [js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
 [id-cookie]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#the-id-cookie

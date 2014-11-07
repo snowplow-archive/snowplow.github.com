@@ -11,10 +11,10 @@ We are pleased to announce the release of version 0.4.0 of the Snowplow Ruby Tra
 
 The rest of this post will cover:
 
-1. [`set_ip_address`](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#ip)
-2. [`set_useragent_user_id`](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#ua)
-3. [`set_domain_user_id`](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#nuid)
-4. [`set_network_user_id`](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#duid)
+1. [set_ip_address](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#ip)
+2. [set_useragent_user_id](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#ua)
+3. [set_domain_user_id](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#nuid)
+4. [set_network_user_id](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#duid)
 5. [Other changes](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#other)
 6. [Getting help](/blog/2014/11/07/snowplow-ruby-tracker-0.4.0-released/#help)
 

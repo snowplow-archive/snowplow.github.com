@@ -54,7 +54,7 @@ The `network_userid` field is a user ID set by Snowplow's [Clojure Collector][cl
 subject.set_network_user_id("ecdff4d0-9175-40ac-a8bb-325c49733607")
 ```
 
-**Please note that this functionality is dependent on [issue #1095] [issue-1095] in the core Snowplow project, which has not yet been released.**
+**Please note that making use of this functionality in Snowplow is dependent on [issue #1095] [issue-1095] in the core Snowplow project, which has not yet been released.**
 
 <h2><a name="other">5. Other changes</a></h2>
 
@@ -93,4 +93,4 @@ If you have an idea for a new feature or want help getting things set up, please
 [issue-52]: https://github.com/snowplow/snowplow-ruby-tracker/issues/52
 [issue-45]: https://github.com/snowplow/snowplow-ruby-tracker/issues/45
 
-[tracker-030]: https://github.com/snowplow/snowplow-ruby-tracker/releases/tag/0.4.0
+[tracker-040]: https://github.com/snowplow/snowplow-ruby-tracker/releases/tag/0.4.0

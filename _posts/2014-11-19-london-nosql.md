@@ -7,7 +7,7 @@ author: Alex
 category: Other
 ---
 
-It was great to have the opportunity to talk at [London NoSQL] [london-nosql] earlier this week on Snowplow's journey from NoSQL to SQL, and then "back again". Many thanks to Couchbase developer evangelist Matthew Revell for inviting me!
+It was great to have the opportunity to talk at [London NoSQL] [london-nosql] earlier this week on Snowplow's journey from NoSQL to SQL, and then back to a hybrid model supporting multiple storage targets. Many thanks to Couchbase developer evangelist Matthew Revell for inviting me!
 
 My talk took us through Snowplow's journey from using NoSQL (via Amazon S3 and Hive), to columnar storage (via Amazon Redshift and PostgreSQL), and most recently to a mixed model of NoSQL and SQL, including S3, Redshift and Elasticsearch. Preparing for the talk was also a great opportunity for me to really think through and write down Snowplow's evolution over the last two years from a data storage perspective.
 

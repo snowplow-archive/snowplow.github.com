@@ -7,7 +7,9 @@ author: Fred
 category: Releases
 ---
 
-Back in February, we introduced initial support for real-time event analytics using [Amazon Kinesis][kinesis]. We are excited to announce the release of Snowplow version 0.9.12 in which we begin to improve and extended this support. The major features of this release are the introduction of a stream for bad rows and the new Kinesis Elasticsearch Sink which consumes a stream of enriched Snowplow events (or bad rows) and writes them to [Elasticsearch][elasticsearch]. It also makes some improvements to Snowplow Common Enrich and Hadoop Enrich. Read on for more information...
+Back in February, we introduced initial support for real-time event analytics using [Amazon Kinesis][kinesis]. We are excited to announce the release of Snowplow 0.9.12 which improves and extends our Kinesis support. The major new features are the introduction of a stream for bad rows and the new Kinesis Elasticsearch Sink which consumes a stream of enriched Snowplow events (or bad rows) and writes them to [Elasticsearch][elasticsearch].
+
+This release also makes some improvements to Snowplow Common Enrich and Hadoop Enrich which should be valuable for users of our batch-based event pipeline. Sections below the fold are as follows:
 
 1. [Bad rows stream](/blog/2014/xx/xx/snowplow-0.9.12-released-with-beta-elasticsearch-support/#bad)
 2. [Snowplow Elasticsearch Sink](/blog/2014/xx/xx/snowplow-0.9.12-released-with-beta-elasticsearch-support/#elasticsearch)
@@ -26,19 +28,19 @@ Back in February, we introduced initial support for real-time event analytics us
 
 <h2><a name="bad">1. Bad rows stream</a></h2>
 
-The enrichment process now outputs bad rows to a separate stream. If you are using "local mode", the separate stream will be stderr; otherwise it will be a Kinesis stream specified in the configuration file.
+The Kinesis-based enrichment process now outputs bad rows to a separate stream. If you are using "local mode", the separate stream will be `stderr`; otherwise it will be a Kinesis stream specified in the configuration file.
 
-Bad rows are converted to JSONs with a "line" field and an "errors" field. The "line" field contains the input serialized Thrift byte array which failed enrichment, base 64 encoded. The "errors" field is an array of error messages explaining what was wrong with the input.
+Bad rows are converted to JSONs with a "line" field and an "errors" field. The "line" field contains the input serialized Thrift byte array which failed enrichment, Base64-encoded. The "errors" field is an array of error messages explaining what was wrong with the input.
 
 <h2><a name="elasticsearch">2. Snowplow Elasticsearch Sink</a></h2>
 
-The new Snowplow Elasticsearch Sink reads events from a Kinesis stream, transforms them into JSON, and writes them to an Elasticsearch cluster in real time. It can be configured to read from either a stream of successfully enriched Snowplow events or a stream of failed events.
+The new Snowplow Elasticsearch Sink reads events from a Kinesis stream, transforms them into JSON, and writes them to an [Elasticsearch][elasticsearch] cluster in real time. It can be configured to read from either a stream of successfully enriched Snowplow events or the new bad rows stream.
 
-If the sink cannot convert an event to JSON or the JSON is rejected by Elasticsearch, the failed event will be written to a Kinesis stream along with a message explaining what went wrong.
+If the sink cannot convert an event to JSON or the JSON is rejected by Elasticsearch, the failed event will be written to a Kinesis bad rows stream along with a message explaining what went wrong.
 
 The sink uses the [Amazon Kinesis Connector Library][akcl].
 
-The jar is available from
+The jar is available from:
 
 ```
 https://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/4-storage/kinesis-elasticsearch-sink/snowplow-elasticsearch-sink-0.1.0
@@ -60,7 +62,7 @@ For more information about the Snowplow Elasticsearch Sink, see these wiki pages
 Scala Kinesis Enrich now uses the latest version of Scala Common Enrich, the library shared by Scala Hadoop Enrich and Scala Kinesis Enrich. This means that it supports [configurable enrichments][configurable-enrichments]. You can use the --enrichments command line option to pass a directory of enrichment configuration JSONs like this:
 
 ```bash
-$ sbt "run --config my.conf --enrichments path/to/enrichment-directory"
+$ ./scala-kinesis-enrich-0.2.0 --config my.conf --enrichments path/to/enrichment-directory"
 ```
 
 The enrichments directory replaces the "anon_ip" and "geo_ip" fields in the config file. Instead create anon_ip.json and ip_lookups.json configuration JSONs in the enrichments directory.
@@ -73,13 +75,13 @@ A positive side effect of this transition is that Kinesis Enrich no longer opens
 
 <h2><a name="pkallos">4. Phil Kallos' contributions</a></h2>
 
-We are indebted to community member Phil Kallos (@pkallos on GitHub) who contributed several improvements to the Kinesis flow:
+We are hugely indebted to community member Phil Kallos ([@pkallos] [pkallos]) who contributed several key improvements to the Kinesis flow:
 
 * Improved performance for the Scala Stream Collector through concurrency
 * The ability to run the enrichment process without needing permission for the kinesis:ListStreams action
 * The ability to configure the AWS access key and secret key from the scalazon CredentialsProvider.InstanceProfile object by setting the access-key and secret-key configuration fields to "iam"
 
-Thanks a lot Phil!
+And there are more pull requests from Phil to be merged into future Kinesis releases too. Big thanks Phil!
 
 <h2><a name="credentials">5. Configuring AWS credentials</a></h2>
 
@@ -152,7 +154,7 @@ s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.10.0.jar
 
 <h2><a name="help">12. Getting help</a></h2>
 
-Documentation for the Kinesis flow is available on the [wiki][docs]. If you want help getting set up please [talk to us][talk-to-us]. This is still only the second version, so if you find a bug, [raise an issue][issues]!
+Documentation for the Kinesis flow is available on the [wiki][docs]. If you want help getting set up please [talk to us][talk-to-us]. This is still only our second release on the Kinesis flow, so if do you find a bug, [raise an issue][issues]!
 
 [kinesis]: http://aws.amazon.com/kinesis/
 [elasticsearch]: http://www.elasticsearch.org/
@@ -161,6 +163,7 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 [enrichments-example]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [iglu]: https://github.com/snowplow/iglu-scala-client
 [slf4j]: http://www.slf4j.org/
+[pkallos]: https://github.com/pkallos/
 [spray-can]: http://spray.io/documentation/1.1-SNAPSHOT/spray-can/
 [ssc-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
 [ske-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf

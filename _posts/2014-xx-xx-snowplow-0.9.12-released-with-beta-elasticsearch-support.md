@@ -62,16 +62,16 @@ For more information about the Snowplow Elasticsearch Sink, see these wiki pages
 Scala Kinesis Enrich now uses the latest version of Scala Common Enrich, the library shared by Scala Hadoop Enrich and Scala Kinesis Enrich. This means that it supports [configurable enrichments][configurable-enrichments]. You can use the --enrichments command line option to pass a directory of enrichment configuration JSONs like this:
 
 ```bash
-$ ./scala-kinesis-enrich-0.2.0 --config my.conf --enrichments path/to/enrichment-directory"
+$ ./scala-kinesis-enrich-0.2.0 --config my.conf --enrichments path/to/enrichment-directory
 ```
 
-The enrichments directory replaces the "anon_ip" and "geo_ip" fields in the config file. Instead create anon_ip.json and ip_lookups.json configuration JSONs in the enrichments directory.
+The enrichments directory replaces the "anon_ip" and "geo_ip" fields in the config file. Instead, create anon_ip.json and ip_lookups.json configuration JSONs in the enrichments directory.
 
 Sensible defaults for all available enrichments can be found [here][enrichments-example].
 
-The Scala Kinesis Enrich configuration HOCON now requires a "resolver" field which is used to configure the [Iglu][iglu] Resolver used to validate the enrichment configuration JSONs.
+The Scala Kinesis Enrich [HOCON] [hocon] configuration file now requires a "resolver" field which is used to configure the [Iglu][iglu] Resolver used to validate the enrichment configuration JSONs.
 
-A positive side effect of this transition is that Kinesis Enrich no longer opens a MaxMind database file every time an event is enriched, so the problem of eventually running out of file handles is avoided.
+As part of this update, we have also fixed the bug whereby Kinesis Enrich opened a MaxMind database file every time an event is enriched (!).
 
 <h2><a name="pkallos">4. Phil Kallos' contributions</a></h2>
 
@@ -79,13 +79,15 @@ We are hugely indebted to community member Phil Kallos ([@pkallos] [pkallos]) wh
 
 * Improved performance for the Scala Stream Collector through concurrency
 * The ability to run the enrichment process without needing permission for the kinesis:ListStreams action
-* The ability to configure the AWS access key and secret key from the scalazon CredentialsProvider.InstanceProfile object by setting the access-key and secret-key configuration fields to "iam"
+* The ability to configure the AWS access key and secret key from Scalazon's `CredentialsProvider.InstanceProfile` object by setting the access-key and secret-key configuration fields to "iam"
 
 And there are more pull requests from Phil to be merged into future Kinesis releases too. Big thanks Phil!
 
 <h2><a name="credentials">5. Configuring AWS credentials</a></h2>
 
-In addition to Phil's contribution, this release adds another way to configure the AWS credentials required to use Amazon Kinesis. If you replace the access-key and secret-key values in the HOCON configuration with "env", they will be set from the environment variables "AWS_ACCESS_KEY_ID" and "AWS_SECRET_ACCESS_KEY". This is useful if you want to keep your credentials out of GitHub.
+In addition to Phil's contribution on AWS credentials, this release adds another way to configure the AWS credentials required to use Amazon Kinesis. If you replace the access-key and secret-key values in the HOCON configuration with "env", they will be set from the environment variables "AWS_ACCESS_KEY_ID" and "AWS_SECRET_ACCESS_KEY".
+
+This is useful if you want to keep your credentials out of GitHub.
 
 <h2><a name="maxmind">6. Configurable Kinesis endpoint</a></h2>
 
@@ -93,22 +95,7 @@ Huge thanks to Sam Mason (@sambo1972 on GitHub) who contributed the ability to c
 
 ```
 streams {
-	in: {
-		raw: "SnowplowRaw"
-	}
-	out: {
-		enriched: "SnowplowEnriched"
-		enriched_shards: 1 # Number of shards to use if created.
-		bad: "SnowplowBad" # Not used until #463
-		bad_shards: 1 # Number of shards to use if created.
-	}
-	# `app-name` is used for a DynamoDB table to maintain stream state.
-	app-name: SnowplowKinesisEnrich-${enrich.streams.in.raw}
-	# LATEST: most recent data.
-	# TRIM_HORIZON: oldest available data.
-	# Note: This only effects the first run of this application
-	# on a stream.
-	initial-position = "TRIM_HORIZON"
+	...
 	region: "ap-southeast-2"
 }
 ```
@@ -161,6 +148,7 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 [akcl]: https://github.com/awslabs/amazon-kinesis-connectors/
 [configurable-enrichments]: http://snowplowanalytics.com/blog/2014/07/26/snowplow-0.9.6-released-with-configurable-enrichments/
 [enrichments-example]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
+[hocon]: https://github.com/typesafehub/config/blob/master/HOCON.md
 [iglu]: https://github.com/snowplow/iglu-scala-client
 [slf4j]: http://www.slf4j.org/
 [pkallos]: https://github.com/pkallos/

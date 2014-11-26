@@ -9,7 +9,7 @@ category: Releases
 
 Back in February, we introduced initial support for real-time event analytics using [Amazon Kinesis][kinesis]. We are excited to announce the release of Snowplow 0.9.12 which improves and extends our Kinesis support. The major new features are the introduction of a stream for bad rows and the new Kinesis Elasticsearch Sink which consumes a stream of enriched Snowplow events (or bad rows) and writes them to [Elasticsearch][elasticsearch].
 
-This release also makes some improvements to Snowplow Common Enrich and Hadoop Enrich which should be valuable for users of our batch-based event pipeline. Sections below the fold are as follows:
+This release also makes some improvements to Snowplow Common Enrich and Hadoop Enrich which should be invaluable for users of our batch-based event pipeline. Sections below the fold are as follows:
 
 1. [Bad rows stream](/blog/2014/xx/xx/snowplow-0.9.12-released-with-beta-elasticsearch-support/#bad)
 2. [Snowplow Elasticsearch Sink](/blog/2014/xx/xx/snowplow-0.9.12-released-with-beta-elasticsearch-support/#elasticsearch)
@@ -92,7 +92,7 @@ This is useful if you want to keep your credentials out of GitHub.
 
 <h2><a name="maxmind">6. Configurable Kinesis endpoint</a></h2>
 
-Huge thanks to Sam Mason (@sambo1972 on GitHub) who contributed the ability to configure the Kinesis endpoint. In the "streams" section of the configuration HOCON, add the intended endpoint like so:
+Huge thanks to Sam Mason ([@sambo1972] [sambo1972]) who contributed the ability to configure the Kinesis endpoint. In the "streams" section of the configuration HOCON, add the intended endpoint like so:
 
 ```
 streams {
@@ -101,11 +101,11 @@ streams {
 }
 ```
 
-The same goes for the "stream" section of the Scala Stream Collector configuration HOCON.
+The same goes for the "stream" section of the Scala Stream Collector's HOCON configuration file.
 
 <h2><a name="character-limit">7. HTTP request character limit override</a></h2>
 
-Community member Yuval Herziger (@yuvalherziger on GitHub) noticed that version 0.1.0 of the Scala Stream Collector only accepted requests of up to 2048 characters. He discovered how to override this restriction by configuring [spray-can][spray-can] (the HTTP server which the collector uses) and his fix has been incorporated into the default configuration files. Thanks Yuval!
+Community member Yuval Herziger ([@yuvalherziger] [yuvalherziger]) noticed that version 0.1.0 of the Scala Stream Collector only accepted requests of up to 2048 characters. He discovered how to override this restriction by configuring [spray-can][spray-can] (the HTTP server which the collector uses) and his fix has been incorporated into the default configuration files. Thanks Yuval!
 
 <h2><a name="logging">8. Logging</a></h2>
 
@@ -119,7 +119,7 @@ If you have access to the network user ID cookie set by the [Clojure Collector][
 
 <h2><a name="netaporter">10. More relaxed URI parsing</a></h2>
 
-Big thanks to @rupeshmane, who used the [NET-A-PORTER][netaporter] URI parsing library to make the enrichment process more forgiving of non-compliant URIs. Many URIs which would previously fail with an error, for example due to containing illegal characters such as `|`, can now be parsed.
+Big thanks to Rupesh Mane ([@rupeshmane] [rupeshmane]), who used the [NET-A-PORTER][netaporter] URI parsing library to make the enrichment process more forgiving of non-compliant URIs. Many URIs which would previously fail with an error, for example due to containing illegal characters such as `|`, can now be parsed.
 
 This should significantly reduce the number of events which end up in the bad rows bucket due to malformed page or referer URIs.
 
@@ -159,7 +159,19 @@ For a complete example, see our [sample `config.yml` template] [emretlrunner-con
 
 <h2><a name="roadmap-etc">12. Roadmap and contributing</a></h2>
 
-SECTION TO COME.
+We have plenty more planned for the Kinesis event pipeline! You can find the next milestones here:
+
+* [Third Kinesis Release] [kinesis-release-3]
+* [Fourth Kinesis Release] [kinesis-release-4]
+
+Beyond these releases, our further plans for the Kinesis flow include:
+
+* Analytics-on-write leveraging the new [Amazon Kinesis Aggregators] [kinesis-aggs] framework
+* Real-time shredding of events into Redshift and other columnar databases
+* Support for other storage types including timeseries, in-memory grids
+* In-stream decisioning, alerting and response loops
+
+We have been amazed by the quality and breadth of the community contributions to the Kinesis pipeline so far - 
 
 <h2><a name="help">13. Getting help</a></h2>
 
@@ -173,11 +185,19 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 [hocon]: https://github.com/typesafehub/config/blob/master/HOCON.md
 [iglu]: https://github.com/snowplow/iglu-scala-client
 [slf4j]: http://www.slf4j.org/
-[pkallos]: https://github.com/pkallos/
+[pkallos]: https://github.com/pkallos
+[sambo1972]: https://github.com/sambo1972
+[yuvalherziger]: https://github.com/yuvalherziger
+[rupeshmane]: https://github.com/rupeshmane
 [spray-can]: http://spray.io/documentation/1.1-SNAPSHOT/spray-can/
 [ssc-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
 [ske-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
 [clojure-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector
+
+[kinesis-release-3]: https://github.com/snowplow/snowplow/milestones/Third%20Kinesis%20Release	
+[kinesis-release-4]: https://github.com/snowplow/snowplow/milestones/Fourth%20Kinesis%20Release
+[kinesis-aggs]: https://github.com/awslabs/amazon-kinesis-aggregators
+
 [netaporter]: https://github.com/NET-A-PORTER/scala-uri
 [docs]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [elasticsearch-setup]: https://github.com/snowplow/snowplow/wiki/kinesis-elasticsearch-sink-setup

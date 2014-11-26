@@ -34,23 +34,17 @@ Bad rows are converted to JSONs with a "line" field and an "errors" field. The "
 
 <h2><a name="elasticsearch">2. Snowplow Elasticsearch Sink</a></h2>
 
-The new Snowplow Elasticsearch Sink reads events from a Kinesis stream, transforms them into JSON, and writes them to an [Elasticsearch][elasticsearch] cluster in real time. It can be configured to read from either a stream of successfully enriched Snowplow events or the new bad rows stream.
+The new Snowplow Elasticsearch Sink reads events from a Kinesis stream, transforms them into JSON, and writes them to an [Elasticsearch][elasticsearch] cluster in real time. It can be configured to read from either a stream of successfully enriched Snowplow events or the new bad rows stream. The sink uses the [Amazon Kinesis Connector Library][akcl].
+
+The overall architecture now looks like this:
+
+![architecture](/assets/img/blog/2014/11/kinesis-elasticsearch-release.png)
 
 If the sink cannot convert an event to JSON or the JSON is rejected by Elasticsearch, the failed event will be written to a Kinesis bad rows stream along with a message explaining what went wrong.
 
-The sink uses the [Amazon Kinesis Connector Library][akcl].
+The jar is available from Snowplow Hosted Assets as [snowplow-elasticsearch-sink-0.1.0] [es-sink-asset].
 
-The jar is available from:
-
-```
-https://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/4-storage/kinesis-elasticsearch-sink/snowplow-elasticsearch-sink-0.1.0
-```
-
-and a sample configuration file can be found at
-
-```
-https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
-```
+A sample configuration file can be found in our GitHub as [application.conf.example] [es-sink-config].
 
 For more information about the Snowplow Elasticsearch Sink, see these wiki pages:
 
@@ -61,9 +55,9 @@ For more information about the Snowplow Elasticsearch Sink, see these wiki pages
 
 Scala Kinesis Enrich now uses the latest version of Scala Common Enrich, the library shared by Scala Hadoop Enrich and Scala Kinesis Enrich. This means that it supports [configurable enrichments][configurable-enrichments]. You can use the --enrichments command line option to pass a directory of enrichment configuration JSONs like this:
 
-```bash
+{% highlight bash %}
 $ ./scala-kinesis-enrich-0.2.0 --config my.conf --enrichments path/to/enrichment-directory
-```
+{% endhighlight %}
 
 The enrichments directory replaces the "anon_ip" and "geo_ip" fields in the config file. Instead, create anon_ip.json and ip_lookups.json configuration JSONs in the enrichments directory.
 
@@ -93,12 +87,12 @@ This is useful if you want to keep your credentials out of GitHub.
 
 Huge thanks to Sam Mason ([@sambo1972] [sambo1972]) who contributed the ability to configure the Kinesis endpoint. In the "streams" section of the configuration HOCON, add the intended endpoint like so:
 
-```
+{% highlight json %}
 streams {
 	...
 	region: "ap-southeast-2"
 }
-```
+{% endhighlight %}
 
 The same goes for the "stream" section of the Scala Stream Collector's HOCON configuration file.
 
@@ -188,6 +182,9 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 [ssc-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
 [ske-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
 [clojure-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector
+
+[es-sink-asset]: https://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/4-storage/kinesis-elasticsearch-sink/snowplow-elasticsearch-sink-0.1.0
+[es-sink-config]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
 
 [kinesis-release-3]: https://github.com/snowplow/snowplow/milestones/Third%20Kinesis%20Release	
 [kinesis-release-4]: https://github.com/snowplow/snowplow/milestones/Fourth%20Kinesis%20Release

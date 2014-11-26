@@ -34,6 +34,10 @@ Bad rows are converted to JSONs with a "line" field and an "errors" field. The "
 
 The new Snowplow Elasticsearch Sink reads events from a Kinesis stream, transforms them into JSON, and writes them to an Elasticsearch cluster in real time. It can be configured to read from either a stream of successfully enriched Snowplow events or a stream of failed events.
 
+If the sink cannot convert an event to JSON or the JSON is rejected by Elasticsearch, the failed event will be written to a Kinesis stream along with a message explaining what went wrong.
+
+The sink uses the [Amazon Kinesis Connector Library][akcl].
+
 The jar is available from
 
 ```
@@ -152,6 +156,7 @@ Documentation for the Kinesis flow is available on the [wiki][docs]. If you want
 
 [kinesis]: http://aws.amazon.com/kinesis/
 [elasticsearch]: http://www.elasticsearch.org/
+[akcl]: https://github.com/awslabs/amazon-kinesis-connectors/
 [configurable-enrichments]: http://snowplowanalytics.com/blog/2014/07/26/snowplow-0.9.6-released-with-configurable-enrichments/
 [enrichments-example]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [iglu]: https://github.com/snowplow/iglu-scala-client

@@ -7,11 +7,15 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of version 2.2.0 of the [Snowplow JavaScript Tracker][repo]. This release improves the Tracker's callback support, making it possible to use access previously internal variables such as the tracker-generated user fingerprint and user ID.
+We are happy to announce the release of version 2.2.0 of the [Snowplow JavaScript Tracker][repo]. This release improves the Tracker's callback support, making it possible to use access previously internal variables such as the tracker-generated user fingerprint and user ID. It also adds the option to disable the Tracker's use of `localStorage` and first-party cookies.
 
-This blog post will cover the following topics:
+The rest of this blog post will cover the following topics:
 
 1. [More powerful callbacks](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#callbacks)
+2. [Disabling localStorage and cookies](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#localstorage)
+3. [Non-integer offsets](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#offsets)
+4. [Upgrading](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#upgrading)
+5. [Getting help](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#help)
 
 <!--more-->
 
@@ -65,31 +69,46 @@ The domainUserInfo variable will be an array containing 6 elements:
 4. The timestamp for the current visit
 5. The timestamp of the last visit
 
+This change is backward-compatible unless you were relying on your callback function being executed in the global context (meaning that `this` is set to `window`).
+
+<h2><a name="localstorage">2. Disabling localStorage and cookies=</a></h2>
+
+The Snowplow JavaScript Tracker maintains a queue of events that have failed to send. This means that if a visitor loses and later regains connectivity, no data will be lost. By default the tracker will use `localStorage` to store this queue so the events are recoverable even after the user leaves the site.
+
+You can now disable this use of `localStorage` by setting a flag in the argmap used to create a new tracker instance. You can also disable the use of first-party cookies:
+
+{% highlight javascript %}
+// Configure a tracker instance named "cf"
+snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
+	appId: 'snowplowExampleApp',
+	platform: 'web',
+
+	// disable localStorage
+	useLocalStorage: false,
+
+	// disable first-party cookies
+	useCookies: false
+});
+{% endhighlight %}
+
+<h2><a name="offsets">3. Non-integer offsets</a></h2>
+
+Snowplow page ping events include the maximum and minimum scroll distances since the last page ping. We found that it is possible for the scroll values reported by the browser to not be whole numbers, causing the event to fail enrichment (which requires these fields to be integers). We have fixed this bug by rounding the relevant values to the nearest integer.
+
+<h2><a name="upgrading">4. Upgrading</a></h2>
+
+The new minified and gzipped JavaScript is available at
+
+`http(s)://d1fc8wv8zag5ca.cloudfront.net/2.2.0/sp.js`
+
+<h2><a name="help">5. Getting help</a></h2>
+
+Check out the [documentation][docs] for more help and examples.
+
+If you have any suggestions for new features or need help getting set up, please [get in touch][talk-to-us]. And [raise an issue][issues] if you spot a bug!
+
 [repo]: https://github.com/snowplow/snowplow-javascript-tracker
-[change_form]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/change_form/jsonschema/1-0-0
-[submit_form]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/submit_form/jsonschema/1-0-0
-[social_interaction]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/social_interaction/jsonschema/1-0-0
-[add_to_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/add_to_cart/jsonschema/1-0-0
-[remove_from_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/remove_from_cart/jsonschema/1-0-0
-[site_search]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/site_search/jsonschema/1-0-0
-[performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
-[navigationtiming]: https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html
-[tracker-core]: https://www.npmjs.org/package/snowplow-tracker-core
 [nodejs-tracker]: https://github.com/snowplow/snowplow-nodejs-tracker
-[async-large]: https://github.com/snowplow/snowplow-javascript-tracker/blob/master/examples/web/async-large.html
 [docs]: https://github.com/snowplow/snowplow/wiki/Javascript-Tracker
-
-[0.9.10-release]: /blog/2014/11/06/snowplow-0.9.10-released-for-js-tracker-2.1.0-support/
-
-
-[204]: https://github.com/snowplow/snowplow-javascript-tracker/issues/204
-[254]: https://github.com/snowplow/snowplow-javascript-tracker/issues/254
-[266]: https://github.com/snowplow/snowplow-javascript-tracker/issues/266
-[267]: https://github.com/snowplow/snowplow-javascript-tracker/issues/267
-[216]: https://github.com/snowplow/snowplow-javascript-tracker/issues/216
-[150]: https://github.com/snowplow/snowplow-javascript-tracker/issues/150
-[76]: https://github.com/snowplow/snowplow-javascript-tracker/issues/76
-[169]: https://github.com/snowplow/snowplow-javascript-tracker/issues/169
-
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

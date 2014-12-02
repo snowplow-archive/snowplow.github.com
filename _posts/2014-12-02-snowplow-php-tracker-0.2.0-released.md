@@ -62,7 +62,7 @@ $emitter = new SyncEmitter("d3rkrsqld9gmqf.cloudfront.net", "http", "POST", 50, 
 
 The `File` emitter does not yet have debugging included, however because we are essentially repurposing the `Curl` emitter, if the latter works the former should have no issues.
 
-All debug files will be logged at this address: `project_root\vendor\snowplow-tracker\debug\sync-events-[[random_number]].log`.
+All debug files will be logged at this address: `project_root\vendor\snowplow-tracker\debug\sync-events-[[random number]].log`.
 
 For more information on debugging please consult the [wiki][technical-documentation].
 

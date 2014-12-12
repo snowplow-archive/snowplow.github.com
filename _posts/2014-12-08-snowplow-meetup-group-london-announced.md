@@ -19,6 +19,10 @@ We're really excited about these meetups - we hope that they'll be great occasio
 
 So please [sign up][london-meetup]! If you can't make it to London or Sydney, but think we should be organising something in your city, then let us know and we'll see what we can do. We're planning the first event in London to take place towards the end of January or beginning of February, once 2015 has started motoring. And we're looking for speakers to share some particular project or approach they've completed using Snowplow - so get in touch!
 
+## Update: London date, location and sponsor announced!
+
+The inaugural Snowplow London meetup will take place on February 4th at the [Simply Business](http://www.simplybusiness.co.uk/) [office in Finsbury Square](https://www.google.co.uk/maps/place/Simply+Business/@51.520413,-0.087337,17z/data=!3m1!4b1!4m2!3m1!1s0x48761caeaf8f638d:0x70f23f24baccffdc). Huge thanks to the Stewart and the rest of the Simply Business team for sponsoring the event (including providing pizzas and beers)! Don't forget to sign up [here][london-meetup].
+
 [meetup-logo]: /assets/img/blog/2014/12/large_meetup_logo.png
 [sydney-meetup]: http://www.meetup.com/Snowplow-Analytics-Sydney/
 [london-meetup]: http://www.meetup.com/Snowplow-Analytics-London/events/219130902/

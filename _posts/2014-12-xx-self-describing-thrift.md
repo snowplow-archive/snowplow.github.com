@@ -149,7 +149,8 @@ We intend to store our Thrift schemas in [Iglu][iglu], the Snowplow schema repos
 The version of a Thrift schema stored in Iglu has three digits: model, addition, and patch.
 
 Model: Incremented when a change is made which breaks the rules of Thrift backward compatibility, such as changing the type of a field.
-Addition: Incremented for backward-compatible changes.
+Revision: a change which is backward compatible but not forward compatible. Records created from the old version of the schema can be deserialized using the new schema, but not the other way around. Example: adding a new field to a union type.
+Addition: a change which is both backward compatible and forward compatible. The previous version of the schema can be used to deserialize records created from the new version of the schema, and vice versa. Example: adding a new optional field.
 Patch: Incremented for changes which fix mistakes rather than changes to the model of the data.
 
 The package of the generated class has four parts: the reverse domain name of the creator of the schema (e.g. "com.snowplowanalytics.snowplow"), the name of the schema (e.g. "SnowplowRawEvent"), the type of the schema (always "thrift" for Thrift schemas), and the version (e.g. "v1"). The "v" before the version number is necessary to make the package name legal. Note that the package name only includes the model version, not the addition or patch. Because of the way that addition is defined, there is never any downside to using the latest addition for a given model. And since patches are essentially bugfixes, there is no reason not to use the latest patch.

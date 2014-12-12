@@ -36,13 +36,15 @@ As well as reducing the flexibility of your schemas by constraining how they can
 
 More generally, if don't have any idea how a given Thrift record was generated, it is very difficult to find out: you would need to check which tag numbers are present in the binary format and search for legacy IDLs which use the same tags.
 
+For more information on backward compatibility in Thrift schemas, see [this page][backward-compatibility-rules].
+
 <h2 name="field">3. Adding a schema field</h2>
 
-We solved a similar problem for JSONs using [self-describing JSON][self-describing-json], adding a field to all incoming JSONs which pointed to the schema which describes the JSON. A similar approach works for Thrift.
+We solved a similar problem for JSONs using [self-describing JSON][self-describing-json], adding a field to all incoming JSONs which pointed to the schema which describes the JSON. The same approach works for Thrift. Martin Kleppmann made a proposal for Avro http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html
 
 In a Thrift schema, each field is assigned a tag. It must be a nonnegative integer. This tag is stored in the binary encoding and used in deserialization.
 
-We propose to make Thrift self-describing by adding a "schema" field to all Thrift structs. The schema field would point to the IDL used to define how the byte array should be deserialized. The schema field would always have the same tag - we suggest 31337. This number was picked because it is unlikely to be used in existing struct definitions, making it unlikely that non-self-describing byte arrays will be inaccurately identified as self-describing.
+We propose to make Thrift self-describing by adding a "schema" field to all Thrift structs. (Martin Kleppmann suggested [something similar][kleppmann] for Avro.) The schema field would point to the IDL used to define how the byte array should be deserialized. The schema field would always have the same tag - we suggest 31337. This number was picked because it is unlikely to be used in existing struct definitions, making it unlikely that non-self-describing byte arrays will be inaccurately identified as self-describing.
 
 The schema field is a place to store metadata about the record. Given a self-describing Thrift record of uncertain origin, we can pull out the schema field (because we know its tag number) and use it to decide how to treat the record.
 
@@ -160,3 +162,5 @@ This proposal is still at the draft stage so we are interested in hearing about 
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/12/xx/self-describing-thrift/
 [iglu]: https://github.com/snowplow/iglu
 [contact]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[backward-compatibility-rules]: http://architects.dzone.com/articles/big-data-chapter-excerpt
+[kleppmann]: http://martin.kleppmann.com/2012/12/05/schema-evolution-in-avro-protocol-buffers-thrift.html

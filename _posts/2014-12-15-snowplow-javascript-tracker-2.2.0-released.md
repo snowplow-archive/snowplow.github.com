@@ -73,7 +73,7 @@ This change is backward-compatible unless you were relying on your callback func
 
 We would like to thank Snowplow community member Rob Murphy ([@murphybob] [murphybob]) for his help developing this feature!
 
-<h2><a name="localstorage">2. Disabling localStorage and cookies=</a></h2>
+<h2><a name="localstorage">2. Disabling localStorage and cookies</a></h2>
 
 The Snowplow JavaScript Tracker maintains a queue of events that have failed to send. This means that if a visitor loses and later regains connectivity, no data will be lost. By default the tracker will use `localStorage` to store this queue so the events are recoverable even after the user leaves the site.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 shortenedlink: JavaScript Tracker 2.2.0 released
-title: Snowplow JavaScript Tracker 2.1.1 released
+title: Snowplow JavaScript Tracker 2.2.0 released
 tags: [snowplow, javascript, tracker, event]
 author: Fred
 category: Releases
@@ -11,12 +11,11 @@ We are happy to announce the release of version 2.2.0 of the [Snowplow JavaScrip
 
 The rest of this blog post will cover the following topics:
 
-1. [More powerful callbacks](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#callbacks)
-2. [Disabling localStorage and cookies](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#localstorage)
-3. [Non-integer offsets](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#offsets)
-4. [Updated custom contexts schema](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#contexts)
-5. [Upgrading](/blog/2014/11/xx/snowplow-javascript-tracker-2.2.0-released/#upgrading)
-6. [Getting help](/blog/2014/11/06/snowplow-javascript-tracker-2.1.1-released/#help)
+1. [More powerful callbacks](/blog/2014/12/15/snowplow-javascript-tracker-2.2.0-released/#callbacks)
+2. [Disabling localStorage and cookies](/blog/2014/12/15/snowplow-javascript-tracker-2.2.0-released/#localstorage)
+3. [Non-integer offsets](/blog/2014/12/15/snowplow-javascript-tracker-2.2.0-released/#offsets)
+4. [Upgrading](/blog/2014/12/15/snowplow-javascript-tracker-2.2.0-released/#upgrading)
+5. [Getting help](/blog/2014/12/15/snowplow-javascript-tracker-2.2.0-released/#help)
 
 <!--more-->
 
@@ -72,7 +71,7 @@ The domainUserInfo variable will be an array containing 6 elements:
 
 This change is backward-compatible unless you were relying on your callback function being executed in the global context (meaning that `this` is set to `window`).
 
-We would like to thank Snowplow community member Rob Murphy (@murphybob on GitHub) for his help developing this feature!
+We would like to thank Snowplow community member Rob Murphy ([@murphybob] [murphybob]) for his help developing this feature!
 
 <h2><a name="localstorage">2. Disabling localStorage and cookies=</a></h2>
 
@@ -94,29 +93,27 @@ snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 });
 {% endhighlight %}
 
+Disabling first-party cookies can be useful if you are deploying the JavaScript Tracker in an environment where first-party cookies are forbidden (for example, in ad tags running on Google domains).
+
 <h2><a name="offsets">3. Non-integer offsets</a></h2>
 
 Snowplow page ping events include the maximum and minimum scroll distances since the last page ping. We found that it is possible for the scroll values reported by the browser to not be whole numbers, causing the event to fail enrichment (which requires these fields to be integers). We have fixed this bug by rounding the relevant values to the nearest integer.
 
-<h2><a name="contexts">4. Updated custom contexts schema</a></h2>
-
-We have also released a new version of the [Tracker Core][core]. The [schema][contexts-schema] used to validate arrays of custom contexts has been made more permissive, allowing empty arrays. Because of this, the tracker no longer needs to drop empty custom context arrays from the querystring.
-
-<h2><a name="upgrading">5. Upgrading</a></h2>
+<h2><a name="upgrading">4. Upgrading</a></h2>
 
 The new minified and gzipped JavaScript is available at
 
 `http(s)://d1fc8wv8zag5ca.cloudfront.net/2.2.0/sp.js`
 
-<h2><a name="help">6. Getting help</a></h2>
+<h2><a name="help">5. Getting help</a></h2>
 
 Check out the [documentation][docs] for more help and examples.
 
 If you have any suggestions for new features or need help getting set up, please [get in touch][talk-to-us]. And [raise an issue][issues] if you spot a bug!
 
+[murphybob]: https://github.com/murphybob
 [repo]: https://github.com/snowplow/snowplow-javascript-tracker
 [core]: https://www.npmjs.org/package/snowplow-tracker-core
-[contexts-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1
 [docs]: https://github.com/snowplow/snowplow/wiki/Javascript-Tracker
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

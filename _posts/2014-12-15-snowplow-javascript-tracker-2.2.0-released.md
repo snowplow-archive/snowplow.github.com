@@ -60,11 +60,11 @@ snowplow(function () {
 });
 {% endhighlight %}
 
-The domainUserInfo variable will be an array containing 6 elements:
+Note that `getDomainUserInfo()` returns an array containing 6 elements:
 
 0. A string set to `'1'` if this is the user's first session and `'0'` otherwise
 1. The domain user ID
-2. The timestamp at which the cookiie was created
+2. The timestamp at which the cookie was created
 3. The number of times the user has visited the site
 4. The timestamp for the current visit
 5. The timestamp of the last visit

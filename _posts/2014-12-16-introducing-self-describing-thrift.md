@@ -128,7 +128,7 @@ If the schema field is not set, the Thrift is not self-describing, so we deseria
 
 {% highlight scala %}
 import com.snowplowanalytics.snowplow.Sniffer
-import com.snowplowanalytics.snowplow.collectors.thrift.{SimpleEvent => SE0}
+import com.snowplowanalytics.snowplow.legacy.thrift.{SimpleEvent => SE0}
 import com.snowplowanalytics.snowplow.SimpleEvent.thrift.v1.{SimpleEvent => SE1}
 import com.snowplowanalytics.snowplow.SimpleEvent.thrift.v2.{SimpleEvent => SE2}
 import org.apache.thrift.TDeserializer

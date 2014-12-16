@@ -123,7 +123,7 @@ val sniffer = new SchemaSniffer
 new TDeserializer.deserialize(sniffer, byteArray)
 {% endhighlight %}
 
-If the schema field is not set, the Thrift is not self-describing, so we deserialize it and handle it with the assumption that it was generated using the version 0 of the SimpleEvent class. Otherwise, the schema field tells us exactly which class to use. Here is some Scala code which can handle all three versions of the SnowplowRawEvent:
+If the schema field is not set, the Thrift is not self-describing, so we deserialize it and handle it with the assumption that it was generated using the version 0 of the `SimpleEvent` class. Otherwise, the schema field tells us exactly which class to use. Here is some Scala code which can handle all three versions of the `SimpleEvent`:
 
 {% highlight scala %}
 import com.snowplowanalytics.snowplow.Sniffer
@@ -134,22 +134,22 @@ import org.apache.thrift.TDeserializer
 
 def handleThriftRecord(record: Array[Byte]) {
 
-	val sniffer = new SchemaSniffer
-	new TDeserializer().deserialize(sniffer, record)
+  val sniffer = new SchemaSniffer
+  new TDeserializer().deserialize(sniffer, record)
 
-	if (!sniffer.isSetSchema) {
-		deserializeAndHandleUsingVersion0(record)
-	} else {
-		sniffer.getSchema match {
-			case "iglu:com.snowplowanalytics.snowplow/SimpleEvent/thrift/1-0-0" =>
-			  deserializeAndHandleUsingVersion1(record)
+  if (!sniffer.isSetSchema) {
+    deserializeAndHandleUsingVersion0(record)
+  } else {
+    sniffer.getSchema match {
+      case "iglu:com.snowplowanalytics.snowplow/SimpleEvent/thrift/1-0-0" =>
+        deserializeAndHandleUsingVersion1(record)
 
-			case "iglu:com.snowplowanalytics.snowplow/SimpleEvent/thrift/2-0-0" =>
-			  deserializeAndHandleUsingVersion2(record)
+      case "iglu:com.snowplowanalytics.snowplow/SimpleEvent/thrift/2-0-0" =>
+        deserializeAndHandleUsingVersion2(record)
 
-			case s => println(s"Unexpected Thrift schema $s")
-		}
-	}
+      case s => println(s"Unexpected Thrift schema $s")
+    }
+  }
 }
 {% endhighlight %}
 

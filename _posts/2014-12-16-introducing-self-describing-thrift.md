@@ -168,9 +168,14 @@ The version of a Thrift schema stored in Iglu will take the form: `MODEL-REVISIO
 
 The first version of a given schema will always be 1-0-0.0.
 
-The Thrift namespace for the generated class has four parts: the reverse domain name of the creator of the schema (e.g. "com.snowplowanalytics.snowplow"), the name of the schema (e.g. "SnowplowRawEvent"), the type of the schema (always "thrift" for Thrift schemas), and the model version (e.g. "v1"). The "v" before the version number is necessary to make the package name legal in some languages (such as Java).
+The Thrift namespace for the generated class has four parts which map onto the four elements of an Iglu schema URI:
 
-Note that the package name only includes the model version, not the revision, addition or patch. You will always want to work with the latest `REVISION-ADDITION.PATCH` available to you; as the example above shows, it is only different `MODEL`s that you will want to be able to distinguish between in the same codebase.
+1. The reverse domain name of the creator of the schema (e.g. `com.snowplowanalytics.snowplow`)
+2. The name of the schema (e.g. `SimpleEvent`)
+3. The type of the schema (always "thrift" for Thrift schemas)
+4. The model version (e.g. "v1"). The "v" before the version number is necessary to make the package name legal in some languages (such as Java)
+
+Note that the Thrift namespace only includes the model version, not the revision, addition or patch. You will always want to work with the latest `REVISION-ADDITION.PATCH` available to you: it should only be different `MODEL`s that you will want to be able to distinguish between in the same codebase.
 
 <h2 name="feedback">7. Feedback</h2>
 

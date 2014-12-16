@@ -109,5 +109,5 @@ We plan to incorporate [Neo4J] [neo4j], [SkyDB] [skydb], [Google BigQuery] [bigq
 [emr]: http://aws.amazon.com/elasticmapreduce/
 [qubole]: http://qubole.com/
 [looker]: http://looker.com/
-[bigquery]: http://www.elasticsearch.org/
+[bigquery]: https://cloud.google.com/bigquery/
 [elastic-search]: http://www.elasticsearch.org/

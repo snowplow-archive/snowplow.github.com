@@ -38,7 +38,7 @@ This approach means that only one version of the schema is necessary: the latest
 
 However, this approach reduces the flexibility of your schemas by constraining how they can change; this approach is also fragile: you may end up needing to review a lot of fields using a complicated branching process in order to decide how to handle the record.
 
-But more generally, if you have _no_ idea how a given Thrift record was generated, it is very difficult to find out: you would need to check which  are present in the binary format and search for legacy IDLs which use the same tags.
+But more generally, if you have _no_ idea how a given Thrift record was generated, it is very difficult to find out: you would need to reverse engineer the byte payload in some way and compare it to legacy IDLs which use the same tags and datatypes.
 
 For more information on backward compatibility in Thrift schemas, see [this page][backward-compatibility-rules].
 

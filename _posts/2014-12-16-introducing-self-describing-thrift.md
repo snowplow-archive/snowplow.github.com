@@ -155,7 +155,7 @@ def handleThriftRecord(record: Array[Byte]) {
 
 <h2 name="storage">5. Schema storage</h2>
 
-We intend to store our Thrift schemas in [Iglu] [iglu], the Snowplow schema repository which previously just contained JSON schemas. Ideally, whenever a new schema version is pushed to Iglu, it would be automatically compiled and published to Maven.
+We intend to store our Thrift schemas in [Iglu] [iglu], the schema repository from Snowplow Analytics which previously was used exclusively for JSON Schemas. Ideally, whenever a new schema version is pushed to Iglu, it would be automatically compiled and published to Maven.
 
 <h2 name="versioning">6. Versioning</h2>
 

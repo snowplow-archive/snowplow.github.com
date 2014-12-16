@@ -48,7 +48,7 @@ We solved a similar problem for JSONs using [self-describing JSON] [self-describ
 
 In a Thrift schema, each field is assigned a [unique non-negative integer or "tag"] [defining-structs]. This tag is stored in the binary encoding and used in deserialization.
 
-We propose to make Thrift self-describing by adding a "schema" field to all Thrift structs. The schema field would reference the IDL used to define how the byte array should be deserialized. The schema field would always have the same tag - we suggest [31337] [eleet-defn] ("elite" in l33tspeak). This number was picked because it is unlikely to be used in existing struct definitions, and thus:
+We propose to make Thrift self-describing by adding a "schema" field to all Thrift structs. The schema field would reference the IDL used to define how the byte array should be deserialized. The schema field would always have the same tag - we suggest [31337] [eleet-defn] ("elite" in leetspeak). This number was picked because it is unlikely to be used in existing struct definitions, and thus:
 
 1. We won't accidentally identify non-self-describing Thrifts as self-describing
 2. Thrift users can easily upgrade existing Thrifts to be self-describing (as indeed we plan to upgrade our SnowplowRawEvent)

@@ -12,7 +12,7 @@ At Snowplow we have been thinking about how to version [Thrift][thrift] schemas.
 The rest of this post will discuss our proposed solution to this problem:
 
 1. [The problem](/blog/2014/12/16/introducing-self-describing-thrift/#problem)
-2. [The unversioned approach](/blog/2014/12/16/introducing-self-describing-thrift/#unversioned)
+2. [The un-versioned approach](/blog/2014/12/16/introducing-self-describing-thrift/#unversioned)
 3. [Adding a schema field](/blog/2014/12/16/introducing-self-describing-thrift/#schema)
 4. [An example](/blog/2014/12/16/introducing-self-describing-thrift/#example)
 5. [Storage](/blog/2014/12/16/introducing-self-describing-thrift/#storage)
@@ -27,7 +27,7 @@ By the way: if you are not well-acquainted with Thrift, do check out the excelle
 
 Simply put, a Thrift schema may change over time. Records generated from different versions of a Thrift schema may need to be handled differently. Given a Thrift record, how can we tell which version of the schema was used to generate it?
 
-<h2 name="unversioned">2. The unversioned approach</h2>
+<h2 name="unversioned">2. The un-versioned approach</h2>
 
 One approach to this problem is to only update the schema in a backward-compatible way. This creates the following constraints:
 
@@ -57,17 +57,17 @@ The schema field will be a place to store metadata about the record. Given a sel
 
 What kind of metadata should we put in the schema field? At Snowplow we are using [Iglu] [iglu] schema URIs very successfully for JSON Schema - let's extend this to Thrift! An example Iglu schema URI for Thrift might look something like this:
 
-```
+{% highlight %}
 iglu:com.snowplowanalytics.snowplow/SimpleEvent/thrift/1-0-0
-```
+{% endhighlight %}
 
 One way to pull out the schema field is by attempting to deserialize the record using this schema:
 
-```
+{% highlight %}
 struct SchemaSniffer {
 	31337: string schema
 }
-```
+{% endhighlight %}
 
 Deserializing a self-describing Thrift record into the class generated from this schema will produce a SchemaSniffer object with just one field: the schema.
 
@@ -77,18 +77,18 @@ Here is an example using a simplified version of our `SnowplowRawEvent` called `
 
 First, let's consider the prelapsarian IDL before we make it self-describing. We will call this un-versioned Thrift IDL "version 0":
 
-```
+{% highlight %}
 namespace java com.snowplowanalytics.snowplow.collectors.thrift
 
 struct SimpleEvent {
 	10: string querystring
 	20: optional i64 timestamp
 }
-```
+{% endhighlight %}
 
 We now change the tag numbering in an incompatible way, changing the `20` tag from referring to the event's timestamp to referring to its body. This change breaks backward compatibility: if we try to deserialize a version 0 record using the version 1 class, the timestamp field will end up in the body field. At this point we also make our records self-describing by adding the schema field:
 
-```
+{% highlight %}
 namespace java com.snowplowanalytics.snowplow.SimpleEvent.thrift.v1
 
 struct SimpleEvent {
@@ -98,11 +98,11 @@ struct SimpleEvent {
 	30: optional i64 timestamp
 	40: optional i64 networkUserId
 }
-```
+{% endhighlight %}
 
 We make another backward-incompatible change, changing the type of the `networkUserId` field, so we have to bump the model version to v2:
 
-```
+{% highlight %}
 namespace java com.snowplowanalytics.snowplow.SimpleEvent.thrift.v2
 
 struct SimpleEvent {
@@ -112,20 +112,20 @@ struct SimpleEvent {
 	30: optional i64 timestamp
 	40: optional string networkUserId
 }
-```
+{% endhighlight %}
 
 Now suppose we have a byte array that we believe is some sort of `SimpleEvent`, but we don't know which version of the `SimpleEvent` class should be used to deserialize it.
 
 We first check the schema field by partial deserialization (all code in Scala):
 
-```scala
+{% highlight scala %}
 val sniffer = new SchemaSniffer
 new TDeserializer.deserialize(sniffer, byteArray)
-```
+{% endhighlight %}
 
 If the schema field is not set, the Thrift is not self-describing, so we deserialize it and handle it with the assumption that it was generated using the version 0 of the SimpleEvent class. Otherwise, the schema field tells us exactly which class to use. Here is some Scala code which can handle all three versions of the SnowplowRawEvent:
 
-```scala
+{% highlight scala %}
 import com.snowplowanalytics.snowplow.Sniffer
 import com.snowplowanalytics.snowplow.collectors.thrift.{SimpleEvent => SE0}
 import com.snowplowanalytics.snowplow.SimpleEvent.thrift.v1.{SimpleEvent => SE1}
@@ -151,7 +151,7 @@ def handleThriftRecord(record: Array[Byte]) {
 		}
 	}
 }
-```
+{% endhighlight %}
 
 <h2 name="storage">5. Schema storage</h2>
 

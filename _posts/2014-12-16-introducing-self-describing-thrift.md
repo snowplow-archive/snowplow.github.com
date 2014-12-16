@@ -17,7 +17,8 @@ The rest of this post will discuss our proposed solution to this problem:
 4. [An example](/blog/2014/12/16/introducing-self-describing-thrift/#example)
 5. [Storage](/blog/2014/12/16/introducing-self-describing-thrift/#storage)
 6. [Versioning](/blog/2014/12/16/introducing-self-describing-thrift/#versioning)
-7. [Feedback](/blog/2014/12/16/introducing-self-describing-thrift/#feedback)
+7. [Namespacing](/blog/2014/12/16/introducing-self-describing-thrift/#namespacing)
+8. [Feedback](/blog/2014/12/16/introducing-self-describing-thrift/#feedback)
 
 By the way: if you are not well-acquainted with Thrift, do check out the excellent [Thrift: The Missing Guide] [gupta] by [Diwaker Gupta] [diwakergupta].
 
@@ -168,7 +169,9 @@ The version of a Thrift schema stored in Iglu will take the form: `MODEL-REVISIO
 
 The first version of a given schema will always be 1-0-0.0.
 
-The Thrift namespace for the generated class has four parts which map onto the four elements of an Iglu schema URI:
+<h2 name="namespacing">7. Namespacing</h2>
+
+Namespaces in Thrift are similar to packages in Java or modules in Ruby. For self-describing Thrifts, the namespace should have four parts which map onto the four components of an Iglu schema URI:
 
 1. The reverse domain name of the creator of the schema (e.g. `com.snowplowanalytics.snowplow`)
 2. The name of the schema (e.g. `SimpleEvent`)
@@ -177,7 +180,7 @@ The Thrift namespace for the generated class has four parts which map onto the f
 
 Note that the Thrift namespace only includes the model version, not the revision, addition or patch. You will always want to work with the latest `REVISION-ADDITION.PATCH` available to you: it should only be different `MODEL`s that you will want to be able to distinguish between in the same codebase.
 
-<h2 name="feedback">7. Feedback</h2>
+<h2 name="feedback">8. Feedback</h2>
 
 This proposal is still at the draft stage and we are interested in hearing about any potential problems or alternative approaches. In particular, we would be interested in any thoughts on how our approach should handle the evolution of Thrift Typedefs, Enums or Constants.
 

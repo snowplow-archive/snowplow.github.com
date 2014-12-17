@@ -9,7 +9,7 @@ category: Other
 
 It was great to have the opportunity to speak at [Scala eXchange] [scala-exchange] last week in London on the topic of "Building robust data pipelines in Scala: the Snowplow experience".
 
-It was my first time speaking at a conference dedicated to Scala - and it's fantastic to see such widespread adoption of Scala in the UK and Europe. It was also great meeting up with Snowplow users and contributors face-to-face for the first time!
+It was my first time speaking at a conference dedicated to Scala - and it was fantastic to see such widespread adoption of Scala in the UK and Europe. It was also great meeting up with Snowplow users and contributors face-to-face for the first time!
 
 Many thanks to the team at [Skills Matter] [skills-matter] for organizing such a great conference.
 

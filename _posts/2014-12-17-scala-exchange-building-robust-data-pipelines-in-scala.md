@@ -40,7 +40,7 @@ I really enjoyed giving the talk - it was a great opportunity to shine a techinc
 The Skills Matter team succeeded in packing a huge number of great sessions into Scala eXchange's two days. Here were some of my highlights:
 
 * **Martin Odersky**, the creator of Scala, providing a much-needed introduction to the binary compatibility challenges faced by Scala, how these are typically handled (or avoided) in other proglangs, and a suggested solution for Scala, called [typed trees] [typed-trees]. A great talk on an important and poorly-understood topic
-* **Noel Markham**, a Scala developer at ITV, gave a great introductory talk to Scalaz, a functional programming toolkit for Scala which we use heavily at Snowplow
+* **Noel Markham**, a Scala developer at ITV, gave a great introductory talk to Scalaz, the functional programming toolkit for Scala which we use heavily at Snowplow
 * **Brendan McAdams**, at Netflix, gave a valuable talk on using Scala at scale at Netflix, including some great insights on their AMI-based packaging and deployment strategies
 * **Andreas Gies**, [atooni] [atooni] on GitHub, gave a deep technical talk on building a multi-container integration test suite using Akka, Docker and ScalaTest. Very clever stuff and available on GitHub as part of the [blended project] [blended]
 * **Pere Villega**, a Scala developer at Gumtree, shared his experiences building a micro-services architecture around Apache Kafka. Our work at Snowplow with Kafka centers around its role as a unified log - so it was interesting to get the micro-services perspective on this same technology

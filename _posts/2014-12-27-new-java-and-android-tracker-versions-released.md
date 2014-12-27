@@ -20,11 +20,13 @@ In the rest of this post we will cover:
 7. [Documentation](/blog/2014/12/27/new-java-and-android-tracker-versions-released/#docs)
 8. [Getting help](/blog/2014/12/27/new-java-and-android-tracker-versions-released/#help)
 
+<!--more-->
+
 <h2><a name="help">1. Vagrant support</a></h2>
 
 A big focus for 2015 is going to be on making it easier to contribute to the various Snowplow projects. As part of this, we will be implementing a standard quickstart process for hacking on any given Snowplow repository, making heavy use of [Vagrant] [vagrant].
 
-The Java and Android Trackers are among the first Snowplow projects to get the Vagrant quickstart treatment. Both repositories have been updated so that you can start working on the codebase with a simple `vagrant up && vagrant ssh`; the installation of all required development and build tools is handled automatically for you. Here is an example of quickstart hacking on the Android Tracker:
+The Java and Android Trackers are among the first Snowplow projects to get the Vagrant quickstart treatment. Both repositories have been updated so that you can start working on the codebase with a simple `vagrant up && vagrant ssh`; the installation of all required development and build tools is handled automatically for you. Here is the Android Tracker quickstart:
 
 {% highlight bash %}
  host$ git clone https://github.com/snowplow/snowplow-android-tracker.git
@@ -45,7 +47,7 @@ One important change here was to remove Guava as a dependency; this dramatically
 We have also fixed some important bugs in the Java Tracker Core:
 
 * [XiaoyiLI] [lixiaoyi] spotted and fixed an incorrect schema for trackScreenView ([#104] [issue-104])
-* We moved platform setting out of the `Subject` class into the `Tracker` class. Without this, events tracked without a `Subject` could end up without a platform, and thus fail validation ([#103] [issue-103])
+* We moved setting the tracker's platform out of the `Subject` class into the `Tracker` class. Without this, events tracked without a `Subject` could end up without a platform, and thus fail validation ([#103] [issue-103])
 * We made the `setSubject` method on the `Tracker` public ([#109] [issue-109])
 
 Finally, we made an important API change: `trackUnstructuredEvent` now expects its `eventData` argument to be of type `SchemaPayload`, not `Map<String, Object>` ([#76] [issue-76]). At the same time we added @Deprecated on the unused `SchemaPayload` methods ([#85] [issue-85]); thanks to [Jonathan Almeida] [jonalmeida] for both of these!
@@ -86,7 +88,7 @@ You can find the full release notes on GitHub as follows:
 
 Both of these trackers are still very young; please do share any user feedback, feature requests or possible bugs.
 
-Feel free to [get in touch][talk-to-us] or raise an issue ([Java issues] [java-issues]; [Android issues] [android-issues]) on GitHub!
+Feel free to [get in touch][talk-to-us] or raise an issue ([Java Tracker issues] [java-issues]; [Android Tracker issues] [android-issues]) on GitHub!
 
 [android-repo]: https://github.com/snowplow/snowplow-android-tracker
 [java-repo]: https://github.com/snowplow/snowplow-java-tracker
@@ -97,12 +99,12 @@ Feel free to [get in touch][talk-to-us] or raise an issue ([Java issues] [java-i
 
 [vagrant]: https://www.vagrantup.com
 
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/pull/104
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/pull/105
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/issues/76
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/issues/85
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/issues/103
-[issue-]: https://github.com/snowplow/snowplow-java-tracker/issues/109
+[issue-76]: https://github.com/snowplow/snowplow-java-tracker/issues/76
+[issue-85]: https://github.com/snowplow/snowplow-java-tracker/issues/85
+[issue-103]: https://github.com/snowplow/snowplow-java-tracker/issues/103
+[issue-104]: https://github.com/snowplow/snowplow-java-tracker/pull/104
+[issue-105]: https://github.com/snowplow/snowplow-java-tracker/pull/105
+[issue-109]: https://github.com/snowplow/snowplow-java-tracker/issues/109
 
 [java-setup]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-Setup
 [android-setup]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup

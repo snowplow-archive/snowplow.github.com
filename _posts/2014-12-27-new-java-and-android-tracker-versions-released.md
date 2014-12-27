@@ -74,7 +74,7 @@ The new version of the Snowplow Android Tracker is 0.2.0. The [Android Setup Gui
 
 Don't forget to update the dependency of Java Tracker Core to 0.2.0 as well as the Android Tracker itself. And when upgrading, make sure to update any calls to `trackUnstructuredEvent` as per the above.
 
-<h2><a name="help">7. Documentation</a></h2>
+<h2><a name="docs">7. Documentation</a></h2>
 
 You can find the revised [Android and Java Tracker usage manual] [android-java-manual] on our wiki.
 

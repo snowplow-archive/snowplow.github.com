@@ -13,13 +13,13 @@ Please note that version 0.2.0 of the Ruby Tracker is dependent upon Snowplow 0.
 
 Read on for more detail on:
 
-1. [POST request format](/blog/2015/01/06/snowplow-ruby-tracker-0.4.1-released/#post)
+1. [POST request format fix](/blog/2015/01/06/snowplow-ruby-tracker-0.4.1-released/#post)
 2. [Compatibility](/blog/2015/01/06/snowplow-ruby-tracker-0.4.1-released/#compatibility)
 3. [Getting help](/blog/2015/01/06/snowplow-ruby-tracker-0.4.1-released/#help)
 
 <!--more-->
 
-<h2><a name="post">1. POST requests</a></h2>
+<h2><a name="post">1. POST request format fix</a></h2>
 
 Version 0.4.0 incorrectly sent POST requests as forms rather than as bodies, so they could not be correctly parsed by a collector. This release fixes that issue, correctly setting the body of the POST request.
 

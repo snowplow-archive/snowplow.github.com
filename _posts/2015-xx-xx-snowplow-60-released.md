@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 60 released with additional webhooks
-title: Snowplow 60 released with additional webhooks
+shortenedlink: Snowplow 60 released
+title: Snowplow 60 released
 tags: [snowplow, streams, kinesis, s3, thrift]
 author: Fred
 category: Releases
@@ -12,7 +12,7 @@ We are happy to announce the release of Snowplow 60! This release focuses on the
 The rest of this post will cover the following topics:
 
 1. [The Kinesis S3 Sink](/blog/2015/xx/xx/snowplow-60-released/#s3-sink)
-2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-released/#pagerduty)
+2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-released/#ssc)
 3. [Self-describing Thrift](/blog/2015/xx/xx/snowplow-60-released/#pingdom)
 4. [Scala Stream Collector no longer decodes URLs](/blog/2015/xx/xx/snowplow-60-released/#url-decoding)
 5. [Getting help](/blog/2015/xx/xx/snowplow-60-released/#help)
@@ -33,7 +33,7 @@ For more information on setting up the Kinesis S3 Sink, please see these wiki pa
 * [Setup guide][s3-sink-setup]
 * [Technical documentation][s3-sink-techdocs]
 
-<h2><a name="self-describing-thrift">2. Support for POSTs and webhooks in the Scala Stream Collector</a></h2>
+<h2><a name="ssc">2. Support for POSTs and webhooks in the Scala Stream Collector</a></h2>
 
 The Scala Stream Collector was previously limited to standard GET requests of the format sent by Snowplow trackers. It can now receive POST requests, meaning multiple events can be batched together. It also supports Snowplow webhooks - see [this][introducing-webhooks] blog post for more detail.
 

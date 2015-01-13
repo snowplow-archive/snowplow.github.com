@@ -15,7 +15,8 @@ The rest of this post will cover the following topics:
 2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-released/#ssc)
 3. [Self-describing Thrift](/blog/2015/xx/xx/snowplow-60-released/#pingdom)
 4. [Scala Stream Collector no longer decodes URLs](/blog/2015/xx/xx/snowplow-60-released/#url-decoding)
-5. [Getting help](/blog/2015/xx/xx/snowplow-60-released/#help)
+5. [Upgrading](/blog/2015/xx/xx/snowplow-60-released/#upgrading)
+6. [Getting help](/blog/2015/xx/xx/snowplow-60-released/#help)
 
 
 <!--more-->
@@ -47,7 +48,39 @@ The old SnowplowRawEvent Thrift struct didn't contain all the fields we are now 
 
 The Scala Stream Collector used to use [Spray's][spray] URI parsing to parse and percent-decode incoming GET requests. Unfortunately the enrichment process also percent-decodes querystrings. This meant that incoming non-base-64-encoded events were decoded twice, introducing errors if certain characters were present. This has now been fixed.
 
-<h2><a name="help">5. Getting help</a></h2>
+<h2><a name="upgrading">5. Upgrading</a></h2>
+
+We are moving from S3 to [Bintray][bintray] for hosting files. The Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are available in a single zip file here: https://bintray.com/snowplow/snowplow-generic/snowplow/60/view/files
+
+The new Scala Hadoop Enrich version is available on S3:
+
+    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.12.0.jar
+
+Remember to increment the version in the EmrEtlRunner's configuration YAML:
+
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 0.11.0 # WAS 0.10.0
+{% endhighlight %}
+
+If you want to use Hadoop to process the events stored by the Kinesis S3 Sink, you will have to upgrade your EmrEtlRunner to the latest version, 0.11.0:
+
+{% highlight bash %}
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 60
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment
+$ cd ../../4-storage/storage-loader
+$ bundle install --deployment
+{% endhighlight %}
+
+Finally, you will have to change the collector_format field in the configuration file to "thrift":
+
+{% highlight bash %}
+:collector_format: thrift
+{% endhighlight %}
+
+<h2><a name="help">6. Getting help</a></h2>
 
 Documentation for the new S3 sink is available on the Snowplow wiki:
 
@@ -66,7 +99,7 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [splittable-lzo]: http://blog.cloudera.com/blog/2009/11/hadoop-at-twitter-part-1-splittable-lzo-compression/
 [semantic-versioning]: http://semver.org/
 [s3]: http://aws.amazon.com/s3/
-
+[bintray]: http://www.bintray.net/
 
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

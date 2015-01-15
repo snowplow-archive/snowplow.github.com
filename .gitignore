@@ -4,3 +4,6 @@ _site/
 Thumbs.db
 
 *.swp
+
+# Vagrant
+.vagrant/

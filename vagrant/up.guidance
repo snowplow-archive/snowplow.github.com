@@ -1,5 +1,5 @@
 To get started:
 vagrant ssh
-cd /vagrant/snowplow.github.com
+cd /vagrant
 jekyll serve
 You will now be able to view the website on localhost:4000 (on the host)

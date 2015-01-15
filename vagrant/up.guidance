@@ -1,4 +1,5 @@
-To get started:
+Ignore the error message about no playbook at vagrant/vagrant
+Then get started:
 vagrant ssh
 cd /vagrant
 jekyll serve

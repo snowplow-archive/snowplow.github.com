@@ -11,7 +11,7 @@ At Snowplow we spend a lot of time thinking about how to model events. As busine
 
 Our focus at Snowplow has been on defining a **semantic model** for events: one that is built around the intrinsic properties found across all events. A semantic model helps to prevent business and technology assumptions from leaking into the event stream. This works to guard against outdated assumptions becoming "fossilized" in the event stream, and helps to make those streams significantly less brittle - and easier to evolve - over time.
 
-We proposed an initial model for Snowplow events in our August 2013 blog post, [Towards universal event analytics - building an event grammar] [snowplow-event-grammar]. We have since discussed this approach with many interested parties, and have been pleased to follow other explorations of the topic, for example CARMEN'S BLOG POST SERIES. I've also made heavy use of this proposed event grammar in my book, [Unified Log Processing] [dean]. The semantic approach seems to have resonated widely.
+We proposed an initial model for Snowplow events in our August 2013 blog post, [Towards universal event analytics - building an event grammar] [snowplow-event-grammar]. We have since discussed this approach with many interested parties, and have been pleased to follow other explorations of the topic, for example Carmen Madiros' [Lego Data Layer] [lego-data-layer] blog post series. I've also made heavy use of this proposed event grammar in my book, [Unified Log Processing] [dean]. The semantic approach seems to have resonated widely.
 
 However, our thinking has evolved from our original event grammar proposal in one important aspect. During the 18 months elapsed since that blog post, we have been exposed to many more event streams defined by many more customers, and we have also had the chance to experiment with aspects of the event grammar through Snowplow's own unstructured events, its custom contexts and more generally with our new [Iglu] [iglu] project. What we have learnt from all this can be summed up like so:
 
@@ -22,11 +22,12 @@ This statement may seem unrelated - perhaps even contradictory - to our original
 In the rest of this blog post, we will cover the following:
 
 1. [Introduce what we mean by entities](/blog/2015/01/18/modeling-events-through-entity-snapshotting#entities)
-2. [Explore how entities change over time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
-3. [Review how our databases handle time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
-4. [Propose an approach based on entity snapshotting](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
-5. [Revise our event grammar](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xxx)
-6. [Draw some conclusions](/blog/2015/01/18/modeling-events-through-entity-snapshotting#conc)
+2. [Explore how entities change over time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#entities-and-time)
+3. [Review how our databases handle time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#time-dbs)
+4. [Propose an approach based on entity snapshotting](/blog/2015/01/18/modeling-events-through-entity-snapshotting#entity-snapshotting)
+5. [Revise our event grammar](/blog/2015/01/18/modeling-events-through-entity-snapshotting#revised-event-grammar)
+6. [Represent our event grammar in JSON](/blog/2015/01/18/modeling-events-through-entity-snapshotting#json)
+7. [Draw some conclusions](/blog/2015/01/18/modeling-events-through-entity-snapshotting#conc)
 
 <!--more-->
 
@@ -65,7 +66,7 @@ ADD DIAGRAM
 To put it another way: it was a slightly different Jack who saved his game each time. If we want to analyze and understand these save game events, being able to review the "version of Jack" who enacted each event could be hugely important. How can we do this?
 
 <div class="html">
-<h2><a name="on-remembering">3. Time and databases</a></h2>
+<h2><a name="time-dbs">3. Time and databases</a></h2>
 </div>
 
 > What matters in life is not what happens to you but what you remember and how you remember it
@@ -140,29 +141,90 @@ Knowing what we now know about entities, we can make some revisions to this mode
 * An **Indirect Object** is just a type of **Prepositional Object**. There's no need to keep indirect objects as a separate concept
 * **Context** is also composed of **Prepositional Objects**. For example, a time phrase has **Preposition** _at_ and **Object** _time_; a phrase of place has **Preposition** _in_ or _on_ or _outside_ and **Object** _location_
 
-What does that leave us with? It leaves us with events which take this form:
+Making these changes results in events that take this form:
 
 * A required **Subject** - a snapshot of the entity carrying out the action
 * A required **Verb** - the action being done by the Subject
 * A required **Prepositional Object** - the time at which the event was carried out
-* Optional **Direct and Prepositional Objects** - again consisting of snapshots
+* Optional **Direct and Prepositional Objects** - again consisting of entity snapshots
 
 This updated event grammar is set out in this diagram:
 
 DIAGRAM
 
-As we predicted at the start of this blog post: our events now consist of almost _nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the **Verb**.
-
-Here's a sketch of how this approach could be modeled in self-describing JSON:
-
-
-
-IMPLICATIONS OF THIS APPROACH.
-
-
+As we predicted at the start of this blog post: our events now consist of almost _nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the rest of the event.
 
 <div class="html">
-<h2><a name="conc">6. Conclusions</a></h2>
+<h2><a name="json">6. Our event grammar in JSON</a></h2>
+</div>
+
+So far this is all a little theoretical. At Snowplow most of our applied event modeling is done in Iglu-compatible [self-describing JSON] [self-describing-json], so why don't we sketch out what our revised event grammar could look like in this format?
+
+Imagine we are trying to model an in-game event where a player (Jack, perhaps) sells some armour to another player. In the following self-describing JSON, we represent this event as a set of annotated entity snapshots:
+
+{% highlight json %}
+{
+  "schema": "iglu:com.snowplowanalytics.snowplow/event_grammar/jsonschema/1-0-0",
+  "data": {
+    "subject": {
+      "schema": "iglu:de.acme/player/jsonschema/1-0-0",
+      "data": {
+        "playerId": "1213",
+        "emailAddress": "l33t-gamer@gmx.de",
+        "highScore": 220412
+      }
+    },
+    "verb": "sell",
+    "at": {
+      "schema": "iglu:com.snowplowanalytics.snowplow/time/jsonschema/1-0-0",
+      "data": {
+        "collectorTstamp": "2015-01-17T18:23:05+00:00",
+        "deviceTstamp": "2015-01-17T18:23:02+00:00"
+      }
+    },
+    "directObject": {
+      "schema": "iglu:de.acme/armor/jsonschema/1-0-0",
+      "data": {
+        "type": "titanium",
+        "condition": 0.63
+      }
+    },
+    "prepositionalObjects": {
+      "to": {
+        "schema": "iglu:de.acme/player/jsonschema/1-0-0",
+        "data": {
+          "playerId": "7684",
+          "emailAddress": "l33t-gamer@gmx.de",
+          "highScore": 220412
+        }
+      },
+      "for": {
+        "schema": "iglu:de.acme/price/jsonschema/1-0-0",
+        "data": {
+          "amount": "30",
+          "currency": "doubloons"
+        }
+      },
+      "in": {
+        "schema": "iglu:de.acme/arena/jsonschema/1-0-0",
+        "data": {
+          "world": "aquatic",
+          "city": "pirate_bay"
+        }
+      }
+    }
+  }
+}
+{% endhighlight %}
+
+Note that all of the schema URIs are illustratory - don't go looking for the underlying schemas in Iglu Central! A few things about this approach which stand out:
+
+* The structure is very simple: there are some grammatical annotations like "directObject" and "at" but fundamentally we are just reporting on the state of various entities at a point in time
+* There are no limitations on the _number_ or _types_ of entities which can be added to the event
+* All of our entities are well-structured, with Iglu schema URIs attached. These entities originate in the game's own data structures, so it should be possible to convert these structures to JSON Schema and upload them into Iglu 
+
+<div class="html">
+<h2><a name="conc">7. Conclusions</a></h2>
 </div>
 
 * Entities and events are deeply intertwined concepts - we cannot understand an event without understanding the entities which were involved in that event
@@ -170,14 +232,16 @@ IMPLICATIONS OF THIS APPROACH.
 * Most of our data systems are atemporal. Change Data Capture is a whole industry dedicated to trying to map entities' state transitions over time
 * Entity snapshotting gives us a simple but effective way of recording the state of our relevant entities at the moment of an event
 * Our revised event grammar consists _only_ of a verb plus various required and optional entity snapshots
-* IMPLICATIONS XXXXXXXXXXXXXXXXXXXXX
+* We can represent our event grammar using self-describing JSON. The model in JSON seems simple yet flexible
 
 [kreps]: http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 [dean]: http://manning.com/dean/
 
 [snowplow-event-grammar]: /blog/2013/08/12/towards-universal-event-analytics-building-an-event-grammar
 [keen-entities-vs-events]: https://keen.io/blog/53958349217/analytics-for-hackers-how-to-think-about-event-data
+[lego-data-layer]: http://www.mardiros.net/lego-data-layer-anatomy-interaction/
 [iglu]: https://github.com/snowplow/iglu/wiki
+[self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
 [hbase-versioning]: http://hbase.apache.org/book.html#versions
 [datomic-rationale]: http://www.datomic.com/rationale.html

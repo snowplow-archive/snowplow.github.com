@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Semantic event modeling and entity snapshotting
-title: Semantic event modeling and entity snapshotting
+shortenedlink: Modeling events through entity snapshotting
+title: Modeling events through entity snapshotting
 tags: [event, analytics, grammar, model, entities]
 author: Alex
 category: Research
@@ -21,12 +21,17 @@ This statement may seem unrelated - perhaps even contradictory - to our original
 
 In the rest of this blog post, we will cover the following:
 
-CONTENTS SECTION?
+1. [Introduce what we mean by entities](/blog/2015/01/18/modeling-events-through-entity-snapshotting#entities)
+2. [Explore how entities change over time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
+3. [Review how our databases handle time](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
+4. [Propose an approach based on entity snapshotting](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xx)
+5. [Revise our event grammar](/blog/2015/01/18/modeling-events-through-entity-snapshotting#xxx)
+6. [Draw some conclusions](/blog/2015/01/18/modeling-events-through-entity-snapshotting#conc)
 
 <!--more-->
 
 <div class="html">
-<h2><a name="emitters">1. Introducing entities</a></h2>
+<h2><a name="entities">1. Introducing entities</a></h2>
 </div>
 
 What is an entity? In event modeling terms, an entity is a thing or object which is somehow _relevant to_ the event that we are observing. For example, in the sentence "I watched Interstellar at my local theatre", myself, the movie and the movie theatre are all entities. We use the word "entity" because the word "object" is too loaded - it has too many connotations from Object-Oriented Programming (OOP), and it also has a separate grammatical meaning in terms of the "subject" of a verb versus the "object" of a verb.
@@ -146,7 +151,26 @@ This updated event grammar is set out in this diagram:
 
 DIAGRAM
 
+As we predicted at the start of this blog post: our events now consist of almost _nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the **Verb**.
 
+Here's a sketch of how this approach could be modeled in self-describing JSON:
+
+
+
+IMPLICATIONS OF THIS APPROACH.
+
+
+
+<div class="html">
+<h2><a name="conc">6. Conclusions</a></h2>
+</div>
+
+* Entities and events are deeply intertwined concepts - we cannot understand an event without understanding the entities which were involved in that event
+* Entities change over time, because they contain frequently and infrequently changing properties
+* Most of our data systems are atemporal. Change Data Capture is a whole industry dedicated to trying to map entities' state transitions over time
+* Entity snapshotting gives us a simple but effective way of recording the state of our relevant entities at the moment of an event
+* Our revised event grammar consists _only_ of a verb plus various required and optional entity snapshots
+* IMPLICATIONS XXXXXXXXXXXXXXXXXXXXX
 
 [kreps]: http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 [dean]: http://manning.com/dean/

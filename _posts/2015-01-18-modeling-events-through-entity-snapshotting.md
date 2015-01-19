@@ -77,11 +77,11 @@ Gabriel Garcí­a Márquez
 
 We are surrounded by software that helps us to model entities in one form or another. Separately, we've learnt that the entities we care about change over time. Presumably all of this entity-modeling software makes it easy to record how our entities are slowly (or rapidly) changing over time? Actually, most of it does not.
 
-Most systems that represent entities - databases, schema languages, serialization protocols and so on - have no concept of time as a dimension. These systems most often simply track the _current_ state of each entity: accordingly as developers we are expected to _update in place_ the existing data when some property changes. If Jack's email address changes, then we must update the existing `email_address` value in his record in the `players` table. In many systems, it is as if Jack's email address was always the new one.
+Most systems that represent entities - databases, schema languages, serialization protocols and so on - have no concept of time as a dimension. These systems most often simply track the _current_ state of each entity: accordingly as developers we are expected to _update in place_ the existing data when some property changes. If Jack's email address changes, then we must update the existing email address value in his record in the players table. In many systems, it is as if Jack's email address was always the new one.
 
 This isn't such a problem for permanent or static properties like Jack's first language - but it's a real pain for properties that change infrequently or frequently, such as his email address or location. Various software approaches have emerged to tackle this problem:
 
-* **Value versioning.** In the HBase database, a cell (a.k.a. a value) is specified by a [`{row, column, version}` tuple] [hbase-versioning]. You can configure HBase to store hundreds of versions of a column. By default the most recent version is returned, but you can also retrieve the value at a specific timestamp or between two timestamps
+* **Value versioning.** In the HBase database, a cell (a.k.a. a value) is specified by a [{row, column, version} tuple] [hbase-versioning]. You can configure HBase to store hundreds of versions of a column. By default the most recent version is returned, but you can also retrieve the value at a specific timestamp or between two timestamps
 * **Fact databases.** The [Datomic database] [datomic-rationale] stores "datoms" or facts consisting of an entity, attribute, value and "transaction" (i.e. time). These datoms are immutable facts - they are never updated, but new ones can be appended. You can query the database at a point in time or across a time window
 * **Periodic snapshots.** In data warehousing, an ETL process can regularly (e.g. daily) capture the entity data from a transactional database at a moment in time, and store it in fact tables in the data warehouse
 * **Log triggers.** A [log or history trigger] [log-trigger] is set up in a database to automatically record all C/U/D (Create, Update, Delete) events on a given table
@@ -93,11 +93,11 @@ Each of these approaches to [Change Data Capture] [cdc] has different pros and c
 <h2><a name="entity-snapshotting">4. Entity snapshotting</a></h2>
 </div>
 
-Storage is cheap and getting cheaper. Networks are getting faster all the time. If we care about the entities relevant to a given event, why don't we just interrogate their state at the exact moment of the event and record these entities' state as part of our event? To put it another way: let's **snapshot** our entities' state inside of our events, and thus record Jack's exact properties each time he saved his mobile game.
+Storage is cheap and getting cheaper. Networks are getting faster all the time. If we care about the entities relevant to a given event, why don't we just interrogate their state at the exact moment of the event and record these entities' state as part of our event? To put it another way: let's **snapshot our entities' state** inside of our events, and thus record Jack's exact properties each time he saved his mobile game.
 
 There are some distinct advantages to this approach:
 
-* It's incredibly simple to follow: interested in an entity? Attach it to your event
+* It's very simple to apply at event capture stage: interested in an entity? Attach it to your event
 * There's no need for Engineering to implement any kind of Change Data Capture in our underlying atemporal data systems
 * At analysis time, there's no need to cross-reference an entity's state at the event time - it's already attached
 
@@ -119,7 +119,9 @@ window.snowplow_name_here('trackPageView', null , [{
 }]);
 {% endhighlight %}
 
-Leaving aside the language of "custom contexts", what we are doing here is recording the state of two entities - our web page and our user - at the exact moment of our page view event. These are entity snapshots in all but name. In the next section, let's reconcile this new idea of entity snapshots with our earlier event grammar.
+Leaving aside the language of "custom contexts", what we are doing here is recording the state of two entities - our web page and our user - at the exact moment of our page view event. These are entity snapshots in all but name.
+
+In the next section, we will reconcile this new idea of entity snapshots with our earlier event grammar.
 
 <div class="html">
 <h2><a name="revised-event-grammar">5. A revised event grammar</a></h2>
@@ -138,23 +140,24 @@ We explained the six building blocks thus:
 > * **Prepositional Object**. An object introduced by a preposition (in, for, of etc), but not the direct or indirect object: "I put the letter _in_ **an envelope**". In a language such as German, prepositional objects will be found in the _accusative_, _dative_ or _genitive_ case depending on the preposition used
 > * **Context**. Not a grammatical term, but we will use context to describe the phrases of time, manner, place and so on which provide additional information about the action being performed: "I posted the letter **on Tuesday from Boston**"
 
-Knowing what we now know about entities, we can make some revisions to this model:
+Knowing what we now know about entities, we can make two simplifications to this model:
 
-* An **Indirect Object** is just a type of **Prepositional Object**. There's no need to keep indirect objects as a separate concept
-* **Context** is also composed of **Prepositional Objects**. For example, a time phrase has **Preposition** _at_ and **Object** _time_; a phrase of place has **Preposition** _in_ or _on_ or _outside_ and **Object** _location_
+1. An **Indirect Object** is just a type of **Prepositional Object**. There's no need to keep indirect objects as a separate concept
+2. **Context** is also composed of **Prepositional Objects**. For example, a time phrase has **Preposition** _at_ and **Object** _time_; a phrase of place has **Preposition** _in_ or _on_ or _outside_ and **Object** _location_
 
 Making these changes results in events that take this form:
 
 * A required **Subject** - a snapshot of the entity carrying out the action
 * A required **Verb** - the action being done by the Subject
 * A required **Prepositional Object** - the time at which the event was carried out
-* Optional **Direct and Prepositional Objects** - again consisting of entity snapshots
+* A required **Direct Object** - a snapshot of the entity to which the action is being done
+* A set of optional **Prepositional Objects** - again consisting of entity snapshots
 
 This updated event grammar is set out in this diagram:
 
 ![img-revised-grammar] [img-revised-grammar]
 
-As we predicted at the start of this blog post: our events now consist of almost _nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the rest of the event.
+As we predicted at the start of this blog post: our events now consist of _almost nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the rest of the event.
 
 <div class="html">
 <h2><a name="json">6. Our event grammar in JSON</a></h2>
@@ -162,7 +165,7 @@ As we predicted at the start of this blog post: our events now consist of almost
 
 So far this is all a little theoretical. At Snowplow most of our applied event modeling is done in Iglu-compatible [self-describing JSON] [self-describing-json], so why don't we sketch out what our revised event grammar could look like in this format?
 
-Imagine we are trying to model an in-game event where a player (Jack, perhaps) sells some armour to another player. In the following self-describing JSON, we represent this event as a set of annotated entity snapshots:
+Imagine that we are trying to model an in-game event where a player (Jack, perhaps) sells some armour to another player. In the following self-describing JSON, we represent this event as a set of annotated entity snapshots:
 
 {% highlight json %}
 {
@@ -177,13 +180,6 @@ Imagine we are trying to model an in-game event where a player (Jack, perhaps) s
       }
     },
     "verb": "sell",
-    "at": {
-      "schema": "iglu:com.snowplowanalytics.snowplow/time/jsonschema/1-0-0",
-      "data": {
-        "collectorTstamp": "2015-01-17T18:23:05+00:00",
-        "deviceTstamp": "2015-01-17T18:23:02+00:00"
-      }
-    },
     "directObject": {
       "schema": "iglu:de.acme/armor/jsonschema/1-0-0",
       "data": {
@@ -191,12 +187,19 @@ Imagine we are trying to model an in-game event where a player (Jack, perhaps) s
         "condition": 0.63
       }
     },
+    "at": {
+      "schema": "iglu:com.snowplowanalytics.snowplow/time/jsonschema/1-0-0",
+      "data": {
+        "collectorTstamp": "2015-01-17T18:23:05+00:00",
+        "deviceTstamp": "2015-01-17T18:23:02+00:00"
+      }
+    },
     "prepositionalObjects": {
       "to": {
         "schema": "iglu:de.acme/player/jsonschema/1-0-0",
         "data": {
           "playerId": "7684",
-          "emailAddress": "l33t-gamer@gmx.de",
+          "emailAddress": "karl@gmx.de",
           "highScore": 220412
         }
       },
@@ -208,10 +211,10 @@ Imagine we are trying to model an in-game event where a player (Jack, perhaps) s
         }
       },
       "in": {
-        "schema": "iglu:de.acme/arena/jsonschema/1-0-0",
+        "schema": "iglu:de.acme/level/jsonschema/1-0-0",
         "data": {
-          "world": "aquatic",
-          "city": "pirate_bay"
+          "world": "Aquatic",
+          "levelName": "Pirate Bay"
         }
       }
     }
@@ -219,11 +222,13 @@ Imagine we are trying to model an in-game event where a player (Jack, perhaps) s
 }
 {% endhighlight %}
 
-Note that all of the schema URIs are illustratory - don't go looking for the underlying schemas in Iglu Central! A few things about this approach which stand out:
+Note that all of the schema URIs are illustratory - don't go looking for the underlying schemas in Iglu Central! There are a few things about this approach which stand out:
 
 * The structure is very simple: there are some grammatical annotations like "directObject" and "at" but fundamentally we are just reporting on the state of various entities at a point in time
 * There are no limitations on the _number_ or _types_ of entities which can be added to the event
 * All of our entities are well-structured, with Iglu schema URIs attached. These entities originate in the game's own data structures, so it should be possible to convert these structures to JSON Schema and upload them into Iglu 
+
+This is a good place to pause and take stock. I've attempted to move the foundational Snowplow event grammar concepts forward by re-framing them in terms of entity snapshotting, a powerful approach which we are _de facto_ already implementing via Snowplow custom contexts. I look forward to getting the Snowplow community's thoughts and responses on the above - with the aim of evolving these ideas still further. Do please leave any and all comments in the Feedback section below!
 
 <div class="html">
 <h2><a name="conc">7. Conclusions</a></h2>
@@ -231,10 +236,11 @@ Note that all of the schema URIs are illustratory - don't go looking for the und
 
 * Entities and events are deeply intertwined concepts - we cannot understand an event without understanding the entities which were involved in that event
 * Entities change over time, because they contain frequently and infrequently changing properties
-* Most of our data systems are atemporal. Change Data Capture is a whole industry dedicated to trying to map entities' state transitions over time
-* Entity snapshotting gives us a simple but effective way of recording the state of our relevant entities at the moment of an event
+* Most of the data systems we work with are atemporal. Change Data Capture is a methodology dedicated to trying to map entities' state transitions in these atemporal systems over time
+* Entity snapshotting gives us a simple but effective way of recording the state of our relevant entities at the specific moment of an event
 * Our revised event grammar consists _only_ of a verb plus various required and optional entity snapshots
 * We can represent our event grammar using self-describing JSON. The model in JSON seems simple yet flexible
+* We are looking forward to feedback on our re-framed event grammar leveraging entity snapshotting
 
 [kreps]: http://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 [dean]: http://manning.com/dean/

@@ -35,9 +35,11 @@ In the rest of this blog post, we will cover the following:
 <h2><a name="entities">1. Introducing entities</a></h2>
 </div>
 
-What is an entity? In event modeling terms, an entity is a thing or object which is somehow _relevant to_ the event that we are observing. For example, in the sentence "I watched Interstellar at my local theatre", myself, the movie and the movie theatre are all entities. We use the word "entity" because the word "object" is too loaded - it has too many connotations from Object-Oriented Programming (OOP), and it also has a separate grammatical meaning in terms of the "subject" of a verb versus the "object" of a verb.
+What is an entity? In event modeling terms, an entity is a thing or object which is somehow _relevant to_ the event that we are observing. For example, in the sentence "I watched Gravity at my local theatre", myself, the movie and the movie theatre are all entities:
 
-ADD DIAGRAM
+![img-entities] [img-entities]
+
+We use the word "entity" because the word "object" is too loaded - it has too many connotations from Object-Oriented Programming (OOP), and it also has a separate grammatical meaning in terms of the "subject" of a verb versus the "object" of a verb.
 
 Entities are everywhere in software. MySQL tables, backbone.js models, Protocol Buffers, JSONs, Plain Old Java Objects, XML documents, Haskell records - as programmers we spend an inordinate amount of time working with the entities that matter to our systems. It is no coincidence that these entities play a huge role in the events which occur in and around our software too.
 
@@ -61,7 +63,7 @@ The exact taxonomy is not set in stone - for example, a person's height will sta
 
 Let's imagine that Jack is playing a mobile game, and saving his progress as he goes. Jack is an entity, and the mobile game is another entity. Across three distinct save game events, Jack's internal properties change:
 
-ADD DIAGRAM
+![img-state] [img-state]
 
 To put it another way: it was a slightly different Jack who saved his game each time. If we want to analyze and understand these save game events, being able to review the "version of Jack" who enacted each event could be hugely important. How can we do this?
 
@@ -125,7 +127,7 @@ Leaving aside the language of "custom contexts", what we are doing here is recor
 
 Back in the [2013 blog post] [snowplow-event-grammar], we identified six discrete building blocks from human language which would make up the semantic structure of our events. We introduced them with this diagram:
 
-![grammar] [grammar]
+![img-grammar] [img-grammar]
 
 We explained the six building blocks thus:
 
@@ -150,7 +152,7 @@ Making these changes results in events that take this form:
 
 This updated event grammar is set out in this diagram:
 
-DIAGRAM
+![img-revised-grammar] [img-revised-grammar]
 
 As we predicted at the start of this blog post: our events now consist of almost _nothing but_ entities. Apart from our **Verb**, our event consists only of entity snapshots, each tagged with the grammatical term that relates it to the rest of the event.
 
@@ -170,7 +172,7 @@ Imagine we are trying to model an in-game event where a player (Jack, perhaps) s
       "schema": "iglu:de.acme/player/jsonschema/1-0-0",
       "data": {
         "playerId": "1213",
-        "emailAddress": "l33t-gamer@gmx.de",
+        "emailAddress": "l33t@gamer.net",
         "highScore": 220412
       }
     },
@@ -252,4 +254,7 @@ Note that all of the schema URIs are illustratory - don't go looking for the und
 
 [custom-contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#311-custom-contexts
 
-[grammar]: /assets/img/blog/2013/08/event-grammar.png
+[img-entities]: /assets/img/blog/2015/01/entities.png
+[img-state]: /assets/img/blog/2015/01/state.png
+[img-grammar]: /assets/img/blog/2013/08/event-grammar.png
+[img-revised-grammar]: /assets/img/blog/2015/01/revised-grammar.png

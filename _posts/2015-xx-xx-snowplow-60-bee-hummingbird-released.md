@@ -1,22 +1,23 @@
 ---
 layout: post
 shortenedlink: Snowplow 60 released
-title: Snowplow 60 released
+title: Snowplow 60 Bee Hummingbird released
 tags: [snowplow, streams, kinesis, s3, thrift]
 author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of Snowplow 60! This release focuses on the Snowplow Kinesis flow, including a new sink created by community member [Phil Kallos][pkallos] which allows you to store binary Thrift records for Snowplow events in S3.
+We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, including a new sink created by community member [Phil Kallos][pkallos] which allows you to store binary Thrift records for Snowplow events in S3.
 
 The rest of this post will cover the following topics:
 
-1. [The Kinesis S3 Sink](/blog/2015/xx/xx/snowplow-60-released/#s3-sink)
-2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-released/#ssc)
-3. [Self-describing Thrift](/blog/2015/xx/xx/snowplow-60-released/#pingdom)
-4. [Scala Stream Collector no longer decodes URLs](/blog/2015/xx/xx/snowplow-60-released/#url-decoding)
-5. [Upgrading](/blog/2015/xx/xx/snowplow-60-released/#upgrading)
-6. [Getting help](/blog/2015/xx/xx/snowplow-60-released/#help)
+1. [The Kinesis S3 Sink](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#s3-sink)
+2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#ssc)
+3. [Self-describing Thrift](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#pingdom)
+4. [Scala Stream Collector no longer decodes URLs](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
+5. [Upgrading](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#upgrading)
+6. [Getting help](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#help)
+7. [Release codenames](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#codenames)
 
 
 <!--more-->
@@ -89,6 +90,10 @@ Documentation for the new S3 sink is available on the Snowplow wiki:
 
 If you have any questions or run any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
+<h2><a name="codenames">7. Release codenames</a></h2>
+
+Up until now, all Snowplow releases have used [semantic versioning][semantic-versioning]. We have decided to move away from this approach, since semantic versioning only makes sense for individual applications. For example, knowing that the new version of one of our Kinesis apps has only increased the patch version would tell you that you don't need to edit your configuration file to upgrade. But for the [Snowplow repository as a whole][repo], starting from now, each new release will be given a single number (in this case 60, since it is the sixtieth release) together with a codename. The codenames will be birds in ascending order of size, starting today with the [bee hummingbird][bee-hummingbird].
+
 [pkallos]: https://github.com/pkallos
 [s3-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-elasticsearch-sink
 [s3-sink-setup]: https://github.com/snowplow/snowplow/wiki/kinesis-s3-sink-setup
@@ -100,6 +105,8 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [semantic-versioning]: http://semver.org/
 [s3]: http://aws.amazon.com/s3/
 [bintray]: http://www.bintray.net/
+[repo]: https://github.com/snowplow/snowplow
+[bee-hummingbird]: http://en.wikipedia.org/wiki/Bee_hummingbird
 
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

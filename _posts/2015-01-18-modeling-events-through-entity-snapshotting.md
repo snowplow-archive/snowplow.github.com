@@ -43,7 +43,7 @@ We use the word "entity" because the word "object" is too loaded - it has too ma
 
 Entities are everywhere in software. MySQL tables, backbone.js models, Protocol Buffers, JSONs, Plain Old Java Objects, XML documents, Haskell records - as programmers we spend an inordinate amount of time working with the entities that matter to our systems. It is no coincidence that these entities play a huge role in the events which occur in and around our software too.
 
-There is a lot of confusion around the role of entities within events - even to the extent of one analytics company arguing that entity data is [completely distinct] [keen-entities-vs-events] from event data. In fact nothing could be further from the truth - as we'll soon see, our events consist of almost _nothing but_ entities. But before we look at the event-entity relationship, we need to understand how entities interact with time.
+There is a lot of confusion around the role of entities within events - even to the extent of one analytics company arguing that entity data is [completely distinct] [keen-entities-vs-events] from event data. In fact nothing could be further from the truth - as we'll soon see, our events consist of _almost nothing but_ entities. But before we look at the event-entity relationship, we need to understand how entities interact with time.
 
 <div class="html">
 <h2><a name="entities-and-time">2. Entities and time</a></h2>

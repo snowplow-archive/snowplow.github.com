@@ -9,6 +9,8 @@ category: Other
 
 This blog contains [JSON schemas][jsonschema] for the all the data types supported by [Amazon Redshift][redshift].
 
+We supply two schemas for each numeric type, since you may want to send in numeric types as JSON strings rather than JSON numbers.
+
 <!--more-->
 
 ### SMALLINT
@@ -16,6 +18,13 @@ This blog contains [JSON schemas][jsonschema] for the all the data types support
 ```
 {
 	"type": "integer"
+}
+```
+
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+$"
 }
 ```
 
@@ -27,11 +36,25 @@ This blog contains [JSON schemas][jsonschema] for the all the data types support
 }
 ```
 
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+$"
+}
+```
+
 ### BIGINT
 
 ```
 {
 	"type": "integer"
+}
+```
+
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+$"
 }
 ```
 
@@ -43,6 +66,13 @@ This blog contains [JSON schemas][jsonschema] for the all the data types support
 }
 ```
 
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+(\\.[0-9]{2})?$"
+}
+```
+
 ### REAL
 
 ```
@@ -51,11 +81,25 @@ This blog contains [JSON schemas][jsonschema] for the all the data types support
 }
 ```
 
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+(\\.[0-9]+)?$"
+}
+```
+
 ### DOUBLE PRECISION
 
 ```
 {
 	"type": "number"
+}
+```
+
+```
+{
+	"type": "string",
+	"pattern": "^[0-9]+(\\.[0-9]+)?$"
 }
 ```
 

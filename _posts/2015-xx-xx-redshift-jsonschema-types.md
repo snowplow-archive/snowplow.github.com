@@ -16,7 +16,7 @@ We supply two schemas for each numeric type, since you may want to send in numer
 3. [BIGINT](/blog/2015/xx/xx/redshift-jsonschema-types#bigint)
 4. [DECIMAL](/blog/2015/xx/xx/redshift-jsonschema-types#decimal)
 5. [REAL](/blog/2015/xx/xx/redshift-jsonschema-types#real)
-6. [DOUBLE](PRECISION(/blog/2015/xx/xx/redshift-jsonschema-types#double)
+6. [DOUBLE PRECISION](/blog/2015/xx/xx/redshift-jsonschema-types#double)
 7. [BOOLEAN](/blog/2015/xx/xx/redshift-jsonschema-types#boolean)
 8. [CHAR](/blog/2015/xx/xx/redshift-jsonschema-types#char)
 9. [VARCHAR](/blog/2015/xx/xx/redshift-jsonschema-types#varchar)

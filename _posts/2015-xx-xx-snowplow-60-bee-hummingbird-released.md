@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, including a new sink created by community member [Phil Kallos][pkallos] which allows you to store binary Thrift records for Snowplow events in S3.
+We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, including a new sink created by community member [Phil Kallos][pkallos] which allows you to store binary Thrift records for Snowplow events in S3. Huge thanks to Phil for his contributions to this release!
 
 The rest of this post will cover the following topics:
 
@@ -24,7 +24,9 @@ The rest of this post will cover the following topics:
 
 <h2><a name="s3-sink">1. The Kinesis S3 Sink</a></h2>
 
-The Scala Stream Collector writes Thrift events to a Kinesis stream. The new Kinesis S3 Sink is a Kinesis app which reads Thrift events and compresses them using [splittable LZO][splittable-lzo]. The resulting .lzo and .lzo.index files are then written to [S3][s3].
+The Scala Stream Collector writes Thrift events to a Kinesis stream. The new Kinesis S3 Sink is a Kinesis app which reads any records from a stream and compresses them using [splittable LZO][splittable-lzo]. The resulting compressed files are then written to [S3][s3]. Each .lzo file has a corresponding .lzo.index file containing the byte offsets for the LZO blocks, meaning that the blocks can be processed in parallel using Hadoop.
+
+The sink is not limited to serialized Thrift records - it will work equally for any Kinesis record.
 
 Phil Kallos contributed another new feature: the batch-based pipeline can now read Thrift binary records, so you can use it to process the output of the Kinesis S3 Sink. Just set the collector_format field in the EmrEtlRunner's YAML configuration file to "thrift".
 

@@ -22,13 +22,13 @@ In the rest of this post we will cover:
 
 <h2><a name="architecture">1. Architectural updates</a></h2>
 
-Snowplow Java and Android Tracker users have reported serious performance issues running these trackers both in server and mobile environments. We are working to fix these issues as quickly as we can; in the meantime, to facilitate these improvements, we have decided to fork these trackers and evolve them separately.
+Some Snowplow Java and Android Tracker users have reported serious performance issues running these trackers respectively in server and mobile environments. We are working to fix these issues as quickly as we can; in the meantime, to facilitate these improvements, we have decided to formally separate these trackers and evolve them separately.
 
 As of this release, the Java Tracker repository no longer contains a Java Tracker Core library: this functionality has been merged back into the Java Tracker proper. Many thanks to [David Stendardi] [dstendardi] for contributing this merge ([#116] [issue-116]).
 
 The last release of the Android Tracker (0.2.0) is not affected by this change; the next Android Tracker release will remove its dependency on the Java Tracker Core library as well.
 
-No longer having to support Android within the Java Tracker repository has allowed us to clean up the code somewhat: specifically, we have reintroduced formal dependencies on Apache Commons Codec and Google Guava where previously we had had to copy-and-paste code to support Android dex limits.
+No longer having to support Android within the Java Tracker repository has allowed us to clean up the code somewhat: specifically, we have reintroduced formal dependencies on Apache Commons Codec and Google Guava where previously we had copy-and-pasted code to keep Android file sizes down.
 
 <h2><a name="api">2. API updates</a></h2>
 
@@ -44,7 +44,7 @@ This import would become:
 import com.snowplowanalytics.snowplow.tracker.DevicePlatform;
 {% endhighlight %}
 
-Besides this change, we have also started to clean-up the `SchemaPayload` and `TrackerPayload` classes, and their shared `Payload` interface ([#72] [issue-72], [#126] [issue-126]). However these updates should not affect the public API materially.
+Besides this change, we have also started to clean-up the `SchemaPayload` and `TrackerPayload` classes, together with their shared `Payload` interface ([#72] [issue-72], [#126] [issue-126]). However these updates should not affect the public API materially.
 
 <h2><a name="testing">3. Testing updates</a></h2>
 
@@ -60,13 +60,11 @@ The new version of the Snowplow Java Tracker is 0.7.0. The [Java Setup Guide] [j
 
 You can find the updated [Android and Java Tracker usage manual] [android-java-manual] on our wiki. There are no material API changes.
 
-You can find the full release notes on GitHub as follows:
-
-* [Snowplow Java Tracker v0.7.0 release] [java-tracker-release]
+You can find the full release notes on GitHub as [Snowplow Java Tracker v0.7.0 release] [java-tracker-release].
 
 <h2><a name="help">6. Getting help</a></h2>
 
-The Java Tracker is still a young project; please do share any user feedback, feature requests or possible bugs.
+The Java Tracker is still an immature project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 
 Feel free to [get in touch][talk-to-us] or raise an issue [Java Tracker issues] [java-issues] on GitHub!
 

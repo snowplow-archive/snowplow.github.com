@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Introducing our 2015 Snowplow winterns
-title: Introducing our 2015 Snowplow winterns
+shortenedlink: Introducing our 2014-2015 Snowplow winterns
+title: Introducing our 2014-2015 Snowplow winterns
 tags: [snowplow, intern, winter, wintern, internship]
 author: Alex
 category: Recruitment
@@ -43,7 +43,7 @@ Aalekh is hoping to gain a better understanding of Scala through the internship,
 [winter-2014]: /blog/2013/10/07/announcing-our-winter-open-source-internship-program/
 [summer-2014]: /blog/2014/08/21/introducing-our-summer-interns/
 
-[interns-montage]: /assets/img/blog/2014/08/summer-interns.png
+[interns-montage]: /assets/img/blog/2015/01/winterns.png
 
 [bigquery]: https://cloud.google.com/bigquery/
 

@@ -58,6 +58,6 @@
   full_name: Andrew Curtis
   github: MrCurtis
   url: /authors/andrew.html
-  avatar: 
+  avatar: /assets/img/team/andrew.png
   spiel:   |
-      <a href="/authors/andrew.html">Andrew</a> is an Data Engineering Intern at Snowplow.</a>.
+      <a href="/authors/andrew.html">Andrew</a> is an Data Engineering Intern at Snowplow</a>.

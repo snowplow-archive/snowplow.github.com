@@ -53,3 +53,11 @@
   avatar: https://avatars2.githubusercontent.com/u/7984544?v=2&s=460
   spiel:   |
       <a href="/authors/josh.html">Josh</a> is an Data Engineering Intern at Snowplow. You can find him on <a href="https://plus.google.com/104589640512405993119/posts" rel="author">Google+</a> and <a href="http://au.linkedin.com/pub/josh-beemster/81/950/929">LinkedIn</a>.
+
+- name: Andrew
+  full_name: Andrew Curtis
+  github: MrCurtis
+  url: /authors/andrew.html
+  avatar: /assets/img/team/andrew.png
+  spiel:   |
+      <a href="/authors/andrew.html">Andrew</a> is an Data Engineering Intern at Snowplow</a>.

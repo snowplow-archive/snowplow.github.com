@@ -7,17 +7,23 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, including a new sink created by community member [Phil Kallos][pkallos] which allows you to store binary Thrift records for Snowplow events in S3. Huge thanks to Phil for his contributions to this release!
+We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, and includes:
+
+1. A new Kinesis "sink app" that reads the Scala Stream Collector's Kinesis stream of raw events and stores these raw events in Amazon S3 in an optimized format
+2. An updated version of our Hadoop Enrichment process tgat can read the events stored in S3 by the new Kinesis sink app and enrich them
+
+Together, these two features let you robustly archive your Kinesis event stream in S3, and process and re-process it at will using our tried-and-tested Hadoop Enrichment process. Huge thanks to community member [Phil Kallos][pkallos] from Popsugar for his contributions to this release!
+
+_Up until now, all Snowplow releases have used [semantic versioning][semantic-versioning]. We will continue to use semantic versioning for Snowplow's many constituent applications and libraries, but our releases of [the Snowplow platform as a whole][repo] will be known by their release number plus a codename. This is release 60; the codenames for 2015 will be birds in ascending order of size, starting today with the [Bee Hummingbird][bee-hummingbird]._
 
 The rest of this post will cover the following topics:
 
-1. [The Kinesis S3 Sink](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#s3-sink)
-2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#ssc)
-3. [Self-describing Thrift](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#pingdom)
-4. [Scala Stream Collector no longer decodes URLs](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
-5. [Upgrading](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#upgrading)
-6. [Getting help](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#help)
-7. [Release codenames](/blog/2015/xx/xx/snowplow-60-bee-hummingbird-released/#codenames)
+1. [The Kinesis S3 Sink](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#s3-sink)
+2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#ssc)
+3. [Self-describing Thrift](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#pingdom)
+4. [Scala Stream Collector no longer decodes URLs](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
+5. [Upgrading](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#upgrading)
+6. [Getting help](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#help)
 
 
 <!--more-->
@@ -91,10 +97,6 @@ Documentation for the new S3 sink is available on the Snowplow wiki:
 * [Technical documentation][s3-sink-techdocs]
 
 If you have any questions or run any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
-
-<h2><a name="codenames">7. Release codenames</a></h2>
-
-Up until now, all Snowplow releases have used [semantic versioning][semantic-versioning]. We have decided to move away from this approach, since semantic versioning only makes sense for individual applications. For example, knowing that the new version of one of our Kinesis apps has only increased the patch version would tell you that you don't need to edit your configuration file to upgrade. But for the [Snowplow repository as a whole][repo], starting from now, each new release will be given a single number (in this case 60, since it is the sixtieth release) together with a codename. The codenames will be birds in ascending order of size, starting today with the [bee hummingbird][bee-hummingbird].
 
 [pkallos]: https://github.com/pkallos
 [s3-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-elasticsearch-sink

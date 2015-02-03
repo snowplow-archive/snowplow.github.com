@@ -18,14 +18,13 @@ _Up until now, all Snowplow releases have used [semantic versioning][semantic-ve
 
 The rest of this post will cover the following topics:
 
-1. [The Kinesis LZO S3 Sink](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#s3-sink)
-2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#ssc)
-4. [Scala Stream Collector no longer decodes URLs](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
-3. [Self-describing Thrift](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#pingdom)
-
-5. []
-5. [Upgrading](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#upgrading)
-6. [Getting help](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#help)
+1. [The Kinesis LZO S3 Sink](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#s3-sink)
+2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#ssc)
+3. [Scala Stream Collector no longer decodes URLs](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#url-decoding)
+4. [Self-describing Thrift](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#thrift)
+5. [EmrEtlRunner updates](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#emretlrunner-updates)
+6. [Upgrading](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#upgrading)
+7. [Getting help](/blog/2015/02/03/snowplow-60-bee-hummingbird-released/#help)
 
 <!--more-->
 
@@ -57,13 +56,13 @@ Two further improvements to the Scala Stream Collector's routing are worth notin
 
 The Scala Stream Collector used to use [Spray's][spray] URI parsing to parse and percent-decode incoming `GET` requests. Unfortunately the enrichment process also percent-decodes querystrings. This meant that incoming non-Base64-encoded events were decoded twice, introducing errors if certain characters were present. This has now been fixed.
 
-<h2><a name="self-describing-thrift">4. Self-describing Thrift</a></h2>
+<h2><a name="thrift">4. Self-describing Thrift</a></h2>
 
 The old `SnowplowRawEvent` Thrift struct output by the Scala Stream Collector didn't contain all of the fields we now require, such as the body of POST requests.
 
 We have therefore replaced it with a new and improved `CollectorPayload` struct. Since we wanted to accept legacy `SnowplowRawEvent` Thrift records and also to possibly add new fields to CollectorPayload in the future, we have implemented self-describing Thrift to ensure that it is always possible to tell which of Snowplow's Thrift IDL files was used to generate a given event. See [this blog post][introducing-self-describing-thrift] for more detail.
 
-<h2><a name="emretlrunner-fixes">5. EmrEtlRunner updates</a></h2>
+<h2><a name="emretlrunner-updates">5. EmrEtlRunner updates</a></h2>
 
 We have fixed two bugs in the EmrEtlRunner related to reporting of failed Elastic MapReduce jobs:
 

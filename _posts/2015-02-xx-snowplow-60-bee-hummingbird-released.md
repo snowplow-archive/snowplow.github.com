@@ -20,8 +20,9 @@ The rest of this post will cover the following topics:
 
 1. [The Kinesis LZO S3 Sink](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#s3-sink)
 2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#ssc)
-3. [Self-describing Thrift](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#pingdom)
 4. [Scala Stream Collector no longer decodes URLs](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
+3. [Self-describing Thrift](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#pingdom)
+
 5. []
 5. [Upgrading](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#upgrading)
 6. [Getting help](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#help)
@@ -47,39 +48,39 @@ For more information on setting up the Kinesis LZO S3 Sink, please see these wik
 
 The Scala Stream Collector was previously limited to standard `GET` requests of the format historically sent by Snowplow trackers. From this release `POST` requests containing one or more events are now supported too. This makes the Scala Stream Collector more suitable for tracking events from mobile trackers, server-side trackers and indeed from [supported webhooks][introducing-webhooks].
 
-Two further improvements to the Scala Stream Collector are worth noting:
+Two further improvements to the Scala Stream Collector's routing are worth noting:
 
 1. The 1x1 transparent pixel with which the Scala Stream Collector responds to GET requests has been changed to improve compatibility with webmail providers such as Gmail ([#1260] [issue-1260])
-2. Snowplow community member [James Duncan Davidson] [duncan] added a dedicated `/healthcheck` route to the collector, for easier inter-op with Elastic Load Balancer ([#1360] [issue-1360]). Thanks James!
+2. Snowplow community member [James Duncan Davidson] [duncan] added a dedicated `/health` route to the collector, for easier inter-op with Elastic Load Balancer ([#1360] [issue-1360]). Thanks James!
 
-<h2><a name="self-describing-thrift">3. Self-describing Thrift</a></h2>
+<h2><a name="url-decoding">3. Scala Stream Collector no longer decodes URLs</a></h2>
+
+The Scala Stream Collector used to use [Spray's][spray] URI parsing to parse and percent-decode incoming `GET` requests. Unfortunately the enrichment process also percent-decodes querystrings. This meant that incoming non-Base64-encoded events were decoded twice, introducing errors if certain characters were present. This has now been fixed.
+
+<h2><a name="self-describing-thrift">4. Self-describing Thrift</a></h2>
 
 The old `SnowplowRawEvent` Thrift struct output by the Scala Stream Collector didn't contain all of the fields we now require, such as the body of POST requests.
 
 We have therefore replaced it with a new and improved `CollectorPayload` struct. Since we wanted to accept legacy `SnowplowRawEvent` Thrift records and also to possibly add new fields to CollectorPayload in the future, we have implemented self-describing Thrift to ensure that it is always possible to tell which of Snowplow's Thrift IDL files was used to generate a given event. See [this blog post][introducing-self-describing-thrift] for more detail.
 
-<h2><a name="url-decoding">4. Scala Stream Collector no longer decodes URLs</a></h2>
+<h2><a name="emretlrunner-fixes">5. EmrEtlRunner updates</a></h2>
 
-The Scala Stream Collector used to use [Spray's][spray] URI parsing to parse and percent-decode incoming `GET` requests. Unfortunately the enrichment process also percent-decodes querystrings. This meant that incoming non-Base64-encoded events were decoded twice, introducing errors if certain characters were present. This has now been fixed.
+We have fixed two bugs in the EmrEtlRunner related to reporting of failed Elastic MapReduce jobs:
 
-<h2><a name="upgrading">5. Upgrading</a></h2>
+* We worked around a missing dependency on the `time_diff` gem by re-implementing that functionality manually, as adding in the missing original gem caused cascading issues ([#1310] [issue-1310])
+* We fixed a bug where the failure reporting would crash if one or more of the jobflow step had a missing `created_at` property ([#1351] [issue-1351])
 
-We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3. To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
+Bee Hummingbird also updates the EmrEtlRunner so it is aware of the new `"thrift"` format for Snowplow raw events (as stored by the Kinesis LZO S3 Sink).
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
+<h2><a name="upgrading">6. Upgrading</a></h2>
 
-The new Scala Hadoop Enrich version is available as always on S3:
+<div class="html">
+<h3><a name="upgrading-emretlrunner">6.1 Upgrading your EmrEtlRunner</a></h3>
+</div>
 
-    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.12.0.jar
+We recommend upgrading EmrEtlRunner to the latest version, 0.11.0, given the bugs fixed in this release. You also must upgrade if you want to use Hadoop to process the events stored by the Kinesis LZO S3 Sink.
 
-Remember to increment the version in the EmrEtlRunner's configuration YAML:
-
-{% highlight yaml %}
-  :versions:
-    :hadoop_enrich: 0.12.0 # WAS 0.11.0
-{% endhighlight %}
-
-We recommend upgrading EmrEtlRunner to the latest version, 0.11.0, given the bugs fixed in this release. You also must upgrade if you want to use Hadoop to process the events stored by the Kinesis LZO S3 Sink. Upgrading is as follows:
+Upgrade is as follows:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
@@ -90,13 +91,36 @@ $ cd ../../4-storage/storage-loader
 $ bundle install --deployment
 {% endhighlight %}
 
+<div class="html">
+<h3><a name="configuring-emretlrunner">6.2 Updating your EmrEtlRunner's configuration</a></h3>
+</div>
+
+This release bumps the Hadoop Enrichment process to version **0.12.0**.
+
+In your EmrEtlRunner's `config.yml` file, update your `hadoop_enrich job's version like so:
+
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 0.12.0 # WAS 0.11.0
+{% endhighlight %}
+
 If you want to run the Hadoop Enrichment process against the output of the Kinesis LZO S3 Sink, you will have to change the collector_format field in the configuration file to "thrift":
 
 {% highlight bash %}
 :collector_format: thrift
 {% endhighlight %}
 
-<h2><a name="help">6. Getting help</a></h2>
+For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
+
+<div class="html">
+<h3><a name="upgrading-kinesis">6.3 Upgrading your Kinesis pipeline</a></h3>
+</div>
+
+We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3. To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
+
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
+
+<h2><a name="help">7. Getting help</a></h2>
 
 Documentation for the new Kinesis LZO S3 Sink is available on the Snowplow wiki:
 
@@ -119,9 +143,13 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [repo]: https://github.com/snowplow/snowplow
 [bee-hummingbird]: http://en.wikipedia.org/wiki/Bee_hummingbird
 
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
 [duncan]: https://github.com/duncan
 
 [issue-1260]: https://github.com/snowplow/snowplow/issues/1260
+[issue-1310]: https://github.com/snowplow/snowplow/pull/1310
+[issue-1351]: https://github.com/snowplow/snowplow/pull/1351
 [issue-1360]: https://github.com/snowplow/snowplow/pull/1360
 
 [issues]: https://github.com/snowplow/snowplow/issues

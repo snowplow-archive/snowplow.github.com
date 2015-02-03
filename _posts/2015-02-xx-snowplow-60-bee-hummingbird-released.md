@@ -22,6 +22,7 @@ The rest of this post will cover the following topics:
 2. [Support for POSTs and webhooks in the Scala Stream Collector](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#ssc)
 3. [Self-describing Thrift](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#pingdom)
 4. [Scala Stream Collector no longer decodes URLs](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#url-decoding)
+5. []
 5. [Upgrading](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#upgrading)
 6. [Getting help](/blog/2015/02/xx/snowplow-60-bee-hummingbird-released/#help)
 
@@ -31,7 +32,7 @@ The rest of this post will cover the following topics:
 
 The Scala Stream Collector writes Snowplow raw events in a Thrift format to a Kinesis stream. The new Kinesis LZO S3 Sink is a Kinesis app which reads records from a stream, compresses them using [splittable LZO][splittable-lzo] and writes the compressed files to [S3][s3]. Each `.lzo` file has a corresponding `.lzo.index` file containing the byte offsets for the LZO blocks, so that the blocks can be processed in parallel using Hadoop.
 
-In fact this new sink is not limited to serialized Snowplow Thrift records - it will work equally well for any Kinesis record.
+In fact this new sink is not limited to serialized Snowplow Thrift records - it can store any stream of Kinesis records as splittable LZO files in S3.
 
 To accompany this new sink, we have updated the batch-based Hadoop Enrichment process so that it can now read LZO-compressed Thrift binary records. This means that you can potentially run both the Kinesis and Hadoop Enrichment processes off the same Kinesis stream. To use this feature, just set the collector_format field in the EmrEtlRunner's YAML configuration file to "thrift".
 
@@ -46,7 +47,10 @@ For more information on setting up the Kinesis LZO S3 Sink, please see these wik
 
 The Scala Stream Collector was previously limited to standard `GET` requests of the format historically sent by Snowplow trackers. From this release `POST` requests containing one or more events are now supported too. This makes the Scala Stream Collector more suitable for tracking events from mobile trackers, server-side trackers and indeed from [supported webhooks][introducing-webhooks].
 
-Finally, the 1x1 transparent pixel with which the Scala Stream Collector responds to GET requests has been changed to improve compatibility with webmail providers such as Gmail.
+Two further improvements to the Scala Stream Collector are worth noting:
+
+1. The 1x1 transparent pixel with which the Scala Stream Collector responds to GET requests has been changed to improve compatibility with webmail providers such as Gmail ([#1260] [issue-1260])
+2. Snowplow community member [James Duncan Davidson] [duncan] added a dedicated `/healthcheck` route to the collector, for easier inter-op with Elastic Load Balancer ([#1360] [issue-1360]). Thanks James!
 
 <h2><a name="self-describing-thrift">3. Self-describing Thrift</a></h2>
 
@@ -62,7 +66,7 @@ The Scala Stream Collector used to use [Spray's][spray] URI parsing to parse and
 
 We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3. To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
 
-    https://bintray.com/snowplow/snowplow-generic/snowplow/60/view/files
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
 
 The new Scala Hadoop Enrich version is available as always on S3:
 
@@ -75,7 +79,7 @@ Remember to increment the version in the EmrEtlRunner's configuration YAML:
     :hadoop_enrich: 0.12.0 # WAS 0.11.0
 {% endhighlight %}
 
-If you want to use Hadoop to process the events stored by the Kinesis S3 Sink, you must upgrade your EmrEtlRunner to the latest version, 0.11.0:
+We recommend upgrading EmrEtlRunner to the latest version, 0.11.0, given the bugs fixed in this release. You also must upgrade if you want to use Hadoop to process the events stored by the Kinesis LZO S3 Sink. Upgrading is as follows:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
@@ -86,7 +90,7 @@ $ cd ../../4-storage/storage-loader
 $ bundle install --deployment
 {% endhighlight %}
 
-Finally, you will have to change the collector_format field in the configuration file to "thrift":
+If you want to run the Hadoop Enrichment process against the output of the Kinesis LZO S3 Sink, you will have to change the collector_format field in the configuration file to "thrift":
 
 {% highlight bash %}
 :collector_format: thrift
@@ -102,7 +106,7 @@ Documentation for the new Kinesis LZO S3 Sink is available on the Snowplow wiki:
 If you have any questions or run any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 [pkallos]: https://github.com/pkallos
-[s3-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-elasticsearch-sink
+[s3-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-lzo-s3-sink
 [s3-sink-setup]: https://github.com/snowplow/snowplow/wiki/kinesis-s3-sink-setup
 [s3-sink-techdocs]: https://github.com/snowplow/snowplow/wiki/kinesis-s3-sink
 [introducing-self-describing-thrift]: http://snowplowanalytics.com/blog/2014/12/16/introducing-self-describing-thrift/
@@ -114,6 +118,11 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [bintray]: http://www.bintray.net/
 [repo]: https://github.com/snowplow/snowplow
 [bee-hummingbird]: http://en.wikipedia.org/wiki/Bee_hummingbird
+
+[duncan]: https://github.com/duncan
+
+[issue-1260]: https://github.com/snowplow/snowplow/issues/1260
+[issue-1360]: https://github.com/snowplow/snowplow/pull/1360
 
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

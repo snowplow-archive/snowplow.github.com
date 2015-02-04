@@ -10,7 +10,7 @@ category: Releases
 We are happy to announce the release of Snowplow 60! Our sixtieth release focuses on the Snowplow Kinesis flow, and includes:
 
 1. A new Kinesis "sink app" that reads the Scala Stream Collector's Kinesis stream of raw events and stores these raw events in Amazon S3 in an optimized format
-2. An updated version of our Hadoop Enrichment process tgat can read the events stored in S3 by the new Kinesis sink app and enrich them
+2. An updated version of our Hadoop Enrichment process that supports as an input format the events stored in S3 by the new Kinesis sink app
 
 Together, these two features let you robustly archive your Kinesis event stream in S3, and process and re-process it at will using our tried-and-tested Hadoop Enrichment process. Huge thanks to community member [Phil Kallos][pkallos] from Popsugar for his contributions to this release!
 

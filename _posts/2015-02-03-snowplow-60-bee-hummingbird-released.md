@@ -83,7 +83,7 @@ Upgrade is as follows:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
-$ git checkout 60
+$ git checkout r60-bee-hummingbird
 $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 $ cd ../../4-storage/storage-loader

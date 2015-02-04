@@ -34,7 +34,7 @@ The Scala Stream Collector writes Snowplow raw events in a Thrift format to a Ki
 
 In fact this new sink is not limited to serialized Snowplow Thrift records - it can store any stream of Kinesis records as splittable LZO files in S3.
 
-To accompany this new sink, we have updated the batch-based Hadoop Enrichment process so that it can now read LZO-compressed Thrift binary records. This means that you can potentially run both the Kinesis and Hadoop Enrichment processes off the same Kinesis stream. To use this feature, just set the collector_format field in the EmrEtlRunner's YAML configuration file to "thrift".
+To accompany this new sink, we have updated the batch-based Hadoop Enrichment process so that it can now read LZO-compressed Thrift binary records. This means that you can potentially run both the Kinesis and Hadoop Enrichment processes off the same Kinesis stream. To use this feature, just set the `collector_format` field in the EmrEtlRunner's YAML configuration file to `thrift`.
 
 You can see the project [here][s3-sink].
 
@@ -103,7 +103,7 @@ In your EmrEtlRunner's `config.yml` file, update your `hadoop_enrich job's versi
     :hadoop_enrich: 0.12.0 # WAS 0.11.0
 {% endhighlight %}
 
-If you want to run the Hadoop Enrichment process against the output of the Kinesis LZO S3 Sink, you will have to change the collector_format field in the configuration file to "thrift":
+If you want to run the Hadoop Enrichment process against the output of the Kinesis LZO S3 Sink, you will have to change the collector_format field in the configuration file to `thrift`:
 
 {% highlight bash %}
 :collector_format: thrift

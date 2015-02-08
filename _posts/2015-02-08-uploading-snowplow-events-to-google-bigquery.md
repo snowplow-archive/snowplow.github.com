@@ -9,12 +9,12 @@ category: Research
 
 As part of my winternship here at Snowplow Analytics in London, I've been experimenting with using Scala to upload Snowplow's enriched events to [Google's BigQuery] [bigquery] database. The ultimate goal is to add BigQuery support to both Snowplow pipelines, including being able to stream data in near-realtime from an Amazon Kinesis stream to BigQuery. This blog post will cover:
 
-1. [Getting started with BigQuery](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#setup)
-2. [Downloading some enriched events](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#downloading)
-3. [Installing BigQuery Loader CLI](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#installation)
-4. [Analyzing the event stream in BigQuery](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#loading)
-5. [Loading enriched events into BigQuery](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#analyzing)
-6. [Next steps](/blog/2015-02-08-uploading-snowplow-events-to-google-bigquery#next)
+1. [Getting started with BigQuery](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#setup)
+2. [Downloading some enriched events](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#downloading)
+3. [Installing BigQuery Loader CLI](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#installation)
+4. [Analyzing the event stream in BigQuery](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#loading)
+5. [Loading enriched events into BigQuery](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#analyzing)
+6. [Next steps](/blog/2015/02/08/uploading-snowplow-events-to-google-bigquery#next)
 
 <!--more-->
 
@@ -116,7 +116,7 @@ If we run it against our January data in BigQuery, we will see something like th
 
 ![img-bigquery] [img-bigquery]
 
-If you want to try your hand at adapting other Snowplow recipes to BigQuery, make sure to check out the [Query Reference] [bigquery-docs] documentation.
+If you want to try your hand at adapting other Snowplow recipes to BigQuery, make sure to check out Google's [Query Reference] [bigquery-docs] documentation for BigQuery.
 
 <div class="html">
 <h2><a name="next">6. Next steps</a></h2>
@@ -124,7 +124,7 @@ If you want to try your hand at adapting other Snowplow recipes to BigQuery, mak
 
 The next step in terms of my R&D with Google BigQuery is to write a Kinesis app that reads Snowplow enriched events from a Kinesis stream and writes them to BigQuery in near-realtime. After this, we will port this functionality over into Snowplow's Hadoop-based batch flow. We also need to determine how best to support unstructured event and custom context JSONs in BigQuery.
 
-Meanwhile, on the analytics side, others at Snowplow are looking at how they might best utilise the unique feature of BigQuery to analyze a Snowplow event stream.
+Meanwhile, on the analytics side, others at Snowplow are looking at how they might best utilize the unique features of BigQuery to analyze a Snowplow event stream.
 
 If you have run into any problems with this tutorial, or have any suggestions for our BigQuery roadmap, please do [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 

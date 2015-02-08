@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Uploading Snowplow enriched events to Google BigQuery
-title: Uploading Snowplow enriched events to Google BigQuery
+shortenedlink: Uploading Snowplow events to Google BigQuery
+title: Uploading Snowplow events to Google BigQuery
 tags: [event, analytics, bigquery]
 author: Andrew
 category: Research

@@ -30,7 +30,7 @@ To follow along with this tutorial, you will need:
 
 If you don't already have a Google BigQuery account, please [sign up] [bigquery-signup] to BigQuery, and enable billing. Don't worry, this tutorial shouldn't cost you anything - Google have reasonably generous free quotas for both uploading and querying.
 
-Next, create a project, and make a note of the **Project Number** by clicking on the name of the project on the [Google developers console] [google-developers-console].
+Next, create a project, and make a note of the **Project Number** by clicking on the name of the project on the [Google Developers Console] [google-developers-console].
 
 <div class="html">
 <h2><a name="downloading">2. Downloading some enriched events</a></h2>

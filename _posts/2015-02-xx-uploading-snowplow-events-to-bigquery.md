@@ -7,7 +7,7 @@ author: Andrew
 category: Research
 ---
 
-As part of my internship here at Snowplow, I've been experimenting with using Scala to upload Snowplow-enriched events to Google's BigQuery database. The final goal is to be able to stream data in realtime, or near realtime, from an Amazon Kinesis stream to BigQuery. This blog will cover:
+As part of my winternship here at Snowplow Analytics in London, I've been experimenting with using Scala to upload Snowplow's enriched events to [Google's BigQuery] [bigquery] database. The ultimate goal is to add BigQuery support to both Snowplow pipelines, including being able to stream data in near-realtime from an Amazon Kinesis stream to BigQuery. This blog post will cover:
 
 1. [Setting up a BigQuery project](/blog/2015-01-19-uploading-snowplow-data-to-bigquery#setup)
 2. [Uploading enriched data, using a command line function](/blog/2015-01-19-uploading-snowplow-data-to-bigquery#upload)
@@ -16,10 +16,52 @@ As part of my internship here at Snowplow, I've been experimenting with using Sc
 <!--more-->
 
 <div class="html">
+<h2><a name="getting-started">1. Getting started</a></h2>
+</div>
+
+To follow along with this tutorial, you will need:
+
+* Some Snowplow enriched events as typically archived in Amazon S3
+* Java 7+ installed
+* A Google BigQuery account
+
+If you don't already have a Google BigQuery account, please **[sign up] [bigquery-signup]** to BigQuery, and enable billing. Don't worry, this tutorial shouldn't cost you anything - Google have reasonably generous free quotas for both uploading and querying.
+
+Next, create a project, and make a note of the **Project Number** by clicking on the name of the project on the **[Google developers console] [google-developers-console]**.
+
+<div class="html">
+<h2><a name="sourcing-events">2. Downloading some events</a></h2>
+</div>
+
+We now need a local folder of Snowplow enriched events - these should be in your Archive Bucket in S3. If you use a GUI S3 client like Bucket Explorer or Cyberduck, use that now to download some enriched events from your archive. You want to end up with a single folder containing enriched event files.
+
+If you use the AWS CLI tools, then the following command should retrieve all of your enriched events for January (update the bucket path and profile accordingly):
+
+{% highlight bash %}
+TO COME
+{% endhighlight %}
+
+<div class="html">
+<h2><a name="installation">3. Installing BigQuery Loader CLI</a></h2>
+</div>
+
+For the purposes of this tutorial I have written a simple command-line application which will handle the loading of Snowplow enriched events into 
+
+Third, our command-line app will need credentials to access the BigQuery project:
+
+1. Click on the **Credentials** link in the **APIs and auth** section of the developer console
+2. Click on the **create new Client ID** button, selecting **installed application** as the appliction type and **other** as the installed application type
+3. Click **CreateClient Id** and then **Download json** to save the file
+4. Save the `client_secrets` file to the same directory that you unzipped the command-line app
+5. Rename the `client_secrets` file to `client_secrets_<projectId>.json`, where `<projectId>` is the Project Number obtained earlier
+
+
+
+<div class="html">
 <h2><a name="setup">1. Setting up a BigQuery project</a></h2>
 </div>
 
-Assuming you already have a either a folder or single file of snowplow enriched kinesis stream data, the first step is to [sign up for big query](https://cloud.google.com/bigquery/sign-up) and create a project. Note that to upload the data you will have to enable billing. However, Google have reasonably generous free quotas for both uploading and querying.
+Assuming you already have a either a folder or single file of Snowplow enriched events, the first step is to [sign up for big query](https://cloud.google.com/bigquery/sign-up) and create a project. Note that to upload the data you will have to enable billing. 
 
 After setting up the account and creating a project you will need to obtain the project number from the [Google developers console](https://console.developers.google.com/project/). You will also need to create a client secret file for the purposes of OAuth2 authorization. To obtain this click on the **Credentials** link in the **APIs & auth** section of the developers console. Click on the **create new Client ID** button and then select installed application as the appliction type and other as the installed application type. Finally click **CreateClient Id** and then **Download json** to save the file for future use. 
 
@@ -62,3 +104,7 @@ To append further data to the table simply run the command again, omitting the `
 The next step, development wise, will involve working on the other the other end of the pipeline - obtaining events data from the Kinesis enriched events scheme.
 
 Meanwhile, on the analytics side, others at Snowplow are looking at how they might best utilise the unique feature of BigQuery to better analyse Snowplow data.
+
+[bigquery]: https://cloud.google.com/bigquery
+[bigquery-signup]: https://cloud.google.com/bigquery/sign-up
+

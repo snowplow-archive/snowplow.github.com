@@ -114,42 +114,19 @@ When the side menu is generated (Jekyll compiles the site) it fetches all the di
 
 We **strongly** advise you compile and preview the site locally before pushing updates to production.
 
-In order to compile the website locally, you will need be running [Jekyll] (http://rubygems.org/gems/jekyll). This site was developed using Jekyll v1.4.3.
+In order to compile the website locally, you will need be running VirtualBox and Vagrant.
 
-We recommend using the [Vagrant] (http://www.vagrantup.com/) and the [Snowplow development environment] (https://github.com/snowplow/dev-environment).
+Navigate to the repo, then build then vagrant up:
 
-First, clone the dev environment:
-
-	$ git clone --recursive https://github.com/snowplow/dev-environment.git 
-	$ cd dev-environment
 	$ vagrant up
 
-Note that we use the `--recursive` flag to clone in [ansible-playbooks] (https://github.com/snowplow/ansible-playbooks) as a submodule. 
-
-Now SSH into the VM and run the [snowplow-website.yml] Ansible Playbook, which installs Ruby, RVM and Jekyll:
+That will take about 15 minutes to run initially. Once your VM is ready, you can ssh on and build the website
 
 	$ vagrant ssh
-	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
-		--inventory-file=/home/vagrant/ansible_hosts --connection=local
-
-Note that there is a bug we still need to fix, which means the final step in the playbook, which installs Jekyll, doesn't successfully run first time: you need to exit the terminal after you first run the playbook, then log back in and run it again:
-
-	$ exit
-	$ vagrant ssh 
-	$ ansible-playbook /vagrant/ansible-playbooks/snowplow-website.yml \
-		--inventory-file=/home/vagrant/ansible_hosts --connection=local
-
-Now everything should be ready!
-
-Now navigate to the `snowplow.github.com` repo in the dev-environment and build it using:
-
-    $ export LC_ALL=en_US.UTF-8
-    $ export LANG=en_US.UTF-8
+	$ cd /vagrant
 	$ jekyll serve
 
-*In most cases people clone the `snowplow.github.com` repo into the `dev-environment` repo on the host machine, in which case on the VM it can be found in `/vagrant/snowplow.github.com`*
-
-Once the site has been compiled, it should be viewable on the host. Type 'localhost:4001' on your browser to access it. (Note that the dev-environment Vagrantfile forwards port 4000 on the VM to 4001 on the host.)
+In your host machine, open a browser and navigate to `http://localhost:4001` and bingo! There's the website!
 
 <a name="9-committing-your-changes-and-deploying-them-to-github-pages" />
 #### 8. Committing your changes and deploying them to Github Pages

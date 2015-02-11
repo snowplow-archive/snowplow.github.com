@@ -88,11 +88,11 @@ var config = {
 
 Version 2.1.0 added the automatically generated PerformanceTiming context containing information from the [Navigation Timing API][navigation-timing], which could be attached to all page views and page pings.
 
-This release adds two new optional generated contexts: the `ga_cookies` context and the `geolocation_context` context. If enabled, these three contexts will be now added to every event (rather than just page views and page pings).
+This release adds two new optional generated contexts: the Google Analytics `cookies` context and the `geolocation_context` context. If enabled, these three contexts will be now added to every event (rather than just page views and page pings).
 
-<h3>`ga_cookies`</h3>
+<h3>`cookies`</h3>
 
-If this context is enabled, the JavaScript Tracker will look for Google Analytics cookies (specifically the utma, utmb, utmc, utmv, utmz, and ga cookies) and combine their values into a JSON which gets sent with every event.
+If this context is enabled, the JavaScript Tracker will look for Google Analytics cookies (specifically the "__utma", "__utmb", "__utmc", "__utmv", "__utmz", and "_ga" cookies) and combine their values into a JSON which gets sent with every event.
 
 <h3>`geolocation_context`</h3>
 

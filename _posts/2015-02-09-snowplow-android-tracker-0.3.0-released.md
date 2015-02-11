@@ -9,6 +9,8 @@ category: Releases
 
 We are pleased to announce the release of the third version of the [Snowplow Android Tracker][repo]. The Tracker has undergone a series of changes including removing the dependancy on the Java Core Library and a move towards using RxJava as a way of implementing Asynchronous background tasks.
 
+Please note that version 0.3.0 of the Android Tracker is dependent upon Snowplow version 0.9.14 and higher; for more information please refer to the [technical documentation][android-manual].
+
 This release post will cover the following topics:
 
 1. [RxJava instead of AsyncTask](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#rx-java)

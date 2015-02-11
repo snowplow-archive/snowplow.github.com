@@ -9,19 +9,19 @@ category: Other
 
 This blog contains [JSON schemas][jsonschema] for the all the data types supported by [Amazon Redshift][redshift].
 
-We supply two schemas for each numeric type, since you may want to send in numeric types as JSON strings rather than JSON numbers.
+We supply two schemas for each numeric type, since you may want to send in numeric types as JSON strings rather than JSON numbers. 
 
-1. [SMALLINT](/blog/2015/xx/xx/redshift-jsonschema-types#smallint)
-2. [INTEGER](/blog/2015/xx/xx/redshift-jsonschema-types#integer)
-3. [BIGINT](/blog/2015/xx/xx/redshift-jsonschema-types#bigint)
-4. [DECIMAL](/blog/2015/xx/xx/redshift-jsonschema-types#decimal)
-5. [REAL](/blog/2015/xx/xx/redshift-jsonschema-types#real)
-6. [DOUBLE PRECISION](/blog/2015/xx/xx/redshift-jsonschema-types#double)
-7. [BOOLEAN](/blog/2015/xx/xx/redshift-jsonschema-types#boolean)
-8. [CHAR](/blog/2015/xx/xx/redshift-jsonschema-types#char)
-9. [VARCHAR](/blog/2015/xx/xx/redshift-jsonschema-types#varchar)
-10. [DATE](/blog/2015/xx/xx/redshift-jsonschema-types#date)
-11. [TIMESTAMP](/blog/2015/xx/xx/redshift-jsonschema-types#timestamp)
+1. [SMALLINT](/blog/2015/02/12/redshift-jsonschema-types#smallint)
+2. [INTEGER](/blog/2015/02/12/redshift-jsonschema-types#integer)
+3. [BIGINT](/blog/2015/02/12/redshift-jsonschema-types#bigint)
+4. [DECIMAL](/blog/2015/02/12/redshift-jsonschema-types#decimal)
+5. [REAL](/blog/2015/02/12/redshift-jsonschema-types#real)
+6. [DOUBLE PRECISION](/blog/2015/02/12/redshift-jsonschema-types#double)
+7. [BOOLEAN](/blog/2015/02/12/redshift-jsonschema-types#boolean)
+8. [CHAR](/blog/2015/02/12/redshift-jsonschema-types#char)
+9. [VARCHAR](/blog/2015/02/12/redshift-jsonschema-types#varchar)
+10. [DATE](/blog/2015/02/12/redshift-jsonschema-types#date)
+11. [TIMESTAMP](/blog/2015/02/12/redshift-jsonschema-types#timestamp)
 
 <!--more-->
 

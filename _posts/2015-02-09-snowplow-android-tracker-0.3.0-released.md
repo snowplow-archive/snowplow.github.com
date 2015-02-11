@@ -62,7 +62,7 @@ To enable this checking feature however you will need to add the following line 
 
 The Tracker has also undergone a series of updates and fixes to get it back up to speed with the rest of the Snowplow Trackers.  
 
-This includes updates to the schema versions for POST events ([Ticket][payload-data]) which adds new available fields and updates to the context schema ([Ticket][contexts]) which fixes an issue with empty context arrays being passed through.
+This includes updates to the schema versions for POST events ([#75][payload-data]) which adds new available fields and updates to the context schema ([#71][contexts]) which fixes an issue with empty context arrays being passed through.
 
 We have also updated the available Subject class functions to allow for more data to be packed along with events.  
 

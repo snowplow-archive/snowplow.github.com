@@ -82,9 +82,9 @@ This version increases the schema version for the JSON holding your custom conte
 
 Useful links:
 
-* The [wiki page][wiki]
-* The [Github repository][repo]
+* The [technical documentation][wiki]
 * The [0.6.0.post1 release notes][tracker-060]
+* The [package on PyPI][pypi]
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. And [raise an issue] [issues] if you spot any bugs!
 
@@ -108,5 +108,5 @@ If you have an idea for a new feature or want help getting things set up, please
 [tracker-060]: https://github.com/snowplow/snowplow-python-tracker/releases/tag/0.6.0.post1
 
 [issue-110]: https://github.com/snowplow/snowplow-python-tracker/issues/110
-[issue-120]: https://github.com/snowplow/snowplow-python-tracker/issues/120
+[issue-122]: https://github.com/snowplow/snowplow-python-tracker/issues/122
 [issue-123]: https://github.com/snowplow/snowplow-python-tracker/issues/123

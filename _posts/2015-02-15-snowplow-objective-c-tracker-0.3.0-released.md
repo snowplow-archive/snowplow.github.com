@@ -24,7 +24,7 @@ In the rest of this post we will cover:
 
 The team at 6Wunderkinder have added Mac OS X support to the tracker - necessitating its renaming from the Snowplow "iOS Tracker" to "Objective-C Tracker". You can now embed Snowplow event tracking in your desktop OS-X applications. Huge thanks [James] [duncan] and [atdrendel] [atdrendel] for contributing this excellent new functionality!
 
-Please note that this tracker will attach a new context, called `desktop_context` to events when run in OS-X. The JSON Schema for `desktop_context` is now available in Iglu Central; the JSON Paths file and Redshift table definition will be available from the next Snowplow release, release 62 "Pygmy Parrot".
+Please note that this tracker will attach a new context, called `desktop_context` to events when run in OS-X. The JSON Schema for `desktop_context` is now available in Iglu Central; the JSON Paths file and Redshift table definition will be available from the next Snowplow release, release 61 "Pygmy Parrot".
 
 <h2><a name="timing">2. New trackTimingWithCategory event</a></h2>
 
@@ -38,7 +38,7 @@ You can now track Google Analytics-style user timings, with the new `trackTiming
                            label:@"production"];
 {% endhighlight %}
 
-Again, the JSON Paths file and Redshift table definition will be available from Snowplow release 62 "Pygmy Parrot".
+Again, the JSON Paths file and Redshift table definition will be available from Snowplow release 61 "Pygmy Parrot".
 
 <h2><a name="nsurl">3. Removed AFnetworking dependency</a></h2>
 

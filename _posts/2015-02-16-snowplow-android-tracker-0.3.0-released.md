@@ -51,7 +51,7 @@ See the "Threading rules" section in the [AsyncTask][async-task] documentation f
 
 Our use of RxJava should make the entire Tracker far more robust in being able to handle sudden influx's of events as well as handling all of our other functions in a non-blocking asynchronous manner.
 
-We are aware of the rather large DEX size that using RxJava introduces and will be evaluating [RxAndroid][rx-android-x] as an alternative when it is moved out of beta and into a stable 1.x.x version.
+We are aware of the rather large DEX size that using RxJava introduces and will be evaluating [RxAndroid][rx-android-x] as an alternative when it is moved out of beta and into a stable 1.x.x version.  Please this issue for updates [#99][issue-99].
 
 <h2><a name="emitter-changes">2. Emitter updates and changes</a></h2>
 
@@ -108,6 +108,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue [Android Tracker issue
 
 [issue-71]: https://github.com/snowplow/iglu-central/issues/71
 [issue-75]: https://github.com/snowplow/iglu-central/issues/75
+[issue-99]: https://github.com/snowplow/snowplow-android-tracker/issues/99
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues

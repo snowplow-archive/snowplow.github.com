@@ -15,12 +15,12 @@ Please note that version 0.3.0 of the Android Tracker is dependent upon Snowplow
 
 This release post will cover the following topics:
 
-1. [RxJava instead of AsyncTask](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#rx-java)
-2. [Emitter updates and changes](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#emitter-changes)
-3. [Getting the tracker up to speed](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#getting-up-to-speed)
-4. [Evaluating alternatives to RxJava](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
-5. [Documentation](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#docs)
-6. [Getting help](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#help)
+1. [RxJava instead of AsyncTask](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#rx-java)
+2. [Emitter updates and changes](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#emitter-changes)
+3. [Getting the tracker up to speed](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#getting-up-to-speed)
+4. [Evaluating alternatives to RxJava](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
+5. [Documentation](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#docs)
+6. [Getting help](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#help)
 
 <h2><a name="rx-java">1. RxJava instead of AsyncTask</a></h2>
 

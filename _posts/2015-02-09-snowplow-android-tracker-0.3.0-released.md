@@ -9,6 +9,8 @@ category: Releases
 
 We are pleased to announce the release of the third version of the [Snowplow Android Tracker][repo]. The Tracker has undergone a series of changes including removing the dependancy on the Java Core Library and a move towards using RxJava as a way of implementing Asynchronous background tasks.
 
+Big thanks to [Hamid][hamid-github] at Trello for his suggestions and guidance in getting the Tracker up to scratch.
+
 Please note that version 0.3.0 of the Android Tracker is dependent upon Snowplow version 0.9.14 and higher; for more information please refer to the [technical documentation][android-manual].
 
 This release post will cover the following topics:
@@ -16,12 +18,13 @@ This release post will cover the following topics:
 1. [RxJava instead of AsyncTask](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#rx-java)
 2. [Emitter updates and changes](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#emitter-changes)
 3. [Getting the tracker up to speed](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#getting-up-to-speed)
-4. [Documentation](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#docs)
-5. [Getting help](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#help)
+4. [Evaluating alternatives to RxJava](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
+5. [Documentation](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#docs)
+6. [Getting help](/blog/2015/02/09/snowplow-android-tracker-0.3.0-released/#help)
 
 <h2><a name="rx-java">1. RxJava instead of AsyncTask</a></h2>
 
-The main change in this release has been the move away from AsyncTask towards RxJava for all asynchronous/concurrency needs. This has been done for a number of reasons. Primarily, the switch is to ensure that the heavy I/O nature of a Tracker in storing and sending event data will never end up blocking the User Interface thread or the Main running thread of the host Android device, something that AsyncTask could not manage nearly as easily or elegantly.
+The main change in this release has been the move away from AsyncTask towards RxJava for all asynchronous/concurrency needs. This has been done for a number of reasons. Primarily, the switch is to ensure that the heavy I/O nature of a Tracker in storing and sending event data will never end up blocking the User Interface thread or the Main running thread of the host Android device, something that AsyncTask could not manage nearly as easily or elegantly.  Thanks again to [Hamid][hamid-github] for leading us down the path of RxJava!
 
 From the [ReactiveX][reactive-x] web page:
 
@@ -47,6 +50,8 @@ Some other advantages over using [AsyncTask][async-task] include:
 See the "Threading rules" section in the [AsyncTask][async-task] documentation for more details on the limitations.
 
 Our use of RxJava should make the entire Tracker far more robust in being able to handle sudden influx's of events as well as handling all of our other functions in a non-blocking asynchronous manner.
+
+We are aware of the rather large DEX size that using RxJava introduces and will be evaluating RxAndroid as an alternative when the guys at [ReactiveX][reactive-x] move it out of beta and into a stable 1.x.x version.
 
 <h2><a name="emitter-changes">2. Emitter updates and changes</a></h2>
 
@@ -75,6 +80,10 @@ We have also updated the available Subject class functions to allow for more dat
 - setDomainUserId()
 - setNetworkUserId()
 
+<h2><a name="docs">4. Evaluating alternatives to RxJava</a></h2>
+
+We are aware that some Android developers won't be able to add RxJava to their application. We are working with the community to evaluate other viable alternatives to RxJava/RxAndroid and AsyncTask.
+
 <h2><a name="docs">5. Documentation</a></h2>
 
 You can find the updated [Android Tracker documentation] [android-manual] on our wiki.
@@ -101,3 +110,5 @@ Feel free to [get in touch][talk-to-us] or raise an issue [Android Tracker issue
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues
+
+[hamid-github]: https://github.com/hamidp

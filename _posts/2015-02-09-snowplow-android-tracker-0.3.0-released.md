@@ -51,7 +51,7 @@ See the "Threading rules" section in the [AsyncTask][async-task] documentation f
 
 Our use of RxJava should make the entire Tracker far more robust in being able to handle sudden influx's of events as well as handling all of our other functions in a non-blocking asynchronous manner.
 
-We are aware of the rather large DEX size that using RxJava introduces and will be evaluating RxAndroid as an alternative when the guys at [ReactiveX][reactive-x] move it out of beta and into a stable 1.x.x version.
+We are aware of the rather large DEX size that using RxJava introduces and will be evaluating [RxAndroid][rx-android-x] as an alternative when it is moved out of beta and into a stable 1.x.x version.
 
 <h2><a name="emitter-changes">2. Emitter updates and changes</a></h2>
 
@@ -99,6 +99,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue [Android Tracker issue
 [android-repo]: https://github.com/snowplow/snowplow-android-tracker
 
 [reactive-x]: http://reactivex.io/
+[rx-android-x]: https://github.com/ReactiveX/RxAndroid
 [async-task]: http://developer.android.com/reference/android/os/AsyncTask.html
 
 [android-setup]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-Setup

@@ -72,47 +72,9 @@ To enable this checking feature you will need to add the following line to your 
 
 <h2><a name="self-desc-json">3. Function signatures now use SelfDescribingJson</a></h2>
 
-As a way of ensuring that custom contexts and unstructured events are formatted correctly we have moved to using a SelfDescribingJson object in the `Tracker.track...` function signatures.  What this means is that we are now ensuring all custom-contexts and unstructured events are sent into Snowplow without any margin for error.
+As a way of ensuring that custom contexts and unstructured events are formatted correctly we have moved to using a `SelfDescribingJson` object in the `Tracker.track...` function signatures.  This enforces that unstructured events and individual contexts are sent in with a schema, ready for processing by the rest of the Snowplow pipeline.
 
-For a custom-context or unstructured event to be valid for processing they need to adhere to the following structure:
-
-1. Each custom-context and unstructured event must be a JSON containing both a Schema and some Data - aka a SelfDescribingJson.
-
-{% highlight json %}
-{
-    "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
-    "data": {
-        "levelName": "Barrels o' Fun",
-        "levelIndex": 23
-    }
-}
-{% endhighlight %}
-
-2. This Self Describing Json must then be nested as the data of a SelfDescribingJson known to Snowplow:
-
-{% highlight json %}
-// For Custom Contexts it is nested as an array of SelfDescribingJsons
-{
-    "schema": "iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1",
-    "data": [
-        {
-            "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
-            "data": { ... }
-        }
-    ]
-}
-
-// For Unstructured Events it is a single SelfDescribingJson
-{
-    "schema": "iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1",
-    "data": {
-        "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
-        "data": { ... }
-    }
-}
-{% endhighlight %}
-
-To create a SelfDescribingJson in the Android Tracker and track it as an unstructured event you can follow this code sample:
+To create a `SelfDescribingJson` in the Android Tracker and track it as an unstructured event you can follow this code sample:
 
 {% highlight java %}
 // Create a Map of your data
@@ -127,9 +89,23 @@ SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme/save_game/jsonsc
 tracker.trackUnstructuredEvent(json);
 {% endhighlight %}
 
-For more information on SelfDescribingJson's and how to use them please visit the [Technical Documentation][android-manual-self].
+This will be transmitted to Snowplow in the following JSON envelope:
 
-The Android Tracker is the first tracker to enforce the need for a valid SelfDescribingJson to be created before it is allowed to be sent as a custom-context or an unstructured event.  Something that the other trackers will be moving to in the future.
+{% highlight json %}
+{
+    "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
+    "data": {
+        "levelName": "Barrels o' Fun",
+        "levelIndex": 23
+    }
+}
+{% endhighlight %}
+
+Similarly, you now associate custom contexts with a given event at tracking time using the `context List<SelfDescribingJson>` argument.
+
+For more information on `SelfDescribingJson` and how to use it please check out the [Technical Documentation][android-manual-self].
+
+The Android Tracker is the first tracker to enforce valid `SelfDescribingJson`s for custom contexts and unstructured events in the type system. Expect something similar to be rolled out to other trackers in the near future.
 
 <h2><a name="subject-functions">4. New Subject functions</a></h2>
 

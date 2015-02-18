@@ -15,13 +15,13 @@ Please note that version 0.3.0 of the Android Tracker is dependent upon Snowplow
 
 This release post will cover the following topics:
 
-1. [RxJava replacing AsyncTask](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#rx-java)
-2. [Emitter updates and changes](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#emitter-changes)
-3. [Function signatures now use SelfDescribingJson](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#self-desc-json)
-4. [New Subject methods](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#subject-methods)
-5. [Evaluating alternatives to RxJava](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
-6. [Documentation](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#docs)
-7. [Getting help](/blog/2015/02/16/snowplow-android-tracker-0.3.0-released/#help)
+1. [RxJava replacing AsyncTask](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#rx-java)
+2. [Emitter updates and changes](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#emitter-changes)
+3. [Function signatures now use SelfDescribingJson](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#self-desc-json)
+4. [New Subject methods](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#subject-methods)
+5. [Evaluating alternatives to RxJava](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
+6. [Documentation](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#docs)
+7. [Getting help](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#help)
 
 <h2><a name="rx-java">1. RxJava replacing AsyncTask</a></h2>
 

@@ -140,9 +140,10 @@ You can find the full release notes on GitHub as [Snowplow Android Tracker v0.3.
 
 The Android Tracker is still an immature project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 
-Feel free to [get in touch][talk-to-us] or raise an issue [Android Tracker issues] [android-issues] on GitHub!
+Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracker's issues] [android-issues] on GitHub!
 
-[android-repo]: https://github.com/snowplow/snowplow-android-tracker
+[repo]: https://github.com/snowplow/snowplow-android-tracker
+[hamidp]: https://github.com/hamidp
 
 [reactive-x]: http://reactivex.io/
 [rx-android-x]: https://github.com/ReactiveX/RxAndroid
@@ -160,4 +161,4 @@ Feel free to [get in touch][talk-to-us] or raise an issue [Android Tracker issue
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues
 
-[hamid-github]: https://github.com/hamidp
+

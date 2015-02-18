@@ -47,7 +47,7 @@ We have now ported over the following Tracker facilities to use RxJava:
 
 RxJava also manages sudden spikes in usage to a particular Observable function. If say your application sends 500 events in under a second to the Tracker, Rx will store the excess events in a Backpressure queue and then assign tasks to the thread pool to quickly deal with the sudden influx.
 
-Some other advantages over using  include:
+Some other advantages compared to using AsyncTask include:
 
 - No rules over creating and invoking the methods from the UI Thread, unlike AsyncTask. We can invoke Observables anywhere we like
 - Not limited by the fact that a task can be executed only once, again unlike AsyncTask. We can invoke Observables many many times and the action can be easily queued.

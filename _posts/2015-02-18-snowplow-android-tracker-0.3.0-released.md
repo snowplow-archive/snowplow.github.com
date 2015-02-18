@@ -19,9 +19,10 @@ This release post will cover the following topics:
 2. [Emitter updates and changes](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#emitter-changes)
 3. [Function signatures now use SelfDescribingJson](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#self-desc-json)
 4. [New Subject methods](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#subject-methods)
-5. [Evaluating alternatives to RxJava](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
-6. [Documentation](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#docs)
-7. [Getting help](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#help)
+5. [Under the hood](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#under-the-hood)
+6. [Evaluating alternatives to RxJava](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
+7. [Documentation](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#docs)
+8. [Getting help](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#help)
 
 <!--more-->
 
@@ -109,7 +110,7 @@ For more information on `SelfDescribingJson` and how to use it please check out 
 
 The Android Tracker is the first tracker to enforce valid `SelfDescribingJson`s for custom contexts and unstructured events in the type system. Expect something similar to be rolled out to other trackers in the near future.
 
-<h2><a name="subject-functions">4. New Subject functions</a></h2>
+<h2><a name="subject-methods">4. New Subject functions</a></h2>
 
 We have updated the Subject class to allow for more data to be attached to events. You can now attach the following data points:
 
@@ -126,17 +127,17 @@ The Tracker has also undergone a series of updates and fixes to bring it more in
 
 This includes updates to the schema versions for POST events ([#75][issue-75]) which adds new available fields and updates to the context schema ([#71][issue-71]) which fixes an issue with empty context arrays being passed through.
 
-<h2><a name="docs">4. Evaluating alternatives to RxJava</a></h2>
+<h2><a name="evaluating-alternatives">6. Evaluating alternatives to RxJava</a></h2>
 
 We are aware that it will be difficult for some Android developers to add RxJava to their application. We are working with the community to evaluate other viable alternatives to RxJava/RxAndroid and AsyncTask, to be offered **alongside** (not replacing) our Rx-based approach.
 
-<h2><a name="docs">6. Documentation</a></h2>
+<h2><a name="docs">7. Documentation</a></h2>
 
 You can find the updated [Android Tracker documentation] [android-manual] on our wiki.
 
 You can find the full release notes on GitHub as [Snowplow Android Tracker v0.3.0 release] [android-tracker-release].
 
-<h2><a name="help">7. Getting help</a></h2>
+<h2><a name="help">8. Getting help</a></h2>
 
 The Android Tracker is still an immature project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 

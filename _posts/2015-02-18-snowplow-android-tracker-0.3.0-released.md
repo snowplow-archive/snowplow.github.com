@@ -27,7 +27,7 @@ This release post will cover the following topics:
 
 <h2><a name="rx-java">1. RxJava replacing AsyncTask</a></h2>
 
-The main change in this release has been the move away from AsyncTask towards RxJava for all asynchronous/concurrency needs.
+The main change in this release has been the move away from [AsyncTask][async-task] to [RxJava] [rx-java] for all asynchronous/concurrency needs.
 
 This has been done for a number of reasons. Primarily, the switch is to ensure that the heavy I/O nature of a Tracker in storing and sending event data never blocks the UI thread or the Main running thread of the host Android device, something that is difficult to achieve with AsyncTask. Thanks again to [Hamid][hamid-github] for all of his guidance here!
 
@@ -47,12 +47,12 @@ We have now ported over the following Tracker facilities to use RxJava:
 
 RxJava also manages sudden spikes in usage to a particular Observable function. If say your application sends 500 events in under a second to the Tracker, Rx will store the excess events in a Backpressure queue and then assign tasks to the thread pool to quickly deal with the sudden influx.
 
-Some other advantages over using [AsyncTask][async-task] include:
+Some other advantages over using  include:
 
 - No rules over creating and invoking the methods from the UI Thread, unlike AsyncTask. We can invoke Observables anywhere we like
 - Not limited by the fact that a task can be executed only once, again unlike AsyncTask. We can invoke Observables many many times and the action can be easily queued.
 
-See the "Threading rules" section in the [AsyncTask][async-task] documentation for more details on the limitations of our previous approach.
+See the "Threading rules" section in the AsyncTask documentation for more details on the limitations of our previous approach.
 
 Our use of RxJava should make the entire Tracker far more robust in being able to handle sudden influxes of events as well as handling all of our other functions in a non-blocking asynchronous manner.
 
@@ -145,6 +145,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 [repo]: https://github.com/snowplow/snowplow-android-tracker
 [hamidp]: https://github.com/hamidp
 
+[rx-java]: https://github.com/ReactiveX/RxJava
 [reactive-x]: http://reactivex.io/
 [rx-android-x]: https://github.com/ReactiveX/RxAndroid
 [async-task]: http://developer.android.com/reference/android/os/AsyncTask.html

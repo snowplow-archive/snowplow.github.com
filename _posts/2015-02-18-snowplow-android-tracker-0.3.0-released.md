@@ -153,7 +153,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 [android-setup]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup
 [android-manual]: https://github.com/snowplow/snowplow/wiki/Android-Tracker
 [android-manual-self]: https://github.com/snowplow/snowplow/wiki/Android-Tracker#self-describing-json
-[android-tracker-release]: https://github.com/snowplow/snowplow-android-tracker/releases/tag/android-0.3.0
+[android-tracker-release]: https://github.com/snowplow/snowplow-android-tracker/releases/tag/0.3.0
 
 [issue-71]: https://github.com/snowplow/iglu-central/issues/71
 [issue-75]: https://github.com/snowplow/iglu-central/issues/75

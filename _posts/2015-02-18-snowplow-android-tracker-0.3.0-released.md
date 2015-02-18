@@ -30,7 +30,7 @@ This release post will cover the following topics:
 
 The main change in this release has been the move away from [AsyncTask][async-task] to [RxJava] [rx-java] for all asynchronous/concurrency needs.
 
-This has been done for a number of reasons. Primarily, the switch is to ensure that the heavy I/O nature of a Tracker in storing and sending event data never blocks the UI thread or the Main running thread of the host Android device, something that is difficult to achieve with AsyncTask. Thanks again to [Hamid][hamid-github] for all of his guidance here!
+This has been done for a number of reasons. Primarily, the switch is to ensure that the heavy I/O nature of a Tracker in storing and sending event data never blocks the UI thread or the Main running thread of the host Android device, something that is difficult to achieve with AsyncTask. Thanks again to [Hamid][hamidp] for all of his guidance here!
 
 From the [ReactiveX][reactive-x] web page:
 

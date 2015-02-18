@@ -1,8 +1,8 @@
 ---
 layout: post
-shortenedlink: Snowplow Android Tracker
-title: Snowplow Android Tracker Released
-tags: [snowplow, analytics, android, tracker]
+shortenedlink: Snowplow Android Tracker 0.3.0 released
+title: Snowplow Android Tracker 0.3.0 released
+tags: [snowplow, analytics, android, mobile, tracker]
 author: Josh
 category: Releases
 ---
@@ -22,6 +22,8 @@ This release post will cover the following topics:
 5. [Evaluating alternatives to RxJava](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#evaluating-alternatives)
 6. [Documentation](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#docs)
 7. [Getting help](/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/#help)
+
+<!--more-->
 
 <h2><a name="rx-java">1. RxJava replacing AsyncTask</a></h2>
 

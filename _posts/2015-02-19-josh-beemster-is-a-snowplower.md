@@ -7,7 +7,7 @@ author: Alex
 category: Inside the Plow
 ---
 
-You have probably started seeing a new name behind software releases and blog posts recently: we are hugely excited to introduce Josh Beemster to the Snowplow team!
+You have probably started seeing a new name behind software releases and blog posts recently: we are hugely excited to belatedly introduce Josh Beemster to the Snowplow team!
 
 ![josh-img] [josh-img]
 
@@ -19,7 +19,7 @@ Since starting at Snowplow, Josh has worked on quite a variety of key releases, 
 * The webhook integrations (including MailChimp, PagerDuty and CallRail) released in Snowplow [v0.9.11] [0.9.11] and [v0.9.14] [0.9.14] 
 * This week's RxJava-based reboot of the [Snowplow Android Tracker] [android-tracker-0.3.0]
 
-Josh has also been busy behind the scenes working on automation and monitoring tools for our Snowplow Managed Service customers.
+Josh has also been busy behind the scenes working on automation and monitoring tools for our [Snowplow Managed Service] [managed-service] customers.
 
 Stay tuned for some very cool tooling around automatic JSON Schema generation that Josh is currently prototyping.
 
@@ -29,5 +29,7 @@ Welcome to the team Josh!
 [0.9.11]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/
 [0.9.14]: /blog/2014/12/31/snowplow-0.9.14-released-with-additional-webhooks/
 [android-tracker-0.3.0]: /blog/2015/02/18/snowplow-android-tracker-0.3.0-released
+
+[managed-service]: /pricing/index.html
 
 [josh-img]: /assets/img/blog/2015/02/josh-beemster.png

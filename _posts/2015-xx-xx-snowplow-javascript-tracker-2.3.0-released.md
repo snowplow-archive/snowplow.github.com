@@ -45,6 +45,8 @@ The JavaScript Tracker stores events in `localStorage` and only deletes them onc
 
 Note that if `localStorage` is unavailable, the bufferSize will always be set to 1 (meaning events are POSTed as soon as they occur) to minimise the risk of losing buffered events when the user leaves the page.
 
+Internet Explorer versions 9 and earlier do not support cross-origin XMLHttpRequests so the Tracker will default to GET requests in those environments. Going forward, we intend to add support for sending cross-origin POST requests using the XDomainRequest object available in Internet Explorer 8 and 9.
+
 <h2><a name="forms">2. Customizable form tracking</a></h2>
 
 The `enableFormTracking` method turns on automatic form tracking - whenever a visitor edits a field of a form or submits a form, a `change_form` or `submit_form` unstructured event will automatically be generated.

@@ -1,13 +1,13 @@
 ---
 layout: post
-shortenedlink: Josh Beemster is a Snowplower
-title: Josh Beemster is a Snowplower!
+shortenedlink: Joshua Beemster is a Snowplower
+title: Joshua Beemster is a Snowplower!
 tags: [josh beemster, joshua beemster, data engineer, hiring]
 author: Alex
 category: Inside the Plow
 ---
 
-You have probably started seeing a new name behind software releases and blog posts recently: we are hugely excited to belatedly introduce Josh Beemster to the Snowplow team!
+You have probably started seeing a new name behind software releases and blog posts recently: we are hugely excited to belatedly introduce Joshua Beemster to the Snowplow team!
 
 ![josh-img] [josh-img]
 

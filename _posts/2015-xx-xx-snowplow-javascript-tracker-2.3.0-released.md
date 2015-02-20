@@ -133,6 +133,8 @@ guest$ sudo npm install
 
 We have also:
 
+* Prevented the tracker from sending NaN in the page ping offset fields [#324][#324]
+* Fixed a bug causing the tracker to send the current page offset rather than the maximum or minimum offset since the last page view or page ping [#325][325]
 * Added tests for the detection of document size and browser features [#270][270]
 * Added integration tests using the full tracker [#154][154]
 * Moved the grunt-yui-compressor dependency into the Snowplow organization [#172][172]
@@ -163,3 +165,9 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
+[324]: https://github.com/snowplow/snowplow-javascript-tracker/issues/324
+[325]: https://github.com/snowplow/snowplow-javascript-tracker/issues/325
+[270]: https://github.com/snowplow/snowplow-javascript-tracker/issues/270
+[154]: https://github.com/snowplow/snowplow-javascript-tracker/issues/154
+[172]: https://github.com/snowplow/snowplow-javascript-tracker/issues/172
+[319]: https://github.com/snowplow/snowplow-javascript-tracker/issues/319

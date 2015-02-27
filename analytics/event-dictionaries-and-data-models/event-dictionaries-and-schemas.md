@@ -32,11 +32,43 @@ An example entry in an event dictionary might look like this:
 
 Screenshot
 
+![Perform search](http://snowplowanalytics.com/assets/img/analytics/basic-concepts/perform-search-mockup.png)
+
 Event schema:
+
+```json
+{
+    "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+    "description": "Schema for performing a search",
+    "self": {
+        "vendor": "com.acme_company",
+        "name": "perform_search",
+        "format": "jsonschema",
+        "version": "1-0-0"
+    },
+
+    "type": "object",
+    "properties": {
+    	"query": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "minProperties":1,
+    "additionalProperties": false
+}
+```
 
 Example data:
 
-Instrumentation guide:
+```js
+window.snowplow_name_here('trackUnstructEvent', {
+    schema: 'iglu:com.acme_company/perform_search/jsonschema/1-0-0',
+    data: {
+        query: 'Bruce Springsteen DVD'
+    }
+});
+```
 
 -----
 

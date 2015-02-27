@@ -36,7 +36,7 @@ Screenshot
 
 Event schema:
 
-```json
+{% highlight json %}
 {
     "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
     "description": "Schema for performing a search",
@@ -57,18 +57,18 @@ Event schema:
     "minProperties":1,
     "additionalProperties": false
 }
-```
+{% endhighlight %}
 
 Example data:
 
-```js
+{% highlight javascript %}
 window.snowplow_name_here('trackUnstructEvent', {
     schema: 'iglu:com.acme_company/perform_search/jsonschema/1-0-0',
     data: {
         query: 'Bruce Springsteen DVD'
     }
 });
-```
+{% endhighlight %}
 
 -----
 

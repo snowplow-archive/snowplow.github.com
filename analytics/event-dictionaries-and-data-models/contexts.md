@@ -36,7 +36,7 @@ Our retailer might want to describe product using a number of fields including:
 
 Rather than define all the set of product-related fields for all the different product-related events in their respective schemas, Snowplow makes it possible to define a single product schema, and pass this as a context with any product related event. Our product schema might look as follows:
 
-```json
+{% highlight json %}
 {
 	"$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
 	"description": "Schema for a product context",
@@ -71,7 +71,7 @@ Rather than define all the set of product-related fields for all the different p
 	"minProperties":1,
 	"additionalProperties": false
 }
-```
+{% endhighlight %}
 
 We can then track an add to basket event as follows, we can pass in a handful of fields that are specific to the add to basket event (e.g. the quantity of the product added), and pass the whole product object as a context.
 

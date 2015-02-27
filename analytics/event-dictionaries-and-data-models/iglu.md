@@ -18,7 +18,7 @@ In this section, we describe the role played by Iglu, our machine-readable schem
 
 Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different events and contexts that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the event or context, which points to the location of the schema for the event or context in Iglu. To give a concrete example, the following is a call from the Javascript tracker to send a video play event into Snowplow:
 
-```js
+{% highlight javascript %}
 window.snowplow_name_here('trackUnstructEvent', {
     schema: 'iglu:com.onlinevideoplayer/video_play/jsonschema/1-0-0',
     data: {
@@ -27,11 +27,11 @@ window.snowplow_name_here('trackUnstructEvent', {
         position: 63
     }
 });
-```
+{% endhighlight %}
 
 When Snowplow processes that data, it fetches the schema for the video play event from the Iglu repo:
 
-```json
+{% highlight json %}
 {
     "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
     "description": "Schema for playing and pausing a video",
@@ -58,7 +58,7 @@ When Snowplow processes that data, it fetches the schema for the video play even
     "minProperties":1,
     "additionalProperties": false
 }
-```
+{% endhighlight %}
 
 It uses the schema to:
 
@@ -67,9 +67,10 @@ It uses the schema to:
 
 The above event would be loaded into a Redshift table with the following schema. (Note how this corresponds to the JSON schema given above.)
 
-```sql
-INSERT INTO atomic.com_onlinevideoplayer_video_play_1 VALUES ('IxuThNgl3YA', 'pause', 63);
-```
+{% highlight sql %}
+INSERT INTO atomic.com_onlinevideoplayer_video_play_1
+VALUES ('IxuThNgl3YA', 'pause', 63);
+{% endhighlight %}
 
 The schemas stored in Iglu are the same documented in the event dictionary. You can think of Iglu as a machine-readable schema repository, and the event dictionary as the human readable schema repository. When Snowplow wants to process or store event data, it will refer to the relevant schemas as stored in Iglu to help it to do so. When a data analyst wants to perform an analysis on the data, however, he / she is more likelyt to consult the event dictionary, where the schema will be available alongside screenshots and descriptions, better enabling her to understand what the data represents.
 

@@ -12,7 +12,7 @@ We are pleased to announce the immediate availability of Snowplow 61, Pygmy Parr
 This release has a variety of new features, operational enhancements and bug fixes. The major additions are:
 
 1. You can now parse Amazon CloudFront access logs using Snowplow
-2. The latest Clojure Collector version supports Tomcat 8 and CORS for cross-domain `POST` from JavaScript and ActionScript
+2. The latest Clojure Collector version supports Tomcat 8 and CORS, ready for cross-domain `POST` from JavaScript and ActionScript
 3. EmrEtlRunner's failure handling and Clojure Collector log handling have been improved
 
 The rest of this post will cover the following topics:

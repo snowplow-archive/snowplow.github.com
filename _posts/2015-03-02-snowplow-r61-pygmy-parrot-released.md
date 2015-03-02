@@ -38,7 +38,7 @@ To process CloudFront access logs, first create a new EmrEtlRunner `config.yml`:
 2. Set your `:etl:collector_format:` to `tsv/com.amazon.aws.cloudfront/wd_access_log`
 3. Provide new bucket paths and a new job name, to prevent this job from clashing with your existing Snowplow job(s)
 
-If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then you should deploy the relevent event table into your Amazon Redshift database. You can find the table definition here:
+If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, you should deploy the relevent event table into your Amazon Redshift database. You can find the table definition here:
 
 * [com_amazon_aws_cloudfront_wd_access_log_1.sql] [access-log-sql]
 
@@ -144,6 +144,7 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [access-log-sql]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/wd_access_log_1.sql
 [runner-and-loader]: https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+[war-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-1.0.0-standalone.war
 
 [r61-release]: https://github.com/snowplow/snowplow/releases/tag/r61-pygmy-parrot
 [issues]: https://github.com/snowplow/snowplow/issues

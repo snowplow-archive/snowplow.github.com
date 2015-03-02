@@ -105,7 +105,7 @@ In your EmrEtlRunner's `config.yml` file, update your `hadoop_enrich job's versi
 
 If you want to run the Hadoop Enrichment process against the output of the Kinesis LZO S3 Sink, you will have to change the collector_format field in the configuration file to `thrift`:
 
-{% highlight bash %}
+{% highlight yaml %}
 :collector_format: thrift
 {% endhighlight %}
 

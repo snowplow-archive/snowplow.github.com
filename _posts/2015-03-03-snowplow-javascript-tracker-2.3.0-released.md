@@ -92,17 +92,21 @@ var config = {
 
 Version 2.1.0 added the automatically generated PerformanceTiming context containing information from the [Navigation Timing API][navigation-timing], which could be attached to all page views and page pings. This was activated using a boolean argument to the `trackPageView` method.
 
-This release adds two new optional generated contexts: the Google Analytics `cookies` context and the `geolocation_context` context. If enabled, these three contexts will be now added to **every event**, not just page views and page pings.
+This release adds two new optional generated contexts: the Google Analytics `cookies` context and the `geolocation_context` context. If enabled, these two contexts plus the PerformanceTiming context will be now added to **every event**, not just page views and page pings.
 
 We strongly recommend using `POST` if you are attaching one or more of these contexts to your events.
 
-<h3>`cookies`</h3>
+<h3>gaCookies</h3>
 
 If this context is enabled, the JavaScript Tracker will look for Google Analytics cookies (specifically the "__utma", "__utmb", "__utmc", "__utmv", "__utmz", and "_ga" cookies) and combine their values into a context which gets sent with every event.
 
-<h3>`geolocation_context`</h3>
+<h3>geolocation</h3>
 
 This context is built from the [Geolocation API][geolocation-api]. If you enable it and a user hasn't already given permission to use their geolocation information, a prompt will appear asking if they wish to share their location. If they accept, the geolocation context will be added to all subsequent events.
+
+<h3>performanceTiming</h3>
+
+This context is unchanged, although the way it is enabled in the Tracker has been updated - see the next section for details.
 
 <h3>Usage</h3>
 
@@ -117,7 +121,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 	platform: 'web',
 	contexts: {
 		geolocation: true,
-		PerformanceTiming: true,
+		performanceTiming: true,
 		gaCookies: true
 	}
 });

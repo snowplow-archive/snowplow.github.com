@@ -155,7 +155,7 @@ The upgraded minified tracker is available here:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2.3.0/sp.js
 
-There is one backwards-incompatible change: the `trackPageView` method now takes only takes two arguments, `customTitle` and `context`, rather than three. Calls with three arguments will generate a deprecation warning in the user's browser console, but will otherwise continue to work.
+There is one backwards-incompatible change: the `trackPageView` method now takes only takes two arguments, `customTitle` and `context`, rather than three. **Calls with three arguments will generate a deprecation warning in the user's browser console, but will otherwise continue to work.**
 
 <h2><a name="help">7. Documentation and getting help</a></h2>
 

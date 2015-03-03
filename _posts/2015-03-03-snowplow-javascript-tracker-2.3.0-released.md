@@ -11,13 +11,13 @@ We are pleased to announce the release of version 2.3.0 of the [Snowplow JavaScr
 
 This blog post will cover the changes in detail.
 
-1. [POST support](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#post)
-2. [Customizable form tracking](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#forms)
-3. [Automatic contexts](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#contexts)
-4. [Development quickstart](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#post)
-5. [Other improvements](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#other)
-6. [Upgrading](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#upgrading)
-7. [Documentation and getting help](/blog/2015/03/x/snowplow-javascript-tracker-2.3.0-released/#help)
+1. [POST support](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#post)
+2. [Customizable form tracking](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#forms)
+3. [Automatic contexts](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#contexts)
+4. [Development quickstart](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#post)
+5. [Other improvements](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#other)
+6. [Upgrading](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#upgrading)
+7. [Documentation and getting help](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#help)
 
 <!--more-->
 

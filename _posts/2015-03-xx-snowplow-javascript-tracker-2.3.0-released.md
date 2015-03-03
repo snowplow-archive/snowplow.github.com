@@ -161,7 +161,7 @@ Check out the [v2.3.0 release page] [release-230] on GitHub for the full list of
 
 Finally, if you run into any issues or have any questions, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
 
-[clj-collector-release]: xxx
+[clj-collector-release]: /blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#clj-collector-updates
 [release-230]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.3.0
 [clojure-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector
 [cors]: http://en.wikipedia.org/wiki/Cross-origin_resource_sharing

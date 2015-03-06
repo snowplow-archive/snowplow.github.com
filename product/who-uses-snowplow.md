@@ -9,6 +9,172 @@ weight: 3
 
 <h1>Used by some of the most data-sophisticated companies in the world...</h1>
 
+
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/oyster.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/slickdeals.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/avari.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/ditzo.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/eneco.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/staatsloterij.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/the-iconic.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/fyber.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/brainfall.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/howaboutwe.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/streetlife.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/wahanda.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/graduateland.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/answermedia.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/opower.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/artsy.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/yourmemoir.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/debijenkorf.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/finery.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/auxmoney.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/goeuro.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/carsguide.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/sapient.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/dollarshaveclub.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/finance-cz.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/ignition-one.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/trello.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/hipcricket.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/backstage.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/gforces.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/bibliocommons.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/urbandictionary.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/travelbird.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/tut-by.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/webprofiters.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/lingualeo.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/conversionlogic.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/brand-up.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/popsugar.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/mather-economics.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/abc-australia.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/smugmug.png"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/soft-surroundings.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/yotpo.png"></p>
+	</div>
+	<div class="span4">
+		<p><img src="/assets/img/user-logos/fixed/geostar.png"></p>
+	</div>
+</div>
 <div class="row">
 	<div class="span4">
 		<p><img src="/assets/img/user-logos/fixed/99designs-logo.png" /></p>

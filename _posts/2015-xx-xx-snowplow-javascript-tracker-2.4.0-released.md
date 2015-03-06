@@ -12,6 +12,7 @@ We are happy to announce the release of version 2.4.0 of the [Snowplow JavaScrip
 Read on for more information...
 
 1. [Tracking users cross-domain](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
+1. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
 
 <!--more-->
 
@@ -61,4 +62,21 @@ snowplow('crossDomainLinker', function (linkElement) {
   })
 ```
 
+<h2><a name="timing">2. Tracking timings</a></h2>
+
+The new `trackTiming` method can be used to track user timing information. This example uses the method to send a `timing` event describing how long it took a map to load:
+
+```javascript
+snowplow(
+  'trackTiming',
+  'load',            // Category of the timing variable
+  'map_loaded',      // Variable being recorded
+  50,                // Milliseconds taken
+  'Map loading time' // Optional label
+  )
+```
+
+You can see the JSON schema for the event that the method generates [here][timing-schema].
+
 [release-240]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.4.0
+[timing-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0

@@ -84,7 +84,7 @@ weight: 3
 		<p><a href="https://www.auxmoney.com/"><img src="/assets/img/user-logos/fixed/auxmoney.png"></a></p>
 	</div>
 	<div class="span4">
-		<p><a href="http://www.goeuro.de/"><img src="/assets/img/user-logos/fixed/goeuro.png"></p></a>
+		<p><a href="http://www.goeuro.de/"><img src="/assets/img/user-logos/fixed/goeuro.png"></a></p>
 	</div>
 </div>
 <div class="row">

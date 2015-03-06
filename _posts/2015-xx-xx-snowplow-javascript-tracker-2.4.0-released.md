@@ -31,7 +31,7 @@ snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
   crossDomainLinker: function (linkElement) {
     return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink");
   }
-})
+});
 ```
 
 If you want to decorate every link to the domain github.com:
@@ -41,7 +41,7 @@ snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
   crossDomainLinker: function (linkElement) {
     return /^https:\/\/github\.com/.test(linkElement.href);
   }
-})
+});
 ```
 
 If you want to decorate every link, regardless of its destination:
@@ -51,7 +51,7 @@ snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
   crossDomainLinker: function (linkElement) {
     return true;
   }
-})
+});
 ```
 
 If new links are added to the page after the tracker is initialized, you can enable decoration for them using the `crossDomainLinker` tracker method:
@@ -73,7 +73,7 @@ snowplow(
   'map_loaded',      // Variable being recorded
   50,                // Milliseconds taken
   'Map loading time' // Optional label
-  )
+ );
 ```
 
 You can see the JSON schema for the event that the method generates [here][timing-schema].

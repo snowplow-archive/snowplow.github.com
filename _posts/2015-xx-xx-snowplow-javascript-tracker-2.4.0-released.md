@@ -86,6 +86,7 @@ We have also:
 
 * Increased the reliability of the JavaScript Tracker's document size detection [#334][334]
 * Started randomly generating the [ngrok][ngrok] subdomain used for our integration tests to prevent clashes when the tests are run more than once simultaneously [#333][333]
+* Updated the Vagrant setup to always use the latest version of Peru [#336][336]
 
 <h2><a name="upgrading">4. Upgrading</a></h2>
 
@@ -111,6 +112,7 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [ngrok]: https://ngrok.com/
 [333]: https://github.com/snowplow/snowplow-javascript-tracker/issues/333
 [334]: https://github.com/snowplow/snowplow-javascript-tracker/issues/334
+[336]: https://github.com/snowplow/snowplow-javascript-tracker/issues/336
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup.md
 [issues]: https://github.com/snowplow/snowplow/issues

@@ -12,7 +12,9 @@ We are happy to announce the release of version 2.4.0 of the [Snowplow JavaScrip
 Read on for more information...
 
 1. [Tracking users cross-domain](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
-1. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
+2. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
+3. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
+4. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
 
 <!--more-->
 
@@ -78,5 +80,38 @@ snowplow(
 
 You can see the JSON schema for the event that the method generates [here][timing-schema].
 
+<h2><a name="other">3. Other improvements</a></h2>
+
+We have also:
+
+* Increased the reliability of the JavaScript Tracker's document size detection [#334][334]
+* Started randomly generating the [ngrok][ngrok] subdomain used for our integration tests to prevent clashes when the tests are run more than once simultaneously [#333][333]
+
+<h2><a name="upgrading">4. Upgrading</a></h2>
+
+The upgraded minified tracker is available here:
+
+    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.3.0/sp.js
+
+This release is fully backward-compatible.
+
+<h2><a name="help">5. Documentation and help</a></h2>
+
+Check out the JavaScript Tracker's documentation:
+
+* The [setup guide][setup]
+* The [full API documentation][tech-docs]
+
+The [v2.4.0 release page][release-240] on GitHub has the full list of changes made in this version.
+
+Finally, if you run into any issues or have any questions, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+
 [release-240]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.4.0
 [timing-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0
+[ngrok]: https://ngrok.com/
+[333]: https://github.com/snowplow/snowplow-javascript-tracker/issues/333
+[334]: https://github.com/snowplow/snowplow-javascript-tracker/issues/334
+[tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
+[setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup.md
+[issues]: https://github.com/snowplow/snowplow/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

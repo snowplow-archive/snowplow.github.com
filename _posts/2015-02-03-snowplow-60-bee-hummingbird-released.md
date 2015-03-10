@@ -130,8 +130,8 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 
 [pkallos]: https://github.com/pkallos
 [s3-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-lzo-s3-sink
-[s3-sink-setup]: https://github.com/snowplow/snowplow/wiki/kinesis-s3-sink-setup
-[s3-sink-techdocs]: https://github.com/snowplow/snowplow/wiki/kinesis-s3-sink
+[s3-sink-setup]: https://github.com/snowplow/snowplow/wiki/Kinesis-LZO-S3-Sink-Setup
+[s3-sink-techdocs]: https://github.com/snowplow/snowplow/wiki/Kinesis-LZO-S3-sink
 [introducing-self-describing-thrift]: http://snowplowanalytics.com/blog/2014/12/16/introducing-self-describing-thrift/
 [introducing-webhooks]: http://snowplowanalytics.com/blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/
 [spray]: http://spray.io/

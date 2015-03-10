@@ -358,6 +358,8 @@ weight: 3
 			<p>We use Snowplow at the heart of our data programme combining online behaviour and offline profile data. It drives the behavioural signals for our custom recommendations engine, trending and API and editorial reporting systems. Building these in any other platform would have been a pain, but in Snowplow it's just SQL.</p>
 			<p><small><cite>Simon Rumble, Head of Data, Analytics and CRM at <a href="http://www.bauer-media.com.au/">Bauer Media Australia</a></cite></small></p>
 		</blockquote>
+	</div>
+</div>
 
 <div class="row">
 	<div class="span3">

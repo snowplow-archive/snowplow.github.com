@@ -9,7 +9,28 @@ weight: 3
 
 <h1>Used by some of the most data-sophisticated companies in the world...</h1>
 
-
+<div class="row">
+	<div class="span4">
+		<p><a href="http://www.bibliocommons.com/"><img src="/assets/img/user-logos/fixed/bibliocommons.png"></a></p>
+	</div>
+	<div class="span4">
+		<p><a href="http://www.urbandictionary.com/"><img src="/assets/img/user-logos/fixed/urbandictionary.png"></a></p>
+	</div>
+	<div class="span4">
+		<p><a href="http://travelbird.co.uk/"><img src="/assets/img/user-logos/fixed/travelbird.png"></a></p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<p><a href="http://www.howaboutwe.com/"><img src="/assets/img/user-logos/fixed/howaboutwe.png"></a></p>
+	</div>
+	<div class="span4">
+		<p><a href="https://www.streetlife.com/"><img src="/assets/img/user-logos/fixed/streetlife.png"></a></p>
+	</div>
+	<div class="span4">
+		<p><a href="https://www.wahanda.com/"><img src="/assets/img/user-logos/fixed/wahanda.png"></a></p>
+	</div>
+</div>
 <div class="row">
 	<div class="span4">
 		<p><a href="http://www.oyster.com/"><img src="/assets/img/user-logos/fixed/oyster.png"></a></p>
@@ -43,17 +64,7 @@ weight: 3
 		<p><a href="http://www.brainfall.com/"><img src="/assets/img/user-logos/fixed/brainfall.png"></a></p>
 	</div>
 </div>
-<div class="row">
-	<div class="span4">
-		<p><a href="http://www.howaboutwe.com/"><img src="/assets/img/user-logos/fixed/howaboutwe.png"></a></p>
-	</div>
-	<div class="span4">
-		<p><a href="https://www.streetlife.com/"><img src="/assets/img/user-logos/fixed/streetlife.png"></a></p>
-	</div>
-	<div class="span4">
-		<p><a href="https://www.wahanda.com/"><img src="/assets/img/user-logos/fixed/wahanda.png"></a></p>
-	</div>
-</div>
+
 <div class="row">
 	<div class="span4">
 		<p><a href="http://graduateland.com/"><img src="/assets/img/user-logos/fixed/graduateland.png"></a></p>
@@ -118,17 +129,6 @@ weight: 3
 	</div>
 	<div class="span4">
 		<p><a href="http://gforces.co.uk/"><img src="/assets/img/user-logos/fixed/gforces.png"></a></p>
-	</div>
-</div>
-<div class="row">
-	<div class="span4">
-		<p><a href="http://www.bibliocommons.com/"><img src="/assets/img/user-logos/fixed/bibliocommons.png"></a></p>
-	</div>
-	<div class="span4">
-		<p><a href="http://www.urbandictionary.com/"><img src="/assets/img/user-logos/fixed/urbandictionary.png"></a></p>
-	</div>
-	<div class="span4">
-		<p><a href="http://travelbird.co.uk/"><img src="/assets/img/user-logos/fixed/travelbird.png"></a></p>
 	</div>
 </div>
 <div class="row">
@@ -288,7 +288,17 @@ weight: 3
 		<p><a href="http://www.digdeepdigital.com.au"><img src="/assets/img/user-logos/fixed/digdeep.png"></a></p>
 	</div>
 </div>
-
+<div class="row">
+	<div class="span4">
+		<p><a href="https://soulmates.theguardian.com/"><img src="/assets/img/user-logos/fixed/theguardian.png"></a></p>
+	</div>
+	<div class="span4">
+		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>
+	</div>
+	<div class="span4">
+		
+	</div>
+</div>
 
 <h2>...to power their most high value analyses</h2>
 
@@ -338,6 +348,16 @@ weight: 3
 </div>
 
 <h2>So what do our users have to say?</h2>
+
+<div class="row">
+	<div class="span3">
+		<p><img src="/assets/img/user-logos/bauermedia-logo.png" /></p>
+	</div>
+	<div class="span9">
+		<blockquote>
+			<p>We use Snowplow at the heart of our data programme combining online behaviour and offline profile data. It drives the behavioural signals for our custom recommendations engine, trending and API and editorial reporting systems. Building these in any other platform would have been a pain, but in Snowplow it's just SQL.</p>
+			<p><small><cite>Simon Rumble, Head of Data, Analytics and CRM at <a href="http://www.bauer-media.com.au/">Bauer Media Australia</a></cite></small></p>
+		</blockquote>
 
 <div class="row">
 	<div class="span3">

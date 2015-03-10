@@ -13,8 +13,10 @@ Read on for more information...
 
 1. [Tracking users cross-domain](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
 2. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
-3. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
-4. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
+3. [Dynamic handling of single-page apps](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#single-page)
+4. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
+5. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
+6. [Documentation and help](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#help)
 
 <!--more-->
 
@@ -80,7 +82,15 @@ snowplow(
 
 You can see the JSON schema for the event that the method generates [here][timing-schema].
 
-<h2><a name="other">3. Other improvements</a></h2>
+<h2><a name="single-page">4. Dynamic handling of single-page apps</a></h2>
+
+Previous versions of the JavaScript Tracker would get the page's URL and referrer once when the page loaded and never update them. This meant that on a single-page site, Snowplow users had to manually set a custom URL and referrer each time the URL changed without the page reloading.
+
+Version 2.4.0 of the Tracker automatically detects when the page URL changes and updates the page URL and referrer accordingly. The referrer is replaced by the old page URL. Note that you must send at least one event each time the URL changes, because the Tracker will not notice a skipped URL. This means that if the user navigates from `page1` to `page2` to `page3`, but no events are fired while on `page3`, the referrer reported for all events fired on `page3` will be `page1`.
+
+If you ever use the `setCustomUrl`, the URL reported by the Tracker will stop changing (unless you call `setCustomUrl` again). Setting the referrer using `setReferrerUrl` is similarly sticky.
+
+<h2><a name="other">4. Other improvements</a></h2>
 
 We have also:
 
@@ -88,7 +98,7 @@ We have also:
 * Started randomly generating the [ngrok][ngrok] subdomain used for our integration tests to prevent clashes when the tests are run more than once simultaneously [#333][333]
 * Updated the Vagrant setup to always use the latest version of Peru [#336][336]
 
-<h2><a name="upgrading">4. Upgrading</a></h2>
+<h2><a name="upgrading">5. Upgrading</a></h2>
 
 The upgraded minified tracker is available here:
 
@@ -96,7 +106,7 @@ The upgraded minified tracker is available here:
 
 This release is fully backward-compatible.
 
-<h2><a name="help">5. Documentation and help</a></h2>
+<h2><a name="help">6. Documentation and help</a></h2>
 
 Check out the JavaScript Tracker's documentation:
 

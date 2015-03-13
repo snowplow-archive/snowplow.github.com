@@ -14,9 +14,10 @@ Read on for more information...
 1. [Tracking users cross-domain](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
 2. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
 3. [Dynamic handling of single-page apps](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#single-page)
-4. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
-5. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
-6. [Documentation and help](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#help)
+4. [Improved PerformanceTiming context](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#performance-timing)
+5. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
+6. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
+7. [Documentation and help](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#help)
 
 <!--more-->
 
@@ -82,7 +83,7 @@ snowplow(
 
 You can see the JSON schema for the event that the method generates [here][timing-schema].
 
-<h2><a name="single-page">4. Dynamic handling of single-page apps</a></h2>
+<h2><a name="single-page">3. Dynamic handling of single-page apps</a></h2>
 
 Previous versions of the JavaScript Tracker would get the page's URL and referrer once when the page loaded and never update them. This meant that on a single-page site, Snowplow users had to manually set a custom URL and referrer each time the URL changed without the page reloading.
 
@@ -90,15 +91,20 @@ Version 2.4.0 of the Tracker automatically detects when the page URL changes and
 
 If you ever use the `setCustomUrl`, the URL reported by the Tracker will stop changing (unless you call `setCustomUrl` again). Setting the referrer using `setReferrerUrl` is similarly sticky.
 
-<h2><a name="other">4. Other improvements</a></h2>
+<h2><a name="performance-timing">4. Improved PerformanceTiming context</a></h2>
+
+The last version of the Tracker added the ability to add a context containing data from the [Navigation Timing API][navigation-timing] to all events. At the time the context gets constructed, some of the timing metrics (loadEventEnd, loadEventStart, and domComplete) are usually not yet available. In this version, the context is recalculated with every event instead of being cached, so those metrics will start being added to events as soon as they become available.
+
+<h2><a name="other">5. Other improvements</a></h2>
 
 We have also:
 
+* Started adding common contexts (including the PerformanceTiming context) to form_change, form_submit, and link_click events (the only event types to which they were not already automatically added if enabled) [#340][340]
 * Increased the reliability of the JavaScript Tracker's document size detection [#334][334]
 * Started randomly generating the [ngrok][ngrok] subdomain used for our integration tests to prevent clashes when the tests are run more than once simultaneously [#333][333]
 * Updated the Vagrant setup to always use the latest version of Peru [#336][336]
 
-<h2><a name="upgrading">5. Upgrading</a></h2>
+<h2><a name="upgrading">6. Upgrading</a></h2>
 
 The upgraded minified tracker is available here:
 
@@ -106,7 +112,7 @@ The upgraded minified tracker is available here:
 
 This release is fully backward-compatible.
 
-<h2><a name="help">6. Documentation and help</a></h2>
+<h2><a name="help">7. Documentation and help</a></h2>
 
 Check out the JavaScript Tracker's documentation:
 
@@ -123,7 +129,9 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [333]: https://github.com/snowplow/snowplow-javascript-tracker/issues/333
 [334]: https://github.com/snowplow/snowplow-javascript-tracker/issues/334
 [336]: https://github.com/snowplow/snowplow-javascript-tracker/issues/336
+[340]: https://github.com/snowplow/snowplow-javascript-tracker/issues/340
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup.md
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[navigation-timing]: http://www.w3.org/TR/navigation-timing/

@@ -7,29 +7,31 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of version 2.4.0 of the [Snowplow JavaScript Tracker][release-240]! This release adds support for cross-domain tracking and a new method to track timing events.
+We are pleased to announce the release of version 2.4.0 of the [Snowplow JavaScript Tracker][release-240]! This release adds support for cross-domain tracking and a new method to track timing events.
 
-Read on for more information...
+Read on for more information:
 
-1. [Tracking users cross-domain](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
-2. [Tracking timings](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#timing)
-3. [Dynamic handling of single-page apps](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#single-page)
-4. [Improved PerformanceTiming context](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#performance-timing)
-5. [Other improvements](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#other)
-6. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#upgrading)
-7. [Documentation and help](/blog/2015/xx/xx/snowplow-javascript-tracker-2.4.0-released/#help)
+1. [Tracking users cross-domain](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#cross-domain)
+2. [Tracking timings](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#timing)
+3. [Dynamic handling of single-page apps](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#single-page)
+4. [Improved PerformanceTiming context](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#performance-timing)
+5. [Other improvements](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#other)
+6. [Upgrading](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#upgrading)
+7. [Documentation and help](/blog/2015/03/15/snowplow-javascript-tracker-2.4.0-released/#help)
 
 <!--more-->
 
 <h2><a name="cross-domain">1. Tracking users cross-domain</a></h2>
 
-Version 2.4.0 of the JavaScript Tracker adds support for tracking users cross-domain. When a user clicks on one of the links you have specified (or navigates to that link using the keyboard), the Tracker adds the user's domain user ID together with a timestamp for the click to the querystring of that link in an "_sp=..." field. If the JavaScript Tracker is also present on the destination page, it will send the URL of the page - including the new querystring field - with all events. The new `refr_domain_userid` and `refr_dvce_tstamp` fields in the `atomic.events` table will then be populated based on the "_sp" field.
+Version 2.4.0 of the JavaScript Tracker adds support for tracking users cross-domain. When a user clicks on one of the links you have specified (or navigates to that link using the keyboard), the Tracker adds the user's domain user ID together with a timestamp for the click to the querystring of that link in an "_sp=..." querystring field. If the JavaScript Tracker is also present on the destination page, it will send the URL of the page - including the new querystring field - with all events.
+
+Snowplow r63 (coming soon), will add new `refr_domain_userid` and `refr_dvce_tstamp` fields to the `atomic.events` table, which will then be populated based on the "_sp" field.
 
 You can control which links should be decorated using a filter function. For each link element on the page, the function will be called with that link as its argument. If the function returns `true`, event listeners will be added to the link and will decorate it when the user navigates to it.
 
-If you want to enable cross-domain tracking, add this function to the tracker constructor argmap with the key "crossDomainLinker".
+To enable cross-domain tracking, add this function to the tracker constructor argmap with the key "crossDomainLinker".
 
- For example, this function would only decorate those links whose destination is "http://acme.de" or whose HTML id is "crossDomainLink":
+For example, this function would only decorate those links whose destination is "http://acme.de" or whose HTML id is "crossDomainLink":
 
 ```javascript
 snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
@@ -85,30 +87,32 @@ You can see the JSON schema for the event that the method generates [here][timin
 
 <h2><a name="single-page">3. Dynamic handling of single-page apps</a></h2>
 
-Previous versions of the JavaScript Tracker would get the page's URL and referrer once when the page loaded and never update them. This meant that on a single-page site, Snowplow users had to manually set a custom URL and referrer each time the URL changed without the page reloading.
+Previous versions of the JavaScript Tracker would retrieve the page's URL and referrer's URL on page load and never update them. This was problematic for single-page applications (SPAs), with Snowplow users resorting to manually setting a custom page/referrer URLs whenever the URL changed inside the SPA.
 
-Version 2.4.0 of the Tracker automatically detects when the page URL changes and updates the page URL and referrer accordingly. The referrer is replaced by the old page URL. Note that you must send at least one event each time the URL changes, because the Tracker will not notice a skipped URL. This means that if the user navigates from `page1` to `page2` to `page3`, but no events are fired while on `page3`, the referrer reported for all events fired on `page3` will be `page1`.
+Version 2.4.0 of the Tracker automatically detects when the page URL changes and updates the page URL and referrer accordingly. The referrer is replaced by the old page URL. Note that you must send at least one event each time the URL changes, because the Tracker will not notice a skipped URL. This means that if the user navigates from `page1` to `page2` to `page3`, but no events are fired while on `page3`, the referrer reported for all events fired on `page3` will stil be `page1`.
 
-If you ever use the `setCustomUrl`, the URL reported by the Tracker will stop changing (unless you call `setCustomUrl` again). Setting the referrer using `setReferrerUrl` is similarly sticky.
+When you use the `setCustomUrl`, the page URL reported by the Tracker will "stick" at the supplied value until the JavaScript Tracker is reloaded - unless of course you call `setCustomUrl` again. Setting the referrer URL using `setReferrerUrl` is similarly sticky.
 
 <h2><a name="performance-timing">4. Improved PerformanceTiming context</a></h2>
 
-The last version of the Tracker added the ability to add a context containing data from the [Navigation Timing API][navigation-timing] to all events. At the time the context gets constructed, some of the timing metrics (loadEventEnd, loadEventStart, and domComplete) are usually not yet available. In this version, the context is recalculated with every event instead of being cached, so those metrics will start being added to events as soon as they become available.
+We recently added the ability to add a context containing data from the [Navigation Timing API][navigation-timing] to all events. At the time the context gets constructed, some of the timing metrics (typically `loadEventEnd`, `loadEventStart`, and `domComplete`) are usually not yet available.
+
+With this releaes, the context is recalculated with every event instead of being cached, so missing timing metrics will be added to subsequent events as soon as those metrics become available.
 
 <h2><a name="other">5. Other improvements</a></h2>
 
 We have also:
 
-* Started adding common contexts (including the PerformanceTiming context) to form_change, form_submit, and link_click events (the only event types to which they were not already automatically added if enabled) [#340][340]
+* Started adding common contexts (including the `PerformanceTiming` context) to `form_change`, `form_submit`, and `link_click` events, the only event types to which they were not already automatically added if enabled [#340][340]
 * Increased the reliability of the JavaScript Tracker's document size detection [#334][334]
 * Started randomly generating the [ngrok][ngrok] subdomain used for our integration tests to prevent clashes when the tests are run more than once simultaneously [#333][333]
-* Updated the Vagrant setup to always use the latest version of Peru [#336][336]
+* Updated the Vagrant setup to work with the latest version of Peru [#336][336]
 
 <h2><a name="upgrading">6. Upgrading</a></h2>
 
 The upgraded minified tracker is available here:
 
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.3.0/sp.js
+    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.4.0/sp.js
 
 This release is fully backward-compatible.
 

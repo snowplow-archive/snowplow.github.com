@@ -135,7 +135,7 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [336]: https://github.com/snowplow/snowplow-javascript-tracker/issues/336
 [340]: https://github.com/snowplow/snowplow-javascript-tracker/issues/340
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
-[setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup.md
+[setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [navigation-timing]: http://www.w3.org/TR/navigation-timing/

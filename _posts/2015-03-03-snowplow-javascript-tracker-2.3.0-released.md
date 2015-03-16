@@ -14,7 +14,7 @@ This blog post will cover the changes in detail.
 1. [POST support](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#post)
 2. [Customizable form tracking](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#forms)
 3. [Automatic contexts](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#contexts)
-4. [Development quickstart](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#post)
+4. [Development quickstart](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#quickstart)
 5. [Other improvements](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#other)
 6. [Upgrading](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#upgrading)
 7. [Documentation and getting help](/blog/2015/03/03/snowplow-javascript-tracker-2.3.0-released/#help)
@@ -127,7 +127,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 });
 {% endhighlight %}
 
-<h2><a name="forms">4. Development quickstart</a></h2>
+<h2><a name="quickstart">4. Development quickstart</a></h2>
 
 We have added a Vagrantfile to the repository so that as long as you have [VirtualBox][virtualbox-install] and [Vagrant][vagrant-install] installed, it is now trivial to get started contributing to the JavaScript Tracker:
 
@@ -143,7 +143,7 @@ guest$ sudo npm install
 
 We have also:
 
-* Prevented the tracker from sending NaN in the page ping offset fields [#324][#324]
+* Prevented the tracker from sending NaN in the page ping offset fields [#324][324]
 * Added tests for the detection of document size and browser features [#270][270]
 * Added integration tests using the full tracker [#154][154]
 * Moved the grunt-yui-compressor dependency into the Snowplow organization [#172][172]

@@ -33,7 +33,7 @@ This is an easy issue to diagnose: if it affects you, then following an upgrade 
 
 This issue ([#1480] [issue-1480]) is resolved in this release: EmrEtlRunner now supports all Clojure Collector access log filename formats again.
 
-<h2><a name="emretlrunner-improvements">2. EmrEtlRunner improvements</a></h2>
+<h2><a name="bootstrap actions">2. Custom bootstrap actions</a></h2>
 
 The EmrEtlRunner now has support for adding one or more of your own custom bootstrap actions ([#1405] [issue-1405]). This is particularly useful if you are running your own Hadoop job steps as part of your scheduled jobflow on EMR. Many thanks to [Dani Solà] [danisola] for contributing this feature.
 

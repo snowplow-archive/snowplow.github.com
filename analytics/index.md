@@ -15,10 +15,16 @@ Snowplow enables analysts to perform a wide variety of both simple and sophistic
 
 In this section of the website (which we are building out to include more and more analyses), we provide a step-by-step guide to performing the different analyses including documenting the actual queries themselves.
 
-## Foundational concepts
+<h2><a href="/analytics/event-dictionaries-and-data-models/foundational-concepts.html">Foundational concepts</a></h2>
 
-1. [Event dictionaries and schemas] [event-dictionaries]. Understand events and contexts in order to effectively instrument your website, applications and platforms to collect the right data with the right structure
-2. [Data modelling] [data-modelling]. Understand how to aggregate over the detailed event stream delivered by Snowplow to power reporting and analytics
+1. [Events](/analytics/event-dictionaries-and-data-models/events.html)
+2. [Dictionaries and schemas](/analytics/event-dictionaries-and-data-models/event-dictionaries-and-schemas.html)
+3. [Contexts](/analytics/event-dictionaries-and-data-models/contexts.html)
+4. [Iglu](/analytics/event-dictionaries-and-data-models/iglu.html)
+5. [Stages in the Snowplow data pipeline](/analytics/event-dictionaries-and-data-models/collection-enrichment-modelling-analysis.html)
+6. [Sending data into Snowplow](/analytics/event-dictionaries-and-data-models/sending-data-into-snowplow.html)
+7. [Viewing event-level data in Snowplow](/analytics/event-dictionaries-and-data-models/viewing-the-event-data-in-snowplow.html)
+8. [Data modelling](/analytics/event-dictionaries-and-data-models/data-modelling.html)
 
 
 ## Performing analysis in Snowplow

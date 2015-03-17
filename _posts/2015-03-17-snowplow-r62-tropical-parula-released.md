@@ -9,6 +9,8 @@ category: Releases
 
 We are pleased to announce the immediate availability of Snowplow 62, Tropical Parula. This release is designed to fix an incompatibility issue between r61's EmrEtlRunner and some legacy Elastic Beanstalk configurations. It also includes some other EmrEtlRunner improvements.
 
+![tropical-parulas] [tropical-parulas]
+
 Many thanks to Snowplow community member [Dani Solà] [danisola] from Simply Business for his contribution to this release!
 
 1. [Fix to support legacy Beanstalk access logs](/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#emretlrunner-fix)
@@ -30,6 +32,14 @@ In r62 we have fixed this issue ([#1480] [issue-1480]) - EmrEtlRunner now suppor
 
 <h2><a name="emretlrunner-improvements">2. EmrEtlRunner improvements</a></h2>
 
+EmrEtlRunner: added support for custom bootstrap actions, thanks @danisola! (#1405)
+
+EmrEtlRunner: now tolerating more exception types in EmrJob's wait_for (#358)
+
+*  bumped Contracts to 0.7 (#1498), moved `include Contracts` into classes and modules (#1438)
+* Added missing :archive: in BucketHash (#1475)
+* removed time_diff as a dependency (#1352)
+* We have fixed a breaking test in the EmrEtlRunner's test suite (#1287)
 
 
 <h2><a name="upgrading">3. Upgrading</a></h2>
@@ -75,6 +85,8 @@ For a complete example, see our [sample `config.yml` template] [emretlrunner-con
 For more details on this release, please check out the [r62 Tropical Parula Release Notes] [r62-release] on GitHub. 
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
+
+[tropical-parulas]: /assets/img/blog/2015/03/tropical-parulas.jpg
 
 [danisola]: https://github.com/danisola
 

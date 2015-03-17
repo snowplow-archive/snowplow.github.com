@@ -1,15 +1,15 @@
 ---
 layout: post
-shortenedlink: Snowplow 61 released
-title: Snowplow 61 Pygmy Parrot released
-tags: [snowplow, beanstalk, clojure collector, cloudfront]
+shortenedlink: Snowplow 62 released
+title: Snowplow 62 Tropical Parula released
+tags: [snowplow, beanstalk, clojure collector, emretlrunner]
 author: Alex
 category: Releases
 ---
 
 We are pleased to announce the immediate availability of Snowplow 62, Tropical Parula. This release is designed to fix an incompatibility issue between r61's EmrEtlRunner and some legacy Elastic Beanstalk configurations. It also includes some other EmrEtlRunner improvements.
 
-Many thanks to Snowplow community member [Dani Sola] [danisola] from Simply Business for his contribution to this release!
+Many thanks to Snowplow community member [Dani Solà] [danisola] from Simply Business for his contribution to this release!
 
 1. [Fix to support legacy Beanstalk access logs](/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#emretlrunner-fix)
 2. [Other improvements to EmrEtlRunner](/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#emretlrunner-improvements)
@@ -78,7 +78,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [danisola]: https://github.com/danisola
 
-[issue-xxx]: xxx
+[issue-1480]: https://github.com/snowplow/snowplow/issues/1480
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 

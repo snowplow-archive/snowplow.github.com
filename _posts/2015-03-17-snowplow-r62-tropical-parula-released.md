@@ -31,7 +31,7 @@ After the [release of r61 Pygmy Parrot] [r61-release], we became aware that the 
 
 This is an easy issue to diagnose: if it affects you, then following an upgrade to r61 Pygmy Parrot, your Snowplow pipeline will copy **no** Clojure Collector access logs to Staging, and thus generate **no** enriched events.
 
-We have fixed this issue ([#1480] [issue-1480]) in this release: EmrEtlRunner now supports all Clojure Collector access log filename formats again.
+This issue ([#1480] [issue-1480]) is resolved in this release: EmrEtlRunner now supports all Clojure Collector access log filename formats again.
 
 <h2><a name="emretlrunner-improvements">2. EmrEtlRunner improvements</a></h2>
 

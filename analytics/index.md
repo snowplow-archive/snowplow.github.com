@@ -24,7 +24,7 @@ In this section of the website (which we are building out to include more and mo
 5. [Stages in the Snowplow data pipeline](/analytics/event-dictionaries-and-data-models/collection-enrichment-modelling-analysis.html)
 6. [Sending data into Snowplow](/analytics/event-dictionaries-and-data-models/sending-data-into-snowplow.html)
 7. [Viewing event-level data in Snowplow](/analytics/event-dictionaries-and-data-models/viewing-the-event-data-in-snowplow.html)
-8. [Data modelling](/analytics/event-dictionaries-and-data-models/data-modelling.html)
+8. [Data modelling](/analytics/event-dictionaries-and-data-models/data-modeling.html)
 
 
 ## Performing analysis in Snowplow
@@ -44,4 +44,4 @@ In this section of the website (which we are building out to include more and mo
 [catalog-analytics]: catalog-analytics/overview.html
 [tools-and-techniques]: tools-and-techniques/overview.html
 [event-dictionaries]: /analytics/event-dictionaries-and-data-models/event-dictionaries-and-schemas.html
-[data-modelling]: /analytics/event-dictionaries-and-data-models/data-modelling.html
+[data-modeling]: /analytics/event-dictionaries-and-data-models/data-modeling.html

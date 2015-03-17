@@ -2,9 +2,9 @@
 layout: page
 group: analytics
 sub_group: foundation
-title: Basic concepts
-shortened-link: Basic concepts
-description: Basic concepts - understanding event dictionaries, grammars and data modelling with Snowplow
+title: Foundational concepts
+shortened-link: Foundational concepts
+description: Foundational concepts - understanding event dictionaries, grammars and data modelling with Snowplow
 weight: 1
 ---
 

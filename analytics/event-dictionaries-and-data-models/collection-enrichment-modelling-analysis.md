@@ -14,7 +14,7 @@ The Snowplow pipeline is built to enable a very clean separation of the followin
 
 1. [Data collection](#data-collection)
 2. [Data enrichment](#data-enrichment)
-3. [Data modelling](#data-modelling)
+3. [Data modelling](#data-modeling)
 4. [Data analysis](#data-analysis)
 
 
@@ -38,7 +38,7 @@ Snowplow supports the following enrichments out-of-the-box. We're working on mak
 3. User agent string -> classifying devices, operating systems and browsers
 
 
-<h2><a name="data-modelling">3. Data modelling</a></h2>
+<h2><a name="data-modeling">3. Data modelling</a></h2>
 
 The data collection and enrichment process outlined above generates a data set that is an 'event stream': a long list of packets of data, where each packet represents a single event.
 

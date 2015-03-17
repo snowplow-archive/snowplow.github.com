@@ -1,7 +1,7 @@
 
 
 
-<h2><a name="data-modelling">6. Aggregating on event-strams: data modelling</a></h2>
+<h2><a name="data-modeling">6. Aggregating on event-strams: data modelling</a></h2>
 
 Snowplow delivers your entire event stream into your data warehouse.
 

@@ -114,7 +114,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [issue-1405]: https://github.com/snowplow/snowplow/issues/1405
 [issue-1475]: https://github.com/snowplow/snowplow/issues/1475
 [issue-1480]: https://github.com/snowplow/snowplow/issues/1480
-
+[issue-1438]: https://github.com/snowplow/snowplow/issues/1438
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [r61-release]: /blog/2015/03/02/snowplow-r61-pygmy-parrot-released

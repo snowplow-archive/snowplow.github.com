@@ -66,9 +66,15 @@ We call this process of aggregating  'data modelling'. At the end of the data mo
 
 <h2><a name="data-analysis">4. Data analysis</a></h2>
 
-## Understanding the difference between contexts captured at data collection time, and contexts inferred during enrichment
+TO WRITE
 
-## Understanding where your business logic should sit in the data pipeline
+<h2><a name="contexts-at-collection-time-vs-contexts-inferred-during-enrichment">Contexts captured at data collection time vs contexts inferred during enrichment</a></h2>
+
+TO WRITE
+
+<h2><a name="where-in-your-data-pipeline-should-your-business-logic-sit">Where in your data pipeline should your business logic sit?</a></h2>
+
+TO WRITE
 
 
 

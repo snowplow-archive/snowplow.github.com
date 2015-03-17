@@ -2,10 +2,12 @@
 layout: page
 group: analytics
 sub_group: foundation
-title: Contexts
-shortened-link: Contexts
+title: Data-Modeling
+shortened-link: Data-modelling
 description: Introduction to data modelling
-weight: 8
+weight: 9
 ---
+
+# Data modelling
 
 TO WRITE

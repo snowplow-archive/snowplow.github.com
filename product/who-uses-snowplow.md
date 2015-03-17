@@ -351,7 +351,7 @@ weight: 3
 
 <div class="row">
 	<div class="span3">
-		<p><img src="/assets/img/user-logos/bauermedia-logo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/bauermedia-logo.png" /></p>
 	</div>
 	<div class="span9">
 		<blockquote>

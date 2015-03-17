@@ -7,3 +7,7 @@ shortened-link: Viewing event-level data in Snowplow
 description: Viewing event-level data in Snowplow
 weight: 8
 ---
+
+# Viewing event-level data in Snowplow
+
+TO WRITE

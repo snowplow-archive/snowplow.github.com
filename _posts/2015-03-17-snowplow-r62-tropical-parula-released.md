@@ -13,11 +13,11 @@ We are pleased to announce the immediate availability of Snowplow 62, Tropical P
 
 Many thanks to Snowplow community member [Dani Solà] [danisola] from Simply Business for his contribution to this release!
 
-1. [Fix to support legacy Beanstalk access logs](/blog/2015/05/17/snowplow-r62-tropical-parula-released/#emretlrunner-fix)
-2. [Custom bootstrap actions](/blog/2015/05/17/snowplow-r62-tropical-parula-released/#bootstrap-actions)
-3. [Other improvements to EmrEtlRunner](/blog/2015/05/17/snowplow-r62-tropical-parula-released/#emretlrunner-improvements)
-3. [Upgrading](/blog/2015/05/17/snowplow-r62-tropical-parula-released/#upgrading)
-4. [Getting help](/blog/2015/05/17/snowplow-r62-tropical-parula-released/#help)
+1. [Fix to support legacy Beanstalk access logs](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#emretlrunner-fix)
+2. [Custom bootstrap actions](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#bootstrap-actions)
+3. [Other improvements to EmrEtlRunner](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#emretlrunner-improvements)
+3. [Upgrading](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#upgrading)
+4. [Getting help](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#help)
 
 <!--more-->
 

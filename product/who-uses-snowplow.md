@@ -235,7 +235,7 @@ weight: 3
 		<p><a href="http://www.qwaya.com/"><img src="/assets/img/user-logos/fixed/qwaya-logo.png"></a></p>
 	</div>
 	<div class="span4">
-		<p><a<img src="/assets/img/user-logos/fixed/radico-logo.png"></p>
+		<p><a href="http://www.getradico.com/"><img src="/assets/img/user-logos/fixed/radico-logo.png"></a></p>
 	</div>
 	<div class="span4">
 		<p><a href="http://secretsaucepartners.com/"><img src="/assets/img/user-logos/fixed/secretsaucepartners-logo.png"></a></p>

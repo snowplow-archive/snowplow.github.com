@@ -4,7 +4,7 @@ group: analytics
 sub_group: foundation
 title: Stages in the Snowplow data pipeline
 shortened-link: Snowplow data pipeline stages
-description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modelling and analysis
+description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modeling and analysis
 weight: 6
 ---
 
@@ -14,7 +14,7 @@ The Snowplow pipeline is built to enable a very clean separation of the followin
 
 1. [Data collection](#data-collection)
 2. [Data enrichment](#data-enrichment)
-3. [Data modelling](#data-modeling)
+3. [Data modeling](#data-modeling)
 4. [Data analysis](#data-analysis)
 
 
@@ -38,7 +38,7 @@ Snowplow supports the following enrichments out-of-the-box. We're working on mak
 3. User agent string -> classifying devices, operating systems and browsers
 
 
-<h2><a name="data-modeling">3. Data modelling</a></h2>
+<h2><a name="data-modeling">3. Data modeling</a></h2>
 
 The data collection and enrichment process outlined above generates a data set that is an 'event stream': a long list of packets of data, where each packet represents a single event.
 
@@ -59,7 +59,7 @@ The above are all illustrative examples of aggregate tables. In practice, what t
 2. Sessionization
 3. Joining Snowplow data with 3rd party data sets
 
-We call this process of aggregating  'data modelling'. At the end of the data modelling exercise, a clean set of tables are available to make it easier for to perform analysis on the data - easier because:
+We call this process of aggregating  'data modeling'. At the end of the data modeling exercise, a clean set of tables are available to make it easier for to perform analysis on the data - easier because:
 
 1. The volume of data to be queried is smaller (because the data is aggregated), making queries return faster
 2. The basic tasks of defining users, sessions and other core dimensions and metrics has already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis

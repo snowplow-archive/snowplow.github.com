@@ -8,9 +8,29 @@ description: Introduction to data modelling
 weight: 9
 ---
 
-# Data modeling
+# Data Modeling
 
 The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-levfel data into smaller data sets. These have the benefit of being easier to understand and faster to run analyses against. Also, if analysis is done against this data set, the same business logical will be used by all users of the data.
+
+Whilst it is possible to do analysis directly on this event stream, it is very common to:
+
+Join the event-stream data set with other data sets (e.g. customer data, product data, media data, marketing data, financial data)
+Aggregate the event-level data into smaller data sets that are easier and faster to run analyses against
+
+User-level tables
+Session-level tables.
+Product or media-level tables (catalog analytics).
+
+The above are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
+
+How to identify that users across multiple different channels are the same user i.e. identity stitching
+Sessionization
+Joining Snowplow data with 3rd party data sets
+
+We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available to make it easier for to perform analysis on the data - easier because:
+
+The volume of data to be queried is smaller (because the data is aggregated), making queries return faster
+The basic tasks of defining users, sessions and other core dimensions and metrics has already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis
 
 This page is structured as follows:
 
@@ -113,13 +133,23 @@ One method is to build a table which maps `user_id` onto `domain_userid`. So if 
 
 ## Sessionization
 
-[![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
-
 ### Model
+
+The purpose of sessionization is to capture a single line per visitor per visit. How a visit, or session, is defined is open for discussion. This data model aggregates unique combinations of `domain_userid` and `domain_sessionidx`. For a detailed discussion, see (link).
 
 ### SQL
 
+The model queries data from `snowplow_enriched_final`. The logic was discussed before.
+
+The queries can be found on GitHub.
+
+First, `sessions_basic`
+
+[![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
+
 ## Visitors
+
+The visitors table is 
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 

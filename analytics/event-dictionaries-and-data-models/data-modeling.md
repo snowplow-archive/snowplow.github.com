@@ -21,7 +21,7 @@ This page is structured as follows:
 
 Below is a visualization of the *incremental* data model: events get aggregated as new data arrives. The *full* model is a simplified version, as it aggregates all data and doesn't have to merge new and existing sessions (for example).
 
-![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
+[![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
 
 ## Event aggregation in SQL
 
@@ -101,16 +101,19 @@ WHERE rank = 1 -- If there are different rows with the same dvce_tstamp, rank an
 
 ## Identity stitching
 
-![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
+[![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
 
-- High level explanation of model
-- High level SQL explanation
-- Links to SQL on github
-- Possible extensions
+This part centers around the question of how to aggregate `user_id`. There is no one right answer, the method will often depend on the particular business needs.
+
+Events have a `user_id` field, but that isn't directly used in the aggregation process. The data model has an optional component which does identity stitching. Aggregated events (e.g. sessions) have a `blended_user_id` and `infered_user_id`. The latter is `NULL` if no stitching is done. The `blended_user_id` is `infered_user_id` when available, and `domain_user_id` in all other cases. It therefore always equals the cookie ID when no stitching is done.
+
+### Possible implementation
+
+One method is to build a table which maps `user_id` onto `domain_userid`. So if a user logs in on a device with a particular cookie, all sessions with that cookie will be (even if the user is not logged in). If several users have logged in on a device with the same cookie, only the last user will be mapped onto that cookie. Depending on how the aggregates get calculated, previous entries will either update to reflect the new user or a new entry will be created.
 
 ## Sessionization
 
-![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
+[![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
 
 ### Model
 
@@ -118,11 +121,11 @@ WHERE rank = 1 -- If there are different rows with the same dvce_tstamp, rank an
 
 ## Visitors
 
-![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
+[![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 
 ## Content (page or video or product views)
 
-![Page views](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)
+[![Page views](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)
 
 
 

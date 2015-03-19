@@ -23,13 +23,13 @@ Below is a visualization of the *incremental* data model: events get aggregated 
 
 ![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
 
-## Basic SQL logic
+## Event aggregation in SQL
 
-Events are aggregated using SQL, and the same logic is applied at different steps in the process.
+Events can be aggregated into visitors, sessions or content views, and the same steps get repeated in each aggregation. In this section, this logic is discussed in more detail.
 
-### Aggregation
+### Aggregate frame
 
-The first step is basic `GROUP BY` to calculate `MIN`, `MAX` and `SUM`.
+The first step aggregates events into, for example, sessions. It also includes fields that can be aggregated using `MIN`, `MAX`, `COUNT` and `SUM`. The example below is a simplied version of the `sessions_basic` query. Sessionization is done client-side and sessions are identified by a `domain_userid` (first-party cookie) and `domain_sessionidx` combination.
 
 {% highlight sql %}
 SELECT
@@ -47,9 +47,11 @@ GROUP BY 1,2
 );
 {% endhighlight %}
 
-### Initial Frame
+This example returns a table with one row per session. The device timestamp is used to order events within each session.
 
-Previous implementations used SQL Window Functions (e.g. `FIRST VALUE`), but the model now joines on `device_min_tstamp`. The example below assigns the landingpage to each session.
+### Initial frame
+
+The next step is to return fields associated with the first event in each, for example, session. The example below returns the landingpage for each session. This is achieved via an `INNER JOIN` between the events table and the basic table (discussed before) on `dvce_min_tstamp`. This returns those events that have the earliest device timestamp for that session. Remember that events sent from a device do not necessarily arrive in the same order.
 
 {% highlight sql %}
 SELECT
@@ -72,7 +74,9 @@ WHERE rank = 1 -- If there are different rows with the same dvce_tstamp, rank an
 );
 {% endhighlight %}
 
-### Final Frame
+It could happen that events have the same device timestamp. Duplicate rows are deduped in two ways. First, if all selected fields (in this case, urlhost and urlpath) are the same (other fields could be different), these events get combined by the `GROUP BY` statement. If the events are different (e.g. two landingpages), we rank and pick one at random. This is because we don't have sufficient information to determine which one is the real landing page.
+
+### Final frame
 
 {% highlight sql %}
 SELECT

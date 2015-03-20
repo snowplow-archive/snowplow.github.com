@@ -144,7 +144,7 @@ The standard model has a `cookie_id_to_user_id_map` which maps (at most) one `us
 
 ### Possible implementation
 
-If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in.
+If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in. The `blended_user_id` is equal to the `domain_userid` for all events before the user logged in, and equal to the `user_id` for all events after the first login.
 
 The `cookie_id_to_user_id_map` assigns at most one user to each cookie, so if a new user logs in on a device that was used by another user, only the most recent `user_id` is kept.
 
@@ -154,19 +154,30 @@ This approach is illustrated below.
 
 ## Sessionization
 
-The purpose of sessionization is to
+The purpose of sessionization is to generate an aggregate table with a single line per visitor per visit. How a visit, or session, is defined is open for discussion. The standard model uses the Snowplow client-side sessionization and aggregates unique combinations of `domain_userid` and `domain_sessionidx` into single rows.
 
-capture a single line per visitor per visit. How a visit, or session, is defined is open for discussion. This data model aggregates unique combinations of `domain_userid` and `domain_sessionidx`. For a detailed discussion, see (link).
+The standard model captures, for each session:
 
-### SQL
+- various timestamps (aggregate)
+- total number of events (aggregate)
+- geographical information (first event)
+- landing page (first event)
+- exit page (last event)
+- marketing data (first event)
+- referer data (first event)
+- browser, OS and device data (first event)
 
-The model queries data from `snowplow_enriched_final`. The logic was discussed before.
+The SQL used to calculate these fields was discussed before. First, `sessions_basic` gets created, which contains aggregate values. Then, 5 other tables are created which either select the first or the last event per session. These tables are then joined back onto `sessions_basic` in the `sessions_new` table.
 
-The queries can be found on GitHub.
-
-First, `sessions_basic`
+This approach is visualized below.
 
 [![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
+
+If the *full* model is used, `sessions_new` was calculated using all events and the sessions can be moved to the final pivot table.
+
+In the *incremental* version, `sessions_new` was calculated using only events that arrived after the last run began. This table will have to be merged with the pivot table, because events that belong to one session could have ended up in two different batches. This creates two sessions with the same session identifier, who have to merged into one.
+
+This is done using the same SQL logic as before. All existing sessions are copied into `sessions_new`. A basic table is then created which calculates aggregate values. Two other tables are create to find the values associated with the first and last event in a particular session. These tables then get joined and the result is moved back into the pivot table.
 
 ## Visitors
 

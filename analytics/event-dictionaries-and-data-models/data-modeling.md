@@ -10,23 +10,23 @@ weight: 9
 
 # Data Modeling
 
-The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-levfel data into smaller data sets, which are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logical will be used by all users of the data. These aggregate tables can be:
+The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-level data into smaller data sets. These are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logic will be used by all users of the data. Aggregate tables can be:
 
 - User-level tables
 - Session-level tables
 - Product or media-level tables (catalog analytics)
 
-We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available to make it easier for to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
+We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available which make it easier to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
 
-The table mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
+The tables mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
 
-- How to identify that users across multiple different channels are the same user, i.e. identity stitching
+- How to identity which users across multiple different channels are the same user, i.e. identity stitching
 - Sessionization
-- Joining Snowplow data with 3rd party data sets
+- Joining Snowplow data with third party data sets
 
 ## 1. Model
 
-The data model can be run in *full* or *incremental* mode. The full mode is used on smaller data sets or when the model is being customized to include business-specific logic. Customization ideally happens in several stages:
+The data model can be run in *full* or *incremental* mode. Full mode is used on smaller data sets or when the model is being customized to fit the needs of a particular business. Customization ideally happens in several stages:
 
 - In a first step, the basic data model is set up in *full* mode. The output is a set of tables (refered to as the pivot tables) which are recomputed each time the pipeline runs.
 
@@ -34,7 +34,7 @@ The data model can be run in *full* or *incremental* mode. The full mode is used
 
 - Once the custom data model is stable, i.e. all data needed to build reports has been added, the queries can be migrated from a *full* to an *incremental* view. While the former recomputes the pivot tables each time, the latter updates them based on the new data that comes in. New events arrive in the `snowplow_landing` rather than the `atomic` schema (and get moved when the pivots have been updated).
 
-Below is a visualization of the steps in the incremental data model. New events first get aggregated into, for example, sessions. These new sessions then have to be merged with existing sessions. The full model is a simplified version of this model.
+Below is a visualization of the steps in the incremental data model. New events first get aggregated into, for example, sessions. These new sessions then have to be merged with existing sessions before being moved to the final pivot tables. The full model is a simplified version of this model.
 
 [![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
 
@@ -123,13 +123,13 @@ WHERE rank = 1 -- If there are multiple rows, pick the first row
 );
 {% endhighlight %}
 
-## Identity stitching
+## 3. Identity stitching
 
 The standard data model does not aggregate `user_id`, but it does contain the placeholder fields `blended_user_id` (equal to the `domain_userid` by default) and `inferred_user_id` (`NULL` by default). This is because there is no one right answer to identity stitching, the method will often depend on particular needs of a business.
 
 The standard model has a `cookie_id_to_user_id_map` which maps (at most) one `user_id` onto each `domain_userid`. This map then gets merged back onto `events_enriched`. The logic used to calculate this map can be written independent of the rest of the data madel.
 
-### Possible implementation
+### 3a. Possible implementation
 
 If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in. The `blended_user_id` is equal to the `domain_userid` for all events before the user logged in, and equal to the `user_id` for all events after the first login.
 
@@ -139,7 +139,7 @@ This approach is illustrated below.
 
 [![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
 
-## Sessionization
+## 4. Sessionization
 
 The purpose of sessionization is to generate an aggregate table with a single line per visitor per visit. How a visit, or session, is defined is open for discussion. The standard model uses the Snowplow client-side sessionization and aggregates unique combinations of `domain_userid` and `domain_sessionidx` into single rows.
 
@@ -168,7 +168,7 @@ In the *incremental* version, `sessions_new` was calculated using only events th
 
 This is done using the same SQL logic as before. All existing sessions are copied into `sessions_new`. A basic table is then created which calculates aggregate values. Two other tables are create to find the values associated with the first and last event in a particular session. These tables then get joined and the result is moved back into the pivot table.
 
-## Visitors
+## 5. Visitors
 
 The standard data model creates an aggregate table with a single line per visitor. How visitors are defined depends on the identity stitching that is used. The standard model uses only cookies, visitors are therefore defined as a unique `domain_userid`.
 
@@ -188,7 +188,7 @@ The same logic that is used to do sessionization is also used to calculate the v
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 
-## Page views (as an example of content)
+## 6. Page views (as an example of content)
 
 The standard data model creates an aggregate table with a single line per page views, which captures:
 

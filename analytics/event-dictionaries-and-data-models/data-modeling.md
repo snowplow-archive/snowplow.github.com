@@ -138,21 +138,25 @@ WHERE rank = 1 -- If there are multiple rows, pick the first row
 
 ## Identity stitching
 
-[![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
+The standard data model does not aggregate `user_id`, but it does contain the placeholder fields `blended_user_id` (equal to the `domain_userid` by default) and `inferred_user_id` (`NULL` by default). This is because there is no one right answer to identity stitching, the method will often depend on particular needs of a business.
 
-This part centers around the question of how to aggregate `user_id`. There is no one right answer, the method will often depend on the particular business needs.
-
-Events have a `user_id` field, but that isn't directly used in the aggregation process. The data model has an optional component which does identity stitching. Aggregated events (e.g. sessions) have a `blended_user_id` and `infered_user_id`. The latter is `NULL` if no stitching is done. The `blended_user_id` is `infered_user_id` when available, and `domain_user_id` in all other cases. It therefore always equals the cookie ID when no stitching is done.
+The standard model has a `cookie_id_to_user_id_map` which maps (at most) one `user_id` onto each `domain_userid`. This map then gets merged back onto `events_enriched`. The logic used to calculate this map can be written independent of the rest of the data madel.
 
 ### Possible implementation
 
-One method is to build a table which maps `user_id` onto `domain_userid`. So if a user logs in on a device with a particular cookie, all sessions with that cookie will be (even if the user is not logged in). If several users have logged in on a device with the same cookie, only the last user will be mapped onto that cookie. Depending on how the aggregates get calculated, previous entries will either update to reflect the new user or a new entry will be created.
+If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in.
+
+The `cookie_id_to_user_id_map` assigns at most one user to each cookie, so if a new user logs in on a device that was used by another user, only the most recent `user_id` is kept.
+
+This approach is illustrated below.
+
+[![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
 
 ## Sessionization
 
-### Model
+The purpose of sessionization is to
 
-The purpose of sessionization is to capture a single line per visitor per visit. How a visit, or session, is defined is open for discussion. This data model aggregates unique combinations of `domain_userid` and `domain_sessionidx`. For a detailed discussion, see (link).
+capture a single line per visitor per visit. How a visit, or session, is defined is open for discussion. This data model aggregates unique combinations of `domain_userid` and `domain_sessionidx`. For a detailed discussion, see (link).
 
 ### SQL
 

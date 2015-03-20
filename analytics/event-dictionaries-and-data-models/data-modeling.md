@@ -158,8 +158,10 @@ The purpose of sessionization is to generate an aggregate table with a single li
 
 The standard model captures, for each session:
 
+- identifiers
 - various timestamps (aggregate)
-- total number of events (aggregate)
+- number of events (aggregate)
+- time engaged in minutes (aggregate)
 - geographical information (first event)
 - landing page (first event)
 - exit page (last event)
@@ -181,7 +183,21 @@ This is done using the same SQL logic as before. All existing sessions are copie
 
 ## Visitors
 
-The visitors table is 
+The standard data model creates an aggregate table with a single line per visitor. How visitors are defined depends on the identity stitching that is used. The standard model uses only cookies, visitors are therefore defined as a unique `domain_userid`.
+
+The standard model captures, for each visitor:
+
+- identifiers
+- various timestamps (aggregate)
+- number of events (aggregate)
+- number of sessions (aggregate)
+- number of page views (aggregate)
+- time engaged in minutes (aggregate)
+- landing page (first event)
+- marketing data (first event, initial visit)
+- referer data (first event, initial visit)
+
+The same logic that is used to do sessionization is also used to calculate the visitors table.
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 

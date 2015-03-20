@@ -7,7 +7,7 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the immediate availability of Snowplow 63, XXX. This is a major release for us - adding in XX new enrichments, enhancing existing enrichments and significantly updating our enriched event model for loading into Redshift, Elasticsearch and Postgres.
+We are pleased to announce the immediate availability of Snowplow 63, XXX. This is a major release which adds in two new enrichments, enhances existing enrichments and significantly updates our enriched event model for loading into Redshift, Elasticsearch and Postgres.
 
 The new and enhanced enrichments are as follows:
 
@@ -17,7 +17,7 @@ The new and enhanced enrichments are as follows:
 4. Enhanced: our existing
 5. Enhanced: xxx
 
-This has been a huge team effort - with particular thanks going to Snowplow winterns [Aalekh Nigam] [xxx] (2014/15) and [Jiawen Zhou] [xxx] (2013/14) for their work on the new enrichments and the underpinning scala-forex library 
+This has been a huge team effort -  with particular thanks going to Snowplow winterns [Aalekh Nigam] [xxx] (2014/15) and [Jiawen Zhou] [xxx] (2013/14) for their work on the new enrichments and the underpinning scala-forex library respectively.
 
 1. [xxx]()
 2. [xxx]()

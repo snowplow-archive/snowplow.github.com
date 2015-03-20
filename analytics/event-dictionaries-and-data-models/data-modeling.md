@@ -10,32 +10,19 @@ weight: 9
 
 # Data Modeling
 
-The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-levfel data into smaller data sets. These have the benefit of being easier to understand and faster to run analyses against. Also, if analysis is done against this data set, the same business logical will be used by all users of the data.
+The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-levfel data into smaller data sets, which are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logical will be used by all users of the data. These aggregate tables can be:
 
-Whilst it is possible to do analysis directly on this event stream, it is very common to:
+- User-level tables
+- Session-level tables
+- Product or media-level tables (catalog analytics)
 
-Join the event-stream data set with other data sets (e.g. customer data, product data, media data, marketing data, financial data)
-Aggregate the event-level data into smaller data sets that are easier and faster to run analyses against
+We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available to make it easier for to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
 
-User-level tables
-Session-level tables.
-Product or media-level tables (catalog analytics).
+The table mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
 
-The above are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
-
-How to identify that users across multiple different channels are the same user i.e. identity stitching
-Sessionization
-Joining Snowplow data with 3rd party data sets
-
-We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available to make it easier for to perform analysis on the data - easier because:
-
-The volume of data to be queried is smaller (because the data is aggregated), making queries return faster
-The basic tasks of defining users, sessions and other core dimensions and metrics has already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis
-
-This page is structured as follows:
-
-- Basic SQL logic: Events are aggregated in SQL, and the same logic is applied at different steps in the process.
-- Identity stitching: The data models contain an optional step to map cookies onto users. Without this step, only first-party cookies are used as an identifier.
+- How to identify that users across multiple different channels are the same user, i.e. identity stitching
+- Sessionization
+- Joining Snowplow data with 3rd party data sets
 
 ## 1. Model
 

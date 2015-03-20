@@ -123,13 +123,13 @@ WHERE rank = 1 -- If there are multiple rows, pick the first row
 );
 {% endhighlight %}
 
-## Identity stitching
+## 3. Identity stitching
 
 The standard data model does not aggregate `user_id`, but it does contain the placeholder fields `blended_user_id` (equal to the `domain_userid` by default) and `inferred_user_id` (`NULL` by default). This is because there is no one right answer to identity stitching, the method will often depend on particular needs of a business.
 
 The standard model has a `cookie_id_to_user_id_map` which maps (at most) one `user_id` onto each `domain_userid`. This map then gets merged back onto `events_enriched`. The logic used to calculate this map can be written independent of the rest of the data madel.
 
-### Possible implementation
+### 3a. Possible implementation
 
 If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in. The `blended_user_id` is equal to the `domain_userid` for all events before the user logged in, and equal to the `user_id` for all events after the first login.
 
@@ -139,7 +139,7 @@ This approach is illustrated below.
 
 [![Identity stitching](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/stitching.png)
 
-## Sessionization
+## 4. Sessionization
 
 The purpose of sessionization is to generate an aggregate table with a single line per visitor per visit. How a visit, or session, is defined is open for discussion. The standard model uses the Snowplow client-side sessionization and aggregates unique combinations of `domain_userid` and `domain_sessionidx` into single rows.
 
@@ -168,7 +168,7 @@ In the *incremental* version, `sessions_new` was calculated using only events th
 
 This is done using the same SQL logic as before. All existing sessions are copied into `sessions_new`. A basic table is then created which calculates aggregate values. Two other tables are create to find the values associated with the first and last event in a particular session. These tables then get joined and the result is moved back into the pivot table.
 
-## Visitors
+## 5. Visitors
 
 The standard data model creates an aggregate table with a single line per visitor. How visitors are defined depends on the identity stitching that is used. The standard model uses only cookies, visitors are therefore defined as a unique `domain_userid`.
 
@@ -188,7 +188,7 @@ The same logic that is used to do sessionization is also used to calculate the v
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 
-## Page views (as an example of content)
+## 6. Page views (as an example of content)
 
 The standard data model creates an aggregate table with a single line per page views, which captures:
 

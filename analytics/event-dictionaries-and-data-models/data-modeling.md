@@ -55,11 +55,11 @@ Below is a visualization of the steps in the incremental data model. New events 
 
 Events can be aggregated into various smaller data sets, such as sessions and visitors. The conditions on which events are aggregated are different in each case, but the logic in SQL is similar.
 
-In this section, we use sessions as an example.
+In this section, we use sessions as an example to illustrate the general principle.
 
 ### 2a. Aggregate frame
 
-In the first step, a basic table is created which contains the identifier (in the case of sessions: a unique combination of `domain_userid` and `domain_sessionidx`) and some basic information, such as various timestamps. These fields all can be obtained using a `GROUP BY` aggregate function. Examples include `MIN`, `MAX`, `COUNT` and `SUM`.
+In the first step, a basic table is created which contains the identifier (in the case of sessions: a unique combination of `domain_userid` and `domain_sessionidx`) and some basic information, such as various timestamps. These fields can all be calculated with a `GROUP BY` aggregate function. Examples include `MIN`, `MAX`, `COUNT` and `SUM`.
 
 Below is a simplified version of the query used to generate the `sessions_basic` table:
 
@@ -78,13 +78,11 @@ GROUP BY 1,2
 );
 {% endhighlight %}
 
-
-
-This example returns a table with one row per session. The device timestamp is used to order events within each session.
+This example returns a table with one row per session and aggregate properties such as the total number of events per session. In most cases, we are also interested in properties associated with either the first or the last event in each session (for example, the landing and exit pages). The earliest and latest device timestamp are used to sort events within each session. Device, not collector, timestamp is used because events are not guaranteed to arrive in the right order. More complicated logic is also possible, but not discussed in this document.
 
 ### 2b. Initial frame
 
-The next step is to return fields associated with the first event in each, for example, session. The example below returns the landingpage for each session. This is achieved via an `INNER JOIN` between the events table and the basic table (discussed before) on `dvce_min_tstamp`. This returns those events that have the earliest device timestamp for that session. Remember that events sent from a device do not necessarily arrive in the same order.
+The next step is to return fields associated with the first event in each session. The example below returns the landingpage for each session. This is achieved via an `INNER JOIN` between the events table and the basic table (discussed before) on `dvce_min_tstamp`. This value is the timestamp of the earliest event for each session, an inner join therefore only returns the first event for each session.
 
 {% highlight sql %}
 SELECT
@@ -95,21 +93,26 @@ FROM (
     a.domain_sessionidx,
     a.page_urlhost,
     a.page_urlpath,
-    RANK() OVER (PARTITION BY a.domain_userid, a.domain_sessionidx ORDER BY a.page_urlhost, a.page_urlpath) AS rank
+    RANK() OVER (PARTITION BY a.domain_userid, a.domain_sessionidx
+      ORDER BY a.page_urlhost, a.page_urlpath) AS rank
   FROM snowplow_intermediary.events_enriched_final AS a
   INNER JOIN snowplow_intermediary.sessions_basic AS b
     ON  a.domain_userid = b.domain_userid
     AND a.domain_sessionidx = b.domain_sessionidx
-    AND a.dvce_tstamp = b.dvce_min_tstamp -- Replaces the FIRST VALUE window function in SQL
-  GROUP BY 1,2,3,4 -- Aggregate identital rows (that happen to have the same dvce_tstamp)
+    AND a.dvce_tstamp = b.dvce_min_tstamp
+  GROUP BY 1,2,3,4 -- Aggregate identital rows
 )
-WHERE rank = 1 -- If there are different rows with the same dvce_tstamp, rank and pick the first row
+WHERE rank = 1 -- If there are multiple rows, pick the first row
 );
 {% endhighlight %}
 
-It could happen that events have the same device timestamp. Duplicate rows are deduped in two ways. First, if all selected fields (in this case, urlhost and urlpath) are the same (other fields could be different), these events get combined by the `GROUP BY` statement. If the events are different (e.g. two landingpages), we rank and pick one at random. This is because we don't have sufficient information to determine which one is the real landing page.
+It could happen that multiple events have the same device timestamp. If this happens to be the earliest timestamp, a single session would return multiple rows. Duplicate rows are therefore deduped in two ways.
+
+First, if all selected fields (in this case, urlhost and urlpath) are the same (other fields can be different), these rows are aggregated by the `GROUP BY` statement. If the events are different (e.g. two landingpages), we rank and pick one at random. If there is a criterion to choose on over the other, that one can be used instead.
 
 ### 2c. Final frame
+
+The same logic gets repeated when returning fields associated with the last event in each session. The only difference is that the inner join gets made on `dvce_max_tstamp` rather than `dvce_min_tstamp`.
 
 {% highlight sql %}
 SELECT
@@ -120,15 +123,16 @@ FROM (
     a.domain_sessionidx,
     a.page_urlhost,
     a.page_urlpath,
-    RANK() OVER (PARTITION BY a.domain_userid, a.domain_sessionidx ORDER BY a.page_urlhost, a.page_urlpath) AS rank
+    RANK() OVER (PARTITION BY a.domain_userid, a.domain_sessionidx
+      ORDER BY a.page_urlhost, a.page_urlpath) AS rank
   FROM snowplow_intermediary.events_enriched_final AS a
   INNER JOIN snowplow_intermediary.sessions_basic AS b
     ON  a.domain_userid = b.domain_userid
     AND a.domain_sessionidx = b.domain_sessionidx
     AND a.dvce_tstamp = b.dvce_max_tstamp -- Replaces the LAST VALUE window function in SQL
-  GROUP BY 1,2,3,4 -- Aggregate identital rows (that happen to have the same dvce_tstamp)
+  GROUP BY 1,2,3,4 -- Aggregate identital rows
 )
-WHERE rank = 1 -- If there are different rows with the same dvce_tstamp, rank and pick the first row
+WHERE rank = 1 -- If there are multiple rows, pick the first row
 );
 {% endhighlight %}
 

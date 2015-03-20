@@ -39,9 +39,15 @@ This page is structured as follows:
 
 ## 1. Model
 
-Below is a visualization
+The data model can be run in *full* or *incremental* mode. The full mode is used on smaller data sets or when the model is being customized to include business-specific logic. Customization ideally happens in several stages:
 
-Below is a visualization of the *incremental* data model: events get aggregated as new data arrives. The *full* model is a simplified version, as it aggregates all data and doesn't have to merge new and existing sessions (for example).
+- In a first step, the basic data model is set up in *full* mode. The output is a set of tables (refered to as the pivot tables) which are recomputed each time the pipeline runs.
+
+- The data models can then be changed. This could mean adding ecommerce fields or applying business-specific logic, ideally joining Snowplow data with other data sets (e.g. customer or data).
+
+- Once the custom data model is stable, i.e. all data needed to build reports has been added, the queries can be migrated from a *full* to an *incremental* view. While the former recomputes the pivot tables each time, the latter updates them based on the new data that comes in. New events arrive in the `snowplow_landing` rather than the `atomic` schema (and get moved when the pivots have been updated).
+
+Below is a visualization of the steps in the incremental data model. New events first get aggregated into, for example, sessions. These new sessions then have to be merged with existing sessions. The full model is a simplified version of this model.
 
 [![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
 

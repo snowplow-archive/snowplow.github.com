@@ -201,9 +201,19 @@ The same logic that is used to do sessionization is also used to calculate the v
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 
-## Content (page or video or product views)
+## Page views (as an example of content)
+
+The standard data model creates an aggregate table with a single line per page views, which captures:
+
+- identifiers
+- various timestamps (aggregate)
+- number of events (aggregate)
+- number of page views (aggregate)
+- number of page pings (aggregate)
+- time engaged in minutes (aggregate)
+
+The same logic that is used to do sessionization is also used to calculate the visitors table. Since there are only aggregate fields, only a basic table is required.
 
 [![Page views](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)
 
-
-
+An alternative would be to create an aggregate table with a single line per page (rather than page view). The approach would be similar to how the visitors table is calculated.

@@ -7,17 +7,28 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the immediate availability of Snowplow 63, XXX. This is a major release which adds in two new enrichments, enhances existing enrichments and significantly updates our enriched event model for loading into Redshift, Elasticsearch and Postgres.
+ISSUES AND QUESTIONS
 
-The new and enhanced enrichments are as follows:
+Redshift: removed primary key constraint on event_id (#1187)
+
+TODO: ping Fred about versioning the canonical event model
+
+TODO: ping Fred about updating the enriched event in elasticsearch JSON Scheam
+
+KCL - CAN YOU ONLY START FROM TRIM_HORIZON OR LATEST?
+
+
+We are pleased to announce the immediate availability of Snowplow 63, XXX. This is a major release which adds two new enrichments, upgrades existing enrichments and significantly updates our Canonical Event Model for loading into Redshift, Elasticsearch and Postgres.
+
+The new and upgraded enrichments are as follows:
 
 1. New enrichment: parsing useragent strings using the 
 2. New enrichment: converting the money amounts in e-commerce transactions into xxx
-3. Enhanced: xxx
-4. Enhanced: our existing
-5. Enhanced: xxx
+3. Upgraded: xxx
+4. Upgraded: our existing
+5. Upgraded: xxx
 
-This has been a huge team effort -  with particular thanks going to Snowplow winterns [Aalekh Nigam] [xxx] (2014/15) and [Jiawen Zhou] [xxx] (2013/14) for their work on the new enrichments and the underpinning scala-forex library respectively.
+This release has been a huge team effort - with particular thanks going to Snowplow winterns [Aalekh Nigam] [aalekh] (2014/15) and [Jiawen Zhou] [xxx] (2013/14) for their work on the new enrichments and the foundational [scala-forex library] [scala-forex] respectively.
 
 1. [xxx]()
 2. [xxx]()
@@ -50,10 +61,55 @@ We have also made the following changes to the table definitions:
 * xxx
 * xxx
 
-TODO: ping Fred about versioning the canonical event model
 
-TODO: ping Fred about updating the enriched event in elasticsearch JSON Scheam
 
+<h2><a name="xxx">7. Kinesis application updates</a></h2>
+
+This release updates:
+
+1. Scala Kinesis Enrich, to version 0.4.0
+2. Kinesis Elasticsearch Sink, to version 0.2.0
+
+The main update to both Kinesis applications is to support the new enriched event format (see above for details). Other noteworthy updates to the Scala Kinesis Enrich:
+
+* Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 (#1369) - what version was it on previously?
+* unified logger configuration, thanks @kazjote! (#1367)
+
+An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event (#1333)
+
+
+To use the new UA parser context:
+
+Redshift: added Redshift DDL for ua_parser_context (#789)
+StorageLoader: wrote JSON Path file for ua_parser_context (#790)
+
+<div class="html">
+<h2><a name="upgrading-kinesis">XXX. Upgrading your Elastic MapReduce pipeline</a></h2>
+</div>
+
+There are two steps to upgrading the EMR pipeline:
+
+1. Upgrade your EmrEtlRunner to use the latest Hadoop job versions
+2. Upgrade your Redshift or Postgres tables to the 
+
+<div class="html">
+<h3><a name="configuring-emretlrunner">6.1 Updating EmrEtlRunner's configuration</a></h3>
+</div>
+
+This release bumps:
+
+1. The Hadoop Enrichment process to version **0.14.0**
+2. The Hadoop Shredding process to version **0.4.0**
+
+In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 0.14.0, like so:
+
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 0.14.0 # WAS 0.13.0
+    :hadoop_shred: 0.4.0 # WAS 0.3.0
+{% endhighlight %}
+
+For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
 <div class="html">
 <h2><a name="upgrading-kinesis">XXX. Upgrading your Kinesis pipeline</a></h2>
@@ -63,21 +119,19 @@ The new version of the Kinesis pipeline is available on Bintray. The download co
 
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_xxx.zip
 
-The main thing to be aware of is that the new 
-
-This release updates:
-
-1. Scala Kinesis Enrich (to version 0.4.0)
-2. The format of enriched events as written to the Kinesis stream 
-3. The Kinesis Elasticsearch Sink (to version 0.2.0)
-
-The affected components are highlighted in this graph:
+The updated components are highlighted in this graph:
 
 xxx
 
 Our recommended approach for upgrading is as follows:
 
-* XXX
+1. Kill your Scala Kinesis Enrich cluster
+2. Leave your Kinesis Elasticsearch Sink cluster running until all remaining enriched events are loaded, then kill this cluster too
+3. Upgrade your Scala Kinesis Enrich cluster to the new version
+4. Upgrade your Kinesis Elasticsearch Sink cluster to the new version
+5. Restart your Scala Kinesis Enrich cluster
+6. Restart your Kinesis Elasticsearch Sink cluster
+
 
 <h2><a name="help">XX. Getting help</a></h2>
 
@@ -117,10 +171,6 @@ Scala Hadoop Shred: bumped Scala Common Enrich to 0.13.0 (#1343)
 Scala Hadoop Shred: bumped json4sJackson to 3.2.11 (#1344)
 Scala Hadoop Shred: extracted JSONs from derived_contexts field (#786)
 Scala Hadoop Shred: updated to reflect new enriched event format (#1332)
-Scala Kinesis Enrich: bumped to 0.4.0
-Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 (#1369)
-Scala Kinesis Enrich: emitted updated EnrichedEvent (#1368)
-Scala Kinesis Enrich: unified logger configuration, thanks @kazjote! (#1367)
 Redshift: added refr_domain_userid and refr_dvce_tstamp to atomic.events (#1450)
 Redshift: added dvce_sent_tstamp column (#1385)
 Redshift: added foreign key constraint to all Redshift shredded tables (#1365)
@@ -148,12 +198,13 @@ Postgres: updated ip_address to support IPv6 addresses (#655)
 Postgres: added new currency fields (#365)
 Redshift: added session_id column (#1540)
 StorageLoader: wrote JSON Path file for ua_parser_context (#790)
-Kinesis Elasticsearch Sink: bumped to 0.2.0
-Kinesis Elasticsearch Sink: added new EnrichedEvent fields (#1345)
-Kinesis Elasticsearch Sink: stopped verifying number of fields in enriched event (#1333)
-Kinesis Elasticsearch Sink: changed organization to com.snowplowanalytics in BuildSettings (#1279)
-Kinesis Elasticsearch Sink: renamed application.conf.example to config.hocon.sample (#1244)
 
+[scala-forex]: xxx
+
+[aalekh]: https://github.com/AALEKH
+[kazjote]: https://github.com/kazjote
+
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues

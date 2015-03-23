@@ -80,7 +80,7 @@ And that's it! Please check out the [ActionScript 3.0 Tracker Technical Document
 
 <h2><a name="help">3. Getting help</a></h2>
 
-The ActionScript event Tracker is a young project and we will be working with Viewbix and the wider Snowplow community to enhance it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
+The ActionScript Event Tracker is a young project and we will be working with Viewbix and the wider Snowplow community to enhance it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 
 Feel free to [get in touch][talk-to-us] or raise an issue in the [ActionScript 3.0 Tracker's issues] [as3-issues] on GitHub!
 
@@ -95,4 +95,4 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [ActionScript 3
 [source]: https://github.com/snowplow/snowplow-actionscript3-tracker/tree/0.1.0
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
-[issues]: https://github.com/snowplow/snowplow/issues
+[as3-issues]: https://github.com/snowplow/snowplow-actionscript3-tracker/issues

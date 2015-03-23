@@ -37,6 +37,7 @@ weight: 2
 		<h3>Josh Beemster <small>Data engineer</small></h3><br>
 		<img src="/assets/img/blog/2015/02/josh-beemster.png" class="img-rounded" />
 		<br>
-		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online.</p>
+		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online. At Snowplow Josh is cultivating his deep love of computers, a love cultivated not only through his building of data pipelines, but also his studies in Computer Sciences at Charles Sturt University. When Josh isn't studying or working, he can often be found building computers or playing games on them. If you can catch him when he's not at his computer, the chances are he's indulging one of his two other hobbies - snowboarding or travelling. (Or likely both.)</p>
+		<p>At Snowplow, Josh has sharpened his skills in the arts of Scala, Java and PHP.</p>
 	</div>
 </div>

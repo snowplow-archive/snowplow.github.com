@@ -1,7 +1,7 @@
 ---
 layout: post
 shortenedlink: Snowplow ActionScript 3 Tracker 0.1.0 released
-title: Snowplow ActionScript3 Tracker 0.1.0 released
+title: Snowplow ActionScript 3 Tracker 0.1.0 released
 tags: [snowplow, analytics, actionscript, flash, actionscript3, as3]
 author: Alex
 category: Releases

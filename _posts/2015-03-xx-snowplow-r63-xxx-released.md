@@ -9,8 +9,6 @@ category: Releases
 
 ISSUES AND QUESTIONS
 
-Redshift: removed primary key constraint on event_id (#1187)
-
 TODO: ping Fred about versioning the canonical event model
 
 TODO: ping Fred about updating the enriched event in elasticsearch JSON Scheam
@@ -101,7 +99,7 @@ This release bumps:
 1. The Hadoop Enrichment process to version **0.14.0**
 2. The Hadoop Shredding process to version **0.4.0**
 
-In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 0.14.0, like so:
+In your EmrEtlRunner's `config.yml` file, update your Hadoop jobs versions like so:
 
 {% highlight yaml %}
   :versions:
@@ -110,6 +108,10 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
 {% endhighlight %}
 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
+
+<div class="html">
+<h3><a name="configuring-emretlrunner">6.2 Updating your Redshift</a></h3>
+</div>
 
 <div class="html">
 <h2><a name="upgrading-kinesis">XXX. Upgrading your Kinesis pipeline</a></h2>

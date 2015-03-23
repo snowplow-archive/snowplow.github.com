@@ -34,10 +34,9 @@ weight: 2
 		<p>When Fred's not building data pipelines, he can often be found playing board games (chess, Shogi and Go) or juggling. Don't mess with Fred - he was Captain of the shooting team at Westminster School.</p>
 	</div>
 	<div class="span6">
-		<h3>Richard Fergie <small>Data Scientist</small></h3><br>
-		<img src="/assets/img/team/richard.png" class="img-rounded" />
+		<h3>Josh Beemster <small>Data engineer</small></h3><br>
+		<img src="/assets/img/blog/2015/02/josh-beemster.png" class="img-rounded" />
 		<br>
-		<p>Richard has been using data to drive digital marketing since he graduated from the University of Oxford in Mathematics, 5 years ago. Richard has worked at <a href="http://www.seoptimise.com/">SEO Optimise</a>, <a href="http://forward3d.com">Forward 3D</a> and most recently at <a href="http://www.reformdigital.com/">Reform</a>.</p>
-		<p>Whilst Richard loves digital marketing because of the fast feedback loop, he's become increasingly interested in working with larger, mixed data sets to drive commercial results, and has joined the Snowplow Team hungry to explore the growing intersection between web analytics and business intelligence.</p>
+		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online.</p>
 	</div>
 </div>

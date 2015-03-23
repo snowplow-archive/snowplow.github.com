@@ -16,18 +16,20 @@ An event is something that occurred in a particular point in time. Examples of e
 
 * Load a web page
 * Add an item to basket
-* Load a bank balance
-* Perform a search
-* Click a link
-* Like a video
+* Enter a destination
+* Check a balance
+* Search for an item
+* Share a video
 
-Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, use data to represent the event and send that packet of data, representing the event, into the Snowplow data pipeline where it is:
+Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data pipeline.
 
-1. Processed and enriched (e.g. additional data points inferred about the event)
-2. Loaded into a data warehouse to enable analysis 
-3. Loaded into a unified log so that it is available to be consumed by a data-driven system
+To use Snowplow successfully, you need to have a good ide:
 
-## Understand events?
+* What events you care about in your business
+* What events occur in your website / mobile application / server side systems / factories / call centers / dispatch centers
+* What decisions you make based on those events
+* What you need to know about those events to make those decisions
 
-* [Learn about event dictionaries and schemas](event-dictionaries-and-schemas.html)
-* [Back to basic concepts](foundational-concepts.html)
+## Get *events*?
+
+Then [learn about event dictionaries and schemas](event-dictionaries-and-schemas.html).

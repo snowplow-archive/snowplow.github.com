@@ -14,7 +14,8 @@ When an event occurs, it generally involves a number of entities, and takes plac
 
 1. A user entity, who performed the search
 2. A web page in which the event occurred
-3. A set of e.g. products that were returned from the search
+3. A variation on the web page that was part of an A/B test
+4. A set of e.g. products that were returned from the search
  
 All the above are examples of 'contexts'. A context is the group of entities associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. For example, the following events for a retailer will all involve a 'product' context:
 

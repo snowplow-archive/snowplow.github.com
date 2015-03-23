@@ -4,7 +4,7 @@ group: analytics
 sub_group: foundation
 title: Data Modeling
 shortened-link: Data modeling
-description: Introduction to data modelling
+description: Introduction to data modeling
 weight: 9
 ---
 

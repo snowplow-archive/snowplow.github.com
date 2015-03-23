@@ -32,7 +32,7 @@ Developing a reliable model of customer value is a necessary prerequisite to cal
 
 Cohort analyses are longitudal studies that compare groups of users over a period of time. They are hard to perform in traditional web analytics tools because of the difficulty reliably identifying users, grouping them into custom cohorts and then tracking the behavior of cohorts over time. Snowplow makes them easy to perform, as described [here][cohort-analysis]
 
-### 5. [Attribution modelling][attribution]
+### 5. [Attribution modeling][attribution]
 
 A perennial problem in digital marketing is working out how much value to ascribe to different marketing channels in a world in which customers are exposed to multiple creatives on different channels and are monetized over multiple sessions. Snowplow provides you with granular data so you can unpick how much value you should attribute to each of your marketing channels: in [this section][attribution] we outline how to do this.
 

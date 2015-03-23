@@ -36,7 +36,7 @@ R is a fantastic analytics tool. To date, however, only a minority of web analys
 * It is blindingly fast to both perform complicated analytics and generate beautiful visualizations. The syntax is incredibly concise - what you can achieve in one line of R can take hours of working through menus and options on other systems.
 * It helps you think through what you do with your data in a more rigorous way. R forces you to define your data types much more specifically than either Excel or BI tools like Tableau. That rigour is helpful - it means you do things faster, and you're less liable to make mistakes.
 * It is great at statistics. Traditional BI tools and Excel *suck* at statistics. Sure you can calculate means, medians, quartiles etc. But actually pulling these together into meaningful distribution plots, or plotting how they change over time, is a pain in these tools, which are much better at counting and summing data. R is simply much better at statistics
-* It is a great tool for modelling data: it is straightforward to create models in R, and compare those models to your actual data sets, either formally through calculation, or by plotting you model(s) against your data(sets)
+* It is a great tool for modeling data: it is straightforward to create models in R, and compare those models to your actual data sets, either formally through calculation, or by plotting you model(s) against your data(sets)
 * It has an **enormous** library of packages available for performing just about any type of analytics imaginable
 * It is free
 * It works on all platforms

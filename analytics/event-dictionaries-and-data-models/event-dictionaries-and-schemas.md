@@ -26,15 +26,13 @@ An event dictionary is a crucial tool in both cases. It is a document that defin
 
 An example entry in an event dictionary might look like this:
 
-----
-
 #### Event: perform_search
 
-Screenshot
+_Screenshot:_
 
 ![Perform search](http://snowplowanalytics.com/assets/img/analytics/basic-concepts/perform-search-mockup.png)
 
-Event schema:
+_Event schema:_
 
 {% highlight json %}
 {
@@ -59,10 +57,10 @@ Event schema:
 }
 {% endhighlight %}
 
-Example data:
+_Example data:_
 
 {% highlight javascript %}
-window.snowplow_name_here('trackUnstructEvent', {
+window.snowplow('trackUnstructEvent', {
     schema: 'iglu:com.acme_company/perform_search/jsonschema/1-0-0',
     data: {
         query: 'Bruce Springsteen DVD'
@@ -70,16 +68,16 @@ window.snowplow_name_here('trackUnstructEvent', {
 });
 {% endhighlight %}
 
------
 
-## What is the point of an event dictionary?
 
-Event dictionaries serve a number of purposes:
+## What is the purpose of an event dictionary?
 
-* They aid analysis, by making sure that everyone using the data understands what each line of data 'means'
-* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary
-* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product 
+Event dictionaries serve a three purposes:
+
+* They aid analysis, by making sure that everyone using the data understands what each line of data 'means'. This is especially important as companies get larger, and analysts need to crunch data that was defined and instrumented prior to the analyst joining the company.
+* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary. 
+* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product. 
 
 ## Understand event dictionaries and schemas?
 
-* [Learn about contexts](contexts.html)
+Then [learn about contexts](contexts.html).

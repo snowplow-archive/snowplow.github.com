@@ -10,19 +10,26 @@ weight: 6
 
 # Understanding the Snowplow data pipeline
 
+![data-pipeline](/assets/img/architecture/snowplow-architecture.png)
+
 The Snowplow pipeline is built to enable a very clean separation of the following steps in the data processing flow:
 
 1. [Data collection](#data-collection)
 2. [Data enrichment](#data-enrichment)
 3. [Data modeling](#data-modeling)
 4. [Data analysis](#data-analysis)
+5. [Where in your pipeline should your business logic sit?](#where-in-your-data-pipeline-should-your-business-logic-sit)
 
 
 <h2><a name="">1. Data collection</a></h2>
 
+![data-collection](/assets/img/architecture/snowplow-architecture-2-collectors.png)
+
 At data collection time, we aim to capture all the data required to accurately represent a particular event that has just occurred.
 
 <h2><a name="data-enrichment">2. Data enrichment</a></h2>
+
+![data-collection](/assets/img/architecture/snowplow-architecture-3-enrichment.png)
 
 Often there are opportunities to learn more about an event that has occurred, if we combine the data captured at collection time with third party data sources. To give some simple examples:
 
@@ -39,6 +46,8 @@ Snowplow supports the following enrichments out-of-the-box. We're working on mak
 
 
 <h2><a name="data-modeling">3. Data modeling</a></h2>
+
+![data-collection](/assets/img/architecture/snowplow-architecture-5-data-modeling.png)
 
 The data collection and enrichment process outlined above generates a data set that is an 'event stream': a long list of packets of data, where each packet represents a single event.
 
@@ -66,15 +75,23 @@ We call this process of aggregating  'data modeling'. At the end of the data mod
 
 <h2><a name="data-analysis">4. Data analysis</a></h2>
 
-TO WRITE
+![data-collection](/assets/img/architecture/snowplow-architecture-6-analytics.png)
 
-<h2><a name="contexts-at-collection-time-vs-contexts-inferred-during-enrichment">Contexts captured at data collection time vs contexts inferred during enrichment</a></h2>
+Once we have our data modeled in tidy users, sessions, content items tables, we are ready to perform analysis on them.
 
-TO WRITE
+Most companies that use Snowplow will perform analytics using a number of different types of tools:
 
-<h2><a name="where-in-your-data-pipeline-should-your-business-logic-sit">Where in your data pipeline should your business logic sit?</a></h2>
+1. It is common to implement a Business Intelligence tool on top of Snowplow data to enable users (particularly non-technical users) to slice and dice (pivot) on the data. For many companies, the BI tool will be the primary way that most users interface with Snowplow data.
+2. Often a data scientist or data science team will often crunch the underlying event-level data to perform more sophisticated analysis including building predictive models, perform marketing attribution etc. The data scientist(s) will use one or more specialist tools e.g. Python for Data Science or R.
 
-TO WRITE
+The rest of the Analytics Cookbook covers a range of different analyses you can perform with Snowplow data. See the [customer analtyics](/analytics/customer-analytics/overview.html), [catalog analytics](/analytics/catalog-analytics/overview.html) and [platform analytics](/analytics/platform-analytics/overview.html) for specific details.
 
+<h2><a name="where-in-your-data-pipeline-should-your-business-logic-sit">5. Where in your data pipeline should your business logic sit?</a></h2>
 
+Snowplow is architected in a fundamentally different way to common analytics packages like Google Analytics, Adobe Analytics and Mixpanel. In particular, the whole data collection process is totally decoupled from the data modeling and data analysis process. Users of traditional analytics systems are used to instrumenting the analytics trackers with one eye on the reports that they wish to produce - this will impact whether a particular point will be passed into Adobe Analytics as an eVar or sProp, or into Google Analytics as a custom dimension, custom metric, event or enhanced ecommerce. With Snowplow - the two questions - how you collect your data and how you crunch it, are separate - so when you instrument your Snowplow trackers, you need only think about _what_ you need to track. When you come to the data modeling piece down the line, _then_ you can consider _how_ you want to crunch your data.
 
+This makes tracker instrumentation much simpler, as well as giving you significantly more flexibility once you've captured data to analyze it in many different ways.
+
+## Familiar with the stages in the Snowplow data pipeline? 
+
+Then [read on](sending-data-into-snowplow.html) to find out about how to [send data into Snowplow](sending-data-into-snowplow.html).

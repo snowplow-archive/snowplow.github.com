@@ -60,29 +60,99 @@ In general, each tracker will have a specific API call for tracking any events t
 
 Wherever possible, we try and build the trackers so that capturing these out-of-the-box event types is as simple as possible, and as much contextual data is automatically captured as possible. For example, with the Javascript tracker, we automatically capture the following data fields with every request unless they are disabled:
 
-| **Field** | **Description** |
-|:----------|:---------------------------------------------------------------------|
-| `dvce_tstamp` | The timestamp on the device that the event was recorded on       |
-| `os_timezone` | The timezone the client operating system is set to               |
-| `event_id`    | A unique identifier for the event                                |
-| `domain_userid`| First party cookie ID                                           |
-| `domain_sessionidx` | Session index based on first party cookie ID               |
-| `dvce_screenheight` | Screen height in pixels                                    |
-| `dvce_screenwidth`  | Screen width in pixels                                     |
-| `br_viewwidth`      | Browser view width in pixels                               |
-| `br_viewheight`     | Browser view height in pixels                              |
-| `page_url`          | URL of the page on which the event occurred                |
-| `page_referrer`     | URL of the referrer                                        |
-| `user_fingerprint`  | Browser fingerprint                                        |
-| `br_lang`           | Language the browser is set to                             |
-| `br_features_...`   | A list of boolean flags to indicate if common plugins are installed e.g. PDF, Quicktime, RealPlayer, Flash, Java...|
-| `br_colordepth`     | Browser color depth                                        |
-| `doc_width`         | Width of webpage in pixels                                 |
-| `doc_height`        | Height of webpage in pixels                                |
-| `doc_charset`       | Document encoding                                          |
-| `platform`    | The platform that the event was recorded on, in this case 'web'  |
-| `name_tracker`| The tracker name                                                 |
-| `v_tracker`   | The tracker version                                              |
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+    		<td>dvce_tstamp than 10 million</td>
+    		<td>The timestamp on the device that the event was recorded on</td>
+    		
+    	</tr>
+    	<tr>
+    		<td>os_timezone</td>
+    		<td>The timezone the client operating system is set to</td>
+    	</tr>
+    	<tr>
+    		<td>event_id</td>
+    		<td>A unique identifier for the event</td>
+    	</tr>
+    	<tr>
+    		<td>domain_userid</td>
+    		<td>First party cookie ID</td>
+    	</tr>
+    	<tr>
+    		<td>domain_sessionidx</td>
+    		<td>Session index based on first party cookie ID</td>
+    	</tr>
+    	<tr>
+    		<td>dvce_screenheight</td>
+    		<td>Screen width in pixels</td>
+    	</tr>
+    	<tr>
+    		<td>br_viewwidth</td>
+    		<td>Browser view width in pixels</td>
+    	</tr>
+    	<tr>
+    		<td>br_viewheight</td>
+    		<td>Browser view height in pixels</td>
+    	</tr>
+    	<tr>
+    		<td>page_url</td>
+    		<td>URL of the page on which the event occurred</td>
+    	</tr>
+    	<tr>
+    		<td>page_referrer</td>
+    		<td>URL of the referrer</td>
+    	</tr>
+    	<tr>
+    		<td>user_fingerprint</td>
+    		<td>Browser fingerprint</td>
+    	</tr>
+    	<tr>
+    		<td>br_lang</td>
+    		<td>Language the browser is set to</td>
+    	</tr>
+    	<tr>
+    		<td>br_features_...</td>
+    		<td>A list of boolean flags to indicate if common plugins are installed e.g. PDF, Quicktime, RealPlayer, Flash, Java...</td>
+    	</tr>
+    	<tr>
+    		<td>br_colordepth</td>
+    		<td>Browser color depth</td>
+    	</tr>
+    	<tr>
+    		<td>doc_width</td>
+    		<td>Width of webpage in pixels</td>
+    	</tr>
+    	<tr>
+    		<td>doc_height</td>
+    		<td>Height of webpage in pixels</td>
+    	</tr>
+    	<tr>
+    		<td>doc_charset</td>
+    		<td>Document encoding</td>
+    	</tr>
+    	<tr>
+    		<td>platform</td>
+    		<td>The platform that the event was recorded on, in this case 'web'</td>
+    	</tr>
+    	<tr>
+    		<td>name_tracker</td>
+    		<td>The tracker name</td>
+    	</tr>
+    	<tr>
+    		<td>v_tracker</td>
+    		<td>The tracker version</td>
+    	</tr>
+    </tbody>
+</table>
+
+
 
 In addition to the above fields, there are a number of additional optional contexts that you can capture automatically using the Snowplow Javascript tracker, including:
 

@@ -91,7 +91,6 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [ActionScript 3
 [setup-docs]: https://github.com/snowplow/snowplow/wiki/ActionScript3-Tracker-Setup
 [repo]: https://github.com/snowplow/snowplow-actionscript3-tracker
 
-
 [bintray]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_actionscript3_tracker_0.1.0.zip
 [source]: https://github.com/snowplow/snowplow-actionscript3-tracker/tree/0.1.0
 

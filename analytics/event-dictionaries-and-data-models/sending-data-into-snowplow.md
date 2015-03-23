@@ -167,24 +167,77 @@ We are able to provide a lot more automated tracking from the Javascript tracker
 
 The mobile (iOS and Android trackers) also automatically capture a large number of data points with every event, where available:
 
-| **Field** | **Description** |
-|:----------|:---------------------------------------------------------------------|
-| `os_type` | Operating system type                                                |
-| `os_version` | Operating system version                                          |
-| `device_manufacturer` | The device manufacturer                                  |
-| `device_model` | The device model                                                |
-| `carrier`      | The mobile carrier                                              |
-| `apple_idfa`   | Apple's IDFA (ID for advertisers)                               |
-| `open_idfa`    | The open [IDFA](https://github.com/ylechelle/OpenIDFA)          |
-| `android_idfa` | The Android IDFA                                                |
-| `latitude`     | Device location latitude                                        |
-| `longitude`    | Device location longitude                                       |
-| `latitude_longitude_location_accuracy` | The accuracy of the lat/long measures above |
-| `altitude`     | Device location altitude                                        |
-| `altitude_accuracy` | The accuracy fo the above altitude measure                 |
-| `bearing`      | Direction of device travel                                      |
-| `speed`        | Speed with which the device is travelling                       |
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Field</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+    		<td>os_type</td>
+    		<td>Operating system type </td>
+    	</tr>
+    	<tr>
+    		<td>os_version</td>
+    		<td>Operating system version</td>
+    	</tr>
+    	<tr>
+    		<td>device_manufacturer</td>
+    		<td>The device manufacturer</td>
+    	</tr>
+    	<tr>
+    		<td>device_model</td>
+    		<td>The device model</td>
+    	</tr>
+    	<tr>
+    		<td>carrier</td>
+    		<td>The mobile carrier</td>
+    	</tr>
+    	<tr>
+    		<td>apple_idfa</td>
+    		<td>Apple's IDFA (ID for advertisers)</td>
+    	</tr>
+    	<tr>
+    		<td>open_idfa</td>
+    		<td>The open [IDFA](https://github.com/ylechelle/OpenIDFA)</td>
+    	</tr>
+    	<tr>
+    		<td>android_idfa</td>
+    		<td>The Android IDFA</td>
+    	</tr>
+    	<tr>
+    		<td>latitude</td>
+    		<td>Device location latitude</td>
+    	</tr>
+    	<tr>
+    		<td>longitude</td>
+    		<td>Device location longitude</td>
+    	</tr>
+    	<tr>
+    		<td>latitude_longitude_location_accuracy</td>
+    		<td>The accuracy of the lat/long measures above</td>
+    	</tr>
+    	<tr>
+    		<td>altitude</td>
+    		<td>Device location altitude</td>
+    	</tr>
+    	<tr>
+    		<td>altitude_accuracy</td>
+    		<td>The accuracy fo the above altitude measure</td>
+    	</tr>
+    	<tr>
+    		<td>bearing</td>
+    		<td>Direction of device travel</td>
+    	</tr>
+    	<tr>
+    		<td>speed</td>
+    		<td>Speed with which the device is travelling</td>
+    	</tr>
+    </tbody>
+</table>
 
 
 ### Tracking events that you've defined yourself

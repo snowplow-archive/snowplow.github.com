@@ -107,18 +107,58 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 
 <h2><a name="enrich">6. Other improvements to Scala Common Enrich</a></h2>
 
-* used Netaporter to parse querystrings if httpclient fails, thanks @danisola! ([#1429] [issue-1429])
-* populated refr_ fields based on page_url querystring ([#1461] [issue-1461])
-* populated session_id field based on "sid" parameter ([#1541] [issue-1541])
-* extracted dvce_sent_tstamp from stm field ([#1383] [issue1383-])
+A set of smaller new features and capabilities have been to Scala Common Enrich in this release:
+
+* Netaporter's more permissive URI library is used to parse querystrings if the Apache Commons httpclient fails. Many thanks to [Dani Solà] [danisola] for this contribution! ([#1429] [issue-1429])
+* The `refr_domain_userid` and `refr_dvce_tstamp` fields as set by the JavaScript Tracker's new cross-domain linker are now extracted ([#1461] [issue-1461])
+* The `session_id` field is now populated based on the "sid" parameter. Session ID is a client-side generated UUID to complement the existing session index ([#1541] [issue-1541])
+* The `dvce_sent_tstamp` field is now populated based on the "stm" parameter. This is useful for determining when a tracker sent an event (versus creating that event) ([#1383] [issue1383-])
 * bumped referer-parser to 0.2.3 ([#670] [issue-670])
 * extracted original IP address from CollectorPayload headers ([#1372] [issue-1372])
 
 <h2><a name="events">7. Updates to atomic.events</a></h2>
 
-We have updated the Snowplow [Canonical Event Model] [canonical-event-model] to reflect the fields required by the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
+This release makes a comprehensive set of updates to the `atomic.events` table (whether Redshift or Postgres), specifically:
 
+1. New fields as per the updated [Canonical Event Model] [canonical-event-model]. These new fields are largely for the new enrichments, but we are also aiming to somewhat "future-proof" `atomic.events` by adding new fields which we plan on using in the near future
+2. Updates to existing fields, primarily so Snowplow can record a wider range of values in those fields
 
+<div class="html">
+<h3><a name="new-fields">7.1 New fields</a></h3>
+</div>
+
+The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
+
+| Column name          | Data type (1)    | From (2) | Description                               |
+|:---------------------|:-----------------|:---------|:------------------------------------------|
+| `tr_currency`        | `char(3)`        | Tracker  | Currency for e-commerce transaction       |
+| `tr_total_base`      | `dec(18, 2)`     | CCE      | Conversion to base currency               |
+| `tr_tax_base`        | `dec(18, 2)`     | CCE      | Conversion to base currency               |
+| `tr_shipping_base`   | `dec(18, 2)`     | CCE      | Conversion to base currency               |
+| `ti_currency`        | `char(3)`        | Tracker  | Currency for e-commerce transaction item  |
+| `ti_price_base`      | `dec(18, 2)`     | CCE      | Conversion to base currency               |
+| `base_currency`      | `char(3)`        | CCE      | CCE configuration option                  |
+| `geo_timezone`       | `varchar(64)`    | ILE      |  Timezone for IP address                  |
+| `mkt_clickid`        | `varchar(64)`    | CAE      | Unique ID for advertising click           |
+| `mkt_network`        | `varchar(64)`    | CAE      | Advertising network of click ID           |
+| `etl_tags`           | `varchar(500)`   | Enrich   | Tags describing this run. Not yet used    |
+| `dvce_sent_tstamp`   | `timestamp`      | Tracker  | When device sent event                    |
+| `refr_domain_userid` | `varchar(36)`    | Tracker  | Extracted from cross-domain linker        |
+| `refr_dvce_tstamp`   | `timestamp`      | Tracker  | Extracted from cross-domain linker        |
+| `derived_contexts`   | `varchar(15000)` | Enrich   | Contexts derived in the Enrich process    |
+| `session_id`         | `char(36)`       | Tracker  | Client-side session ID, complements index |
+
+1 The data type is taken from Redshift. Data types for some columns in Postgres are different
+
+2 Where:
+
+* CCE = Currency conversion enrichment
+* ILE = IP lookups enrichment
+* CAE = Campaign attribution enrichment
+
+<div class="html">
+<h3><a name="updated-fields">7.2 Updated fields</a></h3>
+</div>
 
 ADD A TABLE OF FIELDS 
 
@@ -128,14 +168,23 @@ We have also made the following changes to the table definitions:
 * xxx
 * xxx
 
++ user_ipaddress varchar(45) encode runlength, -- increased from 19 in 0.5.0 to support IPv6 addresses
+unstruct_event varchar(10000) encode lzo,
++ domain_userid varchar(36) encode runlength, -- increased from 16 in 0.5.0 to support UUIDs
++ contexts varchar(15000) encode lzo, -- Changed encoding from raw to lzo in 0.5.0 and increased size
+
+In addition to these changes, for Postgres we have removed the primary key constraint on event_id ([#1187] [issue-1187]).
+
+Finally, we have also added a foreign key constraint to all Redshift shredded JSON tables to make the joins back to the parent `atomic.events` table more performant ([#1365] [issue-1365]).
+
+
 ```
 Redshift: added refr_domain_userid and refr_dvce_tstamp to atomic.events (#1450)
 Redshift: added dvce_sent_tstamp column (#1385)
-Redshift: added foreign key constraint to all Redshift shredded tables (#1365)
+
 Redshift: changed JSON field encodings to lzo (closes #1350)
 Redshift: added migration script for 0.4.0 to 0.5.0 (#1335)
 Redshift: added etl_tags column (#1245)
-Redshift: removed primary key constraint on event_id (#1187)
 Redshift: added column for mkt_clickid and mkt_network (#1093)
 Redshift: widened domain_userid column to hold UUID (#1090)
 Redshift: added Redshift DDL for ua_parser_context (#789)
@@ -266,7 +315,7 @@ The new version of the Kinesis pipeline is available on Bintray as [snowplow_kin
 
 The components in the Kinesis topology updated in this release are highlighted in this graph:
 
-xxx
+![r63-kinesis-changes] [r63-kinesis-changes]
 
 Our recommended approach for upgrading is as follows:
 
@@ -306,7 +355,9 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [danisola]: https://github.com/danisola
 
 [issue-670]: https://github.com/snowplow/snowplow/issues/670
+[issue-1187]: https://github.com/snowplow/snowplow/issues/1187
 [issue-1333]: https://github.com/snowplow/snowplow/issues/1333
+[issue-1365]: https://github.com/snowplow/snowplow/issues/1365
 [issue-1367]: https://github.com/snowplow/snowplow/issues/1367
 [issue-1369]: https://github.com/snowplow/snowplow/issues/1369
 [issue-1372]: https://github.com/snowplow/snowplow/issues/1372
@@ -326,6 +377,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.3.0_to_0.4.0.sql
 
 [r62-encoding-fixes]: http://snowplowanalytics.com/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#hadoop-improvements
+
+[r63-kinesis-changes]: /assets/img/blog/2015/03/r63-kinesis-updates.png
 
 [kinesis-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx

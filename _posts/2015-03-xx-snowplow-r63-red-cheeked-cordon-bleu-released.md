@@ -32,7 +32,7 @@ Table of contents:
 
 <h2><a name="xxx">1. New enrichment: useragent parsing using ua_parser</a></h2>
 
-Since close to its inception, Snowplow has used the [user-agent-utils] [user_agent_utils] Java library to perform useragent parsing. Various limitations with that library have led us to explore and evaluate other options, including the [ua-parser] [ua-parser] project with its [uap-java] [uap-java] library for the JVM. Testing suggests that this library handles some useragent strings (such as mobile app useragents) better than user-agent-utils.
+Since close to its inception, Snowplow has used the [user-agent-utils] [user-agent-utils] Java library to perform useragent parsing. Various limitations with that library have led us to explore and evaluate other options, including the [ua-parser] [ua-parser] project with its [uap-java] [uap-java] library for the JVM. Testing suggests that this library handles some useragent strings (such as mobile app useragents) better than user-agent-utils.
 
 As part of our move towards pluggable enrichments, from this release Snowplow users can employ user-agent-utils, or ua-parser, or both, or neither. We believe we are the first analytics platform to give users such a high degree of choice in their Enrichment process.
 
@@ -42,7 +42,7 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 
 <h2><a name="xxx">2. New enrichment: xxx</a></h2>
 
-For more details on this enrichment, see XXX.
+For more details on this enrichment, see the [Currency conversion enrichment] [currency-conversion-enrichment] wiki page.
 
 <h2><a name="xxx">3. Enhanced enrichment: click ID extraction for campaign attribution</a></h2>
 
@@ -102,7 +102,7 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 
 <h2><a name="xxx">7. Review of new fields in enriched events</a></h2>
 
-We have updated the Snowplow [Canonical Event Model] [xxx] (TODO) to reflect the fields required by the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
+We have updated the Snowplow [Canonical Event Model] [canonical-event-model] to reflect the fields required by the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
 
 ADD A TABLE OF FIELDS 
 
@@ -112,6 +112,7 @@ We have also made the following changes to the table definitions:
 * xxx
 * xxx
 
+```
 Redshift: added refr_domain_userid and refr_dvce_tstamp to atomic.events (#1450)
 Redshift: added dvce_sent_tstamp column (#1385)
 Redshift: added foreign key constraint to all Redshift shredded tables (#1365)
@@ -138,6 +139,7 @@ Postgres: added new derived_contexts field (#785)
 Postgres: updated ip_address to support IPv6 addresses (#655)
 Postgres: added new currency fields (#365)
 Redshift: added session_id column (#1540)
+```
 
 <h2><a name="xxx">8. Kinesis application updates</a></h2>
 
@@ -149,11 +151,17 @@ The main update to both Kinesis applications is to support the new enriched even
 An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event (#1333)
 
 <div class="html">
-<h2><a name="upgrading">9. Upgrading your Elastic MapReduce pipeline</a></h2>
+<h2><a name="upgrading">9. Upgrading your Snowplow pipeline</a></h2>
 </div>
 
 <div class="html">
 <h3><a name="configuring-enrichments">9.1 Common</a></h3>
+</div>
+
+This section contains upgrading instructions which are common to both our Elastic MapReduce and Kinesis pipelines.
+
+<div class="html">
+<h4><a name="configuring-enrichments">9.1.1 Configuring enrichments</a></h3>
 </div>
 
 To continue parsing useragent strings using the `user_agent_utils` library, you **must** add a new JSON configuration file into your folder of enrichment JSONs:
@@ -285,6 +293,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [ua-parser-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ua_parser_context/jsonschema/1-0-0
 [ua-parser-table]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/ua_parser_context_1.sql
+
+[canonical-event-model]: https://github.com/snowplow/snowplow/wiki/Canonical-event-model
 
 [kinesis-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip
 

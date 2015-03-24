@@ -78,7 +78,7 @@ By default the campaign attribution enrichment identifies the three click IDs gi
             "fields": {
                 ...
                 "mktClickId": {
-                	"gclid": "Google AdWords",
+                    "gclid": "Google AdWords",
                     "customclid": "Private Network"
                 }
             }
@@ -99,7 +99,7 @@ For more details on this enrichment, see the [IP lookups enrichment] [ip-lookups
 
 <h2><a name="uau">5. Upgraded enrichment: useragent parsing using user_agent_utils</a></h2>
 
-Our existing useragent parsing enrichment built on [user_agent_utils] [user_agent_utils] is no longer hardcoded to run - instead, it is now a user-configurable enrichment. The fields that it populates in `atomic.events` are unchanged.
+Our existing useragent parsing enrichment built on [user-agent-utils] [user-agent-utils] is no longer hardcoded to run - instead, it is now a user-configurable enrichment. The fields that it populates in `atomic.events` are unchanged.
 
 To enable it to run as before, you **must** add in a JSON configuration file into your folder of enrichments. See [9.1.1 Configuring enrichments](#configuring-enrichments) for details.
 

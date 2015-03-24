@@ -48,6 +48,12 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 
 <h2><a name="forex">2. New enrichment: currency conversion for e-commerce transactions</a></h2>
 
+Since early 2014, Snowplow trackers including the JavaScript Tracker have let you [record the currency] [js-issue-34] in which an e-commerce transaction took place. This is the first release of Snowplow which extracts those currency fields into our [Canonical Event Model] [canonical-event-model] - but we have gone further and this release also includes a new enrichment which will automatically convert these transactions into your "base" or "home" currency for reporting and analytics.
+
+Working with [Open Exchange Rates] [oer], our new currency conversion enrichment will look up the end-of-day ("EOD") rate between your transaction's currency and your preferred base currency for the day prior to the e-commerce transaction, and use this to convert all monetary amounts in your e-commerce currency into your base currency. The converted values are all stored in new fields, so you can continue to work with the original amounts as well.
+
+To take advantage of this new enrichment, you will need to sign up for an account at [Open Exchange Rates] [oer] and provide your API key in the enrichment's JSON configuration file.
+
 For more details on this enrichment, see the [Currency conversion enrichment] [currency-conversion-enrichment] wiki page.
 
 <h2><a name="clid">3. Upgraded enrichment: click ID extraction for campaign attribution</a></h2>
@@ -156,9 +162,9 @@ Redshift: added session_id column (#1540)
 The main update to both Kinesis applications is to support the new enriched event format (see [7. Updates to atomic.events](#events) for details). Other noteworthy updates to the Scala Kinesis Enrich:
 
 * The Scala Kinesis Enrich application now uses Scala Common Enrich 0.13.0, the latest version ([#1369] [issue-1369]). Previously it was using Scala Common Enrich 0.11.0. This means that you can take advantage of all the enrichment updates in the Kinesis flow, and it also brings the Kinesis flow up-to-date with the various [encoding-related fixes] [r62-encoding-fixes] implemented in Scala Common Enrich 0.12.0
-* unified logger configuration, thanks @kazjote! ([#1367] [issue-1367])
+* Community member [Kacper Bielecki] [kazjote] updated the Scala Kinesis Enrich's logging configuration ([#1367] [issue-1367])
 
-There is also an important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333] [issue-1333])
+There is also an important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333] [issue-1333]). This should make the Elasticsearch Sink more tolerant of potential future updates to Scala Kinesis Enrich.
 
 <div class="html">
 <h2><a name="upgrade">9. Upgrading your Snowplow pipeline</a></h2>
@@ -309,6 +315,8 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [issue-1461]: https://github.com/snowplow/snowplow/issues/1461
 [issue-1541]: https://github.com/snowplow/snowplow/issues/1541
 [issue-1547]: https://github.com/snowplow/snowplow/issues/1547
+
+[js-issue-34]: https://github.com/snowplow/snowplow-javascript-tracker/issues/34
 
 [ua-parser-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ua_parser_context/jsonschema/1-0-0
 [ua-parser-table]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/ua_parser_context_1.sql

@@ -93,12 +93,12 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 
 <h2><a name="xxx">6. Other improvements to Scala Common Enrich</a></h2>
 
-* used Netaporter to parse querystrings if httpclient fails, thanks @danisola! (#1429)
-* populated refr_ fields based on page_url querystring (#1461)
-* populated session_id field based on "sid" parameter (#1541)
-* extracted dvce_sent_tstamp from stm field (#1383)
-* bumped referer-parser to 0.2.3 (#670)
-* extracted original IP address from CollectorPayload headers (#1372)
+* used Netaporter to parse querystrings if httpclient fails, thanks @danisola! ([#1429] [issue-1429])
+* populated refr_ fields based on page_url querystring ([#1461] [issue-1461])
+* populated session_id field based on "sid" parameter ([#1541] [issue-1541])
+* extracted dvce_sent_tstamp from stm field ([#1383] [issue1383-])
+* bumped referer-parser to 0.2.3 ([#670] [issue-670])
+* extracted original IP address from CollectorPayload headers ([#1372] [issue-1372])
 
 <h2><a name="xxx">7. Review of new fields in enriched events</a></h2>
 
@@ -145,10 +145,10 @@ Redshift: added session_id column (#1540)
 
 The main update to both Kinesis applications is to support the new enriched event format (see above for details). Other noteworthy updates to the Scala Kinesis Enrich:
 
-* Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 (#1369) - what version was it on previously?
-* unified logger configuration, thanks @kazjote! (#1367)
+* Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 ([#1369] [issue-1369]) - what version was it on previously?
+* unified logger configuration, thanks @kazjote! ([#1367] [issue-1367])
 
-An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event (#1333)
+An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333] [issue-1333])
 
 <div class="html">
 <h2><a name="upgrading">9. Upgrading your Snowplow pipeline</a></h2>
@@ -289,6 +289,15 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [kazjote]: https://github.com/kazjote
 [danisola]: https://github.com/danisola
 
+[issue-670]: https://github.com/snowplow/snowplow/issues/670
+[issue-1333]: https://github.com/snowplow/snowplow/issues/1333
+[issue-1367]: https://github.com/snowplow/snowplow/issues/1367
+[issue-1369]: https://github.com/snowplow/snowplow/issues/1369
+[issue-1372]: https://github.com/snowplow/snowplow/issues/1372
+[issue-1383]: https://github.com/snowplow/snowplow/issues/1383
+[issue-1429]: https://github.com/snowplow/snowplow/issues/1429
+[issue-1461]: https://github.com/snowplow/snowplow/issues/1461
+[issue-1541]: https://github.com/snowplow/snowplow/issues/1541
 [issue-1547]: https://github.com/snowplow/snowplow/issues/1547
 
 [ua-parser-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ua_parser_context/jsonschema/1-0-0

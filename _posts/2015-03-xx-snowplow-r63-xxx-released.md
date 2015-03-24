@@ -1,36 +1,29 @@
 ---
 layout: post
 shortenedlink: Snowplow 63 released
-title: Snowplow 63 XXX released
-tags: [snowplow, currency, gclid, useragent]
+title: Snowplow 63 Red-Cheeked Cordon-Bleu released
+tags: [snowplow, currency, gclid, useragent, ua_parser, forex, oer]
 author: Alex
 category: Releases
 ---
 
-ISSUES AND QUESTIONS
-
-TODO: ping Fred about versioning the canonical event model
-
-TODO: ping Fred about updating the enriched event in elasticsearch JSON Scheam
-
-KCL - CAN YOU ONLY START FROM TRIM_HORIZON OR LATEST?
-
-
-We are pleased to announce the immediate availability of Snowplow 63, XXX. This is a major release which adds two new enrichments, upgrades existing enrichments and significantly updates our Canonical Event Model for loading into Redshift, Elasticsearch and Postgres.
+We are pleased to announce the immediate availability of Snowplow 63, Red-Cheeked Cordon-Bleu. This is a major release which adds two new enrichments, upgrades existing enrichments and significantly extends and improves our Canonical Event Model for loading into Redshift, Elasticsearch and Postgres.
 
 The new and upgraded enrichments are as follows:
 
-1. New enrichment: parsing useragent strings using the 
-2. New enrichment: converting the money amounts in e-commerce transactions into xxx
-3. Upgraded: xxx
+1. New enrichment: parsing useragent strings using the `ua_parser` library
+2. New enrichment: converting the money amounts in e-commerce transactions into a base currency using [Open Exchange Rates] [oer]
+3. Upgraded: extracting click IDs in our campaign attribution enrichment
 4. Upgraded: our existing
-5. Upgraded: xxx
+5. Upgraded: useragent parsing using the `user_agent_utils` library can now be disabled
 
-This release has been a huge team effort - with particular thanks going to Snowplow winterns [Aalekh Nigam] [aalekh] (2014/15) and [Jiawen Zhou] [xxx] (2013/14) for their work on the new enrichments and the foundational [scala-forex library] [scala-forex] respectively.
+This release has been a huge team effort - with particular thanks going to Snowplow winterns [Aalekh Nigam] [aalekh] (2014/15) and [Jiawen Zhou] [jz4112] (2013/14) for their work on the new enrichments and the foundational [scala-forex library] [scala-forex] respectively.
 
 1. [xxx]()
 2. [xxx]()
 3. [xxx]()
+
+
 3. [Upgrading: Hadoop flow](#upgrading)
 3. [Upgrading: Kinesis flow](#upgrading)
 4. [Getting help](#help)
@@ -39,17 +32,60 @@ This release has been a huge team effort - with particular thanks going to Snowp
 
 <h2><a name="xxx">1. New enrichment: xxx</a></h2>
 
+
+
 <h2><a name="xxx">2. New enrichment: xxx</a></h2>
 
-<h2><a name="xxx">3. Enhanced enrichment: xxx</a></h2>
+<h2><a name="xxx">3. Enhanced enrichment: click ID extraction for campaign attribution</a></h2>
 
-<h2><a name="xxx">4. Enhanced enrichment: xxx</a></h2>
+Many advertising systems attach a globally unique "click ID" tracking parameter to destination URIs to help advertisers attribute clicks to campaigns. The most well known of these click IDs are `gclid` (Google), `msclkid` (Microsoft) and `dclid` (DoubleClick).
 
-<h2><a name="xxx">5. Enhanced enrichment: xxx</a></h2>
+We have extended our existing campaign attribution enrichment to look for and extract the value assigned to this click ID, populating the `mkt_clickid` field with the click ID and the `mkt_network` field with the name of the network.
+
+By default the campaign attribution enrichment identifies the three click IDs given above, but you can also configure the enrichment with your own list of click IDs and network names:
+
+{% highlight json %}
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1",
+
+    "data": {
+
+        "name": "campaign_attribution",
+        "vendor": "com.snowplowanalytics.snowplow",
+        "enabled": false,
+        "parameters": {
+            "mapping": "static",
+            "fields": {
+                ...
+                "mktClickId": {
+                	"gclid": "Google AdWords",
+                    "customclid": "Private Network"
+                }
+            }
+        }
+    }
+}
+{% endhighlight %}
+
+If you know of another click ID that would be useful to the wider Snowplow community, please do add it to [this ticket] [issue-1547].
+
+<h2><a name="xxx">4. Enhanced enrichment: IP lookups using MaxMind</a></h2>
+
+
+
+<h2><a name="xxx">5. Enhanced enrichment: useragent parsing using `user_agent_utils`</a></h2>
+
+Our existing useragent parsing enrichment built on [user_agent_utils] [user_agent_utils] is no longer hardcoded to run - instead, it is now a user-configurable enrichment. The fields that it populates in `atomic.events` are unchanged.
+
+To enable it to run as before, you **must** add in a JSON configuration file into your folder of enrichments. See [X.2 Configuring enrichments](#configuring-enrichments) for details.
+
+<h2><a name="xxx">6. Other improvements to Scala Common Enrich</a></h2>
+
+TODO: Scala Common Enrich: used Netaporter to parse querystrings if httpclient fails, thanks @danisola! (#1429)
 
 <h2><a name="xxx">6. Review of new fields in enriched events</a></h2>
 
-We have updated the Snowplow [Canonical Event Model] [xxx] to support the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
+We have updated the Snowplow [Canonical Event Model] [xxx] (TODO) to reflect the fields required by the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
 
 ADD A TABLE OF FIELDS 
 
@@ -88,7 +124,7 @@ StorageLoader: wrote JSON Path file for ua_parser_context (#790)
 There are two steps to upgrading the EMR pipeline:
 
 1. Upgrade your EmrEtlRunner to use the latest Hadoop job versions
-2. Upgrade your Redshift or Postgres tables to the 
+2. Upgrade your Redshift and/or Postgres `atomic.events` table to the latest definitions
 
 <div class="html">
 <h3><a name="configuring-emretlrunner">6.1 Updating EmrEtlRunner's configuration</a></h3>
@@ -110,8 +146,38 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop jobs versions like 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
 <div class="html">
-<h3><a name="configuring-emretlrunner">6.2 Updating your Redshift</a></h3>
+<h3><a name="configuring-enrichments">6.2 Configuring enrichments</a></h3>
 </div>
+
+To continue parsing useragent strings using the `user_agent_utils` library, you **must** add a new JSON configuration file into your folder of enrichment JSONs:
+
+{% highlight json %}
+xxx
+{% endhighlight %}
+
+
+
+Configuring other enrichments is at your discretion. Useful resources:
+
+* https://github.com/snowplow/snowplow/wiki/configurable-enrichments
+* https://github.com/snowplow/snowplow/tree/feature/core-2015-refresh/3-enrich/emr-etl-runner/config/enrichments 
+
+<div class="html">
+<h3><a name="configuring-emretlrunner">6.2 Updating your Redshift installation</a></h3>
+</div>
+
+
+
+If you want to make use of the new ua_parser based useragent parsing enrichment, you must also deploy the new table:
+
+* xxx
+
+
+<div class="html">
+<h3><a name="configuring-emretlrunner">6.2 Updating your PostgreSQL installation</a></h3>
+</div>
+
+SECTION TO COME.
 
 <div class="html">
 <h2><a name="upgrading-kinesis">XXX. Upgrading your Kinesis pipeline</a></h2>
@@ -133,7 +199,6 @@ Our recommended approach for upgrading is as follows:
 4. Upgrade your Kinesis Elasticsearch Sink cluster to the new version
 5. Restart your Scala Kinesis Enrich cluster
 6. Restart your Kinesis Elasticsearch Sink cluster
-
 
 <h2><a name="help">XX. Getting help</a></h2>
 
@@ -163,7 +228,7 @@ Scala Common Enrich: populated session_id field based on "sid" parameter (#1541)
 Scala Common Enrich: parsed the page URI in the EnrichmentManager (#1463)
 Scala Common Enrich: added ua-parser enrichment (#62)
 Scala Common Enrich: added ability to disable user-agent-utils enrichment (#792)
-Scala Common Enrich: used Netaporter to parse querystrings if httpclient fails, thanks @danisola! (#1429)
+
 Scala Hadoop Enrich: bumped to 0.14.0
 Scala Hadoop Enrich: bumped Scala Common Enrich to 0.13.0 (#1340)
 Scala Hadoop Enrich: added integration tests for currency conversion enrichment (#1430)
@@ -202,11 +267,20 @@ Redshift: added session_id column (#1540)
 StorageLoader: wrote JSON Path file for ua_parser_context (#790)
 
 [scala-forex]: xxx
+[oer]: https://openexchangerates.org/signup?r=snowplow
+[user-agent-utils]: xxx
+
 
 [aalekh]: https://github.com/AALEKH
+[jz4112]: https://github.com/jz4112
 [kazjote]: https://github.com/kazjote
+[danisola]: https://github.com/danisola
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
+[issue-1547]: https://github.com/snowplow/snowplow/issues/1547
+
+
 
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues

@@ -19,11 +19,11 @@ The new and upgraded enrichments are as follows:
 
 This release has been a huge team effort - with particular thanks going to Snowplow winterns [Aalekh Nigam] [aalekh] (2014/15) and [Jiawen Zhou] [jz4112] (2013/14) for their work on the new enrichments and the foundational [scala-forex library] [scala-forex] respectively.
 
+Table of contents:
+
 1. [xxx]()
 2. [xxx]()
 3. [xxx]()
-
-
 3. [Upgrading: Hadoop flow](#upgrading)
 3. [Upgrading: Kinesis flow](#upgrading)
 10. [Getting help](#help)
@@ -141,16 +141,12 @@ Redshift: added session_id column (#1540)
 
 <h2><a name="xxx">8. Kinesis application updates</a></h2>
 
-
-
 The main update to both Kinesis applications is to support the new enriched event format (see above for details). Other noteworthy updates to the Scala Kinesis Enrich:
 
 * Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 (#1369) - what version was it on previously?
 * unified logger configuration, thanks @kazjote! (#1367)
 
 An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event (#1333)
-
-
 
 <div class="html">
 <h2><a name="upgrading">9. Upgrading your Elastic MapReduce pipeline</a></h2>
@@ -185,7 +181,6 @@ Configuring other enrichments is at your discretion. Useful resources here are:
 
 <div class="html">
 <h3><a name="upgrading">9.2. Upgrading your Elastic MapReduce pipeline</a></h3>
-</div>
 
 There are two steps to upgrading the EMR pipeline:
 
@@ -232,7 +227,7 @@ SECTION TO COME.
 </div>
 
 <div class="html">
-<h3><a name="downloading-kinesis">9.3.1 Downloading binaries</a></h3>
+<h4><a name="downloading-kinesis">9.3.1 Downloading binaries</a></h4>
 </div>
 
 This release updates:
@@ -243,7 +238,7 @@ This release updates:
 The new version of the Kinesis pipeline is available on Bintray as [snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip] [kinesis-dl]. The download contains the latest versions of all of the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink).
 
 <div class="html">
-<h3><a name="upgrading-kinesis">9.3.2 Upgrading a live Kinesis pipeline</a></h3>
+<h4><a name="upgrading-kinesis">9.3.2 Upgrading a live Kinesis pipeline</a></h4>
 </div>
 
 The components in the Kinesis topology updated in this release are highlighted in this graph:
@@ -292,6 +287,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [ua-parser-table]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/ua_parser_context_1.sql
 
 [kinesis-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip
+
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

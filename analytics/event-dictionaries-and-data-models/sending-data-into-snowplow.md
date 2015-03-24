@@ -17,7 +17,9 @@ Data is sent into Snowplow by trackers and webhooks.
 1. [Trackers](#trackers)
 2. [Webhooks](#webhooks)
 
-<h2><a name="#trackers">1. Trackers</a></h2>
+<h2><a name="trackers">1. Trackers</a></h2>
+
+![snowplow-trackers](/assets/img/architecture/snowplow-architecture-1a-trackers.png)
 
 Snowplow is built so that you can send in event level data from *any* type of digital application, service or device. There is a [wide range of Snowplow trackers](https://github.com/snowplow?query=tracker) built to enable you to easily collect event-level data from lots of different places.
 
@@ -300,7 +302,9 @@ tracker.track_unstruct_event({
 }])
 {% endhighlight %}
 
-<h2><a name="#webhooks">2. Webhooks</a></h2>
+<h2><a name="webhooks">2. Webhooks</a></h2>
+
+![snowplow-trackers](/assets/img/architecture/snowplow-architecture-1b-webhooks.png)
 
 TO WRITE
 

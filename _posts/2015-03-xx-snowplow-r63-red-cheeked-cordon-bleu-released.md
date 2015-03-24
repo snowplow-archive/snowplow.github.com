@@ -9,6 +9,8 @@ category: Releases
 
 We are pleased to announce the immediate availability of Snowplow 63, Red-Cheeked Cordon-Bleu. This is a major release which adds two new enrichments, upgrades existing enrichments and significantly extends and improves our Canonical Event Model for loading into Redshift, Elasticsearch and Postgres.
 
+![red-cheeked-cordon-bleu] [red-cheeked-cordon-bleu]
+
 The new and upgraded enrichments are as follows:
 
 1. New enrichment: parsing useragent strings using the `ua_parser` library
@@ -21,16 +23,20 @@ This release has been a huge team effort - with particular thanks going to Snowp
 
 Table of contents:
 
-1. [xxx]()
-2. [xxx]()
-3. [xxx]()
-3. [Upgrading: Hadoop flow](#upgrading)
-3. [Upgrading: Kinesis flow](#upgrading)
+1. [New enrichment: useragent parsing using ua_parser](#uap)
+2. [New enrichment: currency conversion for e-commerce transaction](#forex)
+3. [Upgraded enrichment: click ID extraction for campaign attribution](#clid)
+4. [Upgraded enrichment: timezone lookup from IP address using MaxMind](#tz)
+5. [Upgraded enrichment: useragent parsing using user_agent_utils](#uau)
+6. [Other improvements to Scala Common Enrich](#enrich)
+7. [Updates to atomic.events](#events)
+8. [Updates to the Kinesis applications](#kinesis)
+9. [Upgrading your Snowplow pipeline](#upgrade)
 10. [Getting help](#help)
 
 <!--more-->
 
-<h2><a name="xxx">1. New enrichment: useragent parsing using ua_parser</a></h2>
+<h2><a name="uap">1. New enrichment: useragent parsing using ua_parser</a></h2>
 
 Since close to its inception, Snowplow has used the [user-agent-utils] [user-agent-utils] Java library to perform useragent parsing. Various limitations with that library have led us to explore and evaluate other options, including the [ua-parser] [ua-parser] project with its [uap-java] [uap-java] library for the JVM. Testing suggests that this library handles some useragent strings (such as mobile app useragents) better than user-agent-utils.
 
@@ -40,11 +46,11 @@ The behavior of user-agent-utils if enabled is unchanged; if ua-parser is enable
 
 For more details on this enrichment, see the [ua parser enrichment] [ua-parser-enrichment] wiki page.
 
-<h2><a name="xxx">2. New enrichment: xxx</a></h2>
+<h2><a name="forex">2. New enrichment: currency conversion for e-commerce transactions</a></h2>
 
 For more details on this enrichment, see the [Currency conversion enrichment] [currency-conversion-enrichment] wiki page.
 
-<h2><a name="xxx">3. Enhanced enrichment: click ID extraction for campaign attribution</a></h2>
+<h2><a name="clid">3. Upgraded enrichment: click ID extraction for campaign attribution</a></h2>
 
 Many advertising systems attach a globally unique "click ID" tracking parameter to destination URIs to help advertisers attribute clicks to campaigns. The most well known of these click IDs are `gclid` (Google), `msclkid` (Microsoft) and `dclid` (DoubleClick).
 
@@ -79,19 +85,21 @@ If you know of another click ID that would be useful to the wider Snowplow commu
 
 For more details on this enrichment, see the [campaign attribution enrichment] [campaign-attribution-enrichment] wiki page.
 
-<h2><a name="xxx">4. Enhanced enrichment: IP lookups using MaxMind</a></h2>
+<h2><a name="tz">4. Upgraded enrichment: timezone lookup from IP address using MaxMind</a></h2>
+
+We have extended the IP lookup enrichment to extract the timezone information that MaxMind provides about an IP address. This timezone information is stored in a new field in the [Canonical Event Model] [canonical-event-model], `geo_timezone`.
 
 For more details on this enrichment, see the [IP lookups enrichment] [ip-lookups-enrichment] wiki page.
 
-<h2><a name="xxx">5. Enhanced enrichment: useragent parsing using `user_agent_utils`</a></h2>
+<h2><a name="uau">5. Upgraded enrichment: useragent parsing using user_agent_utils</a></h2>
 
 Our existing useragent parsing enrichment built on [user_agent_utils] [user_agent_utils] is no longer hardcoded to run - instead, it is now a user-configurable enrichment. The fields that it populates in `atomic.events` are unchanged.
 
-To enable it to run as before, you **must** add in a JSON configuration file into your folder of enrichments. See [X.2 Configuring enrichments](#configuring-enrichments) for details.
+To enable it to run as before, you **must** add in a JSON configuration file into your folder of enrichments. See [9.1.1 Configuring enrichments](#configuring-enrichments) for details.
 
 For more details on this enrichment, see the [ua parser enrichment] [ua-parser-enrichment] wiki page.
 
-<h2><a name="xxx">6. Other improvements to Scala Common Enrich</a></h2>
+<h2><a name="enrich">6. Other improvements to Scala Common Enrich</a></h2>
 
 * used Netaporter to parse querystrings if httpclient fails, thanks @danisola! ([#1429] [issue-1429])
 * populated refr_ fields based on page_url querystring ([#1461] [issue-1461])
@@ -100,9 +108,11 @@ For more details on this enrichment, see the [ua parser enrichment] [ua-parser-e
 * bumped referer-parser to 0.2.3 ([#670] [issue-670])
 * extracted original IP address from CollectorPayload headers ([#1372] [issue-1372])
 
-<h2><a name="xxx">7. Review of new fields in enriched events</a></h2>
+<h2><a name="events">7. Updates to atomic.events</a></h2>
 
 We have updated the Snowplow [Canonical Event Model] [canonical-event-model] to reflect the fields required by the new enrichments. The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
+
+
 
 ADD A TABLE OF FIELDS 
 
@@ -141,17 +151,17 @@ Postgres: added new currency fields (#365)
 Redshift: added session_id column (#1540)
 ```
 
-<h2><a name="xxx">8. Kinesis application updates</a></h2>
+<h2><a name="kinesis">8. Updates to the Kinesis applications</a></h2>
 
-The main update to both Kinesis applications is to support the new enriched event format (see above for details). Other noteworthy updates to the Scala Kinesis Enrich:
+The main update to both Kinesis applications is to support the new enriched event format (see [7. Updates to atomic.events](#events) for details). Other noteworthy updates to the Scala Kinesis Enrich:
 
-* Scala Kinesis Enrich: bumped Scala Common Enrich to 0.13.0 ([#1369] [issue-1369]) - what version was it on previously?
+* The Scala Kinesis Enrich application now uses Scala Common Enrich 0.13.0, the latest version ([#1369] [issue-1369]). Previously it was using Scala Common Enrich 0.11.0. This means that you can take advantage of all the enrichment updates in the Kinesis flow, and it also brings the Kinesis flow up-to-date with the various [encoding-related fixes] [r62-encoding-fixes] implemented in Scala Common Enrich 0.12.0
 * unified logger configuration, thanks @kazjote! ([#1367] [issue-1367])
 
-An important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333] [issue-1333])
+There is also an important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333] [issue-1333])
 
 <div class="html">
-<h2><a name="upgrading">9. Upgrading your Snowplow pipeline</a></h2>
+<h2><a name="upgrade">9. Upgrading your Snowplow pipeline</a></h2>
 </div>
 
 <div class="html">
@@ -188,7 +198,7 @@ Configuring other enrichments is at your discretion. Useful resources here are:
 * [Example enrichment JSON configuration files] [enrichment-jsons]
 
 <div class="html">
-<h3><a name="upgrading">9.2. Upgrading your Elastic MapReduce pipeline</a></h3>
+<h3><a name="upgrading-emr">9.2. Upgrading your Elastic MapReduce pipeline</a></h3>
 
 There are two steps to upgrading the EMR pipeline:
 
@@ -215,20 +225,19 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop jobs versions like 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
 <div class="html">
-<h4><a name="upgrade-redshift">9.2.2 Updating your Redshift installation</a></h4>
+<h4><a name="upgrade-redshift">9.2.2 Updating your database</a></h4>
 </div>
 
-SECTION TO COME.
+You need to use the appropriate migration script to update to the new table definition:
 
-If you want to make use of the new ua_parser based useragent parsing enrichment, you must also deploy the new table into your `atomic` schema:
+* [The Redshift migration script] [redshift-migration]
+* [The PostgreSQL migration script] [postgres-migration]
+
+And that's it - you should be fully upgraded.
+
+If you want to make use of the new ua_parser based useragent parsing enrichment in Redshift, you must also deploy the new table into your `atomic` schema:
 
 * [com_snowplowanalytics_snowplow_ua_parser_context_1] [ua-parser-table]
-
-<div class="html">
-<h3><a name="upgrade-pg">9.2.3 Updating your PostgreSQL installation</a></h3>
-</div>
-
-SECTION TO COME.
 
 <div class="html">
 <h2><a name="upgrading-kinesis">9.3 Upgrading your Kinesis pipeline</a></h2>
@@ -268,6 +277,8 @@ For more details on this release, please check out the [r63 Red-Cheeked Cordon-B
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
+[red-cheeked-cordon-bleu]: /assets/img/blog/2015/03/red-cheeked-cordon-bleu.png
+
 [scala-forex]: https://github.com/snowplow/scala-forex/
 [oer]: https://openexchangerates.org/signup?r=snowplow
 [user-agent-utils]: https://github.com/HaraldWalker/user-agent-utils
@@ -280,7 +291,6 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [campaign-attribution-enrichment]: https://github.com/snowplow/snowplow/wiki/Campaign-attribution-enrichment
 [ip-lookups-enrichment]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
 [currency-conversion-enrichment]: https://github.com/snowplow/snowplow/wiki/currency-conversion-enrichment
-
 [enrichment-jsons]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
@@ -304,9 +314,12 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [ua-parser-table]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/ua_parser_context_1.sql
 
 [canonical-event-model]: https://github.com/snowplow/snowplow/wiki/Canonical-event-model
+[redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.4.0_to_0.5.0.sql
+[postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.3.0_to_0.4.0.sql
+
+[r62-encoding-fixes]: http://snowplowanalytics.com/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#hadoop-improvements
 
 [kinesis-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip
-
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

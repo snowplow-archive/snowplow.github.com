@@ -160,18 +160,18 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
 <h3><a name="updated-fields">7.2 Updated fields</a></h3>
 </div>
 
-ADD A TABLE OF FIELDS 
-
 We have also made the following changes to the table definitions:
 
-* xxx
-* xxx
-* xxx
+| Column name      | New data type (1) | Old data type    | Reason                              |
+|:-----------------|:------------------|:-----------------|:------------------------------------|
+| `user_ipaddress` | `varchar(45)`     | `varchar(19)     | To support IPv6 addresses           |
+| `unstruct_event` | `varchar(15000)`* | `varchar(10000)` | To support larger JSONs             |
+| `domain_userid`  | `varchar(36)`     | `varchar(16)`    | To support UUIDs as domain user IDs |
+| `contexts`       | `varchar(15000)`* | `varchar(10000)` | To support more custom contexts     |
 
-+ user_ipaddress varchar(45) encode runlength, -- increased from 19 in 0.5.0 to support IPv6 addresses
-unstruct_event varchar(10000) encode lzo,
-+ domain_userid varchar(36) encode runlength, -- increased from 16 in 0.5.0 to support UUIDs
-+ contexts varchar(15000) encode lzo, -- Changed encoding from raw to lzo in 0.5.0 and increased size
+\* Also changed column encoding in Redshift from `raw` to `lzo`
+
+(1) The data type is taken from Redshift; data types for some columns in Postgres are different
 
 In addition to these changes, for Postgres we have removed the primary key constraint on event_id ([#1187] [issue-1187]).
 

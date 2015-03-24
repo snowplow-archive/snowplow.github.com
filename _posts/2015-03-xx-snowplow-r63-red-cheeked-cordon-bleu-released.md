@@ -148,9 +148,9 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
 | `derived_contexts`   | `varchar(15000)` | Enrich   | Contexts derived in the Enrich process    |
 | `session_id`         | `char(36)`       | Tracker  | Client-side session ID, complements index |
 
-1 The data type is taken from Redshift. Data types for some columns in Postgres are different
+(1) The data type is taken from Redshift; data types for some columns in Postgres are different
 
-2 Where:
+(2) Where:
 
 * CCE = Currency conversion enrichment
 * ILE = IP lookups enrichment
@@ -176,35 +176,6 @@ unstruct_event varchar(10000) encode lzo,
 In addition to these changes, for Postgres we have removed the primary key constraint on event_id ([#1187] [issue-1187]).
 
 Finally, we have also added a foreign key constraint to all Redshift shredded JSON tables to make the joins back to the parent `atomic.events` table more performant ([#1365] [issue-1365]).
-
-
-```
-Redshift: added refr_domain_userid and refr_dvce_tstamp to atomic.events (#1450)
-Redshift: added dvce_sent_tstamp column (#1385)
-
-Redshift: changed JSON field encodings to lzo (closes #1350)
-Redshift: added migration script for 0.4.0 to 0.5.0 (#1335)
-Redshift: added etl_tags column (#1245)
-Redshift: added column for mkt_clickid and mkt_network (#1093)
-Redshift: widened domain_userid column to hold UUID (#1090)
-Redshift: added Redshift DDL for ua_parser_context (#789)
-Redshift: added new derived_contexts field (#784)
-Redshift: updated ip_address to support IPv6 addresses (#656)
-Redshift: added new currency fields (#366)
-Redshift: added session_id column (#1539)
-Postgres: added refr_domain_userid and refr_dvce_tsramp to atomic.events (#1451)
-Postgres: added dvce_sent_tstamp column (#1386)
-Postgres: added migration script for 0.3.0 to 0.4.0 (#1347)
-Postgres: added column for geo_timezone (#1336)
-Postgres: added etl_tags column (#1246)
-Postgres: removed primary key constraint on event_id (#1187)
-Postgres: added column for mkt_clickid and mkt_network (#1092)
-Postgres: widened domain_userid column to hold UUID (#1091)
-Postgres: added new derived_contexts field (#785)
-Postgres: updated ip_address to support IPv6 addresses (#655)
-Postgres: added new currency fields (#365)
-Redshift: added session_id column (#1540)
-```
 
 <h2><a name="kinesis">8. Updates to the Kinesis applications</a></h2>
 

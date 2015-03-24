@@ -19,7 +19,7 @@ When we come to analyse Snowplow data, we need to be able to look at the event d
 An event dictionary is a crucial tool in both cases. It is a document that defines the universe of events that a company is interested in tracking. For each event, it defines:
 
 1. What the event is. Often this might be illustrated e.g. with screenshots
-2. What data is captured when the event occurs, that represents the evvent. This is a data schema for the event
+2. What data is captured when the event occurs, that represents the event. This is a data schema for the event
 3. Details on how the relevant Snowplow tracker has been setup to pass the event data into Snowplow
 
 ## An example entry in an event dictionary

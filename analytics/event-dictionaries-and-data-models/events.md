@@ -23,7 +23,7 @@ An event is something that occurred in a particular point in time. Examples of e
 
 Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data pipeline.
 
-To use Snowplow successfully, you need to have a good ide:
+To use Snowplow successfully, you need to have a good idea of:
 
 * What events you care about in your business
 * What events occur in your website / mobile application / server side systems / factories / call centers / dispatch centers

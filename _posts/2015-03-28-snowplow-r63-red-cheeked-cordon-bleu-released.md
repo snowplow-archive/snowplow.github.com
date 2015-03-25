@@ -13,9 +13,9 @@ We are pleased to announce the immediate availability of Snowplow 63, Red-Cheeke
 
 The new and upgraded enrichments are as follows:
 
-1. New enrichment: parsing useragent strings using the `ua_parser` library
+1. New enrichment: parsing useragent strings using the [`ua_parser`][ua-parser] library
 2. New enrichment: converting the money amounts in e-commerce transactions into a base currency using [Open Exchange Rates][oer]
-3. Upgraded: extracting click IDs in our campaign attribution enrichment
+3. Upgraded: extracting click IDs in our campaign attribution enrichment, so that Snowplow event data can be more precisely joined with campaign data
 4. Upgraded: our existing MaxMind-powered IP lookups
 5. Upgraded: useragent parsing using the `user_agent_utils` library can now be disabled
 

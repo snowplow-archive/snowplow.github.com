@@ -247,12 +247,42 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
 
 We have also made the following changes to the table definitions:
 
-| Column name      | New data type (1) | Old data type    | Reason                              |
-|:-----------------|:------------------|:-----------------|:------------------------------------|
-| `user_ipaddress` | `varchar(45)`     | `varchar(19)     | To support IPv6 addresses           |
-| `unstruct_event` | `varchar(15000)`* | `varchar(10000)` | To support larger JSONs             |
-| `domain_userid`  | `varchar(36)`     | `varchar(16)`    | To support UUIDs as domain user IDs |
-| `contexts`       | `varchar(15000)`* | `varchar(10000)` | To support more custom contexts     |
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Column name</th>
+            <th>New data type (1)</th>
+            <th>Old data type</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>`user_ipaddress`</td>
+            <td>`varchar(45)`</td>
+            <td>`varchar(19)`</td>
+            <td>To support IPv6 addresses</td>
+        </tr>
+        <tr>
+            <td>`unstruct_event`</td>
+            <td>`varchar(15000)`*</td>
+            <td>`varchar(10000)`</td>
+            <td>To support larger JSONs</td>
+        </tr>
+        <tr>
+            <td>`domain_userid`</td>
+            <td>`varchar(36)`</td>
+            <td>`varchar(16)`</td>
+            <td>To support UUIDs as domain user IDs</td>
+        </tr>
+        <tr>
+            <td>`contexts`</td>
+            <td>`varchar(15000)`*</td>
+            <td>`varchar(10000)`</td>
+            <td>To support more custom contexts</td>
+        </tr>
+    </tbody>
+</table>
 
 \* Also changed column encoding in Redshift from `raw` to `lzo`
 

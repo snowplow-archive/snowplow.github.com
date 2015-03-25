@@ -41,7 +41,7 @@
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/event-dictionaries-and-data-models/foundational-concepts.html">Basic concepts</a></li>
+    <li><a href="/analytics/event-dictionaries-and-data-models/foundational-concepts.html">Foundational concepts</a></li>
     {% endif %}
     <li class="divider"></li>
  

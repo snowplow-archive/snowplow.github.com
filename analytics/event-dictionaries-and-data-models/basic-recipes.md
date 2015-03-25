@@ -1,21 +1,22 @@
 ---
 layout: page
 group: analytics
-sub_group: overview
+sub_group: foundation
 title: Basic recipes
 shortened-link: Basic recipes
-weight: 5
+weight: 9
 ---
 
 <div class="html">
-<a name="top"><h1>Bread and butter web analytics queries</h1></a>
+<a name="top"><h1>Getting familiar with Snowplow data using some simple recipes</h1></a>
 </div>
 
 The following queries return basic web analytics data that someone could expect from any standard web analytics package. These are *not* the queries that Snowplow was designed to perform: we built Snowplow to enable analysts to run queries on web analytics data that are **not** possible with other web analytics programs. These queries return the results that **all** web analytics queries return. However, running them can be useful for an analyst to validate Snowplow has been setup correctly (by comparing the output against e.g. Google Analytics), and help her get familiar with writing queries in Snowplow.
 
 For users who are getting started with Snowplow, but are not that familiar with SQL, we recommend consulting our [quick-start guide to using SQL] (/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html).
 
-The following queries will work with both Redshift and PostgreSQL. It should not take much to edit them so that they work with Hive.
+Note that in general we expect that most users will run queries against the tables produced in the data-modeling step in the data pipeline, detailed in the [next section](data-modeling.html). However, running these simple queries against the underlying event-level data is a useful exercise for the analyst who wants to become more familiar with Snowplow data, especially data collected from a web analytics enviornment.
+
 
 1. [Number of unique visitors](#counting-unique-visitors)
 2. [Number visits](#counting-visits)

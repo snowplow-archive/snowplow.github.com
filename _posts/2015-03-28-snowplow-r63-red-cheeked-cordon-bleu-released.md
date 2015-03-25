@@ -263,28 +263,88 @@ We have also made the following changes to the table definitions:
     </thead>
     <tbody>
         <tr>
-            <td>`user_ipaddress</code></td>
-            <td>`varchar(45)</code></td>
-            <td>`varchar(19)</code></td>
+            <td><code>user_ipaddress</code></code></td>
+            <td><code>varchar(45)</code></td>
+            <td><code>varchar(19)</code></td>
             <td>To support IPv6 addresses</td>
         </tr>
         <tr>
-            <td>`unstruct_event</code></td>
-            <td>`varchar(15000)</code>*</td>
-            <td>`varchar(10000)</code></td>
+            <td><code>unstruct_event</code></td>
+            <td><code>varchar(15000)</code>*</td>
+            <td><code>varchar(10000)</code></td>
             <td>To support larger JSONs</td>
         </tr>
         <tr>
-            <td>`domain_userid</code></td>
-            <td>`varchar(36)</code></td>
-            <td>`varchar(16)</code></td>
+            <td><code>domain_userid</code></td>
+            <td><code>varchar(36)</code></td>
+            <td><code>varchar(16)</code></td>
             <td>To support UUIDs as domain user IDs</td>
         </tr>
         <tr>
-            <td>`contexts</code></td>
-            <td>`varchar(15000)</code>*</td>
-            <td>`varchar(10000)</code></td>
+            <td><code>contexts</code></td>
+            <td><code>varchar(15000)</code>*</td>
+            <td><code>varchar(10000)</code></td>
             <td>To support more custom contexts</td>
+        </tr>
+        <tr>
+            <td><code>page_urlpath</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td><code>varchar(1000)</code></td>
+            <td>To support longer page URL paths</td>
+        </tr>
+        <tr>
+            <td><code>page_urlquery</code></td>
+            <td><code>varchar(6000)</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td>To support longer page URL queries (e.g. from ad servers)</td>
+        </tr>
+        <tr>
+            <td><code>page_urlfragment</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td><code>varchar(255)</code></td>
+            <td>To support longer page fragments</td>
+        </tr>
+        <tr>
+            <td><code>refr_urlpath</code></td>
+            <td><code>varchar(6000)</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td>To support longer page URL queries (e.g. from ad servers)</td>
+        </tr>
+        <tr>
+            <td><code>refr_urlquery</code></td>
+            <td><code>varchar(6000)</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>refr_urlfragment</code></td>
+            <td><code>varchar(3000)</code></td>
+            <td><code>varchar(255)</code></td>
+            <td>To support longer page fragments</td>
+        </tr>
+        <tr>
+            <td><code>se_category</code></td>
+            <td><code>varchar(1000)</code></td>
+            <td><code>varchar(255)</code></td>
+            <td>To support longer category labels</td>
+        </tr>
+        <tr>
+            <td><code>se_action</code></td>
+            <td><code></code></td>
+            <td><code></code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>se_label</code></td>
+            <td><code>varchar(1000)</code></td>
+            <td><code>varchar(255)</code></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>se_property</code></td>
+            <td><code>varchar(1000)</code></td>
+            <td><code>varchar(255)</code></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

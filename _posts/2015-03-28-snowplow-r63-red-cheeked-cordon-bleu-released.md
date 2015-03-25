@@ -306,8 +306,8 @@ We have also made the following changes to the table definitions:
         </tr>
         <tr>
             <td><code>refr_urlpath</code></td>
-            <td><code>varchar(6000)</code></td>
             <td><code>varchar(3000)</code></td>
+            <td><code>varchar(1000)</code></td>
             <td>To support longer page URL queries (e.g. from ad servers)</td>
         </tr>
         <tr>

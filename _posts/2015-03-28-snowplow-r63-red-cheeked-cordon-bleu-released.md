@@ -110,7 +110,7 @@ For more details on this enrichment, see the [ua parser enrichment][ua-parser-en
 A set of smaller new features and capabilities have been to Scala Common Enrich in this release:
 
 * Netaporter's more permissive URI library is used to parse querystrings if the Apache Commons httpclient fails. Many thanks to [Dani Solà][danisola] for this contribution! ([#1429][issue-1429])
-* The `refr_domain_userid` and `refr_dvce_tstamp` fields as set by the JavaScript Tracker's new cross-domain linker are now extracted ([#1461][issue-1461])
+* The `refr_domain_userid` and `refr_dvce_tstamp` fields as set by the JavaScript Tracker's new cross-domain linker are now extracted ([#1461][issue-1461]). This makes it possible for users running a network of websites to stitch user actions across domains using only first party cookies.
 * The `session_id` field is now populated based on the "sid" parameter. Session ID is a client-side generated UUID to complement the existing session index ([#1541][issue-1541])
 * The `dvce_sent_tstamp` field is now populated based on the "stm" parameter. This is useful for determining when a tracker sent an event (versus creating that event) ([#1383][issue1383-])
 * bumped referer-parser to 0.2.3 ([#670][issue-670])

@@ -345,6 +345,7 @@ Configuring other enrichments is at your discretion. Useful resources here are:
 
 <div class="html">
 <h3><a name="upgrading-emr">9.2. Upgrading your Elastic MapReduce pipeline</a></h3>
+</div>
 
 There are two steps to upgrading the EMR pipeline:
 

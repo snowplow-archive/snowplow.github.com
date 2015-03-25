@@ -32,7 +32,7 @@ Table of contents:
 7. [Updates to atomic.events](#events)
 8. [Updates to the Kinesis applications](#kinesis)
 9. [Upgrading your Snowplow pipeline](#upgrade)
-10. [Getting help](#help)
+10. [Getting help](#help)  
 
 <!--more-->
 
@@ -140,93 +140,98 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
     </thead>
     <tbody>
         <tr>
-            <td>`tr_currency`</td>
-            <td>`char(3)`</td>
+            <td><code>tr_currency</code></td>
+            <td><code>char(3)</code></td>
             <td>Tracker</td>
             <td>Currency for e-commerce transaction</td>
         </tr>
         <tr>
-            <td>`tr_total_base`</td>
-            <td>`dec(18, 2)`</td>
+            <td><code>tr_total_base</code></td>
+            <td><code>dec(18, 2)</code></td>
             <td>CCE</td>
             <td>Conversion to base currency</td>
         </tr>
         <tr>
-            <td>`tr_tax_base`</td>
-            <td>`dec(18, 2)`</td>
+            <td><code>tr_tax_base</code></td>
+            <td><code>dec(18, 2)</code></td>
             <td>CCE</td>
             <td>Conversion to base currency</td>
         </tr>
         <tr>
-            <td>`tr_shipping_base`</td>
-            <td>`dec(18, 2)`</td>
+            <td><code>tr_shipping_base</code></td>
+            <td><code>dec(18, 2)</code></td>
             <td>CCE</td>
             <td>Conversion to base currency</td>
         </tr>
         <tr>
-            <td>`ti_currency`</td>
-            <td>`char(3)`</td>
+            <td><code>ti_currency</code></td>
+            <td><code>char(3)</code></td>
             <td>Tracker</td>
             <td>Currency for e-commerce transaction item</td>
         </tr>
         <tr>
-            <td>`ti_price_base`</td>
-            <td>`dec(18, 2)`</td>
+            <td><code>ti_price_base</code></td>
+            <td><code>dec(18, 2)</code></td>
             <td>CCE</td>
             <td>Conversion to base currency</td>
         </tr>
         <tr>
-            <td>`base_currency`</td>
-            <td>`char(3)`</td>
+            <td><code>base_currency</code></td>
+            <td><code>char(3)</code></td>
             <td>CCE</td>
             <td>CCE configuration option</td>
         </tr>
         <tr>
-            <td>`geo_timezone`</td>
-            <td>`varchar(64)`</td>
+            <td><code>geo_timezone</code></td>
+            <td><code>varchar(64)</code></td>
             <td>ILE</td>
             <td>Timezone for IP address</td>
         </tr>
-            <td>`mkt_clickid`</td>
-            <td>`varchar(64)`</td>
+        <tr>
+            <td><code>mkt_clickid</code></td>
+            <td><code>varchar(64)</code></td>
             <td>CAE</td>
             <td>Unique ID for advertising click</td>
         </tr>
-            <td>`mkt_network`</td>
-            <td>`varchar(64)`</td>
+        <tr>
+            <td><code>mkt_network</code></td>
+            <td><code>varchar(64)</code></td>
             <td>CAE</td>
             <td>Advertising network of click ID</td>
         </tr>
-            <td>`etl_tags`</td>
-            <td>`varchar(500)`</td>
+        <tr>
+            <td><code>etl_tags</code></td>
+            <td><code>varchar(500)</code></td>
             <td>Enrich</td>
             <td>Tags describing this run. Not yet used</td>
         </tr>
-            <td>`dvce_sent_tstamp`</td>
-            <td>`timestamp`</td>
+        <tr>
+            <td><code>dvce_sent_tstamp</code></td>
+            <td><code>timestamp</code></td>
             <td>Tracker</td>
             <td>When device sent event</td>
         </tr>
-            <td>`refr_domain_userid`</td>
-            <td>`varchar(36)`</td>
+        <tr>
+            <td><code>refr_domain_userid</code></td>
+            <td><code>varchar(36)</code></td>
             <td>Tracker</td>
             <td>Extracted from cross-domain linker</td>
         </tr>
-        </tr>
-            <td>`refr_dvce_tstamp`</td>
-            <td>`timestamp`</td>
+        <tr>
+            <td><code>refr_dvce_tstamp</code></td>
+            <td><code>timestamp</code></td>
             <td>Tracker</td>
             <td>Extracted from cross-domain linker</td>
         </tr>
-        </tr>
-            <td>`derived_contexts`</td>
-            <td>`varchar(15000)`</td>
+        <tr>
+            <td><code>derived_contexts</code></td>
+            <td><code>varchar(15000)</code></td>
             <td>Enrich</td>
             <td>Contexts derived in the Enrich process</td>
         </tr>
-        </tr>
-            <td>`session_id`</td>
-            <td>`char(36)`</td>
+        <tr>
+            <td><code>session_id</code></td>
+            <td><code>char(36)</code></td>
             <td>Tracker</td>
             <td>Client-side session ID, complements index</td>
         </tr>
@@ -258,27 +263,27 @@ We have also made the following changes to the table definitions:
     </thead>
     <tbody>
         <tr>
-            <td>`user_ipaddress`</td>
-            <td>`varchar(45)`</td>
-            <td>`varchar(19)`</td>
+            <td>`user_ipaddress</code></td>
+            <td>`varchar(45)</code></td>
+            <td>`varchar(19)</code></td>
             <td>To support IPv6 addresses</td>
         </tr>
         <tr>
-            <td>`unstruct_event`</td>
-            <td>`varchar(15000)`*</td>
-            <td>`varchar(10000)`</td>
+            <td>`unstruct_event</code></td>
+            <td>`varchar(15000)</code>*</td>
+            <td>`varchar(10000)</code></td>
             <td>To support larger JSONs</td>
         </tr>
         <tr>
-            <td>`domain_userid`</td>
-            <td>`varchar(36)`</td>
-            <td>`varchar(16)`</td>
+            <td>`domain_userid</code></td>
+            <td>`varchar(36)</code></td>
+            <td>`varchar(16)</code></td>
             <td>To support UUIDs as domain user IDs</td>
         </tr>
         <tr>
-            <td>`contexts`</td>
-            <td>`varchar(15000)`*</td>
-            <td>`varchar(10000)`</td>
+            <td>`contexts</code></td>
+            <td>`varchar(15000)</code>*</td>
+            <td>`varchar(10000)</code></td>
             <td>To support more custom contexts</td>
         </tr>
     </tbody>
@@ -312,7 +317,7 @@ There is also an important update to the Kinesis Elasticsearch Sink: we have sto
 This section contains upgrading instructions which are common to both our Elastic MapReduce and Kinesis pipelines.
 
 <div class="html">
-<h4><a name="configuring-enrichments">9.1.1 Configuring enrichments</a></h3>
+<h3><a name="configuring-enrichments">9.1.1 Configuring enrichments</a></h3>
 </div>
 
 To continue parsing useragent strings using the `user_agent_utils` library, you **must** add a new JSON configuration file into your folder of enrichment JSONs:
@@ -470,3 +475,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[tropical-parulas]: /assets/img/blog/2015/03/tropical-parulas.jpg

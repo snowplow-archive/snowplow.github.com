@@ -110,7 +110,7 @@ For more details on this enrichment, see the [ua parser enrichment][ua-parser-en
 A set of smaller new features and capabilities have been to Scala Common Enrich in this release:
 
 * Netaporter's more permissive URI library is used to parse querystrings if the Apache Commons httpclient fails. Many thanks to [Dani Solà][danisola] for this contribution! ([#1429][issue-1429])
-* The `refr_domain_userid` and `refr_dvce_tstamp` fields as set by the JavaScript Tracker's new cross-domain linker are now extracted ([#1461][issue-1461]). This makes it possible for users running a network of websites to stitch user actions across domains using only first party cookies.
+* The `refr_domain_userid` and `refr_dvce_tstamp` fields as set by the JavaScript Tracker's new cross-domain linker are now extracted ([#1461][issue-1461]). This makes it possible for users running a network of websites to stitch user actions across domains using only first party cookies. (We will cover how to do this in a future blog post.)
 * The `session_id` field is now populated based on the "sid" parameter. Session ID is a client-side generated UUID to complement the existing session index ([#1541][issue-1541])
 * The `dvce_sent_tstamp` field is now populated based on the "stm" parameter. This is useful for determining when a tracker sent an event (versus creating that event) ([#1383][issue1383-])
 * bumped referer-parser to 0.2.3 ([#670][issue-670])
@@ -129,24 +129,109 @@ This release makes a comprehensive set of updates to the `atomic.events` table (
 
 The new fields required in `atomic.events` (whether Redshift or Postgres) are as follows:
 
-| Column name          | Data type (1)    | From (2) | Description                               |
-|:---------------------|:-----------------|:---------|:------------------------------------------|
-| `tr_currency`        | `char(3)`        | Tracker  | Currency for e-commerce transaction       |
-| `tr_total_base`      | `dec(18, 2)`     | CCE      | Conversion to base currency               |
-| `tr_tax_base`        | `dec(18, 2)`     | CCE      | Conversion to base currency               |
-| `tr_shipping_base`   | `dec(18, 2)`     | CCE      | Conversion to base currency               |
-| `ti_currency`        | `char(3)`        | Tracker  | Currency for e-commerce transaction item  |
-| `ti_price_base`      | `dec(18, 2)`     | CCE      | Conversion to base currency               |
-| `base_currency`      | `char(3)`        | CCE      | CCE configuration option                  |
-| `geo_timezone`       | `varchar(64)`    | ILE      |  Timezone for IP address                  |
-| `mkt_clickid`        | `varchar(64)`    | CAE      | Unique ID for advertising click           |
-| `mkt_network`        | `varchar(64)`    | CAE      | Advertising network of click ID           |
-| `etl_tags`           | `varchar(500)`   | Enrich   | Tags describing this run. Not yet used    |
-| `dvce_sent_tstamp`   | `timestamp`      | Tracker  | When device sent event                    |
-| `refr_domain_userid` | `varchar(36)`    | Tracker  | Extracted from cross-domain linker        |
-| `refr_dvce_tstamp`   | `timestamp`      | Tracker  | Extracted from cross-domain linker        |
-| `derived_contexts`   | `varchar(15000)` | Enrich   | Contexts derived in the Enrich process    |
-| `session_id`         | `char(36)`       | Tracker  | Client-side session ID, complements index |
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Column name</th>
+            <th>Data type (1)</th>
+            <th>From (2)</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>`tr_currency`</td>
+            <td>`char(3)`</td>
+            <td>Tracker</td>
+            <td>Currency for e-commerce transaction</td>
+        </tr>
+        <tr>
+            <td>`tr_total_base`</td>
+            <td>`dec(18, 2)`</td>
+            <td>CCE</td>
+            <td>Conversion to base currency</td>
+        </tr>
+        <tr>
+            <td>`tr_tax_base`</td>
+            <td>`dec(18, 2)`</td>
+            <td>CCE</td>
+            <td>Conversion to base currency</td>
+        </tr>
+        <tr>
+            <td>`tr_shipping_base`</td>
+            <td>`dec(18, 2)`</td>
+            <td>CCE</td>
+            <td>Conversion to base currency</td>
+        </tr>
+        <tr>
+            <td>`ti_currency`</td>
+            <td>`char(3)`</td>
+            <td>Tracker</td>
+            <td>Currency for e-commerce transaction item</td>
+        </tr>
+        <tr>
+            <td>`ti_price_base`</td>
+            <td>`dec(18, 2)`</td>
+            <td>CCE</td>
+            <td>Conversion to base currency</td>
+        </tr>
+        <tr>
+            <td>`base_currency`</td>
+            <td>`char(3)`</td>
+            <td>CCE</td>
+            <td>CCE configuration option</td>
+        </tr>
+        <tr>
+            <td>`geo_timezone`</td>
+            <td>`varchar(64)`</td>
+            <td>ILE</td>
+            <td>Timezone for IP address</td>
+        </tr>
+            <td>`mkt_clickid`</td>
+            <td>`varchar(64)`</td>
+            <td>CAE</td>
+            <td>Unique ID for advertising click</td>
+        </tr>
+            <td>`mkt_network`</td>
+            <td>`varchar(64)`</td>
+            <td>CAE</td>
+            <td>Advertising network of click ID</td>
+        </tr>
+            <td>`etl_tags`</td>
+            <td>`varchar(500)`</td>
+            <td>Enrich</td>
+            <td>Tags describing this run. Not yet used</td>
+        </tr>
+            <td>`dvce_sent_tstamp`</td>
+            <td>`timestamp`</td>
+            <td>Tracker</td>
+            <td>When device sent event</td>
+        </tr>
+            <td>`refr_domain_userid`</td>
+            <td>`varchar(36)`</td>
+            <td>Tracker</td>
+            <td>Extracted from cross-domain linker</td>
+        </tr>
+        </tr>
+            <td>`refr_dvce_tstamp`</td>
+            <td>`timestamp`</td>
+            <td>Tracker</td>
+            <td>Extracted from cross-domain linker</td>
+        </tr>
+        </tr>
+            <td>`derived_contexts`</td>
+            <td>`varchar(15000)`</td>
+            <td>Enrich</td>
+            <td>Contexts derived in the Enrich process</td>
+        </tr>
+        </tr>
+            <td>`session_id`</td>
+            <td>`char(36)`</td>
+            <td>Tracker</td>
+            <td>Client-side session ID, complements index</td>
+        </tr>
+    </tbody>
+</table>
 
 (1) The data type is taken from Redshift; data types for some columns in Postgres are different
 

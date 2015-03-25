@@ -330,8 +330,8 @@ We have also made the following changes to the table definitions:
         </tr>
         <tr>
             <td><code>se_action</code></td>
-            <td><code></code></td>
-            <td><code></code></td>
+            <td><code>varchar(1000)</code></td>
+            <td><code>varchar(255)</code></td>
             <td></td>
         </tr>
         <tr>

@@ -5,7 +5,7 @@ sub_group: foundation
 title: Data Modeling
 shortened-link: Data modeling
 description: Introduction to data modeling
-weight: 9
+weight: 10
 ---
 
 # Data Modeling

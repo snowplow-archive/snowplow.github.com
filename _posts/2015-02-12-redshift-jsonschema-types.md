@@ -101,7 +101,7 @@ And the schema for passing the value in as a string. The regex will validate a s
 }
 ```
 
-The below schema is equivalent, except that it also allows empty strings:
+The schema below is equivalent, except that it also allows empty strings:
 
 ```
 {

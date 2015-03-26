@@ -203,7 +203,7 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
             <td><code>etl_tags</code></td>
             <td><code>varchar(500)</code></td>
             <td>Enrich</td>
-            <td>Tags describing this run. Not yet used</td>
+            <td>Tags describing this run. Not yet implemented</td>
         </tr>
         <tr>
             <td><code>dvce_sent_tstamp</code></td>
@@ -234,6 +234,12 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
             <td><code>char(36)</code></td>
             <td>Tracker</td>
             <td>Client-side session ID, complements index</td>
+        </tr>
+        <tr>
+            <td><code>derived_tstamp</code></td>
+            <td><code>timestamp</code></td>
+            <td>Enrich</td>
+            <td>Calculated timestamp. Not yet implemented</td>
         </tr>
     </tbody>
 </table>

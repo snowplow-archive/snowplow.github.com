@@ -230,7 +230,7 @@ The new fields required in `atomic.events` (whether Redshift or Postgres) are as
             <td>Contexts derived in the Enrich process</td>
         </tr>
         <tr>
-            <td><code>session_id</code></td>
+            <td><code>domain_sessionid</code></td>
             <td><code>char(36)</code></td>
             <td>Tracker</td>
             <td>Client-side session ID, complements index</td>

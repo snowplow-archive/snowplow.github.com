@@ -23,16 +23,16 @@ This release has been a huge team effort - with particular thanks going to Snowp
 
 Table of contents:
 
-1. [New enrichment: useragent parsing using ua_parser](#uap)
-2. [New enrichment: currency conversion for e-commerce transaction](#forex)
-3. [Upgraded enrichment: click ID extraction for campaign attribution](#clid)
-4. [Upgraded enrichment: timezone lookup from IP address using MaxMind](#tz)
-5. [Upgraded enrichment: useragent parsing using user_agent_utils](#uau)
-6. [Other improvements to Scala Common Enrich](#enrich)
-7. [Updates to atomic.events](#events)
-8. [Updates to the Kinesis applications](#kinesis)
-9. [Upgrading your Snowplow pipeline](#upgrade)
-10. [Getting help](#help)  
+1. [New enrichment: useragent parsing using ua_parser](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#uap)
+2. [New enrichment: currency conversion for e-commerce transaction](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#forex)
+3. [Upgraded enrichment: click ID extraction for campaign attribution](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#clid)
+4. [Upgraded enrichment: timezone lookup from IP address using MaxMind](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#tz)
+5. [Upgraded enrichment: useragent parsing using user_agent_utils](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#uau)
+6. [Other improvements to Scala Common Enrich](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#enrich)
+7. [Updates to atomic.events](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#events)
+8. [Updates to the Kinesis applications](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#kinesis)
+9. [Upgrading your Snowplow pipeline](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#upgrade)
+10. [Getting help](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#help)  
 
 <!--more-->
 
@@ -367,7 +367,7 @@ Finally, we have also added a foreign key constraint to all Redshift shredded JS
 
 The main update to both Kinesis applications is to support the new enriched event format (see [7. Updates to atomic.events](#events) for details). Other noteworthy updates to the Scala Kinesis Enrich:
 
-* The Scala Kinesis Enrich application now uses Scala Common Enrich 0.13.0, the latest version ([#1369][issue-1369]). Previously it was using Scala Common Enrich 0.11.0. This means that you can take advantage of all the enrichment updates in the Kinesis flow, and it also brings the Kinesis flow up-to-date with the various [encoding-related fixes][r62-encoding-fixes] implemented in Scala Common Enrich 0.12.0
+* The Scala Kinesis Enrich application now uses Scala Common Enrich 0.13.0, the latest version ([#1369][issue-1369]). Previously it was using Scala Common Enrich 0.11.0. This means that you can take advantage of all the enrichment updates in the Kinesis flow, and it also brings the Kinesis flow up-to-date with the various [encoding-related fixes][r61-encoding-fixes] implemented in Scala Common Enrich 0.12.0
 * Community member [Kacper Bielecki][kazjote] updated the Scala Kinesis Enrich's logging configuration ([#1367][issue-1367])
 
 There is also an important update to the Kinesis Elasticsearch Sink: we have stopped verifying the number of fields found in enriched event ([#1333][issue-1333]). This should make the Elasticsearch Sink more tolerant of potential future updates to Scala Kinesis Enrich.
@@ -490,7 +490,7 @@ For more details on this release, please check out the [r63 Red-Cheeked Cordon-B
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[red-cheeked-cordon-bleu]: /assets/img/blog/2015/03/red-cheeked-cordon-bleu.png
+[red-cheeked-cordon-bleu]: /assets/img/blog/2015/04/red-cheeked-cordon-bleu.png
 
 [scala-forex]: https://github.com/snowplow/scala-forex/
 [oer]: https://openexchangerates.org/signup?r=snowplow
@@ -534,7 +534,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.4.0_to_0.5.0.sql
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.3.0_to_0.4.0.sql
 
-[r62-encoding-fixes]: http://snowplowanalytics.com/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#hadoop-improvements
+[r61-encoding-fixes]: http://snowplowanalytics.com/blog/2015/03/02/snowplow-r61-pygmy-parrot-released/#hadoop-improvements
 
 [r63-kinesis-changes]: /assets/img/blog/2015/03/r63-kinesis-updates.png
 

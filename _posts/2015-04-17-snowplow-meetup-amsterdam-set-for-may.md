@@ -7,7 +7,7 @@ author: Yali
 category: Talks
 ---
 
-Hot on the heals of the Snowplow meetups in London and Sydney in earlier this year, we are delighted to announce the first Snowplow meetup in the beautiful city of Amsterdam.
+Hot on the heels of the Snowplow meetups in London and Sydney in earlier this year, we are delighted to announce the first Snowplow meetup in the beautiful city of Amsterdam.
 
 ![amsterdam-pic] [amsterdam]
 

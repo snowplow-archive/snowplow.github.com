@@ -15,7 +15,13 @@ One of my favorite things about working at Snowplow is that we have some very da
 
 <!--more-->
 
-I am thrilled that we have some incredibly interesting speakers pencilled in to talk at the event. Niels Reijmer and Andrei Scorus will be talking about the analtyics stack (including Snowplow) at [de Bijenkorf] [debijenkorf]. [Ruben Mak] [ruben-linkedin] is a data scientist at [Blue Mango][bluemango], who has built a wealth of intelligence on top of Snowplow implementations at a number of Blue Mango's clients.
+I am thrilled that we have some incredibly interesting speakers pencilled in to talk at the event. Niels Reijmer and Andrei Scorus will be talking about the analtyics stack (including Snowplow) at [de Bijenkorf] [debijenkorf]. [Ruben Mak] [ruben-linkedin] is a data scientist at [Blue Mango][bluemango], who has built a wealth of intelligence on top of Snowplow implementations at a number of Blue Mango's clients. Ruben is has suggested a number of interesting topics to explore - I think they're all interesting, so Ruben suggested putting it to the vote:
+
+<div class="html">
+	<script type="text/javascript" src="http://www.easypolls.net/ext/scripts/emPoll.js?p=55243b18e4b078c0a2ed6463"></script><a class="OPP-powered-by" href="https://www.easypolls.net/" style="text-decoration:none;"><div style="font: 9px arial; color: gray;">online polls</div></a>
+</div>
+
+Get voting for your prefered topic! 
 
 We have also been very fortunate to have the kind folks at [Travelbird][travelbird] host the meetup. Many thanks!
 

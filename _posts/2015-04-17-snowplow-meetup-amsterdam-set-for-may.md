@@ -15,7 +15,7 @@ One of my favorite things about working at Snowplow is that we have some very da
 
 <!--more-->
 
-I am thrilled that we have two incredibly interesting speakers pencilled in to talk at the event. [Rob Winters] [rob-winters-linkedin] is a BI, datawarehousing and data science leader who has implemented Snowplow as part of the analytics stack at [de Bijenkorf] [debijenkorf]. [Ruben Mak] [ruben-linkedin] is a data scientist at [Blue Mango][bluemango], who has built a wealth of intelligence on top of Snowplow implementations at a number of Blue Mango's clients.
+I am thrilled that we have some incredibly interesting speakers pencilled in to talk at the event. Niels Reijmer and Andrei Scorus will be talking about the analtyics stack (including Snowplow) at [de Bijenkorf] [debijenkorf]. [Ruben Mak] [ruben-linkedin] is a data scientist at [Blue Mango][bluemango], who has built a wealth of intelligence on top of Snowplow implementations at a number of Blue Mango's clients.
 
 More details will follow as they are finalized. In the meantime, please sign up [here][eventbrite]!
 

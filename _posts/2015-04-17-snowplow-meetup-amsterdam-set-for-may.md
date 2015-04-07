@@ -17,6 +17,8 @@ One of my favorite things about working at Snowplow is that we have some very da
 
 I am thrilled that we have some incredibly interesting speakers pencilled in to talk at the event. Niels Reijmer and Andrei Scorus will be talking about the analtyics stack (including Snowplow) at [de Bijenkorf] [debijenkorf]. [Ruben Mak] [ruben-linkedin] is a data scientist at [Blue Mango][bluemango], who has built a wealth of intelligence on top of Snowplow implementations at a number of Blue Mango's clients.
 
+We have also been very fortunate to have the kind folks at [Travelbird][travelbird] host the meetup. Many thanks!
+
 More details will follow as they are finalized. In the meantime, please sign up [here][eventbrite]!
 
 [amsterdam]: /assets/img/blog/2015/04/amsterdam.jpg
@@ -25,3 +27,4 @@ More details will follow as they are finalized. In the meantime, please sign up 
 [debijenkorf]: http://www.debijenkorf.nl/
 [bluemango]: http://www.bluemango.nl/
 [eventbrite]: https://www.eventbrite.com/e/snowplow-meetup-amsterdam-tickets-16472215841
+[travelbird]: http://travelbird.nl/

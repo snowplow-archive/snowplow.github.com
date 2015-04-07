@@ -17,8 +17,9 @@ weight: 3
 		<p><a href="http://www.urbandictionary.com/"><img src="/assets/img/user-logos/fixed/urbandictionary.png"></a></p>
 	</div>
 	<div class="span4">
-		<p><a href="http://travelbird.co.uk/"><img src="/assets/img/user-logos/fixed/travelbird.png"></a></p>
+		<p><a href="https://soulmates.theguardian.com/"><img src="/assets/img/user-logos/fixed/theguardian.png"></a></p>
 	</div>
+
 </div>
 <div class="row">
 	<div class="span4">
@@ -290,7 +291,7 @@ weight: 3
 </div>
 <div class="row">
 	<div class="span4">
-		<p><a href="https://soulmates.theguardian.com/"><img src="/assets/img/user-logos/fixed/theguardian.png"></a></p>
+		<p><a href="https://www.graze.com/uk/"><img src="/assets/img/user-logos/fixed/graze.png"></a></p>
 	</div>
 	<div class="span4">
 		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>

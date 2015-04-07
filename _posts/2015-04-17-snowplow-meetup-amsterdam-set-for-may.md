@@ -7,7 +7,7 @@ author: Yali
 category: Talks
 ---
 
-Hot on the heals of the Snowplow meetups in London and Sydney in earlier this year, we are delighted to announce the first Snowplow meetup in the beautiful city of Amsterdam.
+Hot on the heels of the Snowplow meetups in London and Sydney in earlier this year, we are delighted to announce the first Snowplow meetup in the beautiful city of Amsterdam.
 
 ![amsterdam-pic] [amsterdam]
 
@@ -28,3 +28,4 @@ More details will follow as they are finalized. In the meantime, please sign up 
 [bluemango]: http://www.bluemango.nl/
 [eventbrite]: https://www.eventbrite.com/e/snowplow-meetup-amsterdam-tickets-16472215841
 [travelbird]: http://travelbird.nl/
+

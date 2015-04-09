@@ -31,7 +31,7 @@ Some don'ts:
 
 And that's it! We look forward to receiving your applications to [intern@snowplowanalytics.com] [apply], and we guarantee that everybody who applies will get a personal response.
 
-[next-two-interns]: /assets/img/blog/2015/04/next-two-interns.png
+[next-two-interns]: /assets/img/blog/2015/04/next-two-interns.jpg
 
 [wintern1]: /blog/2013/12/20/introducing-our-snowplow-winterns/
 [summer]: /blog/2014/08/21/introducing-our-summer-interns/

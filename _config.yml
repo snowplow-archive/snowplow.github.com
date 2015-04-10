@@ -1,6 +1,8 @@
 # Markdown format
 markdown: kramdown
 
+
+
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /blog/:year/:month/:day/:title 
@@ -36,6 +38,10 @@ production_url : http://snowplowanalytics.com
 #
 JB :
   version : 0.3.0
+
+# Redirect
+gems:
+  - jekyll-redirect-from
 
   # All links will be namespaced by BASE_PATH if defined.
   # Links in your website should always be prefixed with {{BASE_PATH}}

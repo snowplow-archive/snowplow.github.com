@@ -205,3 +205,16 @@ The same logic that is used to do sessionization is also used to calculate the p
 [![Page views](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)
 
 An alternative would be to create an aggregate table with a single line per page (not page views). In that case, the approach would be similar to how the visitors table is calculated.
+
+## Transition from full to incremental mode
+
+Once the custom data model is in a stable state, i.e. all data needed to build reports has been added, the queries can be migrated from a full to an incremental mode. The incremental model updates the derived tables using only the most recent events, rather than recompute the tables each time using all events.
+
+The following changes need to be made when migrating to the incremental mode:
+
+1. New events should arrive in the `snowplow_landing` schema, rather than in `atomic`.
+2. An intermediary table which stores a list of all `etl_tstamp` in each batch should be created.
+3. The `events_enriched` table should select data from `snowplow_landing`, rather than `atomic`.
+4. The output of aggregation process (e.g. sessions) is no longer the whole derived table, and should therefore be stored in the `_new` tables.
+5. The `new_tables` should be merged with the existing derived tables. This involved the creation of a new set of queries, which use the `_backup` and `_frame` intermediary tables.
+6. When all this is done, the events in `snowplow_landing` should be moved to `atomic` (making sure to restrict on `etl_tstamp`).

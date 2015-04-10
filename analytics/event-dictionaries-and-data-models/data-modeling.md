@@ -157,17 +157,17 @@ The standard model captures, for each session:
 - referer data (first event)
 - browser, OS and device data (first event)
 
-The SQL used to calculate these fields was discussed before. First, `sessions_basic` gets created, which contains aggregate values. Then, 5 other tables are created which either select the first or the last event per session. These tables are then joined back onto `sessions_basic` in the `sessions_new` table.
+The SQL used to calculate these fields was discussed before. First, the `sessions_basic` table is generated, which contains aggregate values. Then, 5 other tables are created which either select the first or the last event per session. These tables are then joined back onto `sessions_basic` to form the `sessions_new` table.
 
 This approach is visualized below.
 
 [![Sessionization](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/sessions.png)
 
-If the *full* model is used, `sessions_new` was calculated using all events and the sessions can be moved to the final pivot table.
+In the *full* model, `sessions_new` is the final derived table, because it was calculated using all events.
 
-In the *incremental* version, `sessions_new` was calculated using only events that arrived after the last run began. This table will have to be merged with the pivot table, because events that belong to one session could have ended up in two different batches. This creates two sessions with the same session identifier, who have to merged into one.
+In the *incremental* version, `sessions_new` was calculated using only events that arrived after the last run began. This table will have to be merged with the existing sessions table, because events that belong to one session could have ended up in two different batches. A simple union of both tables would create multiple rows for some sessions, a situation which is to be avoided.
 
-This is done using the same SQL logic as before. All existing sessions are copied into `sessions_new`. A basic table is then created which calculates aggregate values. Two other tables are create to find the values associated with the first and last event in a particular session. These tables then get joined and the result is moved back into the pivot table.
+Merging sessions which occur in both tables is done using the same SQL as before. All existing sessions are copied into `sessions_new`. A basic table is then created which calculates aggregate values, including the `MIN` and `MAX` timestamp of each version of the sessions. Two other tables are then created to select the values associated with the first and last event in a particular session. These tables are joined and the result is moved back into the derived table.
 
 ## 5. Visitors
 

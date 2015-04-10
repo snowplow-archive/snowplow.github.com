@@ -10,31 +10,30 @@ weight: 10
 
 # Data Modeling
 
-The data collection and enrichment process generates an event stream. It is possible to do analysis on this event stream, but it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-level data into smaller data sets. These are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logic will be used by all users of the data. Aggregate tables can be:
+The data collection and enrichment process generates an event stream. While it is possible to do analysis on this event stream, it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-level data into smaller data sets. These are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logic will be used by all users of the data. Aggregate tables can be:
 
 - User-level tables
 - Session-level tables
 - Product or media-level tables (catalog analytics)
 
-We call this process of aggregating ‘data modeling’. At the end of the data modeling exercise, a clean set of tables are available which make it easier to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
+We call this process of aggregating *data modeling*. At the end of the data modeling exercise, a clean set of tables are available which make it easier to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
 
-The tables mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
+The tables mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including different approaches to:
 
-- How to identity which users across multiple different channels are the same user, i.e. identity stitching
 - Sessionization
-- Joining Snowplow data with third party data sets
+- Identity stitching (which users across multiple channels are really the same user)
 
 ## 1. Model
 
 The data model can be run in *full* or *incremental* mode. Full mode is used on smaller data sets or when the model is being customized to fit the needs of a particular business. Customization ideally happens in several stages:
 
-- In a first step, the basic data model is set up in *full* mode. The output is a set of tables (refered to as the pivot tables) which are recomputed each time the pipeline runs.
+- In a first step, the basic data model is set up in *full* mode. The output is a set of derived tables which are recomputed each time the pipeline runs.
 
-- The data models can then be changed. This could mean adding ecommerce fields or applying business-specific logic, ideally joining Snowplow data with other data sets (e.g. customer or data).
+- The basic model can then be modified to include business-specific logic. This could mean adding ecommerce fields or aggregating events in different ways, ideally joining Snowplow data with other data sets (e.g. customer data).
 
-- Once the custom data model is stable, i.e. all data needed to build reports has been added, the queries can be migrated from a *full* to an *incremental* view. While the former recomputes the pivot tables each time, the latter updates them based on the new data that comes in. New events arrive in the `snowplow_landing` rather than the `atomic` schema (and get moved when the pivots have been updated).
+- Once the custom data model is in a stable state, i.e. all data needed to build reports has been added, the queries can be migrated from a full to an incremental mode. The incremental model updates the derived tables using only the most recent events, rather than recompute the tables each time using all events.
 
-Below is a visualization of the steps in the incremental data model. New events first get aggregated into, for example, sessions. These new sessions then have to be merged with existing sessions before being moved to the final pivot tables. The full model is a simplified version of this model.
+Below is a visualization of the incremental version of the Snowplow data model. New events arrive in the `snowplow_landing` schema, not `atomic`, and get aggregated into, for example, sessions. These new sessions then have to be merged with existing sessions before being moved to the final derived tables. The full model is a simpler version of this model.
 
 [![Incremental data model](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/data-modeling.png)
 

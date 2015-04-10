@@ -200,8 +200,8 @@ The standard data model creates an aggregate table with a single line per page v
 - number of page pings (aggregate)
 - time engaged in minutes (aggregate)
 
-The same logic that is used to do sessionization is also used to calculate the visitors table. Since there are only aggregate fields, only a basic table is required.
+The same logic that is used to do sessionization is also used to calculate the page views table. Since there are only aggregate fields, only a basic table is required.
 
 [![Page views](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/page-views.png)
 
-An alternative would be to create an aggregate table with a single line per page (rather than page view). The approach would be similar to how the visitors table is calculated.
+An alternative would be to create an aggregate table with a single line per page (not page views). In that case, the approach would be similar to how the visitors table is calculated.

@@ -39,9 +39,6 @@ production_url : http://snowplowanalytics.com
 JB :
   version : 0.3.0
 
-# Redirect
-gems:
-  - jekyll-redirect-from
 
   # All links will be namespaced by BASE_PATH if defined.
   # Links in your website should always be prefixed with {{BASE_PATH}}
@@ -144,4 +141,7 @@ paginate: 5
 paginate_path: "blog/page:num"
 
 
+# Redirect
+gems:
+  - jekyll-redirect-from
 

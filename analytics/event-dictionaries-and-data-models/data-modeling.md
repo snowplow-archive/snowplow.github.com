@@ -126,15 +126,15 @@ WHERE rank = 1 -- If there are multiple rows, pick the first row
 
 ## 3. Identity stitching
 
-The standard data model does not aggregate `user_id`, but it does contain the placeholder fields `blended_user_id` (equal to the `domain_userid` by default) and `inferred_user_id` (`NULL` by default). This is because there is no one right answer to identity stitching, the method will often depend on particular needs of a business.
+The standard data model does not use `user_id`, but it does contain placeholder fields for identity stitching. These are `blended_user_id` (equal to the `domain_userid` by default) and `inferred_user_id` (`NULL` by default). This is because there is no one right answer to identity stitching, the method will often depend on particular needs of a business.
 
-The standard model has a `cookie_id_to_user_id_map` which maps (at most) one `user_id` onto each `domain_userid`. This map then gets merged back onto `events_enriched`. The logic used to calculate this map can be written independent of the rest of the data madel.
+The standard model does contain a `cookie_id_to_user_id_map` which maps (at most) one `user_id` onto each `domain_userid`. This table can be joined onto `events_enriched`, which will populate the `blended_user_id` and `inferred_user_id` fields in the derived tables. The logic used to calculate this map is independent of the rest of the data model.
 
 ### 3a. Possible implementation
 
-If a user logs in on a device with a particular cookie, the corresponding `user_id` gets mapped onto that `domain_userid`. The same `user_id` gets assigned to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in. The `blended_user_id` is equal to the `domain_userid` for all events before the user logged in, and equal to the `user_id` for all events after the first login.
+If a user logs in on a device with a particular cookie, his or her `user_id` gets mapped onto that `domain_userid`. The same `user_id` will be added to `inferred_user_id` for all subsequent sessions, irrespective of whether the user is logged in. The `blended_user_id` is equal to the `domain_userid` for all events before the user logged in, and equal to the `user_id` for all events after the first login.
 
-The `cookie_id_to_user_id_map` assigns at most one user to each cookie, so if a new user logs in on a device that was used by another user, only the most recent `user_id` is kept.
+The `cookie_id_to_user_id_map` assigns at most one user to each cookie, so if a new user logs in on a device that was used by another user, all future events will get mapped onto the most recent `user_id`.
 
 This approach is illustrated below.
 

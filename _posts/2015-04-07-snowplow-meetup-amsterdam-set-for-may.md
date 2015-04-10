@@ -5,6 +5,7 @@ title: "Snowplow meetup set for Amsterdam, May 13th"
 tags: [snowplow, meetup]
 author: Yali
 category: Talks
+redirect_from: "/blog/2015/04/17/snowplow-meetup-amsterdam-set-for-may/"
 ---
 
 Hot on the heels of the Snowplow meetups in London and Sydney in earlier this year, we are delighted to announce the first Snowplow meetup in the beautiful city of Amsterdam.

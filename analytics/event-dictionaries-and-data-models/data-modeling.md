@@ -181,11 +181,11 @@ The standard model captures, for each visitor:
 - number of sessions (aggregate)
 - number of page views (aggregate)
 - time engaged in minutes (aggregate)
-- landing page (first event)
+- landing page (first event, initial visit)
 - marketing data (first event, initial visit)
 - referer data (first event, initial visit)
 
-The same logic that is used to do sessionization is also used to calculate the visitors table.
+The logic used to do sessionization is also used to calculate the visitors table.
 
 [![Visitors](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)](http://snowplowanalytics.com/assets/img/analytics/data-models/visitors.png)
 

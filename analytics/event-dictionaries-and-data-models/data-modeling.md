@@ -41,11 +41,11 @@ Below is a visualization of the incremental version of the Snowplow data model. 
 
 Events can be aggregated into various smaller data sets, such as sessions and visitors. The conditions on which events are aggregated are different in each case, but the logic in SQL is similar.
 
-In this section, we use sessions as an example to illustrate the general principle.
+In this section, sessions are used as an example to illustrate the general principle.
 
 ### 2a. Aggregate frame
 
-In the first step, a basic table is created which contains the identifier (in the case of sessions: a unique combination of `domain_userid` and `domain_sessionidx`) and some basic information, such as various timestamps. These fields can all be calculated with a `GROUP BY` aggregate function. Examples include `MIN`, `MAX`, `COUNT` and `SUM`.
+In the first step, a basic table is created which contains the identifier (in the case of sessions: a unique combination of `domain_userid` and `domain_sessionidx`) and some basic information, such as various timestamps. These are all fields that can be calculated with a `GROUP BY` aggregate function. Examples include `MIN`, `MAX`, `COUNT` and `SUM`.
 
 Below is a simplified version of the query used to generate the `sessions_basic` table:
 
@@ -64,11 +64,13 @@ GROUP BY 1,2
 );
 {% endhighlight %}
 
-This example returns a table with one row per session and aggregate properties such as the total number of events per session. In most cases, we are also interested in properties associated with either the first or the last event in each session (for example, the landing and exit pages). The earliest and latest device timestamp are used to sort events within each session. Device, not collector, timestamp is used because events are not guaranteed to arrive in the right order. More complicated logic is also possible, but not discussed in this document.
+This example returns a table with one row per session and aggregate properties such as the total number of events per session. In most cases, we are also interested in properties associated with either the first or the last event of each session (for example, the landing and exit page). More complicated logic is also possible, but not discussed in this document.
+
+The device timestamp is used to sort events within each session. The `MIN` and `MAX` device timestamp of each session are therefore recorded in `sessions_basic`. Note that we use the device, not collector, timestamp because events are not guaranteed to arrive in the right order.
 
 ### 2b. Initial frame
 
-The next step is to return fields associated with the first event in each session. The example below returns the landingpage for each session. This is achieved via an `INNER JOIN` between the events table and the basic table (discussed before) on `dvce_min_tstamp`. This value is the timestamp of the earliest event for each session, an inner join therefore only returns the first event for each session.
+The next step is to return fields associated with the first event in each session. The example below returns the landing page of each session. This is done with an `INNER JOIN` between the events table and the basic table (discussed before) on `dvce_min_tstamp`, which is the earliest device timestamp of each session. An inner join therefore only returns the first event in each session.
 
 {% highlight sql %}
 SELECT
@@ -92,13 +94,13 @@ WHERE rank = 1 -- If there are multiple rows, pick the first row
 );
 {% endhighlight %}
 
-It could happen that multiple events have the same device timestamp. If this happens to be the earliest timestamp, a single session would return multiple rows. Duplicate rows are therefore deduped in two ways.
+It could happen that multiple events have the same device timestamp. If this happens to be the earliest timestamp, a single session would return multiple rows. Duplicate rows are deduped in two ways.
 
-First, if all selected fields (in this case, urlhost and urlpath) are the same (other fields can be different), these rows are aggregated by the `GROUP BY` statement. If the events are different (e.g. two landingpages), we rank and pick one at random. If there is a criterion to choose on over the other, that one can be used instead.
+First, if all selected fields (in this case, urlhost and urlpath) are the same (other fields can be different), these rows get combined by the `GROUP BY` statement. If the events are different (e.g. two landing pages), we rank and pick one at random. If there is a criterion to choose on over the other, that one can be used instead.
 
 ### 2c. Final frame
 
-The same logic gets repeated when returning fields associated with the last event in each session. The only difference is that the inner join gets made on `dvce_max_tstamp` rather than `dvce_min_tstamp`.
+The same logic is used to return fields associated with the last event in each session. The only difference is that the inner join is done on `dvce_max_tstamp` rather than `dvce_min_tstamp`.
 
 {% highlight sql %}
 SELECT

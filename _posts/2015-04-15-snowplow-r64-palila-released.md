@@ -31,7 +31,7 @@ Examples of aggregated tables include:
 
 We call this process of aggregating *data modeling*. At the end of the data modeling exercise, a clean set of tables is available which makes it easier to perform analysis on the data. Easier because the data volumes are smaller, and because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
 
-<h2><a name="getting-started">2. The basic</a></h2>
+<h2><a name="getting-started">2. The basic Snowplow data model</a></h2>
 
 This release comes with a basic data model, a set of SQL queries which aggregate event-level data in Redshift into:
 
@@ -39,14 +39,7 @@ This release comes with a basic data model, a set of SQL queries which aggregate
 - A visitors table (identity stitching done)
 - A page views table
 
-In practice, what tables are produced and the fields available in each one of them, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic
-
-including different approaches to:
-
-- Sessionization
-- Identity stitching (which users across multiple channels are really the same user)
-
-
+In practice, what tables are produced and the fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic.
 
 <h2><a name="help">3. Documentation and help</a></h2>
 

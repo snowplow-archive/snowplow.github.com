@@ -16,6 +16,7 @@ Table of contents:
 1. [Why data modeling?](/blog/2015/04/15/snowplow-r64-palila-released#data-modeling)
 2. [The basic Snowplow data model](/blog/2015/04/15/snowplow-r64-palila-released#basic-model)
 3. [Implementing the data model](/blog/2015/04/15/snowplow-r64-palila-released#implementation)
+4. [SQL Runner](/blog/2015/04/15/snowplow-r64-palila-released#sql-runner)
 
 <!--more-->
 
@@ -33,45 +34,50 @@ We call this process of aggregating *data modeling*. At the end of the data mode
 
 <h2><a name="basic-model">2. The basic Snowplow data model</a></h2>
 
-This release comes with a basic data model, a set of SQL queries which aggregate event-level data in Redshift into:
+This release comes with a [basic data model][github-data-modeling], a set of SQL queries which aggregate event-level data in Redshift into:
 
 - A sessions table (using client-side sessionization)
 - A visitors table (using cookies for identity stitching)
 - A page views table
 
-Palila also comes with an updated Looker model, which is based on the same set of SQL queries. Looker users with large data volumes, or who use multiple BI tools, might benefit from moving the data modeling step (i.e. the SQL component in LookML) from Looker to Redshift. If data modeling is done in Redshift, the derived tables can be computed more efficiently (the tables don't have to be regenerated from scratch each time new events are added) and accessed by different applications.
+Palila also comes with an updated [Looker data model][github-looker], which is based on the same set of SQL queries and can be implemented and modified from the Looker UI. Looker users with large data volumes, or who use multiple BI tools, might benefit from moving the data modeling step (i.e. the SQL component in LookML) from Looker to Redshift. Data modeling in Redshift makes it possible to compute the derived tables more efficiently (the tables don't have to be regenerated from scratch each time new events are added), and different applications have access the same set of tables.
 
 Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. We therefore expect our users to customize these data models to include business-specific logic.
 
-<h2><a name="implementation">3. Implementing the data model</a></h2>
+<h2><a name="implementation">3. Implementing the Redshift data model</a></h2>
 
-The [Looker data model][github-looker] can be 
+The basic Redshift data model comes with 3 different sets of [SQL queries][github-data-modeling-sql]:
 
+- In [**full** mode][github-data-modeling-sql-full], the derived tables are recalculated from scratch (i.e. using all events) each time the pipeline runs
+- In [**incremental** mode][github-data-modeling-sql-incremental], the tables are updated using only the most recent events
+- [*Incremental-catchup*][github-data-modeling-sql-incremental-catchup] recalculates the derived tables using all events, by looping over small intervals in time (for users with large data volumes)
 
-
-The data model is usually developed in three stages.
-
-In a first step, the basic Snowplow data model is set up in so-called full mode. This creates a set of dervied tables in Redshift which are recomputed each time the pipeline runs, which allows for rapid iteration as long as date volumes are relatively small. The basic data model can be downloaded from GitHub and the underlying logic explained in more detail in the Analytics Cookbook on the Snowplow website.
-
-The basic model can then be modified to include business-specific logic. This could mean adding ecommerce fields or aggregating events in different ways, ideally joining Snowplow data with other data sets (e.g. customer data).
-
-Once the custom data model is in a stable state, i.e. all data needed to build reports has been added, the queries can be migrated from a full to an incremental mode. The incremental model updates the derived tables using only the most recent events, rather than recompute the tables each time using all events. The difference between both modes is described in more detail in the data modeling section of the Analytics Cookbook.
+The 3 modes are usually used at different stages in the implementation process. First, the basic model is set up in Redshift in full mode, or in Looker (in which case the derived tables also regenerate from scratch). The model can then be modified to include business-specific logic. Rapid iteration of the data model is possible because the derived tables are regenerated from scratch each time, as long as data volumes are not too large. Once the custom data model is in a stable state, i.e. all data needed to build reports has been added, and data volumes are so large that regenerating the derived tables becomes inefficient, the queries can be migraded from a full to an incremental mode. The migration process is described in more detail in our [analytics cookbook][cookbook-modeling].
 
 
 
+The table definitions are ...
 
 
 
-
-
-<h2><a name="help">3. SQL Runner</a></h2>
+The SQL queries
+are executed using [SQL Runner](/blog/2015/04/15/snowplow-r64-palila-released#sql-runner)
 
 
 
 
 
 
-<h2><a name="help">3. Documentation and help</a></h2>
+
+
+
+
+
+
+
+<h2><a name="sql-runner">4. SQL Runner</a></h2>
+
+<h2><a name="help">5. Documentation and help</a></h2>
 
 The data modeling step in Snowplow 64 is still very new and experimental - we’re excited to see how it plays out and look forward to the community’s feedback.
 
@@ -82,10 +88,15 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [palila]: /assets/img/blog/2015/04/palila.jpg
 
 [github-data-modeling]:		## TODO
+[github-data-modeling-sql]:	
+[github-data-modeling-sql-full]:	
+[github-data-modeling-sql-incremental]:	
+[github-data-modeling-sql-incremental-catchup]:	
 [github-looker]:			## TODO
 [github-sql-runner]: https://github.com/snowplow/sql-runner
 
 [catalog-analytics]: http://snowplowanalytics.com/analytics/catalog-analytics/overview.html
+[cookbook-modeling]: http://snowplowanalytics.com/analytics/event-dictionaries-and-data-models/data-modeling.html
 
 [r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues

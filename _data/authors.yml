@@ -52,7 +52,7 @@
   url: /authors/josh.html
   avatar: https://avatars2.githubusercontent.com/u/7984544?v=2&s=460
   spiel:   |
-      <a href="/authors/josh.html">Josh</a> is an Data Engineering Intern at Snowplow. You can find him on <a href="https://plus.google.com/104589640512405993119/posts" rel="author">Google+</a> and <a href="http://au.linkedin.com/pub/josh-beemster/81/950/929">LinkedIn</a>.
+      <a href="/authors/josh.html">Josh</a> is Data Engineer at Snowplow. You can find him on <a href="https://plus.google.com/104589640512405993119/posts" rel="author">Google+</a> and <a href="http://au.linkedin.com/pub/josh-beemster/81/950/929">LinkedIn</a>.
 
 - name: Andrew
   full_name: Andrew Curtis
@@ -61,3 +61,11 @@
   avatar: /assets/img/team/andrew.png
   spiel:   |
       <a href="/authors/andrew.html">Andrew</a> is an Data Engineering Intern at Snowplow</a>.
+
+- name: Christophe
+  full_name: Christophe Bogaert
+  github: bogaert
+  url: /authors/bogaert.html
+  avatar: /assets/img/team/christophe.png
+  spiel:   |
+      <a href="/authors/andrew.html">Christophe</a> is a Data Scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.

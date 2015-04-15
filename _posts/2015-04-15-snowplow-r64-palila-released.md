@@ -25,7 +25,6 @@ In this post, we will cover:
 
 <h2><a name="data-modeling">1. Why data modeling?</a></h2>
 
-<<<<<<< HEAD
 The data collection and enrichment process produces an event stream, a long list of packets of data where each packet represents a single event. While it is possible to do analysis directly on this event stream, it is common to:
 
 1. join Snowplow data with other data sets (e.g. customer, marketing, CMS, financial data)
@@ -81,7 +80,6 @@ Examples of aggregated tables include:
 We call this process of aggregating *data modeling*. At the end of the data modeling exercise, a clean set of tables is available, which makes it easier to perform analysis on the data. Easier because the data volumes are smaller, and because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
 
 <h2><a name="basic-model">2. The basic Snowplow data model</a></h2>
->>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 
 This release comes with a [basic data model][github-data-modeling], a set of SQL queries which aggregate event-level data in Redshift into:
 
@@ -89,7 +87,6 @@ This release comes with a [basic data model][github-data-modeling], a set of SQL
 - A visitors table (using cookies for identity stitching)
 - A page views table
 
-<<<<<<< HEAD
 This basic model is meant as an exemplar: it can be useful place for new Snowplow users to start modeling their data. In general, however, we expect data models to be pretty company-specific, reflecting the fact that:
 
 1. Different companies record different events across different channels
@@ -101,13 +98,6 @@ Palila also comes with an updated [Looker data model][github-looker], which is b
 Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. 
 
 <h2><a name="implementation">4. Implementing the Redshift data model</a></h2>
-=======
-Palila also comes with an updated [Looker data model][github-looker], which is based on the same set of SQL queries and can be implemented and modified from the Looker UI. Looker users with large data volumes, or who use multiple BI tools, might benefit from moving the data modeling step (i.e. the SQL component in LookML) from Looker to Redshift. Data modeling in Redshift makes it possible to compute the derived tables more efficiently (the tables don't have to be regenerated from scratch each time new events are added), and different applications have access the same set of tables.
-
-Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. We therefore expect our users to customize these data models to include business-specific logic.
-
-<h2><a name="implementation">3. Implementing the Redshift data model</a></h2>
->>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 
 The basic Redshift data model comes with 2 different sets of [SQL queries][github-data-modeling-sql]:
 

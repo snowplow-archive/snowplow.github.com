@@ -1,11 +1,7 @@
 ---
 layout: post
 shortenedlink: Snowplow 64 released
-<<<<<<< HEAD
 title: Snowplow 64 Palila released with support for data-models
-=======
-title: Snowplow 64 Palila released
->>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 tags: [snowplow, analytics, data modeling]
 author: Christophe
 category: Releases

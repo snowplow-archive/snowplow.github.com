@@ -65,7 +65,7 @@
 - name: Christophe
   full_name: Christophe Bogaert
   github: bogaert
-  url: /authors/bogaert.html
-  avatar: /assets/img/team/christophe.png
+  url: /authors/christophe.html
+  avatar: /assets/img/team/christophe.jpg
   spiel:   |
-      <a href="/authors/andrew.html">Christophe</a> is a Data Scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.
+      <a href="/authors/christophe.html">Christophe</a> is a Data Scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.

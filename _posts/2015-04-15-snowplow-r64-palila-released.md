@@ -7,7 +7,7 @@ author: Christophe
 category: Releases
 ---
 
-We are excited to announce the immediate availability of Snowplow 64, Palila. This is a major release which adds a new [data modeling][github-data-modeling] stage to the Snowplow pipeline.
+We are excited to announce the immediate availability of Snowplow 64, Palila. This is a major release which adds a new [data modeling][github-data-modeling] stage to the Snowplow pipeline, as well as fixes a small number of important bugs across the rest of Snowplow.
 
 In this post, we will cover:
 
@@ -17,8 +17,10 @@ In this post, we will cover:
 4. [Implementing the SQL-runner data model](/blog/2015/04/15/snowplow-r64-palila-released#implementation)
 5. [Implementing the Looker data model](/blog/2015/04/15/snowplow-r64-palila-released#looker-implementation)
 6. [SQL Runner](/blog/2015/04/15/snowplow-r64-palila-released#sql-runner)
-7. [Data modeling roadmap](/blog/2015/04/15/snowplow-r64-palila-released#roadmap)
-8. [Documentation and help](/blog/2015/04/15/snowplow-r64-palila-released#help)
+7. [Other updates in this release](/blog/2015/04/15/snowplow-r64-palila-released#other-updates)
+8. [Upgrading your Snowplow pipeline](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#upgrade)
+9. [Data modeling roadmap](/blog/2015/04/15/snowplow-r64-palila-released#roadmap)
+10. [Documentation and help](/blog/2015/04/15/snowplow-r64-palila-released#help)
 
 ![palila][palila]
 
@@ -112,9 +114,72 @@ SQL-Runner is an open source app, written in Go, that makes it easy to execute S
 
 To use SQL-Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
 
-The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL-Runner view [the repo][sql-runner]. 
+The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL-Runner pleaes view [the repo][sql-runner].
 
-<h2><a name="roadmap">7. Data modeling roadmap</a></h2>
+<h2><a name="other-updates">7. Other updates in this release</a></h2>
+
+SECTION TO COME.
+
+<div class="html">
+<h2><a name="upgrade">8. Upgrading your Snowplow pipeline</a></h2>
+</div>
+
+<div class="html">
+<h3><a name="upgrading-emretlrunner">9.1 Upgrading your EmrEtlRunner</a></h3>
+</div>
+
+You need to update EmrEtlRunner to the latest code (**0.14.0**) on GitHub:
+
+{% highlight bash %}
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout r64-palila
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment
+$ cd ../../4-storage/storage-loader
+$ bundle install --deployment
+{% endhighlight %}
+
+<div class="html">
+<h4><a name="configuring-emretlrunner">9.2 Updating EmrEtlRunner's configuration</a></h4>
+</div>
+
+From this release onwards, you must specify IAM roles for Elastic MapReduce to use. If you have not already done so, you can create these default EMR roles using the [AWS Command Line Interface] [install-aws-cli], like so:
+
+{% highlight yaml %}
+$ aws emr create-default-roles
+{% endhighlight %}
+
+Now update your EmrEtlRunner's `config.yml` file to add the default roles you just created:
+
+{% highlight yaml %}
+:emr:
+  :ami_version: 2.4.2       # Choose as per http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
+  :region: eu-west-1        # Always set this
+  :jobflow_role: EMR_EC2_DefaultRole # NEW LINE
+  :service_role: EMR_DefaultRole     # NEW LINE
+{% endhighlight %}
+
+This release also bumps the Hadoop Enrichment process to version **0.14.1**. Update `config.yml` like so:
+
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 0.14.1 # WAS 0.14.0
+{% endhighlight %}
+
+For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
+
+<div class="html">
+<h4><a name="upgrade-redshift">9.3 Updating your database</a></h4>
+</div>
+
+This release widens the `mkt_clickid` field in `atomic.events`. You need to use the appropriate migration script to update to the new table definition:
+
+* [The Redshift migration script][redshift-migration]
+* [The PostgreSQL migration script][postgres-migration]
+
+And that's it - you should be fully upgraded.
+
+<h2><a name="roadmap">9. Data modeling roadmap</a></h2>
 
 The data modeling step in Snowplow 64 is still very new and experimental — we’re excited to see how it plays out and look forward to the community’s feedback.
 
@@ -131,7 +196,7 @@ In the shorter term we also plan to extend our data-modeling documentation to co
 
 Keep checking the blog and [Analytics Cookbook][cookbook] for updates!
 
-<h2><a name="help">8. Documentation and help</a></h2>
+<h2><a name="help">10. Documentation and help</a></h2>
 
 For more details on this release, please check out the [R64 Palila Release Notes][r64-release] on GitHub.
 
@@ -148,6 +213,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [github-data-modeling-sql-full]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/full
 [github-data-modeling-sql-incremental]:	https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/incremental
 
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
 [github-sql-runner]: https://github.com/snowplow/sql-runner
 
 [setup-guide]: https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow
@@ -155,7 +222,12 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [catalog-analytics]: http://snowplowanalytics.com/analytics/catalog-analytics/overview.html
 [cookbook-modeling]: http://snowplowanalytics.com/analytics/event-dictionaries-and-data-models/data-modeling.html
 
-[r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-xxx-xxx
+[install-aws-cli]: http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+
+[redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.5.0_to_0.6.0.sql
+[postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.4.0_to_0.5.0.sql
+
+[r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-palila
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-
 [looker]: http://www.looker.com/

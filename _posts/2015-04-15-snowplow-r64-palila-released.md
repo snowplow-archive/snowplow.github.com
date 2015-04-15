@@ -95,7 +95,6 @@ The basic data model comes with 2 different sets of [SQL queries][github-data-mo
 - In [**full** mode][github-data-modeling-sql-full], the derived tables are recalculated from scratch (i.e. using all events) each time the pipeline runs
 - In [**incremental** mode][github-data-modeling-sql-incremental], the tables are updated using only the most recent events
 
-
 These two version are usually used at different stages in the development/implementation process. We recommend users start with the basic model setup in full mode. Although it is less efficient to recompute the tables from scratch each time, it is easier to iterate the business logic and underlying SQL in the data modeling process when you recompute the data from scratch. We find that users typically iterate on the models very frequently to start off with, but that this frequency decreass markedly over time.
 
 At the point where the models become relatively stable, it then becomes sensible to migrate to the incremental model. This migration can be delayed until such time that the data volume gets too big to make recomputing the tables from scratch each time practical. 
@@ -118,14 +117,20 @@ The Palila release includes both the underlying SQL and the associated playbooks
 
 <h2><a name="other-updates">7. Other updates in this release</a></h2>
 
-SECTION TO COME.
+There are three important changes in this release:
+
+1. Since 6th April 2015, all new Elastic MapReduce users have been required to use IAM roles with EMR. EmrEtlRunner did not previously support this requirement - but thanks to Elasticity author [Rob Slifka] [rslifka]'s fantastic support, EmrEtlRunner now supports IAM roles for EMR, and we require these to be used ([#1232] [issue-1232])
+2. A bug in our new useragent parsing enrichment has been causing jobs to fail with out of memory errors. This has now been fixed for the Hadoop pipeline - many thanks to community member [Dani Solà] [danisola] for identifying this so quickly ([#1616] [issue-1616]). We will fix this for the Kinesis pipeline in the next Kinesis release
+3. Dani also flagged that our new `mkt_clickid` column in `atomic.events` is too short to support Google's `gclid` parameter, which can range from 25 to 100 chars. We have widened this column in both Redshift and Postgres ([#1606] [issue-1606] and [#1603] [issue-1603] respectively)
+
+In the next section we will cover how to upgrade Snowplow to include these fixes.
 
 <div class="html">
 <h2><a name="upgrade">8. Upgrading your Snowplow pipeline</a></h2>
 </div>
 
 <div class="html">
-<h3><a name="upgrading-emretlrunner">9.1 Upgrading your EmrEtlRunner</a></h3>
+<h3><a name="upgrading-emretlrunner">8.1 Upgrading your EmrEtlRunner</a></h3>
 </div>
 
 You need to update EmrEtlRunner to the latest code (**0.14.0**) on GitHub:
@@ -140,7 +145,7 @@ $ bundle install --deployment
 {% endhighlight %}
 
 <div class="html">
-<h4><a name="configuring-emretlrunner">9.2 Updating EmrEtlRunner's configuration</a></h4>
+<h4><a name="configuring-emretlrunner">8.2 Updating EmrEtlRunner's configuration</a></h4>
 </div>
 
 From this release onwards, you must specify IAM roles for Elastic MapReduce to use. If you have not already done so, you can create these default EMR roles using the [AWS Command Line Interface] [install-aws-cli], like so:
@@ -169,13 +174,13 @@ This release also bumps the Hadoop Enrichment process to version **0.14.1**. Upd
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
 <div class="html">
-<h4><a name="upgrade-redshift">9.3 Updating your database</a></h4>
+<h4><a name="upgrade-redshift">8.3 Updating your database</a></h4>
 </div>
 
 This release widens the `mkt_clickid` field in `atomic.events`. You need to use the appropriate migration script to update to the new table definition:
 
-* [The Redshift migration script][redshift-migration]
-* [The PostgreSQL migration script][postgres-migration]
+* [The Redshift migration script] [redshift-migration]
+* [The PostgreSQL migration script] [postgres-migration]
 
 And that's it - you should be fully upgraded.
 
@@ -185,8 +190,8 @@ The data modeling step in Snowplow 64 is still very new and experimental — we�
 
 There are a number of ways that we can improve the data-modeling functionality - these are just some of our ideas, and we've love to bounce them off you, our users:
 
-1. Move the data modeling out of SQL (and Redshift in particular) into EMR (for batch-based processing) or Spark streaming (for users on the real-time pipeline). This would take a lot of load of the database, and mean that we could express the data modeling in a better suited language. We've been impressed by users who've shown us how they've performed this process in tools including [Scalding][scalding] and [Cascalog][cascalog].
-2. Building on the above, we're very interested to figure out what the best way is of expressing the data modeling process. Potentially we could develop a DSL for this. Ideally, we would want to make it possible to express once, and then implement in a range of environments (i.e. stream processing, batch-processing and in-database).
+1. Move the data modeling out of SQL (and Redshift in particular) into EMR (for batch-based processing) or Spark streaming (for users on the real-time pipeline). This would take a lot of load of the database, and mean that we could express the data modeling in a better suited language. We've been impressed by users who've shown us how they've performed this process in tools including [Scalding][scalding] and [Cascalog][cascalog]
+2. Building on the above, we're very interested to figure out what the best way is of expressing the data modeling process. Potentially we could develop a DSL for this. Ideally, we would want to make it possible to express once, and then implement in a range of environments (i.e. stream processing, batch-processing and in-database)
 
 In the shorter term we also plan to extend our data-modeling documentation to cover common design patterns, including:
 
@@ -227,9 +232,17 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.5.0_to_0.6.0.sql
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.4.0_to_0.5.0.sql
 
+[rslifka]: https://github.com/rslifka
+[danisola]: https://github.com/danisola
+
+[issue-1603]: https://github.com/snowplow/snowplow/issues/1603
+[issue-1606]: https://github.com/snowplow/snowplow/issues/1606
+[issue-1616]: https://github.com/snowplow/snowplow/issues/1616
+[issue-1232]: https://github.com/snowplow/snowplow/issues/1232
+
 [r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-palila
 [issues]: https://github.com/snowplow/snowplow/issues
-[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [looker]: http://www.looker.com/
 [data-modeling-image]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png
 [sql-runner]: https://github.com/snowplow/sql-runner

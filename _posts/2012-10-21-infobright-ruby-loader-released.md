@@ -1,5 +1,5 @@
 ---
-layout: blog-post
+layout: post
 shortenedlink: infobright-ruby-loader-released
 title: Infobright Ruby Loader Released
 tags: [inforbright, ruby, data ingest]

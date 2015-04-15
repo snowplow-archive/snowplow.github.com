@@ -1,5 +1,5 @@
 ---
-layout: tracker
+layout: page
 category: homepage
 title: Snowplow No-JS Tracker
 permalink: no-js-tracker.html

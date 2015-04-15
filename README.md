@@ -14,7 +14,7 @@ The content covers:
 4. How to perform analyses using Snowplow
 5. Overview of the Professional Services we offer around Snowplow
 
-All content is copyright (c) 2012-2014 Snowplow Analytics Ltd and not to be reused without permission. 
+All content is copyright (c) 2012-2015 Snowplow Analytics Ltd and not to be reused without permission. 
 
 
 ## Adding new content and editing existing content
@@ -124,7 +124,7 @@ That will take about 15 minutes to run initially. Once your VM is ready, you can
 
 	$ vagrant ssh
 	$ cd /vagrant
-	$ jekyll serve
+	$ bundle exec jekyll serve
 
 In your host machine, open a browser and navigate to `http://localhost:4001` and bingo! There's the website!
 
@@ -137,5 +137,3 @@ When you are happy with the updates:
 2. Push the master branch to origin
 
 The good people at Github will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [Github pages] (http://pages.github.com/).
-
-[dev-environment]: https://github.com/snowplow/dev-environment

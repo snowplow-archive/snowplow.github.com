@@ -176,12 +176,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues
-<<<<<<< HEAD
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-
 [looker]: http://www.looker.com/
 [data-modeling-image]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png
 [sql-runner]: https://github.com/snowplow/sql-runner
 [cookbook]: /analytics/index.html
-=======
-[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
->>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c

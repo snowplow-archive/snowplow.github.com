@@ -1,7 +1,11 @@
 ---
 layout: post
 shortenedlink: Snowplow 64 released
+<<<<<<< HEAD
 title: Snowplow 64 Palila released with support for data-models
+=======
+title: Snowplow 64 Palila released
+>>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 tags: [snowplow, analytics, data modeling]
 author: Christophe
 category: Releases
@@ -25,6 +29,7 @@ In this post, we will cover:
 
 <h2><a name="data-modeling">1. Why data modeling?</a></h2>
 
+<<<<<<< HEAD
 The data collection and enrichment process produces an event stream, a long list of packets of data where each packet represents a single event. While it is possible to do analysis directly on this event stream, it is common to:
 
 1. join Snowplow data with other data sets (e.g. customer, marketing, CMS, financial data)
@@ -68,6 +73,19 @@ The process works as follows:
 The process using our [SQL-Runner] [sql-runner] application, described [later](#sql-runner) in this blog post.
 
 <h2><a name="basic-model">3. The basic Snowplow data model</a></h2>
+=======
+The data collection and enrichment process produces an event stream, a long list of packets of data where each packet represents a single event. While it is possible to do analysis on this event stream, it is common to aggregate event-level data into smaller data sets and join it with other data sets (e.g. customer data, product data, marketing data or financial data). These smaller data sets are easier to understand and faster to run queries against. It also ensures that all analysis done against these data sets uses the same business logic (i.e. how events are aggregated into, for example, sessions).
+
+Examples of aggregated tables include:
+
+- User-level tables
+- Session-level tables
+- Product or content-level tables ([catalog analytics][catalog-analytics])
+
+We call this process of aggregating *data modeling*. At the end of the data modeling exercise, a clean set of tables is available, which makes it easier to perform analysis on the data. Easier because the data volumes are smaller, and because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
+
+<h2><a name="basic-model">2. The basic Snowplow data model</a></h2>
+>>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 
 This release comes with a [basic data model][github-data-modeling], a set of SQL queries which aggregate event-level data in Redshift into:
 
@@ -75,6 +93,7 @@ This release comes with a [basic data model][github-data-modeling], a set of SQL
 - A visitors table (using cookies for identity stitching)
 - A page views table
 
+<<<<<<< HEAD
 This basic model is meant as an exemplar: it can be useful place for new Snowplow users to start modeling their data. In general, however, we expect data models to be pretty company-specific, reflecting the fact that:
 
 1. Different companies record different events across different channels
@@ -86,11 +105,19 @@ Palila also comes with an updated [Looker data model][github-looker], which is b
 Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. 
 
 <h2><a name="implementation">4. Implementing the Redshift data model</a></h2>
+=======
+Palila also comes with an updated [Looker data model][github-looker], which is based on the same set of SQL queries and can be implemented and modified from the Looker UI. Looker users with large data volumes, or who use multiple BI tools, might benefit from moving the data modeling step (i.e. the SQL component in LookML) from Looker to Redshift. Data modeling in Redshift makes it possible to compute the derived tables more efficiently (the tables don't have to be regenerated from scratch each time new events are added), and different applications have access the same set of tables.
+
+Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. We therefore expect our users to customize these data models to include business-specific logic.
+
+<h2><a name="implementation">3. Implementing the Redshift data model</a></h2>
+>>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c
 
 The basic Redshift data model comes with 2 different sets of [SQL queries][github-data-modeling-sql]:
 
 - In [**full** mode][github-data-modeling-sql-full], the derived tables are recalculated from scratch (i.e. using all events) each time the pipeline runs
 - In [**incremental** mode][github-data-modeling-sql-incremental], the tables are updated using only the most recent events
+
 
 These 2 modes are usually used at different stages in the implementation process. First, the basic model is set up in Redshift in full mode. Although it is less efficient to recompute the tables from scratch each time, it is easier to iterate the business logic and underlying SQL in the data modeling process when you recompute the data from scratch. We find that users typically iterate on the models very frequently to start off with, but that this frequency decreass markedly over time.
 
@@ -149,8 +176,12 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-xxx-xxx
 [issues]: https://github.com/snowplow/snowplow/issues
+<<<<<<< HEAD
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-
 [looker]: http://www.looker.com/
 [data-modeling-image]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png
 [sql-runner]: https://github.com/snowplow/sql-runner
 [cookbook]: /analytics/index.html
+=======
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+>>>>>>> 665f54386479c981a2963ad1d426a262527f9a9c

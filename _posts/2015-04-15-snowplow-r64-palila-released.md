@@ -18,7 +18,7 @@ In this post, we will cover:
 5. [Implementing the Looker data model](/blog/2015/04/15/snowplow-r64-palila-released#looker-implementation)
 6. [SQL Runner](/blog/2015/04/15/snowplow-r64-palila-released#sql-runner)
 7. [Other updates in this release](/blog/2015/04/15/snowplow-r64-palila-released#other-updates)
-8. [Upgrading your Snowplow pipeline](/blog/2015/04/02/snowplow-r63-red-cheeked-cordon-bleu-released#upgrade)
+8. [Upgrading your Snowplow pipeline](/blog/2015/04/15/snowplow-r64-palila-released#upgrade)
 9. [Data modeling roadmap](/blog/2015/04/15/snowplow-r64-palila-released#roadmap)
 10. [Documentation and help](/blog/2015/04/15/snowplow-r64-palila-released#help)
 

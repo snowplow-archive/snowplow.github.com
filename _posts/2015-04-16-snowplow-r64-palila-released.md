@@ -11,16 +11,16 @@ We are excited to announce the immediate availability of Snowplow 64, Palila. Th
 
 In this post, we will cover:
 
-1. [Why model your Snowplow data?](/blog/2015/04/15/snowplow-r64-palila-released#data-modeling)
-2. [Understanding how the data modeling takes place](/blog/2015/04/15/snowplow-r64-palila-released#mechanics)
-3. [The basic Snowplow data model](/blog/2015/04/15/snowplow-r64-palila-released#basic-model)
-4. [Implementing the SQL-runner data model](/blog/2015/04/15/snowplow-r64-palila-released#implementation)
-5. [Implementing the Looker data model](/blog/2015/04/15/snowplow-r64-palila-released#looker-implementation)
-6. [SQL Runner](/blog/2015/04/15/snowplow-r64-palila-released#sql-runner)
-7. [Other updates in this release](/blog/2015/04/15/snowplow-r64-palila-released#other-updates)
-8. [Upgrading your Snowplow pipeline](/blog/2015/04/15/snowplow-r64-palila-released#upgrade)
-9. [Data modeling roadmap](/blog/2015/04/15/snowplow-r64-palila-released#roadmap)
-10. [Documentation and help](/blog/2015/04/15/snowplow-r64-palila-released#help)
+1. [Why model your Snowplow data?](/blog/2015/04/16/snowplow-r64-palila-released#data-modeling)
+2. [Understanding how the data modeling takes place](/blog/2015/04/16/snowplow-r64-palila-released#mechanics)
+3. [The basic Snowplow data model](/blog/2015/04/16/snowplow-r64-palila-released#basic-model)
+4. [Implementing the SQL-runner data model](/blog/2015/04/16/snowplow-r64-palila-released#implementation)
+5. [Implementing the Looker data model](/blog/2015/04/16/snowplow-r64-palila-released#looker-implementation)
+6. [SQL Runner](/blog/2015/04/16/snowplow-r64-palila-released#sql-runner)
+7. [Other updates in this release](/blog/2015/04/16/snowplow-r64-palila-released#other-updates)
+8. [Upgrading your Snowplow pipeline](/blog/2015/04/16/snowplow-r64-palila-released#upgrade)
+9. [Data modeling roadmap](/blog/2015/04/16/snowplow-r64-palila-released#roadmap)
+10. [Documentation and help](/blog/2015/04/16/snowplow-r64-palila-released#help)
 
 ![palila][palila]
 

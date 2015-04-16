@@ -1,7 +1,7 @@
 ---
 layout: post
 shortenedlink: Snowplow 64 released
-title: Snowplow 64 Palila released with support for data-models
+title: Snowplow 64 Palila released with support for data models
 tags: [snowplow, analytics, data modeling]
 author: Christophe
 category: Releases
@@ -188,12 +188,12 @@ And that's it - you should be fully upgraded.
 
 The data modeling step in Snowplow 64 is still very new and experimental — we’re excited to see how it plays out and look forward to the community’s feedback.
 
-There are a number of ways that we can improve the data-modeling functionality - these are just some of our ideas, and we've love to bounce them off you, our users:
+There are a number of ways that we can improve the data modeling functionality - these are just some of our ideas, and we've love to bounce them off you, our users:
 
 1. Move the data modeling out of SQL (and Redshift in particular) into EMR (for batch-based processing) or Spark streaming (for users on the real-time pipeline). This would take a lot of load of the database, and mean that we could express the data modeling in a better suited language. We've been impressed by users who've shown us how they've performed this process in tools including [Scalding][scalding] and [Cascalog][cascalog]
 2. Building on the above, we're very interested to figure out what the best way is of expressing the data modeling process. Potentially we could develop a DSL for this. Ideally, we would want to make it possible to express once, and then implement in a range of environments (i.e. stream processing, batch-processing and in-database)
 
-In the shorter term we also plan to extend our data-modeling documentation to cover common design patterns, including:
+In the shorter term we also plan to extend our data modeling documentation to cover common design patterns, including:
 
 1. Cross platform identity stitching for logged-in users
 2. Custom sessionization logic, including for users tracked from mobile apps and marrying server and client-side session data

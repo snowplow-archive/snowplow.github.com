@@ -117,11 +117,12 @@ The Palila release includes both the underlying SQL and the associated playbooks
 
 <h2><a name="other-updates">7. Other updates in this release</a></h2>
 
-There are three important changes in this release:
+There are four important changes in this release:
 
 1. Since 6th April 2015, all new Elastic MapReduce users have been required to use IAM roles with EMR. EmrEtlRunner did not previously support this requirement - but thanks to Elasticity author [Rob Slifka] [rslifka]'s fantastic support, EmrEtlRunner now supports IAM roles for EMR, and we require these to be used ([#1232] [issue-1232])
 2. A bug in our new useragent parsing enrichment has been causing jobs to fail with out of memory errors. This has now been fixed for the Hadoop pipeline - many thanks to community member [Dani Solà] [danisola] for identifying this so quickly ([#1616] [issue-1616]). We will fix this for the Kinesis pipeline in the next Kinesis release
 3. Dani also flagged that our new `mkt_clickid` column in `atomic.events` is too short to support Google's `gclid` parameter, which can range from 25 to 100 chars. We have widened this column in both Redshift and Postgres ([#1606] [issue-1606] and [#1603] [issue-1603] respectively)
+4. Thanks to community member Morten Petersen for spotting that r63's Postgres migration script was missing its `user_id` field. This has now been fixed ([#1620] [issue-1620])
 
 In the next section we will cover how to upgrade Snowplow to include these fixes.
 
@@ -238,6 +239,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [issue-1603]: https://github.com/snowplow/snowplow/issues/1603
 [issue-1606]: https://github.com/snowplow/snowplow/issues/1606
 [issue-1616]: https://github.com/snowplow/snowplow/issues/1616
+[issue-1620]: https://github.com/snowplow/snowplow/issues/1620
 [issue-1232]: https://github.com/snowplow/snowplow/issues/1232
 
 [r64-release]: https://github.com/snowplow/snowplow/releases/tag/r64-palila

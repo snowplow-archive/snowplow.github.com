@@ -539,7 +539,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [r63-kinesis-changes]: /assets/img/blog/2015/03/r63-kinesis-updates.png
 
 [kinesis-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r61_red_cheeked_cordon_bleu.zip
-[r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-xxx-xxx
+[r63-release]: https://github.com/snowplow/snowplow/releases/tag/r63-red-cheeked-cordon-bleu
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [tropical-parulas]: /assets/img/blog/2015/03/tropical-parulas.jpg

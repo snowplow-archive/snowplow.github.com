@@ -14,7 +14,7 @@ In this post, we will cover:
 1. [Why model your Snowplow data?](/blog/2015/04/16/snowplow-r64-palila-released#data-modeling)
 2. [Understanding how the data modeling takes place](/blog/2015/04/16/snowplow-r64-palila-released#mechanics)
 3. [The basic Snowplow data model](/blog/2015/04/16/snowplow-r64-palila-released#basic-model)
-4. [Implementing the SQL-runner data model](/blog/2015/04/16/snowplow-r64-palila-released#implementation)
+4. [Implementing the SQL Runner data model](/blog/2015/04/16/snowplow-r64-palila-released#implementation)
 5. [Implementing the Looker data model](/blog/2015/04/16/snowplow-r64-palila-released#looker-implementation)
 6. [SQL Runner](/blog/2015/04/16/snowplow-r64-palila-released#sql-runner)
 7. [Other updates in this release](/blog/2015/04/16/snowplow-r64-palila-released#other-updates)
@@ -68,7 +68,7 @@ The process works as follows:
 2. A set of SQL statements are run on the incremental data, that effectively update a set of aggregate tables in the `snowplow_pivots` schema
 3. On completion of those SQL statements, the data is moved from the `snowplow_landing` schema to the `atomic` schema. (This is done directly via SQL.)
 
-The process using our [SQL-Runner] [sql-runner] application, described [later](#sql-runner) in this blog post.
+The process using our [SQL Runner] [sql-runner] application, described [later](#sql-runner) in this blog post.
 
 <h2><a name="basic-model">3. The basic Snowplow data model</a></h2>
 
@@ -88,7 +88,7 @@ Palila also comes with an updated [Looker data model][github-looker], which is b
 
 Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. 
 
-<h2><a name="implementation">4. Implementing the SQL-runner data model</a></h2>
+<h2><a name="implementation">4. Implementing the SQL Runner data model</a></h2>
 
 The basic data model comes with 2 different sets of [SQL queries][github-data-modeling-sql]:
 
@@ -109,11 +109,11 @@ It should be reasonably straightforward to copy the model into your LookML repos
 
 <h2><a name="sql-runner">6. SQL Runner</a></h2>
 
-SQL-Runner is an open source app, written in Go, that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
+SQL Runner is an open source app, written in Go, that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
 
-To use SQL-Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
+To use SQL Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
 
-The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL-Runner pleaes view [the repo][sql-runner].
+The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL Runner pleaes view [the repo][sql-runner].
 
 <h2><a name="other-updates">7. Other updates in this release</a></h2>
 

@@ -24,11 +24,13 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 ## Vacancies
 
-1. [Data pipeline engineers](#data-pipeline-engineer)
-2. [Business analyst / data scientist](#business-analyst-data-scientist)
+1. [Data pipeline engineering interns](#data-pipeline-engineer) - 1-2
+2. [Data scientist interns](#business-analyst-data-scientist) - 1-2
 
 
 <h2><a name="data-pipeline-engineer">Data pipeline engineers</a></h2>
+
+We are looking for 1-2 data pipeline engineers to join our [open source internship program][summer-2015-blog-post].
 
 * Work with us to build the best-in-class event analytics platform
 * Our open source technology stack includes Hadoop, Kinesis, Kafka, Samza, Cascading, Scalding, Scala, Javascript, Ruby, Python (see [our repo](https://github.com/snowplow) for details)
@@ -37,11 +39,17 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 
-<h2><a name="business-analyst-data-scientist">Business analysts and data scientists</a></h2>
+<h2><a name="business-analyst-data-scientist">Data scientists</a></h2>
 
-* Work with us and our clients to do incredible things with our rich, event-level data set
-* Deliver analyses at the cutting edge of digital analytics
+We are looking for 1-2 data scientists to join us for internships this summer. There are a number of prospective projects we are interested in pursuing - these might include:
+
+* Developing approaches to marketing attribution
+* Building real-time dashboards and reports using Spark Streaming and D3.js
+* Experimenting with real-time behavioral segmentation - again using Spark Streaming
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
+
+
+[summer-2015-blog-post]: /blog/2015/04/09/announcing-our-summer-internship-program/

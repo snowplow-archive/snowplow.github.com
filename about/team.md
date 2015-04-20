@@ -36,8 +36,7 @@ weight: 2
 	<div class="span6">
 		<h3>Josh Beemster <small>Data engineer</small></h3><br>
 		<img src="/assets/img/blog/2015/02/josh-beemster.png" class="img-rounded" />
-		<br>
-		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online. At Snowplow Josh is cultivating his deep love of computers, a love cultivated not only through his building of data pipelines, but also his studies in Computer Sciences at Charles Sturt University. When Josh isn't studying or working, he can often be found building computers or playing games on them. On the rare occasions he's not at his computer, he's most likely snowboarding or travelling. 
+		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online. At Snowplow Josh is cultivating his deep love of computers, a love cultivated not only through his building of data pipelines, but also his studies in Computer Sciences at Charles Sturt University. When Josh isn't studying or working, he can often be found building computers or playing games on them. On the rare occasions he's not at his computer, he's most likely snowboarding or travelling. </p>
 		<p>At Snowplow, Josh has trained in the arts of Scala, Java and PHP.</p>
 	</div>
 </div>
@@ -51,4 +50,7 @@ weight: 2
 		<p>At Google Christophe first got a taste for big data processing, using both <a href="http://research.google.com/pubs/pub36632.html">Dremel</a> and R - something he's built on at Snowplow developign the <a href="/analytics/event-dictionaries-and-data-models/data-modeling.html">data modeling</a> section in the data pipeline and porting it to <a href="https://spark.apache.org/">Spark</a>.</p>
 		<p>When he's not practicing data science, Christophe enjoys cooking, photography, skiing and rock climbing.</p>
 	</div>
+	<div class="span6">
+	</div>
 </div>
+

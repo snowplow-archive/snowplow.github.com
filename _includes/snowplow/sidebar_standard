@@ -1,4 +1,4 @@
-<ul class="nav nav-list">
+<ul class="nav nav-pills nav-stacked">
   <!-- If we are in the analytics section, we need to loop through each sub_group and display the appropriate side menu items -->
 
 

@@ -9,3 +9,9 @@ h1 small{font-size:20px;}
 h2 small{font-size:18px;}
 h3 small{font-size:16px;}
 h4 small{font-size:14px;}
+/* Make images responsive by default */
+img {
+      display: block;
+      height: auto;
+      max-width: 100%;
+} 

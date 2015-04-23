@@ -11,12 +11,12 @@ weight: 4
 Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open Source
 
 <div class="row">
-	<div class="offset1 span5">
+	<div class="col-md-offset-1 col-xs-5">
 		<h4><a href="#saas">Snowplow as a Service</a></h4>
 		<p>Have the Snowplow team setup and run your Snowplow data pipeline for you.</p>
 
 	</div>
-	<div class="span5">
+	<div class="col-xs-5">
 		<h4><a href="#os">Snowplow Open Source</a></h4>
 		<p>Snowplow is open source. Download, setup and run the Snowplow Event Analytics Platform yourself.</p>
 	</div>
@@ -31,10 +31,10 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 <h4 class="text-info">Available as a <a href="#managed">managed</a> or <a href="#hosted">hosted service</a></h4> 
 
 <div class="row" id="managed">
-	<div class="offset1 span2">
+	<div class="col-md-offset-1 col-xs-2">
 		<h4>Managed service</h4>
 	</div>
-	<div class="span9" id="managed">
+	<div class="col-xs-9" id="managed">
 		<ul>
 			<li>We setup Snowplow on <strong><em>your</em></strong> own AWS account</li>
 			<li>We take care of running your data pipeline for you</li>
@@ -43,10 +43,10 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 	</div>
 </div>
 <div class="row" id="hosted">
-	<div class="offset1 span2">
+	<div class="col-md-offset-1 col-xs-2">
 		<h4>Hosted service</h4>
 	</div>
-	<div class="span9">
+	<div class="col-xs-9">
 		<ul>
 			<li>We setup Snowplow on <strong><em>our</em></strong> own AWS account</li>
 			<li>We take care of running your data pipeline for you</li>
@@ -58,10 +58,10 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 <h4 class="text-info">Pricing</h4> 
 
 <div class="row">
-	<div class="offset1 span2">
+	<div class="col-md-offset-1 col-xs-2">
 		<h4>Managed service</h4>
 	</div>
-	<div class="span9">
+	<div class="col-xs-9">
 		<ul>
 			<li>Free setup with 12 month contract, £10,000 otherwise</li>
 			<li>£750 per month</li>
@@ -69,10 +69,10 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 	</div>
 </div>
 <div class="row">
-	<div class="offset1 span2">
+	<div class="col-md-offset-1 col-xs-2">
 		<h4>Hosted service</h4>
 	</div>
-	<div class="span9">
+	<div class="col-xs-9">
 		<ul>
 			<li>Less than 10M events per month: £750</li>
 			<li>10M - 100M events per month: £1500</li>
@@ -86,13 +86,13 @@ Snowplow is available in two flavours: Snowplow as a Service, and Snowplow Open 
 
 
 <div class="row">
-	<div class="span3 offset1">
+	<div class="col-xs-3 col-md-offset-1">
 		<a href="/product/sign-up-for-snowplow-as-a-service.html"><button class="btn btn-success btn-primary" type="button">Sign up</button></a>
 	</div>
-	<div class="span3">
+	<div class="col-xs-3">
 		<a href="/product/free-trial.html"><button class="btn btn-success" type="button">Free trial</button></a>
 	</div>
-	<div class="span3">
+	<div class="col-xs-3">
 		<a href="/about/index.html"><button class="btn btn-success" type="button">Get in touch</button></a>
 	</div>
 </div>
@@ -106,7 +106,7 @@ Support available via our [forum] [forum].
 <h4 class="text-info">Interested in Snowplow Open Source?</h4>
 
 <div class="row">
-	<div class="offset1 span4">
+	<div class="col-md-offset-1 col-xs-4">
 		<a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a>
 	</div>
 </div>

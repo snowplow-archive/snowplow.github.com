@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+
+<div class="row">
+  <!-- If page is homepage or pricing page render without side bar i.e. just contents, taking up full 12 columns -->
+  {% if page.group == 'homepage' %}
+  <div class="col-xs-12">
+    {{ content }}
+  </div>
+  {% elsif page.url contains 'pricing' %}
+  <div class="col-xs-12">
+    {{ content }}
+  </div>
+  <!-- If blog page or author page render blog side bar -->
+  {% elsif page.url contains 'blog' %}
+  <div class="col-xs-9">
+  	{{ content }}
+  </div>
+  <div class="col-xs-3">
+  	{% include snowplow/sidebar_blog %}
+  </div>
+
+  {% else %}
+  <!-- otherwise render standard sidebar -->
+  <div class="col-xs-9">
+  	{{ content }}
+  </div>
+  <div class="col-xs-3">
+  	<!-- Standard sidebar -->
+  	{% assign pages_list = site.pages %}  
+    {% assign group = page.group %} 
+    {% assign sub_group = page.sub_group %} 
+    {% include snowplow/sidebar_standard %}
+  </div>
+</div>

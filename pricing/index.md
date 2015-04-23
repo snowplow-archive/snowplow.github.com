@@ -79,45 +79,45 @@ Notes:
     <tbody>
     	<tr>
     		<td>Snowplow data pipeline setup</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Ongoing instrumentation and monitoring of your Snowplow data pipeline</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>SLA</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Proactive monitoring of the data pipeline, including identifying and addressing issues that arise</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Support developing and evolving the event dictionary, including schema definitions and Iglu setup</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Data modelling and BI tool integration support</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Your data on your own AWS account</td>
-    		<td><i class="icon-ok"></i></td>
-    		<td><i class="icon-remove"></i></td>
-    		<td><i class="icon-ok"></i></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Technical support</td>

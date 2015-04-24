@@ -42,6 +42,10 @@ Different types of analysis lend themselves to different types of analytics tool
 * Data mining and statistical tools like [R] [r] and [Python / Pandas] [python]
 * Spreadsheets like [Excel] [excel] and [Google Sheets] [google-docs]
 
+## Understand the value of warehousing your web, mobile and other event data?
+
+Then [read on][best-datawarehouse] to find out why Snowplow is [the best way to warehouse your data][best-datawarehouse].
+
 [looker]: http://www.looker.com
 [tableau]:http://www.tableau.com/
 [mode]: https://modeanalytics.com/
@@ -49,3 +53,4 @@ Different types of analysis lend themselves to different types of analytics tool
 [python]: https://www.python.org/
 [excel]: https://products.office.com/en-us/excel
 [google-docs]: https://docs.google.com/spreadsheets/u/0/
+[best-datawarehouse]: the-best-event-data-warehouse.html

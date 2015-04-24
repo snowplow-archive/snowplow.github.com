@@ -18,7 +18,7 @@ See what becomes possible when you have direct access to your granular, event-le
 * We provide you with credentials so you can access your data in our own Amazon Redshift cluster
 * You plug in the analysis tools of your choice so you can see what is possible with your data
 * We can also, under certain circumstances, offer you a [Looker] [looker] trial on top of your Snowplow data, so you can see how the combination of Snowplow and Looker gives business users unprecedented flexibility to explore and mine your event-level data.
-* If you sign-up for [Snowplow as a Service] [snowplow-as-a-service], we will migrate your trial data to your production account for free
+* If you sign-up for the Managed Service, we will migrate your trial data to your production account for free
 
 ## Sign up today
 

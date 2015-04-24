@@ -3,7 +3,7 @@ layout: page
 group: product-hidden
 title: Sign up for Snowplow as a Service
 shortened-link: Snowplow as a Service
-weight: 6
+weight: 16
 ---
 
 # Sign up for Snowplow as a Service

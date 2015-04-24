@@ -22,6 +22,7 @@
 
 
 	<li class="panel-title">Useful links</li>
-	<li><a href="/blog/atom.xml">Atom feed</a></li>
+	<li><a href="/atom.xml">Atom feed</a></li>
+	<li><a href="/rss.xml">RSS feed</a></li>
 </ul>
 

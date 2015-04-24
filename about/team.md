@@ -28,13 +28,13 @@ weight: 2
 
 <div class="row">
 	<div class="col-xs-6">
-		<h3>Fred Blundun <small>Data engineer</small></h3><br>
+		<h3>Fred Blundun <small>Data Engineer</small></h3><br>
 		<img src="/assets/img/team/fred.png" class="img-rounded" />
 		<p>Fred joins the Snowplow engineering team fresh out of Trinity College, Cambridge University, where he studied Mathematics, specializing in Graph Theory, Logic and Sets and Number Theory. Since finishing his studies, Fred has discovered a love of coding and at Snowplow has thrown himself into Javascript, Ruby and Scala with gusto.</p>
 		<p>When Fred's not building data pipelines, he can often be found playing board games (chess, Shogi and Go) or juggling. Don't mess with Fred - he was Captain of the shooting team at Westminster School.</p>
 	</div>
 	<div class="col-xs-6">
-		<h3>Josh Beemster <small>Data engineer</small></h3><br>
+		<h3>Josh Beemster <small>Data Engineer</small></h3><br>
 		<img src="/assets/img/blog/2015/02/josh-beemster.png" class="img-rounded" />
 		<p>Josh joined the Snowplow engineering team on his arrival in Europe from Sydney Australia, where he was a Usability Practioner at Appliances Online. At Snowplow Josh is cultivating his deep love of computers, a love cultivated not only through his building of data pipelines, but also his studies in Computer Sciences at Charles Sturt University. When Josh isn't studying or working, he can often be found building computers or playing games on them. On the rare occasions he's not at his computer, he's most likely snowboarding or travelling. </p>
 		<p>At Snowplow, Josh has trained in the arts of Scala, Java and PHP.</p>
@@ -43,7 +43,7 @@ weight: 2
 
 <div class="row">
 	<div class="col-xs-6">
-		<h3>Christophe Bogeart <small>Data scientist</small></h3><br>
+		<h3>Christophe Bogeart <small>Data Scientist</small></h3><br>
 		<img src="/assets/img/team/christophe.jpg" class="img-rounded" />
 		<p>Christophe has joined the Snowplow team after completing a Data Analysis internship at <a href="http://www.songkick.com/">Songkick</a> and an MSc in Management at the London School of Economics.</p>
 		<p>Hailing from Belgium, Christophe graduated with an MSc in Theoretical Physics from the University of Leuven, before coming to London study Management and complete an internship in Sales Finance at Google.</p>

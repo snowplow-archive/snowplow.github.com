@@ -77,7 +77,10 @@ Because the Snowplow pipeline is built in a linearly scalable way, and runs on A
 * No 'black-boxes' in your data processing. We are completely transparent about how your data is handled
 * No lock-in. All your data is on your own infrastruture. All the code base is available to you under the [Apache 2 License][apache-2]
 
+## Interested?
 
+* Find out [who uses Snowplow today] [users]
+* Learn how to [get started yourself] [get-started]
 
 [elasticsearch]: https://www.elastic.co/
 [redshift]: http://aws.amazon.com/redshift/
@@ -85,3 +88,7 @@ Because the Snowplow pipeline is built in a linearly scalable way, and runs on A
 [apache-2]: https://www.apache.org/licenses/LICENSE-2.0
 [trackers]: https://github.com/snowplow/?utf8=%E2%9C%93&query=tracker
 [webhooks]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/
+
+[users]: who-uses-snowplow.html
+[get-started]: get-started.html
+[real-time]: snowplow-realtime.html

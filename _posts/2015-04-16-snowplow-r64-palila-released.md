@@ -42,11 +42,11 @@ This serves three purposes:
 2. **It makes querying more efficient**. The aggregate tables are typically simpler to compose queries against, and can be integrated directly into a business intelligence or pivoting tool
 3. **It makes querying faster** because the aggregate data sets are smaller than the event-level data, with `distkeys` and `sortkeys` optimized to support fast joins.
 
-We call this process *data modeling*. 
+We call this process *data modeling*.
 
 The data modeling process will be very familiar to existing Snowplow users who are also using [Looker][looker]. That is because Looker provides a powerful and flexible framework to enable users to develop and iterate on their data models. Indeed, working with joint Snowplow-Looker customers has been very helpful in driving our thinking about how best to perform data modeling.
 
-It should also be familiar to many other Snowplow users. We've worked with a number of Snowplow clients who do not use Looker, and nearly all of them end up creating aggregate tables to power queries. 
+It should also be familiar to many other Snowplow users. We've worked with a number of Snowplow clients who do not use Looker, and nearly all of them end up creating aggregate tables to power queries.
 
 In spite of Looker's great data modeling functionality, there are a number of reasons we chose to make data modeling a core step in the Snowplow pipeline:
 
@@ -58,7 +58,7 @@ So this release offers something for Looker and non-Looker customers alike.
 
 <h2><a name="mechanics">2. Understanding how the data modeling takes place</a></h2>
 
-The data modeling takes place in the datawarehouse, once new data has been loaded by the StorageLoader. 
+The data modeling takes place in the data warehouse, once new data has been loaded by the StorageLoader.
 
 ![snowplow-data-pipeline][data-modeling-image]
 
@@ -82,11 +82,11 @@ This basic model is meant as an exemplar: it can be useful place for new Snowplo
 
 1. Different companies record different events across different channels
 2. Different companies track the state of different entities over time
-3. Different companeis have different business questions they want to ask of the data
+3. Different companies have different business questions they want to ask of the data
 
-Palila also comes with an updated [Looker data model][github-looker], which is based on the same set of SQL queries and can be implemented and modified from the Looker UI. 
+Palila also comes with an updated [Looker data model][github-looker], which is based on the same set of SQL queries and can be implemented and modified from the Looker UI.
 
-Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical. 
+Both models make minimal assumptions about the internal business logic. What tables are produced and what fields available in each one of them, varies widely between companies in different sectors, and surprisingly even within the same vertical.
 
 <h2><a name="implementation">4. Implementing the SQL Runner data model</a></h2>
 
@@ -95,9 +95,9 @@ The basic data model comes with 2 different sets of [SQL queries][github-data-mo
 - In [**full** mode][github-data-modeling-sql-full], the derived tables are recalculated from scratch (i.e. using all events) each time the pipeline runs
 - In [**incremental** mode][github-data-modeling-sql-incremental], the tables are updated using only the most recent events
 
-These two version are usually used at different stages in the development/implementation process. We recommend users start with the basic model setup in full mode. Although it is less efficient to recompute the tables from scratch each time, it is easier to iterate the business logic and underlying SQL in the data modeling process when you recompute the data from scratch. We find that users typically iterate on the models very frequently to start off with, but that this frequency decreass markedly over time.
+These two version are usually used at different stages in the development/implementation process. We recommend users start with the basic model setup in full mode. Although it is less efficient to recompute the tables from scratch each time, it is easier to iterate the business logic and underlying SQL in the data modeling process when you recompute the data from scratch. We find that users typically iterate on the models very frequently to start off with, but that this frequency decreases markedly over time.
 
-At the point where the models become relatively stable, it then becomes sensible to migrate to the incremental model. This migration can be delayed until such time that the data volume gets too big to make recomputing the tables from scratch each time practical. 
+At the point where the models become relatively stable, it then becomes sensible to migrate to the incremental model. This migration can be delayed until such time that the data volume gets too big to make recomputing the tables from scratch each time practical.
 
 This whole process is described in more detail the [setup guide][setup-guide] and in our [analytics cookbook][cookbook-modeling].
 
@@ -113,7 +113,7 @@ SQL Runner is an open source app, written in Go, that makes it easy to execute S
 
 To use SQL Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
 
-The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL Runner pleaes view [the repo][sql-runner].
+The Palila release includes both the underlying SQL and the associated playbooks for running them. For more information on SQL Runner please view [the repo][sql-runner].
 
 <h2><a name="other-updates">7. Other updates in this release</a></h2>
 
@@ -191,7 +191,7 @@ The data modeling step in Snowplow 64 is still very new and experimental â€” weâ
 
 There are a number of ways that we can improve the data modeling functionality - these are just some of our ideas, and we've love to bounce them off you, our users:
 
-1. Move the data modeling out of SQL (and Redshift in particular) into EMR (for batch-based processing) or Spark streaming (for users on the real-time pipeline). This would take a lot of load of the database, and mean that we could express the data modeling in a better suited language. We've been impressed by users who've shown us how they've performed this process in tools including [Scalding][scalding] and [Cascalog][cascalog]
+1. Move the data modeling out of SQL (and Redshift in particular) into EMR (for batch-based processing) or Spark Streaming (for users on the real-time pipeline). This would take a lot of load of the database, and mean that we could express the data modeling in a better suited language. We've been impressed by users who've shown us how they've performed this process in tools including [Scalding][scalding] and [Cascalog][cascalog]
 2. Building on the above, we're very interested to figure out what the best way is of expressing the data modeling process. Potentially we could develop a DSL for this. Ideally, we would want to make it possible to express once, and then implement in a range of environments (i.e. stream processing, batch-processing and in-database)
 
 In the shorter term we also plan to extend our data modeling documentation to cover common design patterns, including:

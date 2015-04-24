@@ -11,9 +11,11 @@ h3 small{font-size:16px;}
 h4 small{font-size:14px;}
 */
 
+
 /* Snowplow custom font */
 body {
 	font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 15px; /* Up size of smallest font size */
 }
 
 /* Make images responsive by default  */

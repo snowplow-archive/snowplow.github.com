@@ -4,7 +4,7 @@ shortenedlink: Snowplow team in NYC
 title: The Snowplow team will be in New York in February - get in touch if you'd like to meet
 tags: [snowplow, new york, boston, february]
 author: Alex
-category: Other
+category: Meetups
 ---
 
 

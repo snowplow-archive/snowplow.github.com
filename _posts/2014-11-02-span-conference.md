@@ -4,7 +4,7 @@ shortenedlink: Span Conference
 title: Span Conference and Why your company needs a Unified Log
 tags: [snowplow, span, span conference, london, unified log]
 author: Alex
-category: Talks
+category: Meetups
 ---
 
 It was great to have the opportunity to speak at [Span Conference] [span-conf] this week in London on the topic of "Why your company needs a Unified Log". Span is a single-track developer conference about scaling, organized by Couchbase developer evangelist Matthew Revell; Tuesday's was the inaugural Span and it was great to be a part of it.

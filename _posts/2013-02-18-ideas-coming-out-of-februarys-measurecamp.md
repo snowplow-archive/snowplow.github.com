@@ -4,7 +4,7 @@ shortenedlink: Reflections on Saturday's Measurecamp
 title: Reflections on Saturday's Measurecamp
 tags: [snowplow, measure, measurecamp, keywords, audience segmentation, server side tracking]
 author: Yali
-category: Other
+category: Analytics
 ---
 
 On Satuday both Alex and I were lucky enough to attend London's second [Measurecamp] [measurecamp], an unconference dedicated to digital analytics. The venue was packed with smart people sharing some really interesting ideas - we can't do justice to all those ideas here, so I've just outlined my favourite two from the day:

@@ -4,7 +4,7 @@ shortenedlink: A round up of our trip to the Budapest BI Conference
 title: A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile
 tags: [snowplow, analysis, pivot, bi]
 author: Yali
-category: Other
+category: Meetups
 ---
 
 Last week, Alex and I had the pleasure to attend the [Budapest BI Forum] [budapest-bi]. I learnt a great deal from the different people I got to meet, and got a chance to give a talk on what Snowplow is, where we're at today and how we plan to develop it going forwards.

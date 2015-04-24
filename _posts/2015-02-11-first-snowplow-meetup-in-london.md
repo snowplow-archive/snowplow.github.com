@@ -4,7 +4,7 @@ shortenedlink: Inaugural Snowplow meetup in London
 title: Inaugural Snowplow meetup London - a recap
 tags: [event, analytics, bigquery]
 author: Yali
-category: Talks
+category: Meetups
 ---
 
 This time last week we held the inaugural [Snowplow London meetup](http://www.meetup.com/Snowplow-Analytics-London/). Roughly 50 Snowplow users turned up to listen to two fantastic presentations from [Simply Business](http://www.simplybusiness.co.uk/) and [Metail](http://metail.com/) on the role Snowplow plays in their data architecture and how they use their Snowplow data. The talks were incredibly interesting, so I'm keen to share them with the wider Snowplow community. I'm also very eager to get feedback so that we can build on this start to make future events as interesting as possible - we have aspirations to hold them in many more countries, so that users all over the world get the chance to attend and learn from one-another.

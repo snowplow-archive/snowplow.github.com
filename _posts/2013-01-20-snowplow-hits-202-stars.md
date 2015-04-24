@@ -4,7 +4,7 @@ shortenedlink: Snowplow hits 202 stars
 title: Snowplow reaches 202 stars on GitHub 
 tags: [snowplow, github, scala]
 author: Alex
-category: Other
+category: Inside the plow
 ---
 
 As of this weekend, the Snowplow repository on GitHub now has over 200 stars! We're hugely excited to reach this milestone - this makes us:

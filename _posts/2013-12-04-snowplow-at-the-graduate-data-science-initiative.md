@@ -4,7 +4,7 @@ shortenedlink: The first Graduate Data Science Initiative event in London
 title: The first Graduate Data Science Initiative event in London
 tags: [events, graduate, data science]
 author: Yali
-category: Other
+category: Meetups
 ---
 
 Last night, I was very privilage to speak at the first meeting of the [Graduate Data Science Initiative meetup] [gdsi], alongside Martin Goodson from Qubit and Eddie Bells from Lyst.

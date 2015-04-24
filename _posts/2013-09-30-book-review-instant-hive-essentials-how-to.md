@@ -4,7 +4,7 @@ shortenedlink: Apache Hive Essentials How-to
 title: Book review - Apache Hive Essentials How-to
 tags: [hive, book]
 author: Yali
-category: Other  
+category: Analytics  
 ---
 
 Although it is no longer part of the core Snowplow stack, Apache Hive is the gateway drug that got us started  on Hadoop. As some of our [recent][hive-ex-1] [blog posts][hive-ex-2] testify, Hive is still very much a part of our big data toolkit, and this will continue as we use it to roll out new features. (E.g. for analyzing custom unstructured events.) I suspect that many Hadoopers started out with Hive, before experimenting with the myriad other tools to crunch data using Hadoop.

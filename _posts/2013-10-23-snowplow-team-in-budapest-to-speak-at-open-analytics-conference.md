@@ -4,7 +4,7 @@ shortenedlink: Join the Snowplow team in Budapest this November
 title: Join the Snowplow team in Budapest the first week of November
 tags: [budapest bi summit]
 author: Yali
-category: Other
+category: Meetups
 ---
 
 We are thrilled to be going to Budapest this November, where I've kindly been invited to speak at the [Budapest BI Forum] [budapest-bi-forum] on Snowplow, on a day dedicated to [Open Analytics] [open-analytics-day].

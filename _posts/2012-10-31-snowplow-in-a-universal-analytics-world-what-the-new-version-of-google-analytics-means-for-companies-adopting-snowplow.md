@@ -4,7 +4,7 @@ shortenedlink: New version of GA - what it means for Snowplow adoption
 title: Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow
 tags: [snowplow, google, universal analytics]
 author: Yali
-category: Other
+category: Analytics
 ---
 
 Earlier this week, Google announced a series of significant advances in Google Analytics at the GA Summit, that are collectively referred to as [Universal Analytics] [justin-cutroni-summary]. In this post, we look at:

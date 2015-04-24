@@ -4,7 +4,7 @@ shortenedlink: Snowplow meetup Amsterdam set for May 13th
 title: "Snowplow meetup set for Amsterdam, May 13th"
 tags: [snowplow, meetup]
 author: Yali
-category: Talks
+category: Meetups
 redirect_from: "/blog/2015/04/17/snowplow-meetup-amsterdam-set-for-may/"
 ---
 

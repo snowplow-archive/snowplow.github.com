@@ -4,7 +4,7 @@ shortenedlink: London NoSQL
 title: London NoSQL talk on Snowplow
 tags: [snowplow, nosql, london]
 author: Alex
-category: Talks
+category: Meetups
 ---
 
 It was great to have the opportunity to talk at [London NoSQL] [london-nosql] earlier this week on Snowplow's journey from NoSQL to SQL, and then back to a hybrid model supporting multiple storage targets. Many thanks to Couchbase developer evangelist Matthew Revell for inviting me!

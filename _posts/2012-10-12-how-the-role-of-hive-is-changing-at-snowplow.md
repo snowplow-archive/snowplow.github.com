@@ -4,7 +4,7 @@ shortenedlink: How the role of Hive is changing in Snowplow
 title: How we use Hive at Snowplow, and how the role of Hive is changing. (Slides from our presentation to Hive London.)
 tags: [hive, serde, snowplow, hive london, presentation]
 author: Yali
-category: Other
+category: Meetups
 ---
 
 Last night I gave a presentation to the clever folks at Hive London covering three things:

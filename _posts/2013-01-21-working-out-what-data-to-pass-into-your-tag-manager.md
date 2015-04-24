@@ -4,7 +4,7 @@ shortenedlink: What data should you be passing into your tag manager?
 title: What data should you be passing into your tag manager? 
 tags: [tag management, datalayer, universal variable, google tag manager, open tag, qubit]
 author: Yali
-category: Other
+category: Integration
 ---
 
 Since the launch of [Google Tag Manager] [gtm], a plethora of blog posts have been written on the value of tag management solutions. What has been left out of the discussion is practical advice on how to setup your tag management solution (be it [GTM] [gtm] or [OpenTag] [opentag] or one of the paid solutions), and, crucially, what data you should be passing into your tag manager. In this post, we will outline a methodology for identifying all the relevant data you should be passing in, and bringing that methodology to life with a real-world example. 

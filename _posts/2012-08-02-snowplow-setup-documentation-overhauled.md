@@ -2,7 +2,7 @@
 layout: post
 shortenedlink: new-setup-guide
 title: The setup guide has been overhauled
-category : Other
+category: other
 tagline: "A tagline! The setup guide has been overhauled tagline(!)"
 tags : [documentation, setup, getting started with Snowplow, tutorial]
 author: Yali

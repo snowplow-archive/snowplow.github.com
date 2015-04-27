@@ -4,7 +4,7 @@ group: product
 title: What makes Snowplow the best web and mobile datawarehousing platform
 shortened-link: The best web and mobile datawarehouse
 description: Snowplow  is the best platform for warehousing your event (including web and mobile data).
-weight: 2
+weight: 3
 ---
 
 # What makes Snowplow the best web and mobile datawarehousing platform?
@@ -80,7 +80,7 @@ Because the Snowplow pipeline is built in a linearly scalable way, and runs on A
 ## Interested?
 
 * Find out [who uses Snowplow today] [users]
-* Learn how to [get started yourself] [get-started]
+* [Get started using Snowplow] [get-started]
 
 [elasticsearch]: https://www.elastic.co/
 [redshift]: http://aws.amazon.com/redshift/

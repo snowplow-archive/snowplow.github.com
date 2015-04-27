@@ -14,17 +14,18 @@ Three Snowplow products to chose from:
 2. [The Managed Service Real Time](#real-time)
 3. [Open source](#open-source)
 
-Not sure which to go for? View our [comparison table](#comparison) or [get in touch][contact] to discuss your requirements with the Snowplow team.
+Not sure which to go for? View our [comparison table](#comparison) or [discuss your requirements with the Snowplow team][contact].
 
 
 <h2><a name="batch">1. The Managed Service Batch</a></h2>
 
-* Your data delivered directly into your datawarehouse (on Amazon [Redshift][redshift])
-* We setup and run the Snowplow data pipeline on your AWS account
+* Your data delivered directly into **your datawarehouse** (on Amazon [Redshift][redshift])
+* No devops required - we setup and run the pipeline for you as a service
+* Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data
 * **Total ownership and control**. All your own data stays on your AWS account
 * **Hassle free**. We run the Snowplow pipeline for you
 
-Sign up to a [free trial] [trial], or [get in touch][contact] to learn more and sign up.
+Sign up to a [free trial] [trial], or [get in touch][contact] to [learn more][contact] and [sign up][contact].
 
 <h2><a name="real-time">2. The Managed Service Real Time</a></h2>
 
@@ -108,8 +109,8 @@ Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [
     	<tr>
     		<td>Real-time delivery of your events into Kinesis for processing by data-driven applications</td>
     		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
-    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
     		<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+    		<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
     	</tr>
     	<tr>
     		<td>Regular (batch-based) loading of your data into Amazon Redshift</td>

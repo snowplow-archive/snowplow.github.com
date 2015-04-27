@@ -57,7 +57,7 @@ $(function() {
 		});
 
 		// And show success piece...
-		$('#trial-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p></div>');
+		$('#register-for-real-time-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p></div>');
 		// ...then scroll down to it
 		$('html,body').animate({scrollTop: $('.submission-successful').offset().top},'slow');
 			

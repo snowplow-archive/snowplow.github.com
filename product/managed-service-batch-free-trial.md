@@ -1,24 +1,23 @@
 ---
 layout: page
-group: product-hidden
+group: product
 title: Sign up for a free Snowplow trial
 shortened-link: Free trial
 weight: 7
 ---
 
-# Free one month Snowplow trial
+# Free one month Snowplow trial of the Managed Service Batch
 
 See what becomes possible when you have direct access to your granular, event-level data.
 
 ## How it works
 
-* We set you up with a dedicated,hosted Snowplow stack
 * We provide you with tracking tags to integrate into your website
 * You integrate the tracking tags on your website / and or setup an alternative Snowplow tracker to track data from other platforms
 * We provide you with credentials so you can access your data in our own Amazon Redshift cluster
 * You plug in the analysis tools of your choice so you can see what is possible with your data
 * We can also, under certain circumstances, offer you a [Looker] [looker] trial on top of your Snowplow data, so you can see how the combination of Snowplow and Looker gives business users unprecedented flexibility to explore and mine your event-level data.
-* If you sign-up for the Managed Service, we will migrate your trial data to your production account for free
+* If after your trial you decide to sign up to the Managed Service, we will migrate your data over for you at no cost.
 
 ## Sign up today
 

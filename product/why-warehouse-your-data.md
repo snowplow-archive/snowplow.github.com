@@ -7,7 +7,9 @@ description: Warehousing your event level data (including web and mobile data se
 weight: 1
 ---
 
-# Why warehouse your web, moblile and other event data?
+# Why warehouse your web, mobile and other event data?
+
+Any company that takes digital data seriously should be warehousing their digital event data.
 
 1. [A single view of your customers across all channels](#single-customer-view)  
 2. [A single source of truth](#single-source-of-truth)  

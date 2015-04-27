@@ -2,7 +2,7 @@
 layout: page
 group: product
 title: What makes Snowplow the best web and mobile datawarehousing platform
-shortened-link: The BEST web and mobile datawarehouse
+shortened-link: The best web and mobile datawarehouse
 description: Snowplow  is the best platform for warehousing your event (including web and mobile data).
 weight: 2
 ---
@@ -14,7 +14,7 @@ weight: 2
 3. [Fast](#fast)
 4. [Easy](#easy)
 5. [Cost effective](#cost-effective)
-6. [Ingest events from anywhere](#ingest-events-from-anywhere)
+6. [Ingest events from *anywhere*](#ingest-events-from-anywhere)
 7. [Multiple database types supported](#multiple-storage-targets-supported)
 8. [Replay and reprocess your entire event history](#replay-and-reprocess)
 9. [Open source](#open-source)
@@ -48,9 +48,9 @@ We can setup the Snowplow pipeline within a day, and run it for you, as part of 
 
 <h2><a name="cost-effective">5. Cost effective</a></h2>
 
-We charge a flat £750 per month for our Managed Service, regardless of the volume of data you process, making us orders of magnitude cheaper than our competitors.
+We charge a flat $1250 per month for our Managed Service, regardless of the volume of data you process, making us orders of magnitude cheaper than our competitors.
 
-<h2><a name="ingest-events-from-anywhere">6. Ingest events from anywhere</a></h2>
+<h2><a name="ingest-events-from-anywhere">6. Ingest events from <em>anywhere</em></a></h2>
 
 As well as support for tracking web events via our Javascript tracker, and mobile app events from our iOS and Android tracker, we offer an [enormous range of trackers] [tracker] and support for [3rd party webhooks] [webhooks]. There are retailers, for example, using Snowplow to track:
 
@@ -71,7 +71,7 @@ We support loading your data into both [Amazon Redshift] [redshift] for ad hoc a
 Because the Snowplow pipeline is built in a linearly scalable way, and runs on Amazon's elastic infrastructure, it is possible to rerun and reprocess your entire event-history, however many billions of events have been recorded.
 
 
-<h2><a href="open-source">9. Open source</a></h2>
+<h2><a name="open-source">9. Open source</a></h2>
 
 * Our codebase is available on [Github] [snowplow-github]
 * No 'black-boxes' in your data processing. We are completely transparent about how your data is handled

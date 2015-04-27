@@ -16,8 +16,6 @@ Three Snowplow products to chose from:
 
 Not sure which to go for? View our [comparison table](#comparison) or [get in touch][contact] to discuss your requirements with the Snowplow team.
 
-## The Snowplow Managed Serivce Batch
-
 
 <h2><a name="batch">1. The Managed Service Batch</a></h2>
 
@@ -149,3 +147,4 @@ Then [get in touch][contact] with the Snowplow team!
 [redshift]: http://aws.amazon.com/redshift/
 [kinesis]: http://aws.amazon.com/kinesis/
 [repo]: https://github.com/snowplow/snowplow
+[register]: register-for-real-time.html

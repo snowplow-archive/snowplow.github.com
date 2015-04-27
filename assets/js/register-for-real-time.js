@@ -7,7 +7,7 @@ $(function() {
 	  return regex.test(email);
 	} // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
 
-	$('#submitRegisterForRealTimeButton').click(function() {
+	$('#submitFreeTrialButton').click(function() {
 		// Hide previous error messages
 		$('.help-inline').hide();
 		$('.control-group').removeClass("error");
@@ -51,12 +51,12 @@ $(function() {
 
 		// If passed validation, now submit form to the dataLayer
 		dataLayer.push({
-			'event': 'register_for_real_time',
+			'event': 'submit_trial_form',
 			'submission': submission
 		});
 
 		// And show success piece...
-		$('#register-for-real-time-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p></div>');
+		$('#trial-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow trial will be in touch in the next couple of business days.</p></div>');
 		// ...then scroll down to it
 		$('html,body').animate({scrollTop: $('.submission-successful').offset().top},'slow');
 			

@@ -6,8 +6,8 @@ $(function() {
 	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	  return regex.test(email);
 	} // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
-
-	$('#submitRegisterForRealTimeButton').click(function() {
+	
+	$('#submitFreeTrialButton').click(function() {
 		// Hide previous error messages
 		$('.help-inline').hide();
 		$('.control-group').removeClass("error");

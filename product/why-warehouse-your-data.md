@@ -4,7 +4,7 @@ group: product
 title: Why warehouse your event data?
 shortened-link: Why warehouse your event data?
 description: Warehousing your event level data (including web and mobile data sets) let's you use that data to answer the high value questions that matter to your business
-weight: 1
+weight: 2
 ---
 
 # Why warehouse your web, mobile and other event data?
@@ -46,7 +46,7 @@ Different types of analysis lend themselves to different types of analytics tool
 
 ## Understand the value of warehousing your web, mobile and other event data?
 
-Then [read on][best-datawarehouse] to find out why Snowplow is [the best way to warehouse your data][best-datawarehouse].
+Then [read on][best-datawarehouse] to find out why Snowplow is [the best way to warehouse your data][best-datawarehouse], or [get started] [get-started] with Snowplow [now] [get-started].
 
 [looker]: http://www.looker.com
 [tableau]:http://www.tableau.com/
@@ -56,3 +56,4 @@ Then [read on][best-datawarehouse] to find out why Snowplow is [the best way to 
 [excel]: https://products.office.com/en-us/excel
 [google-docs]: https://docs.google.com/spreadsheets/u/0/
 [best-datawarehouse]: the-best-event-data-warehouse.html
+[get-started]: get-started.html

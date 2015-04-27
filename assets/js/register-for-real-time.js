@@ -7,7 +7,8 @@ $(function() {
 	  return regex.test(email);
 	} // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
 
-	$('#submitFreeTrialButton').click(function() {
+	$('#submitRegisterForRealTimeButton').click(function() {
+
 		// Hide previous error messages
 		$('.help-inline').hide();
 		$('.control-group').removeClass("error");

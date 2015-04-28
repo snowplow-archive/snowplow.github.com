@@ -3,12 +3,40 @@
 
 
   {% if group == 'analytics' %}
-    {% if sub_group == 'overview' %}
+    {% if sub_group == 'introduction' %}
       {% for weight in (1..10) %}
         {% for node in pages_list %}
           {% if node.group == 'analytics' %}
-            {% if node.sub_group == 'overview' %}
+            {% if node.sub_group == 'introduction' %}
               {% if node.weight == weight %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><b>{{node.shortened-link}}</b></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><b>{{node.shortened-link}}</b></a></li>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% else %}
+    <li><a href="/analytics/"><b>Introduction</b></a></li>
+    {% endif %}
+    <hr></hr>
+
+    {% if page.sub_group == 'concepts' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'concepts' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><b>{{node.shortened-link}}</b></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><b>{{node.shortened-link}}</b></a></li>
+                {% endif %}
+              {% else %}
                 {% if node.url == page.url %}
                   <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
                 {% else %}
@@ -17,23 +45,32 @@
               {% endif %}
             {% endif %}
           {% endif %}
-        {% endfor %}
+        {% endif %}
       {% endfor %}
+    {% endfor %}
     {% else %}
-    <li><a href="/analytics/index.html">Analytics overview</a></li>
+    <li><a href="/analytics/concepts/"><b>Foundational concepts</b></a></li>
     {% endif %}
     <hr></hr>
 
-    {% if page.sub_group == 'foundation' %}
+    {% if page.sub_group == 'data-modeling' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
         {% if node.group == 'analytics' %}
-          {% if node.sub_group == 'foundation' %}
+          {% if node.sub_group == 'data-modeling' %}
             {% if node.weight == weight %}
-              {% if node.url == page.url %}
-                <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><b>{{node.shortened-link}}</b></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><b>{{node.shortened-link}}</b></a></li>
+                {% endif %}
               {% else %}
-                <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
               {% endif %}
             {% endif %}
           {% endif %}
@@ -41,84 +78,151 @@
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/event-dictionaries-and-data-models/foundational-concepts.html">Foundational concepts</a></li>
+    <li><a href="/analytics/data-modeling/"><b>Data modeling</b></a></li>
     {% endif %}
     <hr></hr>
- 
-    {% if page.sub_group == 'customer' %}
+
+    {% if page.sub_group == 'recipes' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.sub_group == 'customer' %}
-          {% if node.weight == weight %}
-            {% if node.url == page.url %}
-              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
-            {% else %}
-              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'recipes' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><b>{{node.shortened-link}}</b></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><b>{{node.shortened-link}}</b></a></li>
+                {% endif %}
+              {% else %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/customer-analytics/overview.html">Customer analytics</li>
+    <li><a href="/analytics/recipes/"><b>Analytics</b></a></li>
     {% endif %}
-    <hr></hr>
+
+    {% if page.sub_group == 'customer' %}
+    {% for weight in (1..10) %}
+      {% for node in pages_list %}
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'customer' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
+              {% else %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><i>{{node.shortened-link}}</i></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><i>{{node.shortened-link}}</i></a></li>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% else %}
+    <li><a href="/analytics/recipes/customer-analytics/">Customer analytics</a></li>
+    {% endif %}
 
     {% if page.sub_group == 'catalog' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.sub_group == 'catalog' %}
-          {% if node.weight == weight %}
-            {% if node.url == page.url %}
-              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
-            {% else %}
-              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'catalog' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
+              {% else %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><i>{{node.shortened-link}}</i></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><i>{{node.shortened-link}}</i></a></li>
+                {% endif %}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/catalog-analytics/overview.html">Catalog analytics</li>
+    <li><a href="/analytics/recipes/catalog-analytics/">Catalog analytics</a></li>
     {% endif %}
-    <hr></hr>
 
     {% if page.sub_group == 'platform' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.sub_group == 'platform' %}
-          {% if node.weight == weight %}
-            {% if node.url == page.url %}
-              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
-            {% else %}
-              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'platform' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
+              {% else %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><i>{{node.shortened-link}}</i></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><i>{{node.shortened-link}}</i></a></li>
+                {% endif %}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/platform-analytics/overview.html">Platform analytics</li>
+    <li><a href="/analytics/recipes/platform-analytics/">Platform analytics</a></li>
     {% endif %}
     <hr></hr>
 
-    {% if page.sub_group == 'tools-and-techniques' %}
+    {% if page.sub_group == 'tools' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.sub_group == 'tools-and-techniques' %}
-          {% if node.weight == weight %}
-            {% if node.url == page.url %}
-              <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
-            {% else %}
-              <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+        {% if node.group == 'analytics' %}
+          {% if node.sub_group == 'tools' %}
+            {% if node.weight == weight %}
+              {% if node.weight == 1 %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active"><b>{{node.shortened-link}}</b></a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}"><b>{{node.shortened-link}}</b></a></li>
+                {% endif %}
+              {% else %}
+                {% if node.url == page.url %}
+                  <li class="active"><a href="{{ BASE_PATH }}{{node.url}}" class="active">{{node.shortened-link}}</a></li>
+                {% else %}
+                  <li><a href="{{ BASE_PATH }}{{node.url}}">{{node.shortened-link}}</a></li>
+                {% endif %}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
     {% else %}
-    <li><a href="/analytics/tools-and-techniques/overview.html">Tools and techniques</li>
+    <li><a href="/analytics/tools/"><b>Tools and techniques</b></a></li>
     {% endif %}
+    <hr></hr>
   
   {% else %}
   <!-- Otherwise not an analytics page, so just need group level pages -->

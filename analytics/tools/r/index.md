@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: tools-and-techniques
+sub_group: tools
 title: Get started analyzing Snowplow data with R
 shortened-link: Get started with R
 weight: 3

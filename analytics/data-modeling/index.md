@@ -1,11 +1,11 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: data-modeling
 title: Data Modeling
 shortened-link: Data modeling
 description: Introduction to data modeling
-weight: 10
+weight: 1
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/data-modeling.html
 ---

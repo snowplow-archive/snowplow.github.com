@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Sending data into Snowplow
 shortened-link: Sending data into Snowplow
 description: Find out how to send data into Snowplow

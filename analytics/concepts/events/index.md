@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Events
 shortened-link: Events
 description: Understanding events - the central type at the heart of the Snowplow platform

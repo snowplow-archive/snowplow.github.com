@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Iglu
 shortened-link: Iglu
 description: Iglu is a machine-readable schema repository

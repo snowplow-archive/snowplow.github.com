@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: tools-and-techniques
+sub_group: tools
 title: Get started using SQL to analyze Snowplow data
 shortened-link: Get started with SQL
 weight: 2

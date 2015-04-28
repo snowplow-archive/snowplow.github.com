@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Viewing event-level data in Snowplow
 shortened-link: Viewing event-level data in Snowplow
 description: Viewing event-level data in Snowplow
@@ -12,4 +12,4 @@ redirect_from:
 
 # Viewing event-level data in Snowplow
 
-TO WRITE (canonical event model + enrichenment, which gets added after data is collected - a difference)
+<!-- TO WRITE (canonical event model + enrichenment, which gets added after data is collected - a difference) -->

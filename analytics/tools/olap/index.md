@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: tools-and-techniques
+sub_group: tools
 title: Convert Snowplow data into a format suitable for OLAP
 shortened-link: Convert Snowplow data into a format suitable for OLAP
 weight: 4

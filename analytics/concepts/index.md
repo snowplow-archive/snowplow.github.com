@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Foundational concepts
 shortened-link: Foundational concepts
 description: Foundational concepts - understanding event dictionaries, grammars and data modeling with Snowplow
@@ -12,7 +12,7 @@ redirect_from:
 
 # Foundational concepts
 
-## Who this section is for
+## Who is this section for?
 
 It is possible to use Snowplow data to answer questions and generate insight without a deep knowledge of the basic concepts that underpin the Snowplow approach to event data collection, warehouse and analysis. If you are serious about using Snowplow in the most effective way, however, and are looking to perform more sophisticated analyses, or empower a broader range of business users to expore Snowplow data, we strongly recommend becoming familiar with these foundational concepts.
 

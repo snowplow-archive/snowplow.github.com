@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Stages in the Snowplow data pipeline
 shortened-link: Snowplow data pipeline stages
 description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modeling and analysis

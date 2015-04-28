@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Event dictionaries
 shortened-link: Dictionaries and schemas
 description: Understanding event dictionaries

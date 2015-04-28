@@ -1,7 +1,7 @@
 ---
 layout: page
 group: analytics
-sub_group: foundation
+sub_group: concepts
 title: Contexts
 shortened-link: Contexts
 description: Understanding event dictionaries

@@ -141,7 +141,7 @@ The Kinesis apps will no longer automatically create a stream if they detect tha
 
 <h2><a name="tokenization">7. Improved Elasticsearch index initialization</a></h2>
 
-We now recommend that when setting up your Elasticsearch index, you turn off tokenization of string fields. You can do this by choosing "keyword" as the default analyzer:
+We now recommend that when setting up your Elasticsearch index, you turn off [tokenization][tokenization] of string fields. You can do this by choosing "keyword" as the default analyzer:
 
 ```
 curl -XPUT 'http://localhost:9200/snowplow' -d '{
@@ -190,11 +190,13 @@ Add `backoffPolicy` and `buffer` fields to the configuration HOCON
 <h4>Scala Kinesis Enrich</h4>
 
 Add `backoffPolicy` and `buffer` fields to the configuration HOCON
+Extract the resolver from the configuration HOCON into its own JSON file, which can be stored locally or in DynamoDB
+Update the command line arguments as detailed [above](#dynamodb)
 
 <h4>Kinesis LZO S3 Sink</h4>
 
 Rename the outermost key in the configuration HOCON from "connector" to "sink"
-Replace the "s3/endpoint" field with an "s3/region" field (like "us-east-1")
+Replace the "s3/endpoint" field with an "s3/region" field (such as "us-east-1")
 
 <h4>Kinesis Elasticsearch Sink</h4>
 
@@ -204,11 +206,12 @@ Rename the outermost key in the configuration HOCON from "connector" to "sink"
 
 We have also:
 
+* Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance
+* Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich write events
 * Added macros to the "config.hocon.sample" sample configuration files
 * Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields
 * Fixed a bug which prevented the applications from using a DynamoDB table in the configured region
 * Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0
-* Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance
 * Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich send events
 * Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1
 * Bumped the version of [Scalazon][scalazon] we use to 0.11
@@ -230,6 +233,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [scalazon]: https://github.com/cloudify/scalazon
 [hocon]: https://github.com/typesafehub/config/blob/master/HOCON.md
 [partition-key]: http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html#partition-key
+[tokenization]: http://www.elastic.co/guide/en/elasticsearch/reference/1.x/analysis-standard-tokenizer.html
 
 [r65-release]: https://github.com/snowplow/snowplow/releases/tag/r65-scarlet-rosefinch
 [wiki]: https://github.com/snowplow/snowplow/wiki

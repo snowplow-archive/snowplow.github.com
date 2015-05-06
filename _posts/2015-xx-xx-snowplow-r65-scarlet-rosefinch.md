@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow 65, Scarlet Rosefinch. This release greatly improves the efficiency and reliability of Snowplow's real-time [Kinesis][kinesis] pipeline.
+We are pleased to announce the release of Snowplow 65, Scarlet Rosefinch. This release greatly improves the speed, efficiency, and reliability of Snowplow's real-time [Kinesis][kinesis] pipeline.
 
 Table of contents:
 
@@ -25,9 +25,9 @@ Table of contents:
 
 <h2><a name="enhancedPerformance">1. Enhanced performance</a></h2>
 
-The new PutRecords API enabled the biggest performance improvement: rather than sending events to Kinesis one at a time, we can now send batches of up to 500. This greatly increases the event volumes with which the Scala Stream Collector and Scala Kinesis Enrich can cope.
+Kinesis' new [PutRecords API][putrecords] enabled the biggest performance improvement: rather than sending events to Kinesis one at a time, we can now send batches of up to 500. This greatly increases the event volumes with which the Scala Stream Collector and Scala Kinesis Enrich can cope.
 
-You might not want to always wait for full 500 events before sending the stored records to Kinesis, so the configuration for both applications now has a `buffer` section which provides greater control over when the stored records get sent.
+You might not want to always wait for a full 500 events before sending the stored records to Kinesis, so the configuration for both applications now has a `buffer` section which provides greater control over when the stored records get sent.
 
 It has three fields:
 `byte-limit`: If the stored records total at least this many bytes, flush the buffer.
@@ -44,17 +44,19 @@ buffer: {
 }
 ```
 
-Additionally, the Scala Stream Collector has a ShutdownHook which sends all stored records. This prevents stored events from being lost when the collector is shut down.
+Additionally, the Scala Stream Collector has a `ShutdownHook` which sends all stored records. This prevents stored events from being lost when the collector is shut down.
 
 <h2><a name="cors">2. CORS support</a></h2>
 
-The Scala Stream Collector now supports CORS requests. This means that you can send events to it from Snowplow's client-side JavaScript Tracker using POST rather than GET. This is advantageous because it means that your requests are no longer subject to Internet Explorer's querystring size limit.
+The Scala Stream Collector now supports [CORS][cors] requests. This means that you can send events to it from Snowplow's client-side [JavaScript Tracker][js-tracker] using POST rather than GET. This is advantageous because it means that your requests are no longer subject to Internet Explorer's querystring size limit.
 
-The Scala Stream Collector now also supports cross-origin requests from the Snowplow ActionScript 3.0 Tracker.
+The Scala Stream Collector now also supports cross-origin requests from the [Snowplow ActionScript 3.0 Tracker][as-tracker].
 
 <h2><a name="reliability">3. Increased reliability</a></h2>
 
-If an attempt to write records to Kinesis failed, previous versions of the Kinesis apps would just log an error message. The new release prevents events from being lost in the event that Kinesis is temporarily unreachable by implementing an exponential backoff strategy with jitter when PutRecords requests fail.
+In the event that Kinesis is temporarily unreachable, records are no longer dropped with an error message. Instead a strategy of expon
+
+If an attempt to write records to Kinesis failed, previous versions of the Kinesis apps would just log an error message. The new release prevents events from being lost in the event that Kinesis is temporarily unreachable by implementing an [exponential backoff strategy with jitter][backoff] when PutRecords requests fail.
 
 The minimum and maximum backoffs to use are configurable in the `backoffPolicy` for the Scala Stream Collector and Scala Kinesis Enrich:
 
@@ -67,7 +69,7 @@ backoffPolicy: {
 
 <h2><a name="dynamodb">4. Loading configuration from DynamoDB</a></h2>
 
-The command-line arguments to Scala Kinesis Enrich have also changed. It used to be the case that you provided a `--config` argument, pointing to a HOCON file with configuration for the app, together with an optional `--enrichments` argument, pointing to a directory containing the JSON configurations for the enrichments you wanted to make use of:
+The command-line arguments to Scala Kinesis Enrich have also changed. It used to be the case that you provided a `--config` argument, pointing to a [HOCON][hocon] file with configuration for the app, together with an optional `--enrichments` argument, pointing to a directory containing the JSON configurations for the enrichments you wanted to make use of:
 
 ```
 ./scala-kinesis-enrich-0.4.0 --config my.conf --enrichments path/to/enrichments
@@ -130,7 +132,7 @@ The full command:
 
 <h2><a name="automaticStreams">5. Removal of automatic stream creation</a></h2>
 
-The Kinesis apps will no longer automatically create a stream if they detect that the configured stream does not exist. This is so that if you make a typo when configuring the stream name, the error will be obvious immediately rather than creating a stream which no other app interacts with.
+The Kinesis apps will no longer automatically create a stream if they detect that the configured stream does not exist. This means that if you make a typo when configuring the stream name, the mistake will immediately cause an error rather than creating a misnamed stream which no other app interacts with.
 
 <h2><a name="tokenization">6. Improved Elasticsearch index initialization</a></h2>
 
@@ -198,21 +200,32 @@ Rename the outermost key in the configuration HOCON from "connector" to "sink"
 We have also:
 
 * Added macros to the "config.hocon.sample" sample configuration files
-* Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated
+* Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields
 * Fixed a bug which prevented the applications from using a DynamoDB table in the configured region
 * Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0
 * Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance
 * Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich send events
-* Bumped the 
+* Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1
+* Bumped the version of [Scalazon][scalazon] we use to 0.11
 
 <h2><a name="help">9. Getting help</a></h2>
 
 For more details on this release, please check out the [r65 Scarlet Rosefinch][r65-release] on GitHub. 
 
+Documentation for all the Kinesis apps is available on the [wiki][wiki].
+
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
 [kinesis]: http://aws.amazon.com/kinesis/
+[putrecords]: http://docs.aws.amazon.com/cli/latest/reference/kinesis/put-records.html
+[cors]: http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+[js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
+[as-tracker]: https://github.com/snowplow/snowplow-actionscript3-tracker
+[backoff]: http://www.awsarchitectureblog.com/2015/03/backoff.html
+[scalazon]: https://github.com/cloudify/scalazon
+[hocon]: https://github.com/typesafehub/config/blob/master/HOCON.md
 
 [r65-release]: https://github.com/snowplow/snowplow/releases/tag/r65-scarlet-rosefinch
+[wiki]: https://github.com/snowplow/snowplow/wiki
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

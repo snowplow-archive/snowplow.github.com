@@ -246,13 +246,16 @@ weight: 3
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>
+		<p><a href="http://www.outfittery.de//"><img src="/assets/img/user-logos/fixed/outfittery.png"></a></p>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>
+		<p><a href="https://www.dubicars.com//"><img src="/assets/img/user-logos/fixed/dubicars.png"></a></p>
 	</div>
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>
+		<p><a href="https://www.liveoutthere.com/"><img src="/assets/img/user-logos/fixed/liveoutthere.png"></a></p>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.yieldify.com/"><img src="/assets/img/user-logos/fixed/yieldify.png"></a></p>
 	</div>
 </div>
 
@@ -273,7 +276,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/viadeo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/viadeo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -286,7 +289,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/mintmetrics_logo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/mintmetrics_logo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -299,7 +302,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/simply-business-logo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/simply-business-logo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -313,7 +316,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/thoughtworks-logo.png"></p>
+		<p><img src="/assets/img/user-logos/fixed/thoughtworks-logo.png"></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -325,7 +328,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/swing-by-swing-golf-logo.gif"></p>
+		<p><img src="/assets/img/user-logos/fixed/swing-by-swing-golf-logo.gif"></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -337,7 +340,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/blast-analytics.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/blast-analytics.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>

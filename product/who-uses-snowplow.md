@@ -257,6 +257,12 @@ weight: 3
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.yieldify.com/"><img src="/assets/img/user-logos/fixed/yieldify.png"></a></p>
 	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.yieldify.com/"><img src="/assets/img/user-logos/fixed/yieldify.png"></a></p>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://mintmetrics.io"><img src="/assets/img/user-logos/fixed/mintmetrics.png"></a></p>
+	</div>
 </div>
 
 <div class="row">
@@ -276,7 +282,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/viadeo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/viadeo-logo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -289,7 +295,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/mintmetrics_logo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/mintmetrics.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -302,7 +308,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/simply-business-logo.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/simplybusiness-logo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -316,7 +322,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/thoughtworks-logo.png"></p>
+		<p><img src="/assets/img/user-logos/fixed/thoughtworks.png"></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -328,7 +334,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/swing-by-swing-golf-logo.gif"></p>
+		<p><img src="/assets/img/user-logos/fixed/swingbyswinggolf-logo.png"></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>
@@ -340,7 +346,7 @@ weight: 3
 
 <div class="row">
 	<div class="col-xs-3">
-		<p><img src="/assets/img/user-logos/fixed/blast-analytics.png" /></p>
+		<p><img src="/assets/img/user-logos/fixed/blastanalytics-logo.png" /></p>
 	</div>
 	<div class="col-xs-9">
 		<blockquote>

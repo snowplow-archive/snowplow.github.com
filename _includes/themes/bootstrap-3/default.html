@@ -18,9 +18,9 @@
     <!-- Sticky Footer -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
     <!--Added by Snowplow-->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" /> 
+    <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" />
     <link href="{{ ASSET_PATH }}/bootstrap/css/snowplow.css" rel="stylesheet" type="text/css">
-    
+
     <!-- Custom styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
 
@@ -77,20 +77,15 @@
               {% else %}
               <li><a href="/product/index.html">Product</a></li>
               {% endif %}
-              {% if page.group == 'pricing' %}
-              <li class="active"><a href="/pricing/index.html" class="active">Pricing</a></li>  
-              {% else %}
-              <li><a href="/pricing/index.html">Pricing</a></li>  
-              {% endif %}
               {% if page.group == 'analytics' %}
               <li class="active"><a href="/analytics/index.html" class="active">Analytics</a></li>
               {% else %}
               <li><a href="/analytics/index.html">Analytics</a></li>
               {% endif %}
               {% if page.group == 'technology' %}
-              <li class="active"><a href="/technology/index.html" class="active">Technology</a></li>  
+              <li class="active"><a href="/technology/index.html" class="active">Technology</a></li>
               {% else %}
-              <li><a href="/technology/index.html">Technology</a></li>  
+              <li><a href="/technology/index.html">Technology</a></li>
               {% endif %}
               {% if page.url contains 'blog' %}
               <li class="active"><a href="/blog/index.html" class="active">Blog</a></li>

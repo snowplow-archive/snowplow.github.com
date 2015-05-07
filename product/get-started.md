@@ -14,34 +14,6 @@ Three Snowplow products to chose from:
 2. [The Managed Service Real Time](#real-time)
 3. [Open source](#open-source)
 
-Not sure which to go for? View our [comparison table](#comparison) or [discuss your requirements with the Snowplow team][contact].
-
-
-<h2><a name="batch">1. The Managed Service Batch</a></h2>
-
-* Your data delivered directly into **your datawarehouse** (on Amazon [Redshift][redshift])
-* No devops required - we setup and run the pipeline for you as a service
-* Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data
-* **Total ownership and control**. All your own data stays on your AWS account
-* **Hassle free**. We run the Snowplow pipeline for you
-
-Sign up to a [free trial] [trial], or [get in touch][contact] to [learn more][contact] and [sign up][contact].
-
-<h2><a name="real-time">2. The Managed Service Real Time</a></h2>
-
-Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:
-
-* Load your data real-time into [Elasticsearch][elasticsearch], for real time reporting and dashboards
-* Publish your event data into an [Amazon Kinesis stream][kinesis], for real time processing of the data in real-time applications (e.g. personalization)
-
-The Managed Service Real Time is not available yet - it is currently being tested. However, you can [register interest] [register], to ensure you are at the front of the queue when the service becomes available.
-
-<h2><a name="open-source">3. Open source</a></h2>
-
-Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [repo].
-
-<h2><a name="comparison">Comparison table</a></h2> Product comparison
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -132,6 +104,32 @@ Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [
     	</tr>
     </tbody>
 </table>
+
+
+<h2><a name="batch">1. The Managed Service Batch</a></h2>
+
+* Your data delivered directly into **your datawarehouse** (on Amazon [Redshift][redshift])
+* No devops required - we setup and run the pipeline for you as a service
+* Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data
+* **Total ownership and control**. All your own data stays on your AWS account
+* **Hassle free**. We run the Snowplow pipeline for you
+
+Sign up to a [free trial] [trial], or [get in touch][contact] to [learn more][contact] and [sign up][contact].
+
+<h2><a name="real-time">2. The Managed Service Real Time</a></h2>
+
+Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:
+
+* Load your data real-time into [Elasticsearch][elasticsearch], for real time reporting and dashboards
+* Publish your event data into an [Amazon Kinesis stream][kinesis], for real time processing of the data in real-time applications (e.g. personalization)
+
+The Managed Service Real Time is not available yet - it is currently being tested. However, you can [register interest] [register], to ensure you are at the front of the queue when the service becomes available.
+
+<h2><a name="open-source">3. Open source</a></h2>
+
+Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [repo].
+
+
 
 <h2>Want to talk to a human?</h2>
 

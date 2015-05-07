@@ -50,7 +50,7 @@ Additionally, the Scala Stream Collector has a `ShutdownHook` which sends all st
 
 <h2><a name="cors">2. CORS support</a></h2>
 
-The Scala Stream Collector now supports [CORS][cors] requests. This means that you can send events to it from Snowplow's client-side [JavaScript Tracker][js-tracker] using POST rather than GET. This means that your requests are no longer subject to Internet Explorer's querystring size limit.
+The Scala Stream Collector now supports [CORS][cors] requests, so you can send events to it from Snowplow's client-side [JavaScript Tracker][js-tracker] using POST rather than GET. This means that your requests are no longer subject to Internet Explorer's querystring size limit.
 
 The Scala Stream Collector also now supports cross-origin requests from the [Snowplow ActionScript 3.0 Tracker][as-tracker].
 
@@ -196,6 +196,7 @@ We have also:
 * Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0 ([#1363][1363])
 * Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1 ([#1618][1618])
 * Bumped the version of [Scalazon][scalazon] we use to 0.11 to access PutRecords ([#1492][1492], [#1504][1504])
+* Stopped Scala Kinesis Enrich outputting records of over 50kB because they are exceed Kinesis' size limit ([#1649][1649])
 
 <h2><a name="upgrading">9. Upgrading</a></h2>
 
@@ -266,3 +267,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [1618]: https://github.com/snowplow/snowplow/issues/1618
 [1492]: https://github.com/snowplow/snowplow/issues/1492
 [1504]: https://github.com/snowplow/snowplow/issues/1504
+[1649]: https://github.com/snowplow/snowplow/issues/1649

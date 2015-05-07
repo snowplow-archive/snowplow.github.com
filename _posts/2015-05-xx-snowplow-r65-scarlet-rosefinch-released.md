@@ -188,15 +188,14 @@ This has two positive effects:
 
 We have also:
 
-* Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance
-* Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich write events
-* Added macros to the "config.hocon.sample" sample configuration files
-* Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields
-* Fixed a bug which prevented the applications from using a DynamoDB table in the configured region
-* Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0
-* Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich send events
-* Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1
-* Bumped the version of [Scalazon][scalazon] we use to 0.11
+* Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance ([#1537][1537])
+* Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich write events ([#1503][1503], [#1493][1493])
+* Added macros to the "config.hocon.sample" sample configuration files ([#1471][1471], [#1472][1472], [#1513][1513], [#1515][1515])
+* Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields ([#1584][1584])
+* Fixed a bug which prevented the applications from using a DynamoDB table in the configured region ([#1576][1576], [#1582][1582], [#1583][1583])
+* Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0 ([#1363][1363])
+* Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1 ([#1618][1618])
+* Bumped the version of [Scalazon][scalazon] we use to 0.11 to access PutRecords ([#1492][1492], [#1504][1504])
 
 <h2><a name="upgrading">9. Upgrading</a></h2>
 
@@ -250,3 +249,20 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [wiki]: https://github.com/snowplow/snowplow/wiki
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[1537]: https://github.com/snowplow/snowplow/issues/1537
+[1503]: https://github.com/snowplow/snowplow/issues/1503
+[1493]: https://github.com/snowplow/snowplow/issues/1493
+[1513]: https://github.com/snowplow/snowplow/issues/1513
+[1515]: https://github.com/snowplow/snowplow/issues/1515
+[1471]: https://github.com/snowplow/snowplow/issues/1471
+[1472]: https://github.com/snowplow/snowplow/issues/1472
+[1513]: https://github.com/snowplow/snowplow/issues/1513
+[1584]: https://github.com/snowplow/snowplow/issues/1584
+[1576]: https://github.com/snowplow/snowplow/issues/1576
+[1583]: https://github.com/snowplow/snowplow/issues/1583
+[1582]: https://github.com/snowplow/snowplow/issues/1582
+[1363]: https://github.com/snowplow/snowplow/issues/1363
+[1618]: https://github.com/snowplow/snowplow/issues/1618
+[1492]: https://github.com/snowplow/snowplow/issues/1492
+[1504]: https://github.com/snowplow/snowplow/issues/1504

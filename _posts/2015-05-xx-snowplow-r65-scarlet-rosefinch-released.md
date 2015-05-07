@@ -188,7 +188,6 @@ This has two positive effects:
 
 We have also:
 
-* Parallelized the processing of raw events in Scala Kinesis Enrich to improve performance ([#1537][1537])
 * Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich write events ([#1503][1503], [#1493][1493])
 * Added macros to the "config.hocon.sample" sample configuration files ([#1471][1471], [#1472][1472], [#1513][1513], [#1515][1515])
 * Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields ([#1584][1584])

@@ -16,17 +16,24 @@ Any company that takes digital data seriously should be warehousing their digita
 3. [Perform the analyses that matter to your business](#the-analyses-that-matter)
 4. [Use the right analytics tool for you and the type of analysis you are performing](#right-tool-for-the-job)
 
-<h2><a name="#single-customer-view">1. A single view of your customers across all channels.</a></h2>
+<h2><a name="#single-customer-view">1. A single view of your customers across all channels</a></h2>
+
+<img src="/assets/img/product/single-view-across-channels.png" class="center-block"/>
 
 Modern businesses engage with their users across a range of channels, including web, mobile, telephone. It is only by pulling data from those different channels together into a single data set that you can develop an integrated view of who that customer is and optimize your service for her.
 
+
 <h2><a name="single-source-of-truth">2. A single source of truth</a></h2>
 
+<img src="/assets/img/product/single-source-of-truth.png" class="center-block"/>
 You can do more with data when different sources are integrated together in a single location. Warehousing your web and mobile data means that data is no longer siloed - you don't just have a complete view of your customers across different touch points, you have a complete view of everything that matteres to your business in one place: a complete view of all your financial data, operational data product data and marketing data.
+
 
 <h2><a name="the-analyses-that-matter">3. Perform the analyses that matter to your business</a></h2>
 
-Web analytics tools tell you how many visitors came to your website and what percentage convert. They can be helpful when you want to optimize your landing pages or your conversion funnel. Warehousing your data: answer questions like:
+<img src="/assets/img/product/perform-the-analysis-that-matter-to-your-business.png" class="center-block" />
+
+Answer the questions that matter to you business - questions like:
 
 * How can I spot high value users early on in their journeys?
 * Which products and brands should we prioritise buying next season?
@@ -35,6 +42,8 @@ Web analytics tools tell you how many visitors came to your website and what per
 * How do updates to my app change the way that users interact with it, and what is the commercial impact of those different behaviors?
 
 <h2><a name="right-tool-for-the-job">4. Use the right analytics tool for you <em>and</em> the type of analysis you are performing</a></h2>
+
+<img src="/assets/img/product/right-tool-for-the-job.png" class="center-block" />
 
 Event data is rich data that describes exactly what happened. There are an enormous range of questions you can answer with that data and an enormous range of analytics techniques you can employ.
 

@@ -8,7 +8,7 @@ weight: 4
 
 # Get started with Snowplow today
 
-Three Snowplow products to chose from:
+Three Snowplow products to choose from:
 
 1. [The Managed Service Batch](#batch)
 2. [The Managed Service Real Time](#real-time)

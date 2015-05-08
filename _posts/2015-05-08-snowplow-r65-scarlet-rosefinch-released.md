@@ -11,16 +11,16 @@ We are pleased to announce the release of Snowplow 65, Scarlet Rosefinch. This r
 
 Table of contents:
 
-1. [Enhanced performance](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#enhancedPerformance)
-2. [CORS support](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#cors)
-3. [Increased reliability](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#reliability)
-4. [Loading configuration from DynamoDB](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#dynamodb)
-5. [Randomized partition keys for bad streams](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#randomization)
-6. [Removal of automatic stream creation](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#automaticStreams)
-7. [Improved Elasticsearch index initialization](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#tokenization)
-8. [Other changes](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#otherChanges)
-9. [Upgrading](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#upgrading)
-10. [Getting help](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#help)
+1. [Enhanced performance](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#enhancedPerformance)
+2. [CORS support](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#cors)
+3. [Increased reliability](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#reliability)
+4. [Loading configuration from DynamoDB](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#dynamodb)
+5. [Randomized partition keys for bad streams](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#randomization)
+6. [Removal of automatic stream creation](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#automaticStreams)
+7. [Improved Elasticsearch index initialization](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#tokenization)
+8. [Other changes](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#otherChanges)
+9. [Upgrading](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#upgrading)
+10. [Getting help](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#help)
 
 ![scarlet-rosefinch][scarlet-rosefinch]
 

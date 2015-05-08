@@ -9,12 +9,15 @@ weight: 1
 
 # Snowplow is an event analytics platform
 
+Snowplow enables you to:
+
+1. Record events from your website, mobile app, server side system, third party systems and any type of connected device, so that you have a record of *what happened, when, and to whom*
+2. Processes that data, including validating, enriching and modeling it
+3. Loads the processed data into a datawarehouse to power analysis
+4. Makes that data available to real-time data processing applications, to action that data in real-time
+
 <img src="/assets/img/product/event-analytics-platform.png" />
 
-Snowplow is an *Event Analytics Platform*. It gives you all your **event-level, customer-level data** in your own:
-
-* **Data warehouse** to power analytics
-* **Unified log** for real-time processing in data-driven applications
 
 ## Find out more
 

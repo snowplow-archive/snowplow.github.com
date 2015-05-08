@@ -123,7 +123,7 @@ Like the Managed Service batch, but in addition to regular loading of your data 
 * Load your data real-time into [Elasticsearch][elasticsearch], for real time reporting and dashboards
 * Publish your event data into an [Amazon Kinesis stream][kinesis], for real time processing of the data in real-time applications (e.g. personalization)
 
-The Managed Service Real Time is not available yet - it is currently being tested. However, you can [register interest] [register], to ensure you are at the front of the queue when the service becomes available.
+The Managed Service Real Time is currently in private beta [register now] [register] to ensure you are at the front of the queue when the service becomes publically available.
 
 <h2><a name="open-source">3. Open source</a></h2>
 

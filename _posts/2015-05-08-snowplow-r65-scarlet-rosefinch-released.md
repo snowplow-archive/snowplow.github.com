@@ -40,13 +40,13 @@ It has three fields:
 
 An example with sensible defaults:
 
-```
+{% highlight bash %}
 buffer: {
     byte-limit: 4500000 # 4.5MB
     record-limit: 500 # 500 records
     time-limit: 60000 # 1 minute
 }
-```
+{% endhighlight %}
 
 Additionally, the Scala Stream Collector has a `ShutdownHook` which sends all stored records. This prevents stored events from being lost when the collector is shut down cleanly.
 
@@ -62,20 +62,20 @@ If an attempt to write records to Kinesis failed, previous versions of the Kines
 
 The minimum and maximum backoffs to use are configurable in the `backoffPolicy` for the Scala Stream Collector and Scala Kinesis Enrich:
 
-```
+{% highlight bash %}
 backoffPolicy: {
     minBackoff: 3000 # 3 seconds
     maxBackoff: 600000 # 5 minutes
 }
-```
+{% endhighlight %}
 
 <h2><a name="dynamodb">4. Loading configuration from DynamoDB</a></h2>
 
 The command-line arguments to Scala Kinesis Enrich have also changed. It used to be the case that you provided a `--config` argument, pointing to a [HOCON][hocon] file with configuration for the app, together with an optional `--enrichments` argument, pointing to a directory containing the JSON configurations for the enrichments you wanted to make use of:
 
-```
+{% highlight bash %}
 ./scala-kinesis-enrich-0.4.0 --config my.conf --enrichments path/to/enrichments
-```
+{% endhighlight %}
 
 Scarlet Rosefinch makes three changes:
 
@@ -85,28 +85,28 @@ Scarlet Rosefinch makes three changes:
 
 To recreate the pre-r65 behavior, convert the `resolver` section of your configuration HOCON to JSON and put it in its own file, "iglu_resolver.json". Then start the enricher like this:
 
-```
+{% highlight bash %}
 ./scala-kinesis-enrich-0.4.0 --config my.conf --resolver file:iglu_resolver.json --enrichments file:path/to/enrichments
-```
+{% endhighlight %}
 
 To get the resolver from DynamoDB, create a table named "snowplow_config" with hashkey "id" and add an item to the table of the following form:
 
-```
+{% highlight json %}
 {
     "id": "iglu_resolver",
     "json": "{{The resolver as a JSON string}}"
 }
-```
+{% endhighlight %}
 
 Then provide the `resolver` argument as follows:
 
-```
+{% highlight bash %}
 --resolver dynamodb:us-east-1/snowplow_config/iglu_resolver
-```
+{% endhighlight %}
 
 To get the enrichments from DynamoDB, the enrichment JSONs must all be stored in a table - you can reuse the "snowplow_config" table. The enrichments' hash keys should have a common prefix, for example "enrich_":
 
-```
+{% highlight json %}
 {
     "id": "enrich_anon_ip",
     "json": "{{anon_ip enrichment configuration as a JSON string}}"
@@ -116,23 +116,23 @@ To get the enrichments from DynamoDB, the enrichment JSONs must all be stored in
     "id": "enrich_ip_lookups",
     "json": "{{ip_lookups enrichment configuration as a JSON string}}"
 }
-```
+{% endhighlight %}
 
 Then provide the `resolver` argument as follows:
 
-```
+{% highlight bash %}
 --enrichments dynamodb:us-east-1/snowplow_config/enrich_
-```
+{% endhighlight %}
 
 If you are using a different AWS region, replace "us-east-1" accordingly.
 
 The full command:
 
-```
+{% highlight bash %}
 ./scala-kinesis-enrich-0.5.0 --config my.conf \
   --resolver dynamodb:us-east-1/snowplow_config/iglu_resolver \
   --enrichments dynamodb:us-east-1/snowplow_config/enrich_
-```
+{% endhighlight %}
 
 <h2><a name="randomization">5. Randomized partition keys for bad streams</a></h2>
 
@@ -150,7 +150,7 @@ This means that if you make a typo when configuring the stream name, the mistake
 
 We now recommend that when setting up your Elasticsearch index, you turn off [tokenization][tokenization] of string fields. You can do this by choosing "keyword" as the default analyzer:
 
-```
+{% highlight bash %}
 curl -XPUT 'http://localhost:9200/snowplow' -d '{
     "settings": {
         "analysis": {
@@ -179,7 +179,7 @@ curl -XPUT 'http://localhost:9200/snowplow' -d '{
         }
     }
 }'
-```
+{% endhighlight %}
 
 This has two positive effects:
 

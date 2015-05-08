@@ -94,7 +94,7 @@ To get the resolver from DynamoDB, create a table named "snowplow_config" with h
 {% highlight json %}
 {
     "id": "iglu_resolver",
-    "json": "{{The resolver as a JSON string}}"
+    "json": "{The resolver as a JSON string}"
 }
 {% endhighlight %}
 
@@ -109,12 +109,12 @@ To get the enrichments from DynamoDB, the enrichment JSONs must all be stored in
 {% highlight json %}
 {
     "id": "enrich_anon_ip",
-    "json": "{{anon_ip enrichment configuration as a JSON string}}"
+    "json": "{anon_ip enrichment configuration as a JSON string}"
 }
 
 {
     "id": "enrich_ip_lookups",
-    "json": "{{ip_lookups enrichment configuration as a JSON string}}"
+    "json": "{ip_lookups enrichment configuration as a JSON string}"
 }
 {% endhighlight %}
 

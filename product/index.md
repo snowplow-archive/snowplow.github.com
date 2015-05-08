@@ -7,12 +7,14 @@ description: Snowplow is an Event Analytics Platform. It delivers event line of 
 weight: 1
 ---
 
-# What is Snowplow?
+# Snowplow is an event analytics platform
+
+<img src="/assets/img/product/event-analytics-platform.png" />
 
 Snowplow is an *Event Analytics Platform*. It gives you all your **event-level, customer-level data** in your own:
 
 * **Data warehouse** to power analytics
-* **Unified log** for real-time processing
+* **Unified log** for real-time processing in data-driven applications
 
 ## Find out more
 
@@ -34,6 +36,6 @@ Snowplow is an *Event Analytics Platform*. It gives you all your **event-level, 
 [why-snowplow]: the-best-event-data-warehouse.html
 [who]: who-uses-snowplow.html
 [get-started]: get-started.html
-[amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png 
+[amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png
 
 [unified-log-blog-post]: /blog/2014/01/20/the-three-eras-of-business-data-processing/

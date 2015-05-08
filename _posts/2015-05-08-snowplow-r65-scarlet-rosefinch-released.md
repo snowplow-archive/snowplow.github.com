@@ -207,22 +207,22 @@ The Kinesis apps for r65 Scarlet Rosefinch are now all available in a single zip
 
 Upgrading will require various configuration changes to each of the four applications:
 
-<h4>Scala Stream Collector</h4>
+<h3>Scala Stream Collector</h3>
 
 * Add `backoffPolicy` and `buffer` fields to the configuration HOCON.
 
-<h4>Scala Kinesis Enrich</h4>
+<h3>Scala Kinesis Enrich</h3>
 
 * Add `backoffPolicy` and `buffer` fields to the configuration HOCON
 * Extract the resolver from the configuration HOCON into its own JSON file, which can be stored locally or in DynamoDB
 * Update the command line arguments as detailed [above](#dynamodb)
 
-<h4>Kinesis LZO S3 Sink</h4>
+<h3>Kinesis LZO S3 Sink</h3>
 
 * Rename the outermost key in the configuration HOCON from "connector" to "sink"
 * Replace the "s3/endpoint" field with an "s3/region" field (such as "us-east-1")
 
-<h4>Kinesis Elasticsearch Sink</h4>
+<h3>Kinesis Elasticsearch Sink</h3>
 
 * Rename the outermost key in the configuration HOCON from "connector" to "sink"
 

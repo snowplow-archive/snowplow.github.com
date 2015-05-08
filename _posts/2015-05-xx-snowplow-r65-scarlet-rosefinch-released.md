@@ -22,6 +22,8 @@ Table of contents:
 9. [Upgrading](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#upgrading)
 10. [Getting help](/blog/2015/05/xx/snowplow-r65-scarlet-rosefinch-released#help)
 
+![scarlet-rosefinch][scarlet-rosefinch]
+
 <!--more-->
 
 <h2><a name="enhancedPerformance">1. Enhanced performance</a></h2>
@@ -233,6 +235,8 @@ For more details on this release, please check out the [r65 Scarlet Rosefinch][r
 Documentation for all the Kinesis apps is available on the [wiki][wiki].
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
+
+[scarlet-rosefinch]: /assets/img/blog/2015/05/scarlet-rosefinch.jpg
 
 [kinesis]: http://aws.amazon.com/kinesis/
 [putrecords]: http://docs.aws.amazon.com/cli/latest/reference/kinesis/put-records.html

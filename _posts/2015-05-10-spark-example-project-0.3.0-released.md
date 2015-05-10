@@ -63,7 +63,7 @@ As well as helping users to get started with the Spark Example Project, the new 
 <h2><a name="help">3. Getting help</a></h2>
 </div>
 
-We hope you find [Spark Example Project] [spark-example-project] useful. As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+We hope you find [Spark Example Project] [spark-repo] useful. As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
 
 Stay tuned for more announcements from Snowplow about Spark and Spark Streaming in the future!
 

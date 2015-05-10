@@ -60,7 +60,7 @@ inv run_emr aws-profile spark-example-project-bucket ec2-keypair subnet-3dc2bd2a
 As well as helping users to get started with the Spark Example Project, the new `tasks.py` file should be a good starting point for automating your own non-interactive Spark jobs on EMR.
 
 <div class="html">
-<h2><a name="help">3. Getting help</a></h2>
+<h2><a name="help">4. Getting help</a></h2>
 </div>
 
 We hope you find [Spark Example Project] [spark-repo] useful. As always with releases from the Snowplow team, if you do run into any issues or don't understand any of the above changes, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].

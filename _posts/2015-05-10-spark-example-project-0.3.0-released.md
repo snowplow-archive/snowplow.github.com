@@ -1,7 +1,7 @@
 ---
 layout: post
 shortenedlink: Spark Example Project 0.3.0 released
-title: Spark Example Project released for getting started with Apache Spark on EMR
+title: Spark Example Project 0.3.0 released for getting started with Apache Spark on EMR
 tags: [snowplow, spark, emr, example, tutorial]
 author: Alex
 category: Releases

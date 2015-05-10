@@ -37,7 +37,7 @@ The project has been updated to [Spark 1.3.0] [spark-130], the most recent versi
 
 When we worked on the Spark Example Project last year, getting it working in a non-interactive fashion was challenging: it involved a custom Bash script, and even then was restricted to a relatively old Spark version (0.8.x).
 
-Since then, AWS's support for running Spark on Elastic MapReduce has evolved significantly, as part of the excellent opensource [emr-bootstrap-actions] [emr-bootstrap-actions] initiative. This has enabled us to remove our custom Bash script, and bump our Spark support to 1.3.0 as mentioned above.
+Since then, AWS's support for running Spark on Elastic MapReduce has evolved significantly, as part of the excellent open source [emr-bootstrap-actions] [emr-bootstrap-actions] initiative. This has enabled us to remove our custom Bash script, and bump our Spark support to 1.3.0 as above.
 
 <div class="html">
 <h2><a name="invoke">3. Automated job upload and running on EMR</a></h2>
@@ -73,6 +73,8 @@ Stay tuned for more announcements from Snowplow about Spark and Spark Streaming 
 
 [spark]: https://spark.apache.org/
 [spark-streaming]: https://spark.apache.org/streaming/
+[spark-130]: https://spark.apache.org/releases/spark-release-1-3-0.html
+
 [invoke]: http://www.pyinvoke.org/
 [boto]: https://boto.readthedocs.org/en/latest/
 [tasks-py]: https://github.com/snowplow/spark-example-project/blob/master/tasks.py

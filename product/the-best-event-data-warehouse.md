@@ -108,5 +108,5 @@ Because the Snowplow pipeline is built in a linearly scalable way, and runs on A
 [webhooks]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/
 
 [users]: who-uses-snowplow.html
-[get-started]: get-started.html
+[get-started]: /get-started/index.html
 [real-time]: snowplow-realtime.html

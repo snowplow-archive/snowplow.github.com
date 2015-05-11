@@ -121,10 +121,6 @@ weight: 1
 
 You can trial the managed service [free] [trial] for [one month] [trial]. [Sign up here] [trial], or [get in touch] [contact] to learn more.
 
-<p>Sign up for a <a href="managed-service-batch-free-trial.html">free trial</a></p>
-
-<p>Sign up to a <a href="managed-service-batch-free-trial">free trial</a>, or <a href="/about/index.html">get in touch</a> to <a href="/about/index.html">learn more</a> and <a href="/about/index.html">sign up</a>.</p>
-
 <h2><a name="real-time">2. The Managed Service Real Time</a></h2>
 
 Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:

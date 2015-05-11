@@ -1,18 +1,19 @@
 ---
 layout: page
-group: product
+group: get-started
 title: How to get started with Snowplow today
 shortened-link: Get started
-weight: 4
+weight: 1
 ---
 
-# Get started with Snowplow today
+<h1>Get started with Snowplow today</h1>
+<p>Three Snowplow products to choose from:</p>
 
-Three Snowplow products to choose from:
-
-1. [The Managed Service Batch](#batch)
-2. [The Managed Service Real Time](#real-time)
-3. [Open source](#open-source)
+<ul>
+  <li><a href="#batch">The Managed Service Batch</a></li>
+  <li><a href="#real-time">The Managed Service Real Time</a></li>
+  <li><a href="#open-source">Open source</a></li>
+</ul>
 
 <table class="table table-striped">
     <thead>
@@ -108,13 +109,21 @@ Three Snowplow products to choose from:
 
 <h2><a name="batch">1. The Managed Service Batch</a></h2>
 
-* Your data delivered directly into **your datawarehouse** (on Amazon [Redshift][redshift])
-* No devops required - we setup and run the pipeline for you as a service
-* Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data
-* **Total ownership and control**. All your own data stays on your AWS account
-* **Hassle free**. We run the Snowplow pipeline for you
+<p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
 
-Sign up to a [free trial] [trial], or [get in touch][contact] to [learn more][contact] and [sign up][contact].
+<ul>
+  <li>Your data delivered directly into **your datawarehouse** (on Amazon <a href="http://aws.amazon.com/redshift/">Amazon Redshift</a>)</li>
+  <li>No devops required - we setup and run the pipeline for you as a service</li>
+  <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data</li>
+  <li><strong>Total ownership and control</strong>. All your own data stays on your AWS account</li>
+  <li><strong>Hassle free</strong>. We run the Snowplow pipeline for you, so you can concentrate on anaylsing the data</li>
+</ul>
+
+You can trial the managed service [free] [trial] for [one month] [trial]. [Sign up here] [trial], or [get in touch] [contact] to learn more.
+
+<p>Sign up for a <a href="managed-service-batch-free-trial.html">free trial</a></p>
+
+<p>Sign up to a <a href="managed-service-batch-free-trial">free trial</a>, or <a href="/about/index.html">get in touch</a> to <a href="/about/index.html">learn more</a> and <a href="/about/index.html">sign up</a>.</p>
 
 <h2><a name="real-time">2. The Managed Service Real Time</a></h2>
 
@@ -123,13 +132,11 @@ Like the Managed Service batch, but in addition to regular loading of your data 
 * Load your data real-time into [Elasticsearch][elasticsearch], for real time reporting and dashboards
 * Publish your event data into an [Amazon Kinesis stream][kinesis], for real time processing of the data in real-time applications (e.g. personalization)
 
-The Managed Service Real Time is currently in private beta [register now] [register] to ensure you are at the front of the queue when the service becomes publically available.
+The Managed Service Real Time is currently available in private beta. [Register now] [register] to ensure you are at the front of the queue when the service becomes publically available.
 
 <h2><a name="open-source">3. Open source</a></h2>
 
 Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [repo].
-
-
 
 <h2>Want to talk to a human?</h2>
 

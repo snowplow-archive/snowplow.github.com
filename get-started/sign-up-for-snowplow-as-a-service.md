@@ -1,6 +1,6 @@
 ---
 layout: page
-group: product-hidden
+group: get-started
 title: Sign up for Snowplow as a Service
 shortened-link: Snowplow as a Service
 weight: 16
@@ -64,4 +64,4 @@ Enter your details below, and a member of the Snowplow team will be in touch to 
 			</div>
 		</div>
 	</form>
-</div>	
+</div>

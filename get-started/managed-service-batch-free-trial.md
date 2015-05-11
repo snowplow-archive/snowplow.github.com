@@ -1,9 +1,9 @@
 ---
 layout: page
-group: product
+group: get-started
 title: Sign up for a free Snowplow trial
 shortened-link: Free trial
-weight: 7
+weight: 2
 ---
 
 # Free one month Snowplow trial of the Managed Service Batch

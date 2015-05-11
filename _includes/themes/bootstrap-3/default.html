@@ -72,30 +72,35 @@
               {% assign group = 'navigation' %}
               {% include JB/pages_list %}
             -->
-            {% if page.group == 'product' %}
-              <li class="active"><a href="/product/index.html" class="active">Product</a></li>
-              {% else %}
-              <li><a href="/product/index.html">Product</a></li>
+              {% if page.group == 'product' %}
+                <li class="active"><a href="/product/index.html" class="active">Product</a></li>
+                {% else %}
+                <li><a href="/product/index.html">Product</a></li>
+              {% endif %}
+              {% if page.group == 'get-started' %}
+                <li class="active"><a href="/get-started/index.html" class="active">Get started</a></li>
+                {% else %}
+                <li><a href="/get-started/index.html">Get started</a></li>
               {% endif %}
               {% if page.group == 'analytics' %}
-              <li class="active"><a href="/analytics/index.html" class="active">Analytics</a></li>
-              {% else %}
-              <li><a href="/analytics/index.html">Analytics</a></li>
+                <li class="active"><a href="/analytics/index.html" class="active">Analytics</a></li>
+                {% else %}
+                <li><a href="/analytics/index.html">Analytics</a></li>
               {% endif %}
               {% if page.group == 'technology' %}
-              <li class="active"><a href="/technology/index.html" class="active">Technology</a></li>
-              {% else %}
-              <li><a href="/technology/index.html">Technology</a></li>
+                <li class="active"><a href="/technology/index.html" class="active">Technology</a></li>
+                {% else %}
+                <li><a href="/technology/index.html">Technology</a></li>
               {% endif %}
               {% if page.url contains 'blog' %}
-              <li class="active"><a href="/blog/index.html" class="active">Blog</a></li>
-              {% else %}
-              <li><a href="/blog/index.html">Blog</a></li>
+                <li class="active"><a href="/blog/index.html" class="active">Blog</a></li>
+                {% else %}
+                <li><a href="/blog/index.html">Blog</a></li>
               {% endif %}
               {% if page.group == 'about'%}
-              <li class="active"><a href="/about/index.html" class="active">About</a></li>
-              {% else %}
-              <li><a href="/about/index.html">About</a></li>
+                <li class="active"><a href="/about/index.html" class="active">About</a></li>
+                {% else %}
+                <li><a href="/about/index.html">About</a></li>
               {% endif %}
             </ul>
           </div><!-- /.navbar-collapse -->

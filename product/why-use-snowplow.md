@@ -13,8 +13,8 @@ weight: 12
 
 Snowplow helps you answer the difficult questions that really matter to your business. Questions like:
 
-* What are the events in a user's lifetime that are predictive of value? 
-* Where should we invest in our product and service? 
+* What are the events in a user's lifetime that are predictive of value?
+* Where should we invest in our product and service?
 * Where should I spend my marketing dollars?
 * How do my different products / content items / brands / authors / labels performs, in terms of attracting, engaging and monetizing users?
 
@@ -69,7 +69,7 @@ Snowplow doesn't just help you drive more insight from your data. By publishing 
 ## 3. Ready for Snowplow?
 
 <div class="html">
-	<a href="get-started.html">
+	<a href="/index/get-started.html">
 		<button class="btn btn-large btn-primary" type="button">Get started</button>
 	</a>
 </div>

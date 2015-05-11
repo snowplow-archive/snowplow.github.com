@@ -97,7 +97,7 @@ This time, I've asked Neo4J to order the results in descending order, and limit 
 | "snowplowanalytics.com/about/team.html"          | 293     |
 | "snowplowanalytics.com/analytics/index.html"     | 243     |
 | "snowplowanalytics.com/services/index.html"      | 221     |
-| "snowplowanalytics.com/product/get-started.html" | 146     |
+| "snowplowanalytics.com/get-started/index.html" | 146     |
 +------------------------------------------------------------+
 </pre>
 
@@ -141,7 +141,7 @@ In either case, we get a result in around 300 ms:
 | "snowplowanalytics.com/services/index.html"      | 296     |
 | "snowplowanalytics.com/blog/index.html"          | 89      |
 | "snowplowanalytics.com/about/team.html"          | 89      |
-| "snowplowanalytics.com/product/get-started.html" | 75      |
+| "snowplowanalytics.com/get-started/index.html" | 75      |
 | "snowplowanalytics.com/blog.html"                | 68      |
 +------------------------------------------------------------+
 
@@ -175,7 +175,7 @@ This gives a more reasonable list:
 | "snowplowanalytics.com/services/index.html"      | 287     |
 | "snowplowanalytics.com/blog/index.html"          | 77      |
 | "snowplowanalytics.com/about/team.html"          | 71      |
-| "snowplowanalytics.com/product/get-started.html" | 71      |
+| "snowplowanalytics.com/get-started/index.html" | 71      |
 | "snowplowanalytics.com/blog.html"                | 60      |
 +------------------------------------------------------------+
 
@@ -209,7 +209,7 @@ The results of the above query are shown below - I've removed the 'snowplowanaly
 | "/analytics/index.html"                       | 165      |
 | "/technology/index.html"                      | 86       |
 | "/about/index.html"                           | 82       |
-| "/product/get-started.html"                   | 45       |
+| "/get-started/index.html"                   | 45       |
 | "/product/do-more-with-your-data.html"        | 41       |
 | "/analytics/customer-analytics/overview.html" | 38       |
 | "/about/team.html"                            | 26       |
@@ -250,7 +250,7 @@ This took 696 ms to return the 10 most common paths from the homepage.
 |    "/analytics/customer-analytics/overview.html"]  | 211   |
 | ["/product/index.html",                            |       |
 |    "/product/do-more-with-your-data.html",         |       |
-|    "/product/get-started.html"]                    | 192   |
+|    "/get-started/index.html"]                    | 192   |
 | ["/","/product/index.html","/services/index.html"] | 181   |
 | ["/services/index.html",                           |       |
 |    "/analytics/index.html",                        |       |
@@ -303,7 +303,7 @@ This takes only 443 ms to give these results (which are backwards - the first pa
 |    "/analytics/index.html"]                         | 25   |
 | ["/","/product/index.html","/services/index.html"]  | 16   |
 | ["/","/product/index.html","/"]                     | 16   |
-| ["/product/get-started.html",                       |      |
+| ["/get-started/index.html",                       |      |
 |    "/product/do-more-with-your-data.html",          |      |
 |    "/product/index.html"]                           | 16   |
 +------------------------------------------------------------+
@@ -388,12 +388,12 @@ In 13 seconds, Neo4J returns this list:
 |    "/product/do-more-with-your-data.html"]          | 917  |
 | ["/","/product/index.html","/analytics/index.html"] | 631  |
 | ["/","/product/index.html",                         |      |
-|    "/product/get-started.html"]                     | 560  |
+|    "/get-started/index.html"]                     | 560  |
 | ["/","/about/index.html","/about/team.html"]        | 540  |
 | ["/","/services/index.html","/analytics/index.html"]| 527  |
 | ["/product/index.html",                             |      |
 |    "/product/do-more-with-your-data.html",          |      |
-|    "/product/get-started.html"]                     | 511  |
+|    "/get-started/index.html"]                     | 511  |
 | ["/analytics/index.html","/services/index.html",    |      |
 |    "/product/index.html"]                           | 476  |
 +------------------------------------------------------------+

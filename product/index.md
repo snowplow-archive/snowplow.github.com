@@ -23,21 +23,21 @@ Snowplow enables you to:
 
 <img src="/assets/img/product/event-analytics-platform.png" style="margin-top:20px;margin-bottom:20px;"/>
 
-<h2><a name="record-events">1. Record events from your website, mobile app, server side systems, third party systems and any type of connected device</a></h2>
+<h2><a name="record-events">1. Record events from <em>anywhere</em></a></h2>
+
+<img src="/assets/img/product/event-analytics-1-record-events.png" title="Snowplow record events" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
 
 Snowplow enables you to record rich, granular, event level data from your website, mobile applications, desktop applications, server-side systems and third party applications.
 
 This data provides a record of everything that has occurred in your business, providing a solid foundation for building insight and using that for taking intelligent action.
 
-<img src="/assets/img/product/event-analytics-1-record-events.png" title="Snowplow record events" class="center-block" />
-
 Our [large library of open source trackers] [trackers] enable you to track and generate data from your own systems.
 
 In addition, we support ingesting data from a growing number of third party providers via [webhooks] [webhooks].
 
-<h2><a name="process-that-data">2. Process that data including validating, enriching and modeling it</a></h2>
+<h2><a name="process-that-data">2. Structure, enrich and model that data</a></h2>
 
-<img src="/assets/img/product/event-analytics-2-data-pipeline.png" title="Snowplow datapipeline - validate - enrich - and model" class="center-block" />
+<img src="/assets/img/product/event-analytics-2-data-pipeline.png" title="Snowplow datapipeline - validate - enrich - and model" class="center-block"  style="margin-top:20px;margin-bottom:20px;" />
 
 We do not simply let you collect and warehouse event-level data. We run a sophisticated data pipeline that:
 
@@ -47,9 +47,9 @@ We do not simply let you collect and warehouse event-level data. We run a sophis
   * Identity stitching algorithms to figure out which events belong to a particular user, and aggregate over that user's data to create an update to date record for her in user-level table
 	* Sessionize events - grouping events together into logic flows that correspond to specific user actions
 
-<h2><a name="your-own-datawarehouse">3. Load the processed data into your own data warehouse to power sophisticated analysis</a></h2>
+<h2><a name="your-own-datawarehouse">3. Load the the data into your own data warehouse to power sophisticated analysis</a></h2>
 
-<img src="/assets/img/product/event-analytics-3-warehouse-and-report.png" title="Snowplow datawarehouse and analysis" class="center-block" />
+<img src="/assets/img/product/event-analytics-3-warehouse-and-report.png" title="Snowplow datawarehouse and analysis" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
 
 We deliver your event-level data to you in **your own datawarehouse**. That gives the ability to:
 
@@ -62,7 +62,7 @@ We deliver your event-level data to you in **your own datawarehouse**. That give
 
 <h2><a name="real-time">4. Make that data available to real-time data processing applications via Amazon Kinesis</a></h2>
 
-<img src="/assets/img/product/event-analytics-4-data-driven-applications.png" title="Snowplow data driven applications with Amazon Kinesis" class="center-block" />
+<img src="/assets/img/product/event-analytics-4-data-driven-applications.png" title="Snowplow data driven applications with Amazon Kinesis" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
 
 Snowplow is your company's digital nervous system. We can deliver your event-level data to an Amazon Kinesis stream, so that you can build data-driven applications that consume that data and take intelligent decisions based on it.
 
@@ -81,8 +81,8 @@ Just think about what that makes possible.
 ## Ready for Snowplow?
 
 <div class="html">
-	<a href="get-started.html">
-		<button class="btn btn-large btn-primary" type="button">Get started</button>
+	<a href="/get-started/index.html">
+		<button class="btn btn-large btn-primary center-block" type="button">Get started</button>
 	</a>
 </div>
 
@@ -90,7 +90,7 @@ Just think about what that makes possible.
 [why-dwh]: why-warehouse-your-data.html
 [why-snowplow]: the-best-event-data-warehouse.html
 [who]: who-uses-snowplow.html
-[get-started]: get-started.html
+[get-started]: /get-started/index.html
 [amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png
 [trackers]: https://github.com/snowplow?utf8=%E2%9C%93&query=tracker
 [webhooks]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/

@@ -47,10 +47,9 @@ weight: 2
 		<img src="/assets/img/team/christophe.jpg" class="img-rounded" />
 		<p>Christophe has joined the Snowplow team after completing a Data Analysis internship at <a href="http://www.songkick.com/">Songkick</a> and an MSc in Management at the London School of Economics.</p>
 		<p>Hailing from Belgium, Christophe graduated with an MSc in Theoretical Physics from the University of Leuven, before coming to London study Management and complete an internship in Sales Finance at Google.</p>
-		<p>At Google Christophe first got a taste for big data processing, using both <a href="http://research.google.com/pubs/pub36632.html">Dremel</a> and R - something he's built on at Snowplow developign the <a href="/analytics/event-dictionaries-and-data-models/data-modeling.html">data modeling</a> section in the data pipeline and porting it to <a href="https://spark.apache.org/">Spark</a>.</p>
+		<p>At Google Christophe first got a taste for big data processing, using both <a href="http://research.google.com/pubs/pub36632.html">Dremel</a> and R - something he's built on at Snowplow developing the <a href="/analytics/event-dictionaries-and-data-models/data-modeling.html">data modeling</a> section in the data pipeline and porting it to <a href="https://spark.apache.org/">Spark</a>.</p>
 		<p>When he's not practicing data science, Christophe enjoys cooking, photography, skiing and rock climbing.</p>
 	</div>
 	<div class="col-xs-6">
 	</div>
 </div>
-

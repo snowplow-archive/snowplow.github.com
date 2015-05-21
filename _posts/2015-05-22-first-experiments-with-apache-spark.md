@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: First experiments with Spark
-title: First experiments with Spark at Snowplow
+shortenedlink: First experiments with Apache Spark
+title: First experiments with Apache Spark at Snowplow
 tags: [snowplow, scala, spark, tutorial, example, recipe]
 author: Justine
 category: Research
@@ -15,7 +15,7 @@ As we talked about in our [May post on the Spark Example Project release](http:/
 2. Real-time aggregation of data for real-time dashboards
 3. Running machine-learning algorithms on event-level data
 
-We're just at the beginning of our journey getting familiar with Spark. I've been using Spark for the first time in the last few weeks. In this post I'll share back with the community what I've learnt, and will cover:
+We're just at the beginning of our journey getting familiar with Apache Spark. I've been using Spark for the first time over the past few weeks. In this post I'll share back with the community what I've learnt, and will cover:
 
 1. [Loading Snowplow data into Spark](#loading)
 2. [Performing simple aggregations on Snowplow data in Spark](#agg)
@@ -27,7 +27,7 @@ I've tried to write the post in a way that's easy to follow-along for other peop
 
 <h2><a name="loading">1. Loading Snowplow data into Spark</a></h2>
 
-Assuming you have git, Vagrant and VirtualBox installed - to get started, clone the [Snowplow repo][repo], switch to the `feature/spark-data-modeling` branch then `vagrant up` and `vagrant ssh` onto the box:
+Assuming you have git, Vagrant and VirtualBox installed, you can get started by simply clone the [Snowplow repo][repo], switching to the `feature/spark-data-modeling` branch then `vagrant up` and `vagrant ssh` onto the box:
 
 {% highlight bash %} 
 host$ git clone https://github.com/snowplow/snowplow.git
@@ -37,16 +37,15 @@ host$ vagrant up && vagrant ssh
 guest$ cd /vagrant/5-data-modeling/spark
 {% endhighlight %}
 
-This tutorial also assumes you have some Snowplow enriched events files stored locally in `/path/to/data`. (The enriched data is stored in the TSV format documented [here](https://github.com/snowplow/snowplow/wiki/Canonical-event-model).)
+This tutorial also assumes you have some Snowplow enriched events files stored locally in `/path/to/data`. The enriched events are stored in the TSV format documented [here](https://github.com/snowplow/snowplow/wiki/Canonical-event-model).
 
-First, we open up the Spark REPL:
+First, we open up the Scala console or REPL:
 
 {% highlight bash %}
-$ sbt
-spark-data-modeling > console
+guest$ sbt console
 {% endhighlight %}
 
-This gives us access to all of the libraries loaded as part of the spark-data-modeling project which we will need in a later step. We define a [SparkContext](https://spark.apache.org/docs/1.3.1/api/scala/index.html#org.apache.spark.SparkContext):
+This gives us access to all of the libraries loaded as part of the spark-data-modeling project which we will need in a later step. First we define a [SparkContext](https://spark.apache.org/docs/1.3.1/api/scala/index.html#org.apache.spark.SparkContext). Paste this into your Scala console:
 
 {% highlight scala %}
 import org.apache.spark.{SparkContext, SparkConf}
@@ -60,7 +59,7 @@ val sc = {
 }
 {% endhighlight %}
 
-We define `inDir` as the path of the directory with all our data files (Spark [supports wildcards](https://spark.apache.org/docs/latest/programming-guide.html#external-datasets)). We can now load the data:
+We define `inDir` as the path of the directory with all our data files - Spark [supports wildcards](https://spark.apache.org/docs/latest/programming-guide.html#external-datasets). We can now load the data:
 
 {% highlight scala %}
 val inDir = "/path/to/data/*"
@@ -70,10 +69,10 @@ val input = sc.textFile(inDir)
 If we had wanted to load data directly from S3, we would only have to change the directory path value:
 
 {% highlight scala %}
-val inDir = "s3n://snowplow-saas-archive-eu-west-1/snplow2/enriched/good/run=*"
+val inDir = "s3n://snowplow-events/enriched/good/run=*"
 {% endhighlight %}
 
-Note that you must have the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables set to your S3 credentials and that the account linked to those credentials has *both "read" and **"write"** permissions*.
+In this case, you must have the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables set to your AWS account credentials; the AWS account needs *both "read" and **"write"** permissions*.
 
 ### Transforming the data for further analysis
 
@@ -95,7 +94,7 @@ val jsons = input.
   flatMap (_.toOption)
 {% endhighlight %}
 
-*Note that the `EventTransformer` was written to convert Snowplow enriched events into a format suitable for ingesting directly into ElasticSearch, as part of our real-time flow. The same transformation makes the data easy to work with in Spark.*
+Note that the `EventTransformer` was originally written to convert Snowplow enriched events into a format suitable for [ingesting directly into ElasticSearch] [es-sink], as part of our real-time flow. The same transformation makes the data easy to work with in Spark.
 
 The data now looks like:
 
@@ -104,7 +103,7 @@ scala> jsons.first
 res1: String = {"geo_location":"-27.0,133.0","app_id":"snowplowweb","platform":"web","etl_tstamp":"2015-05-06T05:02:35.764Z","collector_tstamp":"2015-05-05T09:00:57.000Z","dvce_tstamp":"2015-05-05T09:00:57.545Z","event":"page_view","event_id":"c033a9d1-0873-4cd9-834e-8fc929246c95","txn_id":null,"name_tracker":"clojure","v_tracker":"js-2.4.3","v_collector":"clj-1.0.0-tom-0.2.0","v_etl":"hadoop-0.14.1-common-0.13.1","user_id":"1893875.41105417","user_ipaddress":"220.233.228.52","user_fingerprint":"10997213","domain_userid":"5f8460b43ec0a7b4","domain_sessionidx":1,"network_userid":"4530c468-8c02-4e24-9f0b-1d38728795a1","geo_country":"AU","geo_region":null,"geo_city":null,"geo_zipcode":null,"geo_latitude":-27.0,"geo_longitude":133.0,"geo_region_name":null,"ip_isp":"Exetel","ip_organization"...
 {% endhighlight %}
 
-A string of JSON is returned. We want to load this into a [Spark DataFrame](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.DataFrame) so that we can easily manipulate data across dimensions.
+A JSON string is returned. We will now load this into a [Spark DataFrame](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.DataFrame) so that we can easily manipulate data across dimensions.
 
 ### Loading the JSON formatted data into a Spark DataFrame
 
@@ -116,7 +115,7 @@ import org.apache.spark.sql.SQLContext
 val sqlContext = new SQLContext(sc)
 {% endhighlight %}
 
-We can load the JSON formatted data into a DataFrame two different ways. Just continuing from the work we did above in the interactive shell:
+We can load the JSON formatted data into a DataFrame two different ways. Just continuing from the work we did above in the console:
 
 {% highlight scala %}
 // this is used to implicitly convert an RDD to a DataFrame
@@ -125,7 +124,7 @@ import sqlContext.implicits._
 val df = sqlContext.jsonRDD(jsons)
 {% endhighlight %}
 
-Otherwise if we had saved the data to files, we could load the data directly into a DataFrame this way:
+Alternatively, if we had saved the data to files we could load the data directly into a DataFrame this way:
 
 {% highlight scala %}
 val df = sqlContext.load("/path/to/saved/json/files/*", "json")
@@ -179,7 +178,7 @@ To illustrate simple aggregations with Spark, we will:
 
 ### Count the number of events per day
 
-We set up a crude function, `toDate`, to get the date out of the `collector_tstamp` column containing the date and time in the ISO 8601 format. We then make a [UDF](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.UserDefinedFunction) from `toDate` to use it on a Column in the DataFrame. `udf()` takes function objects so we define `toDate` as an anonymous function:
+We will set up a crude function, `toDate`, to get the date out of the `collector_tstamp` column containing the date and time in the ISO 8601 format. We then make a [UDF](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.UserDefinedFunction) from `toDate` to use it on a Column in the DataFrame. `udf()` takes function objects so we define `toDate` as an anonymous function:
 
 {% highlight scala %}
 import org.apache.spark.sql.functions.udf
@@ -189,8 +188,7 @@ val toDateUDF = udf(toDate)
 val dfWithDate = df.withColumn("collector_date", toDateUDF(df.col("collector_tstamp")))
 {% endhighlight %}
 
-**NOTE**
-There is a [bug](https://github.com/apache/spark/pull/5981) concerning registering UDFs in certain contexts (like the sbt console we are using) for which there are [workarounds](http://chapeau.freevariable.com/2015/04/spark-sql-repl.html) for the current Spark version, and that has since been [fixed](https://github.com/apache/spark/commit/937ba798c56770ec54276b9259e47ae65ee93967). These aggregations can also be done without UDFs and using RDDs (see how to go from a DataFrame to an RDD [here](#dftordd)).
+**Note:** there is a [bug](https://github.com/apache/spark/pull/5981) concerning registering UDFs in certain contexts (like the SBT console we are using) for which there are [workarounds](http://chapeau.freevariable.com/2015/04/spark-sql-repl.html) for the current Spark release version, though this has since been [fixed](https://github.com/apache/spark/commit/937ba798c56770ec54276b9259e47ae65ee93967). Alternatively, these aggregations can also be done using RDDs without UDFs - see how to go from a DataFrame to an RDD [here](#dftordd).
 
 We group by the new column and count each event per group:
 
@@ -211,7 +209,7 @@ The `show()` method on DataFrames is useful to quickly see the results of any op
 
 ### Count the number of users per day
 
-First we have to get the distinct users per day (or *unique* users per day), so we'll have one row per user per day. Then we repeat as above to group by day and count the users in each group:
+First we have to get the distinct users per day (or *unique* users per day), to get one row per user per day. Then we repeat as above to group by day and count the users in each group:
 
 {% highlight scala %}
 scala> dfWithDate.
@@ -247,8 +245,7 @@ scala> dfWithDate.
 +--------------+-----+
 {% endhighlight %} 
 
-**NOTE**
-There also exists the `countDistinct` function which we can use to aggregate over a group, like this:
+**Note:** there also exists the `countDistinct` function which we can use to aggregate over a group, like this:
 
 {% highlight scala %}
 scaladfWithDate.
@@ -263,7 +260,7 @@ scaladfWithDate.
 +--------------+-----------------------------------------------+
 {% endhighlight %}
 
-However its behaviour is inconsistent with the `select(...).distinct.groupBy(...).count` approach we took above, as shown by the results, as `null` values are not taken into account by `countDistinct`.
+However its behaviour is inconsistent with the `select(...).distinct.groupBy(...).count` approach we took prior, as `null` values are not taken into account by `countDistinct`.
 
 <h2><a name="funnel">3. Funnel analysis on Snowplow data</a></h2>
 
@@ -281,7 +278,7 @@ val urls = Map(
 ).withDefaultValue("")
 {% endhighlight %}
 
-Next we want to group our events by session and collect the `page_urlpath` of `page_view` events. Unfortunately aggregations in Spark DataFrames only work with some basic pre-defined functions: `count` which we used above, and a few standard [functions](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.GroupedData). UDAFs are [not yet supported](https://issues.apache.org/jira/browse/SPARK-3947) in Spark SQL, <a name="dftordd"></a>so we will map the DataFrame to a [RDD](https://spark.apache.org/docs/latest/programming-guide.html#resilient-distributed-datasets-rdds) using the `map` method:
+Next we want to group our events by session and collect the `page_urlpath` of `page_view` events. Unfortunately, aggregations in Spark DataFrames only work with some basic pre-defined functions: `count` which we used above, and a few standard [functions](https://spark.apache.org/docs/1.3.0/api/scala/index.html#org.apache.spark.sql.GroupedData). UDAFs are [not yet supported](https://issues.apache.org/jira/browse/SPARK-3947) in Spark SQL, <a name="dftordd"></a>so we will map the DataFrame to a [RDD](https://spark.apache.org/docs/latest/programming-guide.html#resilient-distributed-datasets-rdds) using the `map` method:
 
 {% highlight scala %}
 scala> import org.apache.spark.sql.Row
@@ -321,7 +318,7 @@ scala> eventsBySession.take(5).foreach(println)
 
 Here we're looking at five elements in the `eventsBySession` RDD. In the first four sessions, only one url was visited, whereas six urls were visited in the fifth session displayed here.
 
-Each row still contains the `domain_userid` and `domain_sessionidx` fields which were used to group, so we need to remove these obsolete fields and keep the `page_urlpath`. Each `page_urlpath` can be mapped to the corresponding funnel letter we defined in the `urls` Map and we can join all the funnel letters together in a single String for our summarised funnel journey field.
+Each row still contains the `domain_userid` and `domain_sessionidx` fields which were used to group, so we need to remove these obsolete fields and keep or "project" the `page_urlpath`. Each `page_urlpath` can be mapped to the corresponding funnel letter we defined in the `urls` Map and we can join all the funnel letters together in a single String for our summarised funnel journey field.
 
 We do all this in a function so that if our funnel urls change, we can recalculate the funnel field for each session from the `eventsBySession` RDD by passing the new `urls` Map as the `urlToLetter` argument.
 
@@ -397,7 +394,7 @@ scala> funnelDF.show
 +----------------+-----------------+------+
 {% endhighlight %}
 
-Here Spark inferred the schema using [reflection](inferring-the-schema-using-reflection) where the case class defines the schema of the table. With the data in a DataFrame, we can now use very terse declarative code to analyse the data further, for example here we look at the longest funnel journeys:
+Here Spark inferred the schema using [reflection] [inferring-the-schema-using-reflection] where the case class defines the schema of the table. With the data in a DataFrame, we can now use very terse declarative code to analyse the data further, for example here we look at the longest funnel journeys:
 
 {% highlight scala %}
 scala> val toLength = udf((t: String) => t.length: Int)
@@ -444,9 +441,13 @@ val eventToLetter = Map(
 ).withDefaultValue("")
 {% endhighlight %}
 
-As the next steps in my internship, I will be focusing on marketing attribution data in particular. I'm going to compute identify, filter and transform that data in Spark, before loading it into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This stack should give me a lot of flexibility to explore different approaches to visualizing marketing attributino data.
+As the next steps in my internship, I will be focusing on marketing attribution data in particular. I'm going to compute identify, filter and transform that data in Spark, before loading it into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This stack should give me a lot of flexibility to explore different approaches to visualizing marketing attribution data.
 
-In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned - a blog about that in due course!
+In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned for a blog post on that in due course!
 
 [repo]: https://github.com/snowplow/snowplow
 [spark-logo]: /assets/img/blog/2015/05/spark_logo.png
+
+[inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
+
+[es-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-elasticsearch-sink

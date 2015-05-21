@@ -8,7 +8,9 @@ category: Research
 ---
 
 
-<!-- some sort of intro -->
+As mentioned in our [May post on the Spark Example Project release](http://snowplowanalytics.com/blog/2015/05/10/spark-example-project-0.3.0-released/), we are interested in [Apache Spark](https://spark.apache.org/) for [data modeling](http://snowplowanalytics.com/analytics/data-modeling/). Specifically, we want to use Spark for defining aggregations on data to power dashboards and reporting, with a view to processing the data in real-time on Kinesis.
+
+When we process event data, we are often interested in the sequences that events occur in, so we included [funnel analysis](#funnel) in the initial set of experiments. 
 
 In this post, we will cover:
 
@@ -426,4 +428,6 @@ val eventToLetter = Map(
 ).withDefaultValue("")
 {% endhighlight %}
 
-<!-- some sort of closing remarks -->
+As the next steps for this internship project, we will be loading the output of Spark into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This will allow us to explore ways of better enabling people to understand marketing attribution.
+
+In parallel, another intern is looking into running [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis, and will blog about that in due course.

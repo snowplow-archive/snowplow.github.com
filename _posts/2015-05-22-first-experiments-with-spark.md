@@ -73,10 +73,10 @@ Each data element is a long string of TSVs with some of the values being in JSON
 {% highlight scala %}
 import com.snowplowanalytics.snowplow.datamodeling.spark.events.EventTransformer
 
-val jsons = input
-  .map (line => EventTransformer.transform(line))
-  .filter (_.isSuccess)
-  .flatMap (_.toOption)
+val jsons = input.
+  map (line => EventTransformer.transform(line)).
+  filter (_.isSuccess).
+  flatMap (_.toOption)
 {% endhighlight %}
 
 The data now looks like:
@@ -101,7 +101,7 @@ val sqlContext = new SQLContext(sc)
 We can load the JSON formatted data into a DataFrame two different ways. Just continuing from the work we did above in the interactive shell:
 
 {% highlight scala %}
-// this is used to implicitly convert an RDD to a DataFrame.
+// this is used to implicitly convert an RDD to a DataFrame
 import sqlContext.implicits._
 
 val df = sqlContext.jsonRDD(jsons)

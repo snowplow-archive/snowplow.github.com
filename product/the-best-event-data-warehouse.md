@@ -105,6 +105,7 @@ Because the Snowplow pipeline is built in a linearly scalable way, and runs on A
 [snowplow-github]: https://github.com/snowplow/
 [apache-2]: https://www.apache.org/licenses/LICENSE-2.0
 [trackers]: https://github.com/snowplow/?utf8=%E2%9C%93&query=tracker
+[tracker]: https://github.com/snowplow/?utf8=%E2%9C%93&query=tracker
 [webhooks]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/
 
 [users]: who-uses-snowplow.html

@@ -17,9 +17,9 @@ As we talked about in our [May post on the Spark Example Project release](http:/
 
 We're just at the beginning of our journey getting familiar with Apache Spark. I've been using Spark for the first time over the past few weeks. In this post I'll share back with the community what I've learnt, and will cover:
 
-1. [Loading Snowplow data into Spark](#loading)
-2. [Performing simple aggregations on Snowplow data in Spark](#agg)
-3. [Performing funnel analysis on Snowplow data](#funnel)
+1. [Loading Snowplow data into Spark](/blog/2015/05/21/first-experiments-with-apache-spark/#loading)
+2. [Performing simple aggregations on Snowplow data in Spark](/blog/2015/05/21/first-experiments-with-apache-spark#agg)
+3. [Performing funnel analysis on Snowplow data](/blog/2015/05/21/first-experiments-with-apache-spark#funnel)
 
 I've tried to write the post in a way that's easy to follow-along for other people interested in getting up the Spark learning curve.
 

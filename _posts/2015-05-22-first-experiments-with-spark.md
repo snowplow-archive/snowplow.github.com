@@ -18,7 +18,7 @@ In this post, we will cover:
 
 <!-- more -->
 
-## <a name="loading">Loading Snowplow data into Spark</a>
+## <a name="loading"></a>1. Loading Snowplow data into Spark
 
 We're in the [5-data-modeling/spark](https://github.com/snowplow/snowplow/tree/feature/spark-data-modeling/5-data-modeling/spark) directory in the `feature/spark-data-modeling` branch in the [snowplow repo](https://github.com/snowplow/snowplow/).
 Our data is stored locally in files in the directory `/path/to/data/`. The data is in the *enriched data* TSV format described [here](https://github.com/snowplow/snowplow/wiki/Canonical-event-model). The data corresponds to a small sample of two days of data.
@@ -151,7 +151,7 @@ root
 
 Spark SQL inferred the schema from the JSON files. It should fit [this schema](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/elasticsearch_enriched_event/jsonschema/1-0-1).
 
-## <a name="agg">Simple aggregations on Snowplow data</a>
+## <a name="agg"></a>2. Simple aggregations on Snowplow data
 
 To illustrate simple aggregations with Spark, we will:
 
@@ -247,7 +247,7 @@ scala> dfWithDate.
 > 
 > However its behaviour is inconsistent with the `select(...).distinct.groupBy(...).count` approach we took above, as shown by the results, as `null` values are not taken into account by `countDistinct`.
 
-## <a name="funnel">Funnel analysis on Snowplow data</a>
+## <a name="funnel"></a>3. Funnel analysis on Snowplow data
 
 We define a funnel as being made up of three events. In this example, it will be three page view events, where each event is identified via a unique page URL. We want to aggregate all the events corresponding to one session into a single field that summarises the journey in the funnel for that session.
 
@@ -425,7 +425,5 @@ val eventToLetter = Map(
   Map("event" -> "transaction", "ti_name" -> "Cone pendulum" -> "C",
 ).withDefaultValue("")
 {% endhighlight %}
-
-## Conclusion ?
 
 <!-- some sort of closing remarks -->

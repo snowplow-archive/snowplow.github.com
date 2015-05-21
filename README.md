@@ -2,7 +2,7 @@
 
 snowplow.github.com is the source code and content for [http://snowplowanalytics.com](http://snowplowanalytics.com) website.
 
-The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [Github Pages](http://pages.github.com/). (Thanks to the great people of Github for this fantastic service.) 
+The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [GitHub Pages](http://pages.github.com/). (Thanks to the great people of GitHub for this fantastic service.)
 
 ## Content covered
 
@@ -14,7 +14,7 @@ The content covers:
 4. How to perform analyses using Snowplow
 5. Overview of the Professional Services we offer around Snowplow
 
-All content is copyright (c) 2012-2015 Snowplow Analytics Ltd and not to be reused without permission. 
+All content is copyright (c) 2012-2015 Snowplow Analytics Ltd and not to be reused without permission.
 
 
 ## Adding new content and editing existing content
@@ -25,7 +25,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 
 1. [Fork](https://help.github.com/articles/fork-a-repo) the repository
 2. Clone your fork to your local machine
-3. Make the desired changes to the webiste. More details on this are [below](#website-update)
+3. Make the desired changes to the website. More details on this are [below](#website-update)
 4. Make a [pull request](https://help.github.com/articles/using-pull-requests). We will incorporate your updates to the site ASAP
 
 
@@ -39,7 +39,7 @@ We welcome fixes and improvements! In particular on the analysis side, there is 
 5. [Links between pages](#6-links-between-pages)
 6. [Side menus](#7-side-menus)
 7. [Previewing changes locally](#8-previewing-the-changes-locally)
-8. [Committing your changes and deploying them to Github Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
+8. [Committing your changes and deploying them to GitHub Pages](#9-committing-your-changes-and-deploying-them-to-github-pages)
 
 
 <a name="2-making-changes-locally" />
@@ -60,7 +60,7 @@ In the file add the following [YAML Front Matter](https://github.com/mojombo/jek
 layout: post # Should be set to post for all blog posts, page for all other pages (except homepage)
 shortenedlink: JavaScript Tracker 0.14.0 released # Link that will appear in the side menu
 title: Snowplow JavaScript Tracker 0.14.0 released with new features # Page title will appear in the browser
-tags: [snowplow, javascript, tracker] 
+tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases
 ---
@@ -93,7 +93,7 @@ weight: 1 # How far up in the sidebar the page should appear relative to other p
 #### 4. Embedding images
 
 Images are committed to the appropriate `assets/img` folder (depending on which section the image belongs). It can then be referenced in the Markdown as normal.
-	
+
 <a name="6-links-between-pages" />
 #### 5. Links between pages
 
@@ -129,11 +129,11 @@ That will take about 15 minutes to run initially. Once your VM is ready, you can
 In your host machine, open a browser and navigate to `http://localhost:4001` and bingo! There's the website!
 
 <a name="9-committing-your-changes-and-deploying-them-to-github-pages" />
-#### 8. Committing your changes and deploying them to Github Pages
+#### 8. Committing your changes and deploying them to GitHub Pages
 
 When you are happy with the updates:
 
 1. Merge them with the master branch
 2. Push the master branch to origin
 
-The good people at Github will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [Github pages] (http://pages.github.com/).
+The good people at GitHub will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [GitHub pages] (http://pages.github.com/).

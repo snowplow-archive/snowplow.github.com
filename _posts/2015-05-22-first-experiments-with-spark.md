@@ -7,23 +7,37 @@ author: Justine
 category: Research
 ---
 
+![spark logo][spark-logo]
 
-As mentioned in our [May post on the Spark Example Project release](http://snowplowanalytics.com/blog/2015/05/10/spark-example-project-0.3.0-released/), we are interested in [Apache Spark](https://spark.apache.org/) for [data modeling](http://snowplowanalytics.com/analytics/data-modeling/). Specifically, we want to use Spark for defining aggregations on data to power dashboards and reporting, with a view to processing the data in real-time on Kinesis.
+As we talked about in our [May post on the Spark Example Project release](http://snowplowanalytics.com/blog/2015/05/10/spark-example-project-0.3.0-released/), at Snowplow we are very interested in [Apache Spark](https://spark.apache.org/) for three things:
 
-When we process event data, we are often interested in the sequences that events occur in, so we included [funnel analysis](#funnel) in the initial set of experiments. 
+1. [Data modeling](http://snowplowanalytics.com/analytics/data-modeling/) i.e. applying business rules to aggregate up event-level data into a format suitable for ingesting into a business intelligence / reporting / OLAP tool
+2. Real-time aggregation of data for real-time dashboards
+3. Running machine-learning algorithms on event-level data
 
-In this post, we will cover:
+We're just at the beginning of our journey getting familiar with Spark. I've been using Spark for the first time in the last few weeks. In this post I'll share back with the community what I've learnt, and will cover:
 
 1. [Loading Snowplow data into Spark](#loading)
-2. [Simple aggregations on Snowplow data](#agg)
-3. [Funnel analysis on Snowplow data](#funnel)
+2. [Performing simple aggregations on Snowplow data in Spark](#agg)
+3. [Performing funnel analysis on Snowplow data](#funnel)
 
-<!-- more -->
+I've tried to write the post in a way that's easy to follow-along for other people interested in getting up the Spark learning curve.
 
-## <a name="loading"></a>1. Loading Snowplow data into Spark
+<!--more-->
 
-We're in the [5-data-modeling/spark](https://github.com/snowplow/snowplow/tree/feature/spark-data-modeling/5-data-modeling/spark) directory in the `feature/spark-data-modeling` branch in the [snowplow repo](https://github.com/snowplow/snowplow/).
-Our data is stored locally in files in the directory `/path/to/data/`. The data is in the *enriched data* TSV format described [here](https://github.com/snowplow/snowplow/wiki/Canonical-event-model). The data corresponds to a small sample of two days of data.
+<h2><a name="loading">1. Loading Snowplow data into Spark</a></h2>
+
+Assuming you have git, Vagrant and VirtualBox installed - to get started, clone the [Snowplow repo][repo], switch to the `feature/spark-data-modeling` branch then `vagrant up` and `vagrant ssh` onto the box:
+
+{% highlight bash %} 
+host$ git clone https://github.com/snowplow/snowplow.git
+host$ cd snowplow
+host$ git checkout feature/spark-data-modeling
+host$ vagrant up && vagrant ssh
+guest$ cd /vagrant/5-data-modeling/spark
+{% endhighlight %}
+
+This tutorial also assumes you have some Snowplow enriched events files stored locally in `/path/to/data`. (The enriched data is stored in the TSV format documented [here](https://github.com/snowplow/snowplow/wiki/Canonical-event-model).)
 
 First, we open up the Spark REPL:
 
@@ -80,6 +94,8 @@ val jsons = input.
   filter (_.isSuccess).
   flatMap (_.toOption)
 {% endhighlight %}
+
+*Note that the `EventTransformer` was written to convert Snowplow enriched events into a format suitable for ingesting directly into ElasticSearch, as part of our real-time flow. The same transformation makes the data easy to work with in Spark.*
 
 The data now looks like:
 
@@ -173,8 +189,8 @@ val toDateUDF = udf(toDate)
 val dfWithDate = df.withColumn("collector_date", toDateUDF(df.col("collector_tstamp")))
 {% endhighlight %}
 
-> **NOTE**
-> There is a [bug](https://github.com/apache/spark/pull/5981) concerning registering UDFs in certain contexts (like the sbt console we are using) for which there are [workarounds](http://chapeau.freevariable.com/2015/04/spark-sql-repl.html) for the current Spark version, and that has since been [fixed](https://github.com/apache/spark/commit/937ba798c56770ec54276b9259e47ae65ee93967). These aggregations can also be done without UDFs and using RDDs (see how to go from a DataFrame to an RDD [here](#dftordd)).
+**NOTE**
+There is a [bug](https://github.com/apache/spark/pull/5981) concerning registering UDFs in certain contexts (like the sbt console we are using) for which there are [workarounds](http://chapeau.freevariable.com/2015/04/spark-sql-repl.html) for the current Spark version, and that has since been [fixed](https://github.com/apache/spark/commit/937ba798c56770ec54276b9259e47ae65ee93967). These aggregations can also be done without UDFs and using RDDs (see how to go from a DataFrame to an RDD [here](#dftordd)).
 
 We group by the new column and count each event per group:
 
@@ -231,25 +247,27 @@ scala> dfWithDate.
 +--------------+-----+
 {% endhighlight %} 
 
-> **NOTE**
-> There also exists the `countDistinct` function which we can use to aggregate over a group, like this:
-> 
-> {% highlight scala %}
-> scala> dfWithDate.
->      |   groupBy ("collector_date").
->      |   agg (countDistinct("domain_userid", "domain_sessionidx")).
->      |   show
-> +--------------+-----------------------------------------------+
-> |collector_date|COUNT(DISTINCT domain_userid,domain_sessionidx)|
-> +--------------+-----------------------------------------------+
-> |    2015-05-05|                                             58|
-> |    2015-05-06|                                             50|
-> +--------------+-----------------------------------------------+
-> {% endhighlight %}
-> 
-> However its behaviour is inconsistent with the `select(...).distinct.groupBy(...).count` approach we took above, as shown by the results, as `null` values are not taken into account by `countDistinct`.
+**NOTE**
+There also exists the `countDistinct` function which we can use to aggregate over a group, like this:
 
-## <a name="funnel"></a>3. Funnel analysis on Snowplow data
+{% highlight scala %}
+scaladfWithDate.
+     |   groupBy ("collector_date").
+     |   agg (countDistinct("domain_userid", "domain_sessionidx")).
+     |   show
++--------------+-----------------------------------------------+
+|collector_date|COUNT(DISTINCT domain_userid,domain_sessionidx)|
++--------------+-----------------------------------------------+
+|    2015-05-05|                                             58|
+|    2015-05-06|                                             50|
++--------------+-----------------------------------------------+
+{% endhighlight %}
+
+However its behaviour is inconsistent with the `select(...).distinct.groupBy(...).count` approach we took above, as shown by the results, as `null` values are not taken into account by `countDistinct`.
+
+<h2><a name="funnel">3. Funnel analysis on Snowplow data</a></h2>
+
+When we analyse event-level data we are often interested in understanding the sequence in which events occur. Funnel analysis is one of the simplest examples where we're sequencing events.
 
 We define a funnel as being made up of three events. In this example, it will be three page view events, where each event is identified via a unique page URL. We want to aggregate all the events corresponding to one session into a single field that summarises the journey in the funnel for that session.
 
@@ -414,11 +432,9 @@ scala> funnelDF.
 +----------------+-----------------+------+
 {% endhighlight %}
 
-### Next steps
+## Next steps
 
-What if the events you are interested in your funnel are not all `page_view`s and you are not only interested in the `page_urlpath` field ? For example, what if one of the events you were interested in was a [`transaction` event](https://github.com/snowplow/snowplow/wiki/Canonical-event-model#ecomm) and the corresponding `ti_name` field ?
-
-Our code above would need to be more flexible and accept a nested eventToLetter mapping of this sort of form:
+There are a number of ways we can build on the computations outlined above. For our funnel analysis, for example, we might want to define funnels where the steps in each funnel are not simply page views and identified by page URL paths - we want the flexibility to build funnels out of any event type, and use any combination of fields in our Snowplow data to identify steps in that funnel. Our code above would need to be more flexible and accept a nested `eventToLetter` mapping of this sort of form:
 
 {% highlight scala %}
 val eventToLetter = Map(
@@ -428,6 +444,9 @@ val eventToLetter = Map(
 ).withDefaultValue("")
 {% endhighlight %}
 
-As the next steps for this internship project, we will be loading the output of Spark into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This will allow us to explore ways of better enabling people to understand marketing attribution.
+As the next steps in my internship, I will be focusing on marketing attribution data in particular. I'm going to compute identify, filter and transform that data in Spark, before loading it into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This stack should give me a lot of flexibility to explore different approaches to visualizing marketing attributino data.
 
-In parallel, another intern is looking into running [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis, and will blog about that in due course.
+In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned - a blog about that in due course!
+
+[repo]: https://github.com/snowplow/snowplow
+[spark-logo]: /assets/img/blog/2015/05/spark_logo.png

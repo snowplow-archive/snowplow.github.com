@@ -69,3 +69,12 @@
   avatar: https://avatars0.githubusercontent.com/u/1975872?v=3&s=200
   spiel:   |
       <a href="/authors/christophe.html">Christophe</a> is a Data Scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a>, <a href="https://twitter.com/bogaertc">Twitter</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.
+
+
+- name: Justine
+  full_name: Justine Courty
+  github: galvanic
+  url: /authors/justine.html
+  avatar: /assets/img/team/justine.jpg
+  spiel:   |
+      <a href="/authors/justine.html">Justine</a> is a Data Scientist Intern at Snowplow</a>. You can find her on <a href="https://github.com/galvanic">Github</a> and <a href="https://uk.linkedin.com/pub/justine-courty/64/498/b9b">LinkedIn</a>.

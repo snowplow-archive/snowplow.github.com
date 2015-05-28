@@ -62,7 +62,7 @@ val productViewEvent = SelfDescribingJson(
 
 val pageTypeContext = SelfDescribingJson(
   "iglu:com.acme/page_type/jsonschema/1-0-0",
-  ("type" -> "promotional") ~ ("backgroundColorr" -> "red")
+  ("type" -> "promotional") ~ ("backgroundColor" -> "red")
 )
 
 tracker.trackUnstructEvent(productViewEvent, List(pageTypeContext))

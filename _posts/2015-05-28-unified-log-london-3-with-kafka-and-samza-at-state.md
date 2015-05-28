@@ -28,7 +28,7 @@ The meetup had a great mix of Unified Log practitioners and people just starting
 
 In this talk, I summarized the emergence of the Unified Log concept, talking through the "three eras" of data processing and explaining why it makes sense to restructure your company around a Unified Log. Regular readers of this blog may well have seen a version of this presentation already, included here for completeness:
 
-<iframe src="//www.slideshare.net/slideshow/embed_code/key/yKKZJfOZI9QQWn" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/unified-log-london-may-2015-why-your-company-needs-a-unified-log" title="Unified Log London (May 2015) - Why your company needs a unified log" target="_blank">Unified Log London (May 2015) - Why your company needs a unified log</a> </strong> from <strong><a href="//www.slideshare.net/alexanderdean" target="_blank">Alexander Dean</a></strong> </div>
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/yKKZJfOZI9QQWn" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/unified-log-london-may-2015-why-your-company-needs-a-unified-log" title="Unified Log London (May 2015) - Why your company needs a unified log" target="_blank">Unified Log London (May 2015) - Why your company needs a unified log</a> </strong> from <strong><a href="//www.slideshare.net/alexanderdean" target="_blank">Alexander Dean</a></strong> </div>
 
 <div class="html">
 <h2>2. Unified Log at State</h2>
@@ -36,7 +36,7 @@ In this talk, I summarized the emergence of the Unified Log concept, talking thr
 
 We were lucky enough to have Mischa Tuffield and [Dan Harvey] [dan], Data Architect at State, talk us through their implementation of the Unified Log concept at State. Learning about the real-world experience of implementing ULP is a key part of Unified Log London, so it was great to hear Mischa and Dan's story. Mischa's slides are here:
 
-<script async class="speakerdeck-embed" data-id="07b5d0f9872c48f48167cd371bbf15ef" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="07b5d0f9872c48f48167cd371bbf15ef" data-ratio="1" src="//speakerdeck.com/assets/embed.js"></script>
 
 Key building blocks of State's Unified Log implementation are:
 
@@ -53,7 +53,7 @@ There were some really interesting themes that emerged during the talks and the 
 
 * **Stream design** - specifically, whether to create individual streams (topics in Kafka parlance) for each entity, or whether to have every-entity streams which are tied only to the processing stage. State follow the first approach, Snowplow the second
 * **Eventsourcing versus entity snapshotting** - this really warrants a full blog post, but there was some interesting discussion about whether an individual entity should capture complete entity snapshots or just deltas (i.e. just the properties that have changed). There was a general feeling (which we share at Snowplow) that entity snapshots are much safer in the face of potentially lossy systems
-* *The importance of a schema registry** - in the Unified Log model, your events' schemas form the sole contract between your various stream processing applications, and so having a single source of truth for these schemas - a registry/repository - becomes essential
+* **The importance of a schema registry** - in the Unified Log model, your events' schemas form the sole contract between your various stream processing applications, and so having a single source of truth for these schemas - a registry/repository - becomes essential
 
 <div class="html">
 <h2>4. Thanks and next event</h2>

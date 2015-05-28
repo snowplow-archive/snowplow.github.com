@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the release of the new [Snowplow Scala Tracker][repo]! This initial release allows you to build unstructured events and custom contexts using the [json4s][json4s] library.
 
-We intend to use the Scala Tracker inside our own Scala apps for monitoring.
+We intend to make Snowplow self-hosting by sending internal Snowplow events from within our own apps for monitoring. We will start eating our own dog food in the next Kinesis release, where the Elasticsearch Sink and S3 Sink will both send startup, shutdown, heartbeat, and write_failed events using the Scala Tracker.
 
 Contents:
 

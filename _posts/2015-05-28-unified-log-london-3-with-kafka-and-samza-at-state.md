@@ -1,8 +1,8 @@
 ---
 layout: post
-shortenedlink: Unified Log London 3 wrap up
-title: "Unified Log London 3 wrap up"
-tags: [unified log, meetup]
+shortenedlink: Unified Log London 3 with Kafka and Samza at State
+title: "Unified Log London 3 with Kafka and Samza at State"
+tags: [unified log, meetup, kafka, samza, state]
 author: Alex
 category: Meetups
 ---
@@ -28,7 +28,7 @@ The meetup had a great mix of Unified Log practitioners and people just starting
 
 In this talk, I summarized the emergence of the Unified Log concept, talking through the "three eras" of data processing and explaining why it makes sense to restructure your company around a Unified Log. Regular readers of this blog may well have seen a version of this presentation already, included here for completeness:
 
-TO ADD
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/yKKZJfOZI9QQWn" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/unified-log-london-may-2015-why-your-company-needs-a-unified-log" title="Unified Log London (May 2015) - Why your company needs a unified log" target="_blank">Unified Log London (May 2015) - Why your company needs a unified log</a> </strong> from <strong><a href="//www.slideshare.net/alexanderdean" target="_blank">Alexander Dean</a></strong> </div>
 
 <div class="html">
 <h2>2. Unified Log at State</h2>

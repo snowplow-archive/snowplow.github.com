@@ -71,7 +71,7 @@ Do please [join the group] [meetup-group] to be kept up-to-date with upcoming me
 
 [meetup-group]: http://www.meetup.com/kinesis-london/
 
-[pic]: /assets/img/blog/2014/05/mischa-state-unified-log.jpg
+[pic]: /assets/img/blog/2015/05/mischa-state-unified-log.jpg
 
 [mischa]: https://twitter.com/mischat
 [dan]: https://www.linkedin.com/profile/view?id=33804657

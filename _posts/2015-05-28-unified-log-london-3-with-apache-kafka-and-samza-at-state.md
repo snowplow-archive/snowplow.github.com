@@ -51,10 +51,10 @@ Given our focus at Snowplow on the various analytical uses of the Unified Log, i
 <h2>3. Big themes</h2>
 </div>
 
-There were some really interesting themes that emerged during the talks and the discussions. To highlight just three:
+There were some really interesting themes that emerged during the talks and the subsequent discussion. To highlight just three:
 
 * **Stream design** - specifically, whether to create individual streams (topics in Kafka parlance) for each entity, or whether to have every-entity streams which are tied only to the processing stage. State follow the first approach, Snowplow the second
-* **Eventsourcing versus entity snapshotting** - this really warrants a full blog post, but there was some interesting discussion about whether an individual entity should capture complete entity snapshots or just deltas (i.e. just the properties that have changed). There was a general feeling (which we share at Snowplow) that entity snapshots are much safer in the face of potentially lossy systems
+* **Eventsourcing versus entity snapshotting** - this really warrants a full blog post, but there was some healthy debate about whether an individual event should capture complete entity snapshots or just deltas (i.e. just the properties that have changed). There was a general feeling (which we share at Snowplow) that entity snapshots are much safer in the face of potentially lossy systems
 * **The importance of a schema registry** - in the Unified Log model, your events' schemas form the sole contract between your various stream processing applications, and so having a single source of truth for these schemas - a registry/repository - becomes essential
 
 <div class="html">

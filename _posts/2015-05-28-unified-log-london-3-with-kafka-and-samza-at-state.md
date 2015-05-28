@@ -45,6 +45,8 @@ Key building blocks of State's Unified Log implementation are:
 * [Apache Samza] [samza] for stream-stream joins and other use cases
 * The [Confluent Schema Registry] [confluent-sr] (which shares some similarities to our own [Iglu] [iglu]) for storing Avro schemas
 
+Given our focus at Snowplow on the various analytical uses of the Unified Log, it was really interesting to get Mischa and Dan's much more operational perspective on the Unified Log.
+
 <div class="html">
 <h2>3. Big themes</h2>
 </div>

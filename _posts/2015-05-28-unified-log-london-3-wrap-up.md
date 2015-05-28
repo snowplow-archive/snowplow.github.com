@@ -7,62 +7,78 @@ author: Alex
 category: Meetups
 ---
 
-Last week we held the third Unified Log London meetup (the second since its rebranding from the [Amazon Kinesis Meetup] [meetup-1]) here in London.Huge thanks to [Just Eat] [just-eat] for hosting us in their offices and keeping us all fed with pizza and beer!
+Last week we held the [third Unified Log London meetup] [meetup-3] here in London. Huge thanks to [Just Eat] [just-eat] for hosting us in their offices and keeping us all fed with pizza and beer!
 
 ![unified-log-london-meetup] [pic]
 
-More on the talks after the jump:
+More on the event after the jump:
 
 <!--more-->
 
-There were two talks at the event:
+There were two talks at the meetup:
 
-* I gave a brief recap on the Unified Log "manifesto" for new ULPers, with my regular presentation on "Why your company needs a Unified Log"
-* [Mischa Tuffield] [mischa], CTO at [State] [state], gave an excellent talk on how they have implemented a Unified Log at State using Apache Kafka and Samza
+* I gave a recap on the Unified Log "manifesto" for new ULPers, with my regular presentation on "Why your company needs a Unified Log"
+* [Mischa Tuffield] [mischa], CTO at [State] [state], gave an excellent talk on implementing a Unified Log at State to meet various operational and analytical data requirements, all using Apache Kafka and Samza
 
-There was a great mix of Unified Log practitioners and people just dipping their toes into the new concepts. It was particularly encouraging to see such an interactive, "salon" style atmosphere to the discussion around both talks, continuing late into the evening!
+The meetup had a great mix of Unified Log practitioners and people just starting to explore the concept. It was particularly encouraging to see such an interactive, "salon" style atmosphere to the discussion, continuing late into the evening!
 
+<div class="html">
+<h2>1. Why your company needs a Unified Log</h2>
+</div>
 
+In this talk, I summarized the emergence of the Unified Log concept, talking through the "three eras" of data processing and explaining why it makes sense to restructure your company around a Unified Log. Regular readers of this blog may well have seen a version of this presentation already, included here for completeness:
 
+TO ADD
 
-so many great questions asked by the participants - there was clearly a ton of stream processing and message queue expertise in the room! It was also great to chat to people already trialling Kinesis.
+<div class="html">
+<h2>2. Unified Log at State</h2>
+</div>
 
- by Solutions Architect at AWS, gave an excellent introduction to Amazon Kinesis. Ian took us through the main envisaged use cases, the key technical concepts and some example application architectures, before fielding a great set of questions
-* I gave a talk on "Snowplow and Kinesis". I briefly introduced Snowplow, explained why we were excited about Kinesis (drawing on my ["three eras" blog post] [three-eras]) and then set out how we are updating Snowplow to run on Kinesis. I concluded with a live demo of what we have running on Kinesis so far
+We were lucky enough to have Mischa Tuffield and [Dan Harvey] [dan], Data Architect at State, talk us through their implementation of the Unified Log concept at State. Learning about the real-world experience of implementing ULP is a key part of Unified Log London, so it was great to hear Mischa and Dan's story. Mischa's slides are here:
 
+<script async class="speakerdeck-embed" data-id="07b5d0f9872c48f48167cd371bbf15ef" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
 
-We were very lucky to have three excellent speakers. Niels Reijmer and Andrei Scorus led with a talk about how [de Bijenkorf] [bijenkorf] use Snowplow to collect event-level data to generate more detailed customer-level reporting, understand the results of A/B tests and build a personalization API. It was especially interesting to learn how they were iterating their personalization approach in a data-driven way, layering on additional complexity as they progress. You can view their presentation below.
+Key building blocks of State's Unified Log implementation are:
 
-<a href="/assets/pdf/snowplow-at-de-bijenkorf.pdf"><img src="/assets/img/blog/2015/05/snowplow-at-de-bijenkorf-presentation-cover.png" /></a>
+* [Apache Kafka] [kafka] to act as the distributed commit log
+* A custom "tailer" app to mirror their [MongoDB oplog] [oplog] to Kafka as entity snapshots 
+* [Apache Samza] [samza] for stream-stream joins and other use cases
+* The [Confluent Schema Registry] [confluent-sr] (which shares some similarities to our own [Iglu] [iglu]) for storing Avro schemas
 
-Ruben Mak from [Blue Mango][bluemango] followered with an indepth look at attribution modeling in a multi-touch world. Ruben covered an enormous amount of ground, starting with an overview of the different approaches available to understand the impact of different channels collectively on driving customer behaviour, before diving into detail into the approach to attribution modeling taken at Blue Mango. You can view his presentation below.
+<div class="html">
+<h2>3. Big themes</h2>
+</div>
 
-<a href="/assets/pdf/conversion-attribution-on-snowplow-data-at-blue-mango.pdf"><img src="/assets/img/blog/2015/05/blue-mango-conversion-attribution-on-snowplow-data-presentation-cover.png" /></a>
+There were some really interesting themes that emerged during the talks and the discussions. To highlight just three:
 
-Huge thank you to [Martijn van Vreeden] [martijn] for organising the event, and Rob Winters and the folks at [Travelbird] [travelbird] for hosting us, feeding and watering us :-).
+* **Stream design** - specifically, whether to create individual streams (topics in Kafka parlance) for each entity, or whether to have every-entity streams which are tied only to the processing stage. State follow the first approach, Snowplow the second
+* **Eventsourcing versus entity snapshotting** - this really warrants a full blog post, but there was some interesting discussion about whether an individual entity should capture complete entity snapshots or just deltas (i.e. just the properties that have changed). There was a general feeling (which we share at Snowplow) that entity snapshots are much safer in the face of potentially lossy systems
+* *The importance of a schema registry** - in the Unified Log model, your events' schemas form the sole contract between your various stream processing applications, and so having a single source of truth for these schemas - a registry/repository - becomes essential
 
-We hope to return to Amsterdam soon for a second event. 
+<div class="html">
+<h2>4. Thanks and next event</h2>
+</div>
 
+It was a great meetup - in particular it's exciting to see the Unified Log patterns becoming such a hot discussion topic. A big thank you to Raj Singh, Peter Mounce and the Just Eat Engineering team for being such excellent hosts, and a warm thanks to Mischa and Dan for giving us the inside track on Unified Log at State!
 
-Big themes 
-
-There were some really interesting themes that emerged during the
-
-Thanks and next event
-
-It was a great evening - it's exciting to see the Unified Log  A big thank you to Peter Mounce and the Just Eat Engineering team for being such excellent hosts, and a warm thanks for Ian Meyers for giving us the inside track on Amazon Kinesis!
-
-Do please [join the group] [kinesis-london] to be kept up-to-date with upcoming meetups, and if you would like to give a talk, please email us on [unified-meetup@snowplowanalytics.com] [email].
-
-[]: 
+Do please [join the group] [meetup-group] to be kept up-to-date with upcoming meetups, and if you would like to give a talk, please email us on [unified-meetup@snowplowanalytics.com] [email].
 
 [meetup-1]: /blog/2014/01/30/inaugural-amazon-kinesis-meetup
+[meetup-3]: http://www.meetup.com/unified-log-london/events/221956360/
 [just-eat]: http://www.just-eat.co.uk/
 
-[pic]: xxx
+[meetup-group]: http://www.meetup.com/kinesis-london/
 
-[mischa]: xxx
-[dan]: xxx
-[state]: xxx
+[pic]: /assets/img/blog/2014/05/mischa-state-unified-log.jpg
+
+[mischa]: https://twitter.com/mischat
+[dan]: https://www.linkedin.com/profile/view?id=33804657
+[state]: https://state.com/
+
+[kafka]: http://kafka.apache.org/
+[samza]: http://samza.apache.org/
+[oplog]: http://docs.mongodb.org/manual/core/replica-set-oplog/
+[confluent-sr]: http://confluent.io/docs/current/schema-registry/docs/intro.html
+[iglu]: https://github.com/snowplow/iglu
 
 [email]: mailto:unified-ug@snowplowanalytics.com

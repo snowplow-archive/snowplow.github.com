@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Unified Log London 3 with Kafka and Samza at State
-title: "Unified Log London 3 with Kafka and Samza at State"
+shortenedlink: Unified Log London 3 with Apache Kafka and Samza at State
+title: "Unified Log London 3 with Apache Kafka and Samza at State"
 tags: [unified log, meetup, kafka, samza, state]
 author: Alex
 category: Meetups

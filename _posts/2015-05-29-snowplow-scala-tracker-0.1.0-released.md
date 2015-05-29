@@ -25,8 +25,6 @@ Contents:
 <h2><a name="get">How to install the tracker</a></h2>
 </div>
 
-<h3><a name="compat">Compatibility</a></h3>
-
 The Snowplow Scala Tracker is cross-published for Scala 2.10.x and Scala 2.11.x, and hosted in the Snowplow Maven repository. Assuming you are using SBT, you can add the tracker to your project's `build.sbt` like so:
 
 {% highlight scala %}

@@ -9,7 +9,7 @@ category: Releases
 
 ![spark streaming logo][spark-logo]
 
-We are pleased to announce the release of the new [Snowplow Scala Tracker][repo]! This initial release allows you to build and send unstructured events and custom contexts using the [json4s][json4s] library.
+We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to build and send unstructured events and custom contexts using the [json4s][json4s] library.
 
 We plan to move Snowplow towards being "self-hosting" by sending Snowplow events from within our own apps for monitoring purposes; the idea is that you should be able to monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in upcoming Snowplow Kinesis releases, where the Elasticsearch Sink and Kinesis S3 Sink (now in [its own repo] [kinesis-s3]) will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
 
@@ -458,7 +458,7 @@ As the next steps in my internship, I will be focusing on marketing attribution 
 
 In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned for a blog post on that in due course!
 
-[repo]: https://github.com/snowplow/snowplow
+[repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection

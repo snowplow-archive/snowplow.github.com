@@ -7,13 +7,12 @@ author: Vincent
 category: Releases
 ---
 
-![spark streaming logo][spark-logo]
+![data flow png][data-flow]
 
 We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to build and send unstructured events and custom contexts using the [json4s][json4s] library.
 
 We plan to move Snowplow towards being "self-hosting" by sending Snowplow events from within our own apps for monitoring purposes; the idea is that you should be able to monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in upcoming Snowplow Kinesis releases, where the Elasticsearch Sink and Kinesis S3 Sink (now in [its own repo] [kinesis-s3]) will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
-
-![data flow png][data-flow]
+]
 
 The library is built around Akka 2.3.5; events are sent to a Snowplow collector using spray-client, and both synchronous and asynchronous event emitters are supported.
 
@@ -23,6 +22,7 @@ Contents:
 2. [How to use the tracker](/blog/2015/05/29/snowplow-scala-tracker-0.1.0-released/#use)
 3. [Getting help](/blog/2015/05/29/snowplow-scala-tracker-0.1.0-released/#help)
 
+![spark streaming logo][spark-logo]
 
 As we talked about in our [May post on the Spark Example Project release](http://snowplowanalytics.com/blog/2015/05/10/spark-example-project-0.3.0-released/), at Snowplow we are very interested in [Apache Spark](https://spark.apache.org/) for three things:
 
@@ -462,7 +462,7 @@ In parallel, another intern at Snowplow is figuring out how to run [Spark Stream
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
-[data-flow]: /assets/img/blog/2015/06/data-flow.png
+[data-flow]: /assets/img/blog/2015/06/dataFlow.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
 

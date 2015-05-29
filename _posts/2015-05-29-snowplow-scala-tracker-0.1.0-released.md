@@ -9,9 +9,9 @@ category: Releases
 
 We are pleased to announce the release of the new [Snowplow Scala Tracker][repo]! This initial release allows you to build and send unstructured events and custom contexts using the [json4s][json4s] library.
 
-The library is built around Akka 2.3.5: events are sent to a Snowplow collector using spray-client, and both synchronous and asynchronous event emitters are supported.
-
 We plan to move Snowplow towards being "self-hosting" by sending Snowplow events from within our own apps for monitoring purposes; the idea is that you should be able to monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in the next Snowplow Kinesis release, where the Elasticsearch Sink and S3 Sink will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
+
+The library is built around Akka 2.3.5; events are sent to a Snowplow collector using spray-client, and both synchronous and asynchronous event emitters are supported.
 
 Contents:
 

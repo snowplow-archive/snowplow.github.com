@@ -13,6 +13,8 @@ We are pleased to announce the release of the new [Snowplow Apache Spark Streami
 
 We plan to move Snowplow towards being "self-hosting" by sending Snowplow events from within our own apps for monitoring purposes; the idea is that you should be able to monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in upcoming Snowplow Kinesis releases, where the Elasticsearch Sink and Kinesis S3 Sink (now in [its own repo] [kinesis-s3]) will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
 
+![data flow png][data-flow]
+
 The library is built around Akka 2.3.5; events are sent to a Snowplow collector using spray-client, and both synchronous and asynchronous event emitters are supported.
 
 Contents:
@@ -460,6 +462,7 @@ In parallel, another intern at Snowplow is figuring out how to run [Spark Stream
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
+[data-flow]: /assets/img/blog/2015/06/data-flow.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
 

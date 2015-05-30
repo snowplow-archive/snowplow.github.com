@@ -11,7 +11,21 @@ category: Releases
 
 We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate events with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB.
 
-This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline. The idea is that you should be able to send JSON formated logs to Amazon Kinesis. Use the Apache Spark Stream Kinesis integration and process each of the events.
+This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline. The idea is that you should be able to send JSON formated logs to Amazon Kinesis. Use the Apache Spark Stream Kinesis integration and process each of the events. This is a simple time series analysis job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
+
+First, this app generates/sends raw events to AWS Kinesis. Second, we process the raw events with Apache Spark Streaming. Our data processing
+sorts each event into a "bucket". Third, Spark counts and aggregates the raw events into 1 minute buckets. Last, this Spark app
+takes the aggregate records and saves the aggregate events into AWS DynamoDB Database. Read More about 
+[Kinesis and Spark Streaming](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html).
+Follow along in this blog post to get the project up and running yourself. 
+
+*Input: Example of a raw event in the JSON format*
+
+```bash
+{ "dateString": "2015-06-22T00:23:24.306091", "eventType": "Red" }
+```
+
+*Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)
 
 ###Recommended prior knowledge:
 

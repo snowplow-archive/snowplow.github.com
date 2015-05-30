@@ -30,8 +30,6 @@ __Input: Example of a raw event in the JSON format__
 __Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__
 ![data table png][data-table]
 
-In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
-
 
 ###Recommended prior knowledge:
 
@@ -60,31 +58,32 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 
 ## Get this project up and running
+In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
 
-Step 1: Get the code
+####Step 1: Get the code
 
 
 
 
-Step 2: Get your AWS credentials
+####Step 2: Get your AWS credentials
 
-Step 3: Set up Kinesis
+####Step 3: Set up Kinesis
 
-Step 4: Get and compile Spark with Kinesis Support
+####Step 4: Get and compile Spark with Kinesis Support
 
-Step 5: Run the Python script to load data to Kinesis
+####Step 5: Run the Python script to load data to Kinesis
 
-Step 6: Load raw data to Kinesis
+####Step 6: Load raw data to Kinesis
 
-Step 7: Compile Snowplow Spark Streaming Example Project
+####Step 7: Compile Snowplow Spark Streaming Example Project
 
-Step 8: Submit your application to Spark
+####Step 8: Submit your application to Spark
 
-Step 9: Check that things are working
+####Step 9: Check that things are working
 
-Step 10: Look at your aggregate data
+####Step 10: Look at your aggregate data
 
-Step 11: Shut everything down
+####Step 11: Shut everything down
 
 ## Frequently asked questions
 

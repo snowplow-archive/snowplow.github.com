@@ -23,6 +23,8 @@ __Input: Example of a raw event in the JSON format__
 
 ```bash
 { "dateString": "2015-06-22T00:23:24.306091", "eventType": "Red" }
+{ "dateString": "2015-06-22T00:23:24.450129", "eventType": "Yellow" }
+{ "dateString": "2015-06-22T00:23:24.826703", "eventType": "Blue" }
 ```
 
 __Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__

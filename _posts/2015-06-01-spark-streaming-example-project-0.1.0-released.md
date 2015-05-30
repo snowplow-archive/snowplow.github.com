@@ -19,13 +19,13 @@ takes the aggregate records and saves the aggregate events into AWS DynamoDB Dat
 [Kinesis and Spark Streaming](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html).
 Follow along in this blog post to get the project up and running yourself. 
 
-*Input: Example of a raw event in the JSON format*
+__Input: Example of a raw event in the JSON format__
 
 ```bash
 { "dateString": "2015-06-22T00:23:24.306091", "eventType": "Red" }
 ```
 
-*Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)
+__Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__
 
 ###Recommended prior knowledge:
 

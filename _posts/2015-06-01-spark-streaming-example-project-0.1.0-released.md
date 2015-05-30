@@ -57,7 +57,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 
 
-## Get this project up and running
+## Getting this project up and running
 In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
 
 ####Step 1: Get the code

@@ -26,6 +26,7 @@ __Input: Example of a raw event in the JSON format__
 ```
 
 __Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__
+![data table png][data-table]
 
 ###Recommended prior knowledge:
 
@@ -508,6 +509,7 @@ In parallel, another intern at Snowplow is figuring out how to run [Spark Stream
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
 [data-flow]: /assets/img/blog/2015/06/dataFlow.png
+[data-table]: /assets/img/blog/2015/06/dynamodbTable.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
 

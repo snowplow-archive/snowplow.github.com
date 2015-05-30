@@ -514,3 +514,28 @@ In parallel, another intern at Snowplow is figuring out how to run [Spark Stream
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
 
 [es-sink]: https://github.com/snowplow/snowplow/tree/master/4-storage/kinesis-elasticsearch-sink
+[spark]: http://spark-project.org/
+[wordcount]: https://github.com/twitter/scalding/blob/master/README.md
+[snowplow]: http://snowplowanalytics.com
+[data-pipelines-algos]: http://snowplowanalytics.com/services/pipelines.html
+
+[vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
+[virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
+
+[spark-streaming-example-project]: https://github.com/snowplow/spark-streaming-example-project
+[scalding-example-project]: https://github.com/snowplow/scalding-example-project
+
+[issue-1]: https://github.com/snowplow/spark-example-project/issues/1
+[issue-2]: https://github.com/snowplow/spark-example-project/issues/2
+[aws-spark-tutorial]: http://aws.amazon.com/articles/4926593393724923
+[spark-emr-howto]: https://forums.aws.amazon.com/thread.jspa?messageID=458398
+
+[emr]: http://aws.amazon.com/elasticmapreduce/
+[hello-txt]: https://github.com/snowplow/spark-example-project/raw/master/data/hello.txt
+[emr-client]: http://aws.amazon.com/developertools/2264
+
+[elasticity]: https://github.com/rslifka/elasticity
+[spark-plug]: https://github.com/ogrodnek/spark-plug
+[lemur]: https://github.com/TheClimateCorporation/lemur
+[boto]: http://boto.readthedocs.org/en/latest/ref/emr.html
+

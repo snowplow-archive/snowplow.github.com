@@ -17,7 +17,7 @@ __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we pr
 sorts each event into a "bucket". __Third__, Spark counts and aggregates the raw events into 1 minute buckets. __Last__, this Spark app
 takes the aggregate records and saves the aggregate events into AWS DynamoDB Database.
 
-The idea is that you should be able to send JSON formated logs to Amazon Kinesis. Use the Apache Spark Stream Kinesis integration and process each of the events.
+The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to DyanmoDB table below after running this example project.
 
 __Input: Example of a raw event in the JSON format__
 

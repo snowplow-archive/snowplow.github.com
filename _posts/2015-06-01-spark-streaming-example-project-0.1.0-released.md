@@ -9,9 +9,31 @@ category: Releases
 
 ![data flow png][data-flow]
 
-We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to build and send unstructured events and custom contexts using the [json4s][json4s] library.
+We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate events with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB.
 
-We plan to move Snowplow towards being "self-hosting" by sending Snowplow events from within our own apps for monitoring purposes; the idea is that you should be able to monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in upcoming Snowplow Kinesis releases, where the Elasticsearch Sink and Kinesis S3 Sink (now in [its own repo] [kinesis-s3]) will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
+This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline. The idea is that you should be able to send JSON formated logs to Amazon Kinesis. Use the Apache Spark Stream Kinesis integration and process each of the events.
+
+Recommended prior knowledge:
+
+*Amazon Kinesis is a fully managed service for real-time processing of streaming data at massive scale. The Kinesis receiver creates an input DStream using the Kinesis Client Library (KCL) provided by Amazon under the Amazon Software License (ASL). The KCL builds on top of the Apache 2.0 licensed AWS Java SDK and provides load-balancing, fault-tolerance, checkpointing through the concepts of Workers, Checkpoints, and Shard Leases. Here we explain how to configure Spark Streaming to receive data from Kinesis.*
+![Read more about Spark](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)
+
+*Building Apache Spark with Kinesis support
+Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met. build/mvn execution acts as a pass through to the mvn call allowing easy transition from previous build methods. As an example, one can build a version of Spark as follows:*
+
+mvn -Pkinesis-asl -DskipTests clean package
+
+![Read more about building Spark](https://spark.apache.org/docs/latest/building-spark.html#setting-up-mavens-memory-usage)
+  
+
+
+*Amazon Security Credentials
+When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources that you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
+![Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
+
+
+
+ and monitor the health of one deployment of Snowplow by using a second instance. We will start "eating our own dog food" in upcoming Snowplow Kinesis releases, where the Elasticsearch Sink and Kinesis S3 Sink (now in [its own repo] [kinesis-s3]) will both emit `startup`, `shutdown`, `heartbeat`, and `write_failed` events using this new Scala event tracker.
 ]
 
 The library is built around Akka 2.3.5; events are sent to a Snowplow collector using spray-client, and both synchronous and asynchronous event emitters are supported.

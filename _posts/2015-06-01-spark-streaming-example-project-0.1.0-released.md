@@ -28,6 +28,23 @@ __Input: Example of a raw event in the JSON format__
 __Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__
 ![data table png][data-table]
 
+In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis using two very simple Kinesis apps:
+
+The kinesis-example-scala-producer: this will create a Kinesis stream and write records to it
+The kinesis-example-scala-consumer: this will consume the Kinesis stream created by the producer
+The source code for both is available on the Snowplow repo.
+
+Setting up the environment to run the apps
+
+In general Kinesis apps should run on EC2. However, for this simple example, the apps can be run locally. They require Java 1.7 and SBT 0.13.0 to run. If you use Vagrant, you can run them in the dev-environment VM, by setting it up as follows:
+
+First, clone the dev-environment repo (make sure to include the --recursive flag):
+
+{% highlight bash %} $ git clone --recursive https://github.com/snowplow/dev-environment.git $ cd dev-environment {% endhighlight %}
+
+Now build the VM:
+
+
 ###Recommended prior knowledge:
 
 *__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. The Kinesis receiver creates an input DStream using the Kinesis Client Library (KCL) provided by Amazon under the Amazon Software License (ASL). The KCL builds on top of the Apache 2.0 licensed AWS Java SDK and provides load-balancing, fault-tolerance, checkpointing through the concepts of Workers, Checkpoints, and Shard Leases. Here we explain how to configure Spark Streaming to receive data from Kinesis.*

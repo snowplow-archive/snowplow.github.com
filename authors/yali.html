@@ -6,18 +6,18 @@ author: Yali
 ---
 <div id="contents">
 	{% for author in site.data.authors %}
-	  {% if author.name == page.author %} 
+	  {% if author.name == page.author %}
 	  <div class="page-header"><h1>Posts by {{ author.full_name }}</h1></div>
-	  {% endif %}   
+	  {% endif %}
 	{% endfor %}
 
 	<table class="table table-striped">
 		<tbody>
 		{% for post in site.posts %}
 			{% if post.author == page.author %}
-			<tr><td><small>{{ post.date | date_to_string }}</small></td><td><a href="{{ post.url }}">{{ post.title }}</a></td></tr>	
+			<tr><td><small>{{ post.date | date_to_string }}</small></td><td><a href="{{ post.url }}">{{ post.title }}</a></td></tr>
 			{% endif %}
-		{% endfor %}			
+		{% endfor %}
 		</tbody>
 	</table>
 
@@ -27,13 +27,13 @@ author: Yali
 			      <div class="media">
 			        <a class="pull-left" href="{{ author.url }}">
 			          <img class="media-object" src="{{ author.avatar }}">
-			        </a>   
+			        </a>
 			        <div class="media-body">
 			          {{ author.spiel }}
 			        </div>
 			      </div>
 			    </div>
-	  {% endif %}   
+	  {% endif %}
 	{% endfor %}
 
 

@@ -78,3 +78,11 @@
   avatar: /assets/img/team/justine.jpg
   spiel:   |
       <a href="/authors/justine.html">Justine</a> is a Data Scientist Intern at Snowplow</a>. You can find her on <a href="https://github.com/galvanic">Github</a> and <a href="https://uk.linkedin.com/pub/justine-courty/64/498/b9b">LinkedIn</a>.
+
+- name: Anton
+  full_name: Anton Parkhomenko
+  github: chuwy
+  url: /authors/anton.html
+  avatar: /assets/img/team/anton.png
+  spiel:   |
+      <a href="/authors/anton.html">Justine</a> is a Data Engineering Intern at Snowplow</a>. You can find him on <a href="https://github.com/chewy">Github</a>, <a href="http://twitter.com/chuvvy">Twitter</a> and on his <a href="http://chuwy.me">personal blog</a>.

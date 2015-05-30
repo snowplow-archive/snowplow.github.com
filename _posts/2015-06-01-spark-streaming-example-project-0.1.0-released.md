@@ -51,7 +51,11 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 [Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 
-
+* ensure you have git
+* maven
+* sbt
+* scala
+* instructions will be for osx platform
 
 
 
@@ -60,10 +64,27 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 ## Getting this project up and running
 In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
 
-####Step 1: Get the code
+####Step 1: Get the code and getting the project compiled
 
+#####Cloning Spark-Streaming-Example-Project
 
+```bash
+host> git clone https://github.com/snowplow/spark-streaming-example-project.git
+```
+#####Change Directory into Spark-Streaming-Example-Project
+```bash
+host> cd spark-streaming-example-project.git
+```
+#####Build project Spark-Streaming-Example-Project
+```bash
+host> sbt assembly
+```
 
+The 'fat jar' is now available as:
+
+    target/scala-2.10/simple-project_2.10-0.1.jar
+
+Let this stuff run and lets make sure you have AWS
 
 ####Step 2: Get your AWS credentials
 

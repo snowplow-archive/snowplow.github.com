@@ -19,12 +19,14 @@ takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
 Interesting Fact
- * Object uses downsampling method to create metadata from each
- * EventType log record. Parsing the ISO 8601
- * datetime stamp to the minute means downsampling aka reducing
- * precision.
- *
- * Bucketing
+ We are parsing the ISO 8601 datetime stamp down to the minute.
+ This technique is referred to a downsampling or reducing precision
+ aka "Bucketing".
+ .
+ It's an interesting way to create metadata for the raw data that
+ allows us fast queries to aggregrate via primary key.
+ 
+Bucketing
  * A family of aggregations that build buckets, where each bucket
  * is associated with a key and an EventType criterion. When the
  * aggregation is executed, all the buckets criteria are evaluated

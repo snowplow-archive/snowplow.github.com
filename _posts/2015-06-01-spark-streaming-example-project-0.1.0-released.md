@@ -27,15 +27,15 @@ Interesting Fact
  It's an interesting way to create metadata for the raw data that
  allows us fast queries to aggregrate via primary key.
  
-Bucketing
- * A family of aggregations that build buckets, where each bucket
- * is associated with a key and an EventType criterion. When the
- * aggregation is executed, all the buckets criteria are evaluated
- * on every EventType in the context and when a criterion matches,
- * the EventType is considered to "fall in" the relevant bucket.
- * By the end of the aggregation process, we’ll end up with a
- * list of buckets - each one with a set of EventTypes that
- * "belong" to it.
+  Bucketing
+   A family of aggregations that build buckets, where each bucket
+   is associated with a key and an EventType criterion. When the
+   aggregation is executed, all the buckets criteria are evaluated
+   on every EventType in the context and when a criterion matches,
+   the EventType is considered to "fall in" the relevant bucket.
+   By the end of the aggregation process, we’ll end up with a
+   list of buckets - each one with a set of EventTypes that
+   "belong" to it.
  
 
 The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to DyanmoDB table below after running this example project.

@@ -63,7 +63,7 @@ Spark now comes packaged with a self-contained Maven installation to ease buildi
 
 mvn -Pkinesis-asl -DskipTests clean package
 
-  
+
 
 
 *__Amazon Security Credentials__
@@ -146,7 +146,7 @@ test with spark-shell
 
 
 ####Step 7: Open
-
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-31-at-11-08-29-am.png
 
 
 ####Step 8: Submit your application to Spark

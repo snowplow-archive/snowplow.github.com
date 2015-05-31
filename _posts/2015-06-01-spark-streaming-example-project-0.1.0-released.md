@@ -17,6 +17,24 @@ __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we pr
 sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app
 takes the aggregate records and saves them into AWS DynamoDB Database.
 
+
+Interesting Fact
+ * Object uses downsampling method to create metadata from each
+ * EventType log record. Parsing the ISO 8601
+ * datetime stamp to the minute means downsampling aka reducing
+ * precision.
+ *
+ * Bucketing
+ * A family of aggregations that build buckets, where each bucket
+ * is associated with a key and an EventType criterion. When the
+ * aggregation is executed, all the buckets criteria are evaluated
+ * on every EventType in the context and when a criterion matches,
+ * the EventType is considered to "fall in" the relevant bucket.
+ * By the end of the aggregation process, we’ll end up with a
+ * list of buckets - each one with a set of EventTypes that
+ * "belong" to it.
+ 
+
 The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to DyanmoDB table below after running this example project.
 
 __Input: Example of a raw event in the JSON format__

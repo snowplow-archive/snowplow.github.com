@@ -125,7 +125,9 @@ test with spark-shell
 
 
 ####Step 8: Submit your application to Spark
-/Users/antigen/dev/spark/bin/spark-submit --class com.snowplowanalytics.spark.streaming.StreamingCountsApp --master local[2] /Users/antigen/dev/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar --config /Users/antigen/dev/spark-streaming-example-project/src/main/resources/config.hocon.sample
+```bash
+host> /Users/antigen/dev/spark/bin/spark-submit --class com.snowplowanalytics.spark.streaming.StreamingCountsApp --master local[2] /Users/antigen/dev/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar --config /Users/antigen/dev/spark-streaming-example-project/src/main/resources/config.hocon.sample
+```
 
 
 
@@ -143,9 +145,9 @@ https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-p
 
 ## Next steps
 
-As the next steps in my internship, I will be focusing on marketing attribution data in particular. I'm going to compute identify, filter and transform that data in Spark, before loading it into [DynamoDB](https://aws.amazon.com/dynamodb/) and visualising it using [D3.js](http://d3js.org/). This stack should give me a lot of flexibility to explore different approaches to visualizing marketing attribution data.
+Exciting sets as we move forward with this simple example and build on this projects streaming model and put some decision making into the processing pipeline.
 
-In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned for a blog post on that in due course!
+MEOW
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png

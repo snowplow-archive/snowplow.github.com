@@ -18,10 +18,9 @@ sorts each event into a "bucket". __Third__, Spark aggregates the raw events int
 takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
-|Interesting Fact|
-
-|---|
- |We are parsing the ISO 8601 datetime stamp down to the minute.
+| Interesting Facts |
+|:-----------------------------------------------------------------:|
+|We are parsing the ISO 8601 datetime stamp down to the minute.
  This technique is referred to a downsampling or reducing precision
  aka "Bucketing"|
  .

@@ -94,7 +94,9 @@ In this tutorial, we will walk through the process of getting up and running wit
 
  The 'fat jar' is now available as:
 
-    target/scala-2.10/simple-project_2.10-0.1.jar
+```bash
+target/scala-2.10/simple-project_2.10-0.1.jar
+```
 
  While this runs, let's make sure you have AWS.
 

@@ -98,6 +98,8 @@ In this tutorial, we will walk through the process of getting up and running wit
 target/scala-2.10/simple-project_2.10-0.1.jar
 ```
 
+![data compile png][data-compile]
+ 
  While this runs, let's make sure you have AWS.
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
@@ -214,4 +216,5 @@ MEOW
 [spark-plug]: https://github.com/ogrodnek/spark-plug
 [lemur]: https://github.com/TheClimateCorporation/lemur
 [boto]: http://boto.readthedocs.org/en/latest/ref/emr.html
+[data-compile]: /assets/img/blog/2015/06/compileProject.png
 

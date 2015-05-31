@@ -86,25 +86,57 @@ The 'fat jar' is now available as:
 
 Let this stuff run and lets make sure you have AWS
 
-####Step 2: Get your AWS credentials
+####Step 2: Get your AWS IAM credentials and configure at using AWS CLI
+
+Use these links to get started with AWS.They have great examples that are easy to follow and get started:
+http://aws.amazon.com/getting-started/
+http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html
+http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+
 
 ####Step 3: Set up Kinesis
 
+See blog
+https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
+
 ####Step 4: Get and compile Spark with Kinesis Support
+See blog
+https://bigsnarf.wordpress.com/2015/05/31/compile-apache-spark-with-kinesis-support/
+https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 5: Run the Python script to load data to Kinesis
+cd scripts
+screenshot of where you should be
+install boto
+make sure keys in creds file
+screenshot of what should look like
+using python 
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-14-41-pm.png
 
-####Step 6: Load raw data to Kinesis
+####Step 6: checking the compile of Apache Spark with Kinesis
+screenshot of jar in folder
+test with spark-shell
+:q
 
-####Step 7: Compile Snowplow Spark Streaming Example Project
+
+####Step 7: Open
+
+
 
 ####Step 8: Submit your application to Spark
+/Users/antigen/dev/spark/bin/spark-submit --class com.snowplowanalytics.spark.streaming.StreamingCountsApp --master local[2] /Users/antigen/dev/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar --config /Users/antigen/dev/spark-streaming-example-project/src/main/resources/config.hocon.sample
+
+
 
 ####Step 9: Check that things are working
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-23-at-10-40-15-am.png
 
 ####Step 10: Look at your aggregate data
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png
 
 ####Step 11: Shut everything down
+
 
 ## Frequently asked questions
 

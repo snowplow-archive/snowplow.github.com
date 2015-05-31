@@ -67,15 +67,15 @@ mvn -Pkinesis-asl -DskipTests clean package
 
 
 *__Amazon Security Credentials__
-When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources that you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
+When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
 [Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 [Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-####Prequisite software to make this project run
-* ensure you have git https://help.github.com/articles/set-up-git/
-* maven https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-* sbt http://www.scala-sbt.org/release/tutorial/Setup.html
-* scala http://www.scala-lang.org/download/install.html
+
+* ensure you have git
+* maven
+* sbt
+* scala
 * instructions will be for osx platform
 
 
@@ -87,26 +87,26 @@ In this tutorial, we will walk through the process of getting up and running wit
 
 ####Step 1: Get the code and getting the project compiled
 
-#####Cloning Spark-Streaming-Example-Project
+1. Cloning Spark-Streaming-Example-Project
 
-```bash
-host> git clone https://github.com/snowplow/spark-streaming-example-project.git
-```
-#####Change Directory into Spark-Streaming-Example-Project
-```bash
-host> cd spark-streaming-example-project.git
-```
-#####Build project Spark-Streaming-Example-Project
-```bash
-host> sbt assembly
-```
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-31-at-10-42-50-am.png
+ ```bash
+ host> git clone https://github.com/snowplow/spark-streaming-example-project.git
+ ```
+2. Change Directory into Spark-Streaming-Example-Project
+ ```bash
+ host> cd spark-streaming-example-project.git
+ ```
+3. Build project Spark-Streaming-Example-Project
+ ```bash
+ host> sbt assembly
+ ```
+ https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-31-at-10-42-50-am.png
 
-The 'fat jar' is now available as:
+ The 'fat jar' is now available as:
 
     target/scala-2.10/simple-project_2.10-0.1.jar
 
-Let this stuff run and lets make sure you have AWS
+ Let this stuff run and lets make sure you have AWS
 
 ####Step 2: Get your AWS IAM credentials and configure at using AWS CLI
 

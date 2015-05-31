@@ -126,7 +126,11 @@ test with spark-shell
 
 ####Step 8: Submit your application to Spark
 ```bash
-host> /Users/antigen/dev/spark/bin/spark-submit --class com.snowplowanalytics.spark.streaming.StreamingCountsApp --master local[2] /Users/antigen/dev/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar --config /Users/antigen/dev/spark-streaming-example-project/src/main/resources/config.hocon.sample
+host> /spark/bin/spark-submit \
+--class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
+--master local[2] \
+/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
+--config /spark-streaming-example-project/src/main/resources/config.hocon.sample
 ```
 
 

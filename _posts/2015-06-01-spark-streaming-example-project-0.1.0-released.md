@@ -87,16 +87,18 @@ In this tutorial, we will walk through the process of getting up and running wit
 
 ####Step 1: Get the code and getting the project compiled
 
-1. Cloning Spark-Streaming-Example-Project
+1. In your terminal, clone the __Spark-Streaming-Example-Project__.
 
  ```bash
  host> git clone https://github.com/snowplow/spark-streaming-example-project.git
  ```
-2. Change Directory into Spark-Streaming-Example-Project
+2. Change the directory to __Spark-Streaming-Example-Project__.
+
  ```bash
  host> cd spark-streaming-example-project.git
  ```
-3. Build project Spark-Streaming-Example-Project
+3. Build the project __Spark-Streaming-Example-Project__.
+
  ```bash
  host> sbt assembly
  ```
@@ -106,15 +108,16 @@ In this tutorial, we will walk through the process of getting up and running wit
 
     target/scala-2.10/simple-project_2.10-0.1.jar
 
- Let this stuff run and lets make sure you have AWS
+ While this runs, let's make sure you have AWS.
 
-####Step 2: Get your AWS IAM credentials and configure at using AWS CLI
+####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
 
-Use these links to get started with AWS.They have great examples that are easy to follow and get started:
-http://aws.amazon.com/getting-started/
-http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html
-http://docs.aws.amazon.com/cli/latest/userguide/installing.html
-http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+Use these links to get started with AWS.They have great examples that are easy to follow.
+
+* http://aws.amazon.com/getting-started/
+* http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html
+* http://docs.aws.amazon.com/cli/latest/userguide/installing.html
+* http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
 
 ####Step 3: Set up Kinesis

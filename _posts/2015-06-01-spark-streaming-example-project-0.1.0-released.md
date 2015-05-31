@@ -72,10 +72,10 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 [Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 
-* ensure you have git
-* maven
-* sbt
-* scala
+* ensure you have git https://help.github.com/articles/set-up-git/
+* maven https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+* sbt http://www.scala-sbt.org/release/tutorial/Setup.html
+* scala http://www.scala-lang.org/download/install.html
 * instructions will be for osx platform
 
 

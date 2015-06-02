@@ -149,7 +149,7 @@ https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
 
 ####Step 4: Get and compile Spark with Kinesis Support
 
-On my Macbook I had to specify the maven memory requirements in my Terminal:
+In the vagrant box, I had to specify the maven memory requirements in my Terminal:
 
 ```bash
 host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
@@ -160,7 +160,6 @@ Then I was able to issue the maven build command to compile Spark to get data fr
 host>   mvn -Pkinesis-asl -DskipTests clean package
 ```
 ![compile spark png][compile-spark]
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-35-15-am.png
 
 Get more details about building Apache Spark:
 * https://spark.apache.org/docs/1.1.0/building-with-maven.html

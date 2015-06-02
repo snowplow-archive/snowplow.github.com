@@ -64,13 +64,26 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 [Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 [Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-####Prerequistes software you will need installed to running this project 
+####Already have the prerequiste software? Looking for Quickstart? Instructions are in repo README.md 
 * ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code
 * use [maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to compile Spark
 * you are going to use [sbt](http://www.scala-sbt.org/release/tutorial/Setup.html) to compile this project
 * ofcourse you will need the JVM and [Scala](http://www.scala-lang.org/download/install.html)
 
-## Getting this project up and running
+####You can also use our prebuilt vagrant box to run the spark-streaming-sample-project
+Assuming git, [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed:
+
+```bash
+ host> git clone https://github.com/snowplow/spark-streaming-example-project
+ host> cd spark-example-project
+ host> vagrant up && vagrant ssh
+guest> cd /vagrant
+guest> sbt assembly
+```
+
+
+
+## Getting this project up and running with this Step-by-Step tutorial
 In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
 
 ####Step 1: Get the code and getting the project compiled

@@ -198,8 +198,8 @@ host> spark/bin/spark-submit \
 
 
 
-####Step 9: Check that things are working
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-23-at-10-40-15-am.png
+####Step 9: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
+![dynamodb screenshot png][dynamodb-table]
 
 ####Step 10: Look at your aggregate data
 https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png
@@ -283,3 +283,4 @@ MEOW
 [setup-kinesis05]: /assets/img/blog/2015/06/05-waiting-creating-streem.png
 [setup-kinesis06]: /assets/img/blog/2015/06/06-stream-created-feedback.png
 [setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png
+[dynamodb-table]: /assets/img/blog/2015/06/aggreateRecords.png

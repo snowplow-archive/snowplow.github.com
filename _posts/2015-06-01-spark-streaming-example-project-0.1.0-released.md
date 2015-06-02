@@ -215,7 +215,19 @@ boto.exception.NoAuthHandlerFound: No handler was ready to authenticate. 1 handl
 ```
 *Answer - http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html*
 
+__Got an out of memory error when tyring to build Apache Spark:__
 
+* Answer - Try setting memory requirements of maven with:
+```bash
+host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+```
+
+__Still getting memory issue with compiling Spark with maven:__
+* Answer - Try reducing the memory requirements of maven to:
+
+```bash
+host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+```
 
 
 ## Next steps

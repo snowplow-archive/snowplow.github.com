@@ -107,7 +107,7 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-21-06-am.png
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ aws configure
+vagrant@spark-streaming-example-project:/vagrant$ inv configure_aws_credentials
 AWS Access Key ID [None]: asdf897asdf798asdf
 AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
 Default region name [None]: us-east-1

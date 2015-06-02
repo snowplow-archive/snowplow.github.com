@@ -103,7 +103,6 @@ In this tutorial, we will walk through the process of getting up and running wit
  ```bash
  host> sbt assembly
  ```
- https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-31-at-10-42-50-am.png
 
  The 'fat jar' is now available as:
 

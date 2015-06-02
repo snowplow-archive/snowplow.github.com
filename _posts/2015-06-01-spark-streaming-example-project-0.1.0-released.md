@@ -137,15 +137,18 @@ Need more information or need keys? Try FAQ? Get started with AWS links below.
 
 
 ####Step 3: Set up Kinesis
-We are going to setup the Kinesis stream using AWS console. Let's look at the how we do this  and setup the Kinesis stream
-
+We are going to setup the Kinesis stream using AWS console.
 In your favorite browser paste this URL to get to the AWS console:
 ```
 https://console.aws.amazon.com/kinesis/home?region=us-east-1
 ```
-
-Insert photos here
-https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
+![screenshot kinesis00 png][setup-kinesis00]
+![screenshot kinesis01 png][setup-kinesis01]
+![screenshot kinesis02 png][setup-kinesis02]
+![screenshot kinesis03 png][setup-kinesis03]
+![screenshot kinesis04 png][setup-kinesis04]
+![screenshot kinesis05 png][setup-kinesis05]
+![screenshot kinesis06 png][setup-kinesis06]
 
 ####Step 4: Get and compile Spark with Kinesis Support
 
@@ -272,3 +275,11 @@ MEOW
 [compile-spark]: /assets/img/blog/2015/06/compileSparkKinesis.png
 [get-credentials]: /assets/img/blog/2015/06/getAWScredentials.png
 
+[setup-kinesis00]: /assets/img/blog/2015/06/00-signin-aws.png
+[setup-kinesis01]: /assets/img/blog/2015/06/01-login-kinesis.png
+[setup-kinesis02]: /assets/img/blog/2015/06/02-landing-page-aws.png
+[setup-kinesis03]: /assets/img/blog/2015/06/03-create-stream.png
+[setup-kinesis04]: /assets/img/blog/2015/06/04-create-kinesis-event-stream.png
+[setup-kinesis05]: /assets/img/blog/2015/06/05-waiting-creating-streem.png
+[setup-kinesis06]: /assets/img/blog/2015/06/06-stream-created-feedback.png
+[setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png

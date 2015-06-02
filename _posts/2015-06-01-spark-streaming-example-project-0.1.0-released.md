@@ -37,7 +37,7 @@ takes the aggregate records and saves them into AWS DynamoDB Database.
 
 The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to DyanmoDB table below after running this example project.
 
-__Input: Example of a raw event encoded in JSON with ISO 8601 Date format__
+__Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 
 ```bash
 { "dateString": "2015-06-22T00:23:24.306091", "eventType": "Red" }

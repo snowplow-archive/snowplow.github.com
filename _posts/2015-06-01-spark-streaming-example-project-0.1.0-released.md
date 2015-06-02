@@ -134,7 +134,6 @@ Insert photos here
 https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
 
 ####Step 4: Get and compile Spark with Kinesis Support
-See blog
 
 On my Macbook I had to specify the maven memory requirements in my Terminal:
 
@@ -146,11 +145,12 @@ Then I was able to issue the maven build command to compile Spark to get data fr
 ```bash
 host>   mvn -Pkinesis-asl -DskipTests clean package
 ```
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-35-15-am.png
 
-https://spark.apache.org/docs/1.1.0/building-with-maven.html
-
-https://bigsnarf.wordpress.com/2015/05/31/compile-apache-spark-with-kinesis-support/
-https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
+Get more details about building Apache Spark:
+* https://spark.apache.org/docs/1.1.0/building-with-maven.html
+* https://bigsnarf.wordpress.com/2015/05/31/compile-apache-spark-with-kinesis-support/
+* https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 5: Run the Python script to load data to Kinesis
 cd scripts

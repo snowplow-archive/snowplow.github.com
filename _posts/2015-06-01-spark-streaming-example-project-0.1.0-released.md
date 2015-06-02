@@ -84,7 +84,7 @@ guest> sbt assembly
 
 
 ## Getting this project up and running with this Step-by-Step tutorial
-In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis.
+In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
 
 ####Step 1: Get the code and getting the project compiled
 

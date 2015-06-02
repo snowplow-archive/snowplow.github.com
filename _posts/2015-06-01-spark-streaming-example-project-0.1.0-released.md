@@ -181,17 +181,16 @@ test with spark-shell
 :q
 
 
-####Step 7: Open
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-31-at-11-08-29-am.png
+####Step 7: Open Step
 
 
 ####Step 8: Submit your application to Spark
 ```bash
-host> /spark/bin/spark-submit \
---class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
---master local[2] \
-/spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
---config /spark-streaming-example-project/src/main/resources/config.hocon.sample
+host> spark/bin/spark-submit \
+                       --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
+                       --master local[2] \
+                       spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
+                       --config spark-streaming-example-project/src/main/resources/config.hocon.sample
 ```
 
 

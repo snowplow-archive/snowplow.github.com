@@ -64,7 +64,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 [Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 [Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
-####Already have the prerequiste software? Looking for Quickstart? Instructions are in repo README.md 
+####Already got the prerequiste software? Looking for Quickstart? Check the repo README.md 
 * ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code
 * use [maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to compile Spark
 * you are going to use [sbt](http://www.scala-sbt.org/release/tutorial/Setup.html) to compile this project

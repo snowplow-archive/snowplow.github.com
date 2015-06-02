@@ -45,7 +45,7 @@ __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 { "dateString": "2015-06-22T00:23:24.826703", "eventType": "Blue" }
 ```
 
-__Ouput: Example of the [DynamoDB table](https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png)__
+__Ouput: Example of the DynamoDB table__
 ![data table png][data-table]
 
 

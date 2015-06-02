@@ -176,12 +176,17 @@ https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-p
 
 
 ## Frequently asked questions
-1. Question - When using command "inv create_dynamodb_table", I get this error:
+This is a short list of our most frequently asked questions. For more information about this project create an issue on the Github project page.
+
+
+__When using command "inv create_dynamodb_table", I get this error:__
 
 ```bash
 boto.exception.NoAuthHandlerFound: No handler was ready to authenticate. 1 handlers were checked. ['HmacAuthV4Handler'] Check your credentials
 ```
-1. Answer - http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+*Answer - http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html*
+
+
 
 
 ## Next steps

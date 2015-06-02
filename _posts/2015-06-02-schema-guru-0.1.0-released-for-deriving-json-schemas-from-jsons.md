@@ -14,7 +14,7 @@ Read on after the fold for:
 
 1. [Why Schema Guru?](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#why)
 2. [Current features](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#features)
-3. [Principles of work](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#principles)
+3. [Design principles](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#principles)
 4. [A fuller example](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#eg)
 5. [Getting help](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#help)
 6. [Roadmap](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#roadmap)
@@ -48,7 +48,7 @@ The initial 0.1.0 release of Schema Guru has the following features:
 + Derive product types (e.g. if one field is integer and string in different instances)
 
 <div class="html">
-<h2><a name="principles">3. Principles of work</a></h2>
+<h2><a name="principles">3. Design principles</a></h2>
 </div>
 
 Our deriving of JSON Schemas from multiple instances is possible due to the observation that a JSON Schema is a [semigroup] [semigroup] with an associative binary merge operation. For example, the merger of these two valid schemas:

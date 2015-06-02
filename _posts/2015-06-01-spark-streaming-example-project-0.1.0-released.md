@@ -226,7 +226,7 @@ __Still getting memory issue with compiling Spark with maven:__
 * Answer - Try reducing the memory requirements of maven to:
 
 ```bash
-host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+host> export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256M -XX:ReservedCodeCacheSize=256m"
 ```
 
 

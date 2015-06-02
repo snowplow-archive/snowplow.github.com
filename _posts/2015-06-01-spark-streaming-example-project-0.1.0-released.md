@@ -114,7 +114,7 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-Need more information or need keys? Get started with AWS links below.
+Need more information or need keys? Try FAQ? Get started with AWS links below.
 
 * http://aws.amazon.com/getting-started/
 * http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html

@@ -154,8 +154,8 @@ We have lots of features planned for Schema Guru:
 [avro]: https://avro.apache.org/
 [schema-guru]: https://github.com/snowplow/schema-guru
 
-[snowplow]: 
-[iglu]: 
+[snowplow]: https://github.com/snowplow/snowplow
+[iglu]: https://github.com/snowplow/iglu
 [jsonschema-net]: http://jsonschema.net/#/
 
 [issues]: https://github.com/snowplow/snowplow-scala-tracker/issues

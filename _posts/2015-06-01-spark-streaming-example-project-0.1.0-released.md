@@ -283,4 +283,4 @@ MEOW
 [setup-kinesis05]: /assets/img/blog/2015/06/05-waiting-creating-streem.png
 [setup-kinesis06]: /assets/img/blog/2015/06/06-stream-created-feedback.png
 [setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png
-[dynamodb-table]: /assets/img/blog/2015/06/aggreateRecords.png
+[dynamodb-table]: /assets/img/blog/2015/06/aggregateRecords.png

@@ -149,9 +149,6 @@ https://console.aws.amazon.com/kinesis/home?region=us-east-1
 ![screenshot kinesis04 png][setup-kinesis04]
 ![screenshot kinesis05 png][setup-kinesis05]
 ![screenshot kinesis06 png][setup-kinesis06]
-![screenshot kinesis07 png][setup-kinesis07]
-Insert photos here
-https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
 
 ####Step 4: Get and compile Spark with Kinesis Support
 

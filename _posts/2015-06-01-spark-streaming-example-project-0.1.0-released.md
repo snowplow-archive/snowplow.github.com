@@ -117,6 +117,7 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
 
+![get credentials png][get-credentials]
 https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-21-06-am.png
 
 ```bash
@@ -158,6 +159,7 @@ Then I was able to issue the maven build command to compile Spark to get data fr
 ```bash
 host>   mvn -Pkinesis-asl -DskipTests clean package
 ```
+![compile spark png][compile-spark]
 https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-35-15-am.png
 
 Get more details about building Apache Spark:
@@ -226,7 +228,7 @@ __Still getting memory issue with compiling Spark with maven:__
 * Answer - Try reducing the memory requirements of maven to:
 
 ```bash
-host> export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256M -XX:ReservedCodeCacheSize=256m"
+host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
 
@@ -269,4 +271,6 @@ MEOW
 [lemur]: https://github.com/TheClimateCorporation/lemur
 [boto]: http://boto.readthedocs.org/en/latest/ref/emr.html
 [data-compile]: /assets/img/blog/2015/06/compileProject.png
+[compile-spark]: /assets/img/blog/2015/06/compileSparkKinesis.png
+[get-credentials]: /assets/img/blog/2015/06/getAWScredentials.png
 

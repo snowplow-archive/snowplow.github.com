@@ -158,6 +158,7 @@ Then I was able to issue the maven build command to compile Spark to get data fr
 ```bash
 host>   mvn -Pkinesis-asl -DskipTests clean package
 ```
+![compile spark png][compile-spark]
 https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-35-15-am.png
 
 Get more details about building Apache Spark:
@@ -269,4 +270,5 @@ MEOW
 [lemur]: https://github.com/TheClimateCorporation/lemur
 [boto]: http://boto.readthedocs.org/en/latest/ref/emr.html
 [data-compile]: /assets/img/blog/2015/06/compileProject.png
+[compile-spark]: /assets/img/blog/2015/06/compileSparkKinesis.png
 

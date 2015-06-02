@@ -114,7 +114,7 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-Use these links to get started with AWS.They have great examples that are easy to follow.
+Need more information or need keys? Get started with AWS links below.
 
 * http://aws.amazon.com/getting-started/
 * http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html

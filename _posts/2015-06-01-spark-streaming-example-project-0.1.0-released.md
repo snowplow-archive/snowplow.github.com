@@ -104,7 +104,7 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
 
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-09-19-am.png
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-21-06-am.png
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ aws configure

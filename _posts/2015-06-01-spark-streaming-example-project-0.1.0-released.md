@@ -123,8 +123,14 @@ Need more information or need keys? Try FAQ? Get started with AWS links below.
 
 
 ####Step 3: Set up Kinesis
+We are going to setup the Kinesis stream using AWS console. Let's look at the how we do this  and setup the Kinesis stream
 
-See blog
+In your favorite browser paste this URL to get to the AWS console:
+```
+https://console.aws.amazon.com/kinesis/home?region=us-east-1
+```
+
+Insert photos here
 https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
 
 ####Step 4: Get and compile Spark with Kinesis Support

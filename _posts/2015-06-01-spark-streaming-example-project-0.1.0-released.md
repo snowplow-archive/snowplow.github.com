@@ -75,7 +75,7 @@ Assuming git, [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] 
 
 ```bash
  host> git clone https://github.com/snowplow/spark-streaming-example-project
- host> cd spark-example-project
+ host> cd spark-streaming-example-project
  host> vagrant up && vagrant ssh
 guest> cd /vagrant
 guest> sbt assembly

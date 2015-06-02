@@ -116,9 +116,9 @@ target/scala-2.10/simple-project_2.10-0.1.jar
  While this runs, let's make sure you have AWS.
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
-
-![get credentials png][get-credentials]
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-21-06-am.png
+You are going to need IAM based credentials for AWS. So get your keys ready
+and "inv configure_aws_credentials" in the vagrant box.  
+NOTE: Make sure the account has permissions for Kinesis and DynamoDB services
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv configure_aws_credentials
@@ -127,6 +127,7 @@ AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
 Default region name [None]: us-east-1
 Default output format [None]: json
 ```
+![get credentials png][get-credentials]
 
 Need more information or need keys? Try FAQ? Get started with AWS links below.
 

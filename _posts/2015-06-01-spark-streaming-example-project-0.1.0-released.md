@@ -151,7 +151,7 @@ https://bigsnarf.wordpress.com/2015/05/31/creating-kinesis-stream-in-pictures/
 On my Macbook I had to specify the maven memory requirements in my Terminal:
 
 ```bash
-host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+host> export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256M -XX:ReservedCodeCacheSize=256m"
 ```
 
 Then I was able to issue the maven build command to compile Spark to get data from Kinesis:

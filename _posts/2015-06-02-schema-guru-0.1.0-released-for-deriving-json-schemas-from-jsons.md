@@ -15,7 +15,7 @@ Read on after the fold for:
 1. [Why Schema Guru?](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#why)
 2. [Current features](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#features)
 3. [Principles of work](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#principles)
-4. [An example](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#eg)
+4. [A fuller example](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#eg)
 5. [Getting help](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#help)
 6. [Roadmap](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#roadmap)
 
@@ -25,28 +25,16 @@ Read on after the fold for:
 <h2><a name="why">1. Why Schema Guru?</a></h2>
 </div>
 
-If you're planning to communicate between several different apps or services, it's invariably a good idea to somehow describe a protocol of this communication, including entity structures, types and validation parameters. This is where [JSON Schema] [json-schema] can be very helpful: JSON Schema is a popular format for JSON data description, used widely in our own [Snowplow] [snowplow] and [Iglu] [iglu] projects.
+If you want several different apps or services to communicate, you will probably want to describe a protocol for this communication. [JSON Schema] [json-schema] can be very helpful here: it is a declarative format for expressing rules about JSON structures, used widely in our own [Snowplow] [snowplow] and [Iglu] [iglu] projects.
 
-So you open your text editor and start writing your schema specifying all 
-keys, types, validation parameters, nested objects etc. But you will quickly find that it is a very intricate task, especially if your instances including tens
-of keys and some complex structure where many objects deeply nested in others.
-And things get even worse if you have already generated JSON instances somehow and 
-need to compare all the instances with the schema key-by-key.
+So you open your text editor and start writing your JSON Schema, specifying all the
+keys, types, validation parameters, nested objects and so on. But this becomes painful, fast - especially if your instances including lots
+of keys and complex structure where objects nest deeply in other objects. And things get even worse if your developers have already generated JSON instances somehow and you need to cross-check these instances against your schema.
 
-What if we could automate this process somehow? There are a few tools
-that could help you to generate JSON Schema, such as the [jsonschema.net website] [jsonschema-net].
-Unfortunately, all of the existing tools derive your schema from just one JSON instance. This is problematic, because JSON instances often have very "jagged edges":
+What if we could automate this process somehow? There are a few pre-existing tools,
+most notably the [jsonschema.net website] [jsonschema-net]. Unfortunately, these tools all derive your schema from just one JSON instance. This is problematic, because JSONs often have very "jagged edges": two JSON instances which should belong to the same schema may have a different subset of properties, types and formats.
 
-1. JSON Schema supports optional properties - so any given JSON may not contain all of the
-   properties that should belong in the JSON Schema
-2. JSON Schema supports rich validation rules (e.g. this String is an IP address) - but some
-   valid instances of the schema may not meet those rules 
-
-So, to generate a JSON Schema we need to work on as many JSON
-instances as possible. Schema Guru works on a folder full of JSON instances: the law of large
-numbers should give us stable long-term results for our schemas. For example, if some field has incompatible properties
-in different instances, Schema Guru will generate a coproduct, i.e. the least specific type which every
-each instance can be validated against.
+So, to generate a JSON Schema safely, we need to work from as many JSON instances as possible. Schema Guru lets us base our schema on a whole folder full of JSON instances: the law of large numbers should do the rest!
 
 <div class="html">
 <h2><a name="features">2. Current features</a></h2>
@@ -63,8 +51,7 @@ The initial 0.1.0 release of Schema Guru has the following features:
 <h2><a name="principles">3. Principles of work</a></h2>
 </div>
 
-Our deriving of JSON Schemas is possible due to the observation that a JSON Schema is a [semigroup] [semigroup] with associative
-binary merge operation. For example, the merger of these two valid schemas:
+Our deriving of JSON Schemas from multiple instances is possible due to the observation that a JSON Schema is a [semigroup] [semigroup] with an associative binary merge operation. For example, the merger of these two valid schemas:
 
 {% highlight json %}
 {"key": {"type": "integer"}} merge {"key": {"type": "string"}}
@@ -76,13 +63,15 @@ Will result in another valid schema:
 {"key": {"type": ["integer", "string"]}}
 {% endhighlight %}
 
-Which is basically a product type. The fact that this operation is associative means that we should be able to scale Schema Guru to massively parallel workloads running in Hadoop, Spark or similar.
+Which is basically a product type. To put it another way: the merger of two JSON Schemas yields a third, equally- or more-permissive schema, against which any JSON instance which validates against either or both of the two parent schemas will also validate.
+
+The fact that this merge operation is associative means that we should be able to scale Schema Guru to massively parallel schema-derivation workloads, running in Hadoop, Spark or similar.
 
 <div class="html">
-<h2><a name="eg">4. An example</a></h2>
+<h2><a name="eg">4. A fuller example</a></h2>
 </div>
 
-From the last example we can see that Schema Guru supports JSON Schema's various types. Schema Guru can also detect JSON Schema's various validation properties, such as "format" or "maximum".
+From the last example we can see that Schema Guru supports JSON Schema's various types. But Schema Guru can also detect the various JSON Schema validation properties, such as `format` or `maximum`.
 
 Let's give an example. Here is a JSON instance:
 
@@ -100,7 +89,7 @@ And a second one:
     "length": null }}
 {% endhighlight %}
 
-Running Schema Guru on both of these instances results in the following JSON Schema:
+Running Schema Guru against both of these instances generates the following JSON Schema:
 
 {% highlight json %}
 { "type" : "object",
@@ -121,13 +110,12 @@ Running Schema Guru on both of these instances results in the following JSON Sch
   "additionalProperties" : false 
 {% endhighlight %}
 
-You can see that our JSON Schema contains two properties, where:
+You can see that our generated JSON Schema now contains two properties, where:
 
-1. The `id` property could be a UUID String or a small Integer
-2. The `length` property could be a small Integer or null
+1. The `id` property could be a UUID string or a small integer
+2. The `length` property could be a small integer or null
 
-As you can see we generate a pretty strict schema, where the "additionalProperties" setting rules out 
-any properties not observed in the instances fed to Schema Guru.
+As you can see we generate a pretty strict schema, where the `additionalProperties` setting rules out any properties not observed in the instances fed to Schema Guru. We're planning on adding options to Schema Guru to make these types of settings more "tunable".
 
 <h2><a name="help">5. Getting help</a></h2>
 
@@ -140,7 +128,7 @@ We have lots of features planned for Schema Guru:
 * A web UI with ability to adjust you schema 
 * Support for other output formats such as [Avro] [avro]
 * Enum detection
-* Warnings about suspiciously similar keys 
+* Warnings about suspiciously-similar keys
 * Auto-submitting generated schemas to your [Iglu] [repository]
 * Outputting [self-descring JSON Schemas] [self-describing-jsons]
 * Running Schema Guru as a Spark job on JSON collections in Amazon S3 (thanks to semigroups)
@@ -158,5 +146,5 @@ We have lots of features planned for Schema Guru:
 [iglu]: https://github.com/snowplow/iglu
 [jsonschema-net]: http://jsonschema.net/#/
 
-[issues]: https://github.com/snowplow/snowplow-scala-tracker/issues
+[issues]: https://github.com/snowplow/schema-guru/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

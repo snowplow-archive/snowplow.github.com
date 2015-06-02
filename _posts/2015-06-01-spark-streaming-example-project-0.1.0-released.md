@@ -104,6 +104,16 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
 
+https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-06-02-at-9-09-19-am.png
+
+```bash
+vagrant@spark-streaming-example-project:/vagrant$ aws configure
+AWS Access Key ID [None]: asdf897asdf798asdf
+AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
+Default region name [None]: us-east-1
+Default output format [None]: json
+```
+
 Use these links to get started with AWS.They have great examples that are easy to follow.
 
 * http://aws.amazon.com/getting-started/

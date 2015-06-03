@@ -274,7 +274,7 @@ Open up and browse to http://aws.amazon.com/console/ so we can check that data i
 
 ####Step 9: Inspecting the AggregateRecords table in DynamoDB
 
-Success! You should see data getting written to the  
+Success! You should see data getting written to the AggregateRecords table in DynamoDB
 ![dynamodb aggregate png][dynamodb-aggregate]
 
 ####Step 10: Shut everything down

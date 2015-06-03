@@ -37,7 +37,7 @@ __Amazon Kinesis__ is a fully managed service for real-time processing of stream
 __Apache Spark Streaming__ enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Our raw data will be ingested from Kinesis by our application written for the [Spark] [spark] computing platform.
 
 
-##App overview, introductin analytics on write
+##App overview, introduction analytics on write
 
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 
@@ -75,13 +75,10 @@ __Ouput: Example of the DynamoDB table__
 ![data table png][data-table]
 
 
-####Already got the prerequiste software? Looking for Quickstart? Check the repo [README.md][repo] 
-* ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code
-* use [maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to compile Spark
-* you are going to use [sbt](http://www.scala-sbt.org/release/tutorial/Setup.html) to compile this project
-* ofcourse you will need the JVM and [Scala](http://www.scala-lang.org/download/install.html)
+<h2><a name="get">Detailed setup</a></h2>
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
 
-####You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
+####Step 1: You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
 Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
 
 ```bash
@@ -93,10 +90,7 @@ Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant
 ```
 
 
-<h2><a name="get">Get your project up and running with this step-by-step tutorial</a></h2>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
-
-####Step 1: Get the code and getting the project compiled
+####Step 2: Get the code and getting the project compiled
 
 1. In your terminal, clone the __[Spark-Streaming-Example-Project][repo]__.
 
@@ -124,7 +118,7 @@ target/scala-2.10/simple-project_2.10-0.1.jar
  
 While this runs, let's make sure you have AWS.
 
-####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
+####Step 3: Get your AWS IAM credentials and configure it using AWS CLI
 
 You're going to need IAM-based credentials for AWS. So get your keys ready
 and "inv configure_aws_credentials" in the vagrant box.  
@@ -150,21 +144,14 @@ Need more information or need keys? Try FAQ? Get started with AWS links below.
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
 
-####Step 3: Set up Kinesis
+####Step 4: Set up Kinesis
 
 We're going to set up the Kinesis stream using AWS console. In your favourite browser, paste this URL to get to the AWS console:
 ```
 https://console.aws.amazon.com/kinesis/home?region=us-east-1
 ```
-![screenshot kinesis00 png][setup-kinesis00]
-![screenshot kinesis01 png][setup-kinesis01]
-![screenshot kinesis02 png][setup-kinesis02]
-![screenshot kinesis03 png][setup-kinesis03]
-![screenshot kinesis04 png][setup-kinesis04]
-![screenshot kinesis05 png][setup-kinesis05]
-![screenshot kinesis06 png][setup-kinesis06]
 
-####Step 4: Get and compile Spark with Kinesis Support
+####Step 5: Get and compile Spark with Kinesis Support
 
 In the vagrant box, I had to specify the maven memory requirements in my Terminal:
 
@@ -186,13 +173,13 @@ Get more details about building Apache Spark:
 * https://spark.apache.org/docs/1.1.0/building-with-maven.html
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
-####Step 5: Run the Python script to load data to Kinesis
+####Step 6: Run the Python script to load data to Kinesis
 ```bash
 guest> inv load_json_kinesis
 ```
 ![raw logs png][raw-logs]
 
-####Step 6: Submit your application to Spark
+####Step 7: Submit your application to Spark
 ```bash
 host> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
@@ -202,15 +189,15 @@ host> spark/bin/spark-submit \
 ```
 
 
-####Step 7: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
+####Step 8: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 8: Look at your aggregate data
+####Step 9: Look at your aggregate data
 ![dynamodb aggregate png][dynamodb-aggregate]
 
-####Step 9: Shut everything down
+####Step 10: Shut everything down
 
-## Frequently asked questions
+##TroubleShooting
 This is a short list of our most frequently asked questions. For more information about this project create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
 
 

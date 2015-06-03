@@ -8,7 +8,7 @@ category: Releases
 ---
 
 We're pleased to announce the first release of [Schema Guru] [schema-guru],
-a tool for automatic deriving JSON Schemas from a collection of JSON instances.
+a tool for automatic deriving JSON Schemas from a collection of JSON instances. This release is part of a new R&D focus at Snowplow Analytics in improving the tooling available around JSON Schema, a technology used widely in our own [Snowplow] [snowplow] and [Iglu] [iglu] projects.
 
 Read on after the fold for:
 
@@ -25,16 +25,16 @@ Read on after the fold for:
 <h2><a name="why">1. Why Schema Guru?</a></h2>
 </div>
 
-If you want several different apps or services to communicate, you will probably want to describe a protocol for this communication. [JSON Schema] [json-schema] can be very helpful here: it is a declarative format for expressing rules about JSON structures, used widely in our own [Snowplow] [snowplow] and [Iglu] [iglu] projects.
+If you want several different apps or services to communicate, at some point you will need to describe a protocol for this communication. [JSON Schema] [json-schema] can be very helpful here: it is a declarative format for expressing rules about JSON structures.
 
 So you open your text editor and start writing your JSON Schema, specifying all the
-keys, types, validation parameters, nested objects and so on. But this becomes painful, fast - especially if your instances including lots
+keys, types, validation parameters, nested objects and so on. But this quickly becomes painful - especially if your instances including lots
 of keys and complex structure where objects nest deeply in other objects. And things get even worse if your developers have already generated JSON instances somehow and you need to cross-check these instances against your schema.
 
 What if we could automate this process somehow? There are a few pre-existing tools,
-most notably the [jsonschema.net website] [jsonschema-net]. Unfortunately, these tools all derive your schema from just one JSON instance. This is problematic, because JSONs often have very "jagged edges": two JSON instances which should belong to the same schema may have a different subset of properties, types and formats.
+most notably the [jsonschema.net website] [jsonschema-net]. Unfortunately, these tools all derive your schema from just one JSON instance. This is problematic because JSONs often have very "jagged edges": two JSON instances which should belong to the same schema may have a different subset of properties, types and formats.
 
-So, to generate a JSON Schema safely, we need to work from as many JSON instances as possible. Schema Guru lets us base our schema on a whole folder full of JSON instances: the law of large numbers should do the rest!
+So, to generate a JSON Schema safely, we need to work from as many JSON instances as possible. Schema Guru lets us derive our schema from a whole collection of JSON instances: the law of large numbers should do the rest!
 
 <div class="html">
 <h2><a name="features">2. Current features</a></h2>
@@ -65,7 +65,7 @@ Will result in another valid schema:
 
 Which is basically a product type. To put it another way: the merger of two JSON Schemas yields a third, equally- or more-permissive schema, against which any JSON instance which validates against either or both of the two parent schemas will also validate.
 
-The fact that this merge operation is associative means that we should be able to scale Schema Guru to massively parallel schema-derivation workloads, running in Hadoop, Spark or similar.
+The fact that this merge operation is [associative] [associative] means that we should be able to scale Schema Guru to massively parallel schema-derivation workloads, running in Hadoop, Spark or similar.
 
 <div class="html">
 <h2><a name="eg">4. A fuller example</a></h2>
@@ -139,6 +139,7 @@ We have lots of features planned for Schema Guru:
 [schema-formats]: http://json-schema.org/latest/json-schema-validation.html#anchor104
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [semigroup]: http://en.wikipedia.org/wiki/Semigroup
+[associative]: http://en.wikipedia.org/wiki/Associative_property
 [avro]: https://avro.apache.org/
 [schema-guru]: https://github.com/snowplow/schema-guru
 

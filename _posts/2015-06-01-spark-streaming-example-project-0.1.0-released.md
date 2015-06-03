@@ -12,7 +12,7 @@ category: Releases
 We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build.
 
 ####In this post
-This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own real-time event processing pipeline. This is a simple time series analysis streaming job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
+This [Snowplow Apache Spark Streaming Example Project][repo] demostrates how you can jumpstart your own real-time event processing pipeline. This is a simple time series analysis streaming job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
 
 * [Input to this program](/blog/2015/06/01/spark-streaming-example-project/#input)
 * [Output to this program](/blog/2015/06/01/spark-streaming-example-project/#output)
@@ -77,7 +77,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 * you are going to use [sbt](http://www.scala-sbt.org/release/tutorial/Setup.html) to compile this project
 * ofcourse you will need the JVM and [Scala](http://www.scala-lang.org/download/install.html)
 
-####You can also use our prebuilt vagrant box to run the spark-streaming-sample-project
+####You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
 Assuming git, [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed:
 
 ```bash
@@ -94,17 +94,17 @@ In this tutorial, we'll walk through the process of getting up and running with 
 
 ####Step 1: Get the code and getting the project compiled
 
-1. In your terminal, clone the __Spark-Streaming-Example-Project__.
+1. In your terminal, clone the __[Spark-Streaming-Example-Project][repo]__.
 
  ```bash
  host> git clone https://github.com/snowplow/spark-streaming-example-project.git
  ```
-2. Change the directory to __Spark-Streaming-Example-Project__.
+2. Change the directory to __[Spark-Streaming-Example-Project][repo]__.
 
  ```bash
  host> cd spark-streaming-example-project.git
  ```
-3. Build the project __Spark-Streaming-Example-Project__.
+3. Build the project  __[Spark-Streaming-Example-Project][repo]__.
 
  ```bash
  host> sbt assembly

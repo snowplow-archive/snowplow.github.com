@@ -114,8 +114,6 @@ The "fat jar" is now available as:
 target/scala-2.10/simple-project_2.10-0.1.jar
 ```
 
-![data compile png][data-compile]
- 
 While this runs, let's make sure you have AWS.
 
 ####Step 3: Get your AWS IAM credentials and configure it using AWS CLI

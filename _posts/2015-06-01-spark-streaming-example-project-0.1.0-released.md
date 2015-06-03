@@ -71,7 +71,7 @@ Spark now comes packaged with a self-contained Maven installation to ease buildi
 When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
 [Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 
-####Already got the prerequiste software? Looking for Quickstart? Check the repo README.md 
+####Already got the prerequiste software? Looking for Quickstart? Check the repo [README.md][repo] 
 * ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code
 * use [maven](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html) to compile Spark
 * you are going to use [sbt](http://www.scala-sbt.org/release/tutorial/Setup.html) to compile this project

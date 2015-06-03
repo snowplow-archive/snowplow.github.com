@@ -28,12 +28,22 @@ The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpsta
 * [Get your project up and running with this step-by-step tutorial](/blog/2015/06/01/spark-streaming-example-project/#get)
 * [WIP -- Next jump results](/blog/2015/06/01/spark-streaming-example-project/#get)
 * [Frequently Asked Questions](/blog/2015/06/01/spark-streaming-example-project/#faq)
+* 
+
+##What is Spark Streaming and Kinesis?
+
+__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the Kinesis receiver that has been recently developed for __[Apache Spark DStream using the Kinesis Client Library](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)__ (KCL).
+
+__Apache Spark Streaming__ enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Our raw data will be ingested from Kinesis by our application written for the [Spark] [spark] computing platform.
+
+
+##App overview, introductin analytics on write
 
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
-> App Overview
->-------------------
+> Analytics on Write concepts
+>----------------------------
 >__Downsampling__
 >We are parsing the ISO 8601 datetime stamp down to the minute.
 >This technique is referred to as downsampling or reducing precision,
@@ -41,7 +51,7 @@ __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we pr
 >the raw data that allows us fast queries to aggregrate via primary key.
 >
 >__Bucketing__
->A family of aggregations that builds buckets, where each bucket
+>An aggregation technique that builds buckets, where each bucket
 >is associated with a key and an EventType criterion. When the
 >aggregation is executed, all the bucket's criteria are evaluated
 >on every EventType in the context and when a criterion matches,

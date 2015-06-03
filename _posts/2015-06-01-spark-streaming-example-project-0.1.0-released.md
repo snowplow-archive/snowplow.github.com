@@ -116,7 +116,7 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 
 While this runs, let's make sure you have AWS.
 
-####Step 3: Get your AWS IAM credentials and configure it using AWS CLI
+####Step 3: Add your AWS IAM credentials using AWS CLI
 
 You're going to need IAM-based credentials for AWS. So get your keys ready
 and "inv configure_aws_credentials" in the vagrant box.  
@@ -144,7 +144,7 @@ We're going to set up the Kinesis stream using AWS console. In your favourite br
 https://console.aws.amazon.com/kinesis/home?region=us-east-1
 ```
 
-####Step 5: Get and compile Spark with Kinesis Support
+####Step 5: Compile Spark with Kinesis Support
 
 In the vagrant box, I had to specify the maven memory requirements in my Terminal:
 

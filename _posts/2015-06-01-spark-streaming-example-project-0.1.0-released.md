@@ -78,7 +78,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 * ofcourse you will need the JVM and [Scala](http://www.scala-lang.org/download/install.html)
 
 ####You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
-Assuming git, [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed:
+Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
 
 ```bash
  host> git clone https://github.com/snowplow/spark-streaming-example-project

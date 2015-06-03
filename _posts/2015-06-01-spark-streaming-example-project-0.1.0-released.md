@@ -139,9 +139,65 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 ####Step 4: Set up Kinesis
 
-We're going to set up the Kinesis stream using AWS console. In your favourite browser, paste this URL to get to the AWS console:
+We're going to set up the Kinesis stream using AWS CLI. In your terminal:
+
+Create your Kinesis Stream
+
+Your first step is to create a stream and verify that it was successfully created. Use the following command to create a stream named "eventStream":
+
+```bash
+guest> aws kinesis create-stream --stream-name eventStream --shard-count 1
 ```
-https://console.aws.amazon.com/kinesis/home?region=us-east-1
+
+The parameter --shard-count is required, and for this part of the tutorial you are using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
+
+```bash
+guest> aws kinesis describe-stream --stream-name eventStream
+
+{
+    "StreamDescription": {
+        "StreamStatus": "CREATING",
+        "StreamName": "eventStream",
+        "StreamARN": "arn:aws:kinesis:us-east-1:<account i.d.>:stream/eventStream",
+        "Shards": []
+    }
+}
+
+In this example, the stream has a status CREATING, which means it is not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
+
+```bash
+guest> aws kinesis describe-stream --stream-name eventStream
+
+{
+    "StreamDescription": {
+        "StreamStatus": "ACTIVE",
+        "StreamName": "eventStream",
+        "StreamARN": "arn:aws:kinesis:us-east-1:<account i.d.>:stream/eventStream",
+        "Shards": [
+            {
+                "ShardId": "shardId-000000000000",
+                "HashKeyRange": {
+                    "EndingHashKey": "170141183460469231731687303715884105727",
+                    "StartingHashKey": "0"
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": "49546986683135544286507457935754639466300920667981217794"
+                }
+            }
+        ]
+    }
+}
+```
+
+There is information in this output that you don't need to be concerned about for this tutorial. The main thing for now is "StreamStatus": "ACTIVE", which tells you that the stream is ready to be used, and the information on the single shard that you requested. You can also verify the existence of your new stream by using the list-streams command, as shown here:
+
+```bash
+aws kinesis list-streams
+{
+    "StreamNames": [
+        "eventStream"
+    ]
+}
 ```
 
 ####Step 5: Compile Spark with Kinesis Support

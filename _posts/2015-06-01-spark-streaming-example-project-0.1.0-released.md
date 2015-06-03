@@ -166,7 +166,7 @@ guest>   mvn -Pkinesis-asl -DskipTests clean package
 ![compile spark png][compile-spark]
 
 Get more details about building Apache Spark:
-* https://spark.apache.org/docs/latest/building-with-maven.html
+* https://spark.apache.org/docs/1.1.0/building-with-maven.html
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 5: Run the Python script to load data to Kinesis

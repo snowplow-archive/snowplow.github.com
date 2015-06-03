@@ -42,7 +42,7 @@ __Apache Spark Streaming__ enables scalable, high-throughput, fault-tolerant str
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
-> Analytics on Write concepts
+> Analytics on write concepts
 >----------------------------
 >__Downsampling__
 >We are parsing the ISO 8601 datetime stamp down to the minute.
@@ -121,8 +121,6 @@ While this runs, let's make sure you have AWS.
 You're going to need IAM-based credentials for AWS. So get your keys ready
 and "inv configure_aws_credentials" in the vagrant box.  
 
-NOTE: Make sure the account has permissions for Kinesis and DynamoDB services
-
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv configure_aws_credentials
 AWS Access Key ID [None]: asdf897asdf798asdf
@@ -131,11 +129,8 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-*__Amazon Security Credentials__
-When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
-[Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
-
-Need more information or need keys? Try FAQ? Get started with AWS links below.
+*__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
+When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS. NOTE: Make sure the account has permissions for Kinesis and DynamoDB services*
 
 * http://aws.amazon.com/getting-started/
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html

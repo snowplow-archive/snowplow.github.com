@@ -221,7 +221,7 @@ host> export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256M -XX:ReservedCodeCacheSize=2
 
 ## Next steps
 
-Catch up on our re-released Version 0.3.0 of the [spark-example-project](https://github.com/snowplow/spark-example-project). This builds upon our original [amazon-kinesis-tutorial](http://snowplowanalytics.com/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/). Recently, we detailed our [first-experiments-with-spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/). This simple streaming example has a simple event model. We are hoping to put some decision making into the processing pipeline in future post, so stay tuned.
+Catch up on our re-released Version 0.3.0 of the [spark-example-project](https://github.com/snowplow/spark-example-project). This builds upon our original [amazon-kinesis-tutorial](http://snowplowanalytics.com/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/). Recently, we detailed our [first-experiments-with-spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/). This simple streaming example has a simple event model. We are hoping to put some decision making into the processing pipeline in a future post, so stay tuned.
 
 MEOW
 

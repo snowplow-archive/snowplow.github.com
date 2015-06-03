@@ -14,6 +14,13 @@ We are pleased to announce the release of the new [Snowplow Apache Spark Streami
 ####In this post
 This [Snowplow Apache Spark Streaming Example Project][repo] demostrates how you can jumpstart your own real-time event processing pipeline. This is a simple time series analysis streaming job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
 
+1. What is Spark Streaming and Kinesis?
+2. App overview, introducing analytics on write
+3. Detailed setup
+4. Results
+5. Troubleshooting
+6. Next Steps
+
 * [Input to this program](/blog/2015/06/01/spark-streaming-example-project/#input)
 * [Output to this program](/blog/2015/06/01/spark-streaming-example-project/#output)
 * [User Quickstart](/blog/2015/06/01/spark-streaming-example-project/#quickstart)
@@ -66,10 +73,6 @@ __Ouput: Example of the DynamoDB table__
 Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met. build/mvn execution acts as a pass through to the mvn call allowing easy transition from previous build methods. As an example, one can build a version of Spark as follows:*
 [Read more about building Spark](https://spark.apache.org/docs/latest/building-spark.html#setting-up-mavens-memory-usage)
 
-
-*__Amazon Security Credentials__
-When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
-[Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 
 ####Already got the prerequiste software? Looking for Quickstart? Check the repo [README.md][repo] 
 * ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code
@@ -134,12 +137,14 @@ AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
 Default region name [None]: us-east-1
 Default output format [None]: json
 ```
-![get credentials png][get-credentials]
+
+*__Amazon Security Credentials__
+When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
+[Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 
 Need more information or need keys? Try FAQ? Get started with AWS links below.
 
 * http://aws.amazon.com/getting-started/
-* http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 

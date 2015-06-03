@@ -9,13 +9,11 @@ category: Releases
 
 ![data flow png][data-flow]
 
-We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate events with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB.
+We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB.
 
-This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline.  This is a simple time series analysis job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
+This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline. This is a simple time series analysis job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
 
-__First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing
-sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app
-takes the aggregate records and saves them into AWS DynamoDB Database.
+__First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
 > Interesting Facts 
@@ -35,9 +33,9 @@ takes the aggregate records and saves them into AWS DynamoDB Database.
 >By the end of the aggregation process, we’ll end up with a
 >list of buckets - each one with a set of EventTypes that
 >"belong" to it.
- 
 
-The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to the DyanmoDB table below after running this  project.
+
+Following is a sample __input__ of a raw log sent to Kinesis. If everything runs as expected, __output__ similar to the DyanmoDB table below will result. The idea is that you should be able to send JSON formatted logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. 
 
 __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 
@@ -79,13 +77,13 @@ Assuming git, [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] 
  host> git clone https://github.com/snowplow/spark-streaming-example-project
  host> cd spark-streaming-example-project
  host> vagrant up && vagrant ssh
-guest> cd /vagrant
-guest> sbt assembly
+ guest> cd /vagrant
+ guest> sbt assembly
 ```
 
 
 
-## Getting your project up and running with this step-by-step tutorial
+## Get your project up and running with this step-by-step tutorial
 In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
 
 ####Step 1: Get the code and getting the project compiled

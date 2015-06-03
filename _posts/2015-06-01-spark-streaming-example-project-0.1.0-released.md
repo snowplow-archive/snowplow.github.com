@@ -137,13 +137,9 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
 
-####Step 4: Set up Kinesis
+####Step 4: Create your Kinesis Stream
 
-We're going to set up the Kinesis stream using AWS CLI. In your terminal:
-
-Create your Kinesis Stream
-
-Your first step is to create a stream and verify that it was successfully created. Use the following command to create a stream named "eventStream":
+We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully created. Use the following command to create a stream named "eventStream":
 
 ```bash
 guest> aws kinesis create-stream --stream-name eventStream --shard-count 1

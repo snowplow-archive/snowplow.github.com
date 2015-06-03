@@ -167,7 +167,6 @@ guest>   mvn -Pkinesis-asl -DskipTests clean package
 
 Get more details about building Apache Spark:
 * https://spark.apache.org/docs/1.1.0/building-with-maven.html
-* https://bigsnarf.wordpress.com/2015/05/31/compile-apache-spark-with-kinesis-support/
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 5: Run the Python script to load data to Kinesis
@@ -176,16 +175,7 @@ guest> inv load_json_kinesis
 ```
 ![raw logs png][raw-logs]
 
-####Step 6: checking the compile of Apache Spark with Kinesis
-screenshot of jar in folder
-test with spark-shell
-:q
-
-
-####Step 7: Open Step
-
-
-####Step 8: Submit your application to Spark
+####Step 6: Submit your application to Spark
 ```bash
 host> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
@@ -195,15 +185,13 @@ host> spark/bin/spark-submit \
 ```
 
 
-
-####Step 9: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
+####Step 7: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 10: Look at your aggregate data
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-12-11-pm.png
+####Step 8: Look at your aggregate data
+![dynamodb aggregate png][dynamodb-aggregate]
 
-####Step 11: Shut everything down
-
+####Step 9: Shut everything down
 
 ## Frequently asked questions
 This is a short list of our most frequently asked questions. For more information about this project create an issue on the Github project page.
@@ -282,3 +270,4 @@ MEOW
 [setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png
 [dynamodb-table]: /assets/img/blog/2015/06/aggregateRecords.png
 [raw-logs]: /assets/img/blog/2015/06/rawLogs.png
+[dynamodb-aggregate]: /assets/img/blog/2015/06/aggregateRecords2.png

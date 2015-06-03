@@ -62,7 +62,6 @@ Spark now comes packaged with a self-contained Maven installation to ease buildi
 *__Amazon Security Credentials__
 When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS.*
 [Read more about AWS Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
-[Read more about AWS Command Line Tools and Credentials](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 ####Already got the prerequiste software? Looking for Quickstart? Check the repo README.md 
 * ensure you have [git](https://help.github.com/articles/set-up-git/) to get the code

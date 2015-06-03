@@ -76,7 +76,7 @@ __Ouput: Example of the DynamoDB table__
 
 
 <h2><a name="get">Detailed setup</a></h2>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume that you will have an Internet connection so we can access services and download code from github.
 
 ####Step 1: You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
 Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
@@ -148,7 +148,7 @@ guest> aws kinesis create-stream --stream-name eventStream --shard-count 1
 The parameter --shard-count is required, and for this part of the tutorial you are using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
 
 ```bash
-guest> aws kinesis describe-stream --stream-name eventStream
+vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
 
 {
     "StreamDescription": {
@@ -163,7 +163,7 @@ guest> aws kinesis describe-stream --stream-name eventStream
 In this example, the stream has a status CREATING, which means it is not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
 
 ```bash
-guest> aws kinesis describe-stream --stream-name eventStream
+vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
 
 {
     "StreamDescription": {
@@ -189,7 +189,7 @@ guest> aws kinesis describe-stream --stream-name eventStream
 We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you that the stream is ready to be used. You can also verify the existence of your new stream by using the list-streams command, as shown here:
 
 ```bash
-guest> aws kinesis list-streams
+vagrant@spark-streaming-example-project:/vagrant$ aws kinesis list-streams
 {
     "StreamNames": [
         "eventStream"
@@ -199,15 +199,30 @@ guest> aws kinesis list-streams
 
 ####Step 5: Compile Spark with Kinesis Support
 
-In the vagrant box, I had to specify the maven memory requirements in my Terminal:
+In the vagrant box, we specify maven memory setting in your Terminal:
 
 ```bash
-guest> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+vagrant@spark-streaming-example-project:/vagrant$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
-Then I was able to issue the maven build command to compile Spark to get data from Kinesis:
+I use the invoke command to get Apache Spark in your Terminal:
 ```bash
-guest>   mvn -Pkinesis-asl -DskipTests clean package
+vagrant@spark-streaming-example-project:/vagrant$  inv get_spark
+```
+
+After it finishes downloading I unpack the file with this invoke command:
+```bash
+vagrant@spark-streaming-example-project:/vagrant$  inv unzip_spark
+```
+
+I change into the spark-master directory:
+```bash
+vagrant@spark-streaming-example-project:/vagrant$  cd spark-master
+```
+
+Then I issue the invoke command to build Spark so it can get data from Kinesis:
+```bash
+vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ```
 
 *__Building Apache Spark with Kinesis support__
@@ -220,14 +235,31 @@ Get more details about building Apache Spark:
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 6: Run the Python script to load data to Kinesis
+Change directory to the vagrant root:
 ```bash
-guest> inv load_json_kinesis
+vagrant@spark-streaming-example-project:/vagrant/spark-master$   cd ..
 ```
+
+I start the program to generate raw JSON and send it to Kinesis by issuing this invoke command in the Terminal:
+```bash
+vagrant@spark-streaming-example-project:/vagrant$   inv load_json_kinesis
+```
+
 ![raw logs png][raw-logs]
 
 ####Step 7: Submit your application to Spark
+Open a new terminal window. We are going to start a second shell into the vagrant box with:
 ```bash
-host> spark/bin/spark-submit \
+host> vagrant ssh
+```
+We are now ready to start Apache Spark Streaming system with this command:
+```bash
+vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
+```
+
+SIDE NOTE: Under the covers we are submit the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
+```bash
+guest> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
                        --master local[2] \
                        spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \

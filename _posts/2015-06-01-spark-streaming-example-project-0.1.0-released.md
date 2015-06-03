@@ -9,7 +9,11 @@ category: Releases
 
 ![data flow png][data-flow]
 
-We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build.
+We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build. 
+
+*__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. A Kinesis receiver has been recently developed for __Apache Spark DStream using the Kinesis Client Library__ (KCL) provided by Amazon. * 
+[Read more about Spark](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)
+
 
 ####In this post
 This [Snowplow Apache Spark Streaming Example Project][repo] demostrates how you can jumpstart your own real-time event processing pipeline. This is a simple time series analysis streaming job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
@@ -63,12 +67,6 @@ __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 
 __Ouput: Example of the DynamoDB table__
 ![data table png][data-table]
-
-
-###Recommended prior knowledge:
-
-*__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. The Kinesis receiver creates an input DStream using the Kinesis Client Library (KCL) provided by Amazon under the Amazon Software License (ASL). The KCL builds on top of the Apache 2.0 licensed AWS Java SDK and provides load-balancing, fault-tolerance, checkpointing through the concepts of Workers, Checkpoints, and Shard Leases. Here we explain how to configure Spark Streaming to receive data from Kinesis.*
-[Read more about Spark](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)
 
 
 ####Already got the prerequiste software? Looking for Quickstart? Check the repo [README.md][repo] 

@@ -35,7 +35,7 @@ __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we pr
 >"belong" to it.
 
 
-Following is a sample __input__ of a raw log sent to Kinesis. If everything runs as expected, __output__ similar to the DyanmoDB table below will result. The idea is that you should be able to send JSON formatted logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. 
+Following is a sample __input__ of a raw logs sent to Kinesis. If everything runs as expected, __output__ similar to the DyanmoDB table below will result. The idea is that you should be able to send JSON formatted logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. 
 
 __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 

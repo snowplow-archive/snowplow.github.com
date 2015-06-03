@@ -27,9 +27,9 @@ takes the aggregate records and saves them into AWS DynamoDB Database.
 >the raw data that allows us fast queries to aggregrate via primary key.
 >
 >__Bucketing__
->A family of aggregations that build buckets, where each bucket
+>A family of aggregations that builds buckets, where each bucket
 >is associated with a key and an EventType criterion. When the
->aggregation is executed, all the buckets criteria are evaluated
+>aggregation is executed, all the bucket's criteria are evaluated
 >on every EventType in the context and when a criterion matches,
 >the EventType is considered to "fall in" the relevant bucket.
 >By the end of the aggregation process, we’ll end up with a

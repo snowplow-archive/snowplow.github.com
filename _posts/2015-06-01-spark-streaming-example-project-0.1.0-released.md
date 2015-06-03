@@ -85,36 +85,22 @@ Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant
  host> git clone https://github.com/snowplow/spark-streaming-example-project
  host> cd spark-streaming-example-project
  host> vagrant up && vagrant ssh
- guest> cd /vagrant
- guest> sbt assembly
 ```
 
 
-####Step 2: Get the code and getting the project compiled
+####Step 2: Getting the spark-streaming-example-project compiled
 
-1. In your terminal, clone the __[Spark-Streaming-Example-Project][repo]__.
-
- ```bash
- host> git clone https://github.com/snowplow/spark-streaming-example-project.git
- ```
-2. Change the directory to __[Spark-Streaming-Example-Project][repo]__.
+In your vagrant terminal, change directory into vagrant root:
 
  ```bash
- host> cd spark-streaming-example-project.git
+vagrant@spark-streaming-example-project:/$ cd /vagrant
  ```
-3. Build the project  __[Spark-Streaming-Example-Project][repo]__.
+ 
+Compile and build __[Spark-Streaming-Example-Project][repo]__:
 
  ```bash
- host> sbt assembly
+vagrant@spark-streaming-example-project:/vagrant$ inv build_project
  ```
-
-The "fat jar" is now available as:
-
-```bash
-target/scala-2.10/simple-project_2.10-0.1.jar
-```
-
-While this runs, let's make sure you have AWS.
 
 ####Step 3: Add your AWS IAM credentials using AWS CLI
 

@@ -12,12 +12,12 @@ a tool for automatic deriving JSON Schemas from a collection of JSON instances.
 
 Read on after the fold for:
 
-1. [Why Schema Guru?](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#why)
-2. [Current features](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#features)
-3. [Design principles](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#principles)
-4. [A fuller example](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#eg)
-5. [Getting help](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#help)
-6. [Roadmap](/blog/2015/06/02/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#roadmap)
+1. [Why Schema Guru?](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#why)
+2. [Current features](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#features)
+3. [Design principles](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#principles)
+4. [A fuller example](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#eg)
+5. [Getting help](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#help)
+6. [Roadmap](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#roadmap)
 
 <!--more-->
 

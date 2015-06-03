@@ -241,7 +241,7 @@ MEOW
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
-[data-flow]: /assets/img/blog/2015/06/dataFlow.png
+[data-flow]: /assets/img/blog/2015/06/kinesis.png
 [data-table]: /assets/img/blog/2015/06/dynamodbTable.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
@@ -274,7 +274,6 @@ MEOW
 [data-compile]: /assets/img/blog/2015/06/compileProject.png
 [compile-spark]: /assets/img/blog/2015/06/compileSparkKinesis.png
 [get-credentials]: /assets/img/blog/2015/06/getAWScredentials.png
-
 [setup-kinesis00]: /assets/img/blog/2015/06/00-signin-aws.png
 [setup-kinesis01]: /assets/img/blog/2015/06/01-login-kinesis.png
 [setup-kinesis02]: /assets/img/blog/2015/06/02-landing-page-aws.png

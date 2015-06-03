@@ -162,6 +162,7 @@ guest> aws kinesis describe-stream --stream-name eventStream
         "Shards": []
     }
 }
+```
 
 In this example, the stream has a status CREATING, which means it is not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
 

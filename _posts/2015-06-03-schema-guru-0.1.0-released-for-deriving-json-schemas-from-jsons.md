@@ -130,7 +130,7 @@ We have lots of features planned for Schema Guru:
 * Enum detection
 * Warnings about suspiciously-similar keys
 * Auto-submitting generated schemas to your [Iglu] [repository]
-* Outputting [self-descring JSON Schemas] [self-describing-jsons]
+* Outputting [self-describing JSON Schemas] [self-describing-jsons]
 * Running Schema Guru as a Spark job on JSON collections stored in Amazon S3 (thanks to semigroups)
 * ...and much more, ideas are coming up every day!
 

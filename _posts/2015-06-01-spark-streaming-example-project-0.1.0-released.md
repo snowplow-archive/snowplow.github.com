@@ -11,7 +11,7 @@ category: Releases
 
 We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build. 
 
-*__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. A Kinesis receiver has been recently developed for __Apache Spark DStream using the Kinesis Client Library__ (KCL) provided by Amazon. * 
+__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. A Kinesis receiver has been recently developed for __Apache Spark DStream using the Kinesis Client Library__ (KCL) provided by Amazon.
 [Read more about Spark](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)
 
 

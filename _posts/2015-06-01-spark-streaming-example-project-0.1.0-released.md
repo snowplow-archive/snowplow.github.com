@@ -36,7 +36,7 @@ This [Snowplow Apache Spark Streaming Example Project][repo] demostrates how you
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 
 
-> Interesting Facts 
+> App Overview
 >-------------------
 >__Downsampling__
 >We are parsing the ISO 8601 datetime stamp down to the minute.

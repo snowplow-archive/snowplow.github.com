@@ -132,7 +132,7 @@ Default output format [None]: json
 *__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
 When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS. NOTE: Make sure the account has permissions for Kinesis and DynamoDB services*
 
-* http://aws.amazon.com/getting-started/
+* Need keys? http://aws.amazon.com/, and then click Sign Up.
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 

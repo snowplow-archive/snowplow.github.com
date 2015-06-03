@@ -156,12 +156,12 @@ https://console.aws.amazon.com/kinesis/home?region=us-east-1
 In the vagrant box, I had to specify the maven memory requirements in my Terminal:
 
 ```bash
-host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+guest> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
 Then I was able to issue the maven build command to compile Spark to get data from Kinesis:
 ```bash
-host>   mvn -Pkinesis-asl -DskipTests clean package
+guest>   mvn -Pkinesis-asl -DskipTests clean package
 ```
 ![compile spark png][compile-spark]
 
@@ -171,13 +171,10 @@ Get more details about building Apache Spark:
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 ####Step 5: Run the Python script to load data to Kinesis
-cd scripts
-screenshot of where you should be
-install boto
-make sure keys in creds file
-screenshot of what should look like
-using python 
-https://bigsnarf.files.wordpress.com/2015/05/screen-shot-2015-05-21-at-5-14-41-pm.png
+```bash
+guest> inv load_json_kinesis
+```
+![raw logs png][raw-logs]
 
 ####Step 6: checking the compile of Apache Spark with Kinesis
 screenshot of jar in folder
@@ -284,3 +281,4 @@ MEOW
 [setup-kinesis06]: /assets/img/blog/2015/06/06-stream-created-feedback.png
 [setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png
 [dynamodb-table]: /assets/img/blog/2015/06/aggregateRecords.png
+[raw-logs]: /assets/img/blog/2015/06/rawLogs.png

@@ -37,7 +37,7 @@ takes the aggregate records and saves them into AWS DynamoDB Database.
 >"belong" to it.
  
 
-The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to DyanmoDB table below after running this example project.
+The idea is that you should be able to send JSON formated logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. For example, below is an "input" example of a raw log that we will be sending to Kinesis. If everything runs as expected, you will find "output" similar to the DyanmoDB table below after running this  project.
 
 __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 
@@ -85,8 +85,8 @@ guest> sbt assembly
 
 
 
-## Getting this project up and running with this Step-by-Step tutorial
-In this tutorial, we will walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
+## Getting your project up and running with this step-by-step tutorial
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark.
 
 ####Step 1: Get the code and getting the project compiled
 
@@ -106,7 +106,7 @@ In this tutorial, we will walk through the process of getting up and running wit
  host> sbt assembly
  ```
 
- The 'fat jar' is now available as:
+The "fat jar" is now available as:
 
 ```bash
 target/scala-2.10/simple-project_2.10-0.1.jar
@@ -114,11 +114,13 @@ target/scala-2.10/simple-project_2.10-0.1.jar
 
 ![data compile png][data-compile]
  
- While this runs, let's make sure you have AWS.
+While this runs, let's make sure you have AWS.
 
 ####Step 2: Get your AWS IAM credentials and configure it using AWS CLI
-You are going to need IAM based credentials for AWS. So get your keys ready
+
+You're going to need IAM-based credentials for AWS. So get your keys ready
 and "inv configure_aws_credentials" in the vagrant box.  
+
 NOTE: Make sure the account has permissions for Kinesis and DynamoDB services
 
 ```bash
@@ -139,8 +141,8 @@ Need more information or need keys? Try FAQ? Get started with AWS links below.
 
 
 ####Step 3: Set up Kinesis
-We are going to setup the Kinesis stream using AWS console.
-In your favorite browser paste this URL to get to the AWS console:
+
+We're going to set up the Kinesis stream using AWS console. In your favourite browser, paste this URL to get to the AWS console:
 ```
 https://console.aws.amazon.com/kinesis/home?region=us-east-1
 ```

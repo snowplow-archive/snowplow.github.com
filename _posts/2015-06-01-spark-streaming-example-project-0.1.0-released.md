@@ -182,13 +182,19 @@ host> spark/bin/spark-submit \
 ```
 
 
-####Step 8: Let's go check out DynamoDB tables are setup. AggregateRecords is our output and StreamingCountsApp is the table for checkpointing Kinesis position.
+####Step 8: DynamoDB Tables. AggregateRecords is our output table. StreamingCountsApp is the table for checkpointing Kinesis position
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 9: Look at your aggregate data
+####Step 9: AggregateRecords table in DynamoDB
 ![dynamodb aggregate png][dynamodb-aggregate]
 
 ####Step 10: Shut everything down
+Remember to shut off:
+* Python data loading script
+* Control C to shutdown Spark
+* Delete Kinesis stream
+* Delete AggregrateRecords Table
+* Delete StreamingCountingApp table
 
 ##TroubleShooting
 This is a short list of our most frequently asked questions. For more information about this project create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).

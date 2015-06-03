@@ -9,9 +9,9 @@ category: Releases
 
 ![data flow png][data-flow]
 
-We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB.
+We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build.
 
-This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own event processing pipeline. This is a simple time series analysis job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
+This Snowplow Spark Streaming Example Project demostrates how you can jumpstart your own real-time event processing pipeline. This is a simple time series analysis streaming job written in Scala for the [Spark] [spark] Streaming cluster computing platform.
 
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
 

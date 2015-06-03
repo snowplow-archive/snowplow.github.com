@@ -269,7 +269,7 @@ guest> spark/bin/spark-submit \
 
 ####Step 8: Two new DynamoDB Tables. AggregateRecords & StreamingCountsApp
 
-Open up and browse to http://aws.amazon.com/console/ so we can check that data is making it to our DynamoDB table. You will notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the process of "analytics on write" process happening.
+Open up and browse to http://aws.amazon.com/console/ so we can check that data is making it to our DynamoDB table. You will notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
 ####Step 9: Inspecting the AggregateRecords table in DynamoDB

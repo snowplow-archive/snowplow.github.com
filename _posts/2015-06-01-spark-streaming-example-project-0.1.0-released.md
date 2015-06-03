@@ -195,6 +195,9 @@ Remember to shut off:
 * Delete Kinesis stream
 * Delete AggregrateRecords Table
 * Delete StreamingCountingApp table
+* Exit vagrant instance
+* Vagrant halt
+* Vagrant destroy
 
 ##TroubleShooting
 This is a short list of our most frequently asked questions. For more information about this project create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).

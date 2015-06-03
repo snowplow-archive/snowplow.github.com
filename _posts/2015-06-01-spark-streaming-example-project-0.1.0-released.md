@@ -21,7 +21,6 @@ This [Snowplow Apache Spark Streaming Example Project][repo] demostrates how you
 5. Troubleshooting
 6. Next Steps
 
-
 * [Input to this program](/blog/2015/06/01/spark-streaming-example-project/#input)
 * [Output to this program](/blog/2015/06/01/spark-streaming-example-project/#output)
 * [User Quickstart](/blog/2015/06/01/spark-streaming-example-project/#quickstart)

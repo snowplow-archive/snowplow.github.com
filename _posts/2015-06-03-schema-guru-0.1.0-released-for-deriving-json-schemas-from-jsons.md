@@ -10,6 +10,8 @@ category: Releases
 We're pleased to announce the first release of [Schema Guru] [schema-guru],
 a tool for automatic deriving JSON Schemas from a collection of JSON instances. This release is part of a new R&D focus at Snowplow Analytics in improving the tooling available around JSON Schema, a technology used widely in our own [Snowplow] [snowplow] and [Iglu] [iglu] projects.
 
+![schema-guru-shape-sorter] [pic]
+
 Read on after the fold for:
 
 1. [Why Schema Guru?](/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/#why)
@@ -133,6 +135,8 @@ We have lots of features planned for Schema Guru:
 * Outputting [self-describing JSON Schemas] [self-describing-jsons]
 * Running Schema Guru as a Spark job on JSON collections stored in Amazon S3 (thanks to semigroups)
 * ...and much more, ideas are coming up every day!
+
+[pic]: /assets/img/blog/2015/06/schema-guru-shape-sorter.jpg
 
 [json-schema]: http://json-schema.org/
 [schema-types]: http://json-schema.org/latest/json-schema-core.html#anchor8

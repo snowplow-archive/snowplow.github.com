@@ -193,7 +193,7 @@ guest> aws kinesis describe-stream --stream-name eventStream
 There is information in this output that you don't need to be concerned about for this tutorial. The main thing for now is "StreamStatus": "ACTIVE", which tells you that the stream is ready to be used, and the information on the single shard that you requested. You can also verify the existence of your new stream by using the list-streams command, as shown here:
 
 ```bash
-aws kinesis list-streams
+guest> aws kinesis list-streams
 {
     "StreamNames": [
         "eventStream"

@@ -96,10 +96,10 @@ vagrant@spark-streaming-example-project:/vagrant$ inv build_project
 ####Step 3: Add your AWS IAM credentials
 
 You're going to need IAM-based credentials for AWS. So get your keys ready
-and "inv add_aws_credentials" in the vagrant box.  
+and "inv add_credentials" in the vagrant box.  
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv add_aws_credentials
+vagrant@spark-streaming-example-project:/vagrant$ inv add_credentials
 AWS Access Key ID [None]: asdf897asdf798asdf
 AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
 Default region name [None]: us-east-1

@@ -14,21 +14,6 @@ We are pleased to announce the release of the new [Snowplow Apache Spark Streami
 ####In this post
 The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpstart your own real-time event processing pipeline. We will take you through the steps to get this simple time series analysis streaming job written in Scala.
 
-1. What is Spark Streaming and Kinesis?
-2. App overview, introducing analytics on write
-3. Detailed setup
-4. Results
-5. Troubleshooting
-6. Next Steps
- 
-
-* [Input to this program](/blog/2015/06/01/spark-streaming-example-project/#input)
-* [Output to this program](/blog/2015/06/01/spark-streaming-example-project/#output)
-* [User Quickstart](/blog/2015/06/01/spark-streaming-example-project/#quickstart)
-* [Get your project up and running with this step-by-step tutorial](/blog/2015/06/01/spark-streaming-example-project/#get)
-* [WIP -- Next jump results](/blog/2015/06/01/spark-streaming-example-project/#get)
-* [Frequently Asked Questions](/blog/2015/06/01/spark-streaming-example-project/#faq)
-
 ##What is Spark Streaming and Kinesis?
 
 __Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the Kinesis receiver that has been recently developed for __[Apache Spark DStream using the Kinesis Client Library](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)__ (KCL).

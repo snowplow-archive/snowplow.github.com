@@ -163,7 +163,7 @@ vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
 }
 ```
 
-We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used. You can also verify the existence of your new stream by using the list-streams command, as shown here:
+We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used. You can also verify the existence of your new stream by using the "inv kineis_list_all" command, as shown here:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv kinesis_list_all

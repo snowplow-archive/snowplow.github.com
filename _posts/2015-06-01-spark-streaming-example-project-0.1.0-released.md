@@ -229,7 +229,7 @@ Open a new terminal window. Start a second shell into the vagrant box with:
 ```bash
 host> vagrant ssh
 ```
-We're now ready to start Apache Spark Streaming system with this command:
+Start Apache Spark Streaming system with this command:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 ```

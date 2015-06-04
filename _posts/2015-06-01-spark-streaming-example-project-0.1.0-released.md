@@ -67,10 +67,9 @@ __Ouput: Example of the DynamoDB table__
 
 
 <h2><a name="get">Detailed setup</a></h2>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github.
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github. Also, [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
 
 ####Step 1: You can also use our pre-built vagrant box to run the [spark-streaming-sample-project][repo]
-Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
 
 ```bash
  host> git clone https://github.com/snowplow/spark-streaming-example-project

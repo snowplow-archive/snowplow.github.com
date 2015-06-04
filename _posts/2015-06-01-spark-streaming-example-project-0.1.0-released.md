@@ -67,7 +67,7 @@ __Ouput: Example of the DynamoDB table__
 
 
 <h2><a name="get">Detailed setup</a></h2>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github. Also, you will need  [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install]  installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. 
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github. Also, you will need  [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install]  installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. Building Spark on a vagrant box requires RAM. Ensure you have at least 8GB of RAM and 64 bit OS hosting vagrant.
 
 ####Step 1: You can use our pre-built vagrant box to run the [spark-streaming-sample-project][repo]
 In your local Terminal:

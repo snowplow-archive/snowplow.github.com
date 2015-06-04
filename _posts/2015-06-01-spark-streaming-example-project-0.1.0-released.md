@@ -116,13 +116,13 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 ####Step 4: Create your Kinesis Stream
 
-We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
+We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv create_kinesis
 ```
 
-The parameter --shard-count is required, and for this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
+For this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
@@ -137,7 +137,7 @@ vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
 }
 ```
 
-In this example, the stream has a status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
+Notice above that the stream has a status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis

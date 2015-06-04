@@ -219,7 +219,7 @@ vagrant@spark-streaming-example-project:/vagrant/spark-master$   cd ..
 
 Start the program to generate raw JSON and send it to Kinesis by issuing this invoke command in the Terminal:
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$   inv load_json_kinesis
+vagrant@spark-streaming-example-project:/vagrant$   inv load_kinesis
 ```
 
 ![raw logs png][raw-logs]

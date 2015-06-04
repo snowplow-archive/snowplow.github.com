@@ -28,7 +28,6 @@ The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpsta
 * [Get your project up and running with this step-by-step tutorial](/blog/2015/06/01/spark-streaming-example-project/#get)
 * [WIP -- Next jump results](/blog/2015/06/01/spark-streaming-example-project/#get)
 * [Frequently Asked Questions](/blog/2015/06/01/spark-streaming-example-project/#faq)
-* 
 
 ##What is Spark Streaming and Kinesis?
 
@@ -76,9 +75,9 @@ __Ouput: Example of the DynamoDB table__
 
 
 <h2><a name="get">Detailed setup</a></h2>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume that you will have an Internet connection so we can access services and download code from github.
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github.
 
-####Step 1: You can also use our prebuilt vagrant box to run the [spark-streaming-sample-project][repo]
+####Step 1: You can also use our pre-built vagrant box to run the [spark-streaming-sample-project][repo]
 Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] are locally installed:
 
 ```bash
@@ -88,7 +87,7 @@ Assuming [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant
 ```
 
 
-####Step 2: Getting the spark-streaming-example-project compiled
+####Step 2: Get the spark-streaming-example-project compiled
 
 In your vagrant terminal, change directory into vagrant root:
 
@@ -116,7 +115,7 @@ Default output format [None]: json
 ```
 
 *__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
-When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you are requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS. NOTE: Make sure the account has permissions for Kinesis and DynamoDB services*
+When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you're requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS. NOTE: Make sure the account has permissions for Kinesis and DynamoDB services.*
 
 * Need keys? http://aws.amazon.com/, and then click Sign Up.
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html
@@ -125,13 +124,13 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 ####Step 4: Create your Kinesis Stream
 
-We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully created. Use the following command to create a stream named "eventStream":
+We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
 
 ```bash
 guest> aws kinesis create-stream --stream-name eventStream --shard-count 1
 ```
 
-The parameter --shard-count is required, and for this part of the tutorial you are using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
+The parameter --shard-count is required, and for this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
@@ -146,7 +145,7 @@ vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --
 }
 ```
 
-In this example, the stream has a status CREATING, which means it is not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
+In this example, the stream has a status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
@@ -172,7 +171,7 @@ vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --
 }
 ```
 
-We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you that the stream is ready to be used. You can also verify the existence of your new stream by using the list-streams command, as shown here:
+We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used. You can also verify the existence of your new stream by using the list-streams command, as shown here:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ aws kinesis list-streams
@@ -185,28 +184,28 @@ vagrant@spark-streaming-example-project:/vagrant$ aws kinesis list-streams
 
 ####Step 5: Compile Spark with Kinesis Support
 
-In the vagrant box, we specify maven memory setting in your Terminal:
+In the vagrant box, specify maven memory setting in your Terminal:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
-I use the invoke command to get Apache Spark in your Terminal:
+Use the invoke command to get Apache Spark in your Terminal:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$  inv get_spark
 ```
 
-After it finishes downloading I unpack the file with this invoke command:
+After it finishes downloading, unpack the file with this invoke command:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$  inv unzip_spark
 ```
 
-I change into the spark-master directory:
+Change into the spark-master directory:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$  cd spark-master
 ```
 
-Then I issue the invoke command to build Spark so it can get data from Kinesis:
+Issue the invoke command to build Spark so it can get data from Kinesis:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ```
@@ -226,7 +225,7 @@ Change directory to the vagrant root:
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   cd ..
 ```
 
-I start the program to generate raw JSON and send it to Kinesis by issuing this invoke command in the Terminal:
+Start the program to generate raw JSON and send it to Kinesis by issuing this invoke command in the Terminal:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$   inv load_json_kinesis
 ```
@@ -234,16 +233,16 @@ vagrant@spark-streaming-example-project:/vagrant$   inv load_json_kinesis
 ![raw logs png][raw-logs]
 
 ####Step 7: Submit your application to Spark
-Open a new terminal window. We are going to start a second shell into the vagrant box with:
+Open a new terminal window. Start a second shell into the vagrant box with:
 ```bash
 host> vagrant ssh
 ```
-We are now ready to start Apache Spark Streaming system with this command:
+We're now ready to start Apache Spark Streaming system with this command:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 ```
 
-SIDE NOTE: Under the covers we are submit the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
+SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
 ```bash
 guest> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
@@ -253,14 +252,14 @@ guest> spark/bin/spark-submit \
 ```
 
 
-####Step 8: Two new DynamoDB Tables. AggregateRecords & StreamingCountsApp
+####Step 8: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
 
-Open up and browse to http://aws.amazon.com/console/ so we can check that data is making it to our DynamoDB table. You will notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
+Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 9: Inspecting the AggregateRecords table in DynamoDB
+####Step 9: Inspect the AggregateRecords table in DynamoDB
 
-Success! You should see data getting written to the AggregateRecords table in DynamoDB
+Success! You should see data being written to the AggregateRecords table in DynamoDB.
 ![dynamodb aggregate png][dynamodb-aggregate]
 
 ####Step 10: Shut everything down
@@ -275,7 +274,7 @@ Remember to shut off:
 * Vagrant destroy
 
 ##TroubleShooting
-This is a short list of our most frequently asked questions. For more information about this project create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
+This is a short list of our most frequently asked questions. For more information about this project, create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
 
 
 __When using command "inv create_dynamodb_table", I get this error:__
@@ -285,7 +284,7 @@ boto.exception.NoAuthHandlerFound: No handler was ready to authenticate. 1 handl
 ```
 *Answer - http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html*
 
-__Got an out of memory error when tyring to build Apache Spark:__
+__Got an out of memory error when trying to build Apache Spark:__
 
 * Answer - Try setting memory requirements of maven with:
 ```bash

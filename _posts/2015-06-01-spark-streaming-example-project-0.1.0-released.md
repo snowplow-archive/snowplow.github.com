@@ -119,13 +119,13 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ aws kinesis create-stream --stream-name eventStream --shard-count 1
+vagrant@spark-streaming-example-project:/vagrant$ inv create_kinesis
 ```
 
 The parameter --shard-count is required, and for this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
+vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
 
 {
     "StreamDescription": {
@@ -140,7 +140,7 @@ vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --
 In this example, the stream has a status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the following example:
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --stream-name eventStream
+vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
 
 {
     "StreamDescription": {
@@ -166,7 +166,7 @@ vagrant@spark-streaming-example-project:/vagrant$ aws kinesis describe-stream --
 We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used. You can also verify the existence of your new stream by using the list-streams command, as shown here:
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ aws kinesis list-streams
+vagrant@spark-streaming-example-project:/vagrant$ inv kinesis_list_all
 {
     "StreamNames": [
         "eventStream"

@@ -238,7 +238,7 @@ SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-examp
 ```bash
 guest> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
-                       --master local[2] \
+                       --master local[4] \
                        spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
                        --config spark-streaming-example-project/src/main/resources/config.hocon.sample
 ```

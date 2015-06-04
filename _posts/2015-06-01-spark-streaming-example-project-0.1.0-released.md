@@ -197,7 +197,12 @@ Change into the spark-master directory:
 vagrant@spark-streaming-example-project:/vagrant$  cd spark-master
 ```
 
-Issue the invoke command to build Spark so it can get data from Kinesis:
+Building spark takes memory. So we are going to have to tell maven what we want by:
+```bash
+vagrant@spark-streaming-example-project:/vagrant/spark-master$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+```
+
+Now we can issue the invoke command to build Spark so it can get data from Kinesis:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ```

@@ -93,13 +93,13 @@ Compile and build __[Spark-Streaming-Example-Project][repo]__:
 vagrant@spark-streaming-example-project:/vagrant$ inv build_project
  ```
 
-####Step 3: Add your AWS IAM credentials using AWS CLI
+####Step 3: Add your AWS IAM credentials
 
 You're going to need IAM-based credentials for AWS. So get your keys ready
-and "inv configure_aws_credentials" in the vagrant box.  
+and "inv add_aws_credentials" in the vagrant box.  
 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv configure_aws_credentials
+vagrant@spark-streaming-example-project:/vagrant$ inv add_aws_credentials
 AWS Access Key ID [None]: asdf897asdf798asdf
 AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
 Default region name [None]: us-east-1
@@ -119,7 +119,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 We're going to set up the Kinesis stream using AWS CLI. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
 
 ```bash
-guest> aws kinesis create-stream --stream-name eventStream --shard-count 1
+vagrant@spark-streaming-example-project:/vagrant$ aws kinesis create-stream --stream-name eventStream --shard-count 1
 ```
 
 The parameter --shard-count is required, and for this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:

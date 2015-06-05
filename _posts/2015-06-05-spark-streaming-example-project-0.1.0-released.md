@@ -85,7 +85,7 @@ You're going to need IAM-based credentials for AWS.  In your vagrant terminal, c
 vagrant@spark-streaming-example-project:/$ cd /vagrant
  ```
 
-Then, get your keys and "inv create_profile" in the vagrant box. 
+Then, get your keys and "inv create_profile" in the vagrant box. I'm giving the profile name of "my-profile" and setting the region to "us-east-1".
 ```bash
 $ inv create_profile my-profile
 AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
@@ -136,11 +136,14 @@ $ inv describe_kinesis_stream my-profile my-stream
 ```
 
 
+####Step 4: Create DynamoDB Table where the aggregate records are going to be stored. I'm using 
+"AggregateRecords" as the table name.
+
 ```bash
-$ inv create_dynamodb_table my-profile eu-west-1 my-table
+$ inv create_dynamodb_table my-profile us-east-1 AggregateRecords
 ```
 
-####Step 4: Generating raw events to your Kinesis Stream
+####Step 5: Generating raw events to your Kinesis Stream
 
 We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used.
 Now start sending events to the stream:
@@ -162,16 +165,6 @@ In the vagrant box, specify maven memory setting in your Terminal:
 vagrant@spark-streaming-example-project:/vagrant$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
-Use the invoke command to get Apache Spark in your Terminal:
-```bash
-vagrant@spark-streaming-example-project:/vagrant$  inv get_spark
-```
-
-After it finishes downloading, unpack the file with this invoke command:
-```bash
-vagrant@spark-streaming-example-project:/vagrant$  inv unzip_spark
-```
-
 Change into the spark-master directory:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$  cd spark-master
@@ -191,20 +184,7 @@ Get more details about building Apache Spark:
 * https://spark.apache.org/docs/1.1.0/building-with-maven.html
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
-####Step 6: Run the Python script to load data to Kinesis
-Change directory to the vagrant root:
-```bash
-vagrant@spark-streaming-example-project:/vagrant/spark-master$   cd ..
-```
-
-Start the program to generate raw JSON and send it to Kinesis by issuing this invoke command in the Terminal:
-```bash
-vagrant@spark-streaming-example-project:/vagrant$   inv load_kinesis
-```
-
-![raw logs png][raw-logs]
-
-####Step 7: Submit your application to Spark
+####Step 6: Submit your application to Spark
 Open a new terminal window. Start a second shell into the vagrant box with:
 ```bash
 host> vagrant ssh
@@ -225,17 +205,17 @@ vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 >```
 
 
-####Step 8: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
+####Step 7: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
 
 Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 9: Inspect the AggregateRecords table in DynamoDB
+####Step 8: Inspect the AggregateRecords table in DynamoDB
 
 Success! You should see data being written to the AggregateRecords table in DynamoDB.
 ![dynamodb aggregate png][dynamodb-aggregate]
 
-####Step 10: Shut everything down
+####Step 9: Shut everything down
 Remember to shut off:
 * Python data loading script
 * Control C to shutdown Spark
@@ -248,7 +228,6 @@ Remember to shut off:
 
 ##TroubleShooting
 This is a short list of our most frequently asked questions. For more information about this project, create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
-
 
 __When using command "inv create_dynamodb_table", I get this error:__
 
@@ -264,13 +243,6 @@ __Got an out of memory error when trying to build Apache Spark:__
 host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
-__Still getting memory issue with compiling Spark with maven:__
-* Answer - Try reducing the memory requirements of maven to:
-
-```bash
-host> export MAVEN_OPTS="-Xmx1g -XX:MaxPermSize=256M -XX:ReservedCodeCacheSize=256m"
-```
-
 __I found an issue with the project:__
 * Answer - Feel free to [get in touch](https://github.com/snowplow/snowplow/wiki/Talk-to-us) or [raise an issue on GitHub](https://github.com/snowplow/spark-streaming-example-project/issues)!
 
@@ -284,7 +256,6 @@ We are also building useful tools for the Spark platform. Recently, we detailed 
 
 This simple streaming example has a simple event model. We are hoping to put some decision making into the processing pipeline in a future post, so stay tuned.
 
-MEOW
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [spark-logo]: /assets/img/blog/2015/06/spark-streaming.png

@@ -77,33 +77,21 @@ In your local Terminal:
  host> cd spark-streaming-example-project
  host> vagrant up && vagrant ssh
 ```
+####Step 2: Add AWS credentials to the vagrant box 
 
-
-####Step 2: Get the spark-streaming-example-project compiled
-
-In your vagrant terminal, change directory into vagrant root:
+You're going to need IAM-based credentials for AWS.  In your vagrant terminal, change directory into vagrant root:
 
  ```bash
 vagrant@spark-streaming-example-project:/$ cd /vagrant
  ```
- 
-Compile and build __[Spark-Streaming-Example-Project][repo]__:
 
- ```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv build_project
- ```
-
-####Step 3: Add your AWS IAM credentials
-
-You're going to need IAM-based credentials for AWS. So get your keys ready
-and "inv add_credentials" in the vagrant box.  
-
+Then, get your keys and "inv create_profile" in the vagrant box. 
 ```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv add_credentials
-AWS Access Key ID [None]: asdf897asdf798asdf
-AWS Secret Access Key [None]: GJWEV99089FJC93J3209D23J
+$ inv create_profile my-profile
+AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
+AWS Secret Access Key [None]: ADD_YOUR_SECRET_KEY_HERE
 Default region name [None]: us-east-1
-Default output format [None]: json
+Default output format [None]:
 ```
 
 *__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
@@ -113,16 +101,61 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
-
 ####Step 4: Create your Kinesis Stream
 
-We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "eventStream":
+We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "my-stream":
+
+```bash
+$ inv create_kinesis_stream my-profile my-stream
+```
+For this part of the tutorial, you're using one shard in your stream. If you check the stream and it returns with status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
+ Next, issue the following command to check on the stream's creation progress:
+
+Wait a minute and then:
+
+```bash
+$ inv describe_kinesis_stream my-profile my-stream
+{
+    "StreamDescription": {
+        "StreamStatus": "ACTIVE",
+        "StreamName": "my-stream",
+        "StreamARN": "arn:aws:kinesis:us-east-1:3197435995:stream/my-stream",
+        "Shards": [
+            {
+                "ShardId": "shardId-000000000000",
+                "HashKeyRange": {
+                    "EndingHashKey": "340282366920938463463374607431768211455",
+                    "StartingHashKey": "0"
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": "49551350243544458458477304430170758137221526998466166786"
+                }
+            }
+        ]
+    }
+}
+```
+
+
+```bash
+$ inv create_dynamodb_table my-profile eu-west-1 my-table
+```
+
+Now start sending events to the stream:
+
+```bash
+$ inv generate_events my-profile eu-west-1 my-stream
+Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
+Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
+Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
+...
+```
+
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv create_kinesis
 ```
 
-For this part of the tutorial, you're using one shard in your stream. Next, issue the following command to check on the stream's creation progress:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
@@ -137,7 +170,6 @@ vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
 }
 ```
 
-Notice above that the stream has a status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
 
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis

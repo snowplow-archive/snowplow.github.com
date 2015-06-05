@@ -57,9 +57,9 @@ Following is a sample __input__ of a raw logs sent to Kinesis. If everything run
 __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 
 ```bash
-{ "dateString": "2015-06-22T00:23:24.306091", "eventType": "Red" }
-{ "dateString": "2015-06-22T00:23:24.450129", "eventType": "Yellow" }
-{ "dateString": "2015-06-22T00:23:24.826703", "eventType": "Blue" }
+{"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
+{"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
+{"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 ```
 
 __Ouput: Example of the DynamoDB table__

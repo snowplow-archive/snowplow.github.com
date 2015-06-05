@@ -234,7 +234,8 @@ Start Apache Spark Streaming system with this command:
 vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 ```
 
-SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
+> SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
+
 ```bash
 guest> spark/bin/spark-submit \
                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \

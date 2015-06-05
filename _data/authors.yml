@@ -86,3 +86,11 @@
   avatar: /assets/img/team/anton.png
   spiel:   |
       <a href="/authors/anton.html">Anton</a> is a Data Engineering Intern at Snowplow</a>. You can find him on <a href="https://github.com/chewy">Github</a>, <a href="http://twitter.com/chuvvy">Twitter</a> and on his <a href="http://chuwy.me">personal blog</a>.
+
+- name: Vincent
+  full_name: Vincent Ohprecio
+  github: bigsnarfdude
+  url: /authors/vincent.html
+  avatar: /assets/img/team/vincent.png
+  spiel:   |
+      <a href="/authors/vincent.html">Vincent</a> is a Data Engineering Intern at Snowplow</a>. You can find him on <a href="https://github.com/BigsnarfDude">Github</a> and <a href="http://twitter.com/BigsnarfDude">Twitter</a>.

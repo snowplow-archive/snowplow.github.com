@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{ page.title }}</title>
+    {% if page.group == 'homepage' %}
+      <title>{{ page.title }}</title>
+    {% else %}
+      <title>{{ page.title }} – Snowplow</title>
+    {% endif %}
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
     <meta name="author" content="{{ site.author.name }}">
 

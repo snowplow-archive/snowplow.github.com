@@ -101,17 +101,16 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 * http://docs.aws.amazon.com/cli/latest/userguide/installing.html
 * http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
-####Step 4: Create your Kinesis Stream
+####Step 3: Create your Kinesis Stream
 
 We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "my-stream":
 
 ```bash
 $ inv create_kinesis_stream my-profile my-stream
 ```
-For this part of the tutorial, you're using one shard in your stream. If you check the stream and it returns with status CREATING, which means it's not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
- Next, issue the following command to check on the stream's creation progress:
 
-Wait a minute and then:
+For this part of the tutorial, you're using one shard in your stream. If you check the stream and it returns with status CREATING, it means that the Kinesis stream not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
+
 
 ```bash
 $ inv describe_kinesis_stream my-profile my-stream
@@ -141,70 +140,19 @@ $ inv describe_kinesis_stream my-profile my-stream
 $ inv create_dynamodb_table my-profile eu-west-1 my-table
 ```
 
+####Step 4: Generating raw events to your Kinesis Stream
+
+We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used.
 Now start sending events to the stream:
 
 ```bash
-$ inv generate_events my-profile eu-west-1 my-stream
+$ inv generate_events my-profile us-east-1 my-stream
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 ...
 ```
 
-
-```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv create_kinesis
-```
-
-
-```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
-
-{
-    "StreamDescription": {
-        "StreamStatus": "CREATING",
-        "StreamName": "eventStream",
-        "StreamARN": "arn:aws:kinesis:us-east-1:<account i.d.>:stream/eventStream",
-        "Shards": []
-    }
-}
-```
-
-
-```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv show_kinesis
-
-{
-    "StreamDescription": {
-        "StreamStatus": "ACTIVE",
-        "StreamName": "eventStream",
-        "StreamARN": "arn:aws:kinesis:us-east-1:<account i.d.>:stream/eventStream",
-        "Shards": [
-            {
-                "ShardId": "shardId-000000000000",
-                "HashKeyRange": {
-                    "EndingHashKey": "170141183460469231731687303715884105727",
-                    "StartingHashKey": "0"
-                },
-                "SequenceNumberRange": {
-                    "StartingSequenceNumber": "49546986683135544286507457935754639466300920667981217794"
-                }
-            }
-        ]
-    }
-}
-```
-
-We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used. You can also verify the existence of your new stream by using the "inv kineis_list_all" command, as shown here:
-
-```bash
-vagrant@spark-streaming-example-project:/vagrant$ inv kinesis_list_all
-{
-    "StreamNames": [
-        "eventStream"
-    ]
-}
-```
 
 ####Step 5: Compile Spark with Kinesis Support
 

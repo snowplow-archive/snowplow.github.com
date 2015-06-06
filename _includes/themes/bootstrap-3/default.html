@@ -96,11 +96,6 @@
                 {% else %}
                 <li><a href="/blog" class="without-border">Blog</a></li>
               {% endif %}
-              <!--{% if page.group == 'about'%}
-                <li class="active"><a href="/about" class="active">About</a></li>
-                {% else %}
-                <li><a href="/about">About</a></li>
-              {% endif %}-->
               {% if page.group == 'get-started' %}
                 <li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
                 {% else %}
@@ -120,14 +115,13 @@
     <div id="footer">
       <div class="container">
         <hr style="margin-top:40px;padding-top:10px;"></hr>
-        <p class="text-center">&copy; 2012 - {{ site.time | date: '%Y' }} {{ site.author.name }}
+        <p class="text-center"><a href="/about" class="active">About Snowplow</a> | &copy; 2012 - {{ site.time | date: '%Y' }} {{ site.author.name }}
         </p>
       </footer>
       </div>
     </div>
 
     {% include snowplow/olark %}
-
 
     <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
     <!-- Placed at the end of the document so the pages load faster -->

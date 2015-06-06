@@ -121,7 +121,7 @@ h4 small{font-size:14px;}
 
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 170%; /* Relative scaling of fonts */
+	font-size: 170%; /* Relative scaling of fonts: 10em = 170px */
 }
 
 /* Headers */
@@ -141,12 +141,34 @@ img {
       max-width: 100%;
 }
 
-/* Page header */
+/* Header */
 
 .navbar-snowplow {
-	background-color: #1F294D;
-	border-radius: 0; /* overwrite default in bootstrap.css */
 	height: 10em;
+	border-radius: 0; /* overwrite default in bootstrap.css */
+	background-color: #1F294D;
+	margin-bottom: 2em; /* margin between header and content */
+}
+
+/* Header: brand */
+
+.navbar-snowplow .navbar-brand {
+	font-size: 1em; /* overwrite default in bootstrap.css */
+	height: 9em;
+	padding:0;
+	margin: 0.5em 0;
+}
+
+.navbar-snowplow .navbar-brand > img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand,
+  .navbar > .container-fluid .navbar-brand {
+    margin-left: 0px; /* overwrite default in bootstrap.css */
+  }
 }
 
 /* Header: navigation */
@@ -156,7 +178,7 @@ img {
 }
 
 .navbar-snowplow .navbar-nav {
-  margin: 0.5em 0; /* top and bottom margin of menu */
+  margin: 1em 0; /* top and bottom margin of menu */
 }
 
 .navbar-snowplow .navbar-nav > li > .with-border {
@@ -178,13 +200,13 @@ img {
 
 .navbar-snowplow .navbar-nav > li > a:hover,
 .navbar-snowplow .navbar-nav > li > a:focus {
-	background: #1F294D;
+	background: #1F294D; /* overwrite default in bootstrap.css */
 	color: white;
 }
 .navbar-snowplow .navbar-nav > .active > a,
 .navbar-snowplow .navbar-nav > .active > a:hover,
 .navbar-snowplow .navbar-nav > .active > a:focus {
-	background: #1F294D;
+	background: #1F294D; /* overwrite default in bootstrap.css */
 	color: white;
 }
 

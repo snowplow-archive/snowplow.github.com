@@ -1,3 +1,109 @@
+
+/*.navbar-default .navbar-nav > .disabled > a,
+.navbar-default .navbar-nav > .disabled > a:hover,
+.navbar-default .navbar-nav > .disabled > a:focus {
+  color: #ccc;
+  background-color: transparent;
+}*/
+.navbar-default .navbar-toggle {
+  border-color: #ddd;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #ddd;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #888;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #e7e7e7;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #555;
+  background-color: #e7e7e7;
+}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    background-color: transparent;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+  }
+}
+.navbar-default .navbar-link {
+  color: #777;
+}
+.navbar-default .navbar-link:hover {
+  color: #333;
+}
+.navbar-default .btn-link {
+  color: #777;
+}
+.navbar-default .btn-link:hover,
+.navbar-default .btn-link:focus {
+  color: #333;
+}
+.navbar-default .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-default .btn-link:hover,
+.navbar-default .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-default .btn-link:focus {
+  color: #ccc;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-nav .open .dropdown-menu .dropdown-header {
+    padding: 5px 15px 5px 25px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a {
+    line-height: 20px;
+  }
+  .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-nav .open .dropdown-menu > li > a:focus {
+    background-image: none;
+  }
+}
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
 /* Updates to the default Bootstrap theme that are Snowplow-specific */
 /* h1{font-size:24px;}
 h2{font-size:20px;}
@@ -11,11 +117,14 @@ h3 small{font-size:16px;}
 h4 small{font-size:14px;}
 */
 
-/* Snowplow custom font */
+/* Font */
+
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 170%; /* Relative scaling of fonts */
 }
+
+/* Headers */
 
 .h1, h1 {
 	font-size: 2.2em;
@@ -30,4 +139,64 @@ img {
       display: block;
       height: auto;
       max-width: 100%;
+}
+
+/* Page header */
+
+.navbar-snowplow {
+	background-color: #1F294D;
+	border-radius: 0; /* overwrite default in bootstrap.css */
+	height: 10em;
+}
+
+/* Header: navigation */
+
+.navbar-snowplow .navbar-collapse {
+	padding: 0; /* overwrite default in bootstrap.css */
+}
+
+.navbar-snowplow .navbar-nav {
+  margin: 0.5em 0; /* top and bottom margin of menu */
+}
+
+.navbar-snowplow .navbar-nav > li > .with-border {
+	border: 2px solid white;
+	border-radius: 0.5em;
+}
+
+.navbar-snowplow .navbar-nav > li > .without-border {
+	border: 2px solid #1F294D; /* present but invisible for alignment */
+	border-radius: 0.5em;
+}
+
+.navbar-snowplow .navbar-nav > li > a {
+	text-shadow: none; /* overwrite default in bootstrap-theme.css */
+	text-transform: uppercase;
+	font-size: 0.8em;
+	color: white;
+}
+
+.navbar-snowplow .navbar-nav > li > a:hover,
+.navbar-snowplow .navbar-nav > li > a:focus {
+	background: #1F294D;
+	color: white;
+}
+.navbar-snowplow .navbar-nav > .active > a,
+.navbar-snowplow .navbar-nav > .active > a:hover,
+.navbar-snowplow .navbar-nav > .active > a:focus {
+	background: #1F294D;
+	color: white;
+}
+
+/* toggle button */
+
+.navbar-snowplow .navbar-toggle {
+  border-color: #ddd;
+}
+.navbar-snowplow .navbar-toggle:hover,
+.navbar-snowplow .navbar-toggle:focus {
+  background-color: #ddd;
+}
+.navbar-snowplow .navbar-toggle .icon-bar {
+  background-color: #888;
 }

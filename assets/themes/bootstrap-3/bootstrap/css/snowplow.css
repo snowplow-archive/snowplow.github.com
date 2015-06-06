@@ -1,21 +1,12 @@
-/* Updates to the default Bootstrap theme that are Snowplow-specific */
-/* h1{font-size:24px;}
-h2{font-size:20px;}
-h3{font-size:18px;}
-h4{font-size:16px;}
-h5{font-size:14px;}
-h6{font-size:12px;}
-h1 small{font-size:20px;}
-h2 small{font-size:18px;}
-h3 small{font-size:16px;}
-h4 small{font-size:14px;}
-*/
 
-/* Snowplow custom font */
+/* Font */
+
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 170%; /* Relative scaling of fonts */
+	font-size: 170%; /* relative scaling of fonts: 10em = 170px */
 }
+
+/* Headers */
 
 .h1, h1 {
 	font-size: 2.2em;
@@ -25,9 +16,112 @@ body {
 	font-size: 1.5em;
 }
 
-/* Make images responsive by default  */
+/* Images  */
+
 img {
-      display: block;
-      height: auto;
-      max-width: 100%;
+	display: block;
+	height: auto;
+	max-width: 100%; /* responsive by default */
+}
+
+/* Header */
+
+.navbar-snowplow {
+	background-color: #1F294D;
+	margin-bottom: 2em; /* margin between header and content */
+	border-radius: 0; /* overwrite default in bootstrap.css */
+}
+
+@media (min-width: 768px) {
+	.navbar-snowplow {
+		height: 10em; /* height causes issues with collapse on small screens */
+	}
+}
+
+/* Header: brand */
+
+.navbar-snowplow .navbar-brand {
+	font-size: 1em; /* overwrite default in bootstrap.css */
+	height: 9em;
+	padding:0;
+	margin: 0.5em 0;
+}
+
+.navbar-snowplow .navbar-brand > img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand {
+    margin-left: 0px; /* overwrite default in bootstrap.css */
+  }
+}
+
+/* Header: navigation */
+
+.navbar-snowplow .navbar-collapse {
+	padding: 0; /* overwrite default in bootstrap.css */
+}
+
+.navbar-snowplow .navbar-nav {
+  margin: 1em 0; /* top and bottom margin of menu */
+}
+
+.navbar-snowplow .navbar-nav > li {
+	margin-left: 0.5em;
+}
+
+@media (max-width: 767px) {
+	.navbar-snowplow .navbar-nav > li {
+		margin-right: 1em;
+	}
+}
+
+.navbar-snowplow .navbar-nav > li > .with-border {
+	border: 2px solid #4C5371;
+	border-radius: 0.5em;
+}
+
+.navbar-snowplow .navbar-nav > li > .without-border {
+	border: 2px solid #1F294D; /* present but invisible for alignment */
+	border-radius: 0.5em;
+}
+
+.navbar-snowplow .navbar-nav > li > a {
+	text-shadow: none; /* overwrite default in bootstrap-theme.css */
+	text-transform: uppercase;
+	font-size: 0.8em;
+	color: white;
+}
+
+.navbar-snowplow .navbar-nav > li > a:hover,
+.navbar-snowplow .navbar-nav > li > a:focus {
+	background: #4C5371; /* overwrite default in bootstrap.css */
+	color: white;
+}
+.navbar-snowplow .navbar-nav > .active > a,
+.navbar-snowplow .navbar-nav > .active > a:hover,
+.navbar-snowplow .navbar-nav > .active > a:focus {
+	background: #4C5371; /* overwrite default in bootstrap.css */
+	color: white;
+}
+
+/* Header: hamburger icon */
+
+.navbar-snowplow .navbar-toggle { /* overwrite default in bootstrap.css */
+	margin: 1em;
+	padding: 1em;
+  border-radius: 0.5em;
+}
+
+.navbar-snowplow .navbar-toggle {
+  border: 2px solid #4C5371;
+}
+.navbar-snowplow .navbar-toggle:hover,
+.navbar-snowplow .navbar-toggle:focus {
+  background-color: #4C5371;
+}
+.navbar-snowplow .navbar-toggle .icon-bar {
+  background-color: white;
 }

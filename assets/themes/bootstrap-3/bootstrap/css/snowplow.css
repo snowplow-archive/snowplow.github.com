@@ -1,4 +1,6 @@
 
+/* Snowplow.css modifies the bootstrap theme */
+
 /* Font */
 
 body {
@@ -98,12 +100,14 @@ img {
 .navbar-snowplow .navbar-nav > li > a:hover,
 .navbar-snowplow .navbar-nav > li > a:focus {
 	background: #4C5371; /* overwrite default in bootstrap.css */
+	border-color: #4C5371;
 	color: white;
 }
 .navbar-snowplow .navbar-nav > .active > a,
 .navbar-snowplow .navbar-nav > .active > a:hover,
 .navbar-snowplow .navbar-nav > .active > a:focus {
 	background: #4C5371; /* overwrite default in bootstrap.css */
+	border-color: #4C5371;
 	color: white;
 }
 

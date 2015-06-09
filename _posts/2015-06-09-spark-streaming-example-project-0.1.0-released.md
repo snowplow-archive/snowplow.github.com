@@ -14,19 +14,20 @@ We are pleased to announce the release of the new [Snowplow Apache Spark Streami
 ####In this post
 The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpstart your own real-time event processing pipeline. We will take you through the steps to get this simple time series analysis streaming job written in Scala up and processing data.
 
-1. What is Spark Streaming and Kinesis?
-2. App overview, introducing analytics on write
-3. Detailed setup
-4. Troubleshooting
-5. Next steps
+1. [What is Spark Streaming and Kinesis?](#1-what-is-spark-streaming-and-kinesis)
+2. [App overview, introducing analytics on write](#2-app-overview-introducting-analytics-on-write)
+3. [Detailed setup](#3-detailed-setup)
+4. [Troubleshooting](#4-troubleshooting)
+5. [Next steps](#5-next-steps)
 
+<a name="#1-what-is-spark-streaming-and-kinesis" />
 ##What is Spark Streaming and Kinesis?
 
 __Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the Kinesis receiver that has been recently developed for __[Apache Spark DStream using the Kinesis Client Library](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)__ (KCL).
 
 __Apache Spark Streaming__ enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Our raw data will be ingested from Kinesis by our application written for the [Spark] [spark] computing platform.
 
-
+<a name="#2-app-overview-introducting-analytics-on-write" />
 ##App overview, introduction analytics on write
 
 __First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
@@ -64,8 +65,8 @@ __Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
 __Ouput: Example of the DynamoDB table__
 ![data table png][data-table]
 
-
-<h2><a name="get">Detailed setup</a></h2>
+<a name="#3-detailed-setup" />
+##Detailed setup
 In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github. Also, you will need  [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install]  installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. Building Spark on a vagrant box requires RAM. Ensure you have at least 8GB of RAM and 64 bit OS hosting vagrant.
 
 ####Step 1: You can use our pre-built vagrant box to run the [spark-streaming-sample-project][repo]
@@ -233,6 +234,7 @@ Remember to shut off:
 * Vagrant halt
 * Vagrant destroy
 
+<a name="#4-troubleshooting" />
 ##TroubleShooting
 This is a short list of our most frequently asked questions. For more information about this project, create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
 
@@ -253,6 +255,7 @@ host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=5
 __I found an issue with the project:__
 * Answer - Feel free to [get in touch](https://github.com/snowplow/snowplow/wiki/Talk-to-us) or [raise an issue on GitHub](https://github.com/snowplow/spark-streaming-example-project/issues)!
 
+<a name="#4-next-steps" />
 ## Next steps
 
 Did you see our Spark Job project? Catch up on our newly released Version 0.3.0 of the [spark-example-project](https://github.com/snowplow/spark-example-project). 

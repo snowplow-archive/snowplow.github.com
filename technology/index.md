@@ -2,7 +2,7 @@
 layout: page
 group: technology
 category: technology
-title: Snowplow is built on top of best-in-class technology, incl. Amazon Kinesis, Scalding, Cascading, Hadoop, EMR and Amazon Redshift
+title: Technology
 description: Snowplow is architected using the best-of-breed in open source and cloud technology, to deliver a highly scalable, robust, cost effective event analytics platform. Our technology stack leverages Amazon Kinesis, Scalding, Cascading, Hadoop, EMR and Amazon Redshift
 weight: 1
 ---
@@ -18,9 +18,9 @@ Snowplow consists of five loosely-coupled subsystems.
 
 * Trackers integrate with your application(s) and/or website(s).
 * Trackers generate event data: when an event occurs, they put together a packet of data and send it to a Snowplow collector.
-* We have two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [No-JS (also called 'pixel') tracker] [no-js-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. email open events. 
+* We have two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [No-JS (also called 'pixel') tracker] [no-js-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. email open events.
 * We offer a number of server-side trackers including a [Python tracker] [python-tracker], [Ruby tracker] [ruby-tracker], [Java tracker] [java-tracker], [Lua tracker] [lua-tracker] and [Node-JS] [node-js] tracker. A PHP tracker is in development.
-* We have both an [iOS tracker][iOS] and an [Android tracker][android] for capturing events from mobile apps 
+* We have both an [iOS tracker][iOS] and an [Android tracker][android] for capturing events from mobile apps
 * We offer an [Arduino tracker][arduino-tracker] for capturing data from the Internet of Things.
 
 
@@ -29,7 +29,7 @@ The [Snowplow Tracker Protocol] [tracker-protocol] provides a standard way for *
 ### 2. Collectors
 
 * Collectors receive Snowplow event data from trackers and push it to a queue to be processed.
-* Currently we have a [Cloudfront collector] [cf-collector] for tracking user activity across a single domain, a [Clojure collector] [clj-collector] for tracking activity across multiple domains and a [Scala stream collector] [scala-stream-collector] for tracking users across multiple domains in real-time. 
+* Currently we have a [Cloudfront collector] [cf-collector] for tracking user activity across a single domain, a [Clojure collector] [clj-collector] for tracking activity across multiple domains and a [Scala stream collector] [scala-stream-collector] for tracking users across multiple domains in real-time.
 * The Clojure collector runs on [Amazon Elastic Beanstalk] [beanstalk].
 * The Scala Stream collector is built to work with [Amazon Kinesis] [kinesis].
 
@@ -41,7 +41,7 @@ The [Snowplow Tracker Protocol] [tracker-protocol] provides a standard way for *
 ### 4. Storage
 
 * Snowplow can be setup to load your event-level and customer-level data into one or more data stores, to enable analytics.
-* Snowplow data is delivered into [Amazon S3] [s3] (for processing by [Hive] [hive] / [Pig] [pig] on EMR). 
+* Snowplow data is delivered into [Amazon S3] [s3] (for processing by [Hive] [hive] / [Pig] [pig] on EMR).
 * In addition, Snowplow supports loading the data into [Amazon Redshift] [redshift] and [PostgreSQL] [postgres] for analysis in more traditional tools (e.g. [R] [r], [Looker] [looker] and [Excel] [excel]). Amazon Redshift enables Snowplow users to query Petabytes of Snowplow data quickly and conveniently via its Postgres API.
 * Going forwards, we plan to support more storage targets to enable a broader set of analyses, including [Neo4J] [neo4j], [Elastic Search] [elastic-search] and [Google BigQuery] [bigquery].
 

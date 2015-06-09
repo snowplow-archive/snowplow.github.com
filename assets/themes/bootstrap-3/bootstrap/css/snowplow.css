@@ -1,11 +1,22 @@
 
 /* Snowplow.css modifies the bootstrap theme */
 
-/* Font */
+/* Basic elements */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%; /* required to keep footer at the bottom */
+}
 
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 170%; /* relative scaling of fonts: 10em = 170px */
+	font-size: 170%; /* relative scaling: 10em = 170px */
+}
+
+#wrap {
+	min-height: 100%; /* required to keep footer at the bottom */
+	position:relative; /* required to keep footer at the bottom */
 }
 
 /* Headers */
@@ -128,4 +139,54 @@ img {
 }
 .navbar-snowplow .navbar-toggle .icon-bar {
   background-color: white;
+}
+
+/* Main */
+
+.main-snowplow {
+	padding-bottom: 17em; /* required to prevent overlap between content and footer */
+}
+
+/* Footer */
+
+address { margin: 0; } /* overwrite defaults */
+
+footer {
+	background-color: #D2D4DB;
+	color: #797F94;
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	min-height: 250px;
+	padding: 30px;
+}
+
+footer .about,
+footer .contact {
+	float:left;
+	padding-right: 4em;
+}
+
+footer .notice {
+	text-align: center;
+	width: 100%;
+	float: left;
+}
+
+footer h6 {
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+}
+
+footer ul {
+	padding: 0;
+	margin: 0;
+}
+
+footer li {
+	padding: 0;
+	margin: 0;
 }

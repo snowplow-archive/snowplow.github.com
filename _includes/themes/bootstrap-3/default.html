@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    {% if page.group == 'homepage' %}
-      <title>{{ page.title }}</title>
-    {% else %}
-      <title>{{ page.title }} – Snowplow</title>
+    {% if page.group == 'homepage' %}<title>{{ page.title }}</title>
+    {% else %}<title>{{ page.title }} – Snowplow</title>
     {% endif %}
+
     {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
     <meta name="author" content="{{ site.author.name }}">
 
@@ -53,10 +52,16 @@
   </head>
 
   <body>
+
     {% include snowplow/google-tag-manager %}
+
     <div id="wrap">
+
+      <!-- Navigation -->
+
       <nav class="navbar navbar-snowplow" role="navigation">
         <div class="container">
+
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <a class="navbar-brand" href="{{ HOME_PATH }}"><img src="/assets/img/snowplow-logo-website-temp.png" /></a>
@@ -103,22 +108,54 @@
               {% endif %}
             </ul>
           </div><!-- /.navbar-collapse -->
+
         </div>
       </nav>
 
-      <div class="container">
-        {{ content }}
-      </div>
+      <!-- Main -->
 
-    </div>
+      <main class="main-snowplow" role="main">
+        <div class="container">
+          {{ content }}
+        </div>
+      </main>
 
-    <div id="footer">
-      <div class="container">
-        <hr style="margin-top:40px;padding-top:10px;"></hr>
-        <p class="text-center"><a href="/about" class="active">About Snowplow</a> | &copy; 2012 - {{ site.time | date: '%Y' }} {{ site.author.name }}
-        </p>
+      <!-- Footer -->
+
+      <footer>
+        <div class="container">
+          <div class="about">
+            <h6>About Snowplow</h6>
+            <ul>
+              <li>Contact us</li>
+              <li>Team</li>
+              <li>Jobs</li>
+              <li>Partners</li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h6>Interested in Snowplow? Get in touch!</h6>
+            <div class="contact address">
+              <address>
+                <strong>Snowplow Analytics Limited</strong><br />
+                The Roma Building, 32-38 Scrutton Street<br />
+                London EC2A 4RQ<br />
+                United Kingdom
+              </address>
+            </div>
+            <div class="contact phone">
+              <ul>
+                <li>Phone: <a href="tel:+442035896116">+44 (0) 203 589 6116</a></li>
+                <li>Email: <a href="mailto:contact@snowplowanalytics.com">contact@snowplowanalytics.com</a></li>
+                <li>Twitter: <a href="http://twitter.com/snowplowdata">@SnowplowData</a></li>
+                <li>Google Group: <a href="https://groups.google.com/forum/#!forum/snowplow-user">snowplow-user</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="notice">Copyright &copy; {{ site.time | date: '%Y' }} Snowplow Analytics Ltd. All rights reserved.</div>
+        </div>
       </footer>
-      </div>
+
     </div>
 
     {% include snowplow/olark %}
@@ -127,5 +164,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
+
   </body>
 </html>

@@ -85,7 +85,7 @@ You're going to need IAM-based credentials for AWS.  In your vagrant terminal, c
 vagrant@spark-streaming-example-project:/$ cd /vagrant
  ```
 
-Then, get your keys and "inv create_profile" in the vagrant box. I'm giving the profile name of "my-profile" and setting the region to "us-east-1".
+Then, get your keys and "inv create_profile" in the vagrant box. In the example, I'm giving my profile the name of "my-profile" and setting the region to "us-east-1".
 ```bash
 $ inv create_profile my-profile
 AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
@@ -103,7 +103,7 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 
 ####Step 3: Create your Kinesis Stream
 
-We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successfully. Use the following command to create a stream named "my-stream":
+We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successful. Use the following command to create a stream named "my-stream":
 
 ```bash
 $ inv create_kinesis_stream my-profile my-stream
@@ -136,8 +136,9 @@ $ inv describe_kinesis_stream my-profile my-stream
 ```
 
 
-####Step 4: Create DynamoDB Table where the aggregate records are going to be stored. I'm using 
-"AggregateRecords" as the table name.
+####Step 4: Create DynamoDB Table where the aggregate records are going to be stored
+
+I'm using "AggregateRecords" as the table name. Invoke the creation of the table with:
 
 ```bash
 $ inv create_dynamodb_table my-profile us-east-1 AggregateRecords
@@ -146,7 +147,7 @@ $ inv create_dynamodb_table my-profile us-east-1 AggregateRecords
 ####Step 5: Generating raw events to your Kinesis Stream
 
 We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used.
-Now start sending events to the stream:
+After the stream becomes "ACTIVE", you can start sending events to the stream by:
 
 ```bash
 $ inv generate_events my-profile us-east-1 my-stream
@@ -157,7 +158,7 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 ```
 
 
-####Step 5: Building Spark Streaming with Kinesis support
+####Step 6: Building Spark Streaming with Kinesis support
 
 We can issue the invoke command to build Spark so it can get data from Kinesis:
 ```bash
@@ -183,7 +184,7 @@ Get more details about building Apache Spark:
 * https://spark.apache.org/docs/1.1.0/building-with-maven.html
 * https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
-####Step 6: Submit your application to Spark
+####Step 7: Submit your application to Spark
 Open a new terminal window. Start a second shell into the vagrant box with:
 ```bash
 host> vagrant ssh
@@ -204,17 +205,17 @@ vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 >                        --config spark-streaming-example-project/src/main/resources/config.hocon.sample
 >```
 
-####Step 7: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
+####Step 8: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
 
 Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 8: Inspect the AggregateRecords table in DynamoDB
+####Step 9: Inspect the AggregateRecords table in DynamoDB
 
 Success! You should see data being written to the AggregateRecords table in DynamoDB.
 ![data table png][data-table]
 
-####Step 9: Shut everything down
+####Step 10: Shut everything down
 Remember to shut off:
 * Python data loading script
 * Control C to shutdown Spark

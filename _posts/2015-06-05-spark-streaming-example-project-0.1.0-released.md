@@ -157,20 +157,9 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 ```
 
 
-####Step 5: Compile Spark with Kinesis Support
+####Step 5: Building Spark Streaming with Kinesis support
 
-In the vagrant box, specify maven memory setting in your Terminal:
-
-```bash
-vagrant@spark-streaming-example-project:/vagrant$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
-```
-
-Change into the spark-master directory:
-```bash
-vagrant@spark-streaming-example-project:/vagrant$  cd spark-master
-```
-
-Now we can issue the invoke command to build Spark so it can get data from Kinesis:
+We can issue the invoke command to build Spark so it can get data from Kinesis:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ```

@@ -162,6 +162,16 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 We can issue the invoke command to build Spark so it can get data from Kinesis:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
+...
+[INFO] Spark Kinesis Integration ......................... SUCCESS [1:11.115s]
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1:29:00.686s
+[INFO] Finished at: Sun Jun 07 00:32:09 UTC 2015
+[INFO] Final Memory: 94M/665M
+[INFO] ------------------------------------------------------------------------
 ```
 
 *__Building Apache Spark with Kinesis support__
@@ -182,16 +192,6 @@ Start Apache Spark Streaming system with this command:
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 
-...
-[INFO] Spark Kinesis Integration ......................... SUCCESS [1:11.115s]
-...
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 1:29:00.686s
-[INFO] Finished at: Sun Jun 07 00:32:09 UTC 2015
-[INFO] Final Memory: 94M/665M
-[INFO] ------------------------------------------------------------------------
 ```
 
 > SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__

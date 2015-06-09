@@ -199,6 +199,9 @@ vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/confi
 
 ```
 
+If you have updated any of the configuration options above (e.g. stream name or region), then you will have to update the __config.hocon.sample__ file accordingly.
+
+
 > SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv run_project config/config.hocon.sample__
 
 > ```bash
@@ -296,14 +299,6 @@ This simple streaming example has a simple event model. We are hoping to put som
 [data-compile]: /assets/img/blog/2015/06/compileProject.png
 [compile-spark]: /assets/img/blog/2015/06/compileSparkKinesis.png
 [get-credentials]: /assets/img/blog/2015/06/getAWScredentials.png
-[setup-kinesis00]: /assets/img/blog/2015/06/00-signin-aws.png
-[setup-kinesis01]: /assets/img/blog/2015/06/01-login-kinesis.png
-[setup-kinesis02]: /assets/img/blog/2015/06/02-landing-page-aws.png
-[setup-kinesis03]: /assets/img/blog/2015/06/03-create-stream.png
-[setup-kinesis04]: /assets/img/blog/2015/06/04-create-kinesis-event-stream.png
-[setup-kinesis05]: /assets/img/blog/2015/06/05-waiting-creating-streem.png
-[setup-kinesis06]: /assets/img/blog/2015/06/06-stream-created-feedback.png
-[setup-kinesis07]: /assets/img/blog/2015/06/07-notice-no-events.png
 [dynamodb-table]: /assets/img/blog/2015/06/aggregateRecords.png
 [raw-logs]: /assets/img/blog/2015/06/rawLogs.png
 [dynamodb-aggregate]: /assets/img/blog/2015/06/aggregateRecords2.png

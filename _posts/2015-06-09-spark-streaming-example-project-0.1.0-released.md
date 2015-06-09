@@ -204,9 +204,9 @@ vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/confi
 >                        --config ./config/config.hocon.sample
 >```
 
-####Step 8: Two new DynamoDB Tables - my-table and StreamingCounts
+####Step 8: Two new DynamoDB Tables - my-table and StreamingCountsApp
 
-Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCounts is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
+Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
 ####Step 9: Inspect the "my-table" table in DynamoDB
@@ -220,7 +220,7 @@ Remember to shut off:
 * Control C to shutdown Spark
 * Delete Kinesis stream
 * Delete my-table Table
-* Delete StreamingCounting table
+* Delete StreamingCountingApp table
 * Exit vagrant instance
 * Vagrant halt
 * Vagrant destroy

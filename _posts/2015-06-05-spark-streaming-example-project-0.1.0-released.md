@@ -186,13 +186,12 @@ vagrant@spark-streaming-example-project:/vagrant$   inv spark_streaming
 > SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv spark_streaming__
 
 > ```bash
-> guest> spark/bin/spark-submit \
+> guest> ./spark/bin/spark-submit \
 >                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
 >                        --master local[4] \
->                        spark-streaming-example-project/target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
+>                        ./target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
 >                        --config spark-streaming-example-project/src/main/resources/config.hocon.sample
 >```
-
 
 ####Step 7: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
 

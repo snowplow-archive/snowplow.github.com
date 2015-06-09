@@ -212,7 +212,7 @@ Browse to http://aws.amazon.com/console/ and check that data is making it to you
 ####Step 8: Inspect the AggregateRecords table in DynamoDB
 
 Success! You should see data being written to the AggregateRecords table in DynamoDB.
-![dynamodb aggregate png][dynamodb-aggregate]
+![data table png][data-table]
 
 ####Step 9: Shut everything down
 Remember to shut off:

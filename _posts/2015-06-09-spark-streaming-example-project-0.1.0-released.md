@@ -137,10 +137,10 @@ $ inv describe_kinesis_stream my-profile my-stream
 
 ####Step 4: Create DynamoDB Table where the aggregate records are going to be stored
 
-I'm using "AggregateRecords" as the table name. Invoke the creation of the table with:
+I'm using "my-table" as the table name. Invoke the creation of the table with:
 
 ```bash
-$ inv create_dynamodb_table my-profile us-east-1 AggregateRecords
+$ inv create_dynamodb_table my-profile us-east-1 my-table
 ```
 
 ####Step 5: Generating raw events to your Kinesis Stream
@@ -204,14 +204,14 @@ vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/confi
 >                        --config ./config/config.hocon.sample
 >```
 
-####Step 8: Two new DynamoDB Tables - AggregateRecords and StreamingCountsApp
+####Step 8: Two new DynamoDB Tables - my-table and StreamingCounts
 
-Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
+Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCounts is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
 ![dynamodb screenshot png][dynamodb-table]
 
-####Step 9: Inspect the AggregateRecords table in DynamoDB
+####Step 9: Inspect the "my-table" table in DynamoDB
 
-Success! You should see data being written to the AggregateRecords table in DynamoDB.
+Success! You should see data being written to the table in DynamoDB.
 ![data table png][data-table]
 
 ####Step 10: Shut everything down
@@ -219,8 +219,8 @@ Remember to shut off:
 * Python data loading script
 * Control C to shutdown Spark
 * Delete Kinesis stream
-* Delete AggregrateRecords Table
-* Delete StreamingCountingApp table
+* Delete my-table Table
+* Delete StreamingCounting table
 * Exit vagrant instance
 * Vagrant halt
 * Vagrant destroy

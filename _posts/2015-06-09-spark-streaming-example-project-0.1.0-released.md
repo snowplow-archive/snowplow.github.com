@@ -17,9 +17,8 @@ The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpsta
 1. What is Spark Streaming and Kinesis?
 2. App overview, introducing analytics on write
 3. Detailed setup
-4. Results
-5. Troubleshooting
-6. Next steps
+4. Troubleshooting
+5. Next steps
 
 ##What is Spark Streaming and Kinesis?
 

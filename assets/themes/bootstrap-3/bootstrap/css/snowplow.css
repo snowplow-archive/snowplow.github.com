@@ -4,19 +4,57 @@
 /* Basic elements */
 
 html, body {
-	margin: 0;
+	background-color: #D2D4DB; /* same background-color as footer */
+	height: 100%; /* required to make footer look nice */
 	padding: 0;
-	height: 100%; /* required to keep footer at the bottom */
+	margin: 0;
 }
 
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 170%; /* relative scaling: 10em = 170px */
+	font-size: 17px;
 }
 
-#wrap {
-	min-height: 100%; /* required to keep footer at the bottom */
-	position:relative; /* required to keep footer at the bottom */
+/* Basic structure */
+
+nav {
+	background-color: #1F294D;
+	padding: 15px 0;
+}
+
+main {
+	min-height: 500px; /* prevent pages from looking ridiculous */
+	background-color: #FFFFFF;
+	padding: 30px 0;
+}
+
+footer {
+	background-color: #D2D4DB;
+	padding: 30px 0;
+}
+
+/* Responsive container */
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
 }
 
 /* Headers */
@@ -40,24 +78,22 @@ img {
 /* Header */
 
 .navbar-snowplow {
-	background-color: #1F294D;
-	margin-bottom: 2em; /* margin between header and content */
 	border-radius: 0; /* overwrite default in bootstrap.css */
+	margin: 0; /* overwrite default in bootstrap.css */
 }
 
 @media (min-width: 768px) {
 	.navbar-snowplow {
-		height: 10em; /* height causes issues with collapse on small screens */
+		height: 150px; /* height cannot be in .navbar-snowplow itself because it causes issues */
 	}
 }
 
 /* Header: brand */
 
 .navbar-snowplow .navbar-brand {
-	font-size: 1em; /* overwrite default in bootstrap.css */
-	height: 9em;
-	padding:0;
-	margin: 0.5em 0;
+	height: 120px;
+	padding: 0;
+	margin: 0;
 }
 
 .navbar-snowplow .navbar-brand > img {
@@ -78,33 +114,35 @@ img {
 }
 
 .navbar-snowplow .navbar-nav {
-  margin: 1em 0; /* top and bottom margin of menu */
+  margin: 0; /* top and bottom margin of menu */
 }
 
 .navbar-snowplow .navbar-nav > li {
-	margin-left: 0.5em;
+	margin-left: 5px;
 }
 
 @media (max-width: 767px) {
 	.navbar-snowplow .navbar-nav > li {
-		margin-right: 1em;
+		margin-right: 15px;
+		margin-top: 5px
 	}
 }
 
 .navbar-snowplow .navbar-nav > li > .with-border {
 	border: 2px solid #4C5371;
-	border-radius: 0.5em;
+	border-radius: 5px;
 }
 
 .navbar-snowplow .navbar-nav > li > .without-border {
 	border: 2px solid #1F294D; /* present but invisible for alignment */
-	border-radius: 0.5em;
+	border-radius: 5px;
 }
 
 .navbar-snowplow .navbar-nav > li > a {
 	text-shadow: none; /* overwrite default in bootstrap-theme.css */
 	text-transform: uppercase;
-	font-size: 0.8em;
+	font-size: 15px;
+	padding: 15px;
 	color: white;
 }
 
@@ -125,9 +163,9 @@ img {
 /* Header: hamburger icon */
 
 .navbar-snowplow .navbar-toggle { /* overwrite default in bootstrap.css */
-	margin: 1em;
-	padding: 1em;
-  border-radius: 0.5em;
+	margin: 0 15px;
+	padding: 15px;
+  border-radius: 5px;
 }
 
 .navbar-snowplow .navbar-toggle {
@@ -143,42 +181,35 @@ img {
 
 /* Main */
 
-.main-snowplow {
-	padding-bottom: 17em; /* required to prevent overlap between content and footer */
-}
-
 /* Footer */
 
 address { margin: 0; } /* overwrite defaults */
 
 footer {
-	background-color: #D2D4DB;
+	font-size: 15px;
 	color: #797F94;
-	font-size: 12px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	min-height: 250px;
-	padding: 30px;
 }
 
 footer .about,
 footer .contact {
 	float:left;
-	padding-right: 4em;
+	padding-right: 30px;
 }
 
 footer .notice {
 	text-align: center;
+	margin-top: 30px;
+	font-size: 12px;
 	width: 100%;
 	float: left;
 }
 
 footer h6 {
-	text-transform: uppercase;
+	font-size: 15px;
+	font-weight: 700;
 	padding: 0;
 	margin: 0;
+	margin-bottom: 15px;
 }
 
 footer ul {
@@ -187,6 +218,13 @@ footer ul {
 }
 
 footer li {
+	list-style: none;
 	padding: 0;
 	margin: 0;
+}
+
+@media (max-width: 767px) {
+	footer .contact, footer .contact .phone {
+		margin-top: 15px;
+	}
 }

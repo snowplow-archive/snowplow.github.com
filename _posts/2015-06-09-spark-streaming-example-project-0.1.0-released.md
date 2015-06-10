@@ -14,11 +14,11 @@ We are pleased to announce the release of the new [Snowplow Apache Spark Streami
 ####In this post
 The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpstart your own real-time event processing pipeline. We will take you through the steps to get this simple time series analysis streaming job written in Scala up and processing data.
 
-1. [What is Spark Streaming and Kinesis?](/blog/2015/06/09/spark-streaming-example-project-0.1.0-released/#what-is-spark-streaming-and-kinesis)
-2. [App overview, introducing analytics on write](/blog/2015/06/09/spark-streaming-example-project-0.1.0-released/#app-overview-introducting-analytics-on-write)
-3. [Detailed setup](/blog/2015/06/09/spark-streaming-example-project-0.1.0-released/#detailed-setup)
-4. [Troubleshooting](/blog/2015/06/09/spark-streaming-example-project-0.1.0-released/#troubleshooting)
-5. [Next steps](/blog/2015/06/09/spark-streaming-example-project-0.1.0-released/#next-steps)
+1. [What is Spark Streaming and Kinesis?](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#what-is-spark-streaming-and-kinesis)
+2. [App overview, introducing analytics on write](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#app-overview-introducting-analytics-on-write)
+3. [Detailed setup](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#detailed-setup)
+4. [Troubleshooting](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#troubleshooting)
+5. [Next steps](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#next-steps)
 
 <div class="html">
 <h2><a name="what-is-spark-streaming-and-kinesis">1. What is Spark Streaming and Kinesis?</a></h2>

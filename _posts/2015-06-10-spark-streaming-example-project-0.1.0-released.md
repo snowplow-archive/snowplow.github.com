@@ -62,7 +62,7 @@ The most complete open-source example of an analytics-on-write implementation is
 
 In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark Streaming. You will need  [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. Building Spark on a Vagrant box requires at least 8GB of RAM and 64 bit OS hosting vagrant.
 
-#### Step 1: Build the project
+<h3>Step 1: Build the project</h3>
 
 In your local terminal:
 
@@ -79,7 +79,7 @@ guest$ cd /vagrant
 guest$ inv build_project
 ```
 
-####Step 2: Add AWS credentials to the vagrant box 
+<h3>Step 2: Add AWS credentials to the vagrant box</h3>
 
 You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output formaat to "json":
 
@@ -91,9 +91,9 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-#### Step 3: Create your Kinesis stream
+<h3>Step 3: Create your Kinesis stream</h3>
 
-We're going to set up the Kinesis stream. Your first step is to create a stream and verify that it was successful. This is all from Use the following command to create a stream named "my-stream":
+We're going to set up the Kinesis stream. Your first step is to create a stream and verify that it was successful. Use the following command to create a stream named "my-stream":
 
 ```bash
 $ inv create_kinesis_stream default my-stream
@@ -124,7 +124,7 @@ $ inv describe_kinesis_stream default my-stream
 }
 ```
 
-#### Step 4: Create a DynamoDB table for storing our aggregates
+<h3>Step 4: Create a DynamoDB table for storing our aggregates</h3>
 
 I'm using "my-table" as the table name. Invoke the creation of the table with:
 
@@ -132,7 +132,7 @@ I'm using "my-table" as the table name. Invoke the creation of the table with:
 $ inv create_dynamodb_table default us-east-1 my-table
 ```
 
-####Step 5: Generate events in your Kinesis Stream
+<h3>Step 5: Generate events in your Kinesis Stream</h3>
 
 Once the Kinesis' stream's "StreamStatus" is `ACTIVE`, you can start sending events to the stream by:
 
@@ -144,7 +144,7 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 ...
 ```
 
-#### Step 6: Build Spark Streaming with Kinesis support
+<h3>Step 6: Build Spark Streaming with Kinesis support</h3>
 
 Now we need to build a version of Spark with Amazon Kinesis support. Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met.
 
@@ -164,7 +164,7 @@ vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 [INFO] ------------------------------------------------------------------------
 ```
 
-#### Step 7: Submit your application to Spark
+<h3>Step 7: Submit your application to Spark</h3>
 
 Open a new terminal window and log into the vagrant box with:
 
@@ -191,7 +191,7 @@ $ ./spark/bin/spark-submit \
     --config ./config/config.hocon.sample
 ```
 
-#### Step 8: Monitor your job
+<h3>Step 8: Monitor your job</h3>
 
 First review the spooling output of the `run_project` command above - it's very verbose, but if you don't see any Java stack traces in there, then Spark Streaming should be running okay.
 
@@ -199,7 +199,7 @@ Now head over to your host machine's localhost:4040 and you should see something
 
 ![sparkUI png][sparkUI.png]
 
-#### Step 9: Inspect the "my-table" aggregate table in DynamoDB
+<h3>Step 9: Inspect the "my-table" aggregate table in DynamoDB</h3>
 
 Success! You can now see data being written to the table in DynamoDB. Make sure you are in the correct AWS region, then click on `my-table` and hit the `Explore Table` button:
 
@@ -207,7 +207,7 @@ Success! You can now see data being written to the table in DynamoDB. Make sure 
 
 For each **BucketStart** and **EventType** pair, we see a **Count**, plus some **CreatedAt** and **UpdatedAt** metadata for debugging purposes. Our bucket size is 1 minute, and we have 5 discrete event types, hence the matrix of rows that we see.
 
-####Step 10: Shut everything down
+<h3>Step 10: Shut everything down</h3>
 
 Remember to shut off:
 

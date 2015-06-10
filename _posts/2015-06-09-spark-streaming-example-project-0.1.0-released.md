@@ -216,10 +216,13 @@ If you have updated any of the configuration options above (e.g. stream name or 
 >                        --config ./config/config.hocon.sample
 >```
 
-####Step 8: Two new DynamoDB Tables - my-table and StreamingCountsApp
+####Step 8: Monitoring your job
 
-Browse to http://aws.amazon.com/console/ and check that data is making it to your DynamoDB table. You'll notice two tables get created. StreamingCountsApp is the table that gets used by Spark for checkpointing Kinesis position. A second table gets created by Spark to send the aggregated data. This is the power of "analytics on write" process in action.
-![dynamodb screenshot png][dynamodb-table]
+First review the spooling output of the run_project command above - it's very verbose, but if you don't see any Java stack traces in there, then Spark Streaming should be running okay.
+
+Now head over to your host machine's localhost:4040 and you should see something like this:
+![sparkUI png][sparkUI.png]
+
 
 ####Step 9: Inspect the "my-table" table in DynamoDB
 
@@ -277,7 +280,7 @@ This simple streaming example has a simple event model. We are hoping to put som
 [data-table]: /assets/img/blog/2015/06/dynamodbTable.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
-
+[sparkUI.png]: /assets/img/blog/2015/06/sparkUI.png
 [spark]: http://spark-project.org/
 [wordcount]: https://github.com/twitter/scalding/blob/master/README.md
 [snowplow]: http://snowplowanalytics.com

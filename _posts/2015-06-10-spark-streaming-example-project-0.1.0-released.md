@@ -39,19 +39,19 @@ Read on after the fold for:
 
 Our Spark Streaming job reads a Kinesis stream containing events in a JSON format:
 
-```json
+{% highlight json %}
 {
   "timestamp": "2015-06-05T12:54:43.064528",
   "type": "Green",
   "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"
 }
-```
+{% endhighlight %}
 
 Our job counts the events by `type` and aggregates these counts into 1 minute buckets. The job then takes these aggregates and saves them into a table in DynamoDB:
 
 ![data table png][data-table]
 
-The most complete open-source example of an analytics-on-write implementation is Ian Meyers' [amazon-kinesis-aggregators] [amazon-kinesis-aggregators] project; this project is heavily influenced by the concepts in Ian's work. Two important concepts to understand in analytics-on-write are:
+The most complete open-source example of an analytics-on-write implementation is Ian Meyers' [amazon-kinesis-aggregators] [amazon-kinesis-aggregators] project; our example project is in turn heavily influenced by the concepts in Ian's work. Two important concepts to understand in analytics-on-write are:
 
 1. **Downsampling:** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
 2. **Bucketing:** an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
@@ -66,42 +66,42 @@ In this tutorial, we'll walk through the process of getting up and running with 
 
 In your local terminal:
 
-```bash
+{% highlight bash %}
  host$ git clone https://github.com/snowplow/spark-streaming-example-project
  host$ cd spark-streaming-example-project
  host$ vagrant up && vagrant ssh
-```
+{% endhighlight %}
 
 Let's now build the project. This should take around 10 minutes with these commands:
 
-```bash
+{% highlight bash %}
 guest$ cd /vagrant
 guest$ inv build_project
-```
+{% endhighlight %}
 
 <h3>Step 2: Add AWS credentials to the vagrant box</h3>
 
 You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output formaat to "json":
 
-```bash
+{% highlight bash %}
 $ aws configure
 AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
 AWS Secret Access Key [None]: ADD_YOUR_SECRET_KEY_HERE
 Default region name [None]: us-east-1
 Default output format [None]: json
-```
+{% endhighlight %}
 
 <h3>Step 3: Create your Kinesis stream</h3>
 
 We're going to set up the Kinesis stream. Your first step is to create a stream and verify that it was successful. Use the following command to create a stream named "my-stream":
 
-```bash
+{% highlight bash %}
 $ inv create_kinesis_stream default my-stream
-```
+{% endhighlight %}
 
 If you check the stream and it returns with status CREATING, it means that the Kinesis stream is not quite ready to use. Check again in a few moments, and you should see output similar to the below:
 
-```bash
+{% highlight bash %}
 $ inv describe_kinesis_stream default my-stream
 {
     "StreamDescription": {
@@ -122,27 +122,27 @@ $ inv describe_kinesis_stream default my-stream
         ]
     }
 }
-```
+{% endhighlight %}
 
 <h3>Step 4: Create a DynamoDB table for storing our aggregates</h3>
 
 I'm using "my-table" as the table name. Invoke the creation of the table with:
 
-```bash
+{% highlight bash %}
 $ inv create_dynamodb_table default us-east-1 my-table
-```
+{% endhighlight %}
 
 <h3>Step 5: Generate events in your Kinesis Stream</h3>
 
 Once the Kinesis' stream's "StreamStatus" is `ACTIVE`, you can start sending events to the stream by:
 
-```bash
+{% highlight bash %}
 $ inv generate_events default us-east-1 my-stream
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 ...
-```
+{% endhighlight %}
 
 <h3>Step 6: Build Spark Streaming with Kinesis support</h3>
 
@@ -150,7 +150,7 @@ Now we need to build a version of Spark with Amazon Kinesis support. Spark now c
 
 We can issue the invoke command to build Spark with Kinesis support; be aware this could take over an hour:
 
-```bash
+{% highlight bash %}
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ...
 [INFO] Spark Kinesis Integration ......................... SUCCESS [1:11.115s]
@@ -162,34 +162,34 @@ vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 [INFO] Finished at: Sun Jun 07 00:32:09 UTC 2015
 [INFO] Final Memory: 94M/665M
 [INFO] ------------------------------------------------------------------------
-```
+{% endhighlight %}
 
 <h3>Step 7: Submit your application to Spark</h3>
 
-Open a new terminal window and log into the vagrant box with:
+Open a new terminal window and log into the Vagrant box with:
 
-```bash
-host> vagrant ssh
-```
+{% highlight bash %}
+$ vagrant ssh
+{% endhighlight %}
 
 Now start Apache Spark Streaming system with this command:
 
-```bash
-vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/config.hocon.sample
-
-```
+{% highlight bash %}
+$ inv run_project config/config.hocon.sample
+...
+{% endhighlight %}
 
 If you have updated any of the configuration options above (e.g. stream name or region), then you will have to update the __config.hocon.sample__ file accordingly.
 
 Under the covers, we're submitting the compiled spark-streaming-example-project jar to run on Spark using the `spark-submit` tool:
 
-```bash
+{% highlight bash %}
 $ ./spark/bin/spark-submit \
     --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
     --master local[4] \
     ./target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
     --config ./config/config.hocon.sample
-```
+{% endhighlight %}
 
 <h3>Step 8: Monitor your job</h3>
 
@@ -230,9 +230,9 @@ __I got an out of memory error when trying to build Apache Spark:__
 
 * Answer - Try setting memory requirements of Maven with:
 
-```bash
+{% highlight bash %}
 $ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
-```
+{% endhighlight %}
 
 __I found an issue with the project:__
 
@@ -257,6 +257,7 @@ This example project is a very simple example of an event processing technique w
 [dynamodb]: http://aws.amazon.com/dynamodb
 [snowplow]: http://snowplowanalytics.com
 [icebucket]: https://github.com/snowplow/icebucket
+[lambda]: http://aws.amazon.com/lambda/
 
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads

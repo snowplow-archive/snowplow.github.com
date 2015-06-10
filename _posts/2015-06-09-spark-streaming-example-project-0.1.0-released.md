@@ -93,13 +93,13 @@ You're going to need IAM-based credentials for AWS.  In your vagrant terminal, c
 vagrant@spark-streaming-example-project:/$ cd /vagrant
  ```
 
-Then, get your keys and "inv create_profile" in the vagrant box. In the example, I'm giving my profile the name of "my-profile" and setting the region to "us-east-1".
+Then, get your keys and "aws configure" in the vagrant box. In the example, Add your keys. Also, I'm setting the region to "us-east-1" and output formaat to "json":
 ```bash
-$ inv create_profile my-profile
+$ aws configure
 AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
 AWS Secret Access Key [None]: ADD_YOUR_SECRET_KEY_HERE
 Default region name [None]: us-east-1
-Default output format [None]:
+Default output format [None]: json
 ```
 
 *__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
@@ -114,14 +114,14 @@ When you interact with AWS, you use AWS security credentials to verify who you a
 We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successful. Use the following command to create a stream named "my-stream":
 
 ```bash
-$ inv create_kinesis_stream my-profile my-stream
+$ inv create_kinesis_stream default my-stream
 ```
 
 For this part of the tutorial, you're using one shard in your stream. If you check the stream and it returns with status CREATING, it means that the Kinesis stream not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
 
 
 ```bash
-$ inv describe_kinesis_stream my-profile my-stream
+$ inv describe_kinesis_stream default my-stream
 {
     "StreamDescription": {
         "StreamStatus": "ACTIVE",
@@ -149,7 +149,7 @@ $ inv describe_kinesis_stream my-profile my-stream
 I'm using "my-table" as the table name. Invoke the creation of the table with:
 
 ```bash
-$ inv create_dynamodb_table my-profile us-east-1 my-table
+$ inv create_dynamodb_table default us-east-1 my-table
 ```
 
 ####Step 5: Generating raw events to your Kinesis Stream
@@ -158,7 +158,7 @@ We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stre
 After the stream becomes "ACTIVE", you can start sending events to the stream by:
 
 ```bash
-$ inv generate_events my-profile us-east-1 my-stream
+$ inv generate_events default us-east-1 my-stream
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
 Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}

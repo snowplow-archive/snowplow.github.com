@@ -83,7 +83,7 @@ In your local Terminal:
 Build the project:
 ```bash
 guest> cd /vagrant
-guest> inv assemble_project
+guest> inv build_project
 ```
 ####Step 2: Add AWS credentials to the vagrant box 
 

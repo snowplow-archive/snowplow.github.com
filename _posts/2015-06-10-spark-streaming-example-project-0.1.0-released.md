@@ -7,95 +7,82 @@ author: Vincent
 category: Releases
 ---
 
+We are pleased to announce the release of our new [Apache Spark Streaming Example Project] [repo]!
+
+This is a simple time series analysis stream processing job written in Scala for the [Spark Streaming] [spark-streaming] cluster computing platform, processing JSON events from [Amazon Kinesis] [kinesis] and writing aggregates to [Amazon DynamoDB] [dynamodb].
+
 ![data flow png][data-flow]
 
-We are pleased to announce the release of the new [Snowplow Apache Spark Streaming Example Project][repo]! This initial release allows you to send simple events to Amazon Kinesis and process/aggregate them with Apache Spark Streaming. Spark will save the output to Amazon DynamoDB. A real-time stream processing system packaged as a demo application for you to build. 
+The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpstart your own real-time event processing pipeline. We will take you through the steps to get this simple analytics-on-write job setup and processing your Kinesis event stream.
 
-####In this post
-The [Snowplow Apache Spark Streaming Example Project][repo] can help you jumpstart your own real-time event processing pipeline. We will take you through the steps to get this simple time series analysis streaming job written in Scala up and processing data.
+Read on after the fold for:
 
-1. [What is Spark Streaming and Kinesis?](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#what-is-spark-streaming-and-kinesis)
-2. [App overview, introducing analytics on write](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#app-overview-introducting-analytics-on-write)
+1. [What are Spark Streaming and Kinesis?](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#what-are-spark-streaming-and-kinesis)
+2. [Introducing analytics-on-write](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#introducting-analytics-on-write)
 3. [Detailed setup](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#detailed-setup)
 4. [Troubleshooting](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#troubleshooting)
-5. [Next steps](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#next-steps)
+5. [Further reading](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/#further-reading)
+
+<!--more-->
 
 <div class="html">
-<h2><a name="what-is-spark-streaming-and-kinesis">1. What is Spark Streaming and Kinesis?</a></h2>
+<h2><a name="what-are-spark-streaming-and-kinesis">1. What are Spark Streaming and Kinesis?</a></h2>
 </div>
 
-__Amazon Kinesis__ is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the Kinesis receiver that has been recently developed for __[Apache Spark DStream using the Kinesis Client Library](https://spark.apache.org/docs/latest/streaming-kinesis-integration.html)__ (KCL).
+[Apache Spark Streaming] [spark-streaming] enables scalable, high-throughput, fault-tolerant stream processing of live data streams, using a "micro-batch" architecture. Our event stream will be ingested from Kinesis by our Scala application written for and deployed onto Spark Streaming.
 
-__Apache Spark Streaming__ enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Our raw data will be ingested from Kinesis by our application written for the [Spark] [spark] computing platform.
+[Amazon Kinesis] [kinesis] is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the [new Kinesis receiver] [spark-kinesis-support] that has been recently developed for Spark Streaming, leveraging the [Kinesis Client Library] [kcl].
 
 <div class="html">
-<h2><a name="app-overview-introducting-analytics-on-write">2. App overview, introducing analytics on write</a></h2>
+<h2><a name="introducting-analytics-on-write">2. Introducing analytics-on-write</a></h2>
 </div>
 
-__First__, this app generates/sends raw events to AWS Kinesis. __Second__, we process the raw events with Apache Spark Streaming. Our data processing sorts each event into a "bucket". __Third__, Spark aggregates the raw events into 1 minute buckets. __Last__, this Spark app takes the aggregate records and saves them into AWS DynamoDB Database.
+Our Spark Streaming job reads a Kinesis stream containing events in a JSON format:
 
-
-> Analytics on write concepts
->----------------------------
->__Downsampling__
->We are parsing the ISO 8601 datetime stamp down to the minute.
->This technique is referred to as downsampling or reducing precision,
->aka "bucketing". It's an interesting way to create metadata for
->the raw data that allows us fast queries to aggregrate via primary key.
->
->__Bucketing__
->An aggregation technique that builds buckets, where each bucket
->is associated with a key and an EventType criterion. When the
->aggregation is executed, all the bucket's criteria are evaluated
->on every EventType in the context and when a criterion matches,
->the EventType is considered to "fall in" the relevant bucket.
->By the end of the aggregation process, we’ll end up with a
->list of buckets - each one with a set of EventTypes that
->"belong" to it.
-
-
-Following is a sample __input__ of a raw logs sent to Kinesis. If everything runs as expected, __output__ similar to the DyanmoDB table below will result. The idea is that you should be able to send JSON formatted logs to Amazon Kinesis and use the Apache Spark Stream Kinesis integration to process each of the events. 
-
-__Input: Example of a raw events encoded in JSON with ISO 8601 Date format__
-
-```bash
-{"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
-{"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
-{"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
+```json
+{
+  "timestamp": "2015-06-05T12:54:43.064528",
+  "type": "Green",
+  "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"
+}
 ```
 
-__Ouput: Example of the DynamoDB table__
+Our job counts the events by `type` and aggregates these counts into 1 minute buckets. The job then takes these aggregates and saves them into a table in DynamoDB:
+
 ![data table png][data-table]
+
+The most complete open-source example of an analytics-on-write implementation is Ian Meyers' [amazon-kinesis-aggregators] [amazon-kinesis-aggregators] project; this project is heavily influenced by the concepts in Ian's work. Two important concepts to understand in analytics-on-write are:
+
+1. **Downsampling:** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
+2. **Bucketing:** an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
 
 <div class="html">
 <h2><a name="detailed-setup">3. Detailed setup</a></h2>
 </div>
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark. We assume you have an Internet connection so we can access services and download code from github. Also, you will need  [git](https://help.github.com/articles/set-up-git/), [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install]  installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. Building Spark on a vagrant box requires RAM. Ensure you have at least 8GB of RAM and 64 bit OS hosting vagrant.
 
-####Step 1: You can use our pre-built vagrant box to run the [spark-streaming-sample-project][repo]
-In your local Terminal:
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and Apache Spark Streaming. You will need  [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. Building Spark on a Vagrant box requires at least 8GB of RAM and 64 bit OS hosting vagrant.
+
+#### Step 1: Build the project
+
+In your local terminal:
 
 ```bash
- host> git clone https://github.com/snowplow/spark-streaming-example-project
- host> cd spark-streaming-example-project
- host> vagrant up && vagrant ssh
+ host$ git clone https://github.com/snowplow/spark-streaming-example-project
+ host$ cd spark-streaming-example-project
+ host$ vagrant up && vagrant ssh
 ```
 
-Let build the project. This should take around 10 minutes with these commands:
+Let's now build the project. This should take around 10 minutes with these commands:
+
 ```bash
-guest> cd /vagrant
-guest> inv build_project
+guest$ cd /vagrant
+guest$ inv build_project
 ```
 
 ####Step 2: Add AWS credentials to the vagrant box 
 
-You're going to need IAM-based credentials for AWS.  In your vagrant terminal, change directory into vagrant root:
+You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output formaat to "json":
 
- ```bash
-vagrant@spark-streaming-example-project:/$ cd /vagrant
- ```
-
-Then, get your keys and "aws configure" in the vagrant box. In the example, Add your keys. Also, I'm setting the region to "us-east-1" and output formaat to "json":
 ```bash
 $ aws configure
 AWS Access Key ID [None]: ADD_YOUR_ACCESS_KEY_HERE
@@ -104,23 +91,15 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 
-*__[Amazon Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)__
-When you interact with AWS, you use AWS security credentials to verify who you are and whether you have permission to access the resources you're requesting. In other words, security credentials are used to authenticate and authorize calls that you make to AWS. NOTE: Make sure the account has permissions for Kinesis and DynamoDB services.*
+#### Step 3: Create your Kinesis stream
 
-* Need keys? http://aws.amazon.com/, and then click Sign Up.
-* http://docs.aws.amazon.com/cli/latest/userguide/installing.html
-* http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
-
-####Step 3: Create your Kinesis Stream
-
-We're going to set up the Kinesis stream in the Terminal of your vagrant box. Your first step is to create a stream and verify that it was successful. Use the following command to create a stream named "my-stream":
+We're going to set up the Kinesis stream. Your first step is to create a stream and verify that it was successful. This is all from Use the following command to create a stream named "my-stream":
 
 ```bash
 $ inv create_kinesis_stream default my-stream
 ```
 
-For this part of the tutorial, you're using one shard in your stream. If you check the stream and it returns with status CREATING, it means that the Kinesis stream not quite ready to use. Check again in a few moments, and you should see output similar to the below noted example:
-
+If you check the stream and it returns with status CREATING, it means that the Kinesis stream is not quite ready to use. Check again in a few moments, and you should see output similar to the below:
 
 ```bash
 $ inv describe_kinesis_stream default my-stream
@@ -145,8 +124,7 @@ $ inv describe_kinesis_stream default my-stream
 }
 ```
 
-
-####Step 4: Create DynamoDB Table where the aggregate records are going to be stored
+#### Step 4: Create a DynamoDB table for storing our aggregates
 
 I'm using "my-table" as the table name. Invoke the creation of the table with:
 
@@ -154,10 +132,9 @@ I'm using "my-table" as the table name. Invoke the creation of the table with:
 $ inv create_dynamodb_table default us-east-1 my-table
 ```
 
-####Step 5: Generating raw events to your Kinesis Stream
+####Step 5: Generate events in your Kinesis Stream
 
-We want to make sure that __"StreamStatus": "ACTIVE"__, which tells you the stream is ready to be used.
-After the stream becomes "ACTIVE", you can start sending events to the stream by:
+Once the Kinesis' stream's "StreamStatus" is `ACTIVE`, you can start sending events to the stream by:
 
 ```bash
 $ inv generate_events default us-east-1 my-stream
@@ -167,10 +144,12 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 ...
 ```
 
+#### Step 6: Build Spark Streaming with Kinesis support
 
-####Step 6: Building Spark Streaming with Kinesis support
+Now we need to build a version of Spark with Amazon Kinesis support. Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met.
 
-We can issue the invoke command to build Spark so it can get data from Kinesis:
+We can issue the invoke command to build Spark with Kinesis support; be aware this could take over an hour:
+
 ```bash
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 ...
@@ -185,21 +164,16 @@ vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 [INFO] ------------------------------------------------------------------------
 ```
 
-*__Building Apache Spark with Kinesis support__
-Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met. build/mvn execution acts as a pass through to the mvn call allowing easy transition from previous build methods. As an example, one can build a version of Spark as follows:*
-[Read more about building Spark](https://spark.apache.org/docs/latest/building-spark.html#setting-up-mavens-memory-usage)
+#### Step 7: Submit your application to Spark
 
+Open a new terminal window and log into the vagrant box with:
 
-Get more details about building Apache Spark:
-* https://spark.apache.org/docs/1.1.0/building-with-maven.html
-* https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
-
-####Step 7: Submit your application to Spark
-Open a new terminal window. Start a second shell into the vagrant box with:
 ```bash
 host> vagrant ssh
 ```
-Start Apache Spark Streaming system with this command:
+
+Now start Apache Spark Streaming system with this command:
+
 ```bash
 vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/config.hocon.sample
 
@@ -207,93 +181,95 @@ vagrant@spark-streaming-example-project:/vagrant$   inv run_project config/confi
 
 If you have updated any of the configuration options above (e.g. stream name or region), then you will have to update the __config.hocon.sample__ file accordingly.
 
+Under the covers, we're submitting the compiled spark-streaming-example-project jar to run on Spark using the `spark-submit` tool:
 
-> SIDE NOTE: Under the covers, we're submitting the compiled spark-streaming-example-project jar to SPARK-SUBMIT via __inv run_project config/config.hocon.sample__
+```bash
+$ ./spark/bin/spark-submit \
+    --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
+    --master local[4] \
+    ./target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
+    --config ./config/config.hocon.sample
+```
 
-> ```bash
-> guest> ./spark/bin/spark-submit \
->                        --class com.snowplowanalytics.spark.streaming.StreamingCountsApp \
->                        --master local[4] \
->                        ./target/scala-2.10/spark-streaming-example-project-0.1.0.jar \
->                        --config ./config/config.hocon.sample
->```
+#### Step 8: Monitor your job
 
-####Step 8: Monitoring your job
-
-First review the spooling output of the run_project command above - it's very verbose, but if you don't see any Java stack traces in there, then Spark Streaming should be running okay.
+First review the spooling output of the `run_project` command above - it's very verbose, but if you don't see any Java stack traces in there, then Spark Streaming should be running okay.
 
 Now head over to your host machine's localhost:4040 and you should see something like this:
+
 ![sparkUI png][sparkUI.png]
 
+#### Step 9: Inspect the "my-table" aggregate table in DynamoDB
 
-####Step 9: Inspect the "my-table" table in DynamoDB
+Success! You can now see data being written to the table in DynamoDB. Make sure you are in the correct AWS region, then click on `my-table` and hit the `Explore Table` button:
 
-Success! You should see data being written to the table in DynamoDB.
 ![data table png][data-table]
 
+For each **BucketStart** and **EventType** pair, we see a **Count**, plus some **CreatedAt** and **UpdatedAt** metadata for debugging purposes. Our bucket size is 1 minute, and we have 5 discrete event types, hence the matrix of rows that we see.
+
 ####Step 10: Shut everything down
+
 Remember to shut off:
+
 * Python data loading script
 * Control C to shutdown Spark
-* Delete Kinesis stream
-* Delete my-table Table
-* Delete StreamingCountingApp table
-* Exit vagrant instance
-* Vagrant halt
-* Vagrant destroy
+* Delete your `my-stream` Kinesis stream
+* Delete your `my-table` DynamoDB table
+* Delete your `StreamingCountingApp` DynamoDB table (created automatically by the [Kinesis Client Library] [kcl])
+* Exit your Vagrant guest
+* `vagrant halt`
+* `vagrant destroy`
 
 <div class="html">
 <h2><a name="troubleshooting">4. Troubleshooting</a></h2>
 </div>
-This is a short list of our most frequently asked questions. For more information about this project, create an [issue on the Github project page](https://github.com/snowplow/spark-streaming-example-project/issues).
 
-__When using command "inv create_dynamodb_table", I get this error:__
+This is a short list of our most frequently asked questions.
+
+__I got an out of memory error when trying to build Apache Spark:__
+
+* Answer - Try setting memory requirements of Maven with:
 
 ```bash
-boto.exception.NoAuthHandlerFound: No handler was ready to authenticate. 1 handlers were checked. ['HmacAuthV4Handler'] Check your credentials
-```
-*Answer - http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html*
-
-__Got an out of memory error when trying to build Apache Spark:__
-
-* Answer - Try setting memory requirements of maven with:
-```bash
-host> export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+$ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
 ```
 
 __I found an issue with the project:__
-* Answer - Feel free to [get in touch](https://github.com/snowplow/snowplow/wiki/Talk-to-us) or [raise an issue on GitHub](https://github.com/snowplow/spark-streaming-example-project/issues)!
+
+* Answer - Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
 
 <div class="html">
-<h2><a name="next-steps">5. Next Steps</a></h2>
+<h2><a name="further-reading">5. Further reading</a></h2>
 </div>
-Did you see our Spark Job project? Catch up on our newly released Version 0.3.0 of the [spark-example-project](https://github.com/snowplow/spark-example-project). 
 
-Like to read more on what we're doing with Kinesis at Snowplow? We've built another demonstration application here in our original [amazon-kinesis-tutorial](http://snowplowanalytics.com/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/) post.
+Did you see our plain-Spark example project? Catch up on our newly released version 0.3.0 of our [spark-example-project](https://github.com/snowplow/spark-example-project).
 
-We are also building useful tools for the Spark platform. Recently, we detailed our [first-experiments-with-spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/) in this post.
+Spark is an increasing focus for us at Snowplow. Recently, we detailed our [first-experiments-with-spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
-This simple streaming example has a simple event model. We are hoping to put some decision making into the processing pipeline in a future post, so stay tuned.
+Separately, we are also now starting a port of this example project to [AWS Lambda] [lambda] - you can follow our progress in the [aws-lambda-example-project] [aws-lambda-example-project] repo.
 
+This example project is a very simple example of an event processing technique which is called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
 
-[repo]: https://github.com/snowplow/spark-streaming-example-project
-[spark-logo]: /assets/img/blog/2015/06/spark-streaming.png
-[data-flow]: /assets/img/blog/2015/06/kinesis.png
-[data-table]: /assets/img/blog/2015/06/dynamodbTable.png
-
-[inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection
-[sparkUI.png]: /assets/img/blog/2015/06/sparkUI.png
-[spark]: http://spark-project.org/
-[wordcount]: https://github.com/twitter/scalding/blob/master/README.md
+[kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
+[amazon-kinesis-aggregators]: https://github.com/awslabs/amazon-kinesis-aggregators
+[spark-streaming]: https://spark.apache.org/streaming/
+[kinesis]: http://aws.amazon.com/kinesis
+[dynamodb]: http://aws.amazon.com/dynamodb
 [snowplow]: http://snowplowanalytics.com
-[data-pipelines-algos]: http://snowplowanalytics.com/services/pipelines.html
+[icebucket]: https://github.com/snowplow/icebucket
+
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
-[spark-streaming-example-project]: https://github.com/snowplow/spark-streaming-example-project
-[scalding-example-project]: https://github.com/snowplow/scalding-example-project
-[aws-spark-tutorial]: http://aws.amazon.com/articles/4926593393724923
-[spark-emr-howto]: https://forums.aws.amazon.com/thread.jspa?messageID=458398
-[emr]: http://aws.amazon.com/elasticmapreduce/
-[hello-txt]: https://github.com/snowplow/spark-example-project/raw/master/data/hello.txt
-[emr-client]: http://aws.amazon.com/developertools/2264
+[git-install]: https://help.github.com/articles/set-up-git/
 
+[repo]: https://github.com/snowplow/spark-streaming-example-project
+[data-flow]: /assets/img/blog/2015/06/kinesis.png
+[data-table]: /assets/img/blog/2015/06/dynamodbTable.png
+[sparkUI.png]: /assets/img/blog/2015/06/sparkUI.png
+
+[aws-lambda-example-project]: https://github.com/snowplow/aws-lambda-example-project
+
+[spark-kinesis-support]: https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
+
+[issues]: https://github.com/snowplow/schema-guru/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

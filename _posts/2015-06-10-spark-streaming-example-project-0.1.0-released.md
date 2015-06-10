@@ -264,8 +264,8 @@ This example project is a very simple example of an event processing technique w
 
 [repo]: https://github.com/snowplow/spark-streaming-example-project
 [data-flow]: /assets/img/blog/2015/06/kinesis.png
-[data-table]: /assets/img/blog/2015/06/dynamodbTable.png
-[sparkUI.png]: /assets/img/blog/2015/06/sparkUI.png
+[data-table]: /assets/img/blog/2015/06/dynamodb-table-image.png
+[sparkUI.png]: /assets/img/blog/2015/06/spark-ui-image.png
 
 [aws-lambda-example-project]: https://github.com/snowplow/aws-lambda-example-project
 

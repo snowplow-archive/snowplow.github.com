@@ -80,11 +80,13 @@ In your local Terminal:
  host> cd spark-streaming-example-project
  host> vagrant up && vagrant ssh
 ```
-Build the project:
+
+Let build the project. This should take around 10 minutes with these commands:
 ```bash
 guest> cd /vagrant
 guest> inv build_project
 ```
+
 ####Step 2: Add AWS credentials to the vagrant box 
 
 You're going to need IAM-based credentials for AWS.  In your vagrant terminal, change directory into vagrant root:

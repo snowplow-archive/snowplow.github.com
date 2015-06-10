@@ -233,3 +233,10 @@ footer li {
 		margin-top: 15px;
 	}
 }
+
+#cookie-law {
+	font-size: 15px;
+	background-color: #D2D4DB;
+	padding: 10px;
+	margin: 0;
+}

@@ -146,9 +146,11 @@ Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yell
 
 <h3>Step 6: Build Spark Streaming with Kinesis support</h3>
 
-Now we need to build a version of Spark with Amazon Kinesis support. Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met.
+Now we need to build a version of Spark with Amazon Kinesis support.
 
-We can issue the invoke command to build Spark with Kinesis support; be aware this could take over an hour:
+Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met.
+
+We can issue the invoke command to build Spark with Kinesis support; be aware that this could take over an hour:
 
 {% highlight bash %}
 vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
@@ -169,13 +171,13 @@ vagrant@spark-streaming-example-project:/vagrant/spark-master$   inv build_spark
 Open a new terminal window and log into the Vagrant box with:
 
 {% highlight bash %}
-$ vagrant ssh
+ host$ vagrant ssh
 {% endhighlight %}
 
 Now start Apache Spark Streaming system with this command:
 
 {% highlight bash %}
-$ inv run_project config/config.hocon.sample
+guest$ inv run_project config/config.hocon.sample
 ...
 {% endhighlight %}
 
@@ -242,9 +244,7 @@ __I found an issue with the project:__
 <h2><a name="further-reading">5. Further reading</a></h2>
 </div>
 
-Did you see our plain-Spark example project? Catch up on our newly released version 0.3.0 of our [spark-example-project](https://github.com/snowplow/spark-example-project).
-
-Spark is an increasing focus for us at Snowplow. Recently, we detailed our [first-experiments-with-spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
+Spark is an increasing focus for us at Snowplow. Recently, we detailed our [First experiments with Apache Spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/). Also, catch up on our newly released version 0.3.0 of our [spark-example-project](https://github.com/snowplow/spark-example-project).
 
 Separately, we are also now starting a port of this example project to [AWS Lambda] [lambda] - you can follow our progress in the [aws-lambda-example-project] [aws-lambda-example-project] repo.
 

@@ -12,7 +12,8 @@ html, body {
 
 body {
 	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 17px;
+	font-size: 18px;
+	letter-spacing: -0.015em;
 }
 
 /* Basic structure */
@@ -71,6 +72,10 @@ footer {
 	margin: 0 0 15px 0;
 	padding: 0;
 	letter-spacing: -1px;
+}
+
+p {
+	margin: 0 0 15px 0;
 }
 
 /* Images  */

@@ -67,7 +67,8 @@ footer {
 	letter-spacing: -1.5px;
 }
 
-h1 > a, h1 > a:hover {
+h1 > a, h1 > a:hover,
+h1 > a, h1 > a:focus {
 	text-decoration: none;
 }
 
@@ -198,9 +199,9 @@ img {
 
 /* Blog */
 
-.blog .date,
-.blog .date > a,
-.blog .date > a:hover {
+.blog .datebox,
+.blog .datebox > a,
+.blog .datebox > a:hover {
 	color: #797F94;
 	font-size: 15px;
 	text-transform: uppercase;

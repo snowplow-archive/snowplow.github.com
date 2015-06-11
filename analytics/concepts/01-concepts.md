@@ -6,6 +6,7 @@ title: Foundational concepts
 shortened-link: Foundational concepts
 description: Foundational concepts - understanding event dictionaries, grammars and data modeling with Snowplow
 weight: 1
+permalink: /analytics/concepts/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/foundational-concepts.html
 ---
@@ -31,20 +32,6 @@ Once you have understood the core concepts, it should be straightforward to unde
 * [How event data is sent into Snowplow](sending-data-into-snowplow/index.html)
 * [What the data looks like once it is in Snowplow](snowplow-event-model/index.html)
 
-This then provides a solid foundation for understanding how to 
+This then provides a solid foundation for understanding how to
 
 * [Model Snowplow data: aggregate event level data to create useful intermediary tables to enable faster, more convenient analysis](../data-modeling/index.html)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

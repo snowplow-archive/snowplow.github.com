@@ -6,6 +6,7 @@ title: Contexts
 shortened-link: Contexts
 description: Understanding event dictionaries
 weight: 4
+permalink: /analytics/concepts/contexts/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/contexts.html
 ---

@@ -25,7 +25,15 @@ An event dictionary is a crucial tool in both cases. It is a document that defin
 2. What data is captured when the event occurs, that represents the event. This is a data schema for the event
 3. Details on how the relevant Snowplow tracker has been setup to pass the event data into Snowplow
 
-## An example entry in an event dictionary
+## What is the purpose of an event dictionary?
+
+Event dictionaries serve a three purposes:
+
+* They aid analysis, by making sure that everyone using the data understands what each line of data 'means'. This is especially important as companies get larger, and analysts need to crunch data that was defined and instrumented prior to the analyst joining the company.
+* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary.
+* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product.
+
+## Examples
 
 An example entry in an event dictionary might look like this:
 
@@ -71,15 +79,6 @@ window.snowplow('trackUnstructEvent', {
 });
 {% endhighlight %}
 
-
-
-## What is the purpose of an event dictionary?
-
-Event dictionaries serve a three purposes:
-
-* They aid analysis, by making sure that everyone using the data understands what each line of data 'means'. This is especially important as companies get larger, and analysts need to crunch data that was defined and instrumented prior to the analyst joining the company.
-* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary.
-* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product.
 
 ## Understand event dictionaries and schemas?
 

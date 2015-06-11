@@ -6,6 +6,7 @@ title: Iglu
 shortened-link: Iglu
 description: Iglu is a machine-readable schema repository
 weight: 5
+permalink: /analytics/concepts/iglu/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/iglu.html
 ---
@@ -98,9 +99,8 @@ When you setup Snowplow for the first time, you need to:
 1. Identify the different events and contexts you wish to capture, and document them in the [event dictionary](event-dictionaries-and-schemas.html).
 2. Put together an initial version for the schemas of each of the events and contexts you wish to capture
 3. Upload those schemas to an Iglu repo, and configure your Snowplow pipeline to connect with the Iglu repo so that it can fetch the schemas associated with the incoming data
-4. Instrument your tracker(s) to send data into Snowplow with the associated schemas in Iglu 
+4. Instrument your tracker(s) to send data into Snowplow with the associated schemas in Iglu
 
 ## Read on
 
 In the next section, we'll give a [high level overview of the Snowplow data pipeline](collection-enrichment-modeling-analysis.html), before describing in more detail [how to send data into Snowplow](sending-data-into-snowplow.html), and [what the data looks like once it's in Snowplow](viewing-the-event-data-in-snowplow.html).
-

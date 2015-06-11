@@ -6,6 +6,7 @@ title: Events
 shortened-link: Events
 description: Understanding events - the central type at the heart of the Snowplow platform
 weight: 2
+permalink: /analytics/concepts/events/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/events.html
 ---

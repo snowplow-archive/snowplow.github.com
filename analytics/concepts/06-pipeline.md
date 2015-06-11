@@ -6,6 +6,7 @@ title: Stages in the Snowplow data pipeline
 shortened-link: Snowplow data pipeline stages
 description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modeling and analysis
 weight: 6
+permalink: /analytics/concepts/snowplow-data-pipeline/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/collection-enrichment-modeling-analysis.html
 ---
@@ -22,7 +23,7 @@ The Snowplow pipeline is built to enable a very clean separation of the followin
 4. [Data analysis](#data-analysis)
 
 
-We will cover each of those stages in turn, before considering [where in the data pipeline your business log should sit?](#where-in-your-data-pipeline-should-your-business-logic-sit) 
+We will cover each of those stages in turn, before considering [where in the data pipeline your business log should sit?](#where-in-your-data-pipeline-should-your-business-logic-sit)
 
 
 <h2><a name="">1. Data collection</a></h2>
@@ -106,6 +107,6 @@ Snowplow is architected in a fundamentally different way to common analytics pac
 
 This makes tracker instrumentation much simpler, as well as giving you significantly more flexibility once you've captured data to analyze it in many different ways, redefining your business logic as your business evolves, and applying those new definitions of the data you've collected retrospectively.
 
-## Familiar with the stages in the Snowplow data pipeline? 
+## Familiar with the stages in the Snowplow data pipeline?
 
 Then [read on](sending-data-into-snowplow.html) to find out about how to [send data into Snowplow](sending-data-into-snowplow.html).

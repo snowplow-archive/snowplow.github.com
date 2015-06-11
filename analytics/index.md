@@ -2,13 +2,13 @@
 layout: page
 group: analytics
 sub_group: introduction
-title: The Snowplow Analytics cookbook
+title: Data Modeling and Analytics
 shortened-link: Introduction
-description: The Snowplow Analytics Cookbook contains a wealth of recipes for using Snowplow data to answer your business questions.
+description: Snowplow captures rich event-level data which allows businesses to do advanced data modeling and analytics, tailored to their individual needs.
 weight: 1
 ---
 
-# The Snowplow Analytics cookbook
+# Data modeling and analytics with Snowplow
 
 Snowplow enables analysts to perform a wide variety of both simple and sophisticated analytics on your event data. In this section of the website, we provide examples and sample queries to perform many of those analyses.
 
@@ -52,8 +52,8 @@ meaningful patterns in data
 
  add attribution here as well; but analytics is kept qualitative -->
 
-1. [Customer analytics][customer-analytics]. Understand your customers and users. 
-2. [Catalog analytics][catalog-analytics]. Understand the different ways content items (articles / videos) and products in your catalog drive user behavior and value. 
+1. [Customer analytics][customer-analytics]. Understand your customers and users.
+2. [Catalog analytics][catalog-analytics]. Understand the different ways content items (articles / videos) and products in your catalog drive user behavior and value.
 3. [Platform analytics][platform-analytics]. Understand how updates to your application change user behavior and grow value.
 
 ## Tools and Techniques

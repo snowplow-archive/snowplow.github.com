@@ -6,6 +6,7 @@ title: Event dictionaries
 shortened-link: Dictionaries and schemas
 description: Understanding event dictionaries
 weight: 3
+permalink: /analytics/concepts/event-dictionaries-and-schemas/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/event-dictionaries-and-schemas.html
 ---
@@ -77,8 +78,8 @@ window.snowplow('trackUnstructEvent', {
 Event dictionaries serve a three purposes:
 
 * They aid analysis, by making sure that everyone using the data understands what each line of data 'means'. This is especially important as companies get larger, and analysts need to crunch data that was defined and instrumented prior to the analyst joining the company.
-* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary. 
-* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product. 
+* They aid technical setup: instrumentation (tracker setup) is driven by the event dictionary.
+* They can assist both the product management and analytics development process, by ensuring that the anaytics instrumentation 'keeps up' with an evolving product.
 
 ## Understand event dictionaries and schemas?
 

@@ -6,6 +6,7 @@ title: Sending data into Snowplow
 shortened-link: Sending data into Snowplow
 description: Find out how to send data into Snowplow
 weight: 7
+permalink: /analytics/concepts/sending-data-into-snowplow/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/sending-data-into-snowplow.html
 ---
@@ -75,7 +76,7 @@ Wherever possible, we try and build the trackers to automatically capture as muc
     	<tr>
     		<td><code>dvce_tstamp</code></td>
     		<td>The timestamp on the device that the event was recorded on</td>
-    		
+
     	</tr>
     	<tr>
     		<td><code>os_timezone</code></td>
@@ -311,4 +312,3 @@ tracker.track_unstruct_event({
 A number of third party systems offer webhooks: the ability to stream event data to an end point of yoru choosing, as those events occur in the third party system. At Snowplow, we're working to integrate as many different third party webhooks as possible, so that if you use those services, you can configure them to push event-level data directly into Snowplow.
 
 Configuring a third party service to stream event-level data into Snowplow is straightforward - it is generally something you do once, via the application UI. For details on the different webhooks that Snowplow supports and instructions on integrating them, see the [setup guide](https://github.com/snowplow/snowplow/wiki/Setting-up-a-webhook).
-

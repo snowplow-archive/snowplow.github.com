@@ -67,6 +67,10 @@ footer {
 	letter-spacing: -1.5px;
 }
 
+h1 > a, h1 > a:hover {
+	text-decoration: none;
+}
+
 .h2, h2 {
 	font-size: 30px;
 	margin: 0 0 15px 0;
@@ -191,6 +195,19 @@ img {
 }
 
 /* Main */
+
+/* Blog */
+
+.blog .date,
+.blog .date > a,
+.blog .date > a:hover {
+	color: #797F94;
+	font-size: 15px;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.blog > h1 { width: 80%; }
 
 /* Footer */
 

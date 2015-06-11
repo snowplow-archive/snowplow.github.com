@@ -205,9 +205,7 @@ footer .notice {
 	float: left;
 }
 
-footer .notice > a { color: #797F94; }
-
-footer.notice > a:hover { text-decoration: underline; }
+footer .notice > a { color: #797F94; text-decoration: none; }
 
 footer h6 {
 	font-size: 15px;

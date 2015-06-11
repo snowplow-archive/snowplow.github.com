@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole 
-title: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole 
+shortenedlink: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole
+title: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole
 tags: [hive, qubole, json, serde, reprocessing, data, taps]
 author: Yali
 category: Analytics  
@@ -91,7 +91,7 @@ Now we need to define a table so that Hive can query our bad row data in S3. Exe
 CREATE EXTERNAL TABLE `bad_rows` (
 	line string,
 	errors array<string>
-) 
+)
 PARTITIONED BY (run string)
 ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
 STORED AS TEXTFILE
@@ -113,7 +113,7 @@ ALTER TABLE `bad_rows` RECOVER PARTITIONS;
 We run the Snowplow ETL once a day. As a result, each "run" represents one days worth of data. By counting the number of bad rows per run, we effectively calculate the number of bad rows of data generated per day. We can do that by executing the following query:
 
 {% highlight mysql %}
-SELECT 
+SELECT
 run,
 count(*)
 FROM `bad_rows`
@@ -212,7 +212,7 @@ Done! The data that was previously excluded has now been added to your Snowplow 
 
 [json-serde]: https://github.com/rcongiu/Hive-JSON-Serde
 [rcongui]: https://github.com/rcongiu
-[json-serde-compiled-jar]: snowplow-hosted-assets.s3.amazonaws.com/third-party/rcongiu/json-serde-1.1.6-jar-with-dependencies.jar
+[json-serde-compiled-jar]: http://snowplow-hosted-assets.s3.amazonaws.com/third-party/rcongiu/json-serde-1.1.6-jar-with-dependencies.jar
 
 [emretlrunner-config-file]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [black-sheep]: /assets/img/blog/2013/09/black_sheep.jpg

@@ -12,13 +12,13 @@ redirect_from:
 
 # Contexts
 
-When an event occurs, it generally involves a number of entities, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry](event-dictionaries-and-schemas.html) might have the following entities associated with it:
+When an event occurs, it generally involves a number of entities, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry](../event-dictionaries-and-schemas.html) might have the following entities associated with it:
 
 1. A user entity, who performed the search
 2. A web page in which the event occurred
 3. A variation on the web page that was part of an A/B test
 4. A set of e.g. products that were returned from the search
- 
+
 All the above are examples of 'contexts'. A context is the group of entities associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. For example, the following events for a retailer will all involve a 'product' context:
 
 * View product
@@ -83,5 +83,3 @@ Contexts provide a convenient way in Snowplow to schema common entities once, an
 ## Understand contexts?
 
 Then read on to learn about [Iglu](iglu.html) - the schema repository for handling schemas for your events and contexts.
-
-

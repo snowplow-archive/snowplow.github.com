@@ -7,6 +7,7 @@ shortened-link: Platform analytics
 weight: 1
 redirect_from:
   - /analytics/platform-analytics/overview.html
+  - /analytics/platform-analytics/sankey-diagrams-with-d3-js.html
 ---
 
 <div class="html">
@@ -23,7 +24,7 @@ redirect_from:
 <a name="what"><h2>1. What do we mean by "platform analytics"</h2></a>
 </div>
 
-Any type of digital business (i.e. business with a significant online presence) depends heavily on their online product / platform / website / application working as effectively as possible. (Whether you use the term 'product', 'platform', 'website' or 'application' really depends on what type of digital business you work at. In the analytics cookbook, we'll use the term 'platform', to make it easy to distinguish 'platform analytics' from '[catalog analytics] [catalog-analytics]', as both are sometimes confusingly referred to as 'product analytics'.) Digital businesses may spend the bulk of their resources evolving their platform, to provide their users with the best possible experience, and stay ahead of the competition. 
+Any type of digital business (i.e. business with a significant online presence) depends heavily on their online product / platform / website / application working as effectively as possible. (Whether you use the term 'product', 'platform', 'website' or 'application' really depends on what type of digital business you work at. In the analytics cookbook, we'll use the term 'platform', to make it easy to distinguish 'platform analytics' from '[catalog analytics] [catalog-analytics]', as both are sometimes confusingly referred to as 'product analytics'.) Digital businesses may spend the bulk of their resources evolving their platform, to provide their users with the best possible experience, and stay ahead of the competition.
 
 We use the term "platform analytics" to refer to any analysis that is geared towards driving those platform development decisions. This includes analysis conducted to answer any of the following questions:
 
@@ -38,9 +39,9 @@ We use the term "platform analytics" to refer to any analysis that is geared tow
 <a name="why"><h2>No one talks about platform analytics. Why is that?</h2></a>
 </div>
 
-The idea that you can use data to drive product development decisions is now widely accepted. Perhaps the most common examples of what we're calling 'platform analytics' is: 
+The idea that you can use data to drive product development decisions is now widely accepted. Perhaps the most common examples of what we're calling 'platform analytics' is:
 
-1. The use of A/B and multivariant testing to optimize e.g. the location and colour of UI elements, for example, on a website. 
+1. The use of A/B and multivariant testing to optimize e.g. the location and colour of UI elements, for example, on a website.
 2. What we call 'funnel analytics'.
 
 The idea that this is a small part of a much broader discipline called 'platform analytics' is still controversial, however. As far as we are aware (please let us know if we are wrong), there are not a lot of resources out there to guide analysts to use clickstream event data to do things like:
@@ -62,7 +63,7 @@ There are, however, similarities in the tasks we perform when we do catalog anal
 2. How successfully are users working through each workflow? Do users get stuck? What are the consequences?
 3. How have changes to the platform changed the ways users accomplish different workflows? Are a higher percentage of them embarking on a workflow? Are a higher percentage of them making it to the end of that workflow?
 
-These questions are general enough that they apply across businesses. The techniques to manipulate data to answer them are also similar, regardless of the type of business. So even though platform analytics looks different for different kind of businesses, the same tools and techniques can be used across them. 
+These questions are general enough that they apply across businesses. The techniques to manipulate data to answer them are also similar, regardless of the type of business. So even though platform analytics looks different for different kind of businesses, the same tools and techniques can be used across them.
 
 <div class="html">
 <a name="difficult"><h2>Why is platform analytics difficult?</h2></a>
@@ -88,4 +89,3 @@ Back to [top](#top).
 [catalog-analytics]: /analytics/platform-analytics/overview.html
 [funnel-analysis]: /analytics/platform-analytics/funnel-analysis.html
 [sankey-diagrams]: /analytics/platform-analytics/sankey-diagrams-with-d3-js.html
-

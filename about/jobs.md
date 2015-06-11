@@ -5,13 +5,15 @@ title: Jobs at Snowplow - join the Snowplow team!
 description: Join the Snowplow team
 shortened-link: Jobs
 weight: 3
+redirect_from:
+  - /jobs/
 ---
 
 # Join the Snowplow team!
 
 The Snowplow team is growing. We're looking for candidates who are:
 
-* Intellectually curious 
+* Intellectually curious
 * Excited to try new things including tools and technologies  
 * Like to learn by doing, failing and trying again
 * Hands on - like to deliver: commit code, draw concrete insights

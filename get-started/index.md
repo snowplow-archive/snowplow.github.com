@@ -4,6 +4,8 @@ group: get-started
 title: How to get started with Snowplow today
 shortened-link: Get started
 weight: 1
+redirect_from:
+  - /services/pipelines.html
 ---
 
 <h1>Get started with Snowplow today</h1>

@@ -7,6 +7,7 @@ shortened-link: Behavioral segmentation
 weight: 8
 redirect_from:
   - /analytics/customer-analytics/behavioural-segmentation.html
+  - /analytics/customer-analytics/behavioral-segmentation.html
 ---
 
 # Segmenting your audience by behavior with Snowplow

@@ -26,6 +26,8 @@ Table of contents:
 
 <!--more-->
 
+<h2><a name="js-enrichment">1. Updated Hadoop compatibility</a></h2>
+
 
 <h2><a name="js-enrichment">X. JavaScript scripting enrichment</a></h2>
 
@@ -35,7 +37,7 @@ Use this enrichment to apply your own business logic to your enriched events; be
 
 This enrichment has been introduced for the **Hadoop pipeline only** in this release; it will be added to the Kinesis pipeline in our next release.
 
-<h3><a name="js-enrichment">X.1 Usage guide</a></h3>
+<h3><a name="js-enrichment-usage">X.1 Usage guide</a></h3>
 
 Your JavaScript must include a function, `process(event)`, which:
 
@@ -48,7 +50,7 @@ Note that you can also include other top-level functions and variables in your J
 
 For a more detailed usage guide, check out the [JavaScript script enrichment] [js-enrichment-wiki] wiki page.
 
-<h3><a name="js-enrichment">X.2 Example function</a></h3>
+<h3><a name="js-enrichment-eg">X.2 Example</a></h3>
 
 Here is an example JavaScript script for this enrichment:
 
@@ -72,37 +74,24 @@ function process(event) {
 }
 {% endhighlight %}
 
-For more informati is provided on the 
+This function is actually serving two discrete roles:
 
- * Performs two roles:
- * 1. If this is a server-side event, we
- *    validate that the app_id is our
- *    valid secret. Prevents spoofing of
- *    our server-side events
- * 2. If app_id is not null, return a new
- *    Acme context, derived_app_id, which
- *    contains the upper-cased app_id
- */
+1. If this is a server-side event, we validate that the `app_id` matches our secret. This is a simple way of preventing a "bad actor" from spoofing our server-sent events
+2. If `app_id` is not null, we return a new context for Acme Inc, `derived_app_id`, which contains the upper-cased `app_id`
+
+These are of course just very simple examples - we look forward to seeing what the community come up with!
 
 ### How this enrichment works
+
+<h3><a name="js-enrichment-how">X.2 How this enrichment works</a></h3>
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
 The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs is performed.
 
+Work 
 
 
-[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
-
-[rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
-[enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
-
-[enrichment-scala]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/enrichments/registry/JavascriptScriptEnrichment.scala
-
-[string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
-[rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
-
-[snowplow-tags]: https://github.com/snowplow/snowplow/tags
 
 
 <h2><a name="otherChanges">8. Other changes</a></h2>
@@ -169,7 +158,7 @@ And that's it - you should now be fully upgraded!
 
 <h2><a name="help">10. Getting help</a></h2>
 
-For more details on this release, please check out the [r65 Scarlet Rosefinch][r65-release] on GitHub. 
+For more details on this release, please check out the [r66 Oriental Skylark][r66-release] on GitHub. 
 
 Documentation for all the Kinesis apps is available on the [wiki][wiki].
 
@@ -179,6 +168,9 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [js]: xxx
 [js-enrichment-wiki]: xxx
+
+
+
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 

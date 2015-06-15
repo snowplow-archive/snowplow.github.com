@@ -2,12 +2,12 @@
 layout: post
 shortenedlink: Snowplow 66 released
 title: Snowplow 66 Oriental Skylark released
-tags: [snowplow, hadoop2, rhino, scripting]
+tags: [snowplow, hadoop2, rhino, scripting, lambda architecture]
 author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow 66, Oriental Skylark. This release upgrades our Hadoop Enrichment process to run on Hadoop 2.4 and also introduces a new scripting enrichment powered by JavaScript - our most powerful enrichment yet.
+We are pleased to announce the release of Snowplow 66, Oriental Skylark. This release upgrades our Hadoop Enrichment process to run on Hadoop 2.4, re-enables our Kinesis-Hadoop lambda architecture and also introduces a new scriptable enrichment powered by JavaScript - our most powerful enrichment yet!
 
 Table of contents:
 
@@ -22,22 +22,30 @@ Table of contents:
 9. [Upgrading](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#upgrading)
 10. [Getting help](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#help)
 
-![scarlet-rosefinch][scarlet-rosefinch]
+![oriental-skylark][oriental-skylark]
 
 <!--more-->
 
-<h2><a name="js-enrichment">1. Updated Hadoop compatibility</a></h2>
+<h2><a name="hadoop-2">1. Our enrichment process on Hadoop 2.4</a></h2>
 
 
-<h2><a name="js-enrichment">X. JavaScript scripting enrichment</a></h2>
+<h2><a name="lambda">2. Re-enabled lambda architecture</a></h2>
 
-This enrichment lets you write a [JavaScript] [js] function which is executed in the Enrichment process for each enriched event, and returns one or more _derived contexts_ which are attached to the final enriched event.
+
+
+EmrEtlRunner: now setting buffer for processing thrift in core-site.xml (#1715)
+
+EmrEtlRunner: added S3DistpCp step for thrift files in processing (#1647)
+
+<h2><a name="js-enrichment">3. JavaScript scripting enrichment</a></h2>
+
+The JavaScript scripting enrichment lets you write a [JavaScript] [js] function which is executed in the Enrichment process for each enriched event, and returns one or more _derived contexts_ which are attached to the final enriched event.
 
 Use this enrichment to apply your own business logic to your enriched events; because your JavaScript function can throw exceptions which are gracefully handled by the calling Enrichment process, you can also use this enrichment to perform simple filtering of events.
 
 This enrichment has been introduced for the **Hadoop pipeline only** in this release; it will be added to the Kinesis pipeline in our next release.
 
-<h3><a name="js-enrichment-usage">X.1 Usage guide</a></h3>
+<h3><a name="js-enrichment-usage">3.1 Usage guide</a></h3>
 
 Your JavaScript must include a function, `process(event)`, which:
 
@@ -48,9 +56,9 @@ Your JavaScript must include a function, `process(event)`, which:
 
 Note that you can also include other top-level functions and variables in your JavaScript script - but you must include a `process(event)` function somewhere in your script.
 
-For a more detailed usage guide, check out the [JavaScript script enrichment] [js-enrichment-wiki] wiki page.
+For a more detailed usage guide, please see the [JavaScript script enrichment] [js-enrichment-wiki] wiki page.
 
-<h3><a name="js-enrichment-eg">X.2 Example</a></h3>
+<h3><a name="js-enrichment-eg">3.2 Example</a></h3>
 
 Here is an example JavaScript script for this enrichment:
 
@@ -83,38 +91,63 @@ These are of course just very simple examples - we look forward to seeing what t
 
 ### How this enrichment works
 
-<h3><a name="js-enrichment-how">X.2 How this enrichment works</a></h3>
+<h3><a name="js-enrichment-how">3.3 How this enrichment works</a></h3>
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
 The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs is performed.
 
-Work 
+If you are interested in learning more about Rhino and the JVM, check out our earlier R&D blog post, [Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript] [rhino-experiments].
 
-
-
-
-<h2><a name="otherChanges">8. Other changes</a></h2>
+<h2><a name="other">4. Other changes</a></h2>
 
 We have also:
 
-* Started logging the names of the streams to which the Scala Stream Collector and Scala Kinesis Enrich write events ([#1503][1503], [#1493][1493])
-* Added macros to the "config.hocon.sample" sample configuration files ([#1471][1471], [#1472][1472], [#1513][1513], [#1515][1515])
-* Fixed a bug which caused the Kinesis Elasticsearch Sink to silently drop inputs containing fewer than 24 tab-separated fields ([#1584][1584])
-* Fixed a bug which prevented the applications from using a DynamoDB table in the configured region ([#1576][1576], [#1582][1582], [#1583][1583])
-* Added the ability to prevent the Scala Stream Collector from setting 3rd-party cookies by setting the cookie expiration field to 0 ([#1363][1363])
-* Bumped the version of Scala Common Enrich used by Scala Kinesis Enrich to 0.13.1 ([#1618][1618])
-* Bumped the version of [Scalazon][scalazon] we use to 0.11 to access PutRecords ([#1492][1492], [#1504][1504])
-* Stopped Scala Kinesis Enrich outputting records of over 50kB because they are exceed Kinesis' size limit ([#1649][1649])
+* Fixed the various incorrect links in Scala Common Enrich's `README.md`, thanks Snowplow community member and intern [Vincent Ohprecio] [bigsnarfdude]! (#1669)
+* Made the `mkt_` and `refr_` fields TSV safe - thanks Snowplow community member [Jason Bosco] [jasonbosco] for this! (#1643)
+* Fixed an uncaught NPE exception in our JSON error handling code's `stripInstanceEtc` function (#1622)
+* On the data modeling side of things, we have removed restrictions in sessions and visitors-source (#1725)
 
-<h2><a name="upgrading">9. Upgrading</a></h2>
+<h2><a name="upgrading">5. Upgrading</a></h2>
 
+<h3><a name="upgrading-emretlrunner">5.1 Upgrading your EmrEtlRunner</a></h3>
 
-#### JSON configuration file
+You need to update EmrEtlRunner to the latest code (**0.15.0**) on GitHub:
 
-The self-describing JSON to configure this enrichment with the above JavaScript script is as follows:
+{% highlight bash %}
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout r66-oriental-skylark
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment
+$ cd ../../4-storage/storage-loader
+$ bundle install --deployment
+{% endhighlight %}
 
-```json
+<h4><a name="configuring-emretlrunner">5.2 Updating EmrEtlRunner's configuration</a></h4>
+
+You need to update your EmrEtlRunner's `config.yml` file to reflect the new Hadoop 2.4.0 and AMI 3.6.0 support:
+
+{% highlight yaml %}
+:emr:
+  :ami_version: 3.6.0 # WAS 2.4.2
+{% endhighlight %}
+
+And:
+
+{% highlight yaml %}
+  :versions:
+    :hadoop_enrich: 1.0.0 # WAS 0.14.1
+{% endhighlight %}
+
+For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
+
+<h3><a name="upgrading-js">5.3 JavaScript scripting enrichment</a></h3>
+
+You can enable this enrichment by creating a self-describing JSON and adding into your `enrichments` folder. The configuration JSON should validate against the [javascript_script_config schema] [schema].
+
+The configuration JSON for the JavaScript example above would be as follows:
+
+{% highlight json %}
 {
     "schema": "iglu:com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0",
     "data": {
@@ -126,61 +159,36 @@ The self-describing JSON to configure this enrichment with the above JavaScript 
         }
     }
 }
-```
+{% endhighlight %}
 
-
-The Kinesis apps for r65 Scarlet Rosefinch are now all available in a single zip file here:
-
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r65_scarlet_rosefinch.zip
-
-Upgrading will require various configuration changes to each of the four applications:
-
-<h3>Scala Stream Collector</h3>
-
-* Add `backoffPolicy` and `buffer` fields to the configuration HOCON.
-
-<h3>Scala Kinesis Enrich</h3>
-
-* Add `backoffPolicy` and `buffer` fields to the configuration HOCON
-* Extract the resolver from the configuration HOCON into its own JSON file, which can be stored locally or in DynamoDB
-* Update the command line arguments as detailed [above](#dynamodb)
-
-<h3>Kinesis LZO S3 Sink</h3>
-
-* Rename the outermost key in the configuration HOCON from "connector" to "sink"
-* Replace the "s3/endpoint" field with an "s3/region" field (such as "us-east-1")
-
-<h3>Kinesis Elasticsearch Sink</h3>
-
-* Rename the outermost key in the configuration HOCON from "connector" to "sink"
-
-And that's it - you should now be fully upgraded!
-
-<h2><a name="help">10. Getting help</a></h2>
+<h2><a name="help">6. Getting help</a></h2>
 
 For more details on this release, please check out the [r66 Oriental Skylark][r66-release] on GitHub. 
 
-Documentation for all the Kinesis apps is available on the [wiki][wiki].
+Documentation on the new JavaScript script enrichment is available on the [wiki] [js-enrichment-wiki].
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[scarlet-rosefinch]: /assets/img/blog/2015/05/scarlet-rosefinch.jpg
+[oriental-skylark]: /assets/img/blog/2015/06/oriental-skylark.jpg
 
-[js]: xxx
-[js-enrichment-wiki]: xxx
-
-
-
-
-[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
-
+[js]: https://en.wikipedia.org/wiki/JavaScript
 [rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
+[js-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/JavaScript-script-enrichment
+[js-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
-
-[enrichment-scala]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/enrichments/registry/JavascriptScriptEnrichment.scala
-
-[string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
 [rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
+
+[bigsnarfdude]: https://github.com/bigsnarfdude
+[jasonbosco]: https://github.com/jasonbosco
+
+[1622]: https://github.com/snowplow/snowplow/issues/1622
+[1643]: https://github.com/snowplow/snowplow/issues/1643
+[1647]: https://github.com/snowplow/snowplow/issues/1647
+[1669]: https://github.com/snowplow/snowplow/issues/1669
+[1715]: https://github.com/snowplow/snowplow/issues/1715
+[1725]: https://github.com/snowplow/snowplow/issues/1725
+
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [r66-release]: https://github.com/snowplow/snowplow/releases/tag/r66-oriental-skylark
 [wiki]: https://github.com/snowplow/snowplow/wiki

@@ -11,9 +11,9 @@ html, body {
 }
 
 body {
-	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 18px;
-	letter-spacing: -0.015em;
+	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 20px;
 }
 
 /* Basic structure */
@@ -209,6 +209,13 @@ img {
 }
 
 .blog > h1 { width: 80%; }
+
+/* We love smart quotes */
+
+q { quotes: "“" "”" "‘" "’"; }
+
+q:before { content: open-quote; }
+q:after { content: close-quote; }
 
 /* Footer */
 

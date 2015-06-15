@@ -3,7 +3,7 @@ layout: post
 shortenedlink: Snowplow 66 released
 title: Snowplow 66 Oriental Skylark released
 tags: [snowplow, hadoop2, rhino, scripting]
-author: Fred
+author: Alex
 category: Releases
 ---
 
@@ -29,11 +29,11 @@ Table of contents:
 
 <h2><a name="js-enrichment">X. JavaScript scripting enrichment</a></h2>
 
-The JavaScript scripting enrichment lets you write a JavaScript function which is executed in the Enrichment process for each enriched event, and returns one or more _derived contexts_ which are attached to the final enriched event.
+This enrichment lets you write a [JavaScript] [js] function which is executed in the Enrichment process for each enriched event, and returns one or more _derived contexts_ which are attached to the final enriched event.
 
 Use this enrichment to apply your own business logic to your enriched events; because your JavaScript function can throw exceptions which are gracefully handled by the calling Enrichment process, you can also use this enrichment to perform simple filtering of events.
 
-This enrichment has been introduced for the Hadoop pipeline only in this release; it will be added to the Kinesis pipeline in our next release.
+This enrichment has been introduced for the **Hadoop pipeline only** in this release; it will be added to the Kinesis pipeline in our next release.
 
 <h3><a name="js-enrichment">X.1 Usage guide</a></h3>
 
@@ -46,11 +46,13 @@ Your JavaScript must include a function, `process(event)`, which:
 
 Note that you can also include other top-level functions and variables in your JavaScript script - but you must include a `process(event)` function somewhere in your script.
 
+For a more detailed usage guide, check out the [JavaScript script enrichment] [js-enrichment-wiki] wiki page.
+
 <h3><a name="js-enrichment">X.2 Example function</a></h3>
 
-Here is an example JavaScript script which can be supplied to this enrichment:
+Here is an example JavaScript script for this enrichment:
 
-```javascript
+{% highlight javascript %}
 const SECRET_APP_ID = "Joshua";
 
 function process(event) {
@@ -68,34 +70,19 @@ function process(event) {
     return [ { schema: "iglu:com.acme/derived_app_id/jsonschema/1-0-0",
                data:  { appIdUpper: appIdUpper } } ];
 }
-```
+{% endhighlight %}
 
-Please note:
+For more informati is provided on the 
 
-* You must use a Java-style getter to retrieve the `app_id` from the event ([more information] [rhino-experiments])
-* We have to convert the uppercased `appId` back to a JavaScript String (from a Java String) before we return it ([more information] [string-gotcha])
-
-#### JSON configuration file
-
-The self-describing JSON to configure this enrichment with the above JavaScript script is as follows:
-
-```json
-{
-    "schema": "iglu:com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0",
-    "data": {
-        "vendor": "com.snowplowanalytics.snowplow",
-        "name": "javascript_script_config",
-        "enabled": true,
-        "parameters": {
-            "script": "Y29uc3QgU0VDUkVUX0FQUF9JRCA9ICJKb3NodWEiOw0KDQovKioNCiAqIFBlcmZvcm1zIHR3byByb2xlczoNCiAqIDEuIElmIHRoaXMgaXMgYSBzZXJ2ZXItc2lkZSBldmVudCwgd2UNCiAqICAgIHZhbGlkYXRlIHRoYXQgdGhlIGFwcF9pZCBpcyBvdXINCiAqICAgIHZhbGlkIHNlY3JldC4gUHJldmVudHMgc3Bvb2Zpbmcgb2YNCiAqICAgIG91ciBzZXJ2ZXItc2lkZSBldmVudHMNCiAqIDIuIElmIGFwcF9pZCBpcyBub3QgbnVsbCwgcmV0dXJuIGEgbmV3DQogKiAgICBBY21lIGNvbnRleHQsIGRlcml2ZWRfYXBwX2lkLCB3aGljaA0KICogICAgY29udGFpbnMgdGhlIHVwcGVyLWNhc2VkIGFwcF9pZA0KICovDQpmdW5jdGlvbiBwcm9jZXNzKGV2ZW50KSB7DQogICAgdmFyIGFwcElkID0gZXZlbnQuZ2V0QXBwX2lkKCk7DQoNCiAgICBpZiAocGxhdGZvcm0gPT0gInNlcnZlciIgJiYgYXBwSWQgIT0gU0VDUkVUX0FQUF9JRCkgew0KICAgICAgICB0aHJvdyAiU2VydmVyLXNpZGUgZXZlbnQgaGFzIGludmFsaWQgYXBwX2lkOiAiICsgYXBwSWQ7DQogICAgfQ0KDQogICAgaWYgKGFwcElkID09IG51bGwpIHsNCiAgICAgICAgcmV0dXJuIFtdOw0KICAgIH0NCg0KICAgIHZhciBhcHBJZFVwcGVyID0gbmV3IFN0cmluZyhhcHBJZC50b1VwcGVyQ2FzZSgpKTsNCiAgICByZXR1cm4gWyB7IHNjaGVtYTogImlnbHU6Y29tLmFjbWUvZGVyaXZlZF9hcHBfaWQvanNvbnNjaGVtYS8xLTAtMCIsDQogICAgICAgICAgICAgICBkYXRhOiAgeyBhcHBJZFVwcGVyOiBhcHBJZFVwcGVyIH0gfSBdOw0KfQ=="
-        }
-    }
-}
-```
-
-The "parameters" fields are as follows:
-
-* "script": Your JavaScript function, Base64 encoded. You can use either URL-safe or regular Base64 encoding
+ * Performs two roles:
+ * 1. If this is a server-side event, we
+ *    validate that the app_id is our
+ *    valid secret. Prevents spoofing of
+ *    our server-side events
+ * 2. If app_id is not null, return a new
+ *    Acme context, derived_app_id, which
+ *    contains the upper-cased app_id
+ */
 
 ### How this enrichment works
 
@@ -103,9 +90,7 @@ This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaS
 
 The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs is performed.
 
-You can review the exact Scala code which executes your JavaScript script in the [JavascriptScriptEnrichment.scala] [enrichment-scala] file.
 
-### Do's and Don'ts
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 
@@ -134,6 +119,26 @@ We have also:
 * Stopped Scala Kinesis Enrich outputting records of over 50kB because they are exceed Kinesis' size limit ([#1649][1649])
 
 <h2><a name="upgrading">9. Upgrading</a></h2>
+
+
+#### JSON configuration file
+
+The self-describing JSON to configure this enrichment with the above JavaScript script is as follows:
+
+```json
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0",
+    "data": {
+        "vendor": "com.snowplowanalytics.snowplow",
+        "name": "javascript_script_config",
+        "enabled": true,
+        "parameters": {
+            "script": "Y29uc3QgU0VDUkVUX0FQUF9JRCA9ICJKb3NodWEiOw0KDQovKioNCiAqIFBlcmZvcm1zIHR3byByb2xlczoNCiAqIDEuIElmIHRoaXMgaXMgYSBzZXJ2ZXItc2lkZSBldmVudCwgd2UNCiAqICAgIHZhbGlkYXRlIHRoYXQgdGhlIGFwcF9pZCBpcyBvdXINCiAqICAgIHZhbGlkIHNlY3JldC4gUHJldmVudHMgc3Bvb2Zpbmcgb2YNCiAqICAgIG91ciBzZXJ2ZXItc2lkZSBldmVudHMNCiAqIDIuIElmIGFwcF9pZCBpcyBub3QgbnVsbCwgcmV0dXJuIGEgbmV3DQogKiAgICBBY21lIGNvbnRleHQsIGRlcml2ZWRfYXBwX2lkLCB3aGljaA0KICogICAgY29udGFpbnMgdGhlIHVwcGVyLWNhc2VkIGFwcF9pZA0KICovDQpmdW5jdGlvbiBwcm9jZXNzKGV2ZW50KSB7DQogICAgdmFyIGFwcElkID0gZXZlbnQuZ2V0QXBwX2lkKCk7DQoNCiAgICBpZiAocGxhdGZvcm0gPT0gInNlcnZlciIgJiYgYXBwSWQgIT0gU0VDUkVUX0FQUF9JRCkgew0KICAgICAgICB0aHJvdyAiU2VydmVyLXNpZGUgZXZlbnQgaGFzIGludmFsaWQgYXBwX2lkOiAiICsgYXBwSWQ7DQogICAgfQ0KDQogICAgaWYgKGFwcElkID09IG51bGwpIHsNCiAgICAgICAgcmV0dXJuIFtdOw0KICAgIH0NCg0KICAgIHZhciBhcHBJZFVwcGVyID0gbmV3IFN0cmluZyhhcHBJZC50b1VwcGVyQ2FzZSgpKTsNCiAgICByZXR1cm4gWyB7IHNjaGVtYTogImlnbHU6Y29tLmFjbWUvZGVyaXZlZF9hcHBfaWQvanNvbnNjaGVtYS8xLTAtMCIsDQogICAgICAgICAgICAgICBkYXRhOiAgeyBhcHBJZFVwcGVyOiBhcHBJZFVwcGVyIH0gfSBdOw0KfQ=="
+        }
+    }
+}
+```
+
 
 The Kinesis apps for r65 Scarlet Rosefinch are now all available in a single zip file here:
 
@@ -172,36 +177,20 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [scarlet-rosefinch]: /assets/img/blog/2015/05/scarlet-rosefinch.jpg
 
-[kinesis]: http://aws.amazon.com/kinesis/
-[putrecords]: http://docs.aws.amazon.com/cli/latest/reference/kinesis/put-records.html
-[cors]: http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
-[js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
-[as-tracker]: https://github.com/snowplow/snowplow-actionscript3-tracker
-[backoff]: http://www.awsarchitectureblog.com/2015/03/backoff.html
-[scalazon]: https://github.com/cloudify/scalazon
-[hocon]: https://github.com/typesafehub/config/blob/master/HOCON.md
-[partition-key]: http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html#partition-key
-[tokenization]: http://www.elastic.co/guide/en/elasticsearch/reference/1.x/analysis-standard-tokenizer.html
+[js]: xxx
+[js-enrichment-wiki]: xxx
 
-[r65-release]: https://github.com/snowplow/snowplow/releases/tag/r65-scarlet-rosefinch
+[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
+
+[rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
+[enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
+
+[enrichment-scala]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/enrichments/registry/JavascriptScriptEnrichment.scala
+
+[string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
+[rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
+
+[r66-release]: https://github.com/snowplow/snowplow/releases/tag/r66-oriental-skylark
 [wiki]: https://github.com/snowplow/snowplow/wiki
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
-
-[1537]: https://github.com/snowplow/snowplow/issues/1537
-[1503]: https://github.com/snowplow/snowplow/issues/1503
-[1493]: https://github.com/snowplow/snowplow/issues/1493
-[1513]: https://github.com/snowplow/snowplow/issues/1513
-[1515]: https://github.com/snowplow/snowplow/issues/1515
-[1471]: https://github.com/snowplow/snowplow/issues/1471
-[1472]: https://github.com/snowplow/snowplow/issues/1472
-[1513]: https://github.com/snowplow/snowplow/issues/1513
-[1584]: https://github.com/snowplow/snowplow/issues/1584
-[1576]: https://github.com/snowplow/snowplow/issues/1576
-[1583]: https://github.com/snowplow/snowplow/issues/1583
-[1582]: https://github.com/snowplow/snowplow/issues/1582
-[1363]: https://github.com/snowplow/snowplow/issues/1363
-[1618]: https://github.com/snowplow/snowplow/issues/1618
-[1492]: https://github.com/snowplow/snowplow/issues/1492
-[1504]: https://github.com/snowplow/snowplow/issues/1504
-[1649]: https://github.com/snowplow/snowplow/issues/1649

@@ -180,7 +180,7 @@ Documentation on the new JavaScript script enrichment is available on the [wiki]
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[oriental-skylark]: /assets/img/blog/2015/06/oriental-skylark.jpg
+[oriental-skylark]: /assets/img/blog/2015/06/skylark-wilhelm-von-white.jpg
 
 [js]: https://en.wikipedia.org/wiki/JavaScript
 [rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino

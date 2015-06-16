@@ -48,7 +48,7 @@ To run the Hadoop pipeline alongside your Kinesis pipeline follow these steps:
 1. Deploy the [kinesis-s3] [kinesis-s3] application and configure it to write your Kinesis stream of **raw** Snowplow events to Amazon S3
 2. Deploy the Hadoop pipeline and configure EmrEtlRunner to read from the S3 bucket from #1 with `collector_format` set to `thrift`
 
-This release fixes some issues with running the Kinesis-Hadoop lambda architecture which were related to the introduction of IAM roles for Elastic MapReduce; two of these fixes were implemented in EmrEtlRunner ([#1715] [1715] and [#1647] [1647]), so you will have to upgrade your EmrEtlRunner as per the instructions below.
+This release fixes some issues with running the Kinesis-Hadoop lambda architecture which were related to Amazon's introduction of IAM roles for Elastic MapReduce; two of these fixes were implemented in EmrEtlRunner ([#1715] [1715] and [#1647] [1647]), so you will have to upgrade your EmrEtlRunner as per the instructions below.
 
 <h2><a name="js-enrichment">3. JavaScript scripting enrichment</a></h2>
 
@@ -97,7 +97,7 @@ function process(event) {
 
 This function is actually serving two discrete roles:
 
-1. If this is a server-side event, we validate that the `app_id` matches our secret. This is a simple way of preventing a "bad actor" from spoofing our server-sent events
+1. If this is a server-sent event, we validate that the `app_id` matches our secret. This is a simple way of preventing a "bad actor" from spoofing our server-sent events
 2. If `app_id` is not null, we return a new context for Acme Inc, `derived_app_id`, which contains the upper-cased `app_id`
 
 These are of course just very simple examples - we look forward to seeing what the community come up with!
@@ -106,9 +106,9 @@ These are of course just very simple examples - we look forward to seeing what t
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
-The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs is performed.
+The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs inside the array is performed.
 
-If you are interested in learning more about Rhino and the JVM, check out our earlier R&D blog post, [Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript] [rhino-experiments].
+If you are interested in learning more about Rhino and the JVM, check out our earlier R&D blog post, [Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript] [rhino-experiments-blog].
 
 <h2><a name="other">4. Other changes</a></h2>
 

@@ -14,6 +14,7 @@ body {
 	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 400;
 	font-size: 18px;
+	text-rendering: optimizeLegibility;
 }
 
 /* Basic structure */
@@ -67,44 +68,75 @@ footer {
 .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12,
 .col-lg-12 { padding: 0; } /* overwrite default in bootstrap.css */
 
-/* Big introduction */
+/* Homepage */
 
 .snowplow-jumbotron {
-	margin: 0 0 60px 0;
-	padding: 60px;
   background-color: #D2D4DB;
 	border-radius: 5px;
 	text-align: center;
-	max-width: 100%
+	max-width: 100%;
+	padding: 60px;
+	margin: 0;
 }
 
-.snowplow-jumbotron h1 {
+.homepage h1 {
 	font-size: 65px;
+	font-weight: 300;
 }
 
-.snowplow-jumbotron p {
+.homepage h2 {
+	font-size: 40px;
+	font-weight: 300;
+	text-align: center;
+	margin: 0px auto 30px auto;
+	width: 65%;
+}
+
+.homepage h2.separator {
+	margin: 60px auto;
+}
+
+.homepage p {
   font-size: 25px;
   font-weight: 300;
-	width: 90%;
 	margin: 0 auto 30px auto;
+	width: 90%;
 }
 
 @media (max-width: 1199px) {
 	.snowplow-jumbotron {padding: 45px;}
-	.snowplow-jumbotron h1 {font-size: 50px;}
-	.snowplow-jumbotron p {font-size: 20px;}
+	.homepage h1 {font-size: 50px;}
+	.homepage p {font-size: 20px;}
 }
 @media (max-width: 991px) {
 	.snowplow-jumbotron {padding: 30px;}
-	.snowplow-jumbotron h1 {font-size: 45px;}
-	.snowplow-jumbotron p {font-size: 18px;}
+	.homepage h1 {font-size: 45px;}
+	.homepage p {font-size: 18px;}
 }
 @media (max-width: 767px) {
 	.snowplow-jumbotron {padding: 30px;}
-	.snowplow-jumbotron h1 {font-size: 45px;}
-	.snowplow-jumbotron p {font-size: 18px;}
+	.homepage h1 {font-size: 45px;}
+	.homepage p {font-size: 18px;}
 }
 
+.homepage .logo-container {
+	text-align: center;
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.homepage .logo-container .logo {display: inline-block;}
+
+.homepage .cta {
+	margin-bottom: 30px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.homepage cite {
+	font-size: 18px;
+	padding-left: 30px;
+}
 
 /* Headers */
 
@@ -131,6 +163,7 @@ h1 > a, h1 > a:focus {
 
 p {
 	margin: 0 0 15px 0;
+	-webkit-font-smoothing: antialiased;
 }
 
 /* Images  */

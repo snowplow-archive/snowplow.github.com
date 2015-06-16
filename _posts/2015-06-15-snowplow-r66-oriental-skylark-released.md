@@ -11,31 +11,44 @@ We are pleased to announce the release of Snowplow 66, Oriental Skylark. This re
 
 Table of contents:
 
-1. [Enhanced performance](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#enhancedPerformance)
-2. [CORS support](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#cors)
-3. [Increased reliability](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#reliability)
-4. [Loading configuration from DynamoDB](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#dynamodb)
-5. [Randomized partition keys for bad streams](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#randomization)
-6. [Removal of automatic stream creation](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#automaticStreams)
-7. [Improved Elasticsearch index initialization](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#tokenization)
-8. [Other changes](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#otherChanges)
-9. [Upgrading](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#upgrading)
-10. [Getting help](/blog/2015/05/08/snowplow-r65-scarlet-rosefinch-released#help)
+1. [Our enrichment process on Hadoop 2.4](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#hadoop2)
+2. [Re-enabled Kinesis-Hadoop lambda architecture](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#lambda)
+3. [JavaScript scripting enrichment](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#js-enrichment)
+4. [Other changes](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#other)
+5. [Upgrading](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#upgrading)
+6. [Getting help](/blog/2015/06/16/snowplow-r66-oriental-skylark-released#help)
 
 ![oriental-skylark][oriental-skylark]
 
 <!--more-->
 
-<h2><a name="hadoop-2">1. Our enrichment process on Hadoop 2.4</a></h2>
+<h2><a name="hadoop2">1. Our enrichment process on Hadoop 2.4</a></h2>
 
+Since the inception of Snowplow three years ago, our Hadoop Enrichment process has been tied to Hadoop 1 and Elastic MapReduce's 2.4.x series AMIs. In the meantime, Elastic MapReduce has been iterating through the [3.x.x series of AMIs] [emr-amis], introducing lots of great features including:
 
-<h2><a name="lambda">2. Re-enabled lambda architecture</a></h2>
+* Hadoop 2.x, along with YARN and new HDFS features e.g. symbolic links 
+* New features and important bug fixes in [S3DistCp] [s3distcp]
+* The ability to run [Spark on an EMR cluster] [spark-emr-blog]
 
+To take advantage of these new features, we are now upgrading our Hadoop Enrichment process to run on Hadoop 2.4 and the EMR 3.x.x series AMIs **exclusively**. Our testing has been with the 3.6.0 AMI, so that is the recommended version currently.
 
+To reflect this breaking change, the new version of Hadoop Enrich is **1.0.0**. Because our Hadoop Shred process works on Hadoop 2.4 without code changes, this version is unchanged at 0.4.0.
 
-EmrEtlRunner: now setting buffer for processing thrift in core-site.xml (#1715)
+We are hugely excited about our move to Hadoop 2.x and YARN! This should allow for some powerful new capabilities in the Snowplow batch pipeline, such as mixed Hadoop/Spark event processing.
 
-EmrEtlRunner: added S3DistpCp step for thrift files in processing (#1647)
+<h2><a name="lambda">2. Re-enabled Kinesis-Hadoop lambda architecture</a></h2>
+
+A [Lambda Architecture] [lambda-architecture] is Nathan Marz's term for a hybrid batch and streaming architecture for event processing. There are two reasons why users of Snowplow's Kinesis pipeline should consider a lambda architecture, operating the Hadoop pipeline alongside their existing Kinesis flow:
+
+1. The Hadoop pipeline allows you to re-process your raw events (e.g. when we introduce a new enrichment) long after the raw events have expired from your Kinesis stream
+2. The Hadoop pipeline lets you load Snowplow enriched events into Amazon Redshift (or Postgres)
+
+To run the Hadoop pipeline alongside your Kinesis pipeline follow these steps:
+
+1. Deploy the [kinesis-s3] [kinesis-s3] application and configure it to write your Kinesis stream of **raw** Snowplow events to Amazon S3
+2. Deploy the Hadoop pipeline and configure EmrEtlRunner to read from the S3 bucket from #1 with `collector_format` set to `thrift`
+
+This release fixes some issues with running the Kinesis-Hadoop lambda architecture which were related to the introduction of IAM roles for Elastic MapReduce; two of these fixes were implemented in EmrEtlRunner ([#1715] [1715] and [#1647] [1647]), so you will have to upgrade your EmrEtlRunner as per the instructions below.
 
 <h2><a name="js-enrichment">3. JavaScript scripting enrichment</a></h2>
 
@@ -89,8 +102,6 @@ This function is actually serving two discrete roles:
 
 These are of course just very simple examples - we look forward to seeing what the community come up with!
 
-### How this enrichment works
-
 <h3><a name="js-enrichment-how">3.3 How this enrichment works</a></h3>
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
@@ -103,16 +114,16 @@ If you are interested in learning more about Rhino and the JVM, check out our ea
 
 We have also:
 
-* Fixed the various incorrect links in Scala Common Enrich's `README.md`, thanks Snowplow community member and intern [Vincent Ohprecio] [bigsnarfdude]! (#1669)
-* Made the `mkt_` and `refr_` fields TSV safe - thanks Snowplow community member [Jason Bosco] [jasonbosco] for this! (#1643)
-* Fixed an uncaught NPE exception in our JSON error handling code's `stripInstanceEtc` function (#1622)
-* On the data modeling side of things, we have removed restrictions in sessions and visitors-source (#1725)
+* Fixed the various incorrect links in Scala Common Enrich's `README.md`, thank you Snowplow community member and intern [Vincent Ohprecio] [bigsnarfdude]! ([#1669] [1669])
+* Made the `mkt_` and `refr_` fields TSV safe - big thanks to Snowplow community member [Jason Bosco] [jasonbosco] for this! ([#1643] [1643])
+* Fixed an uncaught NPE exception in our JSON error handling code's `stripInstanceEtc` function ([#1622] [1622])
+* On the data modeling side of things, we have removed restrictions in sessions and visitors-source ([#1725] [1725])
 
 <h2><a name="upgrading">5. Upgrading</a></h2>
 
 <h3><a name="upgrading-emretlrunner">5.1 Upgrading your EmrEtlRunner</a></h3>
 
-You need to update EmrEtlRunner to the latest code (**0.15.0**) on GitHub:
+You need to update EmrEtlRunner to the latest version (**0.15.0**) on GitHub:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
@@ -176,7 +187,13 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [js-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/JavaScript-script-enrichment
 [js-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
-[rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
+[rhino-experiments-blog]: /blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
+[lambda-architecture]: http://lambda-architecture.net/
+[kinesis-s3]: https://github.com/snowplow/kinesis-s3
+
+[emr-amis]: http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/ami-versions-supported.html
+[s3distcp]: http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/UsingEMR_s3distcp.html
+[spark-emr-blog]: /blog/2015/05/10/spark-example-project-0.3.0-released/
 
 [bigsnarfdude]: https://github.com/bigsnarfdude
 [jasonbosco]: https://github.com/jasonbosco

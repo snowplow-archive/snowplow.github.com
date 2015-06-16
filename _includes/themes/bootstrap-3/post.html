@@ -1,13 +1,15 @@
 <div class="row post-full">
   <div class="col-md-9">
-    <div class="page-header">
-      <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
-    </div>
-    <div class="date">
-      <span>{{ page.date | date_to_long_string }}</span>
-    </div>
-    <div class="content">
-      {{ content }}
+
+    <div class = "blog">
+      <div class="blog datebox">
+        {{ page.date | date_to_long_string }}&nbsp;&nbsp;|&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == page.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}
+      </div>
+      <h1>{{ page.title }}</h1>
+        {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}
+      <div class="content">
+        {{ content }}
+      </div>
     </div>
 
   <!-- Author box -->
@@ -17,7 +19,7 @@
         <div class="media">
           <a class="pull-left" href="{{ author.url }}">
             <img class="media-object" src="{{ author.avatar }}">
-          </a>   
+          </a>
           <div class="media-body">
             {{ author.spiel }}
           </div>
@@ -27,7 +29,7 @@
     {% endfor %}
 
     {% if site.data.authors[page.author] != null %}
-      {% assign author = site.data.authors[page.author] %} 
+      {% assign author = site.data.authors[page.author] %}
         <div class="media">
           <a class="pull-left" href="{{ author.url }}">
             <img class="media-object" data-src=" {{ author.avatar }}">
@@ -43,7 +45,7 @@
         {% assign categories_list = page.categories %}
         {% include JB/categories_list %}
       </ul>
-    {% endunless %}  
+    {% endunless %}
 
     {% unless page.tags == empty %}
       <ul class="tag_box inline">
@@ -51,8 +53,8 @@
         {% assign tags_list = page.tags %}
         {% include JB/tags_list %}
       </ul>
-    {% endunless %}  
-    
+    {% endunless %}
+
       <hr>
       <ul class="pagination">
       {% if page.previous %}
@@ -75,4 +77,3 @@
     </div>
   </div>
 </div>
-

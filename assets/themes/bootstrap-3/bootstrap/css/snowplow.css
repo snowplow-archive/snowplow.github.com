@@ -70,15 +70,6 @@ footer {
 
 /* Homepage */
 
-.snowplow-jumbotron {
-  background-color: #D2D4DB;
-	border-radius: 5px;
-	text-align: center;
-	max-width: 100%;
-	padding: 60px;
-	margin: 0;
-}
-
 .homepage h1 {
 	font-size: 65px;
 	font-weight: 300;
@@ -88,55 +79,100 @@ footer {
 	font-size: 40px;
 	font-weight: 300;
 	text-align: center;
-	margin: 0px auto 30px auto;
+	margin: 0 auto; /* both text-align and margin are required */
 	width: 65%;
 }
 
 .homepage h2.separator {
-	margin: 60px auto;
+	margin: 30px auto;
 }
 
 .homepage p {
   font-size: 25px;
   font-weight: 300;
+}
+
+.homepage .row {margin-bottom: 30px;}
+
+.homepage .bigbox {
+	margin: 0;
+	padding: 60px;
+  background-color: #D2D4DB;
+	border-radius: 5px;
+	text-align: center;
+	max-width: 100%;
+}
+
+.homepage .bixbog p {
 	margin: 0 auto 30px auto;
 	width: 90%;
 }
 
+.homepage .users-logobox .logo {display: inline-block;}
+
+.homepage .users-logobox .logo img {height: 100px; }
+
+.homepage .users-mugshot {
+	padding: 15px 15px 0 15px;
+	float: left;
+	width: 15%;
+}
+
+.homepage .users-oneliner {
+	padding: 0 15px;
+	float: left;
+	width: 85%
+}
+
+.homepage .users-oneliner cite {
+	font-size: 18px;
+	font-weight: 400;
+	padding-left: 30px;
+}
+
+
+
+
+
 @media (max-width: 1199px) {
-	.snowplow-jumbotron {padding: 45px;}
+	.bixbog {padding: 45px;}
 	.homepage h1 {font-size: 50px;}
 	.homepage p {font-size: 20px;}
 }
 @media (max-width: 991px) {
-	.snowplow-jumbotron {padding: 30px;}
+	.bigbox {padding: 30px;}
 	.homepage h1 {font-size: 45px;}
 	.homepage p {font-size: 18px;}
 }
 @media (max-width: 767px) {
-	.snowplow-jumbotron {padding: 30px;}
+	.bigbox {padding: 30px;}
 	.homepage h1 {font-size: 45px;}
 	.homepage p {font-size: 18px;}
 }
 
-.homepage .logo-container {
+.homepage .users-logobox {
 	text-align: center;
-	margin-bottom: 30px;
 	width: 100%;
 }
 
-.homepage .logo-container .logo {display: inline-block;}
 
-.homepage .cta {
-	margin-bottom: 30px;
+
+a.cta {
 	text-transform: uppercase;
 	text-align: center;
 }
 
-.homepage cite {
-	font-size: 18px;
-	padding-left: 30px;
+a.cta:after {
+	content: " ➙";
 }
+
+
+
+
+
+
+
+
 
 /* Headers */
 

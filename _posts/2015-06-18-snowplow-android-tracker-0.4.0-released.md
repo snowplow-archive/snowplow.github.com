@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the release of the fourth version of the [Snowplow Android Tracker][repo]. The Tracker has undergone a series of changes in light of the issues around the Android [dex limit][dex-limit], resulting in the library being split to allow for users to either opt in for the RxJava Tracker or not.
 
-Big thanks to [Duncan][duncand] at Wunderlist for his work on splitting apart the libraries and providing an RxJava free version for those missing the dex space for it.
+Big thanks to [Duncan][duncand] at Wunderlist for his work on splitting apart the libraries and providing an RxJava free version for those missing the dex space for it.  Thanks go again as well to [Hamid][hamidp] at Trello for getting us on the path to a much more robust Android Tracker.
 
 This release post will cover the following topics:
 
@@ -134,6 +134,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 
 [repo]: https://github.com/snowplow/snowplow-android-tracker
 [duncand]: https://github.com/duncan
+[hamidp]: https://github.com/hamidp
 
 [dex-limit]: https://developer.android.com/tools/building/multidex.html
 [android-0.3.0]: http://snowplowanalytics.com/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/

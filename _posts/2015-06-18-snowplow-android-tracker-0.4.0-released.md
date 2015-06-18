@@ -131,7 +131,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 
 [dex-limit]: https://developer.android.com/tools/building/multidex.html
 [android-0.3.0]: http://snowplowanalytics.com/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/
-[apk-download]: http://PUT_IN_URL/
+[apk-download]: http://dl.bintray.com/snowplow/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
 [other-sources]: http://developer.android.com/distribute/tools/open-distribution.html
 [ngrok]: https://ngrok.com/
 [mountebank]: http://www.mbtest.org/

@@ -86,7 +86,7 @@ Among the splitting of libraries there have also been a range of other improveme
 
 If you do import Google Play Services you will now only need to import the analytics specific package as well instead of the entire Play Services setup:
 
-{% highlight golang %}
+{% highlight groovy %}
 
 compile 'com.google.android.gms:play-services-analytics:7.5.0'
 
@@ -125,12 +125,6 @@ You can find the full release notes on GitHub as [Snowplow Android Tracker v0.4.
 The Android Tracker is still an immature project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 
 Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracker's issues] [android-issues] on GitHub!
-
-[android-app-1]: /assets/img/blog/2015/06/android-app-1.png
-[android-app-rx]: /assets/img/blog/2015/06/android-app-rx.png
-[android-app-classic]: /assets/img/blog/2015/06/android-app-classic.png
-[android-app-classic-1]: /assets/img/blog/2015/06/android-app-classic-2.png
-[android-app-classic-2]: /assets/img/blog/2015/06/android-app-classic-3.png
 
 [repo]: https://github.com/snowplow/snowplow-android-tracker
 [duncand]: https://github.com/duncan

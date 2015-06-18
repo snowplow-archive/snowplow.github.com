@@ -109,6 +109,8 @@ guest$ ./testing/setup.bash
 
 Then in your host machine navigate to `http://localhost:4040/`, the Ngrok interface.  Put in the endpoint provided into the application and send away!
 
+For further information on the test environment go [here][testing].
+
 <img src="/assets/img/blog/2015/06/android-app-1.png" width="24%">
 <img src="/assets/img/blog/2015/06/android-app-classic.png" width="24%">
 <img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="24%">
@@ -146,6 +148,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 [android-tracker-release]: https://github.com/snowplow/snowplow-android-tracker/releases/tag/0.4.0
 [demo-walkthrough]: https://github.com/snowplow/snowplow/wiki/Android-app-walkthrough#walkthrough
 [integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration
+[testing]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues

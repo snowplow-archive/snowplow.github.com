@@ -109,10 +109,12 @@ guest$ ./testing/setup.bash
 
 Then in your host machine navigate to `http://localhost:4040/`, the Ngrok interface.  Put in the endpoint provided into the application and send away!
 
-<img src="/assets/img/blog/2015/06/android-app-1.png" width="25%">
-<img src="/assets/img/blog/2015/06/android-app-classic.png" width="25%">
-<img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="25%">
-<img src="/assets/img/blog/2015/06/android-app-classic-3.png" width="25%">
+<img src="/assets/img/blog/2015/06/android-app-1.png" width="24%">
+<img src="/assets/img/blog/2015/06/android-app-classic.png" width="24%">
+<img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="24%">
+<img src="/assets/img/blog/2015/06/android-app-classic-3.png" width="24%">
+
+For a walkthrough of the demo please go [here][demo-walkthrough].
 
 <h2><a name="docs">6. Documentation</a></h2>
 
@@ -124,6 +126,8 @@ You can find the full release notes on GitHub as [Snowplow Android Tracker v0.4.
 
 The Android Tracker is still an immature project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 
+For help on integrating the application please have a look at the [setup][android-setup] and [integration][integration] guides.
+
 Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracker's issues] [android-issues] on GitHub!
 
 [repo]: https://github.com/snowplow/snowplow-android-tracker
@@ -131,7 +135,7 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 
 [dex-limit]: https://developer.android.com/tools/building/multidex.html
 [android-0.3.0]: http://snowplowanalytics.com/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/
-[apk-download]: http://dl.bintray.com/snowplow/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
+[apk-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
 [other-sources]: http://developer.android.com/distribute/tools/open-distribution.html
 [ngrok]: https://ngrok.com/
 [mountebank]: http://www.mbtest.org/
@@ -140,6 +144,8 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 [android-manual]: https://github.com/snowplow/snowplow/wiki/Android-Tracker
 [android-manual-self]: https://github.com/snowplow/snowplow/wiki/Android-Tracker#self-describing-json
 [android-tracker-release]: https://github.com/snowplow/snowplow-android-tracker/releases/tag/0.4.0
+[demo-walkthrough]: https://github.com/snowplow/snowplow/wiki/Android-app-walkthrough#walkthrough
+[integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues

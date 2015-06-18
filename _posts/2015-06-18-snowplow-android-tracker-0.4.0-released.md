@@ -109,10 +109,10 @@ guest$ ./testing/setup.bash
 
 Then in your host machine navigate to `http://localhost:4040/`, the Ngrok interface.  Put in the endpoint provided into the application and send away!
 
-<img src="/assets/img/blog/2015/06/android-app-1.png" width="45%">
-<img src="/assets/img/blog/2015/06/android-app-classic.png" width="45%">
-<img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="45%">
-<img src="/assets/img/blog/2015/06/android-app-classic-3.png" width="45%">
+<img src="/assets/img/blog/2015/06/android-app-1.png" width="25%">
+<img src="/assets/img/blog/2015/06/android-app-classic.png" width="25%">
+<img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="25%">
+<img src="/assets/img/blog/2015/06/android-app-classic-3.png" width="25%">
 
 <h2><a name="docs">6. Documentation</a></h2>
 

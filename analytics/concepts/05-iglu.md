@@ -13,7 +13,7 @@ redirect_from:
 
 # Iglu
 
-In the previous section, we described how both [events](events.html) and [contexts](contexts.html) have schemas which define what data is recorded about the event, or context, at data capture time.
+In the previous section, we described how both [events](../events) and [contexts](../contexts) have schemas which define what data is recorded about the event, or context, at data capture time.
 
 In this section, we describe the role played by Iglu, our machine-readable schema repository, in enabling Snowplow to correctly process and warehouse that data.
 
@@ -96,11 +96,11 @@ This means that an analyst needs to check for the existence of multiple versions
 
 When you setup Snowplow for the first time, you need to:
 
-1. Identify the different events and contexts you wish to capture, and document them in the [event dictionary](event-dictionaries-and-schemas.html).
+1. Identify the different events and contexts you wish to capture, and document them in the [event dictionary](../event-dictionaries-and-schemas).
 2. Put together an initial version for the schemas of each of the events and contexts you wish to capture
 3. Upload those schemas to an Iglu repo, and configure your Snowplow pipeline to connect with the Iglu repo so that it can fetch the schemas associated with the incoming data
 4. Instrument your tracker(s) to send data into Snowplow with the associated schemas in Iglu
 
 ## Read on
 
-In the next section, we'll give a [high level overview of the Snowplow data pipeline](collection-enrichment-modeling-analysis.html), before describing in more detail [how to send data into Snowplow](sending-data-into-snowplow.html), and [what the data looks like once it's in Snowplow](viewing-the-event-data-in-snowplow.html).
+In the next section, we'll give a [high level overview of the Snowplow data pipeline](../snowplow-data-pipeline), before describing in more detail [how to send data into Snowplow](../sending-data-into-snowplow), and [what the data looks like once it's in Snowplow](../viewing-snowplow-data).

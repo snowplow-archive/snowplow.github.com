@@ -109,4 +109,4 @@ This makes tracker instrumentation much simpler, as well as giving you significa
 
 ## Familiar with the stages in the Snowplow data pipeline?
 
-Then [read on](sending-data-into-snowplow.html) to find out about how to [send data into Snowplow](sending-data-into-snowplow.html).
+Then [read on](../sending-data-into-snowplow) to find out about how to [send data into Snowplow](../sending-data-into-snowplow).

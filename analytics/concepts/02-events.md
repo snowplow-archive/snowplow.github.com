@@ -35,4 +35,4 @@ To use Snowplow successfully, you need to have a good idea of:
 
 ## Get *events*?
 
-Then [learn about event dictionaries and schemas](event-dictionaries-and-schemas.html).
+Then [learn about event dictionaries and schemas](../event-dictionaries-and-schemas).

@@ -21,17 +21,17 @@ It is possible to use Snowplow data to answer questions and generate insight wit
 
 Snowplow is built around the following core concepts:
 
-* [Events](events/index.html)
-* [Dictionaries and schemas](event-dictionaries-and-schemas/index.html)
-* [Contexts](contexts/index.html)
-* [Iglu](iglu/index.html)
-* [Stages in the Snowplow data pipeline](snowplow-data-pipeline/index.html)
+* [Events](events)
+* [Dictionaries and schemas](event-dictionaries-and-schemas)
+* [Contexts](contexts)
+* [Iglu](iglu)
+* [Stages in the Snowplow data pipeline](snowplow-data-pipeline)
 
 Once you have understood the core concepts, it should be straightforward to understand:
 
-* [How event data is sent into Snowplow](sending-data-into-snowplow/index.html)
-* [What the data looks like once it is in Snowplow](snowplow-event-model/index.html)
+* [How event data is sent into Snowplow](sending-data-into-snowplow)
+* [What the data looks like once it is in Snowplow](viewing-snowplow-data)
 
 This then provides a solid foundation for understanding how to
 
-* [Model Snowplow data: aggregate event level data to create useful intermediary tables to enable faster, more convenient analysis](../data-modeling/index.html)
+* [Model Snowplow data: aggregate event level data to create useful intermediary tables to enable faster, more convenient analysis](../data-modeling)

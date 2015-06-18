@@ -82,4 +82,4 @@ window.snowplow('trackUnstructEvent', {
 
 ## Understand event dictionaries and schemas?
 
-Then [learn about contexts](contexts.html).
+Then [learn about contexts](../contexts).

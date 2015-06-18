@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of the fourth version of the [Snowplow Android Tracker][repo]. The Tracker has undergone a series of changes in light of the issues around the Android [dex limit][], resulting in the library being split to allow for users to either opt in for the RxJava Tracker or not.
+We are pleased to announce the release of the fourth version of the [Snowplow Android Tracker][repo]. The Tracker has undergone a series of changes in light of the issues around the Android [dex limit][dex-limit], resulting in the library being split to allow for users to either opt in for the RxJava Tracker or not.
 
 Big thanks to [Duncan][duncand] at Wunderlist for his work on splitting apart the libraries and providing an RxJava free version for those missing the dex space for it.
 
@@ -109,6 +109,11 @@ guest$ ./testing/setup.bash
 
 Then in your host machine navigate to `http://localhost:4040/`, the Ngrok interface.  Put in the endpoint provided into the application and send away!
 
+![screen-1][android-app-1]
+![screen-2][android-app-classic]
+![screen-3][android-app-classic-1]
+![screen-4][android-app-classic-2]
+
 <h2><a name="docs">6. Documentation</a></h2>
 
 You can find the updated [Android Tracker documentation] [android-manual] on our wiki.
@@ -121,9 +126,16 @@ The Android Tracker is still an immature project and we will be working hard wit
 
 Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracker's issues] [android-issues] on GitHub!
 
+[android-app-1]: /assets/img/blog/2015/06/android-app-1.jpg
+[android-app-rx]: /assets/img/blog/2015/06/android-app-rx.jpg
+[android-app-classic]: /assets/img/blog/2015/06/android-app-classic.jpg
+[android-app-classic-1]: /assets/img/blog/2015/06/android-app-classic-1.jpg
+[android-app-classic-2]: /assets/img/blog/2015/06/android-app-classic-2.jpg
+
 [repo]: https://github.com/snowplow/snowplow-android-tracker
 [duncand]: https://github.com/duncan
 
+[dex-limit]: https://developer.android.com/tools/building/multidex.html
 [android-0.3.0]: http://snowplowanalytics.com/blog/2015/02/18/snowplow-android-tracker-0.3.0-released/
 [apk-download]: http://PUT_IN_URL/
 [other-sources]: http://developer.android.com/distribute/tools/open-distribution.html

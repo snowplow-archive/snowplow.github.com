@@ -1,21 +1,10 @@
 # What is snowplow.github.com?
 
-snowplow.github.com is the source code and content for [http://snowplowanalytics.com](http://snowplowanalytics.com) website.
+snowplow.github.com is the source code and content for the [Snowplow](http://snowplowanalytics.com) website.
 
-The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [GitHub Pages](http://pages.github.com/). (Thanks to the great people of GitHub for this fantastic service.)
+The site is built in [Jekyll](https://github.com/mojombo/jekyll) and served by [GitHub Pages](http://pages.github.com/). Thanks to the great people of GitHub for this fantastic service.
 
-## Content covered
-
-The content covers:
-
-1. What Snowplow is, including why we developed Snowplow, and how Snowplow differs from other approaches to web and event analytics
-2. How Snowplow works, from a technical standpoint
-3. How we plan to develop Snowplow
-4. How to perform analyses using Snowplow
-5. Overview of the Professional Services we offer around Snowplow
-
-All content is copyright (c) 2012-2015 Snowplow Analytics Ltd and not to be reused without permission.
-
+All content is copyright © 2012-2015 Snowplow Analytics Ltd and not to be reused without permission.
 
 ## Adding new content and editing existing content
 

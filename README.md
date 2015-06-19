@@ -126,3 +126,25 @@ When you are happy with the updates:
 2. Push the master branch to origin
 
 The good people at GitHub will compile the website and serve it on `http://snowplowanalytics.com`! Thank you [GitHub pages] (http://pages.github.com/).
+
+## Design
+
+### Colors
+
+Snowplow has two color schemes.
+
+The main one. From dark to light:
+
+- #1F294D
+- #4C5371
+- #797F94
+- #A5A9B9
+- #D2D4DB
+
+And a purple one. From dark to light:
+
+- #2D479A
+- #586BAE
+- #8290C2
+- #ADB5D6
+- #D5DAEB

@@ -16,13 +16,14 @@
 
     <!-- Bootstrap styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Optional theme -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- Sticky Footer -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+
     <!--Added by Snowplow-->
     <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" />
-    <link href="{{ ASSET_PATH }}/bootstrap/css/snowplow.css" rel="stylesheet" type="text/css">
+
+    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
+    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
+    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-main.css" rel="stylesheet" type="text/css">
+    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-footer.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
@@ -49,76 +50,96 @@
     {% include snowplow/fonts-and-presentation/typekit-fonts %}
     {% include snowplow/fonts-and-presentation/mathjax %}
 
+
+    <script src="classie.js"></script>
+    <script>
+    function init() {
+        window.addEventListener('scroll', function(e){
+            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+                shrinkOn = 80,
+                nav = document.querySelector("nav");
+            if (distanceY > shrinkOn) {
+                classie.add(nav,"smaller");
+            } else {
+                if (classie.has(nav,"smaller")) {
+                    classie.remove(nav,"smaller");
+                }
+            }
+        });
+    }
+    window.onload = init();
+    </script>
+
+
   </head>
 
   <body>
 
     {% include snowplow/google-tag-manager %}
 
-    <div id="wrap">
+    <!-- Header -->
 
-      <!-- Navigation -->
+    <header>
+      <div class="container">
 
-      <nav class="navbar navbar-snowplow" role="navigation">
-        <div class="container">
+        <!-- Brand -->
 
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <a class="navbar-brand" href="{{ HOME_PATH }}"><img src="/assets/img/snowplow-logo-website-temp.png" /></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
+        <div class="brand" role="banner">
+          <div class="logo"><a href="{{ HOME_PATH }}"></a></div>
+          <div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div>
+        </div>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="jb-navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <!-- Instead of dynamically generating nav items, hardcode based on groups
-              {% assign pages_list = site.pages %}
-              {% assign group = 'navigation' %}
-              {% include JB/pages_list %}
-              -->
-              {% if page.group == 'product' %}
-                <li class="active"><a href="/product" class="active without-border">Product</a></li>
-                {% else %}
-                <li><a href="/product" class="without-border">Product</a></li>
-              {% endif %}
-              {% if page.group == 'analytics' %}
-                <li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
-                {% else %}
-                <li><a href="/analytics" class="without-border">Analytics</a></li>
-              {% endif %}
-              {% if page.group == 'technology' %}
-                <li class="active"><a href="/technology" class="active without-border">Technology</a></li>
-                {% else %}
-                <li><a href="/technology" class="without-border">Technology</a></li>
-              {% endif %}
-              {% if page.url contains 'blog' %}
-                <li class="active"><a href="/blog" class="active without-border">Blog</a></li>
-                {% else %}
-                <li><a href="/blog" class="without-border">Blog</a></li>
-              {% endif %}
-              {% if page.group == 'get-started' %}
-                <li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
-                {% else %}
-                <li><a href="/get-started" class="with-border">Get started</a></li>
-              {% endif %}
+        <!-- Navigation -->
+
+        <nav role="navigation">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">test</button>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class>
+
+            {% if page.group == 'product' %}
+              <li class="active"><a href="/product" class="active without-border">Product</a></li>
+            {% else %}
+              <li><a href="/product" class="without-border">Product</a></li>
+            {% endif %}
+
+            {% if page.group == 'analytics' %}
+              <li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
+            {% else %}
+              <li><a href="/analytics" class="without-border">Analytics</a></li>
+            {% endif %}
+
+            {% if page.group == 'technology' %}
+              <li class="active"><a href="/technology" class="active without-border">Technology</a></li>
+            {% else %}
+              <li><a href="/technology" class="without-border">Technology</a></li>
+            {% endif %}
+
+            {% if page.url contains 'blog' %}
+              <li class="active"><a href="/blog" class="active without-border">Blog</a></li>
+            {% else %}
+              <li><a href="/blog" class="without-border">Blog</a></li>
+            {% endif %}
+
+            {% if page.group == 'get-started' %}
+              <li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
+            {% else %}
+              <li><a href="/get-started" class="with-border">Get started</a></li>
+            {% endif %}
+
             </ul>
-          </div><!-- /.navbar-collapse -->
+          </div>
+        </nav>
 
-        </div>
-      </nav>
+      </div>
+    </header>
 
-      <!-- Main -->
+    <!-- Main -->
 
-      <main class="main-snowplow" role="main">
-        <div class="container">
-          {{ content }}
-        </div>
-      </main>
+    <main class="main-snowplow" role="main">
+      <div class="container">
+        {{ content }}
+      </div>
+    </main>
 
       <!-- Footer -->
 
@@ -155,8 +176,6 @@
           <div class="notice">Copyright &copy; {{ site.time | date: '%Y' }} Snowplow Analytics Ltd. All rights reserved. <a href="/privacy">Privacy policy</a>.</div>
         </div>
       </footer>
-
-    </div>
 
     {% include snowplow/olark %}
 

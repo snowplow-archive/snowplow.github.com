@@ -98,6 +98,8 @@ compile 'com.google.android.gms:play-services-analytics:7.5.0'
 
 This release also includes a demo app for test driving both the Classic and the RxJava Trackers. The app allows you to send every possible combination of events to an endpoint of your choosing via HTTP or HTTPS, and via GET or POST. You can grab the APK from [here][apk-download]. To install the app you will need to allow installation from sources [other than the Google Play Store][other-sources].
 
+Here are some screenshots from the app:
+
 <img src="/assets/img/blog/2015/06/android-app-1.png" width="24%">
 <img src="/assets/img/blog/2015/06/android-app-classic.png" width="24%">
 <img src="/assets/img/blog/2015/06/android-app-classic-2.png" width="24%">

@@ -17,7 +17,7 @@ This release post will cover the following topics:
 2. [Tracker updates](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#tracker-updates)
 2. [Emitter updates](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#emitter-updates)
 3. [Under the hood](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#under-the-hood)
-4. [Demo app](/blog/2015/22/18/snowplow-android-tracker-0.4.0-released/#demo-application)
+4. [Demo app](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#demo-application)
 5. [Documentation](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#docs)
 6. [Getting help](/blog/2015/06/22/snowplow-android-tracker-0.4.0-released/#help)
 

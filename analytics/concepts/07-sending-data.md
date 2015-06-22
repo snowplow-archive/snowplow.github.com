@@ -309,6 +309,6 @@ tracker.track_unstruct_event({
 
 ![snowplow-trackers](/assets/img/architecture/snowplow-architecture-1b-webhooks.png)
 
-A number of third party systems offer webhooks: the ability to stream event data to an end point of yoru choosing, as those events occur in the third party system. At Snowplow, we're working to integrate as many different third party webhooks as possible, so that if you use those services, you can configure them to push event-level data directly into Snowplow.
+A number of third party systems offer webhooks: the ability to stream event data to an end point of your choosing, as those events occur in the third party system. At Snowplow, we're working to integrate as many different third party webhooks as possible, so that if you use those services, you can configure them to push event-level data directly into Snowplow.
 
 Configuring a third party service to stream event-level data into Snowplow is straightforward - it is generally something you do once, via the application UI. For details on the different webhooks that Snowplow supports and instructions on integrating them, see the [setup guide](https://github.com/snowplow/snowplow/wiki/Setting-up-a-webhook).

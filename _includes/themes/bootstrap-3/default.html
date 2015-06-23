@@ -22,8 +22,6 @@
 
     <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
     <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
-    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-main.css" rel="stylesheet" type="text/css">
-    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-footer.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
@@ -77,24 +75,19 @@
 
     {% include snowplow/google-tag-manager %}
 
-    <!-- Header -->
-
     <header>
       <div class="container">
-
-        <!-- Brand -->
 
         <div class="brand" role="banner">
           <div class="logo"><a href="{{ HOME_PATH }}"></a></div>
           <div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div>
         </div>
 
-        <!-- Navigation -->
-
         <nav role="navigation">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">test</button>
-          <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class>
+          <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
+
+          <div class="nav-collapse collapse" id="nav-collapse">
+            <ul>
 
             {% if page.group == 'product' %}
               <li class="active"><a href="/product" class="active without-border">Product</a></li>

@@ -34,6 +34,8 @@ The position of the journey on the Y axis shows its conversion rate and the amou
 
 One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualising all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
 
+<div id="vis"></div>
+
 Technical details of how visualisation was built
 ------------------------------------------------
 

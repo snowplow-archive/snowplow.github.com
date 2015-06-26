@@ -10,7 +10,7 @@ category: Other
 Analysing attribution with a visualisation made using D3js
 ==========================================================
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing), as in deciding which marketing channels to attribute credit to and in what amounts for the conversion of users, is very complex: not only do users interact with many different channels, but channels impact each other's effectiveness. Because of this difficulty, there is not yet an established answer to attribution, although it is clear that businesses must move beyond simplistic [first touch](), [last touch]() and similar simplified models.
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in deciding which marketing channels to attribute credit to and in what amounts for the conversion of users, is very complex: not only do users interact with many different channels, but channels impact each other's effectiveness. Because of this difficulty, there is not yet an established answer to attribution, although it is clear that businesses must move beyond simplistic [first touch](), [last touch]() and similar simplified models.
 
 We wanted to build a tool to help us make sense of the channels users encounter in their journeys and visualise these to help understand:
 
@@ -19,7 +19,7 @@ We wanted to build a tool to help us make sense of the channels users encounter 
 
 Such a visualisation would make it easy to spot patterns in journeys and prioritise more important journeys and channels within these. It would be important for the visualisation to be interactive because of the dense and complex nature of the data.
 
-We have built a first version of this, which we expect to iterate (see [below](#iterative-methodology):
+We have built a first version of this, which we expect to iterate (see [below](#iterative-methodology)):
 
 <div id="vis"><div>
 

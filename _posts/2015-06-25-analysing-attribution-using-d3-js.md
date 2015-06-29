@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: "Analysing attribution with a visualisation made using D3.js"
-title: "Analysing attribution with a visualisation made using D3.js"
+shortenedlink: "Analyzing marketing attribution data with a D3.js visualisation"
+title: "Analyzing marketing attribution data with a D3.js visualisation"
 tags: [data, marketing, attribution, data visualisation, data pipeline, javascript, d3]
 author: Justine
 category: Other

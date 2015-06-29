@@ -49,29 +49,29 @@ We built the visualization using the JavaScript library [D3.js](http://d3js.org/
 
 At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In simplified terms, selections are a group of elements. So for example, in each journey we have a group of the steps that define that journey. We are drawing the visualization using [SVG elements](https://github.com/mbostock/d3/wiki/SVG-Shapes) so we represent each journey step as a rectangle `<rect />` element:
 
-```js
+{% highlight js %}
 var journeySteps = journeys.selectAll('rect') // journeys is a selection of 'g' elements
-```
+{% endhighlight %}
 
 The `journeys` themselves are a selection of SVG [group elements](http://www.w3.org/TR/SVG/struct.html#Groups) `<g></g>` with a class to distinguish them from other group elements. Group elements are useful to group other elements, such as the `journeySteps` described above, and also to apply certain styles and transformations that are then shared by all elements of the group, for example opacity:
 
-```js
+{% highlight js %}
 var journeys = container.selectAll('g.journey') // container is another svg element containing all the chart elements
-```
+{% endhighlight %}
 
 which is styled:
 
-```css
+{% highlight css %}
 g.journey {
   opacity: 0.8
 }
-```
+{% endhighlight %}
 
 The important part is to ['bind' these selections to datasets](http://bost.ocks.org/mike/join/). This is done using the `data()` method on the selection. The argument passed to `data()` is an array so that elements in the data array can correspond to elements in the selection.
 
 Here's a sample of our test dataset to make it easier to follow the code that follows:
 
-```json
+{% highlight js %}
 {
   "values": [
     {
@@ -81,20 +81,20 @@ Here's a sample of our test dataset to make it easier to follow the code that fo
     }
   ]
 }
-```
+{% endhighlight %}
 
-```js
+{% highlight js %}
 var journeys = container.selectAll('g.journey')
     .data(dataset.values)
-```
+{% endhighlight %}
 
 How these elements are added to the webpage depends on the [enter](http://bost.ocks.org/mike/circles/#entering) selection, where we explain via code how we want elements that have a corresponding datum but no actual presence in the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) on the webpage to appear. For example:
 
-```js
+{% highlight js %}
 journeys.enter()
   .append('g')
     .classed('journey', true)
-```
+{% endhighlight %}
 
 The declarative way D3 deals with manipulating elements on the webpage via data bound to those elements is very interesting and powerful; I highly recommend reading [tutorials](https://github.com/mbostock/d3/wiki/Tutorials) to understand more. The [official docs](https://github.com/mbostock/d3/wiki/API-Reference) are also very readable.
 
@@ -102,14 +102,14 @@ The declarative way D3 deals with manipulating elements on the webpage via data 
 
 When you bind data to elements, you can specify a [key function](http://bost.ocks.org/mike/constancy/), like this:
 
-```js
+{% highlight js %}
 function keyFunction(d) {
   return d.letters
 }
 
 var journeys = container.selectAll('g.journey')
     .data(dataset.values, keyFunction)
-```
+{% endhighlight %}
 
 This makes sure that when the dataset of journeys is updated (in the case of using a different filter to choose which journeys to display for example), journeys that are the same between datasets are considered the same journey. The key function allows us to define what is meant by 'same': two journeys are the same journey if they have the same sequence of letters.
 
@@ -123,20 +123,20 @@ One scale, the `yScaleOnAxis`, determines positioning according to the y axis, w
 
 Whenever the brush is changed by clicking and dragging, a 'brush' event is triggered. We add an event listener for this 'brush' event:
 
-```js
+{% highlight js %}
 var viewport = d3.svg.brush()
   .y(yScaleOnAxis)
   .on('brush', function() {
     yScaleOnChart.domain(viewport.empty() ? yScaleOnAxis.domain() : viewport.extent())
     drawInnerChart({ journeyTransitionDuration: 50 })
   })
-```
+{% endhighlight %}
 
 Each time the viewport is changed by the user, the `yScaleOnChart` scale updates its domain (this is updated in the scope of the [function](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L68) applied to the dataset to draw the whole chart). The domain value it is updated to depends on the state of the viewport, using the [ternary operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator): if the viewport is empty, the domain of `yScaleOnChart` is updated to the domain of `yScaleOnAxis`; if it is not it is updated to the return value of `viewport.extent()`.
 
 This is because calling `domain()` without an argument returns its current value without calling it with an argument sets it. The same applies to `extent()`. The extent corresponds to the domain data values the viewport covers. Therefore by changing the `yScaleOnChart` domain to the new `viewport.extent()`, when the chart is re-drawn in the next line of the code, the journeys' vertical position will be re-computed using the new `yScaleOnChart` scaling function:
 
-```js
+{% highlight js %}
 function drawInnerChart(params) {
 
   [...]
@@ -149,7 +149,7 @@ function drawInnerChart(params) {
   [...]
 
 }
-```
+{% endhighlight %}
 
 In summary:
 

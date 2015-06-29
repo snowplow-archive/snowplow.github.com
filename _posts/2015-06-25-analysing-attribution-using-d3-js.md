@@ -7,7 +7,7 @@ author: Justine
 category: Other
 ---
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion is very complex problem: 
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is very complex problem: 
 
 1. We have no way of directly measuring the impact of an individual channel on a user's propensity to convert
 2. It is not uncommon for users to interact with many channels prior to converting

@@ -23,6 +23,10 @@ We have built a first version of this, which we expect to iterate (see [below](#
 
 <div id="vis"></div> <!-- place this line where the visualisation should go -->
 
+#### How to use the visualisation:
+
+The translucent gray rectangle on the y axis is the equivalent of a scrollbar as it can be dragged up and down. It is also possible to resize this rectangle by clicking and dragging its ends, to the effect of zooming into the chart, as this rectangle represents a viewport into the chart. The translucent circles on the y axis represent a journey each and allow the user of the chart to see if there are journeys not covered by the viewport, as well as a quick view of the density of the journeys' conversion rates.
+
 This shows the different journeys taken by users (more precisely by each session identifying them) before they converted.
 A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in.
 For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked").

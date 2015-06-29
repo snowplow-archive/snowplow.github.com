@@ -21,7 +21,7 @@ Such a visualisation would make it easy to spot patterns in journeys and priorit
 
 We have built a first version of this, which we expect to iterate (see [below](#iterative-methodology)):
 
-<div id="vis"><div> <!-- place this where the visualisation should go -->
+<div id="vis"></div> <!-- place this line where the visualisation should go -->
 
 This shows the different journeys taken by users (more precisely by each session identifying them) before they converted.
 A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in.

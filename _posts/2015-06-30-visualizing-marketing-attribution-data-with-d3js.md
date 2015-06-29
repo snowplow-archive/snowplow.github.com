@@ -155,8 +155,8 @@ In summary:
 
   1. user clicks and drags viewport causing:
 
-    - the 'brush' event to be dispatched
-    - `viewport.extent()` to change value
+    1. the 'brush' event to be dispatched
+    2. `viewport.extent()` to change value
 
   2. the 'brush' event triggers the following:
 

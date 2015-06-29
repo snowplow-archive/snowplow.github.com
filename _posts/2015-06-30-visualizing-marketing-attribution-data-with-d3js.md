@@ -1,8 +1,8 @@
 ---
 layout: post
-shortenedlink: "Analyzing marketing attribution data with a D3.js visualisation"
-title: "Analyzing marketing attribution data with a D3.js visualisation"
-tags: [data, marketing, attribution, data visualisation, data pipeline, javascript, d3]
+shortenedlink: "Analyzing marketing attribution data with a D3.js visualization"
+title: "Analyzing marketing attribution data with a D3.js visualization"
+tags: [data, marketing, attribution, data visualization, data pipeline, javascript, d3]
 author: Justine
 category: Other
 ---
@@ -23,7 +23,7 @@ As a step in that direction, we've started to experiment with new approaches to 
 
 We have built a first version of this, which we plan to iterate on:
 
-<div id="vis"></div> <!-- place this line where the visualisation should go -->
+<div id="vis"></div> <!-- place this line where the visualization should go -->
 
 This shows the different journeys taken by users (more precisely by each session identifying them) before they converted. A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
@@ -33,17 +33,17 @@ We decided to go with a representation of user journeys as an horizontal line wi
 
 The position of the journey on the Y axis shows its conversion rate and the amount of people going through the whole journey is encoded in the area of the rectangles making up the journey.
 
-One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualising all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
+One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualizing all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
 
 ## Understanding how the visualization was built
 
 ### Why we chose D3.js
 
-We built the visualisation using the JavaScript library [D3.js](http://d3js.org/) to take advantage of its [dynamic properties](http://d3js.org/#properties) and make a visualisation that adapted to the unique dataset it was given.
+We built the visualization using the JavaScript library [D3.js](http://d3js.org/) to take advantage of its [dynamic properties](http://d3js.org/#properties) and make a visualization that adapted to the unique dataset it was given.
 
-### How is the visualisation built ?
+### How is the visualization built ?
 
-At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In simplified terms, selections are a group of elements. So for example, in each journey we have a group of the steps that define that journey. We are drawing the visualisation using [SVG elements](https://github.com/mbostock/d3/wiki/SVG-Shapes) so we represent each journey step as a rectangle `<rect />` element:
+At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In simplified terms, selections are a group of elements. So for example, in each journey we have a group of the steps that define that journey. We are drawing the visualization using [SVG elements](https://github.com/mbostock/d3/wiki/SVG-Shapes) so we represent each journey step as a rectangle `<rect />` element:
 
 ```js
 var journeySteps = journeys.selectAll('rect') // journeys is a selection of 'g' elements
@@ -166,9 +166,9 @@ In summary:
 
 ## Iterative Methodology
 
-D3 is not the only part of the stack needed to make this visualisation: the data needs to be *computed* and *fetched* from somewhere to be fed into D3. After building this simple first version of a visualisation in D3 using data fetched from a JSON file locally, we decided to use Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) to store the same data remotely. The next step in our process is to compute this aggregated journey-level data from raw events, in order to fill the DynamoDB table. This will be done with Spark as we have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
+D3 is not the only part of the stack needed to make this visualization: the data needs to be *computed* and *fetched* from somewhere to be fed into D3. After building this simple first version of a visualization in D3 using data fetched from a JSON file locally, we decided to use Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) to store the same data remotely. The next step in our process is to compute this aggregated journey-level data from raw events, in order to fill the DynamoDB table. This will be done with Spark as we have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
 Since we are starting 'backwards', each step of the process is facilitated by knowing what the outputed data should 'look like' because we know what input data the next step will require, as we have already built it.
 
-We can then improve this pipeline iteratively: with more examples of what real-world data (as opposed to fake randomly generated data), we can tweak the D3 visualisation, and propagate the change 'backwards' in the pipeline.
+We can then improve this pipeline iteratively: with more examples of what real-world data (as opposed to fake randomly generated data), we can tweak the D3 visualization, and propagate the change 'backwards' in the pipeline.
 

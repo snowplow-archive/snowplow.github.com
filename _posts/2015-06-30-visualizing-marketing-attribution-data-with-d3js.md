@@ -29,19 +29,34 @@ We have built a first version of this, which we plan to iterate on:
 
 <!--more-->
 
-#### How to use the visualisation:
+## Interpreting the visualization
+
+The visualization represents the different journeys taken by users. A journey is made up of a sequence of marketing touches, where the touches are displayed in the order that they occured in. For example, a journey consist of: "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). 
+
+Each journey is represented then as a series of blocks, and is read left to right, with the first marketing touch in the journey on the left and the last on the right:
+
+<!--JUSTINE! INSERT AN ANNOTATED SCREENSHOT HERE -->
+
+For each journey we visualize two metrics:
+
+1. The conversion rate for users who have gone through that journey
+2. The number of users who have gone through that journey
+
+We have represented (1), the conversion rate for each journey, by it's position on the y-axis. This means that journeys higher up in the visualization had a greater percentage of users who converted than those further down.
+
+We represnted (2), the number of users who have gone through that journey, by the height of the bars. Hence a journey that is more highly trafficked is 'fatter'.
+
+<!--JUSTINE! INSERT A SCREENSHOT OF TWO JOURNEYS, ONE HIGHLY TRAFFICKED AND ONE WITH LOW TRAFFIC LEVELS, HERE-->
+
+## Interacting with the visualization
+
+One of the challenges with attribution data sets is that there are potentially a very large number of different conversion pathways, or journeys, so making it hard to visualize clearly in a static representation on a fixed area.
+
+We therefore used D3.js's capabilities to make it possible for an analyst to explore the data set in a dynamic way, zooming into parts of the visualization that are very crowded, so that an analyst can explore the visualization and unpick those journeys that he / she is particularly interested in.
+
 
 The translucent gray rectangle on the y axis is the equivalent of a scrollbar as it can be dragged up and down. It is also possible to resize this rectangle by clicking and dragging its ends, to the effect of zooming into the chart, as this rectangle represents a viewport into the chart. The translucent circles on the y axis represent a journey each and allow the user of the chart to see if there are journeys not covered by the viewport, as well as a quick view of the density of the journeys' conversion rates.
 
-This shows the different journeys taken by users (more precisely by each session identifying them). A journey is a series of user engaging with a sequence of marketing touches, where the touches are displayed in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
-
-In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.
-
-We decided to go with a representation of user journeys as an horizontal line with each of the steps (or touches) in the journey as rectangles, in the order they occured at. Each step is coloured according to the corresponding type of touchpoint.
-
-The position of the journey on the Y axis shows its conversion rate and the amount of people going through the whole journey is encoded in the area of the rectangles making up the journey.
-
-One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualizing all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to enable analysts to interact with the visualization and tease out individual journeys from each other (see below for explanation of how it was coded).
 
 ## Understanding how the visualization was built
 
@@ -174,9 +189,8 @@ In summary:
 
 ## Iterative Methodology
 
-D3 is not the only part of the stack needed to make this visualization: the data needs to be *computed* and *fetched* from somewhere to be fed into D3. After building this simple first version of a visualization in D3 using data fetched from a JSON file locally, we decided to use Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) to store the same data remotely. The next step in our process is to compute this aggregated journey-level data from raw events, in order to fill the DynamoDB table. This will be done with Spark as we have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
+The presented visualizaiton is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have alraedy [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
-Since we are starting 'backwards', each step of the process is facilitated by knowing what the outputed data should 'look like' because we know what input data the next step will require, as we have already built it.
+Once the pipeline is completed I will be able to iterate on it. We plan to test it with real-world data - if you are interested in using this to visualize your data then [get in touch][contact]. We already have a long list of improvements we'd like to make to the visualization, including the ability to filter journeys (so fewer are displayed) and drill through the hierarchy of marketing campaign data (from e.g. medium to source to campaign to term / content). 
 
-We can then improve this pipeline iteratively: with more examples of what real-world data (as opposed to fake randomly generated data), we can tweak the D3 visualization, and propagate the change 'backwards' in the pipeline.
-
+[contact]: /about/

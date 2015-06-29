@@ -25,6 +25,8 @@ We have built a first version of this, which we plan to iterate on:
 
 <div id="vis"></div> <!-- place this line where the visualization should go -->
 
+<!--more-->
+
 This shows the different journeys taken by users (more precisely by each session identifying them) before they converted. A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
 In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.

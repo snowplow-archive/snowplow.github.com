@@ -1,32 +1,31 @@
 ---
 layout: post
-shortenedlink: Analysing attribution with a visualisation made using D3js
-title: Analysing attribution with a visualisation made using D3js
+shortenedlink: "Analysing attribution with a visualisation made using D3.js"
+title: "Analysing attribution with a visualisation made using D3.js"
 tags: [data, marketing, attribution, data visualisation, data pipeline, javascript, d3]
 author: Justine
 category: Other
 ---
 
-Analysing attribution with a visualisation made using D3js
-==========================================================
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion is very complex problem: 
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in deciding which marketing channels to attribute credit to and in what amounts for the conversion of users, is very complex: not only do users interact with many different channels, but channels impact each other's effectiveness. Because of this difficulty, there is not yet an established answer to attribution, although it is clear that businesses must move beyond simplistic first touch, last touch and similar simplified models.
+1. We have no way of directly measuring the impact of an individual channel on a user's propensity to convert
+2. It is not uncommon for users to interact with many channels prior to converting
+3. It is likely that different channels impact each other's effectiveness
 
-We wanted to build a tool to help us make sense of the channels users encounter in their journeys and visualise these to help understand:
+Because of this difficulty, there is not yet an consensus in digital analytics around the best approach to performing attribution, although there is a lot of desireto move beyond simplistic first touch, last touch and basic models.
 
-- what journeys and what channels in what order are users taking
-- how these journeys compare to each other in terms of conversion rate and traffic of users
+As a step in that direction, we've started to experiment with new approaches to visualizing attribution data. This is a sensible first step in any attribution project, so that at a high level an analyst can identify:
 
-Such a visualisation would make it easy to spot patterns in journeys and prioritise more important journeys and channels within these. It would be important for the visualisation to be interactive because of the dense and complex nature of the data.
+1. Combinations of marketing channels that are common (highly trafficked)
+2. Similar journeys, where there appear to be significant differences in conversion rate. (This may suggest that there is something interesting in the difference between the two journeys.)
+3. Journeys with particularly high conversion rates
 
-We have built a first version of this, which we expect to iterate (see [below](#iterative-methodology)):
+We have built a first version of this, which we plan to iterate on:
 
 <div id="vis"></div> <!-- place this line where the visualisation should go -->
 
-This shows the different journeys taken by users (more precisely by each session identifying them) before they converted.
-A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in.
-For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked").
-The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
+This shows the different journeys taken by users (more precisely by each session identifying them) before they converted. A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
 In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.
 
@@ -36,8 +35,7 @@ The position of the journey on the Y axis shows its conversion rate and the amou
 
 One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualising all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
 
-Technical details of how visualisation was built
-------------------------------------------------
+## Understanding how the visualization was built
 
 ### Why we chose D3.js
 
@@ -166,8 +164,7 @@ In summary:
     1. For each 'g.journey' element, its vertical position value is recomputed using the `yScaleOnChart` scaling function
     2. The 'g.journey' element is translated (in the mathematical transformation sense of it moving across the webpage) by the newly calculated vertical position
 
-Iterative Methodology
----------------------
+## Iterative Methodology
 
 D3 is not the only part of the stack needed to make this visualisation: the data needs to be *computed* and *fetched* from somewhere to be fed into D3. After building this simple first version of a visualisation in D3 using data fetched from a JSON file locally, we decided to use Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) to store the same data remotely. The next step in our process is to compute this aggregated journey-level data from raw events, in order to fill the DynamoDB table. This will be done with Spark as we have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 

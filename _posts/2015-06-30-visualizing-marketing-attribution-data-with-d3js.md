@@ -29,6 +29,10 @@ We have built a first version of this, which we plan to iterate on:
 
 <!--more-->
 
+#### How to use the visualisation:
+
+The translucent gray rectangle on the y axis is the equivalent of a scrollbar as it can be dragged up and down. It is also possible to resize this rectangle by clicking and dragging its ends, to the effect of zooming into the chart, as this rectangle represents a viewport into the chart. The translucent circles on the y axis represent a journey each and allow the user of the chart to see if there are journeys not covered by the viewport, as well as a quick view of the density of the journeys' conversion rates.
+
 This shows the different journeys taken by users (more precisely by each session identifying them). A journey is a series of user engaging with a sequence of marketing touches, where the touches are displayed in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
 In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.

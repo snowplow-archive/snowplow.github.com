@@ -10,7 +10,7 @@ category: Other
 Analysing attribution with a visualisation made using D3js
 ==========================================================
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in deciding which marketing channels to attribute credit to and in what amounts for the conversion of users, is very complex: not only do users interact with many different channels, but channels impact each other's effectiveness. Because of this difficulty, there is not yet an established answer to attribution, although it is clear that businesses must move beyond simplistic [first touch](), [last touch]() and similar simplified models.
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in deciding which marketing channels to attribute credit to and in what amounts for the conversion of users, is very complex: not only do users interact with many different channels, but channels impact each other's effectiveness. Because of this difficulty, there is not yet an established answer to attribution, although it is clear that businesses must move beyond simplistic first touch, last touch and similar simplified models.
 
 We wanted to build a tool to help us make sense of the channels users encounter in their journeys and visualise these to help understand:
 
@@ -21,7 +21,7 @@ Such a visualisation would make it easy to spot patterns in journeys and priorit
 
 We have built a first version of this, which we expect to iterate (see [below](#iterative-methodology)):
 
-<div id="vis"><div>
+<div id="vis"><div> <!-- place this where the visualisation should go -->
 
 This shows the different journeys taken by users (more precisely by each session identifying them) before they converted.
 A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in.
@@ -32,7 +32,7 @@ In order to compare between journeys and see at a glance which ones were success
 
 We decided to go with a representation of user journeys as an horizontal line with each of the steps (or touches) in the journey as rectangles, in the order they occured at. Each step is coloured according to the corresponding type of touchpoint.
 
-The position of the journey on the Y axis shows its conversion rate and the amount of people going through the whole journey is encoded in the height of the rectangles making up the journey.
+The position of the journey on the Y axis shows its conversion rate and the amount of people going through the whole journey is encoded in the area of the rectangles making up the journey.
 
 One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualising all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
 
@@ -50,14 +50,12 @@ At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In sim
 ```js
 var journeySteps = journeys.selectAll('rect') // journeys is a selection of 'g' elements
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L283)
 
 The `journeys` themselves are a selection of SVG [group elements](http://www.w3.org/TR/SVG/struct.html#Groups) `<g></g>` with a class to distinguish them from other group elements. Group elements are useful to group other elements, such as the `journeySteps` described above, and also to apply certain styles and transformations that are then shared by all elements of the group, for example opacity:
 
 ```js
 var journeys = container.selectAll('g.journey') // container is another svg element containing all the chart elements
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L254)
 
 which is styled:
 
@@ -66,7 +64,6 @@ g.journey {
   opacity: 0.8
 }
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-style-css-L12-L14)
 
 The important part is to ['bind' these selections to datasets](http://bost.ocks.org/mike/join/). This is done using the `data()` method on the selection. The argument passed to `data()` is an array so that elements in the data array can correspond to elements in the selection.
 
@@ -96,7 +93,6 @@ journeys.enter()
   .append('g')
     .classed('journey', true)
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L262-L264)
 
 The declarative way D3 deals with manipulating elements on the webpage via data bound to those elements is very interesting and powerful; I highly recommend reading [tutorials](https://github.com/mbostock/d3/wiki/Tutorials) to understand more. The [official docs](https://github.com/mbostock/d3/wiki/API-Reference) are also very readable.
 
@@ -112,7 +108,6 @@ function keyFunction(d) {
 var journeys = container.selectAll('g.journey')
     .data(dataset.values, keyFunction)
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L254-L256)
 
 This makes sure that when the dataset of journeys is updated (in the case of using a different filter to choose which journeys to display for example), journeys that are the same between datasets are considered the same journey. The key function allows us to define what is meant by 'same': two journeys are the same journey if they have the same sequence of letters.
 
@@ -134,7 +129,6 @@ var viewport = d3.svg.brush()
     drawInnerChart({ journeyTransitionDuration: 50 })
   })
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L125-L133)
 
 Each time the viewport is changed by the user, the `yScaleOnChart` scale updates its domain (this is updated in the scope of the [function](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L68) applied to the dataset to draw the whole chart). The domain value it is updated to depends on the state of the viewport, using the [ternary operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator): if the viewport is empty, the domain of `yScaleOnChart` is updated to the domain of `yScaleOnAxis`; if it is not it is updated to the return value of `viewport.extent()`.
 
@@ -154,7 +148,6 @@ function drawInnerChart(params) {
 
 }
 ```
-[see in code](https://gist.github.com/galvanic/2eb5043ea7c2dd845975#file-journeyschart-js-L247-L260)
 
 In summary:
 

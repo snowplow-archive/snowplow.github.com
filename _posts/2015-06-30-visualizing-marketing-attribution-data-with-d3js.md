@@ -13,13 +13,15 @@ category: Other
 2. It is not uncommon for users to interact with many channels prior to converting
 3. It is likely that different channels impact each other's effectiveness
 
-Because of this difficulty, there is not yet an consensus in digital analytics around the best approach to performing attribution, although there is a lot of desireto move beyond simplistic first touch, last touch and basic models.
+Because of this difficulty, there is not yet an consensus in digital analytics around the best approach to performing attribution, although there is a lot of desire to move beyond simplistic first touch, last touch and basic models.
 
-As a step in that direction, we've started to experiment with new approaches to visualizing attribution data. This is a sensible first step in any attribution project, so that at a high level an analyst can identify:
+As a step in that direction, we've started to experiment with new approaches to visualizing attribution data. The purpose is to enable analyst to understand:
 
 1. Combinations of marketing channels that are common (highly trafficked)
 2. Similar journeys, where there appear to be significant differences in conversion rate. (This may suggest that there is something interesting in the difference between the two journeys.)
 3. Journeys with particularly high conversion rates
+
+Even these simple first steps are not not straightforward with the visualization provided by digital analytics tools today.
 
 We have built a first version of this, which we plan to iterate on:
 
@@ -27,7 +29,7 @@ We have built a first version of this, which we plan to iterate on:
 
 <!--more-->
 
-This shows the different journeys taken by users (more precisely by each session identifying them) before they converted. A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
+This shows the different journeys taken by users (more precisely by each session identifying them). A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
 In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.
 

@@ -29,7 +29,7 @@ We have built a first version of this, which we plan to iterate on:
 
 <!--more-->
 
-This shows the different journeys taken by users (more precisely by each session identifying them). A journey is a series of touches by the user on different [touchpoints](https://en.wikipedia.org/wiki/Touchpoint), where the touches are in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
+This shows the different journeys taken by users (more precisely by each session identifying them). A journey is a series of user engaging with a sequence of marketing touches, where the touches are displayed in the order that they occured in. For example, a journey could be "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). The idea is that seeing the unique journeys would be helpful to quickly compare between them and their composition of touches.
 
 In order to compare between journeys and see at a glance which ones were successful and which ones had a high traffic, it was necessary to also convey information visually about the conversion rate and the number of users going through each unique journey.
 
@@ -37,7 +37,7 @@ We decided to go with a representation of user journeys as an horizontal line wi
 
 The position of the journey on the Y axis shows its conversion rate and the amount of people going through the whole journey is encoded in the area of the rectangles making up the journey.
 
-One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualizing all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to tease out the journeys from each other (see below for explanation of how it was coded).
+One challenge is that there can be many different journeys (depending on how granular the definition of a touchpoint is). Visualizing all the journeys at once resulted in [crowded charts](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/ed8490785c70c25d863587d8765fe4885d35a221/). We decided to [build a zoom and scroll feature](http://bl.ocks.org/galvanic/raw/2eb5043ea7c2dd845975/4b1dad1f7192f9c935a4b406dac6e3c762eea14a/) to enable analysts to interact with the visualization and tease out individual journeys from each other (see below for explanation of how it was coded).
 
 ## Understanding how the visualization was built
 

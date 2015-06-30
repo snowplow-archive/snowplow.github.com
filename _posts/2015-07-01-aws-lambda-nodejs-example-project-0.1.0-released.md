@@ -265,7 +265,7 @@ This example project is a very simple example of an event processing technique w
 [git-install]: https://help.github.com/articles/set-up-git/
 
 [repo]: https://github.com/snowplow/aws-lambda-nodejs-example-project
-[data-flow]: /assets/img/blog/2015/06/kinesis.png
+[data-flow]: http://docs.aws.amazon.com/lambda/latest/dg/images/kinesis-pull-10.png
 [data-table]: /assets/img/blog/2015/06/dynamodb-table-image.png
 [sparkUI.png]: /assets/img/blog/2015/06/spark-ui-image.png
 [aws-lambda-service]: http://aws.amazon.com/lambda/faqs

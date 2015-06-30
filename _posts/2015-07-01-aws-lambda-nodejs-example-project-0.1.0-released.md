@@ -231,6 +231,8 @@ __I got credentials error running the `grunt` command:__
 
 * Answer - This project requires configuration of AWS Credentials:
 
+Read more about ![AWS credentials][http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html]: 
+
 {% highlight bash %}
 $ aws configure
 {% endhighlight %}

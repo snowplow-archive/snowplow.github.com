@@ -31,7 +31,10 @@ Read on after the fold for:
 
 [AWS Lambda] [aws-lambda-service] is a compute service that runs your code in response to events and automatically manages the compute resources for you, making it easy to build applications that respond quickly to new information. AWS Lambda starts running your code within milliseconds of an event such as an image upload, in-app activity, website click, or output from a connected device. You can also use AWS Lambda to create new back-end services where compute resources are automatically triggered based on custom requests.
 
-[Amazon Kinesis] [kinesis] is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the [new Kinesis receiver] [spark-kinesis-support] that has been recently developed for Spark Streaming, leveraging the [Kinesis Client Library] [kcl].
+[Amazon Kinesis] [kinesis] is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the integration between Kinesis and Lambda services. The Lambda function is simple: it reads incoming event data and logs some of the information to Amazon CloudWatch.
+
+This is an example of the "pull" model where AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. 
+
 
 <div class="html">
 <h2><a name="introducting-analytics-on-write">2. Introducing analytics-on-write</a></h2>

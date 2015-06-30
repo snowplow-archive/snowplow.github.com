@@ -40,7 +40,7 @@ This is an example of the "pull" model where AWS Lambda polls the Amazon Kinesis
 <h2><a name="introducting-analytics-on-write">2. Introducing analytics-on-write</a></h2>
 </div>
 
-Our Spark Streaming job reads a Kinesis stream containing events in a JSON format:
+Our AWS Lambda reads a Kinesis stream containing events in a JSON format:
 
 {% highlight json %}
 {
@@ -165,13 +165,10 @@ Created AWS Lambda Function...
 {% endhighlight %}
 
 
-<h3>Step 6: Build Spark Streaming with Kinesis support</h3>
+<h3>Step 6: Configure AWS Lambda Service</h3>
 
-Now we need to build a version of Spark with Amazon Kinesis support.
-
-Spark now comes packaged with a self-contained Maven installation to ease building and deployment of Spark from source located under the build/ directory. This script will automatically download and setup all necessary build requirements (Maven, Scala, and Zinc) locally within the build/ directory itself. It honors any mvn binary if present already, however, will pull down its own copy of Scala and Zinc regardless to ensure proper version requirements are met.
-
-We can issue the invoke command to build Spark with Kinesis support; be aware that this could take over an hour:
+Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch.
+AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by: 
 
 {% highlight bash %}
 $ grunt connect

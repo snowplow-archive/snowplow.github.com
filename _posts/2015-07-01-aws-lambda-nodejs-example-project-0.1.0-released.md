@@ -1,8 +1,8 @@
 ---
 layout: post
 shortenedlink: AWS Lambda NodeJS example project released
-title: Apache Spark Streaming example project released
-tags: [snowplow, scala, spark, spark streaming, kinesis, dynamodb, tutorial, analytics]
+title: AWS Lambda NodeJS example project released
+tags: [snowplow, javascript, kinesis, dynamodb, tutorial, analytics]
 author: Vincent
 category: Releases
 ---
@@ -188,13 +188,13 @@ Done, without errors.
 
 <h3>Step 7: Generate Events to your Kinesis Stream</h3>
 
-We need to start sending events to our new Kinesis stream. We have created a helper method to do this - run the below and leave it running:
+The final step to getting this projected ready to start processing events is to connect Kinesis. We need to start sending events to our new Kinesis stream. We have created a helper method to do this - run the below and leave it running:
 
 {% highlight bash %}
 $ grunt events
-Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
-Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
-Event sent to Kinesis: {"timestamp": "2015-06-05T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
+Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:43.064528", "type": "Green", "id": "4ec80fb1-0963-4e35-8f54-ce760499d974"}
+Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:43.757797", "type": "Red", "id": "eb84b0d1-f793-4213-8a65-2fb09eab8c5c"}
+Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 ...
 {% endhighlight %}
 

@@ -7,13 +7,13 @@ author: Justine
 category: Other
 ---
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is very complex problem: 
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is a very complex problem: 
 
 1. We have no way of directly measuring the impact of an individual channel on a user's propensity to convert
 2. It is not uncommon for users to interact with many channels prior to converting
 3. It is likely that different channels impact each other's effectiveness
 
-Because of this difficulty, there is not yet an consensus in digital analytics around the best approach to performing attribution, although there is a lot of desire to move beyond simplistic first touch, last touch and basic models.
+Because of this difficulty, there is not yet a consensus in digital analytics around the best approach to performing attribution, although there is a lot of desire to move beyond simplistic first touch, last touch and basic models.
 
 As a step in that direction, we've started to experiment with new approaches to visualizing attribution data. The purpose is to enable analyst to understand:
 
@@ -21,7 +21,7 @@ As a step in that direction, we've started to experiment with new approaches to 
 2. Similar journeys, where there appear to be significant differences in conversion rate. (This may suggest that there is something interesting in the difference between the two journeys.)
 3. Journeys with particularly high conversion rates
 
-Even these simple first steps are not not straightforward with the visualization provided by digital analytics tools today.
+Even these simple first steps are not straightforward with the visualization provided by digital analytics tools today.
 
 We have built a first version of this, which we plan to iterate on:
 
@@ -31,29 +31,30 @@ We have built a first version of this, which we plan to iterate on:
 
 ## Interpreting the visualization
 
-The visualization represents the different journeys taken by users. A journey is made up of a sequence of marketing touches, where the touches are displayed in the order that they occured in. For example, a journey consist of: "Ad #1 displayed, Ad #2 displayed, Ad #1 displayed, Ad #1 clicked" where there are 4 touches on 3 touchpoints ("Ad #1 displayed", "Ad #2 displayed" and "Ad #1 clicked"). 
+The visualization represents the different journeys taken by users. A journey is made up of a sequence of marketing touches, where the touches are displayed in the order that they occurred in. For example, a journey may consist of: "Social, Advertising, Partners, Social" where there are 4 touches on 3 touchpoints ("Social", "Advertising" and "Partners"). 
 
 Each journey is represented then as a series of blocks, and is read left to right, with the first marketing touch in the journey on the left and the last on the right:
 
 <!--JUSTINE! INSERT AN ANNOTATED SCREENSHOT HERE -->
+![Annotated screenshot of one journey where each step is annotated with the channel it corresponds to](/assets/img/blog/2015/06/annotated-journey-example.png)
 
 For each journey we visualize two metrics:
 
 1. The conversion rate for users who have gone through that journey
 2. The number of users who have gone through that journey
 
-We have represented (1), the conversion rate for each journey, by it's position on the y-axis. This means that journeys higher up in the visualization had a greater percentage of users who converted than those further down.
+We have represented (1), the conversion rate for each journey, by its position on the y-axis. This means that journeys higher up in the visualization had a greater percentage of users who converted than those further down.
 
-We represnted (2), the number of users who have gone through that journey, by the height of the bars. Hence a journey that is more highly trafficked is 'fatter'.
+We represented (2), the number of users who have gone through that journey, by the height of the bars. Hence a journey that is more highly trafficked is 'fatter'.
 
 <!--JUSTINE! INSERT A SCREENSHOT OF TWO JOURNEYS, ONE HIGHLY TRAFFICKED AND ONE WITH LOW TRAFFIC LEVELS, HERE-->
+![two journeys, one highly trafficked and fatter, the other low traffic and thinner](/assets/img/blog/2015/06/fat-and-thin-journeys-example.png)
 
 ## Interacting with the visualization
 
-One of the challenges with attribution data sets is that there are potentially a very large number of different conversion pathways, or journeys, so making it hard to visualize clearly in a static representation on a fixed area.
+One of the challenges with attribution data sets is that there are potentially a very large number of different conversion pathways, or journeys, making it hard to visualize clearly in a static representation on a fixed area.
 
-We therefore used D3.js's capabilities to make it possible for an analyst to explore the data set in a dynamic way, zooming into parts of the visualization that are very crowded, so that an analyst can explore the visualization and unpick those journeys that he / she is particularly interested in.
-
+We therefore used D3.js's capabilities to make it possible for an analyst to explore the data set in a dynamic way, zooming into parts of the visualization that are very crowded, so that an analyst can explore the visualization and unpick those journeys that they are particularly interested in.
 
 The translucent gray rectangle on the y axis is the equivalent of a scrollbar as it can be dragged up and down. It is also possible to resize this rectangle by clicking and dragging its ends, to the effect of zooming into the chart, as this rectangle represents a viewport into the chart. The translucent circles on the y axis represent a journey each and allow the user of the chart to see if there are journeys not covered by the viewport, as well as a quick view of the density of the journeys' conversion rates.
 
@@ -66,7 +67,7 @@ We built the visualization using the JavaScript library [D3.js](http://d3js.org/
 
 ### How is the visualization built ?
 
-At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In simplified terms, selections are a group of elements. So for example, in each journey we have a group of the steps that define that journey. We are drawing the visualization using [SVG elements](https://github.com/mbostock/d3/wiki/SVG-Shapes) so we represent each journey step as a rectangle `<rect />` element:
+At the core of D3 are [selections](http://bost.ocks.org/mike/selection/). In simplified terms, selections are a group of elements. For example, in each journey we have a group of the steps that define that journey. We are drawing the visualization using [SVG elements](https://github.com/mbostock/d3/wiki/SVG-Shapes) so we represent each journey step as a rectangle `<rect />` element:
 
 {% highlight js %}
 var journeySteps = journeys.selectAll('rect') // journeys is a selection of 'g' elements
@@ -88,7 +89,7 @@ g.journey {
 
 The important part is to ['bind' these selections to datasets](http://bost.ocks.org/mike/join/). This is done using the `data()` method on the selection. The argument passed to `data()` is an array so that elements in the data array can correspond to elements in the selection.
 
-Here's a sample of our test dataset to make it easier to follow the code that follows:
+Here is a sample of our test dataset to make it easier to follow the code that follows:
 
 {% highlight js %}
 {
@@ -189,7 +190,7 @@ In summary:
 
 ## Iterative Methodology
 
-The presented visualizaiton is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have alraedy [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
+The presented visualization is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have alraedy [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
 Once the pipeline is completed I will be able to iterate on it. We plan to test it with real-world data - if you are interested in using this to visualize your data then [get in touch][contact]. We already have a long list of improvements we'd like to make to the visualization, including the ability to filter journeys (so fewer are displayed) and drill through the hierarchy of marketing campaign data (from e.g. medium to source to campaign to term / content). 
 

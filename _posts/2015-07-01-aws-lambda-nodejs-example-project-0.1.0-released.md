@@ -58,7 +58,7 @@ The most complete open-source example of an analytics-on-write implementation is
 
 1. **Downsampling:** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
 2. **Bucketing:** an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
-3. **Atomic Increment** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to implement a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB.
+3. **Atomic Increment:** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to implement a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB.
 
 
 <div class="html">

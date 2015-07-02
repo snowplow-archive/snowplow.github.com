@@ -4,7 +4,7 @@ shortenedlink: "Analyzing marketing attribution data with a D3.js visualization"
 title: "Analyzing marketing attribution data with a D3.js visualization"
 tags: [data, marketing, attribution, data visualization, data pipeline, javascript, d3]
 author: Justine
-category: Other
+category: Analytics
 ---
 
 [Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is a very complex problem: 

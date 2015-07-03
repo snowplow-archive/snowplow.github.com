@@ -48,7 +48,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 
 When you add contexts to a page view, those contexts automatically get added to all subsequent page pings. But what if you want the contexts to change depending on new information?
 
-It is now possible to pass an array of context-generating functions to `trackPageView`. Each of these functions should return a single custom context. For example:
+It is now possible to pass a context-generating functions to `trackPageView`. This function should return a (possibly empty) array of custom contexts. For example:
 
 {% highlight javascript %}
 // Turn on page pings every 10 seconds
@@ -68,15 +68,16 @@ window.snowplow(
     }
   }],
 
-  // Array containing a function which returns a context
-  [function() {
-    return {
+  // Function which returns an array of custom contexts
+  // Gets called once per page view / page ping
+  function() {
+    return [{
       schema: 'iglu:com.acme/dynamic_context/jsonschema/1-0-0',
       data: {
         dynamicValue: new Date().toString()
       }
-    };
-  }]
+    }];
+  }
 );
 {% endhighlight %}
 
@@ -103,7 +104,7 @@ The previous version of the tracker deprecated the "performanceTiming" argument 
 // window.snowplow('trackPageView', customTitleString, performanceTimingBoolean, contextsArray);
 
 // New
-window.snowplow('trackPageView', customTitleString, contextsArray, contextGeneratingFunctionsArray);
+window.snowplow('trackPageView', customTitleString, contextsArray, contextGeneratingFunction);
 {% endhighlight %}
 
 Additionally, using the `setSessionCookieTimeout` method is no longer effective. This is because the cookie is set as soon as the tracker is created, before the method gets a chance to be called. Instead, use add a sessionCookieTimeout field to the tracker construction argmap:

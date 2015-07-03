@@ -190,7 +190,7 @@ In summary:
 
 ## Iterative Methodology
 
-The presented visualization is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have alraedy [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
+The presented visualization is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
 Once the pipeline is completed I will be able to iterate on it. We plan to test it with real-world data - if you are interested in using this to visualize your data then [get in touch][contact]. We already have a long list of improvements we'd like to make to the visualization, including the ability to filter journeys (so fewer are displayed) and drill through the hierarchy of marketing campaign data (from e.g. medium to source to campaign to term / content). 
 

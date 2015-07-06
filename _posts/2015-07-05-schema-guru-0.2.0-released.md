@@ -22,8 +22,6 @@ This release post will cover the following new features:
 9. [Getting help](/blog/2015/07/05/schema-guru-0.2.0-released/#getting-help)
 10. [Plans for the next release](/blog/2015/07/05/schema-guru-0.2.0-released/#roadmap)
 
-<!--more-->
-
 <div class="html">
 <h2><a name="webui">1. Web UI</a></h2>
 </div>
@@ -35,6 +33,8 @@ Sometimes you just want to create a schema quickly and don't want to mess with C
 The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
 
 ![schema-guru-webui-screenshot](/assets/img/blog/2015/06/schema-guru-webui-screenshot.png)
+
+<!--more-->
 
 <div class="html">
 <h2><a name="ndjson">2. Newline-delimited JSON</a></h2>

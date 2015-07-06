@@ -11,38 +11,38 @@
   {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
   <meta name="author" content="{{ site.author.name }}">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Enable responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- enable responsive viewport -->
 
-  <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Bootstrap styles -->
+  <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- bootstrap -->
+  <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" /> <!-- snowplow-->
 
-  <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" /><!--Added by Snowplow-->
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
 
-  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
-  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
+  <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"> <!-- custom -->
 
-  <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"><!-- Custom styles -->
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+  <link rel="shortcut icon" href="favicon.ico">
 
-    <!-- Fav and touch icons -->
-    <!-- Update these with your own images
+  <!-- Fav and touch icons -->
+  <!-- Update these with your own images
       <link rel="shortcut icon" href="images/favicon.ico">
       <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
       <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
       <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
     -->
 
-    <!-- atom & rss feed -->
-    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+  <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
 
-    {% include snowplow/fonts-and-presentation/typekit-fonts %}
-    {% include snowplow/fonts-and-presentation/mathjax %}
+  {% include snowplow/fonts-and-presentation/typekit-fonts %}
+  {% include snowplow/fonts-and-presentation/mathjax %}
 
 </head>
 
@@ -50,109 +50,31 @@
 
   {% include snowplow/google-tag-manager %}
 
-  <header>
-    <div class="container">
+  {% if page.group == 'homepage' %}<div class="cover"><!-- if on the homepage: use an image -->
+  {% else %}<div class="no-cover"><!-- if on another page: set the header background color -->
+  {% endif %}
 
-        <div class="brand" role="banner">
-          <div class="logo"><a href="{{ HOME_PATH }}"></a></div>
-          <div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div>
-        </div>
+  {% include snowplow/design/header.html %}<!-- include the header -->
 
-        <nav role="navigation">
-          <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
+  {% if page.group == 'homepage' %}{% include snowplow/design/landing.html %}
+  {% endif %}
 
-          <div class="nav-collapse collapse" id="nav-collapse">
-            <ul>
+  </div>
 
-            {% if page.group == 'product' %}
-              <li class="active"><a href="/product" class="active without-border">Product</a></li>
-            {% else %}
-              <li><a href="/product" class="without-border">Product</a></li>
-            {% endif %}
+  <main class="main-snowplow" role="main">
+    <div class="container">{{ content }}</div>
+  </main>
 
-            {% if page.group == 'analytics' %}
-              <li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
-            {% else %}
-              <li><a href="/analytics" class="without-border">Analytics</a></li>
-            {% endif %}
+  <footer>{% include snowplow/design/footer.html %}</footer>
 
-            {% if page.group == 'technology' %}
-              <li class="active"><a href="/technology" class="active without-border">Technology</a></li>
-            {% else %}
-              <li><a href="/technology" class="without-border">Technology</a></li>
-            {% endif %}
+  {% include snowplow/olark %}
 
-            {% if page.url contains 'blog' %}
-              <li class="active"><a href="/blog" class="active without-border">Blog</a></li>
-            {% else %}
-              <li><a href="/blog" class="without-border">Blog</a></li>
-            {% endif %}
+  {% include snowplow/cookie_warning %}
 
-            {% if page.group == 'get-started' %}
-              <li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
-            {% else %}
-              <li><a href="/get-started" class="with-border">Get started</a></li>
-            {% endif %}
+  <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
 
-            </ul>
-          </div>
-        </nav>
-
-      </div>
-    </header>
-
-    <!-- Main -->
-
-    <main class="main-snowplow" role="main">
-      <div class="container">
-        {{ content }}
-      </div>
-    </main>
-
-      <!-- Footer -->
-
-      <footer>
-        <div class="container">
-          <div class="about">
-            <h6>About Snowplow</h6>
-            <ul>
-              <li><a href="/about/">Contact</a></li>
-              <li><a href="/about/team.html">Team</a></li>
-              <li><a href="/about/jobs.html">Jobs</a></li>
-              <li><a href="/about/partners.html">Partners</a></li>
-            </ul>
-          </div>
-          <div class="contact">
-            <h6>Interested in Snowplow? Let us know!</h6>
-            <div class="contact address">
-              <address>
-                <strong>Snowplow Analytics Limited</strong><br />
-                The Roma Building, 32-38 Scrutton Street<br />
-                London EC2A 4RQ<br />
-                United Kingdom
-              </address>
-            </div>
-            <div class="contact phone">
-              <ul>
-                <li>Phone: <a href="tel:+442035896116">+44 (0) 203 589 6116</a></li>
-                <li>Email: <a href="mailto:contact@snowplowanalytics.com">contact@snowplowanalytics.com</a></li>
-                <li>Twitter: <a href="http://twitter.com/snowplowdata">@SnowplowData</a></li>
-                <li>Google Group: <a href="https://groups.google.com/forum/#!forum/snowplow-user">snowplow-user</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="notice">Copyright &copy; {{ site.time | date: '%Y' }} Snowplow Analytics Ltd. All rights reserved. <a href="/privacy">Privacy policy</a>.</div>
-        </div>
-      </footer>
-
-    {% include snowplow/olark %}
-
-    {% include snowplow/cookie_warning %}
-
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="{{ ASSET_PATH }}/bootstrap/js/bootstrap.min.js"></script>
-
-  </body>
+</body>
 </html>

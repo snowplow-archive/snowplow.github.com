@@ -26,8 +26,11 @@ This release post will cover the following new features:
 <h2><a name="webui">1. Web UI</a></h2>
 </div>
 
-The fFirst big feature of version 0.2.0 is the new web UI. Sometimes you just want to create a schema quickly and don't want to mess with CLI.
-For this use case we implemented a single page web app for Schema Guru. The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
+The first big feature of version 0.2.0 is the new web UI, which you can try out at [schemaguru.snowplowanalytics.com] [webui-demo].
+
+Sometimes you just want to create a schema quickly and don't want to mess with CLI. For this use case we implemented a single page web app version of Schema Guru which embeds the same logic as the CLI.
+
+The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
 
 ![schema-guru-webui-screenshot][pic]
 
@@ -55,25 +58,27 @@ Now if Schema Guru encounters suspiciously similar keys, it will warn you; this 
 
 In the previous release we implementing all string formats supported by the JSON Schema specification has. Another common format for strings in JSON is Base64 encoding. From this release, if a string value matches the [Base64 regular expression] [base64-regex], Schema Guru will add this regex to string's pattern.
 
-Like Schema Guru detecting a string format, if even a single input JSON instance does not match pattern, then the pattern won't be added to the final schema.
+Like Schema Guru detecting string formats, if even a single input JSON instance does not match pattern, then the pattern won't be added to the final schema.
 
 <div class="html">
 <h2><a name="enums">5. Enums</a></h2>
 </div>
 
-One more JSON Schema feature - enums.
-You can specify enum cardinality tolerance in both CLI and Web UI and if set of all values of key is less or equal to this cardinality, your final schema will contain enum property.
-By default enum recognition is disabled.
-In future versions we plan to add predefined enum sets like ISO 4217, ISO 3166-1, months, days of weeks, etc.
+We are pleased to add support for another JSON Schema feature: enums.
 
+By default enum recognition is disabled; to enable it, specify an enum cardinality tolerance in either the CLI or the web UI. If the number of discrete values found for a JSON property is less than or equal to this cardinality, then the property will be defined using a fully-specified enum in the JSON Schema.
+
+In future versions we plan to add pre-defined enum sets such as ISO 4217, ISO 3166-1, months, days of weeks, etc.
 
 <div class="html">
 <h2><a name="segmentation">6. Schema segmentation</a></h2>
 </div>
 
-Sometimes vendor outputs big number of slightly similar, but still different instances and adds metainformation to it.
-In that case to separate different types of Schema we can specify JSON Path to property with Schema's name.
-For example:
+Sometimes you will have a whole collection of newline-delimited JSONs which are lumped into the same folder but represent a set of fundamentally different _types_. A good example of this are the JSON event archives provided by analytics companies such as [Mixpanel] [mixpanel], [Keen.io] [keenio] and [Segment] [segment].
+
+To derive JSON Schemas from these JSON collections, you can now use a [JSON Path] [json-path] to specify which property in the JSON instances determines the type of the JSON instance, and thus which named JSON Schema the instance will be used to derive.
+
+Let's take these two JSONs:
 
 {% highlight json %}
 { "version": 1,
@@ -86,7 +91,7 @@ For example:
   "timestamp" : "2012-12-02T00:30:08.276Z" }
 {% endhighlight %}
 
-and
+and:
 
 {% highlight json %}
 { "version": 1,
@@ -99,16 +104,15 @@ and
   "timestamp" : "2012-12-02T00:28:02.273Z" }
 {% endhighlight %}
 
-These schemas obviously contains information about different events, but they has common origin.
-We can specify path to event name and output directory:
+These JSONs contain information about different event types, so we should use them to derive two separate schemas. We can use the new `--schema-by` CLI argument to achieve this:
 
 {% highlight bash %}
 $ ./schema-guru-0.2.0 --dir /path/to/all_events --output-dir /home/guru/event_schemas --schema-by $.event
 {% endhighlight %}
 
-Now in event_schemas directory will appear at least two schemas: Purchased_an_Item.json and Posted_a_Comment.json.
-Notice that Schema Guru expect this path will be plain string.
-If path haven't found or it isn't plain string schema will named unmatched.json and all "unmatched" schemas will be merged together.
+Now at least two schemas will be written to the `event_schemas` folder: `Purchased_an_Item.json` and `Posted_a_Comment.json`.
+
+If in a given JSON instance the property at the specific JSON Path isn't found or it isn't a simple string, then the instance will be used to derive a new `unmatched.json` JSON Schema.
 
 <div class="html">
 <h2><a name="self-describing">7. Self-describing Schema</a></h2>
@@ -120,9 +124,14 @@ In our case format will always contain "jsonschema" (at least for now).
 Another properties you need to specify manually with following CLI options: --vendor, --name and --version (default is 0-1-0) respectively.
 One more additional feature is name property autofill in case of schema segmentation: name property and filename will be the same and thus only required option will be --vendor.
 
+<h2><a name="help">9. Getting help</a></h2>
+
+For more details on this release, please check out the [Huskimo 0.2.0][020-release] on GitHub. 
+
+We will be building a dedicated wiki for Huskimo to support its usage; in the meantime, if you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
 <div class="html">
-<h2><a name="roadmap">8. Plans for the next release</a></h2>
+<h2><a name="roadmap">10. Plans for the next release</a></h2>
 </div>
 
 In our next release we are planning to:
@@ -131,9 +140,23 @@ In our next release we are planning to:
 
 
 [repo]: https://github.com/snowplow/schema-guru
+[webui]: http://schemaguru.snowplowanalytics.com/
+
 [first-release]: http://snowplowanalytics.com/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/
+[020-release]: https://github.com/snowplow/schema-guru/releases/tag/0.2.0
+
+[mixpanel]: https://mixpanel.com/
+[keenio]: https://keen.io/
+[segment]: https://segment.com/
+
+[json-path]: http://jsonpath.curiousconcept.com/
+
 [ndjson]: http://ndjson.org/
 [levenshtein]: https://en.wikipedia.org/wiki/Levenshtein_distance
 [base64-regex]: http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/475217#475217
+
+[issues]: https://github.com/snowplow/schema-guru/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
 [self-describing]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [iglu-utils]: https://github.com/snowplow/iglu-utils

@@ -26,9 +26,9 @@ This release post will cover the following new features:
 <h2><a name="webui">1. Web UI</a></h2>
 </div>
 
-The first big feature of version 0.2.0 is the new web UI, which you can try out at [schemaguru.snowplowanalytics.com] [webui].
+The first big feature of version 0.2.0 is the new web UI, which you can try out at [schemaguru.snowplowanalytics.com] [webui-demo].
 
-Sometimes you just want to create a schema quickly and don't want to mess with CLI. For this use case we implemented a single page web app version of Schema Guru which embeds the same logic as the CLI.
+Sometimes you just want to create a schema quickly and don't want to mess with a CLI. For this use case we implemented a single page web app version of Schema Guru which embeds the same logic as the CLI.
 
 The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
 
@@ -106,7 +106,7 @@ and:
   "timestamp" : "2012-12-02T00:28:02.273Z" }
 {% endhighlight %}
 
-These JSONs contain information about different event types, so we should use them to derive two separate schemas. We can use the new `--schema-by` CLI argument to achieve this:
+These JSONs contain information about two different event types, so we should use them to derive two distinct schemas. We can use the new `--schema-by` CLI argument to achieve this:
 
 {% highlight bash %}
 $ ./schema-guru-0.2.0 --dir /path/to/all_events --output-dir /home/guru/event_schemas --schema-by $.event
@@ -142,7 +142,7 @@ $ unzip schema_guru_0.2.0.zip
 Assuming you have a recent JVM installed, running should be as simple as:
 
 {% highlight bash %}
-$ ./schema-guru-0.2.0 --dir {{jsons_directory}}
+$ ./schema-guru-0.2.0 --dir /path/to/all_events
 {% endhighlight %}
 
 <h2><a name="help">9. Getting help</a></h2>
@@ -157,7 +157,7 @@ We will be building a dedicated wiki for Huskimo to support its usage; in the me
 
 In our next release we are planning to:
 
-* Implement Spark support to allow the derivation of JSON schema from much larger JSON archives in Amazon S3
+* Implement [Apache Spark] [spark] support to allow the derivation of JSON schema from much larger JSON archives in Amazon S3
 * Make the new web UI user-friendly and featureful
 * Improve the integration of Schema Guru with our upcomming [iglu-utils] [iglu-utils] tool
 
@@ -165,19 +165,18 @@ Stay tuned!
 
 [pic]: /assets/img/blog/2015/06/schema-guru-webui-screenshot.png
 [repo]: https://github.com/snowplow/schema-guru
-[webui]: http://schemaguru.snowplowanalytics.com/
+[webui-demo]: http://schemaguru.snowplowanalytics.com/
 
 [first-release]: http://snowplowanalytics.com/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/
 [020-release]: https://github.com/snowplow/schema-guru/releases/tag/0.2.0
-
-[webui-demo]: http://schemaguru.snowplowanalytics.com/
 
 [mixpanel]: https://mixpanel.com/
 [keenio]: https://keen.io/
 [segment]: https://segment.com/
 
-[json-path]: http://jsonpath.curiousconcept.com/
+[spark]: https://spark.apache.org/
 
+[json-path]: http://jsonpath.curiousconcept.com/
 [ndjson]: http://ndjson.org/
 [levenshtein]: https://en.wikipedia.org/wiki/Levenshtein_distance
 [base64-regex]: http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/475217#475217

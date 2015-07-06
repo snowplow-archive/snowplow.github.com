@@ -32,7 +32,7 @@ Sometimes you just want to create a schema quickly and don't want to mess with C
 
 The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
 
-![schema-guru-webui-screenshot](/assets/img/blog/2015/06/schema-guru-webui-screenshot.png)
+![schema-guru-webui-screenshot] [pic]
 
 <!--more-->
 

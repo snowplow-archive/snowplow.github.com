@@ -17,8 +17,10 @@ This release post will cover the following new features:
 4. [Base64 pattern](/blog/2015/07/05/schema-guru-0.2.0-released/#base64)
 5. [Enums](/blog/2015/07/05/schema-guru-0.2.0-released/#enums)
 6. [Schema segmentation](/blog/2015/07/05/schema-guru-0.2.0-released/#segmentation)
-7. [Self-describing Schema](/blog/2015/07/05/schema-guru-0.2.0-released/#self-describing)
-8. [Plans for the next release](/blog/2015/07/05/schema-guru-0.2.0-released/#roadmap)
+7. [Self-describing schemas](/blog/2015/07/05/schema-guru-0.2.0-released/#self-describing)
+8. [Upgrading](/blog/2015/07/05/schema-guru-0.2.0-released/#upgrading)
+9. [Getting help](/blog/2015/07/05/schema-guru-0.2.0-released/#getting-help)
+10. [Plans for the next release](/blog/2015/07/05/schema-guru-0.2.0-released/#roadmap)
 
 <!--more-->
 
@@ -115,20 +117,20 @@ Now at least two schemas will be written to the `event_schemas` folder: `Purchas
 If in a given JSON instance the property at the specific JSON Path isn't found or it isn't a simple string, then the instance will be used to derive a new `unmatched.json` JSON Schema.
 
 <div class="html">
-<h2><a name="self-describing">7. Self-describing Schema</a></h2>
+<h2><a name="self-describing">7. Self-describing schemas</a></h2>
 </div>
 
-Last feature is support of [Self-describing Schemas][self-describing].
-To describe it very shortly and roughly: it adds meta information about schema to itself with following properties: vendor, name, version and format.
-In our case format will always contain "jsonschema" (at least for now).
+The last new feature is support of [self-describing schemas][self-describing]. Enabling this feature will add metadata to the schema, specifically the properties: vendor, name, version and format. For now, the format will always be `jsonschema` (at least for now).
 Another properties you need to specify manually with following CLI options: --vendor, --name and --version (default is 0-1-0) respectively.
 One more additional feature is name property autofill in case of schema segmentation: name property and filename will be the same and thus only required option will be --vendor.
 
+<h2><a name="upgrading">8. Upgrading</a></h2>
+
 <h2><a name="help">9. Getting help</a></h2>
 
-For more details on this release, please check out the [Huskimo 0.2.0][020-release] on GitHub. 
+For more details on this release, please check out the [Schema Guru 0.2.0] [020-release] on GitHub.
 
-We will be building a dedicated wiki for Huskimo to support its usage; in the meantime, if you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
+We will be building a dedicated wiki for Huskimo to support its usage; in the meantime, if you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 <div class="html">
 <h2><a name="roadmap">10. Plans for the next release</a></h2>
@@ -136,8 +138,11 @@ We will be building a dedicated wiki for Huskimo to support its usage; in the me
 
 In our next release we are planning to:
 
-* Implement Spark support to distribute Schema derivation, make Web UI more user-friendly and featurefull and also make Schema Guru play well with our upcomming tool [iglu-utils][iglu-utils].
+* Implement Spark support to allow the derivation of JSON schema from much larger JSON archives in Amazon S3
+* Make the new web UI user-friendly and featureful
+* Improve the integration of Schema Guru with our upcomming [iglu-utils] [iglu-utils] tool
 
+Stay tuned!
 
 [repo]: https://github.com/snowplow/schema-guru
 [webui]: http://schemaguru.snowplowanalytics.com/

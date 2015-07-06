@@ -163,11 +163,14 @@ In our next release we are planning to:
 
 Stay tuned!
 
+[pic]: /assets/img/blog/2015/06/schema-guru-webui-screenshot.png
 [repo]: https://github.com/snowplow/schema-guru
 [webui]: http://schemaguru.snowplowanalytics.com/
 
 [first-release]: http://snowplowanalytics.com/blog/2015/06/03/schema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/
 [020-release]: https://github.com/snowplow/schema-guru/releases/tag/0.2.0
+
+[webui-demo]: http://schemaguru.snowplowanalytics.com/
 
 [mixpanel]: https://mixpanel.com/
 [keenio]: https://keen.io/

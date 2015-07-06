@@ -157,7 +157,7 @@ We will be building a dedicated wiki for Huskimo to support its usage; in the me
 
 In our next release we are planning to:
 
-* Implement [Apache Spark] [spark] support to allow the derivation of JSON schema from much larger JSON archives in Amazon S3
+* Implement [Apache Spark] [spark] support to allow the derivation of JSON schemas from much larger JSON archives stored in Amazon S3
 * Make the new web UI user-friendly and featureful
 * Improve the integration of Schema Guru with our upcomming [iglu-utils] [iglu-utils] tool
 

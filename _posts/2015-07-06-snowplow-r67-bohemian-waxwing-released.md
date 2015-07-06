@@ -24,11 +24,11 @@ Table of contents:
 
 <!--more-->
 
-<h2><a name="snowplow-tracking">1. Embedded Snowplow Tracking</a></h2>
+<h2 id="snowplow-tracking">1. Embedded Snowplow Tracking</h2>
 
 Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to record Snowplow events from within the application themselves.  These events include a `heartbeat` which is sent every 5 minutes so we know that the application is still alive and kicking, events for each `failure` in pushing events to the Kinesis Streams, S3 or Elasticsearch and `initialization`/`shutdown` events.
 
-<h2><a name="handling-big-events">2. Handling Big Events</a></h2>
+<h2 id="handling-big-events">2. Handling Big Events</h2>
 
 Previously the Scala Stream Collector was unable to handle any events that exceeded the maximum byte limit of the Kinesis Stream.  So large POST payloads simply had to be discarded due to the inability to actually send them on.  The collector now has the ability to break apart large event payloads into smaller manageable events which can then be sent to the Kinesis Stream, reducing data loss in the case of big event payloads.  However with the increase of record put size to 1MB from 50kB in Kinesis it is unlikely to be too big of an issue anymore!
 
@@ -36,19 +36,19 @@ Unfortunately if the event was sent via GET then we still cannot do anything abo
 
 With the ability to split large events we have also included a `bad` output stream with the collector.  So events that exceed these limitations will be logged with an error and the total byte size, then outputted to `stderr` or to a `bad` Kinesis stream.
 
-<h2><a name="timestamps">3. More informative bad rows</a></h2>
+<h2 id="timestamps">3. More informative bad rows</h2>
 
 All the Kinesis apps are capable of emitting bad rows corresponding to failed events. These bad rows had a `line` field, containing the body of the failed event, and an `errors` field, containing a non-empty list of problems with the event. Bohemian Waxwing adds a `timestamp` field containing the time at which the event was failed. This makes it easier to monitor the progress of applications which consume failed events.
 
-<h2><a name="vm">4. Improved virtual environment</a></h2>
+<h2 id="vm">4. Improved virtual environment</h2>
 
 Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine involves reading a lot of files. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
 
-<h2><a name="kinesis-s3">5. New Kinesis-S3 repository</a></h2>
+<h2 id=="kinesis-s3">5. New Kinesis-S3 repository</h2>
 
 Since the Kinesis S3 Sink is not Snowplow-specific but can be used to move arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3].
 
-<h2><a name="other">6. Other changes</a></h2>
+<h2 id="other">6. Other changes</h2>
 
 We have also:
 
@@ -61,7 +61,7 @@ We have also:
 * Made the Kinesis Elasticsearch Sink exit immediately if the bad stream does not exist rather than waiting until the first bad event ([#1677][1677])
 * Started logging all bad rows in Scala Kinesis Enrich to simplify debugging ([#1722][1722])
 
-<h2><a name="upgrading">7. Upgrading</a></h2>
+<h2 id="upgrading">7. Upgrading</h2>
 
 The Kinesis apps for r67 Bohemian Waxwing are now all available in a single zip file here:
 
@@ -120,7 +120,7 @@ enrich {
 
 And that's it - you should now be fully upgraded!
 
-<h2><a name="help">8. Getting help</a></h2>
+<h2 id="help">8. Getting help</h2>
 
 For more details on this release, please check out the [r67 Bohemian Waxwing][r67-release] on GitHub. 
 

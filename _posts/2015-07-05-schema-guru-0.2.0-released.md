@@ -114,17 +114,36 @@ $ ./schema-guru-0.2.0 --dir /path/to/all_events --output-dir /home/guru/event_sc
 
 Now at least two schemas will be written to the `event_schemas` folder: `Purchased_an_Item.json` and `Posted_a_Comment.json`.
 
-If in a given JSON instance the property at the specific JSON Path isn't found or it isn't a simple string, then the instance will be used to derive a new `unmatched.json` JSON Schema.
+If any supplied JSON instance doesn't contain the property at the specified JSON Path, or the property is not a string, then that instance will instead be used to derive a new `unmatched.json` JSON Schema.
 
 <div class="html">
 <h2><a name="self-describing">7. Self-describing schemas</a></h2>
 </div>
 
-The last new feature is support of [self-describing schemas][self-describing]. Enabling this feature will add metadata to the schema, specifically the properties: vendor, name, version and format. For now, the format will always be `jsonschema` (at least for now).
-Another properties you need to specify manually with following CLI options: --vendor, --name and --version (default is 0-1-0) respectively.
-One more additional feature is name property autofill in case of schema segmentation: name property and filename will be the same and thus only required option will be --vendor.
+The last new feature is support for [self-describing JSON Schema] [self-describing]. Enabling this feature will add metadata to the schema, specifically the properties: vendor, name, version and format.
+
+For now, the format will always be `jsonschema`. You can specify the other properties manually with the following CLI options:
+
+* `--vendor`, e.g. `--vendor com.snowplowanalytics.snowplow`
+* `--name`, e.g. `--name buy_virtual_currency`
+* `--version`, e.g. `--version 2-0-0`. The default is 0-1-0 but will be changed to 1-0-0 following [this bug fix] [issue-80]
+
+If you are segmenting schemas with `--schema-by`, then the `name` property will be auto-filled, so the only required option is `--vendor`.
 
 <h2><a name="upgrading">8. Upgrading</a></h2>
+
+Simply download the latest Schema Guru from Bintray:
+
+{% highlight bash %}
+$ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_0.2.0.zip
+$ unzip schema_guru_0.2.0.zip
+{% endhighlight %}
+
+Assuming you have a recent JVM installed, running should be as simple as:
+
+{% highlight bash %}
+$ ./schema-guru-0.2.0 --dir {{jsons_directory}}
+{% endhighlight %}
 
 <h2><a name="help">9. Getting help</a></h2>
 
@@ -161,6 +180,7 @@ Stay tuned!
 [base64-regex]: http://stackoverflow.com/questions/475074/regex-to-parse-or-validate-base64-data/475217#475217
 
 [issues]: https://github.com/snowplow/schema-guru/issues
+[issue-80]: https://github.com/snowplow/schema-guru/issues/80
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 
 [self-describing]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/

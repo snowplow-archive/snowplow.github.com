@@ -34,7 +34,7 @@ Sometimes you just want to create a schema quickly and don't want to mess with C
 
 The web UI also shows you a "diff" of how your schema changes with the addition of each extra JSON instance:
 
-![schema-guru-webui-screenshot](/assets/img/blog/2015/06/annotated-journey-example.png)
+![schema-guru-webui-screenshot](/assets/img/blog/2015/06/schema-guru-webui-screenshot.png)
 
 <div class="html">
 <h2><a name="ndjson">2. Newline-delimited JSON</a></h2>

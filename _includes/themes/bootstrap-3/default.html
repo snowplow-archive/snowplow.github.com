@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    {% if page.group == 'homepage' %}<title>{{ page.title }}</title>
-    {% else %}<title>{{ page.title }} – Snowplow</title>
-    {% endif %}
+  {% if page.group == 'homepage' %}<title>{{ page.title }}</title>
+  {% else %}<title>{{ page.title }} – Snowplow</title>
+  {% endif %}
 
-    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
-    <meta name="author" content="{{ site.author.name }}">
+  {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+  <meta name="author" content="{{ site.author.name }}">
 
-    <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- Enable responsive viewport -->
 
-    <!-- Bootstrap styles -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"><!-- Bootstrap styles -->
 
-    <!--Added by Snowplow-->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" />
+  <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" /><!--Added by Snowplow-->
 
-    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
-    <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles -->
-    <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+  <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"><!-- Custom styles -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,35 +44,14 @@
     {% include snowplow/fonts-and-presentation/typekit-fonts %}
     {% include snowplow/fonts-and-presentation/mathjax %}
 
+</head>
 
-    <script src="classie.js"></script>
-    <script>
-    function init() {
-        window.addEventListener('scroll', function(e){
-            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-                shrinkOn = 80,
-                nav = document.querySelector("nav");
-            if (distanceY > shrinkOn) {
-                classie.add(nav,"smaller");
-            } else {
-                if (classie.has(nav,"smaller")) {
-                    classie.remove(nav,"smaller");
-                }
-            }
-        });
-    }
-    window.onload = init();
-    </script>
+<body>
 
+  {% include snowplow/google-tag-manager %}
 
-  </head>
-
-  <body>
-
-    {% include snowplow/google-tag-manager %}
-
-    <header>
-      <div class="container">
+  <header>
+    <div class="container">
 
         <div class="brand" role="banner">
           <div class="logo"><a href="{{ HOME_PATH }}"></a></div>

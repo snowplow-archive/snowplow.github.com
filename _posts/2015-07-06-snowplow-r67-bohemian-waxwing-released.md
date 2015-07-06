@@ -44,7 +44,7 @@ All the Kinesis apps are capable of emitting bad rows corresponding to failed ev
 
 Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine involves reading a lot of files. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
 
-<h2 id=="kinesis-s3">5. New Kinesis-S3 repository</h2>
+<h2 id="kinesis-s3">5. New Kinesis-S3 repository</h2>
 
 Since the Kinesis S3 Sink is not Snowplow-specific but can be used to move arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3].
 
@@ -103,7 +103,7 @@ enrich {
   - This is a wholly optional section, if you do not want Tracking to occur simply do not add this to your HOCON.
 
 {% highlight bash %}
-enrich {
+sink {
     
     ...
 

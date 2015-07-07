@@ -10,34 +10,24 @@
         <div class="nav-collapse collapse" id="nav-collapse">
           <ul>
 
-          {% if page.group == 'product' %}
-            <li class="active"><a href="/product" class="active without-border">Product</a></li>
-          {% else %}
-            <li><a href="/product" class="without-border">Product</a></li>
+          {% if page.group == 'product' %}<li class="active"><a href="/product" class="active without-border">Product</a></li>
+          {% else %}<li><a href="/product" class="without-border">Product</a></li>
           {% endif %}
 
-          {% if page.group == 'analytics' %}
-            <li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
-          {% else %}
-            <li><a href="/analytics" class="without-border">Analytics</a></li>
+          {% if page.group == 'analytics' %}<li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
+          {% else %}<li><a href="/analytics" class="without-border">Analytics</a></li>
           {% endif %}
 
-          {% if page.group == 'technology' %}
-            <li class="active"><a href="/technology" class="active without-border">Technology</a></li>
-          {% else %}
-            <li><a href="/technology" class="without-border">Technology</a></li>
+          {% if page.group == 'technology' %}<li class="active"><a href="/technology" class="active without-border">Technology</a></li>
+          {% else %}<li><a href="/technology" class="without-border">Technology</a></li>
           {% endif %}
 
-          {% if page.url contains 'blog' %}
-            <li class="active"><a href="/blog" class="active without-border">Blog</a></li>
-          {% else %}
-            <li><a href="/blog" class="without-border">Blog</a></li>
+          {% if page.url contains 'blog' %}<li class="active"><a href="/blog" class="active without-border">Blog</a></li>
+          {% else %}<li><a href="/blog" class="without-border">Blog</a></li>
           {% endif %}
 
-          {% if page.group == 'get-started' %}
-            <li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
-          {% else %}
-            <li><a href="/get-started" class="with-border">Get started</a></li>
+          {% if page.group == 'get-started' %}<li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
+          {% else %}<li><a href="/get-started" class="with-border">Get started</a></li>
           {% endif %}
 
           </ul>

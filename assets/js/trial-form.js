@@ -51,7 +51,7 @@ $(function() {
 
 		// If passed validation, now submit form to the dataLayer
 		dataLayer.push({
-			'event': 'register_for_real_time',
+			'event': 'submit_trial_form',
 			'submission': submission
 		});
 

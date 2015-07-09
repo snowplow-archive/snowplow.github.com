@@ -23,7 +23,9 @@ Read on for more information:
 
 In April, Snowplow Release 63 Red-Cheeked Cordon-Bleu added a "domain_sessionid" field to the enriched event model. The latest JavaScript Tracker version populates this field with a version 4 UUID that is unique to a given session. This ID is stored in the Snowplow ID cookie (which contains other persistent data, including the user ID.) The ID is regenerated whenever the user is away from the domain for over 30 minutes (the time taken for the session cookie to expire). This ID is attached to every event.
 
-If cookies are disabled, the session ID will be stored in memory rather than in a cookie. It will expire when the user leaves the page.
+If cookies are disabled, the session ID will be stored in memory rather than in a cookie. It will be regenerated after 30 minutes.
+
+This release also changes how the JavaScript Tracker measures the visit count (which corresponds to the "domain_sessionidx" field in atomic.events) when cookies are disabled. Previously, every event sent would have visit count equal to 1. Now the Tracker keeps the visit count in memory and increments it when the user is inactive on the page for 30 minutes. (But the visit count will still reset once the user reloads or leaves the page.)
 
 <h2 id="pageview-id">2. The page view ID</h2>
 

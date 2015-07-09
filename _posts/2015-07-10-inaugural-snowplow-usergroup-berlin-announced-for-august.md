@@ -7,11 +7,11 @@ author: Yali
 category: Releases
 ---
 
-I am really delighted to announce the first Snowplow meetup group Berlin will be taking place on August 11th.
+I am really delighted to announce the first Snowplow meetup in Berlin will be taking place on August 11th.
 
 ![berlin][pic1]
 
-We've now had Snowplow meetups in [London] [london], [Sydney] [sydney] and [Amsterdam] [amsterdam]. These events have been great because Snowplow users tend to be very sophisticated data consumers - so the meetups provide a good opportunity to share ideas and approaches to answering questions with event-level data as well as debate different approaches. All the events to date have been attended by a real mix of people with from different backgrounds (business intelligence, data science, marketing, product, engineering) and industries (publishing, retail, financial services, technology), which has kept the discussion unpredictable and lively :-).
+We've now had Snowplow meetups in [London] [london], [Sydney] [sydney] and [Amsterdam] [amsterdam]. These events have been great because Snowplow users tend to be very sophisticated data consumers - so the meetups provide a good opportunity to share ideas and approaches to answering questions with event-level data, as well as a good forum to debate different analytic and technical approaches. All the events to date have been attended by a real mix of people with from different backgrounds (business intelligence, data science, marketing, product, engineering) and industries (publishing, retail, financial services, technology), which has kept the discussions unpredictable and lively :-).
 
 We are very lucky to have two excellent speakers for this first event in Berlin. The first, Christian Schäfer, is Business Intelligence Manager at [Sparwelt.de](http://www.sparwelt.de/), where he's repsonsible for bridging the between business units and technical BI. Christian will be talking about modeling event-level data. In his own words:
 
@@ -40,7 +40,9 @@ Our second speaker is Sixtine Vervial, a Data Analyst at [Goeuro.com](http://www
 
 If you're a Snowplow user, prospective user, or just interested, then [sign up here][meetup-signup]. I look forward to meeting you all, and discuss the above and more, in August!
 
-[pic1]: /assets/img/2015/07/berlin.jpg
+Finally, big thanks to both Sixtine and Christian for speaking, and Chris, Diego and Stephen at [Leroi Marketing](http://www.leroi-marketing.de/) for making this meetup happen.
+
+[pic1]: /assets/img/blog/2015/07/berlin.jpg
 [meetup-signup]: http://www.meetup.com/Snowplow-Analytics-Berlin/t/ti1_1/?gj=ej4
 [london]: /blog/2015/02/11/first-snowplow-meetup-in-london/
 [sydney]: /blog/2014/12/08/snowplow-meetup-group-london-announced/

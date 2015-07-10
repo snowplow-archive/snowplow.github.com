@@ -56,8 +56,8 @@ Our Node.js Lambda counts the events by `type` and aggregates these counts into 
 The most complete open-source example of an analytics-on-write implementation is Ian Meyers' [amazon-kinesis-aggregators] [amazon-kinesis-aggregators] project; our example project is in turn heavily influenced by the concepts in Ian's work. Three important concepts to understand in analytics-on-write are:
 
 1. **Downsampling** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
-2. **Bucketing** is an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
-3. **Atomic Increment** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to increase a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB.
+2. **Bucketing** is an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it
+3. **Atomic Increment** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to increase a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB
 
 <div class="html">
 <h2><a name="detailed-setup">3. Detailed setup</a></h2>
@@ -70,9 +70,9 @@ In this tutorial, we'll walk through the process of getting up and running with 
 First clone the repo and bring up Vagrant:
 
 {% highlight bash %}
- host$ git clone https://github.com/snowplow/aws-lambda-nodejs-example-project.git
- host$ cd aws-lambda-example-project
- host$ vagrant up && vagrant ssh
+host$ git clone https://github.com/snowplow/aws-lambda-nodejs-example-project.git
+host$ cd aws-lambda-example-project
+host$ vagrant up && vagrant ssh
 {% endhighlight %}
 
 Before we go any further we will have to set up our project enviroment. We will install **Grunt** and project dependencies with the commands below:
@@ -162,7 +162,7 @@ Trying to create AWS Lambda Function...
 Created AWS Lambda Function...
 {% endhighlight %}
 
-<h3>Step 6: Configure AWS Lambda Service</h3>
+<h3>Step 6: Associate our Kinesis stream to our Lambda</h3>
 
 Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by: 
 
@@ -182,7 +182,7 @@ arn:aws:kinesis:us-east-1:844709429716:stream/my-stream
 Done, without errors.
 {% endhighlight %}
 
-<h3>Step 7: Generate Events to your Kinesis Stream</h3>
+<h3>Step 7: Generate events in your Kinesis stream</h3>
 
 The final step for testing this project is to start sending some events to our new Kinesis stream. We have created a helper method to do this - run the below and leave it running in a separate terminal:
 
@@ -194,7 +194,7 @@ Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:44.295972", "type": "Yell
 ...
 {% endhighlight %}
 
-<h3>Step 8: Inspect the "my-table" aggregate table in DynamoDB</h3>
+<h3>Step 8: Inspect the "my-table" aggregates in DynamoDB</h3>
 
 Success! You can now see data being written to the table in DynamoDB. Make sure you are in the correct AWS region, then click on `my-table` and hit the `Explore Table` button:
 
@@ -224,9 +224,7 @@ This is a short list of our most frequently asked questions.
 
 __I got credentials error running the `grunt` command:__
 
-* Answer - This project requires configuration of AWS Credentials:
-
-Read more about ![AWS credentials][http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html]: 
+This project requires configuration of AWS credentials. Read more about ![AWS credentials] [aws-creds]; configure your AWS credentials using the AWS CLI like so:
 
 {% highlight bash %}
 $ aws configure
@@ -234,7 +232,7 @@ $ aws configure
 
 __I found an issue with the project:__
 
-* Answer - Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
+Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
 
 <div class="html">
 <h2><a name="further-reading">5. Further reading</a></h2>
@@ -243,7 +241,6 @@ __I found an issue with the project:__
 This example project is a direct port of our [Spark Streaming Example Project] [spark-streaming-eg-blog] - if you are interested in Spark Streaming or Scala, definitely check it out!
 
 Both example projects are based on an event processing technique called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
-
 
 [kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
 [amazon-kinesis-aggregators]: https://github.com/awslabs/amazon-kinesis-aggregators
@@ -268,5 +265,6 @@ Both example projects are based on an event processing technique called _analyti
 [spark-streaming-eg-blog]: /blog/2015/06/10/spark-streaming-example-project-0.1.0-released/
 [spark-kinesis-support]: https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
+[aws-creds]: http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html
 [issues]: https://github.com/snowplow/schema-guru/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

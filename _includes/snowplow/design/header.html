@@ -1,8 +1,8 @@
-<header>
+<div class="menu">
   <div class="container">
 
     {% if page.hide-brand %}<!-- do nothing -->
-    {% else %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"></a></div><div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
+    {% else %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}">X</a></div>&nbsp;<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
     {% endif %}
 
       <nav role="navigation">
@@ -35,9 +35,10 @@
         </div>
       </nav>
 
-    </div>
-  </header>
+  </div>
+</div>
 
+{% if page.custom-header %}<div class="custom-content">{% endif %}
   <div class="container">
 
   {% if page.custom-header == 'homepage' %}{% include snowplow/design/headers/homepage.html %}{% endif %}
@@ -45,3 +46,4 @@
   {% if page.custom-header == 'pricing' %}{% include snowplow/design/headers/pricing.html %}{% endif %}
 
   </div>
+{% if page.custom-header %}</div>{% endif %}

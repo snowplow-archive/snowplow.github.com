@@ -63,13 +63,13 @@
 
   {% include snowplow/google-tag-manager %}
 
-  {% if page.custom-header %}<div class="custom-header"><!-- if the variable is set: use the custom header -->
-  {% else %}<div class="normal-header">
+  {% if page.custom-header %}<header class="custom"><!-- if the variable is set: use the custom header -->
+  {% else %}<header class="normal">
   {% endif %}
 
   {% include snowplow/design/header.html %}<!-- include the actual header -->
 
-  </div>
+  </header>
 
   <main class="main-snowplow" role="main">
     <div class="container">{{ content }}</div>

@@ -1,22 +1,22 @@
 
 /* snowplow-header.css is based on bootstrap */
 
-.custom-header {background-color: #4C5371}
-.normal-header {background-color: #1F294D}
+/* basic structure */
 
-header {
-	padding: 15px 0;
-}
+header {padding: 15px 0}
 
-/* structure */
+header.custom {background-color: #4C5371; min-height: 50vh}
+header.normal {background-color: #1F294D}
 
 header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
+header .custom-content {margin-top: 15px}
+
 /* text */
 
-header {font-weight: 300; font-size: 15px}
+header {font-weight: 300; font-size: 15px; color: white}
 
 header a, header a:hover, header a:focus {
 	text-decoration: none;
@@ -35,7 +35,7 @@ header .name { /* the snowplow name */
 
 /* collapsable menu on mobile */
 
-@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
+@media (min-width: 992px) {header .toggle {display: none}} /* hide toggle on larger screens */
 
 header .collapse {display: none}
 
@@ -45,7 +45,7 @@ header .collapse.in {display: block}
 
 .nav-collapse.in {overflow-y: auto}
 
-@media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
+@media (min-width: 992px) {.nav-collapse.collapse {display: block !important}}
 
 /* menu */
 
@@ -87,9 +87,13 @@ header .nav-collapse .active a:focus {
 	border-color: #4C5371;
 }
 
+header.custom .nav-collapse li a.without-border {border: 2px solid transparent}
+
+header.custom .nav-collapse li a.with-border {border: 2px solid white}
+
 /* mobile menu */
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
 
 	header .toggle {text-align: right} /* hack */
 

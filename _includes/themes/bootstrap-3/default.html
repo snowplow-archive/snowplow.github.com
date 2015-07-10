@@ -8,8 +8,8 @@
     {% else %}<title>{{ page.title }} – Snowplow</title>
     {% endif %}
 
-    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
-    <meta name="author" content="{{ site.author.name }}">
+    {% if page.description %}<meta name="description" content="{{page.description}}">{% endif %}
+    <meta name="author" content="{{site.author.name}}">
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,8 +52,10 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@SnowPlowData">
     <!--<meta name="twitter:creator" content="@SarahMaslinNir">-->
-    <meta name="twitter:title" content="{{ page.title }}">
-    <!--{% if page.group == 'blog' %}<meta name="twitter:description" content="">{% endif %}-->
+    <meta name="twitter:title" content="{{page.title}}">
+    {% if page.description %}<meta name="twitter:description" content="{{page.description}}">
+    {% else %}<meta name="twitter:description" content="{{page.title}}">
+    {% endif %}
 
   </head>
 

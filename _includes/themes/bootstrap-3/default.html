@@ -44,6 +44,19 @@
   {% include snowplow/fonts-and-presentation/typekit-fonts %}
   {% include snowplow/fonts-and-presentation/mathjax %}
 
+  <!-- todo: improve the metadata that is included in twitter cards -->
+
+  {% if page.image %}<meta name="twitter:card" content="summary_large_image">
+  {% else %}<meta name="twitter:card" content="summary">
+  {% endif %}
+  <meta name="twitter:site" content="@SnowPlowData">
+  <!--<meta name="twitter:creator" content="@SarahMaslinNir">-->
+  <meta name="twitter:title" content="{{page.title}}">
+  {% if page.description %}<meta name="twitter:description" content="{{page.description}}">
+  {% else %}<meta name="twitter:description" content="{{page.title}}">
+  {% endif %}
+  {% if page.image %}<meta name="twitter:image" content="{{page.image}}">{% endif %}
+
 </head>
 
 <body>

@@ -63,14 +63,21 @@
 
   {% include snowplow/google-tag-manager %}
 
-  {% if page.group == 'homepage' %}<div class="cover"><!-- if on the homepage: use an image -->
-  {% else %}<div class="no-cover"><!-- if on another page: set the header background color -->
+    <!-- if the variable is set: use the custom header -->
+
+  {% if page.custom-header %}<div class="custom-header">
+  {% else %}<div class="normal-header">
   {% endif %}
 
-  {% include snowplow/design/header.html %}<!-- include the header -->
+    <!-- include the navigation -->
 
-  {% if page.group == 'homepage' %}{% include snowplow/design/landing.html %}
-  {% endif %}
+  {% include snowplow/design/navigation.html %}
+
+    <!-- include the custom header message -->
+
+  {% if page.custom-header == 'homepage' %}{% include snowplow/design/headers/homepage.html %}{% endif %}
+  {% if page.custom-header == 'product' %}{% include snowplow/design/headers/product.html %}{% endif %}
+  {% if page.custom-header == 'pricing' %}{% include snowplow/design/headers/pricing.html %}{% endif %}
 
   </div>
 

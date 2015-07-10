@@ -1,8 +1,11 @@
 
 /* snowplow-header.css is based on bootstrap */
 
+.custom-header {background-color: #4C5371}
+.normal-header {background-color: #1F294D}
+
 header {
-	width: 100%; /* required */
+	padding: 15px 0;
 }
 
 /* structure */

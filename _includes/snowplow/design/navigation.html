@@ -1,7 +1,8 @@
 <header>
   <div class="container">
 
-    {% if page.group != 'homepage' %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"></a></div><div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
+    {% if page.hide-brand %}<!-- do nothing -->
+    {% else %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"></a></div><div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
     {% endif %}
 
       <nav role="navigation">

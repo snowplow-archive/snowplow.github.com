@@ -19,11 +19,6 @@ body {
 
 /* Basic structure */
 
-header {
-	background-color: #1F294D;
-	padding: 15px 0;
-}
-
 main {
 	min-height: 500px; /* prevent pages from looking ridiculous */
 	background-color: #FFFFFF;

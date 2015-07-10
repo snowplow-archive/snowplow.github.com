@@ -37,3 +37,11 @@
 
     </div>
   </header>
+
+  <div class="container">
+
+  {% if page.custom-header == 'homepage' %}{% include snowplow/design/headers/homepage.html %}{% endif %}
+  {% if page.custom-header == 'product' %}{% include snowplow/design/headers/product.html %}{% endif %}
+  {% if page.custom-header == 'pricing' %}{% include snowplow/design/headers/pricing.html %}{% endif %}
+
+  </div>

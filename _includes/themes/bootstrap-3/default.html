@@ -63,21 +63,11 @@
 
   {% include snowplow/google-tag-manager %}
 
-    <!-- if the variable is set: use the custom header -->
-
-  {% if page.custom-header %}<div class="custom-header">
+  {% if page.custom-header %}<div class="custom-header"><!-- if the variable is set: use the custom header -->
   {% else %}<div class="normal-header">
   {% endif %}
 
-    <!-- include the navigation -->
-
-  {% include snowplow/design/navigation.html %}
-
-    <!-- include the custom header message -->
-
-  {% if page.custom-header == 'homepage' %}{% include snowplow/design/headers/homepage.html %}{% endif %}
-  {% if page.custom-header == 'product' %}{% include snowplow/design/headers/product.html %}{% endif %}
-  {% if page.custom-header == 'pricing' %}{% include snowplow/design/headers/pricing.html %}{% endif %}
+  {% include snowplow/design/header.html %}<!-- include the actual header -->
 
   </div>
 

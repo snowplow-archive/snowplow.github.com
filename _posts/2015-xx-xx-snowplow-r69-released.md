@@ -61,7 +61,7 @@ The new `tags` configuration field can hold a dictionary of name-value pairs. Th
 
 <h2 id="compression">5. Compression support</h2>
 
-Dani Sola has added support for compressing enriched events using [gzip][gzip] or [lzo][lzo]. Redshift can [automatically handle][redshift-load-compressed] loading these two compression formats, so this is a good way to reduce the total storage your enriched events require. Thanks again [@danisola][danisola]!
+Dani Sola has added support for compressing enriched events using [gzip][gzip]. Redshift can [automatically handle][redshift-load-compressed] loading gzipped files, so this is a good way to reduce the total storage your enriched events require. Thanks again [@danisola][danisola]!
 
 <h2 id="environmentVariables">4. Environment variables in configuration files</h2>
 

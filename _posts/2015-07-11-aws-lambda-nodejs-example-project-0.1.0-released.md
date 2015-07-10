@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: AWS Lambda NodeJS example project released
-title: AWS Lambda NodeJS example project released
+shortenedlink: AWS Lambda Node.js example project released
+title: AWS Lambda Node.js example project released
 tags: [snowplow, javascript, kinesis, dynamodb, tutorial, analytics]
 author: Vincent
 category: Releases
@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the release of our new [AWS Lambda Node.js Example Project] [repo]!
 
-This is a simple time series analysis stream processing job written in Node.js for the [AWS Lambda] [aws-lambda-service], processing JSON events from [Amazon Kinesis] [kinesis] and writing aggregates to [Amazon DynamoDB] [dynamodb].
+This is a simple time series analysis stream processing job written in Node.js for [AWS Lambda] [aws-lambda-service], processing JSON events from [Amazon Kinesis] [kinesis] and writing aggregates to [Amazon DynamoDB] [dynamodb].
 
 ![data flow png][data-flow]
 
@@ -31,10 +31,9 @@ Read on after the fold for:
 
 [AWS Lambda] [aws-lambda-service] is a compute service that runs your code in response to events and automatically manages the compute resources for you, making it easy to build applications that respond quickly to new information. AWS Lambda starts running your code within milliseconds of an event such as an image upload, in-app activity, website click, or output from a connected device. You can also use AWS Lambda to create new back-end services where compute resources are automatically triggered based on custom requests.
 
-[Amazon Kinesis] [kinesis] is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the integration between Kinesis and Lambda services. The Lambda function is simple: it reads incoming event data and logs some of the information to Amazon CloudWatch.
+[Amazon Kinesis] [kinesis] is a fully managed service for real-time processing of streaming data at massive scale. In this project we leverage the integration between the Kinesis and Lambda services.
 
-This is an example of the "pull" model where AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. 
-
+This is an example of the "pull" model where AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream.
 
 <div class="html">
 <h2><a name="introducting-analytics-on-write">2. Introducing analytics-on-write</a></h2>
@@ -56,32 +55,27 @@ Our Node.js Lambda counts the events by `type` and aggregates these counts into 
 
 The most complete open-source example of an analytics-on-write implementation is Ian Meyers' [amazon-kinesis-aggregators] [amazon-kinesis-aggregators] project; our example project is in turn heavily influenced by the concepts in Ian's work. Three important concepts to understand in analytics-on-write are:
 
-1. **Downsampling:** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
-2. **Bucketing:** an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
-3. **Atomic Increment:** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to implement a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB.
-
+1. **Downsampling** where we reduce the event's ISO 8601 timestamp down to minute precision, so for instance "2015-06-05T12:54:43.064528" becomes "2015-06-05T12:54:00.000000". This downsampling gives us a fast way of bucketing or aggregating events via this downsampled key
+2. **Bucketing** is an aggregation technique that builds buckets, where each bucket is associated with a downstampled timestamp key and an event type criterion. By the end of the aggregation process, we’ll end up with a list of buckets - each one with a countable set of events that "belong" to it.
+3. **Atomic Increment** is useful for updating values as they change because multiple requests from your application won’t collide. If your application needs to increase a count by 100, you can just tell Amazon DynamoDB to automatically increment the count by 100 as opposed to having to get the record, increment the count, and put it back into Amazon DynamoDB.
 
 <div class="html">
 <h2><a name="detailed-setup">3. Detailed setup</a></h2>
 </div>
 
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need  [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. 
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. 
 
 <h3>Step 1: Build the project</h3>
 
-In your local terminal:
+First clone the repo and bring up Vagrant:
 
 {% highlight bash %}
  host$ git clone https://github.com/snowplow/aws-lambda-nodejs-example-project.git
  host$ cd aws-lambda-example-project
  host$ vagrant up && vagrant ssh
-guest$ cd /vagrant
-guest# npm install grunt
-guest$ npm install
-guest$ grunt
 {% endhighlight %}
 
-Let's get into the correct folder for the project root, with the `cd /vagrant` command. We will have to set up our project enviroment before we can go any further. We will install **Grunt** and project dependencies with the commands below:
+Before we go any further we will have to set up our project enviroment. We will install **Grunt** and project dependencies with the commands below:
 
 {% highlight bash %}
 guest$ cd /vagrant
@@ -103,10 +97,10 @@ Default output format [None]: json
 
 <h3>Step 3: Create your DynamoDB, IAM Role, and Kinesis stream</h3>
 
-We're going to set up a DynamoDB table, IAM Role using Cloudstack, and a Kinesis stream. We will be using grunt to run all of our tasks. I'm using "my-table" as the table name. The cloudstack name is "kinesisDynamo" and the Kinesis stream name is "my-stream". We will kick off all of the tasks with the `grunt` command:
+We're going to set up a DynamoDB table, IAM role (via CloudFormation), and a Kinesis stream. We will be using Grunt to run all of our tasks. I'm using "my-table" as the table name. The CloudFormation stack name is "kinesisDynamo" and the Kinesis stream name is "my-stream". We will kick off all of the tasks with the `grunt init` command:
 
 {% highlight bash %}
-$ grunt
+$ grunt init
 Running "dynamo:default" (dynamo) task
 { TableDescription:
    { AttributeDefinitions: [ [Object], [Object], [Object] ],
@@ -128,13 +122,15 @@ Running "createRole:default" (createRole) task
 
 Running "kinesis:default" (kinesis) task
 {}
+
+Done, without errors.
 {% endhighlight %}
-
-
 
 <h3>Step 4: Build Node.js project and configure AWS Lambda</h3>
 
-Grunt is going to package the our projects code into `dist/aws-lambda-example-project_0-1-0_latest.zip`. This task also attaches the IAM role to AWS Lambda. Invoke the task with:
+Grunt can also package our project's code into `dist/aws-lambda-example-project_0-1-0_latest.zip`; this task also attaches the IAM role to AWS Lambda. 
+
+Invoke the task with:
 
 {% highlight bash %}
 $ grunt role
@@ -152,8 +148,8 @@ aws-lambda-example-project@0.1.0 ../../../../var/folders/3t/7nlz8rzs2mq5fg_sf3x4
 ├── archiver@0.14.4 (buffer-crc32@0.2.5, lazystream@0.1.0, readable-stream@1.0.33, tar-stream@1.1.5, zip-stream@0.5.2, lodash@3.2.0)
 └── aws-sdk@2.1.23 (xmlbuilder@0.4.2, xml2js@0.2.8, sax@0.5.3)
 Created package at dist/aws-lambda-example-project_0-1-0_latest.zip
-...{% endhighlight %}
-
+...
+{% endhighlight %}
 
 <h3>Step 5: Deploy the package to AWS Lambda</h3>
 
@@ -166,11 +162,9 @@ Trying to create AWS Lambda Function...
 Created AWS Lambda Function...
 {% endhighlight %}
 
-
 <h3>Step 6: Configure AWS Lambda Service</h3>
 
-Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch.
-AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by: 
+Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by: 
 
 {% highlight bash %}
 $ grunt connect
@@ -190,7 +184,7 @@ Done, without errors.
 
 <h3>Step 7: Generate Events to your Kinesis Stream</h3>
 
-The final step to getting this projected ready to start processing events is to connect Kinesis. We need to start sending events to our new Kinesis stream. We have created a helper method to do this - run the below and leave it running:
+The final step for testing this project is to start sending some events to our new Kinesis stream. We have created a helper method to do this - run the below and leave it running in a separate terminal:
 
 {% highlight bash %}
 $ grunt events
@@ -199,7 +193,6 @@ Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:43.757797", "type": "Red"
 Event sent to Kinesis: {"timestamp": "2015-06-30T12:54:44.295972", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 ...
 {% endhighlight %}
-
 
 <h3>Step 8: Inspect the "my-table" aggregate table in DynamoDB</h3>
 
@@ -247,11 +240,10 @@ __I found an issue with the project:__
 <h2><a name="further-reading">5. Further reading</a></h2>
 </div>
 
-Spark is an increasing focus for us at Snowplow. Recently, we detailed our [First experiments with Apache Spark](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/). Also, catch up on our newly released version 0.3.0 of our [spark-example-project](https://github.com/snowplow/spark-example-project).
+This example project is a direct port of our [Spark Streaming Example Project] [spark-streaming-eg-blog] - if you are interested in Spark Streaming or Scala, definitely check it out!
 
-Separately, this is a experiment to port the functionality of the Apache Spark version here [spark-streaming-example-project] [spark-streaming-example-project] repo.
+Both example projects are based on an event processing technique called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
 
-This example project is a very simple example of an event processing technique which is called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
 
 [kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
 [amazon-kinesis-aggregators]: https://github.com/awslabs/amazon-kinesis-aggregators
@@ -273,6 +265,7 @@ This example project is a very simple example of an event processing technique w
 [aws-lambda-service]: http://aws.amazon.com/lambda/faqs
 [aws-lambda-example-project]: https://github.com/snowplow/aws-lambda-example-project
 [spark-streaming-example-project]: https://github.com/snowplow/spark-streaming-example-project
+[spark-streaming-eg-blog]: /blog/2015/06/10/spark-streaming-example-project-0.1.0-released/
 [spark-kinesis-support]: https://spark.apache.org/docs/latest/streaming-kinesis-integration.html
 
 [issues]: https://github.com/snowplow/schema-guru/issues

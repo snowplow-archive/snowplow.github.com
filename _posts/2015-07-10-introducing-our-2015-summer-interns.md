@@ -29,9 +29,15 @@ Anton is working on his next Schema Guru release, which will auto-generate Snowp
 
 ## Justine Courty: Apache Spark, d3.js and marketing attribution
 
-[Justine Courty] [justine] joins us in the Snowplow office in London as a Data Science intern this summer.
+[Justine Courty] [justine] joins us in the Snowplow office in London as a Data Science intern this summer. Justine's internship has been experimenting with extending the Snowplow data pipeline to:
 
-YALI TO ADD
+1. Process enriched events in Spark, with a particular focus on aggregating user journeys based on the sequence of specific events in those journeys. (A class of analysis that is particularly badly suited to SQL.)
+2. Load the aggregates into a DynamoDB 'serving layer'
+3. Visualize the data in innovative ways using D3.js
+
+In particular, Justine has prototyped the above pipeline for marketing attribution pathways. You can see and interact with Justine's visualization in her excellent blog post [analyzing marketing attribution data with d3.js] [justine-blog-post].
+
+Justine has a wealth of data science experience prior to joining the Snowplow team. She completed a data analysis internship at [SoundCloud][soundcloud] earlier this year and completed her BSC in Biotechnology at Imperial College London, last year: her final year project was "Computational 3D image analysis: software development towards understanding the molecular basis of torque generation by the bacterial flagellar motor". 
 
 ## Vincent Ohprecio: analytics on write with Spark Streaming and AWS Lambda
 
@@ -64,3 +70,5 @@ Vincent is now working on R&D for our new open-source analytics-on-write project
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [snowplow-issues]: https://github.com/snowplow/snowplow/issues
+[justine-blog-post]: http://snowplowanalytics.com/blog/2015/07/02/visualizing-marketing-attribution-data-with-d3js/
+[soundcloud]: https://soundcloud.com/

@@ -11,14 +11,14 @@ We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This re
 
 Table of contents:
 
-1. [Embedded Snowplow Tracking](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
-2. [Handling big events](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#handling-big-events)
-3. [More informative bad rows](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#timestamps)
-4. [Improved Vagrant VM](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#vm)
-5. [New Kinesis-S3 repository](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
-6. [Other changes](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#other)
-7. [Upgrading](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#upgrading)
-8. [Getting help](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#help)
+1. [Embedded Snowplow Tracking](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
+2. [Handling big events](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#handling-big-events)
+3. [More informative bad rows](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#timestamps)
+4. [Improved Vagrant VM](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#vm)
+5. [New Kinesis-S3 repository](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
+6. [Other changes](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#other)
+7. [Upgrading](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#upgrading)
+8. [Getting help](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#help)
 
 ![bohemian-waxwing][bohemian-waxwing]
 

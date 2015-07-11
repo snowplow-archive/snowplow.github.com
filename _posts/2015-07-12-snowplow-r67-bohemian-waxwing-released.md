@@ -41,7 +41,9 @@ With the ability to split large events we have also included a `bad` output stre
 
 <h2 id="timestamps">3. More informative bad rows</h2>
 
-All the Kinesis apps are capable of emitting bad rows corresponding to failed events. These bad rows had a `line` field, containing the body of the failed event, and an `errors` field, containing a non-empty list of problems with the event. Bohemian Waxwing adds a `timestamp` field containing the time at which the event was failed. This makes it easier to monitor the progress of applications which consume failed events.
+All the Kinesis apps are capable of emitting bad rows corresponding to failed events. These bad rows had a `line` field, containing the body of the failed event, and an `errors` field, containing a non-empty list of problems with the event. Bohemian Waxwing adds a `timestamp` field containing the time at which the event was failed.
+
+This makes it easier to monitor the progress of applications which consume failed events; it also makes it easier to analyze these bad rows in Elasticsearch/Kibana.
 
 <h2 id="vm">4. Improved Vagrant VM</h2>
 

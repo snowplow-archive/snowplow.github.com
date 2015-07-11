@@ -14,7 +14,7 @@ Table of contents:
 1. [Embedded Snowplow Tracking](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
 2. [Handling big events](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#handling-big-events)
 3. [More informative bad rows](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#timestamps)
-4. [Improved virtual environment](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#vm)
+4. [Improved Vagrant VM](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#vm)
 5. [New Kinesis-S3 repository](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
 6. [Other changes](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#other)
 7. [Upgrading](/blog/2015/07/06/snowplow-r67-bohemian-waxwing-released#upgrading)
@@ -40,7 +40,7 @@ With the ability to split large events we have also included a `bad` output stre
 
 All the Kinesis apps are capable of emitting bad rows corresponding to failed events. These bad rows had a `line` field, containing the body of the failed event, and an `errors` field, containing a non-empty list of problems with the event. Bohemian Waxwing adds a `timestamp` field containing the time at which the event was failed. This makes it easier to monitor the progress of applications which consume failed events.
 
-<h2 id="vm">4. Improved virtual environment</h2>
+<h2 id="vm">4. Improved Vagrant VM</h2>
 
 Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine involves reading a lot of files. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
 

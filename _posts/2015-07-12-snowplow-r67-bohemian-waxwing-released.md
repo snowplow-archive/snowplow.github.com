@@ -12,7 +12,7 @@ We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This re
 Table of contents:
 
 1. [Embedded Snowplow Tracking](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
-2. [Handling big events](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#handling-big-events)
+2. [Handling outsized event payloads](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#handling-outsized-event-payloads)
 3. [More informative bad rows](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#timestamps)
 4. [Improved Vagrant VM](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#vm)
 5. [New Kinesis-S3 repository](/blog/2015/07/12/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
@@ -33,7 +33,7 @@ Adding Snowplow tracking to our Kinesis applications is exciting for two reasons
 1. It is the first step towards Snowplow becoming "self-hosting", meaning that we can use one instance of Snowplow to monitor a second instance of Snowplow
 2. It is an opportunity to start exploring how Snowplow can be used for systems-level monitoring, alongside our existing application-level use cases
 
-<h2 id="handling-big-events">2. Handling Big Events</h2>
+<h2 id="handling-outsized-event-payloads">2. Handling Outsized Event Payloads</h2>
 
 Previously the Scala Stream Collector was unable to handle any events that exceeded the maximum byte limit of the Kinesis Stream.  So large POST payloads simply had to be discarded due to the inability to actually send them on.  The collector now has the ability to break apart large event payloads into smaller manageable events which can then be sent to the Kinesis Stream, reducing data loss in the case of big event payloads.  However with the increase of record put size to 1MB from 50kB in Kinesis it is unlikely to be too big of an issue anymore!
 
@@ -81,7 +81,7 @@ Upgrading will require various configuration changes to each of the three applic
 
 <h3>Scala Kinesis Enrich</h3>
 
-* If you want to include Snowplow Tracking for this application please append the following:
+* If you want to include Snowplow tracking for this application please append the following:
   - This is a wholly optional section, if you do not want Tracking to occur simply do not add this to your HOCON.
 
 {% highlight bash %}

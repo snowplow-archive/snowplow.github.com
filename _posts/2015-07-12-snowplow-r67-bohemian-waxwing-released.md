@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This release brings a host of upgrades to our real-time [Kinesis][kinesis] pipeline as well as the embedding of Snowplow Tracking into said pipeline.
+We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This release brings a host of upgrades to our real-time [Kinesis][kinesis] pipeline as well as the embedding of Snowplow Tracking into this pipeline.
 
 Table of contents:
 
@@ -24,15 +24,18 @@ Table of contents:
 
 <!--more-->
 
-<h2 id="snowplow-tracking">1. Embedded Snowplow Tracking</h2>
+<h2 id="snowplow-tracking">1. Embedded Snowplow tracking</h2>
 
-Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to record Snowplow events from within the application themselves.  These events include a `heartbeat` which is sent every 5 minutes so we know that the application is still alive and kicking, events for each `failure` in pushing events to the Kinesis Streams, S3 or Elasticsearch and `initialization`/`shutdown` events.
+Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to record Snowplow events from within the application themselves. These events include a `heartbeat` which is sent every 5 minutes so we know that the application is still alive and kicking, events for each `failure` in pushing events to the Kinesis streams or Elasticsearch and `initialization` and `shutdown` events.
+
+Adding Snowplow tracking to our Kinesis applications is exciting for two reasons:
+
+1. It is the first step towards Snowplow becoming "self-hosting", meaning that we can use one instance of Snowplow to monitor a second instance of Snowplow
+2. It is an opportunity to start exploring how Snowplow can be used for systems-level monitoring, alongside our existing application-level use cases
 
 <h2 id="handling-big-events">2. Handling Big Events</h2>
 
 Previously the Scala Stream Collector was unable to handle any events that exceeded the maximum byte limit of the Kinesis Stream.  So large POST payloads simply had to be discarded due to the inability to actually send them on.  The collector now has the ability to break apart large event payloads into smaller manageable events which can then be sent to the Kinesis Stream, reducing data loss in the case of big event payloads.  However with the increase of record put size to 1MB from 50kB in Kinesis it is unlikely to be too big of an issue anymore!
-
-Unfortunately if the event was sent via GET then we still cannot do anything about it as there is no way to split a single event as of yet!
 
 With the ability to split large events we have also included a `bad` output stream with the collector.  So events that exceed these limitations will be logged with an error and the total byte size, then outputted to `stderr` or to a `bad` Kinesis stream.
 

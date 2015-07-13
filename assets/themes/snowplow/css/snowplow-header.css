@@ -3,10 +3,16 @@
 
 /* basic structure */
 
-header {padding: 15px 0}
+header {background-color: #4C5371; padding: 15px 0}
 
-header.custom {background-color: #4C5371; min-height: 50vh}
-header.normal {background-color: #1F294D}
+header.custom {
+	background-image: url('/assets/themes/snowplow/img/world.png');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 70vh;
+}
 
 header .brand, header .logo, header .name {float: left}
 
@@ -64,32 +70,28 @@ header .nav-collapse li a {
 }
 
 header .nav-collapse li a.with-border {
-	border: 2px solid #4C5371;
+	border: 2px solid white;
 	border-radius: 5px;
 	font-weight: 400;
 }
 
 header .nav-collapse li a.without-border {
-	border: 2px solid #1F294D; /* present but invisible to align things better */
+	border: 2px solid transparent; /* present but invisible to align things better */
 	border-radius: 5px;
 }
 
 header .nav-collapse li a:hover,
 header .nav-collapse li a:focus {
-	background: #4C5371; /* overwrite default in bootstrap.css */
-	border-color: #4C5371;
+	background: #797F94; /* overwrite default in bootstrap.css */
+	border-color: #797F94;
 }
 
 header .nav-collapse .active a,
 header .nav-collapse .active a:hover,
 header .nav-collapse .active a:focus {
-	background: #4C5371; /* overwrite default in bootstrap.css */
-	border-color: #4C5371;
+	background: #797F94; /* overwrite default in bootstrap.css */
+	border-color: #797F94;
 }
-
-header.custom .nav-collapse li a.without-border {border: 2px solid transparent}
-
-header.custom .nav-collapse li a.with-border {border: 2px solid white}
 
 /* mobile menu */
 

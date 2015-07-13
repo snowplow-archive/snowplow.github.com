@@ -11,7 +11,7 @@ header.custom {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	min-height: 70vh;
+	min-height: 50vh;
 }
 
 header .brand, header .logo, header .name {float: left}
@@ -31,12 +31,20 @@ header a, header a:hover, header a:focus {
 
 /* brand */
 
+header .logo {
+	margin-top: -7px;
+	margin-bottom: -7px;
+}
+
+header .logo img {height: 65px}
+
 header .name { /* the snowplow name */
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	font-weight: 300;
 	font-size: 36px; /* largest possible size */
 	color: white;
+	margin-left: 15px;
 }
 
 /* collapsable menu on mobile */
@@ -125,7 +133,7 @@ header .nav-collapse .active a:focus {
 /* temporary, to be cleaned up */
 
 .bigbox {
-	margin: 75px 0 90px 0;
+	margin: 75px 0;
 	text-align: center;
 }
 

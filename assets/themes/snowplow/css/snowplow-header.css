@@ -121,3 +121,25 @@ header .nav-collapse .active a:focus {
 	}
 
 }
+
+/* temporary, to be cleaned up */
+
+.bigbox {
+	margin: 75px 0 90px 0;
+	text-align: center;
+}
+
+.bigbox h1 {
+	font-size: 65px;
+	font-weight: 300;
+}
+
+.bigbox p {
+	font-size: 25px;
+	margin: 0 auto 30px auto;
+	width: 90%;
+}
+
+.bigbox a.cta {
+	font-size: 20px;
+}

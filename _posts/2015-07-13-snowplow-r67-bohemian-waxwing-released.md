@@ -35,40 +35,44 @@ Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to
 
 Adding Snowplow tracking to our Kinesis applications is exciting for two reasons:
 
-1. It is the first step towards Snowplow becoming "self-hosting", meaning that we can use one instance of Snowplow to monitor a second instance of Snowplow
-2. It is an opportunity to start exploring how Snowplow can be used for systems-level monitoring, alongside our existing application-level use cases
+1. It is the first step towards Snowplow becoming "self-hosting", meaning that we can use one instance of Snowplow to monitor a second instance of Snowplow. "Dog-fooding" Snowplow in this way is essential to finding and fixing bugs in Snowplow faster
+2. It is an opportunity to start exploring how Snowplow can be used for effective systems-level monitoring, alongside our existing application-level use cases
 
-<h2 id="handling-outsized-event-payloads">2. Handling Outsized Event Payloads</h2>
+Note that so far Snowplow tracking has not yet been added to the Scala Stream Collector; this will be added in a subsequent release. 
 
-Previously the Scala Stream Collector was unable to handle any events that exceeded the maximum byte limit of the Kinesis Stream.  So large POST payloads simply had to be discarded due to the inability to actually send them on.  The collector now has the ability to break apart large event payloads into smaller manageable events which can then be sent to the Kinesis Stream, reducing data loss in the case of big event payloads.  However with the increase of record put size to 1MB from 50kB in Kinesis it is unlikely to be too big of an issue anymore!
+<h2 id="handling-outsized-event-payloads">2. Handling outsized event payloads</h2>
 
-With the ability to split large events we have also included a `bad` output stream with the collector.  So events that exceed these limitations will be logged with an error and the total byte size, then outputted to `stderr` or to a `bad` Kinesis stream.
+Previously the Scala Stream Collector was unable to handle events that exceeded the maximum byte limit of a Kinesis stream: large `POST` payloads, for example, were simply discarded due to the inability to write them to Kinesis. With this release, the collector can now "break apart" outsized payloads of multiple events into smaller payloads which will fit into a Kinesis stream; 
+
+Combine this with the recent increase in allowed record `PUT` size for Kinesis from 50kB to 1MB and there should be very few scenarios now when an event payload has to be discarded for being outsized.
+
+This said, at Snowplow we strongly believe that any event processing component which _could_ encounter processing failures (however rare) should have an "stderr" output to record those failures. To accomplish this, Bohemian Waxwing adds a `bad` output stream to the collector. As a first use case for this new stream, outsized payloads which cannot be written to Kinesis (essentially single `GET` or `POST` events which are larger than 1MB) will be written to the `bad` stream with the error and the total size in bytes.
 
 <h2 id="timestamps">3. More informative bad rows</h2>
 
-All the Kinesis apps are capable of emitting bad rows corresponding to failed events. These bad rows had a `line` field, containing the body of the failed event, and an `errors` field, containing a non-empty list of problems with the event. Bohemian Waxwing adds a `timestamp` field containing the time at which the event was failed.
+All the Kinesis apps are capable of emitting bad rows corresponding to failed events. Previously these bad rows only had a `line` field, containing the body of the failed event, plus an `errors` field, containing a non-empty list of problems with the event. In Bohemian Waxwing we add a `timestamp` field containing the time at which the event was failed.
 
 This makes it easier to monitor the progress of applications which consume failed events; it also makes it easier to analyze these bad rows in Elasticsearch/Kibana.
 
 <h2 id="vm">4. Improved Vagrant VM</h2>
 
-Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine involves reading a lot of files. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
+Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine is a very I/O intensive operation. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
 
 <h2 id="kinesis-s3">5. New Kinesis-S3 repository</h2>
 
-Since the Kinesis S3 Sink is not Snowplow-specific but can be used to move arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3].
+Since the Kinesis S3 Sink is not Snowplow-specific but can be used to move arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3]. There have been two releases of Kinesis S3 since extracting it into its own repo: [0.2.1] [kinesis-s3-021] and [0.3.0] [kinesis-s3-030].
 
 <h2 id="other">6. Other changes</h2>
 
 We have also:
 
 * Increased the maximum size of a Kinesis record put to 1MB from 50kB ([#1753][1753], [#1736][1736])
-* Fixed a bug whereby the Kinesis Elasticsearch Sink could hang without ever shutting down ([#1743][1743])
-* Fixed a bug which prevented Scala Kinesis Enrich from downloading from S3 URI's ([#1645][1645])
+* Fixed a bug where the Kinesis Elasticsearch Sink could hang without ever shutting down ([#1743][1743])
+* Fixed a bug which prevented Scala Kinesis Enrich from downloading from URIs using the `s3://` scheme ([#1645][1645])
 * Fixed a bug in Scala Kinesis Enrich where the `etl_tstamp` was not correctly formatted ([#1842][1842])
-* Fixed a race condition in Scala Kinesis Enrich which caused the app to attempt to send too many records at once ([#1756][1756])
-* Ensured that if Scala Kinesis Enrich fails to download the MaxMind database, it will exit immediately rather than attempting to look up IP addresses from a nonexistent file ([#1711][1711])
-* Made the Kinesis Elasticsearch Sink exit immediately if the bad stream does not exist rather than waiting until the first bad event ([#1677][1677])
+* Fixed a nasty race condition in Scala Kinesis Enrich which caused the app to attempt to send too many records at once ([#1756][1756])
+* Ensured that if Scala Kinesis Enrich fails to download the MaxMind database, it will exit immediately rather than attempting to look up IP addresses from a non-existent file ([#1711][1711])
+* Made the Kinesis Elasticsearch Sink exit immediately if the bad stream does not exist, rather than waiting until the first bad event occurs, as before ([#1677][1677])
 * Started logging all bad rows in Scala Kinesis Enrich to simplify debugging ([#1722][1722])
 
 <h2 id="upgrading">7. Upgrading</h2>
@@ -77,19 +81,18 @@ The Kinesis apps for r67 Bohemian Waxwing are now all available in a single zip 
 
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
 
-Upgrading will require various configuration changes to each of the three applications:
+Upgrading will require various configuration changes to each of the three applications' HOCON configuration files:
 
 <h3>Scala Stream Collector</h3>
 
-* Change `collector.sink.kinesis.stream.name` -> `collector.sink.kinesis.stream.good` in the HOCON.
-* Add `collector.sink.kinesis.stream.bad` to the HOCON.
+* Change `collector.sink.kinesis.stream.name` to `collector.sink.kinesis.stream.good` in the HOCON
+* Add `collector.sink.kinesis.stream.bad` to the HOCON
 
 <h3>Scala Kinesis Enrich</h3>
 
-* If you want to include Snowplow tracking for this application please append the following:
-  - This is a wholly optional section, if you do not want Tracking to occur simply do not add this to your HOCON.
+If you want to include Snowplow tracking for this application please append the following:
 
-{% highlight bash %}
+{% highlight json %}
 enrich {
     
     ...
@@ -105,14 +108,17 @@ enrich {
 }
 {% endhighlight %}
 
+Note that this is a wholly optional section; if you do not want to send application events to a second Snowplow instance, simply do not add this to your configuration file.
+
+For a complete example, see our [`config.hocon.sample` file] [ske-sample-hocon].
+
 <h3>Kinesis Elasticsearch Sink</h3>
 
-* Add `max-timeout` to the `elasticsearch` fields.
-* Merge `location` fields into the `elasticsearch` section.
+* Add `max-timeout` into the `elasticsearch` fields
+* Merge `location` fields into the `elasticsearch` section
 * If you want to include Snowplow Tracking for this application please append the following:
-  - This is a wholly optional section, if you do not want Tracking to occur simply do not add this to your HOCON.
 
-{% highlight bash %}
+{% highlight json %}
 sink {
     
     ...
@@ -128,6 +134,10 @@ sink {
 }
 {% endhighlight %}
 
+Again, note that Snowplow tracking is a wholly optional section.
+
+For a complete example, see our [`config.hocon.sample` file] [kes-sample-hocon].
+
 And that's it - you should now be fully upgraded!
 
 <h2 id="help">8. Getting help</h2>
@@ -142,6 +152,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [vagrant]: https://www.vagrantup.com/
 [nfs]: https://en.wikipedia.org/wiki/Network_File_System
 [kinesis-s3]: https://github.com/snowplow/kinesis-s3
+[kinesis-s3-021]: https://github.com/snowplow/kinesis-s3/releases/tag/0.2.1
+[kinesis-s3-030]: /blog/2015/07/07/kinesis-s3-0.3.0-released/
 
 [1645]: https://github.com/snowplow/snowplow/issues/1645
 [1677]: https://github.com/snowplow/snowplow/issues/1677
@@ -150,6 +162,9 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [1743]: https://github.com/snowplow/snowplow/issues/1743
 [1756]: https://github.com/snowplow/snowplow/issues/1756
 [1842]: https://github.com/snowplow/snowplow/issues/1842
+
+[ske-sample-hocon]: https://raw.githubusercontent.com/snowplow/snowplow/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
+[kes-sample-hocon]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample
 
 [r67-release]: https://github.com/snowplow/snowplow/releases/tag/r67-bohemian-waxwing
 [wiki]: https://github.com/snowplow/snowplow/wiki

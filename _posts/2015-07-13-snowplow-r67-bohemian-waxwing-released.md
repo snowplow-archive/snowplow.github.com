@@ -11,11 +11,11 @@ We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This re
 
 Table of contents:
 
-1. [Embedded Snowplow Tracking](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
+1. [Embedded Snowplow tracking](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#snowplow-tracking)
 2. [Handling outsized event payloads](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#handling-outsized-event-payloads)
 3. [More informative bad rows](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#timestamps)
 4. [Improved Vagrant VM](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#vm)
-5. [New Kinesis-S3 repository](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
+5. [New Kinesis S3 repository](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#kinesis-s3)
 6. [Other changes](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#other)
 7. [Upgrading](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#upgrading)
 8. [Getting help](/blog/2015/07/13/snowplow-r67-bohemian-waxwing-released#help)
@@ -58,9 +58,9 @@ This makes it easier to monitor the progress of applications which consume faile
 
 Building the Snowplow apps using `sbt assembly` in the [Vagrant][vagrant] virtual machine is a very I/O intensive operation. To speed up this process, we have added comments to the project's Vagrantfile indicating how to use [NFS][nfs] and how to allow the VM to use multiple cores.
 
-<h2 id="kinesis-s3">5. New Kinesis-S3 repository</h2>
+<h2 id="kinesis-s3">5. New Kinesis S3 repository</h2>
 
-Since the Kinesis S3 Sink is not Snowplow-specific but can be used to move arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3]. There have been two releases of Kinesis S3 since extracting it into its own repo: [0.2.1] [kinesis-s3-021] and [0.3.0] [kinesis-s3-030].
+Since the Kinesis S3 Sink is not Snowplow-specific but can be used to mirror arbitrary data from Kinesis to S3, we have moved it from the main Snowplow repo into a [repository of its own][kinesis-s3]. There have been two releases of Kinesis S3 since extracting it into its own repo: [0.2.1] [kinesis-s3-021] and [0.3.0] [kinesis-s3-030].
 
 <h2 id="other">6. Other changes</h2>
 

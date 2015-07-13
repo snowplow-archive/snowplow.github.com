@@ -6,6 +6,7 @@ shortened-link: What is Snowplow?
 description: Snowplow is an Event Analytics Platform. It delivers event line of your own, customer-level, event-level data, from all your channels, platforms and services, into your own structured data warehouse and unified log
 weight: 1
 ---
+<!-- custom-header: product -->
 
 # Snowplow is an event analytics platform
 

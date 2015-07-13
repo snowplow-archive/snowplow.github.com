@@ -1,0 +1,153 @@
+
+/* snowplow-header.css is based on bootstrap */
+
+/* basic structure */
+
+header {background-color: #4C5371; padding: 15px 0}
+
+header.custom {
+	background-image: url('/assets/themes/snowplow/img/world.png');
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 50vh;
+}
+
+header .brand, header .logo, header .name {float: left}
+
+header nav {float: right}
+
+header .custom-content {margin-top: 15px}
+
+/* text */
+
+header {font-weight: 300; font-size: 15px; color: white}
+
+header a, header a:hover, header a:focus {
+	text-decoration: none;
+	color: white;
+}
+
+/* brand */
+
+header .logo {
+	margin-top: -7px;
+	margin-bottom: -7px;
+}
+
+header .logo img {height: 65px}
+
+header .name { /* the snowplow name */
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	font-weight: 300;
+	font-size: 36px; /* largest possible size */
+	color: white;
+	margin-left: 15px;
+}
+
+/* collapsable menu on mobile */
+
+@media (min-width: 992px) {header .toggle {display: none}} /* hide toggle on larger screens */
+
+header .collapse {display: none}
+
+header .collapse.in {display: block}
+
+.nav-collapse {overflow-x: visible; -webkit-overflow-scrolling: touch}
+
+.nav-collapse.in {overflow-y: auto}
+
+@media (min-width: 992px) {.nav-collapse.collapse {display: block !important}}
+
+/* menu */
+
+header .nav-collapse {text-align: right} /* for the vertical menu */
+
+header .nav-collapse ul {margin: 15px 0} /* prevent issues with alignment */
+
+header .nav-collapse li {
+	margin-left: 5px;
+	display : inline-block;
+}
+
+header .nav-collapse li a {
+	text-transform: uppercase;
+	padding: 15px;
+}
+
+header .nav-collapse li a.with-border {
+	border: 2px solid white;
+	border-radius: 5px;
+	font-weight: 400;
+}
+
+header .nav-collapse li a.without-border {
+	border: 2px solid transparent; /* present but invisible to align things better */
+	border-radius: 5px;
+}
+
+header .nav-collapse li a:hover,
+header .nav-collapse li a:focus {
+	background: #797F94; /* overwrite default in bootstrap.css */
+	border-color: #797F94;
+}
+
+header .nav-collapse .active a,
+header .nav-collapse .active a:hover,
+header .nav-collapse .active a:focus {
+	background: #797F94; /* overwrite default in bootstrap.css */
+	border-color: #797F94;
+}
+
+/* mobile menu */
+
+@media (max-width: 991px) {
+
+	header .toggle {text-align: right} /* hack */
+
+	header .toggle-menu {
+		background-color: #1F294D;
+		border: 2px solid #1F294D;
+		border-color: #4C5371;
+		padding: 15px;
+		color: white;
+		border-radius: 5px;
+		text-transform: uppercase;
+	}
+
+	header .toggle-menu:hover, header .toggle-menu:focus {background: #4C5371}
+
+	header .nav-collapse li {
+		margin-right: 0;
+		margin-top: 5px;
+		padding: 15px;
+		position: relative;
+  	display: block;
+		list-style: none;
+	}
+
+}
+
+/* temporary, to be cleaned up */
+
+.bigbox {
+	margin: 75px 0;
+	text-align: center;
+}
+
+.bigbox h1 {
+	font-size: 65px;
+	font-weight: 300;
+}
+
+.bigbox p {
+	font-size: 25px;
+	margin: 0 auto 30px auto;
+	width: 90%;
+}
+
+.bigbox a.cta {
+	font-size: 20px;
+}

@@ -6,7 +6,9 @@ shortened-link: Get started
 weight: 1
 redirect_from:
   - /services/pipelines.html
+  - /pricing/index.html
 ---
+<!-- custom-header: pricing -->
 
 <h1>Get started with Snowplow today</h1>
 <p>Three Snowplow products to choose from:</p>

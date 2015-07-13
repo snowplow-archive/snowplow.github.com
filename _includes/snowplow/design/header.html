@@ -1,0 +1,49 @@
+<div class="menu">
+  <div class="container">
+
+    {% if page.hide-brand %}<!-- do nothing -->
+    {% else %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"><img src="/assets/themes/snowplow/img/logo-white.png"></a></div>&nbsp;<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
+    {% endif %}
+
+      <nav role="navigation">
+        <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
+
+        <div class="nav-collapse collapse" id="nav-collapse">
+          <ul>
+
+          {% if page.group == 'product' %}<li class="active"><a href="/product" class="active without-border">Product</a></li>
+          {% else %}<li><a href="/product" class="without-border">Product</a></li>
+          {% endif %}
+
+          {% if page.group == 'analytics' %}<li class="active"><a href="/analytics" class="active without-border">Analytics</a></li>
+          {% else %}<li><a href="/analytics" class="without-border">Analytics</a></li>
+          {% endif %}
+
+          {% if page.group == 'technology' %}<li class="active"><a href="/technology" class="active without-border">Technology</a></li>
+          {% else %}<li><a href="/technology" class="without-border">Technology</a></li>
+          {% endif %}
+
+          {% if page.url contains 'blog' %}<li class="active"><a href="/blog" class="active without-border">Blog</a></li>
+          {% else %}<li><a href="/blog" class="without-border">Blog</a></li>
+          {% endif %}
+
+          {% if page.group == 'get-started' %}<li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
+          {% else %}<li><a href="/get-started" class="with-border">Get started</a></li>
+          {% endif %}
+
+          </ul>
+        </div>
+      </nav>
+
+  </div>
+</div>
+
+{% if page.custom-header %}<div class="custom-content">{% endif %}
+  <div class="container">
+
+  {% if page.custom-header == 'homepage' %}{% include snowplow/design/headers/homepage.html %}{% endif %}
+  {% if page.custom-header == 'product' %}{% include snowplow/design/headers/product.html %}{% endif %}
+  {% if page.custom-header == 'pricing' %}{% include snowplow/design/headers/pricing.html %}{% endif %}
+
+  </div>
+{% if page.custom-header %}</div>{% endif %}

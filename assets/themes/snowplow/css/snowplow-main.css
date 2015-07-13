@@ -4,7 +4,7 @@
 /* Basic elements */
 
 html, body {
-	background-color: #D2D4DB; /* same background-color as footer */
+	background-color: #D2D4DB; /* same background-color as header */
 	height: 100%; /* required to make footer look nice */
 	padding: 0;
 	margin: 0;
@@ -18,11 +18,6 @@ body {
 }
 
 /* Basic structure */
-
-nav {
-	background-color: #1F294D;
-	padding: 15px 0;
-}
 
 main {
 	min-height: 500px; /* prevent pages from looking ridiculous */
@@ -38,6 +33,201 @@ footer {
 @media (max-width: 767px) {
 	main{padding: 30px 0;} /* use less space on mobile */
 }
+
+/* Header */
+
+header {
+	width: 100%;
+	overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+	padding: 15px 0;
+}
+
+header a, header a:hover, header a:focus {
+	text-decoration: none;
+	color: white;
+}
+
+header .brand {
+	float: left;
+}
+
+header .logo {
+	float: left;
+}
+
+header .name {
+	float: left;
+	font-size: 45px;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 300;
+	letter-spacing: -1px;
+}
+
+header nav {
+	float: right;
+}
+
+.collapse {
+  display: none;
+}
+.collapse.in {
+  display: block;
+}
+
+.nav-collapse {
+  padding-right: 15px;
+  padding-left: 15px;
+  overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.nav-collapse.in {
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .nav-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .nav-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .nav-collapse.in {
+    overflow-y: visible;
+  }
+
+
+
+
+
+
+	.navbar-snowplow {
+		font-weight: 300;
+		border-radius: 0; /* overwrite default in bootstrap.css */
+		margin: 0; /* overwrite default in bootstrap.css */
+	}
+
+	@media (min-width: 768px) {
+		.navbar-snowplow {
+			height: 150px; /* height cannot be in .navbar-snowplow itself because it causes issues */
+		}
+	}
+
+	/* Header: brand */
+
+	.container > .navbar-header,
+	.container > .navbar-collapse {
+	  margin: 0; /* overwrite default in bootstrap.css */
+	}
+
+	.navbar-snowplow .navbar-brand {
+		height: 120px;
+		padding: 0;
+		margin: 0;
+	}
+
+	.navbar-snowplow .navbar-brand > img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	@media (min-width: 768px) {
+	  .navbar > .container .navbar-brand {
+	    margin-left: 0px; /* overwrite default in bootstrap.css */
+	  }
+	}
+
+	/* Header: navigation */
+
+	nav {
+		padding: 0; /* overwrite default in bootstrap.css */
+	}
+
+	nav {
+	  margin: 0; /* top and bottom margin of menu */
+	}
+
+	nav > li {
+		margin-left: 5px;
+		display : inline-block;
+	}
+
+	@media (max-width: 767px) {
+		nav > li {
+			margin-right: 0;
+			margin-top: 5px
+		}
+	}
+
+	nav li > .with-border {
+		border: 2px solid #4C5371;
+		border-radius: 5px;
+		font-weight: 400;
+	}
+
+	nav li > .without-border {
+		border: 2px solid #1F294D; /* present but invisible for alignment */
+		border-radius: 5px;
+	}
+
+	nav li > a {
+		text-shadow: none; /* overwrite default in bootstrap-theme.css */
+		text-transform: uppercase;
+		font-size: 15px;
+		padding: 15px;
+		color: white;
+	}
+
+	nav li > a:hover,
+	nav li > a:focus {
+		background: #4C5371; /* overwrite default in bootstrap.css */
+		border-color: #4C5371;
+		color: white;
+	}
+	nav .active > a,
+	nav .active > a:hover,
+	nav .active > a:focus {
+		background: #4C5371; /* overwrite default in bootstrap.css */
+		border-color: #4C5371;
+		color: white;
+	}
+
+	/* Header: hamburger icon */
+
+	.navbar-snowplow .navbar-toggle { /* overwrite default in bootstrap.css */
+		margin: 0;
+		padding: 15px;
+	  border-radius: 5px;
+	}
+
+	.navbar-snowplow .navbar-toggle {
+	  border: 2px solid #4C5371;
+	}
+	.navbar-snowplow .navbar-toggle:hover,
+	.navbar-snowplow .navbar-toggle:focus {
+	  background-color: #4C5371;
+	}
+	.navbar-snowplow .navbar-toggle .icon-bar {
+	  background-color: white;
+	}
+
+
+
+
+
+
 
 /* Responsive container */
 
@@ -212,114 +402,7 @@ img {
 
 /* Header */
 
-.navbar-snowplow {
-	font-weight: 300;
-	border-radius: 0; /* overwrite default in bootstrap.css */
-	margin: 0; /* overwrite default in bootstrap.css */
-}
 
-@media (min-width: 768px) {
-	.navbar-snowplow {
-		height: 150px; /* height cannot be in .navbar-snowplow itself because it causes issues */
-	}
-}
-
-/* Header: brand */
-
-.container > .navbar-header,
-.container > .navbar-collapse {
-  margin: 0; /* overwrite default in bootstrap.css */
-}
-
-.navbar-snowplow .navbar-brand {
-	height: 120px;
-	padding: 0;
-	margin: 0;
-}
-
-.navbar-snowplow .navbar-brand > img {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-@media (min-width: 768px) {
-  .navbar > .container .navbar-brand {
-    margin-left: 0px; /* overwrite default in bootstrap.css */
-  }
-}
-
-/* Header: navigation */
-
-.navbar-snowplow .navbar-collapse {
-	padding: 0; /* overwrite default in bootstrap.css */
-}
-
-.navbar-snowplow .navbar-nav {
-  margin: 0; /* top and bottom margin of menu */
-}
-
-.navbar-snowplow .navbar-nav > li {
-	margin-left: 5px;
-}
-
-@media (max-width: 767px) {
-	.navbar-snowplow .navbar-nav > li {
-		margin-right: 0;
-		margin-top: 5px
-	}
-}
-
-.navbar-snowplow .navbar-nav > li > .with-border {
-	border: 2px solid #4C5371;
-	border-radius: 5px;
-	font-weight: 400;
-}
-
-.navbar-snowplow .navbar-nav > li > .without-border {
-	border: 2px solid #1F294D; /* present but invisible for alignment */
-	border-radius: 5px;
-}
-
-.navbar-snowplow .navbar-nav > li > a {
-	text-shadow: none; /* overwrite default in bootstrap-theme.css */
-	text-transform: uppercase;
-	font-size: 15px;
-	padding: 15px;
-	color: white;
-}
-
-.navbar-snowplow .navbar-nav > li > a:hover,
-.navbar-snowplow .navbar-nav > li > a:focus {
-	background: #4C5371; /* overwrite default in bootstrap.css */
-	border-color: #4C5371;
-	color: white;
-}
-.navbar-snowplow .navbar-nav > .active > a,
-.navbar-snowplow .navbar-nav > .active > a:hover,
-.navbar-snowplow .navbar-nav > .active > a:focus {
-	background: #4C5371; /* overwrite default in bootstrap.css */
-	border-color: #4C5371;
-	color: white;
-}
-
-/* Header: hamburger icon */
-
-.navbar-snowplow .navbar-toggle { /* overwrite default in bootstrap.css */
-	margin: 0;
-	padding: 15px;
-  border-radius: 5px;
-}
-
-.navbar-snowplow .navbar-toggle {
-  border: 2px solid #4C5371;
-}
-.navbar-snowplow .navbar-toggle:hover,
-.navbar-snowplow .navbar-toggle:focus {
-  background-color: #4C5371;
-}
-.navbar-snowplow .navbar-toggle .icon-bar {
-  background-color: white;
-}
 
 /* Main */
 

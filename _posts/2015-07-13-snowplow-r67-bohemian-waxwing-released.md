@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This release brings a host of upgrades to our real-time [Kinesis][kinesis] pipeline as well as the embedding of Snowplow Tracking into this pipeline.
+We are pleased to announce the release of Snowplow 67, Bohemian Waxwing. This release brings a host of upgrades to our real-time [Amazon Kinesis][kinesis] pipeline as well as the embedding of Snowplow tracking into this pipeline.
 
 Table of contents:
 
@@ -26,7 +26,12 @@ Table of contents:
 
 <h2 id="snowplow-tracking">1. Embedded Snowplow tracking</h2>
 
-Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to record Snowplow events from within the application themselves. These events include a `heartbeat` which is sent every 5 minutes so we know that the application is still alive and kicking, events for each `failure` in pushing events to the Kinesis streams or Elasticsearch and `initialization` and `shutdown` events.
+Both Scala Kinesis Enrich and Kinesis Elasticsearch Sink now have the ability to record Snowplow events from within the applications themselves. These events include:
+
+* A `heartbeat` which is sent every 5 minutes so we know that the app is still alive-and-kicking
+* Application `warning` events, e.g. if no enrichment configurations were found by Scala Kinesis Enrich
+* Events for each `failure` in pushing events to the Kinesis streams or Elasticsearch
+* Application `initialization` and `shutdown` events
 
 Adding Snowplow tracking to our Kinesis applications is exciting for two reasons:
 

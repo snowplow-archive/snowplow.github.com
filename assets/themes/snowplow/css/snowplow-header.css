@@ -184,6 +184,22 @@ header .plan-details {font-weight: 400; font-size: 15px; min-height: 200px}
 header .plan-detail {margin-top: 5px; color: #A5A9B9}
 header .plan-detail.white {color: white}
 
+header .plan-cta {margin-top: 5px}
+
+@media (max-width: 991px) { /* responsive pricing plans */
+
+header .plan {
+	width: 100%;
+	float: none;
+}
+
+header .plan.batch,
+header .plan.real-time {margin-left: 0; margin-top: 15px}
+
+header .plan-details {min-height: 20px}
+
+}
+
 .cta-button {
   display: inline-block;
   padding: 15px 12px;

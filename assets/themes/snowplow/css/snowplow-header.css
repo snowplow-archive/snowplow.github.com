@@ -68,37 +68,37 @@ header .nav-collapse {text-align: right} /* for the vertical menu */
 header .nav-collapse ul {margin: 15px 0} /* prevent issues with alignment */
 
 header .nav-collapse li {
-	margin-left: 5px;
 	display : inline-block;
+	margin-left: 6px;
 }
 
 header .nav-collapse li a {
 	text-transform: uppercase;
-	padding: 15px;
+	padding: 15px 12px;
 }
 
 header .nav-collapse li a.with-border {
-	border: 2px solid white;
+	border: 2px solid rgba(121,127,148,0.3);
 	border-radius: 5px;
 	font-weight: 400;
 }
 
 header .nav-collapse li a.without-border {
-	border: 2px solid transparent; /* present but invisible to align things better */
+	border: 2px solid rgba(121,127,148,0); /* present but invisible to align things better */
 	border-radius: 5px;
 }
 
 header .nav-collapse li a:hover,
 header .nav-collapse li a:focus {
-	background: #797F94; /* overwrite default in bootstrap.css */
-	border-color: #797F94;
+	background: rgba(121,127,148,0.3); /* overwrite default in bootstrap.css */
+	border-color: rgba(121,127,148,0.3);
 }
 
 header .nav-collapse .active a,
 header .nav-collapse .active a:hover,
 header .nav-collapse .active a:focus {
-	background: #797F94; /* overwrite default in bootstrap.css */
-	border-color: #797F94;
+	background: rgba(121,127,148,0.3); /* overwrite default in bootstrap.css */
+	border-color: rgba(121,127,148,0.3);
 }
 
 /* mobile menu */
@@ -109,9 +109,9 @@ header .nav-collapse .active a:focus {
 
 	header .toggle-menu {
 		background-color: #1F294D;
-		border: 2px solid #1F294D;
+		border: 2px solid rgba(121,127,148,0.3);
 		border-color: #4C5371;
-		padding: 15px;
+		padding: 15px 12px;
 		color: white;
 		border-radius: 5px;
 		text-transform: uppercase;
@@ -122,7 +122,7 @@ header .nav-collapse .active a:focus {
 	header .nav-collapse li {
 		margin-right: 0;
 		margin-top: 5px;
-		padding: 15px;
+		padding: 15px 12px;
 		position: relative;
   	display: block;
 		list-style: none;
@@ -130,28 +130,23 @@ header .nav-collapse .active a:focus {
 
 }
 
-/* temporary, to be cleaned up */
+/* big box */
 
-.bigbox {
-	margin: 0;
-	text-align: center;
-}
+header .bigbox {text-align: center; margin: 0}
 
-.bigbox h1 {
-	font-size: 65px;
-	font-weight: 300;
+header .bigbox h1 {
 	margin-bottom: 60px;
+	font-weight: 300;
+	font-size: 65px;
 }
 
-.bigbox p {
-	font-size: 25px;
+header .bigbox p {
 	margin: 0 auto 30px auto;
+	font-size: 25px;
 	width: 90%;
 }
 
-.bigbox a.cta {
-	font-size: 20px;
-}
+header .bigbox a.cta {font-size: 20px}
 
 /* pricing plans */
 
@@ -199,6 +194,8 @@ header .plan.real-time {margin-left: 0; margin-top: 15px}
 header .plan-details {min-height: 20px}
 
 }
+
+/* call to action */
 
 .cta-button {
   display: inline-block;

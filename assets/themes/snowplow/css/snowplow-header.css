@@ -182,7 +182,7 @@ header .plan-price sup {font-size: 30px}
 
 header .plan-details {font-weight: 400; font-size: 15px; min-height: 200px}
 header .plan-detail {margin-top: 5px; color: #A5A9B9}
-header .plan-detail.white {color: #D2D4DB}
+header .plan-detail.white {color: white}
 
 .cta-button {
   display: inline-block;
@@ -190,8 +190,7 @@ header .plan-detail.white {color: #D2D4DB}
   font-size: 15px;
   font-weight: 400;
   user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid transparent; /* overwrite defaults */
   border-radius: 5px;
   text-transform: uppercase;
 }

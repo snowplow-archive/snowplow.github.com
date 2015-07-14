@@ -33,6 +33,8 @@ For more information about Elasticity, check out Rob's [guest post][rob-post] fr
 
 The EmrEtlRunner is no longer limited to a single bucket. Now you can specify an array of in buckets in the configuration YAML and raw event files from all of them will be moved to the processing bucket. This is helpful when upgrading your collector version.
 
+See the repository for [an example configuration file][sample-config].
+
 <h2 id="jar-path">3. Backwards compatibility with old Hadoop Enrich versions</h2>
 
 More recent versions of Scala Hadoop Enrich (1.0.0 and later) are stored in a different S3 bucket from previous versions. The previous EmrEtlRunner release always looked in the new location, no matter what version of Hadoop Enrich was specified. The new version decides where to look for the jar based on its version. This means that you can use the latest EmrEtlRunner version with earlier versions of Hadoop Enrich.
@@ -49,8 +51,6 @@ $ bundle install --deployment
 $ cd ../../4-storage/storage-loader
 $ bundle install --deployment
 {% endhighlight %}
-
-Additionally, you need to change the EmrEtlRunner's configuration YAML to specify an array of in buckets rather than a single in bucket. See the repository for [an example][sample-config].
 
 <h2 id="help">5. Getting help</h2>
 

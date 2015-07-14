@@ -153,42 +153,38 @@ header .nav-collapse .active a:focus {
 	font-size: 20px;
 }
 
-/* temporary, to be cleaned up */
+/* pricing plans */
 
-header .plans {
-	margin: 0 auto;
-	width: 90%
-}
+header .plans {margin: 0 auto; width: 90%}
 
-header .plans .plan {
-	padding: 30px 15px;
+header .plan {
 	width: 32%;
-	background-color: rgba(121,127,148,0.3);
-	color: #D2D4DB;
-	float: left;
+	padding: 30px 15px;
 	border-radius: 5px;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 400;
-	font-size: 25px;
+	float: left;
 }
 
 header .plan.batch,
 header .plan.real-time {margin-left: 2%}
 
-header .price {font-size:60px; font-weight: 300}
-header .price sup {font-size:30px}
-header .price .per-month {font-size:20px}
-
-header .feature {
-	font-size:15px;
-margin-top: 5px;
-color: #A5A9B9;
+header .plan {
+	background-color: rgba(121,127,148,0.3);
+	text-transform: uppercase;
+	text-align: center;
 }
 
-header .features {min-height: 200px}
+header .plan-name {font-weight: 400; font-size: 25px}
 
-.snplw-button {
+header .plan-price {padding: 10px 0}
+header .plan-price {font-weight: 300; font-size: 60px}
+header .plan-price .per-month {font-size: 20px}
+header .plan-price sup {font-size: 30px}
+
+header .plan-details {font-weight: 400; font-size: 15px; min-height: 200px}
+header .plan-detail {margin-top: 5px; color: #A5A9B9}
+header .plan-detail.white {color: #D2D4DB}
+
+.cta-button {
   display: inline-block;
   padding: 15px 12px;
   font-size: 15px;
@@ -200,7 +196,4 @@ header .features {min-height: 200px}
   text-transform: uppercase;
 }
 
-.snplw-button {
-  color: #fff;
-  background-color: #5cb85c;
-}
+.cta-button {color: white; background-color: #5CB85C}

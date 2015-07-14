@@ -7,10 +7,9 @@ weight: 1
 redirect_from:
   - /services/pipelines.html
   - /pricing/index.html
+custom-header: pricing
 ---
-<!-- custom-header: pricing -->
 
-<h1>Get started with Snowplow today</h1>
 <p>Three Snowplow products to choose from:</p>
 
 <ul>
@@ -141,9 +140,6 @@ Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [
 <h2>Want to talk to a human?</h2>
 
 Then [get in touch][contact] with the Snowplow team!
-
-
-
 
 
 [forum]: https://groups.google.com/forum/#!forum/snowplow-user

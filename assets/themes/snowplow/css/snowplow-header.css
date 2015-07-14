@@ -1,5 +1,5 @@
 
-/* snowplow-header.css is based on bootstrap */
+/* snowplow-header.css */
 
 /* basic structure */
 
@@ -18,7 +18,7 @@ header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
-header .custom-content {margin-top: 15px}
+header .custom-content {margin: 90px 0 75px 0}
 
 /* text */
 
@@ -133,13 +133,14 @@ header .nav-collapse .active a:focus {
 /* temporary, to be cleaned up */
 
 .bigbox {
-	margin: 75px 0;
+	margin: 0;
 	text-align: center;
 }
 
 .bigbox h1 {
 	font-size: 65px;
 	font-weight: 300;
+	margin-bottom: 60px;
 }
 
 .bigbox p {
@@ -150,4 +151,56 @@ header .nav-collapse .active a:focus {
 
 .bigbox a.cta {
 	font-size: 20px;
+}
+
+/* temporary, to be cleaned up */
+
+header .plans {
+	margin: 0 auto;
+	width: 90%
+}
+
+header .plans .plan {
+	padding: 30px 15px;
+	width: 32%;
+	background-color: rgba(121,127,148,0.3);
+	color: #D2D4DB;
+	float: left;
+	border-radius: 5px;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 25px;
+}
+
+header .plan.batch,
+header .plan.real-time {margin-left: 2%}
+
+header .price {font-size:60px; font-weight: 300}
+header .price sup {font-size:30px}
+header .price .per-month {font-size:20px}
+
+header .feature {
+	font-size:15px;
+margin-top: 5px;
+color: #A5A9B9;
+}
+
+header .features {min-height: 200px}
+
+.snplw-button {
+  display: inline-block;
+  padding: 15px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.snplw-button {
+  color: #fff;
+  background-color: #5cb85c;
 }

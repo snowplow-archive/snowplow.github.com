@@ -11,11 +11,11 @@ We are happy to announce the release of Snowplow 68, Turquoise Jay. This is a sm
 
 Table of contents:
 
-1. [Updates to the Elastic Map Reduce API](/blog/2015/xx/xx/snowplow-r68-turquoise-jay-released#api)
-2. [Multiple "in" buckets](/blog/2015/xx/xx/snowplow-r68-turquoise-jay-released#multiple-in-buckets)
-3. [Backwards compatibility with old Hadoop Enrich versions](/blog/2015/xx/xx/snowplow-r68-turquoise-jay-released#jar-path)
-4. [Upgrading](/blog/2015/xx/xx/snowplow-r68-turquoise-jay-released#upgrading)
-5. [Getting help](/blog/2015/xx/xx/snowplow-r68-turquoise-jay-released#help)
+1. [Updates to the Elastic Map Reduce API](/blog/2015/07/xx/snowplow-r68-turquoise-jay-released#api)
+2. [Multiple "in" buckets](/blog/2015/07/xx/snowplow-r68-turquoise-jay-released#multiple-in-buckets)
+3. [Backwards compatibility with old Hadoop Enrich versions](/blog/2015/07/xx/snowplow-r68-turquoise-jay-released#jar-path)
+4. [Upgrading](/blog/2015/07/xx/snowplow-r68-turquoise-jay-released#upgrading)
+5. [Getting help](/blog/2015/07/xx/snowplow-r68-turquoise-jay-released#help)
 
 ![turquoise-jay][turquoise-jay]
 

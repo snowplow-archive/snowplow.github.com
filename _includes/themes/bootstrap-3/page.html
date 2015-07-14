@@ -4,7 +4,7 @@
   <div class="col-md-12">
     {{ content }}
   </div>
-  {% elsif page.url contains 'pricing' %}
+  {% elsif page.url contains 'get-started' %}
   <div class="col-md-12">
     {{ content }}
   </div>
@@ -24,9 +24,9 @@
   </div>
   <div class="col-md-3">
   	<!-- Standard sidebar -->
-  	{% assign pages_list = site.pages %}  
-    {% assign group = page.group %} 
-    {% assign sub_group = page.sub_group %} 
+  	{% assign pages_list = site.pages %}
+    {% assign group = page.group %}
+    {% assign sub_group = page.sub_group %}
     {% include snowplow/sidebar_standard %}
   </div>
   {% endif %}

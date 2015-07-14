@@ -1,16 +1,15 @@
 ---
 layout: page
 group: get-started
-title: How to get started with Snowplow today
+title: Pricing
 shortened-link: Get started
 weight: 1
 redirect_from:
   - /services/pipelines.html
   - /pricing/index.html
+custom-header: pricing
 ---
-<!-- custom-header: pricing -->
 
-<h1>Get started with Snowplow today</h1>
 <p>Three Snowplow products to choose from:</p>
 
 <ul>
@@ -22,7 +21,7 @@ redirect_from:
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Product</th>
+            <th width="50%">Product</th>
             <th>Managed Service Real-Time</th>
             <th>Managed Service Batch</th>
             <th>Open Source</th>
@@ -103,15 +102,15 @@ redirect_from:
     	</tr>
     	<tr>
     		<td></td>
-    		<td><a href="register-for-real-time.html"><button class="btn btn-success btn-primary" type="button">Register interest</button></a></td>
-    		<td><a href="managed-service-batch-free-trial.html"><button class="btn btn-success btn-primary" type="button">Free trial</button></a></td>
-    		<td><a href="https://github.com/snowplow/snowplow"><button class="btn btn-success btn-primary" type="button">View the repo</button></a></td>
+    		<td><a href="register-for-real-time.html"><button class="cta-button" type="button">Register for private beta</button></a></td>
+    		<td><a href="managed-service-batch-free-trial.html"><button class="cta-button" type="button">Free trial</button></a></td>
+    		<td><a href="https://github.com/snowplow/snowplow"><button class="cta-button" type="button">GitHub repo</button></a></td>
     	</tr>
     </tbody>
 </table>
 
 
-<h2><a name="batch">1. The Managed Service Batch</a></h2>
+<h2 id="batch">1. The Managed Service Batch</h2>
 
 <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
 
@@ -125,7 +124,7 @@ redirect_from:
 
 You can trial the managed service [free] [trial] for [one month] [trial]. [Sign up here] [trial], or [get in touch] [contact] to learn more.
 
-<h2><a name="real-time">2. The Managed Service Real Time</a></h2>
+<h2 id="real-time">2. The Managed Service Real Time</h2>
 
 Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:
 
@@ -134,16 +133,13 @@ Like the Managed Service batch, but in addition to regular loading of your data 
 
 The Managed Service Real Time is currently available in private beta. [Register now] [register] to ensure you are at the front of the queue when the service becomes publically available.
 
-<h2><a name="open-source">3. Open source</a></h2>
+<h2 id="open-source">3. Open source</h2>
 
 Run the Snowplow pipeline yourself. Our full codebase is available on [Github] [repo].
 
 <h2>Want to talk to a human?</h2>
 
 Then [get in touch][contact] with the Snowplow team!
-
-
-
 
 
 [forum]: https://groups.google.com/forum/#!forum/snowplow-user

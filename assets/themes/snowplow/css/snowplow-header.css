@@ -31,9 +31,9 @@ header a, header a:hover, header a:focus {
 
 /* brand */
 
-header .logo {margin: -7px 0}
+/* header .logo {margin: -7px 0} */
 
-header .logo img {height: 65px}
+header .logo img {height: 51px}
 
 header .name { /* the snowplow name */
 	text-transform: uppercase;

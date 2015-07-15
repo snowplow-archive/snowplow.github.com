@@ -98,16 +98,18 @@ header .nav-collapse li      a:focus {
 	header .toggle {text-align: right} /* hack */
 
 	header .toggle-menu {
-		background-color: #1F294D;
+		background-color: rgba(121,127,148,0);
 		border: 2px solid rgba(121,127,148,0.3);
-		border-color: #4C5371;
 		padding: 15px 12px;
 		color: white;
 		border-radius: 5px;
 		text-transform: uppercase;
 	}
 
-	header .toggle-menu:hover, header .toggle-menu:focus {background: #4C5371}
+	header .toggle-menu:hover, header .toggle-menu:focus {
+		background-color: rgba(121,127,148,0.3);
+		border: 2px solid transparent;
+	}
 
 	header .nav-collapse li {
 		margin-right: 0;

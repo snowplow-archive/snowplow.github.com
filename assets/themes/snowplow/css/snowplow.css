@@ -4,7 +4,7 @@
 /* Basic elements */
 
 html, body {
-	background-color: #D2D4DB; /* same background-color as header */
+	background-color: #4C5371; /* same color as header and footer */
 	height: 100%; /* required to make footer look nice */
 	padding: 0;
 	margin: 0;
@@ -26,7 +26,7 @@ main {
 }
 
 footer {
-	background-color: #D2D4DB;
+	background-color: #4C5371;
 	padding: 30px 0 15px 0;
 }
 
@@ -241,7 +241,7 @@ address { margin: 0; } /* overwrite defaults */
 footer {
 	font-size: 15px;
 	font-weight: 300;
-	color: #797F94;
+	color: #D2D4DB;
 }
 
 footer .about,
@@ -259,7 +259,7 @@ footer .notice {
 	float: left;
 }
 
-footer .notice > a { color: #797F94; text-decoration: none; }
+footer .notice > a { color: #D2D4DB; text-decoration: none; }
 
 footer h6 {
 	font-size: 15px;
@@ -278,6 +278,12 @@ footer li {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+}
+
+footer a,
+footer a:hover,
+footer a:active {
+	color: white
 }
 
 @media (max-width: 767px) {

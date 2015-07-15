@@ -18,6 +18,7 @@
 
   <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
   <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-main.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
 
   <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"> <!-- custom -->
 
@@ -71,8 +72,10 @@
 
   </header>
 
-  <main class="main-snowplow" role="main">
-    <div class="container">{{ content }}</div>
+  <main role="main">
+    {% if page.custom-main %}{{ content }}
+    {% else %}<div class="wrapper"><div class="container">{{ content }}</div></div>
+    {% endif %}
   </main>
 
   <footer>{% include snowplow/design/footer.html %}</footer>

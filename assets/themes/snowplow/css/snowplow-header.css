@@ -6,19 +6,20 @@
 header {background-color: #4C5371; padding: 15px 0}
 
 header.custom {
+	min-height: 50vh;
+	padding-bottom: 90px;
 	background-image: url('/assets/themes/snowplow/img/world.png');
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	min-height: 50vh;
 }
 
 header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
-header .custom-content {margin: 90px 0 75px 0}
+header .custom-content {margin: 90px 0 0 0}
 
 /* text */
 

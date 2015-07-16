@@ -1,6 +1,4 @@
 
-/* snowplow-header.css */
-
 /* basic structure */
 
 header {background-color: #4C5371; padding: 15px 0}
@@ -187,18 +185,3 @@ header .plan.real-time {margin-left: 0; margin-top: 15px}
 header .plan-details {min-height: 20px}
 
 }
-
-/* call to action */
-
-.cta-button {
-  display: inline-block;
-  padding: 15px 12px;
-  font-size: 15px;
-  font-weight: 400;
-  user-select: none;
-  border: 1px solid transparent; /* overwrite defaults */
-  border-radius: 5px;
-  text-transform: uppercase;
-}
-
-.cta-button {color: white; background-color: #5CB85C}

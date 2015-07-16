@@ -1,7 +1,5 @@
 
-/* snowplow.css is based on bootstrap */
-
-/* Basic elements */
+/* basic structure */
 
 html, body {
 	background-color: #4C5371; /* same color as header and footer */
@@ -11,32 +9,13 @@ html, body {
 }
 
 body {
-	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: 400;
 	font-size: 18px;
+	font-weight: 400;
+	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
-/* Basic structure */
-
-main {
-	min-height: 500px; /* prevent pages from looking ridiculous */
-	background-color: #FFFFFF;
-	padding: 0;
-}
-
-footer {
-	background-color: #4C5371;
-	padding: 30px 0 15px 0;
-}
-
-@media (max-width: 767px) {
-	main{padding: 30px 0;} /* use less space on mobile */
-}
-
-
-
-/* Responsive container */
+/* responsive container */
 
 .container {
   padding-right: 15px;
@@ -207,12 +186,6 @@ img {
 	max-width: 100%; /* responsive by default */
 }
 
-/* Header */
-
-
-
-/* Main */
-
 /* Blog */
 
 .blog .datebox,
@@ -234,67 +207,24 @@ q { quotes: "“" "”" "‘" "’"; }
 q:before { content: open-quote; }
 q:after { content: close-quote; }
 
-/* Footer */
-
-address { margin: 0; } /* overwrite defaults */
-
-footer {
-	font-size: 15px;
-	font-weight: 300;
-	color: #D2D4DB;
-}
-
-footer .about,
-footer .contact {
-	float:left;
-	padding-right: 30px;
-}
-
-footer .notice {
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 10px;
-	width: 100%;
-	float: left;
-}
-
-footer .notice > a { color: #D2D4DB; text-decoration: none; }
-
-footer h6 {
-	font-size: 15px;
-	font-weight: 700;
-	padding: 0;
-	margin: 0;
-	margin-bottom: 15px;
-}
-
-footer ul {
-	padding: 0;
-	margin: 0;
-}
-
-footer li {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-footer a,
-footer a:hover,
-footer a:active {
-	color: white
-}
-
-@media (max-width: 767px) {
-	footer .contact, footer .contact .phone {
-		margin-top: 15px;
-	}
-}
-
 #cookie-law {
 	font-size: 15px;
 	background-color: #D2D4DB;
 	padding: 10px;
 	margin: 0;
 }
+
+/* call to action */
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  user-select: none;
+  border: 1px solid transparent; /* overwrite defaults */
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.cta-button {color: white; background-color: #5CB85C}

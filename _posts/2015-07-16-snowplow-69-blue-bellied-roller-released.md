@@ -29,13 +29,15 @@ For example, a large client with between 10 to 20 million events per run, execut
 
 <h2 id="mobile">2. New mobile data model</h2>
 
-This release also includes a new [mobile SQL data model](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/mobile-recalculate). This model takes events from the [mobile context](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/mobile_context_1.sql) and aggregates them into sessions and users. It's an example of a data model that uses server-side, rather than client-side, sessionization. The techniques used to sessionize events will be discussed in a future blog post.
+This release includes a new [mobile SQL data model](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/mobile-recalculate). This model takes events from the [mobile context](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/mobile_context_1.sql) and aggregates them into sessions and users. It's an example of a data model that uses server-side, rather than client-side, sessionization. The techniques used to sessionize events will be discussed in a future blog post.
 
 <h2 id="deduplication">3. New deduplication data model</h2>
 
-Duplicate events occur in the Snowplow pipeline. This can cause issues in some cases. For example, when multiple contexts are joined onto a duplicated event. These can be natural or synthetic copies. This is a SQL data model that deduplicates natural copies, identical rows get combined. Synthetic copies are moved to a new table, `atomic.duplicated_events`.
+This release also includes a [new model that deduplicates events](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate) in `atomic.events`, in order to ensure that the event ID is unique. This addresses an issue where a small percentage of rows have the same event ID.
 
-This will be discussed in more detail in a subsequent blogpost.
+Duplicate events are either natural or synthetic copies. Natural copies are true duplicates (i.e. the entire event is duplicated) and are introduced because the Snowplow pipeline is set up to guarantee that each event is processed at least once. Synthetic copies are produced external to Snowplow by, for example, browser pre-cachers and web scrapers. These copies have the same event ID, but the rest of the event can be different.
+
+This new model deduplicates natural copies and moves synthetic copies from `atomic.events` to `atomic.duplicated_events`. This ensures that the event ID is unique in the main events table. The issue of duplicate events will be discussed in more detail in a subsequent blogpost.
 
 <h2 id="upgrading">4. Implementing and upgrading SQL data models</h2>
 

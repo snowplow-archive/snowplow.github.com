@@ -1,17 +1,15 @@
 
 /* basic structure */
 
-header {background-color: #4C5371; padding: 15px 0}
-
-header.custom {
-	min-height: 50vh;
-	padding-bottom: 90px;
+header {
+	background-color: #4C5371;
 	background-image: url('/assets/themes/snowplow/img/world.png');
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+	background-repeat: no-repeat;
+	background-size: 100%;
+ 	padding: 15px 0
 }
+
+header.custom {min-height: 50vh; padding-bottom: 90px}
 
 header .brand, header .logo, header .name {float: left}
 
@@ -141,7 +139,7 @@ header .bigbox a.cta {font-size: 20px}
 
 /* pricing plans */
 
-header .plans {margin: 0 auto; width: 90%}
+header .plans {margin: 0 auto;}
 
 header .plan {
 	width: 32%;

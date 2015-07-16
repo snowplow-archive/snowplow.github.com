@@ -217,14 +217,15 @@ q:after { content: close-quote; }
 /* call to action */
 
 .cta-button {
-  display: inline-block;
-  padding: 15px 12px;
-  font-size: 15px;
+	font-size: 15px;
   font-weight: 400;
-  user-select: none;
+  padding: 15px 12px;
   border: 1px solid transparent; /* overwrite defaults */
   border-radius: 5px;
   text-transform: uppercase;
+	display: inline-block;
+	user-select: none;
 }
 
-.cta-button {color: white; background-color: #5CB85C}
+.cta-button.green {color: white; background-color: #5CB85C}
+.cta-button.gray {color: #333; background-color: #D2D4DB}

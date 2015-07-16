@@ -1,0 +1,56 @@
+---
+layout: post
+shortenedlink: Snowplow 69 released
+title: Snowplow 69 Blue-Bellied Roller released with new and updated SQL data models
+tags: [snowplow]
+author: Christophe
+category: Releases
+---
+
+We are pleased to announce the release of Snowplow 69, Blue-Bellied Roller, which contains new and updated SQL data models. The blue-bellied roller is a beautiful African bird that breeds in a narrow belt from Senegal to the northeast of the Congo. It has a dark green back, a white head, neck and breast, and a blue belly and tail.
+
+This post covers:
+
+1. [Updated incremental data model](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#incremental)
+2. [New mobile data model](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#mobile)
+3. [New deduplication data model](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#deduplication)
+4. [Implementing and upgrading SQL data models](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#upgrading)
+5. [Details and questions](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#details)
+
+<img src="/assets/img/blog/2015/07/R69-blue-bellied-roller.jpg" style="height: 450px; margin: 0 auto;" />
+
+<!--more-->
+
+<h2 id="incremental">1. Updated incremental data model</h2>
+
+The incremental model updated a set of derived tables (sessions, visitors and page views) using only events from the most recent run. This release improves on the efficiency of this model, with disk savings of up to 15% and execution times that are up to 5 times faster. This main focus was on reducing disk IO.
+
+For example, a large client with between 10 to 20 million events per run, execution time decreased from 30 minutes (on average) to 6.
+
+<h2 id="mobile">2. New mobile data model</h2>
+
+This release also includes a new [mobile SQL data model](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/mobile-recalculate). This model takes events from the [mobile context](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/mobile_context_1.sql) and aggregates them into sessions and users. It's an example of a data model that uses server-side, rather than client-side, sessionization. The techniques used to sessionize events will be discussed in a future blog post.
+
+<h2 id="deduplication">3. New deduplication data model</h2>
+
+Duplicate events occur in the Snowplow pipeline. This can cause issues in some cases. For example, when multiple contexts are joined onto a duplicated event. These can be natural or synthetic copies. This is a SQL data model that deduplicates natural copies, identical rows get combined. Synthetic copies are moved to a new table, `atomic.duplicated_events`.
+
+This will be discussed in more detail in a subsequent blogpost.
+
+<h2 id="upgrading">4. Implementing and upgrading SQL data models</h2>
+
+The SQL data models are a standalone and optional part of the Snowplow pipeline. Users who don't use the SQL data models are therefore not affected by this release.
+
+To implement the SQL data models, first execute the relevant [setup queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/setup) in Redshift. It is then possible to use [SQL Runner](https://github.com/snowplow/sql-runner) to execute the [queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql) on a regular basis. SQL Runner is an [open source app](https://github.com/snowplow/sql-runner) that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
+
+The data models come in two variants: `recalculate` and `incremental`. The `recalculate` models drop and recalculate the derived tables using all events, and can therefore be replaced without having to upgrade the tables. The `incremental` models update the derived tables using only the events from the most recent batch. The [updated incremental model](/blog/2015/07/16/snowplow-69-blue-bellied-roller-released#incremental) comes with a [migration script](https://github.com/snowplow/snowplow/blob/master/5-data-modeling/sql-runner/redshift/migration/web-incremental-1-to-2/migration.sql).
+
+<h2 id="details">5. Details and questions</h2>
+
+For more details on this release, check the [R69 Blue-Bellied Roller release][r69-release] on GitHub. If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us]. For more information on the blue-bellied roller, visit [Wikipedia](https://en.wikipedia.org/wiki/Blue-bellied_roller).
+
+
+[r69-release]: https://github.com/snowplow/snowplow/releases/tag/r69-blue-bellied-roller
+
+[issues]: https://github.com/snowplow/snowplow/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

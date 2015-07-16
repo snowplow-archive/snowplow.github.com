@@ -17,23 +17,23 @@ body {
 
 /* responsive container */
 
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 768px) {
-  .container {width: 750px;}
-}
+.container {padding: 0 15px; margin: 0 auto}
+
+@media (min-width: 768px) {.container {width: 750px}}
+
 @media (min-width: 992px) {
-  .container {width: 970px;}
-}
-@media (min-width: 1200px) {
-  .container {width: 1170px;}
+  .container				 {width: 970px}
+	.container.small 	 {width: 970px}
+	.container.smaller {width: 750px}
 }
 
-.row { margin: 0; } /* overwrite default in bootstrap.css */
+@media (min-width: 1200px) {
+  .container				 {width: 1170px}
+	.container.small   {width: 970px}
+	.container.smaller {width: 750px}
+}
+
+.row {margin: 0} /* overwrite default */
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2,
 .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4,

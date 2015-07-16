@@ -73,7 +73,7 @@
 
   </header>
 
-  <main role="main">
+  <main role="main" {% if page.custom-main %}class="custom"{% endif %}>
     {% if page.custom-main %}{{ content }}
     {% else %}<div class="wrapper"><div class="container">{{ content }}</div></div>
     {% endif %}

@@ -14,6 +14,8 @@ custom-main: true
 <div class="wrapper white">
   <div class="container">
 
+    <h2>What is included?</h2>
+
     <p>Three Snowplow products to choose from:</p>
 
     <ul>
@@ -119,7 +121,9 @@ custom-main: true
 <div class="wrapper gray">
   <div class="container">
 
-    <h2 id="batch">1. The Managed Service Batch</h2>
+    <h2>FAQ</h2>
+
+    <h2 id="batch">What is the Managed Service Batch?</h2>
 
     <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
 
@@ -133,7 +137,7 @@ custom-main: true
 
       <p>You can trial the <a href="managed-service-batch-free-trial.html">managed service free for one month</a>. Sign up here, or <a href="/about">get in touch</a> to learn more.</p>
 
-      <h2 id="real-time">2. The Managed Service Real Time</h2>
+      <h2 id="real-time">What is the Managed Service Real Time?</h2>
 
       <p>Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:</p>
 
@@ -144,7 +148,7 @@ custom-main: true
 
       <p>The Managed Service Real Time is currently available in private beta. <a href="register-for-real-time.html">Register now</a> to ensure you are at the front of the queue when the service becomes publicly available.</p>
 
-      <h2 id="open-source">3. Open source</h2>
+      <h2 id="open-source">What is the Open Source version?</h2>
 
       <p>Run the Snowplow pipeline yourself. Our full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>.</p>
 
@@ -154,9 +158,11 @@ custom-main: true
 <div class="wrapper white">
   <div class="container">
 
-    <h2>Want to talk to a human?</h2>
+    <h2>More questions? Let us know.</h2>
 
-    Then <a href="/about">contact</a> with the Snowplow team!
+    <div class="row" style="text-align:center">
+      <a href="mailto:contact@snowplowanalytics.com"><button class="cta-button green" type="button">Contact us</button></a>
+    </div>
 
   </div>
 </div>

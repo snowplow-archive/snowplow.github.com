@@ -7,6 +7,14 @@ main {
 	padding: 0;
 }
 
+main.custom h2 {
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+  margin: 0 auto 60px auto;
+  width: 65%;
+}
+
 .wrapper {padding: 90px 0}
 
 .wrapper.white {background-color: white}

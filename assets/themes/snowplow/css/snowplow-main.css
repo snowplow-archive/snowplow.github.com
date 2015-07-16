@@ -1,5 +1,11 @@
 
+/* basic structure */
 
+main {
+	min-height: 500px; /* prevent pages from looking ridiculous */
+	background-color: #FFFFFF;
+	padding: 0;
+}
 
 .wrapper {padding: 90px 0}
 

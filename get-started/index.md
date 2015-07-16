@@ -106,9 +106,9 @@ custom-main: true
         	</tr>
         	<tr>
         		<td></td>
-        		<td><a href="register-for-real-time.html"><button class="cta-button" type="button">Register for private beta</button></a></td>
-        		<td><a href="managed-service-batch-free-trial.html"><button class="cta-button" type="button">Free trial</button></a></td>
-        		<td><a href="https://github.com/snowplow/snowplow"><button class="cta-button" type="button">GitHub repo</button></a></td>
+        		<td><a href="register-for-real-time.html"><button class="cta-button green" type="button">Register for private beta</button></a></td>
+        		<td><a href="managed-service-batch-free-trial.html"><button class="cta-button green" type="button">Free trial</button></a></td>
+        		<td><a href="https://github.com/snowplow/snowplow"><button class="cta-button green" type="button">GitHub repo</button></a></td>
         	</tr>
         </tbody>
     </table>

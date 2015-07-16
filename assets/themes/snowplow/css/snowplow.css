@@ -1,7 +1,5 @@
 
-/* snowplow.css is based on bootstrap */
-
-/* Basic elements */
+/* basic structure */
 
 html, body {
 	background-color: #4C5371; /* same color as header and footer */
@@ -11,50 +9,31 @@ html, body {
 }
 
 body {
-	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
-	font-weight: 400;
 	font-size: 18px;
+	font-weight: 400;
+	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	text-rendering: optimizeLegibility;
 }
 
-/* Basic structure */
+/* responsive container */
 
-main {
-	min-height: 500px; /* prevent pages from looking ridiculous */
-	background-color: #FFFFFF;
-	padding: 0;
-}
+.container {padding: 0 15px; margin: 0 auto}
 
-footer {
-	background-color: #4C5371;
-	padding: 30px 0 15px 0;
-}
+@media (min-width: 768px) {.container {width: 750px}}
 
-@media (max-width: 767px) {
-	main{padding: 30px 0;} /* use less space on mobile */
-}
-
-
-
-/* Responsive container */
-
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 768px) {
-  .container {width: 750px;}
-}
 @media (min-width: 992px) {
-  .container {width: 970px;}
-}
-@media (min-width: 1200px) {
-  .container {width: 1170px;}
+  .container				 {width: 970px}
+	.container.small 	 {width: 970px}
+	.container.smaller {width: 750px}
 }
 
-.row { margin: 0; } /* overwrite default in bootstrap.css */
+@media (min-width: 1200px) {
+  .container				 {width: 1170px}
+	.container.small   {width: 970px}
+	.container.smaller {width: 750px}
+}
+
+.row {margin: 0} /* overwrite default */
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2,
 .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4,
@@ -207,12 +186,6 @@ img {
 	max-width: 100%; /* responsive by default */
 }
 
-/* Header */
-
-
-
-/* Main */
-
 /* Blog */
 
 .blog .datebox,
@@ -234,67 +207,25 @@ q { quotes: "“" "”" "‘" "’"; }
 q:before { content: open-quote; }
 q:after { content: close-quote; }
 
-/* Footer */
-
-address { margin: 0; } /* overwrite defaults */
-
-footer {
-	font-size: 15px;
-	font-weight: 300;
-	color: #D2D4DB;
-}
-
-footer .about,
-footer .contact {
-	float:left;
-	padding-right: 30px;
-}
-
-footer .notice {
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 10px;
-	width: 100%;
-	float: left;
-}
-
-footer .notice > a { color: #D2D4DB; text-decoration: none; }
-
-footer h6 {
-	font-size: 15px;
-	font-weight: 700;
-	padding: 0;
-	margin: 0;
-	margin-bottom: 15px;
-}
-
-footer ul {
-	padding: 0;
-	margin: 0;
-}
-
-footer li {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-footer a,
-footer a:hover,
-footer a:active {
-	color: white
-}
-
-@media (max-width: 767px) {
-	footer .contact, footer .contact .phone {
-		margin-top: 15px;
-	}
-}
-
 #cookie-law {
 	font-size: 15px;
 	background-color: #D2D4DB;
 	padding: 10px;
 	margin: 0;
 }
+
+/* call to action */
+
+.cta-button {
+	font-size: 15px;
+  font-weight: 400;
+  padding: 15px 12px;
+  border: 1px solid transparent; /* overwrite defaults */
+  border-radius: 5px;
+  text-transform: uppercase;
+	display: inline-block;
+	user-select: none;
+}
+
+.cta-button.green {color: white; background-color: #5CB85C}
+.cta-button.gray {color: #333; background-color: #D2D4DB}

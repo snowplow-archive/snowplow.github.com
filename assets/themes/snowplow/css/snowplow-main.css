@@ -15,5 +15,8 @@ main.custom h2 {
   width: 65%;
 }
 
-.wrapper {padding: 90px 0; background-color: white}
+main        .wrapper {padding: 60px 0}
+main.custom .wrapper {padding: 90px 0}
+
+.wrapper        {background-color: #FFFFFF}
 .wrapper.shaded {background-color: #EFEFEF}

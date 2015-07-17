@@ -129,6 +129,13 @@ header .bigbox h1 {
 	font-size: 65px;
 }
 
+header .bigbox h2 {
+	text-transform: uppercase;
+	margin-bottom: 30px;
+	font-weight: 400;
+	font-size: 25px
+}
+
 header .bigbox p {
 	margin: 0 auto 30px auto;
 	font-size: 25px;
@@ -184,4 +191,43 @@ header .plan {
 
 header .plan-details {min-height: 20px}
 
+}
+
+/* signup forms */
+
+.snplw-form-horizontal {margin: 0 auto; width: 90%}
+
+.snplw-form-group {margin-bottom: 15px}
+
+.snplw-form-control {
+	width: 100%;
+  padding: 15px 12px;
+	background-color: rgba(121,127,148,0.3);
+  border: 0px solid transparent;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
+select.snplw-form-control {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+::-webkit-input-placeholder {color: white}
+::-moz-placeholder {color: white}
+:-moz-placeholder {color: white}
+:-ms-input-placeholder {color: white}
+
+.help-inline {
+	font-size: 18px;
+  margin: 15px 0 0 15px;
+  color: white;
+}
+
+.submission-successful {
+  text-align: center;
+  font-size: 18px;
+	margin-top: 15px;
+  font-weight: 400;
 }

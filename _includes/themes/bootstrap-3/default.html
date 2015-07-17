@@ -65,15 +65,11 @@
 
   {% include snowplow/google-tag-manager %}
 
-  {% if page.custom-header %}<header class="custom"><!-- if the variable is set: use the custom header -->
-  {% else %}<header class="normal">
-  {% endif %}
-
-  {% include snowplow/design/header.html %}<!-- include the actual header -->
-
+  <header role="header"{% if page.custom-header %} class="custom"{% endif %}>
+    {% include snowplow/design/header.html %}
   </header>
 
-  <main role="main" {% if page.custom-main %}class="custom"{% endif %}>
+  <main role="main"{% if page.custom-main %} class="custom"{% endif %}>
     {% if page.custom-main %}{{ content }}
     {% else %}<div class="wrapper"><div class="container">{{ content }}</div></div>
     {% endif %}

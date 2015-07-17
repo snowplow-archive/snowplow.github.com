@@ -22,15 +22,15 @@ body {
 @media (min-width: 768px) {.container {width: 750px}}
 
 @media (min-width: 992px) {
-  .container				 {width: 970px}
-	.container.small 	 {width: 970px}
-	.container.smaller {width: 750px}
+  .container				  {width: 970px}
+	.container.narrow 	{width: 970px}
+	.container.narrower {width: 750px}
 }
 
 @media (min-width: 1200px) {
-  .container				 {width: 1170px}
-	.container.small   {width: 970px}
-	.container.smaller {width: 750px}
+  .container				  {width: 1170px}
+	.container.narrow   {width: 970px}
+	.container.narrower {width: 750px}
 }
 
 .row {margin: 0} /* overwrite default */

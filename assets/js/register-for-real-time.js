@@ -32,21 +32,21 @@ $(function() {
 			// Add class 'error' to #groupName
 			$('#groupName').addClass("error");
 			// Add '<span class="help-inline">Please enter a name</span>' immediately following the #controlsName element
-			$('#controlsName').append('<span class="help-inline">Please enter a name</span>');
+			$('#controlsName').append('<div class="help-inline">Please enter a name.</div>');
 			return false;
-		} 
+		}
 
 		if (!IsEmail(email)) {
 			// Add class 'error' to #groupEmail
 			$('#groupEmail').addClass("error")
 			// Add '<span class="help-inline">Please enter a name</span>' immediately following the #controlsName element
-			$('#controlsEmail').append('<span class="help-inline">Please enter a valid email</span>')
+			$('#controlsEmail').append('<div class="help-inline">Please enter a valid email.</div>')
 			return false;
 		}
 
 		if (company == "") {
 			$('#groupCompany').addClass("error")
-			$('#controlsCompany').append('<span class="help-inline">Please enter a company name</span>')
+			$('#controlsCompany').append('<div class="help-inline">Please enter a company name.</div>')
 			return false;
 		}
 
@@ -57,10 +57,10 @@ $(function() {
 		});
 
 		// And show success piece...
-		$('#register-for-real-time-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow team will be in touch in the next couple of business days.</p></div>');
+		$('#register-for-real-time-form').append('<div class="submission-successful"><p>Thanks for signing up!<br>We will be in touch in the next couple of business days.</p></div>');
 		// ...then scroll down to it
 		$('html,body').animate({scrollTop: $('.submission-successful').offset().top},'slow');
-			
+
 		return false; // Do not reload page
 	});
 });

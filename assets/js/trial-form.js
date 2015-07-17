@@ -6,7 +6,7 @@ $(function() {
 	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	  return regex.test(email);
 	} // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
-	
+
 	$('#submitFreeTrialButton').click(function() {
 		// Hide previous error messages
 		$('.help-inline').hide();
@@ -31,21 +31,21 @@ $(function() {
 			// Add class 'error' to #groupName
 			$('#groupName').addClass("error");
 			// Add '<span class="help-inline">Please enter a name</span>' immediately following the #controlsName element
-			$('#controlsName').append('<span class="help-inline">Please enter a name</span>');
+			$('#controlsName').append('<div class="help-inline">Please enter a name.</div>');
 			return false;
-		} 
+		}
 
 		if (!IsEmail(email)) {
 			// Add class 'error' to #groupEmail
 			$('#groupEmail').addClass("error")
 			// Add '<span class="help-inline">Please enter a name</span>' immediately following the #controlsName element
-			$('#controlsEmail').append('<span class="help-inline">Please enter a valid email</span>')
+			$('#controlsEmail').append('<div class="help-inline">Please enter a valid email.</div>')
 			return false;
 		}
 
 		if (company == "") {
 			$('#groupCompany').addClass("error")
-			$('#controlsCompany').append('<span class="help-inline">Please enter a company name</span>')
+			$('#controlsCompany').append('<div class="help-inline">Please enter a company name.</div>')
 			return false;
 		}
 
@@ -56,10 +56,10 @@ $(function() {
 		});
 
 		// And show success piece...
-		$('#trial-form').append('<div class="submission-successful"><h2 class="text-success">Thank you!</h2><p>A member of the Snowplow team will be in touch in the next couple of business days.</p></div>');
+		$('#trial-form').append('<div class="submission-successful"><p>Thanks for signing up!<br>We will be in touch in the next couple of business days.</p></div>');
 		// ...then scroll down to it
 		$('html,body').animate({scrollTop: $('.submission-successful').offset().top},'slow');
-			
+
 		return false; // Do not reload page
 	});
 });

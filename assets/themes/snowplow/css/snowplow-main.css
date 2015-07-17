@@ -15,6 +15,13 @@ main.custom h2 {
   width: 65%;
 }
 
+main.custom h3 {
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0 auto 30px auto;
+}
+
 main        .wrapper {padding: 60px 0}
 main.custom .wrapper {padding: 90px 0}
 

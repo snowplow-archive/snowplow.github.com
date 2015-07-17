@@ -123,7 +123,7 @@ custom-main: true
 
     <h2>FAQ</h2>
 
-    <h2 id="batch">What is the Managed Service Batch?</h2>
+    <h3 id="batch">What is the Managed Service Batch?</h3>
 
     <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
 
@@ -135,22 +135,22 @@ custom-main: true
         <li><strong>Hassle free</strong>. We run the Snowplow pipeline for you, so you can concentrate on anaylsing the data</li>
       </ul>
 
-      <p>You can trial the <a href="managed-service-batch-free-trial.html">managed service free for one month</a>. Sign up here, or <a href="/about">get in touch</a> to learn more.</p>
+    <p>You can trial the <a href="managed-service-batch-free-trial.html">managed service free for one month</a>. Sign up here, or <a href="/about">get in touch</a> to learn more.</p>
 
-      <h2 id="real-time">What is the Managed Service Real Time?</h2>
+    <h3 id="real-time">What is the Managed Service Real Time?</h3>
 
-      <p>Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:</p>
+    <p>Like the Managed Service batch, but in addition to regular loading of your data into Redshift, we:</p>
 
-      <ul>
+    <ul>
       <li>Load your data real-time into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>, for real time reporting and dashboards</li>
       <li>Publish your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis stream</a>, for real time processing of the data in real-time applications (e.g. personalization)</li>
-      </ul>
+    </ul>
 
-      <p>The Managed Service Real Time is currently available in private beta. <a href="register-for-real-time.html">Register now</a> to ensure you are at the front of the queue when the service becomes publicly available.</p>
+    <p>The Managed Service Real Time is currently available in private beta. <a href="register-for-real-time.html">Register now</a> to ensure you are at the front of the queue when the service becomes publicly available.</p>
 
-      <h2 id="open-source">What is the Open Source version?</h2>
+    <h3 id="open-source">What is the Open Source version?</h3>
 
-      <p>Run the Snowplow pipeline yourself. Our full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>.</p>
+    <p>Run the Snowplow pipeline yourself. Our full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>.</p>
 
   </div>
 </div>

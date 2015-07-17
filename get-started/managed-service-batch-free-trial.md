@@ -4,7 +4,12 @@ group: get-started
 title: Sign up for a free Snowplow trial
 shortened-link: Free trial
 weight: 2
+custom-header: batch
+custom-main: true
 ---
+
+<div class="wrapper">
+  <div class="container">
 
 # Free one month Snowplow trial of the Managed Service Batch
 
@@ -65,7 +70,8 @@ See what becomes possible when you have direct access to your granular, event-le
 
 Then [talk to a member of the Snowplow team][contact].
 
-
+	</div>
+</div>
 
 [looker]: http://looker.com/
 [contact]: /about/contact.html

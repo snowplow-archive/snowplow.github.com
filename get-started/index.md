@@ -11,7 +11,7 @@ custom-header: pricing
 custom-main: true
 ---
 
-<div class="wrapper white">
+<div class="wrapper">
   <div class="container">
 
     <h2>What is included?</h2>
@@ -118,7 +118,7 @@ custom-main: true
   </div>
 </div>
 
-<div class="wrapper gray">
+<div class="wrapper shaded">
   <div class="container">
 
     <h2>FAQ</h2>
@@ -155,7 +155,7 @@ custom-main: true
   </div>
 </div>
 
-<div class="wrapper white">
+<div class="wrapper">
   <div class="container">
 
     <h2>More questions? Let us know.</h2>

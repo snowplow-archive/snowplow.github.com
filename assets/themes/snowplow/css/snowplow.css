@@ -229,3 +229,5 @@ q:after { content: close-quote; }
 
 .cta-button.green {color: white; background-color: #5CB85C}
 .cta-button.gray {color: #333; background-color: #D2D4DB}
+
+button:focus {outline:0} /* remove the outline */

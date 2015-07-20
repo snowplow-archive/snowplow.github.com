@@ -1,15 +1,17 @@
 - name: Yali
   full_name: Yali Sassoon
-  github:  yalisassoon
-  url:     /authors/yali.html
+  twitter: yalisassoon
+  github: yalisassoon
+  url: /authors/yali.html
   avatar:  https://lh4.googleusercontent.com/--uMP0uMpzEs/AAAAAAAAAAI/AAAAAAAABH0/lo82KAkjEIU/s120-c/photo.jpg
   spiel:   |
       <a href="/authors/yali.html">Yali</a> is co-founder and analytics lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/106510540736941709264" rel="author">Google+</a>, <a href="https://twitter.com/yalisassoon">Twitter</a> and <a href="http://uk.linkedin.com/in/yalisassoon">LinkedIn</a>.
 
 - name: Alex
   full_name: Alex Dean
+  twitter: alexcrdean
   github: alexanderdean
-  url:    /authors/alex.html
+  url: /authors/alex.html
   avatar: https://lh6.googleusercontent.com/-4Ydq6ygNbgQ/AAAAAAAAAAI/AAAAAAAAAF4/SX2Fn3veqp4/s120-c/photo.jpg
   spiel:  |
         <a href="/authors/alex.html">Alex</a> is co-founder and technical lead at Snowplow Analytics. You can find in him on <a href="https://plus.google.com/u/0/113518635920914092796" rel="author">Google+</a>, <a href="https://twitter.com/alexcrdean">Twitter</a> and <a href="http://uk.linkedin.com/in/alexdean">LinkedIn</a>.
@@ -64,15 +66,16 @@
 
 - name: Christophe
   full_name: Christophe Bogaert
+  twitter: bogaertc
   github: bogaert
   url: /authors/christophe.html
   avatar: https://avatars0.githubusercontent.com/u/1975872?v=3&s=200
   spiel:   |
       <a href="/authors/christophe.html">Christophe</a> is a Data Scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a>, <a href="https://twitter.com/bogaertc">Twitter</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.
 
-
 - name: Justine
   full_name: Justine Courty
+  twitter: justinecourty
   github: galvanic
   url: /authors/justine.html
   avatar: /assets/img/team/justine.jpg
@@ -81,6 +84,7 @@
 
 - name: Anton
   full_name: Anton Parkhomenko
+  twitter: chuvvy
   github: chuwy
   url: /authors/anton.html
   avatar: /assets/img/team/anton.png
@@ -89,6 +93,7 @@
 
 - name: Vincent
   full_name: Vincent Ohprecio
+  twitter: BigsnarfDude
   github: bigsnarfdude
   url: /authors/vincent.html
   avatar: /assets/img/team/vincent.png

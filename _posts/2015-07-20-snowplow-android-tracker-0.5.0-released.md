@@ -179,7 +179,7 @@ The demonstration application has also undergone a few minor updates.  We now ha
 
 Under the `Metrics` header we are also now taking note of the amount of sessions the Tracker has gone through.  You can see that it will indeed survive application and phone restarts.
 
-To get the latest version please download from [here][download].  To install the app you will need to allow installation from sources [other than the Google Play Store][other-sources].
+To get the latest version please download from [here][apk-download].  To install the app you will need to allow installation from sources [other than the Google Play Store][other-sources].
 
 <h2><a name="docs">6. Documentation</a></h2>
 

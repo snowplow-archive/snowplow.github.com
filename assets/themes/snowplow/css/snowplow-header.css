@@ -9,13 +9,13 @@ header {
  	padding: 15px 0
 }
 
-header.custom {min-height: 50vh; padding-bottom: 90px}
+header.custom {padding-bottom: 0}
 
 header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
-header .custom-header {margin: 90px 0 0 0}
+header .wrapper {margin: 90px 0}
 
 /* text */
 
@@ -23,22 +23,19 @@ header {font-weight: 300; font-size: 15px; color: white}
 
 header a, header a:hover, header a:focus {
 	text-decoration: none;
-	color: white;
+	color: white
 }
 
 /* brand */
 
-/* header .logo {margin: -7px 0} */
-
 header .logo img {height: 51px}
 
-header .name { /* the snowplow name */
+header .name { /* make snowplow as large as possible */
 	text-transform: uppercase;
 	letter-spacing: -1px;
-	font-weight: 300;
-	font-size: 36px; /* largest possible size */
-	color: white;
 	margin-left: 15px;
+	font-weight: 300;
+	font-size: 36px
 }
 
 @media (max-width: 991px) {header .name {display: none}}
@@ -63,21 +60,21 @@ header .nav-collapse ul {margin: 15px 0}
 
 header .nav-collapse li {
 	display : inline-block;
-	margin-left: 6px;
+	margin-left: 6px
 }
 
 header .nav-collapse li a {
 	border: 2px solid;
 	border-radius: 5px;
 	text-transform: uppercase;
-	padding: 15px 12px;
+	padding: 15px 12px
 }
 
 header .nav-collapse li        a.with-border {font-weight: 400}
 header .nav-collapse li        a.with-border {border-color: rgba(121,127,148,0.3)}
 header .nav-collapse li.active a.with-border {border-color: transparent}
 
-header .nav-collapse li a.without-border {border-color: rgba(121,127,148,0)}
+header .nav-collapse li a.without-border {border-color: transparent}
 
 header .nav-collapse .active a,
 header .nav-collapse .active a:hover,
@@ -85,7 +82,7 @@ header .nav-collapse .active a:focus,
 header .nav-collapse li      a:hover,
 header .nav-collapse li      a:focus {
 	background-color: rgba(121,127,148,0.3);
-	border-color: transparent;
+	border-color: transparent
 }
 
 /* mobile menu */
@@ -95,38 +92,37 @@ header .nav-collapse li      a:focus {
 	header .toggle {text-align: right} /* hack */
 
 	header .toggle-menu {
-		background-color: rgba(121,127,148,0);
-		border: 2px solid rgba(121,127,148,0.3);
-		padding: 15px 12px;
-		color: white;
-		border-radius: 5px;
 		text-transform: uppercase;
+		background-color: transparent;
+		border: 2px solid rgba(121,127,148,0.3);
+		border-radius: 5px;
+		padding: 15px 12px
 	}
 
 	header .toggle-menu:hover, header .toggle-menu:focus {
 		background-color: rgba(121,127,148,0.3);
-		border: 2px solid transparent;
+		border: 2px solid transparent
 	}
 
 	header .nav-collapse li {
+		list-style: none;
+		position: relative;
+		padding: 15px 12px;
 		margin-right: 0;
 		margin-top: 5px;
-		padding: 15px 12px;
-		position: relative;
   	display: block;
-		list-style: none;
 	}
 
 }
 
-/* big box */
+/* bigbox */
 
 header .bigbox {text-align: center; margin: 0}
 
 header .bigbox h1 {
 	margin-bottom: 60px;
 	font-weight: 300;
-	font-size: 65px;
+	font-size: 65px
 }
 
 header .bigbox h2 {
@@ -139,20 +135,18 @@ header .bigbox h2 {
 header .bigbox p {
 	margin: 0 auto 30px auto;
 	font-size: 25px;
-	width: 90%;
+	width: 90%
 }
-
-header .bigbox a.cta {font-size: 20px}
 
 /* pricing plans */
 
-header .plans {margin: 0 auto;}
+header .plans {margin: 0 auto}
 
 header .plan {
 	width: 32%;
 	padding: 30px 15px;
 	border-radius: 5px;
-	float: left;
+	float: left
 }
 
 header .plan.batch,
@@ -161,7 +155,7 @@ header .plan.real-time {margin-left: 2%}
 header .plan {
 	background-color: rgba(121,127,148,0.3);
 	text-transform: uppercase;
-	text-align: center;
+	text-align: center
 }
 
 header .plan-name {font-weight: 400; font-size: 25px}
@@ -179,17 +173,17 @@ header .plan-cta {margin-top: 10px}
 
 @media (max-width: 991px) { /* responsive pricing plans */
 
-header .plan.batch,
-header .plan.real-time {margin: 15px auto 0 auto}
+	header .plan.batch,
+	header .plan.real-time {margin: 15px auto 0 auto}
 
-header .plan {
-	width: 100%;
-	max-width: 500px;
-	margin: 0 auto;
-	float: none;
-}
+	header .plan {
+		width: 100%;
+		max-width: 500px;
+		margin: 0 auto;
+		float: none
+	}
 
-header .plan-details {min-height: 20px}
+	header .plan-details {min-height: 20px}
 
 }
 
@@ -205,13 +199,13 @@ header .plan-details {min-height: 20px}
 	background-color: rgba(121,127,148,0.3);
   border: 0px solid transparent;
 	border-radius: 5px;
-	font-size: 18px;
+	font-size: 18px
 }
 
 select.snplw-form-control {
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	appearance: none;
+	appearance: none
 }
 
 ::-webkit-input-placeholder {color: white}
@@ -220,14 +214,13 @@ select.snplw-form-control {
 :-ms-input-placeholder {color: white}
 
 .help-inline {
-	font-size: 18px;
-  margin: 15px 0 0 15px;
-  color: white;
+	margin: 15px 0 0 15px;
+	font-size: 18px
 }
 
 .submission-successful {
-  text-align: center;
-  font-size: 18px;
 	margin-top: 15px;
-  font-weight: 400;
+  text-align: center;
+	font-weight: 400;
+  font-size: 18px
 }

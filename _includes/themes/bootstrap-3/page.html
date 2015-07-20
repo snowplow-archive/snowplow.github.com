@@ -1,33 +1,23 @@
-<div class="row">
-  <!-- If page is homepage or pricing page render without side bar i.e. just contents, taking up full 12 columns -->
-  {% if page.group == 'homepage' %}
-  <div class="col-md-12">
-    {{ content }}
-  </div>
-  {% elsif page.url contains 'get-started' %}
-  <div class="col-md-12">
-    {{ content }}
-  </div>
-  <!-- If blog page or author page render blog side bar -->
-  {% elsif page.url contains 'blog' %}
-  <div class="col-md-9">
-  	{{ content }}
-  </div>
-  <div class="col-md-3">
-  	{% include snowplow/sidebar_blog %}
-  </div>
 
-  {% else %}
-  <!-- otherwise render standard sidebar -->
-  <div class="col-md-9">
-  	{{ content }}
+{% if page.custom-main %}{{ content }}
+
+{% elsif page.url contains 'blog' %}
+<div class="wrapper">
+  <div class="container">
+    <div class="col-md-9">{{ content }}</div>
+    <div class="col-md-3">{% include snowplow/sidebar_blog %}</div>
   </div>
-  <div class="col-md-3">
-  	<!-- Standard sidebar -->
-  	{% assign pages_list = site.pages %}
-    {% assign group = page.group %}
-    {% assign sub_group = page.sub_group %}
-    {% include snowplow/sidebar_standard %}
-  </div>
-  {% endif %}
 </div>
+{% else %}
+<div class="wrapper">
+  <div class="container">
+    <div class="col-md-9">{{ content }}</div>
+    <div class="col-md-3">
+      {% assign pages_list = site.pages %}
+      {% assign group = page.group %}
+      {% assign sub_group = page.sub_group %}
+      {% include snowplow/sidebar_standard %}
+    </div>
+  </div>
+</div>
+{% endif %}

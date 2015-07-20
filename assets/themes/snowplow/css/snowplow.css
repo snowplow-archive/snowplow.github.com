@@ -70,20 +70,6 @@ body {
 
 .homepage .row {margin-bottom: 30px;}
 
-.homepage .bigbox {
-	margin: 0;
-	padding: 60px;
-  background-color: #D2D4DB;
-	border-radius: 5px;
-	text-align: center;
-	max-width: 100%;
-}
-
-.homepage .bixbog p {
-	margin: 0 auto 30px auto;
-	width: 90%;
-}
-
 .homepage .users-logobox .logo {display: inline-block;}
 
 .homepage .users-logobox .logo img {height: 100px; }
@@ -116,12 +102,10 @@ body {
 	.homepage p {font-size: 20px;}
 }
 @media (max-width: 991px) {
-	.bigbox {padding: 30px;}
 	.homepage h1 {font-size: 45px;}
 	.homepage p {font-size: 18px;}
 }
 @media (max-width: 767px) {
-	.bigbox {padding: 30px;}
 	.homepage h1 {font-size: 45px;}
 	.homepage p {font-size: 18px;}
 }

@@ -8,12 +8,14 @@ main {
 }
 
 main.custom h2 {
+	margin: 60px auto;
+	text-align: center;
+	font-weight: 300;
   font-size: 40px;
-  font-weight: 300;
-  text-align: center;
-  margin: 0 auto 60px auto;
-  width: 65%;
+  width: 65%
 }
+
+main.custom h2:first-child {margin-top: 0}
 
 main.custom h3 {
   font-size: 25px;
@@ -25,5 +27,5 @@ main.custom h3 {
 main        .wrapper {padding: 60px 0}
 main.custom .wrapper {padding: 90px 0}
 
-.wrapper        {background-color: #FFFFFF}
-.wrapper.shaded {background-color: #EFEFEF}
+main .wrapper        {background-color: #FFFFFF}
+main .wrapper.shaded {background-color: #EFEFEF}

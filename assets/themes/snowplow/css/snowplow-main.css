@@ -25,5 +25,5 @@ main.custom h3 {
 main        .wrapper {padding: 60px 0}
 main.custom .wrapper {padding: 90px 0}
 
-.wrapper        {background-color: #FFFFFF}
-.wrapper.shaded {background-color: #EFEFEF}
+main .wrapper        {background-color: #FFFFFF}
+main .wrapper.shaded {background-color: #EFEFEF}

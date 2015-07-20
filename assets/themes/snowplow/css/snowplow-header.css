@@ -9,13 +9,13 @@ header {
  	padding: 15px 0
 }
 
-header.custom {min-height: 50vh; padding-bottom: 90px}
+header.custom {padding-bottom: 0}
 
 header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
-header .custom-header {margin: 90px 0 0 0}
+header .wrapper {margin: 90px 0}
 
 /* text */
 
@@ -27,8 +27,6 @@ header a, header a:hover, header a:focus {
 }
 
 /* brand */
-
-/* header .logo {margin: -7px 0} */
 
 header .logo img {height: 51px}
 

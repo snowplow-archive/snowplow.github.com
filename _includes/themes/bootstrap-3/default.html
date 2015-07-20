@@ -63,23 +63,14 @@
 
 <body>
 
-  {% include snowplow/google-tag-manager %}
+  {% include snowplow/scripts/google-tag-manager %}
 
-  <header role="header"{% if page.custom-header %} class="custom"{% endif %}>
-    {% include snowplow/design/header.html %}
-  </header>
-
-  <main role="main"{% if page.custom-main %} class="custom"{% endif %}>
-    {% if page.custom-main %}{{ content }}
-    {% else %}<div class="wrapper"><div class="container">{{ content }}</div></div>
-    {% endif %}
-  </main>
-
+  <header{% if page.custom-header %} class="custom"{% endif %}>{% include snowplow/design/header.html %}</header>
+  <main{% if page.custom-main %} class="custom"{% endif %}>{{ content }}</main>
   <footer>{% include snowplow/design/footer.html %}</footer>
 
-  {% include snowplow/olark %}
-
-  {% include snowplow/cookie_warning %}
+  {% include snowplow/scripts/olark %}
+  {% include snowplow/scripts/cookie-warning %}
 
   <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
   <!-- Placed at the end of the document so the pages load faster -->

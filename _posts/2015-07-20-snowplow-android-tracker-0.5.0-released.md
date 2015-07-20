@@ -168,7 +168,7 @@ On top of this you can now chose when you want to actually track an item, you ca
 
 We have also:
 
-* Added a function the tracker which allows you to instanstly turn off all tracking and event collection `tracker.stopDataCollection();`, to start collection again simply run `tracker.startDataCollection()`. ([#6][6])
+* Added a function the tracker which allows you to instanstly turn off all tracking and event collection `tracker.stopDataCollection()` and to start collection again run `tracker.startDataCollection()` ([#6][6])
 * Added the ability to set a custom event id for any event using the builder option `.eventId("some-id")` ([#59][59])
 * Fixed a bug whereby a needed field was not being set for the `mobile_context` ([#135][135])
 * Fixed a bug whereby the emitter send operation might not timeout ([#138][138])

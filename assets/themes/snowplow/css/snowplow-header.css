@@ -126,10 +126,9 @@ header .bigbox h1 {
 }
 
 header .bigbox h2 {
-	text-transform: uppercase;
 	margin-bottom: 30px;
-	font-weight: 400;
-	font-size: 25px
+	font-weight: 300;
+	font-size: 30px
 }
 
 header .bigbox p {

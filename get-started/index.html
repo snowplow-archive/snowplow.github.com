@@ -3,7 +3,7 @@ layout: page
 group: get-started
 title: Pricing
 shortened-link: Get started
-weight: 1
+permalink: /get-started/
 redirect_from:
   - /services/pipelines.html
   - /pricing/index.html
@@ -108,8 +108,8 @@ custom-main: true
         	</tr>
         	<tr>
         		<td></td>
-        		<td><a href="register-for-real-time.html"><button class="cta-button green" type="button">Register for private beta</button></a></td>
-        		<td><a href="managed-service-batch-free-trial.html"><button class="cta-button green" type="button">Free trial</button></a></td>
+        		<td><a href="real-time"><button class="cta-button green" type="button">Register for private beta</button></a></td>
+        		<td><a href="batch"><button class="cta-button green" type="button">Free trial</button></a></td>
         		<td><a href="https://github.com/snowplow/snowplow"><button class="cta-button green" type="button">GitHub repo</button></a></td>
         	</tr>
         </tbody>
@@ -123,9 +123,11 @@ custom-main: true
 
     <h2>FAQ</h2>
 
+    <div class="row"><!-- added to have the correct first-child behaviour -->
+
     <h3>What is the managed service batch?</h3>
 
-    <div class="row">
+    <div class="row"><!-- added to have the correct first-child behaviour -->
       <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
       <ul>
         <li>Your data delivered directly into your datawarehouse (on Amazon <a href="http://aws.amazon.com/redshift/">Amazon Redshift</a>)</li>
@@ -152,6 +154,8 @@ custom-main: true
 
     <div class="row">
       <p>Run the Snowplow pipeline yourself. Our full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>.</p>
+    </div>
+
     </div>
 
   </div>

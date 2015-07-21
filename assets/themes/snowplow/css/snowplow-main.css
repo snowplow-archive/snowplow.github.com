@@ -7,6 +7,16 @@ main {
 	padding: 0;
 }
 
+/* custom wrappers */
+
+main        .wrapper {padding: 60px 0}
+main.custom .wrapper {padding: 90px 0}
+
+main .wrapper        {background-color: #FFFFFF}
+main .wrapper.shaded {background-color: #EFEFEF}
+
+/* custom text */
+
 main.custom h2 {
 	margin: 60px auto;
 	text-align: center;
@@ -18,14 +28,56 @@ main.custom h2 {
 main.custom h2:first-child {margin-top: 0}
 
 main.custom h3 {
+	margin: 30px auto;
+	text-align: center;
+	font-weight: 400;
   font-size: 25px;
-  font-weight: 400;
-  text-align: center;
-  margin: 0 auto 30px auto;
 }
 
-main        .wrapper {padding: 60px 0}
-main.custom .wrapper {padding: 90px 0}
+main.custom h3:first-child {margin-top: 0}
 
-main .wrapper        {background-color: #FFFFFF}
-main .wrapper.shaded {background-color: #EFEFEF}
+main.custom p,
+main.custom ol,
+main.custom ul {margin: 0 0 15px 0}
+
+main.custom p:last-child,
+main.custom ol:last-child,
+main.custom ul:last-child {margin-bottom: 0}
+
+/* Homepage */
+
+main.custom .users-logobox .logo {display: inline-block;}
+
+main.custom .users-logobox .logo img {height: 100px; }
+
+main.custom .users-mugshot {
+	padding: 15px 15px 0 15px;
+	float: left;
+	width: 15%;
+}
+
+main.custom .users-oneliner {
+	padding: 0 15px;
+	float: left;
+	width: 85%
+}
+
+main.custom .users-oneliner cite {
+	font-size: 18px;
+	font-weight: 400;
+	padding-left: 30px;
+}
+
+main.custom .users-logobox {
+	text-align: center;
+	width: 100%;
+}
+
+a.cta {
+	text-transform: uppercase;
+	text-align: center;
+}
+
+a.cta:after {
+	content: " ➙";
+}

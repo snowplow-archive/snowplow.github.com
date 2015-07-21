@@ -5,17 +5,21 @@ html, body {
 	background-color: #4C5371; /* same color as header and footer */
 	height: 100%; /* required to make footer look nice */
 	padding: 0;
-	margin: 0;
+	margin: 0
 }
 
 body {
-	font-size: 18px;
-	font-weight: 400;
-	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	text-rendering: optimizeLegibility;
+	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 400;
+	font-size: 18px
 }
 
-/* responsive container */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	body {-webkit-font-smoothing: antialiased}
+}
+
+/* various responsive containers */
 
 .container {padding: 0 15px; margin: 0 auto}
 
@@ -33,7 +37,9 @@ body {
 	.container.narrower {width: 750px}
 }
 
-.row {margin: 0} /* overwrite default */
+/* overwrite bootstrap defaults */
+
+.row {margin: 0}
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2,
 .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4,
@@ -42,99 +48,9 @@ body {
 .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9,
 .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11,
 .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12,
-.col-lg-12 { padding: 0; } /* overwrite default in bootstrap.css */
+.col-lg-12 {padding: 0}
 
-/* Homepage */
-
-.homepage h1 {
-	font-size: 65px;
-	font-weight: 300;
-}
-
-.homepage h2 {
-	font-size: 40px;
-	font-weight: 300;
-	text-align: center;
-	margin: 0 auto; /* both text-align and margin are required */
-	width: 65%;
-}
-
-.homepage h2.separator {
-	margin: 30px auto;
-}
-
-.homepage p {
-  font-size: 25px;
-  font-weight: 300;
-}
-
-.homepage .row {margin-bottom: 30px;}
-
-.homepage .users-logobox .logo {display: inline-block;}
-
-.homepage .users-logobox .logo img {height: 100px; }
-
-.homepage .users-mugshot {
-	padding: 15px 15px 0 15px;
-	float: left;
-	width: 15%;
-}
-
-.homepage .users-oneliner {
-	padding: 0 15px;
-	float: left;
-	width: 85%
-}
-
-.homepage .users-oneliner cite {
-	font-size: 18px;
-	font-weight: 400;
-	padding-left: 30px;
-}
-
-
-
-
-
-@media (max-width: 1199px) {
-	.bixbog {padding: 45px;}
-	.homepage h1 {font-size: 50px;}
-	.homepage p {font-size: 20px;}
-}
-@media (max-width: 991px) {
-	.homepage h1 {font-size: 45px;}
-	.homepage p {font-size: 18px;}
-}
-@media (max-width: 767px) {
-	.homepage h1 {font-size: 45px;}
-	.homepage p {font-size: 18px;}
-}
-
-.homepage .users-logobox {
-	text-align: center;
-	width: 100%;
-}
-
-
-
-a.cta {
-	text-transform: uppercase;
-	text-align: center;
-}
-
-a.cta:after {
-	content: " ➙";
-}
-
-
-
-
-
-
-
-
-
-/* Headers */
+/* text */
 
 .h1, h1 {
 	font-size: 50px;
@@ -157,12 +73,11 @@ h1 > a, h1 > a:focus {
 	letter-spacing: -1px;
 }
 
-p {
-	margin: 0 0 15px 0;
-	-webkit-font-smoothing: antialiased;
-}
+p {margin: 0 0 15px 0}
 
-/* Images  */
+
+
+/* images */
 
 img {
 	display: block;
@@ -170,7 +85,7 @@ img {
 	max-width: 100%; /* responsive by default */
 }
 
-/* Blog */
+/* blog */
 
 .blog .datebox,
 .blog .datebox > a,
@@ -184,12 +99,10 @@ img {
 
 .blog > h1 { width: 80%; }
 
-/* We love smart quotes */
+q {quotes: "“" "”" "‘" "’"}
 
-q { quotes: "“" "”" "‘" "’"; }
-
-q:before { content: open-quote; }
-q:after { content: close-quote; }
+q:before {content: open-quote}
+q:after {content: close-quote}
 
 #cookie-law {
 	font-size: 15px;

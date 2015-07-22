@@ -25,7 +25,7 @@ Table of contents:
 
 The EmrEtlRunner uses [Rob Slifka's][rslifka] [Elasticity][elasticity] Ruby library to interact with the Elastic Map Reduce API. AWS recently altered this API so it is now based on clusters rather than job flows, breaking the API call used by Elasticity to check the status of an EMR job.
 
-Rob has moved very fast to put out an Elasticity release (version 6.0) using the new API. Thanks a lot Rob!
+Rob has moved very fast to put out an Elasticity release (version 6.0.2) using the new API. Thanks a lot Rob!
 
 For more information about Elasticity, check out Rob's [guest post][rob-post] from 2013.
 

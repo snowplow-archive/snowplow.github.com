@@ -11,11 +11,11 @@ We are excited to announce the release of version 2.5.0 of the [Snowplow JavaScr
 
 Read on for more information:
 
-1. [The session ID](/blog/2015/xx/xx/snowplow-javascript-tracker-2.5.0-released/#session-id)
-2. [The session ID](/blog/2015/xx/xx/snowplow-javascript-tracker-2.5.0-released/#pageview-id)
-3. [Context-generating functions](/blog/2015/xx/xx/snowplow-javascript-tracker-2.5.0-released/#context-generating-functions)
-4. [New Grunt task](/blog/2015/xx/xx/snowplow-javascript-tracker-2.5.0-released/#grunt)
-5. [Upgrading](/blog/2015/xx/xx/snowplow-javascript-tracker-2.5.0-released/#upgrading)
+1. [The session ID](/blog/2015/07/22/snowplow-javascript-tracker-2.5.0-released/#session-id)
+2. [The session ID](/blog/2015/07/22/snowplow-javascript-tracker-2.5.0-released/#pageview-id)
+3. [Context-generating functions](/blog/2015/07/22/snowplow-javascript-tracker-2.5.0-released/#context-generating-functions)
+4. [New Grunt task](/blog/2015/07/22/snowplow-javascript-tracker-2.5.0-released/#grunt)
+5. [Upgrading](/blog/2015/07/22/snowplow-javascript-tracker-2.5.0-released/#upgrading)
 
 <!--more-->
 

@@ -134,7 +134,7 @@ The upgraded minified tracker is available here:
 
 Make sure to update your tracking code to reflect the two **breaking changes** highlighted above.
 
-<h2><a name="docs">8. Documentation and help</a></h2>
+<h2 id="docs">8. Documentation and help</h2>
 
 Check out the JavaScript Tracker's documentation:
 

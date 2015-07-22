@@ -45,7 +45,7 @@ You need to update EmrEtlRunner to the latest version (**0.16.0**) on GitHub:
 
 {% highlight bash %}
 $ git clone git://github.com/snowplow/snowplow.git
-$ git checkout r66-oriental-skylark
+$ git checkout r68-turquoise-jay
 $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 $ cd ../../4-storage/storage-loader

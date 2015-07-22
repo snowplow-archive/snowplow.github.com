@@ -117,7 +117,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
   appId: 'CFe23a',
   platform: 'web',
 
-  sessionCookieTimeout: 3600 // one hour
+  sessionCookieTimeout: 3600, // one hour
 
   contexts: {
     performanceTiming: true,

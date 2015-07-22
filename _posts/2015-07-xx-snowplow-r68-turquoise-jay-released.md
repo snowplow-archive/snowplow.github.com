@@ -58,6 +58,8 @@ For more details on this release, please check out the [r68 Turquoise Jay][r68-r
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[turquoise-jay]: /assets/img/blog/2015/07/turquoise-jay.jpg
+
 [emr]: http://aws.amazon.com/elasticmapreduce/
 [elasticity]: https://github.com/rslifka/elasticity
 [rslifka]: https://github.com/rslifka

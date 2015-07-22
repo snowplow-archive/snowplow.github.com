@@ -1,60 +1,45 @@
 
-/* snowplow.css is based on bootstrap */
-
-/* Basic elements */
+/* basic structure */
 
 html, body {
-	background-color: #D2D4DB; /* same background-color as header */
+	background-color: #4C5371; /* same color as header and footer */
 	height: 100%; /* required to make footer look nice */
 	padding: 0;
-	margin: 0;
+	margin: 0
 }
 
 body {
+	text-rendering: optimizeLegibility;
 	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 400;
-	font-size: 18px;
-	text-rendering: optimizeLegibility;
+	font-size: 18px
 }
 
-/* Basic structure */
-
-main {
-	min-height: 500px; /* prevent pages from looking ridiculous */
-	background-color: #FFFFFF;
-	padding: 30px 0;
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	body {-webkit-font-smoothing: antialiased}
 }
 
-footer {
-	background-color: #D2D4DB;
-	padding: 30px 0 15px 0;
-}
+/* various responsive containers */
 
-@media (max-width: 767px) {
-	main{padding: 30px 0;} /* use less space on mobile */
-}
+.container {padding: 0 15px; margin: 0 auto}
 
+@media (min-width: 768px) {.container {width: 750px}}
 
-
-/* Responsive container */
-
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 768px) {
-  .container {width: 750px;}
-}
 @media (min-width: 992px) {
-  .container {width: 970px;}
-}
-@media (min-width: 1200px) {
-  .container {width: 1170px;}
+  .container				  {width: 970px}
+	.container.narrow 	{width: 970px}
+	.container.narrower {width: 750px}
 }
 
-.row { margin: 0; } /* overwrite default in bootstrap.css */
+@media (min-width: 1200px) {
+  .container				  {width: 1170px}
+	.container.narrow   {width: 970px}
+	.container.narrower {width: 750px}
+}
+
+/* overwrite bootstrap defaults */
+
+.row {margin: 0}
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2,
 .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4,
@@ -63,115 +48,9 @@ footer {
 .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9,
 .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11,
 .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12,
-.col-lg-12 { padding: 0; } /* overwrite default in bootstrap.css */
+.col-lg-12 {padding: 0}
 
-/* Homepage */
-
-.homepage h1 {
-	font-size: 65px;
-	font-weight: 300;
-}
-
-.homepage h2 {
-	font-size: 40px;
-	font-weight: 300;
-	text-align: center;
-	margin: 0 auto; /* both text-align and margin are required */
-	width: 65%;
-}
-
-.homepage h2.separator {
-	margin: 30px auto;
-}
-
-.homepage p {
-  font-size: 25px;
-  font-weight: 300;
-}
-
-.homepage .row {margin-bottom: 30px;}
-
-.homepage .bigbox {
-	margin: 0;
-	padding: 60px;
-  background-color: #D2D4DB;
-	border-radius: 5px;
-	text-align: center;
-	max-width: 100%;
-}
-
-.homepage .bixbog p {
-	margin: 0 auto 30px auto;
-	width: 90%;
-}
-
-.homepage .users-logobox .logo {display: inline-block;}
-
-.homepage .users-logobox .logo img {height: 100px; }
-
-.homepage .users-mugshot {
-	padding: 15px 15px 0 15px;
-	float: left;
-	width: 15%;
-}
-
-.homepage .users-oneliner {
-	padding: 0 15px;
-	float: left;
-	width: 85%
-}
-
-.homepage .users-oneliner cite {
-	font-size: 18px;
-	font-weight: 400;
-	padding-left: 30px;
-}
-
-
-
-
-
-@media (max-width: 1199px) {
-	.bixbog {padding: 45px;}
-	.homepage h1 {font-size: 50px;}
-	.homepage p {font-size: 20px;}
-}
-@media (max-width: 991px) {
-	.bigbox {padding: 30px;}
-	.homepage h1 {font-size: 45px;}
-	.homepage p {font-size: 18px;}
-}
-@media (max-width: 767px) {
-	.bigbox {padding: 30px;}
-	.homepage h1 {font-size: 45px;}
-	.homepage p {font-size: 18px;}
-}
-
-.homepage .users-logobox {
-	text-align: center;
-	width: 100%;
-}
-
-
-
-a.cta {
-	text-transform: uppercase;
-	text-align: center;
-}
-
-a.cta:after {
-	content: " ➙";
-}
-
-
-
-
-
-
-
-
-
-/* Headers */
+/* text */
 
 .h1, h1 {
 	font-size: 50px;
@@ -194,12 +73,11 @@ h1 > a, h1 > a:focus {
 	letter-spacing: -1px;
 }
 
-p {
-	margin: 0 0 15px 0;
-	-webkit-font-smoothing: antialiased;
-}
+p {margin: 0 0 15px 0}
 
-/* Images  */
+
+
+/* images */
 
 img {
 	display: block;
@@ -207,13 +85,7 @@ img {
 	max-width: 100%; /* responsive by default */
 }
 
-/* Header */
-
-
-
-/* Main */
-
-/* Blog */
+/* blog */
 
 .blog .datebox,
 .blog .datebox > a,
@@ -227,64 +99,10 @@ img {
 
 .blog > h1 { width: 80%; }
 
-/* We love smart quotes */
+q {quotes: "“" "”" "‘" "’"}
 
-q { quotes: "“" "”" "‘" "’"; }
-
-q:before { content: open-quote; }
-q:after { content: close-quote; }
-
-/* Footer */
-
-address { margin: 0; } /* overwrite defaults */
-
-footer {
-	font-size: 15px;
-	font-weight: 300;
-	color: #797F94;
-}
-
-footer .about,
-footer .contact {
-	float:left;
-	padding-right: 30px;
-}
-
-footer .notice {
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 10px;
-	width: 100%;
-	float: left;
-}
-
-footer .notice > a { color: #797F94; text-decoration: none; }
-
-footer h6 {
-	font-size: 15px;
-	font-weight: 700;
-	padding: 0;
-	margin: 0;
-	margin-bottom: 15px;
-}
-
-footer ul {
-	padding: 0;
-	margin: 0;
-}
-
-footer li {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-@media (max-width: 767px) {
-	footer .contact, footer .contact .phone {
-		margin-top: 15px;
-	}
-}
+q:before {content: open-quote}
+q:after {content: close-quote}
 
 #cookie-law {
 	font-size: 15px;
@@ -292,3 +110,21 @@ footer li {
 	padding: 10px;
 	margin: 0;
 }
+
+/* call to action */
+
+.cta-button {
+	font-size: 15px;
+  font-weight: 400;
+  padding: 15px 12px;
+  border: 1px solid transparent; /* overwrite defaults */
+  border-radius: 5px;
+  text-transform: uppercase;
+	display: inline-block;
+	user-select: none;
+}
+
+.cta-button.green {color: white; background-color: #5CB85C}
+.cta-button.gray {color: #333; background-color: #D2D4DB}
+
+button:focus {outline:0} /* remove the outline */

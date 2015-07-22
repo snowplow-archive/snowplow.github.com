@@ -7,8 +7,7 @@ description: Snowplow is an Event Analytics Platform. It delivers event line of 
 weight: 1
 ---
 <!-- custom-header: product -->
-
-# Snowplow is an event analytics platform
+<h1>Snowplow is an event analytics platform</h1>
 
 Snowplow enables you to:
 

@@ -13,11 +13,13 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- enable responsive viewport -->
 
-  <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!-- bootstrap -->
-  <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" /> <!-- snowplow-->
+  <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ ASSET_PATH }}/bootstrap/css/pygments.css" type="text/css" rel="stylesheet" />
 
-  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
-  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css"> <!-- snowplow-->
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-header.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-main.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_PATH }}/assets/themes/snowplow/css/snowplow-footer.css" rel="stylesheet" type="text/css">
 
   <link href="{{ ASSET_PATH }}/bootstrap/css/style.css?body=1" rel="stylesheet" type="text/css" media="all"> <!-- custom -->
 
@@ -44,13 +46,11 @@
   {% include snowplow/fonts-and-presentation/typekit-fonts %}
   {% include snowplow/fonts-and-presentation/mathjax %}
 
-  <!-- todo: improve the metadata that is included in twitter cards -->
-
   {% if page.image %}<meta name="twitter:card" content="summary_large_image">
   {% else %}<meta name="twitter:card" content="summary">
   {% endif %}
   <meta name="twitter:site" content="@SnowPlowData">
-  <!--<meta name="twitter:creator" content="@SarahMaslinNir">-->
+  {% if page.author %}{% for author in site.data.authors %}{% if author.name == page.author %}{% if author.twitter %}<meta name="twitter:creator" content="@{{author.twitter}}">{% endif %}{% endif %}{% endfor %}{% endif %}
   <meta name="twitter:title" content="{{page.title}}">
   {% if page.description %}<meta name="twitter:description" content="{{page.description}}">
   {% else %}<meta name="twitter:description" content="{{page.title}}">
@@ -61,25 +61,14 @@
 
 <body>
 
-  {% include snowplow/google-tag-manager %}
+  {% include snowplow/scripts/google-tag-manager %}
 
-  {% if page.custom-header %}<header class="custom"><!-- if the variable is set: use the custom header -->
-  {% else %}<header class="normal">
-  {% endif %}
-
-  {% include snowplow/design/header.html %}<!-- include the actual header -->
-
-  </header>
-
-  <main class="main-snowplow" role="main">
-    <div class="container">{{ content }}</div>
-  </main>
-
+  <header{% if page.custom-header %} class="custom"{% endif %}>{% include snowplow/design/header.html %}</header>
+  <main{% if page.custom-main %} class="custom"{% endif %}>{{ content }}</main>
   <footer>{% include snowplow/design/footer.html %}</footer>
 
-  {% include snowplow/olark %}
-
-  {% include snowplow/cookie_warning %}
+  {% include snowplow/scripts/olark %}
+  {% include snowplow/scripts/cookie-warning %}
 
   <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
   <!-- Placed at the end of the document so the pages load faster -->

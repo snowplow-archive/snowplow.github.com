@@ -1,24 +1,21 @@
 
-/* snowplow-header.css is based on bootstrap */
-
 /* basic structure */
 
-header {background-color: #4C5371; padding: 15px 0}
-
-header.custom {
+header {
+	background-color: #4C5371;
 	background-image: url('/assets/themes/snowplow/img/world.png');
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	min-height: 50vh;
+	background-repeat: no-repeat;
+	background-size: 100%;
+ 	padding: 15px 0
 }
+
+header.custom {padding-bottom: 0}
 
 header .brand, header .logo, header .name {float: left}
 
 header nav {float: right}
 
-header .custom-content {margin-top: 15px}
+header .wrapper {margin: 90px 0}
 
 /* text */
 
@@ -26,128 +23,203 @@ header {font-weight: 300; font-size: 15px; color: white}
 
 header a, header a:hover, header a:focus {
 	text-decoration: none;
-	color: white;
+	color: white
 }
 
 /* brand */
 
-header .logo {
-	margin-top: -7px;
-	margin-bottom: -7px;
-}
+header .logo img {height: 51px}
 
-header .logo img {height: 65px}
-
-header .name { /* the snowplow name */
+header .name { /* make snowplow as large as possible */
 	text-transform: uppercase;
 	letter-spacing: -1px;
-	font-weight: 300;
-	font-size: 36px; /* largest possible size */
-	color: white;
 	margin-left: 15px;
+	font-weight: 300;
+	font-size: 36px
 }
+
+@media (max-width: 991px) {header .name {display: none}}
 
 /* collapsable menu on mobile */
 
-@media (min-width: 992px) {header .toggle {display: none}} /* hide toggle on larger screens */
+@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
 
-header .collapse {display: none}
-
+header .collapse    {display: none}
 header .collapse.in {display: block}
 
-.nav-collapse {overflow-x: visible; -webkit-overflow-scrolling: touch}
-
+.nav-collapse    {overflow-x: visible; -webkit-overflow-scrolling: touch}
 .nav-collapse.in {overflow-y: auto}
 
-@media (min-width: 992px) {.nav-collapse.collapse {display: block !important}}
+@media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
 
 /* menu */
 
 header .nav-collapse {text-align: right} /* for the vertical menu */
 
-header .nav-collapse ul {margin: 15px 0} /* prevent issues with alignment */
+header .nav-collapse ul {margin: 15px 0}
 
 header .nav-collapse li {
-	margin-left: 5px;
 	display : inline-block;
+	margin-left: 6px
 }
 
 header .nav-collapse li a {
+	border: 2px solid;
+	border-radius: 5px;
 	text-transform: uppercase;
-	padding: 15px;
+	padding: 15px 12px
 }
 
-header .nav-collapse li a.with-border {
-	border: 2px solid white;
-	border-radius: 5px;
-	font-weight: 400;
-}
+header .nav-collapse li        a.with-border {font-weight: 400}
+header .nav-collapse li        a.with-border {border-color: rgba(121,127,148,0.3)}
+header .nav-collapse li.active a.with-border {border-color: transparent}
 
-header .nav-collapse li a.without-border {
-	border: 2px solid transparent; /* present but invisible to align things better */
-	border-radius: 5px;
-}
-
-header .nav-collapse li a:hover,
-header .nav-collapse li a:focus {
-	background: #797F94; /* overwrite default in bootstrap.css */
-	border-color: #797F94;
-}
+header .nav-collapse li a.without-border {border-color: transparent}
 
 header .nav-collapse .active a,
 header .nav-collapse .active a:hover,
-header .nav-collapse .active a:focus {
-	background: #797F94; /* overwrite default in bootstrap.css */
-	border-color: #797F94;
+header .nav-collapse .active a:focus,
+header .nav-collapse li      a:hover,
+header .nav-collapse li      a:focus {
+	background-color: rgba(121,127,148,0.3);
+	border-color: transparent
 }
 
 /* mobile menu */
 
-@media (max-width: 991px) {
+@media (max-width: 767px) {
 
 	header .toggle {text-align: right} /* hack */
 
 	header .toggle-menu {
-		background-color: #1F294D;
-		border: 2px solid #1F294D;
-		border-color: #4C5371;
-		padding: 15px;
-		color: white;
-		border-radius: 5px;
 		text-transform: uppercase;
+		background-color: transparent;
+		border: 2px solid rgba(121,127,148,0.3);
+		border-radius: 5px;
+		padding: 15px 12px
 	}
 
-	header .toggle-menu:hover, header .toggle-menu:focus {background: #4C5371}
+	header .toggle-menu:hover, header .toggle-menu:focus {
+		background-color: rgba(121,127,148,0.3);
+		border: 2px solid transparent
+	}
 
 	header .nav-collapse li {
+		list-style: none;
+		position: relative;
+		padding: 15px 12px;
 		margin-right: 0;
 		margin-top: 5px;
-		padding: 15px;
-		position: relative;
   	display: block;
-		list-style: none;
 	}
 
 }
 
-/* temporary, to be cleaned up */
+/* bigbox */
 
-.bigbox {
-	margin: 75px 0;
-	text-align: center;
-}
+header .bigbox {text-align: center; margin: 0}
 
-.bigbox h1 {
-	font-size: 65px;
+header .bigbox h1 {
+	margin-bottom: 60px;
 	font-weight: 300;
+	font-size: 65px
 }
 
-.bigbox p {
-	font-size: 25px;
+header .bigbox h2 {
+	margin-bottom: 30px;
+	font-weight: 300;
+	font-size: 30px
+}
+
+header .bigbox p {
 	margin: 0 auto 30px auto;
-	width: 90%;
+	font-size: 25px;
+	width: 90%
 }
 
-.bigbox a.cta {
-	font-size: 20px;
+/* pricing plans */
+
+header .plans {margin: 0 auto}
+
+header .plan {
+	width: 32%;
+	padding: 30px 15px;
+	border-radius: 5px;
+	float: left
+}
+
+header .plan.batch,
+header .plan.real-time {margin-left: 2%}
+
+header .plan {
+	background-color: rgba(121,127,148,0.3);
+	text-transform: uppercase;
+	text-align: center
+}
+
+header .plan-name {font-weight: 400; font-size: 25px}
+
+header .plan-price {padding: 10px 0}
+header .plan-price {font-weight: 300; font-size: 60px}
+header .plan-price .per-month {font-size: 20px}
+header .plan-price sup {font-size: 30px}
+
+header .plan-details {font-weight: 400; font-size: 15px; min-height: 150px}
+header .plan-detail {margin-top: 5px; color: #A5A9B9}
+header .plan-detail.white {color: white}
+
+header .plan-cta {margin-top: 10px}
+
+@media (max-width: 991px) { /* responsive pricing plans */
+
+	header .plan.batch,
+	header .plan.real-time {margin: 15px auto 0 auto}
+
+	header .plan {
+		width: 100%;
+		max-width: 500px;
+		margin: 0 auto;
+		float: none
+	}
+
+	header .plan-details {min-height: 20px}
+
+}
+
+/* signup forms */
+
+.snplw-form-horizontal {margin: 0 auto; width: 90%}
+
+.snplw-form-group {margin-bottom: 15px}
+
+.snplw-form-control {
+	width: 100%;
+  padding: 15px 12px;
+	background-color: rgba(121,127,148,0.3);
+  border: 0px solid transparent;
+	border-radius: 5px;
+	font-size: 18px
+}
+
+select.snplw-form-control {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none
+}
+
+::-webkit-input-placeholder {color: white}
+::-moz-placeholder {color: white}
+:-moz-placeholder {color: white}
+:-ms-input-placeholder {color: white}
+
+.help-inline {
+	margin: 15px 0 0 15px;
+	font-size: 18px
+}
+
+.submission-successful {
+	margin-top: 15px;
+  text-align: center;
+	font-weight: 400;
+  font-size: 18px
 }

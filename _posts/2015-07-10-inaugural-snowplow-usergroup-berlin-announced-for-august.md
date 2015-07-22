@@ -41,7 +41,7 @@ Our second speaker is Sixtine Vervial, a Data Analyst at [Goeuro.com](http://www
 
 If you're a Snowplow user, prospective user, or just interested, then [sign up here][meetup-signup]. I look forward to meeting you all, and discuss the above and more, in August!
 
-Finally, big thanks to both Sixtine and Christian for speaking, and Chris, Diego and Stephen at [Leroi Marketing](http://www.leroi-marketing.de/) for making this meetup happen.
+Finally, big thanks to both Sixtine and Christian for speaking, and Chris, Diego and Stephen at [LeROI Marketing](http://www.leroi-marketing.com/) for making this meetup happen.
 
 [pic1]: /assets/img/blog/2015/07/berlin.jpg
 [meetup-signup]: http://www.meetup.com/Snowplow-Analytics-Berlin/t/ti1_1/?gj=ej4

@@ -12,8 +12,8 @@ main {
 main        .wrapper {padding: 60px 0}
 main.custom .wrapper {padding: 90px 0}
 
-main .wrapper        {background-color: #FFFFFF}
-main .wrapper.shaded {background-color: #EFEFEF}
+main .wrapper        {background-color: white}
+main .wrapper.shaded {background-color: rgb(240,240,240)}
 
 /* custom text */
 

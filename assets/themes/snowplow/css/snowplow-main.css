@@ -81,3 +81,22 @@ a.cta {
 a.cta:after {
 	content: " ➙";
 }
+
+/* table */
+
+table.plans {width: 100%; max-width: 100%}
+
+table.plans th {
+	background-color: rgb(240,240,240);
+	text-transform: uppercase;
+	padding: 12px
+}
+
+table.plans td {padding: 10px}
+
+table.plans td.subplan {
+	padding-left: 24px;
+	font-size: 16px
+}
+
+table.plans tr.shaded {background-color: rgb(247,247,247)}

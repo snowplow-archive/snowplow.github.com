@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of Snowplow 68, Turquoise Jay. This is a small release which adapts the EmrEtlRunner to use the new [Elastic Map Reduce][emr] API.
+We are happy to announce the release of Snowplow 68, Turquoise Jay. This is a small release which adapts the EmrEtlRunner to use the new [Elastic MapReduce][emr] API.
 
 Table of contents:
 
@@ -37,7 +37,7 @@ See the repository for [an example configuration file][sample-config].
 
 <h2 id="jar-path">3. Backwards compatibility with old Hadoop Enrich versions</h2>
 
-More recent versions of Scala Hadoop Enrich (1.0.0 and later) are stored in a different S3 bucket from previous versions. Unforunately, the most recent EmrEtlRunner release (0.15.0 in [Release 66 Oriental Skylark] [r66-release]) always looked in the new location, no matter what version of Hadoop Enrich was specified.
+More recent versions of Scala Hadoop Enrich (1.0.0 and later) are stored in a different S3 bucket from previous versions. Unforunately, our previous EmrEtlRunner release (0.15.0 in [Release 66 Oriental Skylark] [r66-release]) always looked in the new location, no matter what version of Hadoop Enrich was specified.
 
 The new version of EmrEtlRunner decides where to look for the jar based on the jar's version; this means that you can use the latest EmrEtlRunner version with earlier versions of Hadoop Enrich.
 

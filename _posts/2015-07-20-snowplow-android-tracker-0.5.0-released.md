@@ -11,17 +11,17 @@ We are pleased to announce the release of the fifth version of the [Snowplow And
 
 This release post will cover the following topics:
 
-1. [Client Side Sessionization](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#sessionization)
-2. [Tracker Performance](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#performance)
-3. [Event Building](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#event-building)
-4. [Other Changes](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#other-changes)
-5. [Demo app](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#demo-application)
-6. [Documentation](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#docs)
-7. [Getting help](/blog/2015/07/20/snowplow-android-tracker-0.5.0-released/#help)
+1. [Client-side sessionization](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#sessionization)
+2. [Tracker performance](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#performance)
+3. [Event building](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#event-building)
+4. [Other changes](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#other-changes)
+5. [Demo app](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#demo-application)
+6. [Documentation](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#docs)
+7. [Getting help](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#help)
 
 <!--more-->
 
-<h2><a name="sessionization">1. Client Side Sessionization</a></h2>
+<h2><a name="sessionization">1. Client-side sessionization</a></h2>
 
 This release brings with it the possibility of adding a new `client_session` context to each of your Snowplow events.  Allowing you to easily group events from a single user into a single journey (...or session).  This functionality can be activated by passing in the following builder commands to the Tracker creation step:
 
@@ -64,7 +64,7 @@ protected void onResume() {
 
 If you know of a better way to detect this state in Android please let us know in the comments below!
 
-<h2><a name="performance">2. Tracker Performance</a></h2>
+<h2><a name="performance">2. Tracker performance</a></h2>
 
 Several updates have been made to how the Tracker functions to improve performance and to reduce the memory footprint of the Tracker.  
 
@@ -88,7 +88,7 @@ Different devices might be able to take advantage of more or less threads depend
 
 We have also implemented a much needed fix for reducing the memory footprint of the library which in some cases was approaching the 100mb mark!  This has been done by setting the large arrays of events pulled from the database for sending to `null` as soon as they are no longer required, allowing the garbage collector to work much more efficiently.
 
-<h2><a name="event-building">3. Event Building</a></h2>
+<h2><a name="event-building">3. Event building</a></h2>
 
 Along with all the performance updates there has also been a fundamental change to how all the `tracker.track` functions operate.  You now need only pass a `type` of event to the `track` function instead of using many different types of `track` functions.  All events are now built using the builder pattern as well.
 
@@ -164,7 +164,7 @@ As you can see it does cause you to use a few more lines of code but the readbil
 
 On top of this you can now chose when you want to actually track an item, you can simply create an Event object and add it to be tracked and sent when you please.
 
-<h2><a name="other-changes">4. Other Changes</a></h2>
+<h2><a name="other-changes">4. Other changes</a></h2>
 
 We have also:
 

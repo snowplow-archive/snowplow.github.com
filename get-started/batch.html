@@ -26,11 +26,61 @@ custom-main: true
 			<li>If after your trial you decide to sign up to the Managed Service, we will migrate your data over for you for no additional cost.</li>
 		</ul>
 
-		<h2>Questions? Let us know.</h2>
-
-		<div class="row" style="text-align:center">
-			<a href="mailto:contact@snowplowanalytics.com"><button class="cta-button green" type="button">Contact us</button></a>
-		</div>
-
 	</div>
+</div>
+
+<div class="wrapper shaded">
+  <div class="container narrower">
+
+    <h2>Don’t hesitate to contact us.</h2>
+
+    <p style="text-align:center">We’d be happy to learn more about your organization, answer any questions you have, and demo or discuss Snowplow in more detail.</p>
+    <div class="row" style="text-align:center; margin-top: 45px">
+      <a href="mailto:contact@snowplowanalytics.com"><button class="cta-button green" type="button">Contact us</button></a>
+    </div>
+
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="container narrower">
+
+    <h2>FAQ</h2>
+
+    <div class="row"><!-- added to have the correct first-child behaviour -->
+
+      <h3>What does the batch pipeline do?</h3>
+
+      <div class="row"><!-- added to have the correct first-child behaviour -->
+        <p>With Snowplow, you can track all events from your website, mobile app, server side systems, third party systems and any type of connected device,
+          so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these events, which means validation, enrichment, and modeling.
+          The processed events are then loaded into <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> on a regular basis (i.e. in batches). This then allows you to run
+          sophisticated analytics on your event-level data.
+        </p>
+      </div>
+
+      <h3>What is the managed service?</h3>
+
+      <div class="row">
+        <p>The managed service gives users the option to run Snowplow as a service. We deliver rich event-level data directly into your own data warehouse without the overhead associated with running a data pipeline yourself:</p>
+        <ul>
+          <li>Your events are delivered directly into your own <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> data warehouse</li>
+          <li>No devops required. We setup and run the pipeline as a service</li>
+          <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyze the data</li>
+          <li><strong>Total ownership and control.</strong> All your own data stays on your AWS account</li>
+          <li><strong>Hassle-free.</strong> We run the Snowplow pipeline for you, so you can concentrate on analyzing the data</li>
+      </ul>
+
+      </div>
+
+      <h3>Does the managed service include an AWS account?</h3>
+
+      <div class="row">
+        <p>No, we believe that companies should own their data and therefore recommend that our users create their own AWS account. You remain in control, whether on the managed service or the open source version.
+          If you decide to sign up for the managed service, we will setup, monitor and upgrade the Snowplow pipeline using credentials that you control.</p>
+      </div>
+
+    </div>
+
+  </div>
 </div>

@@ -92,6 +92,11 @@ table.plans th {
 	padding: 12px
 }
 
+table.plans th.product {width: 64%}
+
+@media (max-width: 1199px) {table.plans th.product {width: 58%}}
+@media (max-width: 991px) {table.plans th.product {width: 49%}}
+
 table.plans td {padding: 10px}
 
 table.plans td.subplan {

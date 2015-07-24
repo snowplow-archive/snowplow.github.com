@@ -11,11 +11,11 @@ We are pleased to announce the release of Snowplow 69, Blue-Bellied Roller, whic
 
 This post covers:
 
-1. [Updated data model: incremental](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#incremental)
-2. [New data model: mobile](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#mobile)
-3. [New data model: deduplicate](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#deduplication)
-4. [Implementing and upgrading SQL data models](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#upgrading)
-5. [Details and questions](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#details)
+1. [Updated data model: incremental](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#incremental)
+2. [New data model: mobile](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#mobile)
+3. [New data model: deduplicate](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#deduplication)
+4. [Implementing and upgrading SQL data models](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#upgrading)
+5. [Details and questions](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#details)
 
 <img src="/assets/img/blog/2015/07/R69-blue-bellied-roller.jpg" style="height: 450px; margin: 0 auto;" />
 
@@ -60,7 +60,7 @@ The web and mobile data models come in two variants: `recalculate` and `incremen
 
 The `recalculate` models drop and recalculate the derived tables using all events, and can therefore be replaced without having to upgrade the tables.
 
-The `incremental` models update the derived tables using only the events from the most recent batch. The [updated incremental model](/blog/2015/07/16/snowplow-r69-blue-bellied-roller-released#incremental) comes with a [migration script](https://github.com/snowplow/snowplow/blob/master/5-data-modeling/sql-runner/redshift/migration/web-incremental-1-to-2/migration.sql).
+The `incremental` models update the derived tables using only the events from the most recent batch. The [updated incremental model](/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released#incremental) comes with a [migration script](https://github.com/snowplow/snowplow/blob/master/5-data-modeling/sql-runner/redshift/migration/web-incremental-1-to-2/migration.sql).
 
 <h2 id="details">5. Details and questions</h2>
 

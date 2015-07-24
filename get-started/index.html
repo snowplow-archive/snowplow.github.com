@@ -137,87 +137,53 @@ custom-main: true
       <h3>What does the batch pipeline do?</h3>
 
       <div class="row"><!-- added to have the correct first-child behaviour -->
-
-        <p>With the 
-
-        Track all events from your website, mobile app, server side systems, third party systems and any type of connected device,
-        so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these events, which
-        means validation, enrichment, and modeling. It then loads that data into your own data warehouse to power sophisticated
-        analytics.</p>
-
-        <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
-        <ul>
-          <li>Your data delivered directly into your datawarehouse (on <a href="http://aws.amazon.com/redshift/">Amazon Redshift</a>)</li>
-          <li>No devops required - we setup and run the pipeline for you as a service</li>
-          <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data</li>
-          <li><strong>Total ownership and control</strong>. All your own data stays on your AWS account</li>
-          <li><strong>Hassle free</strong>. We run the Snowplow pipeline for you, so you can concentrate on anaylsing the data</li>
-        </ul>
-        <p>You can trial the <a href="managed-service-batch-free-trial.html">managed service free for one month</a>. Sign up here, or <a href="/about">get in touch</a> to learn more.</p>
-      </div>
-
-      <h3>What is possible with the real-time pipeline?</h3>
-
-      <div class="row">
-        <p>The real-time pipeline does everything the batch pipeline does.</p>
-
-        <p>In addition to regular loading of your data into Redshift, we:</p>
-        <ul>
-          <li>Load your data real-time into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>, for real time reporting and dashboards</li>
-          <li>Publish your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis stream</a>, for real time processing of the data in real-time applications (e.g. personalization)</li>
-        </ul>
-        <p>The Managed Service Real Time is currently available in private beta. <a href="register-for-real-time.html">Register now</a> to ensure you are at the front of the queue when the service becomes publicly available.</p>
-      </div>
-
-<!--
-        <p>Track all events from your website, mobile app, server side systems, third party systems and any type of connected device,
-        so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these events, which
-        means validation, enrichment, and modeling. It then loads that data into your own data warehouse to power sophisticated
-        analytics.</p>
+        <p>With Snowplow, you can track all events from your website, mobile app, server side systems, third party systems and any type of connected device,
+          so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these events, which means validation, enrichment, and modeling.
+          The processed events are then loaded into <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> on a regular basis (i.e. in batches). This then allows you to run
+          sophisticated analytics on your event-level data.
+        </p>
       </div>
 
       <h3>What does the real-time pipeline do?</h3>
 
       <div class="row">
-        <p>The real-time pipeline does everything the batch pipeline does. In addition to regular loading of your data into Redshift, we:</p>
+        <p>The real-time pipeline supports the regular loading of events into <a href="http://aws.amazon.com/redshift">Redshift</a>, as well as:</p>
         <ul>
-          <li>Load your data real-time into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>, for real time reporting and dashboards</li>
-          <li>Publish your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis stream</a>, for real time processing of the data in real-time applications (e.g. personalization)</li>
+          <li>Loading your data real-time into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and <a href="https://www.elastic.co/products/kibana">Kibana</a>, for real-time reporting and dashboards</li>
+          <li>Publishing your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis</a> stream, for real-time processing of the data in real-time applications (e.g. personalization)</li>
         </ul>
-        <p>The real-time pipeline is available in open source and as a private beta on our managed service.</p>
-        <p><a href="register-for-real-time.html">Register now</a> to ensure you are at the front of the queue when the service becomes publicly available.</p>
+        <p>The real-time pipeline is available in open source and as a private beta on our managed service. <a href="real-time">Register now</a> to ensure you are at the front of the queue when we release the service to the public.</p>
       </div>
 
       <h3>What is the managed service?</h3>
 
       <div class="row">
-        <p>It's possible to take our open source version and run it yourself, but, let's face it, not everyone wants to spend time and resources on running a pipeline.
-        We can do it in your stead. And let's </p>
-        <p>Your data delivered directly into your data warehouse. Minimal cost, minimal fuss.</p>
+        <p>The managed service gives users the option to run Snowplow as a service. We deliver rich event-level data directly into your own data warehouse without the overhead associated with running a data pipeline yourself:</p>
         <ul>
-        <li>Your data delivered directly into your datawarehouse (on <a href="http://aws.amazon.com/redshift/">Amazon Redshift</a>)</li>
-        <li>No devops required - we setup and run the pipeline for you as a service</li>
-        <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyse the data</li>
-        <li><strong>Total ownership and control</strong>. All your own data stays on your AWS account</li>
-        <li><strong>Hassle free</strong>. We run the Snowplow pipeline for you, so you can concentrate on anaylsing the data</li>
+          <li>Your events are delivered directly into your own <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> data warehouse</li>
+          <li>No devops required. We setup and run the pipeline as a service</li>
+          <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyze the data</li>
+          <li><strong>Total ownership and control.</strong> All your own data stays on your AWS account</li>
+          <li><strong>Hassle-free.</strong> We run the Snowplow pipeline for you, so you can concentrate on analyzing the data</li>
       </ul>
-      <p>You can trial the <a href="managed-service-batch-free-trial.html">managed service free for one month</a>. Sign up here, or <a href="/about">get in touch</a> to learn more.</p>
+      <p>You can trial the <a href="batch">managed service – batch </a> free for one month. The real-time pipeline is available as a private beta on our <a href="real-time">managed service</a>.</p>
 
       </div>
 
       <h3>What is included with the open source version?</h3>
 
       <div class="row">
-        <p>We love open source. Snowplow was built on top of incredible open source projects and we believe people should be able to run the Snowplow pipeline themselves.
-        The full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>. Feel free to contribute as well.</p>
+        <p>We love open source. Snowplow was built on top of incredible open source projects and we believe people should be able to take our code and fork or run the Snowplow pipeline themselves. The full codebase is available on <a href="https://github.com/snowplow/snowplow">GitHub</a>. We also provide limited support to our open source users on our <a href="https://groups.google.com/forum/#!forum/snowplow-user">user group</a>.</p>
+        <p>The managed service gives users the option to run Snowplow as a service: Have rich event-level data delivered into your own data warehouse without the overhead associated with running a data pipeline yourself.</p>
       </div>
 
-      <h3>Do I need a separate AWS account?</h3>
+      <h3>Does the managed service include an AWS account?</h3>
 
       <div class="row">
-        <p>Yes. We believe that companies should own their own data. With the open source, we don't have access to the data at all. If you use the managed service but decide to leave, you still have all your data in your own data warehouse.</p>
+        <p>No, we believe that companies should own their data and therefore recommend that our users create their own AWS account. You remain in control, whether on the managed service or the open source version.
+          If you decide to sign up for the managed service, we will setup, monitor and upgrade the Snowplow pipeline using credentials that you control.</p>
       </div>
--->
+
     </div>
 
   </div>

@@ -5,9 +5,9 @@ sub_group: catalog
 title: Market basket analysis - identifying products and content that go well together
 shortened-link: Market basket analysis
 weight: 4
-permalink: /documentation/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
+permalink: /documentation/recipes/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html
 redirect_from:
-  - /analytics/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
+  - /analytics/recipes/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html
   - /analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html
 ---
 

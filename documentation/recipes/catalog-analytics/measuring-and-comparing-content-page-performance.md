@@ -5,9 +5,9 @@ sub_group: catalog
 title: Measuring content page performance
 shortened-link: Content page performance
 weight: 3
-permalink: /documentation/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
+permalink: /documentation/recipes/catalog-analytics/measuring-and-comparing-content-page-performance.html
 redirect_from:
-  - /analytics/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
+  - /analytics/recipes/catalog-analytics/measuring-and-comparing-content-page-performance.html
   - /analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html
 ---
 

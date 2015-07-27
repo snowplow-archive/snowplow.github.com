@@ -35,9 +35,9 @@ An [example configuration file][example-config] is available in the repository.
 
 This release also includes a script named [combine_configurations.rb][combine_configurations] which can be used to combine your existing configuration files into one. Use it like this:
 
-```
+{% highlight bash %}
 ruby combine_configurations.rb eer_config.yml storage_loader_config.yml resolver.json combined.yml
-```
+{% endhighlight java %}
 
 This will result in the two configuration files being combined into a single file named `combined.yml`. It will also extract the Iglu resolver into a JSON file named `resolver.json`. This is because the resolver is now passed to the EmrEtlRunner as a dedicated command-line argument.
 
@@ -69,11 +69,11 @@ Dani Sola has added support for compressing enriched events using [gzip][gzip]. 
 
 If you don't want to hardcode your AWS credentials in the configuration file, you can now read them in from environment variables by using [ERB templates][erb]:
 
-```yml
+{% highlight yaml %}
 aws:
   access_key_id: <%= ENV['AWS_SNOWPLOW_ACCESS_KEY'] %>
   secret_access_key: <%= ENV['AWS_SNOWPLOW_SECRET_KEY'] %>
-```
+{% endhighlight %}
 
 Thanks to Snowplow community member Eric Pantera ([@epantera][epantera] on GitHub) for contributing this feature!
 

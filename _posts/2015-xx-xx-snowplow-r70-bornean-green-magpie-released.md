@@ -23,6 +23,8 @@ The rest of this post will cover the following topics:
 10. [Upgrading](/blog/2015/xx/xx/snowplow-r70-bornean-green-magpie-released#upgrading)
 11. [Getting help](/blog/2015/xx/xx/snowplow-r70-bornean-green-magpie-released#help)
 
+![bornean-green-magpie][bornean-green-magpie]
+
 <!--more-->
 
 <h2 id="combinedConfiguration">1. Combined configuration</h2>
@@ -117,6 +119,7 @@ For more details on this release, please check out the [Kinesis S3 0.3.0 release
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[bornean-green-magpie]: /assets/img/blog/2015/06/bornean-green-magpie.jpg
 [example-config]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [issues]: https://github.com/snowplow/kinesis-s3/issues
 [talk-to-us]: https://github.com/snowplow/kinesis-s3/wiki/Talk-to-us

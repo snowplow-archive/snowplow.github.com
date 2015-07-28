@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: catalog
 title: Measuring and comparing product page performance
 shortened-link: Product page performance

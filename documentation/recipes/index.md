@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: recipes
 title: Analytics with Snowplow
 shortened-link: Analytics

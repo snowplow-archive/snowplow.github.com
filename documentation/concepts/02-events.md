@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: concepts
 title: Events
 shortened-link: Events

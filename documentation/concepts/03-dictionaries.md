@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: concepts
 title: Event dictionaries
 shortened-link: Dictionaries and schemas

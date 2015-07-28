@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: data-modeling
 title: Data Modeling
 shortened-link: Data modeling

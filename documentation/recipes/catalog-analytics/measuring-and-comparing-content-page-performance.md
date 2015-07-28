@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: catalog
 title: Measuring content page performance
 shortened-link: Content page performance

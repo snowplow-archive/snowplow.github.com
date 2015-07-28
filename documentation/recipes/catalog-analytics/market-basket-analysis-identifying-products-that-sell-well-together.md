@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: catalog
 title: Market basket analysis - identifying products and content that go well together
 shortened-link: Market basket analysis

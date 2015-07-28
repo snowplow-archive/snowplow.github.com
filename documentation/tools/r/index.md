@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: tools
 title: Get started analyzing Snowplow data with R
 shortened-link: Get started with R

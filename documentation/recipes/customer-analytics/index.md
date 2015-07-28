@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: customer
 title: An overview of customer analytics with Snowplow
 shortened-link: Customer analytics

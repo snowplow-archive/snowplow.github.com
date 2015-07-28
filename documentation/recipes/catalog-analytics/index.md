@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: catalog
 title: An overview of catalog analytics with Snowplow
 shortened-link: Catalog analytics

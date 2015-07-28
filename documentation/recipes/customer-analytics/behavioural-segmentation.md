@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: customer
 title: Behavioral segmentation
 shortened-link: Behavioral segmentation

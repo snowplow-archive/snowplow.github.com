@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: customer
 title: Joining Snowplow data to other customer data sets
 shortened-link: Joining Snowplow data to other customer data sets

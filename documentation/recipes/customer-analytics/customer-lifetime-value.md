@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: customer
 title: Customer Lifetime Value
 shortened-link: Customer lifetime value

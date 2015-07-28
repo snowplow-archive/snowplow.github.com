@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: concepts
 title: Stages in the Snowplow data pipeline
 shortened-link: Snowplow data pipeline stages

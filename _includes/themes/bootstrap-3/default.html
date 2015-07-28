@@ -55,12 +55,12 @@
 
   {% include snowplow/scripts/google-tag-manager %}
 
-  <header{% if page.custom-header %} class="custom"{% endif %}>{% include snowplow/design/header.html %}</header>
+  {% include snowplow/design/header.html %}
   {{ content }}
-  <footer>{% include snowplow/design/footer.html %}</footer>
+  {% include snowplow/design/footer.html %}
 
-  {% include snowplow/scripts/olark %}
   {% include snowplow/scripts/cookie-warning %}
+  {% include snowplow/scripts/olark %}
 
   <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
   <!-- Placed at the end of the document so the pages load faster -->

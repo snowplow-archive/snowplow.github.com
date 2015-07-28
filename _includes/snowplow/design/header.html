@@ -1,3 +1,4 @@
+<header{% if page.custom-header %} class="custom"{% endif %}>
 <div class="menu">
   <div class="container">
 
@@ -48,3 +49,5 @@
   {% if page.custom-header == 'real-time' %}{% include snowplow/design/headers/real-time.html %}{% endif %}
 
 {% if page.custom-header %}</div>{% endif %}
+
+</header>

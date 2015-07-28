@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: events
 title: Events
-shortened-link: Events
 description: Understanding events - the central type at the heart of the Snowplow platform
-weight: 2
 permalink: /documentation/concepts/events/
 redirect_from:
   - /analytics/concepts/events/

@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: viewing snowplow data
 title: Viewing event-level data in Snowplow
-shortened-link: Viewing event-level data in Snowplow
 description: Viewing event-level data in Snowplow
-weight: 8
 permalink: /documentation/concepts/viewing-snowplow-data/
 redirect_from:
   - /analytics/concepts/viewing-snowplow-data/

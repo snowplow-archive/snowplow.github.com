@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
-title: Contexts
-shortened-link: Contexts
+subgroup: concepts
+breadcrumb: entities
+title: Entities
 description: Understanding event dictionaries
-weight: 4
 permalink: /documentation/concepts/contexts/
 redirect_from:
   - /analytics/concepts/contexts/

@@ -137,7 +137,8 @@ header .wrapper.title h1 {margin: 0}
 header .breadcrumb {
   padding: 15px 0;
   background-color: rgba(121,127,148,0.3);
-  margin: 0
+  margin: 0;
+  text-transform: uppercase;
 }
 
 /* pricing plans */

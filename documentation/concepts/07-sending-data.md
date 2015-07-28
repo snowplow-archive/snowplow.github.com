@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: sending data into snowplow
 title: Sending data into Snowplow
-shortened-link: Sending data into Snowplow
 description: Find out how to send data into Snowplow
-weight: 7
 permalink: /documentation/concepts/sending-data-into-snowplow/
 redirect_from:
   - /analytics/concepts/sending-data-into-snowplow/

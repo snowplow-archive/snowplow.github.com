@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: iglu
 title: Iglu
-shortened-link: Iglu
 description: Iglu is a machine-readable schema repository
-weight: 5
 permalink: /documentation/concepts/iglu/
 redirect_from:
   - /analytics/concepts/iglu/

@@ -1,11 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: event dictionaries
 title: Event dictionaries
-shortened-link: Dictionaries and schemas
 description: Understanding event dictionaries
-weight: 3
 permalink: /documentation/concepts/event-dictionaries-and-schemas/
 redirect_from:
   - /analytics/concepts/event-dictionaries-and-schemas/

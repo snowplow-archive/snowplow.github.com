@@ -3,15 +3,14 @@ layout: page
 group: documentation
 sub_group: introduction
 title: Documentation
-shortened-link: Introduction
 description: How to get the most out of Snowplow?
+shortened-link: Introduction
 permalink: /documentation/
 redirect_from:
   - /analytics/
 weight: 1
+custom-header: documentation
 ---
-
-# Documentation
 
 Snowplow enables analysts to perform a wide variety of both simple and sophisticated analytics on your event data. In this section of the website, we provide examples and sample queries to perform many of those analyses.
 

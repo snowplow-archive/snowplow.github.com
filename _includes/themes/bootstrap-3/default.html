@@ -32,14 +32,6 @@
 
   <link rel="shortcut icon" href="/favicon.ico">
 
-  <!-- Fav and touch icons -->
-  <!-- Update these with your own images
-      <link rel="shortcut icon" href="images/favicon.ico">
-      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
-
   <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
   <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
 
@@ -64,7 +56,7 @@
   {% include snowplow/scripts/google-tag-manager %}
 
   <header{% if page.custom-header %} class="custom"{% endif %}>{% include snowplow/design/header.html %}</header>
-  <main{% if page.custom-main %} class="custom"{% endif %}>{{ content }}</main>
+  {{ content }}
   <footer>{% include snowplow/design/footer.html %}</footer>
 
   {% include snowplow/scripts/olark %}

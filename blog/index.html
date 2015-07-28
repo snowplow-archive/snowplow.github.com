@@ -1,14 +1,11 @@
 ---
+layout: page
 title: Blog
 group: blog
-layout: page
 category: blog
-description: The Snowplow blog - thoughts, musing and tutorials on event analytics from the Snowplow team
-weight: 4
 ---
 
-{% include JB/setup %}
-
+<div class="col-md-9">
 <div class = "blog">
 
 	{% for post in paginator.posts %} <!-- This loops through the paginated posts -->
@@ -39,3 +36,6 @@ weight: 4
 	</div>
 
 </div>
+
+</div>
+<div class="col-md-3">{% include snowplow/sidebar_blog %}</div>

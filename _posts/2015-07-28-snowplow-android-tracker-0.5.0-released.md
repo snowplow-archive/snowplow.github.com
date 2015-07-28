@@ -164,7 +164,7 @@ The new Builder pattern is slightly more verbose but the readbility is greatly i
 
 We have also:
 
-* Added a function in the Tracker which allows you to instantly turn off all tracking and event collection `tracker.stopDataCollection()` and to start collection again run `tracker.startDataCollection()` ([#6][6])
+* Added a function in the Tracker which allows you to instantly turn off all tracking and event collection `tracker.pauseEventTracking()` and to start collection again run `tracker.resumeEventTracking()` ([#6][6])
 * Added the ability to set a custom event id for any event using the Builder option `.eventId("some-id")` ([#59][59])
 * Fixed a bug whereby a needed field was not being set for the `mobile_context` ([#135][135])
 * Fixed a bug whereby the Emitter's send operation might not time out as required ([#138][138])

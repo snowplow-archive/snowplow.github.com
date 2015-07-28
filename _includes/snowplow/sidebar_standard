@@ -1,12 +1,12 @@
 <ul class="nav nav-pills nav-stacked">
-  <!-- If we are in the analytics section, we need to loop through each sub_group and display the appropriate side menu items -->
+  <!-- If we are in the documentation section, we need to loop through each sub_group and display the appropriate side menu items -->
 
 
-  {% if group == 'analytics' %}
+  {% if group == 'documentation' %}
     {% if sub_group == 'introduction' %}
       {% for weight in (1..10) %}
         {% for node in pages_list %}
-          {% if node.group == 'analytics' %}
+          {% if node.group == 'documentation' %}
             {% if node.sub_group == 'introduction' %}
               {% if node.weight == weight %}
                 {% if node.url == page.url %}
@@ -27,7 +27,7 @@
     {% if page.sub_group == 'concepts' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'concepts' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -56,7 +56,7 @@
     {% if page.sub_group == 'data-modeling' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'data-modeling' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -85,7 +85,7 @@
     {% if page.sub_group == 'recipes' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'recipes' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -113,7 +113,7 @@
     {% if page.sub_group == 'customer' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'customer' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -141,7 +141,7 @@
     {% if page.sub_group == 'catalog' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'catalog' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -169,7 +169,7 @@
     {% if page.sub_group == 'platform' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'platform' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -198,7 +198,7 @@
     {% if page.sub_group == 'tools' %}
     {% for weight in (1..10) %}
       {% for node in pages_list %}
-        {% if node.group == 'analytics' %}
+        {% if node.group == 'documentation' %}
           {% if node.sub_group == 'tools' %}
             {% if node.weight == weight %}
               {% if node.weight == 1 %}
@@ -225,7 +225,7 @@
     <hr></hr>
 
   {% else %}
-  <!-- Otherwise not an analytics page, so just need group level pages -->
+  <!-- Otherwise not a documentation page, so just need group level pages -->
 
 	  {% for weight in (1..10) %}
 	    {% for node in pages_list %}

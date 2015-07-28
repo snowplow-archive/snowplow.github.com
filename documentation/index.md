@@ -1,17 +1,17 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: introduction
-title: Data modeling and analytics
+title: Documentation
 shortened-link: Introduction
-description: Data modeling and advanced analytics using Snowplow event-level data.
+description: How to get the most out of Snowplow?
 permalink: /documentation/
 redirect_from:
   - /analytics/
 weight: 1
 ---
 
-# Data modeling and analytics
+# Documentation
 
 Snowplow enables analysts to perform a wide variety of both simple and sophisticated analytics on your event data. In this section of the website, we provide examples and sample queries to perform many of those analyses.
 

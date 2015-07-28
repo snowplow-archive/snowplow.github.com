@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: platform
 title: Funnel analysis
 weight: 2

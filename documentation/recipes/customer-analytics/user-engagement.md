@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: customer
 title: Measuring user engagement with Snowplow
 shortened-link: User engagement

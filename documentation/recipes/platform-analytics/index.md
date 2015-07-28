@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: platform
 title: An overview of platform analytics with Snowplow
 shortened-link: Platform analytics

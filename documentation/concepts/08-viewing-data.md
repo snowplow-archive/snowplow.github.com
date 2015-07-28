@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: concepts
 title: Viewing event-level data in Snowplow
 shortened-link: Viewing event-level data in Snowplow

@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: catalog
 title: Measure how much traffic different items on your catalog drive to your website
 shortened-link: How well do different pages attract traffic to your website?

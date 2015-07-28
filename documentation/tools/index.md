@@ -1,6 +1,6 @@
 ---
 layout: page
-group: analytics
+group: documentation
 sub_group: tools
 title: An overview of different tools and techniques for analyzing Snowplow data
 shortened-link: Tools and techniques

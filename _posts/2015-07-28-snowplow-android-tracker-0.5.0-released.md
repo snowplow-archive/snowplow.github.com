@@ -28,9 +28,9 @@ This release lets you add a new `client_session` context to each of your Snowplo
 {% highlight java %}
 Tracker tracker = new Tracker.TrackerBuilder( ... )
     .sessionContext(true)     // To use the session context
-    .sessionCheckInterval(15) // Checks every 10 seconds
-    .foregroundTimeout(600)   // Timeout after 10 minutes
-    .backgroundTimeout(300)   // Timeout after 5 minutes
+    .sessionCheckInterval(10) // Checks every 10 seconds (default: 15)
+    .foregroundTimeout(300)   // Timeout after 5 minutes (default: 10)
+    .backgroundTimeout(120)   // Timeout after 2 minutes (default: 5)
     .build();
 {% endhighlight %}
 

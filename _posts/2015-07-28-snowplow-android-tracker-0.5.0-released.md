@@ -19,6 +19,8 @@ This release post will cover the following topics:
 6. [Documentation](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#docs)
 7. [Getting help](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#help)
 
+<img src="/assets/img/blog/2015/07/android-app-classic-0.2.0-2.png" style="height: 450px; margin: 0 auto;" />
+
 <!--more-->
 
 <h2><a name="sessionization">1. Client-side sessionization</a></h2>

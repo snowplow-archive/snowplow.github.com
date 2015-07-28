@@ -142,25 +142,6 @@ EcommerceTransactionItem item2 = EcommerceTransactionItem.builder()
     .currency("currency")
     .build();
 
-List<TransactionItem> items = new ArrayList<>();
-items.add(item1);
-items.add(item2);
-
-tracker.track(EcommerceTransaction.builder()
-    .orderId("6a8078be")
-    .totalValue(300.00)
-    .affiliation("my_affiliate")
-    .taxValue(30)
-    .shipping(10)
-    .city("Shoreditch")
-    .state("London")
-    .country("Great Britain")
-    .currency("GBP")
-    .items(items)
-    .build());
-
-// You can also track items as varargs instead of constructing a list
-
 tracker.track(EcommerceTransaction.builder()
     .orderId("6a8078be")
     .totalValue(300.00)

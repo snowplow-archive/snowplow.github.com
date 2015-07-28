@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of the [Snowplow Android Tracker][repo] version 0.5.0. The Tracker has undergone a series of performance enhancing changes, plus the addition of client-side sessionization.
+We are pleased to announce the release of the [Snowplow Android Tracker][repo] version 0.5.0. The Tracker has undergone a series of performance improvements, plus the addition of client-side sessionization.
 
 This release post will cover the following topics:
 
@@ -28,9 +28,9 @@ This release lets you add a new `client_session` context to each of your Snowplo
 {% highlight java %}
 Tracker tracker = new Tracker.TrackerBuilder( ... )
     .sessionContext(true)     // To use the session context
-    .sessionCheckInterval(10) // Checks every 10 seconds (default: 15)
-    .foregroundTimeout(300)   // Timeout after 5 minutes (default: 10)
-    .backgroundTimeout(120)   // Timeout after 2 minutes (default: 5)
+    .sessionCheckInterval(10) // Checks every 10 seconds (default is 15)
+    .foregroundTimeout(300)   // Timeout after 5 minutes (default is 10)
+    .backgroundTimeout(120)   // Timeout after 2 minutes (default is 5)
     .build();
 {% endhighlight %}
 

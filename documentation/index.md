@@ -1,5 +1,6 @@
 ---
 layout: page
+header: title
 group: documentation
 sub_group: introduction
 title: Documentation
@@ -9,7 +10,6 @@ permalink: /documentation/
 redirect_from:
   - /analytics/
 weight: 1
-custom-header: documentation
 ---
 
 Snowplow enables analysts to perform a wide variety of both simple and sophisticated analytics on your event data. In this section of the website, we provide examples and sample queries to perform many of those analyses.

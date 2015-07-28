@@ -11,13 +11,13 @@ We are pleased to announce the release of the [Snowplow Android Tracker][repo] v
 
 This release post will cover the following topics:
 
-1. [Client-side sessionization](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#sessionization)
-2. [Tracker performance](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#performance)
-3. [Event building](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#event-building)
-4. [Other changes](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#other-changes)
-5. [Demo app](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#demo-application)
-6. [Documentation](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#docs)
-7. [Getting help](/blog/2015/07/27/snowplow-android-tracker-0.5.0-released/#help)
+1. [Client-side sessionization](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#sessionization)
+2. [Tracker performance](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#performance)
+3. [Event building](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#event-building)
+4. [Other changes](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#other-changes)
+5. [Demo app](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#demo-application)
+6. [Documentation](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#docs)
+7. [Getting help](/blog/2015/07/28/snowplow-android-tracker-0.5.0-released/#help)
 
 <!--more-->
 
@@ -27,10 +27,10 @@ This release lets you add a new `client_session` context to each of your Snowplo
 
 {% highlight java %}
 Tracker tracker = new Tracker.TrackerBuilder( ... )
-    .sessionContext(true) // To use the session context
-    .sessionCheckInterval(10000) // Checks every 10 seconds
-    .foregroundTimeout(600000) // Timeout after 10 minutes
-    .backgroundTimeout(300000) // Timeout after 5 minutes
+    .sessionContext(true)     // To use the session context
+    .sessionCheckInterval(15) // Checks every 10 seconds
+    .foregroundTimeout(600)   // Timeout after 10 minutes
+    .backgroundTimeout(300)   // Timeout after 5 minutes
     .build();
 {% endhighlight %}
 
@@ -157,6 +157,21 @@ tracker.track(EcommerceTransaction.builder()
     .country("Great Britain")
     .currency("GBP")
     .items(items)
+    .build());
+
+// You can also track items as varargs instead of constructing a list
+
+tracker.track(EcommerceTransaction.builder()
+    .orderId("6a8078be")
+    .totalValue(300.00)
+    .affiliation("my_affiliate")
+    .taxValue(30)
+    .shipping(10)
+    .city("Shoreditch")
+    .state("London")
+    .country("Great Britain")
+    .currency("GBP")
+    .items(item1, item2) // Simply put in any amount of items here!
     .build());
 {% endhighlight %}
 

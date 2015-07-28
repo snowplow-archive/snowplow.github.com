@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: entities
 title: Entities
-description: Understanding event dictionaries
+description: Understanding entities.
 permalink: /documentation/concepts/contexts/
 redirect_from:
   - /analytics/concepts/contexts/

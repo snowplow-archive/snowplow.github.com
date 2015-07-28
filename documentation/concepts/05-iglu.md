@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: iglu
 title: Iglu
-description: Iglu is a machine-readable schema repository
+description: Understanding Iglu, a machine-readable schema repository.
 permalink: /documentation/concepts/iglu/
 redirect_from:
   - /analytics/concepts/iglu/

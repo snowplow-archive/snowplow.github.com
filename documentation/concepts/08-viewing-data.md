@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: viewing snowplow data
 title: Viewing event-level data in Snowplow
-description: Viewing event-level data in Snowplow
+description: Understanding how to view Snowplow events.
 permalink: /documentation/concepts/viewing-snowplow-data/
 redirect_from:
   - /analytics/concepts/viewing-snowplow-data/

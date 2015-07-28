@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: sending data into snowplow
 title: Sending data into Snowplow
-description: Find out how to send data into Snowplow
+description: Understanding how to send data into Snowplow.
 permalink: /documentation/concepts/sending-data-into-snowplow/
 redirect_from:
   - /analytics/concepts/sending-data-into-snowplow/

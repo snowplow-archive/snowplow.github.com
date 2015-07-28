@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: events
 title: Events
-description: Understanding events - the central type at the heart of the Snowplow platform
+description: Understanding events.
 permalink: /documentation/concepts/events/
 redirect_from:
   - /analytics/concepts/events/

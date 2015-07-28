@@ -5,7 +5,7 @@ group: documentation
 subgroup: concepts
 breadcrumb: event dictionaries
 title: Event dictionaries
-description: Understanding event dictionaries
+description: Understanding event dictionaries.
 permalink: /documentation/concepts/event-dictionaries-and-schemas/
 redirect_from:
   - /analytics/concepts/event-dictionaries-and-schemas/

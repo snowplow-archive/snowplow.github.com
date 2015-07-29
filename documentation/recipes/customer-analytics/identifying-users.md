@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: identifying users
 title: Identifying users
 permalink: /documentation/recipes/customer-analytics/identifying-users.html
 redirect_from:

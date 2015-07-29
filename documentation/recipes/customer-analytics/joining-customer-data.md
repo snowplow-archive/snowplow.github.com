@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: joining snowplow data
 title: Joining Snowplow data to other customer data sets
 permalink: /documentation/recipes/customer-analytics/joining-customer-data.html
 redirect_from:

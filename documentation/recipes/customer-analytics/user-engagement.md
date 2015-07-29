@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: user engagement
 title: Measuring user engagement with Snowplow
 permalink: /documentation/recipes/customer-analytics/user-engagement.html
 redirect_from:

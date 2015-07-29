@@ -12,6 +12,6 @@ redirect_from:
   - /analytics/event-dictionaries-and-data-models/viewing-the-event-data-in-snowplow.html
 ---
 
-# Viewing event-level data in Snowplow
+To be written.
 
 <!-- TO WRITE (canonical event model + enrichenment, which gets added after data is collected - a difference) -->

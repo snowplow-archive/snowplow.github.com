@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: customer Lifetime Value
 title: Customer Lifetime Value
 permalink: /documentation/recipes/customer-analytics/customer-lifetime-value.html
 redirect_from:

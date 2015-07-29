@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: catalog analytics
+subbreadcrumb: measuring catalog traffic
 title: Measure how much traffic different items on your catalog drive to your website
 shortened-link: How well do different pages attract traffic to your website?
 weight: 5

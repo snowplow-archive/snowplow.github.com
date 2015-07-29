@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: behavioral segmentation
 title: Behavioral segmentation
 permalink: /documentation/recipes/customer-analytics/behavioral-segmentation.html
 redirect_from:

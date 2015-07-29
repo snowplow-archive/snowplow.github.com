@@ -3,7 +3,7 @@ layout: page
 header: title
 group: documentation
 title: Documentation
-description: Learn how to get the most out of Snowplow.
+description: How to get the most out of Snowplow.
 permalink: /documentation/
 redirect_from:
   - /analytics/

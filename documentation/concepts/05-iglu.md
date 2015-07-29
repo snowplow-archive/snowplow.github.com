@@ -12,8 +12,6 @@ redirect_from:
   - /analytics/event-dictionaries-and-data-models/iglu.html
 ---
 
-# Iglu
-
 In the previous section, we described how both [events](../events) and [contexts](../contexts) have schemas which define what data is recorded about the event, or context, at data capture time.
 
 In this section, we describe the role played by Iglu, our machine-readable schema repository, in enabling Snowplow to correctly process and warehouse that data.

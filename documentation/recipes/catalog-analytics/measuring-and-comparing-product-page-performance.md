@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: catalog analytics
+subbreadcrumb: product page performance
 title: Measuring and comparing product page performance
 shortened-link: Product page performance
 weight: 2

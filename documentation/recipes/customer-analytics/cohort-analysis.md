@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: cohort Analysis
 title: Cohort Analysis
 permalink: /documentation/recipes/customer-analytics/cohort-analysis.html
 redirect_from:

@@ -4,14 +4,12 @@ header: title
 group: documentation
 subgroup: concepts
 title: Foundational concepts
-description: Foundational concepts
+description: Foundational concepts.
 permalink: /documentation/concepts/
 redirect_from:
   - /analytics/concepts/
   - /analytics/event-dictionaries-and-data-models/foundational-concepts.html
 ---
-
-# Foundational concepts
 
 ## Who is this section for?
 

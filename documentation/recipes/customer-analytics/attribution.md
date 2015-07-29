@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics
+subbreadcrumb: attribution
 title: Attribution
 permalink: /documentation/recipes/customer-analytics/attribution.html
 redirect_from:

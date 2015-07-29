@@ -12,8 +12,6 @@ redirect_from:
   - /analytics/event-dictionaries-and-data-models/collection-enrichment-modeling-analysis.html
 ---
 
-# Understanding the Snowplow data pipeline
-
 ![data-pipeline](/assets/img/architecture/snowplow-architecture.png)
 
 The Snowplow pipeline is built to enable a very clean separation of the following steps in the data processing flow:

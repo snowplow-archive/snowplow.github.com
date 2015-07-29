@@ -29,7 +29,7 @@ This sections covers a broad range of topics:
 The Snowplow data collection and enrichment process produces a data stream, where each data packet represents a single event. This is a rich data set and the possible applications of this data are endless. While it is common to do analysis against the event-level data, it is recommended to also aggregate data into smaller data sets. Data modeling is the process aggregating event-level data into smaller data sets, while applying business logic (e.g. sessionization) and joining with other data sets.
 
 - [Data modeling][data-modeling]
-- [Sessionization][sessionization]
+<!--- [Sessionization][sessionization]-->
 
 ## Analytics with Snowplow data
 

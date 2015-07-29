@@ -11,8 +11,6 @@ description: Understanding client-side sessionization in Snowplow.
 permalink: /documentation/data-modeling/sessionization/client-side-sessionization/
 ---
 
-<!--
-
 <nav>
   <ol>
 
@@ -41,6 +39,6 @@ permalink: /documentation/data-modeling/sessionization/client-side-sessionizatio
 {% endfor %}
 
   </ol>
-</nav> -->
+</nav>
 
 To write.

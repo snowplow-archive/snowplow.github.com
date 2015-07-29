@@ -9,8 +9,6 @@ redirect_from:
   - /analytics/
 ---
 
-Snowplow enables analysts to perform a wide variety of both simple and sophisticated analytics on your event data. In this section of the website, we provide examples and sample queries to perform many of those analyses.
-
 ## Foundational concepts
 
 It is possible to use Snowplow data to answer questions and generate insight without a deep knowledge of the basic concepts that underpin the Snowplow approach to event data collection, warehouse and analyses. If you are serious about using Snowplow in the most effective way, however, and are looking to perform more sophisticated analyses, or empower a broader range of business users to explore Snowplow data, we strongly recommend becoming familiar with these foundational concepts.

@@ -30,7 +30,7 @@ SELECT
   tstamp,
   previous_tstamp,
   CASE WHEN EXTRACT(EPOCH FROM (tstamp - previous_tstamp)) < 60*30 THEN 0 ELSE 1 END AS new_session
-FROM ...
+FROM [previous result]
 {% endhighlight %}
 
 <img src="/assets/img/documentation/sessionization/basic-delta.png" width="600px">
@@ -42,7 +42,7 @@ SELECT
   previous_tstamp,
   new_session,
   SUM(new_session) OVER (PARTITION BY id ORDER BY tstamp ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS session_idx
-FROM ...
+FROM [previous result]
 {% endhighlight %}
 
 <img src="/assets/img/documentation/sessionization/basic-index.png" width="737px">
@@ -53,8 +53,16 @@ SELECT
   session_idx,
   MIN(tstamp) AS min_tstamp,
   COUNT(*) AS event_count
-FROM ...
+FROM [previous result]
 GROUP BY id, session_idx
 {% endhighlight %}
 
 <img src="/assets/img/documentation/sessionization/basic-aggregated.png" width="601px">
+
+## What columns to use?
+
+The previous example
+
+What ID to use?
+
+That depends on the events you are interested in. Examples: domain_userid, user_id, apple_idfa

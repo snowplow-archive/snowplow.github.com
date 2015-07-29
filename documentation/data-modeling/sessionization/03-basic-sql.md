@@ -4,9 +4,10 @@ header: title
 group: documentation
 subgroup: data modeling
 breadcrumb: sessionization
-title: Sessionization in SQL
-description: Sessionization in SQL.
-permalink: /documentation/data-modeling/sessionization/
+subbreadcrumb: basic server-side sessionization in sql
+title:
+description: Basic sessionization in SQL.
+permalink: /documentation/data-modeling/sessionization/basic-sessionization-in-sql/
 ---
 
 Snowplow captures

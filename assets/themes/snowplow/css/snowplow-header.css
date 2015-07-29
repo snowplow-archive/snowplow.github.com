@@ -5,7 +5,7 @@ header {padding: 15px 0}
 header.custom {padding-bottom: 0}
 
 header .brand, header .logo, header .name {float: left}
-header nav {float: right}
+header .menu nav {float: right}
 
 header .wrapper {margin: 90px 0}
 header .wrapper.title {margin: 60px 0 30px 0}
@@ -140,6 +140,25 @@ header .breadcrumb {
   margin: 0;
   text-transform: uppercase;
 }
+
+ol.cd-breadcrumb {padding: 0; margin: 0}
+
+ol.cd-breadcrumb:after  {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+ol.cd-breadcrumb li {display: inline-block; float: left; margin: 0}
+
+ol.cd-breadcrumb li::after {
+  display: inline-block;
+  content: '❯';
+  margin: 0 15px;
+}
+
+ol.cd-breadcrumb li:last-of-type::after {display: none}
+
 
 /* pricing plans */
 

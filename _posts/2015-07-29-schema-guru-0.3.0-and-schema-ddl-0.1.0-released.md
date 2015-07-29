@@ -13,7 +13,7 @@ This release post will cover the following new topics:
 
 1. [Meet the Schema DDL library](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#schemaddl)
 2. [Commands and CLI changes](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#commands)
-3. [ddl command](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#ddl-command)
+3. [Overview of the ddl command](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#ddl-command)
 4. [ddl command for Snowplow users](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#ddl-for-snowplow)
 5. [Advanced options for ddl command](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#ddl-options)
 6. [Upgrading](/blog/2015/07/29/schema-guru-0.3.0-and-schema-ddl-0.1.0-released/#upgrading)
@@ -54,7 +54,7 @@ The `ddl` command works in a similar way: input is a required positional paramet
 Note that if you specify a directory as input it will be processed recursively for both commands, so ensure that this directory contains only files you want to process,
 otherwise your JSON Schema may be polluted (`schema` command) or you will see error messages (`ddl` command).
 
-<h2 id="ddl-command">3. ddl command</h2>
+<h2 id="ddl-command">3. Overview of the ddl command</h2>
 
 Let's imagine that we have a set of JSONs that we want to load into Redshift, and these JSONs are modeled by a set of JSON Schemas.
 

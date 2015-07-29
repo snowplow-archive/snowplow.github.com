@@ -86,10 +86,12 @@ p {margin: 0 0 15px 0}
 
 /* images */
 
-img {
+main img {
 	display: block;
 	height: auto;
 	max-width: 100%; /* responsive by default */
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* blog */

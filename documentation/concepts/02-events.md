@@ -12,7 +12,7 @@ redirect_from:
   - /analytics/event-dictionaries-and-data-models/events.html
 ---
 
-## What is an event?
+# What is an event?
 
 An event is something that occurred in a particular point in time. Examples of events include:
 

@@ -142,9 +142,11 @@ Phew! That completes our example.
 
 <h2 id="ddl-for-snowplow">4. ddl command for Snowplow users</h2>
 
-As regular readers of the blog may guess, Schema Guru's new `ddl` command is purpose-built for the task of creating Snowplow event dictionaries.
+As regular readers of the blog may guess, Schema Guru's new `ddl` command is purpose-built for the task of creating Snowplow event dictionaries!
 
-Simply remove the `--raw` option and the `ddl` command will work great with a Snowplow-compatible collection of self-describing JSON Schemas; no longer will you have to write Redshift table definitions and JSON Paths files by hand!
+Simply remove the `--raw` option and the `ddl` command will work great with a Snowplow-compatible collection of self-describing JSON Schemas; no longer will you have to write Redshift table definitions and JSON Paths mappings by hand.
+
+Note that we recommend bumping the default `VARCHAR` size to 4096 to prevent issues with property truncation.
 
 
 
@@ -154,7 +156,7 @@ You can tell Schema Guru to generate JSONPaths with ``--with-json-paths`` option
 It will place ``jsonpaths`` dir alongside with ``sql``:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --with-json-paths {{input}}
+$ ./schema-guru-0.3.0 ddl --with-json-paths /path/to/schemas
 {% endhighlight %}
 
 
@@ -164,7 +166,7 @@ Raw DDL does not include fields specific to Snowplow or self-describing schema l
 Also it doesn't have ``atomic`` DB schema by default. And table name will be just a filename without ``.json``.
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --raw {{input}}
+$ ./schema-guru-0.3.0 ddl --raw /path/to/schemas
 {% endhighlight %}
 
 <h2 id="ddl-options">5. Advanced options for ddl command</h2>
@@ -179,12 +181,12 @@ $ ./schema-guru-0.3.0 ddl --db redshift /path/to/schemas
 
 There is no need to use this option yet, given that only Redshift is currently supported.
 
-<h3 id="ddl-size">--size for default varchar size</h3>
+<h3 id="ddl-size">--size for default VARCHAR size</h3>
 
 In the absence of any other clues about size (e.g `maxLength` or `enum``), `VARCHAR`s in generated Redshift tables default to a size of 255. You can override this with the `--size` option:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --size 32 {{input}} /path/to/schemas
+$ ./schema-guru-0.3.0 ddl --size 32 /path/to/schemas
 {% endhighlight %}
 
 <h3 id="ddl-schema">--schema for specifying your tables' schema</h3>
@@ -194,7 +196,7 @@ By default, tables are generated in the `atomic` schema, and the `--raw` option 
 If you want to specify your own schema for the `CREATE TABLE` DDL, use the ``--schema`` option:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --schema mobile {{input}} /path/to/schemas
+$ ./schema-guru-0.3.0 ddl --schema mobile /path/to/schemas
 {% endhighlight %}
 
 <h3 id="ddl-product-types">--split-product-types for specifying your tables' schema</h3>

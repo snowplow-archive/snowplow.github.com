@@ -1,10 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
+subbreadcrumb: attribution
 title: Attribution
-shortened-link: Attribution
-weight: 7
 permalink: /documentation/recipes/customer-analytics/attribution.html
 redirect_from:
   - /analytics/recipes/customer-analytics/attribution.html

@@ -1,18 +1,16 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: pipeline
 title: Stages in the Snowplow data pipeline
-shortened-link: Snowplow data pipeline stages
-description: Understand how the Snowplow data pipeline breaks out data collection, enrichment, modeling and analysis
-weight: 6
+description: Understanding the Snowplow data pipeline.
 permalink: /documentation/concepts/snowplow-data-pipeline/
 redirect_from:
   - /analytics/concepts/snowplow-data-pipeline/
   - /analytics/event-dictionaries-and-data-models/collection-enrichment-modeling-analysis.html
 ---
-
-# Understanding the Snowplow data pipeline
 
 ![data-pipeline](/assets/img/architecture/snowplow-architecture.png)
 

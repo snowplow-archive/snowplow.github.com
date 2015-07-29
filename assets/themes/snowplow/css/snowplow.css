@@ -9,6 +9,13 @@ html, body {
 }
 
 body {
+	background-color: #4C5371;
+	background-image: url('/assets/themes/snowplow/img/world.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+body {
 	text-rendering: optimizeLegibility;
 	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 400;

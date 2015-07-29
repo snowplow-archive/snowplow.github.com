@@ -1,7 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: catalog
+subgroup: analytics
+breadcrumb: catalog analytics
+subbreadcrumb: content page performance
 title: Measuring content page performance
 shortened-link: Content page performance
 weight: 3

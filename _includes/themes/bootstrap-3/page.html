@@ -1,23 +1,7 @@
-
-{% if page.custom-main %}{{ content }}
-
-{% elsif page.url contains 'blog' %}
-<div class="wrapper">
-  <div class="container">
-    <div class="col-md-9">{{ content }}</div>
-    <div class="col-md-3">{% include snowplow/sidebar_blog %}</div>
-  </div>
-</div>
-{% else %}
-<div class="wrapper">
-  <div class="container">
-    <div class="col-md-9">{{ content }}</div>
-    <div class="col-md-3">
-      {% assign pages_list = site.pages %}
-      {% assign group = page.group %}
-      {% assign sub_group = page.sub_group %}
-      {% include snowplow/sidebar_standard %}
+<main>
+  <div class="wrapper">
+    <div class="container narrow">
+      {{ content }}
     </div>
   </div>
-</div>
-{% endif %}
+</main>

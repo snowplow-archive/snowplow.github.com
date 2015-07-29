@@ -1,18 +1,15 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: data-modeling
+subgroup: data modeling
 title: Data Modeling
-shortened-link: Data modeling
-description: Introduction to data modeling
-weight: 1
+description: Introduction to data modeling.
 permalink: /documentation/data-modeling/
 redirect_from:
   - /analytics/data-modeling/
   - /analytics/event-dictionaries-and-data-models/data-modeling.html
 ---
-
-# Data Modeling
 
 The data collection and enrichment process generates an event stream. While it is possible to do analysis on this event stream, it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-level data into smaller data sets. These are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logic will be used by all users of the data. Aggregate tables can be:
 

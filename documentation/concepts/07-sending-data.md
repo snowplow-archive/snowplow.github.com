@@ -1,18 +1,16 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: sending data into snowplow
 title: Sending data into Snowplow
-shortened-link: Sending data into Snowplow
-description: Find out how to send data into Snowplow
-weight: 7
+description: Understanding how to send data into Snowplow.
 permalink: /documentation/concepts/sending-data-into-snowplow/
 redirect_from:
   - /analytics/concepts/sending-data-into-snowplow/
   - /analytics/event-dictionaries-and-data-models/sending-data-into-snowplow.html
 ---
-
-# Sending data into Snowplow
 
 ![front-part-of-data-pipeline](/assets/img/architecture/snowplow-architecture-1-trackers-and-webhooks.png)
 

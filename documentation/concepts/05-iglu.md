@@ -1,18 +1,16 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: iglu
 title: Iglu
-shortened-link: Iglu
-description: Iglu is a machine-readable schema repository
-weight: 5
+description: Understanding Iglu, a machine-readable schema repository.
 permalink: /documentation/concepts/iglu/
 redirect_from:
   - /analytics/concepts/iglu/
   - /analytics/event-dictionaries-and-data-models/iglu.html
 ---
-
-# Iglu
 
 In the previous section, we described how both [events](../events) and [contexts](../contexts) have schemas which define what data is recorded about the event, or context, at data capture time.
 

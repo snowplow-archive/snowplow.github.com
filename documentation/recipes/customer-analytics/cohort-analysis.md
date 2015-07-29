@@ -1,10 +1,11 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
+subbreadcrumb: cohort Analysis
 title: Cohort Analysis
-shortened-link: Cohort analysis
-weight: 6
 permalink: /documentation/recipes/customer-analytics/cohort-analysis.html
 redirect_from:
   - /analytics/recipes/customer-analytics/cohort-analysis.html

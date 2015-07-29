@@ -1,18 +1,15 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
 title: Foundational concepts
-shortened-link: Foundational concepts
-description: Foundational concepts - understanding event dictionaries, grammars and data modeling with Snowplow
-weight: 1
+description: Foundational concepts.
 permalink: /documentation/concepts/
 redirect_from:
   - /analytics/concepts/
   - /analytics/event-dictionaries-and-data-models/foundational-concepts.html
 ---
-
-# Foundational concepts
 
 ## Who is this section for?
 

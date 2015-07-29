@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: tools
+subgroup: tools
+breadcrumb: olap
 title: Convert Snowplow data into a format suitable for OLAP
-shortened-link: Convert Snowplow data into a format suitable for OLAP
-weight: 4
 permalink: /documentation/tools/olap/
 redirect_from:
   - /analytics/tools/olap/

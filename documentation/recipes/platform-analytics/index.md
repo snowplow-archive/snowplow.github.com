@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: platform
+subgroup: analytics
+breadcrumb: platform analytics
 title: An overview of platform analytics with Snowplow
-shortened-link: Platform analytics
-weight: 1
 permalink: /documentation/recipes/platform-analytics/
 redirect_from:
   - /analytics/recipes/platform-analytics/
@@ -12,9 +12,7 @@ redirect_from:
   - /analytics/platform-analytics/sankey-diagrams-with-d3-js.html
 ---
 
-<div class="html">
-<a name="top"><h1>Platform analytics</h1></a>
-</div>
+<h1>Platform analytics</h1>
 
 1. [What do we mean by "platform analytics"?](#what)
 2. [No one talks about "platform analytics". Why is that?](#why)
@@ -83,8 +81,6 @@ Trying to unpick the causes of user behavior is an art, not a science. The good 
 </div>
 
 1. [Funnel analysis] [funnel-analysis]
-2. [Visualizing user journeys using Sankey diagrams with D3.js] [sankey-diagrams]
-3. *More coming soon*
 
 Back to [top](#top).
 

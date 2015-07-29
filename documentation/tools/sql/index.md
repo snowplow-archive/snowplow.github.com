@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: tools
+subgroup: tools
+breadcrumb: sql
 title: Get started using SQL to analyze Snowplow data
-shortened-link: Get started with SQL
-weight: 2
 permalink: /documentation/tools/sql/
 redirect_from:
   - /analytics/tools/sql/

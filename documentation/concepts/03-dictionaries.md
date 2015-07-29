@@ -1,18 +1,16 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
-title: Event dictionaries
-shortened-link: Dictionaries and schemas
-description: Understanding event dictionaries
-weight: 3
+subgroup: concepts
+breadcrumb: event dictionaries
+title: Event dictionaries and schemas
+description: Understanding event dictionaries and schemas.
 permalink: /documentation/concepts/event-dictionaries-and-schemas/
 redirect_from:
   - /analytics/concepts/event-dictionaries-and-schemas/
   - /analytics/event-dictionaries-and-data-models/event-dictionaries-and-schemas.html
 ---
-
-# Event dictionaries and schemas
 
 ## What is an event dictionary?
 

@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
 title: An overview of customer analytics with Snowplow
-shortened-link: Customer analytics
-weight: 1
 permalink: /documentation/recipes/customer-analytics/
 redirect_from:
   - /analytics/recipes/customer-analytics/

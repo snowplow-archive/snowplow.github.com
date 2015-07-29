@@ -1,7 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: platform
+subgroup: analytics
+breadcrumb: platform analytics
+subbreadcrumb: funnel analysis
 title: Funnel analysis
 weight: 2
 permalink: /documentation/recipes/platform-analytics/funnel-analysis.html

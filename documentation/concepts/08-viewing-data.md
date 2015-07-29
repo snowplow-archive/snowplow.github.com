@@ -1,17 +1,17 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: concepts
+subgroup: concepts
+breadcrumb: viewing snowplow data
 title: Viewing event-level data in Snowplow
-shortened-link: Viewing event-level data in Snowplow
-description: Viewing event-level data in Snowplow
-weight: 8
+description: Understanding how to view Snowplow events.
 permalink: /documentation/concepts/viewing-snowplow-data/
 redirect_from:
   - /analytics/concepts/viewing-snowplow-data/
   - /analytics/event-dictionaries-and-data-models/viewing-the-event-data-in-snowplow.html
 ---
 
-# Viewing event-level data in Snowplow
+To be written.
 
 <!-- TO WRITE (canonical event model + enrichenment, which gets added after data is collected - a difference) -->

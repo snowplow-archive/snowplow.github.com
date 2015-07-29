@@ -202,7 +202,6 @@ $ mv jsonpaths jsonpaths-old
 Now let's run Schema Guru against our event dictionary:
 
 {% highlight bash %}
-$ ../schema-guru-0.3.0 ddl --size 4096 schemas
 $ ~/schema-guru-0.3.0 ddl --with-json-paths --size 4096 ./schemas
 File [/vagrant/schema-guru/snowplow-website-event-dictionary/./sql/com.snowplowanalytics.snowplow-website/register_for_real_time_1.sql] was written successfully!
 File [/vagrant/schema-guru/snowplow-website-event-dictionary/./jsonpaths/com.snowplowanalytics.snowplow-website/register_for_real_time_1.json] was written successfully!

@@ -179,7 +179,7 @@ As existing Snowplow users have probably guessed, Schema Guru's new `ddl` comman
 
 Simply remove the `--raw` option and the `ddl` command will work great with a Snowplow-compatible collection of self-describing JSON Schemas; no longer will you have to write Redshift table definitions and JSON Paths mappings by hand. Note that we recommend bumping the default `VARCHAR` size to 4096 to prevent issues with column truncation in Redshift.
 
-Let's work through an example, using [this website's event dictionary] [website-event-dictionary]. First let's clone the event dictionary and move the existing `sql` and `jsonpaths` folders out of harm's way:
+Let's work through an example, using [the Snowplow website's event dictionary] [website-event-dictionary]. First let's clone the event dictionary and move the existing `sql` and `jsonpaths` folders out of harm's way:
 
 {% highlight bash %}
 $ git clone https://github.com/snowplow/snowplow-website-event-dictionary.git
@@ -275,7 +275,7 @@ Again, this file is now ready for use in the Snowplow shredding process. If you 
 
 <h3 id="ddl-size">--size for default VARCHAR size</h3>
 
-In the absence of any other clues about size (e.g `maxLength` or `enum``), `VARCHAR`s in generated Redshift tables default to a size of 255. You can override this with the `--size` option:
+In the absence of any other clues about size (e.g `maxLength` or `enum`), `VARCHAR`s in generated Redshift tables default to a size of 255. You can override this with the `--size` option:
 
 {% highlight bash %}
 $ ./schema-guru-0.3.0 ddl --size 32 /path/to/schemas
@@ -283,7 +283,7 @@ $ ./schema-guru-0.3.0 ddl --size 32 /path/to/schemas
 
 <h3 id="ddl-schema">--schema for specifying your tables' schema</h3>
 
-By default, tables are generated in the `atomic` schema, and the `--raw` option generates tables within no named schema.
+By default, tables are generated in the `atomic` schema, while the `--raw` option generates tables without a named schema.
 
 If you want to specify your own schema for the `CREATE TABLE` DDL, use the ``--schema`` option:
 
@@ -293,7 +293,7 @@ $ ./schema-guru-0.3.0 ddl --schema mobile /path/to/schemas
 
 <h3 id="ddl-product-types">--split-product-types for specifying your tables' schema</h3>
 
-A JSON Schema product type consists of two or more different types, like this: `["string", "integer"]`. If we encounter one of these when generating Redshift table definitions, currently we use a `VARCHAR(4096)`. However, this loses some type safety.
+A JSON Schema product type consists of two or more different types, like this: `["string", "integer"]`. If we encounter a product type when generating Redshift table definitions, currently we use a `VARCHAR(4096)`. However, this loses some type safety.
 
 An alternative is to split a product type into multiple columns using `--split-product-types`. For example, this JSON property:
 
@@ -317,10 +317,10 @@ Will be represented as two different columns:
 
 Notes:
 
-* The source field contains constraints for both types and all these constraints will be used to construct result columns
-* Be careful using this option with `--with-json-paths` - a JSON Paths file for split product types will likely break a Redshift `COPY from JSON` load
+* Constraints in the JSON Schema will be preserved on the element of the split type to which they correspond
+* Avoid using this option with `--with-json-paths` - a JSON Paths file for split product types will likely break a Redshift `COPY from JSON` load
 
-<h3 id="ddl-db">--db for specifying database</h3>
+<h3 id="ddl-db">--db for specifying database type</h3>
 
 Currently only Redshift is supported by the ``ddl`` command, but going forwards we plan on supporting other databases. You will be able to specify the database target with the `--db` option:
 
@@ -344,6 +344,8 @@ Assuming you have a recent JVM installed, running should be as simple as:
 {% highlight bash %}
 $ ./schema-guru-0.3.0 {schema|ddl} {input} {options}
 {% endhighlight %}
+
+Note that the web UI is unchanged in this release.
 
 <h2><a name="help">7. Getting help</a></h2>
 

@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: page_old
 group: product
 title: Who uses Snowplow?
 shortened-link: Who uses Snowplow?

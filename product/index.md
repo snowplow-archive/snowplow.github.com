@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: page_old
 group: product
 title: Product
 shortened-link: What is Snowplow?

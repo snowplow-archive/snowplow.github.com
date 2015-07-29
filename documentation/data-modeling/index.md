@@ -1,11 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: data-modeling
+subgroup: data modeling
 title: Data Modeling
-shortened-link: Data modeling
 description: Introduction to data modeling
-weight: 1
 permalink: /documentation/data-modeling/
 redirect_from:
   - /analytics/data-modeling/

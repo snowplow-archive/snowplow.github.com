@@ -1,7 +1,9 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: catalog
+subgroup: analytics
+breadcrumb: catalog analytics
 title: Market basket analysis - identifying products and content that go well together
 shortened-link: Market basket analysis
 weight: 4

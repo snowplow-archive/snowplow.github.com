@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: platform
+subgroup: analytics
+breadcrumb: platform analytics
 title: An overview of platform analytics with Snowplow
-shortened-link: Platform analytics
-weight: 1
 permalink: /documentation/recipes/platform-analytics/
 redirect_from:
   - /analytics/recipes/platform-analytics/

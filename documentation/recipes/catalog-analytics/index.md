@@ -1,7 +1,9 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: catalog
+subgroup: analytics
+breadcrumb: catalog analytics
 title: An overview of catalog analytics with Snowplow
 shortened-link: Catalog analytics
 weight: 1

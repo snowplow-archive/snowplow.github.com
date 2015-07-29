@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
 title: Customer Lifetime Value
-shortened-link: Customer lifetime value
-weight: 4
 permalink: /documentation/recipes/customer-analytics/customer-lifetime-value.html
 redirect_from:
   - /analytics/recipes/customer-analytics/customer-lifetime-value.html

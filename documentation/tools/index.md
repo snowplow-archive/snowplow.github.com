@@ -1,10 +1,9 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: tools
+subgroup: tools
 title: An overview of different tools and techniques for analyzing Snowplow data
-shortened-link: Tools and techniques
-weight: 1
 permalink: /documentation/tools/
 redirect_from:
   - /analytics/tools/

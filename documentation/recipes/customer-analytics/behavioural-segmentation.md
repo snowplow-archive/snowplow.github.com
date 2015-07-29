@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
 title: Behavioral segmentation
-shortened-link: Behavioral segmentation
-weight: 8
 permalink: /documentation/recipes/customer-analytics/behavioral-segmentation.html
 redirect_from:
   - /analytics/recipes/customer-analytics/behavioural-segmentation.html

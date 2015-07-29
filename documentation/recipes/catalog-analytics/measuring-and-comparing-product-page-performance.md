@@ -1,7 +1,9 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: catalog
+subgroup: analytics
+breadcrumb: catalog analytics
 title: Measuring and comparing product page performance
 shortened-link: Product page performance
 weight: 2

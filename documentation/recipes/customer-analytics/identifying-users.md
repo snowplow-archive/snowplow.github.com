@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
 title: Identifying users
-shortened-link: Identifying users
-weight: 2
 permalink: /documentation/recipes/customer-analytics/identifying-users.html
 redirect_from:
   - /analytics/recipes/customer-analytics/identifying-users.html

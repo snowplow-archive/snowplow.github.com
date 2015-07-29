@@ -1,10 +1,9 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: recipes
+subgroup: analytics
 title: Analytics with Snowplow
-shortened-link: Analytics
-weight: 1
 permalink: /documentation/recipes/
 redirect_from:
   - /analytics/recipes/

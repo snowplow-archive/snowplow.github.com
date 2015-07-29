@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: tools
+subgroup: tools
+breadcrumb: r
 title: Get started analyzing Snowplow data with R
-shortened-link: Get started with R
-weight: 3
 permalink: /documentation/tools/r/
 redirect_from:
   - /analytics/tools/r/

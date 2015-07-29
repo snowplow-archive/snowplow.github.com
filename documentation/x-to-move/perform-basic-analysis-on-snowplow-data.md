@@ -1,7 +1,8 @@
 ---
 layout: page
-group: analytics
-sub_group: foundation
+header: title
+group: documentation
+subgroup: temp
 title: Basic web analytics queries to get familiar with Snwoplow data
 shortened-link: Basic web analytics queries
 description: Simple queries to get familiar with the underlying event-level data
@@ -21,7 +22,7 @@ The following queries are run on the underlying event-level data in the atomic s
 
 For users who are getting started with Snowplow, but are not that familiar with SQL, we recommend consulting our [quick-start guide to using SQL] (/analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html).
 
-The following queries will work with both Redshift and PostgreSQL. 
+The following queries will work with both Redshift and PostgreSQL.
 
 1. [Number of unique visitors](#counting-unique-visitors)
 2. [Number visits](#counting-visits)
@@ -97,7 +98,7 @@ To count the number of page views by day, then we simply execute the following q
 
 {% highlight sql %}
 /* Redshift / PostgreSQL */
-SELECT 
+SELECT
 DATE_TRUNC('day', collector_tstamp) AS "Date",
 COUNT(*) AS "page_views"
 FROM "atomic".events
@@ -150,7 +151,7 @@ domain_userid || '-' || domain_sessionidx AS "session",
 COUNT(*) as "pages_visited"
 FROM events
 WHERE event = 'page_view'
-AND collector_tstamp > current_date - integer '31' 
+AND collector_tstamp > current_date - integer '31'
 GROUP BY 1
 {% endhighlight %}
 
@@ -168,7 +169,7 @@ FROM (
 	COUNT(*) as "pages_visited"
 	FROM events
 	WHERE event = 'page_view'
-	AND collector_tstamp > current_date - integer '31' 
+	AND collector_tstamp > current_date - integer '31'
 	GROUP BY 1
 ) AS page_view_per_visit
 GROUP BY 1
@@ -244,7 +245,7 @@ First, we create a table with every visit stored, and identify which visits were
 /* Redshift / PostgreSQL */
 SELECT
 MIN(collector_tstamp) AS "time_first_touch",
-domain_userid, 
+domain_userid,
 domain_sessionidx,
 CASE WHEN domain_sessionidx = 1 THEN 1 ELSE 0 END AS "first_visit"
 FROM events
@@ -262,7 +263,7 @@ SUM(first_visit)::REAL/COUNT(*) as "fraction_of_visits_that_are_new"
 FROM (
 	SELECT
 	MIN(collector_tstamp) AS "time_first_touch",
-	domain_userid, 
+	domain_userid,
 	domain_sessionidx,
 	CASE WHEN domain_sessionidx = 1 THEN 1 ELSE 0 END AS "first_visit"
 	FROM "atomic".events
@@ -375,7 +376,7 @@ To create a geographical plot, you'll need to use another tool like [R] [r] or [
 <a name="new-vs-returning"><h2>11. Behavior: new vs returning</h2></a>
 </div>
 
-Within a given time period, we can compare the number of new visitors (for whom `domain_sessionidx` = 1) with returning visitors (for whom `domain_sessionidx` > 1): 
+Within a given time period, we can compare the number of new visitors (for whom `domain_sessionidx` = 1) with returning visitors (for whom `domain_sessionidx` > 1):
 
 {% highlight sql %}
 /* Redshift / PostgreSQL */
@@ -399,7 +400,7 @@ SUM(first_visit)::REAL/COUNT(*) as "fraction_of_visits_that_are_new"
 FROM (
 	SELECT
 	MIN(collector_tstamp) AS "time_first_touch",
-	domain_userid, 
+	domain_userid,
 	domain_sessionidx,
 	CASE WHEN domain_sessionidx = 1 THEN 1 ELSE 0 END AS "first_visit"
 	FROM "atomic".events
@@ -555,20 +556,20 @@ Google Analytics provides two sets of metrics to indicate *engagement*:
 1. Visit duration
 2. Page depth (i.e. number of pages visited per session)
 
-Both of these are flakey and unsophisticated measures of engagement. Nevertheless, they are easy to report on in Snowplow. To plot visit duration, we execute the following query: 
+Both of these are flakey and unsophisticated measures of engagement. Nevertheless, they are easy to report on in Snowplow. To plot visit duration, we execute the following query:
 
 {% highlight sql %}
 /* Redshift / PostgreSQL */
 SELECT
 domain_userid,
 domain_sessionidx,
-CASE 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 1800 THEN 'g. 1801+ seconds' 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 600 THEN 'f. 601-1800 seconds' 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 180 THEN 'e. 181-600 seconds' 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 60 THEN 'd. 61 - 180 seconds' 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 30 THEN 'c. 31-60 seconds' 
-	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 10 THEN 'b. 11-30 seconds' 
+CASE
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 1800 THEN 'g. 1801+ seconds'
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 600 THEN 'f. 601-1800 seconds'
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 180 THEN 'e. 181-600 seconds'
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 60 THEN 'd. 61 - 180 seconds'
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 30 THEN 'c. 31-60 seconds'
+	WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 10 THEN 'b. 11-30 seconds'
 	ELSE 'a. 0-10 seconds' END AS "Visit duration"
 FROM "atomic".events
 WHERE collector_tstamp > current_date - integer '31'
@@ -586,13 +587,13 @@ FROM (
 	SELECT
 	domain_userid,
 	domain_sessionidx,
-	CASE 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 1800 THEN 'g. 1801+ seconds' 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 600 THEN 'f. 601-1800 seconds' 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 180 THEN 'e. 181-600 seconds' 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 60 THEN 'd. 61 - 180 seconds' 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 30 THEN 'c. 31-60 seconds' 
-		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 10 THEN 'b. 11-30 seconds' 
+	CASE
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 1800 THEN 'g. 1801+ seconds'
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 600 THEN 'f. 601-1800 seconds'
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 180 THEN 'e. 181-600 seconds'
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 60 THEN 'd. 61 - 180 seconds'
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 30 THEN 'c. 31-60 seconds'
+		WHEN extract(EPOCH FROM (MAX(dvce_tstamp)-MIN(dvce_tstamp))) > 10 THEN 'b. 11-30 seconds'
 		ELSE 'a. 0-10 seconds' END AS "Visit duration"
 	FROM "atomic".events
 	WHERE collector_tstamp > current_date - integer '31'
@@ -609,7 +610,7 @@ We can then plot the results in ChartIO:
 We can also look at the number of page views per visit:
 
 {% highlight sql %}
-/* Redshift / PostgreSLQ */ 
+/* Redshift / PostgreSLQ */
 select
 domain_userid,
 domain_sessionidx,
@@ -685,13 +686,13 @@ Looking at the distribution of visits by operating system is straightforward:
 {% highlight sql %}
 /* Redshift / PostgreSQL */
 CREATE VIEW basic_recipes.technology_os AS
-SELECT 
+SELECT
 os_name as "Operating System",
 COUNT(DISTINCT(domain_userid || domain_sessionidx)) as "Visits"
 FROM "atomic".events
 WHERE collector_tstamp > current_date - integer '31'
-GROUP BY 1 
-ORDER BY 2 DESC; 
+GROUP BY 1
+ORDER BY 2 DESC;
 {% endhighlight %}
 
 Again, we can plot the results in ChartIO:
@@ -709,7 +710,7 @@ To work out how the number of visits in a given time period splits between visit
 {% highlight mysql %}
 /* Redshift / PostgreSQL */
 CREATE VIEW basic_recipes.technology_mobile AS
-SELECT 
+SELECT
 CASE WHEN dvce_ismobile=1 THEN 'mobile' ELSE 'desktop' END AS "Device type",
 COUNT(DISTINCT(domain_userid || domain_sessionidx)) as "Visits"
 FROM "atomic".events
@@ -744,7 +745,6 @@ Plotting the results in ChartIO:
 [visits-by-operating-system]: /assets/img/analytics/basic-recipes/visits-by-operating-system-chartio.png
 [split-in-visits-by-mobile-vs-desktop]: /assets/img/analytics/basic-recipes/split-in-visits-by-mobile-vs-desktop-chartio.png
 [page-views-per-visit-frequency-table-chartio]: /assets/img/analytics/basic-recipes/page-views-per-visit-frequency-table-chartio.png
-[visitors-by-country-chartio]: /assets/img/analytics/basic-recipes/visitors-by-country-chartio.png 
+[visitors-by-country-chartio]: /assets/img/analytics/basic-recipes/visitors-by-country-chartio.png
 [tableau]: http://www.tableausoftware.com/
 [r]: http://cran.r-project.org/
-

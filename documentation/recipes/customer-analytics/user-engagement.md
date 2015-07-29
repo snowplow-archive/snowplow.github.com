@@ -1,10 +1,10 @@
 ---
 layout: page
+header: title
 group: documentation
-sub_group: customer
+subgroup: analytics
+breadcrumb: customer analytics
 title: Measuring user engagement with Snowplow
-shortened-link: User engagement
-weight: 5
 permalink: /documentation/recipes/customer-analytics/user-engagement.html
 redirect_from:
   - /analytics/recipes/customer-analytics/user-engagement.html

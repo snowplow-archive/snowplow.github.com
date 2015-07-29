@@ -54,7 +54,9 @@
   {% if page.header %}</div>{% endif %}
 
   {% if page.header == 'title' %}<div class="breadcrumb"><div class="container">
-    Documentation&nbsp;&nbsp;❯&nbsp;&nbsp;Basics&nbsp;&nbsp;❯&nbsp;&nbsp;Events</div></div>
-  {% endif %}
+    {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == null %}{% if node.breadcrumb == null %}<a href="{{ BASE_PATH }}{{node.url}}">{{ node.group }}</a>{% endif %}{% endif %}{% endif %}{% endfor %}
+    {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb == null %}&nbsp;&nbsp;❯&nbsp;&nbsp;<a href="{{ BASE_PATH }}{{node.url}}">{{ node.subgroup }}</a>{% endif %}{% endif %}{% endif %}{% endfor %}
+    {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb == page.breadcrumb %}&nbsp;&nbsp;❯&nbsp;&nbsp;<a href="{{ BASE_PATH }}{{node.url}}">{{ node.breadcrumb }}</a>{% endif %}{% endif %}{% endif %}{% endfor %}
+  </div></div>{% endif %}
 
 </header>

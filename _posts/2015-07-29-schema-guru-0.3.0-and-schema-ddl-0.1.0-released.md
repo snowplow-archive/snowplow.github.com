@@ -144,30 +144,23 @@ Phew! That completes our example.
 
 As regular readers of the blog may guess, Schema Guru's new `ddl` command is purpose-built for the task of creating Snowplow event dictionaries!
 
-Simply remove the `--raw` option and the `ddl` command will work great with a Snowplow-compatible collection of self-describing JSON Schemas; no longer will you have to write Redshift table definitions and JSON Paths mappings by hand.
+Simply remove the `--raw` option and the `ddl` command will work great with a Snowplow-compatible collection of self-describing JSON Schemas; no longer will you have to write Redshift table definitions and JSON Paths mappings by hand. Note that we recommend bumping the default `VARCHAR` size to 4096 to prevent issues with property truncation.
 
-Note that we recommend bumping the default `VARCHAR` size to 4096 to prevent issues with property truncation.
-
-
-
-Redhift uses [COPY] [redshift-copy] command to load raw data into table. 
-To put it into correct positions it needs JSONPaths file containing ordered array of JSON Paths.
-You can tell Schema Guru to generate JSONPaths with ``--with-json-paths`` option.
-It will place ``jsonpaths`` dir alongside with ``sql``:
+Let's work through an example, using [this website's event dictionary]. First let's clone the event dictionary and move the existing `sql` and `jsonpaths` folders out of harms way:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --with-json-paths /path/to/schemas
+
+
 {% endhighlight %}
 
-
-
-If you're not a Snowplow user or have a lot of non-self-describing schemas you probably want to generate raw DDL.
-Raw DDL does not include fields specific to Snowplow or self-describing schema like ``schema_vendor`` or ``ref_tree``.
-Also it doesn't have ``atomic`` DB schema by default. And table name will be just a filename without ``.json``.
+Now let's run Schema Guru against our event dictionary:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 ddl --raw /path/to/schemas
+$ cd 
+
 {% endhighlight %}
+
+XXX
 
 <h2 id="ddl-options">5. Advanced options for ddl command</h2>
 
@@ -219,7 +212,7 @@ An alternative is to split a product type into multiple columns using `--split-p
 Will be represented as two different columns:
 
 {% highlight sql %}
-    "action_string"   TIMESTAMP
+    "action_string"   TIMESTAMP,
     "action_integer"  SMALLINT
 {% endhighlight %}
 

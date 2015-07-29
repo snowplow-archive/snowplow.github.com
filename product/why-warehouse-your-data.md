@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: page_old
 group: product
 title: Why warehouse your event data?
 shortened-link: Why warehouse your event data?

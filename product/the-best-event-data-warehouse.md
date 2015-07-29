@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: page_old
 group: product
 title: What makes Snowplow the best web and mobile datawarehousing platform
 shortened-link: The best web and mobile datawarehouse

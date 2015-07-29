@@ -105,3 +105,10 @@ table.plans td.subplan {
 }
 
 table.plans tr.shaded {background-color: rgb(247,247,247)}
+
+.highlight pre, pre, .highlight .hll {
+    background-color: rgb(240,240,240);
+    border: 0px solid rgb(230,230,230);
+    padding: 15px 12px;
+    border-radius: 5px;
+}

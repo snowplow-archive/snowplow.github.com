@@ -4,7 +4,7 @@ header: title
 group: documentation
 subgroup: data modeling
 breadcrumb: sessionization
-weight: 1
+rank: 0
 title: Sessionization
 description: Sessionization.
 permalink: /documentation/data-modeling/sessionization/

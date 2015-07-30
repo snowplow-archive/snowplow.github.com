@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: concepts
 breadcrumb: event dictionaries
+rank: 2
 title: Event dictionaries and schemas
 description: Understanding event dictionaries and schemas.
 permalink: /documentation/concepts/event-dictionaries-and-schemas/

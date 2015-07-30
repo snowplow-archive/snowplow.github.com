@@ -9,7 +9,7 @@ redirect_from:
   - /analytics/
 ---
 
-## Foundational concepts
+<h2>Foundational concepts</h2>
 
 It is possible to use Snowplow data to answer questions and generate insight without a deep knowledge of the basic concepts that underpin the Snowplow approach to event data collection, warehouse and analyses. If you are serious about using Snowplow in the most effective way, however, and are looking to perform more sophisticated analyses, or empower a broader range of business users to explore Snowplow data, we strongly recommend becoming familiar with these foundational concepts.
 
@@ -24,14 +24,14 @@ This sections covers a broad range of topics:
 - [Sending data into Snowplow][sending-data]
 - [Viewing Snowplow data][viewing-data]
 
-## Data modeling with Snowplow data
+<h2>Data modeling with Snowplow data</h2>
 
 The Snowplow data collection and enrichment process produces a data stream, where each data packet represents a single event. This is a rich data set and the possible applications of this data are endless. While it is common to do analysis against the event-level data, it is recommended to also aggregate data into smaller data sets. Data modeling is the process aggregating event-level data into smaller data sets, while applying business logic (e.g. sessionization) and joining with other data sets.
 
 - [Data modeling][data-modeling]
 - [Sessionization][sessionization]
 
-## Analytics with Snowplow data
+<h2>Analytics with Snowplow data</h2>
 
 Snowplow gives companies access to their event-level data. This makes it possible to perform a whole range of sophisticated analysis that are otherwise not possible. The data modeling step lowers the barrier to entry, by codifying the underlying aggregation and business logic, so analysts can focus on performing a wide variety of analyses using Snowplow data. This section contains a whole range of recipes that highlight what is possible with event-level data:
 
@@ -39,9 +39,9 @@ Snowplow gives companies access to their event-level data. This makes it possibl
 - [Catalog analytics][catalog-analytics]: Understand how content and product drives behavior and value
 - [Platform analytics][platform-analytics]: Understand how updates change user behavior and drive value
 
-## Tools and techniques
+<h2>Tools and techniques</h2>
 
-Useful tools and techniques to get the most out of your Snowplow data:
+<p>Useful tools and techniques to get the most out of your Snowplow data:</p>
 
 - [Tools and techniques][tools-and-techniques]
 

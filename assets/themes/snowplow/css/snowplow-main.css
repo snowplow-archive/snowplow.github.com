@@ -112,3 +112,7 @@ table.plans tr.shaded {background-color: rgb(247,247,247)}
     padding: 15px 12px;
     border-radius: 5px;
 }
+
+.breadcrumb {
+    border-radius: 0;
+}

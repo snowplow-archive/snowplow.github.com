@@ -3,6 +3,7 @@ layout: page
 header: title
 group: documentation
 subgroup: concepts
+rank: 0
 title: Foundational concepts
 description: Foundational concepts.
 permalink: /documentation/concepts/

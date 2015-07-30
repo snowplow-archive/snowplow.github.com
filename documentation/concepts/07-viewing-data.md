@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: concepts
 breadcrumb: viewing snowplow data
+rank: 7
 title: Viewing event-level data in Snowplow
 description: Understanding how to view Snowplow events.
 permalink: /documentation/concepts/viewing-snowplow-data/

@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: concepts
 breadcrumb: events
+rank: 1
 title: Events
 description: Understanding events.
 permalink: /documentation/concepts/events/

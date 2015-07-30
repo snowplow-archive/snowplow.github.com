@@ -5,13 +5,11 @@ group: documentation
 subgroup: data modeling
 breadcrumb: sessionization
 subbreadcrumb: client-side sessionization
-weight: 2
+rank: 1
 title:
 description: Understanding client-side sessionization in Snowplow.
 permalink: /documentation/data-modeling/sessionization/client-side-sessionization/
 ---
-
-<!--
 
 <nav>
   <ol>
@@ -41,6 +39,6 @@ permalink: /documentation/data-modeling/sessionization/client-side-sessionizatio
 {% endfor %}
 
   </ol>
-</nav> -->
+</nav>
 
 To write.

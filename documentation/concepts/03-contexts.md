@@ -4,6 +4,7 @@ header: title
 group: documentation
 subgroup: concepts
 breadcrumb: entities
+rank: 3
 title: Entities
 description: Understanding entities.
 permalink: /documentation/concepts/contexts/

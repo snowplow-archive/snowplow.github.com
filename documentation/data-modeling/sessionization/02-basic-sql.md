@@ -6,21 +6,22 @@ subgroup: data modeling
 breadcrumb: sessionization
 subbreadcrumb: basic server-side sessionization in sql
 rank: 2
-title:
+title: Basic sessionization in SQL
 description: Basic sessionization in SQL.
 permalink: /documentation/data-modeling/sessionization/basic-sessionization-in-sql/
 ---
 
-The Snowplow Javascript, iOS and Android trackers all come with client-side sessionization built in. The events captured by these trackers will therefore come with a session index and, perhaps, a session ID. Most users will have enough with the client-side sessionization. However, in some cases it becomes necessary to create a new session index server-side. Examples of such situations include:
+The Snowplow [Javascript][javascript-tracker] and [Android][android-tracker] trackers (and soon also the [iOS][ios-tracker] tracker) have client-side sessionization built in. Both trackers increment the session index if the time since the last event exceeds the time-out interval. The Javascript tracker assigns the session index to `domain_sessionidx`, and both trackers now also populate the [client session context][client-session-context]. Snowplow users that use these trackers and enable client-side sessionzation can use these fields to aggregate events into sessions with little or no effort.
 
-- Based on historical data, you decide to change the sessionization timeout [correct word?] from 30 to 10 minutes. To make historical data consistent with the new approach, you decide to do a one-off resesisonization of the old events.
-- If a single users data is captured using multiple trackers, and events from all trackers need to be taken into account (e.g. a multi-device world, or a server-side component that is relevant to the sessionization). Each tracker has only part of the information, the sessionization will thus have to happen server-side.
-- More advanced sessionization, incorporating various signals (moving closer towards a *unit of work* approach).
+However, there are cases where client-side sessionization alone is not enough. For example:
 
-This page documents one approach to sessionization using SQL (specifically the Postgres dialect Amazon Redshift uses). The following SQL query aggregates events into sesisons and begins a new session when there are 30 minutes between consequtive events.
+- You decide to reduce the time-out interval from 30 to 10 minutes because it fits better with observed user behavior. This change doesn’t affect historical data, so it might make sense to re-sessionize old events in order to retain a consistent session definition.
+- Events belonging to a single user are captured using multiple trackers. In this situation, no single tracker is guaranteed to have all the information it needs to sessionize events. This is relevant when a user is expected to be active on multiple devices during a single session, or when server-side events need to be taken into account. In such a situation, sessionization will have to happen server-side.
+- It can be useful to group events using criteria other than periods of inactivity and incorporate more complex signals. This is discussed in more detailed in the next section.
+
+This page documents one approach to server-side sessionization using SQL (in particular [the Postgres dialect Amazon Redshift uses][redshift-sql]). Below is a SQL query which increments the session index when 30 or more minutes have elapsed between 2 consecutive events.
 
 {% highlight sql %}
-
 WITH step_1 AS (
 
   SELECT
@@ -131,3 +132,10 @@ Snowplow also captures various timestamp:
 - To sort events belong to the same user, we recommend using the device timestamp (dvce_tstamp), because it is an accurate representation of the order in which events occured on a single device. To compare events across devices, the collector timestamp is a better approximation. This until the derived timestamp is set.
 
 What ID to use? The domain_userid, fingerprint, user_id, apple_idfa.
+
+[javascript-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
+[ios-tracker]: https://github.com/snowplow/snowplow-objc-tracker
+[android-tracker]: https://github.com/snowplow/snowplow-android-tracker
+[client-session-context]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/client_session_1.sql
+
+[redshift-sql]: http://docs.aws.amazon.com/redshift/latest/dg/c_redshift-and-postgres-sql.html

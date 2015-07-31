@@ -53,14 +53,14 @@ header .nav-collapse ul {margin: 15px 0}
 
 header .nav-collapse li {
 	display : inline-block;
-	margin-left: 6px
+	margin-left: 2px
 }
 
 header .nav-collapse li a {
 	border: 2px solid;
-	border-radius: 5px;
+	border-radius: 30px;
 	text-transform: uppercase;
-	padding: 15px 12px
+	padding: 15px 18px
 }
 
 header .nav-collapse li        a.with-border {font-weight: 400}
@@ -69,11 +69,12 @@ header .nav-collapse li.active a.with-border {border-color: transparent}
 
 header .nav-collapse li a.without-border {border-color: transparent}
 
-header .nav-collapse .active a,
-header .nav-collapse .active a:hover,
-header .nav-collapse .active a:focus,
-header .nav-collapse li      a:hover,
-header .nav-collapse li      a:focus {
+/*header .nav-collapse .active a:hover,*/
+/*header .nav-collapse .active a:focus,*/
+/*header .nav-collapse li      a:hover,*/
+/*header .nav-collapse li      a:focus */
+
+header .nav-collapse .active a {
 	background-color: rgba(121,127,148,0.3);
 	border-color: transparent
 }
@@ -88,11 +89,12 @@ header .nav-collapse li      a:focus {
 		text-transform: uppercase;
 		background-color: transparent;
 		border: 2px solid rgba(121,127,148,0.3);
-		border-radius: 5px;
-		padding: 15px 12px
+		border-radius: 30px;
+		padding: 15px 18px
 	}
 
-	header .toggle-menu:hover, header .toggle-menu:focus {
+	/*header .toggle-menu:hover,*/
+	header .toggle-menu:focus {
 		background-color: rgba(121,127,148,0.3);
 		border: 2px solid transparent
 	}

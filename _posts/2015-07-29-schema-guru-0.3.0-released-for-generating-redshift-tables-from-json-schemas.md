@@ -27,7 +27,7 @@ This release post will cover the following new topics:
 [Schema DDL] [ddl-repo] is a new Scala library which lets you generate [Redshift] [redshift] table definitions and JSON Paths mapping files from JSON Schemas. It supports both "vanilla" [JSON Schema] [json-schema] and our own [Self-describing Schema] [self-describing] variant.
 
 Currently there's only one DDL generator, `schemaddl.generators.redshift`, and one utility generator, `schemaddl.generators.SchemaFlattener` for representing JSON Schemas as a flat data structure.
-In future releases we plan on adding generators for other database targets, including PostgreSQL, Vertica, Azure Data Warehouse and Microsoft BigQuery.
+In future releases we plan on adding generators for other database targets, including PostgreSQL, Vertica, Azure SQL Data Warehouse and Google BigQuery.
 
 If you are interested in the code, check out [Ddl.scala] [ddl-scala], the AST-like set of case classes that let us model Redshift's `CREATE TABLE` DDL.
 

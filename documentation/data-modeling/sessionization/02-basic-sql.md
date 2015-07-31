@@ -7,17 +7,21 @@ breadcrumb: sessionization
 subbreadcrumb: basic server-side sessionization in sql
 rank: 2
 title: Basic sessionization in SQL
-description: Basic sessionization in SQL.
+description: Basic sessionization in SQL
 permalink: /documentation/data-modeling/sessionization/basic-sessionization-in-sql/
 ---
+
+## When to use server-side sessionization?
 
 The Snowplow [Javascript][javascript-tracker] and [Android][android-tracker] trackers (and soon also the [iOS][ios-tracker] tracker) have client-side sessionization built in. Both trackers increment the session index if the time since the last event exceeds the time-out interval. The Javascript tracker assigns the session index to `domain_sessionidx`, and both trackers now also populate the [client session context][client-session-context]. Snowplow users that use these trackers and enable client-side sessionzation can use these fields to aggregate events into sessions with little or no effort.
 
 However, there are cases where client-side sessionization alone is not enough. For example:
 
-- You decide to reduce the time-out interval from 30 to 10 minutes because it fits better with observed user behavior. This change doesn’t affect historical data, so it might make sense to re-sessionize old events in order to retain a consistent session definition.
-- Events belonging to a single user are captured using multiple trackers. In this situation, no single tracker is guaranteed to have all the information it needs to sessionize events. This is relevant when a user is expected to be active on multiple devices during a single session, or when server-side events need to be taken into account. In such a situation, sessionization will have to happen server-side.
-- It can be useful to group events using criteria other than periods of inactivity and incorporate more complex signals. This is discussed in more detailed in the next section.
+- You decide to reduce the time-out interval from 30 to 10 minutes because it fits better with observed user behavior. This change doesn’t affect historical data and is likely to increase future session numbers, making it harder to compare past and current performance. It might therefore make sense to re-sessionize old events using the new time-out interval in order to retain a consistent session definition.
+
+- When events belonging to a single user are captured using multiple trackers, and all events need to be taken into account when sessionizing, then no tracker is guaranteed to have all the information it needs to sessionze events client-side. This can happen when users are expected to use multiple devices during a single session, or when server-side events need to be taken into account. In those situations, sessionization will have to happen server-side.
+
+- You might decide to group events using criteria other than the time-out interval.
 
 ## Example
 
@@ -61,7 +65,9 @@ FROM step_3
 GROUP BY id, session_idx
 {% endhighlight %}
 
-First of all. this query uses a SQl WITh statement. This is a nicer way to represent queries, thus avoiding having to nest queries (making the SQL a tad more readable). Let us now break the SQL down into its components to understand what is going on.
+First of all. this query uses a [SQL WITH][sql-with] statement. "The WITH clause defines one or more subqueries. Each subquery defines a temporary table, similar to a view definition."
+
+This is a nicer way to represent queries, thus avoiding having to nest queries (making the SQL a tad more readable). Let us now break the SQL down into its components to understand what is going on.
 
 ## Example
 
@@ -83,9 +89,11 @@ This returns the following table:
 
 <img src="/assets/img/documentation/sessionization/basic-previous.png" width="466px">
 
-## Difference in time
+## Finding gaps between events
 
-The next step is to compare the values in tstamp and previous_tstamp to determine whether there were 30 minutes or not between consequtive events. This uses EXTRACT EPOCH to calculate the number of sessions, and combines it with a CASE statement. It also returns 1 when previous_tstamp is NULL. The new_session columns indicates which events are new sessions.
+Now that we have `previous_tstamp` we are in a position to compare both timestamps. If 30 or more minutes have elapsed between two consecutive events, we want to start a new session.
+
+This uses EXTRACT EPOCH to calculate the number of sessions, and combines it with a CASE statement. It also returns 1 when previous_tstamp is NULL. The new_session columns indicates which events are new sessions.
 
 {% highlight sql %}
 SELECT
@@ -170,6 +178,7 @@ Snowplow captures various timestamps, including:
 [client-session-context]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/client_session_1.sql
 
 [redshift-sql]: http://docs.aws.amazon.com/redshift/latest/dg/c_redshift-and-postgres-sql.html
+[sql-with]: http://docs.aws.amazon.com/redshift/latest/dg/r_WITH_clause.html
 
 [canonical-event-model]: https://github.com/snowplow/snowplow/wiki/Canonical-event-model
 [canonical-user-fields]: https://github.com/snowplow/snowplow/wiki/Canonical-event-model#user

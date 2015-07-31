@@ -23,9 +23,9 @@ However, there are cases where client-side sessionization alone is not enough. F
 
 - You might decide to group events using criteria other than the time-out interval.
 
-## Example
+## Time-based sessionization in SQL
 
-This page documents one approach to server-side sessionization using SQL (in particular [the Postgres dialect Amazon Redshift uses][redshift-sql]). Below is a SQL query which increments the session index when 30 or more minutes have elapsed between 2 consecutive events.
+This page documents one approach to server-side sessionization using SQL<!-- (in particular [the Postgres dialect Amazon Redshift uses][redshift-sql])-->. Below are a set of SQL queries that create a custom session index (which increments when 30 or more minutes have elapsed between 2 consecutive events). The different steps are discussed further down this page.
 
 {% highlight sql %}
 WITH step_1 AS (
@@ -65,17 +65,19 @@ FROM step_3
 GROUP BY id, session_idx
 {% endhighlight %}
 
-First of all. this query uses a [SQL WITH][sql-with] statement. "The WITH clause defines one or more subqueries. Each subquery defines a temporary table, similar to a view definition."
+<!--First of all. this query uses a [SQL WITH][sql-with] statement. "The WITH clause defines one or more subqueries. Each subquery defines a temporary table, similar to a view definition."
 
-This is a nicer way to represent queries, thus avoiding having to nest queries (making the SQL a tad more readable). Let us now break the SQL down into its components to understand what is going on.
+This is a nicer way to represent queries, thus avoiding having to nest queries (making the SQL a tad more readable). Let us now break the SQL down into its components to understand what is going on.-->
 
-## Example
+## Finding gaps between consecutive events
 
-Below is a simple dataset. User A had 4 events, and based on the timestamp, we want the third event to start a new session (there were 40 minutes between the second and third event). User B had 3 events and we want the second event to start a new session (32 minutes elapsed between events 1 and 2).
+Let’s use the dataset below as an example.
 
 <img src="/assets/img/documentation/sessionization/basic.png" width="282px">
 
-The goal of time-based sessionization is to search for gaps in the data – periods of inactivity that indicate that a user began a new visit or session. The first step is to use a SQL LAG function, which is a window function (is it?). These are functions that run over a partition (in this case the ID). Using LAG, we add a new column with the timestamp of the previous row. Because we run the function over partitions, the first row of each user ID will return NULL (as there is no previous row).
+User A had 4 events but appears to have been inactive between the second and third event. More than 30 minutes elapsed, so we decide that the third event should belong to a new session. User B was inactive between her first and second event (32 minutes elapsed). We therefore want the second event to belong to a new session.
+
+Let’s now implement this in SQL. We need to compare timestamps between consecutive rows that belong to the same user. First, we use `LAG` to create a new column with the previous timestamp. We use a window function to partition by ID so we don’t compare timestamps that belong to different users.
 
 {% highlight sql %}
 SELECT
@@ -85,15 +87,11 @@ SELECT
 FROM events
 {% endhighlight %}
 
-This returns the following table:
+The returns:
 
 <img src="/assets/img/documentation/sessionization/basic-previous.png" width="466px">
 
-## Finding gaps between events
-
-Now that we have `previous_tstamp` we are in a position to compare both timestamps. If 30 or more minutes have elapsed between two consecutive events, we want to start a new session.
-
-This uses EXTRACT EPOCH to calculate the number of sessions, and combines it with a CASE statement. It also returns 1 when previous_tstamp is NULL. The new_session columns indicates which events are new sessions.
+Now that we have `previous_tstamp` we can compare both timestamps. Let’s set the time-out interval to 30 minutes. If more than 30 minutes have elapsed between two consecutive events, we want to flag the last event as one that starts a new session.
 
 {% highlight sql %}
 SELECT
@@ -104,13 +102,13 @@ SELECT
 FROM (...)
 {% endhighlight %}
 
-The result is below:
+We use `EXTRACT(EPOCH FROM (tstamp - previous_tstamp))` to get the time difference in seconds. This is then passed through a `CASE` statement to determine whether this difference exceeds the time-out interval. Note that this also returns 1 when `previous_tstamp` is `NULL`. This outputs the following table:
 
 <img src="/assets/img/documentation/sessionization/basic-delta.png" width="600px">
 
 ## Creating a session index
 
-The last step again uses a window function. This time we want to sum over a partition by event ID. The new_session column begins with 1, then contains 0 as long as the session continues, and has another one when the next session begins (again followed by zeros). To get the session index, we sum over new_session in partitions created by the ID (and sorted on timestamp).
+To create a session index, we cumulative sum over `new_session`. For each user ID, `new_session` is first equal to 1, then 0 for as long as the session continues. Each time a new session begins `new_session` is equal to 1, a cumulative sum will thus increase the session index.
 
 {% highlight sql %}
 SELECT
@@ -166,11 +164,9 @@ It’s of course also possible to extend the base model and send in custom ident
 
 Snowplow captures various timestamps, including:
 
-- `collector_tstamp` (when the event hits the collector)
-- `dvce_tstamp` ()
+- `collector_tstamp` (when the event hit the collector)
+- `dvce_tstamp` (when the event happened)
 - `derived_tstamp` (introduced with [Snowplow R63][snowplow-r63])
-
-
 
 [javascript-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
 [ios-tracker]: https://github.com/snowplow/snowplow-objc-tracker

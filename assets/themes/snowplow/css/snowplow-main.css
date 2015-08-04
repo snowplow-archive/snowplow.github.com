@@ -3,16 +3,13 @@
 
 main {
 	min-height: 500px; /* prevent pages from looking ridiculous */
-	background-color: #FFFFFF;
+	background-color: white;
 	padding: 0;
 }
 
-/* custom wrappers */
+/* wrappers */
 
-main        .wrapper {padding: 60px 0}
-main.custom .wrapper {padding: 90px 0}
-
-main .wrapper        {background-color: white}
+main .wrapper {padding: 60px 0}
 main .wrapper.shaded {background-color: rgb(240,240,240)}
 
 /* custom text */
@@ -92,7 +89,7 @@ table.plans th {
 	padding: 12px
 }
 
-table.plans th.product {width: 64%}
+table.plans th.product {width: 61%}
 
 @media (max-width: 1199px) {table.plans th.product {width: 58%}}
 @media (max-width: 991px) {table.plans th.product {width: 49%}}
@@ -106,13 +103,86 @@ table.plans td.subplan {
 
 table.plans tr.shaded {background-color: rgb(247,247,247)}
 
+/* code */
+
 .highlight pre, pre, .highlight .hll {
-    background-color: rgb(240,240,240);
-    border: 0px solid rgb(230,230,230);
-    padding: 15px 12px;
-    border-radius: 5px;
+	background-color: rgb(240,240,240);
+	border-radius: 5px;
+	border-width: 0px;
+	font-size: 12px;
+	padding: 12px 15px;
 }
+
+code {
+	background-color: rgb(240,240,240);
+	font-size: 15px;
+	padding: 4px 3px;
+	border-radius: 4px;
+	color: #333;
+}
+
+p {line-height: 1.45}
 
 .breadcrumb {
     border-radius: 0;
+}
+
+/* docu-box */
+
+.docu-box {
+	width: 48%;
+	float: left;
+	margin-bottom: 45px;
+	color: #444;
+}
+
+.docu-box.left {margin-right: 4%;}
+
+.docu-box a {
+	color: #444;
+}
+
+.docu-text li a {
+    color: #337ab7;
+}
+.docu-text li {
+    margin: 12px 0 12px 15px;
+    /* margin-left: 15px; */
+    color: #337ab7;
+}
+.docu-box a:hover, .docu-box a:focus { text-decoration: none; }
+
+.docu-header {
+	padding: 12px 15px;
+	background-color: rgb(240,240,240);
+	font-size: 18px;
+	font-weight: 400;
+	text-transform: uppercase;
+	border-radius: 5px 5px 0 0;
+}
+
+.docu-text {
+	padding: 12px 15px;
+	background-color: rgb(248,248,248);
+	border-radius: 0 0 5px 5px;
+	min-height: 200px;
+}
+
+.docu-text ul {
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+	font-size: 15px;
+}
+
+.docu-text li {
+	list-style-type: none;
+	margin: 0
+	padding: 0
+}
+
+.docu-text li:after {
+	display: inline-block;
+	content: '❯';
+	margin: 0 5px;
 }

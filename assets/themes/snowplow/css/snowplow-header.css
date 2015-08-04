@@ -74,10 +74,10 @@ header .nav-collapse li a.without-border {border-color: transparent}
 /*header .nav-collapse li      a:hover,*/
 /*header .nav-collapse li      a:focus */
 
-header .nav-collapse .active a {
+/*header .nav-collapse .active a {
 	background-color: rgba(121,127,148,0.3);
 	border-color: transparent
-}
+}*/
 
 /* mobile menu */
 

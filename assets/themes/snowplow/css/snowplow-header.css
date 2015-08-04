@@ -65,7 +65,7 @@ header .nav-collapse li a {
 
 header .nav-collapse li        a.with-border {font-weight: 400}
 header .nav-collapse li        a.with-border {border-color: rgba(121,127,148,0.3)}
-header .nav-collapse li.active a.with-border {border-color: transparent}
+header .nav-collapse li.active a.with-border {border-color: rgba(121,127,148,0.3)}
 
 header .nav-collapse li a.without-border {border-color: transparent}
 

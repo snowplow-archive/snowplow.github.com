@@ -89,7 +89,7 @@ table.plans th {
 	padding: 12px
 }
 
-table.plans th.product {width: 64%}
+table.plans th.product {width: 61%}
 
 @media (max-width: 1199px) {table.plans th.product {width: 58%}}
 @media (max-width: 991px) {table.plans th.product {width: 49%}}
@@ -136,7 +136,21 @@ p {line-height: 1.45}
 	color: #444;
 }
 
-.docu-box.left {margin-right: 4%}
+.docu-box.left {margin-right: 4%;}
+
+.docu-box a {
+	color: #444;
+}
+
+.docu-text li a {
+    color: #337ab7;
+}
+.docu-text li {
+    margin: 12px 0 12px 15px;
+    /* margin-left: 15px; */
+    color: #337ab7;
+}
+.docu-box a:hover, .docu-box a:focus { text-decoration: none; }
 
 .docu-header {
 	padding: 12px 15px;

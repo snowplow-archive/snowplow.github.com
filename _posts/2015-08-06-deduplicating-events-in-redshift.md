@@ -7,14 +7,28 @@ author: Christophe
 category: Other
 ---
 
-Many people have noticed that event ID is not unique in Snowplow. Sometimes, events are really duplicated (all fields are the same), while in other cases the event ID
-is the same but the events looks to be totally different.
+The Snowplow pipeline outputs a data stream where each line represents a single event. Each event has an event ID which is – or should be – unique. The event ID has several uses. It is, for example, used to join unstructured events and contexts back onto the main events table in Redshift.
 
-Duplicate events are either natural or synthetic copies.
+However, after having used Snowplow for a while, users often notice that some events share an event ID. This problem is not unique to Snowplow, but it’ easier to spot with access to the underlying event stream. In some cases, these are true duplicates where all client-sent fields are the same. In other cases, they are not. This blogpost covers the main sources of duplicate events and shows how to deduplicate events in Redshift using our SQL Runner application.
 
 <!--more-->
 
 ## Distribution
+
+{% highlight sql %}
+SELECT
+  count,
+  COUNT(*)
+FROM (
+  SELECT
+    event_id,
+    COUNT(*) AS count
+    FROM atomic.events
+  GROUP BY 1
+)
+GROUP BY 1
+ORDER BY 1
+{% endhighlight %}
 
 There are cases where thousands of events have a single event ID.
 

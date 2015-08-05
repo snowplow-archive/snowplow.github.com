@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Deduplicating the event ID in Redshift
-title: Deduplicating the event ID in Redshift
+shortenedlink: Deduplicating events
+title: Dealing with duplicate events and deduplicating the event ID in Redshift
 tags: [analytics, data modeling, events]
 author: Christophe
 category: analytics
@@ -11,28 +11,24 @@ The Snowplow pipeline outputs a data stream in which each line represents a sing
 
 This blogposts covers:
 
-1. [Is event ID unique?](/blog/2015/07/24/)
+1. [Is the event ID guaranteed to be unique?](/blog/2015/07/24/)
 2. [Do duplicated events cause problems?](/blog/2015/07/24/)
 3. [What can cause duplicates?](/blog/2015/07/24/)
-4. [Implementing and upgrading SQL data models](/blog/2015/07/24/)
-5. [Details and questions](/blog/2015/07/24/)
 
 <!--more-->
 
-## Is event ID unique?
+## Is the event ID guaranteed to be unique?
 
-No.
-
-Let’s start with the distribution of the number of events per event ID for a typical Snowplow user.
+Unfortunately not. Most Snowplow users report that some events have the same event ID. Let’s take a look at the following SQL query, which counts the number of events per event ID and returns the overall distribution:
 
 {% highlight sql %}
 SELECT
-  count,
+  event_count,
   COUNT(*)
 FROM (
   SELECT
     event_id,
-    COUNT(*) AS count
+    COUNT(*) AS event_count
     FROM atomic.events
   GROUP BY 1
 )
@@ -40,7 +36,7 @@ GROUP BY 1
 ORDER BY 1
 {% endhighlight %}
 
-The following SQL query returns, for an example user:
+For a typical Snowplow user, we might expect the distribution to be something like this:
 
 <img src="/assets/img/blog/2015/08/duplicate-events.png" width="368px">
 

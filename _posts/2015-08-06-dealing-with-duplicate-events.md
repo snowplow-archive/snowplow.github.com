@@ -82,17 +82,14 @@ These events should be deduplicated when events are consumed, and deduplicating 
 
 ## Deduplicating events
 
+We use a simple algorithm to deduplicate events:
 
+- If all client-sent fields match: delete all but one event
+- If one or more client-sent fields differ:
+  - either give one event a new ID and preserve its relationship with the parent event
+  - or delete all events
 
-Thinking about this further, a simple de-duplication algorithm would be:
-
-If the payload matches exactly, then delete all but one copy
-If the payload differs in any way, then there are different options:
-
-- remove these events
-- then give one event a new ID and preserve its relationship to "parent" event
-
-Dealing with natural/endogenous duplicates is not hugely difficult - a simple lookup of previously-seen event IDs will suffice. Dealing with synthetic/exogenous duplicates is much more complex - the best solution currently is, as Christophe and Grzegorz say, to use appropriate queries or de-dupe using SQL.
+In other words, deduplicate natural copies and change or delete other duplicates. Note that the algorithm ignores Snowplow-set fields such as `etl_tstamp`.
 
 ## Deduplicating events in Redshift
 
@@ -175,7 +172,9 @@ INSERT INTO atomic.duplicated_events (
 COMMIT;
 {% endhighlight %}
 
-## Roadmap
+## Deduplicating events in Kinesis
+
+The next step is to ...
 
 Note that the ElasticSearch sink for the Kinesis flow has a "last event wins" approach to duplicates: each event is upserted into the ES collection using the event_id, so later dupes will overwrite earlier.
 
@@ -183,13 +182,12 @@ Amazon Kinesis Client Library is build wit assumption that every process has to 
 
 If we have the enriched event stream partitioned by event ID, then we can build a minimal-state* de-duplication engine as a library** for embedding in KCL apps.
 
-* Not stateless. It will need to store event IDs and event fingerprints in DynamoDB to de-dupe across micro-batches.
+- Not stateless. It will need to store event IDs and event fingerprints in DynamoDB to de-dupe across micro-batches.
 
-** De-duplication as a KCL app doesn't work for natural duplicates, because the KCL app can itself introduce natural duplicates. You literally have to embed this library into whatever functionality cares about there being no duplicates.
+- De-duplication as a KCL app doesn't work for natural duplicates, because the KCL app can itself introduce natural duplicates. You literally have to embed this library into whatever functionality cares about there being no duplicates.
 
-
-https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
-https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprobability%5Fof%5Fduplicates
+[uuid-v4]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
+[uuid-random]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprobability%5Fof%5Fduplicates
 
 [r69]: /blog/2015/07/24/snowplow-r69-blue-bellied-roller-released/
 [deduplicate]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
@@ -197,5 +195,5 @@ https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprob
 [redshift-window]: http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html
 [redshift-begin]: http://docs.aws.amazon.com/redshift/latest/dg/r_BEGIN.html
 
-https://github.com/snowplow/snowplow/issues/24
-https://github.com/snowplow/snowplow/issues/1924
+[github-24]: https://github.com/snowplow/snowplow/issues/24
+[github-1924]: https://github.com/snowplow/snowplow/issues/1924

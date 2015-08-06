@@ -99,20 +99,20 @@ Dealing with natural/endogenous duplicates is not hugely difficult - a simple lo
 Last month, we released [Snowplow 69 Blue-Bellied Roller][r69] with a [new data model][deduplicate] that deduplicates events in Redshift. It consists of a set of SQL queries that can be run on a regular basis (for example, after each load) using our [SQL Runner][sql-runner] application. The model:
 
 - Deduplicates natural copies and keeps them in `atomic.events`
-- Removes other copies from `atomic.events` and inserts them to `atomic.duplicated_events`
+- Removes other duplicates from `atomic.events` and inserts them to `atomic.duplicated_events`
 
 This ensures that the event ID in `atomic.events` is unique. The queries can be modified to use different criteria for deduplication and extended to also deduplicate unstructured events and contexts.
 
-Let’s now run through the queries. First, we create a list of event IDs that occur more than once:
+Let’s run through the queries. First, we list the event IDs that occur more than once in `atomic.events`:
 
 {% highlight sql %}
 CREATE TABLE atomic.tmp_ids_1
   DISTKEY (event_id)
   SORTKEY (event_id)
-AS (SELECT event_id FROM (SELECT event_id, COUNT() AS count FROM atomic.events GROUP BY 1) WHERE count > 1);
+AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM atomic.events GROUP BY 1) WHERE count > 1);
 {% endhighlight %}
 
-We use this list to create a new table with duplicated events, where natural copies have already been deduplicated. The `GROUP BY` is not the nicest solution but it gets the job done. An alternative is to only look at client-sent fields (e.g. the `etl_tstamp` would not be considered), in which case on would have to use a window function. Note that this step might take a while when the absolute number of duplicates is large.
+We then use this list to create another table with the actual duplicated events:
 
 {% highlight sql %}
 CREATE TABLE atomic.tmp_events
@@ -122,6 +122,7 @@ AS (
 
   SELECT * FROM atomic.events
   WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1)
+     OR event_id IN (SELECT event_id FROM atomic.duplicated_events)
   GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9,
   10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -139,16 +140,20 @@ AS (
 );
 {% endhighlight %}
 
-Next, we create a list with event IDs that still occur more than once.
+The `GROUP BY` clause combines natural duplicates into a single row if all columns are equal. It’s also possible to combine duplicates when one or more columns are different (in particular columns that don’t contain client data, such as `etl_tstamp`), but that requires a [window function][redshift-window]. Note that this step might take a while when the absolute number of duplicates is large.
+
+Next, we create a list with event IDs that are now unique.
 
 {% highlight sql %}
 CREATE TABLE atomic.tmp_ids_2
   DISTKEY (event_id)
   SORTKEY (event_id)
-AS (SELECT event_id FROM (SELECT event_id, COUNT() AS count FROM atomic.tmp_events GROUP BY 1) WHERE count = 1);
+AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM atomic.tmp_events GROUP BY 1) WHERE count = 1);
 {% endhighlight %}
 
-The last step is wrapped in a [transaction][redshift-begin] because it’s a single, logical unit of work (this ensures that either all or none of the steps get executed). First, it deletes the original duplicates from `atomic.events`. Then it moves the deduplicated natural copies back into the main table, while moving events that are still duplicated
+The last step is wrapped in a [transaction][redshift-begin] to ensure that either all or none of the queries get executed.
+
+First, it deletes the original duplicates from `atomic.events`. Then it inserts the deduplicated natural copies back into the main table, provided that the event ID is not also in `atomic.duplicated_events`. The remaining events are moved to `atomic.duplicated_events`.
 
 {% highlight sql %}
 BEGIN;
@@ -189,6 +194,7 @@ https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprob
 [r69]: /blog/2015/07/24/snowplow-r69-blue-bellied-roller-released/
 [deduplicate]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
 [sql-runner]: https://github.com/snowplow/sql-runner
+[redshift-window]: http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html
 [redshift-begin]: http://docs.aws.amazon.com/redshift/latest/dg/r_BEGIN.html
 
 https://github.com/snowplow/snowplow/issues/24

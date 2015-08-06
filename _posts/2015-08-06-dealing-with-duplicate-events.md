@@ -55,16 +55,11 @@ Even without duplicates, there might be 5 contexts with the same event ID
 
 ### ID collision
 
-
-
-It’s unlikely that duplicate events are caused by ID collision, even under huge event volumes.
-
-The event ID is generated client-side in the tracker so we can detect both exogenous and endogenous duplicates (which are discussed below).
+The event ID is generated client-side. The event ID is generated client-side in the tracker so we can detect both exogenous and endogenous duplicates (which are discussed below). It’s, however, unlikely that duplicates are introduced because of ID collision. Even users with large event volumes (billions per day) are safe.
 
 For example: the Javascript tracker uses UUID V4.
 
 There are some interesting pros and cons to type 1 versus type 4 UUIDs, but as you say, the uniqueness of the UUIDs themselves is already acceptable - this isn't where duplicates come from.
-
 
 ### Exogenous or synthetic duplicates
 
@@ -101,30 +96,78 @@ Dealing with natural/endogenous duplicates is not hugely difficult - a simple lo
 
 ## Deduplicating events in Redshift
 
-Last month, we released [Snowplow R69][r69] (also known as [Blue-Bellied Roller][r69]) which included a new data model which deduplicates events in Redshift.
+Last month, we released [Snowplow 69 Blue-Bellied Roller][r69] with a [new data model][deduplicate] that deduplicates events in Redshift. It consists of a set of SQL queries that can be run on a regular basis (for example, after each load) using our [SQL Runner][sql-runner] application. The model:
 
-This addresses an issue where a small percentage of rows have the same event ID. This new model deduplicates natural copies and moves synthetic copies from atomic.events to atomic.duplicated_events. This ensures that the event ID in `atomic.events` is unique.
+- Deduplicates natural copies and keeps them in `atomic.events`
+- Removes other copies from `atomic.events` and inserts them to `atomic.duplicated_events`
+
+This ensures that the event ID in `atomic.events` is unique. The queries can be modified to use different criteria for deduplication and extended to also deduplicate unstructured events and contexts.
+
+Let’s now run through the queries. First, we create a list of event IDs that occur more than once:
 
 {% highlight sql %}
-SELECT
-  event_id
-FROM (SELECT event_id, COUNT() AS count FROM atomic.events GROUP BY 1)
-WHERE count > 1
+CREATE TABLE atomic.tmp_ids_1
+  DISTKEY (event_id)
+  SORTKEY (event_id)
+AS (SELECT event_id FROM (SELECT event_id, COUNT() AS count FROM atomic.events GROUP BY 1) WHERE count > 1);
 {% endhighlight %}
 
+We use this list to create a new table with duplicated events, where natural copies have already been deduplicated. The `GROUP BY` is not the nicest solution but it gets the job done. An alternative is to only look at client-sent fields (e.g. the `etl_tstamp` would not be considered), in which case on would have to use a window function. Note that this step might take a while when the absolute number of duplicates is large.
+
 {% highlight sql %}
-SELECT * FROM atomic.events
-WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1)
-GROUP BY 1, 2 ... 125
+CREATE TABLE atomic.tmp_events
+  DISTKEY (event_id)
+  SORTKEY (event_id)
+AS (
+
+  SELECT * FROM atomic.events
+  WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1)
+  GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9,
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+  20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+  30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+  40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+  50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+  60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
+  70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+  80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
+  90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+  100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+  110, 111, 112, 113, 114, 115, 116, 117, 118, 119,
+  120, 121, 122, 123, 124, 125
+
+);
 {% endhighlight %}
 
-The `GROUP BY` can be modified to include all relevant columns. -- no, this doesn't work (needs window function as well)
+Next, we create a list with event IDs that still occur more than once.
 
 {% highlight sql %}
-SELECT
-  event_id
-FROM (SELECT event_id, COUNT() AS count FROM atomic.tmp_events GROUP BY 1)
-WHERE count = 1
+CREATE TABLE atomic.tmp_ids_2
+  DISTKEY (event_id)
+  SORTKEY (event_id)
+AS (SELECT event_id FROM (SELECT event_id, COUNT() AS count FROM atomic.tmp_events GROUP BY 1) WHERE count = 1);
+{% endhighlight %}
+
+The last step is wrapped in a [transaction][redshift-begin] because it’s a single, logical unit of work (this ensures that either all or none of the steps get executed). First, it deletes the original duplicates from `atomic.events`. Then it moves the deduplicated natural copies back into the main table, while moving events that are still duplicated
+
+{% highlight sql %}
+BEGIN;
+
+DELETE FROM atomic.events WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1);
+
+INSERT INTO atomic.events (
+  SELECT * FROM atomic.tmp_events
+  WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_2)
+    AND event_id NOT IN (SELECT event_id FROM atomic.duplicated_events)
+);
+
+INSERT INTO atomic.duplicated_events (
+  SELECT * FROM atomic.tmp_events
+  WHERE event_id NOT IN (SELECT event_id FROM atomic.tmp_ids_2)
+    OR event_id IN (SELECT event_id FROM atomic.duplicated_events)
+);
+
+COMMIT;
 {% endhighlight %}
 
 ## Roadmap
@@ -143,8 +186,10 @@ If we have the enriched event stream partitioned by event ID, then we can build 
 https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
 https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprobability%5Fof%5Fduplicates
 
-[r69]: http://snowplowanalytics.com/blog/2015/07/24/snowplow-r69-blue-bellied-roller-released/
+[r69]: /blog/2015/07/24/snowplow-r69-blue-bellied-roller-released/
 [deduplicate]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
+[sql-runner]: https://github.com/snowplow/sql-runner
+[redshift-begin]: http://docs.aws.amazon.com/redshift/latest/dg/r_BEGIN.html
 
 https://github.com/snowplow/snowplow/issues/24
 https://github.com/snowplow/snowplow/issues/1924

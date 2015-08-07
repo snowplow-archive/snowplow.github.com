@@ -11,12 +11,12 @@ We are pleased to announce the release of [version 0.7.0] [pypi] of the Snowplow
 
 The rest of this post will cover:
 
-1. [Better concurrency](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#threads)
-2. [Better error handling](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#errors)
-3. [The SelfDescribingJson class](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#)
-4. [Unicode support](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#unicode)
-5. [Upgrading](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#upgrading)
-6. [Getting help](/blog/2015/xx/xx/snowplow-python-tracker-0.7.0-released/#help)
+1. [Better concurrency](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#threads)
+2. [Better error handling](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#errors)
+3. [The SelfDescribingJson class](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#)
+4. [Unicode support](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#unicode)
+5. [Upgrading](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#upgrading)
+6. [Getting help](/blog/2015/08/07/snowplow-python-tracker-0.7.0-released/#help)
 
 <!--more-->
 

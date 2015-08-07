@@ -14,6 +14,9 @@ This blogposts covers:
 1. [Is the event ID guaranteed to be unique?](/blog/2015/07/24/)
 2. [Do duplicated events cause problems?](/blog/2015/07/24/)
 3. [What can cause duplicates?](/blog/2015/07/24/)
+4. [Deduplicating events](/blog/2015/07/24/)
+5. [Deduplicating events in Redshift](/blog/2015/07/24/)
+6. [Deduplicating events in Kinesis (under development)](/blog/2015/07/24/)
 
 <!--more-->
 
@@ -172,19 +175,13 @@ INSERT INTO atomic.duplicated_events (
 COMMIT;
 {% endhighlight %}
 
-## Deduplicating events in Kinesis
+## Deduplicating events in Kinesis (under development)
 
-The next step is to ...
+The [next step][github-1924] is to bring the deduplication algorithm to Kinesis. We plan to [partition the enriched event stream on event ID][github-1924], then build a minimal-state deduplication engine as a library for embedding in [KCL][kcl] apps. The engine will not be stateless because it needs to store event IDs and fingerprints in DynamoDB to deduplicate across micro-batches.
 
-Note that the ElasticSearch sink for the Kinesis flow has a "last event wins" approach to duplicates: each event is upserted into the ES collection using the event_id, so later dupes will overwrite earlier.
+The [Amazon Kinesis Client Library][kcl] is built with the assumption that all processes have to be processed at least once, which was the main idea behind check pointing mechanism. This guarantees that no data is missed, but doesn’t ensure single record processing. Deduplication as a KCL app won’t work for natural duplicates, because the app itself can introduce natural duplicates. You will therefore have to embed the deduplication library when building apps that care about there being no duplicates.
 
-Amazon Kinesis Client Library is build wit assumption that every process has to be processed at leas once. This was the main idea behind check pointing mechanism. The mechanism guarantees, that no data would be missed, but do not ensure single record processing. We should threat this rather like a feature than a bug and not related with Snowplow but Kinesis.
-
-If we have the enriched event stream partitioned by event ID, then we can build a minimal-state* de-duplication engine as a library** for embedding in KCL apps.
-
-- Not stateless. It will need to store event IDs and event fingerprints in DynamoDB to de-dupe across micro-batches.
-
-- De-duplication as a KCL app doesn't work for natural duplicates, because the KCL app can itself introduce natural duplicates. You literally have to embed this library into whatever functionality cares about there being no duplicates.
+Note that the ElasticSearch sink for the Kinesis flow takes a “last event wins” approach to duplicates. Each event is upserted into the ElasticSearch collection using the event ID, later duplicates will thus overwrite earlier ones.
 
 [uuid-v4]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29
 [uuid-random]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprobability%5Fof%5Fduplicates
@@ -195,5 +192,6 @@ If we have the enriched event stream partitioned by event ID, then we can build 
 [redshift-window]: http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html
 [redshift-begin]: http://docs.aws.amazon.com/redshift/latest/dg/r_BEGIN.html
 
+[kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
 [github-24]: https://github.com/snowplow/snowplow/issues/24
 [github-1924]: https://github.com/snowplow/snowplow/issues/1924

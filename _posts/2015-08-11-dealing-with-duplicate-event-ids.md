@@ -21,7 +21,7 @@ This blogposts covers:
 
 ## Is the event ID guaranteed to be unique?
 
-Unfortunately not. Most Snowplow users will find that some events share an event ID. To test this, run the following SQL query in Redshift, which counts the number of events per event ID and returns the overall distribution:
+Unfortunately not. Most Snowplow users will find that some events share an event ID. The following SQL query returns the distribution of events per event ID:
 
 {% highlight sql %}
 SELECT
@@ -42,37 +42,23 @@ For a typical Snowplow user, and without an additional step that deduplicates th
 
 <img src="/assets/img/blog/2015/08/duplicate-events.png" width="368px">
 
-Less than 1% of event IDs have more than one event associated with them.
+Most events have a unique ID.
 
-There are cases where thousands of events have a single event ID. There are even fewer cases where more than 2 events are associated with a single event ID, but it’s a typical long tail distribution. When Snowplow capture billions of events, it’s likely that a few event IDs will have several thousand (or more) events associated with them.
+Does this cause problems? In most cases, this doesn’t affect the actual use of the data. There are, however, a few exceptions. Unstructured events and context are loaded into separate tables in Redshift. These child tables can be joined together or back onto `atomic.events` using `root_id = event_id`. Root ID is the event ID of the parent event. If multiple events have the same ID in both tables that are joined, the result is a cartesian product and the number of resulting rows grows rapidly.
 
-Does this cause
+## What are the possible causes?
 
-Unstructured events and context are loaded into separate tables in Redshift. These child tables can be joined together or back onto `atomic.events` using `root_id = event_id`. Root ID is the event ID of the parent event.
-
-Does this cause issues? In most cases this doesn’t affect the actual use of the data – it’s sufficient to be aware of the existence of duplicates. One situation in which duplicates can cause problem is this:
-
-- multiple contexts are captured with each event
-- events are duplicated
-
-Even without duplicates, there might be 5 contexts with the same event ID
-
-## What can cause duplicates?
+We distinguish between endeogenous and exegenous duplicates.
 
 ### Endogenous or natural duplicates
 
-The last class are natural duplicates. These are introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once:
+Natural duplicates are introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. The CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
 
-- The CloudFront collector in the batch flow can duplicate events
-- Applications in the Kinesis real-time flow can introduce duplicates because of the KCL checkpointing approach
-
-These events should be deduplicated when events are consumed, and deduplicating consists of deleting all but one event.
+These events are true duplicates in the sense that all client-sent fields are the same, i.e. all data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but one event. This should happen at the point of consumption because earlier stages in the pipeline can introduce new duplicates.
 
 ### Exogenous or synthetic duplicates
 
-Note that this algorithm looks at the client-sent fields (whose values are set client-side).
-
-The second class are exogenous duplicates. These are introduced external to Snowplow by a whole range of systems. This includes: browser pre-cachers, anti-virus software, adult content screeners and web scrapers. These duplicates can be fired before or after the *real* event. They can come from the device itself or from a different IP address. Some of these tools (some crawlers for instance) have limited random number generator functionality, these will then generate the same UUID event after event.
+The second class are exogenous duplicates. These are introduced external to Snowplow by a whole range of systems. This includes: browser pre-cachers, anti-virus software, adult content screeners and web scrapers. These duplicates can be fired before or after the real event (the one that is supposed to capture the actual event). They can come from the device itself or from a different IP address. Some of these tools (some crawlers for instance) have limited random number generator functionality, these will then generate the same UUID event after event.
 
 These duplicates share an event ID but only a partial match on other fields (most or all client-sent fields).
 
@@ -82,10 +68,10 @@ These copies have the same event ID, but parts of the rest of the event can be d
 
 ### ID collision
 
-The event ID is generated client-side. The event ID is generated client-side in the tracker so we can detect both exogenous and endogenous duplicates (which are discussed below). It’s, however, unlikely that duplicates are introduced because of ID collision. Even users with large event volumes (billions per day) are safe.
+The event ID is generated client-side by the tracker, in part so we can both detect and distinguish between exogenous and endogenous duplicates.
 
+It’s, however, unlikely that duplicates are introduced because of ID collision. Even users with large event volumes (billions per day) are safe.
 For example: the Javascript tracker uses UUID V4.
-
 There are some interesting pros and cons to type 1 versus type 4 UUIDs, but as you say, the uniqueness of the UUIDs themselves is already acceptable - this isn't where duplicates come from.
 
 ## Deduplicating the event ID

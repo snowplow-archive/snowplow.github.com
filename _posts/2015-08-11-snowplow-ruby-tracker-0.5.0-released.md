@@ -11,36 +11,36 @@ We are happy to announce the release of version 0.5.0 of the Snowplow Ruby Track
 
 Read on for more detail on:
 
-1. [Improved concurrency](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#threads)
-2. [More robust error handling](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#errors)
-3. [selfDescribingJson](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#selfDescribingJson)
-4. [New setFingerprint method](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#fingerprint)
-5. [Upgrading](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#upgrading)
-6. [Getting help](/blog/2015/01/06/snowplow-ruby-tracker-0.5.0-released/#help)
+1. [Improved concurrency](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#threads)
+2. [More robust error handling](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#errors)
+3. [The SelfDescribingJson class](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#selfDescribingJson)
+4. [New setFingerprint method](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#fingerprint)
+5. [Upgrading](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#upgrading)
+6. [Getting help](/blog/2015/08/11/snowplow-ruby-tracker-0.5.0-released/#help)
 
 <!--more-->
 
 <h2 id="threads">1. Improved concurrency</h2>
 
-The Ruby Tracker's AsyncEmitter class  now uses the [Queue][queue] class to implement the producer-consumer pattern where a fixed pool of threads work on sending events. Reusing threads this way performs better than the previous implementation in which a new thread was created for every network request.
+The Ruby Tracker's `AsyncEmitter` class now uses the [Queue][queue] class to implement the producer-consumer pattern, where a fixed pool of threads work on sending events. Reusing threads this way performs better than the previous implementation in which a new thread was created for every network request.
 
 You can configure the number of threads to use with the new `thread_count` field of the AsyncEmitter's configuration hash like this:
 
 {% highlight ruby %}
 my_emitter = AsyncEmitter.new(MY_ENDPOINT, {
-	thread_count: 10
+	:thread_count => 10
 })
 {% endhighlight %}
 
-. If your application only rarely sends events, the default of 1 thread should be good enough; otherwise try experimenting with different values to determine which works best.
+If your application only rarely sends events, the default of 1 thread should be good enough; otherwise try experimenting with different values to determine which works best.
 
 We have also eliminated a race condition where sending many events at once could cause events to be duplicated or skipped.
 
 <h2 id="errors">2. More robust error handling</h2>
 
-The previous Tracker version only treated requests with status code 200 as successful. This behavior has been broadened to include all 2xx and 3xx status codes.
+The previous tracker version only treated requests with status code 200 as successful. This behavior has been broadened to include all 2xx and 3xx status codes.
 
-The Tracker now catches all network-related exceptions and treats the events which caused them as failed. This means that network unavailability no longer causes the Tracker to throw exceptions.
+The tracker now catches all network-related exceptions and treats the events which caused them as failed. This means that network unavailability no longer causes the tracker to throw exceptions.
 
 <h2 id="selfDescribingJson">3. The SelfDescribingJson class</h2>
 
@@ -52,7 +52,7 @@ Instead of fully specifying JSONs like this:
 my_event = {
 	'schema' => 'iglu:com.acme/myevent/jsonschema/1-0-0',
 	'data' => {
-		'color' =. 'red'
+		'color' => 'red'
 	}
 }
 my_context = {
@@ -94,13 +94,13 @@ Thanks to Snowplow community member Kacper Bielecki ([@kazjote][kazjote] on GitH
 my_subject.set_fingerprint(7304597607)
 {% endhighlight %}
 
-Thanks a lot @kazjote!
+Thanks a lot Kacper!
 
 <h2 id="upgrading">5. Upgrading</h2>
 
-This release increases the version of the `contexts` schema from 1-0-0 to 1-0-1 to allow empty contexts arrays. Because of this, it is only compatible with version 0.9.14 and later of the Snowplow core.
+This release increases the version of the `contexts` schema from 1-0-0 to 1-0-1 to allow empty contexts arrays. Because of this, it is only compatible with version 0.9.14 and later of the core Snowplow platform.
 
-You will need to update all unstructured events and contexts to use the SelfDescribingJson class mentioned above.
+You will need to update all unstructured events and contexts to use the `SelfDescribingJson` class mentioned above.
 
 The `tracker.flush` method now takes one boolean argument, `async`, which defaults to `false`. Usage of this method is demonstrated below:
 

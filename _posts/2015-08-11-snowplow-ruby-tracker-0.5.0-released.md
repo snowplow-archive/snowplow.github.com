@@ -28,7 +28,7 @@ You can configure the number of threads to use with the new `thread_count` field
 
 {% highlight ruby %}
 my_emitter = AsyncEmitter.new(MY_ENDPOINT, {
-	:thread_count => 10
+  :thread_count => 10
 })
 {% endhighlight %}
 
@@ -50,16 +50,16 @@ Instead of fully specifying JSONs like this:
 
 {% highlight ruby %}
 my_event = {
-	'schema' => 'iglu:com.acme/myevent/jsonschema/1-0-0',
-	'data' => {
-		'color' => 'red'
-	}
+  'schema' => 'iglu:com.acme/myevent/jsonschema/1-0-0',
+  'data' => {
+    'color' => 'red'
+  }
 }
 my_context = {
-	'schema' => 'iglu:com.acme/mycontext/jsonschema/1-0-1',
-	'data' => {
-		'size' => 5
-	}
+  'schema' => 'iglu:com.acme/mycontext/jsonschema/1-0-1',
+  'data' => {
+    'size' => 5
+  }
 }
 my_tracker.track_unstruct_event(my_event, [my_context])
 {% endhighlight %}
@@ -68,17 +68,17 @@ you would now use the `SelfDescribingJson` class to automatically handle the "sc
 
 {% highlight ruby %}
 my_event = SnowplowTracker::SelfDescribingJson.new(
-	'iglu:com.acme/myevent/jsonschema/1-0-0',
-	{
-		'color' => 'red'
-	}
+  'iglu:com.acme/myevent/jsonschema/1-0-0',
+  {
+    'color' => 'red'
+  }
 )
 
 my_context = SnowplowTracker::SelfDescribingJson.new(
-	'iglu:com.acme/mycontext/jsonschema/1-0-0',
-	{
-		'size' => 5
-	}
+  'iglu:com.acme/mycontext/jsonschema/1-0-0',
+  {
+    'size' => 5
+  }
 )
 
 my_tracker.track_unstruct_event(my_event, [my_context])
@@ -116,7 +116,7 @@ The Emitter class's `buffer_size` configuration option used to be 0-indexed, so 
 
 {% highlight ruby %}
 my_emitter = AsyncEmitter.new(MY_ENDPOINT, {
-	:buffer_size => 5
+  :buffer_size => 5
 })
 {% endhighlight %}
 

@@ -118,10 +118,10 @@ To open the Demo App:
 You can then launch the `SnowplowDemo` into a local emulator or on your iOS Device.  You will then just need to enter a valid
 endpoint URL to send events too and hit the `Start Demo!` button.  This will then send all available event types to this endpoint.
 
-<img src="/assets/img/blog/2015/08/demo-app-2.png" style="width: 24% margin: 0 auto;" />
-<img src="/assets/img/blog/2015/08/demo-app-3.png" style="width: 24% margin: 0 auto;" />
-<img src="/assets/img/blog/2015/08/demo-app-4.png" style="width: 24% margin: 0 auto;" />
-<img src="/assets/img/blog/2015/08/demo-app-5.png" style="width: 24% margin: 0 auto;" />
+<img src="/assets/img/blog/2015/08/demo-app-2.png" style="width: 25% float:left;" />
+<img src="/assets/img/blog/2015/08/demo-app-3.png" style="width: 25% float:left;" />
+<img src="/assets/img/blog/2015/08/demo-app-4.png" style="width: 25% float:left;" />
+<img src="/assets/img/blog/2015/08/demo-app-5.png" style="width: 25% float:left;" />
 
 <h2><a name="changes">5. Other changes</a></h2>
 

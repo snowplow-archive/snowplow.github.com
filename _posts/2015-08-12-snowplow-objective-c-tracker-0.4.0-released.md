@@ -147,7 +147,7 @@ Useful links:
 
 * The [technical documentation][tech-docs]
 * The [setup guide][setup-guide]
-* The [0.4.0 release notes][tracker-030]
+* The [0.4.0 release notes][tracker-040]
 
 If you have an idea for a new feature or want help getting things set up, please [get in touch] [talk-to-us]. And [raise an issue] [issues] if you spot any bugs!
 

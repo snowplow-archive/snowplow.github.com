@@ -25,13 +25,13 @@ In the rest of this post we will cover:
 
 <h2><a name="tracker-performance">1. Tracker Performance</a></h2>
 
-This release brings a complete a rework of how the Tracker sends events to address several issues and bugs.
+This release brings a complete rework of how the Tracker sends events to address several issues and bugs.
 
-We have removed the event `pending` state to ensure the Tracker sends the event `at least once` rather than the event going into a pending state and then never being sent; occuring if the application crashes.  This change brings the Tracker in-line with a `pessimistic` event sending model rather than `optimistic`.
+We have removed the event `pending` state to ensure the Tracker sends the event `at least once` rather than the event going into said pending state and then never being sent! Occuring if the application crashes mid-send.  Bringing the Tracker in-line with a `pessimistic` event sending model rather than `optimistic`.
 
-Controlling the amount of Threads that can be used for sending events, this prevents the application from slowing down if there are large amounts of events to send suddenly.  Events will potentially be sent slightly slower as a result but the Tracker will have a vastly reduced footprint.
+We now control the amount of Threads that can be used for sending events; this prevents the application from being impacted if the Tracker is suddenly sent large amounts of events. Sending will potentially be slower as a result but the Tracker will have a vastly reduced footprint.
 
-To reduce the amount of concurrently sending requests and event duplication the Emitter sending now performs as a singleton:
+To reduce the amount of concurrently sending requests and event duplication the Emitter now performs as a singleton:
 
 * Event is added via a `[tracker trackXXX]` call.
 * A background Thread is created to add the event to the database:
@@ -44,7 +44,7 @@ To reduce the amount of concurrently sending requests and event duplication the 
   - If only failures occured the Thread is released.
 * Emitter attempts to get more events and start again, until the database is empty.
 
-In this way we now do not need to have a `pending` state and we can still send all events in an asynchronous model.  This reduces database thrashing in the case of loss of connectivity of the device (pending to non-pending constantly) as well as ensuring that all events will be sent at least once.
+In this way we now do not need to have a `pending` state and we can still send all events in an asynchronous model.  This reduces database thrashing in the case of loss of connectivity of the device (pending to non-pending constantly) as well as ensuring that all events will be sent at least once.  We also control exactly how many requests are open at any one time rather than just throwing everything at the CPU at once.
 
 <h2><a name="emitter-callback">2. Emitter Callback</a></h2>
 
@@ -54,7 +54,7 @@ To set it up:
 
 {% highlight objective-c %}
 // Import the required protocol into your class header file
-#import "RequestCallback.h"
+import "RequestCallback.h"
 
 // Add the protocol to your interface
 @interface MyObjcClass : NSObject <RequestCallback>

@@ -11,11 +11,11 @@ The Snowplow pipeline outputs a data stream in which each line represents a sing
 
 This blogposts covers:
 
-1. [Is the event ID guaranteed to be unique?](/blog/2015/07/24/)
-2. [What are the possible causes?](/blog/2015/07/24/)
-4. [Deduplicating events](/blog/2015/07/24/)
-5. [Deduplicating events in Redshift](/blog/2015/07/24/)
-6. [Deduplicating events in Kinesis (under development)](/blog/2015/07/24/)
+1. [Is the event ID guaranteed to be unique?](/blog/2015/08/14/dealing-with-duplicate-event-ids#is-the-event-id-guaranteed-to-be-unique)
+2. [What are the possible causes?](/blog/2015/08/14/dealing-with-duplicate-event-ids#what-are-the-possible-causes)
+3. [Deduplicating the event ID](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id)
+4. [Deduplicating the event ID in Redshift](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-redshift)
+5. [Deduplicating the event ID in Kinesis](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-kinesis)
 
 <!--more-->
 
@@ -52,27 +52,19 @@ We distinguish between endeogenous and exegenous duplicates.
 
 ### Endogenous or natural duplicates
 
-Natural duplicates are introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. The CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
+Natural duplicates are sometimes introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. For instance, the CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
 
-These events are true duplicates in the sense that all client-sent fields are the same, i.e. all data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but one event. This should happen at the point of consumption because earlier stages in the pipeline can introduce new duplicates.
+These events are true duplicates in the sense that all client-sent fields are the same, i.e. all data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but one event. This should happen at the point of consumption when no more new duplicates can be introduced.
 
 ### Exogenous or synthetic duplicates
 
-The second class are exogenous duplicates. These are introduced external to Snowplow by a whole range of systems. This includes: browser pre-cachers, anti-virus software, adult content screeners and web scrapers. These duplicates can be fired before or after the real event (the one that is supposed to capture the actual event). They can come from the device itself or from a different IP address. Some of these tools (some crawlers for instance) have limited random number generator functionality, these will then generate the same UUID event after event.
+Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to—among other things—distinguish between exogenous and endogenous duplicates.
 
-These duplicates share an event ID but only a partial match on other fields (most or all client-sent fields).
+If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/11/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat it as a natural duplicate (i.e. delete all but one event). The more interesting case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
-either a) delete synthetic copy or b) give it a new ID & preserve relationship to "parent" event
+Instead, exogenous duplicates are the result of other systems that run client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can all produce events that get sent to Snowplow with a duplicate event ID. These can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual events. Duplicates can be sent from the same device or a different one. These duplicates can be actual Snowplow events but have a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 
-These copies have the same event ID, but parts of the rest of the event can be different.
-
-### ID collision
-
-The event ID is generated client-side by the tracker, in part so we can both detect and distinguish between exogenous and endogenous duplicates.
-
-It’s, however, unlikely that duplicates are introduced because of ID collision. Even users with large event volumes (billions per day) are safe.
-For example: the Javascript tracker uses UUID V4.
-There are some interesting pros and cons to type 1 versus type 4 UUIDs, but as you say, the uniqueness of the UUIDs themselves is already acceptable - this isn't where duplicates come from.
+These duplicates share an event ID but one or more client-sent fields differ. Often is consists of one true event (the one that was supposed to be triggered), and one or more copies with varying fields. It’s less straightforward to deduplicate them. If it’s unclear which event is the parent event, delete all or treat them differently. If the parent event can be detected, give it a new ID and preserve the relationship to the parent event.
 
 ## Deduplicating the event ID
 
@@ -164,7 +156,7 @@ INSERT INTO atomic.duplicated_events (
 COMMIT;
 {% endhighlight %}
 
-## Deduplicating the event ID in Kinesis (under development)
+## Deduplicating the event ID in Kinesis
 
 The [next step][github-1924] is to bring the deduplication algorithm to Kinesis. We plan to [partition the enriched event stream on event ID][github-1924], then build a minimal-state deduplication engine as a library that can be embedded in [KCL][kcl] apps. The engine will not be stateless because it needs to store event IDs and fingerprints in DynamoDB to deduplicate across micro-batches.
 

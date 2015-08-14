@@ -99,7 +99,7 @@ To build it locally yourself:
 * `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
 * Open `Snowplow.xcworkspace` in XCode
 * Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`
-* Then run `Archive` from the `Product` menu.
+* Then run `Archive` from the `Product` menu
 
 Please refer to the [setup guide][setup-guide] for instructions on how to integrate the static library.
 
@@ -112,8 +112,8 @@ This release also bundles with it a demonstration app, allowing you to test-driv
 To open the demo app:
 
 * `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
-* Open `SnowplowDemo.xcworkspace` in XCode, located in the SnowplowDemo sub-folder.
-* Top-left in XCode change the scheme to `SnowplowDemo` from `SnowplowTracker`
+* Open `SnowplowDemo.xcworkspace` in XCode, located in the SnowplowDemo sub-folder
+* Change the scheme to `SnowplowDemo` from `SnowplowTracker`
 * Change the device to an iPhone 5 or similar
 * Click the Run button
 

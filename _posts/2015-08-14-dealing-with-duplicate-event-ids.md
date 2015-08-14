@@ -60,9 +60,9 @@ These events are true duplicates in the sense that all client-sent fields are th
 
 Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to—among other things—distinguish between exogenous and endogenous duplicates.
 
-If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/11/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat it as a natural duplicate (i.e. delete all but one event). The more interesting case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
+If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat it as a natural duplicate (i.e. delete all but one event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
-Instead, exogenous duplicates are the result of other systems that run client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can all produce events that get sent to Snowplow with a duplicate event ID. These can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual events. Duplicates can be sent from the same device or a different one. These duplicates can be actual Snowplow events but have a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
+Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can all introduce additional events that also get sent to Snowplow collectors, often with the a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can be actual Snowplow events but have a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 
 These duplicates share an event ID but one or more client-sent fields differ. Often is consists of one true event (the one that was supposed to be triggered), and one or more copies with varying fields. It’s less straightforward to deduplicate them. If it’s unclear which event is the parent event, delete all or treat them differently. If the parent event can be detected, give it a new ID and preserve the relationship to the parent event.
 
@@ -87,7 +87,7 @@ This ensures that the event ID in `atomic.events` is unique. The queries can be 
 Let’s run through the queries. First, we list the event IDs that occur more than once in `atomic.events`:
 
 {% highlight sql %}
-CREATE TABLE atomic.tmp_ids_1
+CREATE TABLE duplicates.tmp_ids_1
   DISTKEY (event_id)
   SORTKEY (event_id)
 AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM atomic.events GROUP BY 1) WHERE count > 1);
@@ -96,14 +96,14 @@ AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM atomic.events 
 We use this list to create a table with all events that don’t have a unique event ID:
 
 {% highlight sql %}
-CREATE TABLE atomic.tmp_events
+CREATE TABLE duplicates.tmp_events
   DISTKEY (event_id)
   SORTKEY (event_id)
 AS (
 
   SELECT * FROM atomic.events
-  WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1)
-     OR event_id IN (SELECT event_id FROM atomic.duplicated_events)
+  WHERE event_id IN (SELECT event_id FROM duplicates.tmp_ids_1)
+     OR event_id IN (SELECT event_id FROM duplicates.events)
   GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9,
   10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
@@ -126,10 +126,10 @@ The `GROUP BY` clause combines natural duplicates into a single row if all colum
 Next, we list the event IDs that have now become unique:
 
 {% highlight sql %}
-CREATE TABLE atomic.tmp_ids_2
+CREATE TABLE duplicates.tmp_ids_2
   DISTKEY (event_id)
   SORTKEY (event_id)
-AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM atomic.tmp_events GROUP BY 1) WHERE count = 1);
+AS (SELECT event_id FROM (SELECT event_id, COUNT(*) AS count FROM duplicates.tmp_events GROUP BY 1) WHERE count = 1);
 {% endhighlight %}
 
 The last step is wrapped in a [transaction][redshift-begin] to ensure that either all or none of the queries get executed.
@@ -139,18 +139,20 @@ First, it deletes the original duplicates from `atomic.events`. Then it inserts 
 {% highlight sql %}
 BEGIN;
 
-DELETE FROM atomic.events WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_1);
+DELETE FROM atomic.events
+WHERE event_id IN (SELECT event_id FROM duplicates.tmp_ids_1)
+   OR event_id IN (SELECT event_id FROM duplicates.events);
 
 INSERT INTO atomic.events (
-  SELECT * FROM atomic.tmp_events
-  WHERE event_id IN (SELECT event_id FROM atomic.tmp_ids_2)
-    AND event_id NOT IN (SELECT event_id FROM atomic.duplicated_events)
+  SELECT * FROM duplicates.tmp_events
+  WHERE event_id IN (SELECT event_id FROM duplicates.tmp_ids_2)
+    AND event_id NOT IN (SELECT event_id FROM duplicates.events)
 );
 
-INSERT INTO atomic.duplicated_events (
-  SELECT * FROM atomic.tmp_events
-  WHERE event_id NOT IN (SELECT event_id FROM atomic.tmp_ids_2)
-    OR event_id IN (SELECT event_id FROM atomic.duplicated_events)
+INSERT INTO duplicates.events (
+  SELECT * FROM duplicates.tmp_events
+  WHERE event_id NOT IN (SELECT event_id FROM duplicates.tmp_ids_2)
+    OR event_id IN (SELECT event_id FROM duplicates.events)
 );
 
 COMMIT;

@@ -115,7 +115,21 @@ To open the demo app:
 * Open `SnowplowDemo.xcworkspace` in XCode, located in the SnowplowDemo sub-folder.
 
 You can then launch the `SnowplowDemo` into a local emulator or on your iOS device. You then just need to enter a valid
-endpoint URL to send events to and hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:
+endpoint URL to send events to.  To ease testing we supply a local testing endpoint for use with the app:
+
+{% highlight bash %}
+ host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git
+ host$ cd snowplow-objc-tracker
+ host$ vagrant up && vagrant ssh
+guest$ cd /vagrant
+guest$ mb &
+guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters
+{% endhighlight %}
+
+Endpoint URL: `http://localhost:4545`
+Using this you can then view sent events in your browser at the following address: `http://localhost:2525`
+
+When ready hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:
 
 <img src="/assets/img/blog/2015/08/demo-app-2.png" style="width: 25%;float: left;" />
 <img src="/assets/img/blog/2015/08/demo-app-3.png" style="width: 25%;float: left;" />

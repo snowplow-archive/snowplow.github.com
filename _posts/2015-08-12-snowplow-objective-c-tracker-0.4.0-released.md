@@ -7,14 +7,14 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to release version 0.4.0 of the [Snowplow Objective-C Tracker] [objc-repo]. Many thanks to [alexdenisov][alexdenisov], [duncan][duncan], [agarwalswapnil][agarwalswapnil] and [hlian][hlian] for their huge contributions to this release!
+We are pleased to release version 0.4.0 of the [Snowplow Objective-C Tracker] [objc-repo]. Many thanks to [Alex Denisov] [alexdenisov] from XXX, [Duncan XXX][duncan] from Wunderlist, [Agarwal Swapnil] [agarwalswapnil] and [Hlian] [hlian] for their huge contributions to this release!
 
 In the rest of this post we will cover:
 
-1. [Tracker Performance](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#tracker-performance)
-2. [Emitter Callback](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#emitter-callback)
-3. [Static Library](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#static)
-4. [Demonstration App](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#demo)
+1. [Tracker performance](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#tracker-performance)
+2. [Emitter callback](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#emitter-callback)
+3. [Static library](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#static)
+4. [Demonstration app](/blog/2015/02/15/snowplow-objective-c-tracker-0.4.0-released/#demo)
 5. [Other changes](/blog/2015/02/15/snowplow-objective-c-tracker-0.3.0-released/#changes)
 6. [Upgrading](/blog/2015/02/15/snowplow-objective-c-tracker-0.3.0-released/#upgrading)
 7. [Getting help](/blog/2015/02/15/snowplow-objective-c-tracker-0.3.0-released/#help)
@@ -23,32 +23,32 @@ In the rest of this post we will cover:
 
 <!--more-->
 
-<h2><a name="tracker-performance">1. Tracker Performance</a></h2>
+<h2><a name="tracker-performance">1. Tracker performance</a></h2>
 
-This release brings a complete rework of how the Tracker sends events to address several issues and bugs.
+This release brings a complete rework of how the tracker sends events to address several issues and bugs.
 
-We have removed the event `pending` state to ensure the Tracker sends the event `at least once` rather than the event going into said pending state and then never being sent! Occuring if the application crashes mid-send.  Bringing the Tracker in-line with a `pessimistic` event sending model rather than `optimistic`.
+We have removed the event `pending` state to ensure the tracker sends the event `at least once`. This change brings the tracker in-line with a `pessimistic` event sending model rather than `optimistic`.
 
-We now control the amount of Threads that can be used for sending events; this prevents the application from being impacted if the Tracker is suddenly sent large amounts of events. Sending will potentially be slower as a result but the Tracker will have a vastly reduced footprint.
+We now control the number of threads that can be used for sending events; this prevents the application from being impacted if the tracker is suddenly given large amounts of events to track; sending will take a longer time to complete but the tracker will have a vastly reduced footprint.
 
-To reduce the amount of concurrently sending requests and event duplication the Emitter now performs as a singleton:
+To simplify the event transmission logic, the Emitter now performs as a singleton:
 
-* Event is added via a `[tracker trackXXX]` call.
-* A background Thread is created to add the event to the database:
-  - If the emitter is not currently running this Thread is elected to orchestrate sending.
+* Each event is added via a `[tracker trackXXX]` call
+* A background thread is created to add the event to the database:
+  - If the emitter is not currently running, this thread is elected to orchestrate sending
 * The emitter will then pull a maximum range of events from the database:
-  - If the database is empty the Thread is released.
-* All sending requests are added to an asynchronous concurrent sending queue.
-* On completing all requests the results are processed:
-  - Successfully sent events are removed from the database.
-  - If only failures occured the Thread is released.
-* Emitter attempts to get more events and start again, until the database is empty.
+  - If the database is empty the thread is released
+* All sending requests are added to an asynchronous concurrent sending queue
+* On completing all requests, the results are processed:
+  - Successfully sent events are removed from the database
+  - If all events failed to send, then the thread is released
+* The Emitter attempts to get more events and start again, until the database is empty
 
-In this way we now do not need to have a `pending` state and we can still send all events in an asynchronous model.  This reduces database thrashing in the case of loss of connectivity of the device (pending to non-pending constantly) as well as ensuring that all events will be sent at least once.  We also control exactly how many requests are open at any one time rather than just throwing everything at the CPU at once.
+With the new algorithm, we no longer require a `pending` state and we can still send all events in an asynchronous mode. This reduces database thrashing in the case of loss of connectivity of the device (pending to non-pending constantly) as well as ensuring that all events will be sent at least once. We can also control exactly how many requests are open at any one time.
 
-<h2><a name="emitter-callback">2. Emitter Callback</a></h2>
+<h2><a name="emitter-callback">2. Emitter callback</a></h2>
 
-This release also includes an emitter callback option.  This includes a new protocol in the Emitter which will report the amount of successful and failed requests sent by the emitter.  These functions will be called everytime the emitter finishes sending a batch of events, or failing to send a batch of events.
+This release also includes an emitter callback option. This includes a new protocol in the Emitter which will report the amount of successful and failed requests sent by the emitter. These functions will be called everytime the emitter finishes sending a batch of events, or fails to send a batch of events.
 
 To set it up:
 
@@ -84,13 +84,13 @@ SnowplowEmitter *emitter =
                                      httpMethod:method_ 
                                    bufferOption:option_ 
                                 emitterCallback:self]; // New constructor argument!
-
-// Self works here as we are creating the emitter in the same class as the overriden methods.
 {% endhighlight %}
 
-<h2><a name="static">3. Static Library</a></h2>
+In this example, `self` works for the callback because we are creating the Emitter in the same class as the overriden callback methods.
 
-We now also include the option to include the Tracker via a Static Framework available from our bintray:
+<h2><a name="static">3. Static library</a></h2>
+
+We now also include the option to include the Tracker via a Static Framework downloadable from our Bintray:
 
 * Download link here!
 
@@ -101,22 +101,22 @@ To build it locally yourself:
 * Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`
 * Then run `Archive` from the `Product` menu.
 
-Please refer to the [setup guide][setup-guide] for how to integrate the Static library.
+Please refer to the [setup guide][setup-guide] for instructions on how to integrate the static library.
 
 Big thanks to [AlexDenisov][alexdenisov] for adding in the scheme for building a static library for the Tracker! For more information [#171][pr-171].
 
-<h2><a name="demo">4. Demonstration App</a></h2>
+<h2><a name="demo">4. Demonstration app</a></h2>
 
-This release also bundles with it a Demonstration app, allowing you to test drive the library and providing code samples for integrating the tracker into your own app.
+This release also bundles with it a demonstration app, allowing you to test-drive the library and providing code samples for integrating the tracker into your own app.
 
-To open the Demo App:
+To open the demo app:
 
 * `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
 * `cd snowplow-objc-tracker/SnowplowDemo`
 * Open `SnowplowDemo.xcworkspace` in XCode
 
-You can then launch the `SnowplowDemo` into a local emulator or on your iOS Device.  You will then just need to enter a valid
-endpoint URL to send events too and hit the `Start Demo!` button.  This will then send all available event types to this endpoint.
+You can then launch the `SnowplowDemo` into a local emulator or on your iOS device. You then just need to enter a valid
+endpoint URL to send events to and hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:
 
 <img src="/assets/img/blog/2015/08/demo-app-2.png" style="width: 25%;float: left;" />
 <img src="/assets/img/blog/2015/08/demo-app-3.png" style="width: 25%;float: left;" />
@@ -127,9 +127,9 @@ endpoint URL to send events too and hit the `Start Demo!` button.  This will the
 
 Other updates include:
 
-* Including network information in the `mobile_context`, big thanks to [duncan][duncan]! [#142][pr-142]
-* Macroing out the usage of `sharedApplication` in OpenIDFA to allow Snowplow to be used from app extensions, big thanks to [hlian][hlian]! [#157][pr-157]
-* Adding support for iOS 6 by removing `NSURLSession` in favour of `NSURLConnection`, big thanks to [agarwalswapnil][agarwalswapnil]! [#163][pr-163]
+* Including network information in the `mobile_context`, big thanks to [Duncan][duncan]! [#142][pr-142]
+* Macroing out the usage of `sharedApplication` in OpenIDFA to allow Snowplow to be used from an app extensions, many thanks to [Hlian][hlian]! [#157][pr-157]
+* Adding support for iOS 6 by removing `NSURLSession` in favour of `NSURLConnection`, big thanks to [Agarwal][agarwalswapnil]! [#163][pr-163]
 
 <h2><a name="upgrading">6. Upgrading</a></h2>
 
@@ -139,7 +139,7 @@ To add the Snowplow Objective-C Tracker as a dependency to your own app, add the
 pod 'SnowplowTracker', '~> 0.4'
 {% endhighlight %}
 
-If you prefer, you can manually add the tracker's source code and dependencies into your project's codebase.
+If you prefer, you can manually add the tracker's source code and dependencies into your project's codebase, or use the new Static Framework.
 
 <h2><a name="help">7. Getting help</a></h2>
 

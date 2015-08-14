@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to release version 0.4.0 of the [Snowplow Objective-C Tracker] [objc-repo]. Many thanks to [Alex Denisov] [alexdenisov] from XXX, [Duncan XXX][duncan] from Wunderlist, [Agarwal Swapnil] [agarwalswapnil] and [Hlian] [hlian] for their huge contributions to this release!
+We are pleased to release version 0.4.0 of the [Snowplow Objective-C Tracker] [objc-repo]. Many thanks to [Alex Denisov] [alexdenisov] from Blacklane, [James Duncan Davidson][duncan] from Wunderlist, [Agarwal Swapnil] [agarwalswapnil] and [Hao Lian] [hlian] for their huge contributions to this release!
 
 In the rest of this post we will cover:
 
@@ -113,9 +113,11 @@ To open the demo app:
 
 * `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
 * Open `SnowplowDemo.xcworkspace` in XCode, located in the SnowplowDemo sub-folder.
+* Top-left in XCode change the scheme to `SnowplowDemo` from `SnowplowTracker`
+* Change the device to an iPhone 5 or similar
+* Click the Run button
 
-You can then launch the `SnowplowDemo` into a local emulator or on your iOS device. You then just need to enter a valid
-endpoint URL to send events to.  To ease testing we supply a local testing endpoint for use with the app:
+Now you just need to enter a valid endpoint URL to send events to. To ease testing we supply a Mountebank local testing endpoint for use with the app:
 
 {% highlight bash %}
  host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git
@@ -126,8 +128,9 @@ guest$ mb &
 guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters
 {% endhighlight %}
 
-Endpoint URL: `http://localhost:4545`
-Using this you can then view sent events in your browser at the following address: `http://localhost:2525/logs`
+The endpoint URL to enter in the demo app is `http://localhost:4545`.
+
+Using this you can then view the sent events at [http://localhost:2525/logs] [mb-logs].
 
 When ready hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:
 
@@ -174,6 +177,8 @@ If you have an idea for a new feature or want help getting things set up, please
 [agarwalswapnil]: https://github.com/agarwalswapnil
 [hlian]: https://github.com/hlian
 [duncan]: https://github.com/duncan
+
+[mb-logs]: http://localhost:2525/logs
 
 [pr-142]: https://github.com/snowplow/snowplow-objc-tracker/pull/142
 [pr-157]: https://github.com/snowplow/snowplow-objc-tracker/pull/157

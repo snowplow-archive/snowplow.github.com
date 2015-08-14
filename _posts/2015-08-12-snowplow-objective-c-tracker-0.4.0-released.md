@@ -92,7 +92,7 @@ In this example, `self` works for the callback because we are creating the Emitt
 
 We now also include the option to include the Tracker via a Static Framework downloadable from our Bintray:
 
-* Download link here!
+[http://dl.bintray.com/snowplow/snowplow-generic/snowplow_objc_tracker_0.4.0.zip] [lib-dl]
 
 To build it locally yourself:
 
@@ -179,6 +179,8 @@ If you have an idea for a new feature or want help getting things set up, please
 [duncan]: https://github.com/duncan
 
 [mb-logs]: http://localhost:2525/logs
+
+[lib-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_objc_tracker_0.4.0.zip
 
 [pr-142]: https://github.com/snowplow/snowplow-objc-tracker/pull/142
 [pr-157]: https://github.com/snowplow/snowplow-objc-tracker/pull/157

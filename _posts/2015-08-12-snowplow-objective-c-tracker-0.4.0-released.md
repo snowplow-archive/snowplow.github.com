@@ -127,7 +127,7 @@ guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhos
 {% endhighlight %}
 
 Endpoint URL: `http://localhost:4545`
-Using this you can then view sent events in your browser at the following address: `http://localhost:2525`
+Using this you can then view sent events in your browser at the following address: `http://localhost:2525/logs`
 
 When ready hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:
 

@@ -112,8 +112,7 @@ This release also bundles with it a demonstration app, allowing you to test-driv
 To open the demo app:
 
 * `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
-* `cd snowplow-objc-tracker/SnowplowDemo`
-* Open `SnowplowDemo.xcworkspace` in XCode
+* Open `SnowplowDemo.xcworkspace` in XCode, located in the SnowplowDemo sub-folder.
 
 You can then launch the `SnowplowDemo` into a local emulator or on your iOS device. You then just need to enter a valid
 endpoint URL to send events to and hit the `Start Demo!` button. This will send all available event types to your endpoint, like so:

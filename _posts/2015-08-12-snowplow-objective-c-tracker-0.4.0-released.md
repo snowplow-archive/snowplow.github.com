@@ -103,7 +103,7 @@ To build it locally yourself:
 
 Please refer to the [setup guide][setup-guide] for instructions on how to integrate the static library.
 
-Big thanks to [AlexDenisov][alexdenisov] for adding in the scheme for building a static library for the Tracker! For more information [#171][pr-171].
+Big thanks to [Alex Denisov] [alexdenisov] for adding in the scheme for building a static library for the Tracker! For more information [#171][pr-171].
 
 <h2><a name="demo">4. Demonstration app</a></h2>
 

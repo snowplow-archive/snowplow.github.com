@@ -143,8 +143,8 @@ When ready hit the `Start Demo!` button. This will send all available event type
 
 Other updates include:
 
-* Including network information in the `mobile_context`, big thanks to [Duncan][duncan] ([#142][pr-142])
-* Macroing out the usage of `sharedApplication` in OpenIDFA to allow Snowplow to be used from an app extensions, thanks [Hao Lian][hlian] ([#157][pr-157])
+* Including network information in the `mobile_context`, many thanks to [Duncan][duncan] ([#142][pr-142])
+* Macroing out the usage of `sharedApplication` in OpenIDFA to allow Snowplow to be used from an app extensions, thanks [Hao Lian][hlian]! ([#157][pr-157])
 * Adding support for iOS 6 by removing `NSURLSession` in favour of `NSURLConnection`, big thanks to [Agarwal][agarwalswapnil] ([#163][pr-163])
 
 <h2><a name="upgrading">6. Upgrading</a></h2>

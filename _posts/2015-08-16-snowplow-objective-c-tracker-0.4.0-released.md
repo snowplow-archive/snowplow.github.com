@@ -11,13 +11,13 @@ We are pleased to release version 0.4.0 of the [Snowplow Objective-C Tracker] [o
 
 In the rest of this post we will cover:
 
-1. [Tracker performance](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#tracker-performance)
-2. [Emitter callback](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#emitter-callback)
-3. [Static library](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#static)
-4. [Demonstration app](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#demo)
-5. [Other changes](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#changes)
-6. [Upgrading](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#upgrading)
-7. [Getting help](/blog/2015/02/16/snowplow-objective-c-tracker-0.4.0-released/#help)
+1. [Tracker performance](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#tracker-performance)
+2. [Emitter callback](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#emitter-callback)
+3. [Static library](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#static)
+4. [Demonstration app](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#demo)
+5. [Other changes](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#changes)
+6. [Upgrading](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#upgrading)
+7. [Getting help](/blog/2015/08/16/snowplow-objective-c-tracker-0.4.0-released/#help)
 
 <img src="/assets/img/blog/2015/08/demo-app-1.png" style="height: 450px; margin: 0 auto;" />
 

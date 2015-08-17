@@ -42,9 +42,7 @@ For a typical Snowplow user, and without an additional step that deduplicates th
 
 <img src="/assets/img/blog/2015/08/duplicate-events.png" width="368px">
 
-Most events have a unique ID.
-
-Does this cause problems? In most cases, this doesn’t affect the actual use of the data. There are, however, a few exceptions. Unstructured events and context are loaded into separate tables in Redshift. These child tables can be joined together or back onto `atomic.events` using `root_id = event_id`. Root ID is the event ID of the parent event. If multiple events have the same ID in both tables that are joined, the result is a cartesian product and the number of resulting rows grows rapidly.
+Most events have a unique ID, but the long tail that do not can—in some cases—cause issues. For instance, because unstructured events and contexts are loaded into separate tables in Redshift, users often need to join these tables on event ID. If the event ID is not unique, the result is a cartesian product which can make data modeling harder and slow the cluster down.
 
 ## What are the possible causes?
 
@@ -62,9 +60,9 @@ Exogenous duplicates are events that arrive at the collector with the same event
 
 If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat it as a natural duplicate (i.e. delete all but one event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
-Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can all introduce additional events that also get sent to Snowplow collectors, often with the a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can be actual Snowplow events but have a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
+Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can introduce additional events that also get sent to Snowplow collectors, often with a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can also be actual Snowplow events, but with a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 
-These duplicates share an event ID but one or more client-sent fields differ. Often is consists of one true event (the one that was supposed to be triggered), and one or more copies with varying fields. It’s less straightforward to deduplicate them. If it’s unclear which event is the parent event, delete all or treat them differently. If the parent event can be detected, give it a new ID and preserve the relationship to the parent event.
+These duplicates share an event ID but one or more client-sent fields are different. In some cases, there is a parent event (the event that is meant to be captured). If it’s unclear which event is the parent event, delete all or move them to a separate stream. If the parent event can be detected, give all other events a new ID and preserve their relationship to the parent event.
 
 ## Deduplicating the event ID
 
@@ -83,6 +81,8 @@ Last month, we released [Snowplow 69 Blue-Bellied Roller][r69] with a [new data 
 - Remove other duplicates from `atomic.events` and insert them to `atomic.duplicated_events`
 
 This ensures that the event ID in `atomic.events` is unique. The queries can be modified to use different criteria for deduplication and extended to also deduplicate unstructured events and contexts.
+
+Note that this will remove some events from `atomic`, some of which might be legitimate. If this causes issues with reporting, we recommend either not to implement these queries or to customise the deduplication logic.
 
 Let’s run through the queries. First, we list the event IDs that occur more than once in `atomic.events`:
 
@@ -121,7 +121,7 @@ AS (
 );
 {% endhighlight %}
 
-The `GROUP BY` clause combines natural duplicates into a single row if all columns are equal. It’s also possible to combine duplicates when one or more columns are different (in particular columns that don’t contain client data, such as `etl_tstamp`), but that requires a [window function][redshift-window]. Note that this step might take a while when the absolute number of duplicates is large.
+The `GROUP BY` clause combines natural duplicates into a single row if all columns are equal. Note that this step might take a while when the absolute number of duplicates is large. It's also possible to be less strict, and combine events when all client-sent fields are equal. We are introducing an [event fingerprint][event-fingerprint] which will make it easier to spot natural duplicates.
 
 Next, we list the event IDs that have now become unique:
 
@@ -174,6 +174,7 @@ Note that the ElasticSearch sink for the Kinesis flow takes a “last event wins
 [sql-runner]: https://github.com/snowplow/sql-runner
 [redshift-window]: http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html
 [redshift-begin]: http://docs.aws.amazon.com/redshift/latest/dg/r_BEGIN.html
+[event-fingerprint]: https://github.com/snowplow/snowplow/issues/1965
 
 [kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
 [github-24]: https://github.com/snowplow/snowplow/issues/24

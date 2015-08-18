@@ -59,7 +59,18 @@ body {
 
 /* text */
 
-.h1, h1 {
+h1 a, h1 a:hover, h1 a:focus {text-decoration: none}
+
+h2 a, h2 a:hover, h2 a:active,
+h3 a, h3 a:hover, h3 a:active,
+h4 a, h4 a:hover, h4 a:active,
+h5 a, h5 a:hover, h5 a:active,
+h6 a, h6 a:hover, h6 a:active {
+	text-decoration: none;
+	color: inherit;
+}
+
+h1 {
 	font-size: 50px;
 	font-weight: 300;
 	margin: 0 0 30px 0;
@@ -67,22 +78,23 @@ body {
 	letter-spacing: -2px;
 }
 
-h1 > a, h1 > a:hover,
-h1 > a, h1 > a:focus {
-	text-decoration: none;
-}
-
-.h2, h2 {
+h2 {
 	font-size: 25px;
 	font-weight: 400;
-	margin: 0 0 15px 0;
+	margin: 30px 0 15px 0;
 	padding: 0;
 	letter-spacing: -1px;
 }
 
-p {margin: 0 0 15px 0}
+h1:first-child, h2:first-child {margin-top: 0}
 
+p {margin: 15px 0}
 
+pre, pre code {
+	overflow: auto;
+	word-wrap: normal;
+	white-space: pre;
+}
 
 /* images */
 

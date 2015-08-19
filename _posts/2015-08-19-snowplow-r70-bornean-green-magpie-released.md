@@ -41,7 +41,7 @@ ruby combine_configurations.rb eer_config.yml storage_loader_config.yml combined
 
 This will result in the two configuration files being combined into a single file named `combined.yml`. It will also extract the Iglu resolver into a JSON file named `resolver.json`. This is because the Iglu resolver is now passed to the EmrEtlRunner as a self-describing JSON using a dedicated command-line argument (i.e. the same format as Scala Kinesis Enrich uses).
 
-Please note that the `combine_configurations.rb` script will only been tested on Snowplow R64 and upwards.
+Please note that the `combine_configurations.rb` script has only been tested on Snowplow R64 and upwards.
 
 <h2 id="jruby">2. Move to JRuby</h2>
 

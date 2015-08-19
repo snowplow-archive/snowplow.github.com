@@ -46,7 +46,7 @@ Most events have a unique ID, but the long tail that do not can—in some cases�
 
 ## What are the possible causes?
 
-We distinguish between endeogenous and exegenous duplicates.
+We distinguish between endogenous and exogenous duplicates.
 
 ### Endogenous or natural duplicates
 
@@ -56,9 +56,9 @@ These events are true duplicates in the sense that all client-sent fields are th
 
 ### Exogenous or synthetic duplicates
 
-Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to—among other things—distinguish between exogenous and endogenous duplicates.
+Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to, among other things, distinguish between exogenous and endogenous duplicates.
 
-If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat it as a natural duplicate (i.e. delete all but one event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
+If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat these two or more events as natural duplicates (i.e. delete all but one event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
 Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can introduce additional events that also get sent to Snowplow collectors, often with a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can also be actual Snowplow events, but with a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 

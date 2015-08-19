@@ -11,11 +11,11 @@ The Snowplow pipeline outputs a data stream in which each line represents a sing
 
 This blogposts covers:
 
-1. [Is the event ID guaranteed to be unique?](/blog/2015/08/14/dealing-with-duplicate-event-ids#is-the-event-id-guaranteed-to-be-unique)
-2. [What are the possible causes?](/blog/2015/08/14/dealing-with-duplicate-event-ids#what-are-the-possible-causes)
-3. [Deduplicating the event ID](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id)
-4. [Deduplicating the event ID in Redshift](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-redshift)
-5. [Deduplicating the event ID in Kinesis](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-kinesis)
+1. [Is the event ID guaranteed to be unique?](/blog/2015/08/19/dealing-with-duplicate-event-ids#is-the-event-id-guaranteed-to-be-unique)
+2. [What are the possible causes?](/blog/2015/08/19/dealing-with-duplicate-event-ids#what-are-the-possible-causes)
+3. [Deduplicating the event ID](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id)
+4. [Deduplicating the event ID in Redshift](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-redshift)
+5. [Deduplicating the event ID in Kinesis](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id-in-kinesis)
 
 <!--more-->
 
@@ -52,13 +52,13 @@ We distinguish between endogenous and exogenous duplicates.
 
 Natural duplicates are sometimes introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. For instance, the CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
 
-These events are true duplicates in the sense that all client-sent fields are the same, i.e. all data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but one event. This should happen at the point of consumption when no more new duplicates can be introduced.
+These events are true duplicates in the sense that all client-sent fields are the same, i.e. all *relevant* data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but the first event. This should happen at the point of consumption when no more new duplicates can be introduced.
 
 ### Exogenous or synthetic duplicates
 
 Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to, among other things, distinguish between exogenous and endogenous duplicates.
 
-If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/14/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat these two or more events as natural duplicates (i.e. delete all but one event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
+If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat these two or more events as natural duplicates (i.e. delete all but the first event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
 Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can introduce additional events that also get sent to Snowplow collectors, often with a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can also be actual Snowplow events, but with a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 

@@ -62,15 +62,15 @@ If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/19/
 
 Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can introduce additional events that also get sent to Snowplow collectors, often with a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can also be actual Snowplow events, but with a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 
-These duplicates share an event ID but one or more client-sent fields are different. In some cases, there is a parent event (the event that is meant to be captured). If it’s unclear which event is the parent event, delete all or move them to a separate stream. If the parent event can be detected, give all other events a new ID and preserve their relationship to the parent event.
+These duplicates share an event ID but one or more client-sent fields are different. In some cases, there is a parent event (the event that is meant to be captured). If it’s unclear which event is the parent event, delete all or move them to a separate stream. If the parent event can be detected, give all other events a new ID and preserve their relationship to the parent event. An alternative is to assign a new event ID to all but the first event and preserve their relationship to the first event.
 
 ## Deduplicating the event ID
 
 We use a simple algorithm to deduplicate the event ID. When 2 or more events share an ID:
 
-- If all client-sent fields match: delete all but one event
+- If all client-sent fields match: delete all but the first event
 - If one or more client-sent fields differ:
-  - either assign a new event ID to all but one event and preserve their relationship to the parent event
+  - either assign a new event ID to all but the first event and preserve their relationship to the first event
   - or delete all events
 
 ## Deduplicating the event ID in Redshift

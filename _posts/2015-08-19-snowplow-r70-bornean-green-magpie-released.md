@@ -157,8 +157,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [bornean-green-magpie]: /assets/img/blog/2015/06/bornean-green-magpie.jpg
 [example-config]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [example-resolver]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/iglu_resolver.json
-[issues]: https://github.com/snowplow/kinesis-s3/issues
-[talk-to-us]: https://github.com/snowplow/kinesis-s3/wiki/Talk-to-us
+[issues]: https://github.com/snowplow/snowplow/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [combine_configurations]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/combine_configurations.rb
 [jruby]: http://jruby.org/
 [epantera]: https://github.com/epantera

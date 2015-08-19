@@ -36,7 +36,7 @@ An [example configuration file][example-config] is available in the repository.
 This release also includes a script named [combine_configurations.rb][combine_configurations] which can be used to combine your existing configuration files into one. Use it like this:
 
 {% highlight bash %}
-ruby combine_configurations.rb eer_config.yml storage_loader_config.yml combined.yml resolver.json
+ruby combine_configurations.rb runner.yml loader.yml combined.yml resolver.json
 {% endhighlight java %}
 
 This will result in the two configuration files being combined into a single file named `combined.yml`. It will also extract the Iglu resolver into a JSON file named `resolver.json`. This is because the Iglu resolver is now passed to the EmrEtlRunner as a self-describing JSON using a dedicated command-line argument (i.e. the same format as Scala Kinesis Enrich uses).

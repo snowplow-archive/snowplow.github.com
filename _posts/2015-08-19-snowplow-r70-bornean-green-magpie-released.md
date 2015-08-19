@@ -14,7 +14,7 @@ The rest of this post will cover the following topics:
 1. [Combined configuration](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#combinedConfiguration)
 2. [Move to JRuby](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#jruby)
 3. [Improved retry logic](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#retries)
-4. [Internal monitoring](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#monitoring)
+4. [App monitoring with Snowplow](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#monitoring)
 5. [Compression support](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#compression)
 6. [Loading Postgres via stdin](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#postgresStdin)
 7. [Multiple in buckets](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#multipleInBuckets)
@@ -61,11 +61,13 @@ Occasionally an EMR job will fail before any step has begun due to a "bootstrap 
 
 Additionally, the process of polling the EMR job to check its status is now resilient to more errors; [Dani Sola] [danisola] from Simply Business contributed error handling to prevent the connection timeouts from crashing the EmrEtlRunner. Thanks Dani!
 
-<h2 id="monitoring">4. Internal monitoring</h2>
+<h2 id="monitoring">4. App monitoring with Snowplow</h2>
 
-You can now configure both apps to turn on internal Snowplow tracking. The EmrEtlRunner will fire an event whenever an EMR job starts, succeeds, or fails. These events include data about the name and status of the job and its individual steps. The StorageLoader will fire an event whenever a database load succeeds or fails. In the case of failure, the event will include the error message.
+You can now configure both apps to turn on internal Snowplow tracking - this is another step in us making Snowplow "self-hosting", meaning that one Snowplow instance can be used to monitor the performance of another Snowplow instance.
 
-The new `tags` configuration field can hold a dictionary of name-value pairs. These will get attached to all the above events as a context; in a future release we plan to also attach these tags to the running job on EMR.
+The EmrEtlRunner will fire an event whenever an EMR job starts, succeeds, or fails. These events include data about the name and status of the job and its individual steps. The StorageLoader will fire an event whenever a database load succeeds or fails. In the case of failure, the event will include the error message.
+
+The new `tags` configuration field can hold a dictionary of name-value pairs. These will get attached to all the above Snowplow events as a context; in a future release we plan to also attach these tags to the running job on EMR.
 
 <h2 id="compression">5. Compression support</h2>
 

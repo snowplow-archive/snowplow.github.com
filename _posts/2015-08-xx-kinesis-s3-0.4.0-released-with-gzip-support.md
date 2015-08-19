@@ -81,4 +81,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [talk-to-us]: https://github.com/snowplow/kinesis-s3/wiki/Talk-to-us
 [0.4.0-release]: https://github.com/snowplow/kinesis-s3/releases/tag/0.4.0
 
-[hn-s3-outage]: xxx
+[hn-s3-outage]: https://news.ycombinator.com/item?id=10033172

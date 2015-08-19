@@ -11,17 +11,17 @@ We are happy to announce the release of Snowplow version 70 Bornean Green Magpie
 
 The rest of this post will cover the following topics:
 
-1. [Combined configuration](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#combinedConfiguration)
-2. [Move to JRuby](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#jruby)
-3. [Improved retry logic](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#retries)
-4. [Internal monitoring](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#monitoring)
-5. [Compression support](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#compression)
-6. [Loading Postgres via stdin](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#postgresStdin)
-7. [Multiple in buckets](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#multipleInBuckets)
-8. [New safety checks](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#safetyChecks)
-9. [Other changes](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#other-changes)
-10. [Upgrading](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#upgrading)
-11. [Getting help](/blog/2015/08/18/snowplow-r70-bornean-green-magpie-released#help)
+1. [Combined configuration](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#combinedConfiguration)
+2. [Move to JRuby](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#jruby)
+3. [Improved retry logic](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#retries)
+4. [Internal monitoring](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#monitoring)
+5. [Compression support](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#compression)
+6. [Loading Postgres via stdin](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#postgresStdin)
+7. [Multiple in buckets](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#multipleInBuckets)
+8. [New safety checks](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#safetyChecks)
+9. [Other changes](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#other-changes)
+10. [Upgrading](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#upgrading)
+11. [Getting help](/blog/2015/08/19/snowplow-r70-bornean-green-magpie-released#help)
 
 ![bornean-green-magpie][bornean-green-magpie]
 

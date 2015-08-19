@@ -48,17 +48,17 @@ Most events have a unique ID, but the long tail that do not can—in some cases�
 
 We distinguish between endogenous and exogenous duplicates.
 
-### Endogenous or natural duplicates
+### Endogenous or first-party duplicates
 
-Natural duplicates are sometimes introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. For instance, the CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
+Endogenous duplicates are sometimes introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. For instance, the CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
 
 These events are true duplicates in the sense that all client-sent fields are the same, i.e. all *relevant* data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but the first event. This should happen at the point of consumption when no more new duplicates can be introduced.
 
-### Exogenous or synthetic duplicates
+### Exogenous or third-party duplicates
 
-Exogenous duplicates are events that arrive at the collector with the same event ID. This is possible because Snowplow generates the event ID client-side, which allows us to, among other things, distinguish between exogenous and endogenous duplicates.
+Exogenous duplicates are events that arrive at the collector with the same event ID due to some external process duplicating them. This is possible because Snowplow generates the event ID client-side, which allows us to, among other things, distinguish between exogenous and endogenous duplicates.
 
-If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat these two or more events as natural duplicates (i.e. delete all but the first event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
+If all client-sent fields match, the [deduplication algorithm](/blog/2015/08/19/dealing-with-duplicate-event-ids#deduplicating-the-event-id) would treat these two or more events as endogenous duplicates (i.e. delete all but the first event). The more relevant case is when one or more fields differ. It’s unlikely that these duplicates are the result of ID collisions. The event ID is a [UUID V4][uuid-v4] which makes it [close to impossible][uuid-random] for the trackers to generate identical identifiers.
 
 Instead, exogenous duplicates are the result of other software that runs client-side. For instance, browser pre-cachers, anti-virus software, adult content screeners and web scrapers can introduce additional events that also get sent to Snowplow collectors, often with a duplicate event ID. These events can be sent before or after the *real* event, i.e. the one that is supposed to capture the actual event. Duplicates can be sent from the same device or a different one. These duplicates can also be actual Snowplow events, but with a single event ID. For example, we have come across crawlers that have limited random number generator functionality and generate the same UUID over and over again.
 
@@ -121,7 +121,7 @@ AS (
 );
 {% endhighlight %}
 
-The `GROUP BY` clause combines natural duplicates into a single row if all columns are equal. Note that this step might take a while when the absolute number of duplicates is large. It's also possible to be less strict, and combine events when all client-sent fields are equal. We are introducing an [event fingerprint][event-fingerprint] which will make it easier to spot natural duplicates.
+The `GROUP BY` clause combines endogenous duplicates into a single row if all columns are equal. Note that this step might take a while when the absolute number of duplicates is large. It's also possible to be less strict, and combine events when all client-sent fields are equal. We are introducing an [event fingerprint][event-fingerprint] which will make it easier to spot endogenous duplicates.
 
 Next, we list the event IDs that have now become unique:
 
@@ -162,7 +162,7 @@ COMMIT;
 
 The [next step][github-1924] is to bring the deduplication algorithm to Kinesis. We plan to [partition the enriched event stream on event ID][github-1924], then build a minimal-state deduplication engine as a library that can be embedded in [KCL][kcl] apps. The engine will not be stateless because it needs to store event IDs and fingerprints in DynamoDB to deduplicate across micro-batches.
 
-The [Amazon Kinesis Client Library][kcl] is built with the assumption that all processes have to be processed at least once, which was the main idea behind check pointing mechanism. This guarantees that no data is missed, but doesn’t ensure single record processing. Deduplication as a KCL app won’t work for natural duplicates, because the app itself can introduce natural duplicates. You will therefore have to embed the deduplication library in each app that cares about there being no duplicates.
+The [Amazon Kinesis Client Library][kcl] is built with the assumption that all processes have to be processed at least once, which was the main idea behind check pointing mechanism. This guarantees that no data is missed, but doesn’t ensure single record processing. Deduplication as a KCL application won’t work for endogenous duplicates, because the app itself can introduce endogenous duplicates. You will therefore have to embed the deduplication library in each app that cares about there being no duplicates.
 
 Note that the ElasticSearch sink for the Kinesis flow takes a “last event wins” approach to duplicates. Each event is upserted into the ElasticSearch collection using the event ID, later duplicates will thus overwrite earlier ones.
 

@@ -77,7 +77,7 @@ guest$ cd /vagrant
 guest$ sbt assembly
 {% endhighlight %}
 
-<h3>Step 2: Add AWS credentials to the vagrant box</h3>
+<h3>Step 2: Add AWS credentials to the Vagrant box</h3>
 
 You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output formaat to "json":
 
@@ -89,7 +89,7 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 {% endhighlight %}
 
-<h3>Step 3: Create your DynamoDB, IAM Role, and Kinesis stream</h3>
+<h3>Step 3: Create your DynamoDB table, IAM role, and Kinesis stream</h3>
 
 We're going to set up a DynamoDB table, IAM role (via CloudFormation), and a Kinesis stream. We will be using Python's `inv` to run all of our tasks. I'm using "my-table" as the table name. The CloudFormation stack name is "LambdaStack" and the Kinesis stream name is "my-stream". We will kick off this tutorial with the first command to create our Kinesis event stream:
 

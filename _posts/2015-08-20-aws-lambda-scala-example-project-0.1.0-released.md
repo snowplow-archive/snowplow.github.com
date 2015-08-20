@@ -190,7 +190,7 @@ For each **Timestamp** and **EventType** pair, we see a **Count**, plus some **C
 
 Remember to shut off:
 
-* python invole events loading script
+* Kill the Python invoke event loading script
 * Delete your `LambdaStack` Cloudstack
 * Delete your `my-stream` Kinesis stream
 * Delete your `my-table` DynamoDB table

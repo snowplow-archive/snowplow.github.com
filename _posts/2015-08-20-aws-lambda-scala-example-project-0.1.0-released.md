@@ -13,15 +13,15 @@ This is a simple time series analysis stream processing job written in Scala for
 
 ![data flow png][data-flow]
 
-The [AWS Lambda] [aws-lambda-service] can help you jumpstart your own real-time event processing pipeline, without having to setup and manage clusters of server infrastructure. We will take you through the steps to get this simple analytics-on-write job setup and processing your Kinesis event stream.
+[AWS Lambda] [aws-lambda-service] can help you jumpstart your own real-time event processing pipeline, without having to setup and manage clusters of server infrastructure. We will take you through the steps to get this simple analytics-on-write job setup and processing your Kinesis event stream.
 
 Read on after the fold for:
 
-1. [What is AWS Lambda and Kinesis?](/blog/2015/08/17/aws-lambda-scala-example-project-0.1.0-released/#what-is-aws-lambda)
-2. [Introducing analytics-on-write](/blog/2015/08/17/aws-lambda-scala-example-project-0.1.0-released/#introducting-analytics-on-write)
-3. [Detailed setup](/blog/2015/08/17/aws-lambda-scala-example-project-0.1.0-released/#detailed-setup)
-4. [Troubleshooting](/blog/2015/08/17/aws-lambda-scala-example-project-0.1.0-released/#troubleshooting)
-5. [Further reading](/blog/2015/08/17/aws-lambda-scala-example-project-0.1.0-released/#further-reading)
+1. [What is AWS Lambda and Kinesis?](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/#what-is-aws-lambda)
+2. [Introducing analytics-on-write](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/#introducting-analytics-on-write)
+3. [Detailed setup](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/#detailed-setup)
+4. [Troubleshooting](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/#troubleshooting)
+5. [Further reading](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/#further-reading)
 
 <!--more-->
 
@@ -95,12 +95,9 @@ We're going to set up a DynamoDB table, IAM role (via CloudFormation), and a Kin
 
 {% highlight bash %}
 $ inv create_kinesis_stream my-stream
-Kinesis Stream [my-stream] not active yet.
-Kinesis Stream [my-stream] not active yet.
-Kinesis Stream [my-stream] not active yet.
-Kinesis Stream [my-stream] not active yet.
-Kinesis Stream [my-stream] not active yet.
-Kinesis Stream [my-stream] not active yet.
+Kinesis Stream [my-stream] not active yet
+Kinesis Stream [my-stream] not active yet
+Kinesis Stream [my-stream] not active yet
 Kinesis successfully created.
 {% endhighlight %}
 
@@ -119,24 +116,24 @@ Creating roles
 Still creating
 Giving Lambda proper permissions
 Trying...
-Created Role.
+Created role
 {% endhighlight %}
 
 <h3>Step 4: Upload project jar to Amazon S3</h3>
 
-In the very first set, we "assembled" and compiled our Scala project files into a self contained jar. SBT built our jar file and put it into target folder here: `./target/scala-2.11/aws-lambda-scala-example-project-assembly-1.0.jar`. 
-With the next `inv` command we will create a new bucket on S3 called `aws_scala_lambda_bucket`. The jar file will be uploaded under S3 key `aws-lambda-scala-example-project-assembly-1.0.jar1`.
+In the very first set, we "assembled" and compiled our Scala project files into a self contained jar. SBT built our jar file and put it into target folder here: `./target/scala-2.11/aws-lambda-scala-example-project-0.1.0`. 
+With the next `inv` command we will create a new bucket on S3 called `aws_scala_lambda_bucket`. The jar file will then be uploaded under the S3 key `aws-lambda-scala-example-project-0.1.0`.
 
-Be patient while the uploader moves a few megabytes of your jar file to S3 with the Invoke task:
+Be patient while the uploader copies your multi-megabyte jar file to S3 with the following task:
 
 {% highlight bash %}
 $ inv upload_s3
-JAR Uploaded to S3 aws_scala_lambda_bucket
+Jar uploaded to S3 bucket aws_scala_lambda_bucket
 {% endhighlight %}
 
 <h3>Step 5: Configure AWS Lambda service</h3>
 
-Now that we have built the project, and uploaded the jar file to the AWS Lambda service, we need to configure the Lambda service to watch for event traffic from our AWS Kinesis stream named `my-stream`. This command will connect to the Lambda service and create our Lambda function called `ProcessingKinesisLambdaDynamoDB`. We are almost ready to send events to Kinesis!
+Now that we have built the project, and uploaded the jar file to the AWS Lambda service, we need to configure the Lambda service to watch for event traffic from our AWS Kinesis stream named `my-stream`. This command will connect to the Lambda service and create our Lambda function called `ProcessingKinesisLambdaDynamoDB`. Don't worry, we are getting close to sending events to Kinesis!
 
 {% highlight bash %}
 $ inv create_lambda
@@ -146,7 +143,7 @@ Creating AWS Lambda function.
     "CodeSize": 38042279,
     "MemorySize": 1024,
     "FunctionArn": "arn:aws:lambda:us-east-1:842349429716:function:ProcessingKinesisLambdaDynamoDB",
-    "Handler": "com.snowplowanalytics.ProcessKinesisEvents::recordHandler",
+    "Handler": "com.snowplowanalytics.awslambda.LambdaFunction::recordHandler",
     "Role": "arn:aws:iam::842340234716:role/LambdaStack-LambdaExecRole-7G57P4M2VV5P",
     "Timeout": 60,
     "LastModified": "2015-08-13T19:39:46.730+0000",
@@ -159,14 +156,14 @@ Creating AWS Lambda function.
 
 Our Lambda function processes incoming event data from our Kinesis stream. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. 
 
-NOTE: If you go to the AWS Lambda console webpage and select the Monitor tab, you can see the output log information in the Amazon CloudWatch service.  
+If you go to the AWS Lambda console webpage and select the Monitor tab, you can see the output log information in the Amazon CloudWatch service.  
 
 We need to "connect" or "associate" our Lambda function to our Kinesis by: 
 
 {% highlight bash %}
 $ inv configure_lambda my-stream
-Configured AWS Lambda Service.
-Added Kinesis as event source for Lambda function.
+Configured AWS Lambda Service
+Added Kinesis as event source for Lambda function
 {% endhighlight %}
 
 <h3>Step 7: Generate events in your Kinesis stream</h3>
@@ -209,7 +206,7 @@ Remember to shut off:
 
 This is a short list of our most frequently asked questions.
 
-__I got credentials error__
+__I got a credentials error__
 
 This project requires configuration of AWS credentials. Read more about ![AWS credentials] [aws-creds]; configure your AWS credentials using the AWS CLI like so:
 
@@ -225,9 +222,9 @@ Feel free to [get in touch][talk-to-us] or [raise an issue][issues] on GitHub!
 <h2><a name="further-reading">5. Further reading</a></h2>
 </div>
 
-This example project is a direct port of our [Spark Streaming Example Project] [spark-streaming-eg-blog] - if you are interested in Spark Streaming or Scala, definitely check it out!
+This example project is a direct port of our [AWS Lambda Node.js Example Project] [aws-lambda-example-project], which in turn was based on our [Spark Streaming Example Project] [spark-streaming-eg-blog]. If you want to see this approach implemented in different languages or processing frameworks, definitely check those out!
 
-Both example projects are based on an event processing technique called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
+All three of these example projects are based on an event processing technique called _analytics-on-write_. We are planning on exploring these techniques further in a new project, called [Icebucket] [icebucket]. Stay tuned for more on this!
 
 [kcl]: http://docs.aws.amazon.com/kinesis/latest/dev/developing-consumers-with-kcl.html
 [amazon-kinesis-aggregators]: https://github.com/awslabs/amazon-kinesis-aggregators

@@ -175,7 +175,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r70_bornean_green_magpie.zip
 [rds]: https://aws.amazon.com/rds/
-[r70-release]: https://github.com/snowplow/snowplow/releases/tag/r69-blue-bellied-roller
+[r70-release]: https://github.com/snowplow/snowplow/releases/tag/r70-bornean-green-magpie
 
 [1575]: https://github.com/snowplow/snowplow/issues/1575
 [1574]: https://github.com/snowplow/snowplow/issues/1574

@@ -13,6 +13,8 @@ On Tuesday evening last week, the first Snowplow Meetup Berlin event took place 
 2. Christian Schäfer at [Sparwelt][sparwelt] discussed how to [model Snowplow data in Redshift](#modeling-event-data-to-power-analytics-sql-deep-dive), including a SQL deep dive
 3. Christian Lubash at [LeROI][leroi] gave an overview of the [role Snowplow can play in broader datawarehousing and Business Intelligence projects](#"the-role-of-snowplow-in-broader-data-warehousing-and-marketing-data-warehouse-projects")
 
+<!--more-->
+
 ## Attributing value to TV campaigns
 
 Sixtine gave a fascinating and in depth talk on attributing value to TV campaigns, based on her experiences both at Goeuro and her previous employer. You can view her slides below.
@@ -20,7 +22,6 @@ Sixtine gave a fascinating and in depth talk on attributing value to TV campaign
 <div class="html-embed">
 <a href="/assets/pdf/Snowplow-Berlin-Meetup-1-GoEuro.pdf"><img src="/assets/img/blog/2015/08/berlin-snowplow-meetup-goeuro-presentation.png"></a>
 </div>
-<!--more-->
 
 ## Modeling event data to power analytics: SQL deep-dive
 

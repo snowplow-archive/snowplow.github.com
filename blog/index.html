@@ -1,27 +1,44 @@
 ---
 layout: custom
 title: Blog
+description: Latest news from the Snowplow team.
+header: title
 group: blog
 category: blog
 ---
 
 <div class="wrapper">
-  <div class="container">
-<div class="col-md-9">
-<div class = "blog">
 
-	{% for post in paginator.posts %} <!-- This loops through the paginated posts -->
-	<div class="blog datebox">
-		{{ post.date | date_to_long_string }}&nbsp;&nbsp;|&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}
-	</div>
-	<h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-	<div class="content">{{ post.excerpt }}</div>
-	<p><a href="{{ post.url }}">Read the rest of the post &#8594;</a></p>
-	<hr>
-	{% endfor %}
+{% for post in paginator.posts %}
+
+  <div class="post">
+
+    <div class="container">
+      <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
+      <h1>
+        <a href="{{ post.url }}">
+          {{ post.title }}
+          {% if post.description %}<br>{{ post.description }}{% endif %}
+        </a>
+      </h1>
+    </div>
+
+    <div class="container narrow">
+      <div class="content">{{ post.excerpt }}</div>
+      <div class="continue"><a href="{{ post.url }}"><button class="cta-button blue" type="button">Continue reading</button></a></div>
+    </div>
+
+  </div>
+
+  <hr>
+
+{% endfor %}
+
+  <div class="container">
 
 	<!-- Pagination links -->
-	<div class="pagination">
+
+	<div class="pagination" style="text-align:center">
 	  <ul>
 	    {% if paginator.previous_page %}
 	      <a href="/blog/page{{ paginator.previous_page }}" class="previous">Previous</a>
@@ -40,6 +57,5 @@ category: blog
 </div>
 
 </div>
-<div class="col-md-3">{% include snowplow/sidebar_blog %}</div>
-</div>
+
 </div>

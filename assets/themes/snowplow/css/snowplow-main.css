@@ -14,6 +14,8 @@ main .wrapper.shaded {background-color: rgb(240,240,240)}
 
 /* custom text */
 
+main h1 {text-align: center}
+
 main.custom h2 {
 	margin: 60px auto;
 	text-align: center;
@@ -68,15 +70,6 @@ main.custom .users-oneliner cite {
 main.custom .users-logobox {
 	text-align: center;
 	width: 100%;
-}
-
-a.cta {
-	text-transform: uppercase;
-	text-align: center;
-}
-
-a.cta:after {
-	content: " ➙";
 }
 
 /* table */
@@ -186,3 +179,22 @@ p {line-height: 1.45}
 	content: '❯';
 	margin: 0 5px;
 }
+
+/* blog */
+
+.datebox {
+	margin-bottom: 30px;
+	text-align: center
+}
+
+.datebox,
+.datebox > a,
+.datebox > a:hover {
+	color: #797F94;
+	font-size: 15px;
+	font-weight: 300;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.continue {text-align: center; margin-top: 15px}

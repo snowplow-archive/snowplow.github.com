@@ -22,9 +22,7 @@ body {
 	font-size: 18px
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-	body {-webkit-font-smoothing: antialiased}
-}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {body {-webkit-font-smoothing: antialiased}}
 
 /* various responsive containers */
 
@@ -59,13 +57,12 @@ body {
 
 /* text */
 
-h1 a, h1 a:hover, h1 a:focus {text-decoration: none}
-
-h2 a, h2 a:hover, h2 a:active,
-h3 a, h3 a:hover, h3 a:active,
-h4 a, h4 a:hover, h4 a:active,
-h5 a, h5 a:hover, h5 a:active,
-h6 a, h6 a:hover, h6 a:active {
+h1 a, h1 a:hover, h1 a:active, h1 a:focus,
+h2 a, h2 a:hover, h2 a:active, h2 a:focus,
+h3 a, h3 a:hover, h3 a:active, h3 a:focus,
+h4 a, h4 a:hover, h4 a:active, h4 a:focus,
+h5 a, h5 a:hover, h5 a:active, h5 a:focus,
+h6 a, h6 a:hover, h6 a:active, h6 a:focus {
 	text-decoration: none;
 	color: inherit;
 }
@@ -73,7 +70,7 @@ h6 a, h6 a:hover, h6 a:active {
 h1 {
 	font-size: 50px;
 	font-weight: 300;
-	margin: 0 0 30px 0;
+	margin: 30px 0;
 	padding: 0;
 	letter-spacing: -2px;
 }
@@ -87,6 +84,8 @@ h2 {
 }
 
 h1:first-child, h2:first-child {margin-top: 0}
+
+h1:first-of-type
 
 p {margin: 15px 0}
 
@@ -106,19 +105,13 @@ main img {
 	margin-right: auto;
 }
 
-/* blog */
-
-.blog .datebox,
-.blog .datebox > a,
-.blog .datebox > a:hover {
-	color: #797F94;
-	font-size: 15px;
-	font-weight: 300;
-	text-transform: uppercase;
-	text-decoration: none;
+hr {
+	border: 0;
+	border-top: 1px solid #D2D4DB;
+	margin: 45px 0 60px 0;
 }
 
-.blog > h1 { width: 80%; }
+/* blog */
 
 q {quotes: "“" "”" "‘" "’"}
 
@@ -146,6 +139,6 @@ q:after {content: close-quote}
 }
 
 .cta-button.green {color: white; background-color: #5CB85C}
-.cta-button.gray {color: #333; background-color: #D2D4DB}
+.cta-button.blue {color: white; background-color: #4C5371}
 
 button:focus {outline:0} /* remove the outline */

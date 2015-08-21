@@ -40,7 +40,7 @@ With the addition of DDL generation functionality to Schema Guru we moved everyt
 To make both of these commands consistent we also made few changes in ``schema`` options. For example now you don't need to specify whether your input is a file or directory full of schemas - just use the positional parameter with input and Schema Guru will decide how to process it. Both examples are valid:
 
 {% highlight bash %}
-$ ./schema-guru-0.3.0 schema --schema-by $.event /path/to/all_instances 
+$ ./schema-guru-0.3.0 schema --schema-by $.event /path/to/all_instances
 ...
 $ ./schema-guru-0.3.0 schema /path/to/single_instance.json
 {% endhighlight %}
@@ -65,7 +65,7 @@ Let's take some example JSON Schemas from Alex's [Unified Log Processing] [ulp] 
 {% highlight bash %}
 $ git clone https://github.com/alexanderdean/Unified-Log-Processing.git
 $ cd Unified-Log-Processing/ch12/12.2
-$ cat 
+$ cat
 $ ~/schema-guru-0.3.0 ddl --raw --with-json-paths ./schemas
 File [~/Unified-Log-Processing/ch12/12.2/./sql/./driver_delivers_package.sql] was written successfully!
 File [~/Unified-Log-Processing/ch12/12.2/./jsonpaths/./driver_delivers_package.json] was written successfully!
@@ -299,11 +299,11 @@ An alternative is to split a product type into multiple columns using `--split-p
 
 {% highlight json %}
 {
-    "action": { 
+    "action": {
         "type": ["integer", "string"],
         "format": "date-time",
         "minimum": 0,
-        "maximum": 64 
+        "maximum": 64
     }
 }
 {% endhighlight %}

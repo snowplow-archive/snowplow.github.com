@@ -11,5 +11,5 @@ permalink: /documentation/data-modeling/sessionization/
 ---
 
 <!--* [client-side sessionization](client-side-sessionization)-->
-* [basic server-side sessionization](basic-sessionization-in-sql)
-<!--* [advanced server-side sessionization](advanced-sessionization-in-sql)-->
+* [Basic server-side sessionization](basic-sessionization-in-sql)
+* [Reconciling Snowplow and Google Analytics session numbers](reconciling-snowplow-and-ga)

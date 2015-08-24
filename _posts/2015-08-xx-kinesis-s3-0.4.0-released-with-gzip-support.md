@@ -14,7 +14,7 @@ Table of contents:
 1. [GZip support](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#gzip-support)
 2. [Infinite loops](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#loops)
 3. [Safer record batching](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#control)
-3. [Bug fixes](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#bug-fixes)
+4. [Bug fixes](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#bug-fixes)
 5. [Upgrading](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#upgrading)
 6. [Getting help](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#help)
 
@@ -45,13 +45,19 @@ This feature can be neatly coupled with an automated restart wrapper to ensure t
 
 In the [previous release post][previous-rel] we discussed potential out-of-memory problems for this application. To improve things further we have implemented a new configuration option: `max-records` to specify how many records the application is allowed to read per `GetRecords` call. This helps prevent the application from suddenly exceeding the Heap with sudden traffic spikes.
 
-ADD HOCON EXAMPLE
+{% highlight json %}
+// Amount of records per GetRecords call
+sink.kinesis.in.max-records: 10000
+{% endhighlight %}
 
-WHAT IS A SENSIBLE DEFAULT?
+Unless you are experiencing out-of-memory issues please use the default of `10000`.  Please note that `10000`, for the moment, is also the maximum setting.  If set any higher an `InvalidArgumentException` [will be thrown][aws-exception].
 
 <h2 id="bug-fixes">4. Bug fixes</h2>
 
-JOSH TO ADD
+We have also:
+
+* Fixed a bug where the Snowplow Tracker was using the wrong event type for `write_failures` [#45][45]
+* Added logging for `OutOfMemoryErrors` so it is easier to debug in the future [#29][29]
 
 <h2 id="upgrading">5. Upgrading</h2>
 
@@ -76,9 +82,12 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [kazjote]: https://github.com/kazjote
 [gzip]: http://www.gzip.org/
 [pr-43]: https://github.com/snowplow/kinesis-s3/pull/43
+[29]: https://github.com/snowplow/kinesis-s3/issues/29
+[45]: https://github.com/snowplow/kinesis-s3/issues/45
 [previous-rel]: http://snowplowanalytics.com/blog/2015/07/07/kinesis-s3-0.3.0-released/
 [issues]: https://github.com/snowplow/kinesis-s3/issues
 [talk-to-us]: https://github.com/snowplow/kinesis-s3/wiki/Talk-to-us
 [0.4.0-release]: https://github.com/snowplow/kinesis-s3/releases/tag/0.4.0
+[aws-exception]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/kinesis/model/GetRecordsRequest.html#getLimit()
 
 [hn-s3-outage]: https://news.ycombinator.com/item?id=10033172

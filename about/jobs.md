@@ -27,11 +27,11 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 ## Vacancies
 
 1. [Infrastructure engineer](#infra-engineer) - London, UK [1 position]
-2. [Data pipeline engineering interns](#data-pipeline-engineer) - Remote or London, UK [1 position]
+2. [Data engineering intern](#data-engineer-intern) - Remote or London, UK [1 position]
 3. [Data scientist interns](#business-analyst-data-scientist) - Remote or London, UK [1-2 positions]
 
 
-<h2><a name="infra-engineer">Infrastructure engineer (London, UK)</a></h2>
+<h2 id="infra-engineer">Infrastructure engineer (London, UK)</h2>
 
 Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline across more than 40 customer-owned AWS accounts, with individual accounts processing many billions of events per month. This is a huge responsibility but also a hugely exciting infrastructure automation challenge.
 
@@ -55,7 +55,7 @@ We'd love to get to know you if:
 * **You have deep experience with AWS.** There are few AWS services that Snowplow does *not* use - deep experience with AWS is a must
 * **You have a mature attitude to InfoSec, documentation and process.** Managed Service customers trust us with their event pipelines and AWS accounts - this is a huge responsibility and informs everything we do
 
-<h2><a name="data-pipeline-engineer">Data pipeline engineers</a></h2>
+<h2 id="data-engineer-intern">Data engineering intern</h2>
 
 We are looking for 1 data pipeline engineer to join our open source internship program this winter.
 
@@ -66,7 +66,7 @@ We are looking for 1 data pipeline engineer to join our open source internship p
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 
-<h2><a name="business-analyst-data-scientist">Data scientists</a></h2>
+<h2 id="business-analyst-data-scientist">Data scientist interns</h2>
 
 We are looking for 1-2 data scientists to join us for internships this summer. There are a number of prospective projects we are interested in pursuing - these might include:
 

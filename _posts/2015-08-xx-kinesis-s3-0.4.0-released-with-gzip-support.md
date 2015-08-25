@@ -11,7 +11,7 @@ We are pleased to announce the release of Kinesis S3 version 0.4.0. Many thanks 
 
 Table of contents:
 
-1. [GZip support](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#gzip-support)
+1. [gzip support](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#gzip-support)
 2. [Infinite loops](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#loops)
 3. [Safer record batching](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#control)
 4. [Bug fixes](/blog/2015/08/xx/snowplow-kinesis-s3-0.4.0-released-with-gzip-support#bug-fixes)
@@ -20,9 +20,9 @@ Table of contents:
 
 <!--more-->
 
-<h2 id="gzip-support">1. GZip support</h2>
+<h2 id="gzip-support">1. gzip support</h2>
 
-Kinesis S3 now supports [GZip][gzip] as a second storage/compression option for the files it writes out to S3. Using this format, each record is treated as a byte array containing a UTF-8 encoded string (whether CSV, JSON or TSV). The records are then written to files as strings, one record per line and GZipped.
+Kinesis S3 now supports [gzip][gzip] as a second storage/compression option for the files it writes out to S3. Using this format, each record is treated as a byte array containing a UTF-8 encoded string (whether CSV, JSON or TSV). The records are then written to files as strings, one record per line and gzipped.
 
 Big thanks go to [Kacper Bielecki][kazjote] for contributing this storage option! For more information please see [Kacper's pull request][pr-43].
 
@@ -50,14 +50,14 @@ In the [previous release post][previous-rel] we discussed potential out-of-memor
 sink.kinesis.in.max-records: 10000
 {% endhighlight %}
 
-Unless you are experiencing out-of-memory issues please use the default of `10000`.  Please note that `10000`, for the moment, is also the maximum setting.  If set any higher an `InvalidArgumentException` [will be thrown][aws-exception].
+Unless you are experiencing out-of-memory issues, we recommend using the default of `10000`. Please note that `10000`, for the moment, is also the maximum setting.  If set any higher an `InvalidArgumentException` [will be thrown][aws-exception].
 
 <h2 id="bug-fixes">4. Bug fixes</h2>
 
 We have also:
 
-* Fixed a bug where the Snowplow Tracker was using the wrong event type for `write_failures` [#45][45]
-* Added logging for `OutOfMemoryErrors` so it is easier to debug in the future [#29][29]
+* Fixed a bug where the Snowplow Tracker was using the wrong event type for `write_failures` ([#45][45])
+* Added logging for `OutOfMemoryErrors` so it is easier to debug in the future ([#29][29])
 
 <h2 id="upgrading">5. Upgrading</h2>
 

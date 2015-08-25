@@ -52,7 +52,7 @@ We'd love to get to know you if:
 
 * **You have strong technical skills.** This role would be a great fit for a software engineer who loves infrastructure automation, or a devops practitioner who wants more exposure to data engineering and functional programming
 * **You communicate with clarity and precision.** It's super-important that our first infrastructure engineer does not become a bottleneck across Snowplow's processes and systems. Communicating your work and being responsive to feedback is as important as your technical ability
-* **You have deep experience with AWS.** There are few AWS services that Snowplow does *not* use - deep experience with AWS is a must
+* **You have deep experience with AWS.** We make heavy use of 19 (out of 46) AWS services - deep experience with AWS is a must
 * **You have a mature attitude to InfoSec, documentation and process.** Managed Service customers trust us with their event pipelines and AWS accounts - this is a huge responsibility and informs everything we do
 
 <h2 id="data-engineer-intern">Data engineering intern</h2>

@@ -20,6 +20,8 @@ The rest of this post will cover the following topics:
 7. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
 8. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
 
+![stork-billed-kingfisher][stork-billed-kingfisher]
+
 <!--more-->
 
 <h2 id="tstamps">1. Derived Timestamp and True Timestamp</h2>
@@ -71,6 +73,7 @@ For more details on this release, please check out the [R71 Stork-Billed Kingfis
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[stork-billed-kingfisher]: /assets/img/blog/2015/09/stork-billed-kingfisher.jpg
 [danisola]: https://github.com/danisola
 [access-logs]: http://aws.amazon.com/releasenotes/CloudFront/6827606387084636
 [uau]: https://github.com/HaraldWalker/user-agent-utils

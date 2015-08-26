@@ -28,7 +28,7 @@ Sometimes the timestamp reported by a client device clock can be very innaccurat
 
 `derived_tstamp = collector_tstamp + dvce_created_tstamp - dvce_sent_tstamp`
 
-At the moment no tracker supports the `dvce_sent_tstamp`, so the `derived_tstamp defaults to being equal to the `collector_tstamp`.
+At the moment no tracker supports the `dvce_sent_tstamp`, so the `derived_tstamp` defaults to being equal to the `collector_tstamp`.
 
 We also intend to allow tracker users who set event timestamps manually (without having to use an innaccurate client device clock) to specify that an event timestamp is a "true timestamp". True timestamps will directly populate both the `derived_tstamp` field and the new `true_tstamp` field without any intermediate processing.
 
@@ -76,6 +76,6 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
 
-[r70-release]: https://github.com/snowplow/snowplow/releases/tag/r69-blue-bellied-roller
+[r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

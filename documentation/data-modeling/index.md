@@ -13,22 +13,45 @@ redirect_from:
 
 ## What is data modeling?
 
-##
+The Snowplow data collection and enrichment process generates an event stream. These events are stored in Amazon S3 and also available in Amazon Redshift. It's possible to use the event stream itself. For example, a data scientist might use it to create a decision tree or train a recommendation algorithm.
 
+For a business user, however, most value lies in linking events together. A single page view does not provide much insight into how the business is doing, but when this page view is combined with other events, it starts to provide insight into what the user was trying to achieve and whether she succeeded. It can indicate how far along in the user journey she is and how likely she is to sign up. These are concepts that have meaning to a business user.
 
+Data modeling is the process of learning about the data and developing a data model that combines events and in the process creates meaning. It's common to join the events table with other data sets (e.g. customer data, product data, marketing data and financial data) and aggregate these enriched events into smaller data sets. There are several benefits to this approach:
 
+- These derived datasets are easier to understand because business logich as been applied (i.e. meaning has been added).
+- It ensures that all users use combine events using the same logic (e.g. the same session definitions or user identifiers)
+- Because the event-level data is never modified, it's always possible recompute the derived tables based on new insights (e.g. improved segmentation algorithms)
 
+These derived tables are available to analytics and business users and can be accessed from BI tools such as Looker and Tableau.
 
+## Data modeling in SQL
 
-The data collection and enrichment process generates an event stream. While it is possible to do analysis on this event stream, it is common to join with other data sets (e.g. customer data, product data, marketing data or financial data) and aggregate event-level data into smaller data sets. These are easier to understand and faster to run queries against. Also, if analysis is done against these data sets, the same business logic will be used by all users of the data. Aggregate tables can be:
+It's possible run SQL queries as part of the Snowplow pipeline through our open source SQL Runner application. We recommend an iterative approach when it developing SQL data models:
 
-- User-level tables
-- Session-level tables
-- Product or media-level tables (catalog analytics)
+First, start with a basic model that recomputes on all data each time the pipeline runs (which makes it easier to iterate because all derived tables are dropped and recomputed each time). This basic model can, for example, include a basic sessions table. More dimensions and measures are added during this phase, and the result is shared with business users. Their feedback is used to guide the development of these models.
 
-We call this process of aggregating *data modeling*. At the end of the data modeling exercise, a clean set of tables are available which make it easier to perform analysis on the data. It is easier because the basic tasks of defining users, sessions and other core dimensions and metrics have already been performed, so the analyst has a solid foundation for diving directly into the more interesting, valuable parts of the data analysis.
+When the data models have been fleshed out, it's possible to move to a model that doesn't drop and recompute the derived tables, but updates them using events in the last batch.
 
-The tables mentioned before are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including different approaches to:
+## Technical requirements
 
-- Sessionization
-- Identity stitching (which users across multiple channels are really the same user)
+Because the SQL queries are run as part of the Snowplow pipeline, we require that these queries are written according to a few principles. When the derived models are recalculated with each run, there are no requirements.
+
+When the data model is run in an incremental mode, the data models should be written so that:
+
+- The models have a lightweight manifest that tracks which events have been processed and which ones haven't: We recommend event count per `etl_tstamp`
+- The models are idempotent: Each event should be processed at least once and the output doesn't change when events are processed more than once
+- The models are recoverable: No matter at which step the model breaks, we should be able to rerun from step 1 without corrupting the derived tables
+
+<!--
+
+- identify the ‘key’ e.g. user ID for user table
+- identify the subset of rows in table that will be updated based on new data (e.g. user IDs in the landing schema)
+- divide metrics into two categories:
+- simple e.g. min, max and derived dimensions e.g. landing page, exit page
+- complex e.g. sum, count, count distinct
+- for simple metrics and derived dimensions, calculate based on data in batch and data saved from previous batches
+- for complex metrics recalculate from events table, but only using the subset of keys relevant to this batch (makes the SQL fast and robust)†
+
+Have a way of keeping track of which events are included, so that data can safely arrive whilst the data modeling is being done. (Event / run manifest)
+-->

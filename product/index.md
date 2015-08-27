@@ -14,7 +14,7 @@ Snowplow enables you to:
 <div class="html">
 	<ul>
 		<li><strong><a href="#record-events">Record events from anywhere</a></strong>, so that you have a record of <em>what happened, when, and to whom</em></li>
-		<li><strong><a href="#process-that-data">Processes that data</a></strong> including validating, enriching and modeling it</li>
+		<li><strong><a href="#process-that-data">Process that data</a></strong> including validating, enriching and modeling it</li>
 		<li>Load that data into <strong><a href="#your-own-datawarehouse">your own datawarehouse</a></strong> to power <strong>sophisticted analytics</strong></li>
 		<li>Makes that data available to <a href="#real-time">real-time data processing applications</a> via <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis</a></li>
 	</ul>

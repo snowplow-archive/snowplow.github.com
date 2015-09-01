@@ -84,6 +84,12 @@ Trying to unpick the causes of user behavior is an art, not a science. The good 
 
 Back to [top](#top).
 
+<div class="html">
+<a name="performance"><h2>Performance timing</h2></a>
+</div>
+
+<a href="/documentation/recipes/platform-analytics/performance-timing/">Two recipes that use the performance timing context.</a>
+
 [catalog-analytics]: /analytics/platform-analytics/overview.html
 [funnel-analysis]: /analytics/platform-analytics/funnel-analysis.html
 [sankey-diagrams]: /analytics/platform-analytics/sankey-diagrams-with-d3-js.html

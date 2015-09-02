@@ -33,6 +33,7 @@ excerpt_separator: "<!--more-->"
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
 production_url : http://snowplowanalytics.com
+url : http://snowplowanalytics.com
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #

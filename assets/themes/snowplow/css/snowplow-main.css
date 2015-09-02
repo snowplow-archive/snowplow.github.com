@@ -120,66 +120,6 @@ p {line-height: 1.45}
     border-radius: 0;
 }
 
-/* docu-box */
-
-.docu-box {
-	width: 48%;
-	float: left;
-	margin-bottom: 45px;
-	color: #444;
-}
-
-.docu-box.left {margin-right: 4%;}
-
-.docu-box a {
-	color: #444;
-}
-
-.docu-text li a {
-    color: #337ab7;
-}
-.docu-text li {
-    margin: 12px 0 12px 15px;
-    /* margin-left: 15px; */
-    color: #337ab7;
-}
-.docu-box a:hover, .docu-box a:focus { text-decoration: none; }
-
-.docu-header {
-	padding: 12px 15px;
-	background-color: rgb(240,240,240);
-	font-size: 18px;
-	font-weight: 400;
-	text-transform: uppercase;
-	border-radius: 5px 5px 0 0;
-}
-
-.docu-text {
-	padding: 12px 15px;
-	background-color: rgb(248,248,248);
-	border-radius: 0 0 5px 5px;
-	min-height: 200px;
-}
-
-.docu-text ul {
-	padding: 0;
-	margin: 0;
-	text-transform: uppercase;
-	font-size: 15px;
-}
-
-.docu-text li {
-	list-style-type: none;
-	margin: 0
-	padding: 0
-}
-
-.docu-text li:after {
-	display: inline-block;
-	content: '❯';
-	margin: 0 5px;
-}
-
 /* blog */
 
 .datebox {
@@ -198,3 +138,60 @@ p {line-height: 1.45}
 }
 
 .continue {text-align: center; margin-top: 15px}
+
+/* the big box */
+
+.box {
+	background-color: rgb(248,248,248);
+	border-radius: 5px;
+	float: left;
+	width: 100%;
+}
+
+.box							{margin-bottom: 45px}
+.box:last-of-type {margin-bottom: 0}
+
+@media (min-width: 768px) {.box-text.half {float: left; width: 50%}}
+
+.box-header {
+	text-transform: uppercase;
+	background-color: rgb(240,240,240);
+	border-radius: 5px 5px 0 0;
+	padding: 12px 15px;
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.box-text {
+	border-radius: 0 0 5px 5px;
+	padding: 12px 15px;
+}
+
+.box-text ul {
+	text-transform: uppercase;
+	font-size: 15px;
+	padding: 0;
+	margin: 0;
+}
+
+.box-text li {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.box-text li:after {
+	display: inline-block;
+	color: #337ab7;
+	margin: 0 5px;
+	content: '❯';
+}
+
+.box-text li a {
+    color: #337ab7;
+}
+
+.box-text li {
+    margin: 12px 0 12px 15px;
+}
+.box a:hover, .box a:focus { text-decoration: none; }

@@ -167,9 +167,9 @@ After this function is called no new events will be built or stored in the local
 
 You can play with this option by clicking the toggle next to `Tracking` to `OFF` and attempting to add events.  You should notice that the `Made` counter continues to itterate but that the Tracker's `DB Count` and `Sent Count` do not change.
 
-<img src="/assets/img/blog/2015/08/demo-app-1.png" style="width: 30%;float: left;" />
-<img src="/assets/img/blog/2015/08/demo-app-2.png" style="width: 30%;float: left;" />
-<img src="/assets/img/blog/2015/08/demo-app-3.png" style="width: 30%;float: left;" />
+<img src="/assets/img/blog/2015/09/demo-app-1.png" style="width: 30%;float: left;" />
+<img src="/assets/img/blog/2015/09/demo-app-2.png" style="width: 30%;float: left;" />
+<img src="/assets/img/blog/2015/09/demo-app-3.png" style="width: 30%;float: left;" />
 
 New labels explained:
 * Session Count: how many sessions have been started during this applications installation period.

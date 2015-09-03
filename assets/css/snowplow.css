@@ -136,7 +136,7 @@ q:after {content: close-quote}
 .cta-button {
 	font-size: 15px;
   font-weight: 400;
-  padding: 15px 18px;
+  padding: 12px 15px;
   border: 1px solid transparent; /* overwrite defaults */
   border-radius: 30px;
   text-transform: uppercase;

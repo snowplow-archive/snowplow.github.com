@@ -1,23 +1,18 @@
 
 /* basic structure */
 
-header {padding: 15px 0}
-header.custom {padding-bottom: 0}
+header {padding: 15px 0 0 0}
 
 header .brand, header .logo, header .name {float: left}
 header .menu nav {float: right}
 
-header .wrapper {margin: 90px 0}
-header .wrapper.title {margin: 60px 0 30px 0}
+header .wrapper				 {margin: 45px 0 12px 0}
+header .wrapper.custom {margin: 60px 0 30px 0}
 
 /* text */
 
 header {font-weight: 300; font-size: 15px; color: white}
-
-header a, header a:hover, header a:focus {
-	text-decoration: none;
-	color: white
-}
+header a, header a:hover, header a:focus {text-decoration: none; color: white}
 
 /* brand */
 
@@ -60,7 +55,7 @@ header .nav-collapse li a {
 	border: 2px solid;
 	border-radius: 30px;
 	text-transform: uppercase;
-	padding: 15px 18px
+	padding: 12px 15px
 }
 
 header .nav-collapse li        a.with-border {font-weight: 400}
@@ -90,7 +85,7 @@ header .nav-collapse li a.without-border {border-color: transparent}
 		background-color: transparent;
 		border: 2px solid rgba(121,127,148,0.3);
 		border-radius: 30px;
-		padding: 15px 18px
+		padding: 12px 15px
 	}
 
 	/*header .toggle-menu:hover,*/
@@ -134,10 +129,10 @@ header .bigbox p {
 
 /* TEMP */
 
-header .wrapper.title h1 {margin: 0}
+header .wrapper h1 {margin: 0}
 
 header .breadcrumb {
-  padding: 15px 0;
+  padding: 12px 0;
   background-color: rgba(121,127,148,0.3);
   margin: 0;
   text-transform: uppercase;

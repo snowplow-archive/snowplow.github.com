@@ -19,7 +19,7 @@ The rest of this post will cover the following topics:
 6. [Other changes](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#other-changes)
 7. [Using sslmode in the StorageLoader](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#sslmode)
 8. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
-97. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
+9. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
 
 ![stork-billed-kingfisher][stork-billed-kingfisher]
 

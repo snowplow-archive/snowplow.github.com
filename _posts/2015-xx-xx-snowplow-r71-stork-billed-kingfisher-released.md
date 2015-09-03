@@ -17,8 +17,9 @@ The rest of this post will cover the following topics:
 4. [The event fingerprint](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#fingerprint)
 5. [Faster failure for missing schemas](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#missing-schemas)
 6. [Other changes](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#other-changes)
-7. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
-8. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
+7. [Using sslmode in the StorageLoader](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#sslmode)
+8. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
+97. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
 
 ![stork-billed-kingfisher][stork-billed-kingfisher]
 
@@ -50,7 +51,28 @@ The new event_fingerprint enrichment creates a fingerprint from a hash of the tr
 
 The enrichment process used to take a long time if lots of events had schemas which couldn't be found in an Iglu repository. This was because Iglu Scala Client cached successfully found schemas but didn't remember schemas which it had already failed to find. The latest release fixes this problem.
 
-<h2 id="combinedConfiguration">6. Other improvements</h2>
+<h2 id="sslmode">6. Using sslmode in the StorageLoader</h2>
+
+Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape]) has contributed the ability to connect to Postgres and Redshift using SSL. To do this, add an "ssl_mode" field to each target in your configuration YAML:
+
+{% highlight yaml %}
+  targets:
+    - name: "My Redshift database"
+      type: redshift
+      host: ADD HERE # The endpoint as shown in the Redshift console
+      database: ADD HERE # Name of database
+      port: 5439 # Default Redshift port
+      ssl_mode: disable # One of disable (default), require, verify-ca or verify-full
+      table: atomic.events
+      username: ADD HERE
+      password: ADD HERE
+      maxerror: 1 # Stop loading on first error, or increase to permit more load errors
+      comprows: 200000 # Default for a 1 XL node cluster. Not used unless --include compupdate specified
+{% highlight yaml %}
+
+Thanks @dennisatspaceape!
+
+<h2 id="combinedConfiguration">7. Other improvements</h2>
 
 We have also:
 
@@ -63,11 +85,11 @@ We have also:
 * Updated web-incremental so failure is recoverable
 * Fixed a bug where Scala Hadoop Shred didn't correctly add original LZO-encoded event strings to bad rows
 
-<h2 id="upgrading">7. Upgrading</h2>
+<h2 id="upgrading">8. Upgrading</h2>
 
 If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
 
-<h2 id="help">8. Getting help</h2>
+<h2 id="help">9. Getting help</h2>
 
 For more details on this release, please check out the [R71 Stork-Billed Kingfisher release notes][r71-release] on GitHub. 
 
@@ -75,6 +97,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [stork-billed-kingfisher]: /assets/img/blog/2015/09/stork-billed-kingfisher.jpg
 [danisola]: https://github.com/danisola
+[dennisatspaceape]: https://github.com/dennisatspaceape
 [access-logs]: http://aws.amazon.com/releasenotes/CloudFront/6827606387084636
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json

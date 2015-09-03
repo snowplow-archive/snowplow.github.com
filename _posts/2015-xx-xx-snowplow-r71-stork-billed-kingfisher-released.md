@@ -18,8 +18,9 @@ The rest of this post will cover the following topics:
 5. [Faster failure for missing schemas](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#missing-schemas)
 6. [Other changes](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#other-changes)
 7. [Using sslmode in the StorageLoader](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#sslmode)
-8. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
-9. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
+8. [New approach to table upgrades](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#table-upgrades)
+9. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
+10. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
 
 ![stork-billed-kingfisher][stork-billed-kingfisher]
 
@@ -72,7 +73,13 @@ Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape])
 
 Thanks @dennisatspaceape!
 
-<h2 id="combinedConfiguration">7. Other improvements</h2>
+<h2 id="table-upgrades">7. New approach to table upgrades</h2>
+
+Starting in this release, we are taking a new approach to upgrading the `atomic.events` table. Previous upgrades would rename the existing table as "atomic.events_$OLD_VERSION" and create a new table with the new schema. We will now be directly mutating the old table using `ALTER` statements.
+
+To prevent confusion about the version of a particular `atomic.events` table, the table creation and migration scripts now add the version to the table as a comment using the [COMMENT][postgres-comment] statement.
+
+<h2 id="combinedConfiguration">8. Other improvements</h2>
 
 We have also:
 
@@ -85,11 +92,11 @@ We have also:
 * Updated web-incremental so failure is recoverable
 * Fixed a bug where Scala Hadoop Shred didn't correctly add original LZO-encoded event strings to bad rows
 
-<h2 id="upgrading">8. Upgrading</h2>
+<h2 id="upgrading">9. Upgrading</h2>
 
 If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
 
-<h2 id="help">9. Getting help</h2>
+<h2 id="help">10. Getting help</h2>
 
 For more details on this release, please check out the [R71 Stork-Billed Kingfisher release notes][r71-release] on GitHub. 
 
@@ -101,6 +108,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [access-logs]: http://aws.amazon.com/releasenotes/CloudFront/6827606387084636
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
+[comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
 
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues

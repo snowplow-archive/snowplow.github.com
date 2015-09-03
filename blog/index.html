@@ -12,7 +12,7 @@ category: blog
 
   <div class="post">
 
-    <div class="container">
+    <div class="container narrow">
       <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
       <h1>
         <a href="{{ post.url }}">

@@ -91,11 +91,6 @@ p {line-height: 1.45}
 
 /* blog */
 
-.datebox {
-	margin-bottom: 30px;
-	text-align: center
-}
-
 .datebox,
 .datebox > a,
 .datebox > a:hover {

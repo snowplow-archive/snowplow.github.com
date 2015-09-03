@@ -83,7 +83,7 @@ h2 {
 	letter-spacing: -1px;
 }
 
-h1:first-child, h2:first-child {margin-top: 0}
+h1:first-of-type, h2:first-of-type {margin-top: 0}
 
 h1:first-of-type
 

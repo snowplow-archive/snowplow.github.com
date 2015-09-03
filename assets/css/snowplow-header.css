@@ -6,8 +6,8 @@ header {padding: 15px 0 0 0}
 header .brand, header .logo, header .name {float: left}
 header .menu nav {float: right}
 
-header .wrapper				 {margin: 45px 0 12px 0}
-header .wrapper.custom {margin: 60px 0 30px 0}
+header .wrapper				 {margin: 30px 0 12px 0}
+header .wrapper.custom {margin: 45px 0 30px 0}
 
 /* text */
 

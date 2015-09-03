@@ -1,4 +1,5 @@
 <header>
+
   <div class="menu">
     <div class="container">
       <div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"><img src="{{ BASE_PATH }}/assets/img/design/logo-white.png"></a></div>&nbsp;<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
@@ -16,13 +17,16 @@
       </nav>
     </div>
   </div>
+
   <div class="wrapper{% if page.header %} custom{% endif %}">
-    {% if page.header == 'homepage' %}{% include snowplow/headers/homepage.html %}
-    {% elsif page.header == 'pricing' %}{% include snowplow/headers/pricing.html %}
-    {% elsif page.header == 'batch' %}{% include snowplow/headers/batch.html %}
-    {% elsif page.header == 'real-time' %}{% include snowplow/headers/real-time.html %}
-    {% else %}{% include snowplow/headers/title.html %}{% endif %}
+    {% if page.header == 'homepage' %}{% include headers/homepage.html %}
+    {% elsif page.header == 'pricing' %}{% include headers/pricing.html %}
+    {% elsif page.header == 'batch' %}{% include headers/batch.html %}
+    {% elsif page.header == 'real-time' %}{% include headers/real-time.html %}
+    {% else %}{% include headers/title.html %}{% endif %}
   </div>
+
+  {% unless page.header %}
   <div class="breadcrumb">
     <div class="container">
       <nav>
@@ -38,4 +42,6 @@
       </nav>
     </div>
   </div>
+  {% endunless %}
+
 </header>

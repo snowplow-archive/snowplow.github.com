@@ -1,6 +1,5 @@
 ---
 layout: page
-header: title
 group: documentation
 subgroup: analytics
 breadcrumb: customer analytics

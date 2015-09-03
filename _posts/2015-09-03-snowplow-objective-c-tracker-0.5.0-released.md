@@ -172,6 +172,7 @@ You can play with this option by clicking the toggle next to `Tracking` to `OFF`
 <img src="/assets/img/blog/2015/09/demo-app-3.png" style="width: 30%;float: left;" />
 
 New labels explained:
+
 * Session Count: how many sessions have been started during this applications installation period.
 * Running: whether or not the emitter is currently sending events
 * Online: whether the application has detected an active network connection

@@ -119,10 +119,16 @@ q:before {content: open-quote}
 q:after {content: close-quote}
 
 #cookie-law {
+	color: white;
 	font-size: 15px;
-	background-color: #D2D4DB;
+	background-color: rgba(121,127,148,0.3);
 	padding: 10px;
 	margin: 0;
+}
+
+#cookie-law a, #cookie-law a:hover, #cookie-law a:active, #cookie-law a:focus {
+	text-decoration: none;
+	color: white;
 }
 
 /* call to action */

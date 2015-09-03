@@ -167,7 +167,15 @@ After this function is called no new events will be built or stored in the local
 
 You can play with this option by clicking the toggle next to `Tracking` to `OFF` and attempting to add events. You should notice that the `Made` counter continues to itterate but that the Tracker's `DB Count` and `Sent Count` do not change.
 
-[TODO: ADD SCREEN SHOTS]
+<img src="/assets/img/blog/2015/09/demo-app-1.png" style="width: 30%;float: left;" />
+<img src="/assets/img/blog/2015/09/demo-app-2.png" style="width: 30%;float: left;" />
+<img src="/assets/img/blog/2015/09/demo-app-3.png" style="width: 30%;float: left;" />
+
+New labels explained:
+* Session Count: how many sessions have been started during this applications installation period.
+* Running: whether or not the emitter is currently sending events
+* Online: whether the application has detected an active network connection
+* Background: whether the application is in the background or not
 
 <h2><a name="changes">6. Other changes</a></h2>
 
@@ -218,7 +226,7 @@ If you have an idea for a new feature or want help getting things set up, please
 
 [lib-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_objc_tracker_0.5.0.zip
 
-[subject-set-functions]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker/xxx
+[subject-set-functions]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker#3-adding-extra-data
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [issues]: https://github.com/snowplow/snowplow/issues

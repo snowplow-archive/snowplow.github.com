@@ -1,71 +1,29 @@
-<header{% if page.header %} class="custom"{% endif %}>
+<header>
 
   <div class="menu">
     <div class="container">
-
-      {% if page.hide-brand %}<!-- do nothing -->
-      {% else %}<div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"><img src="/assets/themes/snowplow/img/logo-white.png"></a></div>&nbsp;<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
-      {% endif %}
-
-        <nav role="navigation">
-          <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
-
-          <div class="nav-collapse collapse" id="nav-collapse">
-            <ul>
-
-            {% if page.group == 'product' %}<li class="active"><a href="/product" class="active without-border">Product</a></li>
-            {% else %}<li><a href="/product" class="without-border">Product</a></li>
-            {% endif %}
-
-            {% if page.group == 'technology' %}<li class="active"><a href="/technology" class="active without-border">Technology</a></li>
-            {% else %}<li><a href="/technology" class="without-border">Technology</a></li>
-            {% endif %}
-
-            {% if page.group == 'documentation' %}<li class="active"><a href="/documentation" class="active without-border">Documentation</a></li>
-            {% else %}<li><a href="/documentation" class="without-border">Documentation</a></li>
-            {% endif %}
-
-            {% if page.url contains 'blog' %}<li class="active"><a href="/blog" class="active without-border">Blog</a></li>
-            {% else %}<li><a href="/blog" class="without-border">Blog</a></li>
-            {% endif %}
-
-            {% if page.group == 'get-started' %}<li class="active"><a href="/get-started" class="active with-border">Get started</a></li>
-            {% else %}<li><a href="/get-started" class="with-border">Get started</a></li>
-            {% endif %}
-
-            </ul>
-          </div>
-        </nav>
-
+      <div class="brand" role="banner"><div class="logo"><a href="{{ HOME_PATH }}"><img src="{{ BASE_PATH }}/assets/img/design/logo-white.png"></a></div>&nbsp;<div class="name"><a href="{{ HOME_PATH }}">Snowplow</a></div></div>
+      <nav role="navigation">
+        <div class="toggle"><button type="button" class="toggle-menu" data-toggle="collapse" data-target="#nav-collapse">Menu</button></div>
+        <div class="nav-collapse collapse" id="nav-collapse">
+          <ul>
+            <li{% if page.group == 'product' %} class="active"{% endif %}><a href="/product" class="without-border">Product</a></li>
+            <li{% if page.group == 'technology' %} class="active"{% endif %}><a href="/technology" class="without-border">Technology</a></li>
+            <li{% if page.group == 'documentation' %} class="active"{% endif %}><a href="/documentation" class="without-border">Documentation</a></li>
+            <li{% if page.url contains 'blog' %} class="active"{% endif %}><a href="/blog" class="without-border">Blog</a></li>
+            <li{% if page.group == 'get-started' %} class="active"{% endif %}><a href="/get-started" class="with-border">Get started</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 
-  {% if page.header == 'title' %}<div class="wrapper title">
-  {% elsif page.header %}<div class="wrapper">
-  {% endif %}
-
-    {% if page.header == 'title' %}{% include snowplow/headers/title.html %}{% endif %}
-
-    {% if page.header == 'homepage' %}{% include snowplow/headers/homepage.html %}{% endif %}
-    {% if page.header == 'pricing' %}{% include snowplow/headers/pricing.html %}{% endif %}
-    {% if page.header == 'batch' %}{% include snowplow/headers/batch.html %}{% endif %}
-    {% if page.header == 'real-time' %}{% include snowplow/headers/real-time.html %}{% endif %}
-
-  {% if page.header %}</div>{% endif %}
-
-  {% if page.header == 'titleTEMP' %}
-    <div class="breadcrumb">
-      <div class="container">
-        <nav>
-          <ol class="cd-breadcrumb">
-            {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == null %}{% if node.breadcrumb == null %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.group }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
-            {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb == null %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.subgroup }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
-            {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb %}{% if node.breadcrumb == page.breadcrumb %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.breadcrumb }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
-            {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb == page.breadcrumb %}{% if node.subbreadcrumb %}{% if node.subbreadcrumb == page.subbreadcrumb %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.subbreadcrumb }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
-          </ol>
-        </nav>
-      </div>
-    </div>
-  {% endif %}
+  <div class="wrapper{% if page.header %} custom{% endif %}">
+    {% if page.header == 'homepage' %}{% include headers/homepage.html %}
+    {% elsif page.header == 'pricing' %}{% include headers/pricing.html %}
+    {% elsif page.header == 'batch' %}{% include headers/batch.html %}
+    {% elsif page.header == 'real-time' %}{% include headers/real-time.html %}
+    {% else %}{% include headers/title.html %}{% endif %}
+  </div>
 
 </header>

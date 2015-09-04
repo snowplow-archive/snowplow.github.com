@@ -1,73 +1,70 @@
 
-/* basic structure */
+/* main: basic structure */
 
-main {
-	min-height: 500px; /* prevent pages from looking ridiculous */
-	background-color: white;
-	padding: 0;
+main {padding: 0}
+
+/* main: breadcrumb */
+
+main .breadcrumb {font-weight: 300; font-size: 15px; color: white}
+
+main .breadcrumb a,
+main .breadcrumb a:hover,
+main .breadcrumb a:focus {text-decoration: none; color: white}
+
+main .breadcrumb {
+	text-transform: uppercase;
+	background-color: rgba(121,127,148,0.3);
+  padding: 12px 0;
+  margin: 0;
 }
+
+main ol.cd-breadcrumb {padding: 0; margin: 0}
+
+main ol.cd-breadcrumb:after  {
+  display: table;
+  clear: both;
+}
+
+main ol.cd-breadcrumb li {display: inline-block; float: left; margin: 0}
+
+main ol.cd-breadcrumb li::after {
+  display: inline-block;
+  margin: 0 15px;
+	content: '❯';
+}
+
+main ol.cd-breadcrumb li:last-of-type::after {display: none}
 
 /* wrappers */
 
-main .wrapper {padding: 60px 0}
+main .wrapper {padding: 45px 0; background-color: white}
 main .wrapper.shaded {background-color: rgb(240,240,240)}
-
-/* custom text */
-
-main h1 {text-align: center}
-
-main.custom h2 {
-	margin: 60px auto;
-	text-align: center;
-	font-weight: 300;
-  font-size: 40px;
-  width: 65%
-}
-
-main.custom h2:first-child {margin-top: 0}
-
-main.custom h3 {
-	margin: 30px auto;
-	text-align: center;
-	font-weight: 400;
-  font-size: 25px;
-}
-
-main.custom h3:first-child {margin-top: 0}
-
-main.custom p,
-main.custom ol,
-main.custom ul {margin: 0 0 15px 0}
-
-main.custom p:last-child,
-main.custom ol:last-child,
-main.custom ul:last-child {margin-bottom: 0}
 
 /* Homepage */
 
-main.custom .users-logobox .logo {display: inline-block;}
+.users-logobox .logo {display: inline-block;}
 
-main.custom .users-logobox .logo img {height: 100px; }
+.users-logobox .logo img {height: 100px; }
 
-main.custom .users-mugshot {
+.users-mugshot {
 	padding: 15px 15px 0 15px;
 	float: left;
 	width: 15%;
 }
 
-main.custom .users-oneliner {
+.users-oneliner {
 	padding: 0 15px;
 	float: left;
 	width: 85%
 }
 
-main.custom .users-oneliner cite {
+.users-oneliner cite {
 	font-size: 18px;
 	font-weight: 400;
 	padding-left: 30px;
 }
 
-main.custom .users-logobox {
+.users-logobox {
 	text-align: center;
 	width: 100%;
 }
@@ -122,11 +119,6 @@ p {line-height: 1.45}
 
 /* blog */
 
-.datebox {
-	margin-bottom: 30px;
-	text-align: center
-}
-
 .datebox,
 .datebox > a,
 .datebox > a:hover {
@@ -151,8 +143,6 @@ p {line-height: 1.45}
 .box							{margin-bottom: 45px}
 .box:last-of-type {margin-bottom: 0}
 
-@media (min-width: 768px) {.box-text.half {float: left; width: 50%}}
-
 .box-header {
 	text-transform: uppercase;
 	background-color: rgb(240,240,240);
@@ -161,6 +151,8 @@ p {line-height: 1.45}
 	font-weight: 400;
 	font-size: 18px;
 }
+
+@media (min-width: 768px) {.box-text.half {float: left; width: 50%}}
 
 .box-text {
 	border-radius: 0 0 5px 5px;

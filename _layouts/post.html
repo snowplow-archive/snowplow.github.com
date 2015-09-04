@@ -3,4 +3,102 @@ theme:
   name: bootstrap-3
 layout: default
 ---
-{% include themes/bootstrap-3/post.html %}
+<main>
+  <div class="breadcrumb">
+    <div class="container">
+      <nav>
+        <ol class="cd-breadcrumb">
+          <li><a href="/blog">Blog</a></li>
+          {% if page.category %}<li><a>{{ page.category }}</a></li>{% endif %}
+          <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+
+  <div class="wrapper">
+    <div class="container">
+<div class="row post-full">
+  <div class="col-md-9">
+
+    <div class = "blog">
+      <div class="blog datebox">
+        {{ page.date | date_to_long_string }}&nbsp;&nbsp;|&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == page.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}
+      </div>
+      <h1>{{ page.title }}</h1>
+        {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}
+      <div class="content">
+        {{ content }}
+      </div>
+    </div>
+
+  <!-- Author box -->
+    {% for author in site.data.authors %}
+      {% if author.name == page.author %}
+      <div class="well">
+        <div class="media">
+          <a class="pull-left" href="{{ author.url }}">
+            <img class="media-object" src="{{ author.avatar }}">
+          </a>
+          <div class="media-body">
+            {{ author.spiel }}
+          </div>
+        </div>
+      </div>
+      {% endif%}
+    {% endfor %}
+
+    {% if site.data.authors[page.author] != null %}
+      {% assign author = site.data.authors[page.author] %}
+        <div class="media">
+          <a class="pull-left" href="{{ author.url }}">
+            <img class="media-object" data-src=" {{ author.avatar }}">
+          </a>
+        <div class="media-body">
+          {{ author.spiel }}
+        </div>
+    {% endif %}
+
+    {% unless page.categories == empty %}
+      <ul class="tag_box inline">
+        <li><i class="glyphicon glyphicon-open"></i></li>
+        {% assign categories_list = page.categories %}
+        {% include JB/categories_list %}
+      </ul>
+    {% endunless %}
+
+    {% unless page.tags == empty %}
+      <ul class="tag_box inline">
+        <li><i class="glyphicon glyphicon-tags"></i></li>
+        {% assign tags_list = page.tags %}
+        {% include JB/tags_list %}
+      </ul>
+    {% endunless %}
+
+      <hr>
+      <ul class="pagination">
+      {% if page.previous %}
+        <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&laquo; Previous</a></li>
+      {% else %}
+        <li class="prev disabled"><a>&larr; Previous</a></li>
+      {% endif %}
+        <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a></li>
+      {% if page.next %}
+        <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &raquo;</a></li>
+      {% else %}
+        <li class="next disabled"><a>Next &rarr;</a>
+      {% endif %}
+      </ul>
+      <hr>
+      {% include JB/comments %}
+    </div>
+    <div class="col-md-3">
+      {% include snowplow/sidebar_blog %}
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</main>

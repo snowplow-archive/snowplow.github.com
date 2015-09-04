@@ -4,7 +4,7 @@
 // Conceived by Robert Kent, James Bavington & Tom Foyster
 
 var dropCookie = true;                      // false disables the Cookie, allowing you to style the banner
-var cookieDuration = 14;                    // Number of days before the cookie expires, and the banner reappears
+var cookieDuration = 730;                    // Number of days before the cookie expires, and the banner reappears
 var cookieName = 'complianceCookie';        // Name of our cookie
 var cookieValue = 'on';                     // Value of cookie
 
@@ -12,7 +12,7 @@ function createDiv(){
     var bodytag = document.getElementsByTagName('body')[0];
     var div = document.createElement('div');
     div.setAttribute('id','cookie-law');
-    div.innerHTML = 'This website uses cookies. By continuing we assume your permission to use cookies, as detailed in our <a href="/privacy" rel="nofollow" title="Privacy &amp; Cookies Policy">privacy and cookies policy</a>. <a class="close-cookie-banner" href="javascript:void(0);" onclick="removeMe();"><span>X</span></a>';
+    div.innerHTML = 'We use cookies to improve our website. By continuing we assume your permission to use cookies, as detailed in our <a href="/privacy" rel="nofollow">privacy and cookies policy</a> (<a class="close-cookie-banner" href="javascript:void(0);" onclick="removeMe();"><span>close this message</span></a>).';
  // Be advised the Close Banner 'X' link requires jQuery
 
     // bodytag.appendChild(div); // Adds the Cookie Law Banner just before the closing </body> tag

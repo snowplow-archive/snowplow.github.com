@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+      <h1>
+        {% if page.group == "TEMP" %}Latest news from the Snowplow team.
+        {% elsif page.group == "tech" %}What’s under the hood?
+        {% elsif page.group == "documentation" %}Learn how to get the most out of Snowplow.
+        {% elsif page.group == "blog" %}Latest news from the Snowplow team.
+        {% elsif page.author %}Latest news from the Snowplow team.<!-- this is a hack -->
+        {% else %}{{ page.title }}
+        {% endif %}
+      </h1>
+  </div>
+</div>

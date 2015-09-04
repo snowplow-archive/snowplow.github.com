@@ -5,6 +5,7 @@ title: Snowplow 69 Blue-Bellied Roller released with new and updated SQL data mo
 tags: [snowplow, analytics, data modeling]
 author: Christophe
 category: Releases
+image: blog/2015/07/R69-blue-bellied-roller.jpg
 ---
 
 We are pleased to announce the release of Snowplow 69, Blue-Bellied Roller, which contains new and updated SQL data models. The blue-bellied roller is a beautiful African bird that breeds in a narrow belt from Senegal to the northeast of the Congo. It has a dark green back, a white head, neck and breast, and a blue belly and tail.

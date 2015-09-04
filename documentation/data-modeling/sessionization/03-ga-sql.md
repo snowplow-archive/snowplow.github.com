@@ -1,6 +1,5 @@
 ---
 layout: page
-header: title
 group: documentation
 subgroup: data modeling
 breadcrumb: sessionization

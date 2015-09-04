@@ -10,7 +10,7 @@ html, body {
 
 body {
 	background-color: #4C5371;
-	background-image: url('/assets/themes/snowplow/img/world.png');
+	background-image: url('/assets/img/design/world.png');
 	background-repeat: no-repeat;
 	background-size: 100%;
 }
@@ -83,7 +83,7 @@ h2 {
 	letter-spacing: -1px;
 }
 
-h1:first-child, h2:first-child {margin-top: 0}
+h1:first-of-type, h2:first-of-type {margin-top: 0}
 
 h1:first-of-type
 
@@ -119,10 +119,16 @@ q:before {content: open-quote}
 q:after {content: close-quote}
 
 #cookie-law {
+	color: white;
 	font-size: 15px;
-	background-color: #D2D4DB;
+	background-color: rgba(121,127,148,0.3);
 	padding: 10px;
 	margin: 0;
+}
+
+#cookie-law a, #cookie-law a:hover, #cookie-law a:active, #cookie-law a:focus {
+	text-decoration: none;
+	color: white;
 }
 
 /* call to action */
@@ -130,7 +136,7 @@ q:after {content: close-quote}
 .cta-button {
 	font-size: 15px;
   font-weight: 400;
-  padding: 15px 18px;
+  padding: 12px 15px;
   border: 1px solid transparent; /* overwrite defaults */
   border-radius: 30px;
   text-transform: uppercase;

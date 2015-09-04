@@ -69,6 +69,10 @@ main .column.narrow > .header {
 main .column.narrow > .header:first-of-type {border-radius: 8px 8px 0 0}
 main .column.narrow > .text {padding: 12px 15px}
 
+main .column.narrow ul {margin: 0; padding: 0}
+main .column.narrow li {list-style: none; padding-bottom: 5px}
+main .column.narrow li:last-of-type {padding-bottom: 0}
+
 /* main: blog */
 
 .datebox,
@@ -81,7 +85,7 @@ main .column.narrow > .text {padding: 12px 15px}
 	text-decoration: none;
 }
 
-.continue {text-align: center; margin-top: 15px}
+.continue {text-align: center; margin-top: 12px}
 
 
 

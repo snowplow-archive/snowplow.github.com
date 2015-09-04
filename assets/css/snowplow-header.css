@@ -1,7 +1,7 @@
 
-/* basic structure */
+/* header: basic structure */
 
-header {padding: 15px 0 0 0}
+header {padding-top: 15px}
 
 header .brand, header .logo, header .name {float: left}
 header .menu nav {float: right}
@@ -9,26 +9,26 @@ header .menu nav {float: right}
 header .wrapper				 {margin: 30px 0 12px 0}
 header .wrapper.custom {margin: 45px 0 30px 0}
 
-/* text */
+/* header: text */
 
 header {font-weight: 300; font-size: 15px; color: white}
 header a, header a:hover, header a:focus {text-decoration: none; color: white}
 
-/* brand */
+/* header: brand */
 
 header .logo img {height: 51px}
 
-header .name { /* make snowplow as large as possible */
+header .name {
 	text-transform: uppercase;
 	letter-spacing: -1px;
 	margin-left: 15px;
 	font-weight: 300;
-	font-size: 36px
+	font-size: 36px;
 }
 
 @media (max-width: 991px) {header .name {display: none}}
 
-/* collapsable menu on mobile */
+/* header: mobile menu (collapsable) */
 
 @media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
 
@@ -40,9 +40,9 @@ header .collapse.in {display: block}
 
 @media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
 
-/* menu */
+/* header: menu */
 
-header .nav-collapse {text-align: right} /* for the vertical menu */
+header .nav-collapse {text-align: right} /* mobile menu */
 
 header .nav-collapse ul {margin: 15px 0}
 
@@ -52,9 +52,9 @@ header .nav-collapse li {
 }
 
 header .nav-collapse li a {
-	border: 2px solid;
-	border-radius: 30px;
 	text-transform: uppercase;
+	border-radius: 30px;
+	border: 2px solid;
 	padding: 12px 15px
 }
 
@@ -64,17 +64,7 @@ header .nav-collapse li.active a.with-border {border-color: rgba(121,127,148,0.3
 
 header .nav-collapse li a.without-border {border-color: transparent}
 
-/*header .nav-collapse .active a:hover,*/
-/*header .nav-collapse .active a:focus,*/
-/*header .nav-collapse li      a:hover,*/
-/*header .nav-collapse li      a:focus */
-
-/*header .nav-collapse .active a {
-	background-color: rgba(121,127,148,0.3);
-	border-color: transparent
-}*/
-
-/* mobile menu */
+/* header: mobile menu */
 
 @media (max-width: 767px) {
 
@@ -97,7 +87,7 @@ header .nav-collapse li a.without-border {border-color: transparent}
 	header .nav-collapse li {
 		list-style: none;
 		position: relative;
-		padding: 15px 12px;
+		padding: 12px 15px;
 		margin-right: 0;
 		margin-top: 5px;
   	display: block;
@@ -105,43 +95,22 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 }
 
-/* bigbox */
-
-header .bigbox {text-align: center; margin: 0}
-
-header .bigbox h1 {
-	margin-bottom: 60px;
-	font-weight: 300;
-	font-size: 65px
-}
-
-header .bigbox h2 {
-	margin-bottom: 30px;
-	font-weight: 300;
-	font-size: 30px
-}
-
-header .bigbox p {
-	margin: 0 auto 30px auto;
-	font-size: 25px;
-	width: 90%
-}
-
-/* TEMP */
+/* header: title */
 
 header .wrapper h1 {margin: 0}
 
+/* header: breadcrumb */
+
 header .breadcrumb {
+	text-transform: uppercase;
+	background-color: rgba(121,127,148,0.3);
   padding: 12px 0;
-  background-color: rgba(121,127,148,0.3);
   margin: 0;
-  text-transform: uppercase;
 }
 
 ol.cd-breadcrumb {padding: 0; margin: 0}
 
 ol.cd-breadcrumb:after  {
-  content: "";
   display: table;
   clear: both;
 }
@@ -150,11 +119,15 @@ ol.cd-breadcrumb li {display: inline-block; float: left; margin: 0}
 
 ol.cd-breadcrumb li::after {
   display: inline-block;
-  content: '❯';
   margin: 0 15px;
+	content: '❯';
 }
 
 ol.cd-breadcrumb li:last-of-type::after {display: none}
+
+
+
+
 
 
 /* pricing plans */
@@ -242,4 +215,26 @@ select.snplw-form-control {
   text-align: center;
 	font-weight: 400;
   font-size: 18px
+}
+
+/* TODO: bigbox */
+
+header .bigbox {text-align: center; margin: 0}
+
+header .bigbox h1 {
+	margin-bottom: 60px;
+	font-weight: 300;
+	font-size: 65px
+}
+
+header .bigbox h2 {
+	margin-bottom: 30px;
+	font-weight: 300;
+	font-size: 30px
+}
+
+header .bigbox p {
+	margin: 0 auto 30px auto;
+	font-size: 25px;
+	width: 90%
 }

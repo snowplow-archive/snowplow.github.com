@@ -9,7 +9,7 @@ main {
 
 /* wrappers */
 
-main .wrapper {padding: 60px 0}
+main .wrapper {padding: 45px 0}
 main .wrapper.shaded {background-color: rgb(240,240,240)}
 
 /* Homepage */

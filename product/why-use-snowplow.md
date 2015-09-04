@@ -1,5 +1,5 @@
 ---
-layout: page_old
+layout: page
 group: product
 title: Why use Snowplow?
 shortened-link: Why use Snowplow?

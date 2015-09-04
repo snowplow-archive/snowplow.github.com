@@ -1,15 +1,24 @@
 ---
-layout: page_old
+layout: page
 group: product
 title: Product
 shortened-link: What is Snowplow?
 description: Snowplow is an Event Analytics Platform. It delivers event line of your own, customer-level, event-level data, from all your channels, platforms and services, into your own structured data warehouse and unified log
 weight: 1
 ---
-<!-- custom-header: product -->
+
 <h1>Snowplow is an event analytics platform</h1>
 
-Snowplow enables you to:
+<strong>Navigation:</strong>
+
+<ul>
+<li><a href="why-warehouse-your-data.html">Why warehouse your web, mobile and other event data?</a></li>
+<li><a href="the-best-event-data-warehouse.html">What makes Snowplow the best web and mobile datawarehousing platform?</a></li>
+<li><a href="why-use-snowplow.html">Why use Snowplow?</a></li>
+<li><a href="who-uses-snowplow.html">Who uses Snowplow?</a></li>
+</ul>
+
+<strong>Snowplow enables you to:</strong>
 
 <div class="html">
 	<ul>
@@ -27,17 +36,17 @@ Snowplow enables you to:
 
 <img src="/assets/img/product/event-analytics-1-record-events.png" title="Snowplow record events" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
 
-Snowplow enables you to record rich, granular, event level data from your 
+Snowplow enables you to record rich, granular, event level data from your
 
- * website, 
- * mobile applications, 
- * desktop applications, 
- * server-side systems and 
+ * website,
+ * mobile applications,
+ * desktop applications,
+ * server-side systems and
  * third party applications.
 
-This data provides a record of everything that has occurred in your business, providing a solid foundation for 
+This data provides a record of everything that has occurred in your business, providing a solid foundation for
 
-1. building insight and 
+1. building insight and
 2. using that for taking intelligent action.
 
 Our [large library of open source trackers] [trackers] enable you to track and generate data from your own systems.
@@ -51,8 +60,8 @@ In addition, we support ingesting data from a growing number of third party prov
 Our pipeline does not just collect and warehouse data. It:
 
 1. **Validates your data** to ensure that it conforms the associated schemas. Unlike our competitors, we do not ignore malformed data - we provide it back to our users so they can address the issue at source and reprocess the data if necessary
-2. **Enriches your data**. Our enrichment performs dimension widening on captured data using third party data sets: for example: 
-  * parsing and categorising referer URLs, 
+2. **Enriches your data**. Our enrichment performs dimension widening on captured data using third party data sets: for example:
+  * parsing and categorising referer URLs,
   * inferring device, browser and operating system information from useragents,
   * locating users based on their IP addresses, by country and business,
   * identifying the campaign that drove a user to your website or application, for example

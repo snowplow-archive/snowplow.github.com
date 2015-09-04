@@ -1,6 +1,7 @@
 ---
 layout: page
 group: product
+subgroup: who uses snowplow?
 title: Who uses Snowplow?
 shortened-link: Who uses Snowplow?
 description: Snowplow is used by some of the most data-sophisticated companies in the world

@@ -1,6 +1,7 @@
 ---
 layout: page
 group: about
+subgroup: privacy
 category: privacy
 title: Privacy policy
 description: Snowplow privacy policy

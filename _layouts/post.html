@@ -4,6 +4,19 @@ theme:
 layout: default
 ---
 <main>
+  <div class="breadcrumb">
+    <div class="container">
+      <nav>
+        <ol class="cd-breadcrumb">
+          <li><a href="/blog">Blog</a></li>
+          {% if page.category %}<li><a>{{ page.category }}</a></li>{% endif %}
+          <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+
   <div class="wrapper">
     <div class="container">
 <div class="row post-full">

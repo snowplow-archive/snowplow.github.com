@@ -6,6 +6,16 @@ group: blog
 category: blog
 ---
 
+<div class="breadcrumb">
+  <div class="container">
+    <nav>
+      <ol class="cd-breadcrumb">
+        <li><a href="{{ page.url }}">Blog</a></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
 <div class="wrapper">
 
 {% for post in paginator.posts %}

@@ -99,31 +99,6 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 header .wrapper h1 {margin: 0}
 
-/* header: breadcrumb */
-
-header .breadcrumb {
-	text-transform: uppercase;
-	background-color: rgba(121,127,148,0.3);
-  padding: 12px 0;
-  margin: 0;
-}
-
-ol.cd-breadcrumb {padding: 0; margin: 0}
-
-ol.cd-breadcrumb:after  {
-  display: table;
-  clear: both;
-}
-
-ol.cd-breadcrumb li {display: inline-block; float: left; margin: 0}
-
-ol.cd-breadcrumb li::after {
-  display: inline-block;
-  margin: 0 15px;
-	content: '❯';
-}
-
-ol.cd-breadcrumb li:last-of-type::after {display: none}
 
 
 

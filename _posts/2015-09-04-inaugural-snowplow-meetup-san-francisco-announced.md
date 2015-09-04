@@ -21,7 +21,7 @@ To keep up to date with the details as they're finalized, please sign up to the 
 
 <!--more-->
 
-If you'd like to speak at the event, or attend, then give me a shout on yali at snowplowanalytics dot com. I'm going to be out in San Francisco until October 15th, and I'd love to meet as many Snowplow users, prospective users and parters whilst I'm out there!
+If you'd like to speak at the event, or attend, then give me a shout on yali at snowplowanalytics dot com. I'm going to be out in San Francisco until October 15th, and I'd love to meet as many Snowplow users, prospective users and partners whilst I'm out there!
 
 For a flavour of how Snowplow meetups have gone in other parts of the world, read the write ups on events in [London] [london], [Berlin] [berlin] and [Amsterdam] [amsterdam]. Stay tuned for forthcoming meetups in New York, Boston, Budapest and Sydney.
 

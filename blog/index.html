@@ -17,53 +17,57 @@ category: blog
 </div>
 
 <div class="wrapper">
-
-{% for post in paginator.posts %}
-
-  <div class="post">
-
-    <div class="container narrow">
-      <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
-      <h1>
-        <a href="{{ post.url }}">
-          {{ post.title }}
-          {% if post.description %}<br>{{ post.description }}{% endif %}
-        </a>
-      </h1>
+  <div class="container">
+    <div class="column wide">
+      {% for post in paginator.posts %}
+      <div class="post">
+        <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
+        <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        <div class="content">{{ post.excerpt }}</div>
+        <div class="continue"><a href="{{ post.url }}"><button class="cta-button blue" type="button">Continue reading</button></a></div>
+      </div>
+      <hr>
+      {% endfor %}
     </div>
-
-    <div class="container narrow">
-      <div class="content">{{ post.excerpt }}</div>
-      <div class="continue"><a href="{{ post.url }}"><button class="cta-button blue" type="button">Continue reading</button></a></div>
+    <div class="column narrow">
+      <div class="header">Subscribe</div>
+      <div class="text">
+        Sign up to our mailinglist to be notified of new releases and related news.
+        {% include mailchimp/mailchimp.html %}
+      </div>
+      <!--<div class="header">Recent releases</div>
+      <div class="text">
+        <ul>
+          <li>Snowplow 71</li>
+          <li>Snowplow 70</li>
+          <li>Huskimo 0.3.0</li>
+          <li>Snowplow 69</li>
+        </ul>
+      </div>
+      <div class="header">Recommended posts</div>
+      <div class="text">test</div>-->
     </div>
-
   </div>
-
-  <hr>
-
-{% endfor %}
 
   <div class="container">
 
-	<!-- Pagination links -->
+  <!-- Pagination links -->
 
-	<div class="pagination" style="text-align:center">
-	  <ul>
-	    {% if paginator.previous_page %}
-	      <a href="/blog/page{{ paginator.previous_page }}" class="previous">Previous</a>
-	    {% else %}
-	      <span class="previous">Previous</span>
-	    {% endif %}
-	    <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-	    {% if paginator.next_page %}
-	      <a href="/blog/page{{ paginator.next_page }}" class="next">Next</a>
-	    {% else %}
-	      <span class="next ">Next</span>
-	    {% endif %}
-	  </ul>
-	</div>
-
-</div>
+  <div class="pagination" style="text-align:center">
+    <ul>
+      {% if paginator.previous_page %}
+        <a href="/blog/page{{ paginator.previous_page }}" class="previous">Previous</a>
+      {% else %}
+        <span class="previous">Previous</span>
+      {% endif %}
+      <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+      {% if paginator.next_page %}
+        <a href="/blog/page{{ paginator.next_page }}" class="next">Next</a>
+      {% else %}
+        <span class="next ">Next</span>
+      {% endif %}
+    </ul>
+  </div>
 
 </div>
 

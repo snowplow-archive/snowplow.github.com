@@ -1,6 +1,7 @@
 ---
 layout: page
 group: about
+subgroup: partners
 title: The Snowplow partner ecosystem
 shortened-link: Partners
 description: The team building Snowplow

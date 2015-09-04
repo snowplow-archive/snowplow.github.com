@@ -1,6 +1,6 @@
 ---
 layout: page
-group: tech
+group: technology
 title: Technology
 description: Snowplow is architected using the best-of-breed in open source and cloud technology, to deliver a highly scalable, robust, cost effective event analytics platform. Our technology stack leverages Amazon Kinesis, Scalding, Cascading, Hadoop, EMR and Amazon Redshift
 ---

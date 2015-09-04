@@ -1,6 +1,7 @@
 ---
 layout: page
 group: about
+subgroup: jobs
 title: Jobs at Snowplow - join the Snowplow team!
 description: Join the Snowplow team
 shortened-link: Jobs

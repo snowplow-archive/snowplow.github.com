@@ -1,6 +1,7 @@
 ---
 layout: page
 group: product
+subgroup: the best data warehousing platform
 title: What makes Snowplow the best web and mobile datawarehousing platform
 shortened-link: The best web and mobile datawarehouse
 description: Snowplow  is the best platform for warehousing your event (including web and mobile data).

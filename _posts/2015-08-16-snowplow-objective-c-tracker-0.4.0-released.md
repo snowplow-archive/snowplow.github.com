@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Objective-C Tracker 0.4.0 released
 title: Snowplow Objective-C Tracker 0.4.0 released
+title-short: Snowplow Objective-C Tracker 0.4.0
 tags: [snowplow, analytics, ios, osx, objc, objectivec]
 author: Josh
 category: Releases
@@ -79,10 +79,10 @@ This will allow you to override the `onSuccess` and `onFailure` methods included
 To add this callback to your `SnowplowEmitter` object:
 
 {% highlight objective-c %}
-SnowplowEmitter *emitter = 
-    [[SnowplowEmitter alloc] initWithURLRequest:[NSURL URLWithString:url_] 
-                                     httpMethod:method_ 
-                                   bufferOption:option_ 
+SnowplowEmitter *emitter =
+    [[SnowplowEmitter alloc] initWithURLRequest:[NSURL URLWithString:url_]
+                                     httpMethod:method_
+                                   bufferOption:option_
                                 emitterCallback:self]; // New constructor argument!
 {% endhighlight %}
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: AWS Lambda Scala example project released
 title: AWS Lambda Scala example project released
+title-short: AWS Lambda Scala example project
 tags: [snowplow, scala, kinesis, dynamodb, tutorial, analytics]
 author: Vincent
 category: Releases
@@ -63,7 +63,7 @@ The most complete open-source example of an analytics-on-write implementation is
 <h2><a name="detailed-setup">3. Detailed setup</a></h2>
 </div>
 
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. 
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available.
 
 <h3>Step 1: Build the project</h3>
 
@@ -121,7 +121,7 @@ Created role
 
 <h3>Step 4: Upload project jar to Amazon S3</h3>
 
-In the very first set, we "assembled" and compiled our Scala project files into a self contained jar. SBT built our jar file and put it into target folder here: `./target/scala-2.11/aws-lambda-scala-example-project-0.1.0`. 
+In the very first set, we "assembled" and compiled our Scala project files into a self contained jar. SBT built our jar file and put it into target folder here: `./target/scala-2.11/aws-lambda-scala-example-project-0.1.0`.
 With the next `inv` command we will create a new bucket on S3 called `aws_scala_lambda_bucket`. The jar file will then be uploaded under the S3 key `aws-lambda-scala-example-project-0.1.0`.
 
 Be patient while the uploader copies your multi-megabyte jar file to S3 with the following task:
@@ -154,11 +154,11 @@ Creating AWS Lambda function.
 
 <h3>Step 6: Associate our Kinesis stream to our Lambda</h3>
 
-Our Lambda function processes incoming event data from our Kinesis stream. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. 
+Our Lambda function processes incoming event data from our Kinesis stream. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream.
 
 If you go to the AWS Lambda console webpage and select the Monitor tab, you can see the output log information in the Amazon CloudWatch service.  
 
-We need to "connect" or "associate" our Lambda function to our Kinesis by: 
+We need to "connect" or "associate" our Lambda function to our Kinesis by:
 
 {% highlight bash %}
 $ inv configure_lambda my-stream
@@ -195,7 +195,7 @@ Remember to shut off:
 * Delete your `my-stream` Kinesis stream
 * Delete your `my-table` DynamoDB table
 * Delete your `ProcessingKinesisLambdaDynamoDB` function in AWS Lambda
-* Delete your `cloudwatch` logs associated to the Lambda function 
+* Delete your `cloudwatch` logs associated to the Lambda function
 * Exit your Vagrant guest
 * `vagrant halt`
 * `vagrant destroy`

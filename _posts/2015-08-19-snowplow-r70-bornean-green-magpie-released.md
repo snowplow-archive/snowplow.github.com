@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 70 released
 title: Snowplow 70 Bornean Green Magpie released
+title-short: Snowplow 70 Bornean Green Magpie
 tags: [snowplow, emr, emretlrunner, storageloader, jruby]
 author: Fred
 category: Releases
@@ -152,7 +152,7 @@ Also note that when specifying steps to skip using the `--skip` option, the "arc
 
 <h2 id="help">12. Getting help</h2>
 
-For more details on this release, please check out the [R70 Bornean Green Magpie release notes][r70-release] on GitHub. 
+For more details on this release, please check out the [R70 Bornean Green Magpie release notes][r70-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

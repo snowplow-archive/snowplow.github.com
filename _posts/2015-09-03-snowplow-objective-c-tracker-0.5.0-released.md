@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Objective-C Tracker 0.5.0 released
 title: Snowplow Objective-C Tracker 0.5.0 released
+title-short: Snowplow Objective-C Tracker 0.5.0
 tags: [snowplow, analytics, ios, osx, objc, objectivec]
 author: Josh
 category: Releases

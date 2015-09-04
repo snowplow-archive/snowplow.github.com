@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Schema Guru 0.3.0 released for generating Redshift tables from JSON Schemas
 title: Schema Guru 0.3.0 released for generating Redshift tables from JSON Schemas
+title-short: Schema Guru 0.3.0
 tags: [json, json schema, schema, iglu, self-describing, redshift]
 author: Anton
 category: Releases

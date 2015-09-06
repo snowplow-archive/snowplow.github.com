@@ -81,6 +81,6 @@ Do please [join the group] [meetup-group] to be kept up-to-date with upcoming me
 [samza]: http://samza.apache.org/
 [oplog]: http://docs.mongodb.org/manual/core/replica-set-oplog/
 [confluent-sr]: http://confluent.io/docs/current/schema-registry/docs/intro.html
-[iglu]: https://github.com/snowplow/iglu
+[iglu]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Figlu
 
 [email]: mailto:unified-ug@snowplowanalytics.com

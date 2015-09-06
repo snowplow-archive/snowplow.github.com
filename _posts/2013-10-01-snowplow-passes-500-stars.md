@@ -34,7 +34,7 @@ In other news, GitHub recently replaced its list of the most-watched Scala proje
 
 All of this is hugely encouraging for the future. So many thanks for your continued support and look out for some big new features coming to Snowplow soon!
 
-[snowplow]: https://github.com/snowplow/snowplow
+[snowplow]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fsnowplow
 [snowplow-200-stars]: /blog/2013/01/20/snowplow-hits-202-stars
 
 [hummingbird]: https://github.com/mnutt/hummingbird

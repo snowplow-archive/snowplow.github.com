@@ -145,10 +145,10 @@ We have lots of features planned for Schema Guru:
 [semigroup]: http://en.wikipedia.org/wiki/Semigroup
 [associative]: http://en.wikipedia.org/wiki/Associative_property
 [avro]: https://avro.apache.org/
-[schema-guru]: https://github.com/snowplow/schema-guru
+[schema-guru]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fschema-guru
 
-[snowplow]: https://github.com/snowplow/snowplow
-[iglu]: https://github.com/snowplow/iglu
+[snowplow]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fsnowplow
+[iglu]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Figlu
 [jsonschema-net]: http://jsonschema.net/#/
 
 [issues]: https://github.com/snowplow/schema-guru/issues

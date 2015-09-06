@@ -28,7 +28,7 @@ Welcome to the team Fred!
 [snowplow-python-tracker]: https://github.com/snowplow/snowplow-python-tracker
 [snowplow-ruby-tracker]: https://github.com/snowplow/snowplow-ruby-tracker
 [snowplow-javascript-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
-[iglu]: https://github.com/snowplow/iglu
+[iglu]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Figlu
 
 [fred-img]: /assets/img/blog/2014/07/fred-blundun.jpg
 

@@ -197,6 +197,6 @@ If you have any thoughts, please [get in touch][contact]!
 
 [eleet-defn]: http://www.urbandictionary.com/define.php?term=31337
 
-[iglu]: https://github.com/snowplow/iglu
+[iglu]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Figlu
 [contact]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [backward-compatibility-rules]: http://architects.dzone.com/articles/big-data-chapter-excerpt

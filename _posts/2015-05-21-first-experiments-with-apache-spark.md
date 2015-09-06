@@ -445,7 +445,7 @@ As the next steps in my internship, I will be focusing on marketing attribution 
 
 In parallel, another intern at Snowplow is figuring out how to run [Spark Streaming](https://spark.apache.org/streaming/) with Kinesis so that we can perform these types of real-time computation and visualization in real-time. Stay tuned for a blog post on that in due course!
 
-[repo]: https://github.com/snowplow/snowplow
+[repo]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fsnowplow
 [spark-logo]: /assets/img/blog/2015/05/spark_logo.png
 
 [inferring-the-schema-using-reflection]: https://spark.apache.org/docs/latest/sql-programming-guide.html#inferring-the-schema-using-reflection

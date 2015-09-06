@@ -361,7 +361,7 @@ We have plenty planned for the Schema Guru, Schema DDL and Iglu roadmaps! A few 
 * Detecting known enum sets when generating Schemas (any suggestions [highly appreciated] [issue-66]!)
 * Adding the ability to generate `CREATE TABLE` DDL for other databases
 
-[repo]: https://github.com/snowplow/schema-guru
+[repo]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fschema-guru
 [ddl-repo]: https://github.com/snowplow/schema-ddl
 [self-describing]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [json-schema]: http://json-schema.org/
@@ -376,7 +376,7 @@ We have plenty planned for the Schema Guru, Schema DDL and Iglu roadmaps! A few 
 
 [website-event-dictionary]: https://github.com/snowplow/snowplow-website-event-dictionary
 
-[iglu]: https://github.com/snowplow/iglu
+[iglu]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Figlu
 
 [issues]: https://github.com/snowplow/schema-guru/issues
 [issue-66]: https://github.com/snowplow/schema-guru/issues/66

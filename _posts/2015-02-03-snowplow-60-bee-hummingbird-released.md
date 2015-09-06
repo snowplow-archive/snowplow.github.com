@@ -139,7 +139,7 @@ If you have any questions or run any problems, please [raise an issue] [issues] 
 [semantic-versioning]: http://semver.org/
 [s3]: http://aws.amazon.com/s3/
 [bintray]: http://www.bintray.net/
-[repo]: https://github.com/snowplow/snowplow
+[repo]: http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fsnowplow
 [bee-hummingbird]: http://en.wikipedia.org/wiki/Bee_hummingbird
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample

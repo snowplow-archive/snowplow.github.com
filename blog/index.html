@@ -1,8 +1,9 @@
 ---
-layout: custom
 group: blog
-title: Blog
-description: Latest news from the Snowplow team.
+layout: custom
+title: Latest news
+description: Latest news from the Snowplow team
+permalink: /blog/
 ---
 
 <div class="breadcrumb">
@@ -18,8 +19,7 @@ description: Latest news from the Snowplow team.
 <div class="wrapper">
   <div class="container">
     <div class="column wide">
-
-      {% for post in site.posts limit:10 %}
+      {% for post in site.posts limit:9 %}
       <div class="post">
         <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
         <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
@@ -28,25 +28,38 @@ description: Latest news from the Snowplow team.
       </div>
       <hr>
       {% endfor %}
-
-      <div class="pagination" style="text-align:center">
-        <ul>
-          {% if paginator.previous_page %}
-            <a href="/blog/page{{ paginator.previous_page }}" class="previous">Previous</a>
-          {% else %}
-            <span class="previous">Previous</span>
-          {% endif %}
-          <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-          {% if paginator.next_page %}
-            <a href="/blog/page{{ paginator.next_page }}" class="next">Next</a>
-          {% else %}
-            <span class="next ">Next</span>
-          {% endif %}
-        </ul>
+      {% for post in site.posts limit:1 offset: 9 %}
+      <div class="post">
+        <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
+        <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        <div class="content">{{ post.excerpt }}</div>
+        <div class="continue"><a href="{{ post.url }}"><button class="cta-button blue" type="button">Continue reading</button></a></div>
       </div>
-
+      {% endfor %}
     </div>
-    <div class="column narrow">{% include sidebars/blog.html %}</div>
+    <div class="column narrow">{% include blog/sidebar.html %}</div>
   </div>
+</div>
 
+<div class="wrapper shaded">
+  <div class="container">
+    <h1 style="text-align:center">Interested in Snowplow? Let’s get started.</h1>
+    <div style="text-align:center">
+      <a href="/product"><button class="cta-button green" type="button">Learn more</button></a>&nbsp;&nbsp;
+      <a href="/get-started"><button class="cta-button green" type="button">Get started</button></a>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="container">
+    <h1><a href="/blog/archive">More recent posts</a></h1>
+    {% for post in site.posts limit:20 offset:10 %}
+    <div class="post">
+      <div class="datebox">{{ post.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == post.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    </div>
+    {% endfor %}
+    <a href="/blog/archive"><button class="cta-button blue" type="button">More posts</button></a>
+  </div>
 </div>

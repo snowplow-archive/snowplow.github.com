@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  {% if page.title %}<title>{{ page.title }} – Snowplow</title>{% else %}<title>Snowplow – Your digital nervous system</title>{% endif %}
+  {% if page.title %}<title>{{ page.title }} – {% if page.group == 'blog' %}Blog – {% endif %}Snowplow</title>{% else %}<title>Snowplow – Your digital nervous system</title>{% endif %}
   {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
   <meta name="author" content="{% if page.author %}{% for author in site.data.authors %}{% if author.name == page.author %}{% if author.full_name %}{{ author.full_name }}{% endif %}{% endif %}{% endfor %}{% else %}{{ site.author.name }}{% endif %}">
 

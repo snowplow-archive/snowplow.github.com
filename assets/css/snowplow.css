@@ -22,7 +22,8 @@ body {
 	font-size: 18px
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {body {-webkit-font-smoothing: antialiased}}
+/*@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {body {-webkit-font-smoothing: antialiased}}*/
+body {-webkit-font-smoothing: antialiased}
 
 /* various responsive containers */
 

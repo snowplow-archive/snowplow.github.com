@@ -1,0 +1,16 @@
+<div class="header">Subscribe</div>
+<div class="text">
+  Sign up to our mailinglist to be notified of new releases and related news.
+  {% include mailchimp/mailchimp.html %}
+</div>
+<div class="header">Recent releases</div>
+<div class="text">
+  <ul>{% for post in site.categories.releases limit:10 %}<li><a href="{{ post.url }}">{% if post.title-short %}{{ post.title-short }}{% else %}{{ post.title }}{% endif %}</a></li>{% endfor %}</ul>
+</div>
+<div class="header">Categories</div>
+<div class="text">
+  <ul>
+    {% assign categories_list = site.categories %}
+    {% include JB/categories_list %}
+  </ul>
+</div>

@@ -1,0 +1,37 @@
+<div class="breadcrumb">
+  <div class="container">
+    <nav>
+      <ol class="cd-breadcrumb">
+        <li><a href="/blog">blog</a></li>
+				<li>authors</li>
+        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="column wide">
+			<div class="author top">
+				<div class="box">
+					{% for author in site.data.authors %}
+						{% if author.name == page.author %}
+							<div class="box-header">{{ author.full_name }}</div>
+							<div class="box-text"><img src="{{ author.avatar }}">{{ author.spiel }}</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			{% for post in site.posts %}
+			{% if post.author == page.author %}
+			<div class="post">
+        <div class="datebox">{{ post.date | date_to_long_string }}</div>
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      </div>
+			{% endif %}
+      {% endfor %}
+    </div>
+    <div class="column narrow">{% include blog/sidebar.html %}</div>
+  </div>
+</div>

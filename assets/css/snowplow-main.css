@@ -40,7 +40,7 @@ main ol.cd-breadcrumb li:last-of-type::after {display: none}
 main .wrapper {padding: 45px 0}
 
 main .wrapper        {background-color: white}
-main .wrapper.shaded {background-color: rgb(240,240,240)}
+main .wrapper.shaded {background-color: rgb(240,240,240); padding-top: 60px}
 
 /*  main: columns */
 
@@ -87,7 +87,8 @@ main .column.narrow li:last-of-type {padding-bottom: 0}
 
 .continue {text-align: center; margin-top: 15px}
 
-.author {margin: 30px 0}
+.author			{margin: 30px 0}
+.author.top {margin: 15px 0 30px 0}
 
 
 
@@ -182,6 +183,7 @@ p {line-height: 1.45}
 
 .box							{margin-bottom: 30px}
 .box:last-of-type {margin-bottom: 0}
+.box:first-of-type {margin-bottom: 30px} /* overwrite last of type if only one */
 
 .box-header {
 	text-transform: uppercase;

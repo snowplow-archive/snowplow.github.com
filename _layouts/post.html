@@ -10,8 +10,10 @@ layout: default
       <nav>
         <ol class="cd-breadcrumb">
           <li><a href="/blog">Blog</a></li>
-          {% if page.category %}<li><a>{{ page.category }}</a></li>{% endif %}
-          <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+          {% if page.category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow">{{ page.category }}</a></li>
+          {% else %}<li><a href="/blog/{{ page.category }}">{{ page.category }}</a></li>
+          {% endif %}
+          <li><a href="{{ page.url }}">{% if page.title-short %}{{ page.title-short }}{% else %}{{ page.title }}{% endif %}</a></li>
         </ol>
       </nav>
     </div>

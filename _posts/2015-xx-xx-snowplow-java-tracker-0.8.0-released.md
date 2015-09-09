@@ -200,7 +200,7 @@ That is more than a 1300% speed increase by implementing the new Asynchronous mo
 
 We also spent a bit of time mapping the most efficient buffer-size for the Tracker.  This was done by sending 10000 events and seeing how long it took for them to all be sent successfully with varying buffer sizes.  As you would imagine the larger the buffer-size the lower the latency in getting the events to the collector.  Do be wary of how large you set the buffer-size though as you could very well start to exceed the maximum POST size allowed of 52000 bytes!
 
-<img src="/assets/img/blog/2015/09/buffer-vs-time.png" />
+<img src="/assets/img/blog/2015/09/buffer-vs-time-java.png" />
 
 So if you are expecting inordinate amounts of traffic do adjust your buffer size and Thread Count to allow the Tracker to deal with this accordingly!
 

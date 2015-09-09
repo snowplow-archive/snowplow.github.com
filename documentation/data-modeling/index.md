@@ -30,11 +30,20 @@ It's possible run SQL queries as part of the Snowplow pipeline through our open 
 
 First, start with a basic model that recomputes on all data each time the pipeline runs (which makes it easier to iterate because all derived tables are dropped and recomputed each time). This basic model can, for example, include a basic sessions table. More dimensions and measures are added during this phase, and the result is shared with business users. Their feedback is used to guide the development of these models.
 
-When the data models have been fleshed out, it's possible to move to a model that doesn't drop and recompute the derived tables, but updates them using events in the last batch.
+When the data models have been fleshed out, it's possible to move to a model that doesn't drop and recompute the derived tables, but updates them using events in the last batch (what we call incremental models).
+
+## How to write performant incremental data models?
+
+1. Load new events into atomic (as before).
+2. Keep a lightweight manifest to track what events have been processed before. For example, a table with `etl_tstamp` and event count which gets updated each time a batch is done processing.
+3. Each time the SQL queries run, restrict the selection to (at least) those events that have not been processed before. However, it's also important to write the queries so that the same event can be processed more than once without changing the outcome.
+4. When aggregating event into, for example, sessions, it's important to make a distinction between:
+  - Operations such as `MIN`, `MAX` and certain window functions (`FIRST_VALUE`), which do not need other events in that session to be calculated.
+  - Operations that do need all events belonging to a particular session, such as `COUNT DISTINCT` or `SUM` (in order to make the operation idempotent). These values are computed using all historical events belonging to that session, not just the ones in the batch that is being processed. Note that this means recomputing *some* sessions using *all* historical data (the most recent ones), which is still more performant than recomputing *all* sessions.
 
 ## Technical requirements
 
-Because the SQL queries are run as part of the Snowplow pipeline, we require that these queries are written according to a few principles. When the derived models are recalculated with each run, there are no requirements.
+Because the SQL queries are run as part of the Snowplow pipeline, it is important that these queries are written according to a few principles. When the derived models are recalculated with each run, there are no requirements.
 
 When the data model is run in an incremental mode, the data models should be written so that:
 

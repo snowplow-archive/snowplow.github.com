@@ -5,42 +5,32 @@ main {padding: 0}
 
 /* main: breadcrumb */
 
-main .breadcrumb {font-weight: 300; font-size: 15px; color: white}
+.breadcrumb {font-weight: 300; font-size: 15px; color: white}
 
-main .breadcrumb a,
-main .breadcrumb a:hover,
-main .breadcrumb a:focus {text-decoration: none; color: white}
+.breadcrumb a,
+.breadcrumb a:hover,
+.breadcrumb a:focus {text-decoration: none; color: white}
 
-main .breadcrumb {
+.breadcrumb {
 	text-transform: uppercase;
 	background-color: rgba(121,127,148,0.3);
   padding: 12px 0;
   margin: 0;
 }
 
-main ol.cd-breadcrumb {padding: 0; margin: 0}
+ol.cd-breadcrumb				{padding: 0; margin: 0}
+ol.cd-breadcrumb:after	{display: table; clear: both}
 
-main ol.cd-breadcrumb:after  {
-  display: table;
-  clear: both;
-}
-
-main ol.cd-breadcrumb li {display: inline-block; float: left; margin: 0}
-
-main ol.cd-breadcrumb li::after {
-  display: inline-block;
-  margin: 0 15px;
-	content: '❯';
-}
-
-main ol.cd-breadcrumb li:last-of-type::after {display: none}
+ol.cd-breadcrumb li				{display: inline-block; margin: 0; float: left}
+ol.cd-breadcrumb li::after	{display: inline-block; margin: 0 15px; content: '❯'}
+ol.cd-breadcrumb li:last-of-type::after {display: none}
 
 /* main: wrappers */
 
-main .wrapper {padding: 45px 0}
+main .wrapper {background-color: white; padding: 45px 0}
 
-main .wrapper        {background-color: white}
-main .wrapper.shaded {background-color: rgb(240,240,240); padding-top: 60px}
+main .wrapper.shaded {background-color: rgb(240,240,240)}
+main .wrapper.bigger {padding-top: 60px}
 
 /*  main: columns */
 
@@ -73,7 +63,7 @@ main .column.narrow ul {margin: 0; padding: 0}
 main .column.narrow li {list-style: none; padding-bottom: 5px}
 main .column.narrow li:last-of-type {padding-bottom: 0}
 
-/* main: blog */
+/* main: specific to blog */
 
 .datebox,
 .datebox > a,

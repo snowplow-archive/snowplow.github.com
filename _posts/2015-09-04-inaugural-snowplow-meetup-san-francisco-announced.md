@@ -1,7 +1,6 @@
 ---
 layout: post
-shortenedlink: The first Snowplow meetup San Francisco announced!
-title: The first Snowplow meetup San Francisco announced!
+title: The first Snowplow meetup in San Francisco announced!
 tags: [snowplow, meetup, san francisco, tilt]
 author: Yali
 category: Meetups
@@ -27,7 +26,7 @@ For a flavour of how Snowplow meetups have gone in other parts of the world, rea
 
 
 [sf-image]: /assets/img/blog/2015/09/san-francisco.jpg
-[tilt]: https://www.tilt.com 
+[tilt]: https://www.tilt.com
 [chefsfeed]: http://www.chefsfeed.com/
 [meetup group]: http://www.meetup.com/Snowplow-Analytics-San-Francisco/
 [london]: /blog/2015/02/11/first-snowplow-meetup-in-london/

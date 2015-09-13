@@ -138,8 +138,8 @@ JB :
   # where [HELPER] is the name of the helper you are overriding.
 
 # Pagination:
-paginate: 10
-paginate_path: "blog/page:num"
+#paginate: 10
+#paginate_path: "blog/page:num"
 
 
 # Redirect

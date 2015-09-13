@@ -22,7 +22,8 @@ body {
 	font-size: 18px
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {body {-webkit-font-smoothing: antialiased}}
+/*@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {body {-webkit-font-smoothing: antialiased}}*/
+body {-webkit-font-smoothing: antialiased}
 
 /* various responsive containers */
 
@@ -108,7 +109,7 @@ main img {
 hr {
 	border: 0;
 	border-top: 1px solid #D2D4DB;
-	margin: 45px 0 12px 0;
+	margin: 30px 0 4px 0;
 }
 
 /* blog */

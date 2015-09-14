@@ -15,7 +15,7 @@ In the rest of this post we will cover:
 2. [Emitter changes](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#emitter)
 3. [Performance](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#performance)
 4. [Changing the Subject](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#changing-the-subject)
-5. [Other changes](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#other)
+5. [Other improvements](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#other)
 6. [Upgrading](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#upgrading)
 7. [Documentation](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#docs)
 8. [Getting help](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#help)
@@ -245,7 +245,7 @@ tracker.track(PageView.builder()
     .build());
 {% endhighlight %}
 
-<h2 id="other">5. Other changes</h2>
+<h2 id="other">5. Other improvements</h2>
 
 Other changes worth highlighting:
 

@@ -39,18 +39,18 @@ To setup a basic Tracker under the new API:
 {% highlight java %}
 OkHttpClient client = new OkHttpClient();
 HttpClientAdapter adapter = OkHttpClientAdapter.builder()
-        .url("http://acme.com")
-        .httpClient(client)
-        .build();
+    .url("http://acme.com")
+    .httpClient(client)
+    .build();
 
 Emitter emitter = BatchEmitter.builder()
-        .httpClientAdapter(adapter)
-        .build();
+    .httpClientAdapter(adapter)
+    .build();
 
 Tracker tracker = new Tracker.TrackerBuilder(emitter, "namespace", "appid")
-        .base64(true)
-        .platform(DevicePlatform.Desktop)
-        .build();
+    .base64(true)
+    .platform(DevicePlatform.Desktop)
+    .build();
 {% endhighlight %}
 
 <h3>Event tracking: old approach</h3>

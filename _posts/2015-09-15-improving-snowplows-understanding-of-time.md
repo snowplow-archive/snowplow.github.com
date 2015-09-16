@@ -9,110 +9,106 @@ category: Releases
 
 As we evolve the Snowplow platform, one area we keep coming back to is our understanding and handling of time. The time at which an event took place is a crucial fact for every event - but it's surprisingly challenging to determine accurately. Our approach to date has been to capture as many clues as to the "true timestamp" of an event as we can, and record these faithfully for further analysis.
 
-In this blog post...
+The steady expansion in where and how Snowplow is used, driving towards the [Unified Log] [ulp-book] methodology, has led us to re-think our handling of time in Snowplow. This blog post aims to share that updated thinking, and provides background to the new time-related features coming in Snowplow R71 Stork-Billed Kingfisher.
 
-ADD TOC
+Read on after the jump for:
 
+1. [A brief history of time](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#history)
+2. [Event time is more complex than we thought](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#rationale)
+3. [Revising our terms and implementing true_tstamp](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#true-ts)
+4. [Calculating derived_tstamp for all other events](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#derived-ts)
+5. [Next steps](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#next-steps)
 
+<!--more-->
 
 <h2 id="history">1. A brief history of time</h2>
 
-As Snowplow has evolved as a platform we have steadily added timestamps to our Tracker Protocol and Canonical Event Model:
+As Snowplow has evolved as a platform, we have steadily added timestamps to our [Snowplow Tracker Protocol] [tracker-protocol] and [Canonical Event Model] [canonical-event-model]:
 
 * From the [very start] [changelog-v040] we captured the `collector_tstamp`, which is the time when the event was received by the collector. In the presence of end-user devices with unreliable clocks, the `collector_tstamp` was a safe option for approximating the event's true timestamp
 * [Two-and-a-half years ago] [changelog-v074] we added a `dvce_tstamp`, meaning the time by the device's clock when the event was created. Given that a user's events could arrive at a collector slightly out of order (due to the HTTP transport), the `dvce_tstamp` was useful for performing funnel analysis on individual users
 * Back in [April this year] [changelog-r63] we added a `dvce_sent_tstamp`, meaning the time by the device's clock when the event was successfully sent to a Snowplow collector. As we added outbound caches to our trackers (particularly the JavaSc
 
-Throughout this evolution, our advice has continued to be to use the `collector_tstamp` for all analysis except for per-user funnel analysis; to this end we use the `collector_tstamp` as our `SORTKEY` in Amazon Redshift.
+Throughout this evolution, our advice has continued to be to use the `collector_tstamp` for all analysis except for per-user funnel analysis; in support of this end we use the `collector_tstamp` as our `SORTKEY` in Amazon Redshift.
 
-Two developments have caused us to re-think our approach.
+While this approach has served us well, two recent developments in how Snowplow is used have caused us to re-think our approach.
 
-<h2 id="history">2. Time is more complex than we thought</h2>
+<h2 id="rationale">2. Event time is more complex than we thought</h2>
 
-Two steady developments in how Snowplow is used have caused us to 
+Two emerging patterns of event tracking have challenged our reliance on the `collector_tstamp`, and led to our current re-think on event time:
 
+<h3>2.1 Events which already know when they happened</h3>
 
-This field reflected the fact that our trackers (particularly the mobile ones) were increasingly caching events for some time before sending, for example in the case of network outages
+Snowplow users are increasingly using Snowplow trackers to "re-play" their historical event archives into Snowplow via a Snowplow event collector. For example, you might have a historical archive of email-related events from your ESP, or an S3 dump of your Mixpanel events.
 
-We are pleased to announce version [0.2.0] [020-release] of [SQL Runner] [repo]. SQL Runner is an open source app, written in Go, that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
+In these cases, the event typically already "knows" when it took place: it already has its "true timestamp". The `collector_tstamp` by contrast is irrelevant - it only reflects when this historical event was re-played into Snowplow:
 
-To use SQL Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
+At the moment, most Snowplow event trackers do let you specify a timestamp for the event, but this is stored as the `dvce_tstamp`, with its associations of device clock-related unreliability.
 
-Read on after the jump for:
+This is highlighted in the diagram below:
 
-1. [New features](/blog/2015/09/13/sql-runner-0.2.0-released/#new-features)
-2. [Upgrading](/blog/2015/09/13/sql-runner-0.2.0-released/#upgrading)
-3. [Getting help](/blog/2015/09/03/sql-runner-0.2.0-released/#help)
+![true-ts-problem][true-ts-problem]
 
-<!--more-->
+<h3>2.2 Tracker-side event caches devaluing the collector_tstamp</h3>
 
-For more information on SQL Runner please view [the GitHub repository] [repo].
+To make Snowplow event tracking and collection as robust as possible, particularly in the face of unreliable network connectivity, we have steadily added outbound event caches to more and more trackers. The principle is that we add a new event to the cache, attempt to send it, and only remove that event from the cache once the collector has successfully recorded its receipt.
 
-<h2 id="new-features">1. New features</h2>
+The JavaScript, Android and Objective-C trackers - three of our most widely used trackers - all have this outbound cache capability now, as does the .NET tracker.
 
-The main addition is the ability to run SQL against Redshift and Postgres databases which have SSL security enabled. Many thanks to Dennis Waldron from Space Ape Games for contributing this feature!
+One of the implications of this approach is that the `collector_tstamp` is no longer a safe approximation for when a long-cached event actually took place - for those events, the `collector_tstamp` simply records when the event finally made it out of the tracker's cache and into the collector.
 
-Update the database targets in your playbooks to use the new `ssl` parameter:
+This is a challenge because our device-based timestamps are no more accurate than they were before. The problem is illustrated in this diagram:
 
-{% highlight yaml %}
-targets:
-  - name: "My Postgres database 1"
-    type: postgres
-    host: localhost
-    database: sql_runner_tests_1
-    port: 5432
-    username: postgres
-    password:
-    ssl: false # SSL disabled by default, or set to true
-{% endhighlight %}
+![cache-problem][cache-problem]
 
-Other updates in this version:
+<h2 id="true-ts">3. Revising our terms and implementing true_tstamp</h2>
 
-* Fixed typo of "queries executed againt targets" ([#20] [issue-20])
-* Updated vagrant up to work with latest Peru version ([#25] [issue-25])
-* Replaced bitbucket.org/kardianos/osext with github.com/kardianos/osext ([#33] [issue-33])
+The first step in fixing these problems is to tidy up the terms we are using:
 
-<h2 id="upgrading">2. Upgrading</h2>
+* Our `dvce_tstamp` is really our `dvce_created_tstamp`
+* We are incorrectly setting a `dvce_tstamp` for events which know precisely when they happened. We should create a new slot for this timestamp to prevent confusion, let's call it `true_tstamp`
+* We are treating `collector_tstamp` as a proxy for the final, derived timestamp. Let's create a new slot for this, called `derived_tstamp`
 
-A version of SQL Runner for 64-bit Linux is available on Bintray, download it like so:
+Let's assume that we can update our trackers to send in the `true_tstamp` whenever emitting events that truly know their time of occurrence. In this case, the algorithm for calculating the `derived_tstamp` is very simple: it's the exact same as the `true_tstamp`:
 
-{% highlight bash %}
-$ wget http://dl.bintray.com/snowplow/snowplow-generic/sql_runner_0.2.0_linux_amd64.zip
-{% endhighlight %}
+![true-ts-solution][true-ts-solution]
 
-Once downloaded, unzip it:
+<h2 id="derived-ts">4. Calculating derived_tstamp for all other events</h2>
 
-{% highlight bash %}
-$ unzip sql_runner_0.2.0_linux_amd64.zip
-{% endhighlight %}
+Calculating the `derived_tstamp` for events which *do not* know when they occurred is a little more complex. Remember back to the diagram in 2.2 above - all three of the timestamps were in red because they are each inaccurate in their own way.
 
-Run it like so:
+However, let's start by making two simple assumptions:
 
-{% highlight bash %}
-$ ./sql-runner
-sql-runner version: 0.2.0
-Run playbooks of SQL scripts in series and parallel on Redshift and Postgres
-Usage:
-  -help=false: Shows this message
-  -playbook="": Playbook of SQL scripts to execute
-  -sqlroot="PLAYBOOK": Absolute path to SQL scripts. Use PLAYBOOK and BINARY for those respective paths
-  -version=false: Shows the program version
-{% endhighlight %}
+1. Let's assume that, although `dvce_created_tstamp` and `dvce_sent_tstamp` are both inaccurate, they are inaccurate in precisely the same way: if the device clock is 15 minutes fast at event creation, it is still 15 minutes fast at event sending, whenever that might be
+2. Let's assume that the time taken for an event to get from the device to the collector is neglible - i.e. we will treat the true difference between dvce_sent_ts and collector_ts as 0 seconds
 
-Remember to update your database targets in playbooks to use the new `ssl` parameter.
+This now gives us a formula for calculating a pretty good `derived_tstamp`, as shown in this diagram:
 
-<h2 id="help">3. Getting help</h2>
+![cache-solution][cache-solution]
 
-For more details on this release, please check out the [SQL Runner 0.2.0 release notes][020-release] on GitHub.
+With this approach, we can start to support a `derived_tstamp` which is much more robust than anything before!
 
-If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
+<h2 id="next-steps">5. Next steps</h2>
 
-[repo]: https://github.com/snowplow/sql-runner
-[issue-20]: https://github.com/snowplow/sql-runner/issues/20
-[issue-25]: https://github.com/snowplow/sql-runner/issues/25
-[issue-33]: https://github.com/snowplow/sql-runner/issues/33
-[issues]: https://github.com/snowplow/sql-runner/issues
+We have already added `true_tstamp` into the [Snowplow Tracker Protocol] [tracker-protocol]. Next steps are:
 
-[020-release]: https://github.com/snowplow/sql-runner/releases/tag/0.2.0
+* Adding support for `true_tstamp` to Snowplow trackers, particularly the server-side ones most likely to be used for batched ingest of historical events (e.g. Python, .NET, Java)
+* Renaming `dvce_tstamp` to `dvce_created_tstamp` to remove ambiguity
+* Adding the `derived_tstamp` field to our [Canonical Event Model] [canonical-event-model]
+* Implementing the algorithm set out above in our Enrichment process to calculate the `derived_tstamp`
+
+Expect Snowplow tracker and core releases delivering the above soon! And if you have any feedback on our new strategies regarding event time, do please share them through [the usual channels][talk-to-us].
+
+[tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
+[canonical-event-model]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
+
+[true-ts-problem]: /assets/img/blog/2015/09/true-ts-problem.png
+[true-ts-solution]: /assets/img/blog/2015/09/true-ts-solution.png
+[cache-problem]: /assets/img/blog/2015/09/cache-problem.png
+[cache-solution]: /assets/img/blog/2015/09/cache-solution.png
+
+[changelog-v040]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG#L1436
+[changelog-v074]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG#L1150
+[changelog-r63]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG#L268
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

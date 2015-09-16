@@ -55,26 +55,23 @@ Whichever way you choose you will also need to have:
 * An AWS CLI profile, e.g. *guru-profile*
 * A EC2 keypair, e.g. *spark-ec2-keypair*
 * A VPC public subnet, e.g. *subnet-3dc2bd2a*
-* At least one Amazon S3 bucket
+* At least one Amazon S3 bucket e.g. *guru-bucket*
 
-Optionally you can have different buckets for input JSONs (e.g. *guru-jsons*), output Schemas (e.g. *guru-output-bucket*), output errors and warnings (e.g. *guru-errors-bucket*), store JAR file (e.g. *guru-jar-bucket*).
-You can use single bucket for these purposes, but if you choose approach with different ones notice that they have to belong to one AWS region.
+Optionally you can have different buckets for input JSONs, output Schemas, output errors and warnings, store JAR file, but in this case notice that they have to belong to one AWS region.
 
-After you have all prerequisites you can upload fatjar to chosen S3 bucket:
+After you have all prerequisites you can upload fatjar to chosen S3 bucket and run the job:
 
 {% highlight bash %}
+$ cd sparkjob
 $ inv upload guru-profile guru-jar-bucket
+$ inv run_emr guru-profile guru-bucket guru-bucket/warnings/ guru-bucket/output/ guru-bucket/jsons/ spark-ec2-keypair subnet-3dc2bd2a
 {% endhighlight %}
 
-Before run job you need to ensure that some JSON instances placed into root of `guru-jsons` bucket.
-To provision cluster and start job you need to run:
+Notice presence of trailing slashes in all arguments except bucket for storing jar.
+Also warnings and output dirs should not exist.
 
-{% highlight bash %}
-$ inv run_emr guru-profile guru-jar-bucket guru-output-bucket guru-errors-bucket guru-jsons spark-ec2-keypair subnet-3dc2bd2a
-{% endhighlight %}
-
-You can easely modify tasks file to suit your own needs. 
-For example, to pass non-default options to job like enum cardinality just modify `args` list in `run_emr` task.
+You can easely modify `tasks.py` to suit your own needs. 
+For example, to pass non-default options to job, like enum cardinality just modify `args` list in `run_emr` task.
 All options passed after path to jar file will be accepted as usual Schema Guru options.
 Spark job accept same options as CLI application but `--output` isn't optional since we can't output to terminal and also we have optional `--errors-path` (without it warnings and errors output will be suppressed).
 
@@ -91,7 +88,7 @@ While deriving schema we often encounter some repeating enum sets like country c
 In [0.2.0 release] [020-release] we implemented an enum derivation allowing us automatically recognize set of values whithin some cardinality limit.
 But if we met only 100 of 165 known currency codes it's very unlikely we don't need other 65, and even if we met all 165 known codes, but limit enum carindinality to only 100 all encountered values will be discarded because of this limit.
 
-Now you can specify some specific known enum sets with ``--enum-sets`` option. 
+Now you can specify some specific known enum sets with `--enum-sets` option. 
 Built-in sets include [iso_4217] [iso-4217], [iso_3166-1_aplha-2] [iso-3166-1-alpha-2] and [iso_3166-1_aplha-3] [iso-3166-1-alpha-3] (written as they should appear in CLI).
 
 If you need two or more, pass it as multioption:
@@ -100,14 +97,14 @@ If you need two or more, pass it as multioption:
 $ ./schema-guru-0.4.0 schema --enum-sets iso_4217 --enum-sets iso_3166-1_aplha-3 /path/to/instances
 {% endhighlight %}
 
-Or even better, you can pass special value ``all`` to include all built-in enum sets.
+Or even better, you can pass special value `all` to include all built-in enum sets.
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --enum-sets all /path/to/instances
 {% endhighlight %}
 
 And this is not the end. Taking in account that some users may have very domain-specific enums, we allow user to pass his own predefined enum set.
-Instead of ``all`` or predefined set just pass the path to JSON file containing array with values and if encountered values intersetcs with it result schema will have full set.
+Instead of `all` or predefined set just pass the path to JSON file containing array with values and if encountered values intersetcs with it result schema will have full set.
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --enum-sets ../favourite_colors.json --enum-sets all /path/to/instances
@@ -189,7 +186,7 @@ $ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_webui_0.4.0.z
 $ unzip schema_guru_webui_0.4.0.zip
 {% endhighlight %}
 
-Note that it changed only to reflect core refactoring, no new features were added.
+Note that Web UI changed only to reflect core refactoring, no new features were added.
 
 <h2><a name="help">10. Getting help</a></h2>
 
@@ -214,7 +211,7 @@ We still have plenty features planned for the Schema Guru! Things that will most
 [redshift]: http://aws.amazon.com/redshift/
 
 [tasks-py]: https://raw.githubusercontent.com/snowplow/schema-guru/release/0.4.0/sparkjob/tasks.py
-[fatjar]: http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_0.4.0.zip
+[fatjar]: http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_sparkjob_0.4.0.zip
 [spark-example-project]: https://github.com/snowplow/spark-example-project
 [for-developers]: https://github.com/snowplow/schema-guru/wiki/For-developers
 

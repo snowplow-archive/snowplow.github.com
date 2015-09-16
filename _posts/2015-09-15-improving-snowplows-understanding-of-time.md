@@ -112,3 +112,4 @@ Expect Snowplow tracker and core releases starting to deliver on the above soon!
 [changelog-r63]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG#L268
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[ulp-book]: https://www.manning.com/books/unified-log-processing

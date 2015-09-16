@@ -86,7 +86,7 @@ This now gives us a formula for calculating a relatively robust `derived_tstamp`
 
 ![cache-solution][cache-solution]
 
-In other words, this formula lets us use what we know about the event and some simple assumptions to calculate a `derived_tstamp` which is much more robust than anything we have used before!
+In other words, this formula lets us use what we know about the event and some simple assumptions to calculate a `derived_tstamp` which is much more robust than any of our previous timestamps or approaches.
 
 <h2 id="next-steps">5. Next steps</h2>
 

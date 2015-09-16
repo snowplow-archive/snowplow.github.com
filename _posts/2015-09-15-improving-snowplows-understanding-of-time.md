@@ -37,7 +37,7 @@ While this approach has served us well, two recent developments in how Snowplow 
 
 Two emerging patterns of event tracking have challenged our reliance on the `collector_tstamp`, and led to our re-think:
 
-<h3>2.1 Events which already know when they happened</h3>
+<h3>2.1 We have events which already know when they occurred</h3>
 
 Snowplow users are increasingly using Snowplow trackers to "re-play" their historical event archives into Snowplow through a Snowplow event collector. These archives might be of email-related events from your ESP, or perhaps an S3 extract of your Mixpanel events.
 
@@ -49,7 +49,7 @@ This is highlighted in the diagram below:
 
 ![true-ts-problem][true-ts-problem]
 
-<h3>2.2 Delayed event sending devaluing the collector_tstamp</h3>
+<h3>2.2 Delayed event sending devalues the collector_tstamp</h3>
 
 To make Snowplow event tracking as robust as possible in the face of unreliable network connections, we have added support for outbound event caches to our event trackers. The principle is that the tracker adds a new event to the outbound event cache, attempts to send it, and only removes that event from the cache when the collector has successfully recorded its receipt.
 

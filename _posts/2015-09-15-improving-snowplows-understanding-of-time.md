@@ -82,7 +82,7 @@ However, let's start by making two simple assumptions:
 1. Let's assume that, although `dvce_created_tstamp` and `dvce_sent_tstamp` are both inaccurate, they are inaccurate in precisely the same way: if the device clock is 15 minutes fast at event creation, it is still 15 minutes fast at event sending, whenever that might be
 2. Let's assume that the time taken for an event to get from the device to the collector is neglible - i.e. we will treat the true difference between dvce_sent_ts and collector_ts as 0 seconds
 
-This now gives us a formula for calculating a pretty good `derived_tstamp`, as shown in this diagram:
+This now gives us a formula for calculating a relatively robust `derived_tstamp`, as shown in this diagram:
 
 ![cache-solution][cache-solution]
 

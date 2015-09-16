@@ -13,11 +13,11 @@ The steady expansion in where and how Snowplow is used, driving towards the [Uni
 
 Read on after the jump for:
 
-1. [A brief history of time](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#history)
-2. [Event time is more complex than we thought](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#rationale)
-3. [Revising our terms and implementing true_tstamp](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#true-ts)
-4. [Calculating derived_tstamp for all other events](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#derived-ts)
-5. [Next steps](/blog/2015/09/14/snowplow-java-tracker-0.8.0-released/#next-steps)
+1. [A brief history of time](/blog/2015/09/15/improving-snowplows-understanding-of-time/#history)
+2. [Event time is more complex than we thought](/blog/2015/09/15/improving-snowplows-understanding-of-time/#rationale)
+3. [Revising our terms and implementing true_tstamp](/blog/2015/09/15/improving-snowplows-understanding-of-time/#true-ts)
+4. [Calculating derived_tstamp for all other events](/blog/2015/09/15/improving-snowplows-understanding-of-time/#derived-ts)
+5. [Next steps](/blog/2015/09/15/improving-snowplows-understanding-of-time/#next-steps)
 
 <!--more-->
 

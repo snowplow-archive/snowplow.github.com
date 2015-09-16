@@ -90,7 +90,7 @@ In other words, this formula lets us use what we know about the event and some s
 
 <h2 id="next-steps">5. Next steps</h2>
 
-We have already added `true_tstamp` into the [Snowplow Tracker Protocol] [tracker-protocol]. Next we plan to:
+We have already added `true_tstamp` into the [Snowplow Tracker Protocol] [tracker-protocol] as `ttm`. Next, we plan to:
 
 * Add support for `true_tstamp` to Snowplow trackers, particularly the server-side ones most likely to be used for batched ingest of historical events (e.g. Python, .NET, Java)
 * Rename `dvce_tstamp` to `dvce_created_tstamp` to remove ambiguity

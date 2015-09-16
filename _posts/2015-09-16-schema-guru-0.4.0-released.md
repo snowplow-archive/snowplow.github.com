@@ -14,17 +14,17 @@ Also [Schema DDL] [ddl-repo] 0.2.0 released with Scala 2.11 support, Amazon Reds
 
 This release post will cover the following topics:
 
-1. [Apache Spark Job](/blog/2015/09/15/schema-guru-0.4.0-released/#spark)
-2. [Core refactoring](/blog/2015/09/15/schema-guru-0.4.0-released/#refactoring)
-3. [Predefined enum sets](/blog/2015/09/15/schema-guru-0.4.0-released/#enums)
-4. [Comments on Redshift table](/blog/2015/09/15/schema-guru-0.4.0-released/#comment)
-5. [Support for minLength and maxLength properties](/blog/2015/09/15/schema-guru-0.4.0-released/#length)
-6. [Edge cases in DDL generation](/blog/2015/09/15/schema-guru-0.4.0-released/#edge-cases)
-7. [Minor changes](/blog/2015/09/15/schema-guru-0.4.0-released/#minor)
-8. [Bug fixes](/blog/2015/09/15/schema-guru-0.4.0-released/#bugs)
-9. [Upgrading](/blog/2015/09/15/schema-guru-0.4.0-released/#upgrading)
-10. [Getting help](/blog/2015/09/15/schema-guru-0.4.0-released/#help)
-11. [Plans for the next release](/blog/2015/09/15/schema-guru-0.4.0-released/#roadmap)
+1. [Apache Spark Job](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
+2. [Core refactoring](/blog/2015/09/16/schema-guru-0.4.0-released/#refactoring)
+3. [Predefined enum sets](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
+4. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
+5. [Support for minLength and maxLength properties](/blog/2015/09/16/schema-guru-0.4.0-released/#length)
+6. [Edge cases in DDL generation](/blog/2015/09/16/schema-guru-0.4.0-released/#edge-cases)
+7. [Minor changes](/blog/2015/09/16/schema-guru-0.4.0-released/#minor)
+8. [Bug fixes](/blog/2015/09/16/schema-guru-0.4.0-released/#bugs)
+9. [Upgrading](/blog/2015/09/16/schema-guru-0.4.0-released/#upgrading)
+10. [Getting help](/blog/2015/09/16/schema-guru-0.4.0-released/#help)
+11. [Plans for the next release](/blog/2015/09/16/schema-guru-0.4.0-released/#roadmap)
 
 <!--more-->
 

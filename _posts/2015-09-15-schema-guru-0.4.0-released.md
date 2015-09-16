@@ -63,7 +63,7 @@ After you have all prerequisites you can upload fatjar to chosen S3 bucket and r
 
 {% highlight bash %}
 $ cd sparkjob
-$ inv upload guru-profile guru-jar-bucket
+$ inv upload guru-profile guru-bucket
 $ inv run_emr guru-profile guru-bucket guru-bucket/warnings/ guru-bucket/output/ guru-bucket/jsons/ spark-ec2-keypair subnet-3dc2bd2a
 {% endhighlight %}
 
@@ -135,7 +135,15 @@ This metadata can be used to determine which version of schema currently deploye
 From the beginning `ddl` subcommand used `minLength` and `maxLength` properties of string schemas to determine whether column has type `CHAR` (fixed-length) or which `VARCHAR` size it has otherwise.
 Taking this in account it's strange to not generate `minLength` and `maxLength` properties with `schema` subcommand.
 Now we've fixed that issue and all strings in JSON Schemas has these properties.
-Be aware of that while processing too small set of instances.
+
+Be aware that it can produce too strict JSON Schema if you process very small set of instances.
+For this case we provide `--no-length` option:
+
+{% highlight bash %}
+$ ./schema-guru-0.4.0 schema --no-length /path/to/few-instances
+{% endhighlight %}
+
+No `minLength` nor `maxLength` will appear in result JSON Schema.
 
 <h2 id="edge-cases">6. Edge cases in DDL generation</h2>
 

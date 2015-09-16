@@ -75,7 +75,7 @@ Let's assume that we can update our trackers to send in the `true_tstamp` whenev
 
 <h2 id="derived-ts">4. Calculating derived_tstamp for all other events</h2>
 
-Calculating the `derived_tstamp` for events which *do not* know when they occurred is a little more complex. Remember back to the diagram in 2.2 above - all three of the timestamps were in red because they are each inaccurate in their own way.
+Calculating the `derived_tstamp` for events which *do not know* when they occurred is a little more complex. Remember back to the diagram in 2.2 above - all three of the timestamps were in red because they are each inaccurate in their own way.
 
 However, let's start by making two simple assumptions:
 
@@ -86,18 +86,18 @@ This now gives us a formula for calculating a pretty good `derived_tstamp`, as s
 
 ![cache-solution][cache-solution]
 
-With this approach, we can start to support a `derived_tstamp` which is much more robust than anything before!
+With this approach, we can start to support a `derived_tstamp` which is much more robust than anything we have used before!
 
 <h2 id="next-steps">5. Next steps</h2>
 
-We have already added `true_tstamp` into the [Snowplow Tracker Protocol] [tracker-protocol]. Next steps are:
+We have already added `true_tstamp` into the [Snowplow Tracker Protocol] [tracker-protocol]. Our next steps are:
 
 * Adding support for `true_tstamp` to Snowplow trackers, particularly the server-side ones most likely to be used for batched ingest of historical events (e.g. Python, .NET, Java)
 * Renaming `dvce_tstamp` to `dvce_created_tstamp` to remove ambiguity
 * Adding the `derived_tstamp` field to our [Canonical Event Model] [canonical-event-model]
 * Implementing the algorithm set out above in our Enrichment process to calculate the `derived_tstamp`
 
-Expect Snowplow tracker and core releases delivering the above soon! And if you have any feedback on our new strategies regarding event time, do please share them through [the usual channels][talk-to-us].
+Expect Snowplow tracker and core releases starting to deliver on the above soon! And if you have any feedback on our new strategies regarding event time, do please share them through [the usual channels][talk-to-us].
 
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
 [canonical-event-model]: https://github.com/snowplow/snowplow/wiki/canonical-event-model

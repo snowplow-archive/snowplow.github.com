@@ -80,7 +80,7 @@ Calculating the `derived_tstamp` for events which *do not know* when they occurr
 For us to calculate a `derived_tstamp` for possibly cached events from devices with unreliable clocks, we need to start by making two assumptions:
 
 1. We'll assume that, although `dvce_created_tstamp` and `dvce_sent_tstamp` are both inaccurate, they are inaccurate in precisely the same way: if the device clock is 15 minutes fast at event creation, then it remains 15 minutes fast at event sending, whenever that might be
-2. We'll assume that the time taken for an event to get from the device to the collector is neglible - i.e. we will treat the lag between dvce_sent_ts and collector_ts as 0 seconds
+2. We'll assume that the time taken for an event to get from the device to the collector is neglible - i.e. we will treat the lag between `dvce_sent_tstamp` and `collector_tstamp` as 0 seconds
 
 This now gives us a formula for calculating a relatively robust `derived_tstamp`, as shown in this diagram:
 

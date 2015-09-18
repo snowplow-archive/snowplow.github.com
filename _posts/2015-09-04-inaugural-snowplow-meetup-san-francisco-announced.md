@@ -24,6 +24,13 @@ If you'd like to speak at the event, or attend, then give me a shout on yali at 
 
 For a flavour of how Snowplow meetups have gone in other parts of the world, read the write ups on events in [London] [london], [Berlin] [berlin] and [Amsterdam] [amsterdam]. Stay tuned for forthcoming meetups in New York, Boston, Budapest and Sydney.
 
+## Update! Speakers and venue have been finalized!
+
+* Nora Paymer from [Stumbleupon] [stumbleupone] will be talking about "implementing improved and consistent arbitrary event tracking company-wide"
+* Jackson Wang from [Tilt] [tilt] will be talking about "Accelerating mobile app adoption: driving users to the mobile apps (splash page a/b testing -> install)"
+* Pete O'Leary from [Chefsfeed] [chefsfeed] will be talking about "Mobile Marketing Attribution with Snowplow, Redshift and Looker" 
+
+The event will be hosted by the *awesome* team at Tilt in their fabulous offices in San Francisco. Address and signup details are all on the [Meetup Group] [meetup group]. Sign up now and see you soon!
 
 [sf-image]: /assets/img/blog/2015/09/san-francisco.jpg
 [tilt]: https://www.tilt.com
@@ -32,3 +39,6 @@ For a flavour of how Snowplow meetups have gone in other parts of the world, rea
 [london]: /blog/2015/02/11/first-snowplow-meetup-in-london/
 [berlin]: /blog/2015/08/19/first-snowplow-meetup-berlin-is-a-wrap/
 [amsterdam]: /blog/2015/05/19/snowplow-meetup-amsterdam-wrap-up/
+[stumbleupon]: http://www.stumbleupon.com/
+[tilt]: https://www.tilt.com/uk
+[chefsfeed]: http://www.chefsfeed.com/

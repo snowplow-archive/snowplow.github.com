@@ -42,7 +42,7 @@ Thanks to Dani Solà  ([@danisola][danisola] on GitHub), the Scala Hadoop Shred
 
 <h2 id="access-log">3. New CloudFront access log fields</h2>
 
-In July, an [AWS update][access-logs] added four new CloudFront access log fields. The Snowplow CloudFront access log adapter now supports these new fields.
+In July, an [AWS update][access-logs] added four new CloudFront access log fields. The Snowplow CloudFront access log adapter now supports these new fields. You can use [this migration script][cloudfront-access-log-migration] to upgrade your Redshift table accordingly.
 
 <h2 id="combinedConfiguration">4. Event fingerprint</h2>
 
@@ -109,6 +109,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
 [postgres-comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
+[cloudfront-access-log-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/migrate_wd_access_log_1_r3_to_r4.sql
 
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues

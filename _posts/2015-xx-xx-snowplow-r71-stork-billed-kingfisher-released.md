@@ -108,7 +108,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [access-logs]: http://aws.amazon.com/releasenotes/CloudFront/6827606387084636
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
-[comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
+[postgres-comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
 
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues

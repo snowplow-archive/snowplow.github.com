@@ -28,7 +28,7 @@ Read on after the fold for:
 
 [Apache Kafka] [kafka] is a unified log technology, which is "designed to allow a single cluster to serve as the central data backbone for a large organization". Regular readers of this blog may be more familiar with Amazon Kinesis - you can think of Kafka broadly as like a self-hosted version of Kinesis.
 
-[Apache Samza] [samza] is a stateful stream processing framework from the team at LinkedIn. It has tight integration with Apache Kafka, and is designed to operate inside a resource-management/scheduler platform such as Apache YARN. If you have heard of Apache Storm - Samza is similar to Storm, but we prefer Samza at Snowplow for its 
+[Apache Samza] [samza] is a stateful stream processing framework from the team at LinkedIn. It has tight integration with Apache Kafka, and is designed to operate inside a resource-management/scheduler platform such as Apache YARN. Samza is similar to the more well-known Apache Storm framework, but Samza is in our view easier to operate than Storm and its stream processing topologies are easier to reason about.
 
 <h2 id="introducting-our-job">2. Introducing our stream processing job</h2>
 

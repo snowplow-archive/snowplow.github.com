@@ -34,7 +34,7 @@ Read on after the fold for:
 
 We have implemented a simple analytics-on-write stream processing job using Apache Samza. Our Samza job reads a Kafka topic, `example-project-inbound`, containing "inbound" events in a JSON format:
 
-{% endhighlight %}json
+{% highlight json %}
 {
   "timestamp": "2015-06-05T12:54:43Z",
   "type": "Green",
@@ -126,7 +126,6 @@ $ /vagrant/vagrant/grid-deploy/kafka/bin/kafka-console-consumer.sh \
 {"id":"66d664e2-4583-4a98-8e1a-64836d785395","timestamp":"2015-09-30T15:57:57Z","counts":{}}
 {"id":"d2b2cde2-9fe0-4ba8-b8bd-e84d83e9fa74","timestamp":"2015-09-30T15:58:27Z","counts":{}}
 {"id":"2999c544-ed2f-4e47-9521-0a3ade9e2ff8","timestamp":"2015-09-30T15:58:57Z","counts":{}}
-
 {% endhighlight %}
 
 Good - you can see that our job is emitting a window summary event every 30 seconds.

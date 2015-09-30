@@ -66,7 +66,7 @@ Note that `vagrant up` will install everything we need to compile and run our Sa
 
 The rest of the detailed setup assumes you are still inside the Vagrant guest.
 
-<h3>2. Package our job for deployment</h3>
+<h3>Step 2: Package our job for deployment</h3>
 
 Using Tim Harper's custom SBT tasks, packaging our job is straightforward:
 
@@ -79,7 +79,7 @@ $ sbt packageJob
 
 You should now have a package job artifact available as `target/samza-scala-example-project-0.1.0-dist.tar.gz`.
 
-<h3>3. Deploy our job to YARN</h3>
+<h3>Step 3: Deploy our job to YARN</h3>
 
 Now we are ready to submit our Samza job to [Apache YARN] [yarn], the resource-manager and scheduler. Once submitted, YARN will take on responsibility for running our new Samza job and allocating it the resources it needs (even spinning up multiple copies of our job).
 
@@ -105,7 +105,7 @@ On your host machine, browse to the Samza web UI at [http://localhost:8088] [sam
 
 ![yarn-cluster-image][yarn-cluster-image]
 
-<h3>4. Check our window summary topic</h3>
+<h3>Step 4: Check our window summary topic</h3>
 
 Our Samza job will automatically create the Kafka topics for us if they don't already exist. Confirm this with this command:
 
@@ -132,7 +132,7 @@ Good - you can see that our job is emitting a window summary event every 30 seco
 
 So far the "counts" property is empty because our Samza job hasn't received any inbound events yet. Let's change that.
 
-<h3>5. Send in some inbound events</h3>
+<h3>Step 5: Send in some inbound events</h3>
 
 Now let's send in some "inbound" events into our `example-project-inbound` topic. In a new terminal, run this command:
 
@@ -150,7 +150,7 @@ This producer will sit waiting for input. Let’s feed it some events, making su
 {"timestamp": "2015-06-05T12:56:44Z", "type": "Yellow", "id": "4654bdc8-86d4-44a3-9920-fee7939e2582"}
 {% endhighlight %}
 
-<h3>6. Check the window summary topic again</h3>
+<h3>Step 6: Check the window summary topic again</h3>
 
 Now switch back to your consumer terminal and wait a few seconds:
 
@@ -205,6 +205,10 @@ All of these four example projects are based on an event processing technique ca
 [dean-ulp]: https://www.manning.com/books/unified-log-processing
 
 [samza-web-ui]: http://localhost:8088
+
+[spark-streaming-example-project]: https://github.com/snowplow/spark-streaming-example-project
+[aws-lambda-scala-example-project]: https://github.com/snowplow/aws-lambda-scala-example-project
+[aws-lambda-nodejs-example-project]: https://github.com/snowplow/aws-lambda-nodejs-example-project
 
 [issue-1]: https://github.com/snowplow/samza-scala-example-project/issues/1
 [issue-2]: https://github.com/snowplow/samza-scala-example-project/issues/2

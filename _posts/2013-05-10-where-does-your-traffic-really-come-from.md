@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Where does your traffic *really* come from?
-title: Where does your traffic *really* come from?
+shortenedlink: Where does your traffic really come from?
+title: Where does your traffic really come from?
 tags: [referrer, referer, traffic, source, medium, marketing, attribution]
 author: Yali
 category: Analytics
@@ -17,33 +17,27 @@ Web analysts spend a lot of time exploring where visitors to their websites come
 
 Unfortunately, identifying where your visitors come from is **not** as straightforward as it often seems. In this post, we will cover:
 
-1. [How, technically, can we determine where visitors have come from?](/blog/2013/05/10/where-does-your-traffic-really-come-from/#how)
+1. [How, technically, can we determine where visitors have come from?](/blog/2013/05/10/where-does-your-traffic-really-come-from#how)
 2. [Potential sources of errors](/blog/2013/05/10/where-does-your-traffic-really-come-from#errors)
 3. [Problems with relying on the Google Analytics approach, and why the Snowplow approach is superior](/blog/2013/05/10/where-does-your-traffic-really-come-from#ga)
 4. [Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on an ad that was not shown on a Google domain](/blog/2013/05/10/where-does-your-traffic-really-come-from#adwords)
-5. [Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from](/blog/2013/05/10/where-does-your-traffic-really-come-from/#conclusion)
+5. [Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from](/blog/2013/05/10/where-does-your-traffic-really-come-from#conclusion)
 
 <!--more-->
 
-<div class="html">
-<a name="how"><h2>1. How, technically, can we determine where visitors have come from?</h2></a>
-</div>
+<h2 id="how">1. How, technically, can we determine where visitors have come from?</h2>
 
 There are two sources of raw data that we can use to determine where a vistor to a website has come from: the [page referer](#page-referer) and the [page URL](#page-url).
 
-<div class="html">
-<a name="page-referer"><h3>Page referer</h3></a>
-</div>
+### Page referer
 
 When you load a web page in your browser, your browser makes an HTTP request to a web server to deliver that page. That request includes a header field that identifies the address of the web page that linked to the resource being requested: this is called the [HTTP referer] [http-referer] (sic). It is also possible to access the current page's referer information from the browser itself, using `document.referrer` in JavaScript.
 
 Web analytics programs typically read the HTTP referer header or JavaScript's `document.referrer`, and use that page referer data as one the inputs to infer where a visitor has come from.
 
-<div class="html">
-<a name="page-url"><h3>Page URL</h3></a>
-</div>
+### Page URL
 
-Page referers are a technical solution to identifying where traffic comes from. In addition, digital marketers may want to label incoming traffic so that they can identify which marketing campaigns that traffic should be attributed to. This is typically done by adding a querystring to the landing page URL. 
+Page referers are a technical solution to identifying where traffic comes from. In addition, digital marketers may want to label incoming traffic so that they can identify which marketing campaigns that traffic should be attributed to. This is typically done by adding a querystring to the landing page URL.
 
 To give an example of how this technique works in practice, let's imagine that I am marketing the website `www.flowersdirect.com`. I run a campaign on AdWords called "November promotion". In my AdWords ad, I include a link (that I hope viewers of the add will click) to my homepage (`www.flowersdirect.com`). However, instead of just including the standard link in my ad, i.e.
 
@@ -73,15 +67,13 @@ To keep things simple, Snowplow uses the same query parameters, so that business
 
 Web analytics programs use a combination of the page URL and the page referer to infer where traffic to the website has come from.
 
-<div class="html">
-<a name="errors"><h2>2. Potential sources of errors</h2></a>
-</div>
+<h2 id="errors">2. Potential sources of errors</h2>
 
 In general, there is much more scope for errors to arise deducing the source of traffic from the querystring on the page URL than there are when using the HTTP referer field. This is because querystring parameters are set manually by humans, rather than programmatically by machines. The following are two of the most common sources of errors:
 
 ### (a) Visitors share page URLs with campaign parameters in the querystring, using copy-and-paste
 
-Many times, you will see a link in e.g. a Twitter post containing a `utm_` parameter that suggests it is a CPC campaign or some other non-social channel. This sort of error arises when, for example, a visitor clicks on a link from a CPC campaign, views the web page, then wants to share the web page - and does so by copying and pasting the URL. Website visitors are mostly oblivious to marketing parameters in the page's URL, and will leave them in place. Everywhere that the user pastes that link, that link will contain the query parameter; any other users clicking on that link will be misclassified as coming from a CPC campaign. 
+Many times, you will see a link in e.g. a Twitter post containing a `utm_` parameter that suggests it is a CPC campaign or some other non-social channel. This sort of error arises when, for example, a visitor clicks on a link from a CPC campaign, views the web page, then wants to share the web page - and does so by copying and pasting the URL. Website visitors are mostly oblivious to marketing parameters in the page's URL, and will leave them in place. Everywhere that the user pastes that link, that link will contain the query parameter; any other users clicking on that link will be misclassified as coming from a CPC campaign.
 
 ### (b) Typos in the campaign parameters on the querystring
 
@@ -131,9 +123,7 @@ This makes errors very easy to spot. As you can see from the screenshot below, P
 
 In Google Analytics, SiteCatalyst or most other tools, spotting the above error and handling it is correctly is impossible.
 
-<div class="html">
-<a name="ga"><h2>3. Problems with relying on Google Analytics approach, and why the Snowplow approach is superior</h2></a>
-</div>
+<h2 id="ga">3. Problems with relying on Google Analytics approach, and why the Snowplow approach is superior</h2>
 
 The traditional approach to inferring a visitor's origin has further weaknesses - related to the way in which page referer data is combined with page URL data to make these inferences.
 
@@ -163,9 +153,7 @@ And check the results below. Note how in some cases the `mkt` fields are set, bu
 
 This is part of the Snowplow commitment to [high fidelity analytics] [high-fidelity-analytics], a concept we introduced in [this blog post][high-fidelity-analytics].
 
-<div class="html">
-<a name="adwords"><h2>4. Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on ads that were not shown on Google domains</h2></a>
-</div>
+<h2 id="adwords">4. Surprises when examining visitors acquired from AdWords search campaigns: most visitors clicked on ads that were not shown on Google domains</h2>
 
 Another advantage of keeping your referer data separate to your marketing campaign data is that you can learn more about *where* your marketing ads are displayed based on the additional referer data that GA ignores.
 
@@ -186,7 +174,7 @@ Plotting the results in Tableau, there are a few surprises:
 
 <a href="/assets/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg"><img src="/assets/img/blog/2013/05/google-adwords-referer-domain-analysis.jpg" /></a>
 
-The top two domains by amount of AdWords traffic directed towards Psychic Bazaar are **not** Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant. 
+The top two domains by amount of AdWords traffic directed towards Psychic Bazaar are **not** Google owned domains. They are eBay and Amazon - both websites that Psychic Bazaar sells on as a third party merchant.
 
 We expected *some* of the domains to be non-Google domains - after all, we were aware that search engines like Ask serve results and advertising powered by Google. We *were* surprised, however, that Amazon and eBay would do this: it seems strange that they would show ads for merchants who are competing with themselves and their own merchants. Nonetheless, if you visit either website, perform a search, and scroll down to the bottom of the result set, you will see AdWords ads displayed at the bottom:
 
@@ -196,9 +184,7 @@ This puts Psychic Bazaar in the uncomfortable position of competing not only wit
 
 We were also surprised to learn that in total, 69% of the click-throughs received were from non-Google domains: in this case at least, powering search advertising on other sites doesn't simply add additional advertising inventory to Google's core search inventory, it actually makes up the bulk of that inventory. (We'd be interested in finding out from other Snowplow users who buy on AdWords whether they see similar results.)
 
-<div class="html">
-<a name="conclusion"><h2>Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from</h2></a>
-</div>
+<h2 id="conclusion">5. Pulling all the findings together: the value of high-fidelity data in determining where your visitors come from</h2>
 
 In this post, we have seen that the extra level of data provided by Snowplow related to where visitors come from, over-and-above that provided by standard web analytics programs like Google Analytics, is incredibly valuable for a number of reasons:
 

@@ -96,11 +96,7 @@ pre, pre code {
 	white-space: pre;
 }
 
-@media (max-width: 1199px) {
-	pre, pre code {
-		white-space: initial;
-	}
-}
+@media (max-width: 1199px) {pre, pre code {white-space: initial}} /* hack to fix responsive design */
 
 /* images */
 

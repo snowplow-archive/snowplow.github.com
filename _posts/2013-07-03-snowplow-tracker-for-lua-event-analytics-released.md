@@ -7,7 +7,7 @@ author: Alex
 category: Releases
 ---
 
-We are very pleased to announce the release of our [SnowplowTracker for Lua event analytics] [snowplow-lua-tracker]. This is our fourth tracker to be released, following on from our [JavaScript] [snowplow-js-tracker], [no-JavaScript (aka pixel)] [snowplow-no-js-tracker] and [Arduino] [snowplow-arduino-tracker] Trackers.
+We are very pleased to announce the release of our [SnowplowTracker for Lua event analytics] [snowplow-lua-tracker]. This is our fourth tracker to be released, following on from our [JavaScript] [snowplow-js-tracker], [Pixel] [snowplow-pixel-tracker] and [Arduino] [snowplow-arduino-tracker] Trackers.
 
 As a lightweight, easily-embeddable scripting language, [Lua] [lua] is available in a huge number of different computing environments and platforms, from [World of Warcraft] [wow] through [OpenResty] [openresty] to [Adobe Lightroom] [lightroom]. And now, the Snowplow Lua Tracker lets you collect event data from these Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps - here's a taster:
 
@@ -89,7 +89,7 @@ To check out the code itself, please see our [snowplow-lua-tracker] [snowplow-lu
 
 [snowplow-lua-tracker]: https://github.com/snowplow/snowplow-lua-tracker
 [snowplow-js-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker
-[snowplow-no-js-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
+[snowplow-pixel-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
 [snowplow-arduino-tracker]: https://github.com/snowplow/snowplow-arduino-tracker
 
 [lua]: http://www.lua.org/

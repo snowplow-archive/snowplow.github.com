@@ -13,7 +13,7 @@ Snowplow consists of five loosely-coupled subsystems.
 
 * Trackers integrate with your application(s) and/or website(s).
 * Trackers generate event data: when an event occurs, they put together a packet of data and send it to a Snowplow collector.
-* We have two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [No-JS (also called 'pixel') tracker] [no-js-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. email open events.
+* We have two client-side trackers: a [Javascript tracker] [js-tracker] for tracking user interactions on websites and web apps, and a [Pixel tracker] [pixel-tracker] for tracking user behavior in web-environments that do not support Javascript e.g. email open events.
 * We offer a number of server-side trackers including a [Python tracker] [python-tracker], [Ruby tracker] [ruby-tracker], [Java tracker] [java-tracker], [Lua tracker] [lua-tracker] and [Node-JS] [node-js] tracker. A PHP tracker is in development.
 * We have both an [iOS tracker][iOS] and an [Android tracker][android] for capturing events from mobile apps
 * We offer an [Arduino tracker][arduino-tracker] for capturing data from the Internet of Things.
@@ -67,7 +67,7 @@ Snowplow is built on top AWS, and makes extensive use of Cloudfront, Elastic Bea
 
 
 [js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker
-[no-js-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
+[pixel-tracker]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
 [java-tracker]: https://github.com/snowplow/snowplow-java-tracker
 [ruby-tracker]: https://github.com/snowplow/snowplow-ruby-tracker
 [cf-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector

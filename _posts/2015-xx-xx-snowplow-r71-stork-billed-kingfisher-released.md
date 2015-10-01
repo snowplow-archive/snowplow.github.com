@@ -42,7 +42,15 @@ For a deeper look at our approach to event timestamps, check out Alex's post on 
 
 Thanks to Dani Solà  ([@danisola][danisola] on GitHub), the Scala Hadoop Shred validation code has been moved to Scala Common Enrich. This means that Scala Hadoop Enrich can now validate unstructured events and custom contexts. In addition, Dani has added `event_vendor`, `event_name`, `event_format`, and `event_version` fields to `atomic.events`. Thanks a lot Dani!
 
-TODO: add a table of the new event types
+These are the values of those fields for our five legacy event types:
+
+| event_name       | event_vendor                   | event_format | event_version |
+|------------------|--------------------------------|--------------|:-------------:|
+| page_view        | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
+| page_ping        | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
+| transaction      | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
+| transaction_item | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
+| event            | com.google.analytics           | jsonschema   | 1-0-0         |
 
 <h2 id="access-log">3. New CloudFront access log fields</h2>
 

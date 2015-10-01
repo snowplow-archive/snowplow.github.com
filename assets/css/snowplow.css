@@ -96,6 +96,12 @@ pre, pre code {
 	white-space: pre;
 }
 
+@media (max-width: 1199px) {
+	pre, pre code {
+		white-space: initial;
+	}
+}
+
 /* images */
 
 main img {

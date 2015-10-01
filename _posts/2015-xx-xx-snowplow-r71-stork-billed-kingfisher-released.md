@@ -95,14 +95,14 @@ To prevent confusion about the version of a particular `atomic.events` table, th
 
 We have also:
 
-* Upgraded Scala Hadoop Shred to use Hadoop version 2.4
-* Added validation for `v_collector` and `collector_tstamp`
-* Upgraded to version 0.2.4 of the referer-parser
-* Upgraded to version 1.16 of [user-agent-utils][uau]
-* Changed the BadRow class to use ProcessingMessages rather than Strings
-* Added an exception handler around the whole of Scala Common Enrich
-* Updated web-incremental so failure is recoverable
-* Fixed a bug where Scala Hadoop Shred didn't correctly add original LZO-encoded event strings to bad rows
+* Upgraded Scala Hadoop Shred to use Hadoop version 2.4 [#1720][1720]
+* Added validation for `v_collector` and `collector_tstamp` [#1611][1611]
+* Upgraded to version 0.2.4 of the referer-parser [#1839][1839]
+* Upgraded to version 1.16 of [user-agent-utils][uau] [#1905][1905]
+* Changed the BadRow class to use ProcessingMessages rather than Strings [#1936][1936]
+* Added an exception handler around the whole of Scala Common Enrich [#1954][1954]
+* Updated web-incremental so failure is recoverable [#1974][1974]
+* Fixed a bug where Scala Hadoop Shred didn't correctly add original LZO-encoded event strings to bad rows [#1950][1950]
 
 <h2 id="upgrading">9. Upgrading</h2>
 
@@ -148,9 +148,17 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.6.0_to_0.7.0.sql
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.5.0_to_0.6.0.sql
 [cloudfront-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/migrate_wd_access_log_1_r3_to_r4
+[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r71_stork_billed_kingfisher.zip
+
+[1611]: https://github.com/snowplow/snowplow/issues/1611
+[1720]: https://github.com/snowplow/snowplow/issues/1720
+[1669]: https://github.com/snowplow/snowplow/issues/1839
+[1905]: https://github.com/snowplow/snowplow/issues/1905
+[1936]: https://github.com/snowplow/snowplow/issues/1936
+[1954]: https://github.com/snowplow/snowplow/issues/1954
+[1974]: https://github.com/snowplow/snowplow/issues/1974
+[1950]: https://github.com/snowplow/snowplow/issues/1950
 
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
-
-[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r71_stork_billed_kingfisher.zip

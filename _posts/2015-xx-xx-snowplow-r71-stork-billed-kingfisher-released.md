@@ -36,6 +36,8 @@ At the moment no tracker supports the `dvce_sent_tstamp`, so the `derived_tstamp
 
 We also intend to allow tracker users who set event timestamps manually (without having to use an innaccurate client device clock) to specify that an event timestamp is a "true timestamp". True timestamps will directly populate both the `derived_tstamp` field and the new `true_tstamp` field without any intermediate processing.
 
+For a deeper look at our approach to event timestamps, check out Alex's post on [Improving Snowplow's understanding of time][timestamps-post].
+
 <h2 id="events">2. New event definition fields</h2>
 
 Thanks to Dani Solà  ([@danisola][danisola] on GitHub), the Scala Hadoop Shred validation code has been moved to Scala Common Enrich. This means that Scala Hadoop Enrich can now validate unstructured events and custom contexts. In addition, Dani has added `event_vendor`, `event_name`, `event_format`, and `event_version` fields to `atomic.events`. Thanks a lot Dani!
@@ -104,6 +106,7 @@ For more details on this release, please check out the [R71 Stork-Billed Kingfis
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[timestamps-post]: http://snowplowanalytics.com/blog/2015/09/15/improving-snowplows-understanding-of-time/
 [stork-billed-kingfisher]: /assets/img/blog/2015/09/stork-billed-kingfisher.jpg
 [danisola]: https://github.com/danisola
 [dennisatspaceape]: https://github.com/dennisatspaceape

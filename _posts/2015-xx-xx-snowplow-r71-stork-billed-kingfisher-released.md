@@ -40,6 +40,8 @@ We also intend to allow tracker users who set event timestamps manually (without
 
 Thanks to Dani Solà  ([@danisola][danisola] on GitHub), the Scala Hadoop Shred validation code has been moved to Scala Common Enrich. This means that Scala Hadoop Enrich can now validate unstructured events and custom contexts. In addition, Dani has added `event_vendor`, `event_name`, `event_format`, and `event_version` fields to `atomic.events`. Thanks a lot Dani!
 
+TODO: add a table of the new event types
+
 <h2 id="access-log">3. New CloudFront access log fields</h2>
 
 In July, an [AWS update][access-logs] added four new CloudFront access log fields. The Snowplow CloudFront access log adapter now supports these new fields. You can use [this migration script][cloudfront-access-log-migration] to upgrade your Redshift table accordingly.
@@ -71,7 +73,7 @@ Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape])
       comprows: 200000 # Default for a 1 XL node cluster. Not used unless --include compupdate specified
 {% highlight yaml %}
 
-Thanks @dennisatspaceape!
+Thanks Dennis!
 
 <h2 id="table-upgrades">7. New approach to table upgrades</h2>
 

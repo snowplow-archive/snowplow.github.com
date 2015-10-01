@@ -35,7 +35,7 @@ var cloudfrontEmitter = emitter(
 
 var kinesisEmitter = emitter(
 	'myscalastreamcollector.net', // Cloudfront collector
-	'http', // Optionally specify a port
+	'http', // Optionally specify the method - defaults to http
 	8080, // Optionally specify a port
 	'POST', // Method - defaults to GET
 	10, // Only send events once 10 are buffered

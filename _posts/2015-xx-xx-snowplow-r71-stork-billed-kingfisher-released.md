@@ -98,6 +98,21 @@ We have also:
 
 <h2 id="upgrading">9. Upgrading</h2>
 
+The latest version of the EmrEtlRunner and StorageLoadeder are available from our Bintray [here][app-dl].
+
+You should update the versions of the Enrich and Shred jars in your configuraiton file:
+
+{% highlight yaml %}
+    hadoop_enrich: 1.1.0 # Version of the Hadoop Enrichment process
+    hadoop_shred: 0.5.0 # Version of the Hadoop Shredding process
+{% endhighlight %}
+
+You should also update the AMI version field:
+
+{% highlight yaml %}
+    ami_version: 3.7.0
+{% endhighlight %}
+
 If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
 
 <h2 id="help">10. Getting help</h2>
@@ -119,3 +134,5 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r71_stork_billed_kingfisher.zip

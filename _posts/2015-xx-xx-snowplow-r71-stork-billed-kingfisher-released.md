@@ -113,6 +113,13 @@ You should also update the AMI version field:
     ami_version: 3.7.0
 {% endhighlight %}
 
+Use the appropriate update your version of the atomic.events table to the latest schema:
+
+* [The Redshift migration script] [redshift-migration]
+* [The PostgreSQL migration script] [postgres-migration]
+
+If you are ingesting Cloudfront access logs with Snowplow, use the [Cloudfront access log migration script][cloudfront-migration] to update your "com_amazon_aws_cloudfront_wd_access_log_1.sql" table.
+
 If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
 
 <h2 id="help">10. Getting help</h2>
@@ -130,6 +137,9 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
 [postgres-comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
 [cloudfront-access-log-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/migrate_wd_access_log_1_r3_to_r4.sql
+[redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.6.0_to_0.7.0.sql
+[postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.5.0_to_0.6.0.sql
+[cloudfront-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/migrate_wd_access_log_1_r3_to_r4
 
 [r71-release]: https://github.com/snowplow/snowplow/releases/tag/r71-stork-billed-kingfisher
 [issues]: https://github.com/snowplow/snowplow/issues

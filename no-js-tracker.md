@@ -1,21 +1,21 @@
 ---
 layout: page
-category: homepage
-title: Snowplow No-JS Tracker
-permalink: no-js-tracker.html
+group: documentation
+subgroup: wizards
+title: Snowplow Pixel Tracker
+description: Snowplow Pixel Tracker
+permalink: /documentation/pixel-tracker/
+redirect_from:
+  - /no-js-tracker.html
 ---
 
-<div id="title">
-</div>
-<div id="introduction">
-	<p>The No-Javascript Tracker for Snowplow allows you to track customer behavior in web-based environments that do not support Javascript, for example HTML emails.</p>
-	
-	<p>Use the wizard below to generate a tracking tag to embed on the HTML of web pages you wish to track using the No-JS tracker. Note: you will need to generate a unique tag for every web page you want to track.</p>
-</div>
+The Snowplow Pixel Tracker allows you to track customer behavior in web-based environments that do not support Javascript, for example HTML emails.
+
+Use the wizard below to generate a tracking tag to embed on the HTML of web pages you wish to track using the Pixel tracker. Note: you will need to generate a unique tag for every web page you want to track.
 
 <div id="generator">
-	<p>Fill in the fields below, hit <b>Generate No-JS tracking tag</b> and then embed that tag in your HTML to start tracking user views on that web page:</p>
-	
+	<p>Fill in the fields below, hit <b>Generate Pixel tracking tag</b> and then embed that tag in your HTML to start tracking user views on that web page:</p>
+
 	<form id="generateTagForm" name="generateTagForm" action="" >
 	<fieldset>
 		<fieldset>
@@ -27,9 +27,9 @@ permalink: no-js-tracker.html
 		<fieldset>
 			<h4>Page-level data</h4>
 			<p>Enter the details of the page you wish to embed the tracking code in.</p>
-			<label>Is the page HTTP or HTTPS?*</label>
-			<input type="radio" id="pageScheme" name="pageScheme" value="http" />HTTP
-			<input type="radio" id="pageScheme" name="pageScheme" value="https" />HTTPS</br>
+			<label>Is the page HTTP or HTTPS?*</label><br>
+			<input type="radio" id="pageScheme" name="pageScheme" value="http" />&nbsp;HTTP&nbsp;
+			<input type="radio" id="pageScheme" name="pageScheme" value="https" />&nbsp;HTTPS<br>
 			<label for="pageTitle" id="pageTitle_label" >Page title:<strong>*</strong></label>
 			<input type="text" id="pageTitle" name="pageTitle" size="50" value="" class="text-input" /><br />
 			<label for="pageUrl" id="pageUrl_label" >Page URL:</label>
@@ -48,15 +48,14 @@ permalink: no-js-tracker.html
 			</div>
 			<div id="other-collector-div">
 				<label for="selfHostedCollectorUrl" id="selfHostedCollectorUrl_label">Your self-hosted collector URL (e.g. if you are running the Clojure collector):<strong>*</strong></label>
-				<input type="text" id="selfHostedCollectorUrl" name="selfHostedCollectorUrl" size="50" value="" class="text-input" /><br />	
+				<input type="text" id="selfHostedCollectorUrl" name="selfHostedCollectorUrl" size="50" value="" class="text-input" /><br />
 			</div>
 			<p><strong>*</strong> indicates a required field</p>
 		</fieldset>
-		<input type="submit" name="submit" class="button" id="submit_btn" value="Generate No-JS tracking tag" />
+		<input type="submit" name="submit" class="button" id="submit_btn" value="Generate Pixel tracking tag" />
 	</fieldset>
 	</form>
 </div>
 
 <div id="output">
 </div>
-

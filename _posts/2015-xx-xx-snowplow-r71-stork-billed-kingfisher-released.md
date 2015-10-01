@@ -73,7 +73,7 @@ Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape])
       password: ADD HERE
       maxerror: 1 # Stop loading on first error, or increase to permit more load errors
       comprows: 200000 # Default for a 1 XL node cluster. Not used unless --include compupdate specified
-{% highlight yaml %}
+{% endhighlight %}
 
 Thanks Dennis!
 

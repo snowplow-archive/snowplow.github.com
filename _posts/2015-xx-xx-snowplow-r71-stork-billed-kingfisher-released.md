@@ -2,22 +2,23 @@
 layout: post
 shortenedlink: Snowplow 71 released
 title: Snowplow 71 Stork-Billed Kingfisher released
-tags: [snowplow, hadoop, enrichments, timestamps]
+tags: [snowplow, hadoop, enrichments, timestamps, ssl, fingerprinting]
 author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow version 71 Stork-Billed Kingfisher. Among other things, this release adds six new fields to the atomic.events table.
+We are pleased to announce the release of Snowplow version 71 Stork-Billed Kingfisher. This release significantly overhauls Snowplow's handling of time and introduces event fingerprinting to support deduplication efforts. It also brings our validation of unstructured events and custom context JSONs "upstream" from our Hadoop Shred process into our Hadoop Enrich process.
 
 The rest of this post will cover the following topics:
 
-1. [Combined configuration](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#tstamps)
-2. [New event definition fields](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#events)
-3. [New CloudFront access log fields](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#access-log)
+1. [Better handling of event time](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#tstamps)
+2. [JSON validation in Scala Common Enrich](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#json-validation)
+3. [New unstructured event fields in enriched events](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#new-fields)
 4. [The event fingerprint](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#fingerprint)
 5. [Faster failure for missing schemas](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#missing-schemas)
+3. [New CloudFront access log fields](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#access-log)
 6. [Other changes](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#other-changes)
-7. [Using sslmode in the StorageLoader](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#sslmode)
+7. [Using SSL in the StorageLoader](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#sslmode)
 8. [New approach to table upgrades](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#table-upgrades)
 9. [Upgrading](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#upgrading)
 10. [Getting help](/blog/2015/xx/xx/snowplow-r71-stork-billed-kinfisher-released#help)
@@ -26,47 +27,68 @@ The rest of this post will cover the following topics:
 
 <!--more-->
 
-<h2 id="tstamps">1. Derived Timestamp and True Timestamp</h2>
+<h2 id="tstamps">1. Better handling of event time</h2>
+
+This release implements our new approach to determining when events occurred, as introduced in the recent blog post [Improving Snowplow's understanding of time][timestamps-post].
 
 Sometimes the timestamp reported by a client device clock can be very innaccurate. The derived_tstamp field is an attempt to work around this innaccuracy with the help of the new `dvce_sent_tstamp` field. The idea is that as well as the timestamp at which an event occurred (the `dvce_created_tstamp`), trackers attach a timestamp for when the event was sent (the `dvce_sent_tstamp`). If we assume that the time between the tracker sending the event and the collector receiving the event is negligible, and that the accuracy of the device clock does not significantly change between the event being created and the event being sent, then the following calculation gives a good approximation for the time at which the event was created:
 
 `derived_tstamp = collector_tstamp + dvce_created_tstamp - dvce_sent_tstamp`
 
-At the moment no tracker supports the `dvce_sent_tstamp`, so the `derived_tstamp` defaults to being equal to the `collector_tstamp`.
-
 We also intend to allow tracker users who set event timestamps manually (without having to use an innaccurate client device clock) to specify that an event timestamp is a "true timestamp". True timestamps will directly populate both the `derived_tstamp` field and the new `true_tstamp` field without any intermediate processing.
 
-For a deeper look at our approach to event timestamps, check out Alex's post on [Improving Snowplow's understanding of time][timestamps-post].
+<h2 id="json-validation">2. JSON validation in Scala Common Enrich</h2>
 
-<h2 id="events">2. New event definition fields</h2>
+Previously, validation of unstructured events and custom context self-describing JSONs was only performed in our Hadoop Shred process, in preparation for loading Redshift. With self-describing JSONs growing more and more central to event modeling within Snowplow, it became increasingly important to bring this validation "upstream" into Scala Common Enrich.
 
-Thanks to Dani Solà  ([@danisola][danisola] on GitHub), the Scala Hadoop Shred validation code has been moved to Scala Common Enrich. This means that Scala Hadoop Enrich can now validate unstructured events and custom contexts. In addition, Dani has added `event_vendor`, `event_name`, `event_format`, and `event_version` fields to `atomic.events`. Thanks a lot Dani!
+Thanks to [Dani Sola] [danisola], the Scala Hadoop Shred validation code for unstructured event and custom context JSONs is now also executed from within Scala Common Enrich.
 
-These are the values of those fields for our five legacy event types:
+This means that Scala Hadoop Enrich now validates unstructured event and custom context JSONs; in the next Kinesis pipeline release, Scala Kinesis Enrich will validate these JSONs too.
 
-| event_name       | event_vendor                   | event_format | event_version |
-|------------------|--------------------------------|--------------|:-------------:|
-| page_view        | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
-| page_ping        | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
-| transaction      | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
-| transaction_item | com.snowplowanalytics.snowplow | jsonschema   | 1-0-0         |
-| event            | com.google.analytics           | jsonschema   | 1-0-0         |
+**To be clear: if the unstructured event or any of the custom contexts fail validation against their respective JSON Schemas in Iglu, then the event will be failed and written to the bad bucket.**
 
-<h2 id="access-log">3. New CloudFront access log fields</h2>
+<h2 id="new-fields">3. New unstructured event fields in enriched events</h2>
 
-In July, an [AWS update][access-logs] added four new CloudFront access log fields. The Snowplow CloudFront access log adapter now supports these new fields. You can use [this migration script][cloudfront-access-log-migration] to upgrade your Redshift table accordingly.
+Now that we are validating unstructured events in Scala Common Enrich (rather than simply passing them through), we can extract some key information about the unstructured event for storage in our [Canonical event model] [canonical-event-model].
+
+Therefore, Dani has added `event_vendor`, `event_name`, `event_format`, and `event_version` fields to our enriched event model. This makes it a lot easier to analyze the distribution of your event types just by looking at `atomic.events`. Many thanks Dani!
+
+These are the values of the new event fields for our five "legacy" event types which aren't (yet) modeled using self-describing JSON:
+
+| Legacy event type           | event_name         | event_vendor                     | event_format | event_version |
+|-----------------------------|--------------------|----------------------------------|--------------|:-------------:|
+| Page view                   | `page_view`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Page ping                   | `page_ping`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| E-commerce transaction      | `transaction`      | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| E-commerce transaction item | `transaction_item` | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Structured event            | `event`            | `com.google.analytics`           | `jsonschema` | `1-0-0`       |
 
 <h2 id="combinedConfiguration">4. Event fingerprint</h2>
 
-The new event_fingerprint enrichment creates a fingerprint from a hash of the tracker protocol fields set in an event's querystring (for GET requests) or body (for POST requests). You can configure a list of tracker protocol fields to exclude from the process which creates the hash. For example, it is probably sensible to exclude "stm", which is the tracker protocol field for the `dvce_sent_tstamp`, since this field could change between two different attempts to send the same event.
+Duplicate events are a hot topic in the Snowplow community - see the recent blog post [Dealing with duplicate event IDs] [duplicate-event-blog] for a detailed exploration of the phenomenon.
 
-<h2 id="missing-schemas">5. Faster failure for missing schemas</h2>
+As a first step in making it easier to identify and quarantine duplicates, this release introduces a new [Event fingerprint enrichment] [event-fingerprint-enrichment].
 
-The enrichment process used to take a long time if lots of events had schemas which couldn't be found in an Iglu repository. This was because Iglu Scala Client cached successfully found schemas but didn't remember schemas which it had already failed to find. The latest release fixes this problem.
+The new enrichment creates a fingerprint from a hash of the [Tracker Protocol] [tracker-protocol] fields set in an event's querystring (for GET requests) or body (for POST requests). You can configure a list of Tracker Protocol fields to exclude from the hash generation. For example, in our default configuration we exclude:
 
-<h2 id="sslmode">6. Using sslmode in the StorageLoader</h2>
+1. "stm" (`dvce_sent_tstamp`), since this field could change between two different attempts to send the same event
+2. "eid" (`event_id`), because we will typically review event IDs separately when investigating duplicates 
 
-Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape]) has contributed the ability to connect to Postgres and Redshift using SSL. To do this, add an "ssl_mode" field to each target in your configuration YAML:
+<h2 id="access-log">5. New CloudFront access log fields</h2>
+
+In July, an [AWS update][access-logs] added four new fields to the CloudFront access log format.
+
+The Snowplow CloudFront [access log input format] [access-log-input] (not to be confused with the CloudFront Collector) now supports these new fields. You can use [this migration script][cloudfront-access-log-migration] to upgrade your Redshift table accordingly.
+
+<h2 id="missing-schemas">6. Much more performant handling of missing schemas</h2>
+
+Previously the Scala Hadoop Shred process would take an extremely long time to complete if a JSON Schema referenced across many events could not be found in any Iglu repository.
+
+This was because, although our underlying Iglu client cached successfully-found schemas, it did not remember which schemas it had already failed to find; this led to an expensive HTTP lookup on every missing schema instance. The latest release fixes this problem.
+
+<h2 id="sslmode">7. Using SSL in the StorageLoader</h2>
+
+Snowplow community member [Dennis Waldron] [dennisatspaceape] has contributed the ability to connect to Postgres and Redshift using SSL. To do this, add an "ssl_mode" field to each target in your configuration YAML:
 
 {% highlight yaml %}
   targets:
@@ -85,13 +107,15 @@ Snowplow community member Dennis Waldron ([@dennisatspaceape][dennisatspaceape])
 
 Thanks Dennis!
 
-<h2 id="table-upgrades">7. New approach to table upgrades</h2>
+<h2 id="table-upgrades">8. New approach to atomic.events upgrades</h2>
 
-Starting in this release, we are taking a new approach to upgrading the `atomic.events` table. Previous upgrades would rename the existing table as "atomic.events_$OLD_VERSION" and create a new table with the new schema. We will now be directly mutating the old table using `ALTER` statements.
+Starting in this release, we are taking a new approach to upgrading the `atomic.events` table. Previous upgrades would typically rename the existing table as "atomic.events_{{old version}}", create a new table with the new structure and copy all events over.
+
+From this release onwards, our upgrades to `atomic.events` will always only mutate the existing table using `ALTER` statements. This is intended to make upgrades to existing Redshift databases much faster.
 
 To prevent confusion about the version of a particular `atomic.events` table, the table creation and migration scripts now add the version to the table as a comment using the [COMMENT][postgres-comment] statement.
 
-<h2 id="combinedConfiguration">8. Other improvements</h2>
+<h2 id="other-improvements">9. Other improvements</h2>
 
 We have also:
 
@@ -101,10 +125,10 @@ We have also:
 * Upgraded to version 1.16 of [user-agent-utils][uau] [#1905][1905]
 * Changed the BadRow class to use ProcessingMessages rather than Strings [#1936][1936]
 * Added an exception handler around the whole of Scala Common Enrich [#1954][1954]
-* Updated web-incremental so failure is recoverable [#1974][1974]
-* Fixed a bug where Scala Hadoop Shred didn't correctly add original LZO-encoded event strings to bad rows [#1950][1950]
+* Updated our `web-incremental` data models so that failure is recoverable [#1974][1974]
+* Fixed a bug where Scala Hadoop Enrich didn't correctly attach the original Thrift payloads to bad rows [#1950][1950]
 
-<h2 id="upgrading">9. Upgrading</h2>
+<h2 id="upgrading">10. Upgrading</h2>
 
 The latest version of the EmrEtlRunner and StorageLoadeder are available from our Bintray [here][app-dl].
 
@@ -130,7 +154,7 @@ If you are ingesting Cloudfront access logs with Snowplow, use the [Cloudfront a
 
 If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
 
-<h2 id="help">10. Getting help</h2>
+<h2 id="help">11. Getting help</h2>
 
 For more details on this release, please check out the [R71 Stork-Billed Kingfisher release notes][r71-release] on GitHub. 
 
@@ -144,6 +168,12 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [uau]: https://github.com/HaraldWalker/user-agent-utils
 [example-event-fingerprint]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/event_fingerprint_enrichment.json
 [postgres-comment]: http://www.postgresql.org/docs/9.1/static/sql-comment.html
+
+[canonical-event-model]: https://github.com/snowplow/snowplow/wiki/canonical-event-model
+[tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
+[event-fingerprint-enrichment]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment
+
+[access-log-input]: https://github.com/snowplow/snowplow/wiki/EmrEtlRunner-Input-Formats#14-tsvcomamazonawscloudfrontwd_access_log
 [cloudfront-access-log-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/migrate_wd_access_log_1_r3_to_r4.sql
 [redshift-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.6.0_to_0.7.0.sql
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.5.0_to_0.6.0.sql

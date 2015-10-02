@@ -11,7 +11,7 @@ weight: 2
 
 Snowplow customers use our platform to solve an enormous range of different types of problems. Because we deliver a detailed, structured record of potentially everything that has occurred in their business, there is an enormous amount that our users can do with the data. 
 
-Snowplow enables companies to do digital analtyics in a totally new way. The Snowplow pipeline evolves with our users' businesses. Gone are the days of 3-9 month instrumentation products - our users can iteratively roll out tracking of new events and entities over time, and develop their data models as they develop more sophisticated approaches crunching their data. 
+Snowplow enables companies to do digital analytics in a totally new way. The Snowplow pipeline evolves with our users' businesses. Gone are the days of 3-9 month instrumentation products - our users can iteratively roll out tracking of new events and entities over time, and develop their data models as they develop more sophisticated approaches crunching their data. 
 
 Both of the above mean that new Snowplow users go through a journey where they learn how to do analytics differently - delivering more insight, faster, to their end stakeholders. 
 

@@ -72,9 +72,10 @@ As a first step in making it easier to identify and quarantine duplicates, this 
 
 The new enrichment creates a fingerprint from a hash of the [Tracker Protocol] [tracker-protocol] fields set in an event's querystring (for GET requests) or body (for POST requests). You can configure a list of Tracker Protocol fields to exclude from the hash generation. For example, in our default configuration we exclude:
 
-1. "eid" (`event_id`), because we will typically review event IDs separately when investigating duplicates 
-2. "nuid" (`network_userid`), because a single event that is sent twice to a collector on a computer that does not accept third party cookies would be assigned different `network_userid`s (despite being a duplicate)
-3. "stm" (`dvce_sent_tstamp`), since this field could change between two different attempts to send the same event
+1. "eid" (`event_id`), because we will typically review event IDs separately when investigating duplicates
+2. "stm" (`dvce_sent_tstamp`), since this field could change between two different attempts to send the same event
+3. "nuid" (`network_userid`), because a single event that is sent twice to a collector on a computer that does not accept third party cookies would be assigned different `network_userid`s (despite being a duplicate)
+4. "cv" (`v_collector`), because this is attached by the Clojure Collector rather than by the tracker
 
 The [example configuration JSON] [example-event-fingerprint] for this enrichment is as follows:
 
@@ -86,7 +87,7 @@ The [example configuration JSON] [example-event-fingerprint] for this enrichment
     "name": "event_fingerprint_config",
     "enabled": true,
     "parameters": {
-      "excludeParameters": ["eid", "nuid", "stm"],
+      "excludeParameters": ["cv", "eid", "nuid", "stm"],
       "hashAlgorithm": "MD5"
     }
   }

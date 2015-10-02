@@ -46,7 +46,7 @@ Thanks to [Dani Sola] [danisola], the Scala Hadoop Shred validation code for uns
 
 This means that Scala Hadoop Enrich now validates unstructured event and custom context JSONs; in the next Kinesis pipeline release, Scala Kinesis Enrich will validate these JSONs too.
 
-**To be clear: if the unstructured event or any of the custom contexts fail validation against their respective JSON Schemas in Iglu, then the event will be failed and written to the bad bucket.**
+**Please note: if the unstructured event or any of the custom contexts fail validation against their respective JSON Schemas in Iglu, then the event will be failed and written to the bad bucket.**
 
 <h2 id="new-fields">3. New unstructured event fields in enriched events</h2>
 
@@ -56,13 +56,13 @@ Therefore, Dani has added `event_vendor`, `event_name`, `event_format`, and `eve
 
 These are the values of the new event fields for our five "legacy" event types which aren't (yet) modeled using self-describing JSON:
 
-| Legacy event type           | event_name         | event_vendor                     | event_format | event_version |
-|-----------------------------|--------------------|----------------------------------|--------------|:-------------:|
-| Page view                   | `page_view`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
-| Page ping                   | `page_ping`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
-| E-commerce transaction      | `transaction`      | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
-| E-commerce transaction item | `transaction_item` | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
-| Structured event            | `event`            | `com.google.analytics`           | `jsonschema` | `1-0-0`       |
+| Legacy event type | event_name         | event_vendor                     | event_format | event_version |
+|-------------------|--------------------|----------------------------------|--------------|:-------------:|
+| Page view         | `page_view`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Page ping         | `page_ping`        | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Transaction       | `transaction`      | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Transaction item  | `transaction_item` | `com.snowplowanalytics.snowplow` | `jsonschema` | `1-0-0`       |
+| Structured event  | `event`            | `com.google.analytics`           | `jsonschema` | `1-0-0`       |
 
 <h2 id="fingerprint">4. New event fingerprint enrichment</h2>
 

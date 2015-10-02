@@ -2,12 +2,13 @@
 layout: page
 group: about
 subgroup: jobs
+breadcrumb: Data engineering intern
 title: Data engineer intern job spec
 description: What we're looking for our data engineering interns
 weight: 4
 ---
 
-# Data engineering intern - winter 2015
+<h1>Data engineering intern <small>London, UK or remote</small></h1>
 
 We are looking for 1 data pipeline engineer to join our open source internship program this winter.
 

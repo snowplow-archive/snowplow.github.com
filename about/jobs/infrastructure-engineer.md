@@ -2,15 +2,15 @@
 layout: page
 group: about
 subgroup: jobs
+breadcrumb: Infrastructure Engineer
 title: Infrastructure engineer job spec
 description: What we're looking for our infrastructure engineers
 weight: 1
 ---
-<h2 id="infra-engineer">Infrastructure engineer (London, UK)</h2>
 
-# Infrastructure Engineer
+<h1>Infrastructure Engineer <small>London, UK</small></h1>
 
-Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline across more than 40 customer-owned AWS accounts, with individual accounts processing many billions of events per month. This is a huge responsibility but also a hugely exciting infrastructure automation challenge.
+Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline across more than 50 customer-owned AWS accounts, with individual accounts processing many billions of events per month. This is a huge responsibility but also a hugely exciting infrastructure automation challenge.
 
 We are looking for our first infrastructure engineer to help us grow to managing 400 and then 4,000 AWS accounts. You'll work closely with Alex Dean, Snowplow co-founder, on all aspects of our proprietary deployment, orchestration and monitoring stack. Over time, you should aim to own the design and development of our devops stack.
 

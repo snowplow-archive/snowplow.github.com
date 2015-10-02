@@ -21,7 +21,7 @@ If you are:
 * **Passionate** about data and the way companies (our clients) can leverage data and technology to build competitive advantage
 * **Curious** - interested to understand problems from our users perspective
 * **Strategic** - able to take what you learn with individual customers and partners, learn from it, and apply that to our overall sales, partnerships and marketing efforts to drive growth
-* **Entrepeneurial** - you want to make stuff happen
+* **Entrepreneurial** - you want to make stuff happen
 * **Personable** - work with people in different roles, companies and timezones to make stuf happen
 
 we want to work with you. This is an incredible opportunity for the right candidate to help us grow Snowplow and change the way that digital and event analytics is done, all over the world.

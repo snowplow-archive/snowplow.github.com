@@ -14,7 +14,7 @@ Snowplow is a best in class analytics platform, changing the way that people do 
 
 That growth has been driven by the strength of our platform: to date nearly all our effort, as a company, have been product, engineering and analytics focused. Now we have reached a stage in the evolution of the company where we're looking to invest heavily in growing. We're looking for a Business Development Associate to drive that growth.
 
-This role is a chance to take what we've built so far, and scale it across 100s, 1000s and tens of thousands more customers and partners. We have some ideas how we should do that - we're looking for someone who'll come along with their own ideas, and then work with us (and Snowplow cofounder Yali Sassoon in particular) to execute on them.
+This role is a chance to take what we've built so far, and scale it across 100s, 1000s and tens of thousands more customers and partners. We have some ideas how we should do that - we're looking for someone who'll come along with their own ideas, and then work with us (and Snowplow cofounder Yali Sassoon in particular) to execute them.
 
 If you are:
 

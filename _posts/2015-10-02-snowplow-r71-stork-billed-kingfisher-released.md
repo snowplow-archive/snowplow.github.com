@@ -139,14 +139,14 @@ To prevent confusion about the version of a particular `atomic.events` table, th
 
 We have also:
 
-* Upgraded Scala Hadoop Shred to use Hadoop version 2.4 [#1720][1720]
-* Added validation for `v_collector` and `collector_tstamp` [#1611][1611]
-* Upgraded to version 0.2.4 of the referer-parser [#1839][1839]
-* Upgraded to version 1.16 of [user-agent-utils][uau] [#1905][1905]
-* Changed the BadRow class to use ProcessingMessages rather than Strings [#1936][1936]
-* Added an exception handler around the whole of Scala Common Enrich [#1954][1954]
-* Updated our `web-incremental` data models so that failure is recoverable [#1974][1974]
-* Fixed a bug where Scala Hadoop Enrich didn't correctly attach the original Thrift payloads to bad rows [#1950][1950]
+* Upgraded Scala Hadoop Shred to use Hadoop version 2.4 ([#1720][1720])
+* Added validation for `v_collector` and `collector_tstamp` ([#1611][1611])
+* Upgraded to version 0.2.4 of the referer-parser ([#1839][1839])
+* Upgraded to version 1.16 of [user-agent-utils][uau] ([#1905][1905])
+* Changed the BadRow class to use ProcessingMessages rather than Strings ([#1936][1936])
+* Added an exception handler around the whole of Scala Common Enrich ([#1954][1954])
+* Updated our `web-incremental` data models so that failure is recoverable ([#1974][1974])
+* Fixed a bug where Scala Hadoop Enrich didn't correctly attach the original Thrift payloads to bad rows ([#1950][1950])
 
 <h2 id="upgrading">10. Upgrading</h2>
 
@@ -222,6 +222,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [1611]: https://github.com/snowplow/snowplow/issues/1611
 [1720]: https://github.com/snowplow/snowplow/issues/1720
 [1669]: https://github.com/snowplow/snowplow/issues/1839
+[1839]: https://github.com/snowplow/snowplow/issues/1839
 [1905]: https://github.com/snowplow/snowplow/issues/1905
 [1936]: https://github.com/snowplow/snowplow/issues/1936
 [1954]: https://github.com/snowplow/snowplow/issues/1954

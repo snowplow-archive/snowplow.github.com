@@ -2,8 +2,8 @@
 layout: custom
 header: real-time
 group: get-started
-title: Register for the real-time private beta
-shortened-link: Register for real-time
+title: Sign up for the real-time pipeline
+shortened-link: Register for real-time pipeline
 permalink: /get-started/real-time/
 redirect_from:
   - /get-started/register-for-real-time.html
@@ -12,9 +12,11 @@ redirect_from:
 <div class="wrapper">
   <div class="container narrow">
 
-		<h1 style="text-align:center">Register for the private beta of the real-time managed service.</h1>
+		<h1 style="text-align:center">Register for a free 30-day trial of the real time pipeline <small>and see what becomes possible</small></h1>
 
-		<p>The real-time pipeline is soon coming to our managed service. If you want to build data-driven applications that consume your event data as it comes in, then you can register your interest. We will be in touch to provide you more details about the service and to complete the signup process.</p>
+		<p>We offer free 30 day trials of the Managed Service Real Time. Sign up below if you'd like to give it a spin, or <a href="mailto:contact@snowplowanalytics.com">get in touch</a> if you'd like to speak to a member of the Snowplow team.</p>
+
+    <p>Do note that real-time trials take longer to setup than batch-based trials. If you are working to a specific timeline please <a href="mailto:contact@snowplowanalytics.com">get in touch</a> to discuss your requirements with a member of our team.</p>
 
 	</div>
 </div>
@@ -22,7 +24,7 @@ redirect_from:
 <div class="wrapper shaded">
   <div class="container narrower">
 
-    <h1 style="text-align:center">Don’t hesitate to contact us.</h1>
+    <h1 style="text-align:center">Don’t hesitate to get in touch.</h1>
 
     <p style="text-align:center">We’d be happy to learn more about your organization, answer any questions you have, and demo or discuss Snowplow in more detail.</p>
     <div class="row" style="text-align:center; margin-top: 45px">
@@ -35,46 +37,33 @@ redirect_from:
 <div class="wrapper">
   <div class="container narrower">
 
-    <h1 style="text-align:center">FAQ</h1>
+    <h1 style="text-align:center">Understanding the options</h1>
 
     <div class="row"><!-- added to have the correct first-child behaviour -->
 
-      <h3>What does the real-time pipeline do?</h3>
+      <h3>Batch vs real-time</h3>
 
-      <div class="row">
-
-        <p>With Snowplow, you can track all events from your website, mobile app, server side systems, third party systems and any type of connected device,
-          so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these events, which means validation, enrichment, and modeling.
-          The processed events are then loaded into <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> on a regular basis (i.e. in batches). This then allows you to run
-          sophisticated analytics on your event-level data.
-        </p>
-
+      <div class="row"><!-- added to have the correct first-child behaviour -->
+        <p>With the Snowplow batch pipeline, you can track all events from your website, mobile app, server side systems, third party systems and any type of connected device, so that you have a record of what happened, when, and to whom. The Snowplow pipeline then processes these eventsand loads them into your <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> data warewarehouse to you can join them with other data sets and perform sophisticated analysis on that data.</p>
         <p>The real-time pipeline supports the regular loading of events into <a href="http://aws.amazon.com/redshift">Redshift</a>, as well as:</p>
         <ul>
-          <li>Loading your data real-time into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and <a href="https://www.elastic.co/products/kibana">Kibana</a>, for real-time reporting and dashboards</li>
-          <li>Publishing your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis</a> stream, for real-time processing of the data in real-time applications (e.g. personalization)</li>
+          <li>Publishing your event data into an <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis</a> stream, for real-time processing of the data in real-time applications (e.g. personalization, marketing automation)</li>
+          <li>Delivering real-time reports and dashboards e.g. by loading your data into <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a> and <a href="https://www.elastic.co/products/kibana">Kibana</a></li>
         </ul>
+        <p>Both the <a href="/get-started/batch/">Managed Service Batch</a> and <a href="/get-started/real-time/">Managed Service Real Time</a> are available for a 30 day trial.</p>
       </div>
 
-      <h3>What is the managed service?</h3>
+
+      <h3>Managed Service vs open source</h3>
 
       <div class="row">
-        <p>The managed service gives users the option to run Snowplow as a service. We deliver rich event-level data directly into your own data warehouse without the overhead associated with running a data pipeline yourself:</p>
-        <ul>
-          <li>Your events are delivered directly into your own <a href="http://aws.amazon.com/redshift">Amazon Redshift</a> data warehouse</li>
-          <li>No devops required. We setup and run the pipeline as a service</li>
-          <li>Ongoing support to help you instrument Snowplow trackers, model your data and analyze the data</li>
-          <li><strong>Total ownership and control.</strong> All your own data stays on your AWS account</li>
-          <li><strong>Hassle-free.</strong> We run the Snowplow pipeline for you, so you can concentrate on analyzing the data</li>
-      </ul>
+        <p>The core Snowplow data pipeline is open source. You are free to set it up and run it yourself on your own AWS account.</p>
+        <p>Setting up, managing, monitoring, repairing and upgrading the open source platform (either batch or real-time) requires significant devops expertise. We offer a Managed Service for companies that do not have those expertise, or have them but wish to deploy them to doing more with the data.</p>
+        <p>The Snowplow team can setup, manage, montitor and upgrade your Snowplow data pipeline as part of the Managed Service. We have a significant amount of propriatary technology that we use to programmatically setup, instrument, upgrade, closely monitor and repair client data pipelines, as a service.</p>
+        <p>We setup and run pipelines for our Managed Service users on their own AWS accounts. This means that they still own all their own data. It also means they are free to leave our service if they wish, without losing access to their data. This gives our users the best of both worlds: the convenience of a service, with the assurance that they own all their onw data.</p>
+        <p>In addition to managing your Snowplow pipeline as a service, we also support our Managed Service clients setting up and evolving their event dictionaries and data models.</p>
+        <p>You can trial both the <a href="/get-started/batch">Managed Service Batch</a> and <a href="/get-started/real-time">Managed Service Real-Time</a> free for 30 days.</p>
 
-      </div>
-
-      <h3>Does the managed service include an AWS account?</h3>
-
-      <div class="row">
-        <p>No, we believe that companies should own their data and therefore recommend that our users create their own AWS account. You remain in control, whether on the managed service or the open source version.
-          If you decide to sign up for the managed service, we will setup, monitor and upgrade the Snowplow pipeline using credentials that you control.</p>
       </div>
 
     </div>

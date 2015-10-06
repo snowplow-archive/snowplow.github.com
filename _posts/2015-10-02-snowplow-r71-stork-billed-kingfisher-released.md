@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 71 released
 title: Snowplow 71 Stork-Billed Kingfisher released
+title-short: Snowplow 71 Stork-Billed Kingfisher
 tags: [snowplow, hadoop, enrichments, timestamps, ssl, fingerprinting]
 author: Fred
 category: Releases

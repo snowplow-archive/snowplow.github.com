@@ -1,30 +1,30 @@
 ---
 layout: post
-title: "SQL Runner 0.2.0 released"
+title: "Orchestrating batch pipelines with cron and make"
 title-short: SQL Runner 0.2.0 released
 tags: [sql, redshift, ssl]
 author: Alex
 category: Releases
 ---
 
-At Snowplow we are often asked how best to orchestrate multi-stage ETL pipelines, where these pipelines typically include [Snowplow] [snowplow] and our [SQL Runner] [sql-runner], sometimes [Huskimo] [huskimo] and very often third-party scripts.
+At Snowplow we are often asked how best to orchestrate multi-stage ETL pipelines, where these pipelines typically include [Snowplow] [snowplow] and our [SQL Runner] [sql-runner], sometimes [Huskimo] [huskimo] and often third-party apps and scripts.
 
-There is a growing collection of tools which can be used for this kind of orchestration, including: AWS DataPipeline, Luigi, Chronos, Jenkins and Airflow. These tools tend to have at least two components to them:
+There is a bewildering array set of tools available for this kind of orchestration, including: [AWS Data Pipeline] [aws-data-pipeline], [Luigi] [luigi], [Chronos] [chronos], [Jenkins] [jenkins] and [Airflow] [airflow]. These tools tend to have the following two capabilities:
 
-1. A job-scheduler, which determines when each job will run
-2. A DAG-runner, which can treat a job as a [Directed Acylic Graph] [dag] of steps and run it accordingly 
+1. A job-scheduler, which determines when each batch processing job will run
+2. A DAG-runner, which can treat a job as a [Directed Acylic Graph] [dag] of inter-dependent steps and run those steps in the correct order 
 
-Make no mistake - these tools are powerful and can support some extremely sophisticated data processing
+Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these sytems reliably is not always trivial - for example see the [recent review of Chronos by Kyle Kingsbury] [aphyr-chronos], where he wrote:
 
-We are pleased to announce version [0.2.0] [020-release] of [SQL Runner] [repo]. SQL Runner is an open source app, written in Go, that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
+<blockquote><p>
+If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all
+</p></blockquote>
 
-To use SQL Runner, you assemble a playbook i.e. a YAML file that lists the different `.sql` files to be run and the database they are to be run against. It is possible to specify which sequence the files should be run, and to run files in parallel.
+If you are just starting out with your first batch processing pipelines, we actually recommend a much simpler approach: using `cron` and `make` together to orchestrate your jobs. In this blog post we will:
 
-Read on after the jump for:
-
-1. [New features](/blog/2015/09/13/sql-runner-0.2.0-released/#new-features)
-2. [Upgrading](/blog/2015/09/13/sql-runner-0.2.0-released/#upgrading)
-3. [Getting help](/blog/2015/09/03/sql-runner-0.2.0-released/#help)
+1. [xxx](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
+2. [JSON validation in Scala Common Enrich](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
+3. [New unstructured event fields in enriched events](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 
 <!--more-->
 
@@ -89,11 +89,14 @@ For more details on this release, please check out the [SQL Runner 0.2.0 release
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[repo]: https://github.com/snowplow/sql-runner
-[issue-20]: https://github.com/snowplow/sql-runner/issues/20
-[issue-25]: https://github.com/snowplow/sql-runner/issues/25
-[issue-33]: https://github.com/snowplow/sql-runner/issues/33
-[issues]: https://github.com/snowplow/sql-runner/issues
+[data-pipeline]: https://aws.amazon.com/datapipeline/
+[luigi]: https://github.com/spotify/luigi
+[airflow]: yyy
+[chronos]: xxx
+
+[dag]: xxx
+
+[aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
 
 [020-release]: https://github.com/snowplow/sql-runner/releases/tag/0.2.0
 

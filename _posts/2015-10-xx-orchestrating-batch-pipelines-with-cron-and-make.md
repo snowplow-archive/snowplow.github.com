@@ -14,13 +14,13 @@ There is a bewildering array set of tools available for this kind of orchestrati
 1. A job-scheduler, which determines when each batch processing job will run
 2. A DAG-runner, which can treat a job as a [Directed Acylic Graph] [dag] of inter-dependent steps and run those steps in the correct order 
 
-Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these sytems reliably is not always trivial - for example see the [recent review of Chronos by Kyle Kingsbury] [aphyr-chronos], where he wrote:
+Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these sytems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
 
 <blockquote><p>
 If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all
 </p></blockquote>
 
-If you are just starting out with your first batch processing pipelines, we actually recommend a much simpler approach: using `cron` and `make` together to orchestrate your jobs. In this blog post we will:
+If you are just starting out with your first batch processing pipelines, consider a much simpler approach: combining the 1970s era Unix tools `cron` and `make` to orchestrate your jobs. In this blog post we will:
 
 1. [xxx](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 2. [JSON validation in Scala Common Enrich](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
@@ -89,10 +89,15 @@ For more details on this release, please check out the [SQL Runner 0.2.0 release
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[data-pipeline]: https://aws.amazon.com/datapipeline/
+[snowplow]: xxx
+[huskimo]: yyy
+[sql-runner]: zzz
+
+[aws-data-pipeline]: https://aws.amazon.com/datapipeline/
 [luigi]: https://github.com/spotify/luigi
 [airflow]: yyy
 [chronos]: xxx
+[jenkins]: xxx
 
 [dag]: xxx
 

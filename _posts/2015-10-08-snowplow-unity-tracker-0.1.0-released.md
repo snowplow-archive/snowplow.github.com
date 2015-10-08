@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of our much-requested [Snowplow Unity Tracker] [unity-repo]. This Tracker rounds out our support for popular mobile environments, and is an important part of our analytics offering for videogame companies. The Tracker is designed to work completely asynchronously to your Unity code to provide great performance in your games, even under heavy load.
+We are pleased to announce the release of our much-requested [Snowplow Unity Tracker] [unity-repo]. This Tracker rounds out our support for popular mobile environments, and is an important part of our analytics offering for videogame companies. The Tracker is designed to work completely asynchronously within your Unity code to provide great performance in your games, even under heavy load.
 
 In the rest of this post we will cover:
 

@@ -9,7 +9,7 @@ category: Releases
 
 At Snowplow we are often asked how best to orchestrate multi-stage ETL pipelines, where these pipelines typically include [Snowplow] [snowplow] and our [SQL Runner] [sql-runner], sometimes [Huskimo] [huskimo] and often third-party apps and scripts.
 
-There is a bewildering array set of tools available for this kind of orchestration, including: [AWS Data Pipeline] [aws-data-pipeline], [Luigi] [luigi], [Chronos] [chronos], [Jenkins] [jenkins] and [Airflow] [airflow]. These tools tend to have the following two capabilities:
+There is a bewildering array set of tools available for this kind of orchestration, including [AWS Data Pipeline] [aws-data-pipeline], [Luigi] [luigi], [Chronos] [chronos], [Jenkins] [jenkins] and [Airflow] [airflow]. These tools tend to have the following two capabilities:
 
 1. A job-scheduler, which determines when each batch processing job will run
 2. A DAG-runner, which can treat a job as a [Directed Acylic Graph] [dag] of inter-dependent steps and run those steps in the correct order 
@@ -20,13 +20,15 @@ Make no mistake - these are powerful tools which let you to orchestrate sophisti
 If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all
 </p></blockquote>
 
-If you are just starting out with your first batch processing pipelines, consider a much simpler approach: combining the 1970s era Unix tools `cron` and `make` to orchestrate your jobs. In this blog post we will:
+If you are just starting out with your first batch processing pipelines, consider a much simpler approach: combining the standard Unix tools `cron` and `make` to orchestrate your jobs. In this blog post we will introduce exactly this approach:
 
-1. [xxx](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
+1. [Introduce our pipeline](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 2. [JSON validation in Scala Common Enrich](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 3. [New unstructured event fields in enriched events](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 
 <!--more-->
+
+
 
 <h2 id="new-features">1. New features</h2>
 
@@ -87,17 +89,17 @@ For more details on this release, please check out the [SQL Runner 0.2.0 release
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[snowplow]: xxx
-[huskimo]: yyy
+[snowplow]: http://snowplowanalytics.com/
+[huskimo]: https://github.com/snowplow/huskimo
 [sql-runner]: zzz
 
 [aws-data-pipeline]: https://aws.amazon.com/datapipeline/
 [luigi]: https://github.com/spotify/luigi
-[airflow]: yyy
-[chronos]: xxx
-[jenkins]: xxx
+[airflow]: http://nerds.airbnb.com/airflow/
+[chronos]: https://github.com/mesos/chronos
+[jenkins]: https://jenkins-ci.org/
 
-[dag]: xxx
+[dag]: https://github.com/snowplow/sql-runner
 
 [aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
 

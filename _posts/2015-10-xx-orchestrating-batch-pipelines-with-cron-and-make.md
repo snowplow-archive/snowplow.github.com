@@ -20,7 +20,7 @@ Make no mistake - these are powerful tools which let you to orchestrate sophisti
 If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all
 </p></blockquote>
 
-If you are just starting out with your first batch processing pipelines, consider a much simpler approach: combining the standard Unix tools `cron` and `make` to orchestrate your jobs. In this blog post we will introduce exactly this approach:
+If you are just starting out with your first batch processing pipelines, consider a much simpler approach: combining the standard Unix tools `cron` and `make` to orchestrate your jobs. This blog post provides a simple walkthrough for this approach:
 
 1. [Introduce our pipeline](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)
 2. [JSON validation in Scala Common Enrich](/blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released#xxx)

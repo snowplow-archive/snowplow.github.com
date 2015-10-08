@@ -25,7 +25,7 @@ In the rest of this post we will cover:
 
 The release version of this Tracker as well as all of its dependencies are included in a single UnityPackage available from our BinTray: 
 
-* [SnowplowTracker-0.1.0.unitypackage][package-dl]
+* [snowplow_unity_tracker_0.1.0][package-dl]
 
 Simply add this package to your project and it should add all of the required DLLs into your Unity Project.
 
@@ -106,9 +106,9 @@ As you can see in the second screen we have configured the Tracker to point at a
 
 We have big plans for the Snowplow Unity Tracker, including but not limited to:
 
-* Adding support for the WebPlayer platform
-* Automating the creation of Mobile, Desktop and GeoLocation contexts
-* Automating the detection of background/foreground application state for sessionization
+* Adding support for the WebPlayer platform ([#2] [issue-2])
+* Automating the creation of Mobile, Desktop and GeoLocation contexts ([#4] [issue-4])
+* Automating the detection of background/foreground application state for sessionization ([#5] [issue-5])
 
 <h2 id="docs">6. Documentation</h2>
 
@@ -116,7 +116,7 @@ You can find the [Unity Tracker usage manual] [unity-manual] on our wiki.
 
 <h2 id="help">7. Getting help</h2>
 
-We hope that you find the Snowplow Unity Tracker helpful - this is only its first release, so don't be afraid to [get in touch][talk-to-us] or raise an issue [Unity Tracker issues] [unity-issues] on GitHub!
+We hope that you find the Snowplow Unity Tracker useful - of course, this is only its first release, so don't be afraid to [get in touch][talk-to-us] or raise an issue [Unity Tracker issues] [unity-issues] on GitHub!
 
 [unity-repo]: https://github.com/snowplow/snowplow-unity-tracker
 [unity-manual]: https://github.com/snowplow/snowplow/wiki/Unity-Tracker
@@ -125,3 +125,7 @@ We hope that you find the Snowplow Unity Tracker helpful - this is only its firs
 [package-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_unity_tracker_0.1.0.zip
 [sqlite]: https://www.sqlite.org/
 [pong]: https://en.wikipedia.org/wiki/Pong
+
+[issue-2]: https://github.com/snowplow/snowplow-unity-tracker/issues/2
+[issue-4]: https://github.com/snowplow/snowplow-unity-tracker/issues/4
+[issue-5]: https://github.com/snowplow/snowplow-unity-tracker/issues/5

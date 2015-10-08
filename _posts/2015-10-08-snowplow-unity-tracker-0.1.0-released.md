@@ -25,7 +25,7 @@ In the rest of this post we will cover:
 
 The release version of this Tracker as well as all of its dependencies are included in a single UnityPackage available from our BinTray: 
 
-* [snowplow_unity_tracker_0.1.0][package-dl]
+[snowplow_unity_tracker_0.1.0][package-dl]
 
 Simply add this package to your project and it should add all of the required DLLs into your Unity Project.
 

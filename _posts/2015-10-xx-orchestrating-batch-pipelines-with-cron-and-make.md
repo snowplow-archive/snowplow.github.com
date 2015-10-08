@@ -28,8 +28,6 @@ If you are just starting out with your first batch processing pipelines, conside
 
 <!--more-->
 
-For more information on SQL Runner please view [the GitHub repository] [repo].
-
 <h2 id="new-features">1. New features</h2>
 
 The main addition is the ability to run SQL against Redshift and Postgres databases which have SSL security enabled. Many thanks to Dennis Waldron from Space Ape Games for contributing this feature!
@@ -102,6 +100,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [dag]: xxx
 
 [aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
+
+[make]: http://www.gnu.org/software/make/
 
 [020-release]: https://github.com/snowplow/sql-runner/releases/tag/0.2.0
 

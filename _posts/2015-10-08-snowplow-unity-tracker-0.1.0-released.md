@@ -122,6 +122,6 @@ We hope that you find the Snowplow Unity Tracker helpful - this is only its firs
 [unity-manual]: https://github.com/snowplow/snowplow/wiki/Unity-Tracker
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [unity-issues]: https://github.com/snowplow/snowplow-unity-tracker/issues
-[package-dl]: https://bintray.com/snowplow/snowplow-generic
+[package-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_unity_tracker_0.1.0.zip
 [sqlite]: https://www.sqlite.org/
 [pong]: https://en.wikipedia.org/wiki/Pong

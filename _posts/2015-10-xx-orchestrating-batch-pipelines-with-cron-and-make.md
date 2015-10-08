@@ -29,10 +29,20 @@ If you are just starting out building your first batch processing pipelines, con
 
 <!--more-->
 
-
-
 <h2 id="pipeline">Introducing our batch pipeline</h2>
 
+Let's imagine that we need to setup a batch-processing pipeline with the following components:
+
+* [Amazon SNS] [sns] notifications at the start and (successful) end of each run
+* Snowplow's EmrEtlRunner and StorageLoader applications to run Snowplow on EMR and load events into Redshift
+* Our Huskimo project to extract marketing spend data from Singular
+* Some data modeling performed in Redshift using our SQL Runner app
+
+Let's assume that the data modeling is dependent on both our Snowplow load and our Huskimo run. Putting all this together, we end up with a DAG which looks like this:
+
+XXX
+
+We're now going to express this DAG in a Makefile ready for `make`.
 
 <h2 id="make">Defining our job's DAG in make</h2>
 
@@ -52,6 +62,8 @@ If you are just starting out building your first batch processing pipelines, con
 [airflow]: http://nerds.airbnb.com/airflow/
 [chronos]: https://github.com/mesos/chronos
 [jenkins]: https://jenkins-ci.org/
+
+[sns]: https://aws.amazon.com/sns/
 
 [dag]: https://github.com/snowplow/sql-runner
 

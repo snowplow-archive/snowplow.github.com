@@ -7,13 +7,13 @@ author: Fred
 category: Releases
 ---
 
-Version 0.2.0 of the [Snowplow Node.js Tracker][repo] is now available! This release changes the Tracker's architecture and adds the ability to send Snowplow events via either GET or POST.
+Version 0.2.0 of the [Snowplow Node.js Tracker][repo] is now available! This release changes the Tracker's architecture and adds the ability to send Snowplow events via either `GET` or `POST`.
 
 Read on for more information...
 
-1. [Emitters](/blog/2015/xx/xx/snowplow-node.js-tracker-0.2.0-released/#emitters)
-2. [Vagrant quickstart](/blog/2015/xx/xx/snowplow-node.js-tracker-0.2.0-released/#install)
-3. [Getting help](/blog/2015/xx/xx/snowplow-node.js-tracker-0.2.0-released/#usage)
+1. [Emitters](/blog/2015/10/09/snowplow-node.js-tracker-0.2.0-released/#emitters)
+2. [Vagrant quickstart](/blog/2015/10/09/snowplow-node.js-tracker-0.2.0-released/#vagrant)
+3. [Getting help](/blog/2015/10/09/snowplow-node.js-tracker-0.2.0-released/#help)
 
 <!--more-->
 
@@ -70,7 +70,7 @@ npm install
 npm test
 {% endhighlight %}
 
-<h2 id="history">3. Getting help</h2>
+<h2 id="help">3. Getting help</h2>
 
 For more detailed information, check out the [technical documentation][tech-docs].
 

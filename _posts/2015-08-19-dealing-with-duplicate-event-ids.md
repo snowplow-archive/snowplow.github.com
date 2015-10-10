@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Duplicate event IDs
 title: Dealing with duplicate event IDs
+title-short: Dealing with duplicate event IDs
 tags: [analytics, data modeling, events]
 author: Christophe
 category: analytics
@@ -52,7 +52,7 @@ We distinguish between endogenous and exogenous duplicates.
 
 Endogenous duplicates are sometimes introduced within the Snowplow pipeline wherever our processing capabilities are set to process events *at least* once. For instance, the CloudFront collector can duplicate events in the batch flow and so can applications in the Kinesis real-time flow (this is discussed in more detail below).
 
-These events are true duplicates in the sense that all client-sent fields are the same, i.e. all *relevant* data that is sent to the collector is duplicated, not just the event ID. To deduplicate these events, delete all but the first event. This should happen at the point of consumption when no more new duplicates can be introduced.
+These events are true duplicates in the sense that all client-sent fields are the same, not just the event ID. These fields include, for example, the user ID and the device timestamp, but not the collector and ETL timestamp (which are not related to the actual event but describe what happened after it was sent). To deduplicate these events, delete all but the first event. This should happen at the point of consumption when no more new duplicates can be introduced.
 
 ### Exogenous or third-party duplicates
 
@@ -74,6 +74,8 @@ We use a simple algorithm to deduplicate the event ID. When 2 or more events sha
   - or delete all events
 
 ## Deduplicating the event ID in Redshift
+
+**Update (2015-10-09):** Snowplow 72 Great Spotted Kiwi will ship with updated deduplication queries which use the event fingerprint that was introduced in [Snowplow 71 Stork-Billed Kingfisher][r71].
 
 Last month, we released [Snowplow 69 Blue-Bellied Roller][r69] with a [new data model][deduplicate] that deduplicates the event ID in Redshift. It consists of a set of SQL queries that can be run on a regular basis (for example, after each load) using our [SQL Runner][sql-runner] application. The queries:
 
@@ -170,6 +172,7 @@ Note that the ElasticSearch sink for the Kinesis flow takes a “last event wins
 [uuid-random]: https://en.wikipedia.org/wiki/Universally_unique_identifier#Random%5FUUID%5Fprobability%5Fof%5Fduplicates
 
 [r69]: /blog/2015/07/24/snowplow-r69-blue-bellied-roller-released/
+[r71]: /blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released/
 [deduplicate]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
 [sql-runner]: https://github.com/snowplow/sql-runner
 [redshift-window]: http://docs.aws.amazon.com/redshift/latest/dg/c_Window_functions.html

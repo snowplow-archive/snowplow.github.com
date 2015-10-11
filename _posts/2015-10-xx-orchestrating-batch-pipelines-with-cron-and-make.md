@@ -2,7 +2,7 @@
 layout: post
 title: "Orchestrating batch pipelines with cron and make"
 title-short: SQL Runner 0.2.0 released
-tags: [sql, redshift, ssl]
+tags: [cron, make, orchestration, pipeline, etl]
 author: Alex
 category: Inside the Plow
 ---
@@ -46,30 +46,86 @@ We're now going to express this DAG in a Makefile ready for `make`.
 
 <h2 id="make">Defining our job's DAG in make</h2>
 
+Make is a software build tool first released in 1977, which uses files called Makefiles to specify how to build the target program. A Makefile lets you specify tasks that contribute to the build, and express dependencies between these tasks, forming a directed acylic graph.
+
+Because the tasks in a Makefile are just shell commands, we can use make to orchestrate a batch processing pipeline, as long as each individual step in the pipeline is invokable from a shell.
+
+Here's the Makefile for our job, `example-dag.makefile` with a simple `echo` to placehold for each task, plus some `sleep`s to make it easier to see what is going on when we run it:
+
+{% highlight makefile %}
+done: send-completed-sns
+
+send-starting-sns:
+  echo "Sending SNS for job starting" && sleep 5
+snowplow-emr-etl-runner: send-starting-sns
+  echo "Running Snowplow EmrEtlRunner" && sleep 5
+snowplow-storage-loader: snowplow-emr-etl-runner
+  echo "Running Snowplow StorageLoader" && sleep 5
+huskimo: send-starting-sns
+  echo "Running Huskimo" && sleep 2
+sql-runner: snowplow-storage-loader huskimo
+  echo "Running data models" && sleep 5
+send-completed-sns: sql-runner
+  echo "Sending SNS for job completion" && sleep 2
+{% endhighlight %}
+
+By default Make will attempt to build the first rule found in the supplied Makefile - I like to call the first rule `done` and make it dependent on the last task in our DAG. You can see that the rest of our rules consist of a name or "target", one or more dependencies on other targets, and the shell command to run, on a tab-indented newline. To learn a lot more about the Makefile syntax, check out the [GNU make manual] [make-docs].
+
+Let's visualize this Makefile, using the [makefile2dot] [makefile2dot] Python script:
+
+{% highlight bash %}
+$ sudo apt-get install graphviz python
+$ sudo wget https://raw.githubusercontent.com/vak/makefile2dot/master/makefile2dot.py
+$ python makefile2dot.py <example-dag.makefile |dot -Tpng > example-dag.png
+{% endhighlight %}
+
+Here is the generated diagram:
+
+XXX
+
+The DAG flows bottom-to-top which is a little quirky - it reflects the fact that Makefiles normally build a target app which is composed of multiple intermediate files.
 
 <h2 id="cron">Scheduling our Makefile in cron</h2>
 
+Now that we have our Makefile, we need to run it! Here is our command, together with the output:
+
+{% highlight bash %}
+$ make -k -j -f example-dag.makefile
+XXXXX
+{% endhighlight %}
+
+In reverse order, the command line arguments are as follows:
+
+* `-f` specifies the Makefile to run (where the default is `Makefile` in the current directory)
+* `-j` lets Make run with as much parallelism as is needed - so the Huskimo and Snowplow tasks can run at the same time
+* `-k` means "keep going" as far through the DAG as possible - so for example, even if Huskimo fails, we can still complete the Snowplow tasks before failing the overall job
+
+How to schedule our job to run? 
+
+{% highlight bash %}
+00 3            * * *   make -k -j -f example-dag.makefile
+{% endhighlight %}
 
 <h2 id="trouble">Troubleshooting</h2>
-
 
 [snowplow]: http://snowplowanalytics.com/
 [huskimo]: https://github.com/snowplow/huskimo
 [sql-runner]: https://github.com/snowplow/sql-runner
+[sns]: https://aws.amazon.com/sns/
 
 [aws-data-pipeline]: https://aws.amazon.com/datapipeline/
 [luigi]: https://github.com/spotify/luigi
 [airflow]: http://nerds.airbnb.com/airflow/
 [chronos]: https://github.com/mesos/chronos
+[aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
 [jenkins]: https://jenkins-ci.org/
 
-[sns]: https://aws.amazon.com/sns/
-
 [dag]: https://github.com/snowplow/sql-runner
-
-[aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
-
 [make]: http://www.gnu.org/software/make/
+[make-docs]: http://www.gnu.org/software/make/manual/make.html
+[makefile2dot]: https://github.com/vak/makefile2dot
+
+[cron]: https://en.wikipedia.org/wiki/Cron
 
 [020-release]: https://github.com/snowplow/sql-runner/releases/tag/0.2.0
 

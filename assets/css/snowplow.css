@@ -90,13 +90,13 @@ h1:first-of-type
 
 p {margin: 15px 0}
 
-pre, pre code {
+/*pre, pre code {
 	overflow: auto;
 	word-wrap: normal;
 	white-space: pre;
 }
 
-@media (max-width: 1199px) {pre, pre code {white-space: initial}} /* hack to fix responsive design */
+@media (max-width: 1199px) {pre, pre code {white-space: initial}} hack to fix responsive design */
 
 /* images */
 

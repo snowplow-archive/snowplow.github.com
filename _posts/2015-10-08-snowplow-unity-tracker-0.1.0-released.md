@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Unity Tracker 0.1.0 released
 title: Snowplow Unity Tracker 0.1.0 released
+title-short: Snowplow Unity Tracker 0.1.0
 tags: [snowplow, analytics, unity, tracker, mono, gaming]
 author: Josh
 category: Releases
@@ -23,7 +23,7 @@ In the rest of this post we will cover:
 
 <h2 id="how-to-install">1. How to install the tracker</h2>
 
-The release version of this Tracker as well as all of its dependencies are included in a single UnityPackage available from our BinTray: 
+The release version of this Tracker as well as all of its dependencies are included in a single UnityPackage available from our BinTray:
 
 [snowplow_unity_tracker_0.1.0][package-dl]
 

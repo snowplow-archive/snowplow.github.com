@@ -12,7 +12,7 @@ At Snowplow we are often asked how best to orchestrate multi-stage ETL pipelines
 There is a wide array of tools available for this kind of orchestration, including [AWS Data Pipeline] [aws-data-pipeline], [Luigi] [luigi], [Chronos] [chronos], [Jenkins] [jenkins] and [Airflow] [airflow]. These tools tend to have the following two capabilities:
 
 1. A job-scheduler, which determines when each batch processing job will run
-2. A DAG-runner, which can treat a job as a [Directed Acylic Graph] [dag] of inter-dependent steps and run those steps in the correct order 
+2. A DAG-runner, which can treat a job as a [directed acylic graph] [dag] of inter-dependent steps and run those steps in the correct order 
 
 Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these sytems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
 
@@ -24,9 +24,10 @@ If you are just starting out building your first batch processing pipeline, cons
 
 1. [Introducing our batch pipeline](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#pipeline)
 2. [Defining our job's DAG in make](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#make)
-3. [Scheduling our Makefile in cron](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#cron)
-4. [Handling job failures](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#failures)
-5. [Conclusion](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#conclusion)
+3. [Running our Makefile](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#running)
+4. [Scheduling our Makefile in cron](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#cron)
+5. [Handling job failures](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#failures)
+6. [Conclusion](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#conclusion)
 
 <!--more-->
 
@@ -43,15 +44,15 @@ We'll assume that the SQL data modeling is dependent on both our Snowplow load a
 
 ![job-sketch] [job-sketch]
 
-We're now going to express this DAG in a Makefile ready for `make`.
+We're now going to express this DAG in a Makefile ready for Make.
 
 <h2 id="make">Defining our job's DAG in make</h2>
 
-Make is a software build tool first released in 1977, which uses files called Makefiles to specify how to build the target program. A Makefile lets you specify tasks that contribute to the build, and express dependencies between these tasks, forming a directed acylic graph.
+Make is a software build tool first released in 1977. It uses files called Makefiles to specify how to build the target program. A Makefile lets you specify tasks that contribute to the build, and express dependencies between these tasks, forming a directed acylic graph.
 
-Because the tasks in a Makefile are just shell commands, we can use make to orchestrate a batch processing pipeline, as long as each individual step in the pipeline is invokable from a shell.
+Because the tasks in a Makefile are just shell commands, we can use `make` to orchestrate a batch processing pipeline, as long as each individual step in the pipeline is invokable from a shell.
 
-Here's the Makefile for our job, `example-dag.makefile` with a simple `echo` to placehold for each task, plus some `sleep`s to make it easier to see what is going on when we run it:
+Here's the Makefile for our job, `example-dag.makefile` with a simple `echo` to represent each task, plus some `sleep`s to make it easier to see what is going on when we run it:
 
 {% highlight makefile %}
 done: send-completed-sns
@@ -70,7 +71,13 @@ send-completed-sns: sql-runner
 	echo "Sending SNS for job completion" && sleep 2
 {% endhighlight %}
 
-By default Make will attempt to build the first rule found in the supplied Makefile - I like to call the first rule `done` and make it dependent on the last task in our DAG. You can see that the rest of our rules consist of a name or "target", one or more dependencies on other targets, and the shell command to run, on a tab-indented newline. To learn a lot more about the Makefile syntax, check out the [GNU make manual] [make-docs].
+By default Make will attempt to build the first rule found in the supplied Makefile - I like to call the first rule `done` and make it dependent on the last task in our DAG. You can see that the rest of our rules consist of:
+
+1. A name or "target"
+2. One or more dependencies on other targets, after the `:`
+3. The shell command to run, on a tab-indented newline
+
+To learn a lot more about the Makefile syntax, check out the [GNU make manual] [make-docs].
 
 Let's visualize this Makefile, using the [makefile2dot] [makefile2dot] Python script:
 
@@ -86,9 +93,9 @@ Here is the generated diagram:
 
 ![job-makefile] [job-makefile]
 
-The DAG flows bottom-to-top, which is a little quirky - it reflects the fact that Makefiles normally build a target app which is underpinned by multiple intermediate files.
+The DAG flows bottom-to-top, which is a little quirky - it reflects the fact that Makefiles normally create a target which is built *on top of* multiple intermediate files.
 
-<h2 id="cron">Scheduling our Makefile in cron</h2>
+<h2 id="running">Running our Makefile</h2>
 
 Now that we have our Makefile, we need to run it! Here is the command we'll use, together with the output:
 
@@ -110,9 +117,11 @@ Sending SNS for job completion
 
 In reverse order, our command line arguments to `make` are as follows:
 
-* `-f` specifies the Makefile to run (where the default is `Makefile` in the current directory)
-* `-j` lets Make run with as much parallelism as is needed - so the Huskimo and Snowplow tasks can run at the same time
-* `-k` means "keep going" as far through the DAG as possible - so for example, even if Huskimo fails, we can still complete the Snowplow tasks before failing the overall job
+* `-f` specifies the Makefile to run (otherwise the default is `Makefile` in the current directory)
+* `-j` lets Make run with as much parallelism as is needed - so that our Huskimo and Snowplow tasks can run at the same time
+* `-k` means "keep going" through the DAG as far as possible - so for example, even if Huskimo fails, we can still complete the Snowplow tasks before failing the overall job
+
+<h2 id="cron">Scheduling our Makefile in cron</h2>
 
 So `make` has given us the DAG component of our orchestration problem - what about the scheduling aspect? For this, we can simply use [Cron] [cron].
 

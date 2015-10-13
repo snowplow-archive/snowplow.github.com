@@ -34,8 +34,8 @@ If you are just starting out building your first batch processing pipeline, cons
 
 Let's imagine that we need to setup a batch-processing pipeline with the following components:
 
-* [Amazon SNS] [sns] notifications at the start and (successful) end of each run
-* Snowplow's EmrEtlRunner and StorageLoader applications to run Snowplow on EMR and load events into Redshift
+* Amazon SNS notifications at the start and (successful) end of each run
+* Our EmrEtlRunner and StorageLoader applications to run Snowplow on EMR and load into Redshift
 * Our Huskimo project to extract marketing spend data from Singular
 * Some data modeling performed in Redshift using our SQL Runner app
 
@@ -230,7 +230,6 @@ Even if you plan on implementing a full-blown distributed orchestration tool, it
 [snowplow]: http://snowplowanalytics.com/
 [huskimo]: https://github.com/snowplow/huskimo
 [sql-runner]: https://github.com/snowplow/sql-runner
-[sns]: https://aws.amazon.com/sns/
 
 [aws-data-pipeline]: https://aws.amazon.com/datapipeline/
 [luigi]: https://github.com/spotify/luigi

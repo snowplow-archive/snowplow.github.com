@@ -183,13 +183,17 @@ Make has faithfully reported our failure! So how do we recover from this? Typica
 1. Fix the underlying problem
 2. Resume the failed DAG either from the failed step, or from the step immediately after the failed step
 
-Some of the orchestration tools in this post's introduction make this recovery process quite straightforward - things are a little more complex with our Make-based approach.
+Some of the orchestration tools in this post's introduction make this recovery process quite straightforward - things are a little more complex with our `make`-based approach.
 
-The first thing we need to remember is that we are running with the `-k` flag, meaning that processing kept going post-failure, on any forks of the DAG which were not (yet) dependent on the failing step. This behavior makes it much easier to reason about our job failure: we don't have to worry about what was running at the exact time of step failure; instead we just review the DAG to see which steps cannot have run:
+The first thing we need to remember is that we are running with the `-k` flag, meaning that processing *kept going post-failure*, continuing to run steps on any branches of the DAG which were not (yet) dependent on the failing step.
+
+This behavior makes it much easier to reason about our job failure. We don't have to worry about what was running at the exact time of step failure; instead we just review the DAG to see which steps cannot have run:
 
 ![failure-sketch] [failure-sketch]
 
-When doing this, always review the Make error output carefully to make sure that there weren't in fact failures of multiple branches of the DAG! With this done, we can now produce a scratch Makefile just for the job resumption, `resume-dag.makefile`:
+When troubleshooting a job failure, always review the Make error output carefully to make sure that there weren't in fact failures in multiple branches of the DAG!
+
+With this done, we can now produce a scratch Makefile just for the job resumption, `resume-dag.makefile`:
 
 {% highlight makefile %}
 done: send-completed-sns
@@ -202,7 +206,7 @@ send-completed-sns: sql-runner
 	echo "Sending SNS for job completion" && sleep 2
 {% endhighlight %}
 
-In this case, we are running the StorageLoader again. Note how we removed all the completed steps, and removed dangling references to the completed steps in the dependencies of the outstanding steps.
+Note how we removed all the completed steps, and removed dangling references to the completed steps in the dependencies of the outstanding steps.
 
 A quick visualization of this Makefile:
 
@@ -210,7 +214,7 @@ A quick visualization of this Makefile:
 $ python makefile2dot.py <resume-dag.makefile |dot -Tpng > resume-dag.png
 {% endhighlight %}
 
-Here is the much-simpler DAG:
+Here is the now much simpler DAG:
 
 ![resume-makefile] [resume-makefile]
 

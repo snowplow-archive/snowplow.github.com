@@ -22,11 +22,11 @@ If you already use Chronos, I suggest you... ensure your jobs are OK with never 
 
 If you are just starting out building your first batch processing pipeline, consider a much simpler approach: combining the standard Unix tools `cron` and `make` to orchestrate your jobs. This blog post walks you through this approach:
 
-1. [Introducing our batch pipeline](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#pipeline)
-2. [Defining our job's DAG in make](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#make)
-3. [Scheduling our Makefile in cron](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#cron)
-4. [Handling job failures](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#failures)
-5. [Conclusion](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#conclusion)
+1. [Introducing our batch pipeline](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#pipeline)
+2. [Defining our job's DAG in make](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#make)
+3. [Scheduling our Makefile in cron](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#cron)
+4. [Handling job failures](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#failures)
+5. [Conclusion](/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make#conclusion)
 
 <!--more-->
 
@@ -41,7 +41,7 @@ Let's imagine that we need to setup a batch-processing pipeline with the followi
 
 We'll assume that the SQL data modeling is dependent on both our Snowplow load and our Huskimo run. Putting all this together, we end up with a processing graph which looks like this:
 
-XXX
+![job-sketch] [job-sketch]
 
 We're now going to express this DAG in a Makefile ready for `make`.
 
@@ -57,17 +57,17 @@ Here's the Makefile for our job, `example-dag.makefile` with a simple `echo` to 
 done: send-completed-sns
 
 send-starting-sns:
-  echo "Sending SNS for job starting" && sleep 5
+	echo "Sending SNS for job starting" && sleep 5
 snowplow-emr-etl-runner: send-starting-sns
-  echo "Running Snowplow EmrEtlRunner" && sleep 5
+	echo "Running Snowplow EmrEtlRunner" && sleep 5
 snowplow-storage-loader: snowplow-emr-etl-runner
-  echo "Running Snowplow StorageLoader" && sleep 5
+	echo "Running Snowplow StorageLoader" && sleep 5
 huskimo: send-starting-sns
-  echo "Running Huskimo" && sleep 2
+	echo "Running Huskimo" && sleep 2
 sql-runner: snowplow-storage-loader huskimo
-  echo "Running data models" && sleep 5
+	echo "Running data models" && sleep 5
 send-completed-sns: sql-runner
-  echo "Sending SNS for job completion" && sleep 2
+	echo "Sending SNS for job completion" && sleep 2
 {% endhighlight %}
 
 By default Make will attempt to build the first rule found in the supplied Makefile - I like to call the first rule `done` and make it dependent on the last task in our DAG. You can see that the rest of our rules consist of a name or "target", one or more dependencies on other targets, and the shell command to run, on a tab-indented newline. To learn a lot more about the Makefile syntax, check out the [GNU make manual] [make-docs].
@@ -76,13 +76,15 @@ Let's visualize this Makefile, using the [makefile2dot] [makefile2dot] Python sc
 
 {% highlight bash %}
 $ sudo apt-get install graphviz python
+...
 $ sudo wget https://raw.githubusercontent.com/vak/makefile2dot/master/makefile2dot.py
+...
 $ python makefile2dot.py <example-dag.makefile |dot -Tpng > example-dag.png
 {% endhighlight %}
 
 Here is the generated diagram:
 
-XXX
+![job-makefile] [job-makefile]
 
 The DAG flows bottom-to-top, which is a little quirky - it reflects the fact that Makefiles normally build a target app which is underpinned by multiple intermediate files.
 
@@ -92,7 +94,18 @@ Now that we have our Makefile, we need to run it! Here is the command we'll use,
 
 {% highlight bash %}
 $ make -k -j -f example-dag.makefile
-XXXXX
+echo "Sending SNS for job starting" && sleep 5
+Sending SNS for job starting
+echo "Running Snowplow EmrEtlRunner" && sleep 5
+echo "Running Huskimo" && sleep 2
+Running Snowplow EmrEtlRunner
+Running Huskimo
+echo "Running Snowplow StorageLoader" && sleep 5
+Running Snowplow StorageLoader
+echo "Running data models" && sleep 5
+Running data models
+echo "Sending SNS for job completion" && sleep 2
+Sending SNS for job completion
 {% endhighlight %}
 
 In reverse order, our command line arguments to `make` are as follows:
@@ -127,24 +140,33 @@ Let's simulate a failure with the following `failing-dag.makefile` - note the `e
 done: send-completed-sns
 
 send-starting-sns:
-  echo "Sending SNS for job starting" && sleep 5
+	echo "Sending SNS for job starting" && sleep 5
 snowplow-emr-etl-runner: send-starting-sns
-  echo "Running Snowplow EmrEtlRunner" && sleep 5
+	echo "Running Snowplow EmrEtlRunner" && sleep 5
 snowplow-storage-loader: snowplow-emr-etl-runner
-  echo "Running Snowplow StorageLoader - BROKEN" && exit 1
+	echo "Running Snowplow StorageLoader - BROKEN" && exit 1
 huskimo: send-starting-sns
-  echo "Running Huskimo" && sleep 2
+	echo "Running Huskimo" && sleep 2
 sql-runner: snowplow-storage-loader huskimo
-  echo "Running data models" && sleep 5
+	echo "Running data models" && sleep 5
 send-completed-sns: sql-runner
-  echo "Sending SNS for job completion" && sleep 2
+	echo "Sending SNS for job completion" && sleep 2
 {% endhighlight %}
 
 Let's run this:
 
 {% highlight bash %}
 $ make -k -j -f failing-dag.makefile
-XXXXX
+echo "Sending SNS for job starting" && sleep 5
+Sending SNS for job starting
+echo "Running Snowplow EmrEtlRunner" && sleep 5
+echo "Running Huskimo" && sleep 2
+Running Snowplow EmrEtlRunner
+Running Huskimo
+echo "Running Snowplow StorageLoader - BROKEN" && exit 1
+Running Snowplow StorageLoader - BROKEN
+make: *** [snowplow-storage-loader] Error 1
+make: Target `done' not remade because of errors.
 {% endhighlight %}
 
 Make has faithfully reported our failure! So how do we recover from this? Typically we will:
@@ -156,7 +178,7 @@ Some of the orchestration tools in this post's introduction make this recovery p
 
 The first thing we need to remember is that we are running with the `-k` flag, meaning that processing kept going post-failure, on any forks of the DAG which were not (yet) dependent on the failing step. This behavior makes it much easier to reason about our job failure: we don't have to worry about what was running at the exact time of step failure; instead we just review the DAG to see which steps cannot have run:
 
-ADD IMAGE
+![failure-sketch] [failure-sketch]
 
 When doing this, always review the Make error output carefully to make sure that there weren't in fact failures of multiple branches of the DAG! With this done, we can now produce a scratch Makefile just for the job resumption, `resume-dag.makefile`:
 
@@ -164,11 +186,11 @@ When doing this, always review the Make error output carefully to make sure that
 done: send-completed-sns
 
 snowplow-storage-loader:
-  echo "Running Snowplow StorageLoader - FIXED"
+	echo "Running Snowplow StorageLoader - FIXED"
 sql-runner: snowplow-storage-loader
-  echo "Running data models" && sleep 5
+	echo "Running data models" && sleep 5
 send-completed-sns: sql-runner
-  echo "Sending SNS for job completion" && sleep 2
+	echo "Sending SNS for job completion" && sleep 2
 {% endhighlight %}
 
 In this case, we are running the StorageLoader again. Note how we removed all the completed steps, and removed dangling references to the completed steps in the dependencies of the outstanding steps.
@@ -181,20 +203,29 @@ $ python makefile2dot.py <resume-dag.makefile |dot -Tpng > resume-dag.png
 
 Here is the much-simpler DAG:
 
+![resume-makefile] [resume-makefile]
+
 Finally let's run this:
 
 {% highlight bash %}
 $ make -k -j -f resume-dag.makefile
-XXXXX
+echo "Running Snowplow StorageLoader - FIXED"
+Running Snowplow StorageLoader - FIXED
+echo "Running data models" && sleep 5
+Running data models
+echo "Sending SNS for job completion" && sleep 2
+Sending SNS for job completion
 {% endhighlight %}
 
-We've completed our recovery!
+Great - we've now completed our recovery from the job failure.
 
 <h2 id="conclusion">Conclusion</h2>
 
-This blog post has shown how you can use simple tools - `make` and `cron` to orchestrate complex batch processing jobs. The given approach is simple, some might say crude - it certainly doesn't have all the bells and whistles of a tool like Chronos or Airflow. However, this also means that this approach has many fewer failure states and it is much easier to reason about and resolve job failures.
+This blog post has shown how you can use simple tools, `make` and `cron`, to orchestrate complex batch processing jobs.
 
-Even if you plan on implementing 
+The Makefile-based approach is simple, some might say crude - it certainly doesn't have all the bells and whistles of a tool like Chronos or Airflow. However, this approach has many fewer failure states and it can be much easier to reason about and resolve job failures.
+
+Even if you plan on implementing a full-blown distributed orchestration tool, it can be worth prototyping new jobs using something as simple as Make - give it a go and let us know your thoughts in the comments!
 
 [snowplow]: http://snowplowanalytics.com/
 [huskimo]: https://github.com/snowplow/huskimo
@@ -215,6 +246,9 @@ Even if you plan on implementing
 
 [cron]: https://en.wikipedia.org/wiki/Cron
 
-[020-release]: https://github.com/snowplow/sql-runner/releases/tag/0.2.0
+[job-sketch]: /assets/img/blog/2015/10/job-sketch.jpg
+[job-makefile]: /assets/img/blog/2015/10/example-dag.png
+[failure-sketch]: /assets/img/blog/2015/10/failure-sketch.jpg
+[resume-makefile]:/assets/img/blog/2015/10/resume-dag.png
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

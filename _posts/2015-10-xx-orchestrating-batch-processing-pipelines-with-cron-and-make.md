@@ -25,7 +25,8 @@ If you are just starting out building your first batch processing pipeline, cons
 1. [Introducing our batch pipeline](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#pipeline)
 2. [Defining our job's DAG in make](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#make)
 3. [Scheduling our Makefile in cron](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#cron)
-4. [Troubleshooting](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#trouble)
+4. [Handling job failures](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#failures)
+5. [Conclusion](/blog/2015/10/02/orchestrating-batch-processing-pipelines-with-cron-and-make#conclusion)
 
 <!--more-->
 
@@ -116,10 +117,84 @@ And add an entry to run our Makefile every morning at 3am UTC:
 
 And that's it! We now have our DAG scheduled to run nightly.
 
-<h2 id="trouble">Troubleshooting</h2>
+<h2 id="failures">Handling job failures</h2>
 
-What if our DAG fails? 
+Our job will fail if one or more of the steps fails - meaning that a shell command in the step returns a non-zero code.
 
+Let's simulate a failure with the following `failing-dag.makefile` - note the `exit 1` under the StorageLoader rule:
+
+{% highlight makefile %}
+done: send-completed-sns
+
+send-starting-sns:
+  echo "Sending SNS for job starting" && sleep 5
+snowplow-emr-etl-runner: send-starting-sns
+  echo "Running Snowplow EmrEtlRunner" && sleep 5
+snowplow-storage-loader: snowplow-emr-etl-runner
+  echo "Running Snowplow StorageLoader - BROKEN" && exit 1
+huskimo: send-starting-sns
+  echo "Running Huskimo" && sleep 2
+sql-runner: snowplow-storage-loader huskimo
+  echo "Running data models" && sleep 5
+send-completed-sns: sql-runner
+  echo "Sending SNS for job completion" && sleep 2
+{% endhighlight %}
+
+Let's run this:
+
+{% highlight bash %}
+$ make -k -j -f failing-dag.makefile
+XXXXX
+{% endhighlight %}
+
+Make has faithfully reported our failure! So how do we recover from this? Typically we will:
+
+1. Fix the underlying problem
+2. Resume the failed DAG either from the failed step, or from the step immediately after the failed step
+
+Some of the orchestration tools in this post's introduction make this recovery process quite straightforward - things are a little more complex with our Make-based approach.
+
+The first thing we need to remember is that we are running with the `-k` flag, meaning that processing kept going post-failure, on any forks of the DAG which were not (yet) dependent on the failing step. This behavior makes it much easier to reason about our job failure: we don't have to worry about what was running at the exact time of step failure; instead we just review the DAG to see which steps cannot have run:
+
+ADD IMAGE
+
+When doing this, always review the Make error output carefully to make sure that there weren't in fact failures of multiple branches of the DAG! With this done, we can now produce a scratch Makefile just for the job resumption, `resume-dag.makefile`:
+
+{% highlight makefile %}
+done: send-completed-sns
+
+snowplow-storage-loader:
+  echo "Running Snowplow StorageLoader - FIXED"
+sql-runner: snowplow-storage-loader
+  echo "Running data models" && sleep 5
+send-completed-sns: sql-runner
+  echo "Sending SNS for job completion" && sleep 2
+{% endhighlight %}
+
+In this case, we are running the StorageLoader again. Note how we removed all the completed steps, and removed dangling references to the completed steps in the dependencies of the outstanding steps.
+
+A quick visualization of this Makefile:
+
+{% highlight bash %}
+$ python makefile2dot.py <resume-dag.makefile |dot -Tpng > resume-dag.png
+{% endhighlight %}
+
+Here is the much-simpler DAG:
+
+Finally let's run this:
+
+{% highlight bash %}
+$ make -k -j -f resume-dag.makefile
+XXXXX
+{% endhighlight %}
+
+We've completed our recovery!
+
+<h2 id="conclusion">Conclusion</h2>
+
+This blog post has shown how you can use simple tools - `make` and `cron` to orchestrate complex batch processing jobs. The given approach is simple, some might say crude - it certainly doesn't have all the bells and whistles of a tool like Chronos or Airflow. However, this also means that this approach has many fewer failure states and it is much easier to reason about and resolve job failures.
+
+Even if you plan on implementing 
 
 [snowplow]: http://snowplowanalytics.com/
 [huskimo]: https://github.com/snowplow/huskimo

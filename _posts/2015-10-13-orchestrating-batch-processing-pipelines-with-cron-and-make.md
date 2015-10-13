@@ -12,9 +12,9 @@ At Snowplow we are often asked how best to orchestrate multi-stage ETL pipelines
 There is a wide array of tools available for this kind of orchestration, including [AWS Data Pipeline] [aws-data-pipeline], [Luigi] [luigi], [Chronos] [chronos], [Jenkins] [jenkins] and [Airflow] [airflow]. These tools tend to have the following two capabilities:
 
 1. A job-scheduler, which determines when each batch processing job will run
-2. A DAG-runner, which can treat a job as a [directed acylic graph] [dag] of inter-dependent steps and run those steps in the correct order 
+2. A DAG-runner, which can treat a job as a [directed acyclic graph] [dag] of inter-dependent steps and run those steps in the correct order 
 
-Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these sytems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
+Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these systems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
 
 <blockquote>
 If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all
@@ -48,7 +48,7 @@ We're now going to express this DAG in a Makefile ready for Make.
 
 <h2 id="make">Defining our job's DAG in make</h2>
 
-Make is a software build tool first released in 1977. It uses files called Makefiles to specify how to build the target program. A Makefile lets you specify tasks that contribute to the build, and express dependencies between these tasks, forming a directed acylic graph.
+Make is a software build tool first released in 1977. It uses files called Makefiles to specify how to build the target program. A Makefile lets you specify tasks that contribute to the build, and express dependencies between these tasks, forming a directed acyclic graph.
 
 Because the tasks in a Makefile are just shell commands, we can use `make` to orchestrate a batch processing pipeline, as long as each individual step in the pipeline is invokable from a shell.
 
@@ -251,7 +251,7 @@ Even if you plan on implementing a full-blown distributed orchestration tool, it
 [aphyr-chronos]: https://aphyr.com/posts/326-call-me-maybe-chronos
 [jenkins]: https://jenkins-ci.org/
 
-[dag]: https://github.com/snowplow/sql-runner
+[dag]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 [make]: http://www.gnu.org/software/make/
 [make-docs]: http://www.gnu.org/software/make/manual/make.html
 [makefile2dot]: https://github.com/vak/makefile2dot

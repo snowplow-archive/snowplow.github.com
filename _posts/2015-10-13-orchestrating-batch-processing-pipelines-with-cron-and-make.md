@@ -14,7 +14,7 @@ There is a wide array of tools available for this kind of orchestration, includi
 1. A job-scheduler, which determines when each batch processing job will run
 2. A DAG-runner, which can treat a job as a [directed acyclic graph] [dag] of inter-dependent steps and run those steps in the correct order 
 
-Make no mistake - these are powerful tools which let you to orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these systems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
+Make no mistake - these are powerful tools which let you orchestrate sophisticated batch processing pipelines. But with that power comes complexity, and operating these systems reliably is not always straightforward - for example see [Kyle Kingsbury's recent testing of Chronos] [aphyr-chronos], where he wrote:
 
 <blockquote>
 If you already use Chronos, I suggest you... ensure your jobs are OK with never being run at all

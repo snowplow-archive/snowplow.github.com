@@ -13,7 +13,7 @@ The rest of this post will cover the following topics:
 
 1. [Click tracking](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#click-tracking)
 2. [New cookie extractor enrichment](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#cookie-extractor)
-3. [Data model updates](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#deduplication)
+3. [New deduplication queries](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#deduplication)
 4. [Upgrading](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#upgrading)
 5. [Getting help](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#help)
 6. [Upcoming releases](/blog/2015/10/15/snowplow-r71-stork-billed-kingfisher-released#roadmap)
@@ -38,11 +38,19 @@ The [example configuration JSON] [example-cookie-extractor] for this enrichment 
 XXX
 {% endhighlight %}
 
-FOR MORE INFO: 
+FOR MORE INFO:
 
-<h2 id="deduplication">3. Data model updates</h2>
+<h2 id="deduplication">3. New deduplication queries</h2>
 
-CHRISTOPHE TO ADD
+This release comes with [3 new SQL scripts][deduplication-queries] that deduplicate events in Redshift using the event fingerprint that was introduced in [Snowplow R71][r71]. For more information on duplicates, see the [recent blogpost][duplicate-event-post] that explores the phenomenon in more detail.
+
+The [first script][01-events] deduplicates rows with the same `event_id` and `event_fingerprint`. Because these events are identical, the script leaves the earliest one in atomic and moves all others to a separate schema. There is an optional last step that also moves all remaining duplicates (same `event_id` but different `event_fingerprint`). Note that this could delete legitimate events from atomic.
+
+The [second][02-events-without-fingerprint] is an optional script that deduplicates rows with the same `event_id` where at least one row has no `event_fingerprint` (older events). The script is identical to the first script, except that an event fingerprint is generated in SQL.
+
+The [third script][03-example-unstruct] is a template that can be used to deduplicate unstructured event or custom context tables. Note that contexts can have legitimate duplicates (e.g. 2 or more product contexts that join to the same parent event). If that is the case, make sure that the context is defined in such a way that no 2 identical contexts are ever sent with the same event. The script combines rows when all fields but `root_tstamp` are equal. There is an optional last step that moves all remaining duplicates (same `root_id` but at least one field other than `root_tstamp` is different) from atomic to duplicates. Note that this could delete legitimate events from atomic.
+
+These scripts can be run after each load using [SQL Runner][sql-runner]. Make sure to run the [setup queries][setup-queries] first.
 
 <h2 id="upgrading">10. Upgrading</h2>
 
@@ -83,7 +91,16 @@ Other milestones being actively worked on include [Avro support #1] [avro-milest
 
 [great-spotted-kiwi]: /assets/img/blog/2015/10/great-spotted-kiwi.jpg
 
+[setup-queries]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/setup/deduplicate/setup.sql
+[deduplication-queries]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
+[01-events]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/01-events.sql
+[02-events-without-fingerprint]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/02-events-without-fingerprint.sql
+[03-example-unstruct]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/03-example-unstruct.sql
 
+[duplicate-event-post]: /blog/2015/08/19/dealing-with-duplicate-event-ids/
+[r71]: /blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released/#fingerprint
+
+[sql-runner]: https://github.com/snowplow/sql-runner
 
 [example-cookie-extractor]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/xxx.json
 [cookie-extractor-enrichment]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment

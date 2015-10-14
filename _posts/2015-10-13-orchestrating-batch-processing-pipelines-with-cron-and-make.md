@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Orchestrating batch processing pipelines with cron and make"
-title-short: SQL Runner 0.2.0 released
+title-short: "Orchestrating batch processing pipelines with cron and make"
 tags: [cron, make, orchestration, pipeline, etl]
 author: Alex
 category: Inside the Plow

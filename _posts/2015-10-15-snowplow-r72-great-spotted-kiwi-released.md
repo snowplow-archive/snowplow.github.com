@@ -56,7 +56,7 @@ These scripts can be run after each load using [SQL Runner][sql-runner]. Make su
 
 <h3>Updating the configuration files</h3>
 
-You should update the versions of the Enrich jar in your configuration file:
+You need to update the version of the Enrich jar in your configuration file:
 
 {% highlight yaml %}
     hadoop_enrich: 1.2.0 # Version of the Hadoop Enrichment process
@@ -111,6 +111,6 @@ Other milestones being actively worked on include [Avro support #1] [avro-milest
 
 [r73-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2073%20%5BHAD%5D%20Cuban%20Macaw
 [r74-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2074%20%5BKIN%5D%20Bird%20TBC
-[avro-milestone]: xxx
-[weather-milestone]: yyy
-[cli-milestone]: xxx
+[avro-milestone]: https://github.com/snowplow/snowplow/milestones/Avro%20support%20%231
+[weather-milestone]: https://github.com/snowplow/snowplow/milestones/Weather%20enrichment
+[cli-milestone]: https://github.com/snowplow/snowplow/milestones/Snowplow%20CLI%20%232

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Scala Tracker 0.2.0 released
 title: Snowplow Scala Tracker 0.2.0 released
+title-short: Snowplow Scala Tracker 0.2.0
 tags: [snowplow, analytics, scala, tracker]
 author: Anton
 category: Releases

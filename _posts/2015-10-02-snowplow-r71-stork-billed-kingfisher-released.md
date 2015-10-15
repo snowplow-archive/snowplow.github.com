@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 71 released
 title: Snowplow 71 Stork-Billed Kingfisher released
+title-short: Snowplow 71 Stork-Billed Kingfisher
 tags: [snowplow, hadoop, enrichments, timestamps, ssl, fingerprinting]
 author: Fred
 category: Releases
@@ -180,7 +180,7 @@ For each of your database targets, you must add the new `ssl_mode` field:
       ssl_mode: disable # One of disable (default), require, verify-ca or verify-full
 {% endhighlight %}
 
-If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. An example JSON can be found [here][example-event-fingerprint].
+If you wish to use the new event fingerprint enrichment, write a configuration JSON and add it to your enrichments folder. The example JSON can be found [here][example-event-fingerprint].
 
 <h3>Updating your database</h3>
 

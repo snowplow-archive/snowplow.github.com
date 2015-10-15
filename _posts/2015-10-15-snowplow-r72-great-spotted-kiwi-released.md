@@ -7,7 +7,7 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow version 72 Great Spotted Kiwi. This release XXX.
+We are pleased to announce the release of Snowplow version 72 Great Spotted Kiwi. This release adds the ability to track clicks through the Snowplow Clojure Collector, adds a cookie extractor enrichment and introduces new deduplication queries leveraging R71's event fingerprint.
 
 The rest of this post will cover the following topics:
 
@@ -24,19 +24,34 @@ The rest of this post will cover the following topics:
 
 <h2 id="click-tracking">1. Click tracking</h2>
 
-Add in here.
+Although the Snowplow JavaScript Tracker offers [link click tracking] [js-clicks], there are scenarios where you want to track a link "click" without having access to JavaScript. Two common examples are: tracking clicks on ad units, and users downloading software using `curl` or `wget`.
 
-FOR MORE INFO: xxx
+To support these use cases we have added a new URI redirect mode into the Clojure Collector. You update your link's URI to point to your event collector, and the collector receives the click, logs a URI redirect event and then performs a 302 redirect to the intended URI. This is the exact model followed by ad servers.
+
+To use this functionality:
+
+* Set your collector path to `{{collector-domain}}/r/tp2?{{name-value-pairs}}` - the `/r/tp2` tells Snowplow that you are attempting a URI redirect
+* Add a `&u={{uri}}` argument to your collector URI, where `{{uri}}` is your URL-encoded final URI to redirect to
+* On clicking this link, the collector will register the link and then do a 302 redirect to the supplied `{{uri}}`
+* As well as the &u={{uri}} parameter, you can populate the collector URI with any other fields from the Snowplow Tracker Protocol
+
+The URI redirection will be recorded as an event or context using the JSON Schema [com.snowplowanalytics.snowplow/uri_redirect/jsonschema/1-0-0] [uri-redirect-schema].
+
+For more information on how this functionality works, check out the [Click tracking section] [click-tracking-docs] in our Pixel Tracker documentation.
 
 <h2 id="cookie-extractor">2. New cookie extractor enrichment</h2>
 
 Snowplow community member [XXX] [xxx] has contributed XXX
+
+Please note that this enrichment only works with the Scala Stream Collector - the XXX.
 
 The [example configuration JSON] [example-cookie-extractor] for this enrichment is as follows:
 
 {% highlight json %}
 XXX
 {% endhighlight %}
+
+This default configuration is capturing the Scala Stream Collector's own `sp` cookie - in practice you would probably extract other more valuable cookies available on your parent domain.
 
 FOR MORE INFO:
 
@@ -54,6 +69,10 @@ These scripts can be run after each load using [SQL Runner][sql-runner]. Make su
 
 <h2 id="upgrading">10. Upgrading</h2>
 
+<h3>Upgrading the Clojure Collector</h3>
+
+To make use of the new URI redirect functionality you will need to upgrade to Clojure Collector version 1.1.0.
+
 <h3>Updating the configuration files</h3>
 
 You need to update the version of the Enrich jar in your configuration file:
@@ -66,7 +85,9 @@ If you wish to use the new cookie extractor enrichment, write a configuration JS
 
 <h3>Updating your database</h3>
 
-To use the new cookie extractor enrichment XXX.
+To use thew new URI redirect functionality install the following table in Redshift: xxx
+
+To use the new cookie extractor enrichment install the following table in Redshift: [org_ietf_http_cookie_1] [cooke-ddl]
 
 <h2 id="help">5. Getting help</h2>
 
@@ -85,25 +106,31 @@ By popular request, we are adding a section to these release blog posts to trail
 Upcoming releases are:
 
 * [Release 73 Cuban Macaw] [r73-milestone], which removes the JSON fields from `atomic.events` and adds the ability to load bad rows into Elasticsearch
-* [Release 74 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases
+* [Release 74 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
 
 [great-spotted-kiwi]: /assets/img/blog/2015/10/great-spotted-kiwi.jpg
+
+[js-clicks]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#enableLinkClickTracking
+[click-tracking-docs]: https://github.com/snowplow/snowplow/wiki/pixel-tracker#click-tracking
+[uri-redirect-schema]: https://raw.githubusercontent.com/snowplow/iglu-central/master/schemas/com.snowplowanalytics.snowplow/uri_redirect/jsonschema/1-0-0
+
+[example-cookie-extractor]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/xxx.json
+[cookie-extractor-docs]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment
+[cookie-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/org.ietf/http_cookie_1.sql
+
 
 [setup-queries]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/setup/deduplicate/setup.sql
 [deduplication-queries]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate
 [01-events]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/01-events.sql
 [02-events-without-fingerprint]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/02-events-without-fingerprint.sql
 [03-example-unstruct]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/deduplicate/03-example-unstruct.sql
-
 [duplicate-event-post]: /blog/2015/08/19/dealing-with-duplicate-event-ids/
 [r71]: /blog/2015/10/02/snowplow-r71-stork-billed-kingfisher-released/#fingerprint
-
 [sql-runner]: https://github.com/snowplow/sql-runner
 
-[example-cookie-extractor]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/xxx.json
-[cookie-extractor-enrichment]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment
+
 
 [r72-release]: https://github.com/snowplow/snowplow/releases/tag/r72-great-spotted-kiwi
 [issues]: https://github.com/snowplow/snowplow/issues

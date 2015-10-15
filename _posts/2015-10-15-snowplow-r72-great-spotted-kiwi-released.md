@@ -81,7 +81,7 @@ The [third script][03-example-unstruct] is a template that can be used to dedupl
 
 These scripts can be run after each load using [SQL Runner][sql-runner]. Make sure to run the [setup queries][setup-queries] first.
 
-<h2 id="upgrading">10. Upgrading</h2>
+<h2 id="upgrading">4. Upgrading</h2>
 
 <h3>Upgrading the Clojure Collector</h3>
 

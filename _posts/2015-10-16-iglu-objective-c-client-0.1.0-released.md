@@ -81,6 +81,7 @@ The usefulness of this library comes into play with the ability to add a whole l
 Due to the length of time it takes to push an application to the AppStore the last thing you want is for the events you have carefully crafted to actually be invalid; resulting in data loss or the need for hacky workarounds until you can get the problem fixed.
 
 You can now run the following assertions directly in your application:
+
 * That your resolver-config is valid
   - Help & Guides for setup can be found [here](https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation)
 * That your custom events are being constructed properly

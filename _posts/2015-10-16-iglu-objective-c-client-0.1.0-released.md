@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of version 0.1.0 of the [Iglu Objective-C Client][client-repo].  This is the second Iglu Client to be released and will allow you to test and validate all of your Snowplow Events directly in your OSX and iOS applications.
+We are pleased to announce the release of version 0.1.0 of the [Iglu Objective-C Client] [client-repo].  This is the second Iglu Client to be released (following the [Iglu Scala Client] [scala-repo]) and will allow you to test and validate all of your Snowplow self-describing JSONs directly in your OSX and iOS applications.
 
 The rest of this post will cover the following topics:
 
@@ -21,10 +21,10 @@ The rest of this post will cover the following topics:
 
 <h2 id="how-to-install">1. How to install the client</h2>
 
-The release version of this Client can be found on [cocoapods][cocoapods] under `SnowplowIgluClient`.  Assuming you are already using Cocoapods installation from there is as simple as:
+The release version of this Client can be found on [cocoapods][cocoapods] under `SnowplowIgluClient`.  Assuming you are already using Cocoapods, installation from there is as simple as:
 
-* Add `pod 'SnowplowIgluClient'` to your Podfile.
-* Run `pod update` to pull in the new dependency.
+* Add `pod 'SnowplowIgluClient'` to your Podfile
+* Run `pod update` to pull in the new dependency
 
 For steps on **manual installation** or further clarification refer to our [setup guide][setup-guide].
 
@@ -38,9 +38,9 @@ And that's it! You're now ready to start using the Client.
 
 <h2 id="how-to-use">2. How to use the client</h2>
 
-The client needs two arguments for a successful init; a resolver config and an array of `NSBundle` objects.
-* The former can be passed either as an NSString or as a URL path which the client will then download for you.
-* The later is used for all embedded schema lookups; if you are not doing any embedded lookups you can pass `nil`.
+The client needs two arguments for a successful init; a resolver config and an array of `NSBundle` objects
+* The former can be passed either as an `NSString` or as a URL path which the client will then download for you
+* The later is used for all embedded schema lookups; if you are not doing any embedded lookups you can pass `nil`
 
 To init the client with a resolver-config pulled from local resources:
 
@@ -53,7 +53,7 @@ NSString * resolverAsString =
 SPIClient * client = [[SPIClient alloc] initWithJsonString:resolverAsString andBundles:nil];
 {% endhighlight %}
 
-To init the client with a resolver from a URL:
+To initialize the client with a resolver from a URL:
 
 {% highlight objective-c %}
 NSString * resolverUrl = @"https://raw.githubusercontent.com/snowplow/snowplow/master/3-enrich/config/iglu_resolver.json";
@@ -70,20 +70,21 @@ NSDictionary * jsonDictionary = [SPIUtilities parseToJsonWithString:yourJsonStri
 BOOL result = [client validateJson:jsonDictionary];
 {% endhighlight %}
 
-Currently the underlying library for JSONSchema validation does not support full error logging so you will only be able to see a `YES` or `NO` result for the validation.  To get the full error we recommend grabbing the offending JSON and JSONSchema and pasting them into [this online validation tool](https://json-schema-validator.herokuapp.com/).
+Currently the underlying library for JSON Schema validation does not support full error logging so you will only be able to see a `YES` or `NO` result for the validation.  To get the full error we recommend grabbing the offending JSON and associated JSON Schema and pasting them into [this online validation tool](https://json-schema-validator.herokuapp.com/).
 
 That is all there is to it!  For more information please refer to the [technical documentation][tech-docs].
 
 <h2 id="why-to-use">3. Why you should use the client</h2>
 
-The usefulness of this library comes into play with the ability to add a whole layer of JSON and JSONSchema validation to your iOS and OSX applications before any releasing takes place.  
+This library lets you add a layer of JSON and JSON Schema validation to your iOS and OSX apps.
 
-Due to the length of time it takes to push an application to the AppStore the last thing you want is for the events you have carefully crafted to actually be invalid; resulting in data loss or the need for hacky workarounds until you can get the problem fixed.
+Due to the length of time it takes to push an app to the App Store, it is especially important to check that the self-describing JSONs you are sending to Snowplow will not cause validation issues downstream. If they do not validate, then Snowplow events will fail validation until you can get the problem fixed.
 
 You can now run the following assertions directly in your application:
 
 * That your resolver-config is valid
   - Help & Guides for setup can be found [here](https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation)
+* can be resolved correctly against your Iglu repositories, and are valid
 * That your custom events are being constructed properly
 * That your custom JSONSchema have been constructed properly
 
@@ -147,6 +148,7 @@ You can find the [Iglu Objective-C Client][tech-docs] on our wiki.
 We hope that you find the Iglu Objective-C Client useful - of course, this is only its first release, so don't be afraid to [get in touch][talk-to-us] or raise an [Objective-C Client issue][client-issues] on GitHub!
 
 [client-repo]: https://github.com/snowplow/iglu-objc-client
+[scala-repo]: https://github.com/snowplow/iglu-scala-client
 [cocoapods]: https://cocoapods.org/
 [setup-guide]: https://github.com/snowplow/iglu/wiki/ObjC-client-setup
 [tech-docs]: https://github.com/snowplow/iglu/wiki/ObjC-client

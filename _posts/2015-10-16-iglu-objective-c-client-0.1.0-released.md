@@ -77,19 +77,17 @@ That is all there is to it! For more information please refer to the [technical 
 
 <h2 id="why-to-use">3. Why you should use the client</h2>
 
-This library lets you add a layer of JSON and JSON Schema validation to your iOS and OSX apps.
+This library lets you add a layer of JSON validation to your iOS and OS X apps.
 
 Due to the length of time it takes to push an app to the App Store, it is especially important to check that the self-describing JSONs you are sending to Snowplow will not cause validation issues downstream. If they do not validate, then Snowplow events will fail validation until you can get the problem fixed.
 
 You can now run the following assertions directly in your application:
 
-* That your resolver-config is valid
-  - Help & Guides for setup can be found [here](https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation)
-* can be resolved correctly against your Iglu repositories, and are valid
-* That your custom events are being constructed properly
-* That your custom JSONSchema have been constructed properly
+* That your resolver config is valid as per the [Iglu technical documentation] [iglu-docs]
+* That your self-describing JSONs can be resolved correctly against your Iglu repositories
+* That your self-describing JSONs pass validation against their respective JSON Schemas
 
-This removes the need of manually and painstakingly validating that your events and corresponding JSONSchema are correct.  The client does this all for you!
+This removes the need of manually and painstakingly validating that your events and corresponding JSON Schemata are correct.
 
 For example imagine you are creating an event named `awesome-event` which you want to track in your application.
 
@@ -103,7 +101,7 @@ For example imagine you are creating an event named `awesome-event` which you wa
 }
 {% endhighlight %}
 
-You then generate the JSONSchema for this event using [Schema Guru][schema-guru] and add some ammendments:
+You then generate the JSON Schema for this event using [Schema Guru][schema-guru]:
 
 {% highlight json %}
 {
@@ -131,14 +129,14 @@ You then generate the JSONSchema for this event using [Schema Guru][schema-guru]
 }
 {% endhighlight %}
 
-You can now use the Iglu Client to assert that whenever you make an `awesome-event` it validates against the schema you have created:
+You can now use the Iglu Client in your test suite to assert that whenever you make an `awesome-event`, it validates against the schema you have created:
 
 {% highlight objective-c %}
 NSDictionary * awesomeEvent = [ACMEEvent getNewAwesomeEvent];
 XCTAssertTrue([client validateJson:awesomeEvent]);
 {% endhighlight %}
 
-If for whatever reason the event is missing a required value or is not formed exactly right your tests will fail and it won't get overlooked before release time.
+If for whatever reason the event is missing a required value or is not formed exactly right, then your tests will fail, giving you fair warning that you should not release this version to the App Store.
 
 <h2 id="docs">4. Documentation</h2>
 
@@ -155,6 +153,7 @@ We hope that you find the Iglu Objective-C Client useful - of course, this is on
 [tech-docs]: https://github.com/snowplow/iglu/wiki/ObjC-client
 [schema-guru]: https://github.com/snowplow/schema-guru
 
+[iglu-docs]: https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation
 [json-schema-validator]: https://json-schema-validator.herokuapp.com/
 
 [talk-to-us]: https://github.com/snowplow/iglu/wiki/Talk-to-us

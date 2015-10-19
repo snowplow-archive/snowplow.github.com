@@ -31,7 +31,7 @@ For steps on **manual installation** or further clarification refer to our [setu
 To use the library you will need to add the following import:
 
 {% highlight objective-c %}
-#import "SPIClient.h"
+#import "IGLUClient.h"
 {% endhighlight %}
 
 And that's it! You're now ready to start using the Client.
@@ -45,26 +45,26 @@ The client needs two arguments for a successful init; a resolver config and an a
 To init the client with a resolver-config pulled from local resources:
 
 {% highlight objective-c %}
-// Utility function found in SPIUtilities
+// Utility function found in IGLUUtilities
 NSString * resolverAsString = 
-    [SPIUtilities getStringWithFilePath:@"your_resolver.json" 
-                           andDirectory:@"YourDirectory" 
-                              andBundle:[NSBundle mainBundle]];
-SPIClient * client = [[SPIClient alloc] initWithJsonString:resolverAsString andBundles:nil];
+    [IGLUUtilities getStringWithFilePath:@"your_resolver.json" 
+                            andDirectory:@"YourDirectory" 
+                               andBundle:[NSBundle mainBundle]];
+IGLUClient * client = [[IGLUClient alloc] initWithJsonString:resolverAsString andBundles:nil];
 {% endhighlight %}
 
 To initialize the client with a resolver from a URL:
 
 {% highlight objective-c %}
 NSString * resolverUrl = @"https://raw.githubusercontent.com/snowplow/snowplow/master/3-enrich/config/iglu_resolver.json";
-SPIClient * client = [[SPIClient alloc] initWithUrlPath:resolverUrl andBundles:nil];
+IGLUClient * client = [[IGLUClient alloc] initWithUrlPath:resolverUrl andBundles:nil];
 {% endhighlight %}
 
 Once you have successfully created a Client you can start validating JSONs.  **Please note** that the client will only accept JSONs that have already been converted to NSDictionary objects.
 
 {% highlight objective-c %}
-// Utility function found in SPIUtilities
-NSDictionary * jsonDictionary = [SPIUtilities parseToJsonWithString:yourJsonStringHere];
+// Utility function found in IGLUUtilities
+NSDictionary * jsonDictionary = [IGLUUtilities parseToJsonWithString:yourJsonStringHere];
 
 // Check your JSON
 BOOL result = [client validateJson:jsonDictionary];

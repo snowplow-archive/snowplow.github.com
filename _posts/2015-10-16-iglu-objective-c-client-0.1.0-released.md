@@ -40,7 +40,7 @@ And that's it! You're now ready to start using the Client.
 
 The client needs two arguments for a successful init; a resolver config and an array of `NSBundle` objects
 * The former can be passed either as an `NSString` or as a URL path which the client will then download for you
-* The later is used for all embedded schema lookups; if you are not doing any embedded lookups you can pass `nil`
+* The latter is a set of additional embedded repositories, alongside the one that comes bundled with the client
 
 To init the client with a resolver-config pulled from local resources:
 

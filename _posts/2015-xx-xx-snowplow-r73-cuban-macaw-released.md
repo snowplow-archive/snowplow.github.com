@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 71 released
-title: Snowplow 71 TBC released
+shortenedlink: Snowplow 73 Cuban Macaw released
+title: Snowplow 73 Cuban Macaw
 tags: [snowplow, hadoop, elasticsearch, redshift]
 author: Fred
 category: Releases

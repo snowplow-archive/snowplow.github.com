@@ -7,26 +7,26 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of version 0.1.0 of the [Iglu Objective-C Client] [client-repo].  This is the second Iglu Client to be released (following the [Iglu Scala Client] [scala-repo]) and will allow you to test and validate all of your Snowplow self-describing JSONs directly in your OSX and iOS applications.
+We are pleased to announce the release of version 0.1.0 of the [Iglu Objective-C Client] [client-repo]. This is the second Iglu client to be released (following the [Iglu Scala Client] [scala-repo]) and will allow you to test and validate all of your Snowplow self-describing JSONs directly in your OS X and iOS applications.
 
 The rest of this post will cover the following topics:
 
-1. [How to install the client](/blog/2015/10/16/iglu-objective-c-client-0.1.0-released#how-to-install)
-2. [How to use the client](/blog/2015/10/16/iglu-objective-c-client-0.1.0-released#how-to-use)
-3. [Why you should use the client](/blog/2015/10/16/iglu-objective-c-client-0.1.0-released#why-to-use)
-4. [Documentation](/blog/2015/10/16/iglu-objective-c-client-0.1.0-released#docs)
-5. [Getting help](/blog/2015/10/16/iglu-objective-c-client-0.1.0-released#help)
+1. [How to install the client](/blog/2015/10/19/iglu-objective-c-client-0.1.0-released#how-to-install)
+2. [How to use the client](/blog/2015/10/19/iglu-objective-c-client-0.1.0-released#how-to-use)
+3. [Why you should use the client](/blog/2015/10/19/iglu-objective-c-client-0.1.0-released#why-to-use)
+4. [Documentation](/blog/2015/10/19/iglu-objective-c-client-0.1.0-released#docs)
+5. [Getting help](/blog/2015/10/19/iglu-objective-c-client-0.1.0-released#help)
 
 <!--more-->
 
 <h2 id="how-to-install">1. How to install the client</h2>
 
-The release version of this Client can be found on [cocoapods][cocoapods] under `SnowplowIgluClient`.  Assuming you are already using Cocoapods, installation from there is as simple as:
+The release version of this Client can be found on [cocoapods][cocoapods] under `SnowplowIgluClient`. Assuming you are already using CocoaPods, installation from there is as simple as:
 
 * Add `pod 'SnowplowIgluClient'` to your Podfile
 * Run `pod update` to pull in the new dependency
 
-For steps on **manual installation** or further clarification refer to our [setup guide][setup-guide].
+For steps on **manual installation** refer to our [setup guide][setup-guide].
 
 To use the library you will need to add the following import:
 
@@ -38,11 +38,12 @@ And that's it! You're now ready to start using the Client.
 
 <h2 id="how-to-use">2. How to use the client</h2>
 
-The client needs two arguments for a successful init; a resolver config and an array of `NSBundle` objects
+The client needs two arguments for a successful init; a resolver config and a possibly-empty array of `NSBundle` objects:
+
 * The former can be passed either as an `NSString` or as a URL path which the client will then download for you
 * The latter is a set of additional embedded repositories, alongside the one that comes bundled with the client
 
-To init the client with a resolver-config pulled from local resources:
+To initialize the client with a local resolver-config from local resources:
 
 {% highlight objective-c %}
 // Utility function found in IGLUUtilities
@@ -60,7 +61,7 @@ NSString * resolverUrl = @"https://raw.githubusercontent.com/snowplow/snowplow/m
 IGLUClient * client = [[IGLUClient alloc] initWithUrlPath:resolverUrl andBundles:nil];
 {% endhighlight %}
 
-Once you have successfully created a Client you can start validating JSONs.  **Please note** that the client will only accept JSONs that have already been converted to NSDictionary objects.
+Once you have successfully created a client you can start validating JSONs. **Please note** that the client will only accept JSONs that have already been converted to NSDictionary objects.**
 
 {% highlight objective-c %}
 // Utility function found in IGLUUtilities
@@ -70,9 +71,9 @@ NSDictionary * jsonDictionary = [IGLUUtilities parseToJsonWithString:yourJsonStr
 BOOL result = [client validateJson:jsonDictionary];
 {% endhighlight %}
 
-Currently the underlying library for JSON Schema validation does not support full error logging so you will only be able to see a `YES` or `NO` result for the validation.  To get the full error we recommend grabbing the offending JSON and associated JSON Schema and pasting them into [this online validation tool](https://json-schema-validator.herokuapp.com/).
+Currently the underlying library for JSON Schema validation does not support full error logging so you will only be able to see a `YES` or `NO` result for the validation. To see the full validation error, we recommend pasting the offending JSON and associated JSON Schema into [this online validation tool] [json-schema-validator].
 
-That is all there is to it!  For more information please refer to the [technical documentation][tech-docs].
+That is all there is to it! For more information please refer to the [technical documentation][tech-docs].
 
 <h2 id="why-to-use">3. Why you should use the client</h2>
 
@@ -153,5 +154,8 @@ We hope that you find the Iglu Objective-C Client useful - of course, this is on
 [setup-guide]: https://github.com/snowplow/iglu/wiki/ObjC-client-setup
 [tech-docs]: https://github.com/snowplow/iglu/wiki/ObjC-client
 [schema-guru]: https://github.com/snowplow/schema-guru
+
+[json-schema-validator]: https://json-schema-validator.herokuapp.com/
+
 [talk-to-us]: https://github.com/snowplow/iglu/wiki/Talk-to-us
 [client-issues]: https://github.com/snowplow/iglu-objc-client/issues

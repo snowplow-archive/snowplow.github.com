@@ -139,7 +139,7 @@ Other milestones being actively worked on include [Avro support #1] [avro-milest
 [war-download]: http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war
 [uri-redirect-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/release/r72/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/uri_redirect_1.sql
 
-[example-cookie-extractor]: https://github.com/snowplow/snowplow/blob/release/r72/3-enrich/config/enrichments/cookie_extractor_config.json
+[example-cookie-extractor]: https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/cookie_extractor_config.json
 [kazjote]: https://github.com/kazjote
 [cookie-extractor-docs]: https://github.com/snowplow/snowplow/wiki/Cookie-extractor-enrichment
 [cookie-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/org.ietf/http_cookie_1.sql

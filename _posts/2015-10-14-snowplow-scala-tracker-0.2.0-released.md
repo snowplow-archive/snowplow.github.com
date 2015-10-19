@@ -150,7 +150,7 @@ In the meantime, if you have any questions or run into any problems, please [rai
 
 [issue-22]: https://github.com/snowplow/snowplow-scala-tracker/issues/22
 [issue-24]: https://github.com/snowplow/snowplow-scala-tracker/issues/24
-[redshift-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/release/r72/4-storage/redshift-storage/sql/com.amazon.aws.ec2/instance_identity_document_1.sql
+[redshift-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/com.amazon.aws.ec2/instance_identity_document_1.sql
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [scala-issues]: https://github.com/snowplow/snowplow-scala-tracker/issues

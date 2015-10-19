@@ -27,11 +27,11 @@ This release introduces the new Hadoop Elasticsearch Sink. This is a Hadoop job 
 {% highlight yaml %}
   targets:
     - name: "myelasticsearchtarget" # Name for the target - used to label the corresponding jobflow step
-      type: elasticsearch
-      host: "ec2-43-1-854-22.compute-1.amazonaws.com"
-      database: index1
-      port: 9200
-      table: type1
+      type: elasticsearch # Marks the database type as Elasticsearch
+      host: "ec2-43-1-854-22.compute-1.amazonaws.com" # Elasticsearch host
+      database: index1 # The Elasticsearch index
+      port: 9200 # Port used to connect to Elasticsearch
+      table: type1 # The Elasticsearch type
       username: myusername
       password: mypassword
       sources: # Leave blank or specify: ["s3://out/enriched/bad/run=xxx", "s3://out/shred/bad/run=yyy"]

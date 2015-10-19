@@ -7,6 +7,8 @@ author: Fred
 category: Releases
 ---
 
+![cuban-macaw][cuban-macaw]
+
 <!--more-->
 
 <h2 id="forceToDisk">Hadoop job performance</h2>
@@ -45,3 +47,5 @@ Note that running EmrEtlRunner with `--skip enrich,shred` will no longer skip th
 We have broken the direct dependency of the StorageLoader on the enriched event format. Now Scala Hadoop Shred copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket. The StorageLoader now loads the copy from the `shredded/good` bucket. The benefit is that when Scala Hadoop Shred copies the enriched events, it can optimize them for Redshift storage. Since the shredder extracts the self-describing JSONs from the `unstruct_event`, `contexts`, and `derived_contexts` fields into their own buckets, there is no reason to keep these fields in the `atomic.events` table. For this reason, Scala Hadoop Shred now removes these three fields from the enriched event TSV.
 
 In addition, the truncation logic used to ensure that each field of the TSV is small enough to fit into the corresponding column in Postgres has been moved from Scala Common Enrich to Scala Hadoop Shred.
+
+[great-spotted-kiwi]: /assets/img/blog/2015/10/great-spotted-kiwi.jpg

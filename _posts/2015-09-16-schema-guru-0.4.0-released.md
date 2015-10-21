@@ -13,16 +13,15 @@ We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache
 This release post will cover the following topics:
 
 1. [Apache Spark job](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
-2. [Core refactoring](/blog/2015/09/16/schema-guru-0.4.0-released/#refactoring)
-3. [Predefined enum sets](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
-4. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
-5. [Support for minLength and maxLength properties](/blog/2015/09/16/schema-guru-0.4.0-released/#length)
-6. [Edge cases in DDL generation](/blog/2015/09/16/schema-guru-0.4.0-released/#edge-cases)
-7. [Minor changes](/blog/2015/09/16/schema-guru-0.4.0-released/#minor)
-8. [Bug fixes](/blog/2015/09/16/schema-guru-0.4.0-released/#bugs)
-9. [Upgrading](/blog/2015/09/16/schema-guru-0.4.0-released/#upgrading)
-10. [Getting help](/blog/2015/09/16/schema-guru-0.4.0-released/#help)
-11. [Plans for the next release](/blog/2015/09/16/schema-guru-0.4.0-released/#roadmap)
+2. [Predefined enum sets](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
+3. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
+4. [Support for minLength and maxLength properties](/blog/2015/09/16/schema-guru-0.4.0-released/#length)
+5. [Edge cases in DDL generation](/blog/2015/09/16/schema-guru-0.4.0-released/#edge-cases)
+6. [Minor changes](/blog/2015/09/16/schema-guru-0.4.0-released/#minor)
+7. [Bug fixes](/blog/2015/09/16/schema-guru-0.4.0-released/#bugs)
+8. [Upgrading](/blog/2015/09/16/schema-guru-0.4.0-released/#upgrading)
+9. [Getting help](/blog/2015/09/16/schema-guru-0.4.0-released/#help)
+10. [Plans for the next release](/blog/2015/09/16/schema-guru-0.4.0-released/#roadmap)
 
 <!--more-->
 
@@ -71,23 +70,17 @@ For example, to pass non-default options to job, like enum cardinality just modi
 All options passed after path to jar file will be accepted as usual Schema Guru options.
 Spark job accept same options as CLI application but `--output` isn't optional since we can't output to terminal and also we have optional `--errors-path` (without it warnings and errors output will be suppressed).
 
-<h2 id="refactoring">2. Core refactoring</h2>
-
-Schema Guru moving towards general purpose Schema processing library.
-And as first step in this direction we made a big core refactoring allowing us to merge, traverse, modify schemas in type-safe manner.
-More details about how core of Schema Guru works can be found on [For Developers] [for-developers] page of Schema Guru wiki.
-Next step in this direction will be support another schema outputs like [Apache Avro] [avro].
-
 <h2 id="enums">3. Predefined enum sets</h2>
 
-While deriving schema we often encounter some repeating enum sets like country codes defined by ISO, user agents or something very domain-specific.
-In [0.2.0 release] [020-release] we implemented an enum derivation allowing us automatically recognize set of values whithin some cardinality limit.
-But if we met only 100 of 165 known currency codes it's very unlikely we don't need other 65, and even if we met all 165 known codes, but limit enum carindinality to only 100 all encountered values will be discarded because of this limit.
+While deriving schemas, we often encounter some repeating enumerations like ISO country codes, browser user agents or similar.
 
-Now you can specify some specific known enum sets with `--enum-sets` option. 
-Built-in sets include [iso_4217] [iso-4217], [iso_3166-1_aplha-2] [iso-3166-1-alpha-2] and [iso_3166-1_aplha-3] [iso-3166-1-alpha-3] (written as they should appear in CLI).
+In the [0.2.0 release] [020-release], we implemented an enum derivation allowing us automatically recognize set of values whithin some cardinality limit.
 
-If you need two or more, pass it as multioption:
+However, if during derivation we only see, say, 100 of 165 possible currency codes, it's very unlikely we don't need other 65. Even if we *did* encounter all 165 currency codes, if our enum detector's cardinality limit is 100 then the enum won't be detected.
+
+To get around this, you can now specify specific known enumerations with `--enum-sets` option. Built-in sets include [iso_4217] [iso-4217], [iso_3166-1_aplha-2] [iso-3166-1-alpha-2] and [iso_3166-1_aplha-3] [iso-3166-1-alpha-3] (written as they should appear in CLI).
+
+If you need two or more, pass them as multiple options:
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --enum-sets iso_4217 --enum-sets iso_3166-1_aplha-3 /path/to/instances
@@ -99,8 +92,7 @@ Or even better, you can pass special value `all` to include all built-in enum se
 $ ./schema-guru-0.4.0 schema --enum-sets all /path/to/instances
 {% endhighlight %}
 
-And this is not the end. Taking in account that some users may have very domain-specific enums, we allow user to pass his own predefined enum set.
-Instead of `all` or predefined set just pass the path to JSON file containing array with values and if encountered values intersetcs with it result schema will have full set.
+Going further, and taking into account that users with domain-specific enums, you can now also pass in your own predefined enum sets. Just pass in the path to a JSON file containing an array with values, and if the encountered values intersetcs then the enumeration will be enforced in the schema:
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --enum-sets ../favourite_colors.json --enum-sets all /path/to/instances
@@ -130,40 +122,39 @@ From the beginning the `ddl` subcommand has used `minLength` and `maxLength` pro
 
 Given this, it was an omission that the `schema` subcommand does not generate `minLength` and `maxLength` properties. In this version we have fixed this, and all strings in JSON Schemas now have these properties.
 
-** Be aware that it can produce too strict JSON Schema if you process very small set of instances.** For this case we provide `--no-length` option:
+**Be aware that this can produce excessively strict JSON Schemas if you process very small set of instances.** For this case we provide `--no-length` option:
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --no-length /path/to/few-instances
 {% endhighlight %}
 
-No `minLength` nor `maxLength` will appear in the resulting JSON Schema.
+With this setting, no `minLength` nor `maxLength` will appear in the resulting JSON Schema.
 
 <h2 id="edge-cases">6. Edge cases in DDL generation</h2>
 
-It can sometimes be a challenge to precisely map very powerful and dynamic set of rules of JSON Schema to static DDL.
-Edge cases are infinite, and we coninuosly working on finding and solving these cases.
+It can be challenging to precisely map the very powerful and dynamic set of JSON Schema rules to static database table DDL. With each release we aim to track down and solve the edge cases we have found.
 
-Now Schema Guru can process object schemas without `properties` property.
-If it doesn't contains `properties`, but contains `patternProperties` it will be resulted in `VARCHAR(4096)`.
-If it doesn't contains `properties`, but `additionalProperties` is set to `false` it will be skipped, but won't throw an exception.
+With this release, Schema Guru can now process object schemas without `properties` property:
 
-Also Schema Guru is aware of nullable parent objects.
-If some keys listed in `required` property, but object itself isn't required - all these keys will not have `NOT NULL` in column DDL.
+* If it lacks `properties` but contains `patternProperties` it will be resulted in `VARCHAR(4096)`
+* If it lacks `properties` but `additionalProperties` is set to `false` the object will be silently ignored
+
+Schema Guru is also now aware of nullable parent objects: if a child key is listed in the `required` property, but the containing object is *not* required, then these keys will *not* have a `NOT NULL` contstraint in their DDL.
 
 <h2 id="minor">7. Minor changes</h2>
 
-Few minor changes was introduced in this release.
-Now Schema Guru throws exception when you try to use --with-json-paths and --split-product-types in conjunction, becuase it will defenitely lead to malformed output.
-Also `--size` option for `ddl` subcommand used to declare default `VARCHAR` size was renamed to `--varchar-size` to be more self-descriptive.
+There are some minor changes introduced in this release:
+
+* Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet
+* The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size`
 
 <h2 id="bugs">8. Bug fixes</h2>
 
-Since we implemented base64 detection, it sometimes [misapplied] [issue-76] to short plain strings. 
-Now application of this pattern depends on total quantity of JSON instances being processing and length of the string, so chance of false detection reduced almost to zero.
+Since implementing Base64 detection, we sometimes saw false positives where this formatting rule was unfairly applied to short human-readable strings (that happened to also be valid Base64), as per [issue #76] [issue-76]. Now, application of this pattern depends on the total quantity of JSON instances being processed, and the length of the string, so the chance of false detection has been reduced almost to zero.
 
-While generating DDL, Schema Guru now [correctly handling] [issue-35] `maxLength` for complex types like `["object", "string"]`.
+While generating DDL, Schema Guru now [correctly handles] `maxLength` for complex types like `["object", "string"]` ([issue #35] [issue-35]).
 
-Also, bug with incorrect schema for array structures introduced in [0.2.0 release] [020-release] was fixed.
+Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed.
 
 <h2><a name="upgrading">9. Upgrading</a></h2>
 
@@ -187,20 +178,24 @@ $ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_webui_0.4.0.z
 $ unzip schema_guru_webui_0.4.0.zip
 {% endhighlight %}
 
-Note that Web UI changed only to reflect core refactoring, no new features were added.
+For running Schema Guru on Spark, please see the relevant section above.
+
+Note that the Web UI has been updated only to reflect the codebase refactoring; no new features have been added.
 
 <h2><a name="help">10. Getting help</a></h2>
 
 For more details on this release, please check out the [Schema Guru 0.4.0] [040-release] on GitHub.
 
+More details about how core of Schema Guru works can be found on the [For Developers] [for-developers] page of the Schema Guru wiki.
+
 In the meantime, if you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 <h2><a name="roadmap">11. Plans for next release</a></h2>
 
-We still have plenty features planned for the Schema Guru! Features that we are planning include:
+We have plenty of features planned for Schema Guru! The roadmap includes:
 
-* Deriving the `required` property in our `schema` subcommand
 * Generating schemas in Apache Avro format
+* Deriving the `required` property in our `schema` subcommand
 * Generating `CREATE TABLE` DDL for other databases
 
 [spark]: http://spark-project.org/

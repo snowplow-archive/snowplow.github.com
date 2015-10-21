@@ -70,7 +70,7 @@ For example, to pass non-default options to job, like enum cardinality just modi
 All options passed after path to jar file will be accepted as usual Schema Guru options.
 Spark job accept same options as CLI application but `--output` isn't optional since we can't output to terminal and also we have optional `--errors-path` (without it warnings and errors output will be suppressed).
 
-<h2 id="enums">3. Predefined enum sets</h2>
+<h2 id="enums">2. Predefined enum sets</h2>
 
 While deriving schemas, we often encounter some repeating enumerations like ISO country codes, browser user agents or similar.
 
@@ -104,7 +104,7 @@ Where favourite_colors.json may look like this:
 ["blue", "indigo", "purple", "violet", "white", "black"]
 {% endhighlight %}
 
-<h2 id="comment">4. Redshift object comments</h2>
+<h2 id="comment">3. Redshift object comments</h2>
 
 [Amazon Redshift] [redshift] is based on PostgreSQL 8.0.2 and thus they have many similarities and shared features. One powerful feature of PostgreSQL is the ability to `COMMENT ON` on all sort of internal objects, such as tables, data bases, views etc.
 
@@ -116,7 +116,7 @@ SELECT description FROM pg_description WHERE objoid = 'schema.table'::regclass
 
 The `ddl` command of Schema Guru now generates `COMMENT ON` statement for each Redshift table containing the full Iglu URI used to generate this table. In the future we will use this metadata to drive automated table migrations.
 
-<h2 id="length">5. Support for minLength and maxLength properties</h2>
+<h2 id="length">4. Support for minLength and maxLength properties</h2>
 
 From the beginning the `ddl` subcommand has used `minLength` and `maxLength` properties of string schemas to determine whether column has type `CHAR` (fixed-length) or which `VARCHAR` size it has otherwise.
 
@@ -130,7 +130,7 @@ $ ./schema-guru-0.4.0 schema --no-length /path/to/few-instances
 
 With this setting, no `minLength` nor `maxLength` will appear in the resulting JSON Schema.
 
-<h2 id="edge-cases">6. Edge cases in DDL generation</h2>
+<h2 id="edge-cases">5. Edge cases in DDL generation</h2>
 
 It can be challenging to precisely map the very powerful and dynamic set of JSON Schema rules to static database table DDL. With each release we aim to track down and solve the edge cases we have found.
 
@@ -141,14 +141,14 @@ With this release, Schema Guru can now process object schemas without `propertie
 
 Schema Guru is also now aware of nullable parent objects: if a child key is listed in the `required` property, but the containing object is *not* required, then these keys will *not* have a `NOT NULL` contstraint in their DDL.
 
-<h2 id="minor">7. Minor changes</h2>
+<h2 id="minor">6. Minor changes</h2>
 
 There are some minor changes introduced in this release:
 
 * Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet
 * The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size`
 
-<h2 id="bugs">8. Bug fixes</h2>
+<h2 id="bugs">7. Bug fixes</h2>
 
 Since implementing Base64 detection, we sometimes saw false positives where this formatting rule was unfairly applied to short human-readable strings (that happened to also be valid Base64), as per [issue #76] [issue-76]. Now, application of this pattern depends on the total quantity of JSON instances being processed, and the length of the string, so the chance of false detection has been reduced almost to zero.
 
@@ -156,7 +156,7 @@ While generating DDL, Schema Guru now [correctly handles] `maxLength` for comple
 
 Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed.
 
-<h2><a name="upgrading">9. Upgrading</a></h2>
+<h2><a name="upgrading">8. Upgrading</a></h2>
 
 Simply download the latest Schema Guru from Bintray:
 
@@ -182,7 +182,7 @@ For running Schema Guru on Spark, please see the relevant section above.
 
 Note that the Web UI has been updated only to reflect the codebase refactoring; no new features have been added.
 
-<h2><a name="help">10. Getting help</a></h2>
+<h2><a name="help">9. Getting help</a></h2>
 
 For more details on this release, please check out the [Schema Guru 0.4.0] [040-release] on GitHub.
 
@@ -190,7 +190,7 @@ More details about how core of Schema Guru works can be found on the [For Develo
 
 In the meantime, if you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-<h2><a name="roadmap">11. Plans for next release</a></h2>
+<h2><a name="roadmap">10. Plans for next release</a></h2>
 
 We have plenty of features planned for Schema Guru! The roadmap includes:
 

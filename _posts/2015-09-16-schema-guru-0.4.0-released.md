@@ -8,13 +8,11 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce 0.4.0 release of Schema Guru with [Apache Spark] [spark] support, massive core refactoring, new features in both schema and ddl subcommands, bug fixes and other enhancements.
-Also [Schema DDL] [ddl-repo] 0.2.0 released with Scala 2.11 support, Amazon Redshift COMMENT ON tweak and more precise Schema-to-DDL transformation.
-
+We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache Spark] [spark] support, new features in both schema and ddl subcommands, bug fixes and other enhancements. In support of this, we have also released version 0.2.0 of the [schema-ddl] [ddl-repo] library, with Scala 2.11 support, Amazon Redshift `COMMENT ON` and a more precise schema-to-DDL transformation algorithm.
 
 This release post will cover the following topics:
 
-1. [Apache Spark Job](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
+1. [Apache Spark job](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
 2. [Core refactoring](/blog/2015/09/16/schema-guru-0.4.0-released/#refactoring)
 3. [Predefined enum sets](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
 4. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
@@ -28,15 +26,13 @@ This release post will cover the following topics:
 
 <!--more-->
 
-<h2 id="spark">1. Apache Spark Job</h2>
+<h2 id="spark">1. Apache Spark job</h2>
 
-Biggest new thing of this release is ability to run JSON Schema derivation as Apache Spark job on AWS Elastic MapReduce cluster or on your own.
+This release lets you run the JSON Schema derivation process as an Apache Spark job - letting you derive your schemas from much larger collections of JSON instances.
 
-For AWS setup we provide [pyinvoke] [pyinvoke] tasks file which allow you quickly deploy EMR cluster and run job on huge sets of JSON instances storing in S3 buckets.
-Tasks file and other parts of job based on our [Spark Example Project] [spark-example-project].
+For users of Amazon Web Services we provide a [pyinvoke] [pyinvoke] tasks file to quickly deploy an EMR cluster and run your Schema Guru job on your JSON instances as stored in Amazon S3.
 
-To publish and run Schema derivation job you need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awscli] [awscli] packages installed.
-One way is to install everything using vagrant provisioning:
+To use this you will need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awscli] [awscli] packages installed. One way to install everything is using vagrant provisioning:
 
 {% highlight bash %}
  host> git clone https://github.com/snowplow/schema-guru
@@ -46,9 +42,9 @@ guest> cd /vagrant
 guest> sbt "project schema-guru-sparkjob" "assembly"
 {% endhighlight %}
 
-This will install all tools you need to vagrant guest machine and assemble fatjar.
+This will install all tools you need to vagrant guest machine and assemble the fatjar.
 
-Another way is to download [fatjar] [fatjar] with Schema Guru Spark job from Bintray, install pyinvoke, boto and awscli manually, then download [tasks.py] [tasks-py] and point `DIR_WITH_JAR` variable in it to actual directory with JAR file.
+Alternatively, you can download the [fatjar] [fatjar] containing Schema Guru Spark job from Bintray, install pyinvoke, boto and awscli manually, then download [tasks.py] [tasks-py] and point `DIR_WITH_JAR` variable in it to actual directory with JAR file.
 
 Whichever way you choose you will also need to have:
 
@@ -118,36 +114,33 @@ Where favourite_colors.json may look like this:
 
 <h2 id="comment">4. Redshift object comments</h2>
 
-[Amazon Redshift] [redshift] is based on PostgreSQL 8.0.2 and thus they have many similarities and shared features.
-One nice feature PostgreSQL has is comments on all sort of internal objects, like tables, data bases, views etc.
-Redshift [has] [comment-on] this feature too, but documentation states that we cannot retrieve these comments with SQL query.
-After some research here at Snowplow we discovered that this is not true and table comments can be retrieved with query like this:
+[Amazon Redshift] [redshift] is based on PostgreSQL 8.0.2 and thus they have many similarities and shared features. One powerful feature of PostgreSQL is the ability to `COMMENT ON` on all sort of internal objects, such as tables, data bases, views etc.
+
+Redshift also has the [COMMENT ON] [comment-on] syntax, although the documentation states that we cannot retrieve these comments with a SQL query. After some research we discovered that in fact table comments can be retrieved like so:
 
 {% highlight sql %}
 SELECT description FROM pg_description WHERE objoid = 'schema.table'::regclass
 {% endhighlight %}
 
-Now `ddl` command of Schema Guru generates `COMMENT ON` statement for each Redshift table containing Iglu URI with schema version.
-This metadata can be used to determine which version of schema currently deployed in Redshift and how we can upgrade it.
+The `ddl` command of Schema Guru now generates `COMMENT ON` statement for each Redshift table containing the full Iglu URI used to generate this table. In the future we will use this metadata to drive automated table migrations.
 
 <h2 id="length">5. Support for minLength and maxLength properties</h2>
 
-From the beginning `ddl` subcommand used `minLength` and `maxLength` properties of string schemas to determine whether column has type `CHAR` (fixed-length) or which `VARCHAR` size it has otherwise.
-Taking this in account it's strange to not generate `minLength` and `maxLength` properties with `schema` subcommand.
-Now we've fixed that issue and all strings in JSON Schemas has these properties.
+From the beginning the `ddl` subcommand has used `minLength` and `maxLength` properties of string schemas to determine whether column has type `CHAR` (fixed-length) or which `VARCHAR` size it has otherwise.
 
-Be aware that it can produce too strict JSON Schema if you process very small set of instances.
-For this case we provide `--no-length` option:
+Given this, it was an omission that the `schema` subcommand does not generate `minLength` and `maxLength` properties. In this version we have fixed this, and all strings in JSON Schemas now have these properties.
+
+** Be aware that it can produce too strict JSON Schema if you process very small set of instances.** For this case we provide `--no-length` option:
 
 {% highlight bash %}
 $ ./schema-guru-0.4.0 schema --no-length /path/to/few-instances
 {% endhighlight %}
 
-No `minLength` nor `maxLength` will appear in result JSON Schema.
+No `minLength` nor `maxLength` will appear in the resulting JSON Schema.
 
 <h2 id="edge-cases">6. Edge cases in DDL generation</h2>
 
-Sometimes it isn't easy to precisely map very powerful and dynamic set of rules of JSON Schema to static DDL.
+It can sometimes be a challenge to precisely map very powerful and dynamic set of rules of JSON Schema to static DDL.
 Edge cases are infinite, and we coninuosly working on finding and solving these cases.
 
 Now Schema Guru can process object schemas without `properties` property.
@@ -187,7 +180,7 @@ Assuming you have a recent JVM installed, running should be as simple as:
 $ ./schema-guru-0.4.0 {schema|ddl} {input} {options}
 {% endhighlight %}
 
-Web UI can be also downloaded from Bintray:
+The Web UI can be also downloaded from Bintray:
 
 {% highlight bash %}
 $ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_webui_0.4.0.zip
@@ -204,11 +197,11 @@ In the meantime, if you have any questions or run into any problems, please [rai
 
 <h2><a name="roadmap">11. Plans for next release</a></h2>
 
-We still have plenty features planned for the Schema Guru! Things that will most likely appear in next release:
+We still have plenty features planned for the Schema Guru! Features that we are planning include:
 
-* `required` property derived in `schema` command
-* Output Schema in Apache Avro format
-* Adding the ability to generate `CREATE TABLE` DDL for other databases
+* Deriving the `required` property in our `schema` subcommand
+* Generating schemas in Apache Avro format
+* Generating `CREATE TABLE` DDL for other databases
 
 [spark]: http://spark-project.org/
 [pyinvoke]: http://www.pyinvoke.org/

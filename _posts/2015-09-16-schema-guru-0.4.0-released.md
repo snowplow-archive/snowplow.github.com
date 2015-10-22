@@ -12,8 +12,8 @@ We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache
 
 This release post will cover the following topics:
 
-1. [Apache Spark job](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
-2. [Predefined enum sets](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
+1. [Apache Spark support](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
+2. [Predefined enumerations](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
 3. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
 4. [Support for minLength and maxLength properties](/blog/2015/09/16/schema-guru-0.4.0-released/#length)
 5. [Edge cases in DDL generation](/blog/2015/09/16/schema-guru-0.4.0-released/#edge-cases)
@@ -25,9 +25,9 @@ This release post will cover the following topics:
 
 <!--more-->
 
-<h2 id="spark">1. Apache Spark job</h2>
+<h2 id="spark">1. Apache Spark support</h2>
 
-This release lets you run the JSON Schema derivation process as an Apache Spark job - letting you derive your schemas from much larger collections of JSON instances.
+This release lets you run Schema Guru's JSON Schema derivation process as an Apache Spark job - letting you derive your schemas from much larger collections of JSON instances.
 
 For users of Amazon Web Services we provide a [pyinvoke] [pyinvoke] tasks file to quickly deploy an EMR cluster and run your Schema Guru job on your JSON instances as stored in Amazon S3.
 
@@ -70,13 +70,13 @@ For example, to pass non-default options to job, like enum cardinality just modi
 All options passed after path to jar file will be accepted as usual Schema Guru options.
 Spark job accept same options as CLI application but `--output` isn't optional since we can't output to terminal and also we have optional `--errors-path` (without it warnings and errors output will be suppressed).
 
-<h2 id="enums">2. Predefined enum sets</h2>
+<h2 id="enums">2. Predefined enumerations</h2>
 
 While deriving schemas, we often encounter some repeating enumerations like ISO country codes, browser user agents or similar.
 
 In the [0.2.0 release] [020-release], we implemented an enum derivation allowing us automatically recognize set of values whithin some cardinality limit.
 
-However, if during derivation we only see, say, 100 of 165 possible currency codes, it's very unlikely we don't need other 65. Even if we *did* encounter all 165 currency codes, if our enum detector's cardinality limit is 100 then the enum won't be detected.
+However, if during derivation we only see, say, 100 of 165 possible currency codes, it's very unlikely that we don't need other 65. Even if we *did* encounter all 165 currency codes, if our enum detector's cardinality limit is 100 then the enum set will be rejected.
 
 To get around this, you can now specify specific known enumerations with `--enum-sets` option. Built-in sets include [iso_4217] [iso-4217], [iso_3166-1_aplha-2] [iso-3166-1-alpha-2] and [iso_3166-1_aplha-3] [iso-3166-1-alpha-3] (written as they should appear in CLI).
 
@@ -158,6 +158,8 @@ Also, a regression around schemas for array structures, introduced in the [0.2.0
 
 <h2><a name="upgrading">8. Upgrading</a></h2>
 
+<h3>Schema Guru CLI</h3>
+
 Simply download the latest Schema Guru from Bintray:
 
 {% highlight bash %}
@@ -171,6 +173,8 @@ Assuming you have a recent JVM installed, running should be as simple as:
 $ ./schema-guru-0.4.0 {schema|ddl} {input} {options}
 {% endhighlight %}
 
+<h3>Schema Guru web UI</h3>
+
 The Web UI can be also downloaded from Bintray:
 
 {% highlight bash %}
@@ -178,9 +182,11 @@ $ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_webui_0.4.0.z
 $ unzip schema_guru_webui_0.4.0.zip
 {% endhighlight %}
 
-For running Schema Guru on Spark, please see the relevant section above.
-
 Note that the Web UI has been updated only to reflect the codebase refactoring; no new features have been added.
+
+<h3>Schema Guru Spark job</h3>
+
+For running Schema Guru on Spark, please see the relevant section above.
 
 <h2><a name="help">9. Getting help</a></h2>
 

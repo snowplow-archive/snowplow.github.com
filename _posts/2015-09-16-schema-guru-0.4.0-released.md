@@ -29,30 +29,23 @@ This release post will cover the following topics:
 
 This release lets you run Schema Guru's JSON Schema derivation process as an Apache Spark job - letting you derive your schemas from much larger collections of JSON instances.
 
-For users of Amazon Web Services we provide a [pyinvoke] [pyinvoke] tasks file to quickly deploy an EMR cluster and run your Schema Guru job on your JSON instances as stored in Amazon S3.
+For users of Amazon Web Services we provide a [tasks.py] [tasks-py] file to quickly deploy an EMR cluster and run your Schema Guru job on your JSON instances as stored in Amazon S3.
 
-To use this you will need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awscli] [awscli] packages installed. One way to install everything is using vagrant provisioning:
+To use this you will need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awscli] [awscli] packages installed. If you prefer not to install these manually, they are automatically installed via our Vagrant provisioning:
 
 {% highlight bash %}
  host> git clone https://github.com/snowplow/schema-guru
  host> cd schema-guru
  host> vagrant up && vagrant ssh
-guest> cd /vagrant
-guest> sbt "project schema-guru-sparkjob" "assembly"
+guest> cd /vagrant/sparkjob
 {% endhighlight %}
 
-This will install all tools you need to vagrant guest machine and assemble the fatjar.
-
-Alternatively, you can download the [fatjar] [fatjar] containing Schema Guru Spark job from Bintray, install pyinvoke, boto and awscli manually, then download [tasks.py] [tasks-py] and point `DIR_WITH_JAR` variable in it to actual directory with JAR file.
-
-Whichever way you choose you will also need to have:
+Either way, you will also need to have:
 
 * An AWS CLI profile, e.g. *guru-profile*
 * A EC2 keypair, e.g. *spark-ec2-keypair*
 * A VPC public subnet, e.g. *subnet-3dc2bd2a*
 * At least one Amazon S3 bucket e.g. *guru-bucket*
-
-Optionally you can have different buckets for input JSONs, output Schemas, output errors and warnings, store JAR file, but in this case notice that they have to belong to one AWS region.
 
 After you have all prerequisites you can upload fatjar to chosen S3 bucket and run the job:
 
@@ -62,13 +55,10 @@ $ inv upload guru-profile guru-bucket
 $ inv run_emr guru-profile guru-bucket guru-bucket/warnings/ guru-bucket/output/ guru-bucket/jsons/ spark-ec2-keypair subnet-3dc2bd2a
 {% endhighlight %}
 
-Notice presence of trailing slashes in all arguments except bucket for storing jar.
-Also warnings and output dirs should not exist.
+You can easely modify `tasks.py` to suit your own needs:
 
-You can easely modify `tasks.py` to suit your own needs. 
-For example, to pass non-default options to job, like enum cardinality just modify `args` list in `run_emr` task.
-All options passed after path to jar file will be accepted as usual Schema Guru options.
-Spark job accept same options as CLI application but `--output` isn't optional since we can't output to terminal and also we have optional `--errors-path` (without it warnings and errors output will be suppressed).
+* To pass non-default options to job, like enum cardinality just modify `args` list in `run_emr` task. All options passed after path to jar file will be accepted as regular Schema Guru options
+* You can fork this script to run Schema Guru against your own non-AWS Spark cluster
 
 <h2 id="enums">2. Predefined enumerations</h2>
 

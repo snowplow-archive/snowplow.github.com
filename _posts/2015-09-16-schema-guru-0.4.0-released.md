@@ -129,14 +129,14 @@ With this release, Schema Guru can now process object schemas without `propertie
 * If it lacks `properties` but contains `patternProperties` it will be resulted in `VARCHAR(4096)`
 * If it lacks `properties` but `additionalProperties` is set to `false` the object will be silently ignored
 
-Schema Guru is also now aware of nullable parent objects: if a child key is listed in the `required` property, but the containing object is *not* required, then these keys will *not* have a `NOT NULL` contstraint in their DDL.
+Schema Guru is also now aware of nullable parent objects: if a child key is listed in the `required` property, but the containing object is *not* required, then these keys will *not* have a `NOT NULL` constraint in their DDL.
 
 <h2 id="minor">6. Minor changes</h2>
 
 There are some minor changes introduced in this release:
 
-* Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet
-* The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size`
+* Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet ([issue #xx] [issue-xx])
+* The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size` ([issue #xx] [issue-xx])
 
 <h2 id="bugs">7. Bug fixes</h2>
 
@@ -144,7 +144,7 @@ Since implementing Base64 detection, we sometimes saw false positives where this
 
 While generating DDL, Schema Guru now [correctly handles] `maxLength` for complex types like `["object", "string"]` ([issue #35] [issue-35]).
 
-Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed.
+Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed ([issue #xx] [issue-xx]).
 
 <h2><a name="upgrading">8. Upgrading</a></h2>
 
@@ -176,7 +176,16 @@ Note that the Web UI has been updated only to reflect the codebase refactoring; 
 
 <h3>Schema Guru Spark job</h3>
 
-For running Schema Guru on Spark, please see the relevant section above.
+For running Schema Guru on Spark, please see the relevant section above. The Spark job is also available from Bintray:
+
+{% highlight bash %}
+$ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_spark_0.1.0.zip
+$ unzip schema_guru_spark_0.1.0.zip
+{% endhighlight %}
+
+For AWS Elastic MapReduce users, we also host the Spark job on S3 as:
+
+XXX 
 
 <h2><a name="help">9. Getting help</a></h2>
 
@@ -190,9 +199,9 @@ In the meantime, if you have any questions or run into any problems, please [rai
 
 We have plenty of features planned for Schema Guru! The roadmap includes:
 
-* Generating schemas in Apache Avro format
-* Deriving the `required` property in our `schema` subcommand
-* Generating `CREATE TABLE` DDL for other databases
+* Generating schemas in Apache Avro format ([issue #xx] [issue-xx])
+* Deriving the `required` property in our `schema` subcommand ([issue #xx] [issue-xx])
+* Generating `CREATE TABLE` DDL for other databases ([issue #xx] [issue-xx])
 
 [spark]: http://spark-project.org/
 [pyinvoke]: http://www.pyinvoke.org/

@@ -136,7 +136,7 @@ Schema Guru is also now aware of nullable parent objects: if a child key is list
 There are some minor changes introduced in this release:
 
 * Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet ([issue #xx] [issue-xx])
-* The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size` ([issue #xx] [issue-xx])
+* The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size` ([issue #98] [issue-98])
 
 <h2 id="bugs">7. Bug fixes</h2>
 
@@ -144,7 +144,7 @@ Since implementing Base64 detection, we sometimes saw false positives where this
 
 While generating DDL, Schema Guru now [correctly handles] `maxLength` for complex types like `["object", "string"]` ([issue #35] [issue-35]).
 
-Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed ([issue #xx] [issue-xx]).
+Also, a regression around schemas for array structures, introduced in the [0.2.0 release] [020-release], has been fixed ([issue #81] [issue-81]).
 
 <h2><a name="upgrading">8. Upgrading</a></h2>
 
@@ -199,9 +199,9 @@ In the meantime, if you have any questions or run into any problems, please [rai
 
 We have plenty of features planned for Schema Guru! The roadmap includes:
 
-* Generating schemas in Apache Avro format ([issue #xx] [issue-xx])
-* Deriving the `required` property in our `schema` subcommand ([issue #xx] [issue-xx])
-* Generating `CREATE TABLE` DDL for other databases ([issue #xx] [issue-xx])
+* Generating schemas in Apache Avro format ([issue #38] [issue-38])
+* Deriving the `required` property in our `schema` subcommand ([issue #54] [issue-54])
+* Generating `CREATE TABLE` DDL for other databases ([issue #26] [issue-26])
 
 [spark]: http://spark-project.org/
 [pyinvoke]: http://www.pyinvoke.org/
@@ -223,7 +223,12 @@ We have plenty of features planned for Schema Guru! The roadmap includes:
 
 [ddl-repo]: https://github.com/snowplow/schema-ddl
 [issues]: https://github.com/snowplow/schema-guru/issues
+[issue-38]: https://github.com/snowplow/schema-guru/issues/38
+[issue-54]: https://github.com/snowplow/schema-guru/issues/54
 [issue-76]: https://github.com/snowplow/schema-guru/issues/76
+[issue-81]: https://github.com/snowplow/schema-guru/issues/81
+[issue-98]: https://github.com/snowplow/schema-guru/issues/98
+[issue-26]: https://github.com/snowplow/schema-ddl/issues/26
 [issue-35]: https://github.com/snowplow/schema-ddl/issues/35
 [040-release]: https://github.com/snowplow/schema-guru/releases/tag/0.4.0
 [030-release]: https://github.com/snowplow/schema-guru/releases/tag/0.3.0

@@ -11,7 +11,7 @@ We are pleased to announce the immediate availability of Snowplow 62, Tropical P
 
 ![tropical-parulas] [tropical-parulas]
 
-Many thanks to Snowplow community member [Dani Solà] [danisola] from Simply Business for his contribution to this release!
+Many thanks to Snowplow community member [Dani Solà] [danisola] from [Simply Business] [simplybusiness] for his contribution to this release!
 
 1. [Fix to support legacy Beanstalk access logs](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#emretlrunner-fix)
 2. [Custom bootstrap actions](/blog/2015/03/17/snowplow-r62-tropical-parula-released/#bootstrap-actions)
@@ -121,3 +121,4 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [r62-release]: https://github.com/snowplow/snowplow/releases/tag/r62-tropical-parula
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[simplybusiness]: http://www.simplybusiness.co.uk

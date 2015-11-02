@@ -32,6 +32,7 @@ This release introduces the new Hadoop Elasticsearch Sink. This is a Hadoop job 
       database: index1 # The Elasticsearch index
       port: 9200 # Port used to connect to Elasticsearch
       table: type1 # The Elasticsearch type
+      es_nodes_wan_only: false # Set to true if using Amazon Elasticsearch Service
       username: # Unnecessary for Elasticsearch
       password: # Unnecessary for Elasticsearch
       sources: # Leave blank or specify: ["s3://out/enriched/bad/run=xxx", "s3://out/shred/bad/run=yyy"]

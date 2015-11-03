@@ -54,6 +54,8 @@ To run just the Elasticsearch copy without any other EmrEtlRunner steps, explici
 
 Note that running EmrEtlRunner with `--skip enrich,shred` will no longer skip the EMR job, since there is still the Elasticsearch step to run.
 
+At the moment, Amazon Elasticsearch Service is not supported as a secure Elasticsearch target. Amazon Elasticsearch Service supports whitelisting specific users or specific IP addresses. The former is not viable because it is impossible to send requests signed with AWS credentials from the Elasticsearch-Hadoop library. The latter is problematic because the instances in the transient EMR cluster doesn't have any predetermined IP address. If it becomes possible to run EMR in a private subnet, Amazon ES could be supported by whitelisting the NAT in the subnet through which all traffic is redirected. Alternatively, if it were possible to run Amazon ES in a VPC then we could whitelist the EMR cluster subnet.
+
 <h2 id="enrichedEvent">Changes to the Snowplow Enriched Event</h2>
 
 We have broken the direct dependency of the StorageLoader on the enriched event format. Now Scala Hadoop Shred copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket. The StorageLoader now loads the copy from the `shredded/good` bucket. The benefit is that when Scala Hadoop Shred copies the enriched events, it can optimize them for Redshift storage. Since the shredder extracts the self-describing JSONs from the `unstruct_event`, `contexts`, and `derived_contexts` fields into their own buckets, there is no reason to keep these fields in the `atomic.events` table. For this reason, Scala Hadoop Shred now removes these three fields from the enriched event TSV.

@@ -156,11 +156,13 @@ header .plan-cta {margin-top: 10px}
 
 /* signup forms */
 
-.snplw-form-horizontal {margin: 0 auto; width: 90%}
+.request-trial {margin: 0 auto; width: 90%}
 
-.snplw-form-group {margin-bottom: 15px}
+.request-trial-hidden {display: none}
 
-.snplw-form-control {
+.request-trial-group {margin-bottom: 15px}
+
+.request-trial-input {
 	width: 100%;
   padding: 15px 12px;
 	background-color: rgba(121,127,148,0.3);
@@ -169,7 +171,7 @@ header .plan-cta {margin-top: 10px}
 	font-size: 18px
 }
 
-select.snplw-form-control {
+select.request-trial-input {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none
@@ -183,13 +185,6 @@ select.snplw-form-control {
 .help-inline {
 	margin: 15px 0 0 15px;
 	font-size: 18px
-}
-
-.submission-successful {
-	margin-top: 15px;
-  text-align: center;
-	font-weight: 400;
-  font-size: 18px
 }
 
 /* TODO: bigbox */

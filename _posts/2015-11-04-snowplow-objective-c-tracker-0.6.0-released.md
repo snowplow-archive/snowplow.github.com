@@ -129,7 +129,7 @@ Aside from bug fixes we have also added the option to use the Tracker from withi
 pod 'SnowplowTracker', '~> 0.6'
 {% endhighlight %}
 
-Please note that to use cocoapods with `tvOS` you will need version 0.39.+.
+Please note that to use `tvOS` you will need version 0.39.+ of cocoapods.
 
 <h2><a name="demo">5. Demonstration app</a></h2>
 

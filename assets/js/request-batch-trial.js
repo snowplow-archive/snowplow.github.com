@@ -3,6 +3,7 @@ $(function() {
 	// hide previous error messages
 
 	$('.error').hide();
+	$('.help-inline').hide();
 	$('.request-trial-group').removeClass("error");
 
 	function isEmail(email) { // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
@@ -17,7 +18,7 @@ $(function() {
 		$('.help-inline').hide();
 		$('.request-trial-group').removeClass("error");
 
-		// fetch inputs
+		// fetch inputs for Snowplow
 
 		var leadSource = document.getElementById("inputLeadSource").value;
 		var firstName = document.getElementById("inputFirstName").value;
@@ -37,7 +38,7 @@ $(function() {
 
 		// validate inputs
 
-		if (leadSource != "Trial Form Batch") { return false; }
+		if (leadSource != "Trial Form Batch") { return false; } // do not submit form
 
 		if (firstName == "") {
 			$('#groupFirstName').addClass("error"); // add class 'error' to #groupFirstName
@@ -69,11 +70,10 @@ $(function() {
 			return false;
 		}
 
-		// If passed validation, now submit form to the dataLayer
-		//dataLayer.push({
-			//'event': 'submit_trial_form_batch',
-			//'submission': submission
-		//});
+		dataLayer.push({ // submit form to datalayer
+			'event': 'submit_trial_form_batch',
+			'submission': submission
+		});
 
 		if (leadSource == "Trial Form Batch") {
 
@@ -85,6 +85,8 @@ $(function() {
 			var p5 = "rce.com/servlet/servlet.WebT";
 			var p6 = "oLead?encoding=UTF-8";
 
+			// add various inputs
+
 			var form = document.getElementById("requestBatchTrial");
 
 			var elementOID = document.createElement("input");
@@ -95,11 +97,17 @@ $(function() {
 
 			var elementRetURL = document.createElement("input");
     	elementRetURL.name = "retURL";
-			elementRetURL.value = "http://snowplowanalytics.com/get-started/thanks/";
+			elementRetURL.value = "http://snowplowanalytics.com/get-started/batch/thanks/";
 			elementRetURL.setAttribute("type", "hidden");
     	form.appendChild(elementRetURL);
 
-			snowplow(function () {
+			var elementSC1 = document.createElement("input");
+    	elementSC1.name = "00N2400000HS40P";
+			elementSC1.value = 42;
+			elementSC1.setAttribute("type", "hidden");
+    	form.appendChild(elementSC1);
+
+			snowplow(function () { // add duid
 
 				var snplow2 = this.snplow2;
 				var domainUserId = snplow2.getDomainUserId();
@@ -112,9 +120,18 @@ $(function() {
 
 			})
 
+			document.getElementById("inputLeadSource").setAttribute("name","lead_source");
+			document.getElementById("inputWebsite").setAttribute("name","00N2400000HS6sg");
+			document.getElementById("inputFirstName").setAttribute("name","first_name");
+			document.getElementById("inputLastName").setAttribute("name","last_name");
+			document.getElementById("inputEmail").setAttribute("name","email");
+			document.getElementById("inputCompany").setAttribute("name","company");
+			document.getElementById("inputEventsPerMonth").setAttribute("name","00N2400000DHvUj");
+
 	    form.method = "POST";
 	    form.action = p3 + p4 + p5 + p6;
 			form.submit();
+
 		}
 
 		// do not reload page

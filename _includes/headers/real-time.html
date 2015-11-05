@@ -1,47 +1,61 @@
 <div class="container narrow">
-  <div class="row">
-    <div class="bigbox">
-      <h1>Register for the private beta.</h1>
-      <h2>Managed service – Real-time</h2>
-    </div>
+  <div class="bigbox">
+    <h1>Request a free trial.</h1>
+    <h2>Managed Service – Real-time Pipeline</h2>
   </div>
 </div>
 
 <div class="container narrower">
-  <div clas="row">
-    <div id="register-for-real-time-form">
-      <form class="snplw-form-horizontal">
-        <div class="snplw-form-group" id="groupName">
-          <div id="controlsName">
-            <input type="text" class="snplw-form-control" id="inputName" placeholder="Name">
-          </div>
-        </div>
-        <div class="snplw-form-group" id="groupEmail">
-          <div id="controlsEmail">
-            <input type="text" class="snplw-form-control" id="inputEmail" placeholder="Email">
-          </div>
-        </div>
-        <div class="snplw-form-group" id="groupCompany">
-          <div id="controlsCompany">
-            <input type="text" class="snplw-form-control" id="inputCompany" placeholder="Company">
-          </div>
-        </div>
-        <div class="snplw-form-group" id="groupEventsPerMonth">
-          <div id="controlsEventsPerMonth">
-            <select class="snplw-form-control" id="inputEventsPerMonth">
-              <option value="" disabled selected>Estimated events per month</option>
-              <option>&lt; 1 million</option>
-              <option>1 - 10 million</option>
-              <option>10 - 100 million</option>
-              <option>100 - 1 billion</option>
-              <option>1 billion +</option>
-            </select>
-          </div>
-        </div>
-        <div style="text-align:center">
-          <button type="submit" class="cta-button green" id="submitRegisterForRealTimeButton">Sign up</button>
-        </div>
-      </form>
+  <form id="requestRealTimeTrial" class="request-trial">
+
+    <div class="request-trial-trick">
+      <input type="text" class="request-trial-input" id="inputLeadSource" value="Trial Form Real Time">
+      <input type="text" class="request-trial-input" id="inputWebsite" maxlength="255">
     </div>
-  </div>
+
+    <div class="request-trial-group" id="groupFirstName">
+      <div id="controlsFirstName">
+        <input type="text" class="request-trial-input" id="inputFirstName" placeholder="First Name" maxlength="40">
+      </div>
+    </div>
+
+    <div class="request-trial-group" id="groupLastName">
+      <div id="controlsLastName">
+        <input type="text" class="request-trial-input" id="inputLastName" placeholder="Last Name" maxlength="80">
+      </div>
+    </div>
+
+    <div class="request-trial-group" id="groupEmail">
+      <div id="controlsEmail">
+        <input type="text" class="request-trial-input" id="inputEmail" placeholder="Email" maxlength="80" >
+      </div>
+    </div>
+
+    <div class="request-trial-group" id="groupCompany">
+      <div id="controlsCompany">
+        <input type="text" class="request-trial-input" id="inputCompany" placeholder="Company" maxlength="40">
+      </div>
+    </div>
+
+    <div class="request-trial-group" id="groupEventsPerMonth">
+      <div id="controlsEventsPerMonth">
+        <select class="request-trial-input" id="inputEventsPerMonth">
+          <option value="" disabled selected>Estimated Events per Month</option>
+          <option value="&lt; 1 million">&lt; 1M</option>
+          <option value="1 - 10 million">1M – 10M</option>
+          <option value="10 - 100 million">10M – 100M</option>
+          <option value="100 - 1 billion">100M – 1B</option>
+          <option value="1 billion +">&gt; 1B</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- todo: improve this field (but real-time only)
+    <span class="dateInput dateOnlyInput"><input  id="00N2400000HRtrg" name="00N2400000HRtrg" size="12" type="text" /></span><br>-->
+
+    <div style="text-align:center">
+      <button type="submit" id="submitRequestRealTimeTrial" class="cta-button green">Request a free trial</button>
+    </div>
+
+  </form>
 </div>

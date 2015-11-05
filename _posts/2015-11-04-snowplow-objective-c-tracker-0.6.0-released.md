@@ -24,11 +24,11 @@ In the rest of this post we will cover:
 
 <h2><a name="tracker-performance">1. Tracker performance</a></h2>
 
-This release brings about a rethink to the POST requests and accompanying batch size we use.  Historically a POST consisted of a predetermined count of events, a batch.  This batch was limited to a maximum of 10 events in the case of the Objective-C Tracker.  We have now removed this limitation and imposed a much better metric for determining a POST size; the maximum amount of bytes the collector can receive.
+This release brings about a rethink to POST requests and the count of events we send.  Historically a POST consisted of a predetermined count of events, a batch.  This batch was limited to a maximum of 10 events in the case of the Objective-C Tracker.  We have now removed this limitation and imposed a much more performant metric for determining a POST size; the maximum amount of bytes the collector can receive.
 
-Imagine a single event is 1000 bytes in size.  This means that the maximum amount of bytes we would send was 10000 bytes, less than a 5th of what the collectors can safely handle.  To send 50 events would also result in 5 seperate requests being sent.
+Imagine a single event is 1000 bytes in size.  This means that the maximum amount of bytes we are able to send is 10000 bytes, less than a 5th of what the collectors can safely handle.  To send 50 events would subsequently result in 5 seperate requests being sent.
 
-Under the new system we can send all 50 of those events in a single request.  Resulting in better event sending performance and far less network activity.
+Under the new metric we can send all 50 of those events in a single request.  Resulting in better sending performance and far less network activity.
 
 Please note that this limit currently defaults to 40000 bytes to leave a safe margin beneath the maximum of 52000.  However this can be easily changed in the constructor like so:
 
@@ -40,7 +40,7 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
     }];
 {% endhighlight %}
 
-If you exceed 52000 there is no guarantee that your events will send.
+NOTE: If you exceed 52000 there is no guarantee that your events will send.
 
 <h2><a name="event-creation">2. Event creation</a></h2>
 
@@ -81,14 +81,42 @@ With the aforementioned performance updates the SPEmitter has undergone some min
 * Changed `setUrlEndpoint` builder to accept an NSString instead of an NSURL
   - You now only need to set resource name for the collector.
 
-The SPTracker has also had all of its tracking functions updated to match the changes to how events are constructed.  The function names are mostly the same except that they now accept only a single variable in the form of the event object just created.
+The SPTracker has also had all of its tracking functions updated to match the changes to how events are constructed.  The function names are mostly the same however they now accept only a single variable in the form of the event object created.
+
+{% highlight objective-c %}
+// Create the event object
+SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+    [builder setPageUrl:@"DemoPageUrl"];
+    [builder setReferrer:@"DemoPageReferrer"];
+}];
+
+// Track the event
+[tracker trackPageViewEvent:event];
+{% endhighlight %}
+
+We have also added preliminary support for a Geo-Location context.  Due to some difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
+
+During SPSubject creation you can now specify if you intend to use this context:
+
+{% highlight objective-c %}
+SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
+{% endhighlight %}
+
+You will then need to populate the various geo-location data points.  At a minimum you must populate the Latitude and Longitude fields:
+
+{% highlight objective-c %}
+[subject setGeoLatitude:123.123]
+[subject setGeoLongitude:-123.123]
+{% endhighlight %}
+
+The context will now be automatically added to all of your events.
 
 <h2><a name="ios-9.0">4. iOS 9.0 and XCode 7 changes</a></h2>
 
 With the release of iOS 9.0 several parts of the Tracker have had to be updated to keep everything running smoothly:
 
-* Force the use of HTTPS for anyone detected to be running iOS 9.0 in keeping with the [security rules][9.0-release-notes]. ([#231][231])
-* Have removed the ability to use OpenIDFA under iOS 9.0+ (it is still working for older versions) ([#175][175])
+* Forcing the use of HTTPS for anyone detected to be running iOS 9.0 in keeping with the [security rules][9.0-release-notes]. ([#231][231])
+* Have removed the ability to use OpenIDFA under iOS 9.0+ (still functional for older versions) ([#175][175])
 
 With the release of XCode 7+ we have also had to instrument several other changes:
 

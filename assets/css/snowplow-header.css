@@ -48,7 +48,8 @@ header .nav-collapse ul {margin: 15px 0}
 
 header .nav-collapse li {
 	display : inline-block;
-	margin-left: 2px
+	margin-left: 2px;
+	font-weight: 400;
 }
 
 header .nav-collapse li a {
@@ -59,8 +60,8 @@ header .nav-collapse li a {
 }
 
 header .nav-collapse li        a.with-border {font-weight: 400}
-header .nav-collapse li        a.with-border {border-color: rgba(121,127,148,0.3)}
-header .nav-collapse li.active a.with-border {border-color: rgba(121,127,148,0.3)}
+header .nav-collapse li        a.with-border {border-color: white; border-width: 1px}
+header .nav-collapse li.active a.with-border {border-color: white; border-width: 1px}
 
 header .nav-collapse li a.without-border {border-color: transparent}
 
@@ -73,15 +74,15 @@ header .nav-collapse li a.without-border {border-color: transparent}
 	header .toggle-menu {
 		text-transform: uppercase;
 		background-color: transparent;
-		border: 2px solid rgba(121,127,148,0.3);
+		border: 1px solid white;
 		border-radius: 30px;
 		padding: 12px 15px
 	}
 
 	/*header .toggle-menu:hover,*/
 	header .toggle-menu:focus {
-		background-color: rgba(121,127,148,0.3);
-		border: 2px solid transparent
+		background-color: white;
+		border: 1px solid transparent
 	}
 
 	header .nav-collapse li {

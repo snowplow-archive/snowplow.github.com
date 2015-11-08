@@ -37,14 +37,13 @@ Sergii Khomenko from [StyLight][stylight] gave a great presentation on the diffe
 
 <iframe width="480" height="270" src="http://www.ustream.tv/embed/recorded/76531351?html5ui" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
 
-## Data reservoirs, lakes, and swamps. And data provinance
+## Data reservoirs, lakes, and swamps. And data provenance
 
 One of the great things about conferences is that they bring people attacking similar problems from different angles together. For me, one of the most interesting talks, for me, was that given by Stephen Brobst from [Teradata][teradata] and Scott Gnau from [Hortonworks][hortonworks] on "Unified Data Architecture". They distinguished between a data lake, where data from all parts of the business is accumulated, and "Enterprise Data Products", which are derived from the data lake, and where data is accessible for production purposes.
 
 This view of the world makes sense if you're Hortonworks (in which case you sell "data lakes") and Teradata (in which case you sell "enterprise data products"). But they're a little bit puzzling if you look at the space from the event data pipeline perspective, because data is taken as a 'given' i.e. you have a lot of data, you accumulate it in your data lake, and then over time you use that data to build out your enterprise data product. In practice, many companies do have lots of data they could do more with. But I believe that at least as much effort should be spent capturing good quality data at source than on accumulating what you've already got. 
 
-The other interesting aspect of this talk was exporation of the difference between a "data swamp" and a "data reservoir". Metadata management - understanding the source and structure of the data, including what you are and are not allowed to do with the data, are key to ensuring that the data can actually be used effectively. They referred to this as "data provinance". 
-
+The other interesting aspect of this talk was exporation of the difference between a "data swamp" and a "data reservoir". Metadata management - understanding the source and structure of the data, including what you are and are not allowed to do with the data, are key to ensuring that the data can actually be used effectively. They referred to this as "data provenance". 
 Again, it seems to me that capturing this metadata with the data at source, and keeping that metadata with the data itself wherever the data happens to be, seems to be essential: again viewing data infrastructure as pipelines seems a much more useful paradigm to me than a focus on the parts of the pipelines where the data accumulates.
 
 Unfortunately a video of that presentation is not currently available - check out the [Crunch Conference][crunchconf] website to see if that changes.

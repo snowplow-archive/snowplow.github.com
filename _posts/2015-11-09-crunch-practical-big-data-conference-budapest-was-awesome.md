@@ -7,16 +7,21 @@ author: Yali
 category: Meetups
 ---
 
-A couple of weeks ago I was very lucky to attend, and speak at <a href="">Crunch Conference</a>, a practical big data conference in Budapest, organised by the folks at [Ustream][ustream] and [Prezi][prezi].
+A couple of weeks ago I was very lucky to attend, and speak at <a href="">Crunch Conference</a>, a practical big data conference in Budapest, organised by the folks at [Ustream][ustream] and [Prezi][prezi], and headlined by some of the titans of the data industry, including [Doug Cutting][dcutting], the creator of [Hadoop][hadoop] (not to mention Lucene and Nutch) and [Martin Kleppmann][mkleppmann], the creator of [Samza][samza].
 
 ## Emerging best practices in event data pipelines
 
-Being invited to speak gave me the opportunity to step back from my day to day focus at Snowplow on building event data pipelines and helping our users to get the most out of them, and think more broadly about what distinguishes good event data pipelines from bad. 
+Being invited to speak gave me the opportunity to step back from my day to day focus at Snowplow on: 
+
+1. building event data pipelines and 
+2. helping our users to get the most out of them, 
+
+and think more broadly about _**what distinguishes good event data pipelines from bad**_. 
 
 Three years ago when we started Snowplow, our focus, and that of the industry as a whole, was on using frameworks like Hadoop and cloud services like EMR to make pipelines linearly scalable, robust and cost effective. Today these are all a given - the things that mark out best in class event data pipelines from the rest, are:
 
-1. A focus on data quality, which means in practice making the data pipeline as auditable as possible, and early validation of data using schemas
-2. The ability for businesses to evolve their data pipelines as they evolve, so that we can change the schemas for the events and entities tracked, and introduce new events and entities, as the activities that take place change, and the questions need to answer in a data-driven way change.
+1. A focus on **data quality**, which means in practice making the data pipeline **auditable**, and **early validation of data using schemas**
+2. The ability for businesses to **evolve their data pipelines** as they evolve, so that we can change the schemas for the events and entities tracked, and introduce new events and entities, as the activities that take place change, and the questions need to answer in a data-driven way change.
 
 My talk focused on these issues in the context of providing an overview of event pipelines in general from a data processing perspective. The talk was videoed - you can view it below:
 
@@ -64,8 +69,7 @@ Enormous thanks to the folks at Prezi and UStream for organising this awesome ev
 [teradata]: http://www.teradata.co.uk/?LangType=2057&LangSelect=true
 [ustream]: http://www.ustream.tv/
 [prezi]: https://prezi.com/
-
-
-
-
-
+[dcutting]: https://en.wikipedia.org/wiki/Doug_Cutting
+[mkleppmann]: https://martin.kleppmann.com/
+[hadoop]: https://github.com/apache/hadoop
+[samza]: https://github.com/apache/samza

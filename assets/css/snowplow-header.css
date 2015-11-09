@@ -81,7 +81,7 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 	/*header .toggle-menu:hover,*/
 	header .toggle-menu:focus {
-		background-color: white;
+		background-color: rgba(121,127,148,0.3);
 		border: 1px solid transparent
 	}
 

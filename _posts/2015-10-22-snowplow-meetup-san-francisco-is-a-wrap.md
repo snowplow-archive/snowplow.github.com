@@ -1,13 +1,12 @@
 ---
 layout: post
-title: The inaugural Snowplow meetup San Francisco is a wrap!
-title-short: The inaugural Snowplow meetup San Francisco is a wrap!
+title: The inaugural Snowplow meetup in San Francisco is a wrap!
 tags: [snowplow, meetup, san francisco, aws, stumbleupon, tilt, chefsfeed]
 author: Yali
 category: Meetups
 ---
 
-Just over two weeks ago I met with 50 Snowplow users and prospective users at [Tilt's] [tilt] gorgeous offices in San Francisco for the first Snowplow meetup to take place in San Francisco. There we were very privilaged to hear three fantastic talks: from Pete O'Leary at Chefsfeed, Jackson Wang from Tilt and Nora Paymer from StumbleUpon. 
+Just over two weeks ago I met with 50 Snowplow users and prospective users at [Tilt's] [tilt] gorgeous offices in San Francisco for the first Snowplow meetup to take place in San Francisco. There we were very privilaged to hear three fantastic talks: from Pete O'Leary at Chefsfeed, Jackson Wang from Tilt and Nora Paymer from StumbleUpon.
 
 [Chefsfeed's] [chefsfeed] Pete O'Leary opened the event with a detailed look at how the Chefsfeed team use Snowplow to understand user behaviour across all their marketing channels and within their app, developing a deep understanding of how different marketing channels and campaigns drive different user behaviours, and how those in turn drive value. You can view Pete's deck below.
 
@@ -24,7 +23,7 @@ Nora Paymer from [StumbleUpon][stumbleupon] finished rounded off the event with 
 
 Enormous thank to you all three speakers for three wonderful talks, and big thanks to Reem Ateyeh and the whole Tilt team for hosting us, feed us and watering us. Finally thank you to everyone who attended the event - it was awesome to get a chance to meet the San Francisco data community and I very much look forward to returning for a second event early next year.
 
-If you'd like to speak at a forthcoming Snowplow meetup San Francisco, or help us organise a Snowplow meetup in your city, then [get in touch][contact]! 
+If you'd like to speak at a forthcoming Snowplow meetup San Francisco, or help us organise a Snowplow meetup in your city, then [get in touch][contact]!
 
 
 [tilt]: https://www.tilt.com

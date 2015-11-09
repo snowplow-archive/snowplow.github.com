@@ -1,7 +1,6 @@
 ---
 layout: post
-title: "Snowplow Meetup Sydney set for December 15"
-title-short: Snowplow Meetup Sydney set for December 15
+title: The second Snowplow meetup in Sydney set for December 15
 tags: [snowplow, meetup, sydney]
 author: Yali
 category: Meetups
@@ -18,7 +17,7 @@ The event will be hosted by our very own [Josh Beemster] [josh], who is returnin
 If you would like to talk at or sponsor the event, then [get in touch](mailto:contact@snowplowanalytics.com). Otherwise, please do [sign up][meetup] today! We'll be posting updates as they're finalized to the [meetup group] [meetup].
 
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Sydney/events/226507783/
-[sydney-pic]: /assets/img/blog/2015/11/sydney.jpeg 
+[sydney-pic]: /assets/img/blog/2015/11/sydney.jpeg
 [rumble]: https://au.linkedin.com/in/simonrumble
 [narbeh]: https://au.linkedin.com/in/narbehyousefian
 [digdeep]: http://www.digdeepdigital.com.au/

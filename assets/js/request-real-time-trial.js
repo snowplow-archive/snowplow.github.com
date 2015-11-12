@@ -77,21 +77,13 @@ $(function() {
 
 		if (leadSource == "Trial Form Real Time") {
 
-			var p1 = "00D2400";
-			var p2 = "0000bPI5";
-
-			var p3 = "https://www.sal";
-			var p4 = "esfo";
-			var p5 = "rce.com/servlet/servlet.WebT";
-			var p6 = "oLead?encoding=UTF-8";
-
 			// add various inputs
 
 			var form = document.getElementById("requestRealTimeTrial");
 
 			var elementOID = document.createElement("input");
     	elementOID.name = "oid";
-			elementOID.value = p1 + p2;
+			elementOID.value = "00D24000000bPI5";
 			elementOID.setAttribute("type", "hidden");
     	form.appendChild(elementOID);
 
@@ -129,7 +121,7 @@ $(function() {
 			document.getElementById("inputEventsPerMonth").setAttribute("name","00N2400000DHvUj");
 
 	    form.method = "POST";
-	    form.action = p3 + p4 + p5 + p6;
+	    form.action = "https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 			form.submit();
 
 		}

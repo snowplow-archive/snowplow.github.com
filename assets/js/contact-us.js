@@ -25,14 +25,14 @@ $(function() {
 		var lastName = document.getElementById("inputLastName").value;
 		var email = document.getElementById("inputEmail").value;
 		var company = document.getElementById("inputCompany").value;
-		var message = document.getElementById("inputMessage").value; // not sent into snowplow
+		var message = document.getElementById("inputMessage").value;
 
 		var submission = {
-			leadSource: leadSource,
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
-			company: company
+			company: company,
+			message: message
 		};
 
 		// validate inputs

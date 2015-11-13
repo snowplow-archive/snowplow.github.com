@@ -121,7 +121,7 @@ header .plan.batch,
 header .plan.real-time {margin-left: 2%}
 
 header .plan {
-	background-color: rgba(121,127,148,0.3);
+	background-color: rgba(250,250,250,0.1);
 	text-transform: uppercase;
 	text-align: center
 }

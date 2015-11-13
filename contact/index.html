@@ -1,0 +1,59 @@
+---
+layout: custom
+title: Contact
+permalink: /contact/
+---
+
+<div class="wrapper">
+  <div class="container narrower">
+
+    <h1 style="text-align:center">How can we help?</h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://localhost:4001/assets/js/contact-us.js"></script>
+
+    <form id="contactUs" class="main-form">
+
+      <div class="main-form-trick">
+        <input type="text" class="main-form-input" id="inputLeadSource" value="Contact Form">
+        <input type="text" class="main-form-input" id="inputWebsite" maxlength="255">
+      </div>
+
+      <div class="main-form-group" id="groupFirstName">
+        <div id="controlsFirstName" >
+          <input type="text" class="main-form-input" id="inputFirstName" placeholder="First Name" maxlength="40">
+        </div>
+      </div>
+
+      <div class="main-form-group" id="groupLastName">
+        <div id="controlsLastName">
+          <input type="text" class="main-form-input" id="inputLastName" placeholder="Last Name" maxlength="80">
+        </div>
+      </div>
+
+      <div class="main-form-group" id="groupEmail">
+        <div id="controlsEmail">
+          <input type="text" class="main-form-input" id="inputEmail" placeholder="Email" maxlength="80" >
+        </div>
+      </div>
+
+      <div class="main-form-group" id="groupCompany">
+        <div id="controlsCompany">
+          <input type="text" class="main-form-input" id="inputCompany" placeholder="Company" maxlength="40">
+        </div>
+      </div>
+
+      <div class="main-form-group" id="groupMessage">
+        <div id="controlsMessage">
+          <textarea class="main-form-input" id="inputMessage" placeholder="How can we help?" maxlength="32000"></textarea>
+        </div>
+      </div>
+
+      <div style="text-align:center">
+        <button type="submit" id="submitContactUs" class="cta-button green">Submit</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

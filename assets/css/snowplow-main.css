@@ -226,3 +226,38 @@ p {line-height: 1.45}
     border-radius: 0 0 0 8px;
     max-height: 100px;
 }
+
+/* form */
+
+.main-form {margin: 0 auto; width: 90%}
+
+.main-form-trick {display: none}
+
+.main-form-group {margin-bottom: 15px}
+
+.main-form-input {
+	width: 100%;
+  padding: 15px 12px;
+	background-color: rgb(240,240,240);
+  border: 1px solid rgb(200,200,200);
+	border-radius: 5px;
+	font-size: 18px
+}
+
+textarea.main-form-input {height: 200px}
+
+select.main-form-input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none
+}
+
+main ::-webkit-input-placeholder {color: #333}
+main ::-moz-placeholder {color: #333}
+main :-moz-placeholder {color: #333}
+main :-ms-input-placeholder {color: #333}
+
+.help-inline {
+	margin: 15px 0 0 15px;
+	font-size: 18px
+}

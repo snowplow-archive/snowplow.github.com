@@ -25,6 +25,7 @@ $(function() {
 		var lastName = document.getElementById("inputLastName").value;
 		var email = document.getElementById("inputEmail").value;
 		var company = document.getElementById("inputCompany").value;
+		var message = document.getElementById("inputMessage").value; // not sent into snowplow
 
 		var submission = {
 			leadSource: leadSource,
@@ -68,10 +69,16 @@ $(function() {
 			return false;
 		}
 
-		//dataLayer.push({ // submit form to datalayer
-			//'event': 'submit_trial_form_real_time',
-			//'submission': submission
-		//});
+		if (message == "") {
+			$('#groupMessage').addClass("error"); // add class 'error' to #groupCompany
+			$('#controlsMessage').append('<div class="help-inline">Please enter a message.</div>'); // add this div after the #controlsMessage element
+			return false;
+		}
+
+		dataLayer.push({ // submit form to datalayer
+			'event': 'submit_contact_us',
+			'submission': submission
+		});
 
 		if (leadSource == "Contact Form") {
 
@@ -116,6 +123,7 @@ $(function() {
 			document.getElementById("inputLastName").setAttribute("name","last_name");
 			document.getElementById("inputEmail").setAttribute("name","email");
 			document.getElementById("inputCompany").setAttribute("name","company");
+			document.getElementById("inputMessage").setAttribute("name","00N2400000HU7tD");
 
 	    form.method = "POST";
 	    form.action = "https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";

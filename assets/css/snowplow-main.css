@@ -252,10 +252,10 @@ select.main-form-input {
 	appearance: none
 }
 
-::-webkit-input-placeholder {color: #333}
-::-moz-placeholder {color: #333}
-:-moz-placeholder {color: #333}
-:-ms-input-placeholder {color: #333}
+main ::-webkit-input-placeholder {color: #333}
+main ::-moz-placeholder {color: #333}
+main :-moz-placeholder {color: #333}
+main :-ms-input-placeholder {color: #333}
 
 .help-inline {
 	margin: 15px 0 0 15px;

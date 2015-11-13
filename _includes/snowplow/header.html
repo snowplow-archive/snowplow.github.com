@@ -18,12 +18,12 @@
     </div>
   </div>
 
-  <div class="wrapper{% if page.header %} custom{% endif %}">
+  {% if page.header %}<div class="wrapper custom">{% endif %}
     {% if page.header == 'homepage' %}{% include headers/homepage.html %}
     {% elsif page.header == 'pricing' %}{% include headers/pricing.html %}
     {% elsif page.header == 'batch' %}{% include headers/batch.html %}
     {% elsif page.header == 'real-time' %}{% include headers/real-time.html %}
-    {% else %}{% include headers/title.html %}{% endif %}
-  </div>
+    {% endif %}
+  {% if page.header %}</div>{% endif %}
 
 </header>

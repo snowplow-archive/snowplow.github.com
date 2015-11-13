@@ -1,7 +1,7 @@
 
 /* header: basic structure */
 
-header {padding-top: 15px}
+header {padding: 20px 0}
 
 header .brand, header .logo, header .name {float: left}
 header .menu nav {float: right}

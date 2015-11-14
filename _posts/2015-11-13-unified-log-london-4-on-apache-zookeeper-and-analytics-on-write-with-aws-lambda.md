@@ -32,7 +32,7 @@ Flavio's talk covered the basics of ZooKeeper's architecture and API, along with
 
 ![the-good-the-bad-and-the-ugly-of-apache-zookeeper] [title-slide]
 
-**[The good, the bad, and the ugly of Apache ZooKeeper] [flavio slides]** from **[Flavio Junqueira] [flavio]**
+**[Unified Log London (November 2015) - The good, the bad, and the ugly of Apache ZooKeeper] [flavio slides]** from **[Flavio Junqueira] [flavio]**
 
 It was an engaging and frank talk by Flavio - he was not afraid to point out the "ugly" parts of ZooKeeper, and revealed the thinking behind some specific design decisions, such as keeping the Netflix-originated [Curator] [curator] project separate from ZooKeeper; it's great to get these kinds of insights from the maintainers of such major open source projects.
 
@@ -44,7 +44,7 @@ Download Flavio's [slides on Apache ZooKeeper] [flavio-slides] from the Apache Z
 <h2>2. Analytics on write with AWS Lambda</h2>
 </div>
 
-In this talk, I introduced a widely-used but poorly-understood approach for business reporting on event streams, called analytics on write to distinguish it from the more traditional analytics on read approaches.
+In this talk, I introduced a widely-used but poorly-understood approach for business reporting on event streams, called "analytics on write" to distinguish it from the more traditional "analytics on read" approaches.
 
 Analytics on write is a four-step process:
 

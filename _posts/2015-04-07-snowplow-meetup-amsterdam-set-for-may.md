@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Snowplow meetup Amsterdam set for May 13th
 title: "Snowplow meetup set for Amsterdam, May 13th"
 tags: [snowplow, meetup]
 author: Yali
@@ -22,7 +21,7 @@ I am thrilled that we have some incredibly interesting speakers pencilled in to 
 	<script type="text/javascript" src="http://www.easypolls.net/ext/scripts/emPoll.js?p=55243b18e4b078c0a2ed6463"></script><a class="OPP-powered-by" href="https://www.easypolls.net/" style="text-decoration:none;"><div style="font: 9px arial; color: gray;">online polls</div></a>
 </div>
 
-Get voting for your prefered topic! 
+Get voting for your prefered topic!
 
 We have also been very fortunate to have the kind folks at [Travelbird][travelbird] host the meetup. Many thanks!
 
@@ -35,4 +34,3 @@ More details will follow as they are finalized. In the meantime, please sign up 
 [bluemango]: http://www.bluemango.nl/
 [eventbrite]: https://www.eventbrite.com/e/snowplow-meetup-amsterdam-tickets-16472215841
 [travelbird]: http://travelbird.nl/
-

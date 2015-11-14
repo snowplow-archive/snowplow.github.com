@@ -3,9 +3,7 @@ layout: page
 group: about
 subgroup: team
 title: The team behind the Snowplow platform
-shortened-link: Team
 description: The team building Snowplow
-weight: 2
 ---
 
 # The Snowplow Team

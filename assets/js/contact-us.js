@@ -4,19 +4,19 @@ $(function() {
 
 	$('.error').hide();
 	$('.help-inline').hide();
-	$('.request-trial-group').removeClass("error");
+	$('.main-form-group').removeClass("error");
 
 	function isEmail(email) { // http://stackoverflow.com/questions/2507030/email-validation-using-jquery
 		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		return regex.test(email);
 	}
 
-	$('#submitRequestRealTimeTrial').click(function() {
+	$('#submitContactUs').click(function() {
 
 		// hide previous error messages
 
 		$('.help-inline').hide();
-		$('.request-trial-group').removeClass("error");
+		$('.main-form-group').removeClass("error");
 
 		// fetch inputs for Snowplow
 
@@ -25,20 +25,19 @@ $(function() {
 		var lastName = document.getElementById("inputLastName").value;
 		var email = document.getElementById("inputEmail").value;
 		var company = document.getElementById("inputCompany").value;
-		var eventsPerMonth = document.getElementById("inputEventsPerMonth").value;
+		var message = document.getElementById("inputMessage").value;
 
 		var submission = {
-			leadSource: leadSource,
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
 			company: company,
-			eventsPerMonth: eventsPerMonth
+			message: message
 		};
 
 		// validate inputs
 
-		if (leadSource != "Trial Form Real Time") { return false; } // do not submit form
+		if (leadSource != "Contact Form") { return false; } // do not submit form
 
 		if (firstName == "") {
 			$('#groupFirstName').addClass("error"); // add class 'error' to #groupFirstName
@@ -70,16 +69,22 @@ $(function() {
 			return false;
 		}
 
+		if (message == "") {
+			$('#groupMessage').addClass("error"); // add class 'error' to #groupCompany
+			$('#controlsMessage').append('<div class="help-inline">Please enter a message.</div>'); // add this div after the #controlsMessage element
+			return false;
+		}
+
 		dataLayer.push({ // submit form to datalayer
-			'event': 'submit_trial_form_real_time',
+			'event': 'submit_contact_us',
 			'submission': submission
 		});
 
-		if (leadSource == "Trial Form Real Time") {
+		if (leadSource == "Contact Form") {
 
 			// add various inputs
 
-			var form = document.getElementById("requestRealTimeTrial");
+			var form = document.getElementById("contactUs");
 
 			var elementOID = document.createElement("input");
     	elementOID.name = "oid";
@@ -89,7 +94,7 @@ $(function() {
 
 			var elementRetURL = document.createElement("input");
     	elementRetURL.name = "retURL";
-			elementRetURL.value = "http://snowplowanalytics.com/get-started/real-time/thanks/";
+			elementRetURL.value = "http://snowplowanalytics.com/contact/thanks/";
 			elementRetURL.setAttribute("type", "hidden");
     	form.appendChild(elementRetURL);
 
@@ -118,7 +123,7 @@ $(function() {
 			document.getElementById("inputLastName").setAttribute("name","last_name");
 			document.getElementById("inputEmail").setAttribute("name","email");
 			document.getElementById("inputCompany").setAttribute("name","company");
-			document.getElementById("inputEventsPerMonth").setAttribute("name","00N2400000DHvUj");
+			document.getElementById("inputMessage").setAttribute("name","00N2400000HU7tD");
 
 	    form.method = "POST";
 	    form.action = "https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";

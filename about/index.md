@@ -3,8 +3,7 @@ layout: page
 group: about
 title: Get in touch with the Snowplow Team
 description: Get in touch with the Snowplow team
-shortened-link: Contact us
-weight: 1
+permalink: /about/
 ---
 
 # Get in touch

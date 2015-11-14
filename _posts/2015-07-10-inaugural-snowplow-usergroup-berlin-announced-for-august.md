@@ -1,7 +1,6 @@
 ---
 layout: post
-shortenedlink: First Snowplow meetup Berlin announced!
-title: Inaugural Snowplow meetup Berlin event to take place on August 11th
+title: The inaugural Snowplow meetup in Berlin event to take place on August 11
 tags: [snowplow, meetup, berlin, data modeling, measuring tv advertising, attribution]
 author: Yali
 category: Meetups

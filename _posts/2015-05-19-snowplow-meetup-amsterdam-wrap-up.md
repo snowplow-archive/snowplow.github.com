@@ -1,7 +1,6 @@
 ---
 layout: post
-shortenedlink: Snowplow Amsterdam meetup wrap up
-title: "The inaugural Snowplow Amsterdam meetup is a wrap!"
+title: "The inaugural Snowplow meetup in Amsterdam is a wrap!"
 tags: [snowplow, meetup]
 author: Yali
 category: Meetups
@@ -23,7 +22,7 @@ Ruben Mak from [Blue Mango][bluemango] followered with an indepth look at attrib
 
 Huge thank you to [Martijn van Vreeden] [martijn] for organising the event, and Rob Winters and the folks at [Travelbird] [travelbird] for hosting us, feeding and watering us :-).
 
-We hope to return to Amsterdam soon for a second event. 
+We hope to return to Amsterdam soon for a second event.
 
 
 

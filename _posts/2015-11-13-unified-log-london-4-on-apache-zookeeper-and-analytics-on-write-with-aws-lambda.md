@@ -32,6 +32,8 @@ Flavio's talk covered the basics of ZooKeeper's architecture and API, along with
 
 ![the-good-the-bad-and-the-ugly-of-apache-zookeeper] [title-slide]
 
+**[The good, the bad, and the ugly of Apache ZooKeeper] [flavio slides]** from **[Flavio Junqueira] [flavio]**
+
 It was an engaging and frank talk by Flavio - he was not afraid to point out the "ugly" parts of ZooKeeper, and revealed the thinking behind some specific design decisions, such as keeping the Netflix-originated [Curator] [curator] project separate from ZooKeeper; it's great to get these kinds of insights from the maintainers of such major open source projects.
 
 When asked for his thoughts on ZooKeeper competitors [etcd] [etcd] and [Consul] [consul], Flavio shared his view that the real innovation has been the popularization and growing understanding of the [Raft distributed consensus protocol] [raft], which is enabling developers to implement distributed consensus directly into their own systems when appropriate.

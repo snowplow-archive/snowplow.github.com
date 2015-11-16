@@ -1,7 +1,11 @@
 
-/* main: basic structure */
+/* ALL THE THINGS IN <MAIN> */
 
-main {padding: 0; min-height: 80vh}
+main {
+	background-color: white;
+	min-height: 80vh;
+	padding: 0;
+}
 
 /* main: breadcrumb */
 

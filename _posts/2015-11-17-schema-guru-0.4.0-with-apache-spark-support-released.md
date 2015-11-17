@@ -8,7 +8,9 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache Spark] [spark] support, new features in both schema and ddl subcommands, bug fixes and other enhancements. In support of this, we have also released version 0.2.0 of the [schema-ddl] [ddl-repo] library, with Scala 2.11 support, Amazon Redshift `COMMENT ON` and a more precise schema-to-DDL transformation algorithm.
+We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache Spark] [spark] support, new features in both schema and ddl subcommands, bug fixes and other enhancements.
+
+In support of this, we have also released version 0.2.0 of the [schema-ddl] [ddl-repo] library, with Scala 2.11 support, Amazon Redshift `COMMENT ON` and a more precise schema-to-DDL transformation algorithm.
 
 This release post will cover the following topics:
 
@@ -46,7 +48,7 @@ Either way, you will also need to have:
 * A EC2 keypair, e.g. *my-ec2-keypair*
 * At least one Amazon S3 bucket, e.g. *my-bucket*
 
-After you have all prerequisites you can run the job:
+With all the prerequisites in place you can now run the job:
 
 {% highlight bash %}
 guest> cd sparkjob
@@ -102,7 +104,7 @@ Redshift also has the [COMMENT ON] [comment-on] syntax, although the documentati
 SELECT description FROM pg_description WHERE objoid = 'schema.table'::regclass
 {% endhighlight %}
 
-The `ddl` command of Schema Guru now generates `COMMENT ON` statement for each Redshift table containing the full Iglu URI used to generate this table. In the future we will use this metadata to drive automated table migrations.
+The `ddl` command of Schema Guru now generates a `COMMENT ON` statement for each Redshift table containing the full Iglu URI used to generate this table. In the future we will use this metadata to drive automated table migrations.
 
 <h2 id="length">4. Support for minLength and maxLength properties</h2>
 
@@ -122,10 +124,10 @@ With this setting, no `minLength` nor `maxLength` will appear in the resulting J
 
 It can be challenging to precisely map the very powerful and dynamic set of JSON Schema rules to static database table DDL. With each release we aim to track down and solve the edge cases we have found.
 
-With this release, Schema Guru can now process object schemas without `properties` property:
+With this release, Schema Guru can now process sub-objects in JSON Schema which lack the `properties` property:
 
-* If it lacks `properties` but contains `patternProperties` it will be resulted in `VARCHAR(4096)`
-* If it lacks `properties` but `additionalProperties` is set to `false` the object will be silently ignored
+* If the sub-object lacks `properties` but contains `patternProperties` it will be resulted in `VARCHAR(4096)`
+* If the sub-object lacks `properties` but `additionalProperties` is set to `false` the object will be silently ignored
 
 Schema Guru is also now aware of nullable parent objects: if a child key is listed in the `required` property, but the containing object is *not* required, then these keys will *not* have a `NOT NULL` constraint in their DDL.
 
@@ -133,7 +135,7 @@ Schema Guru is also now aware of nullable parent objects: if a child key is list
 
 There are some minor changes introduced in this release:
 
-* Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet ([issue #xx] [issue-xx])
+* Schema Guru now throws an exception if you try to use `--with-json-paths` and `--split-product-types` together, because there is no support for split product types in our JSON Path generation code yet
 * The `--size` option for the `ddl` subcommand, used to declare default `VARCHAR` size, has been renamed to `--varchar-size` ([issue #98] [issue-98])
 
 <h2 id="bugs">7. Bug fixes</h2>

@@ -9,6 +9,7 @@ layout: default
     <div class="container">
       <nav>
         <ol class="cd-breadcrumb">
+          <li><a href="/">home</a></li>
           <li><a href="/blog">Blog</a></li>
           {% if page.category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow">{{ page.category }}</a></li>
           {% else %}<li><a href="/blog/{{ page.category | downcase }}">{{ page.category }}</a></li>

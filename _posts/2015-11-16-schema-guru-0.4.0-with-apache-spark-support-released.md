@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Schema Guru 0.4.0 released
-title: Schema Guru 0.4.0 released with Apache Spark Job
+shortenedlink: Schema Guru 0.4.0 with Apache Spark support released
+title: Schema Guru 0.4.0 with Apache Spark support released
 title-short: Schema Guru 0.4.0
 tags: [json, json schema, schema, iglu, self-describing, redshift, spark, amazon]
 author: Anton
@@ -12,16 +12,16 @@ We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache
 
 This release post will cover the following topics:
 
-1. [Apache Spark support](/blog/2015/09/16/schema-guru-0.4.0-released/#spark)
-2. [Predefined enumerations](/blog/2015/09/16/schema-guru-0.4.0-released/#enums)
-3. [Comments on Redshift table](/blog/2015/09/16/schema-guru-0.4.0-released/#comment)
-4. [Support for minLength and maxLength properties](/blog/2015/09/16/schema-guru-0.4.0-released/#length)
-5. [Edge cases in DDL generation](/blog/2015/09/16/schema-guru-0.4.0-released/#edge-cases)
-6. [Minor changes](/blog/2015/09/16/schema-guru-0.4.0-released/#minor)
-7. [Bug fixes](/blog/2015/09/16/schema-guru-0.4.0-released/#bugs)
-8. [Upgrading](/blog/2015/09/16/schema-guru-0.4.0-released/#upgrading)
-9. [Getting help](/blog/2015/09/16/schema-guru-0.4.0-released/#help)
-10. [Plans for the next release](/blog/2015/09/16/schema-guru-0.4.0-released/#roadmap)
+1. [Apache Spark support](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#spark)
+2. [Predefined enumerations](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#enums)
+3. [Comments on Redshift table](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#comment)
+4. [Support for minLength and maxLength properties](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#length)
+5. [Edge cases in DDL generation](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#edge-cases)
+6. [Minor changes](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#minor)
+7. [Bug fixes](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#bugs)
+8. [Upgrading](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#upgrading)
+9. [Getting help](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#help)
+10. [Plans for the next release](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#roadmap)
 
 <!--more-->
 
@@ -29,7 +29,7 @@ This release post will cover the following topics:
 
 This release lets you run Schema Guru's JSON Schema derivation process as an Apache Spark job - letting you derive your schemas from much larger collections of JSON instances.
 
-For users of Amazon Web Services we provide a [tasks.py] [tasks-py] file to quickly deploy an EMR cluster and run your Schema Guru job on your JSON instances as stored in Amazon S3.
+For users of Amazon Web Services we provide a [tasks.py] [tasks-py] file to quickly deploy an EMR cluster and run your Schema Guru job against your JSON instances stored in Amazon S3.
 
 To use this you will need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awscli] [awscli] packages installed. If you prefer not to install these manually, they are automatically installed via our Vagrant provisioning:
 
@@ -57,8 +57,8 @@ $ inv run_emr guru-profile guru-bucket guru-bucket/warnings/ guru-bucket/output/
 
 You can easely modify `tasks.py` to suit your own needs:
 
-* To pass non-default options to job, like enum cardinality just modify `args` list in `run_emr` task. All options passed after path to jar file will be accepted as regular Schema Guru options
-* You can fork this script to run Schema Guru against your own non-AWS Spark cluster
+* To pass non-default options to the job, e.g. enum cardinality, just modify `args` list in `run_emr` task. All options passed after path to jar file will be accepted as regular Schema Guru options
+* You can adapt this script to run Schema Guru against your own non-AWS Spark cluster
 
 <h2 id="enums">2. Predefined enumerations</h2>
 

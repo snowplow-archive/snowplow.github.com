@@ -9,6 +9,7 @@ layout: default
     <div class="container">
       <nav>
         <ol class="cd-breadcrumb">
+          <li><a href="/">home</a></li>
           {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == null %}{% if node.breadcrumb == null %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.group }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
           {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb == null %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.subgroup }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}
           {% for node in site.pages %}{% if node.group == page.group %}{% if node.subgroup == page.subgroup %}{% if node.breadcrumb %}{% if node.breadcrumb == page.breadcrumb %}{% if node.subbreadcrumb == null %}<li><a href="{{ BASE_PATH }}{{node.url}}">{{ node.breadcrumb }}</a></li>{% endif %}{% endif %}{% endif %}{% endif %}{% endif %}{% endfor %}

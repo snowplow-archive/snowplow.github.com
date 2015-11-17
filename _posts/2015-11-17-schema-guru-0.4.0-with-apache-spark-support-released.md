@@ -12,16 +12,16 @@ We are pleased to announce the release of Schema Guru version 0.4.0 with [Apache
 
 This release post will cover the following topics:
 
-1. [Apache Spark support](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#spark)
-2. [Predefined enumerations](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#enums)
-3. [Comments on Redshift table](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#comment)
-4. [Support for minLength and maxLength properties](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#length)
-5. [Edge cases in DDL generation](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#edge-cases)
-6. [Minor changes](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#minor)
-7. [Bug fixes](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#bugs)
-8. [Upgrading](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#upgrading)
-9. [Getting help](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#help)
-10. [Plans for the next release](/blog/2015/11/16/schema-guru-0.4.0-with-apache-spark-support-released/#roadmap)
+1. [Apache Spark support](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#spark)
+2. [Predefined enumerations](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#enums)
+3. [Comments on Redshift table](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#comment)
+4. [Support for minLength and maxLength properties](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#length)
+5. [Edge cases in DDL generation](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#edge-cases)
+6. [Minor changes](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#minor)
+7. [Bug fixes](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#bugs)
+8. [Upgrading](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#upgrading)
+9. [Getting help](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#help)
+10. [Plans for the next release](/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#roadmap)
 
 <!--more-->
 
@@ -37,22 +37,20 @@ To use this you will need to have [boto] [boto], [pyinvoke] [pyinvoke] and [awsc
  host> git clone https://github.com/snowplow/schema-guru
  host> cd schema-guru
  host> vagrant up && vagrant ssh
-guest> cd /vagrant/sparkjob
+guest> cd /vagrant
 {% endhighlight %}
 
 Either way, you will also need to have:
 
-* An AWS CLI profile, e.g. *guru-profile*
-* A EC2 keypair, e.g. *spark-ec2-keypair*
-* A VPC public subnet, e.g. *subnet-3dc2bd2a*
-* At least one Amazon S3 bucket e.g. *guru-bucket*
+* An AWS CLI profile, e.g. *my-profile*
+* A EC2 keypair, e.g. *my-ec2-keypair*
+* At least one Amazon S3 bucket, e.g. *my-bucket*
 
-After you have all prerequisites you can upload fatjar to chosen S3 bucket and run the job:
+After you have all prerequisites you can run the job:
 
 {% highlight bash %}
-$ cd sparkjob
-$ inv upload guru-profile guru-bucket
-$ inv run_emr guru-profile guru-bucket guru-bucket/warnings/ guru-bucket/output/ guru-bucket/jsons/ spark-ec2-keypair subnet-3dc2bd2a
+guest> cd sparkjob
+guest> inv run_emr my-profile my-bucket/input/ my-bucket/output/ my-bucket/errors/ my-bucket/logs my-ec2-keypair
 {% endhighlight %}
 
 You can easely modify `tasks.py` to suit your own needs:
@@ -88,7 +86,7 @@ Going further, and taking into account that users with domain-specific enums, yo
 $ ./schema-guru-0.4.0 schema --enum-sets ../favourite_colors.json --enum-sets all /path/to/instances
 {% endhighlight %}
 
-Where favourite_colors.json may look like this:
+Where `favourite_colors.json` might look like this:
 
 {% highlight json %}
 ["blue", "indigo", "purple", "violet", "white", "black"]
@@ -176,16 +174,15 @@ Note that the Web UI has been updated only to reflect the codebase refactoring; 
 
 <h3>Schema Guru Spark job</h3>
 
-For running Schema Guru on Spark, please see the relevant section above. The Spark job is also available from Bintray:
+For running Schema Guru on Spark, please see the relevant section above. For AWS Elastic MapReduce users, we host the Spark job on S3 as:
+
+s3://snowplow-hosted-assets/schema-guru/spark/schema-guru-sparkjob-0.4.0
+
+You can download this if you want to run this job on Spark elsewhere:
 
 {% highlight bash %}
-$ wget http://dl.bintray.com/snowplow/snowplow-generic/schema_guru_spark_0.1.0.zip
-$ unzip schema_guru_spark_0.1.0.zip
+$ wget https://snowplow-hosted-assets.s3.amazonaws.com/schema-guru/spark/schema-guru-sparkjob-0.4.0
 {% endhighlight %}
-
-For AWS Elastic MapReduce users, we also host the Spark job on S3 as:
-
-XXX 
 
 <h2><a name="help">9. Getting help</a></h2>
 

@@ -16,6 +16,8 @@ The event is being hosted by the awesome team at [Secret Sauce Partners] [secret
 
 I'm also thrilled to announce that the entire Snowplow team will be heading to Budapest for the event. We're not sure which of us will be speaking, and on what - but if you're coming along, we'd love you to let us know what you'd like us to talk about :-).
 
+If you're a Snowplow users in the area and you'd like to speak at the event then let us know! We'd love to have a third speaker for this event, and start to line up prospective speakers for the next Snowplow Meetup Budapest.
+
 <!--more-->
 
 Budapest is a city with a growing reputation as a hub for companies specializing in technology and data. We'd love to meet as many different companies in the space as possible whilst we're out there - so do ping me on yali at snowplowanalytics dot com to setup a meeting whilst we're there.

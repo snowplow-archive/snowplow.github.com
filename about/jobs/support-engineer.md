@@ -27,8 +27,8 @@ Excellent customer support is at the core of Snowplow’s commercial offering, s
 We’d love to get to know you if:
 
 * **You have a broad technical curiosity and proven technical understanding.** This role would be a great fit for somebody who has completed an analytically rigorous degree or programming boot camp, or has dabbled in scripting or other programming languages
-* **You communicate with clarity and empathy.** Snowplow customers are highly technology and data literate – they expect Managed Service support to be responsive, well-informed and always mindful of the customer’s business goals
-* **You have a passion for problem solving.** Every day as a support engineer you will be working with customers and internal Snowplow teams to solve Managed Service problems in as effective, time-efficient and repeatable way as possible; you must love troubleshooting
+* **You communicate with clarity and empathy.** Snowplow customers are highly technology- and data-literate, and expect Managed Service support to be responsive, well-informed and always mindful of their business goals
+* **You have a passion for problem solving.** You will be constantly working with customers and internal Snowplow teams to solve Managed Service problems in as effective, time-efficient and repeatable way as possible - you must love troubleshooting
 * **You have a mature attitude to security, documentation and process.** Managed Service customers trust us with their event pipelines and AWS accounts - this is a huge responsibility and informs everything we do
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.

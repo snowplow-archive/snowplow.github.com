@@ -22,11 +22,11 @@ Responsibilities for our first support engineer will include:
 * Creating playbooks, documentation and software to reduce your support workload even as we add more customers to our Managed Service
 * Collaborating with Snowplow teams on bug fixes and new features for both our open source projects and our proprietary orchestration and monitoring technology, to make the Managed Service easier to scale
 
-Excellent customer support is at the core of Snowplow’s commercial offering, so in this role you will be working closely with Snowplow founders Alex Dean and Yali Sassoon. You will join the support rotation, and take on an agreed number of evening and weekend support hours (compensated by time off in lieu). While the ongoing Managed Service support commitment is the first priority, our support engineers will regularly take full days to work on projects that are strategic for the Support team or wider company.
+Excellent customer support is at the core of Snowplow’s commercial offering, so in this role you will be working closely with Snowplow co-founders Alex Dean and Yali Sassoon. You will join the support rotation, and take on an agreed number of evening and weekend support hours (compensated by time off in lieu). While the ongoing Managed Service support commitment is the first priority, our support engineers will regularly take full days to work on projects that are strategic for the Support team or wider company.
 
 We’d love to get to know you if:
 
-* **You have a broad technical curiosity and proven technical understanding.** This role would be a great fit for somebody who has completed an analytically rigorous degree or programming boot camp, or has dabbled in scripting or other programming languages
+* **You have a broad technical curiosity and proven technical understanding.** This role would be a great fit for somebody who has completed an analytically rigorous degree or programming boot camp, or has dabbled in programming or other automation
 * **You communicate with clarity and empathy.** Snowplow customers are highly technology- and data-literate, and expect Managed Service support to be responsive, well-informed and always mindful of their business goals
 * **You have a passion for problem solving.** You will be constantly working with customers and internal Snowplow teams to solve Managed Service problems in as effective, time-efficient and repeatable way as possible - you must love troubleshooting
 * **You have a mature attitude to security, documentation and process.** Managed Service customers trust us with their event pipelines and AWS accounts - this is a huge responsibility and informs everything we do

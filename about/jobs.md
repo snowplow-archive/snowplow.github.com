@@ -26,9 +26,10 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 ## Vacancies
 
 1. [Infrastructure engineer][infrastructure-engineer] - London, UK [1 position]
-2. [Customer Success Associate][customer-success-associate] - London, UK or NYC, USA [1 position]
-3. [Business Development Associate][business-development-associate] - London, UK or NYC, USA [1 position]
-4. [Data engineering intern][data-engineering-intern] - Remote or London, UK [1 position]
+1. [Support engineer][support-engineer] - London, UK or Remote [1 position]
+3. [Customer success associate][customer-success-associate] - London, UK or NYC, USA [1 position]
+4. [Business development associate][business-development-associate] - London, UK or NYC, USA [1 position]
+5. [Data engineering intern][data-engineering-intern] - Remote or London, UK [1 position]
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 
@@ -38,4 +39,4 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 [business-development-associate]: /about/jobs/business-development-associate.html
 [customer-success-associate]: /about/jobs/customer-success-associate.html
 [infrastructure-engineer]: /about/jobs/infrastructure-engineer.html
-[summer-2015-blog-post]: /blog/2015/04/09/announcing-our-summer-internship-program/
+[support-engineer]: /about/jobs/support-engineer.html

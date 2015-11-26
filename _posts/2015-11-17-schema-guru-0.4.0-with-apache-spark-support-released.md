@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Schema Guru 0.4.0 with Apache Spark support released
 title: Schema Guru 0.4.0 with Apache Spark support released
 title-short: Schema Guru 0.4.0
 tags: [json, json schema, schema, iglu, self-describing, redshift, spark, amazon]

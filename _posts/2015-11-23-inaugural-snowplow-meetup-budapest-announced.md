@@ -1,8 +1,7 @@
 ---
 layout: post
-shortenedlink: 1st Snowplow Meetup Budapest announced
 title: Inaugural Snowplow Meetup Budapest set for February 2nd 2016
-title-short: 1st Snowplow Meetup Budapest announced
+title-short: First Budapest meetup announced
 tags: [budapest, snowplow, meetup, secret sauce partners]
 author: Yali
 category: Meetups

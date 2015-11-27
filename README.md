@@ -46,9 +46,9 @@ In the file add the following [YAML Front Matter](https://github.com/mojombo/jek
 
 ```yaml
 ---
-layout: post # Should be set to post for all blog posts, page for all other pages (except ones that require a custom design)
-title-short: JavaScript Tracker 0.14.0 # REQUIRED for release posts, OPTIONAL for other blogposts
-title: Snowplow JavaScript Tracker 0.14.0 released with new features # Page title will appear in the browser
+layout: post
+title: Snowplow JavaScript Tracker 0.14.0 released with new features # Full title
+title-short: JavaScript Tracker 0.14.0 # REQUIRED for release posts, OPTIONAL for other blogposts (used in menu and breadcrumb)
 tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases

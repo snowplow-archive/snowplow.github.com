@@ -50,7 +50,7 @@ The Hadoop Elasticsearch Sink is not limited to bad rows - you can use it to cop
 
 Even if you have added one or more Elasticsearch targets to your configuration YAML, you can skip copying data to Elasticsearch by running EmrEtlRunner with the `--skip elasticsearch` option.
 
-To run just the Elasticsearch copy without any other EmrEtlRunner steps, explicitly skip all other steps using  `--skip staging,s3distcp,emr,archive_raw`.
+To run just the Elasticsearch copy without any other EmrEtlRunner steps, explicitly skip all other steps using  `--skip staging,s3distcp,enrich,shred,archive_raw`.
 
 Note that running EmrEtlRunner with `--skip enrich,shred` will no longer skip the EMR job, since there is still the Elasticsearch step to run.
 

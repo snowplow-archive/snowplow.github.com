@@ -68,13 +68,13 @@ Second, add a [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Fr
 
 ```yaml
 ---
-layout: page
-group: analytics # Primary grouping for page
-sub_group: overview # Sub groups are used to divide page content in the analytics section
+layout: page # set to page (unless the page requires a custom design)
+group: documentation # first level in navigation
+subgroup: analytics # second level in navigation (don't set otherwise)
+breadcrumb: customer analytics # third level in navigation (don't set otherwise)
+subbreadcrumb: attribution # fourth level in navigation (don't set otherwise)
 title: The Snowplow Analytics cookbook # Title as sent to the browser
-shortened-link: Analytics Cookbook # Title as displayed in the sidebar
 description: The Snowplow Analytics Cookbook contains a wealth of recipes for using Snowplow data to answer your business questions. # Description as passed to Google
-weight: 1 # How far up in the sidebar the page should appear relative to other pages
 ---
 ```
 

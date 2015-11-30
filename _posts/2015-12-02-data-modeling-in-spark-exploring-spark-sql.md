@@ -6,11 +6,11 @@ author: Christophe
 category: Data Modeling
 ---
 
-We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is the first in a series that will explore data modeling in Spark using Snowplow data.
+We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is similar to [Justine's write-up][justine] and the first in a series that will explore data modeling in Spark using Snowplow data. It's targeted to people who know SQL and are interested in Spark, but haven't tried it out so far.
+
+<img src="/assets/img/blog/2015/05/spark_logo.png" style="height:120px">
 
 The event stream is a log of all that has happened in a business up to a certain point in time. Data modeling is a critical step in the pipeline because it's where business logic gets applied to that data. The output is a dataset that is meaningful to an end user in the business. Because the actual event stream remains untouched, it's possible to revisit and reverse earlier decisions. For instance, it's common to update what we know about the past based on information we received since.
-
-This blogpost is targeted to people who know SQL and want to start exploring Spark, but haven't tried it out so far. The outline is similar to [Justine's blogpost][justine].
 
 Let's get started!
 
@@ -125,7 +125,7 @@ scala> sqlContext.sql("SELECT domain_userid, COUNT(*) FROM events GROUP BY domai
 {% endhighlight %}
 
 [apache-spark]: http://spark.apache.org/
-[justine]: http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/
+[justine]: /blog/2015/05/21/first-experiments-with-apache-spark/
 
 [install-git]: https://help.github.com/articles/set-up-git/
 [install-vagrant]: https://docs.vagrantup.com/v2/installation/

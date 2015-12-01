@@ -10,9 +10,11 @@ We have been thinking about [Apache Spark][apache-spark] for some time now at Sn
 
 <img src="/assets/img/blog/2015/05/spark_logo.png" style="height:120px">
 
-The event stream is a log of all that has happened in a business up to a certain point in time. Data modeling is a critical step in the pipeline because it's where business logic gets applied to that data. The output is a dataset that is meaningful to an end user in the business. Because the actual event stream remains untouched, it's possible to revisit and reverse earlier decisions. For instance, it's common to update what we know about the past based on information we received since.
+Data modeling is a critical step in the Snowplow pipeline: it's the stage at which business logic gets applied to the data. The event stream describes all that has happened up to a certain point in time, but it needs to be transformed before it becomes meaningful to an end user in the business. Because the logic gets applied at a later stage, it remains possible to revisit and iterate on earlier decisions.
 
-Let's get started!
+Most Snowplow users do their data modeling in SQL using our open source tool [SQL Runner][sql-runner] or a BI tool such a [Looker][looker]. We hope Spark will turn out to be a great addition to the data modeling toolkit.
+
+Excited? Let's get started!
 
 <!--more-->
 
@@ -29,7 +31,7 @@ guest$ cd /vagrant/5-data-modeling/spark
 guest$ sbt console
 {% endhighlight %}
 
-The last step opens the Scala console, which gives us access to all the libraries included in the spark-data-modeling project. We start with defining a [SparkContext][spark-context]:
+This last step opens the Scala console, which gives us access to all the libraries included in the spark-data-modeling project. We start with defining a [SparkContext][spark-context]:
 
 {% highlight scala %}
 import org.apache.spark.{SparkContext, SparkConf}
@@ -126,6 +128,8 @@ scala> sqlContext.sql("SELECT domain_userid, COUNT(*) FROM events GROUP BY domai
 
 [apache-spark]: http://spark.apache.org/
 [justine]: /blog/2015/05/21/first-experiments-with-apache-spark/
+[looker]: http://www.looker.com/
+[sql-runner]: https://github.com/snowplow/sql-runner
 
 [install-git]: https://help.github.com/articles/set-up-git/
 [install-vagrant]: https://docs.vagrantup.com/v2/installation/

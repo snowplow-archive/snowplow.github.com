@@ -55,7 +55,7 @@ snowplow-enrichment-archive/enriched/good/run=2015-12-31-23-59-59/
 We can now load this data into Spark and create a Resilient Distributed Dataset (RDD):
 
 {% highlight scala %}
-val inDir = "s3n://accessKey:secretAccessKey@bucket/path/*" //**
+val inDir = "s3n://accessKey:secretAccessKey@bucket/path/*"
 val input = sc.textFile(inDir)
 {% endhighlight %}
 
@@ -72,7 +72,9 @@ This is what we would expect a TSV to look like.
 
 ## Loading the data into a Spark DataFrame
 
-We want to load our events into a [Spark DataFrame][spark-data-frame], a distributed collection of data organized into named columns. Let's start with transforming the RDD into a more suitable format using the [EventTransformer][event-transformer] object:
+We want to load our events into a [Spark DataFrame][spark-data-frame], a distributed collection of data organized into named columns. This concept is similar to a [data frame in R][r] or a table in a relational database.
+
+Let's start with transforming the RDD into a more suitable format using the [EventTransformer][event-transformer] object:
 
 {% highlight scala %}
 import com.snowplowanalytics.snowplow.datamodeling.spark.events.EventTransformer
@@ -84,14 +86,14 @@ val jsons = input.
   persist
 {% endhighlight %}
 
-The events are now in a format that is much nicer to work with in Spark.
+The events are now in a format that is nicer to work with in Spark.
 
 {% highlight bash %}
 scala> jsons.first
 res1: String = {"app_id":"demo","platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z","collector_tstamp":"2015-12-01T04:00:54.000Z","dvce_tstamp":"2015-12-01T03:57:08.986Z","event":"page_view","event_id":"f4b8dd3c-85ef-4c42-9207-11ef61b2a46e","txn_id":null,"name_tracker":"co","v_tracker":"js-2.5.0","v_collector":"clj-1.0.0-tom-0.2.0","v_etl":"hadoop-1.0.0-common-0.14.0","user_id":null,"user_fingerprint":"1316246087","domain_userid":"82bc4fba034dn16b","domain_sessionidx":9,"network_userid":"3456beda-f4f8-4795-bd95-897d05d23a58","geo_country":"US","geo_region":"NY","geo_city":"New York","ip_isp":"Time W...
 {% endhighlight %}
 
-We can now load this into a [Spark DataFrame][spark-data-frame]. First, create a [SQL Context][sql-context]:
+We can now load this into a Spark DataFrame. First, create a [SQL Context][sql-context]:
 
 {% highlight scala %}
 import org.apache.spark.sql.SQLContext
@@ -108,7 +110,7 @@ import sqlContext.implicits._
 val df = sqlContext.read.json(jsons)
 {% endhighlight %}
 
-We have now converted the RDD into a DataFrame. To show the top rows and print the schema:
+We have now converted the RDD into a DataFrame. To show the top 5 rows and print the schema, run:
 
 {% highlight bash %}
 scala> df.show(5)
@@ -141,15 +143,30 @@ root
 
 ## Running SQL queries on Spark DataFrames
 
-then be registered as a table. Tables can be used in subsequent SQL statements. SQL statements can be run by using the sql methods provided by sqlContext.
+Now that our events are in a DataFrame, we can run start to model the data. In the next blogpost, we will explore the actual DataFrame API, but for now we will limit ourselves to running simple SQL queries against the data.
+
+To run SQL queries, we first need to register a table:
 
 {% highlight scala %}
 df.registerTempTable("events")
 {% endhighlight %}
 
+This table can now be used in subsequent SQL statements. For example:
+
 {% highlight bash %}
-scala> sqlContext.sql("SELECT domain_userid, COUNT(*) FROM events GROUP BY domain_userid").show
+scala> sqlContext.sql("SELECT domain_userid, COUNT(*) AS count FROM events GROUP BY domain_userid").show
++----------------+-----+
+|   domain_userid|count|
++----------------+-----+
+|50e543349f257eb1|    1|
+|4f9125032f38a282|   16|
+|ddb077fa82bd1864|    8|
+|0cb1263f234dabc4|    1|
+|35a83cde08fdf4e1|    1|
++----------------+-----+
 {% endhighlight %}
+
+## Wrapping up
 
 [apache-spark]: http://spark.apache.org/
 [justine]: /blog/2015/05/21/first-experiments-with-apache-spark/
@@ -170,3 +187,5 @@ scala> sqlContext.sql("SELECT domain_userid, COUNT(*) FROM events GROUP BY domai
 [sql-context]: https://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.SQLContext
 
 [event-transformer]: https://github.com/snowplow/snowplow/blob/feature/spark-data-modeling/5-data-modeling/spark/src/main/scala/com.snowplowanalytics.snowplow.datamodeling/spark/events/EventTransformer.scala
+
+[r]: https://www.r-project.org/

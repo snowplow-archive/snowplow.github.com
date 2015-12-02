@@ -151,7 +151,7 @@ To run SQL queries against the data, we first need to register a table:
 df.registerTempTable("events")
 {% endhighlight %}
 
-We can now reference this table in SQL subsequent statements. For example:
+We can now reference this table in subsequent SQL statements. For example:
 
 {% highlight bash %}
 scala> sqlContext.sql("SELECT domain_userid, COUNT(*) AS count FROM events GROUP BY domain_userid").show(5)

@@ -6,11 +6,11 @@ author: Christophe
 category: Data Modeling
 ---
 
-We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is similar to [Justine's write-up][justine] and the first in a series that will explore data modeling in Spark using Snowplow data. It's targeted to people who know SQL and are interested in Spark, but haven't tried it out so far.
+We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is the first in a series that will explore data modeling in Spark using Snowplow data. It's similar to [Justine's write-up][justine] and covers the basics: loading events into a Spark DataFrame and running simple SQL queries against the data.
 
 <img src="/assets/img/blog/2015/05/spark_logo.png" style="height:120px">
 
-Data modeling is a critical step in the Snowplow pipeline: it's the stage at which business logic gets applied to the data. The event stream describes all that has happened up to a certain point in time and needs to be transformed before it becomes meaningful to an end user in the business. Because the logic gets applied at a later stage, it remains possible to revisit and iterate on earlier decisions.
+Data modeling is a critical step in the Snowplow pipeline: it's the stage at which business logic gets applied to the data. The event stream describes all that has happened up to a certain point in time. It therefore needs to be transformed before it becomes meaningful to an end user in the business. Because the logic gets applied at a later stage, it remains possible to revisit and iterate on earlier decisions.
 
 Most Snowplow users do their data modeling in SQL using our open source tool [SQL Runner][sql-runner] or a BI tool such a [Looker][looker]. We hope Spark will turn out to be a great addition to the data modeling toolkit.
 
@@ -143,18 +143,18 @@ root
 
 ## Running SQL queries on Spark DataFrames
 
-Now that our events are in a DataFrame, we can run start to model the data. In the next blogpost, we will explore the actual DataFrame API, but for now we will limit ourselves to running simple SQL queries against the data.
+Now that our events are in a DataFrame, we can run start to model the data. We will limit ourselves to simple SQL queries for now. In the next blogpost, we will start using the actual DataFrame API, which will enable us to build advanced data models.
 
-To run SQL queries, we first need to register a table:
+To run SQL queries against the data, we first need to register a table:
 
 {% highlight scala %}
 df.registerTempTable("events")
 {% endhighlight %}
 
-This table can now be used in subsequent SQL statements. For example:
+We can now reference this table in SQL subsequent statements. For example:
 
 {% highlight bash %}
-scala> sqlContext.sql("SELECT domain_userid, COUNT(*) AS count FROM events GROUP BY domain_userid").show
+scala> sqlContext.sql("SELECT domain_userid, COUNT(*) AS count FROM events GROUP BY domain_userid").show(5)
 +----------------+-----+
 |   domain_userid|count|
 +----------------+-----+
@@ -166,7 +166,32 @@ scala> sqlContext.sql("SELECT domain_userid, COUNT(*) AS count FROM events GROUP
 +----------------+-----+
 {% endhighlight %}
 
-## Wrapping up
+To store the output in another DataFrame, we run:
+
+{% highlight scala %}
+val dfVisitors = sqlContext.sql("SELECT domain_userid, MAX(domain_sessionidx) AS sessions FROM events GROUP BY domain_userid")
+
+dfVisitors.registerTempTable("visitors")
+{% endhighlight %}
+
+Joins are also supported:
+
+{% highlight bash %}
+scala> sqlContext.sql("SELECT a.domain_userid, b.sessions, COUNT(*) AS count FROM events AS a LEFT JOIN visitors AS b ON a.domain_userid = b.domain_userid GROUP BY a.domain_userid, b.sessions").show(5)
++----------------+--------+-----+
+|   domain_userid|sessions|count|
++----------------+--------+-----+
+|50e543349f257eb1|       2|    1|
+|4f9125032f38a282|       1|   16|
+|ddb077fa82bd1864|       1|    8|
+|0cb1263f234dabc4|      10|    1|
+|35a83cde08fdf4e1|       3|    1|
++----------------+--------+-----+
+{% endhighlight %}
+
+It's of course possible to run more complex SQL queries, even though not all functions one would use in Redshift are supported. To take full advantage of Spark, however, we will need to drop one level down and start to use the DataFrame API itself. This is what we will in explore in the next post.
+
+In the meantime, let us know if you have any questions or feedback!
 
 [apache-spark]: http://spark.apache.org/
 [justine]: /blog/2015/05/21/first-experiments-with-apache-spark/

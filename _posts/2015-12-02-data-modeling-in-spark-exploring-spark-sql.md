@@ -6,7 +6,7 @@ author: Christophe
 category: Data Modeling
 ---
 
-We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is the first in a series that will explore data modeling in Spark using Snowplow data. It's similar to [Justine's write-up][justine] and covers the basics: loading events into a Spark DataFrame and running simple SQL queries against the data.
+We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is the first in a series that will explore data modeling in Spark using Snowplow data. It's similar to [Justine's write-up][justine] and covers the basics: loading events into a Spark DataFrame on a local machine and running simple SQL queries against the data.
 
 <img src="/assets/img/blog/2015/05/spark_logo.png" style="height:120px">
 
@@ -191,6 +191,8 @@ scala> sqlContext.sql("SELECT a.domain_userid, b.sessions, COUNT(*) AS count FRO
 
 It's of course possible to run more complex SQL queries, even though not all functions one would use in Redshift are supported. To take full advantage of Spark, however, we will need to drop one level down and start to use the DataFrame API itself. This is what we will in explore in the next post.
 
+In a future post, we will also start running Spark on larger datasets in both [Databricks][databricks] and [EMR][emr].
+
 In the meantime, let us know if you have any questions or feedback!
 
 [apache-spark]: http://spark.apache.org/
@@ -214,3 +216,6 @@ In the meantime, let us know if you have any questions or feedback!
 [event-transformer]: https://github.com/snowplow/snowplow/blob/feature/spark-data-modeling/5-data-modeling/spark/src/main/scala/com.snowplowanalytics.snowplow.datamodeling/spark/events/EventTransformer.scala
 
 [r]: https://www.r-project.org/
+
+[databricks]: https://databricks.com/
+[emr]: https://aws.amazon.com/elasticmapreduce/

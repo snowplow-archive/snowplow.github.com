@@ -7,7 +7,9 @@ author: Fred
 category: Releases
 ---
 
-Snowplow version 73 Cuban Macaw has been released! This release adds the ability to automatically load bad rows from Snowplow EMR job into Elasticsearch for analysis, and formally separates the Snowplow Enriched Event format from the TSV format used to load Redshift.
+Snowplow version 73 Cuban Macaw has been released! This release adds the ability to automatically load bad rows from the Snowplow EMR jobflow into Elasticsearch for easy analysis, and formally separates the Snowplow enriched event format from the TSV format used to load Redshift.
+
+The rest of this post will cover the following topics:
 
 [Loading bad rows into Elasticsearch](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#elasticsearch)
 [Changes to the Snowplow Enriched Event](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#enrichedEvent)
@@ -56,13 +58,21 @@ Note that running EmrEtlRunner with `--skip enrich,shred` will no longer skip th
 
 <h2 id="enrichedEvent">Changes to the Snowplow Enriched Event</h2>
 
-We have broken the direct dependency of the StorageLoader on the enriched event format. Now Scala Hadoop Shred copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket. The StorageLoader now loads the copy from the `shredded/good` bucket. The benefit is that when Scala Hadoop Shred copies the enriched events, it can optimize them for Redshift storage. Since the shredder extracts the self-describing JSONs from the `unstruct_event`, `contexts`, and `derived_contexts` fields into their own buckets, there is no reason to keep these fields in the `atomic.events` table. For this reason, Scala Hadoop Shred now removes these three fields from the enriched event TSV.
+In this release we have removed the direct dependency of the StorageLoader on the Snowplow enriched event format. Instead:
+
+* Scala Hadoop Shred copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket
+* As part of the copy, Scala Hadoop Shred removes the `unstruct_event`, `contexts`, and `derived_contexts` columns (which contain the self-describing JSONs which have just been shredded)
+* The StorageLoader populates `atomic.events` using the JSON-less version of the TSV in `shreded/good`, which have been extracted into their own 
+
+The short-term driver for this change was to remove the JSON columns from `atomic.events` because they are very difficult to query, whilst also taking up significant disk space. In the longer-term, this separation should make it easier for us to 
+
+ The StorageLoader now loads the copy from the `shredded/good` bucket. The benefit is that when Scala Hadoop Shred copies the enriched events, it can optimize them for Redshift storage. Since the shredder extracts the self-describing JSONs from the `unstruct_event`, `contexts`, and `derived_contexts` fields into their own buckets, there is no reason to keep these fields in the `atomic.events` table. For this reason, Scala Hadoop Shred now removes these three fields from the enriched event TSV.
 
 In addition, the truncation logic used to ensure that each field of the TSV is small enough to fit into the corresponding column in Postgres has been moved from Scala Common Enrich to Scala Hadoop Shred.
 
 <h2 id="forceToDisk">Improved Hadoop job performance</h2>
 
-We have sped up the Enrich and Shred jobs by caching intermediate results using `forceToDisk`. This prevents events from being processed twice (once for the good events pipeline and once for the bad events pipeline).
+We have sped up the Enrich and Shred jobs by caching intermediate results using `forceToDisk`. This prevents events from being processed twice (once for the enriched events path and once for the validation failures path).
 
 <h2 id="upgrading">Upgrading</h2>
 
@@ -79,7 +89,7 @@ You will need to update the jar versions in the "emr" section of your configurat
     hadoop_elasticsearch: 0.1.0 # Version of the Hadoop to Elasticsearch copying process
 {% endhighlight %}
 
-In order to start loading bad rows from the EMR job into Elasticsearch, you will need to add an Elasticsearch target to the "targets" section of your configuration YAML as described above.
+In order to start loading bad rows from the EMR jobflow into Elasticsearch, you will need to add an Elasticsearch target to the "targets" section of your configuration YAML as described above.
 
 <h3>Updating your database</h3>
 
@@ -88,9 +98,7 @@ Use the appropriate migration script to update your version of the `atomic.event
 * [The Redshift migration script] [redshift-migration]
 * [The PostgreSQL migration script] [postgres-migration]
 
-*Warning*: these migration scripts will alter your table in place, deleting the `unstruct_event`, `contexts`, and `derived_contexts` columns. We recommend you make a backup before running these scripts.
-
-If you are ingesting Cloudfront access logs with Snowplow, use the [Cloudfront access log migration script][cloudfront-migration] to update your `com_amazon_aws_cloudfront_wd_access_log_1.sql` table.
+**Warning**: these migration scripts will alter your `atomic.events` table in-place, deleting the `unstruct_event`, `contexts`, and `derived_contexts` columns. We recommend that you make a full backup before running these scripts.
 
 <h2 id="help">Getting help</h2>
 

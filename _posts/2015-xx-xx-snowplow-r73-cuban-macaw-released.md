@@ -7,16 +7,16 @@ author: Fred
 category: Releases
 ---
 
-Snowplow version 73 Cuban Macaw has been released! This release adds the ability to automatically load bad rows from the Snowplow EMR jobflow into Elasticsearch for easy analysis, and formally separates the Snowplow enriched event format from the TSV format used to load Redshift.
+Snowplow release 73 Cuban Macaw is now generally available! This release adds the ability to automatically load bad rows from the Snowplow EMR jobflow into [Elasticsearch] [elasticsearch] for analysis, and formally separates the Snowplow enriched event format from the TSV format used to load Redshift.
 
 The rest of this post will cover the following topics:
 
-[Loading bad rows into Elasticsearch](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#elasticsearch)
-[Changes to the Snowplow Enriched Event](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#enrichedEvent)
-[Improved Hadoop job performance](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#forceToDisk)
-[Upgrading](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#upgrading)
-[More performant handling of missing schemas](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#missing-schemas)
-[Getting help](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#help)
+1. [Loading bad rows into Elasticsearch](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#elasticsearch)
+2. [Changes to the event format loaded into Redshift and Postgres](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#atomicEvents)
+3. [Improved Hadoop job performance](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#forceToDisk)
+4. [Upgrading](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#upgrading)
+5. [More performant handling of missing schemas](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#missing-schemas)
+6. [Getting help](/blog/2015/10/xx/snowplow-r73-cuban-macaw-released#help)
 
 ![cuban-macaw][cuban-macaw]
 
@@ -24,7 +24,11 @@ The rest of this post will cover the following topics:
 
 <h2 id="elasticsearch">Loading bad rows into Elasticsearch</h2>
 
-This release introduces the new Hadoop Elasticsearch Sink. This is a Hadoop job which copies your Snowplow bad rows from S3 to Elasticsearch so you can view them at your leisure. The Hadoop Elasticsearch Sink uses the [scalding-taps][scalding-taps] library, which itself uses [elasticsearch-hadoop][elasticsearch-hadoop]. To use it, add an Elasticsearch target to your EmrEtlRunner configuration file:
+This release introduces the new Hadoop Elasticsearch Sink. This is a Hadoop job which copies your Snowplow bad rows from S3 to Elasticsearch - a hugely useful feature for diagnosing event validation and processing errors. Here is an 
+
+
+
+To enable it, add an Elasticsearch target to your EmrEtlRunner configuration file:
 
 {% highlight yaml %}
   targets:
@@ -42,7 +46,7 @@ This release introduces the new Hadoop Elasticsearch Sink. This is a Hadoop job 
       comprows: # Not required for Elasticsearch
 {% endhighlight %}
 
-Note that the "database" and "table" fields actually contain the index and type where bad rows will be stored.
+Note that the "database" and "table" fields actually contain the index and type respectively where bad rows will be stored.
 
 The "sources" field is an array of buckets from which to load bad rows. If you leave this field blank, then the bad rows buckets created by the current run of the EmrEtlRunner will be loaded. Alternatively you can explicitly specify an array of bad row buckets to load.
 
@@ -56,23 +60,29 @@ To run just the Elasticsearch copy without any other EmrEtlRunner steps, explici
 
 Note that running EmrEtlRunner with `--skip enrich,shred` will no longer skip the EMR job, since there is still the Elasticsearch step to run.
 
-<h2 id="enrichedEvent">Changes to the Snowplow Enriched Event</h2>
+Under the hood, our Hadoop Elasticsearch Sink uses the [scalding-taps][scalding-taps] library, which itself uses [elasticsearch-hadoop][elasticsearch-hadoop]. 
+
+<h2 id="atomicEvents">Changes to the event format loaded into Redshift and Postgres</h2>
 
 In this release we have removed the direct dependency of the StorageLoader on the Snowplow enriched event format. Instead:
 
-* Scala Hadoop Shred copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket
-* As part of the copy, Scala Hadoop Shred removes the `unstruct_event`, `contexts`, and `derived_contexts` columns (which contain the self-describing JSONs which have just been shredded)
-* The StorageLoader populates `atomic.events` using the JSON-less version of the TSV in `shreded/good`, which have been extracted into their own 
+* Scala Hadoop Shred now copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket
+* As part of the copy, Scala Hadoop Shred removes the `unstruct_event`, `contexts`, and `derived_contexts` columns - i.e. the three columns containing the self-describing JSONs which have just been shredded
+* The StorageLoader the populates `atomic.events` using the JSON-less version of the TSV in `shreded/good`
 
-The short-term driver for this change was to remove the JSON columns from `atomic.events` because they are very difficult to query, whilst also taking up significant disk space. In the longer-term, this separation should make it easier for us to 
+The short-term reason for this change was to remove the JSON columns from `atomic.events` because they are very difficult to query, while also taking up significant disk space. Looking to the longer-term, this separation is a key first step in our eventual migration of the Snowplow enriched event format to Apache Avro.
 
- The StorageLoader now loads the copy from the `shredded/good` bucket. The benefit is that when Scala Hadoop Shred copies the enriched events, it can optimize them for Redshift storage. Since the shredder extracts the self-describing JSONs from the `unstruct_event`, `contexts`, and `derived_contexts` fields into their own buckets, there is no reason to keep these fields in the `atomic.events` table. For this reason, Scala Hadoop Shred now removes these three fields from the enriched event TSV.
-
-In addition, the truncation logic used to ensure that each field of the TSV is small enough to fit into the corresponding column in Postgres has been moved from Scala Common Enrich to Scala Hadoop Shred.
+In addition, the truncation logic used to ensure that each field of the TSV is small enough to fit into the corresponding column in Postgres has been moved from Scala Common Enrich to Scala Hadoop Shred. As a direct result, the JSONs stored in the `unstruct_event`, `contexts`, and `derived_contexts` columns can now be arbitrarily long.
 
 <h2 id="forceToDisk">Improved Hadoop job performance</h2>
 
-We have sped up the Enrich and Shred jobs by caching intermediate results using `forceToDisk`. This prevents events from being processed twice (once for the enriched events path and once for the validation failures path).
+We have sped up the Enrich and Shred jobs by caching intermediate results within HDFS using `forceToDisk`. This prevents events from being processed twice (once for the enriched events path and once for the validation failures path).
+
+As well as reducing job time, this change should also significantly reduce the number of requests made to external APIs.
+
+<h2 id="nat">Better NAT traversal for the StorageLoader</h2>
+
+If you have attempted to load Postgres or Redshift from an instance of StorageLoader running behind a NAT (e.g. in a private subnet), you may well have seen the `COPY` 
 
 XXXXXXXXXXXXXXXXX
 
@@ -119,3 +129,5 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [scalding-taps]: https://github.com/scalding-io/scalding-taps
 [elasticsearch-hadoop]: https://github.com/elastic/elasticsearch-hadoop
 [r73-release]: https://github.com/snowplow/snowplow/releases/tag/r73-cuban-macaw
+
+[elasticsearch]: xxx

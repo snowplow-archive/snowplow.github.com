@@ -82,7 +82,7 @@ StorageLoader: added tcpKeepAlive=true to JDBC for long-running COPYs via NAT (#
 
 <h3>Upgrading EmrEtlRunner and StorageLoader</h3>
 
-The latest version of the EmrEtlRunner and StorageLoadeder are available from our Bintray [here][app-dl].
+The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
 
 You will need to update the jar versions in the "emr" section of your configuration YAML:
 
@@ -101,6 +101,8 @@ Use the appropriate migration script to update your version of the `atomic.event
 
 * [The Redshift migration script] [redshift-migration]
 * [The PostgreSQL migration script] [postgres-migration]
+
+If you are upgrading XXXXX
 
 **Warning**: these migration scripts will alter your `atomic.events` table in-place, deleting the `unstruct_event`, `contexts`, and `derived_contexts` columns. We recommend that you make a full backup before running these scripts.
 

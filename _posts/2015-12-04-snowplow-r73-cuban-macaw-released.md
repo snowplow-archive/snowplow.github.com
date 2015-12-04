@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-Snowplow release 73 Cuban Macaw is now generally available! This release adds the ability to automatically load bad rows from the Snowplow EMR jobflow into [Elasticsearch] [elasticsearch] for analysis, and formally separates the Snowplow enriched event format from the TSV format used to load Redshift.
+Snowplow release 73 Cuban Macaw is now generally available! This release adds the ability to automatically load bad rows from the Snowplow Elastic MapReduce jobflow into [Elasticsearch] [elasticsearch] for analysis, and formally separates the Snowplow enriched event format from the TSV format used to load Redshift.
 
 The rest of this post will cover the following topics:
 

@@ -26,11 +26,13 @@ The rest of this post will cover the following topics:
 
 This release brings to our batch pipeline a feature only previously available in our Kinesis pipeline: the ability to load your Snowplow bad rows from Amazon S3 into Elasticsearch for analysis.
 
-This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the great new [Amazon Elasticsearch Service] [amazon-es]. Here's a screengrab of us diagnosing bad rows for an internal Snowplow pipeline:
+This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the great new [Amazon Elasticsearch Service] [amazon-es]. Here's us exploring bad rows for an internal Snowplow pipeline in Kibana:
 
 ![kibana-bad-rows][kibana-bad-rows]
 
-To enable this, add an Elasticsearch target to your EmrEtlRunner configuration file:
+If you need help setting up an Elasticsearch cluster for Snowplow, check out our [Amazon Elasticsearch Service setup guide] [amazon-es-setup] on our wiki.
+
+To enable this in Snowplow, add an Elasticsearch target to your EmrEtlRunner configuration file:
 
 {% highlight yaml %}
   targets:
@@ -52,9 +54,7 @@ Note that the "database" and "table" fields actually contain the index and type 
 
 The "sources" field is an array of buckets from which to load bad rows. If you leave this field blank, then the bad rows buckets created by the **current run** of the EmrEtlRunner will be loaded. Alternatively you can explicitly specify an array of bad row buckets to load.
 
-If you need help setting up an Elasticsearch cluster for Snowplow, check out our [Amazon Elasticsearch Service setup guide] [amazon-es-setup] on our wiki.
-
-These updates to EmrEtlRunner's command-line arguments are worth noting:
+Note these updates to EmrEtlRunner's command-line arguments:
 
 * You can skip loading data into Elasticsearch by running EmrEtlRunner with the `--skip elasticsearch` option
 * To run just the Elasticsearch load without any other EmrEtlRunner steps, explicitly skip all other steps using `--skip staging,s3distcp,enrich,shred,archive_raw`
@@ -70,7 +70,7 @@ In this release we have removed the direct dependency of the StorageLoader on th
 * As part of the copy, Scala Hadoop Shred removes the `unstruct_event`, `contexts`, and `derived_contexts` columns - i.e. the three columns containing the self-describing JSONs which have just been shredded
 * The StorageLoader the populates `atomic.events` using the JSON-less version of the TSV in `shredded/good`
 
-The short-term reason for this change was to remove the JSON columns from `atomic.events` because they are very difficult to query, while also taking up significant disk space. Looking to the longer-term, this separation is a key first step in our eventual migration of the Snowplow enriched event format from a TSV/JSON hybrid to Apache Avro.
+The short-term reason for this change was to **remove the JSON columns from `atomic.events`** because they are very difficult to query, while also taking up significant disk space. Looking to the longer-term, this separation is a key first step in our eventual migration of the Snowplow enriched event format from a TSV/JSON hybrid to Apache Avro.
 
 As part of this change, the truncation logic used to ensure that each field of the TSV is small enough to fit into the corresponding column in Postgres has been moved from Scala Common Enrich to Scala Hadoop Shred. As a direct result, the JSONs stored in the `unstruct_event`, `contexts`, and `derived_contexts` columns can now be arbitrarily long.
 

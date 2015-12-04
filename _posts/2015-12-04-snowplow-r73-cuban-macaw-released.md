@@ -26,7 +26,9 @@ The rest of this post will cover the following topics:
 
 This release brings to our batch pipeline a feature only previously available in our Kinesis pipeline: the ability to load your Snowplow bad rows from Amazon S3 into Elasticsearch for analysis.
 
-This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the great new [Amazon Elasticsearch Service] [amazon-es]. Here's us exploring bad rows for an internal Snowplow pipeline in Kibana:
+This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the great new [Amazon Elasticsearch Service] [amazon-es].
+
+Here we are exploring bad rows for an internal Snowplow pipeline in Kibana:
 
 ![kibana-bad-rows][kibana-bad-rows]
 

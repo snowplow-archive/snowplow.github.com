@@ -74,6 +74,10 @@ In addition, the truncation logic used to ensure that each field of the TSV is s
 
 We have sped up the Enrich and Shred jobs by caching intermediate results using `forceToDisk`. This prevents events from being processed twice (once for the enriched events path and once for the validation failures path).
 
+XXXXXXXXXXXXXXXXX
+
+StorageLoader: added tcpKeepAlive=true to JDBC for long-running COPYs via NAT (#2145)
+
 <h2 id="upgrading">Upgrading</h2>
 
 <h3>Upgrading EmrEtlRunner and StorageLoader</h3>

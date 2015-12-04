@@ -26,7 +26,7 @@ The rest of this post will cover the following topics:
 
 This release brings to our batch pipeline a feature only previously available in our Kinesis pipeline: the ability to load your Snowplow bad rows from Amazon S3 into Elasticsearch for analysis.
 
-This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the excellent new [Amazon Elasticsearch Service] [amazon-es]. Here's a screengrab of us diagnosing bad rows for an internal Snowplow pipeline:
+This functionality is hugely helpful for diagnosing the causes of incoming events failing JSON Schema validation and investigating enrichment processing errors. We have tested this feature with Elasticsearch running natively on EC2, as well as with the great new [Amazon Elasticsearch Service] [amazon-es]. Here's a screengrab of us diagnosing bad rows for an internal Snowplow pipeline:
 
 ![kibana-bad-rows][kibana-bad-rows]
 
@@ -68,7 +68,7 @@ In this release we have removed the direct dependency of the StorageLoader on th
 
 * Scala Hadoop Shred now copies the enriched events from the `enriched/good` bucket to the `shredded/good` bucket
 * As part of the copy, Scala Hadoop Shred removes the `unstruct_event`, `contexts`, and `derived_contexts` columns - i.e. the three columns containing the self-describing JSONs which have just been shredded
-* The StorageLoader the populates `atomic.events` using the JSON-less version of the TSV in `shreded/good`
+* The StorageLoader the populates `atomic.events` using the JSON-less version of the TSV in `shredded/good`
 
 The short-term reason for this change was to remove the JSON columns from `atomic.events` because they are very difficult to query, while also taking up significant disk space. Looking to the longer-term, this separation is a key first step in our eventual migration of the Snowplow enriched event format from a TSV/JSON hybrid to Apache Avro.
 
@@ -121,7 +121,7 @@ For more details on this release, please check out the [R73 Cuban Macaw release 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
 [cuban-macaw]: /assets/img/blog/2015/12/cuban-macaw.jpg
-[kibana-bad-rows]: /assets/img/blog/2015/12/r73-kibana-badrows-screenshot.jpg
+[kibana-bad-rows]: /assets/img/blog/2015/12/r73-kibana-badrows-screenshot.png
 
 [elasticsearch]: https://www.elastic.co/
 [amazon-es]: https://aws.amazon.com/elasticsearch-service/
@@ -131,6 +131,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [postgres-migration]: https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.6.0_to_0.7.0.sql
 [scalding-taps]: https://github.com/scalding-io/scalding-taps
 [elasticsearch-hadoop]: https://github.com/elastic/elasticsearch-hadoop
+
+[amazon-es-setup]: https://github.com/snowplow/snowplow/wiki/Setting-up-Amazon-Elasticsearch-Service
 
 [other-ddl]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql
 

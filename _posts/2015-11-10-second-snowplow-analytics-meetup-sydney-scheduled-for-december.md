@@ -17,6 +17,14 @@ The event will be hosted by our very own [Josh Beemster] [josh], who is returnin
 
 If you would like to talk at or sponsor the event, then [get in touch](mailto:contact@snowplowanalytics.com). Otherwise, please do [sign up][meetup] today! We'll be posting updates as they're finalized to the [meetup group] [meetup].
 
+## Breaking news (December 7): first talk title and description announced
+
+In Simon's own words. I cannot wait...
+
+<h3>Snowplow is at the core of everything we do <small>Simon Rumble, Bauer Media</small></h3>
+
+At Bauer Media we started out using Snowplow just because we're data completists and having it all in one place felt right. It now forms the core for a bunch of services that are driving future growth. In this session I'll demo our recommendations, trending and dashboard services and give a bit of insight into how we've rolled behavioural data from 116 sites into one place.
+
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Sydney/events/226507783/
 [sydney-pic]: /assets/img/blog/2015/11/sydney.jpeg
 [rumble]: https://au.linkedin.com/in/simonrumble

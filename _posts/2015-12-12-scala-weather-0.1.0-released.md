@@ -66,18 +66,20 @@ Currently there's three known hosts:
 with [akka-http] [akka-http] under the hood and return it's response wrapped in `Future`.
 Another client is `OwmCacheClient`, we'll describe it in details further.
 
-Both clients have same basic set of methods:
+Both clients have same basic set of methods, grouping by data they return:
 
-+ forecastById
-+ forecastByCoords
-+ currentById
-+ currentByCoords
-+ historyById
-+ historyByName
-+ historyByCoords
++ [forecastById] [forecastbyid-def]
++ [forecastByCoords] [forecastbycoords-def]
 
-These methods try to mimic [OpenWeatherMap API] [owm-api-docs] and have identical to OWM API set of arguments.
-They have three different return types: `Forecast`, `Current`, `History`.
++ [currentById] [currentbyid-def]
++ [currentByCoords] [currentbycoords-def]
+
++ [historyById] [historybyid-def]
++ [historyByName] [historybyname-def]
++ [historyByCoords] [historybycoords-def]
+
+These methods try to mimic [OpenWeatherMap API] [owm-api-docs] and have identical to OWM API set of arguments and also groued into three
+types, which return corresponding types: `Forecast`, `Current`, `History`. 
 `Forecast` and `History` consist of some technical details and list of `Weather` objects, which itself are main 
 source of information about weather with data like temperature, humidity, clouds et cetera.
 `Current` response closely resembles `Weather` too.
@@ -153,6 +155,14 @@ In the meantime, if you have any questions or run into any problems, please [rai
 Although Scala Weather is feature complete now, we still have some plans for it.
 First of all, we're exploring ways to improve the cache, so it could have more dimensions than just primitive spatial and time.
 Also we'd be happy to implement interfaces to other weather providers if there's any comparable to OpenWeatherMap.
+
+[historybyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L49-L70
+[historybyname-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L72-L96
+[historybycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L98-L125
+[currentbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L147-L155
+[currentbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L157-L166
+[forecastbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L147-L155
+[forecastbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L137-L145
 
 [openweathermap]: http://openweathermap.org/
 [lru]: https://en.wikipedia.org/wiki/Cache_algorithms#LRU

@@ -2,23 +2,23 @@
 layout: post
 title: Scala Weather 0.1.0 released
 title-short: Scala Weather 0.1.0 released
-tags: [release, data, weather, scala]
+tags: [release, weather, scala, openweathermap]
 author: Anton
 category: Releases
 ---
 
 We are pleased to announce the release of [Scala Weather] [repo] version 0.1.0.
 
-Scala Weather is a high-performance Scala library for performing history, forecast and current weather lookups using [OpenWeatherMap.org API] [owm-api-docs].
-We are pleased to be working with [OpenWeatherMap.org] [openweathermap], Snowplow's thrird external data provider after MaxMind and Open Exchange Rates.
+Scala Weather is a high-performance Scala library for fetching historical, forecast and current weather data from the [OpenWeatherMap API] [owm-api-docs].
+We are pleased to be working with [OpenWeatherMap.org] [openweathermap], Snowplow's third external data provider after MaxMind and Open Exchange Rates.
 
 This release post will cover the following topics:
 
-1. [Why we wrote this library](/blog/2015/12/xx/scala-weather-0.1.0-released/#rationale)
-2. [Usage](/blog/2015/12/xx/scala-weather-0.1.0-released/#usage)
-3. [Cache client](/blog/2015/12/xx/scala-weather-0.1.0-released/#cache)
-4. [Getting help](/blog/2015/12/xx/scala-weather-0.1.0-released/#help)
-5. [Plans for next release](/blog/2015/12/xx/scala-weather-0.1.0-released/#roadmap)
+1. [Why we wrote this library](/blog/2015/12/13/scala-weather-0.1.0-released/#rationale)
+2. [Usage](/blog/2015/12/13/scala-weather-0.1.0-released/#usage)
+3. [Cache client](/blog/2015/12/13/scala-weather-0.1.0-released/#cache)
+4. [Getting help](/blog/2015/12/13/scala-weather-0.1.0-released/#help)
+5. [Plans for next release](/blog/2015/12/13/scala-weather-0.1.0-released/#roadmap)
 
 <!--more-->
 
@@ -26,21 +26,14 @@ This release post will cover the following topics:
 <h2><a name="rationale">1. Why we wrote this library</a></h2>
 </div>
 
-[Snowplow] [snowplow] platform established itself as highly extensible and configurable data analysis platform.
-One of our core features is an enrichment process, which can be enabled by user to enrich events with various contexts related to this events.
-Scala Weather was mainly intended to supplement event data with it's weather.
-So, for example any of our users be able to know in what weather conditions their customers browsing website, purchasing goods, using mobile app et cetera.
-That enables our users to build incredible sophisticated data models, to predict customer behaviour and improve service.
+The [Snowplow] [snowplow-repo] event analytics platform has a growing collection of [configurable event enrichments] [snowplow-enrichments] - from geo-location through custom JavaScript to currency conversions. But the most-requested enrichment still outstanding is a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis. 
 
-While primary purpose of Scala Weather was to allow us to fetch historical data for enrichment process it is still applicable for any other purposes.
+To build this enrichment we needed a couple of things first:
 
-[OpenWeatherMap.org] [openweathermap] was chosen because for us it seems most comprehensive weather data provider 
-which historical records contains really exhaustive amount of properties, 
-such as minimum/maximum temperatures for timespan, humidity, wind direction, visibility and much more.
-Also it has wide weather stantion net, so even most distant and unpopulated places on Earth could be covered.
+* A reliable weather provider with a robust API. After some experimentation with Wunderground and Yahoo! Weather, we settled on OpenWeatherMap as having the most detailed weather reports and extensive historical data
+* A Scala client for OpenWeatherMap, with sophisticated cache capabilities to minimize the number of API calls when embedded in a Snowplow enrichment process running across millions of events
 
-However if someday another weather provider will appear with similar features and coverage 
-we'll be glad to implement interface for it to be not restricted to single vendor.
+Scala Weather, then, is our idiomatic Scala client for OpenWeatherMap, and the foundation for the new Weather Enrichment in Snowplow, which we hope to release very soon. But Scala Weather, like our [Scala Forex] [scala-forex] project, has a wider scope than just supporting a new Snowplow enrichment: it has an asynchronous as well as synchronous client, and supports current weather lookups and weather forecasts. We hope you find it useful!
 
 <h2 id="usage">2. Basic usage</h2>
 
@@ -156,6 +149,10 @@ Although Scala Weather is feature complete now, we still have some plans for it.
 First of all, we're exploring ways to improve the cache, so it could have more dimensions than just primitive spatial and time.
 Also we'd be happy to implement interfaces to other weather providers if there's any comparable to OpenWeatherMap.
 
+
+[snowplow-repo]: https://github.com/snowplow/snowplow
+[snowplow-enrichments]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments
+
 [historybyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L49-L70
 [historybyname-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L72-L96
 [historybycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L98-L125
@@ -163,6 +160,8 @@ Also we'd be happy to implement interfaces to other weather providers if there's
 [currentbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L157-L166
 [forecastbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L147-L155
 [forecastbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L137-L145
+
+[scala-forex]: https://github.com/snowplow/scala-forex
 
 [openweathermap]: http://openweathermap.org/
 [lru]: https://en.wikipedia.org/wiki/Cache_algorithms#LRU

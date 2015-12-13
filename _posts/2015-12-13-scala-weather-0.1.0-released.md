@@ -56,15 +56,15 @@ OpenWeatherMap provides several hosts for API with various benefits, which you c
 
 Both clients have same basic set of methods, grouping by data they return:
 
-+ [forecastById] [forecastbyid-def]
-+ [forecastByCoords] [forecastbycoords-def]
++ `[forecastById] [forecastbyid-def]`
++ `[forecastByCoords] [forecastbycoords-def]`
 
-+ [currentById] [currentbyid-def]
-+ [currentByCoords] [currentbycoords-def]
++ `[currentById] [currentbyid-def]`
++ `[currentByCoords] [currentbycoords-def]`
 
-+ [historyById] [historybyid-def]
-+ [historyByName] [historybyname-def]
-+ [historyByCoords] [historybycoords-def]
++ `[historyById] [historybyid-def]`
++ `[historyByName] [historybyname-def]`
++ `[historyByCoords] [historybycoords-def]`
 
 These methods were designed to follow OpenWeatherMap's own API calls as closely as possible. All of these calls receive similar arguments to those described in [OpenWeatherMap API documentation] [owm-api-docs]. For example, to receive a response equivalent to the API call `api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=YOURKEY`, run the following code:
 
@@ -108,7 +108,7 @@ So, you can consider 1 as a good default value; it's strongly discouraged to set
 
 <h2 id="help">4. Getting help</h2>
 
-For more details on this release, please check out the [Scala Weather 0.1.0] [010-release] on GitHub.
+For more details on this release, please check out the [Scala Weather 0.1.0] [010-release] release notes on GitHub.
 
 In the meantime, if you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
@@ -126,7 +126,7 @@ If there's a feature you'd like to see, or an alternative weather provider that 
 [historybycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L98-L125
 [currentbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L147-L155
 [currentbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L157-L166
-[forecastbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L147-L155
+[forecastbyid-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L127-L135
 [forecastbycoords-def]: https://github.com/snowplow/scala-weather/blob/5b22a89ed3ba04598caf7ebf75491a21adf11b28/src/main/scala/com.snowplowanalytics/weather/providers/openweather/Client.scala#L137-L145
 
 [scala-forex]: https://github.com/snowplow/scala-forex

@@ -56,15 +56,15 @@ OpenWeatherMap provides several hosts for API with various benefits, which you c
 
 Both clients have same basic set of methods, grouping by data they return:
 
-+ `[forecastById] [forecastbyid-def]`
-+ `[forecastByCoords] [forecastbycoords-def]`
++ [forecastById] [forecastbyid-def]
++ [forecastByCoords] [forecastbycoords-def]
 
-+ `[currentById] [currentbyid-def]`
-+ `[currentByCoords] [currentbycoords-def]`
++ [currentById] [currentbyid-def]
++ [currentByCoords] [currentbycoords-def]
 
-+ `[historyById] [historybyid-def]`
-+ `[historyByName] [historybyname-def]`
-+ `[historyByCoords] [historybycoords-def]`
++ [historyById] [historybyid-def]
++ [historyByName] [historybyname-def]
++ [historyByCoords] [historybycoords-def]
 
 These methods were designed to follow OpenWeatherMap's own API calls as closely as possible. All of these calls receive similar arguments to those described in [OpenWeatherMap API documentation] [owm-api-docs]. For example, to receive a response equivalent to the API call `api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=YOURKEY`, run the following code:
 

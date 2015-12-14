@@ -1,19 +1,22 @@
 ---
 layout: post
-title: Snowplow 7x released
-title-short: Snowplow 7x
+title: Snowplow 74 BIRD-TBC released
+title-short: Snowplow 74 BIRD-TBC
 tags: [snowplow, weather, enrichment]
 author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow version 7x.
-This release adds a weather enrichment allowing you to attach to event whole
-information about its weather conditions.
-
+We are pleased to announce the release of Snowplow version 74 BIRD-TBC.
+This release adds click redirect support in the Scala Stream Collector and
+weather enrichment.
 The rest of this post will cover the following topics:
 
-1. [Weather enrichment](/blog/2015/12/xx/snowplow-r7x-released#weather)
+1. [Weather enrichment](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#weather)
+2. [Click redirect support](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#click)
+3. [Upgrading](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#upgrading)
+4. [Getting help](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#help)
+5. [Upcoming releases](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#roadmap)
 
 <!--more-->
 
@@ -60,6 +63,28 @@ and `1%` is just reserved space for errors, which should prevent client to repea
 unsuccessful requests. So, for single run per day on starter subscription plan
 and two-nodes EMR cluster cache size should be `(5000 / 2 + 1%) / 1 = 2550`. 
 
+<h2 id="click">2. Click redirect</h2>
+
+Previously [added] [click-tracking] in R72 Great Spotted Kiwi.
+TODO
+
+<h2 id="upgrading">3. Upgrading</h2>
+
+TODO
+
+<h2 id="help">4. Getting help</h2>
+
+For more details on this release, please check out the [R74 BIRD-TBC release notes][r74-release] on GitHub.
+Specific documentation on the new features is available here:
+
+* The [Weather enrichment] [weather-enrichment-wiki] page
+
+If you have any questions or run into any problems, please raise an [issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
+
+<h2 id="roadmap">5. Upcoming releases</h2>
+
+TODO
+
 [weather-issue]: https://github.com/snowplow/snowplow/issues/456
 [scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
 [owm-price]: http://openweathermap.org/price
@@ -67,3 +92,9 @@ and two-nodes EMR cluster cache size should be `(5000 / 2 + 1%) / 1 = 2550`.
 [maxmind-enrichemnt-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
 [weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf
 [weather-enrichment-config]: https://github.com/snowplow/snowplow/blob/feature/weather/3-enrich/config/enrichments/weather_enrichment_config.json
+
+[click-tracking]: https://github.com/snowplow/snowplow.github.com/blob/master/_posts/2015-10-15-snowplow-r72-great-spotted-kiwi-released.md#1-click-tracking
+
+[r74-release]: https://github.com/snowplow/snowplow/releases/tag/r74-BIRD-TBC
+[issues]: https://github.com/snowplow/snowplow/issues
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

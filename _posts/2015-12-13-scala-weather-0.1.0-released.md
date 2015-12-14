@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Scala Weather 0.1.0 released
-title-short: Scala Weather 0.1.0 released
+title-short: Scala Weather 0.1.0
 tags: [release, weather, scala, openweathermap]
 author: Anton
 category: Releases

@@ -142,7 +142,7 @@ If there's a feature you'd like to see, or an alternative weather provider that 
 
 [010-release]: http://github.com/snowplow/scala-weather/releases/tag/0.1.0
 [issues]: http://github.com/snowplow/scala-weather/issues
-[repo]: http://githubc.com/snowplow/scala-weather
+[repo]: http://github.com/snowplow/scala-weather
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [snowplow]: http://snowplowanalytics.com

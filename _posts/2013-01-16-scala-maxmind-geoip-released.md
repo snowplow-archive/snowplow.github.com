@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Scala MaxMind GeoIP released
 title: Scala MaxMind GeoIP library released
+title-short: Scala MaxMind GeoIP library
 tags: [snowplow, maxmind, geoip, geography, ip address, enrichment]
 author: Alex
 category: Releases

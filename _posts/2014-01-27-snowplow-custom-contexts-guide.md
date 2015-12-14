@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow custom contexts guide
 title: A guide to custom contexts in Snowplow JavaScript Tracker 0.13.0
+title-short: Snowplow custom contexts guide
 tags: [snowplow, custom, contexts, javascript, tracker]
 author: Alex
 category: Releases
@@ -35,8 +35,8 @@ For completeness, here is the full list of updated tracking methods. Note that `
 {% highlight javascript %}
 trackPageView(customTitle, contexts)
 trackStructEvent(category, action, label, property, value, contexts)
-trackUnstructEvent(name, properties, contexts) 
-addTrans(orderId, affiliation, total, tax, shipping, city, state, country, currency, contexts) 
+trackUnstructEvent(name, properties, contexts)
+addTrans(orderId, affiliation, total, tax, shipping, city, state, country, currency, contexts)
 addItem(orderId, sku, name, category, price, quantity, currency, contexts)
 {% endhighlight %}
 
@@ -88,7 +88,7 @@ A few dos and don'ts for context names:
 
 A few dos and don'ts for the JSONs inside each context entry JSONs:
 
-* **Do** use any of the data types supported by [custom unstructured events] [unstructured-events] 
+* **Do** use any of the data types supported by [custom unstructured events] [unstructured-events]
 * **Do** use Snowplow datatype suffixes if the data type would otherwise be unclear
 * **Don't** nest properties - as with custom unstructured events, the structure must be flat
 
@@ -151,7 +151,7 @@ When the visitor clicks the add to basket button on this poster, the website fir
 _snaq.push(['trackUnstructEvent',
               'add-to-basket',             // <- Event name
               { "button": "img-overlay",   // <- Event properties
-                "stock-level": 2 
+                "stock-level": 2
               },
               { "movie_poster": {          // <- First context entry
                   "movie_name": "Solaris",

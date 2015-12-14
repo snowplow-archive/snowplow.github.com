@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Python Tracker 0.4.0 released
 title: Snowplow Python Tracker 0.4.0 released
+title-short: Snowplow Python Tracker 0.4.0
 tags: [snowplow, analytics, python, django, tracker]
 author: Fred
 category: Releases
@@ -84,8 +84,8 @@ Trackers must be initialized with an Emitter.
 This is the signature of the constructor for the base Emitter class:
 
 {% highlight python %}
-def __init__(self, endpoint, 
-             protocol="http", port=None, method="get", 
+def __init__(self, endpoint,
+             protocol="http", port=None, method="get",
              buffer_size=None, on_success=None, on_failure=None):
 {% endhighlight %}
 
@@ -220,9 +220,9 @@ Snowplow unstructured events and custom contexts are now defined using [JSON sch
 {% highlight python %}
 
 t.track_unstruct_event({
-	"schema": "iglu:com.acme/viewed_product/jsonschema/2-1-0", 
+	"schema": "iglu:com.acme/viewed_product/jsonschema/2-1-0",
 	"data": {
-		"product_id": "ASO01043", 
+		"product_id": "ASO01043",
 		"price": 49.95
 	}
 })
@@ -231,7 +231,7 @@ t.track_unstruct_event({
 
 The `data` field contains the actual properties of the event and the `schema` field points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested.
 
-Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must (if provided) be a non-empty array: 
+Custom contexts work similarly. Since and event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must (if provided) be a non-empty array:
 
 {% highlight python %}
 

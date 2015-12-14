@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: First experiments with Apache Spark
 title: First experiments with Apache Spark at Snowplow
 tags: [snowplow, scala, spark, tutorial, example, recipe]
 author: Justine
@@ -29,7 +28,7 @@ I've tried to write the post in a way that's easy to follow-along for other peop
 
 Assuming you have git, Vagrant and VirtualBox installed, you can get started by simply clone the [Snowplow repo][repo], switching to the `feature/spark-data-modeling` branch then `vagrant up` and `vagrant ssh` onto the box:
 
-{% highlight bash %} 
+{% highlight bash %}
 host$ git clone https://github.com/snowplow/snowplow.git
 host$ cd snowplow
 host$ git checkout feature/spark-data-modeling
@@ -243,7 +242,7 @@ scala> dfWithDate.
 |    2015-05-05|   59|
 |    2015-05-06|   51|
 +--------------+-----+
-{% endhighlight %} 
+{% endhighlight %}
 
 **Note:** there also exists the `countDistinct` function which we can use to aggregate over a group, like this:
 

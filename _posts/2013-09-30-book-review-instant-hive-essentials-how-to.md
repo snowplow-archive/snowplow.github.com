@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Apache Hive Essentials How-to  
 title: Book review - Apache Hive Essentials How-to
 tags: [hive, book]
 author: Yali

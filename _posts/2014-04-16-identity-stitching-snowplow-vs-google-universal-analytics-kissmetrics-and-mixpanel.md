@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Understanding Snowplow's unique approach to identity stitching
 title: Understanding Snowplow's unique approach to identity stitching, including comparisons with Universal Analytics, Kissmetrics and Mixpanel
+title-short: Understanding Snowplow's approach to identity stitching
 tags: [snowplow, analytics, custom analytics, cohort analytics]
 author: Yali
 category: Analytics
@@ -25,9 +25,9 @@ category: Analytics
 
 *Identity stitching* is the process of identifing all the different events on a particular user's journey and stitching them together to form a complete record of that journey. Identity stitching is a key step in any customer-centric analysis: if we cannot reliably identify that a set of actions were carried out by a particular user, we cannot accurately:
 
-* Count the number of unique users 
-* Perform cohort analysis 
-* Build predictive models of user behaviour 
+* Count the number of unique users
+* Perform cohort analysis
+* Build predictive models of user behaviour
 
 Unfortunately, identity stitching is hard. Users typically interact with websites from multiple different devices and browsers. They may regularly clear their cookies. And they may share computers (and hence cookie IDs) with other users.
 
@@ -39,7 +39,7 @@ This is one reason why companies often like to get users to identify themselves 
 
 Even when users log in to a website, however, identity stitching is not straightforward. To take an obvious example - a user may visit a site multiple times before he / she registers for that service, which is nearly always a prerequisite before he / she can log in. This represents a key part of the user journey that companies will want to analyze (especially when optimizing their customer acquisition spend). However, as [Shay Sharon explains] [shay-sharon-post], Mixpanel does not correctly attribute event data from sessions that occurred before the user registered - only from earlier events in the the session he / she first logged in. As [Yehoshua Cohen explains] [analytics-ninja-post], Universal Analytics has the same limitation. Only KISSmetrics manages to stitch together data from those earlier sessions to the user ID that was passed in subsequently.
 
-There are other cases, however, where KISSmetrics gets it wrong. To give one example, where two users visit a website from the same computer, but only the second user logs in, KISSmetrics will erroneously count those two users as the same person. 
+There are other cases, however, where KISSmetrics gets it wrong. To give one example, where two users visit a website from the same computer, but only the second user logs in, KISSmetrics will erroneously count those two users as the same person.
 
 <div class="html">
 <h2><a name="limitations">3. Limitations in the approach taken by KISSmetrics, Mixpanel and Universal Analytics</a></h2>

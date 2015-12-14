@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Join the Snowplow team in Budapest this November
 title: Join the Snowplow team in Budapest the first week of November
+title-short: Join the Snowplow team in Budapest
 tags: [budapest bi summit]
 author: Yali
 category: Meetups

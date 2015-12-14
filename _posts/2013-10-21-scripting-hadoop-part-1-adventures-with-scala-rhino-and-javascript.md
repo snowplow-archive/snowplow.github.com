@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Scripting Hadoop part one
 title: Scripting Hadoop, Part One - Adventures with Scala, Rhino and JavaScript
+title-short: Scripting Hadoop part one
 tags: [snowplow, hadoop, scala, rhino, scriptengine, javascript, js]
 author: Alex
 category: Research
@@ -42,7 +42,7 @@ So let's get started:
     $ cd scalding-example-project
     $ sbt
     scalding-example-project > console
-    scala> 
+    scala>
 
 Great, now we're in the Scala console within SBT, and we have access to all of the libraries loaded as part of the scalding-example-project should we need them.
 
@@ -204,7 +204,7 @@ import PartialFunction._
  * @return An Option-boxed Boolean
  */
 def evalAsBoolean(js: String, vars: Map[String, Object]): Option[Boolean] = {
-    
+
     val factory = new ScriptEngineManager
     val engine = factory.getEngineByName("JavaScript")
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow PHP Tracker 0.2.0 released
 title: Snowplow PHP Tracker 0.2.0 released
+title-short: Snowplow PHP Tracker 0.2.0
 tags: [snowplow, analytics, php, tracker]
 author: Josh
 category: Releases

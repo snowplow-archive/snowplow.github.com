@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing our 2014-2015 Snowplow winterns
 title: Introducing our 2014-2015 Snowplow winterns
 tags: [snowplow, intern, winter, wintern, internship]
 author: Alex
@@ -31,7 +30,7 @@ Next, Andrew will be extending our Kinesis-based processing pipeline to "drip fe
 
 Aalekh Nigam is our second wintern - he is part way through a two-month remote winternship at Snowplow.
 
-Aalekh is a Third-year Electronics and Communication undergraduate at Jaypee Institute Of Information Technology (JIITU), working out of New Delhi, India. Aalekh is a music Lover, foodie and violinist - we first met Aalekh as an open source contributor when he volunteered to start building a [Golang Tracker] [golang-tracker] for Snowplow. 
+Aalekh is a Third-year Electronics and Communication undergraduate at Jaypee Institute Of Information Technology (JIITU), working out of New Delhi, India. Aalekh is a music Lover, foodie and violinist - we first met Aalekh as an open source contributor when he volunteered to start building a [Golang Tracker] [golang-tracker] for Snowplow.
 
 Aalekh is working on adding new event enrichments into the core of the Snowplow platform. He is already underway with his first two enrichments:
 

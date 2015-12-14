@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Where does your traffic really come from?
 title: Where does your traffic really come from?
 tags: [referrer, referer, traffic, source, medium, marketing, attribution]
 author: Yali

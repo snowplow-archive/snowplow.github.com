@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Is web analytics easy or hard?
 title: Is web analytics easy or hard? Distinguishing different types of complexity, and approaches for dealing with them
+title-short: Is web analytics easy or hard?
 tags: [webanalytics, complexity, data processing, data model]
 author: Yali
 category: Analytics
@@ -15,14 +15,14 @@ category: Analytics
 
 ## What is it that makes web analytics difficult?
 
-The following all make web analytics hard. 
+The following all make web analytics hard.
 
 1. [Large, complex, high volume, high velocity data](/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#data)
 2. [Lots of contextual knowledge requried to understand the data](/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#metadata)
 3. [The business questions that people want to use the data to answer are hard](/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#questions)
 4. [Poorly architected tools make the previous three complexities *harder* to deal with](/blog/2013/06/28/is-web-analytics-easy-or-hard-distinguishing-different-types-of-complexity#tools)
 
-Much of the discussion around Tim's original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture's SiteCatalyst (around which much of the discussion about Tim's blog post focused) actually manages to make things worse. 
+Much of the discussion around Tim's original post was whether the complexity was the fault of web analytics platforms or not. As should be clear from the above, I believe that a certain amount of complexity is inherent in web analytics. However, Omniture's SiteCatalyst (around which much of the discussion about Tim's blog post focused) actually manages to make things worse.
 
 <!--more-->
 
@@ -48,7 +48,7 @@ Raw web event data is hard to make sense of: we need contextual knowledge to do 
 
 Let's take the example of a user on a shopping site who buys a pair of running shoes. There are several things we *might* infer from the data:
 
-* The user runs 
+* The user runs
 * The user has size 10 feet
 * The user is a man
 * The user lives in Dallas, Texas
@@ -78,7 +78,7 @@ Web event data can be used to help answer a whole host of business questions. So
 
 1. What combinations of channels should I spend my marketing budget? How should I stagger spend to maximize return?
 2. What products should I source for my catalog? How does my catalog need to evolve in the next few years / months?
-3. How sensitive are my customers to price? What price should I sell this product for? 
+3. How sensitive are my customers to price? What price should I sell this product for?
 4. Who are my most valuable customers? How can I spot them early?
 5. What are the events in a customer's lifetime that drive loyalty? What are the things we can do to encourage them?
 6. What are the moments in a customer's lifetime where something going wrong destroys customer loyalty? Which are hurting my business (and my customers) the most?
@@ -91,7 +91,7 @@ These questions are hard to answer because:
 * Answering the questions correctly requires, at a bare minimum, knowledge of the data and domain knowledge. In many cases it is also likely to require other data sources (including both quant and qualitative sources), that need to be brought together in a meaningful way
 * The answers in many cases are likely to be hypotheses that need further testing
 
-Once again, the key thing to handling this complexity is to give the analyst the tools and the space to develop and experiment with different approaches. There is no general purpose tool that will be able to solve for all of the above, although there may be the possibility of specific tools to answer specific questions. 
+Once again, the key thing to handling this complexity is to give the analyst the tools and the space to develop and experiment with different approaches. There is no general purpose tool that will be able to solve for all of the above, although there may be the possibility of specific tools to answer specific questions.
 
 <h3><a name="tools">4. Poorly architected tools make the above <i>harder</i> to deal with, rather than <i>easier</i></a></h3>
 
@@ -99,13 +99,13 @@ The above sources of complexity make it clear why web analytics is hard. They pr
 
 One approach to dealing with that complexity is to "disguise it". The web analytics tools hides the underlying complexity behind a UI that presents specific cuts of the data. Many of the contributors to the [Google+ thread] [g-plus-convo] argued that this was how GA manages to be simpler than SiteCatalyst. Certainly, you can hide *all* the complexity behind a simple dashboard. But then, you can't use a dashboard to answer any of the above questions. In this case, what you gain in simplicity, you lose in power and transparency.
 
-Another approach, which is the one we have taken at Snowplow, is to expose the underlying data to the user in a format (data model) that is as easy as possible to understand, and in a data store that is easy to connect multiple different analytics tools. This doesn't disguise any of the complexity: instead, it exposes it all to the analyst. For many analysts, that is a terrifying prospect. But for some, it is truly liberating: the analyst can now use the analytic and technical approach she prefers to develop answers and insights, unconstrained by any assumed logic in the web analytics tool. 
+Another approach, which is the one we have taken at Snowplow, is to expose the underlying data to the user in a format (data model) that is as easy as possible to understand, and in a data store that is easy to connect multiple different analytics tools. This doesn't disguise any of the complexity: instead, it exposes it all to the analyst. For many analysts, that is a terrifying prospect. But for some, it is truly liberating: the analyst can now use the analytic and technical approach she prefers to develop answers and insights, unconstrained by any assumed logic in the web analytics tool.
 
 A third approach, taken by Omniture with Sitecatalyst, manages to exacerbate the complexity because of two poor decisions made around Sitecatalyst's technical architecture:
 
 #### 4a. Sitecatalysts data model is not event or entity-centric
 
-To implement Sitecat, you have to translate the events that occur on your website, and the entities a user navigating on your website engages with, into the arcane world of Traffic Variables, Success Events, Conversion Variables and Saint Classifications. Your data model is, in many cases, flatted to fit a set of pre-defined fields in Omniture. Contrast that with the much simpler, event-centric approach taken by just about everyone that's developed a platform in the last five years, including Mixpanel, Kissmetrics, KeenIO, Google Analytics and of course Snowplow. 
+To implement Sitecat, you have to translate the events that occur on your website, and the entities a user navigating on your website engages with, into the arcane world of Traffic Variables, Success Events, Conversion Variables and Saint Classifications. Your data model is, in many cases, flatted to fit a set of pre-defined fields in Omniture. Contrast that with the much simpler, event-centric approach taken by just about everyone that's developed a platform in the last five years, including Mixpanel, Kissmetrics, KeenIO, Google Analytics and of course Snowplow.
 
 #### 4b. In Sitecatalyst, data capture and data reporting are incredibly tightly coupled
 

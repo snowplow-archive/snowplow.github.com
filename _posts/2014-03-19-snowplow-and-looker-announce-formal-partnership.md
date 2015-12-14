@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow and Looker partnership announced
 title: Snowplow and Looker announce formal partnership - the most powerful, flexible, web analytics solution in the world
+title-short: Snowplow and Looker partnership announced
 tags: [snowplow, looker, event analytics, web analytics]
 author: Yali
 category: Integration

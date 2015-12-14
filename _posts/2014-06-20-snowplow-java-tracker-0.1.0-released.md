@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Java Tracker 0.1.0 released
 title: Snowplow Java Tracker 0.1.0 by Kevin Gleason released
+title-short: Snowplow Java Tracker 0.1.0
 tags: [snowplow, analytics, java, jvm, tracker]
 author: Alex
 category: Releases

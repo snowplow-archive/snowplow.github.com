@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow team in the Bay Area and Seattle
 title: The Snowplow team will be in the Bay Area and Seattle in October - get in touch if you'd like to meet
+title-short: The Snowplow team in the Bay Area and Seattle
 tags: [snowplow, us, usa, bay area, san francisco, sf, seattle]
 author: Alex
 category: Meetups

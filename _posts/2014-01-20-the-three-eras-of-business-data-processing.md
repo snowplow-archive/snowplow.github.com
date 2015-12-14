@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Three eras of data processing
 title: The three eras of business data processing
+title-short: Three eras of data processing
 tags: [eventstream, events, unified, log, analytics, data warehouse]
 author: Alex
 category: Research
@@ -77,7 +77,7 @@ A few things should be clear, especially in contrast to the earlier eras:
 2. **We have a single version of the truth** - together, the unified log plus Hadoop archive represent our single version of the truth. They contain exactly the same data - our eventstream - they just have different time windows of data
 3. **The single version of the truth is upstream from the datawarehouse** - in the classic era, the datawarehouse provided the single version of the truth, so all reports generated from it were consistent. In the Unified Era, the log provides the single version of the truth: as a result, operational system (e.g. recommendation and ad targeting systems) compute on the same versions of truths as analysts producing business reports
 4. **Point-to-point connections have largely gone away** - in their place, applications can append to the unified log and other applications can read their writes
-5. **Local loops have been unbundled** - in place of local silos, applications can collaborate on real-time decisioning via the unified log 
+5. **Local loops have been unbundled** - in place of local silos, applications can collaborate on real-time decisioning via the unified log
 
 <div class="html">
 <h2><a name="closing-thoughts">Closing thoughts</a></h2>

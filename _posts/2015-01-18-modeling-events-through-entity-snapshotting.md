@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Modeling events through entity snapshotting
 title: Modeling events through entity snapshotting
 tags: [event, analytics, grammar, model, entities]
 author: Alex
@@ -226,7 +225,7 @@ Note that all of the schema URIs are illustratory - don't go looking for the und
 
 * The structure is very simple: there are some grammatical annotations like "directObject" and "at" but fundamentally we are just reporting on the state of various entities at a point in time
 * There are no limitations on the _number_ or _types_ of entities which can be added to the event
-* All of our entities are well-structured, with Iglu schema URIs attached. These entities originate in the game's own data structures, so it should be possible to convert these structures to JSON Schema and upload them into Iglu 
+* All of our entities are well-structured, with Iglu schema URIs attached. These entities originate in the game's own data structures, so it should be possible to convert these structures to JSON Schema and upload them into Iglu
 
 This is a good place to pause and take stock. I've attempted to move the foundational Snowplow event grammar concepts forward by re-framing them in terms of entity snapshotting, a powerful approach which we are _de facto_ already implementing via Snowplow custom contexts. I look forward to getting the Snowplow community's thoughts and responses on the above - with the aim of evolving these ideas still further. Do please leave any and all comments in the Feedback section below!
 

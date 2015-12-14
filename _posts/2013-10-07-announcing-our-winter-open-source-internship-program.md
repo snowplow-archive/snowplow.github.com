@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Announcing our winter internship program
 title: Announcing our winter open source internship program
 tags: [snowplow, intern, wintern, internship]
 author: Alex

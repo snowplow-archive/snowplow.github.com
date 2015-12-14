@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow PHP Tracker 0.1.0 released
 title: Snowplow PHP Tracker 0.1.0 released
+title-short: Snowplow PHP Tracker 0.1.0
 tags: [snowplow, analytics, php, tracker]
 author: Josh
 category: Releases
@@ -94,11 +94,11 @@ $items = array(
         "category" => "clothing"
     )
 );
-$tracker->trackEcommerceTransaction("6a8078be", 35, "USD", "affiliation", 3, 
+$tracker->trackEcommerceTransaction("6a8078be", 35, "USD", "affiliation", 3,
                                     0, "Phoenix", "Arizona", "US", $items);
 
 // Track a Snowplow custom unstructured event
-$event_json = 
+$event_json =
 array(
     "schema" => "iglu:com.acme/test/jsonschema/1-0-0",
     "data" => array(

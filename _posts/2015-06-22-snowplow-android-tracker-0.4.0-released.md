@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Android Tracker 0.4.0 released
 title: Snowplow Android Tracker 0.4.0 released
+title-short: Snowplow Android Tracker 0.4.0
 tags: [snowplow, analytics, android, mobile, tracker]
 author: Josh
 category: Releases

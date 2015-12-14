@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Call for data this winter
 title: Call for data! Support us develop experimental analyses. Have us help you answer your toughest business questions.
+title-short: Call for data this winter
 tags: [data]
 author: Yali
 category: Analytics
@@ -23,7 +23,7 @@ To that end, we are now making an offer to the Snowplow community: do you have a
 
 We will want to blog about the approach and the results of our winterns' work with the wider community, so we recognize that this may rule out a number of Snowplow users. Still, we are happy to work with whoever signs up to publish the work in a way that doesn't give away commercial secrets. And for companies that are willing to let us loose on their data, you will hopefully get some highly valuable insights at zero cost.
 
-Interested? Email us at [data@snowplowanalytics.com] [data-email]. 
+Interested? Email us at [data@snowplowanalytics.com] [data-email].
 
 [winternship]: http://snowplowanalytics.com/blog/2013/10/07/announcing-our-winter-open-source-internship-program/
 [call]: /assets/img/blog/2013/10/call.jpg

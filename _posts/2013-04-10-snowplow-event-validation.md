@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow event validation
 title: Towards high-fidelity web analytics - introducing Snowplow's innovative new event validation capabilities
+title-short: Snowplow event validation
 tags: [snowplow, data, event, validation]
 author: Alex
 category: Inside the Plow
@@ -9,9 +9,9 @@ category: Inside the Plow
 
 A key goal of the Snowplow project is enabling **high-fidelity analytics** for businesses running Snowplow.
 
-What do we mean by high-fidelity analytics? Simply put, high-fidelity analytics means Snowplow faithfully recording _all_ customer events in a rich, granular, non-lossy and unopinionated way. 
+What do we mean by high-fidelity analytics? Simply put, high-fidelity analytics means Snowplow faithfully recording _all_ customer events in a rich, granular, non-lossy and unopinionated way.
 
-This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that's made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it's an important one. 
+This data is incredibly valuable: it enables companies to better understand their customers and develop and tailor products and services to them. Ensuring that the data is high fidelity is essential to ensuring that any operational and strategic decision making that's made on the basis of that data is sound. Guaranteeing data fidelity is not a sexy topic. But it's an important one.
 
 Surprisingly, ensuring your data is high fidelity is **not** something that is enforced by other analytics products.
 
@@ -27,7 +27,7 @@ To deliver on the goal of high-fidelity analytics, then, we're trying to steer S
 
 We have talked in detail on our website and wiki about avoiding pitfall #1, Premature aggregation. In short: we do **no** aggregation - Snowplow users have access to granular, event level data, so that they can work out how best they should aggregate it for each type of analysis they wish to perform.
 
-We will blog more about our ideas to combat #3, Being over-opinionated, in the future. 
+We will blog more about our ideas to combat #3, Being over-opinionated, in the future.
 
 For the rest of this blog post, though, we will look at our solution to pitfall #2, Ignoring bad news: namely, **event validation**.
 

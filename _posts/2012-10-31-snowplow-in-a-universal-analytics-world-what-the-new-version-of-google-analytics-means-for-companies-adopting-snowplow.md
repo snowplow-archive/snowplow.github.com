@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: New version of GA - what it means for Snowplow adoption
 title: Snowplow in a Universal Analytics world - what the new version of Google Analytics means for companies adopting Snowplow
+title-short: Snowplow in a Universal Analytics world
 tags: [snowplow, google, universal analytics]
 author: Yali
 category: Analytics
@@ -41,7 +41,7 @@ For businesses using GA, being able to augment Google's user identification with
 
 We have long argued that web analytics is just one customer data source - and that analysts performing customer analytics need to crunch data covering the customer's complete journey, including other digital channels and offline interactions. That means joining data sets from different digital products and offline data sets to generate a single customer view. To date, companies that have implemented "single customer views" have typically struggled incorporating web behavior in those views.
 
-Google has taken a significant step towards enabling businesses to capture much more of their customer's journeys in Google Analytics itself. The [Measurement Protocol] [measurement-protocol] makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her `client_id` could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase. 
+Google has taken a significant step towards enabling businesses to capture much more of their customer's journeys in Google Analytics itself. The [Measurement Protocol] [measurement-protocol] makes it possible to pass offline events into Google: so for example, when a customer buys an item in store, it would be possible to fire an event to Google Analytics recording that sale. If the customer was on a CRM programme (e.g. loyalty scheme), his / her `client_id` could be passed in, and then Google Analytics would know that this is the same user who browsed the website on their mobile phone yesterday and viewed it from their office today, prior to coming in store to make the purchase.
 
 The Measurement Protocol can also be used to capture events on digital platforms that are not so well suited to traditional web analytics solution e.g. mobile applications, set-top box applications, videogames on consoles etc. It thus opens the door for Google Analytics to capture and report on event data from a range of devices, not just those that are web based.
 
@@ -62,12 +62,12 @@ Now that Google lets businesses reliably track their users over their entire lif
 
 ### 1.4 Custom dimensions and metrics
 
-The [Measurement Protocol] [measurement-protocol] enables businesses to define and capture their own dimensions and metrics each time an event that is tracked. Those additional metrics and dimensions are then available to report in in GA. 
+The [Measurement Protocol] [measurement-protocol] enables businesses to define and capture their own dimensions and metrics each time an event that is tracked. Those additional metrics and dimensions are then available to report in in GA.
 
 As well as enabling businesses to add custom dimension and metric values to individual event tracking calls, Google also lets businesses bulk upload multiple dimensions at a time into the GA, if a relationship between those custom dimensions and dimensions already in GA can be defined, and GA knows what values to ascribe events already in it to those new dimensions, based on that defined relationship. To give an example: you could upload the product names/SKUs associated with each web page, enabling reporting on page views by SKU. Or, you could upload a range of product metadata (e.g. book titles and authors) and associate that with an ISBN custom field.
 
 <div class="html">
-<a name="reporting-capabilities"><h3>1.5 What new reporting is enabled through the capture of all these additional data points?</h3></a> 
+<a name="reporting-capabilities"><h3>1.5 What new reporting is enabled through the capture of all these additional data points?</h3></a>
 </div>
 
 Taken together, the additional data that businesses can feed into Google Analytics gives Google enough to offer a much broader and more valuable range of reporting than was previously possible:
@@ -76,7 +76,7 @@ Taken together, the additional data that businesses can feed into Google Analyti
 2. **Event analytics** across platforms, on and offline. GA can now report on user's complete journey, not just what they do on websites, but also their behaviors on other digital platforms (esp.  mobile) and offline.
 
 <div class="html">
-<a name="whysnowplow"><h2>2. How do the advances in GA change the case for adopting Snowplow?</h2></a> 
+<a name="whysnowplow"><h2>2. How do the advances in GA change the case for adopting Snowplow?</h2></a>
 </div>
 
 Prior to the latest announcement, the case for adopting Snowplow alongside your GA implementation was as follows:

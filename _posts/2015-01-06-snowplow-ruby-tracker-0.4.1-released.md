@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Ruby Tracker 0.4.1 released
 title: Snowplow Ruby Tracker 0.4.1 released
+title-short: Snowplow Ruby Tracker 0.4.1
 tags: [snowplow, analytics, ruby, rails, tracker]
 author: Fred
 category: Releases

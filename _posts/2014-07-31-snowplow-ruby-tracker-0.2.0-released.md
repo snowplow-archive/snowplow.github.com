@@ -1,13 +1,13 @@
 ---
 layout: post
-shortenedlink: Snowplow Ruby Tracker 0.2.0 released
 title: Snowplow Ruby Tracker 0.2.0 released
+title-short: Snowplow Ruby Tracker 0.2.0
 tags: [snowplow, analytics, python, django, tracker]
 author: Fred
 category: Releases
 ---
 
-We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This release brings the Ruby Tracker up to date with the other Snowplow trackers, particularly around support of self-describing custom contexts and unstructured events. 
+We are pleased to announce the release of the Snowplow Ruby Tracker version 0.2.0. This release brings the Ruby Tracker up to date with the other Snowplow trackers, particularly around support of self-describing custom contexts and unstructured events.
 
 Huge thanks go to Elijah Tabb, a.k.a. [ebear][ebear], for contributing the updated `track_unstruct_event` and `track_screen_view` tracker API methods among other features!
 
@@ -70,7 +70,7 @@ The next section deals with the changes to how the `context` argument works.
 
 <h2><a name="unstruct-events">3. Updated format for custom contexts</a></h2>
 
-Custom contexts describe the circumstances around an individual event. In this version, custom contexts must be self-describing JSONs. Each of the Ruby tracker's `trackXXX` methods accepts an array of custom contexts as the penultimate optional argument (before the `tstamp` argument). 
+Custom contexts describe the circumstances around an individual event. In this version, custom contexts must be self-describing JSONs. Each of the Ruby tracker's `trackXXX` methods accepts an array of custom contexts as the penultimate optional argument (before the `tstamp` argument).
 
 An example, attaching two custom contexts to a page view event:
 
@@ -126,7 +126,7 @@ t.track_ecommerce_transaction({
   'quantity' => 1,
   'name' => 'crystals',
   'category' => 'magic'
-}], 
+}],
 [{
   # context for overall transaction
   'schema' => 'iglu:com.my_company/page_type/jsonschema/1-0-0',

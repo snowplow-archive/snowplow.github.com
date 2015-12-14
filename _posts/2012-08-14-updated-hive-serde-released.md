@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: updated-serde
 title: Updated Hive SerDe released
+title-short: Updated Hive SerDe
 author: Alex
 topics: Releases
 tags: [hive, serde]

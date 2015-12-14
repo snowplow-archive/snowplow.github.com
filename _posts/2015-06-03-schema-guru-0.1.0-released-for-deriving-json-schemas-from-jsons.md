@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Schema Guru 0.1.0 released
 title: Schema Guru 0.1.0 released for deriving JSON Schemas from JSONs
+title-short: Schema Guru 0.1.0
 tags: [json, json schema, schema, iglu]
 author: Anton
 category: Releases
@@ -45,7 +45,7 @@ So, to generate a JSON Schema safely, we need to work from as many JSON instance
 The initial 0.1.0 release of Schema Guru has the following features:
 
 + Derive all [types] [schema-types] defined in JSON Schema specification
-+ Derive all string [formats] [schema-formats] defined in specification 
++ Derive all string [formats] [schema-formats] defined in specification
 + Derive integer ranges according byte size and possibility to be negative
 + Derive product types (e.g. if one field is integer and string in different instances)
 
@@ -109,7 +109,7 @@ Running Schema Guru against both of these instances generates the following JSON
           "minimum" : 0,
           "maximum" : 32767 } },
       "additionalProperties" : false } },
-  "additionalProperties" : false 
+  "additionalProperties" : false
 {% endhighlight %}
 
 You can see that our generated JSON Schema now contains two properties, where:
@@ -127,7 +127,7 @@ Schema Guru is of course very young - so we look forward to community feedback o
 
 We have lots of features planned for Schema Guru:
 
-* A web UI with ability to adjust you schema 
+* A web UI with ability to adjust you schema
 * Support for other output formats such as [Avro] [avro]
 * Enum detection
 * Warnings about suspiciously-similar keys

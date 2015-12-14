@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: snowcannon
 title: SnowCannon - a node.js collector for Snowplow
+title-short: SnowCannon
 author: Alex
 category: Releases
 tags: [node.js]
@@ -18,7 +18,7 @@ To learn more about SnowCannon, visit the [Github repo] [snowcannon-on-github].
 
 SnowCannon is the first user-contributed module for Snowplow, and we are delighted to see community members working to build out the Snowplow platform. There are other contributions in the works, including a Snowplow IOS client, that we hope to be announcing shortly.
 
-To encourage users to extend Snowplow, we've architected Snowplow in a module way, to enable developers to swap out elements in the Snowplow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the Snowplow architecture [here] [technical-architecture]. 
+To encourage users to extend Snowplow, we've architected Snowplow in a module way, to enable developers to swap out elements in the Snowplow stack with their own elements or complimenet those already in the stack with parallel implementations. Learn more about the Snowplow architecture [here] [technical-architecture].
 
 [snowcannon-on-github]: https://github.com/shermozle/SnowCannon
 [technical-architecture]: /product/technical-architecture.html

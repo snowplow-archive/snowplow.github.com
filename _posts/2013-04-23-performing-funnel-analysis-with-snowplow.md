@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Funnel analysis with Snowplow (Platform analytics part 1)
 title: Funnel analysis with Snowplow (Platform analytics part 1)
 tags: [snowplow, platform analytics, funnel]
 author: Yali

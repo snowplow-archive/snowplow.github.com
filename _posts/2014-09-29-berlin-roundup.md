@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Berlin trip round-up
 title: Berlin trip round-up
 tags: [snowplow, berlin, big data beers, daala, co-up]
 author: Alex

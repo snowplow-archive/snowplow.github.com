@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: New Java and Android Tracker versions released
 title: New Java and Android Tracker versions released
+title-short: New Java and Android Tracker
 tags: [snowplow, analytics, java, android, tracker]
 author: Alex
 category: Releases

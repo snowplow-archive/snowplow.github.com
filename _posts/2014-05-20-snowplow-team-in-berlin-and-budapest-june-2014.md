@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow team in Berlin and Budapest
 title: The Snowplow team will be in Berlin and Budapest in June - get in touch if you'd like to meet
+title-short: Snowplow team in Berlin and Budapest
 tags: [snowplow, Germany, Hungary, Berlin, Budapest, conference, Digital Analytics Hub, Budapest Datawarehousing Forum]
 author: Yali
 category: Meetups
@@ -28,7 +28,7 @@ Alex will be in Budapest from June 3rd to 6th. If you'd like to grab Alex when h
 
 #### [Digital Analytics Hub] [da-hub-berlin] event in Berlin
 
-I'm really looking forward to attending the Digital Analytics Hub event in Berlin, an event I've heard many good things about, but haven't had the chance to attend before. 
+I'm really looking forward to attending the Digital Analytics Hub event in Berlin, an event I've heard many good things about, but haven't had the chance to attend before.
 
 I'll be in Berlin between June 2nd and 4th. If you'd like to meet, then ping me on yali at snowplowanalytics dot com. In the meantime, keep plowing!
 

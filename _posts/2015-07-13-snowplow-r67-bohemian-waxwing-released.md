@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 67 released
 title: Snowplow 67 Bohemian Waxwing released
+title-short: Snowplow 67 Bohemian Waxwing
 tags: [snowplow, kinesis, real-time]
 author: Josh
 category: Releases
@@ -38,11 +38,11 @@ Adding Snowplow tracking to our Kinesis applications is exciting for two reasons
 1. It is the first step towards Snowplow becoming "self-hosting", meaning that we can use one instance of Snowplow to monitor a second instance of Snowplow. "Dog-fooding" Snowplow in this way is essential to finding and fixing bugs in Snowplow faster
 2. It is an opportunity to start exploring how Snowplow can be used for effective systems-level monitoring, alongside our existing application-level use cases
 
-Note that so far Snowplow tracking has not yet been added to the Scala Stream Collector; this will be added in a subsequent release. 
+Note that so far Snowplow tracking has not yet been added to the Scala Stream Collector; this will be added in a subsequent release.
 
 <h2 id="handling-outsized-event-payloads">2. Handling outsized event payloads</h2>
 
-Previously the Scala Stream Collector was unable to handle events that exceeded the maximum byte limit of a Kinesis stream: large `POST` payloads, for example, were simply discarded due to the inability to write them to Kinesis. With this release, the collector can now "break apart" outsized payloads of multiple events into smaller payloads which will fit into a Kinesis stream; 
+Previously the Scala Stream Collector was unable to handle events that exceeded the maximum byte limit of a Kinesis stream: large `POST` payloads, for example, were simply discarded due to the inability to write them to Kinesis. With this release, the collector can now "break apart" outsized payloads of multiple events into smaller payloads which will fit into a Kinesis stream;
 
 Combine this with the recent increase in allowed record `PUT` size for Kinesis from 50kB to 1MB and there should be very few scenarios now when an event payload has to be discarded for being outsized.
 
@@ -94,7 +94,7 @@ If you want to include Snowplow tracking for this application please append the 
 
 {% highlight json %}
 enrich {
-    
+
     ...
 
     monitoring {
@@ -120,7 +120,7 @@ For a complete example, see our [`config.hocon.sample` file] [ske-sample-hocon].
 
 {% highlight json %}
 sink {
-    
+
     ...
 
     monitoring {
@@ -142,7 +142,7 @@ And that's it - you should now be fully upgraded!
 
 <h2 id="help">8. Getting help</h2>
 
-For more details on this release, please check out the [r67 Bohemian Waxwing][r67-release] on GitHub. 
+For more details on this release, please check out the [r67 Bohemian Waxwing][r67-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

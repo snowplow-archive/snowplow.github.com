@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 69 released
 title: Snowplow 69 Blue-Bellied Roller released with new and updated SQL data models
+title-short: Snowplow 69 Blue-Bellied Roller
 tags: [snowplow, analytics, data modeling]
 author: Christophe
 category: Releases

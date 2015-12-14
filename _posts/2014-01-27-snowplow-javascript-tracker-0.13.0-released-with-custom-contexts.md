@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 0.13.0 released
 title: Snowplow JavaScript Tracker 0.13.0 released with custom contexts
+title-short: JavaScript Tracker 0.13.0
 tags: [snowplow, javascript, tracker, custom context, data model, event grammar]
 author: Alex
 category: Releases

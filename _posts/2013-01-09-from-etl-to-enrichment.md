@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: From ETL to enrichment - development roadmap
 title: The Snowplow development roadmap for the ETL step - from ETL to enrichment
+title-short: From ETL to enrichment
 tags: [etl, enrichment, data processing, data pipelines]
 category: Inside the Plow
 author: yali
@@ -63,7 +63,7 @@ In addition, decomposing some of the fields into constituent elements can make a
 <a name="speed"><h2>Towards a real-time ETL process: speeding things up</h2></a>
 </div>
 
-The majority of Snowplow users run their ETL process daily, so that yesterday's data is available today. 
+The majority of Snowplow users run their ETL process daily, so that yesterday's data is available today.
 
 We need to move the whole Snowplow stack so that data is available for analytics faster. Doing so will be welcomed by analysts crunching Snowplow data, but perhaps more significantly, it will open up the possibility of building real-time response engines based on Snowplow data: these might include things like retargeting users who've performed specific actions with display ads or emails, or personalising the content shown to a user based on their recent browsing history, on the fly.
 
@@ -116,7 +116,7 @@ We've been very lucky to have community members contribute an enormous number of
 [custom-serde]: https://github.com/snowplow/snowplow/tree/master/3-etl/hive-etl/snowplow-log-deserializers
 [maxmind]: http://www.maxmind.com/en/geolocation_landing
 [digital-element]: http://www.digitalelement.com/our_technology/our_technology.html
-[referer-parser]: https://github.com/snowplow/referer-parser 
+[referer-parser]: https://github.com/snowplow/referer-parser
 [cascading]: http://www.cascading.org/
 [scalding-repo]: https://github.com/twitter/scalding
 [pipeline]: /assets/pdf/snowplow-scalding-etl-specification.pdf

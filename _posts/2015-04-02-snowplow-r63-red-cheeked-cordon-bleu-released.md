@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 63 released
 title: Snowplow 63 Red-Cheeked Cordon-Bleu released
+title-short: Snowplow 63 Red-Cheeked Cordon-Bleu
 tags: [snowplow, currency, gclid, useragent, ua_parser, forex, oer]
 author: Alex
 category: Releases
@@ -38,7 +38,7 @@ Table of contents:
 
 <h2><a name="uap">1. New enrichment: useragent parsing using ua_parser</a></h2>
 
-Since close to its inception, Snowplow has used the [user-agent-utils][user-agent-utils] Java library to perform useragent parsing. Various limitations with that library have led us to explore and evaluate other options, including the [ua-parser][ua-parser] project with its [uap-java][uap-java] library for the JVM. Testing suggests that this library handles some useragent strings (such as mobile app useragents) better than user-agent-utils. We particularly like that the 'database' the [ua-parser][ua-parser] looks user agent strings up against is a YAML file, making it straightforward for users to update the treatment of new useragents as they emerge themselves, rather than waiting on a new release of [user-agent-utils][user-agent-utils]. 
+Since close to its inception, Snowplow has used the [user-agent-utils][user-agent-utils] Java library to perform useragent parsing. Various limitations with that library have led us to explore and evaluate other options, including the [ua-parser][ua-parser] project with its [uap-java][uap-java] library for the JVM. Testing suggests that this library handles some useragent strings (such as mobile app useragents) better than user-agent-utils. We particularly like that the 'database' the [ua-parser][ua-parser] looks user agent strings up against is a YAML file, making it straightforward for users to update the treatment of new useragents as they emerge themselves, rather than waiting on a new release of [user-agent-utils][user-agent-utils].
 
 As part of our move towards pluggable enrichments, from this release Snowplow users can employ user-agent-utils, or ua-parser, or both, or neither. We believe we are the first analytics platform to give users such a high degree of choice in their Enrichment process.
 
@@ -486,7 +486,7 @@ Our recommended approach for upgrading is as follows:
 
 <h2><a name="help">10. Getting help</a></h2>
 
-For more details on this release, please check out the [r63 Red-Cheeked Cordon-Bleu Release Notes][r63-release] on GitHub. 
+For more details on this release, please check out the [r63 Red-Cheeked Cordon-Bleu Release Notes][r63-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
@@ -504,7 +504,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [campaign-attribution-enrichment]: https://github.com/snowplow/snowplow/wiki/Campaign-attribution-enrichment
 [ip-lookups-enrichment]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
 [currency-conversion-enrichment]: https://github.com/snowplow/snowplow/wiki/currency-conversion-enrichment
-[enrichment-jsons]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments 
+[enrichment-jsons]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [aalekh]: https://github.com/AALEKH

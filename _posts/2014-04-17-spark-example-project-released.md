@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Spark Example Project released
 title: Spark Example Project released for running Spark jobs on EMR
+title-short: Spark Example Project
 tags: [snowplow, spark, emr, example, tutorial]
 author: Alex
 category: Releases
@@ -9,7 +9,7 @@ category: Releases
 
 On Saturday I attended [Hack the Tower] [hack-the-tower], the monthly collaborative hackday for the London Java and Scala user groups hosted at the Salesforce offices in Liverpool Street.
 
-It's an opportunity to catch up with others in the Scala community, and to work collaboratively on non-core projects which may have longer-term value for us here at Snowplow. It also means I can code against the backdrop of some of the best views in London (see below)! Many thanks as always to [John Stevenson] [jr0cket] of Salesforce for hosting us. 
+It's an opportunity to catch up with others in the Scala community, and to work collaboratively on non-core projects which may have longer-term value for us here at Snowplow. It also means I can code against the backdrop of some of the best views in London (see below)! Many thanks as always to [John Stevenson] [jr0cket] of Salesforce for hosting us.
 
 ![salesforce-view] [salesforce-view-img]
 

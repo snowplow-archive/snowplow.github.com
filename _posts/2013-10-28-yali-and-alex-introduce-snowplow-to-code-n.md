@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Our video introduction of Snowplow to code_n
 title: Our video introduction of Snowplow to code_n
 tags: [code_n]
 author: Yali

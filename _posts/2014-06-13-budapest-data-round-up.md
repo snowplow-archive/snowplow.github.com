@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Budapest Data round-up
 title: Budapest Data round-up
 tags: [snowplow, budapest, hungary, big data, hadoop, kinesis]
 author: Alex

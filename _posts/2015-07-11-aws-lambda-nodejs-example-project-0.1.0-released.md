@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: AWS Lambda Node.js example project released
 title: AWS Lambda Node.js example project released
+title-short: AWS Lambda Node.js example project
 tags: [snowplow, javascript, kinesis, dynamodb, tutorial, analytics]
 author: Vincent
 category: Releases
@@ -63,7 +63,7 @@ The most complete open-source example of an analytics-on-write implementation is
 <h2><a name="detailed-setup">3. Detailed setup</a></h2>
 </div>
 
-In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available. 
+In this tutorial, we'll walk through the process of getting up and running with Amazon Kinesis and AWS Lambda Service. You will need [git] [git-install], [Vagrant] [vagrant-install] and [VirtualBox] [virtualbox-install] installed locally. This project is specifically configured to run in AWS region "us-east-1" to ensure all AWS services are available.
 
 <h3>Step 1: Build the project</h3>
 
@@ -128,7 +128,7 @@ Done, without errors.
 
 <h3>Step 4: Build Node.js project and configure AWS Lambda</h3>
 
-Grunt can also package our project's code into `dist/aws-lambda-example-project_0-1-0_latest.zip`; this task also attaches the IAM role to AWS Lambda. 
+Grunt can also package our project's code into `dist/aws-lambda-example-project_0-1-0_latest.zip`; this task also attaches the IAM role to AWS Lambda.
 
 Invoke the task with:
 
@@ -164,7 +164,7 @@ Created AWS Lambda Function...
 
 <h3>Step 6: Associate our Kinesis stream to our Lambda</h3>
 
-Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by: 
+Our Lambda function reads incoming event data and logs some of the information to Amazon CloudWatch. AWS Lambda polls the Amazon Kinesis stream and invokes your Lambda function when it detects new data on the stream. We need to "connect" or "associate" our Lambda function to Kinesis by:
 
 {% highlight bash %}
 $ grunt connect
@@ -211,7 +211,7 @@ Remember to shut off:
 * Delete your `my-stream` Kinesis stream
 * Delete your `my-table` DynamoDB table
 * Delete your `ProcessingKinesisLambdaDynamoDB` function in AWS Lambda
-* Delete your `cloudwatch` logs associated to the Lambda function 
+* Delete your `cloudwatch` logs associated to the Lambda function
 * Exit your Vagrant guest
 * `vagrant halt`
 * `vagrant destroy`

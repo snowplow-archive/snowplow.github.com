@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 60 released
 title: Snowplow 60 Bee Hummingbird released
+title-short: Snowplow 60 Bee Hummingbird
 tags: [snowplow, streams, kinesis, s3, thrift]
 author: Fred
 category: Releases

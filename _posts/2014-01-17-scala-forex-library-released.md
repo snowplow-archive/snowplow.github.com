@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Scala Forex library released
 title: Scala Forex library by wintern Jiawen Zhou released
+title-short: Scala Forex library
 tags: scala forex currency exchange rate
 author: Alex
 category: Releases

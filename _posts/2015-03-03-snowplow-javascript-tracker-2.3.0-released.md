@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 2.3.0 released
 title: Snowplow JavaScript Tracker 2.3.0 released
+title-short: Snowplow JavaScript Tracker 2.3.0
 tags: [snowplow, javascript, tracker, browser, analytics]
 author: Fred
 category: Releases

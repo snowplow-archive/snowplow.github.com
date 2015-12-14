@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Introducing SchemaVer for semantic versioning of schemas
 title: Introducing SchemaVer for semantic versioning of schemas
+title-short: Introducing SchemaVer
 tags: [version, versioning, schema, semver, schemaver]
 author: Alex
 category: Research
@@ -49,7 +49,7 @@ Given a version number MAJOR.MINOR.PATCH, increment:<br />
 It is important to understand what backwards compatibility means here. For SemVer, backwards compatibility is about providing guarantees (through version numbers), that a piece of software can update its dependency on a SemVer-respecting dependency without either:
 
 1. its code interfacing with the dependency's public API breaking, _or_:
-2. the semantics of the dependency's existing functionality changing - e.g. `.multiply()` suddenly starts dividing 
+2. the semantics of the dependency's existing functionality changing - e.g. `.multiply()` suddenly starts dividing
 
 Semantic Versioning is a great fit for managing the evolution of software in a way that protects the users of that software. But it's not a great fit for versioning schemas, because schemas are used in a fundamentally different way to software.
 

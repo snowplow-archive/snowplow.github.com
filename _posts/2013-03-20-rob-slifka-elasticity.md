@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Rob Slifka's Elasticity
 title: Inside the Plow - Rob Slifka's Elasticity
 tags: snowplow emr elasticity mapreduce
 author: Alex

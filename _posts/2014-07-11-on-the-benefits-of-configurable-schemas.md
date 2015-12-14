@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: How configurable data models and schemas make digital analytics better
 title: How configurable data models and schemas make digital analytics better
 tags: [snowplow, json, json schema, redshift, iglu, schema, data model, configurable]
 author: Yali
@@ -30,7 +29,7 @@ Having the 'right' data model and schema matters, because it enables:
 
 1. [More efficient data capture](#efficient-data-capture)
 2. [More productive data analysis](#productive-data-analysis)
-3. [Simpler use of data to drive operational systems](#drive-operational-systems) 
+3. [Simpler use of data to drive operational systems](#drive-operational-systems)
 4. [Less leakage from the data pipelines](#plug-leaky-data-pipelines)
 5. [Simpler management of your data warehouse as your business (and therefore data models and schemas) evolve](#warehouse-evolution)
 
@@ -79,7 +78,7 @@ Similarly, our application might interface directly with a CMS that stores all t
 	"author": "sports_writer_456",
 	"published_date": 2014-07-11,
 	"canonical_url": "sports.newspapersite.com/2014/07/11/germany-to-face-argentina-in-world-cup-final.html",
-	...	
+	...
 }
 {% endhighlight %}
 
@@ -154,7 +153,7 @@ Snowplow is different. Because each data point collected is stored with a refere
 
 <h2><a name="snowplow-supports-configurable-schemas">3. Snowplow now supports configurable schemas</a></h2>
 
-With the [release of Snowplow 0.9.5] [snowplow-095] earlier this week, Snowplow now supports customisable schemas. You, as a Snowplow user, can define your own event dictionary, containing the complete set of events that make sense for your business. You can define your own set of contexts, to include all the entities that matter to your business, and all the fields that you already use, in your applciation code, to describe those entities. With Snowplow, you can pass all that data into Snowplow, with a minimum amount of data transformation. Snowplow will automatically use your custom schemas to validate that incoming data , and load the data into tidy tables in Amazon Redshift that you can easily query, with a separate table for each of your event and context types. 
+With the [release of Snowplow 0.9.5] [snowplow-095] earlier this week, Snowplow now supports customisable schemas. You, as a Snowplow user, can define your own event dictionary, containing the complete set of events that make sense for your business. You can define your own set of contexts, to include all the entities that matter to your business, and all the fields that you already use, in your applciation code, to describe those entities. With Snowplow, you can pass all that data into Snowplow, with a minimum amount of data transformation. Snowplow will automatically use your custom schemas to validate that incoming data , and load the data into tidy tables in Amazon Redshift that you can easily query, with a separate table for each of your event and context types.
 
 As I've explained in this post, this approach is fundamentally different to the one adopted by both Adobe Analytics and Google Analytics. We believe this difference is transformative: not just for companies who's data models are obviously a poor fit for the standard schemas provided by Adobe and Google Analytics (e.g. mobile games companies), but also for media companies and retailers who should be reasonably well served by the standard schemas offered up by Google and Adobe. Through working with many of these companies, we've seen that they actually have surprisingly rich and varied data models - by enabling them to leverage those rich data models in their analytics system, Snowplow lets them do more with their data, faster.
 

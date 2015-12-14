@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Using big data tools to mine web analytics data - Qubole webinar featuring Snowplow
-title: Why and how to use big data tools to process web analytics data? Joint Qubole and Snowplow webinar 
+title: Why and how to use big data tools to process web analytics data? Joint Qubole and Snowplow webinar
+title-short: Qubole webinar featuring Snowplow
 tags: [snowplow, qubole, big data, web analytics, data processing, data collection, data access]
 author: Yali
 category: Analytics

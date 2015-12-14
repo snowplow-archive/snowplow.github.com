@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Writing Hive UDFs - a tutorial
 title: Writing Hive UDFs - a tutorial
 tags: [hive, udf, serde, java, hadoop]
 author: Alex
@@ -28,7 +27,7 @@ So, what is Apache Hive, and what would you want a Hive UDF for? Hive is a data 
 Listing 1: An example HiveQL query
 
 {% highlight mysql %}
-SELECT 
+SELECT
 dt,
 COUNT(DISTINCT (user_id))
 FROM events
@@ -55,7 +54,7 @@ Now that we understand why you might write a UDF for Hive, let's crack on and st
 
 We will be writing a relatively simple UDF - one which generates a converts a string in Hive to upper-case. Note that a version of this function is actually built into Hive as the UPPER function - for a full list of built-in UDFs in Hive, please see: https://cwiki.apache.org/Hive/languagemanual-udf.html
 
-As mentioned previously, we will write our UDF in Java - but we will wrap our Java core in a Scala project (with Scala tests), because at Snowplow we much prefer writing Scala to Java. We will use SBT, the Scala build tool, to configure our project - this is an alternative to Maven or similar; SBT handles mixed Java and Scala projects perfectly well. 
+As mentioned previously, we will write our UDF in Java - but we will wrap our Java core in a Scala project (with Scala tests), because at Snowplow we much prefer writing Scala to Java. We will use SBT, the Scala build tool, to configure our project - this is an alternative to Maven or similar; SBT handles mixed Java and Scala projects perfectly well.
 
 First, let's create a directory for our project, and add a file, project.sbt into the project root, which contains:
 
@@ -108,7 +107,7 @@ public class ToUpper extends UDF {
     public Text evaluate(Text s) {
 		Text to_value = new Text("");
 		if (s != null) {
-		    try { 
+		    try {
 				to_value.set(s.toString().toUpperCase());
 		    } catch (Exception e) { // Should never happen
 				to_value = new Text(s);
@@ -178,7 +177,7 @@ Listing 6: Testing in SBT
 > test
 [info] Compiling 1 Scala source to /home/alex/Development/Snowplow/hive-example-udf/target/scala-2.9.2/test-classes...
 [info] ToUpperSpec
-[info] 
+[info]
 [info] ToUpper#evaluate should
 [info] + return an empty string if passed a null value
 [info] + return a capitalised string if passed a mixed-case string
@@ -187,7 +186,7 @@ Listing 6: Testing in SBT
 [info] Total for specification ToUpperSpec
 [info] Finished in 742 ms
 [info] 2 examples, 0 failure, 0 error
-[info] 
+[info]
 [info] Passed: : Total 2, Failed 0, Errors 0, Passed 2, Skipped 0
 [success] Total time: 8 s, completed 28-Jan-2013 17:11:45
 {% endhighlight %}

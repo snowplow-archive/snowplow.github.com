@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Measuring content page performance
 title: Measuring content page performance with Snowplow (Catalog Analytics part 2)
+title-short: Measuring content page performance
 tags: [snowplow, catalog analytics, content, pages pings, engagement depth, measuring engagement]
 author: Yali
 category: Analytics
@@ -35,7 +35,7 @@ Visualizing an individual user journey across a web page:
 
 <a href="/assets/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG"><img src="/assets/img/analytics/catalog-analytics/content-page-performance/tableau-visualization-2.JPG"></a>
 
-We have much more content planned for the [Analytics Cookbook] [cookbook]. As always, we invite suggestions as to the type of analysis you'd like us to cover, and contributions from people who've used Snowplow data to perform useful analytics. 
+We have much more content planned for the [Analytics Cookbook] [cookbook]. As always, we invite suggestions as to the type of analysis you'd like us to cover, and contributions from people who've used Snowplow data to perform useful analytics.
 
 
 [catalog-analytics]: /analytics/catalog-analytics/overview.html

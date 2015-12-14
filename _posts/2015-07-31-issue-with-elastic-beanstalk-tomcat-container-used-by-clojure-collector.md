@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Issue with Elastic Beanstalk Tomcat container for Clojure Collector users - diagnosis and resolution
 title: Issue with Elastic Beanstalk Tomcat container for Clojure Collector users - diagnosis and resolution
 tags: [clojure collector,  tomcat, elastic beanstalk, container]
 author: Yali
@@ -59,7 +58,7 @@ Plotting the results you might see something like this:
 
 ![event-volumes-by-minute][img2]
 
-Again - note the regular drop in event volumes each day between 1 and 2am UTC. 
+Again - note the regular drop in event volumes each day between 1 and 2am UTC.
 
 <h2 id="fixing">Resolving the issue</h2>
 
@@ -77,7 +76,7 @@ Amazon has a great guide to upgrading applications in Elastic Beanstalk with no 
 
 <h2 id="thanks">Thanks to the team at AWS</h2>
 
-Our thanks to the support and engineering teams at AWS for helping us to identify the issue and promptly publishing an updated version of the Tomcat container. 
+Our thanks to the support and engineering teams at AWS for helping us to identify the issue and promptly publishing an updated version of the Tomcat container.
 
 <h2 id="help">Getting help</h2>
 

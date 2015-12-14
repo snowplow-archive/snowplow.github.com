@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Spark Example Project 0.3.0 released
 title: Spark Example Project 0.3.0 released for getting started with Apache Spark on EMR
+title-short: Spark Example Project 0.3.0
 tags: [snowplow, spark, emr, example, tutorial]
 author: Alex
 category: Releases
@@ -12,9 +12,9 @@ We are pleased to announce the release of our [Spark Example Project 0.3.0] [spa
 This release is part of a renewed focus on the [Apache Spark] [spark] stack at Snowplow. In particular, we are exploring Spark's applicability to two Snowplow-specific problem domains:
 
 1. Using Spark and [Spark Streaming] [spark-streaming] to implement [r64 Palila] [r64-release]-style data modeling outside of Redshift SQL
-2. Using Spark Streaming to deliver "analytics-on-write" realtime dashboards as part of our Kinesis pipeline 
+2. Using Spark Streaming to deliver "analytics-on-write" realtime dashboards as part of our Kinesis pipeline
 
-Expect to see further releases, blog posts and tutorials from the Snowplow team on Apache Spark and Spark Streaming soon! 
+Expect to see further releases, blog posts and tutorials from the Snowplow team on Apache Spark and Spark Streaming soon!
 
 In the rest of this blog post we'll talk about:
 

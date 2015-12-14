@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole
 title: Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole
+title-short: Reprocessing bad rows
 tags: [hive, qubole, json, serde, reprocessing, data, taps]
 author: Yali
 category: Analytics  

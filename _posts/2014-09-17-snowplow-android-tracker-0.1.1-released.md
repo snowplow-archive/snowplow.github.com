@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Android Tracker 0.1.1 released
 title: Snowplow Android Tracker 0.1.1 released
+title-short: Snowplow Android Tracker 0.1.1
 tags: [snowplow, analytics, java, android, tracker]
 author: Jonathan
 category: Releases
@@ -52,7 +52,7 @@ dependencies {
 To send the events, you need to update your `AndroidManifest.xml` with the internet access permission:
 
 {% highlight html %}
-<uses-permission android:name="android.permission.INTERNET" /> 
+<uses-permission android:name="android.permission.INTERNET" />
 {% endhighlight %}
 
 <h2><a name="how-to-use">3. How to use the tracker</a></h2>

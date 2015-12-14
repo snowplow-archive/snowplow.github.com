@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Building an event grammar - understanding context
 title: Building an event grammar - understanding context
+title-short: Building an event grammar
 tags: [event, analytics, grammar, model, semantic, context, environment]
 author: Alex
 category: Research

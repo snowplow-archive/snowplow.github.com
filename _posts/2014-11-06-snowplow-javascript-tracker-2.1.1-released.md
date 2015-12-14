@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 2.1.1 released
 title: Snowplow JavaScript Tracker 2.1.1 released with new events
+title-short: Snowplow JavaScript Tracker 2.1.1
 tags: [snowplow, javascript, tracker, event]
 author: Fred
 category: Releases

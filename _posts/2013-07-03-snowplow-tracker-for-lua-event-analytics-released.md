@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Tracker for Lua event analytics released
 title: Snowplow Tracker for Lua event analytics released
+title-short: Snowplow Tracker for Lua
 tags: [snowplow, lua, event, tracker]
 author: Alex
 category: Releases

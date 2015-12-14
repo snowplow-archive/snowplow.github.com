@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Java Tracker 0.7.0 released
 title: Snowplow Java Tracker 0.7.0 released
+title-short: Snowplow Java Tracker 0.7.0
 tags: [snowplow, analytics, java, tracker]
 author: Alex
 category: Releases

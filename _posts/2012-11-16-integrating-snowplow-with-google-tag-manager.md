@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Integrating Snowplow with Google Tag Manager
 title: Integrating Snowplow with Google Tag Manager
 tags: [snowplow, tag management, google tag manager, datalayer]
 author: Yali

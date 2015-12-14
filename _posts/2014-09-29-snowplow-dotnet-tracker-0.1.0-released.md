@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow .NET Tracker 0.1.0 released
 title: Snowplow .NET Tracker 0.1.0 released
+title-short: Snowplow .NET Tracker 0.1.0
 tags: [snowplow, analytics, c#, dotnet, tracker]
 author: Fred
 category: Releases

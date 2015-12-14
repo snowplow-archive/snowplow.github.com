@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Tracking Olark chat events with Snowplow
 title: Tracking Olark chat events with Snowplow
 tags: [snowplow, olark, structured event tracking]
 author: Yali
@@ -79,11 +78,11 @@ Now that our first tag is setup, we need to create an analogous tag, one that fi
 
 ![gtm-create-tag-2][gtm-2]
 
-And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow  whenever they send a message to us, and another line of data every time we send a message back. We'll be able to analyze: 
+And bingo! We create a new version in Google Tag Manager, and publish the changes. Simple! Now, for every visitor to our website, we will record in granular detail a line of data in Snowplow  whenever they send a message to us, and another line of data every time we send a message back. We'll be able to analyze:
 
 * How quickly we respond to messages from visitors
 * When visitors tend respond to messages from us. (When should we reach out, and when we shouldn't.)
-* What impact chats on Olark have, in aggregate on visitor's subsequent behavior on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?) 
+* What impact chats on Olark have, in aggregate on visitor's subsequent behavior on the site. (Are they more likely to engage deeply with the site? Are they more likely to look at our Github repo? Are they more likely to look at the professional services pages? Does any of the above vary by the length of the chat? Or the location of the visitor? Or the amount of time the visitor had spend on our site prior to talking to us via Olark?)
 
 We'll cover how to perform the above analysis in a future blog post.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Iglu schema repository released
 title: Iglu schema repository 0.1.0 released
+title-short: Iglu schema repository 0.1.0
 tags: [snowplow, iglu, schema, json schema, repository, registry]
 author: Alex
 category: Releases
@@ -122,7 +122,7 @@ We called this format a [self-describing JSON] [self-describing-jsons-post]. The
 
 ![iglu-schema-key-img] [iglu-schema-key-img]
 
-We explained the origins of SchemaVer, our schema versioning system, in our blog post [Introducing SchemaVer for semantic versioning of schemas] [schemaver-post]. 
+We explained the origins of SchemaVer, our schema versioning system, in our blog post [Introducing SchemaVer for semantic versioning of schemas] [schemaver-post].
 
 <div class="html">
 <h3><a name="a-repo">2.2 A schema repository</a></h3>

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Help us build out the snowplow Total Cost of Ownership Model
 title: Help us build out the Snowplow Total Cost of Ownership Model
 tags: [total cost of ownership, cloud services]
 author: Yali
@@ -203,7 +202,7 @@ $ ./elastic-mapreduce --describe --jobflow j-Y9QNJI44PA0X
   ]
 }
 ╭─alex@nasqueron  ~/Apps/emr-cli  
-╰─$ 
+╰─$
 {% endhighlight %}
 
 Rather than parse the JSON yourself, we're very happy for community members to simply save the JSON and email it to us, with the other data points. We can then extract the relevant data points from the JSON directly. (We'll use R and the RJSON package, and blog about how we do it.) You can either generate a JSON for a specific job (you will need to enter the job ID:
@@ -245,8 +244,8 @@ select count(*) from events;
 Then to find out how much disk space that occupies in your Redshift cluster execute the following query:
 
 {% highlight sql %}
-select owner as node, diskno, used, capacity 
-from stv_partitions 
+select owner as node, diskno, used, capacity
+from stv_partitions
 order by 1, 2, 3, 4;
 {% endhighlight %}
 
@@ -263,7 +262,7 @@ We realize that you, our users, are busy people who have plenty to do aside from
 1. A Total Cost of Ownership Model will be really useful for all of us!
 2. We'll send you a Snowplow T-shirt, by way of thanks
 
-If you can pop the above data points (in whatever format is most convenient), and email them to me on `yali at snowplowanalytics dot com`, along with your T-shirt size, we will send you through your T-shirts as soon as they are printed. 
+If you can pop the above data points (in whatever format is most convenient), and email them to me on `yali at snowplowanalytics dot com`, along with your T-shirt size, we will send you through your T-shirts as soon as they are printed.
 
 So please help us help you, and keep plowing!
 
@@ -273,12 +272,12 @@ So please help us help you, and keep plowing!
 [spot-instances]: /blog/2013/06/03/snowplow-0.8.6-released-with-performance-improvements/#task-instances
 [your-country-needs-you]: /assets/img/blog/2013/07/your-country-needs-you.jpg
 [cloudfront-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector
-[clojure-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector 
+[clojure-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector
 [browser-caching]: /blog/2013/07/02/reduce-your-cloudfront-bills-with-cache-control/
 [emr-etl-runner-diagram]: /assets/img/blog/2013/07/emr-etl-runner-steps.png
 [storage-loader-diagram]: /assets/img/blog/2013/07/storage-loader-steps.png
 [storage-loader]: https://github.com/snowplow/snowplow/wiki/1-Installing-the-StorageLoader
-[emr-etl-runner]: https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner 
+[emr-etl-runner]: https://github.com/snowplow/snowplow/wiki/setting-up-EmrEtlRunner
 [line-graph]: /assets/img/blog/2013/07/line-graph.png
 [step-function]: /assets/img/blog/2013/07/step-function.png
 [emr-costs]: /assets/img/blog/2013/07/emr-costs.png
@@ -290,6 +289,6 @@ So please help us help you, and keep plowing!
 [bucket-explorer]: http://www.bucketexplorer.com/
 [cloudberry]: http://www.cloudberrylab.com/
 [number-of-collector-logs-and-size]: /assets/img/blog/2013/07/number-of-collector-logs-and-size.JPG
-[redshift-disk-space]: /assets/img/blog/2013/07/redshift-disk-space.JPG 
+[redshift-disk-space]: /assets/img/blog/2013/07/redshift-disk-space.JPG
 [number-of-snowplow-event-files-and-size]: /assets/img/blog/2013/07/number-of-snowplow-event-files-and-size.JPG
 [previous-post]: /blog/2013/07/09/understanding-how-different-parts-of-the-Snowplow-data-pipeline-drive-AWS-costs/

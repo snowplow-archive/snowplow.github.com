@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Measuring how much traffic individual items in your catalog drive to your website
 title: Measuring how much traffic individual items in your catalog drive to your website
 tags: [content marketing, landing page metrics, source, medium]
 author: Yali
@@ -14,7 +13,7 @@ We have just added a [new recipe] [measure-inbound-marketing-recipe] to the [cat
 
 <a href="/assets/img/analytics/catalog-analytics/driving-traffic/2.jpg"><img src="/assets/img/analytics/catalog-analytics/driving-traffic/2-truncated.jpg" /></a>
 
-In digital marketing, we can distinguish classic "outbound marketing", where we *push* visitors to our website using paid ad campaigns, for example, with "[inbound market] [inbound-marketing]", where we *pull* visitors into our site by producing attractive, linkable content. 
+In digital marketing, we can distinguish classic "outbound marketing", where we *push* visitors to our website using paid ad campaigns, for example, with "[inbound market] [inbound-marketing]", where we *pull* visitors into our site by producing attractive, linkable content.
 
 <!--more-->
 
@@ -35,7 +34,7 @@ The recipe is available [here] [measure-inbound-marketing-recipe].
 [measure-inbound-marketing-recipe]: /analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
 [catalog-analytics]: /analytics/catalog-analytics/overview.html
 [cookbook]: /analytics/index.html
-[product-page-performance]: /analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html 
+[product-page-performance]: /analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html
 [content-page-performance]: /analytics/catalog-analytics/measuring-and-comparing-content-page-performance.html
 [tableau]: http://www.tableausoftware.com/
 [inbound-marketing]: http://en.wikipedia.org/wiki/Inbound_marketing

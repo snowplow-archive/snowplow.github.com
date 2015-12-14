@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing self-describing Thrift
 title: Introducing self-describing Thrift
 tags: [thrift, schema, iglu, model]
 author: Fred

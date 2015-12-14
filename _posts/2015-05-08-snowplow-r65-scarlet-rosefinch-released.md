@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 65 released
 title: Snowplow 65 Scarlet Rosefinch released
+title-short: Snowplow 65 Scarlet Rosefinch
 tags: [snowplow, kinesis, real-time]
 author: Fred
 category: Releases
@@ -230,7 +230,7 @@ And that's it - you should now be fully upgraded!
 
 <h2><a name="help">10. Getting help</a></h2>
 
-For more details on this release, please check out the [r65 Scarlet Rosefinch][r65-release] on GitHub. 
+For more details on this release, please check out the [r65 Scarlet Rosefinch][r65-release] on GitHub.
 
 Documentation for all the Kinesis apps is available on the [wiki][wiki].
 

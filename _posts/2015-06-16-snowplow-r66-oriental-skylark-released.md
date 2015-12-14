@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 66 released
 title: Snowplow 66 Oriental Skylark released
+title-short: Snowplow 66 Oriental Skylark
 tags: [snowplow, hadoop2, rhino, scripting, lambda architecture]
 author: Alex
 category: Releases
@@ -26,7 +26,7 @@ Table of contents:
 
 Since the inception of Snowplow three years ago, our Hadoop Enrichment process has been tied to Hadoop 1 and Elastic MapReduce's 2.4.x series AMIs. In the meantime, Elastic MapReduce has been iterating through the [3.x.x series of AMIs] [emr-amis], introducing lots of great features including:
 
-* Hadoop 2.x, along with YARN and new HDFS features e.g. symbolic links 
+* Hadoop 2.x, along with YARN and new HDFS features e.g. symbolic links
 * New features and important bug fixes in [S3DistCp] [s3distcp]
 * The ability to run [Spark on an EMR cluster] [spark-emr-blog]
 
@@ -174,7 +174,7 @@ The configuration JSON for the JavaScript example above would be as follows:
 
 <h2><a name="help">6. Getting help</a></h2>
 
-For more details on this release, please check out the [r66 Oriental Skylark][r66-release] on GitHub. 
+For more details on this release, please check out the [r66 Oriental Skylark][r66-release] on GitHub.
 
 Documentation on the new JavaScript script enrichment is available on the [wiki] [js-enrichment-wiki].
 

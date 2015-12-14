@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Unified Log London 3 with Apache Kafka and Samza at State
 title: "Unified Log London 3 with Apache Kafka and Samza at State"
 tags: [unified log, meetup, kafka, samza, state]
 author: Alex
@@ -41,7 +40,7 @@ We were lucky enough to have Mischa Tuffield and [Dan Harvey] [dan], Data Archit
 Key building blocks of State's Unified Log implementation are:
 
 * [Apache Kafka] [kafka] to act as the distributed commit log
-* A custom "tailer" app to mirror their [MongoDB oplog] [oplog] to Kafka as entity snapshots 
+* A custom "tailer" app to mirror their [MongoDB oplog] [oplog] to Kafka as entity snapshots
 * [Apache Samza] [samza] for stream-stream joins and other use cases
 * The [Confluent Schema Registry] [confluent-sr] (which shares some similarities to our own [Iglu] [iglu]) for storing Avro schemas
 

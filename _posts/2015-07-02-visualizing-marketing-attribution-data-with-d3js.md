@@ -1,13 +1,12 @@
 ---
 layout: post
-shortenedlink: "Analyzing marketing attribution data with a D3.js visualization"
 title: "Analyzing marketing attribution data with a D3.js visualization"
 tags: [data, marketing, attribution, data visualization, data pipeline, javascript, d3]
 author: Justine
 category: Analytics
 ---
 
-[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is a very complex problem: 
+[Marketing attribution](https://en.wikipedia.org/wiki/Attribution_(marketing)), as in understanding what impact different marketing channels have in driving conversion, is a very complex problem:
 
 1. We have no way of directly measuring the impact of an individual channel on a user's propensity to convert
 2. It is not uncommon for users to interact with many channels prior to converting
@@ -31,7 +30,7 @@ We have built a first version of this, which we plan to iterate on:
 
 ## Interpreting the visualization
 
-The visualization represents the different journeys taken by users. A journey is made up of a sequence of marketing touches, where the touches are displayed in the order that they occurred in. For example, a journey may consist of: "Social, Advertising, Partners, Social" where there are 4 touches on 3 touchpoints ("Social", "Advertising" and "Partners"). 
+The visualization represents the different journeys taken by users. A journey is made up of a sequence of marketing touches, where the touches are displayed in the order that they occurred in. For example, a journey may consist of: "Social, Advertising, Partners, Social" where there are 4 touches on 3 touchpoints ("Social", "Advertising" and "Partners").
 
 Each journey is represented then as a series of blocks, and is read left to right, with the first marketing touch in the journey on the left and the last on the right:
 
@@ -192,6 +191,6 @@ In summary:
 
 The presented visualization is just a first iteration. In the next stage of the project, I will work backwards from the visualization to figure out how the data needs to be *computed* and *fetched* from Snowplow to be fed into D3. I'm going to experiment with loading the data from Amazon's [DynamoDB](https://aws.amazon.com/documentation/dynamodb/) and to compute the data served from Dynamo in Spark, which I have already [researched](http://snowplowanalytics.com/blog/2015/05/21/first-experiments-with-apache-spark/).
 
-Once the pipeline is completed I will be able to iterate on it. We plan to test it with real-world data - if you are interested in using this to visualize your data then [get in touch][contact]. We already have a long list of improvements we'd like to make to the visualization, including the ability to filter journeys (so fewer are displayed) and drill through the hierarchy of marketing campaign data (from e.g. medium to source to campaign to term / content). 
+Once the pipeline is completed I will be able to iterate on it. We plan to test it with real-world data - if you are interested in using this to visualize your data then [get in touch][contact]. We already have a long list of improvements we'd like to make to the visualization, including the ability to filter journeys (so fewer are displayed) and drill through the hierarchy of marketing campaign data (from e.g. medium to source to campaign to term / content).
 
 [contact]: /about/

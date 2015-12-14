@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Apache Spark Streaming example project released
 title: Apache Spark Streaming example project released
+title-short: Apache Spark Streaming example project
 tags: [snowplow, scala, spark, spark streaming, kinesis, dynamodb, tutorial, analytics]
 author: Vincent
 category: Releases

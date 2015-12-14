@@ -1,15 +1,14 @@
 ---
 layout: post
-shortenedlink: Graph DB for event analytics
 title: Can graph databases enable whole new classes of event analytics?
 tags: [snowplow, neo4j, graph database, path analysis]
 author: Nick
 category: Analytics
 ---
 
-With Snowplow, we want to empower our users to get the most out of their data. Where your data lives has big implications for the types of query and therefore analyses you can run on it. 
+With Snowplow, we want to empower our users to get the most out of their data. Where your data lives has big implications for the types of query and therefore analyses you can run on it.
 
-Most of the time, we're analysing data with SQL, and specifically, in Amazon Redshift. This is great a whole class of OLAP style analytics - it enables us to slice and dice different combinations of dimensions and metrics, for users, sessions, pages and other entities that we care about. 
+Most of the time, we're analysing data with SQL, and specifically, in Amazon Redshift. This is great a whole class of OLAP style analytics - it enables us to slice and dice different combinations of dimensions and metrics, for users, sessions, pages and other entities that we care about.
 
 However, when we're doing event analytics, we often want to understand the sequence that events have occurred in. We might want to know, for example:
 
@@ -17,7 +16,7 @@ However, when we're doing event analytics, we often want to understand the seque
 * What are the different paths that people take to get to point C?
 * What are the different paths that people take from point D?
 
-This type of *pathing analysis* is not well supported by traditional SQL databases. That's because organising data in a tabular structure means you have to do multiple table scans and execute expensive window functions to first order events by user, and then sequence them. 
+This type of *pathing analysis* is not well supported by traditional SQL databases. That's because organising data in a tabular structure means you have to do multiple table scans and execute expensive window functions to first order events by user, and then sequence them.
 
 Graph databases represent a new approach to storing and querying data. We've started experimenting with using them to try answering some of the questions above. In this blog post, we'll cover the basics of graph databases, and start to explore some of the experimentation we've done with [Neo4J] [neo4j] in particular. We'll follow this blog post with more detailed examples.
 

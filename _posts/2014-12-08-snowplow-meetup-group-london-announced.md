@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Snowplow Meetup in London and Sydney
 title: Snowplow meetups announced in London and Sydney
 tags: [snowplow, meetup]
 author: Yali

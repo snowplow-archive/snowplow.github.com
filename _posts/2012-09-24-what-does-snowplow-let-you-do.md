@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Why set your data free?
 title: Why set your data free?
 tags: [data, analysis, web analytics, joining data]
 author: Yali

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Uploading Snowplow events to Google BigQuery
 title: Uploading Snowplow events to Google BigQuery
 tags: [event, analytics, bigquery]
 author: Andrew
@@ -41,7 +40,7 @@ We now need a local folder of Snowplow enriched events - these should be in your
 If you use the AWS CLI tools, then the following shell commands should retrieve all of your enriched events for January (update the bucket path and profile accordingly):
 
 {% highlight bash %}
-$ aws --profile="xxx" s3 cp "s3://xxx-archive/enriched/good/" . --recursive \ 
+$ aws --profile="xxx" s3 cp "s3://xxx-archive/enriched/good/" . --recursive \
     --exclude "*" --include "run=2015-01-*"
 $ find . -type f -execdir bash -c 'd="${PWD##*/}"; [[ "$1" != "$d-"* ]] && mv "$1" "../$d-$1"' - '{}' \;
 $ find . -type d -exec rm -d {} \;
@@ -62,7 +61,7 @@ $ unzip bigquery_loader_cli_0.1.0.zip
 
 We now need some Google credentials to access the BigQuery project. Head back to the [Google developers console] [google-developers-console] and:
 
-1. Click on the **Consent screen* link in the **APIs and auth** section of the Developer Console, add an **Email address** and hit **Save** 
+1. Click on the **Consent screen* link in the **APIs and auth** section of the Developer Console, add an **Email address** and hit **Save**
 2. Click on the **Credentials** link in the **APIs and auth** section
 3. Click on the **create new Client ID** button, selecting **Installed application** as the application type and **other** as the installed application type
 4. Click **CreateClient Id** and then **Download JSON** to save the file

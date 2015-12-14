@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: A round up of our trip to the Budapest BI Conference
 title: A round up of our trip to the Budapest BI Conference last week, and a thank you to the many people who made the trip so worthwhile
+title-short: A round up of our trip to the Budapest BI Conference
 tags: [snowplow, analysis, pivot, bi]
 author: Yali
 category: Meetups

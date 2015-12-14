@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Towards universal event analytics - building an event grammar
 title: Towards universal event analytics - building an event grammar
+title-short: Building an event grammar
 tags: [event, analytics, grammar, model]
 author: Alex
 category: Research

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: 5 reasons why analyzing Snowplow data in Looker is a pleasure
 title: Five things that make analyzing Snowplow data in Looker an absolute pleasure
 tags: [snowplow, analysis, looker]
 author: Yali
@@ -71,7 +70,7 @@ We can then create a metric that counts the number of events that occur on servi
       occurred_on_services_page: yes
 {% endhighlight %}
 
-Both the above dimension and metric will now be available to include in any report produced in the Explorer. For example, we can now compare the number of events that occurred on services page by marketing campaign, landing page or over time. 
+Both the above dimension and metric will now be available to include in any report produced in the Explorer. For example, we can now compare the number of events that occurred on services page by marketing campaign, landing page or over time.
 
 <a href="/assets/img/blog/2014/01/looker/events-on-services-page-by-day.JPG"><img src="/assets/img/blog/2014/01/looker/events-on-services-page-by-day.JPG" title="Plotting the number of events on services pages by day" /></a>
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Using OpenTag with Snowplow
-title: Implementing Snowplow with QuBit's OpenTag 
+title: Implementing Snowplow with QuBit's OpenTag
+title-short: Using OpenTag with Snowplow
 tags: [javascript, tracker, tag management, datalayer]
 author: Yali
 category: Documentation
@@ -9,7 +9,7 @@ category: Documentation
 
 This is a short blog post to highlight a new section on the [Snowplow setup guide] [setup-guide] covering [how to integrate Snowplow with QuBit's OpenTag tag management system] [setup-snowplow-with-opentag].
 
-In November last year, we started playing with tag management systems: testing Snowplow with Google Tag Manager, and documented how to setup Snowplow with GTM on the [Snowplow setup guide] [setup-snowplow-with-gtm]. We were impressed on a number of fronts, but thought that the much more thought need to be put into what data was passed into the tag management system than people typically admit. (We documented our thoughts, at the time, on [this blog post] [gtm-post].) 
+In November last year, we started playing with tag management systems: testing Snowplow with Google Tag Manager, and documented how to setup Snowplow with GTM on the [Snowplow setup guide] [setup-snowplow-with-gtm]. We were impressed on a number of fronts, but thought that the much more thought need to be put into what data was passed into the tag management system than people typically admit. (We documented our thoughts, at the time, on [this blog post] [gtm-post].)
 
 Since then, we've recommended that **all** new Snowplow users setup a tag management system, prior to integrating Snowplow on their website, if they have not already done so. The benefits of doing so are well documented elsewhere. For Snowplow users, there are two big benefits in particular, that we will flag:
 

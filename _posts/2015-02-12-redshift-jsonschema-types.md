@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: JSON schemas for Redshift datatypes
 title: JSON schemas for Redshift datatypes
 tags: [redshift, jsonschema, json]
 author: Fred
@@ -9,7 +8,7 @@ category: Analytics
 
 This blog contains [JSON schemas][jsonschema] for the all the data types supported by [Amazon Redshift][redshift].
 
-We supply two schemas for each numeric type, since you may want to send in numeric types as JSON strings rather than JSON numbers. 
+We supply two schemas for each numeric type, since you may want to send in numeric types as JSON strings rather than JSON numbers.
 
 1. [SMALLINT](/blog/2015/02/12/redshift-jsonschema-types#smallint)
 2. [INTEGER](/blog/2015/02/12/redshift-jsonschema-types#integer)

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Fred Blundun is a Snowplower
 title: Fred Blundun is a Snowplower!
 tags: [fred blundun, data engineer, hiring]
 author: Alex

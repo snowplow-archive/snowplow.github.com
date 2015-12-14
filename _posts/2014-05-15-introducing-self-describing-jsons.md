@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing self-describing JSONs
 title: Introducing self-describing JSONs
 tags: [json, json schema, self-describing, self-correlating, schemaver]
 author: Alex

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Java Tracker 0.4.0 released
 title: Snowplow Java Tracker 0.4.0 released
+title-short: Snowplow Java Tracker 0.4.0
 tags: [snowplow, analytics, java, jvm, tracker]
 author: Jonathan
 category: Releases
@@ -34,18 +34,18 @@ It's important to first mention the structural changes that have come with this 
 - `PayloadMap` interface is replaced with `Payload`
 - `PayloadMapC` class is replaced with `TrackerPayload`
 - There are four new enums:
-  - `DevicePlatform` - to specify the build 
+  - `DevicePlatform` - to specify the build
   - `emitter.BufferOption` - to specify buffer queue should behave
   - `emitter.HttpMethod` - to choose between sending GET or POST requests
   - `emitter.RequestMethod` - to choose how events should be sent
 
 <h2><a name="emitter">2. The Emitter class</a></h2>
 
-`Emitter` lets you create multiple instances of it so you can send events to many collectors if you want. The `Emitter` class supports sending event data via GET or POST requests although note that Snowplow will only be supporting POST data in a future release. This can be set using the `HttpMethod` enum. 
+`Emitter` lets you create multiple instances of it so you can send events to many collectors if you want. The `Emitter` class supports sending event data via GET or POST requests although note that Snowplow will only be supporting POST data in a future release. This can be set using the `HttpMethod` enum.
 
 Events by default are buffered until they reach 10 events and are then sent in a batch. We now support sending events either in a batch or instantly upon being tracked. `BufferOption` is used to let you switch between the two options.
 
-You can also now choose whether events should be sent asynchronously, using the `RequestMethod` enum. 
+You can also now choose whether events should be sent asynchronously, using the `RequestMethod` enum.
 
 *The `Emitter` by default, sends events synchronously, using GET requests and with a buffer size of 10 events.*
 
@@ -62,7 +62,7 @@ import com.snowplowanalytics.snowplow.tracker.emitter.RequestMethod;
 public static void main(String[] args) {
   // Create a simple emitter which sends events to d3rkrsqld9gmqf.cloudfront.net
   Emitter emitter1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
-    
+
   // You can create an Emitter with the HTTP method of choice
   // Here, we are changing emitter2 to send events as POST requests
   Emitter emitter2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST);
@@ -107,7 +107,7 @@ import com.snowplowanalytics.snowplow.tracker.DevicePlatform;
 public static void main(String[] args) {
   // Create a simple emitter which sends events to d3rkrsqld9gmqf.cloudfront.net
   Emitter emitter = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
-    
+
   // Create a Subject
   Subject subject1 = new Subject();
 
@@ -205,7 +205,7 @@ Similar to the `Tracker` constructor, we wanted to make it optional for you to s
 Each Tracker now has multiple method signatures letting you send a context and/or timestamp depending on your own needs. Here are the method signatures:
 
 {% highlight java %}
-// Default created timestamp with no context 
+// Default created timestamp with no context
 public void trackPageView(String pageUrl, String pageTitle, String referrer)
 
 // Default created timestamp with no context

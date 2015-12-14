@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: The first Graduate Data Science Initiative event in London
 title: The first Graduate Data Science Initiative event in London
+title-short: Graduate Data Science Initiative in London
 tags: [events, graduate, data science]
 author: Yali
 category: Meetups
@@ -17,7 +17,7 @@ I gave the first talk on how data scientists and big data technolgies, including
 
 
 
-Eddie Bells gave a very interesting talk about the data infrastructure at [Lyst] [lyst], particularly around scraping and structuring (including classifying) data. 
+Eddie Bells gave a very interesting talk about the data infrastructure at [Lyst] [lyst], particularly around scraping and structuring (including classifying) data.
 
 Martin Goodson followed up with a fascinating talk highlighting the enormous amount of money wasted in online retail because of a lack of sound statistical approach to techniques like A/B and multivariant testing. I hope to post links to both Martin's and Eddie's slides in due course.
 
@@ -25,5 +25,3 @@ Many thanks to Fatos and Amir for organising the event. We hope it continues to 
 
 [gdsi]: http://www.meetup.com/Graduate-Data-Science-Initiative/
 [lyst]: http://www.lyst.com/
-
-

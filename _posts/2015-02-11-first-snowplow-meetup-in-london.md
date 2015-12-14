@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Inaugural Snowplow meetup in London
 title: Inaugural Snowplow meetup London - a recap
 tags: [event, analytics, bigquery]
 author: Yali
@@ -32,17 +31,17 @@ Rob's talk was very timely - we've been doing a lot of thinking about data model
 
 ![stewart simply business talk](/assets/img/blog/2015/02/stewart_simply_business_presenting_at_snowplow_meetup_1.jpg)
 
-Stewart Duncan, Director of Data Science at [Simply Business](http://tech.simplybusiness.co.uk/), talked us through the journey that Simply Business had gone through in terms of their data architecture, before diving into an explanation of how they use modelled their Snowplow attribution data using Bayesian networks to perform marketing attribution. This has been very significant for Simply Business, because it enabled them to measure the nurturing impact that a number of channels that operate between first and last touch have in terms of driving conversion. You can view Stewart's slides below, and read his recap of the event on the [Simply Business tech blog](http://tech.simplybusiness.co.uk/). 
+Stewart Duncan, Director of Data Science at [Simply Business](http://tech.simplybusiness.co.uk/), talked us through the journey that Simply Business had gone through in terms of their data architecture, before diving into an explanation of how they use modelled their Snowplow attribution data using Bayesian networks to perform marketing attribution. This has been very significant for Simply Business, because it enabled them to measure the nurturing impact that a number of channels that operate between first and last touch have in terms of driving conversion. You can view Stewart's slides below, and read his recap of the event on the [Simply Business tech blog](http://tech.simplybusiness.co.uk/).
 
 <iframe src="//www.slideshare.net/slideshow/embed_code/44431324" width="700" height="585" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/lotius/snowplow-meetup-multichannel-attribution-analysis" title="Simply Business and Snowplow - Multichannel Attribution Analysis" target="_blank">Simply Business and Snowplow - Multichannel Attribution Analysis</a> </strong> from <strong><a href="//www.slideshare.net/lotius" target="_blank">Stewart Duncan</a></strong> </div>
 
 <h2><a name="future">Feedback and future events</a></h2>
 
-We're very keen on holding more Snowplow meetups in future, in London and in the rest of the world. I think it's a great opportunity for our users to share knowledge and best practice - we're very fortunate to have lots of smart companies use our technology in myriad ways, and holding these events provides a way to share that knowledge around that community. 
+We're very keen on holding more Snowplow meetups in future, in London and in the rest of the world. I think it's a great opportunity for our users to share knowledge and best practice - we're very fortunate to have lots of smart companies use our technology in myriad ways, and holding these events provides a way to share that knowledge around that community.
 
 I'm also interested in any feedback - both from people who attended the event and those who didn't:
 
-1. What are you interested to hear about? The data architecture side? The analytics side? 
+1. What are you interested to hear about? The data architecture side? The analytics side?
 2. Are these events a good forum for talking to the Snowplow team in person? Should we be using them to talk about e.g. our development roadmap?
 3. Where should we hold an event? Do you think we should come to your city? (If so, can you help us identify a suitable venue?)
 4. How often should we hold the meetup?

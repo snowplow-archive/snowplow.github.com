@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing our Snowplow winterns
 title: Introducing our Snowplow winterns
 tags: [snowplow, intern, wintern, internship]
 author: Alex

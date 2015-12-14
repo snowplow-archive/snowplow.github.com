@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow iOS Tracker 0.2.0 released
 title: Snowplow iOS Tracker 0.2.0 released
+title-short: Snowplow iOS Tracker 0.2.0
 tags: [snowplow, analytics, ios, tracker, ifa]
 author: Alex
 category: Releases

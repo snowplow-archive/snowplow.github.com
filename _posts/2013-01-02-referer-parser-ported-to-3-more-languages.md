@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: referer-parser ported to 3 more languages
 title: referer-parser now with Java, Scala and Python support
 tags: [referer parsing, parser, attribution marketing, java, scala, python]
 author: Alex

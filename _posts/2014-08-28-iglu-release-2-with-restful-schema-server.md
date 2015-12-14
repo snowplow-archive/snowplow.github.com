@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Iglu release 2 with RESTful schema server 
 title: Iglu release 2 with a new RESTful schema server
 tags: [iglu, scala, server, api, restful]
 author: Ben

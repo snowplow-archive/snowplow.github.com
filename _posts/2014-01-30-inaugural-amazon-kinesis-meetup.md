@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Inaugural Amazon Kinesis London meetup
 title: Inaugural meetup of the Amazon Kinesis - London User Group
+title-short: Inaugural Amazon Kinesis London meetup
 tags: [amazon, kinesis, london, meetup]
 author: Alex
 category: Meetups
@@ -26,7 +26,7 @@ It was particularly encouraging to see so many great questions asked by the part
 
 The slides I presented are below:
 
-<iframe src="http://www.slideshare.net/slideshow/embed_code/30634807" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" > </iframe> 
+<iframe src="http://www.slideshare.net/slideshow/embed_code/30634807" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" > </iframe>
 
 <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/alexanderdean/kinesis-meetup-1" title="Snowplow presentation to London Kinesis UG" target="_blank">Snowplow presentation to London Kinesis UG</a> </strong> from <strong><a href="http://www.slideshare.net/alexanderdean" target="_blank">alexanderdean</a></strong> </div>
 

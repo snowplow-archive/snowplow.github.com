@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow
 title: Introducing Looker - a fresh approach to Business Intelligence that works beautifully with Snowplow
+title-short: Introducing Looker
 tags: [events, business intelligence, looker, lookml]
 author: Yali
 category: Analytics
@@ -19,7 +19,7 @@ In the last few weeks, we have been experimenting with using [Looker] [looker] a
 <a name="limitations"><h2>The limitations that arise when you use traditional Business Intelligence (BI) tools to analyse Snowplow data</h2></a>
 </div>
 
-Our vision for Snowplow is to enable companies to capture and store granular, event-level data from their websites and applications, so that they can perform any type of analysis on that data, including joining that event data with other data sets. 
+Our vision for Snowplow is to enable companies to capture and store granular, event-level data from their websites and applications, so that they can perform any type of analysis on that data, including joining that event data with other data sets.
 
 The majority of companies using Snowplow access their data from Amazon Redshift. Redshift is great: it makes it possible to run performant queries against massive data sets - and Snowplow data sets are often very large. It also makes it possible to plug-in one or more business intelligence tools to query and visualize the data, via its Postgres API. Perhaps not surprisingly, one of the quesitons we get asked most is what BI and reporting solutions to use to mine Snowplow data and deliver dashboards powered by that data. We have worked with a number clients to implement BI tools on top of Snowplow data, more often than not [Tableau] [tableau].
 
@@ -40,7 +40,7 @@ There are two problems with using the above approach with Snowplow data in Amazo
 <a name="volume"><h3>1.1 There is too much data in Redshift to load into the BI tool's own analytics engine</h3></a>
 </div>
 
-BI tools like Tableau have very fast in-memory analytics engines. This is important because when you are slicing and dicing different combinations of dimensions and metrics, you do not want to have to wait tens of minutes for the table or graph to update. Unfortunately, this approach does not work well with Snowplow data in Redshift, because the volume of underlying event-level data is too great to load in-memory. 
+BI tools like Tableau have very fast in-memory analytics engines. This is important because when you are slicing and dicing different combinations of dimensions and metrics, you do not want to have to wait tens of minutes for the table or graph to update. Unfortunately, this approach does not work well with Snowplow data in Redshift, because the volume of underlying event-level data is too great to load in-memory.
 
 The primary workaround with Snowplow data is to reduce the volume of data loaded into the BI tool, by:
 
@@ -102,9 +102,9 @@ If you have your data in an database like Amazon Redshift that is optmized for r
 <a name="meta-data-layer"><h3>2. Looker has a light-weight meta-data model, that makes it easy to derive dimensions and metrics from the underlying Snowplow data</h3></a>
 </div>
 
-Looker boasts a very expressive metadata model. You can create a model that understands different entities - for example: visitors, sessions and events. Events can be derived directly from the 'atomic.events' table. In contrast, sessions and visitors are derived from aggregations on that data. The model is rich enough that you can express links between different entities: visitor A has visited the website on three separate occasions: Looker will let you drill into each of those three sessions and view the underlying event stream for each of them.  (You can have as many entities as you like in your model: we typically include geographic data, referers, devices, browsers and event types in the models we've built using Looker.) 
+Looker boasts a very expressive metadata model. You can create a model that understands different entities - for example: visitors, sessions and events. Events can be derived directly from the 'atomic.events' table. In contrast, sessions and visitors are derived from aggregations on that data. The model is rich enough that you can express links between different entities: visitor A has visited the website on three separate occasions: Looker will let you drill into each of those three sessions and view the underlying event stream for each of them.  (You can have as many entities as you like in your model: we typically include geographic data, referers, devices, browsers and event types in the models we've built using Looker.)
 
-The [Looker] [looker] data model is not only expressive, but it's very lightweight: it consists simply of YAML definitions of dimensions, metrics and views on the data. That makes it easy to quickly put together rich models. It also makes it easy to extend the model to incorporate data from other sources: making it straightforward to use [Looker] [looker] to query Snowplow data joined with other data sets, including transactional data, customer data (e.g. from CRM systems) and ad server / marketing data, for example. 
+The [Looker] [looker] data model is not only expressive, but it's very lightweight: it consists simply of YAML definitions of dimensions, metrics and views on the data. That makes it easy to quickly put together rich models. It also makes it easy to extend the model to incorporate data from other sources: making it straightforward to use [Looker] [looker] to query Snowplow data joined with other data sets, including transactional data, customer data (e.g. from CRM systems) and ad server / marketing data, for example.
 The combination of computing on the data directly in Redshift and enabling users to define rich metadata models means [Looker] [looker] is an especially powerful analytics tool for exploring and dashboarding Snowplow data in Amazon Redshift. In the coming weeks, we plan to publish some of the models we've built for Snowplow data in [Looker] [looker] to make it easy for Snowplow users who want to experiment with [Looker] [looker] get off to a flying start. This is the first in a series of blog posts on analysing Snowplow data with [Looker] [looker]: in future posts we will drill into the [Looker] [looker] meta-data model in particular in more detail. Get in touch with either us or the Looker team, if you'd like to trial [Looker] [looker] on top of your Snowplow data.
 
 

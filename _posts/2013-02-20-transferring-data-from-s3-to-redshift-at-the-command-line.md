@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Bulk loading data from Amazon S3 into Redshift at the command line
 title: Bulk loading data from Amazon S3 into Redshift at the command line
 tags: [Redshift, ETL]
 author: Yali
@@ -17,9 +16,9 @@ In the course of building out Snowplow support for Redshift, we need to bulk loa
 Amazon enables users to bulk load data from S3 into Redshift by executing queries with the following form:
 
 {% highlight postgresql %}
-copy events 
-from 's3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD' 
-credentials 'aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY' 
+copy events
+from 's3://$MY-BUCKET/PATH/TO/FILES/FOR/UPLOAD'
+credentials 'aws_access_key_id=$ACCESS-KEY;aws_secret_access_key=$SECRET-ACCESS-KEY'
 delimiter '\t';
 {% endhighlight %}
 

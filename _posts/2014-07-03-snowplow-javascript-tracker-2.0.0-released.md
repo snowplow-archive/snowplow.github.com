@@ -1,13 +1,13 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 2.0.0 released
 title: Snowplow JavaScript Tracker 2.0.0 released
+title-short: Snowplow JavaScript Tracker 2.0.0
 tags: [snowplow, javascript, tracker, browser, analytics]
 author: Fred
 category: Releases
 ---
 
-We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [release-200]. This release makes some significant changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities. 
+We are happy to announce the release of the [Snowplow JavaScript Tracker version 2.0.0] [release-200]. This release makes some significant changes to the public API as well as introducing a number of new features, including tracker namespacing and new link click tracking and ad tracking capabilities.
 
 This blog post will cover the following changes:
 
@@ -238,7 +238,7 @@ window.snowplow_name_here('trackUnstructEvent', {
 
 The `data` field contains the actual properties of the event and the `schema` field of the JSON points to the JSON schema against which the contents of the `data` field should be validated. The `data` field should be flat, rather than nested. The user who sent in the above event would need to have defined a schema for a `viewed_product` event. The schema would probably describe which fields the JSON can contain, which of those fields are required and which are optional, and the type of data found in each field.
 
-Custom contexts work similarly. Since an event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array: 
+Custom contexts work similarly. Since an event can have multiple contexts attached, the `contexts` argument of each `trackXXX` method must be a array:
 
 {% highlight javascript %}
 window.snowplow_name_here('trackPageView', null , [{

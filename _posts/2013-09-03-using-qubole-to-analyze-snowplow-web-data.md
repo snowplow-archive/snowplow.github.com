@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Using Qubole to crunch your Snowplow web data using Apache Hive
 title: Using Qubole to crunch your Snowplow web data using Apache Hive
 tags: [qubole, hive, emr]
 author: Yali

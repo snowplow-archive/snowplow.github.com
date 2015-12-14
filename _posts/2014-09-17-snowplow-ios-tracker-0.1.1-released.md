@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow iOS Tracker 0.1.1 released
 title: Snowplow iOS Tracker 0.1.1 released
+title-short: Snowplow iOS Tracker 0.1.1
 tags: [snowplow, analytics, ios, tracker]
 author: Jonathan
 category: Releases
@@ -53,16 +53,16 @@ You can create a `SnowplowRequest` instance easily:
 
 {% highlight objective-c %}
 NSURL *url = [NSURL URLWithString:"collector.acme.net"];
-SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:url 
+SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:url
                                                               httpMethod:@"POST"];
 {% endhighlight %}
 
 And a `SnowplowTracker` in a similar fashion:
 
 {% highlight objective-c %}
-SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:collector 
-                                                                appId:@"AF003" 
-                                                        base64Encoded:false 
+SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:collector
+                                                                appId:@"AF003"
+                                                        base64Encoded:false
                                                             namespace:@"cloudfront"];
 {% endhighlight %}
 
@@ -75,14 +75,14 @@ You can easily add some additional information to each event, such as a user ID:
 We can then fire some events like so:
 
 {% highlight objective-c %}
-[tracker trackPageView:@"www.example.com" 
-                 title:@"example page" 
+[tracker trackPageView:@"www.example.com"
+                 title:@"example page"
               referrer:@"www.referrer.com"];
 
-[tracker trackStructuredEvent:"shop" 
-                       action:"add-to-basket" 
-                     property:"pcs" 
-                        value:2 
+[tracker trackStructuredEvent:"shop"
+                       action:"add-to-basket"
+                     property:"pcs"
+                        value:2
                     timestamp:1369330909];
 {% endhighlight %}
 

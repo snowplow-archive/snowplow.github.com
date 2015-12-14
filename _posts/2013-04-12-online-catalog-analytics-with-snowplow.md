@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Online catalog analytics
 title: Measuring product page performance with Snowplow (Catalog Analytics part 1)
+title-short: Measuring product page performance with Snowplow
 tags: [snowplow, ecommerce, retail, catalog, catalogue, analytics]
 author: Yali
 category: Analytics
@@ -45,7 +45,7 @@ Today, we published a [set of recipes to enable businesses to compare the perfor
 You can check out the recipes [here] [recipes].
 
 <div class="html">
-<a name="tomorrow"><h3>Which catalog analytics recipes will be published next?</h3></a> 
+<a name="tomorrow"><h3>Which catalog analytics recipes will be published next?</h3></a>
 </div>
 
 These recipes are just the start in what we hope will develop into a long series of recipes for catalog analytics. Some of the other recipes that we plan to add include:

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 61 released
 title: Snowplow 61 Pygmy Parrot released
+title-short: Snowplow 61 Pygmy Parrot
 tags: [snowplow, beanstalk, clojure collector, cloudfront]
 author: Alex
 category: Releases
@@ -129,7 +129,7 @@ When you are confident that the new collector is performing as expected, you can
 
 <h2><a name="help">6. Getting help</a></h2>
 
-For more details on this release, please check out the [r61 Pygmy Parrot Release Notes] [r61-release] on GitHub. 
+For more details on this release, please check out the [r61 Pygmy Parrot Release Notes] [r61-release] on GitHub.
 
 If you have any questions or run any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 

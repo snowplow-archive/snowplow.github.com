@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: JavaScript Tracker 0.14.0 released
 title: Snowplow JavaScript Tracker 0.14.0 released with new features
+title-short: Snowplow JavaScript Tracker 0.14.0
 tags: [snowplow, javascript, tracker]
 author: Fred
 category: Releases
@@ -10,7 +10,7 @@ category: Releases
 
 *Alex writes: this is the first blog post - and code release - by Snowplow "springtern" Fred Blundun. Stay tuned for another blog post soon introducing Fred!*
 
-We are pleased to announce the release of the [Snowplow JavaScript Tracker version 0.14.0] [0140-release]. 
+We are pleased to announce the release of the [Snowplow JavaScript Tracker version 0.14.0] [0140-release].
 
 In this release we have introduced some new tracking options and compressed our tracker for better load times. We have also updated our build process to use [Grunt] [grunt].
 
@@ -97,7 +97,7 @@ function respectDoNotTrack(enable);
 Use this function like so:
 
 {% highlight javascript %}
-_snaq.push(['respectDoNotTrack', true]); 
+_snaq.push(['respectDoNotTrack', true]);
 {% endhighlight %}
 
 If the browser's Do Not Track feature is enabled, the above code will prevent the Snowplow JavaScript Tracker from either setting first-party cookies or sending events to a collector.

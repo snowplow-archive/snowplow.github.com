@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Schema Guru 0.2.0 released
 title: Schema Guru 0.2.0 released with brand-new web UI and support for self-describing JSON Schema
+title-short: Schema Guru 0.2.0
 tags: [json, json schema, schema, iglu, self-describing]
 author: Anton
 category: Releases

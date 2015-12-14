@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: The inaugural Snowplow meetup in Berlin is a wrap!
 title: The inaugural Snowplow Meetup Berlin is a wrap!
 tags: [snowplow, meetup, berlin, goeuro, sparwelt, attribution, tv attribution, data modeling]
 author: Yali

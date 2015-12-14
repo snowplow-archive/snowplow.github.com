@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Loading JSON data into Redshift
 title: Loading JSON data into Redshift - the challenges of quering JSON data, and how Snowplow can be used to meet those challenges
+title-short: Loading JSON data into Redshift
 tags: [json, redshift, unstructured, data pipeline, hive, serde]
 author: Yali
 category: Inside the Plow
@@ -73,13 +73,13 @@ In the above example, we've used nesting to group related fields (fields related
 
 ### 2. Flexible
 
-JSONs are flexible. If one day, an application developer decides she wants to add a new field to the "play_video" JSON, there's nothing stopping her! 
+JSONs are flexible. If one day, an application developer decides she wants to add a new field to the "play_video" JSON, there's nothing stopping her!
 
 Typically, application developers can create new JSONs to represent new event types over time, and update the structure of JSONs for existing event types over time (adding or dropping fields), as they see fit. If the analytics system is simply logging the JSONs, there's no need to update any downstream analytics infrastructure in light of changes to the JSON schema.
 
 ### 3. Well-supported
 
-Lots of analytics applications store event data as JSONs, including [Kissmetrics] [kissmetrics], [Mixpanel] [mixpanel], [KeenIO] [keenio] and [Swrve] [swrve]. At Snowplow, we're in the process of building out support for [unstructured events] [unstruct-events], where events are represented as JSONs. 
+Lots of analytics applications store event data as JSONs, including [Kissmetrics] [kissmetrics], [Mixpanel] [mixpanel], [KeenIO] [keenio] and [Swrve] [swrve]. At Snowplow, we're in the process of building out support for [unstructured events] [unstruct-events], where events are represented as JSONs.
 
 ### 4. *Seemingly* easy to analyze using Hive and JSON Serde
 
@@ -95,12 +95,12 @@ Unfortunately, querying the JSON data is not as easy as it first appears:
   * Which fields are compulsory, and which are optional?  
   * Remember that application developers have been free to keep modifying and updating event schemas over time, with no requirement to document or sense-check any of these updates. The analyst suffers, as a consequence, as she has to work out how that schema has evolved, in order to interrogate the data.
 2. When exploding nested data into separate tables, it is can be hard to identify on what key that data should be joined to the parent table. A nice feature of JSONs is their ability to nest data, but unless we can explode that nested data out, querying it is not going to be easy.
-3. It can be hard (if not impossible) for analysts and application developers to spot "errors" in the JSON at the point the event data is generated and captured.  It is very easy for mistakes to creep in: JSONs are very fragile (a missing comma or inverted comma will break a JSON.) There's also no way to check the type of individual field. 
+3. It can be hard (if not impossible) for analysts and application developers to spot "errors" in the JSON at the point the event data is generated and captured.  It is very easy for mistakes to creep in: JSONs are very fragile (a missing comma or inverted comma will break a JSON.) There's also no way to check the type of individual field.
 
 When Amazon Redshift was launched earlier this year, many companies wanted to load their event data into Redshift, to enable faster querying than was possible in Apache Hive, and also so that they could use BI and analytics tools to create dashboards, visaulize and mine the data. Unfortunately, loading JSON data into Redshift is even harder:
 
 1. Redshift tables have traditional schemas where each field has a fixed type. To make loading data into Redshift reliable, you really want to enforce the strong types on variables all the way through the data pipeline, from data collection. However, JSONs do not support strong typing or schemas.
-2. Any input line that does not conform to the Redshift schema fails to load. Many companies are then stuck between two unappealing approaches: junk data that doesn't fit the schema (which may be a significant subset of the data), or only load a very small subset of the fields that have been reliably collected across the different event types. (Thereby relaxing the requirements on input data to successfully load, but again, effectively loosing a lot of the richness in the raw JSON data set.) 
+2. Any input line that does not conform to the Redshift schema fails to load. Many companies are then stuck between two unappealing approaches: junk data that doesn't fit the schema (which may be a significant subset of the data), or only load a very small subset of the fields that have been reliably collected across the different event types. (Thereby relaxing the requirements on input data to successfully load, but again, effectively loosing a lot of the richness in the raw JSON data set.)
 
 <h2><a name="solution">Using the Snowplow tech stack to load JSON data into Redshift</a></h2>
 
@@ -111,7 +111,7 @@ The Snowplow stack can be forked so that Snowplow transforms JSON data and loads
 3. We work with the client to map the contents of their event JSONs to the dictionary. (So we have a mapping of the input JSONs to the event dictionary.)
 4. We then modify the Snowplow stack to unpick the JSONs (as per the JSON -> dictionary mapping) and write the data back to S3 in a format suitable for loading directly into Redshift (as per the dictionary -> Redshift table definitions mapping)
 
-As mentioned above, the key to making this work is to use Snowplow's rich validation capabilities. We use these to: 
+As mentioned above, the key to making this work is to use Snowplow's rich validation capabilities. We use these to:
 
 1. Check that the input data conforms to the schemas specified
 2. Output any data that does not conform to the schema to a "bad buckeet". This means that the "good data" will successfully load into Redshift, while we don't lose any "bad data". We can now easily spot errors as they arise (by ensuring that the ETL process is run every few hours) and deal with them immediately. It also means that the "bad" data can be inspected, updated, reprocessed, and then loaded into Redshift, which is much preferable to simpy dropping it.

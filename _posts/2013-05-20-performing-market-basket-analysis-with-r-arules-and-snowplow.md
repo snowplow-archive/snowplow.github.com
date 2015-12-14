@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Performing market basket analysis on web analytics data with R
 title: Performing market basket analysis on web analytics data with R
 tags: [market basket analysis, affinity analysis, R, product recommendation]
 author: Yali
@@ -19,11 +18,11 @@ Although people usually think of market basket analysis with respect to retailer
 
 This is the first recipe that primarily uses [R] [r]. We're big fans of R at Snowplow, and a big motivation in building Snowplow was to enable the use of sophisticated data analysis tools like R on granular event-level data. We have a number of other recipes for R we hope to publish in the near future. This is the third recipe added to the [catalog analytics] [catalog] section of the [Cookbook] [cookbook].
 
-As always, if there are specific types of analysis you'd like us to cover, then [get in touch] [contact], either directly or by dropping us a comment below. 
+As always, if there are specific types of analysis you'd like us to cover, then [get in touch] [contact], either directly or by dropping us a comment below.
 
 
 [market-basket-analysis]: /analytics/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html
-[cookbook]:/analytics/index.html 
+[cookbook]:/analytics/index.html
 [r]: http://www.r-project.org/
 [arules]: http://cran.r-project.org/web/packages/arules/index.html
 [catalog]: /analytics/catalog-analytics/overview.html

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Getting started using R for data analysis
 title: Getting started using R for data analysis
 tags: [snowplow, R, data analysis, science]
 author: Yali

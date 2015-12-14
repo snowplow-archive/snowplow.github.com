@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Python Tracker 0.5.0 released
 title: Snowplow Python Tracker 0.5.0 released
+title-short: Snowplow Python Tracker 0.5.0
 tags: [snowplow, analytics, python, django, tracker]
 author: Fred
 category: Releases

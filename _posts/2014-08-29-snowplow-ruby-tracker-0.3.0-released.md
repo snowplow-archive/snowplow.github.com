@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Ruby Tracker 0.3.0 released
 title: Snowplow Ruby Tracker 0.3.0 released
+title-short: Snowplow Ruby Tracker 0.3.0
 tags: [snowplow, analytics, ruby, rails, tracker]
 author: Fred
 category: Releases
@@ -87,10 +87,10 @@ my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
   :method => 'post',
   :port => 80,
   :buffer_size => 0,
-  :on_success => lambda { |success_count| 
+  :on_success => lambda { |success_count|
     puts '#{success_count} events sent successfully'
   },
-  :on_failure => lambda { |success_count, failures| 
+  :on_failure => lambda { |success_count, failures|
     puts '#{success_count} events sent successfully, #{failures.size} events sent unsuccessfully'
   }
 })

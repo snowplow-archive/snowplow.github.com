@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Reduce your Cloudfront costs with cache caching
 title: Reduce your Cloudfront costs with cache control
 tags: [amazon, cloudfront, cdn, cache control]
 author: Yali
@@ -40,7 +39,7 @@ That's a tidy saving of reduction in Cloudfront cost of 98.5%, from $44k to only
 
 <h2><a name="update">How to update your files in S3 to get them to cache in y our users' browsers</a></h2>
 
-In order to get browsers to cache `sp.js`, we need to set the `Cache control max-age` property on the `sp.js` object. This instructs browsers to keep a local copy of `sp.js` cached, and defines the time period over which it should be cached. 
+In order to get browsers to cache `sp.js`, we need to set the `Cache control max-age` property on the `sp.js` object. This instructs browsers to keep a local copy of `sp.js` cached, and defines the time period over which it should be cached.
 
 To set this property, we go into the AWS S3 console, identify `sp.js`, right click on it and select **Properties**. Click on the **Metadata** drop down and then click **Add more metadata**:
 
@@ -52,7 +51,7 @@ Save the changes. Note: if you are editing a file in S3 that is already in Cloud
 
 ### A note distinguishing between caching in Cloudfront edge locations, and the user browser
 
-The above property sets the length of time that `sp.js` should be cached in the Cloudfront Edge location **and** the user browser. 
+The above property sets the length of time that `sp.js` should be cached in the Cloudfront Edge location **and** the user browser.
 
 For our purposes, that is fine. However, it is the fact that the object is cached in the user's browser (rather than the Cloudfront edge location) that results in the desired cost saving.
 

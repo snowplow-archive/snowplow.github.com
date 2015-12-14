@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Joshua Beemster is a Snowplower
 title: Joshua Beemster is a Snowplower!
 tags: [josh beemster, joshua beemster, data engineer, hiring]
 author: Alex
@@ -16,7 +15,7 @@ Josh joined us as a Data Engineer last fall. He is our first remote hire - he is
 Since starting at Snowplow, Josh has worked on quite a variety of key releases, including:
 
 * The [Snowplow PHP Tracker] [snowplow-php-tracker] versions 0.1.0 and 0.2.0
-* The webhook integrations (including MailChimp, PagerDuty and CallRail) released in Snowplow [v0.9.11] [0.9.11] and [v0.9.14] [0.9.14] 
+* The webhook integrations (including MailChimp, PagerDuty and CallRail) released in Snowplow [v0.9.11] [0.9.11] and [v0.9.14] [0.9.14]
 * This week's RxJava-based reboot of the [Snowplow Android Tracker] [android-tracker-0.3.0]
 
 Josh has also been busy behind the scenes working on automation and monitoring tools for our [Snowplow Managed Service] [managed-service] customers.

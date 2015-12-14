@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Arduino Tracker released
 title: Snowplow Arduino Tracker released - sensor and event analytics for the internet of things
+title-short: Snowplow Arduino Tracker
 tags: [snowplow, arduino, tracker, internet of things, release]
 author: Alex
 category: Releases
@@ -17,7 +17,7 @@ As far as we know, this is the first time an event analytics platform has releas
 
 1. Deploying a set of Snowplow-connected Arduinos to monitor the environment (temperature, humidity, light levels etc) in your home
 2. Tracking the movement of products around your shop/warehouse/factory using Arduino, [RFID readers] [arduino-rfid] and Snowplow
-3. Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino's [3G and GPS] [3g-gps] shields 
+3. Sending vehicle fleet information (locations, speeds, fuel levels etc) back to Snowplow using Arduino's [3G and GPS] [3g-gps] shields
 
 In fact Alex has gone ahead and written a sample Arduino sketch to track temperatures and log the readings to Snowplow - you can find his project on GitHub at [alexanderdean/arduino-temp-tracker] [arduino-temp-tracker].
 

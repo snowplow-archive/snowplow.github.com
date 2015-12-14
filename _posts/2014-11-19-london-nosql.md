@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: London NoSQL
 title: London NoSQL talk on Snowplow
 tags: [snowplow, nosql, london]
 author: Alex

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Dealing with Hadoop's small files problem
 title: Dealing with Hadoop's small files problem
 tags: [hadoop, small-file, hdfs, s3distcopy]
 author: Alex
@@ -113,7 +112,7 @@ Now, all we needed to do was add the call to S3DistCp into our jobflow before ou
 hadoop_input = "hdfs:///local/snowplow-logs"
 
 # Create the Hadoop MR step for the file crushing
-filecrush_step = Elasticity::CustomJarStep.new("/home/hadoop/lib/emr-s3distcp-1.0.jar") 
+filecrush_step = Elasticity::CustomJarStep.new("/home/hadoop/lib/emr-s3distcp-1.0.jar")
 
 filecrush_step.arguments = [
   "--src"               , config[:s3][:buckets][:processing],

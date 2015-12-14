@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: .NET support added to referer-parser
 title: .NET (C#) support added to referer-parser
 tags: [snowplow, referer-parser, .net, dotnet, csharp, c#]
 author: Alex
@@ -11,7 +10,7 @@ We are pleased to announce the addition of [.NET support (C#)] [dotnet-port] to 
 
 To recap: referer-parser is a simple library for extracting seach marketing attribution data from referer _(sic)_ URLs. You supply referer-parser with a referer URL; it then tells you the medium, source and term (in the case of a search) for this referrer. The Scala implementation of referer-parser is a key part of the Snowplow enrichment process.
 
-As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to [Python] [python-port] and now to [Dot Net] [dotnet-port]. 
+As part of our commitment to modular, sustainable technical architectures, we made a decision some time ago to release the Referrer Parser as a standalone library, and have been very pleased to see community ports of the library first to [Python] [python-port] and now to [Dot Net] [dotnet-port].
 
 Here is a taster for using the library from C Sharp:
 

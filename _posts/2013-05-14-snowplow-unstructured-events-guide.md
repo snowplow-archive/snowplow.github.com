@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Snowplow unstructured events guide
 title: A guide to unstructured events in Snowplow 0.8.3
 tags: [snowplow, unstructured, events, javascript, tracker]
 author: Alex
@@ -128,7 +127,7 @@ To track a Floating point number, use a JavaScript Number; adding a type suffix 
 
 {% highlight javascript %}
 {
-    price$flt: 4.99, 
+    price$flt: 4.99,
     sales_tax: 49.99 // Same as $sales_tax:$flt
 }
 {% endhighlight %}
@@ -161,10 +160,10 @@ You can track a date by adding either a JavaScript Number _or_ JavaScript Date t
 {
     birthday$dt: new Date(1980,11,10), // Sent to Snowplow as birthday$dt: 3996
     birthday2$dt: 3996, // ^ Same as above
-    
+
     registered$tm: new Date(2013,05,13,14,20,10), // Sent to Snowplow as registered$tm: 1371129610
     registered2$tm: 1371129610, // Same as above
-    
+
     last_action$tms: 1368454114215, // Accurate to milliseconds
     last_action2: new Date() // Sent to Snowplow as last_action2$tms: 1368454114215
 }

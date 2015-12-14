@@ -1,15 +1,15 @@
 ---
 layout: post
-shortenedlink: Loading Snowplow data into Neo4J
 title: Loading Snowplow event-level data into Neo4J
+title-short: Loading Snowplow event-level data into Neo4J
 tags: [snowplow, neo4j, graph database, path analysis, neo4J shell tools, cypher, sql]
 author: Nick
 category: Analytics
 ---
 
-In the [last post](/blog/2014/07/28/explorations-in-analyzing-web-event-data-in-graph-databases/), we discussed how particular types of analysis, particularly path analysis, are not well-supported in traditional SQL databases, and raised the possibility that graph databases like Neo4J might be good platforms for doing this sort of analysis. We went on to design a graph to represent event data, and page view data specifically, which captures the sequence of events. 
+In the [last post](/blog/2014/07/28/explorations-in-analyzing-web-event-data-in-graph-databases/), we discussed how particular types of analysis, particularly path analysis, are not well-supported in traditional SQL databases, and raised the possibility that graph databases like Neo4J might be good platforms for doing this sort of analysis. We went on to design a graph to represent event data, and page view data specifically, which captures the sequence of events.
 
-In this post, we're going to walk through the process of taking Snowplow data in Redshift, transforming it into a suitable format for loading into our graph and then loading it into Neo4J. Hopefully it should be straightforward for any Snowplow user to follow the process outlined in this post and load their data into Neo4J. In the next post, we'll start doing some analysis on that data. 
+In this post, we're going to walk through the process of taking Snowplow data in Redshift, transforming it into a suitable format for loading into our graph and then loading it into Neo4J. Hopefully it should be straightforward for any Snowplow user to follow the process outlined in this post and load their data into Neo4J. In the next post, we'll start doing some analysis on that data.
 
 We'll start by figuring out how to transform and fetch the data out of our Snowplow Redshift database, and then we'll look at how to efficiently import it into Neo4J.
 
@@ -180,7 +180,7 @@ shows us some User-View-Page relationships:
 And we can check that our *prev* edges are doing what we expect with:
 
 <pre>
-MATCH p=(:Page)--(:View)-[:PREV*1..5]->(:View)--(:Page) 
+MATCH p=(:Page)--(:View)-[:PREV*1..5]->(:View)--(:Page)
 RETURN p
 LIMIT 10
 </pre>

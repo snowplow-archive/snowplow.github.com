@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 62 released
 title: Snowplow 62 Tropical Parula released
+title-short: Snowplow 62 Tropical Parula
 tags: [snowplow, beanstalk, clojure collector, emretlrunner]
 author: Alex
 category: Releases
@@ -100,7 +100,7 @@ For a complete example, see our [sample `config.yml` template] [emretlrunner-con
 
 <h2><a name="help">5. Getting help</a></h2>
 
-For more details on this release, please check out the [r62 Tropical Parula Release Notes] [r62-release] on GitHub. 
+For more details on this release, please check out the [r62 Tropical Parula Release Notes] [r62-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 

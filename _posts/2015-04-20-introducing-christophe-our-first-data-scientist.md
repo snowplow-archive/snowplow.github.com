@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing Christophe
 title: Christophe Bogaert is a Snowplower!
 tags: [snowplow, analytics, data science]
 author: Yali

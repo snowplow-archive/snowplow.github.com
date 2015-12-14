@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Using ChartIO to visualise Snowplow data
 title: Using ChartIO to visualise and interrogate Snowplow data
+title-short: Using ChartIO to visualise Snowplow data
 tags: [chartio, analytics, data visualization, query]
 category: Analytics
 author: yali
@@ -37,9 +37,9 @@ You can get started with ChartIO by signing up to a free 30 day trial. Connectin
 
 ### Before we get started: how will we measure engagement?
 
-As we discuss in detail in the [analytics cookbook] [measuring-engagement], there are many possible ways to measure engagement, and Snowplow supports all of them. We need to pick one or two to use in this tutorial, although it would be possible to perform the analyses described with any measure that suits your business. 
+As we discuss in detail in the [analytics cookbook] [measuring-engagement], there are many possible ways to measure engagement, and Snowplow supports all of them. We need to pick one or two to use in this tutorial, although it would be possible to perform the analyses described with any measure that suits your business.
 
-For this tutorial we're going to use data from [Psychic Bazaar] [pbz], an online retailer of esoteric products. For an online retailer, whether a visitors makes a purchase is generally more interesting than whether they 'engage' in vaguer terms. So we will use conversion rate as our first measure of engagement. However, to keep our tutorial interesting to people who want to perform the analysis on non-retail sites, we will also look at number of page views over a period of time as a measure of engagement. 
+For this tutorial we're going to use data from [Psychic Bazaar] [pbz], an online retailer of esoteric products. For an online retailer, whether a visitors makes a purchase is generally more interesting than whether they 'engage' in vaguer terms. So we will use conversion rate as our first measure of engagement. However, to keep our tutorial interesting to people who want to perform the analysis on non-retail sites, we will also look at number of page views over a period of time as a measure of engagement.
 
 ### Establishing the baseline: measuring engagement over time
 
@@ -122,7 +122,7 @@ FROM (
 	AND visitors.user_id = buyers.user_id
 	ORDER BY visitors.`month`, visitors.user_id
 ) e
-GROUP BY `month` 
+GROUP BY `month`
 {% endhighlight %}
 
 Pop the above query in the ChartIO query box:
@@ -182,7 +182,7 @@ CASE
 	WHEN page_views >  5 THEN '6-10'
 	WHEN page_views >  1 THEN '2-5'
 	ELSE '1'
-END AS bucket, 
+END AS bucket,
 count(distinct(user_id)) AS uniques
 FROM (
 	SELECT
@@ -213,7 +213,7 @@ FROM (
 		WHEN page_views >  5 THEN '06-10'
 		WHEN page_views >  1 THEN '02-05'
 		ELSE '01'
-	END AS bucket, 
+	END AS bucket,
 	count(distinct(user_id)) AS uniques
 	FROM (
 		SELECT
@@ -417,7 +417,7 @@ There is a wealth of other factors that we can explore using Snowplow data, to s
 | Improvement to the site structure (e.g. homepage) | Investigate how engagement levels vary by visit by landing page, and see if those changes by landing page on dates when those web pages were updated |
 | Improvements to the checkout flow | Compare the conversion funnel between November and December - see if there's a specific point in the funnel where conversion rates change, and see if that change can be attributed to a development change |
 | A change in the makeup of the users e.g. so that in December, a bigger portion of the userbase are repeat visitors | Explore whether there is a change in makeup (e.g. more repeat visitors as a proportion of uniques) and see if there's a corresponding difference in conversion rates by different types of users (e.g. new vs returning). Note: this is the same approach as described above for  user acquired from *paid search*. |
-| Christmas  | Hard to prove definitively - but if no other factor can be identified, and the engagement level drops back in January, then the December bump might be season. | 
+| Christmas  | Hard to prove definitively - but if no other factor can be identified, and the engagement level drops back in January, then the December bump might be season. |
 
 Snowplow makes it possible to drill into all of the above, and other factors we can think of, to see which is responsible for driving changing engagement levels.
 

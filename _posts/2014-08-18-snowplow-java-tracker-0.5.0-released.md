@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Java Tracker 0.5.0 released
 title: Snowplow Java Tracker 0.5.0 released
+title-short: Snowplow Java Tracker 0.5.0
 tags: [snowplow, analytics, java, jvm, tracker]
 author: Jonathan
 category: Releases
@@ -33,7 +33,7 @@ snowplow-java-tracker/
 |_ build.gradle
 |_ ...
 |_ java-tracker-core/
-   |_ build.gradle 
+   |_ build.gradle
    |_ ...
 {% endhighlight %}
 

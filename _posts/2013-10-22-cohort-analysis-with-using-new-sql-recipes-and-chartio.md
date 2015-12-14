@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Using the new SQL views to perform cohort analysis with ChartIO
 title: Using the new SQL views to perform cohort analysis with ChartIO
+title-short: Cohort analysis with ChartIO
 tags: [cohort analysis, chartio]
 author: Yali
 category: Analytics
@@ -18,10 +18,10 @@ In this post, we'll cover how to perform a cohort analysis using [ChartIO] [char
 
 We have described cohort analysis at length in the [Analyst Cookbook] [cohort-analysis]. To sum up, a cohort analysis is a longitudal study, that compares the behaviour or characteristics of groups of people over a long period of time. It therefore encompasses a broad range of analyses, because you can vary:
 
-1. how you group people into cohorts (cohort definition), and 
+1. how you group people into cohorts (cohort definition), and
 2. the characteristic that you're comparing between cohort over time.
 
-In digital media people generally use the phrase 'cohort analysis' to refer to measurements of retention rates for different cohorts, where cohorts are defined by *when* a user was acquired. In that way, SaaS companies, for example, can compare how  well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.) 
+In digital media people generally use the phrase 'cohort analysis' to refer to measurements of retention rates for different cohorts, where cohorts are defined by *when* a user was acquired. In that way, SaaS companies, for example, can compare how  well they retained customers acquired in October vs those acquired in September vs those acquired in August, and measure in a robust way whether they are getting better at retaining users over time. (This is key to SaaS business model being viable.)
 
 <!--more-->
 
@@ -53,7 +53,7 @@ Before we dive into ChartIO and create our plot, let's first have a look at the 
 (You can click on the picture above to [zoom in] (/assets/img/blog/2013/10/cohort-analysis/1.JPG) on it.) Let's take a good look at the actual structure of the data: this will make it much clearer how to successfully plot the data in ChartIO:
 
 * Each line of data gives the number of uniques, for that a particular cohort, that were active each month. (This number is given in the `uniques` column.)
-* Each line also gives a second metric: the `fraction_retained`. This is the number of uniques that were active that month, divided by the total number of uniques in that cohort. 
+* Each line also gives a second metric: the `fraction_retained`. This is the number of uniques that were active that month, divided by the total number of uniques in that cohort.
 * We have three dimensions for each line of data: the first, called `cohort`, is the month that the user first touched the website.
 * The second dimension is `month_actual` - this is the month that the measure was taken. So we see in our example, that we have 9 records for the February 2013 cohort, one for February, one for March, one for April etc. until October. For those 9 records, the first dimension is always equal to February 2013 - i.e. the month that these users first came to our website. But the `month_actual` field increments.
 * As well as giving the actual month that each measure was taken, we also get a `month_rank` which equals 1 for the first measurement for the cohort, 2 for the second etc. This will make it easy to compare the retention rates after e.g. 3 months between cohorts that signed up in January and February, for example: note that we'd want to compare the March numbers for our January cohort with our April numbers for our February cohort. Rather than work out the number of months between the cohort definition and the actual month, we can simply compare figures where `month_rank` = 3 for our comparison.

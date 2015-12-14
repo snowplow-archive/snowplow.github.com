@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Python Tracker 0.3.0 released
 title: Snowplow Python Tracker 0.3.0 released
+title-short: Snowplow Python Tracker 0.3.0
 tags: [snowplow, analytics, python, django, tracker]
 author: Fred
 category: Releases
@@ -99,10 +99,10 @@ In short, custom contexts let you add additional information about the circumsta
 def track_page_view(self, page_url, page_title=None, referrer=None, context=None, tstamp=None):
 {% endhighlight %}
 
-The context argument is a Python dictionary. Each of its keys is the name of a context, and each of its values is the flat (not nested) dictionary for that context. So if a visitor arrives on a page advertising a movie, the context argument might look like this: 
+The context argument is a Python dictionary. Each of its keys is the name of a context, and each of its values is the flat (not nested) dictionary for that context. So if a visitor arrives on a page advertising a movie, the context argument might look like this:
 
 {% highlight python %}
-{ 
+{
     "movie_poster": {          # Context entry
         "movie_name": "Solaris",
         "poster_country": "JP",
@@ -114,7 +114,7 @@ The context argument is a Python dictionary. Each of its keys is the name of a c
 This is how to fire a page view event with the above custom context:
 
 {% highlight python %}
-t.track_page_view("http://www.films.com", "Homepage", context={ 
+t.track_page_view("http://www.films.com", "Homepage", context={
     "movie_poster": {
         "movie_name": "Solaris",
         "poster_country": "JP",

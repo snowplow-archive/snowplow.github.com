@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing our 2015 Snowplow summer interns
 title: Introducing our 2015 Snowplow summer interns
 tags: [snowplow, intern, summer, internship]
 author: Alex
@@ -37,7 +36,7 @@ Anton is working on his next Schema Guru release, which will auto-generate Snowp
 
 In particular, Justine has prototyped the above pipeline for marketing attribution pathways. You can see and interact with Justine's visualization in her excellent blog post [analyzing marketing attribution data with d3.js] [justine-blog-post].
 
-Justine has a wealth of data science and engineering experience prior to joining the Snowplow team. She completed a data analysis internship at [SoundCloud][soundcloud] earlier this year and completed her BSC in Biotechnology at Imperial College London, last year. Her final year project was "Computational 3D image analysis: software development towards understanding the molecular basis of torque generation by the bacterial flagellar motor". 
+Justine has a wealth of data science and engineering experience prior to joining the Snowplow team. She completed a data analysis internship at [SoundCloud][soundcloud] earlier this year and completed her BSC in Biotechnology at Imperial College London, last year. Her final year project was "Computational 3D image analysis: software development towards understanding the molecular basis of torque generation by the bacterial flagellar motor".
 
 ## Vincent Ohprecio: analytics on write with Spark Streaming and AWS Lambda
 

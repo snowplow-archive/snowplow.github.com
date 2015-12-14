@@ -1,7 +1,6 @@
 ---
 layout: post
-shortenedlink: Snowplow passes 500 stars
-title: Snowplow passes 500 stars on GitHub 
+title: Snowplow passes 500 stars on GitHub
 tags: [snowplow, github, scala, trending]
 author: Alex
 category: Inside the plow

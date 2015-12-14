@@ -1,13 +1,12 @@
 ---
 layout: post
-shortenedlink: Snowplow at Data Insights Cambridge
 title: Snowplow at the Data Insights meetup in Cambridge
 tags: [snowplow, schemas, data modeling, event data, talks]
 author: Yali
 category: Meetups
 ---
 
-I was very fortunate to be invited to speak at the [Data Insights Cambridge] [meetup] last week, where I gave a talk describing our evolving thinking about event data at Snowplow. 
+I was very fortunate to be invited to speak at the [Data Insights Cambridge] [meetup] last week, where I gave a talk describing our evolving thinking about event data at Snowplow.
 
 The slides I presented are below.
 

@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Getting started with Amazon Kinesis
 title: Amazon Kinesis tutorial - a getting started guide
 tags: [amazon, kinesis, tutorial]
 author: Yali
@@ -22,7 +21,7 @@ The source code for both is available on the [Snowplow repo] [snowplow-repo].
 
 In general Kinesis apps should run on EC2. However, for this simple example, the apps can be run locally. They require Java 1.7 and SBT 0.13.0 to run. If you use Vagrant, you can run them in the [dev-environment] [dev-environment] VM, by setting it up as follows:
 
-First, clone the [dev-environment] [dev-environment] repo (make sure to include the `--recursive` flag): 
+First, clone the [dev-environment] [dev-environment] repo (make sure to include the `--recursive` flag):
 
 {% highlight bash %}
 $ git clone --recursive https://github.com/snowplow/dev-environment.git
@@ -79,7 +78,7 @@ You're now ready to run the app! Enter the following at the command line - this 
 $ sbt "run --config ./my.conf"
 {% endhighlight %}
 
-Once the app has started, it will create a new stream (if one does not already exist) with the name specified in the config file (this is `kinesis_exmaple` as standard). You should be able to view the stream in the AWS management console: 
+Once the app has started, it will create a new stream (if one does not already exist) with the name specified in the config file (this is `kinesis_exmaple` as standard). You should be able to view the stream in the AWS management console:
 
 ![pic-of-aws-console-with-metrics-rising][pic1]
 

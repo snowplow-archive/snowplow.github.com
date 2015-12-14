@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: How much does Snowplow cost to run 
-title: How much does Snowplow cost to run, vs the competition?
+title: How much does Snowplow cost to run?
+title-short: How much does Snowplow cost to run
 tags: [snowplow, total cost of ownership]
 author: Yali
 category: Inside the Plow  
@@ -14,7 +14,7 @@ We are very pleased to announce the release of the [Snowplow Total Cost of Owner
 
 Modelling the costs associated with running Snowplow has not been straightforward: in the next few weeks, we'll publish a series of blog posts exploring those challenges and how we tackled them. We'll also review why we chose to build the model in [R][r] (rather than Excel), and explore some surprising aspects of what drives Snowplow costs on AWS, building on our [last blog post][intro-post] on the subject.
 
-In the meantime, [download our TCO Model] [snowplow-tco] and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services. 
+In the meantime, [download our TCO Model] [snowplow-tco] and try it out yourself: it will let you model the cost of your particular Snowplow setup, and see how costs divide between the different AWS services.
 
 In the rest of this blog post, we'll focus on perhaps the most interesting output of the model: **How expensive is it to run Snowplow vs our commercial competitors?** Let's start by comparing it with web analytics stalwarts Google Analytics and SiteCatalyst:
 

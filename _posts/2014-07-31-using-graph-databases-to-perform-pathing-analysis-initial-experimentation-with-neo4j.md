@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Performing path analysis with Neo4J
 title: Using graph databases to perform pathing analysis - initial experiments with Neo4J
+title-short: Initial experiments with Neo4J
 tags: [snowplow, neo4j, graph database, path analysis, cypher]
 author: Nick
 category: Analytics
@@ -28,7 +28,7 @@ Remember that the structure we're using has each page view as a unique event nod
 
 <h2 id="how-many-visits-were-there-to-our-homepage">1. How many views were there of our home page?</h2>
 
-We start by finding all of the View nodes that lead to the homepage. 
+We start by finding all of the View nodes that lead to the homepage.
 
 In the query below, I've used double dashes as shorthand for an edge so that I don't need to specify the relationship type. I can do that here because we know that all of the edges that go between views and pages are *object* edges.
 
@@ -47,7 +47,7 @@ This returns a table that simply tells us the number of views of the home page:
 +--------------------------------------------------------+
 </pre>
 
-Now we can look for 'bounces' - visitors who only went to the homepage and then left the site. For this, we start by matching the same patterns, but then limit them with a <tt>WHERE</tt> clause. I haven't specified a direction for the *prev* edge, because I want to find journeys that have no pages either before or after the home page. 
+Now we can look for 'bounces' - visitors who only went to the homepage and then left the site. For this, we start by matching the same patterns, but then limit them with a <tt>WHERE</tt> clause. I haven't specified a direction for the *prev* edge, because I want to find journeys that have no pages either before or after the home page.
 
 <pre>
 MATCH (home:Page { id: 'snowplowanalytics.com/' }),
@@ -76,7 +76,7 @@ Again, we start by specifying a pattern that ends in the 'About' page, and then 
 
 <pre>
 MATCH (about:Page {id:"snowplowanalytics.com/about/index.html"}),
-(about)<-[:OBJECT]-(c_view)-[:PREV]->(prev1)-[:OBJECT]->(p:Page) 
+(about)<-[:OBJECT]-(c_view)-[:PREV]->(prev1)-[:OBJECT]->(p:Page)
 RETURN p.id, count(p)
 ORDER BY count(p) DESC
 LIMIT 10;
@@ -111,7 +111,7 @@ We could easily amend our query to find the page users were on two steps before 
 
 <pre>
 MATCH (about:Page {id:"snowplowanalytics.com/about/index.html"}),
-(about)<-[:OBJECT]-(c_view)-[:PREV]->(prev1)-[:PREV]->(prev2)-[:OBJECT]->(p:Page) 
+(about)<-[:OBJECT]-(c_view)-[:PREV]->(prev1)-[:PREV]->(prev2)-[:OBJECT]->(p:Page)
 RETURN p.id, count(p)
 ORDER BY count(p) DESC
 LIMIT 10;
@@ -121,7 +121,7 @@ As a shortcut, we can instruct Neo4J to follow two *prev* edges by writing <tt>[
 
 <pre>
 MATCH (about:Page {id:"snowplowanalytics.com/about/index.html"}),
-(about)<-[:OBJECT]-(c_view)-[:PREV*2]->(prev2)-[:OBJECT]->(p:Page) 
+(about)<-[:OBJECT]-(c_view)-[:PREV*2]->(prev2)-[:OBJECT]->(p:Page)
 RETURN p.id, count(p)
 ORDER BY count(p) DESC
 LIMIT 10;
@@ -151,7 +151,7 @@ You'll notice that lots of the journeys started on same page they finished on. T
 
 <pre>
 MATCH (about:Page {id:"snowplowanalytics.com/about/index.html"}),
-path = (about)<-[:OBJECT]-(c_view)-[:PREV*2]->(prev2)-[:OBJECT]->(p:Page) 
+path = (about)<-[:OBJECT]-(c_view)-[:PREV*2]->(prev2)-[:OBJECT]->(p:Page)
 WHERE NONE(
 	v IN NODES(path)[2..LENGTH(path)-1]
 	WHERE v.page = about.id
@@ -185,7 +185,7 @@ The <tt>[:PREV*2]</tt> means we can easily amend the query to find the page user
 
 <pre>
 MATCH (about:Page {id:"snowplowanalytics.com/about/index.html"}),
-path=(about)<-[:OBJECT]-(c_view)-[:PREV*5]->(prev2)-[:OBJECT]->(p:Page) 
+path=(about)<-[:OBJECT]-(c_view)-[:PREV*5]->(prev2)-[:OBJECT]->(p:Page)
 WHERE NONE(
 	v IN NODES(path)[2..LENGTH(path)-1]
 	WHERE v.page = about.id
@@ -195,7 +195,7 @@ ORDER BY count(p) DESC
 LIMIT 10;
 </pre>
 
-This is the kind of search that would be difficult in SQL because it would involve a full table scan for every step back we want to take from our destination page. Neo4J handles this type of query very comfortably, because executing it is simply of identifying journeys that end on the page and then walking the graphs *just* for those journeys. 
+This is the kind of search that would be difficult in SQL because it would involve a full table scan for every step back we want to take from our destination page. Neo4J handles this type of query very comfortably, because executing it is simply of identifying journeys that end on the page and then walking the graphs *just* for those journeys.
 
 The results of the above query are shown below - I've removed the 'snowplowanalytics.com' part of the URL to save space.
 
@@ -311,7 +311,7 @@ This takes only 443 ms to give these results (which are backwards - the first pa
 
 <h2 id="how-long-does-it-take-users-to-get-from-one-page-to-another">5. How long does it take users to get from one page to another?</h2>
 
-In order to understand how users are using a website, we may want to measure how long it took them to get from a specified page to another specified page, measured in terms of the number of intermediate pages. We can do that in Neo4J by first matching the pages we're interested in as well as the pattern joining them. 
+In order to understand how users are using a website, we may want to measure how long it took them to get from a specified page to another specified page, measured in terms of the number of intermediate pages. We can do that in Neo4J by first matching the pages we're interested in as well as the pattern joining them.
 
 Afterwards, we'll want to exclude journeys that have either the start or end page as intermediate steps. There are two good reasons for doing this. Consider a user who arrives at the home page, reads some of the pages in the 'Services' section of the site, and then returns to the home page and goes directly to the blog. According to our matching rules, this user would be counted twice: once from his first visit to the home page, and again for his second visit. It also seems reasonable to rule out the longer journey: after all, maybe they weren't looking for the blog when they first arrived at the home page.
 
@@ -357,7 +357,7 @@ Again we can visualize some of these journeys in the browser console. Neo4J lets
 
 <h2 id="common-paths">6. Identifying frequent user journeys</h2>
 
-So far, we've been specifying pages to start or end at. But we can equally ask Neo4J to find us common journeys of a given length from anywhere and to anywhere on the website. This time, we want to check that we don't repeat any pages. For now, we'll only look for journeys of three pages, so we can simply check that the start and end pages aren't repeated in the path. 
+So far, we've been specifying pages to start or end at. But we can equally ask Neo4J to find us common journeys of a given length from anywhere and to anywhere on the website. This time, we want to check that we don't repeat any pages. For now, we'll only look for journeys of three pages, so we can simply check that the start and end pages aren't repeated in the path.
 
 <pre>
 MATCH (start:Page), (end:Page),
@@ -401,7 +401,7 @@ In 13 seconds, Neo4J returns this list:
 
 Again, this shows us how often people arriving on the site click on the headings in order: Product, Services, Analytics, Technology, Blog, About.
 
-To extend this beyond three pages, we'd need to find another way to filter out journeys that visit a page multiple times; if you have any good ideas for how to do this, please let me know in the comments below! 
+To extend this beyond three pages, we'd need to find another way to filter out journeys that visit a page multiple times; if you have any good ideas for how to do this, please let me know in the comments below!
 
 ## Summary
 
@@ -421,10 +421,10 @@ Doing this with 2 *previous* edges returns the same table as above, but this app
 
 <pre>
 MATCH p = (:View)<-[:PREV*4]-(:View)
-WITH p, EXTRACT(v IN NODES(p) | v.page) AS pages 
-UNWIND pages AS views 
-WITH p, COUNT(DISTINCT views) AS distinct_views 
-WHERE distinct_views = LENGTH(NODES(p)) 
+WITH p, EXTRACT(v IN NODES(p) | v.page) AS pages
+UNWIND pages AS views
+WITH p, COUNT(DISTINCT views) AS distinct_views
+WHERE distinct_views = LENGTH(NODES(p))
 RETURN EXTRACT(v in NODES(p) | v.page), count(p)
 ORDER BY count(p) DESC
 LIMIT 10;

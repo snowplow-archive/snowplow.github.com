@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow 68 released
 title: Snowplow 68 Turquoise Jay released
+title-short: Snowplow 68
 tags: [snowplow, emr, emretlrunner, ruby]
 author: Fred
 category: Releases
@@ -56,7 +56,7 @@ $ bundle install --deployment
 
 <h2 id="help">5. Getting help</h2>
 
-For more details on this release, please check out the [r68 Turquoise Jay][r68-release] on GitHub. 
+For more details on this release, please check out the [r68 Turquoise Jay][r68-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

@@ -1,7 +1,7 @@
 ---
 layout: post
-shortenedlink: Snowplow Android Tracker 0.3.0 released
 title: Snowplow Android Tracker 0.3.0 released
+title-short: Snowplow Android Tracker 0.3.0
 tags: [snowplow, analytics, android, mobile, tracker]
 author: Josh
 category: Releases
@@ -35,7 +35,7 @@ This has been done for a number of reasons. Primarily, the switch is to ensure t
 From the [ReactiveX][reactive-x] web page:
 
 > ReactiveX is a library for composing asynchronous and event-based programs by using observable sequences.
-> 
+>
 > It extends the observer pattern to support sequences of data and/or events and adds operators that allow you to compose sequences together declaratively while abstracting away concerns about things like low-level threading, synchronization, thread-safety, concurrent data structures, and non-blocking I/O.
 
 Using RxJava removes the need to write AsyncTask functions, as we can now simply write sequences of Observable functions, instruct them to utilise any of the preconfigured thread pools available and then once we subscribe to the function it will run - all on non-blocking background threads! With RxJava, any process that has to be run many times and for potentially large amounts of time can be quickly and cleanly sent off into the background.
@@ -162,5 +162,3 @@ Feel free to [get in touch][talk-to-us] or raise an issue in the [Android Tracke
 
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [android-issues]: https://github.com/snowplow/snowplow-android-tracker/issues
-
-

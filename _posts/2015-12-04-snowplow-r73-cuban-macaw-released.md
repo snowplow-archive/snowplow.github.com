@@ -118,7 +118,7 @@ If you are upgrading to this release from an older version of Snowplow, we also 
 
 <h2 id="help">6. Getting help</h2>
 
-For more details on this release, please check out the [R73 Cuban Macaw release notes][r73-release] on GitHub. 
+For more details on this release, please check out the [R73 Cuban Macaw release notes][r73-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

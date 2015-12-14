@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Introducing our Snowplow summer interns
 title: Introducing our Snowplow summer interns
 tags: [snowplow, intern, summer, internship]
 author: Alex
@@ -19,9 +18,9 @@ If you have been following the Snowplow blog or indeed our release schedule, cha
 
 Jonathan Almeida is one of our two remote interns - he is nearing the conclusion of a four-month data engineering internship at Snowplow.
 
-Jonathan is based in Mississauga near Toronto for the summer, and is studying Computer Science at the University of Windsor. Outside of programming, Jonathan likes to run, hike, kayak and play a fair amount of football; he plans on adding skydiving to the list before the end of 2014. 
+Jonathan is based in Mississauga near Toronto for the summer, and is studying Computer Science at the University of Windsor. Outside of programming, Jonathan likes to run, hike, kayak and play a fair amount of football; he plans on adding skydiving to the list before the end of 2014.
 
-This is Jonathan's first time working for a startup (previous internships were at BlackBerry) and he's looking forward to seeing how they work from the inside; working remotely is new to Jonathan also and he's interested to see how he works on such an open schedule. 
+This is Jonathan's first time working for a startup (previous internships were at BlackBerry) and he's looking forward to seeing how they work from the inside; working remotely is new to Jonathan also and he's interested to see how he works on such an open schedule.
 
 Jonathan is working on mobile trackers for Snowplow - one of our most highly requested features. He has been developing an [iOS Tracker] [ios-tracker-develop], which is ready for release, waiting only on the release of Snowplow 0.9.7, which adds mobile support to the rest of the Snowplow event processing pipeline. In preparation for an Android Tracker release, Jonathan has also been responsible for [multiple releases of the Java Tracker] [java-tracker-releases] since the [original contribution](/blog/2014/06/20/snowplow-java-tracker-0.1.0-released/) by Kevin Gleason. Stay tuned for his initial [Android Tracker] [android-tracker-develop] release, also coming soon.
 

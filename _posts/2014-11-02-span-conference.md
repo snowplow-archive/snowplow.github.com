@@ -1,6 +1,5 @@
 ---
 layout: post
-shortenedlink: Span Conference
 title: Span Conference and Why your company needs a Unified Log
 tags: [snowplow, span, span conference, london, unified log]
 author: Alex

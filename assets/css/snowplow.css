@@ -59,6 +59,8 @@ h6 a, h6 a:hover, h6 a:active, h6 a:focus {
 	color: inherit;
 }
 
+.centered {text-align: center}
+
 h1 {
 	font-size: 50px;
 	font-weight: 300;

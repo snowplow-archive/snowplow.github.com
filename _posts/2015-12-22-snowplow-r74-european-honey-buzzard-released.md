@@ -7,16 +7,18 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow version 74 BIRD-TBC.
+We are pleased to announce the release of Snowplow release 74 European Honey Buzzard.
 This release adds click redirect support in the Scala Stream Collector and
 weather enrichment.
+
 The rest of this post will cover the following topics:
 
-1. [Weather enrichment](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#weather)
-2. [Click redirect support](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#click)
-3. [Upgrading](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#upgrading)
-4. [Getting help](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#help)
-5. [Upcoming releases](/blog/2015/12/xx/snowplow-r74-BIRD-TBC-released#roadmap)
+1. [Weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#weather)
+2. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#upgrading)
+3. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#help)
+4. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#roadmap)
+
+![european-honey-buzzard][european-honey-buzzard]
 
 <!--more-->
 
@@ -63,16 +65,22 @@ and `1%` is just reserved space for errors, which should prevent client to repea
 unsuccessful requests. So, for single run per day on starter subscription plan
 and two-nodes EMR cluster cache size should be `(5000 / 2 + 1%) / 1 = 2550`. 
 
-<h2 id="click">2. Click redirect</h2>
+<h2 id="upgrading">2. Upgrading</h2>
 
-Previously [added] [click-tracking] in R72 Great Spotted Kiwi.
-TODO
+To take advantage of this new enrichment, update the "hadoop_enrich" jar version in the "emr" section of your configuration YAML:
 
-<h2 id="upgrading">3. Upgrading</h2>
+{% highlight yaml %}
+  versions:
+    hadoop_enrich: 1.4.0 # WAS 1.3.0
+    hadoop_shred: 0.6.0 # UNCHANGED
+    hadoop_elasticsearch: 0.1.0 # UNCHANGED
+{% endhighlight %}
 
-TODO
+You will also need to:
 
-<h2 id="help">4. Getting help</h2>
+XXXXX
+
+<h2 id="help">3. Getting help</h2>
 
 For more details on this release, please check out the [R74 BIRD-TBC release notes][r74-release] on GitHub.
 Specific documentation on the new features is available here:
@@ -81,7 +89,16 @@ Specific documentation on the new features is available here:
 
 If you have any questions or run into any problems, please raise an [issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-<h2 id="roadmap">5. Upcoming releases</h2>
+<h2 id="roadmap">4. Upcoming releases</h2>
+
+By popular demand, we are adding a section to these release blog posts to trail upcoming Snowplow releases. Note that these releases are always subject to change between now and the actual release date.
+
+Upcoming releases are:
+
+* [Release 75 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+*
+
+Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
 
 TODO
 

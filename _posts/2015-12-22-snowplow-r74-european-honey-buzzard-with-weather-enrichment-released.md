@@ -11,8 +11,8 @@ We are pleased to announce the release of Snowplow release 74 European Honey Buz
 
 The rest of this post will cover the following topics:
 
-1. [Introducing the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#intro)
-2. [Configuring the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#configure)
+1. [Introducing the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#introducing)
+2. [Configuring the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#configuring)
 3. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#upgrading)
 4. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#help)
 5. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#roadmap)
@@ -21,7 +21,7 @@ The rest of this post will cover the following topics:
 
 <!--more-->
 
-<h2 id="intro">1. Introducing the weather enrichment</h2>
+<h2 id="introducing">1. Introducing the weather enrichment</h2>
 
 [Snowplow] [snowplow-repo] has a steadily growing collection of [configurable event enrichments] [snowplow-enrichments] - from marketing campaign attribution through geo-location to custom JavaScript. But the most-requested enrichment remains a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis.
 
@@ -36,11 +36,11 @@ To date, enterprising analysts have needed to manually integrate a weather looku
 
 Note that tihs release only adds this enrichment for the Snowplow Hadoop pipeline; we will be adding this to the Kinesis pipeline in the next release of that pipeline.
 
-<h2 id="configure">2. Configuring the weather enrichment</h2>
+<h2 id="configuring">2. Configuring the weather enrichment</h2>
 
 To use the new Weather Enrichment functionality you need to:
 
-1. Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan f.or historical data
+1. Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan for historical data
 2. [Enable the MaxMind IP lookups enrichment] [maxmind-enrichment-wiki] so that each event has the user's geo-location attached
 3. [Configure the weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo-precision and other parameters
 
@@ -88,7 +88,7 @@ Make sure to add a `weather_enrichment_config.json` configured as above into you
 
 Finally, if you are using Snowplow with Amazon Redshift, you will need to deploy the following table into your database:
 
-XXXXX
+* `[org.openweathermap/weather_1.sql] [weather-ddl]`
 
 <h2 id="help">4. Getting help</h2>
 
@@ -104,9 +104,9 @@ By popular demand, we are adding a section to our release blog posts to trail up
 
 Upcoming releases are:
 
-* [Release 75 Bird Long-Legged Buzzard] [r75-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
-* [Release 76 [CLI] Bird TBC] [r76-milestone], which will update our EmrEtlRunner app, including moving Snowplow to using the EMR 4.x AMI series
-* [Release 77 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 75 Long-Legged Buzzard] [r75-milestone], which adds support for ingesting events from SendGrid and Urban Airship into Snowplow
+* [Release 76 Bird TBC] [r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
+* [Release 77 Bird TBC] [r77-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
 
@@ -122,6 +122,8 @@ Other milestones being actively worked on include [Avro support #1] [avro-milest
 [maxmind-enrichemnt-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
 
 [weather-enrichment-config]: https://github.com/snowplow/snowplow/blob/feature/weather/3-enrich/config/enrichments/weather_enrichment_config.json
+
+[weather-ddl]: https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/org.openweathermap/weather_1.sql
 
 [r74-release]: https://github.com/snowplow/snowplow/releases/tag/r74-european-honey-buzzard
 [issues]: https://github.com/snowplow/snowplow/issues

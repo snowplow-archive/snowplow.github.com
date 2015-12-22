@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Snowplow 74 BIRD-TBC released
-title-short: Snowplow 74 BIRD-TBC
-tags: [snowplow, weather, enrichment]
+title: Snowplow 74 European Honey Buzzard with Weather Enrichment released
+title-short: Snowplow 74 European Honey Buzzard released
+tags: [snowplow, weather, openweathermap, enrichment]
 author: Anton
 category: Releases
 ---
@@ -11,11 +11,11 @@ We are pleased to announce the release of Snowplow release 74 European Honey Buz
 
 The rest of this post will cover the following topics:
 
-1. [Introducing the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#intro)
-2. [Configuring the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#configure)
-3. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#upgrading)
-4. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#help)
-5. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#roadmap)
+1. [Introducing the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#intro)
+2. [Configuring the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#configure)
+3. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#upgrading)
+4. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#help)
+5. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released#roadmap)
 
 ![european-honey-buzzard][european-honey-buzzard]
 
@@ -38,11 +38,11 @@ Note that tihs release only adds this enrichment for the Snowplow Hadoop pipelin
 
 <h2 id="configure">2. Configuring the weather enrichment</h2>
 
-To use weather enrichment functionality you need to:
+To use the new Weather Enrichment functionality you need to:
 
-* Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan for historical data
-* [Enable MaxMind enrichment] [maxmind-enrichment-wiki] so that each event has the user's geo-location attached
-* [Configure the weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo-precision and other parameters
+1. Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan f.or historical data
+2. [Enable the MaxMind IP lookups enrichment] [maxmind-enrichment-wiki] so that each event has the user's geo-location attached
+3. [Configure the weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo-precision and other parameters
 
 The [example configuration] [weather-enrichment-config] JSON for this enrichment is as follows:
 
@@ -73,7 +73,7 @@ To go through each of these settings in turn:
 * `apiHost` is set to one of several available API hosts - for most cases `history.openweathermap.org` should be fine
 * `geoPrecision` is the fraction of one to which geo coordinates will be rounded for storing in the cache. Setting this to 1 gives you ~60km inaccuracy (worst cast), the most precise value of 10 gives you ~6km inaccuracy (worst case)
 
-<h2 id="upgrading">2. Upgrading</h2>
+<h2 id="upgrading">3. Upgrading</h2>
 
 To take advantage of this new enrichment, update the "hadoop_enrich" jar version in the "emr" section of your configuration YAML:
 
@@ -84,49 +84,49 @@ To take advantage of this new enrichment, update the "hadoop_enrich" jar version
     hadoop_elasticsearch: 0.1.0 # UNCHANGED
 {% endhighlight %}
 
-Make sure to add a XXXX
+Make sure to add a `weather_enrichment_config.json` configured as above into your `enrichments` folder too.
 
-You will also need to:
+Finally, if you are using Snowplow with Amazon Redshift, you will need to deploy the following table into your database:
 
 XXXXX
 
-<h2 id="help">3. Getting help</h2>
+<h2 id="help">4. Getting help</h2>
 
-For more details on this release, please check out the [R74 BIRD-TBC release notes][r74-release] on GitHub.
-Specific documentation on the new features is available here:
+For more details on this release, please check out the [R74 European Honey Buzzard release notes][r74-release] on GitHub. Specific documentation on the new enrichment is available here:
 
 * The [Weather enrichment] [weather-enrichment-wiki] page
 
 If you have any questions or run into any problems, please raise an [issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-<h2 id="roadmap">4. Upcoming releases</h2>
+<h2 id="roadmap">5. Upcoming releases</h2>
 
-By popular demand, we are adding a section to these release blog posts to trail upcoming Snowplow releases. Note that these releases are always subject to change between now and the actual release date.
+By popular demand, we are adding a section to our release blog posts to trail upcoming Snowplow releases. Note that these releases are always subject to change between now and the actual release date.
 
 Upcoming releases are:
 
-* [Release 75 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
-*
+* [Release 75 Bird Long-Legged Buzzard] [r75-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 76 [CLI] Bird TBC] [r76-milestone], which will update our EmrEtlRunner app, including moving Snowplow to using the EMR 4.x AMI series
+* [Release 77 Bird TBC] [r74-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
 
 [european-honey-buzzard]: /assets/img/blog/2015/12/european-honey-buzzard.png
 
-[weather-issue]: https://github.com/snowplow/snowplow/issues/456
 [scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
-
+[weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf
 [openweathermap]: http://openweathermap.org/
-
-
 [ga-weather-post]: http://www.simoahava.com/web-development/universal-analytics-weather-custom-dimension/
-[owm-price]: http://openweathermap.org/price
+
+[weather-schema]: http://iglucentral.com/schemas/org.openweathermap/weather/jsonschema/1-0-0
 [weather-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/Weather-enrichment
 [maxmind-enrichemnt-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
-[weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf
+
 [weather-enrichment-config]: https://github.com/snowplow/snowplow/blob/feature/weather/3-enrich/config/enrichments/weather_enrichment_config.json
 
-[click-tracking]: https://github.com/snowplow/snowplow.github.com/blob/master/_posts/2015-10-15-snowplow-r72-great-spotted-kiwi-released.md#1-click-tracking
-
-[r74-release]: https://github.com/snowplow/snowplow/releases/tag/r74-BIRD-TBC
+[r74-release]: https://github.com/snowplow/snowplow/releases/tag/r74-european-honey-buzzard
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[r75-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2075%20%5BHAD%5D%20Long-Legged%20Buzzard
+[r76-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2076%20%5BCLI%5D%20Bird%20TBC
+[r77-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2077%20%5BKIN%5D%20Bird%20TBC

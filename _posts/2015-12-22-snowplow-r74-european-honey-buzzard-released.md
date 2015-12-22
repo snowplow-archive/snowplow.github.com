@@ -3,38 +3,46 @@ layout: post
 title: Snowplow 74 BIRD-TBC released
 title-short: Snowplow 74 BIRD-TBC
 tags: [snowplow, weather, enrichment]
-author: Alex
+author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of Snowplow release 74 European Honey Buzzard.
-This release adds click redirect support in the Scala Stream Collector and
-weather enrichment.
+We are pleased to announce the release of Snowplow release 74 European Honey Buzzard. This release adds a Weather Enrichment to the Hadoop pipeline - making Snowplow the first event analytics platform with built-in weather analytics!
 
 The rest of this post will cover the following topics:
 
-1. [Weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#weather)
-2. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#upgrading)
-3. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#help)
-4. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#roadmap)
+1. [Introducing the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#intro)
+2. [Configuring the weather enrichment](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#configure)
+3. [Upgrading](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#upgrading)
+4. [Getting help](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#help)
+5. [Upcoming releases](/blog/2015/12/22/snowplow-r74-european-honey-buzzard-released#roadmap)
 
 ![european-honey-buzzard][european-honey-buzzard]
 
 <!--more-->
 
-<h2 id="weather">1. Weather enrichment</h2>
+<h2 id="intro">1. Introducing the weather enrichment</h2>
 
-For a [long time] [weather-issue], one of the most-requested and still unimplemented Snowplow enrichments was weather enrichment.
-Basic idea of weather enrichment is that taking geographical coordinates and exact time event occur,
-we can receive all information about weather conditions in which that exact event happened.
-This information opens an opportunity to build incredible useful data models
-which can help to [understand] [weather-paper] behavior of your product's audience in context of weather.
+[Snowplow] [snowplow-repo] has a steadily growing collection of [configurable event enrichments] [snowplow-enrichments] - from marketing campaign attribution through geo-location to custom JavaScript. But the most-requested enrichment remains a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis.
+
+There is a strong body of research to suggest that the weather is a major influence on the behavior of your end-users, for an example see the paper [The effect of weather on consumer spending] [weather-paper] (Murray, Di Muro, Finn, Leszczyc, 2010). To be able to perform these kinds of analyses, it's critical to be able to attach the correct weather to each event prior to storing and analyzing those events in Redshift, Spark or similar.
+
+To date, enterprising analysts have needed to manually integrate a weather lookup into their JavaScript event tracking - see this excellent blog post by Simo Ahava for his tutorial for [adding weather as a custom dimension in Google Analytics] [ga-weather-post]. To make things much simpler for Snowplow users, we have now implemented a weather enrichment, powered by our [Scala Weather library] [scala-weather-post], which:
+
+* Runs inside our Snowplow Enrichment process
+* Looks up the weather for each event from [OpenWeatherMap.org] [openweathermap]
+* Caches the weather for this time and place to minimize the number of requests to OpenWeatherMap.org
+* Adds the weather represented by [org.openweathermap/weather/jsonschema/1-0-0] [weather-schema] to the event's `derived_contexts`
+
+Note that tihs release only adds this enrichment for the Snowplow Hadoop pipeline; we will be adding this to the Kinesis pipeline in the next release of that pipeline.
+
+<h2 id="configure">2. Configuring the weather enrichment</h2>
 
 To use weather enrichment functionality you need to:
 
-* Obtain OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you need to subscribe paid plan for historical data. Free key and common subsription plan both doesn't provide access to historical data.
-* [Enable MaxMind enrichment] [maxmind-enrichment-wiki] to obtain user geographical coordinates
-* [Configure weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo precision and other parameters
+* Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan for historical data
+* [Enable MaxMind enrichment] [maxmind-enrichment-wiki] so that each event has the user's geo-location attached
+* [Configure the weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo-precision and other parameters
 
 The [example configuration] [weather-enrichment-config] JSON for this enrichment is as follows:
 
@@ -57,13 +65,13 @@ The [example configuration] [weather-enrichment-config] JSON for this enrichment
 }
 {% endhighlight %}
 
-We recommend you to caclulate cache size with following formula: `(requests /
-nodes + 1%) / run`, where `requests` is amount of requests available on your
-OpenWeatherMap.org plan (5000 for starter plan), `nodes` is amount of worker
-nodes on your hadoop cluster, `run` is amount of runs of your enrichment per day
-and `1%` is just reserved space for errors, which should prevent client to repeat
-unsuccessful requests. So, for single run per day on starter subscription plan
-and two-nodes EMR cluster cache size should be `(5000 / 2 + 1%) / 1 = 2550`. 
+To go through each of these settings in turn:
+
+* `apiKey` is your key you need to obtain from OpenWeatherMap.org
+* `cacheSize` is the number of requests the underlying Scala Weather client should store. The number of requests for your plan, plus 1% for errors, should work well
+* `timeout` is the time in seconds after which request should be considered failed. Notice that failed weather enrichment will cause your whole enriched event to end up in the bad bucket
+* `apiHost` is set to one of several available API hosts - for most cases `history.openweathermap.org` should be fine
+* `geoPrecision` is the fraction of one to which geo coordinates will be rounded for storing in the cache. Setting this to 1 gives you ~60km inaccuracy (worst cast), the most precise value of 10 gives you ~6km inaccuracy (worst case)
 
 <h2 id="upgrading">2. Upgrading</h2>
 
@@ -75,6 +83,8 @@ To take advantage of this new enrichment, update the "hadoop_enrich" jar version
     hadoop_shred: 0.6.0 # UNCHANGED
     hadoop_elasticsearch: 0.1.0 # UNCHANGED
 {% endhighlight %}
+
+Make sure to add a XXXX
 
 You will also need to:
 
@@ -100,10 +110,15 @@ Upcoming releases are:
 
 Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
 
-TODO
+[european-honey-buzzard]: /assets/img/blog/2015/12/european-honey-buzzard.png
 
 [weather-issue]: https://github.com/snowplow/snowplow/issues/456
 [scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
+
+[openweathermap]: http://openweathermap.org/
+
+
+[ga-weather-post]: http://www.simoahava.com/web-development/universal-analytics-weather-custom-dimension/
 [owm-price]: http://openweathermap.org/price
 [weather-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/Weather-enrichment
 [maxmind-enrichemnt-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment

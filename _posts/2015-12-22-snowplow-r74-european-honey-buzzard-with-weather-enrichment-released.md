@@ -23,11 +23,11 @@ The rest of this post will cover the following topics:
 
 <h2 id="introducing">1. Introducing the weather enrichment</h2>
 
-[Snowplow] [snowplow-repo] has a steadily growing collection of [configurable event enrichments] [snowplow-enrichments] - from marketing campaign attribution through geo-location to custom JavaScript. But the most-requested enrichment remains a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis.
+Snowplow has a steadily growing collection of [configurable event enrichments] [snowplow-enrichments] - from marketing campaign attribution through geo-location to custom JavaScript. But the most-requested enrichment remains a Weather Enrichment: specifically, using the time and geo-location of each event to retrieve the weather and attach it to the event as a context, ready for later analysis.
 
-There is a strong body of research to suggest that the weather is a major influence on the behavior of your end-users, for an example see the paper [The effect of weather on consumer spending] [weather-paper] (Murray, Di Muro, Finn, Leszczyc, 2010). To be able to perform these kinds of analyses, it's critical to be able to attach the correct weather to each event prior to storing and analyzing those events in Redshift, Spark or similar.
+There is a strong body of research to suggest that the weather is a major influence on the behavior of your end-users, for an example see the paper [The Effect of Weather on consumer Spending] [weather-paper] (Murray, Di Muro, Finn, Leszczyc, 2010). To be able to perform these kinds of analyses, it's critical to be able to attach the correct weather to each event prior to storing and analyzing those events in Redshift, Spark or similar.
 
-To date, enterprising analysts have needed to manually integrate a weather lookup into their JavaScript event tracking - see this excellent blog post by Simo Ahava for his tutorial for [adding weather as a custom dimension in Google Analytics] [ga-weather-post]. To make things much simpler for Snowplow users, we have now implemented a weather enrichment, powered by our [Scala Weather library] [scala-weather-post], which:
+To date, enterprising analysts have needed to manually integrate a weather lookup into their JavaScript event tracking - see this excellent tutorial by Simo Ahava for [adding weather as a custom dimension in Google Analytics] [ga-weather-post]. To make things much simpler for Snowplow users, we have now implemented a weather enrichment, powered by our [Scala Weather library] [scala-weather-post], which:
 
 * Runs inside our Snowplow Enrichment process
 * Looks up the weather for each event from [OpenWeatherMap.org] [openweathermap]
@@ -40,9 +40,9 @@ Note that tihs release only adds this enrichment for the Snowplow Hadoop pipelin
 
 To use the new Weather Enrichment functionality you need to:
 
-1. Obtain an OpenWeatherMap.org [API key] [owm-price] to perform historical requests. Note that you will need to subscribe to a paid plan for historical data
+1. Obtain an OpenWeatherMap.org [API key] [owm-signup] to perform historical requests. Note that you will need to subscribe to a paid plan for historical data
 2. [Enable the MaxMind IP lookups enrichment] [maxmind-enrichment-wiki] so that each event has the user's geo-location attached
-3. [Configure the weather enrichment] [weather-enrichemnt-wiki] with your API key, preferred geo-precision and other parameters
+3. [Configure the weather enrichment] [weather-enrichment-wiki] with your API key, preferred geo-precision and other parameters
 
 The [example configuration] [weather-enrichment-config] JSON for this enrichment is as follows:
 
@@ -88,7 +88,7 @@ Make sure to add a `weather_enrichment_config.json` configured as above into you
 
 Finally, if you are using Snowplow with Amazon Redshift, you will need to deploy the following table into your database:
 
-* `[org.openweathermap/weather_1.sql] [weather-ddl]`
+* [`org.openweathermap/weather_1.sql`] [weather-ddl]
 
 <h2 id="help">4. Getting help</h2>
 
@@ -96,7 +96,7 @@ For more details on this release, please check out the [R74 European Honey Buzza
 
 * The [Weather enrichment] [weather-enrichment-wiki] page
 
-If you have any questions or run into any problems, please raise an [issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
+If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
 <h2 id="roadmap">5. Upcoming releases</h2>
 
@@ -106,20 +106,19 @@ Upcoming releases are:
 
 * [Release 75 Long-Legged Buzzard] [r75-milestone], which adds support for ingesting events from SendGrid and Urban Airship into Snowplow
 * [Release 76 Bird TBC] [r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
-* [Release 77 Bird TBC] [r77-milestone], which brings the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
-
-Other milestones being actively worked on include [Avro support #1] [avro-milestone], [Weather enrichment] [weather-milestone] and [Snowplow CLI #2] [cli-milestone].
+* [Release 77 Bird TBC] [r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 [european-honey-buzzard]: /assets/img/blog/2015/12/european-honey-buzzard.png
 
 [scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
 [weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf
 [openweathermap]: http://openweathermap.org/
+[owm-signup]: http://home.openweathermap.org/users/sign_up
 [ga-weather-post]: http://www.simoahava.com/web-development/universal-analytics-weather-custom-dimension/
 
 [weather-schema]: http://iglucentral.com/schemas/org.openweathermap/weather/jsonschema/1-0-0
 [weather-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/Weather-enrichment
-[maxmind-enrichemnt-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
+[maxmind-enrichment-wiki]: https://github.com/snowplow/snowplow/wiki/IP-lookups-enrichment
 
 [weather-enrichment-config]: https://github.com/snowplow/snowplow/blob/feature/weather/3-enrich/config/enrichments/weather_enrichment_config.json
 

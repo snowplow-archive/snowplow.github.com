@@ -71,7 +71,7 @@ To go through each of these settings in turn:
 * `cacheSize` is the number of requests the underlying Scala Weather client should store. The number of requests for your plan, plus 1% for errors, should work well
 * `timeout` is the time in seconds after which request should be considered failed. Notice that failed weather enrichment will cause your whole enriched event to end up in the bad bucket
 * `apiHost` is set to one of several available API hosts - for most cases `history.openweathermap.org` should be fine
-* `geoPrecision` is the fraction of one to which geo coordinates will be rounded for storing in the cache. Setting this to 1 gives you ~60km inaccuracy (worst cast), the most precise value of 10 gives you ~6km inaccuracy (worst case)
+* `geoPrecision` is the fraction of one to which geo coordinates will be rounded for storing in the cache. Setting this to 1 gives you ~60km inaccuracy (worst case), the most precise value of 10 gives you ~6km inaccuracy (worst case)
 
 <h2 id="upgrading">3. Upgrading</h2>
 

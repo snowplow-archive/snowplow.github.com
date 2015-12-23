@@ -34,7 +34,7 @@ To date, enterprising analysts have needed to manually integrate a weather looku
 * Caches the weather for this time and place to minimize the number of requests to OpenWeatherMap.org
 * Adds the weather represented by [org.openweathermap/weather/jsonschema/1-0-0] [weather-schema] to the event's `derived_contexts`
 
-Note that tihs release only adds this enrichment for the Snowplow Hadoop pipeline; we will be adding this to the Kinesis pipeline in the next release of that pipeline.
+Note that this release only adds this enrichment for the Snowplow Hadoop pipeline; we will be adding this to the Kinesis pipeline in the next release of that pipeline.
 
 <h2 id="configuring">2. Configuring the weather enrichment</h2>
 

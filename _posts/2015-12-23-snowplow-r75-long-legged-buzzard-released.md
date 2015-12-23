@@ -1,23 +1,23 @@
 ---
 layout: post
 title-short: Snowplow 75 Long-Legged Buzzard released
-title: Snowplow 75 Long-Legged Buzzard released with support for UrbanAirship Connect and Sendgrid
+title: Snowplow 75 Long-Legged Buzzard released with support for UrbanAirship Connect and SendGrid
 tags: [snowplow, webhook, sendgrid, urbanairship]
 author: Ed
 category: Releases
 ---
 
-We are pleased to announce the immediate availability of [Snowplow 75 Long-Legged Buzzard][snowplow-release]. For the first time you'll now be able to use UrbanAirship Connect and Sendgrid as event sources.
+We are pleased to announce the immediate availability of [Snowplow 75 Long-Legged Buzzard][snowplow-release]. For the first time you'll now be able to use UrbanAirship Connect and SendGrid as event sources.
 
 ![R75 Long-Legged Buzzard](/assets/img/blog/2015/12/long-legged_buzzard.jpg)
 
-* **Sendgrid** - for tracking email and email-related events delivered by [Sendgrid][sendgrid-website]
+* **SendGrid** - for tracking email and email-related events delivered by [SendGrid][SendGrid-website]
 * **UrbanAirship Connect** - for tracking mobile app events from [UrbanAirship][urbanairship-website]
 
 Here are the sections after the fold:
 
 1. [UrbanAirship Connect webhook support](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#urbanairship)
-2. [Sendgrid webhook support](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#sendgrid)
+2. [SendGrid webhook support](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#SendGrid)
 3. [Upgrading](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#upgrading)
 4. [Roadmap and contributing](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#roadmap-etc)
 5. [Documentation and help](/blog/2015/12/23/snowplow-r75-long-legged-buzzard-released/#help)
@@ -33,13 +33,13 @@ For help setting up UrbanAirship Connect support, see the [UrbanAirship Connect 
 
 For technical details on this adapter, see the [UrbanAirship Connect webhook adapter][urbanairship-tech-docs] wiki page.
 
-<h2><a name="sendgrid">2. Sendgrid webhook support</a></h2>
+<h2><a name="SendGrid">2. SendGrid webhook support</a></h2>
 
-The Sendgrid webhook adapter lets your track email related events reported by [Sendgrid][sendgrid-website]. It's great for keeping track of your email campaigns, allowing you to see which emails generate the most interest.  
+The SendGrid webhook adapter lets your track email related events reported by [SendGrid][SendGrid-website]. It's great for keeping track of your email campaigns, allowing you to see which emails generate the most interest.  
 
-For help setting up Sendgrid support, see the [Sendgrid webhook setup][sendgrid-setup] wiki page.
+For help setting up SendGrid support, see the [SendGrid webhook setup][SendGrid-setup] wiki page.
 
-For technical details on this adapter, see the [Sendgrid webhook adapter][sendgrid-tech-docs] wiki page.
+For technical details on this adapter, see the [SendGrid webhook adapter][SendGrid-tech-docs] wiki page.
 
 <h2><a name="upgrading">3. Upgrading</a></h2>
 
@@ -64,7 +64,7 @@ For a complete example, see our [sample `config.yml` template][emretlrunner-conf
 
 You'll need to deploy the Redshift tables for any webhooks you plan on ingesting into Snowplow. You can find the Redshift table deployment instructions on the corresponding webhook setup wiki pages:
 
-* [Sendgrid webhook Redshift setup] [sendgrid-setup-red]
+* [SendGrid webhook Redshift setup] [SendGrid-setup-red]
 * [UrbanAirship Connect webhook Redshift setup] [ua-setup-red]
 
 <h2><a name="roadmap-etc">3. Roadmap and contributing</a></h2>
@@ -89,7 +89,7 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 [webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
 
 [urbanairship-website]: http://www.urbanairship.com/
-[sendgrid-website]: http://www.sendgrid.com/
+[SendGrid-website]: http://www.sendgrid.com/
 
 [snowplow-trackers]: http://snowplowanalytics.com/technology/index.html
 
@@ -97,12 +97,12 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 
 [urbanairship-setup]: https://github.com/snowplow/snowplow/wiki/UrbanAirship-webhook-setup
 
-[sendgrid-setup]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-setup
+[SendGrid-setup]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-setup
 
 [webhook-tech-docs]: https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation#1b-webhooks
 
 [urbanairship-tech-docs]: https://github.com/snowplow/snowplow/wiki/UrbanAirship-webhook-adapter
-[sendgrid-tech-docs]: https://github.com/snowplow/snowplow/wiki/Sendgrid-webhook-adapter
+[SendGrid-tech-docs]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-adapter
 
 [webhooks-2]: https://github.com/snowplow/snowplow/milestones/Webhooks%202
 
@@ -112,7 +112,7 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r75-long-legged-buzzard
 
-[sendgrid-setup-red]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-setup#22-redshift
+[SendGrid-setup-red]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-setup#22-redshift
 [ua-setup-red]: https://github.com/snowplow/snowplow/wiki/UrbanAirship-webhook-setup#22-redshift
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample

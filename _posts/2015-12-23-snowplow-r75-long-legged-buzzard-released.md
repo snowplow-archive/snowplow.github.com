@@ -24,7 +24,7 @@ Here are the sections after the fold:
 
 <!--more-->
 
-<h2><a name="urbanairship">1. UrbanAirship Connect webhook support</a></h2>
+<h2 id="urbanairship">1. UrbanAirship Connect webhook support</h2>
 
 The UrbanAirship Connect webhook adapter in [Snowplow 75 (Long-Legged Buzzard)][snowplow-release] lets you track mobile app events delivered by [UrbanAirship Connect][urbanairship-website].
 Using this functionality you can warehouse all mobile app events alongside your existing Snowplow events.
@@ -33,7 +33,7 @@ For help setting up UrbanAirship Connect support, see the [UrbanAirship Connect 
 
 For technical details on this adapter, see the [UrbanAirship Connect webhook adapter][urbanairship-tech-docs] wiki page.
 
-<h2><a name="SendGrid">2. SendGrid webhook support</a></h2>
+<h2 id="SendGrid">2. SendGrid webhook support</h2>
 
 The SendGrid webhook adapter lets your track email related events reported by [SendGrid][SendGrid-website]. It's great for keeping track of your email campaigns, allowing you to see which emails generate the most interest.  
 
@@ -41,10 +41,10 @@ For help setting up SendGrid support, see the [SendGrid webhook setup][SendGrid-
 
 For technical details on this adapter, see the [SendGrid webhook adapter][SendGrid-tech-docs] wiki page.
 
-<h2><a name="upgrading">3. Upgrading</a></h2>
+<h2 id="upgrading">3. Upgrading</h2>
 
 <div class="html">
-<h3><a name="configuring-emretlrunner">3.1 Updating EmrEtlRunner's configuration</a></h3>
+<h3 id="configuring-emretlrunner">3.1 Updating EmrEtlRunner's configuration</h3>
 </div>
 
 This release bumps the Hadoop Enrichment process to version **0.19.0**.
@@ -59,15 +59,15 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
 <div class="html">
-<h3><a name="upgrading-change-form">3.2 Redshift</a></h3>
+<h3 id="upgrading-change-form">3.2 Redshift</h3>
 </div>
 
 You'll need to deploy the Redshift tables for any webhooks you plan on ingesting into Snowplow. You can find the Redshift table deployment instructions on the corresponding webhook setup wiki pages:
 
-* [SendGrid webhook Redshift setup] [SendGrid-setup-red]
-* [UrbanAirship Connect webhook Redshift setup] [ua-setup-red]
+* [SendGrid webhook Redshift setup][SendGrid-setup-red]
+* [UrbanAirship Connect webhook Redshift setup][ua-setup-red]
 
-<h2><a name="roadmap-etc">3. Roadmap and contributing</a></h2>
+<h2 id="roadmap-etc">3. Roadmap and contributing</h2>
 
 We welcome any contributions of webhook adapters for other services - for details on getting started, please see [How to integrate a webhook into Snowplow][webhook-contributing]. Please note that contributing will require some experience in Scala at this time.
 
@@ -80,14 +80,14 @@ Upcoming releases are:
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2><a name="help">4. Documentation and help</a></h2>
+<h2 id="help">4. Documentation and help</h2>
 
 Documentation relating to the new webhook support is available on the wiki:
 
 * [Setting up a webhook][webhook-setup]
 * [Technical documentation on webhooks][webhook-tech-docs]
 
-As always, if you do run into any issues or don't understand any of the new features, please [raise an issue] [issues] or get in touch with us via [the usual channels] [talk-to-us].
+As always, if you do run into any issues or don't understand any of the new features, please [raise an issue][issues] or get in touch with us via [the usual channels][talk-to-us].
 
 For more details on this release, please check out the [R75 Release Notes][snowplow-release] on GitHub.
 

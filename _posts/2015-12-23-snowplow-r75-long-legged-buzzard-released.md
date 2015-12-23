@@ -69,11 +69,16 @@ You'll need to deploy the Redshift tables for any webhooks you plan on ingesting
 
 <h2><a name="roadmap-etc">3. Roadmap and contributing</a></h2>
 
-** ROADMAP **
-
 We welcome any contributions of webhook adapters for other services - for details on getting started, please see [How to integrate a webhook into Snowplow][webhook-contributing]. Please note that contributing will require some experience in Scala at this time.
 
 Similarly, if you would like to sponsor the Snowplow team to build a webhook adapter, do [get in touch][sponsorship-contact]!
+
+Upcoming releases are:
+
+* [Release 76 Bird TBC][r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
+* [Release 77 Bird TBC][r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+
+Note that these releases are always subject to change between now and the actual release date.
 
 <h2><a name="help">4. Documentation and help</a></h2>
 
@@ -116,3 +121,6 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 [ua-setup-red]: https://github.com/snowplow/snowplow/wiki/UrbanAirship-webhook-setup#22-redshift
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
+[r76-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2076%20%5BCLI%5D%20Bird%20TBC
+[r77-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2077%20%5BKIN%5D%20Bird%20TBC

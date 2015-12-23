@@ -109,6 +109,7 @@ Upcoming releases are:
 * [Release 77 Bird TBC] [r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 [european-honey-buzzard]: /assets/img/blog/2015/12/european-honey-buzzard.png
+[snowplow-enrichments]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments
 
 [scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
 [weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf

@@ -47,13 +47,13 @@ For technical details on this adapter, see the [SendGrid webhook adapter][SendGr
 <h3 id="configuring-emretlrunner">3.1 Updating EmrEtlRunner's configuration</h3>
 </div>
 
-This release bumps the Hadoop Enrichment process to version **0.19.0**.
+This release bumps the Hadoop Enrichment process to version **1.5.0**.
 
-In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 0.19.0, like so:
+In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 1.5.0, like so:
 
 {% highlight yaml %}
   versions:
-    hadoop_enrich: 0.19.0 # WAS 0.18.0
+    hadoop_enrich: 1.5.0 # WAS 1.4.0
 {% endhighlight %}
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].

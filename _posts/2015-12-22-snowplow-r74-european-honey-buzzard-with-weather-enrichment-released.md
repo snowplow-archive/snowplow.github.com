@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Snowplow 74 European Honey Buzzard with Weather Enrichment released
-title-short: Snowplow 74 European Honey Buzzard released
+title-short: Snowplow 74 European Honey Buzzard
 tags: [snowplow, weather, openweathermap, enrichment]
 author: Anton
 category: Releases

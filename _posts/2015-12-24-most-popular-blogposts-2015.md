@@ -22,10 +22,10 @@ These were the 10 most read posts in 2015:
 
 Some older posts remained popular as well. These were the most popular ones from the archives:
 
-1. [/blog/2013/02/08/writing-hive-udfs-and-serdes/](Writing Hive UDFs - a tutorial)
-2. [/blog/2013/05/30/dealing-with-hadoops-small-files-problem/](Dealing with Hadoop's small files problem)
-3. [/blog/2014/04/17/spark-example-project-released/](Spark Example Project released for running Spark jobs on EMR)
-4. [/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/](Amazon Kinesis tutorial - a getting started guide)
-5. [/blog/2014/05/15/introducing-self-describing-jsons/](Introducing self-describing JSONs)
+1. [Writing Hive UDFs - a tutorial](/blog/2013/02/08/writing-hive-udfs-and-serdes/)
+2. [Dealing with Hadoop's small files problem](/blog/2013/05/30/dealing-with-hadoops-small-files-problem/)
+3. [Spark Example Project released for running Spark jobs on EMR](/blog/2014/04/17/spark-example-project-released/)
+4. [Amazon Kinesis tutorial - a getting started guide](/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/)
+5. [Introducing self-describing JSONs](/blog/2014/05/15/introducing-self-describing-jsons/)
 
 We hope to publish even more great content in 2016! Make sure to follow us on [Twitter](https://twitter.com/snowplowdata/) to stay up to date.

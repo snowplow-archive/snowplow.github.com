@@ -12,7 +12,7 @@ These were the 10 most read posts in 2015:
 1. [First experiments with Apache Spark at Snowplow](/blog/2015/05/21/first-experiments-with-apache-spark/)
 2. [Apache Spark Streaming example project released](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/)
 3. [AWS Lambda Node.js example project released](/blog/2015/07/11/aws-lambda-nodejs-example-project-0.1.0-released/)
-4. [AWS Lambda Scala example project released](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/])
+4. [AWS Lambda Scala example project released](/blog/2015/08/20/aws-lambda-scala-example-project-0.1.0-released/)
 5. [Modeling events through entity snapshotting](/blog/2015/01/18/modeling-events-through-entity-snapshotting/)
 6. [Snowplow 64 Palila released with support for data models](/blog/2015/04/16/snowplow-r64-palila-released/)
 7. [Spark Example Project 0.3.0 released for getting started with Apache Spark on EMR](/blog/2015/05/10/spark-example-project-0.3.0-released/)

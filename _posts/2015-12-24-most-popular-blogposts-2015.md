@@ -5,7 +5,7 @@ author: Christophe
 category: Inside the Plow
 ---
 
-Now that 2015 is drawing to a close, we wanted to share which blogposts were read the most. The team published 82 new posts in 2015 and Apache Spark and AWS Lambda were the topics that resonated most with our readers. We will continue to write about both topics, and many others, in 2016.
+2015 is drawing to a close, so we decided to crunch our own numbers in Redshift and share which blogposts were read the most. The Snowplow team published 82 new posts in 2015 and more than 2953 hours were spent reading content on our blog (a metric which we calculated using [page pings](https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#pagepings)). Apache Spark and AWS Lambda were the topics that resonated most with our readers. We will continue to write about both topics, and many others, in 2016.
 
 The 10 most read posts in 2015:
 

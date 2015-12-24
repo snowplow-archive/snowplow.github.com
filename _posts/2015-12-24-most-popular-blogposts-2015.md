@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Looking back on 2015: Most read blogposts
+title: "Looking back on 2015: Most read blogposts"
 author: Christophe
 category: Inside the Plow
 ---
@@ -28,4 +28,4 @@ Some older posts remained popular as well. These were the most popular ones from
 4. [/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/](Amazon Kinesis tutorial - a getting started guide)
 5. [/blog/2014/05/15/introducing-self-describing-jsons/](Introducing self-describing JSONs)
 
-We hope to publish even more great content in 2016! Make sure to follow us on [https://twitter.com/snowplowdata/](Twitter) to stay up to date.
+We hope to publish even more great content in 2016! Make sure to follow us on [Twitter](https://twitter.com/snowplowdata/) to stay up to date.

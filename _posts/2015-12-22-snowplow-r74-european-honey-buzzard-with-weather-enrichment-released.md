@@ -111,7 +111,7 @@ Upcoming releases are:
 [european-honey-buzzard]: /assets/img/blog/2015/12/european-honey-buzzard.png
 [snowplow-enrichments]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments
 
-[scala-weather-post]: http://snowplowanalytics.com/blog/2015/12/13/scala-weather-0.1.0-released/
+[scala-weather-post]: /blog/2015/12/13/scala-weather-0.1.0-released/
 [weather-paper]: http://www.kylemurray.com/papers/MDFP_JRCS2010.pdf
 [openweathermap]: http://openweathermap.org/
 [owm-signup]: http://home.openweathermap.org/users/sign_up

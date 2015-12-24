@@ -5,9 +5,9 @@ author: Christophe
 category: Inside the Plow
 ---
 
-Now that 2015 is drawing to a close, we wanted to share which blogposts were most popular. The team published 82 new posts in 2015 and Apache Spark and AWS Lambda were the topics that resonated most with our readers. We will continue to write about both topics in 2016, as well as about many others.
+Now that 2015 is drawing to a close, we wanted to share which blogposts were read the most. The team published 82 new posts in 2015 and Apache Spark and AWS Lambda were the topics that resonated most with our readers. We will continue to write about both topics, and many others, in 2016.
 
-These were the 10 most read posts in 2015:
+The 10 most read posts in 2015:
 
 1. [First experiments with Apache Spark at Snowplow](/blog/2015/05/21/first-experiments-with-apache-spark/)
 2. [Apache Spark Streaming example project released](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/)

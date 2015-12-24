@@ -32,7 +32,7 @@ Welcome to the team Anton!
 [snowplow-scala-tracker]: https://github.com/snowplow/snowplow-scala-tracker
 
 [schema-guru]: https://github.com/snowplow/schema-guru/
-[schema-guru-010-post]: /blog/2015//06/03/chema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/
+[schema-guru-010-post]: /blog/2015/06/03/chema-guru-0.1.0-released-for-deriving-json-schemas-from-jsons/
 [schema-guru-030-post]: /blog/2015/07/29/schema-guru-0.3.0-released-for-generating-redshift-tables-from-json-schemas/
 [schema-guru-040-post]: /blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/
 

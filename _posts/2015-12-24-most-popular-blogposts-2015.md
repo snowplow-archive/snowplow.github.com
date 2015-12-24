@@ -5,12 +5,9 @@ author: Christophe
 category: Inside the Plow
 ---
 
-2015 is drawing to a close. There's no better time to crunch through all those events in Redshift to figure out what people were most interested in these past 12 months.
+Now that 2015 is drawing to a close, we wanted to share which blogposts were most popular. The team published 82 new posts in 2015 and Apache Spark and AWS Lambda were the topics that resonated most with our readers. We will continue to write about both topics in 2016, as well as about many others.
 
-The Snowplow team has been active with 82 new blogposts (and counting).
-- In total people sent **2,953** hours reading on our blog (a metric calculated using our heartbeat in the JS tracker)
-
-## The top 10 in 2015:
+These were the 10 most read posts in 2015:
 
 1. [First experiments with Apache Spark at Snowplow](/blog/2015/05/21/first-experiments-with-apache-spark/)
 2. [Apache Spark Streaming example project released](/blog/2015/06/10/spark-streaming-example-project-0.1.0-released/)
@@ -23,9 +20,7 @@ The Snowplow team has been active with 82 new blogposts (and counting).
 9. [Samza Scala example project released](/blog/2015/09/30/samza-scala-example-project-0.1.0-released/)
 10. [JSON schemas for Redshift datatypes](/blog/2015/02/12/redshift-jsonschema-types/)
 
-## From the archives
-
-There are, of course, also the classics.
+Some older posts remained popular as well. These were the most popular ones from the archives:
 
 1. [/blog/2013/02/08/writing-hive-udfs-and-serdes/](Writing Hive UDFs - a tutorial)
 2. [/blog/2013/05/30/dealing-with-hadoops-small-files-problem/](Dealing with Hadoop's small files problem)
@@ -33,18 +28,4 @@ There are, of course, also the classics.
 4. [/blog/2014/01/15/amazon-kinesis-tutorial-getting-started-guide/](Amazon Kinesis tutorial - a getting started guide)
 5. [/blog/2014/05/15/introducing-self-describing-jsons/](Introducing self-describing JSONs)
 
----- to remove
-
-select
-
-page_urlpath, count(distinct domain_userid)
-
-from atomic.events
-
-where collector_tstamp::date >= '2015-01-01'
-and collector_tstamp::date <= '2015-12-31'
-
-and page_urlhost = 'snowplowanalytics.com'
-and page_urlpath like '/blog/2015/%'
-
-group by 1 order by 2 desc
+We hope to publish even more great content in 2016! Make sure to follow us on [https://twitter.com/snowplowdata/](Twitter) to stay up to date.

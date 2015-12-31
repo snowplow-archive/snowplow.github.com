@@ -42,6 +42,10 @@ For help setting up SendGrid support, see the [SendGrid webhook setup][SendGrid-
 
 For technical details on this adapter, see the [SendGrid webhook adapter][SendGrid-tech-docs] wiki page.
 
+<h2 id="datamodel">3. Updated data model</h2>
+
+[Bernardo Srulzon](https://github.com/bernardosrulzon) contribued an update to one of our SQL data models: [web-recalculate](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/web-recalculate). The updated data model is more efficient and now creates a cookie-ID-to-user-ID map. Thanks Bernardo!
+
 <h2 id="upgrading">4. Upgrading</h2>
 
 <div class="html">

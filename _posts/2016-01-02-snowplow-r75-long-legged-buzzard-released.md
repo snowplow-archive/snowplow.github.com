@@ -51,13 +51,11 @@ The updated data model is more efficient (consuming less disk space), and now cr
 
 <h2 id="upgrading">4. Upgrading</h2>
 
-<div class="html">
-<h3 id="configuring-emretlrunner">4.1 Updating EmrEtlRunner's configuration</h3>
-</div>
+<h3 id="configuring-emretlrunner">Upgrading EmrEtlRunner and StorageLoader</h3>
 
-This release bumps the Hadoop Enrichment process to version **1.5.0**.
+The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
 
-In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's version to 1.5.0, like so:
+In your EmrEtlRunner's `config.yml` file, update your `hadoop_enrich` job's version to 1.5.0, like so:
 
 {% highlight yaml %}
   versions:
@@ -66,9 +64,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
-<div class="html">
 <h3 id="upgrading-change-form">4.2 Redshift</h3>
-</div>
 
 You'll need to deploy the Redshift tables for any webhooks you plan on ingesting into Snowplow. You can find the Redshift table deployment instructions on the corresponding webhook setup wiki pages:
 
@@ -120,6 +116,7 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 [bernardosrulzon]: https://github.com/bernardosrulzon
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
 
 [webhook-contributing]: https://github.com/snowplow/snowplow/wiki/How-to-integrate-a-webhook-into-Snowplow
 [sponsorship-contact]: mailto:contact@snowplowanalytics.com

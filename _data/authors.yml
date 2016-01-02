@@ -30,7 +30,7 @@
   url:    /blog/authors/jonathan/
   avatar: https://en.gravatar.com/userimage/25956470/c890dad6419acf6e7a9f99b6edd3cb15.jpg?size=120
   spiel:  |
-        <a href="/blog/authors/jonathan/">Jonathan</a> is a data engineer at Snowplow Analytics. You can find him on <a href="http://google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.
+        <a href="/blog/authors/jonathan/">Jonathan</a> was a data engineer at Snowplow Analytics. You can find him on <a href="http://google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.
 
 - name: Ben
   full_name: Benjamin Fradet
@@ -38,7 +38,7 @@
   url: /blog/authors/ben/
   avatar: http://www.gravatar.com/avatar/1db05766b6148f890cdbe1a339764d81.png?size=120
   spiel: |
-      <a href="/blog/authors/ben/">Ben</a> is an intern at Snowplow Analytics. You can find him on <a href="https://github.com/BenFradet">Github</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
+      <a href="/blog/authors/ben/">Ben</a> was an intern at Snowplow Analytics. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
 
 - name: Nick
   full_name: Nick Dingwall
@@ -46,7 +46,7 @@
   url:     /blog/authors/nick/
   avatar:  /assets/img/team/nick.jpg
   spiel:   |
-      <a href="/blog/authors/nick/">Nick</a> is a data science intern at Snowplow. You can find him on <a href="https://plus.google.com/105485725640035532673/posts" rel="author">Google+</a> and <a href="http://uk.linkedin.com/pub/nick-dingwall/24/213/4b4">LinkedIn</a>.
+      <a href="/blog/authors/nick/">Nick</a> was a data science intern at Snowplow. You can find him on <a href="https://plus.google.com/105485725640035532673/posts" rel="author">Google+</a> and <a href="http://uk.linkedin.com/pub/nick-dingwall/24/213/4b4">LinkedIn</a>.
 
 - name: Josh
   full_name: Joshua Beemster
@@ -62,7 +62,7 @@
   url: /blog/authors/andrew/
   avatar: /assets/img/team/andrew.png
   spiel:   |
-      <a href="/blog/authors/andrew/">Andrew</a> is a data engineering intern at Snowplow</a>.
+      <a href="/blog/authors/andrew/">Andrew</a> was a data engineering intern at Snowplow</a>.
 
 - name: Christophe
   full_name: Christophe Bogaert
@@ -71,7 +71,7 @@
   url: /blog/authors/christophe/
   avatar: https://avatars0.githubusercontent.com/u/1975872?v=3&s=200
   spiel:   |
-      <a href="/blog/authors/christophe/">Christophe</a> is a data scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">Github</a>, <a href="https://twitter.com/bogaertc">Twitter</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.
+      <a href="/blog/authors/christophe/">Christophe</a> is a data scientist at Snowplow</a>. You can find him on <a href="https://github.com/bogaert">GitHub</a>, <a href="https://twitter.com/bogaertc">Twitter</a> and <a href="https://uk.linkedin.com/in/bogaertchristophe">LinkedIn</a>.
 
 - name: Justine
   full_name: Justine Courty
@@ -80,7 +80,7 @@
   url: /blog/authors/justine/
   avatar: /assets/img/team/justine.jpg
   spiel:   |
-      <a href="/blog/authors/justine/">Justine</a> is a data science intern at Snowplow</a>. You can find her on <a href="https://github.com/galvanic">Github</a> and <a href="https://uk.linkedin.com/pub/justine-courty/64/498/b9b">LinkedIn</a>.
+      <a href="/blog/authors/justine/">Justine</a> is a data science intern at Snowplow</a>. You can find her on <a href="https://github.com/galvanic">GitHub</a> and <a href="https://uk.linkedin.com/pub/justine-courty/64/498/b9b">LinkedIn</a>.
 
 - name: Anton
   full_name: Anton Parkhomenko
@@ -89,7 +89,7 @@
   url: /blog/authors/anton/
   avatar: /assets/img/team/anton.png
   spiel:   |
-      <a href="/blog/authors/anton/">Anton</a> is a data engineer at Snowplow</a>. You can find him on <a href="https://github.com/chuwy">Github</a>, <a href="http://twitter.com/chuvvy">Twitter</a> and on his <a href="http://chuwy.me">personal blog</a>.
+      <a href="/blog/authors/anton/">Anton</a> is a data engineer at Snowplow</a>. You can find him on <a href="https://github.com/chuwy">GitHub</a>, <a href="http://twitter.com/chuvvy">Twitter</a> and on his <a href="http://chuwy.me">personal blog</a>.
 
 - name: Vincent
   full_name: Vincent Ohprecio
@@ -98,4 +98,13 @@
   url: /blog/authors/vincent/
   avatar: /assets/img/team/vincent.png
   spiel:   |
-      <a href="/blog/authors/vincent/">Vincent</a> is a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/BigsnarfDude">Github</a> and <a href="http://twitter.com/BigsnarfDude">Twitter</a>.
+      <a href="/blog/authors/vincent/">Vincent</a> was a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/BigsnarfDude">GitHub</a> and <a href="http://twitter.com/BigsnarfDude">Twitter</a>.
+
+- name: Ed
+  full_name: Ed Lewis
+  github: ninjabear
+  url: /blog/authors/ed/
+  avatar: https://avatars1.githubusercontent.com/u/5323141?v=3&s=200
+  spiel:   |
+      <a href="/blog/authors/ed/">Ed</a> is a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/ninjabear">GitHub</a>.
+

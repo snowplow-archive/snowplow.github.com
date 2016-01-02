@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow 75 Long-Legged Buzzard
-title: Snowplow 75 Long-Legged Buzzard released with support for UrbanAirship Connect and SendGrid
+title: Snowplow 75 Long-Legged Buzzard released with support for Urban Airship and SendGrid
 tags: [snowplow, webhook, sendgrid, urbanairship]
 author: Ed
 category: Releases
@@ -45,7 +45,7 @@ For technical details on this adapter, see the [SendGrid webhook adapter][sendgr
 
 <h2 id="datamodel">3. Updated data model</h2>
 
-Community member [Bernardo Srulzon] [bernardosrulzon] has contribued an update to one of our SQL data models: [web-recalculate](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/web-recalculate).
+Community member [Bernardo Srulzon] [bernardosrulzon] has contribued an update to one of our SQL data models: [web-recalculate] [web-recalculate].
 
 The updated data model is more efficient (consuming less disk space), and now creates a helpful cookie-ID-to-user-ID map. Thanks Bernardo!
 
@@ -114,6 +114,7 @@ For more details on this release, please check out the [R75 Release Notes][snowp
 [sendgrid-tech-docs]: https://github.com/snowplow/snowplow/wiki/SendGrid-webhook-adapter
 
 [bernardosrulzon]: https://github.com/bernardosrulzon
+[web-recalculate]: https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql/web-recalculate
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 [app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip

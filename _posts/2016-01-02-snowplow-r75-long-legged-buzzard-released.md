@@ -13,7 +13,7 @@ We are pleased to announce the immediate availability of [Snowplow 75 Long-Legge
 
 The new webhook integrations are as follows:
 
-1. **Urban Airship Connect** - for tracking mobile app-related events from [Urban Airship][urbanairship-website] using the new [Urban Airship Connect] [urbanairship-connect] product
+1. **Urban Airship** - for tracking mobile app-related events from [Urban Airship][urbanairship-website] using the new [Urban Airship Connect] [urbanairship-connect] product
 2. **SendGrid** - for tracking email-related events delivered by [SendGrid][sendgrid-website] via [SendGrid webhooks] [sendgrid-webhooks]
 
 Here are the sections after the fold:
@@ -37,7 +37,7 @@ For technical details on this adapter, see the [Urban Airship Connect adapter][u
 
 <h2 id="SendGrid">2. SendGrid webhook support</h2>
 
-The SendGrid webhook adapter lets you track all email-related events emitted by SendGrid through one of their [SendGrid webhooks] [sendgrid-webhooks]. It's great for keeping track of your email campaigns, allowing you to see which emails generate the most interest.  
+The SendGrid webhook adapter lets you track all email-related events emitted by SendGrid through their [SendGrid webhooks] [sendgrid-webhooks]. It's great for keeping track of your email campaigns, allowing you to see which emails generate the most interest.  
 
 For help setting up SendGrid support, see the [SendGrid webhook setup][sendgrid-setup] wiki page.
 
@@ -51,7 +51,7 @@ The updated data model is more efficient (consuming less disk space), and now cr
 
 <h2 id="upgrading">4. Upgrading</h2>
 
-<h3 id="configuring-emretlrunner">Upgrading EmrEtlRunner and StorageLoader</h3>
+<h3 id="configuring-emretlrunner">4.1 Upgrading EmrEtlRunner and StorageLoader</h3>
 
 The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
 
@@ -73,7 +73,7 @@ You'll need to deploy the Redshift tables for any webhooks you plan on ingesting
 
 <h2 id="roadmap-etc">5. Roadmap and contributing</h2>
 
-We welcome any contributions of webhook adapters for other services - for details on getting started, please see [How to integrate a webhook into Snowplow][webhook-contributing]. Please note that contributing will require some experience in Scala at this time.
+We welcome any contributions of webhook adapters for other services - for details on getting started, see our wiki page [How to integrate a webhook into Snowplow][webhook-contributing]. Please note that contributing will require some experience in Scala at this time.
 
 Similarly, if you would like to sponsor the Snowplow team to build a webhook adapter, do [get in touch][sponsorship-contact]!
 

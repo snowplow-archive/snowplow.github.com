@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow 75 Long-Legged Buzzard
-title: Snowplow 75 Long-Legged Buzzard released with support for Urban Airship and SendGrid
+title: Snowplow 75 Long-Legged Buzzard released with support for Urban Airship Connect and SendGrid
 tags: [snowplow, webhook, sendgrid, urbanairship]
 author: Ed
 category: Releases

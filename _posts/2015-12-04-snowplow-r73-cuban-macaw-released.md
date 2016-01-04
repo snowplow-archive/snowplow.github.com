@@ -105,6 +105,8 @@ You will need to update the jar versions in the "emr" section of your configurat
 
 In order to start loading bad rows from the EMR jobflow into Elasticsearch, you will need to add an Elasticsearch target to the "targets" section of your configuration YAML as described above.
 
+If you are using Postgres rather than Redshift, you should no longer pass the `--skip shred` option to EmrEtlRunner. This is because the shred step now removes JSON fields from the enriched event TSV.
+
 <h3>Updating your database</h3>
 
 Use the appropriate migration script to update your version of the `atomic.events` table to the latest schema:

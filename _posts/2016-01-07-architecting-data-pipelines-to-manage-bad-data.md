@@ -8,7 +8,7 @@ category: Inside the Plow
 
 <h2><small class="text-muted">Architecting data pipelines for data quality</small></h2>
 
-No one wants to talk about bad data. A lot about working with data is sexy, but managing bad data, i.e. working to improve data quality, is not. Not only is talking about bad data not sexy, it is *really awkward*, because it forces us to confront a hard truth: that our data is not perfect, and therefore the insight we build on that data, might not be reliable. No wonder, then, that so many people in the industry would rather pretend bad data is not a problem, including: 
+No one in digital analytics talks about bad data. A lot about working with data is sexy, but managing bad data, i.e. working to improve data quality, is not. Not only is talking about bad data not sexy, it is *really awkward*, because it forces us to confront a hard truth: that our data is not perfect, and therefore the insight we build on that data, might not be reliable. No wonder, then, that so many people in the industry would rather pretend bad data is not a problem, including: 
 
 * the vendors who sell web and mobile analytics products
 * the vendors who sell data pipeline collection and processing pipelines, and 
@@ -16,7 +16,7 @@ No one wants to talk about bad data. A lot about working with data is sexy, but 
 
 ![we-need-to-talk-about-kevin-screenshot][kevin]
 
-We need to talk about bad data. We can't manage an issue unless we identify it first. The good news is that if we take a systematic approach, we can manage manage bad data very effectively. In this post, we'll confront bad data head on, and discuss how we've architected the Snowplow pipeline to manage and mitigate bad data.
+We need to talk about bad data. We can't manage an issue unless we identify and it explore it. The good news is that if we take a systematic approach, we can manage bad data very effectively. In this post, we'll confront bad data head on, and discuss how we've architected the Snowplow pipeline to manage and mitigate bad data.
 
 1. [Why is bad data such a problem?](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#why)
 2. [Causes of bad data](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#sources)
@@ -25,30 +25,30 @@ We need to talk about bad data. We can't manage an issue unless we identify it f
 5. [Tracking data lineage](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#lineage)
 6. [Self-describing data](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#self-describing-data) 
 7. [Intelligent use of queues and auto-scaling](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#queues)
-8. [How much confidence do you have in your data pipeline, and the quality of data generated??](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#black-box)
+8. [How much confidence do you have in your data pipeline, and the quality of data generated?](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#black-box)
 
 <!--more-->
 
 <h2 id="why">1. Why is bad data such a problem?</h2>
 
-Bad data is a problem because it erodes our confidence in our data, which limits our ability to build insight on that data. To take a very noddy example, the graph below shows some metric (it can be any metric) over time, and a temporal dip in that metric. 
+Bad data is a problem because it erodes our confidence in our data, which limits our ability to build insight on that data. To take a very simple example, the graph below shows some metric (it can be any metric) over time, and a temporal dip in that metric. 
 
 ![kpi-over-time-with-temporal-dip][kpi]
 
-Does this mean 
+What caused the dip? 
 
-1. something went wrong with our business, to cause the dip? Or 
-2. did something go wrong, with our data, that caused the dip? 
+1. Did something went wrong with our business?  
+2. Did something go wrong, with our data? 
 
 We need to rule to rule out (2) if we are to conclude (1).
 
-The impact of bad data is more corrosive than simply making interpreting data difficult. Once question marks have been raised in an organisation about the reliability of the data source, it becomes very hard to win back that confidence in that data source, after which it is impossible to socialize insight derived from that data source about a company.
+The impact of bad data is more corrosive than simply making interpreting data difficult. Once question marks have been raised in an organisation about the reliability of the data source, it becomes very hard to win back confidence in the data source, after which it is impossible to socialize insight derived from that data source.
 
 <h2 id="sources">2. Causes of bad data</h2>
 
-If we are going to manage bad data, the first thing we need to do is identify as many potential sources of bad data as possible. We can never discount sources of bad data that we have not identified (unknown sources) - but we can do our best by keeping our list of known sources of bad data as exhaustive as possible.
+If we are going to manage bad data, the first thing we need to do is identify as many potential sources of bad data as possible. We can never rule out the possibility that there are as yet unidentified sources of bad data  - but we can do our best by keeping our list of known sources of bad data as exhaustive as possible.
 
-In order to identify help us with this exercise, I've included a schematic of the Snwoplow data pipeline below. Whilst this is a Snowplow-specific diagram, the general data pipeline stages are broadly in common with many commercial data pipeline products and home-brewed event data pipelines. Certainly the list of potential sources of bad data that we'll use the diagram to generate is one that should be true of any event data pipeline.
+In order to identify help us with this exercise, I've included a schematic of the Snowplow data pipeline below. Whilst this is a Snowplow-specific diagram, the general data pipeline stages are broadly in common with many commercial data pipeline products and home-brewed event data pipelines. Certainly the list of potential sources of bad data that we'll use the diagram to generate is one that should be true of any event data pipeline.
 
 ![event-data-pipeline-architecture][architecture]
 
@@ -59,11 +59,11 @@ There are two root causes of data quality issues:
 
 <h3 id="missing-data">2.1 Missing data</h3>
 
-We'll start by identifying the sources of missing data. If there are any we've left of then do please add them to the comments section: we can only hope to manage those sources that we identify.
+We'll start by identifying the sources of missing data. If there are any we've left off then do please add them to the comments section!
 
 1. An event occurs that we wish to track, but something goes wrong so that the tracker does not generate a suitable 'packet of data' to describe what event has occurred. This might be because the tracker has been misconfigured, for example, or because the server processing the event is maxed out and lacks the bandwidth to generate the packet of data describing the event.
 2. A packet of data describing the event is successfully generated, but for some reason the packet of data is not emitted from the tracker or webhook, or it gets lost in transit, before hitting the collector. This might happen if e.g. an event occurs on a web page that is tracked asyncronously, but the user leaves the web page before the asyncronous tag has had a chance to fire.
-3. The packet of data might hit the collector, but might not be successfully pushed to the processing queue. (For example because there's a spike in incoming requests and the collector boxes are maxed out.)
+3. The packet of data might hit the collector, but might not be successfully pushed to the processing queue. (For example because there is a spike in incoming requests and the collector boxes are maxed-out.)
 4. The data is not successfully processed e.g. because it is malformed or a different format to that expected by the enrichment process.
 5. The data fails to load into storage (i.e. the data warehouse) e.g. because one of the fields is the wrong type
 6. A missing event data point results in an error in the data model i.e. a user is mis-assigned to the wrong behavioural category because a key event in their journey was not successfully recorded. 
@@ -72,7 +72,7 @@ We'll start by identifying the sources of missing data. If there are any we've l
 
 Missing data is one cause of data quality issues. Another class of data quality issue is caused by *inaccurate* data. Again let us try and identify the different sources of inaccurate data:
 
-1. A robot aims to simulate human behaviour, to create the impression that something has occurred that has not. (E.g. click fraud.) 
+1. A robot aims to simulate human behaviour, to create the impression that something has occurred that has not. (E.g. click fraud) 
 2. A tracker or webhook is misconfigured so it sends data inaccurate data
 3. An enrichment process is misconfigured so e.g. a useragent string is incorrectly classified as a mobile rather than a tablet device
 4. The data modeling is misconfigured so that users are incorrectly categorised into incorrect audience segments
@@ -115,13 +115,13 @@ One of the lovely things about diligencing event-level data is that it is easy t
 
 What if something goes wrong with a processing step for one of the events?
 
-Everyone other analytics platform and data pipeline that we are aware of simply 'drops' the problematic data, resulting in missing data. This is awful, because it is very hard to spot missing data: if you are relying on your analytics system to tell you what has happened and it fails to tell you about something, you have to be very fortunate to separately *know* that that thing occurred to identify that it is missing.
+Every other analytics platform and data pipeline that we are aware of simply 'drops' the problematic data, resulting in missing data. This is awful, because it is very hard to spot missing data: if you are relying on your analytics system to tell you what has happened and it fails to tell you about something, you have to be very fortunate to separately *know* that that thing occurred to identify that it is missing.
 
 So with Snowplow, rather than drop events that fail to process, we load them into a separate "bad rows" folder in S3. This data set includes a record not only of all the events that failed to be processed successfully, but also an array of all the error messages generated when that data was processed. We load the bad data into Elasticsearch, to make it easy for our users to:
 
 1. Monitor bad data levels, they can easily spot if the % of events that are not successfully processed suddenly spikes. (E.g because a new part of an application has been incorrectly instrumented)
-2. Identify the root cause of the issue. (Because the error messages are included in the data set.)
-3. Address the issue ASAP. (Because bad rows are flagged as soon as they are processed, which might be well before an analyst has used that data.)
+2. Identify the root cause of the issue. (Because the error messages are included in the data set)
+3. Address the issue ASAP. (Because bad rows are flagged as soon as they are processed, which might be well before an analyst has used that data)
 4. Reprocess the bad data, so that it is no longer missing
 
 I'm planning on writing a guide to using Kibana / Elasticsearch to monitoring bad data with Snowplow, but in the meantime, to give you a flavour, the below screenshot shows the number of events that failed to be successfully processed for a Snwoplow trial user. At the top of the UI you can view the number of events that failed to successfully process per run: note that this is alarmingly high. Below, we can inspect a sample set of events. We can quickly identify that all the events in this batch that failed processing had the same root cause: a non-numeric value inserted into a numeric column (se_value):
@@ -167,15 +167,15 @@ Data that is sent into Snowplow is 'self-describing': it includes not just the d
 If you return to the initial list of sources of missing data, in particular, you will note that limitations in processing power can lead to data loss. To go back to three examples:
 
 1. If we're tracking data from a webapp via a Javascript tracker using asyncronous tags, there is a risk that the user will leave the website before the tag has fired
-2. If there is a traffic spike, there's a risk that the collector will "max out" and not all incoming HTTP requests will be successfully logged, leading to data loss
+2. If there is a traffic spike, there's a risk that the collector will max-out and not all incoming HTTP requests will be successfully logged, leading to data loss
 3. If the collector is maxed out, even if it managed to successfully record a HTTP request with incoming event data, it might fail to write that data to the queue for downstream processing
 
 Note that I have focused on issues at the beginning of the pipeline. As I explained earlier, once our data has been logged to S3, we have the ability to reprocess it, so any difficulties should not result with data loss at this stage.
 
 The Snowplow pipeline makes extensive use of queues and autoscaling to minimize the chance of data loss due to the above issues:
 
-7.1 [Trackers queue data locally, and only remove data from the queue when a collector has successfully received it](#tracker-queue)  
-7.2 [Each collector instances uses a local queue before pushing data to the global queue (either Kinesis or S3)](#collector-queue)  
+7.1 [Trackers queue data locally](#tracker-queue)  
+7.2 [Each collector instances uses a local queue before pushing data to the global queue](#collector-queue)  
 7.3 [Collectors are distributed applications that autoscale to handle traffic spikes](#autoscale)  
 
 <h3 id="tracker-queue">7.1 Trackers queue data locally, and only remove data from the queue when a collector has successfully received it</h3>
@@ -196,15 +196,16 @@ Rather than rely on individual boxes, both the Clojure Collector and Scala Strea
 
 <h2 id="black-box">8. How much confidence do you have in your data pipeline, and the quality of data generated?</h2>
 
-Managing bad data is an essential ongoing workstream for any data team that wants to build confidence in the insight developed on their data sets. Unfortunately, most solutions simply do not equip their users with the tools to identify data quality issues, leave along diagnose and resolve them. Simply put: most commercial analytics and data pipeline solutions are black boxes: you can test sending in a handful of data points and see that they come out of the other side. You can send data into two different pipelines and compare the output. But beyond that, you only really choose to trust, or not, each solution. 
+Managing bad data is an essential ongoing workstream for any data team that wants to build confidence in the insight developed on their data sets. Unfortunately, most solutions simply do not equip their users with the tools to identify data quality issues, leave along diagnose and resolve them. Bluntly, most commercial analytics and data pipeline solutions are black boxes: you can test sending in a handful of data points and see that they come out of the other side. You can send data into two different pipelines and compare the output. But beyond that, you only really choose to trust, or not, each solution. 
 
-At Snowplow, we've taken a radically diffent approach: we have gone to as much effort to deliver 'bad' data as 'good', so that you can rely on your data and build insight on that data, confident in its veracity. 
+At Snowplow, we've taken a radically diffent approach: rather than burying bad data, we seek to surface it, so that it can be correctly handled. 
 
-<strong>Care about the quality of your data? Want to implement data pipelines that you can rely on? Then [get in touch][contact]!</strong>
+<h2>Care about the quality of your data? Want to implement data pipelines that you can rely on? </h2>
 
-These days, it is relatively straightforward to build data pipelines that work most of the time.
+Then [get in touch][contact]!
 
-Unfortunately, if you want to use your data to drive insight, you need to be able to rely on your data. That means yoru data pipeline can't work most of the time, it needs to work as close to all of the time as possible, and you need to be able to spot when it does not.
+
+
 
 
 [kevin]: /assets/img/blog/2016/01/we-need-to-talk-about-kevin-screenshot.jpg

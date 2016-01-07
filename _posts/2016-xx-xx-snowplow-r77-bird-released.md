@@ -9,12 +9,12 @@ category: Releases
 
 Snowplow release 77 is now available to the general public! This release focuses on the command line applications used to orchestrate Snowplow.
 
-1. [Elastic MapReduce AMI 4.x series compatibility](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#ami)
-2. [Moving towards running Storage Loader on Hadoop](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#ec2)
-3. [Retrying the job in the face of bootstrap failures](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#bootstrap)
-4. [Monitoring improvements](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#tags)
-5. [Upgrading](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#upgrading)
-6. [Getting help](/blog/2015/12/04/snowplow-r73-cuban-macaw-released#help)
+1. [Elastic MapReduce AMI 4.x series compatibility](/blog/2016/xx/xx/snowplow-r77-bird-released#ami)
+2. [Moving towards running Storage Loader on Hadoop](/blog/2016/xx/xx/snowplow-r77-bird-released#ec2)
+3. [Retrying the job in the face of bootstrap failures](/blog/2016/xx/xx/snowplow-r77-bird-released#bootstrap)
+4. [Monitoring improvements](/blog/2016/xx/xx/snowplow-r77-bird-released#tags)
+5. [Upgrading](/blog/2016/xx/xx/snowplow-r77-bird-released#upgrading)
+6. [Getting help](/blog/2016/xx/xx/snowplow-r77-bird-released#help)
 
 ![bird][bird]
 

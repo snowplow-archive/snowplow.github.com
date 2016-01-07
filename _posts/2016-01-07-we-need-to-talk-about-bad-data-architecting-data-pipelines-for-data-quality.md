@@ -18,14 +18,22 @@ No one in digital analytics talks about bad data. A lot about working with data 
 
 We need to talk about bad data. We can't manage an issue unless we identify and it explore it. The good news is that if we take a systematic approach, we can manage bad data very effectively. In this post, we'll confront bad data head on, and discuss how we've architected the Snowplow pipeline to manage and mitigate bad data.
 
-1. [Why is bad data such a problem?](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#why)
-2. [Causes of bad data](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#sources)
-3. [Architecting auditable pipelines](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#auditing-pipelines)
-4. [Reprocessing data from scratch](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#reprocess)
-5. [Tracking data lineage](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#lineage)
-6. [Self-describing data](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#self-describing-data) 
-7. [Intelligent use of queues and auto-scaling](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#queues)
-8. [How much confidence do you have in your data pipeline, and the quality of data generated?](/blog/2016/01/07/architecting-data-pipelines-to-manage-bad-data/#black-box)
+1. [Why is bad data such a problem?](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#why)
+2. [Causes of bad data](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#sources)
+3. [Architecting auditable pipelines](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#auditing-pipelines)
+4. [Reprocessing data from scratch](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#reprocess)
+5. [Tracking data lineage](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#lineage)
+6. [Self-describing data](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#self-describing-data) 
+7. [Intelligent use of queues and auto-scaling](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#queues)
+8. [How much confidence do you have in your data pipeline, and the quality of data generated?](/blog/2016/01/07/we-need-to-talk-about-bad-data-architecting-data-pipelines-for-data-quality
+/#black-box)
 
 <!--more-->
 

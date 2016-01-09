@@ -26,7 +26,7 @@ In the rest of this post we will cover:
 
 This release brings about a rethink to POST requests and the count of events we send.  Historically a POST consisted of a predetermined count of events, a batch.  This batch was limited to a maximum of 10 events in the case of the Objective-C Tracker.  We have now removed this limitation and imposed a much more performant metric for determining a POST size; the maximum amount of bytes the collector can receive.
 
-Imagine a single event is 1000 bytes in size.  This means that the maximum amount of bytes we are able to send is 10000 bytes, less than a 5th of what the collectors can safely handle.  To send 50 events would subsequently result in 5 seperate requests being sent.
+Imagine a single event is 1000 bytes in size.  This meant that the maximum amount of bytes we are able to send is 10000, less than a 5th of what the collectors can safely handle.  To send 50 events would subsequently result in 5 seperate requests being sent.
 
 Under the new metric we can send all 50 of those events in a single request.  Resulting in better sending performance and far less network activity.
 
@@ -76,10 +76,10 @@ With the aforementioned performance updates the SPEmitter has undergone some min
 
 * Removed `setBufferOption` builder function in favour of using ByteLimits.
 * Added `setProtocol` builder function for choosing between `HTTP` and `HTTPS`
-* Added `setByteLimitGet` builder for setting a GET request byte maximum
-* Added `setByteLimitPost` builder for setting a POST request byte maximum
-* Changed `setUrlEndpoint` builder to accept an NSString instead of an NSURL
-  - You now only need to set resource name for the collector.
+* Added `setByteLimitGet` builder function for setting a GET request byte maximum
+* Added `setByteLimitPost` builder function for setting a POST request byte maximum
+* Changed `setUrlEndpoint` builder function to accept an NSString instead of an NSURL
+  - You now only need to set the resource name for the collector.
 
 The SPTracker has also had all of its tracking functions updated to match the changes to how events are constructed.  The function names are mostly the same however they now accept only a single variable in the form of the event object created.
 
@@ -94,7 +94,7 @@ SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
 [tracker trackPageViewEvent:event];
 {% endhighlight %}
 
-We have also added preliminary support for a Geo-Location context.  Due to some difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
+We have also added support for the Geo-Location context.  Due to the difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
 
 During SPSubject creation you can now specify if you intend to use this context:
 
@@ -109,13 +109,12 @@ You will then need to populate the various geo-location data points.  At a minim
 [subject setGeoLongitude:-123.123]
 {% endhighlight %}
 
-The context will now be automatically added to all of your events.
+The context will then be automatically added to all of your events.
 
 <h2><a name="ios-9.0">4. iOS 9.0 and XCode 7 changes</a></h2>
 
-With the release of iOS 9.0 several parts of the Tracker have had to be updated to keep everything running smoothly:
+With the release of iOS 9.0 several parts of the Tracker have been updated to keep everything running smoothly:
 
-* Forcing the use of HTTPS for anyone detected to be running iOS 9.0 in keeping with the [security rules][9.0-release-notes]. ([#231][231])
 * Have removed the ability to use OpenIDFA under iOS 9.0+ (still functional for older versions) ([#175][175])
 
 With the release of XCode 7+ we have also had to instrument several other changes:
@@ -123,7 +122,7 @@ With the release of XCode 7+ we have also had to instrument several other change
 * Fixed a classname collision with SPUtils and WatchKit.framework, many thanks to [Jason][iamjason] ([#228][228])
 * Updated a deprecated function use for iOS 8, many thanks to [Jason][iamjason] ([#230][230])
 
-Aside from bug fixes we have also added the option to use the Tracker from within a `tvOS` application to go with the release of XCode 7.1.  Simply add the SnowplowTracker dependency to your podfile as you would normally.
+We have also added the ability to use the Tracker from within a `tvOS` application to go with the release of XCode 7.1.  Simply add the SnowplowTracker dependency to your podfile as you would normally.
 
 {% highlight python %}
 pod 'SnowplowTracker', '~> 0.6'

@@ -23,7 +23,7 @@ Huge thank you to both Simon and Narbeh for presenting, Narbeh and the Digdeep t
 
 ## Snowplow Meetups scheduled in other cities in 2016
 
-We have meetups planned for 2016 in [Budapest] [budapest] [Boston] [boston] and [New York] [nyc]. [Get in touch] [contact] if you'd like to attend, speak or sponsor any of these events!
+We have meetups planned for 2016 in [Budapest] [budapest], [Boston] [boston] and [New York] [nyc]. [Get in touch] [contact] if you'd like to attend, speak or sponsor any of these events!
 
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Sydney/
 [josh]: http://snowplowanalytics.com/blog/authors/josh/

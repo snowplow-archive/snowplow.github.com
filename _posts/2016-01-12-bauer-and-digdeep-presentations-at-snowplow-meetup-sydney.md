@@ -14,10 +14,21 @@ Simon Rumble kicked off the event with a detailed presentation (and demo): [Snow
 
 Narbeh Yousefian followed up with another in depth presentation, this time covering some of the myriad ways the team at Digdeep digital has used Snowplow, including a demo of some interactive geospatial analysis. You can view his slides below:
 
-<div class="html"><iframe src="//slides.com/narbehyousefian-1/deck-sp-meet-up-syd-dec-2015/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+<div class="html"><iframe src="//slides.com/narbehyousefian-1/deck-sp-meet-up-syd-dec-2015/embed" width="595" height="434" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
 
-Huge thank you to both Simon and Narbeh for presenting, Narbeh and the Digdeep team for hosting the event and Josh for organising and MCing. We look forward to the next Snowplow Meetup Sydney!
+<!--more-->
+
+Huge thank you to both Simon and Narbeh for presenting, Narbeh and the Digdeep team for hosting the event and Josh for organising and MCing. We look forward to the next Snowplow Meetup Sydney: please do [get in touch] [contact] if you'd like to speak at the next event, or signup on [meetup.com][meetup] to be kept up to date with news of the next meetup.
+
+
+## Snowplow Meetups scheduled in other cities in 2016
+
+We have meetups planned for 2016 in [Budapest] [budapest] [Boston] [boston] and [New York] [nyc]. [Get in touch] [contact] if you'd like to attend, speak or sponsor any of these events!
 
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Sydney/
 [josh]: http://snowplowanalytics.com/blog/authors/josh/
 [simon-pres]: https://docs.google.com/presentation/d/1zRFoqfLP0QSe8QJIQIu74GD9fyuVMkCZ5LXJw-4vuuU/edit?usp=sharing
+[budapest]: http://www.meetup.com/Snowplow-Analytics-Budapest/events/226861638/
+[boston]: http://www.meetup.com/Snowplow-Analytics-Boston/
+[nyc]: http://www.meetup.com/Snowplow-Analytics-New-York/
+[contact]: /contact/

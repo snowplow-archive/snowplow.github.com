@@ -18,7 +18,7 @@ For a business user, however, most value lies in linking events together. A sing
 
 Data modeling is the process of learning about the data and developing a data model that combines events and in the process creates meaning. It's common to join the events table with other data sets (e.g. customer data, product data, marketing data and financial data) and aggregate these enriched events into smaller data sets. There are several benefits to this approach:
 
-- These derived datasets are easier to understand because business logich as been applied (i.e. meaning has been added).
+- These derived datasets are easier to understand because business logic as been applied (i.e. meaning has been added).
 - It ensures that all users use combine events using the same logic (e.g. the same session definitions or user identifiers)
 - Because the event-level data is never modified, it's always possible recompute the derived tables based on new insights (e.g. improved segmentation algorithms)
 

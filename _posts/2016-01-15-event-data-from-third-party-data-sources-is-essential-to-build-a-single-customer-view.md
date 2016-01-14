@@ -38,7 +38,7 @@ Before we dive into all the different sources of data we need to build our singl
 3. Use that map to build a consolidated view of each person i.e. your single customer view
 4. (Optional) - join that table with other customer data sets (e.g. CRM) that you have available in your data warehouse
 
-The key thing, then, to building a *complete* single customer view is ensuring that we're tracking events across *all* the different touchpoints and channels we engage our users, and they engage us.
+The first key element, then, to building a *complete* single customer view is ensuring that we're tracking events across *all* the different touchpoints and channels we engage our users, and they engage us. The second key element is ensuring that events from a single user on one platform can be mapped together with events from a single user on another platform, so that our view of each customer is built from the totality of their interactions across platforms. 
 
 ## Tracking event level data from locations outside the web and mobile
 

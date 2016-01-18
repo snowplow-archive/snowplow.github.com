@@ -1,8 +1,8 @@
 ---
 layout: post
-title-short: 3rd party event data is essential to build a single customer view
-title: Event data from 3rd party data sources is essential to build a single customer view
-tags: [bad data, data pipelines, technical architecture]
+title-short: Web and mobile data only gets you to first base when building a single customer view
+title: Web and mobile data only gets you to first base when building a single customer view
+tags: [event data, single customer view, multi-channel marketing, customer journey mapping, optimizing customer journeys, email marketing, push messaging, display advertising, call center analytics]
 author: Yali
 category: Inside the Plow
 ---

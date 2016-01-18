@@ -70,14 +70,15 @@ Please refer to the [technical documentation][tech-docs] for other examples.
 
 <h2><a name="api-updates">3. API updates</a></h2>
 
-With the aforementioned performance updates the `SPEmitter` has undergone some minor updates:
+With the aforementioned performance updates the `SPEmitter` has undergone some important updates:
 
-* Added `setProtocol` builder function for choosing between `HTTP` and `HTTPS`
+* Added `setProtocol` builder function for choosing between http and https. It defaults to https
+* Changed `setUrlEndpoint` builder function to accept an `NSString` instead of an NSURL
+  - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
+  - **If your endpoint uses unsecured http (not https), then you must `setProtocol` to `SPHttp`**
 * Removed `setBufferOption` builder function in favour of `setByteLimitX`, below
 * Added `setByteLimitGet` builder function for setting a `GET` request byte maximum
 * Added `setByteLimitPost` builder function for setting a `POST` request byte maximum
-* Changed `setUrlEndpoint` builder function to accept an `NSString` instead of an NSURL
-  - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
 
 The tracking functions within `SPTracker` have all been updated to fit the new builder pattern for event creation. Each tracking function now accepts only a single variable in the form of the event object created. Here is a table of the updated tracking functions:
     

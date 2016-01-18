@@ -138,6 +138,7 @@ The demonstration application has again been updated to reflect all of the chang
 
 Other updates include:
 
+* Fixed a bug where the first `client_session` was passing an empty string instead of a null value ([#257][257])
 * Added precondition checks to all core object construction ([#117][117])
 * Added a SelfDescribingJson class to ensure we build objects correctly ([#119][119])
 * Upgraded the client_session schema to 1-0-1 and started recording the firstEventId ([#194][194])
@@ -177,6 +178,7 @@ If you have an idea for a new feature or want help getting things set up, please
 [230]: https://github.com/snowplow/snowplow-objc-tracker/issues/230
 [222]: https://github.com/snowplow/snowplow-objc-tracker/issues/222
 [232]: https://github.com/snowplow/snowplow-objc-tracker/issues/232
+[257]: https://github.com/snowplow/snowplow-objc-tracker/issues/257
 [iamjason]: https://github.com/iamjason
 [demo-code]: https://github.com/snowplow/snowplow-objc-tracker/blob/master/SnowplowDemo/SnowplowDemo/DemoUtils.m
 [demo-code-1]: https://github.com/snowplow/snowplow-objc-tracker/blob/master/SnowplowDemo/SnowplowDemo/ViewController.m

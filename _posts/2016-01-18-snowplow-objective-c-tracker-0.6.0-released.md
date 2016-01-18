@@ -76,6 +76,7 @@ With the aforementioned performance updates the `SPEmitter` has undergone some i
 * Changed `setUrlEndpoint` builder function to accept an `NSString` instead of an NSURL
   - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
   - **If your endpoint uses unsecured http (not https), then you must `setProtocol` to `SPHttp`**
+  - **If your application is running on iOS 9, tvOS 9 or OS X 10.11 or later you will need to use `SPHttps` as per Apples [Application Transport Security][ats]**
 * Removed `setBufferOption` builder function in favour of `setByteLimitX`, below
 * Added `setByteLimitGet` builder function for setting a `GET` request byte maximum
 * Added `setByteLimitPost` builder function for setting a `POST` request byte maximum
@@ -181,6 +182,7 @@ If you have an idea for a new feature or want help getting things set up, please
 
 [geolocation-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0
 [tvos]: https://developer.apple.com/tvos/
+[ats]: https://forums.developer.apple.com/thread/3544
 
 [194]: https://github.com/snowplow/snowplow-objc-tracker/issues/194
 [119]: https://github.com/snowplow/snowplow-objc-tracker/issues/119

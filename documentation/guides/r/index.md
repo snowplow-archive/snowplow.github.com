@@ -60,7 +60,7 @@ Back to [top](#top).
 This guide assumes you have installed R, and installed the `RPostgreSQL` package required to get R to talk to PostgreSQL databases including Amazon Redshift. If you have not, installed this, you can do so by executing the following at the R prompt:
 
 {% highlight r %}
-> install.package("RPostgreSQL")
+> install.packages("RPostgreSQL")
 {% endhighlight %}
 
 R will ask you to select a mirror to download the package from. Select a local mirror and the package should install automatically.
@@ -211,7 +211,9 @@ The plot appears in a new window:
 
 Back to [top](#top).
 
+<div class="html">
 <a name="more-complex-example"><h2>5. A more complicated example: comparing visit characteristics by a range of dimensions</h2></a>
+</div>
 
 The previous example a was simple enough start. It didn't enable us to do anything that could not easily be achieved using any other visualization tool.
 

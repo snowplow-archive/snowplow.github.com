@@ -2,12 +2,12 @@
 layout: post
 title: Snowplow Objective-C Tracker 0.6.0 released
 title-short: Snowplow Objective-C Tracker 0.6.0
-tags: [snowplow, analytics, ios, osx, objc, objectivec]
+tags: [snowplow, analytics, ios, osx, objc, objectivec, tvos]
 author: Josh
 category: Releases
 ---
 
-We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo]. This release introduces several performance upgrades and some breaking API changes. Many thanks to [Jason][iamjason] for his contribution to this release!
+We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo]. This release introduces several performance upgrades and some breaking API changes. Many thanks to community member [Jason][iamjason] for his contributions to this release!
 
 In the rest of this post we will cover:
 
@@ -16,11 +16,11 @@ In the rest of this post we will cover:
 3. [API updates](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#api-updates)
 4. [Geolocation context](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#geo)
 5. [iOS 9.0 and XCode 7 changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#ios-9.0)
-5. [tvOS support](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#tvos)
-6. [Demonstration app](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#demo)
-7. [Other changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#changes)
-8. [Upgrading](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
-9. [Getting help](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#help)
+6. [tvOS support](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#tvos)
+7. [Demonstration app](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#demo)
+8. [Other changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#changes)
+9. [Upgrading](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
+10. [Getting help](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#help)
 
 <!--more-->
 
@@ -92,47 +92,49 @@ The tracking functions within `SPTracker` have all been updated to fit the new b
 
 <h2><a name="geo">4. Geolocation context</a></h2>
 
-We have also added support for the Geo-Location context.  Due to the difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
-
-During SPSubject creation you can now specify if you intend to use this context:
+We have also added support for Snowplow's [geo-location context] [geolocation-context]. During `SPSubject` creation you can now specify if you intend to use this context:
 
 {% highlight objective-c %}
 SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
 {% endhighlight %}
 
-You will then need to populate the various geo-location data points.  At a minimum you must populate the Latitude and Longitude fields:
+Whereas in the JavaScript and Android Trackers we can automatically fetch the geo-location data for you, in this tracker you need to supply the geo-location data yourself. At a minimum you must populate the latitude and longitude fields:
 
 {% highlight objective-c %}
 [subject setGeoLatitude:123.123]
 [subject setGeoLongitude:-123.123]
 {% endhighlight %}
 
-The context will then be automatically added to all of your events.
+The context will then be automatically added to all of your subsequent events. If you don't set the latitude and longitude, then the geolocation context will not be added.
 
 <h2><a name="ios-9.0">5. iOS 9.0 and XCode 7 changes</a></h2>
 
-With the release of iOS 9.0 several parts of the Tracker have been updated to keep everything running smoothly:
+With the release of iOS 9.0 we have updated the Tracker as follows:
 
-* Have removed the ability to use OpenIDFA under iOS 9.0+ (still functional for older versions) ([#175][175])
+* We have removed the ability to use OpenIDFA under iOS 9.0+ (this is still functional for older versions) ([#175][175])
 
-With the release of XCode 7+ we have also had to instrument several other changes:
+With the release of XCode 7 we have updated the Tracker as follows:
 
-* Fixed a classname collision with SPUtils and WatchKit.framework, many thanks to [Jason][iamjason] ([#228][228])
-* Updated a deprecated function use for iOS 8, many thanks to [Jason][iamjason] ([#230][230])
+* We have fixed a classname collision between `SPUtils` and `WatchKit.framework` ([#228][228])
+* We have handled the deprecatation of OpenIDFA calendar in iOS 8 ([#230][230])
+
+Many thanks to [Jason][iamjason] for bringing both of these issues to our attention!
 
 <h2><a name="tvos">6. tvOS support</a></h2>
 
-We have also added the ability to use the Tracker from within a `tvOS` application to go with the release of XCode 7.1.  Simply add the SnowplowTracker dependency to your podfile as you would normally.
+We have also added the ability to use the Tracker from within a [tvOS] [tvos] application to go with the release of XCode 7.1.
+
+Simply add the SnowplowTracker dependency to your podfile as you would normally:
 
 {% highlight python %}
 pod 'SnowplowTracker', '~> 0.6'
 {% endhighlight %}
 
-Please note that to use `tvOS` you will need version 0.39.+ of cocoapods.
+Please note that to use `tvOS` you will need version 0.39.+ of CocoaPods.
 
 <h2><a name="demo">7. Demonstration app</a></h2>
 
-The demonstration application has again been updated to reflect all of the changes that have taken place.  If you are unsure about your own implementation or need any sample code please do review the code available [here][demo-code] and [here][demo-code-1].
+The demo application has again been updated to reflect all of the changes that have taken place. If you are unsure about your own implementation or need any sample code please do review the code available [here][demo-code] and [here][demo-code-1].
 
 <h2><a name="changes">8. Other changes</a></h2>
 
@@ -169,6 +171,10 @@ If you have an idea for a new feature or want help getting things set up, please
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 [setup-guide]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
 [tracker-060]: https://github.com/snowplow/snowplow-objc-tracker/releases/tag/0.6.0
+
+[geolocation-context]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0
+[tvos]: https://developer.apple.com/tvos/
+
 [194]: https://github.com/snowplow/snowplow-objc-tracker/issues/194
 [119]: https://github.com/snowplow/snowplow-objc-tracker/issues/119
 [117]: https://github.com/snowplow/snowplow-objc-tracker/issues/117

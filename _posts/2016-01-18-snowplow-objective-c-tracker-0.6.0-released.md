@@ -7,30 +7,26 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo].  This release introduces several performance upgrades and some breaking API changes. Many thanks to [Jason][iamjason] for his contribution to this release!
+We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo]. This release introduces several performance upgrades and some breaking API changes. Many thanks to [Jason][iamjason] for his contribution to this release!
 
 In the rest of this post we will cover:
 
-1. [Tracker performance](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#tracker-performance)
-2. [Event creation](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#event-creation)
-3. [API updates](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#api-updates)
-4. [iOS 9.0 changes](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#ios-9.0)
-5. [Demonstration app](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#demo)
-6. [Other changes](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#changes)
-7. [Upgrading](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
-8. [Getting help](/blog/2015/11/04/snowplow-objective-c-tracker-0.6.0-released/#help)
+1. [Event batching](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#event-batching)
+2. [Event creation](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#event-creation)
+3. [API updates](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#api-updates)
+4. [iOS 9.0 changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#ios-9.0)
+5. [Demonstration app](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#demo)
+6. [Other changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#changes)
+7. [Upgrading](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
+8. [Getting help](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#help)
 
 <!--more-->
 
-<h2><a name="tracker-performance">1. Tracker performance</a></h2>
+<h2><a name="event-batching">1. Event batching</a></h2>
 
-This release brings about a rethink to POST requests and the count of events we send.  Historically a POST consisted of a predetermined count of events, a batch.  This batch was limited to a maximum of 10 events in the case of the Objective-C Tracker.  We have now removed this limitation and imposed a much more performant metric for determining a POST size; the maximum amount of bytes the collector can receive.
+Historically, the Objective-C Tracker used 10 events as a hard upper-limit to the number of events to send to a Snowplow collector at a time in a single `POST`. 
 
-Imagine a single event is 1000 bytes in size.  This meant that the maximum amount of bytes we are able to send is 10000, less than a 5th of what the collectors can safely handle.  To send 50 events would subsequently result in 5 seperate requests being sent.
-
-Under the new metric we can send all 50 of those events in a single request.  Resulting in better sending performance and far less network activity.
-
-Please note that this limit currently defaults to 40000 bytes to leave a safe margin beneath the maximum of 52000.  However this can be easily changed in the constructor like so:
+As of this release, we are replacing this with a limit on the number of bytes in a single `POST`. This defaults to 40,000 bytes, but you can override it like so:
 
 {% highlight objective-c %}
 SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
@@ -40,7 +36,7 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
     }];
 {% endhighlight %}
 
-NOTE: If you exceed 52000 there is no guarantee that your events will send.
+As you can see, this release also implements a byte limit for `GET`s, which always contain only 1 event.
 
 <h2><a name="event-creation">2. Event creation</a></h2>
 
@@ -138,6 +134,7 @@ The demonstration application has again been updated to reflect all of the chang
 
 Other updates include:
 
+* Fixed an important bug where the 
 * Added precondition checks to all core object construction ([#117][117])
 * Added a SelfDescribingJson class to ensure we build objects correctly ([#119][119])
 * Upgraded the client_session schema to 1-0-1 and started recording the firstEventId ([#194][194])

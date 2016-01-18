@@ -14,11 +14,13 @@ In the rest of this post we will cover:
 1. [Event batching](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#event-batching)
 2. [Event creation](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#event-creation)
 3. [API updates](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#api-updates)
-4. [iOS 9.0 changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#ios-9.0)
-5. [Demonstration app](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#demo)
-6. [Other changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#changes)
-7. [Upgrading](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
-8. [Getting help](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#help)
+4. [Geolocation context](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#geo)
+5. [iOS 9.0 and XCode 7 changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#ios-9.0)
+5. [tvOS support](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#tvos)
+6. [Demonstration app](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#demo)
+7. [Other changes](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#changes)
+8. [Upgrading](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#upgrading)
+9. [Getting help](/blog/2016/01/18/snowplow-objective-c-tracker-0.6.0-released/#help)
 
 <!--more-->
 
@@ -81,6 +83,8 @@ The tracking functions within `SPTracker` have all been updated to fit the new b
 
     Old function name | New function name | Type of new function's single argument
 
+<h2><a name="geo">4. Geolocation context</a></h2>
+
 We have also added support for the Geo-Location context.  Due to the difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
 
 During SPSubject creation you can now specify if you intend to use this context:
@@ -98,7 +102,7 @@ You will then need to populate the various geo-location data points.  At a minim
 
 The context will then be automatically added to all of your events.
 
-<h2><a name="ios-9.0">4. iOS 9.0 and XCode 7 changes</a></h2>
+<h2><a name="ios-9.0">5. iOS 9.0 and XCode 7 changes</a></h2>
 
 With the release of iOS 9.0 several parts of the Tracker have been updated to keep everything running smoothly:
 
@@ -109,6 +113,8 @@ With the release of XCode 7+ we have also had to instrument several other change
 * Fixed a classname collision with SPUtils and WatchKit.framework, many thanks to [Jason][iamjason] ([#228][228])
 * Updated a deprecated function use for iOS 8, many thanks to [Jason][iamjason] ([#230][230])
 
+<h2><a name="tvos">6. tvOS support</a></h2>
+
 We have also added the ability to use the Tracker from within a `tvOS` application to go with the release of XCode 7.1.  Simply add the SnowplowTracker dependency to your podfile as you would normally.
 
 {% highlight python %}
@@ -117,11 +123,11 @@ pod 'SnowplowTracker', '~> 0.6'
 
 Please note that to use `tvOS` you will need version 0.39.+ of cocoapods.
 
-<h2><a name="demo">5. Demonstration app</a></h2>
+<h2><a name="demo">7. Demonstration app</a></h2>
 
 The demonstration application has again been updated to reflect all of the changes that have taken place.  If you are unsure about your own implementation or need any sample code please do review the code available [here][demo-code] and [here][demo-code-1].
 
-<h2><a name="changes">6. Other changes</a></h2>
+<h2><a name="changes">8. Other changes</a></h2>
 
 Other updates include:
 
@@ -132,7 +138,7 @@ Other updates include:
 * Added tests to assert that all generated schemas are valid using SnowplowIgluClient ([#222][222])
 * Fixed floats and doubles not being correctly shortened to two decimal places ([#232][232])
 
-<h2><a name="upgrading">7. Upgrading</a></h2>
+<h2><a name="upgrading">9. Upgrading</a></h2>
 
 To add the Snowplow Objective-C Tracker as a dependency to your own app, add the following into your Podfile:
 
@@ -142,7 +148,7 @@ pod 'SnowplowTracker', '~> 0.6'
 
 If you prefer, you can manually add the tracker's source code and dependencies into your project's codebase, or use the Static Framework.
 
-<h2><a name="help">8. Getting help</a></h2>
+<h2><a name="help">10. Getting help</a></h2>
 
 Useful links:
 

@@ -78,8 +78,14 @@ With the aforementioned performance updates the `SPEmitter` has undergone some m
   - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
 
 The tracking functions within `SPTracker` have all been updated to fit the new builder pattern for event creation. Each tracking function now accepts only a single variable in the form of the event object created. Here is a table of the updated tracking functions:
-
-    Old function name | New function name | Type of new function's single argument
+    
+    Old function name           | New function name        | Type of new function's single argument
+    `trackPageView`             | `trackPageViewEvent`     | `SPPageView`
+    `trackStructuredEvent`      | `trackStructuredEvent`   | `SPStructured`
+    `trackUnstructuredEvent`    | `trackUnstructuredEvent` | `SPUnstructured`
+    `trackScreenView`           | `trackScreenViewEvent`   | `SPScreenView`
+    `trackTimingWithCategory`   | `trackTimingEvent`       | `SPTiming`
+    `trackEcommerceTransaction` | `trackEcommerceEvent`    | `SPEcommerce`
 
 We have also added support for the Geo-Location context.  Due to the difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
 

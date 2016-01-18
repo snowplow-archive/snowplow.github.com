@@ -81,13 +81,14 @@ With the aforementioned performance updates the `SPEmitter` has undergone some m
 
 The tracking functions within `SPTracker` have all been updated to fit the new builder pattern for event creation. Each tracking function now accepts only a single variable in the form of the event object created. Here is a table of the updated tracking functions:
     
-    Old function name           | New function name        | Type of new function's single argument
-    `trackPageView`             | `trackPageViewEvent`     | `SPPageView`
-    `trackStructuredEvent`      | `trackStructuredEvent`   | `SPStructured`
-    `trackUnstructuredEvent`    | `trackUnstructuredEvent` | `SPUnstructured`
-    `trackScreenView`           | `trackScreenViewEvent`   | `SPScreenView`
-    `trackTimingWithCategory`   | `trackTimingEvent`       | `SPTiming`
-    `trackEcommerceTransaction` | `trackEcommerceEvent`    | `SPEcommerce`
+| Old function name           | New function name        | New argument type |
+|-----------------------------|--------------------------|-------------------|
+| `trackPageView`             | `trackPageViewEvent`     | `SPPageView`      |
+| `trackStructuredEvent`      | `trackStructuredEvent`   | `SPStructured`    |
+| `trackUnstructuredEvent`    | `trackUnstructuredEvent` | `SPUnstructured`  |
+| `trackScreenView`           | `trackScreenViewEvent`   | `SPScreenView`    |
+| `trackTimingWithCategory`   | `trackTimingEvent`       | `SPTiming`        |
+| `trackEcommerceTransaction` | `trackEcommerceEvent`    | `SPEcommerce`     |
 
 <h2><a name="geo">4. Geolocation context</a></h2>
 

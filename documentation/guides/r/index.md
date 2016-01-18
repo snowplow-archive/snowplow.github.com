@@ -60,7 +60,7 @@ Back to [top](#top).
 This guide assumes you have installed R, and installed the `RPostgreSQL` package required to get R to talk to PostgreSQL databases including Amazon Redshift. If you have not, installed this, you can do so by executing the following at the R prompt:
 
 {% highlight r %}
-> install.package("RPostgreSQL")
+> install.packages("RPostgreSQL")
 {% endhighlight %}
 
 R will ask you to select a mirror to download the package from. Select a local mirror and the package should install automatically.

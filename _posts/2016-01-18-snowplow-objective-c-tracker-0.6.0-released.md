@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo]. This release introduces several performance upgrades and some breaking API changes. Many thanks to community member [Jason][iamjason] for his contributions to this release!
+We are pleased to release version 0.6.0 of the [Snowplow Objective-C Tracker] [objc-repo]. This release refactors the event tracking API, introduces tvOS support and fixes an important bug with client sessionization. Many thanks to community member [Jason][iamjason] for his contributions to this release!
 
 In the rest of this post we will cover:
 

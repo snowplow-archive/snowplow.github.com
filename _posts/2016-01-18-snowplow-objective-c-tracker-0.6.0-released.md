@@ -90,6 +90,12 @@ The tracking functions within `SPTracker` have all been updated to fit the new b
 | `trackTimingWithCategory`   | `trackTimingEvent`       | `SPTiming`        |
 | `trackEcommerceTransaction` | `trackEcommerceEvent`    | `SPEcommerce`     |
 
+To access the new builders (`SPPageViewBuilder` et al), make sure to import this new file into your code:
+
+{% highlight objective-c %}
+import "SPEvent.h"
+{% endhighlight %}
+
 <h2><a name="geo">4. Geolocation context</a></h2>
 
 We have also added support for Snowplow's [geo-location context] [geolocation-context]. During `SPSubject` creation you can now specify if you intend to use this context:

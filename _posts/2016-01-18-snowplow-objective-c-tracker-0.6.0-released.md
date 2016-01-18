@@ -58,37 +58,28 @@ SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
 [tracker trackPageViewEvent:event];
 {% endhighlight %}
 
-While the builder pattern introduces some level of verbosity it has several key advantages:
+While the builder pattern introduces some verbosity, it has several key advantages:
 
-* No need to set `nil` values for fields that are not required and that you do not want to fill.
-* Allows us to extend the API without having to introduce API changes in the future.
-* Allows you to build an event ahead of time without having to send it instantly.
+* No need to set `nil` values for fields that are not required and that you do not want to fill
+* Allows us to extend the API without having to introduce breaking API changes in the future
+* Allows you to build an event ahead of time without having to send it instantly
 
 Please refer to the [technical documentation][tech-docs] for other examples.
 
 <h2><a name="api-updates">3. API updates</a></h2>
 
-With the aforementioned performance updates the SPEmitter has undergone some minor updates:
+With the aforementioned performance updates the `SPEmitter` has undergone some minor updates:
 
-* Removed `setBufferOption` builder function in favour of using ByteLimits.
 * Added `setProtocol` builder function for choosing between `HTTP` and `HTTPS`
-* Added `setByteLimitGet` builder function for setting a GET request byte maximum
-* Added `setByteLimitPost` builder function for setting a POST request byte maximum
-* Changed `setUrlEndpoint` builder function to accept an NSString instead of an NSURL
-  - You now only need to set the resource name for the collector.
+* Removed `setBufferOption` builder function in favour of `setByteLimitX`, below
+* Added `setByteLimitGet` builder function for setting a `GET` request byte maximum
+* Added `setByteLimitPost` builder function for setting a `POST` request byte maximum
+* Changed `setUrlEndpoint` builder function to accept an `NSString` instead of an NSURL
+  - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
 
-The SPTracker has also had all of its tracking functions updated to match the changes to how events are constructed.  The function names are mostly the same however they now accept only a single variable in the form of the event object created.
+The tracking functions within `SPTracker` have all been updated to fit the new builder pattern for event creation. Each tracking function now accepts only a single variable in the form of the event object created. Here is a table of the updated tracking functions:
 
-{% highlight objective-c %}
-// Create the event object
-SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-    [builder setPageUrl:@"DemoPageUrl"];
-    [builder setReferrer:@"DemoPageReferrer"];
-}];
-
-// Track the event
-[tracker trackPageViewEvent:event];
-{% endhighlight %}
+    Old function name | New function name | Type of new function's single argument
 
 We have also added support for the Geo-Location context.  Due to the difficulty involved in actually getting the relevant data we have left it up to you, the developer, to get the data for us to add to the Tracker.
 
@@ -134,7 +125,7 @@ The demonstration application has again been updated to reflect all of the chang
 
 Other updates include:
 
-* Fixed an important bug where the 
+* Fixed a bug where the first `client_session` was passing an empty string instead of a null value ([#257][257])
 * Added precondition checks to all core object construction ([#117][117])
 * Added a SelfDescribingJson class to ensure we build objects correctly ([#119][119])
 * Upgraded the client_session schema to 1-0-1 and started recording the firstEventId ([#194][194])
@@ -174,6 +165,7 @@ If you have an idea for a new feature or want help getting things set up, please
 [230]: https://github.com/snowplow/snowplow-objc-tracker/issues/230
 [222]: https://github.com/snowplow/snowplow-objc-tracker/issues/222
 [232]: https://github.com/snowplow/snowplow-objc-tracker/issues/232
+[257]: https://github.com/snowplow/snowplow-objc-tracker/issues/257
 [iamjason]: https://github.com/iamjason
 [demo-code]: https://github.com/snowplow/snowplow-objc-tracker/blob/master/SnowplowDemo/SnowplowDemo/DemoUtils.m
 [demo-code-1]: https://github.com/snowplow/snowplow-objc-tracker/blob/master/SnowplowDemo/SnowplowDemo/ViewController.m

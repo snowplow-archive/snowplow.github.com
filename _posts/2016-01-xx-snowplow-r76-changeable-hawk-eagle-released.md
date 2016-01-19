@@ -11,11 +11,6 @@ We are pleased to announce the release of [Snowplow 76 Changeable Hawk-Eagle][sn
 
 ![R75 Long-Legged Buzzard] [release-image]
 
-The new webhook integrations are as follows:
-
-1. **Urban Airship** - for tracking mobile app-related events from [Urban Airship][urbanairship-website] using the new [Urban Airship Connect] [urbanairship-connect] product
-2. **SendGrid** - for tracking email-related events delivered by [SendGrid][sendgrid-website] via [SendGrid webhooks] [sendgrid-webhooks]
-
 Here are the sections after the fold:
 
 1. [Urban Airship Connect support](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#urbanairship)

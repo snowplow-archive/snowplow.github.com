@@ -40,6 +40,8 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 
 As you can see, this release also implements a byte limit for `GET`s, which always contain only 1 event.
 
+In the case that a single event exceeds the byte limit, the tracker will attempt to send that event on its own, but won't attempt to resend the event in the case of a failure (i.e. won't write that event to the event store). In other words, the tracker will "fire and forget" outsized events.
+
 <h2><a name="event-creation">2. Event creation</a></h2>
 
 Following from the Android Tracker we have now implemented builder patterns for all of the events available to the Tracker.  This is quite a large API change but one which will allow future customization with much greater ease.

@@ -72,11 +72,11 @@ Please refer to the [technical documentation][tech-docs] for other examples.
 
 With the aforementioned performance updates the `SPEmitter` has undergone some important updates:
 
-* Added `setProtocol` builder function for choosing between http and https. It defaults to https
+* Added `setProtocol` builder function for choosing between HTTP and HTTPS. It defaults to HTTPS
 * Changed `setUrlEndpoint` builder function to accept an `NSString` instead of an NSURL
   - You now only need to set the resource name for the collector (i.e. `host/path`, **not** `http(s)://host/path`)
-  - **If your endpoint uses unsecured http (not https), then you must `setProtocol` to `SPHttp`**
-  - **If your application is running on iOS 9, tvOS 9 or OS X 10.11 or later you will need to use `SPHttps` as per Apple's [Application Transport Security][ats]**
+  - **If your endpoint uses unsecured HTTP (not HTTPS), then you must `setProtocol` to `SPHttp`**
+  - **If your application is running on iOS 9, tvOS 9 or OS X 10.11 or later you will need to use `SPHttps` as per Apple's [Application Transport Security] [ats]**
 * Removed `setBufferOption` builder function in favour of `setByteLimitX`, below
 * Added `setByteLimitGet` builder function for setting a `GET` request byte maximum
 * Added `setByteLimitPost` builder function for setting a `POST` request byte maximum

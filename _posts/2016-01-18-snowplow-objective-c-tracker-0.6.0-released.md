@@ -102,7 +102,7 @@ import "SPEvent.h"
 
 <h2><a name="geo">4. Geolocation context</a></h2>
 
-We have also added support for Snowplow's [geo-location context] [geolocation-context]. During `SPSubject` creation you can now specify if you intend to use this context:
+We have also added support for Snowplow's [geolocation context] [geolocation-context]. During `SPSubject` creation you can now specify if you intend to use this context:
 
 {% highlight objective-c %}
 SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
@@ -126,13 +126,13 @@ With the release of iOS 9.0 we have updated the Tracker as follows:
 With the release of XCode 7 we have updated the Tracker as follows:
 
 * We have fixed a classname collision between `SPUtils` and `WatchKit.framework` ([#228][228])
-* We have handled the deprecatation of OpenIDFA calendar in iOS 8 ([#230][230])
+* We have handled the deprecation of OpenIDFA's calendar in iOS 8 ([#230][230])
 
 Many thanks to [Jason][iamjason] for bringing both of these issues to our attention!
 
 <h2><a name="tvos">6. tvOS support</a></h2>
 
-We have also added the ability to use the Tracker from within a [tvOS] [tvos] application to go with the release of XCode 7.1.
+We have also added the ability to use the Tracker from within a [tvOS] [tvos] application in concert with the release of XCode 7.1.
 
 Simply add the SnowplowTracker dependency to your podfile as you would normally:
 
@@ -165,7 +165,7 @@ To add the Snowplow Objective-C Tracker as a dependency to your own app, add the
 pod 'SnowplowTracker', '~> 0.6'
 {% endhighlight %}
 
-If you prefer, you can manually add the tracker's source code and dependencies into your project's codebase, or use the Static Framework.
+If you prefer, you can manually add the tracker's source code and dependencies into your project's codebase, or use the [Static Framework for iOS] [lib-dl].
 
 <h2><a name="help">10. Getting help</a></h2>
 

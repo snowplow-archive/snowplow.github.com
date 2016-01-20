@@ -7,42 +7,63 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 76 Changeable Hawk-Eagle][snowplow-release]. This release  and also includes an important bug fix for our .
+We are pleased to announce the release of [Snowplow 76 Changeable Hawk-Eagle][snowplow-release]. This release introduces an event de-duplication process which runs on Hadoop, and also includes an important bug fix for our recent SendGrid webhook support ([#xx] [issue-xx]).
 
-![R75 Long-Legged Buzzard] [release-image]
+![R76 Changeable Hawk-Eagle] [release-image]
 
 Here are the sections after the fold:
 
-1. [Urban Airship Connect support](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#urbanairship)
-2. [SendGrid webhook support](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#SendGrid)
-3. [Updated data model](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#datamodel)
-4. [Upgrading](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#upgrading)
-5. [Roadmap and contributing](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#roadmap-etc)
-6. [Documentation and help](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#help)
+1. [Event de-duplication in Hadoop Shred](/blog/2016/01/xx/snowplow-r76-changeable-hawk-eagle-released/#deduplication)
+2. [SendGrid webhook bug fix](/blog/2016/01/xx/snowplow-r76-changeable-hawk-eagle-released/#sendgrid-fix)
+3. [Upgrading](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#upgrading)
+4. [Roadmap and contributing](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#roadmap-etc)
+5. [Getting help](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#help)
 
 <!--more-->
 
-<h2 id="deduplication">1. Event de-duplication</h2>
+<h2 id="deduplication">1. Event de-duplication in Hadoop Shred</h2>
 
-The Urban Airship Connect adapter in lets you track mobile app events delivered by [Urban Airship Connect][urbanairship-connect]. Using this functionality you can warehouse all of your Urban Airship mobile app and push notification events alongside your existing Snowplow events.
+<h3 id="deduplication-101">1.1 Event duplicates 101</h3>
 
-For help setting up Urban Airship Connect support, see the [Urban Airship Connect setup][urbanairship-setup] wiki page.
+Duplicate events are an unfortunate fact of life when it comes to data pipelines - for a helpful primer on this issue, see last year's blog post [Dealing with duplicate event IDs] [dupes-post]. Fortunately Snowplow makes it easy to spot duplicates, thanks to:
 
-For technical details on this adapter, see the [Urban Airship Connect adapter][urbanairship-tech-docs] wiki page.
+1. Our major trackers (including JavaScript, iOS and Android) all generate a UUID for the event ID *at event creation time*, so any duplication that occurs downstream (e.g. due to spiders or anti-virus software) is easy to spot
+2. In Snowpow 71 Stork-Billed Kingfisher we introduced a new [Event fingerprint enrichment] [event-fingerprint-enrichment], to help identify whether two events are semantically identical (i.e. contain all the same properties)
 
-<h2 id="SendGrid">2. SendGrid bug fix</h2>
+Once you have identified duplicates, it can be helpful to remove them - this is particularly important for Redshift, where we use the event ID to join between the master `atomic.events` table and the shredded JSON child tables. If duplicates are not removed, then `JOIN`s between the master and child tables can become problematic.
 
-In the last release XXX.
+<h3 id="deduplication-sql">1.2 Limitations of event de-duplication in SQL</h3>
 
-<h2 id="datamodel">3. Updated data model</h2>
+In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not an ideal place to de-dupe events, for a couple of reasons:
 
-Community member [Bernardo Srulzon] [bernardosrulzon] has contribued an update to one of our SQL data models: [web-recalculate] [web-recalculate].
+1. The events have already been shredded into master `atomic.events` and child JSON tables, so there are a lot of company-specific tables to de-dupe
+2. De-duplication is resource-intensive and can add hours to a data modeling process
 
-The updated data model is more efficient (consuming less disk space), and now creates a helpful cookie-ID-to-user-ID map. Thanks Bernardo!
+For both reasons, it makes sense to bring event de-duplication upstream in the pipeline - and so as of this release we are de-duplicating events inside the Hadoop Shred component which reads Snowplow enriched events and prepares them for loading into Redshift.
 
-<h2 id="upgrading">4. Upgrading</h2>
+<h3 id="deduplication-shred">1.3 Event de-duplication in Hadoop Shred</h3>
 
-Upgrading to this release is simple - the only changed components are the fat jars
+As of this release, Hadoop Shred will only de-duplicate "natural duplicates" - i.e. events which share the same event ID and same event fingerprint, meaning that they are semantically identical to each other.
+
+For a given ETL run of events being processed, Hadoop Shred will now keep only one out of each collection of natural duplicates; all others will be discarded.
+
+There is no configuration for this setting - de-duplication is performed automatically in Hadoop Shred, **prior** to shredding the events and loading them into Redshift.
+
+Some notes on this:
+
+* The Snowplow enriched events written out to your `enriched/good` S3 bucket are **not** affected - they will continue to contain all duplicates
+* We do not yet tackle "synthetic dupes" - this is where two events have the same event ID and different fingerprints. We are working on this, but in the meantime you can continue to use the SQL de-duplication for this if you have a major issue with bots, spiders et al on your side. We are working on this
+* If natural duplicates exist across ETL runs, these will not be de-duplicated currently. This is something we hope to explore soon
+
+<h2 id="sendgrid-fix">2. SendGrid wenhook bug fix</h2>
+
+In the last release, Snowplow R75 Long-Legged Buzzard, we introduced support for ingesting SendGrid events into Snowplow. Since the release an important bug was identified ([#xx] [issue-xx]), which has now been fixed in R76.
+
+Many thanks to community member [Bernardo S] [xxx] for bringing this issue to our attention!
+
+<h2 id="upgrading">3. Upgrading</h2>
+
+Upgrading to this release is simple - the only changed components are the jar versions for Hadoop Enrich and Hadoop Shred.
 
 <h3 id="configuring-emretlrunner">4.1 Upgrading your EmrEtlRunner config.yml</h3>
 
@@ -57,31 +78,34 @@ In the `config.yml` file for your EmrEtlRunner, update your `hadoop_enrich` and 
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
-<h3 id="upgrading-change-form">4.2 Redshift</h3>
+<h2 id="roadmap-etc">4. Roadmap and contributing</h2>
 
-You'll need to deploy the Redshift tables for any webhooks you plan on ingesting into Snowplow. You can find the Redshift table deployment instructions on the corresponding webhook setup wiki pages:
+This event de-duplication code in Hadoop Shred represents our first piece of data modeling in Hadoop (rather than Redshift) - an exciting step for Snowplow! We plan to extend this functionality in Hadoop Shred in coming releases, in particular:
 
-* [SendGrid webhook Redshift setup][sendgrid-setup-redshift]
-* [UrbanAirship Connect webhook Redshift setup][urbanairship-setup-redshift]
+1. Adding support for de-duplicating synthetic duplicates
+2. Adding support for de-duplicating events across ETL runs (likely using DynamoDB as our cross-batch "memory")
 
-<h2 id="roadmap-etc">5. Roadmap and contributing</h2>
+In the meantime, upcoming Snowplow releases include:
 
-**Something about plans to extend our dedupe support.**
-
-Upcoming Snowplow releases include:
-
-* [Release 77 Bird TBC][r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
-* [Release 78 Bird TBC][r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 77 XXX][r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
+* [Release 78 XXX][r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">6. Getting help</h2>
+<h2 id="help">5. Getting help</h2>
 
 As always, if you do run into any issues or don't understand any of the new features, please [raise an issue][issues] or get in touch with us via [the usual channels][talk-to-us].
 
 For more details on this release, please check out the [R76 Release Notes][snowplow-release] on GitHub.
 
 [release-image]: /assets/img/blog/2016/01/long-legged_buzzard.jpg
+
+[dupes-post]: /blog/2015/08/19/dealing-with-duplicate-event-ids/
+[event-fingerprint-enrichment]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment
+[r72-deduplication-post]: /blog/2015/10/15/snowplow-r72-great-spotted-kiwi-released/#deduplication
+[r75-sendgrid-post]: xxx
+
+[issue-xx]: xx
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 

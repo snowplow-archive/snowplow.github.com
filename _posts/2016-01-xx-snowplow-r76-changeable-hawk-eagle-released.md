@@ -34,7 +34,7 @@ Once you have identified duplicates, it can be helpful to remove them - this is 
 
 <h3 id="deduplication-sql">1.2 Limitations of event de-duplication in SQL</h3>
 
-In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not an ideal place to de-dupe events, for a couple of reasons:
+In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not an ideal place to de-dupe events, for two reasons:
 
 1. The events have already been shredded into master `atomic.events` and child JSON tables, so there are a lot of company-specific tables to de-dupe
 2. De-duplication is resource-intensive and can add hours to a data modeling process

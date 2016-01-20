@@ -9,7 +9,7 @@ redirect_from:
   - /no-js-tracker.html
 ---
 
-We are working on a new version of this from – stay stuned! In the meantime, please visit our [documentation on GitHub](https://github.com/snowplow/snowplow/wiki) for more information on the Pixel Tracker.
+We are working on a new version of this form – stay stuned! In the meantime, please visit our [documentation on GitHub](https://github.com/snowplow/snowplow/wiki) for more information on the Pixel Tracker.
 
 <!--The Snowplow Pixel Tracker allows you to track customer behavior in web-based environments that do not support Javascript, for example HTML emails.
 

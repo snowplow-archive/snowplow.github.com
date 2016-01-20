@@ -9,7 +9,9 @@ redirect_from:
   - /no-js-tracker.html
 ---
 
-The Snowplow Pixel Tracker allows you to track customer behavior in web-based environments that do not support Javascript, for example HTML emails.
+We are working on a new version of this from – stay stuned! In the meantime, please visit our [documentation on GitHub](https://github.com/snowplow/snowplow/wiki) for more information on the Pixel Tracker.
+
+<!--The Snowplow Pixel Tracker allows you to track customer behavior in web-based environments that do not support Javascript, for example HTML emails.
 
 Use the wizard below to generate a tracking tag to embed on the HTML of web pages you wish to track using the Pixel tracker. Note: you will need to generate a unique tag for every web page you want to track.
 
@@ -59,3 +61,4 @@ Use the wizard below to generate a tracking tag to embed on the HTML of web page
 
 <div id="output">
 </div>
+-->

@@ -28,11 +28,10 @@ Use case example: parse stream of Optimizely's targeting lists from AWS S3 bucke
 </div>
 
 In the example above:
-1. There is an AWS S3 **observers**, that awaits for new files, triggers **processors** and cleans up S3 bucket.
 
-2. There is an Optimizely TargetingLists **processor**, that checks if file is valid, upload it to Optimizely **API**.
-
-3. There is an Optimizely **API**, that incapsulates all actions with Optimizely.
+1. There is an AWS S3 *observers*, that awaits for new files, triggers *processors* and cleans up S3 bucket. 
+2. There is an Optimizely TargetingLists *processor*, that checks if file is valid, upload it to Optimizely *API*. 
+3. There is an Optimizely *API*, that handles all actions with Optimizely.
 
 
 At the moment (0.0.1 version) there are two observers (local and S3) and three processors, two for Optimizely and one for Sendgrid.
@@ -54,8 +53,6 @@ Then, you can trigger one of observers (by creating new file with data in correc
 </div>
 
 Plans for 0.0.2 and further:
-1. More processors and APIs (SalesForce, Urban Airship, ...)
-
-2. Since Sauna is based on akka, make it distributed over several machines, so each analyst could have own Sauna instance, and devops could configure all nodes from single place.
-
-3. Integration with other Snowplow services.
+1. More processors and APIs (SalesForce, Urban Airship, ...) 
+2. Since Sauna is based on akka, make it distributed over several machines, so each analyst could have own Sauna instance, and devops could configure all nodes from single place. 
+3. Integration with other Snowplow services. 

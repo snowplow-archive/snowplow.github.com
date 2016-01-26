@@ -7,17 +7,17 @@ author: Alex
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 76 Changeable Hawk-Eagle][snowplow-release]. This release introduces an event de-duplication process which runs on Hadoop, and also includes an important bug fix for our recent SendGrid webhook support ([#xx] [issue-xx]).
+We are pleased to announce the release of [Snowplow 76 Changeable Hawk-Eagle][snowplow-release]. This release introduces an event de-duplication process which runs on Hadoop, and also includes an important bug fix for our recent SendGrid webhook support ([#2328] [issue-2328]).
 
 ![R76 Changeable Hawk-Eagle] [release-image]
 
 Here are the sections after the fold:
 
-1. [Event de-duplication in Hadoop Shred](/blog/2016/01/xx/snowplow-r76-changeable-hawk-eagle-released/#deduplication)
-2. [SendGrid webhook bug fix](/blog/2016/01/xx/snowplow-r76-changeable-hawk-eagle-released/#sendgrid-fix)
-3. [Upgrading](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#upgrading)
-4. [Roadmap and contributing](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#roadmap-etc)
-5. [Getting help](/blog/2016/01/02/snowplow-r75-long-legged-buzzard-released/#help)
+1. [Event de-duplication in Hadoop Shred](/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#deduplication)
+2. [SendGrid webhook bug fix](/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#sendgrid-fix)
+3. [Upgrading](/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#upgrading)
+4. [Roadmap and contributing](/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#roadmap-etc)
+5. [Getting help](/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/#help)
 
 <!--more-->
 
@@ -36,30 +36,30 @@ Once you have identified duplicates, it can be helpful to remove them - this is 
 
 In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not an ideal place to de-dupe events, for two reasons:
 
-1. The events have already been shredded into master `atomic.events` and child JSON tables, so there are a lot of company-specific tables to de-dupe
+1. The events have already been shredded into master `atomic.events` and child JSON tables, potentially resulting in a lot of company-specific tables to de-dupe
 2. De-duplication is resource-intensive and can add hours to a data modeling process
 
-For both reasons, it makes sense to bring event de-duplication upstream in the pipeline - and so as of this release we are de-duplicating events inside the Hadoop Shred component which reads Snowplow enriched events and prepares them for loading into Redshift.
+For both reasons, it makes sense to bring event de-duplication upstream in the pipeline - and so as of this release we are de-duplicating events inside our Hadoop Shred module, which reads Snowplow enriched events and prepares them for loading into Redshift.
 
 <h3 id="deduplication-shred">1.3 Event de-duplication in Hadoop Shred</h3>
 
-As of this release, Hadoop Shred will only de-duplicate "natural duplicates" - i.e. events which share the same event ID and same event fingerprint, meaning that they are semantically identical to each other.
+As of this release, Hadoop Shred will only de-duplicate "natural duplicates" - i.e. events which share the same event ID and the same event fingerprint, meaning that they are semantically identical to each other.
 
-For a given ETL run of events being processed, Hadoop Shred will now keep only one out of each collection of natural duplicates; all others will be discarded.
+For a given ETL run of events being processed, Hadoop Shred will now keep only *one* out of each group of natural duplicates; all others will be discarded.
 
-There is no configuration for this setting - de-duplication is performed automatically in Hadoop Shred, **prior** to shredding the events and loading them into Redshift.
+There is no configuration required for this functionality - de-duplication is performed automatically in Hadoop Shred, **prior** to shredding the events and loading them into Redshift.
 
 Some notes on this:
 
 * The Snowplow enriched events written out to your `enriched/good` S3 bucket are **not** affected - they will continue to contain all duplicates
-* We do not yet tackle "synthetic dupes" - this is where two events have the same event ID and different fingerprints. We are working on this, but in the meantime you can continue to use the SQL de-duplication for this if you have a major issue with bots, spiders et al on your side. We are working on this
+* We do not yet tackle "synthetic dupes" - this is where two events have the same event ID but different event fingerprints. We are working on this, but in the meantime you can continue to use the SQL de-duplication for this if you have a major issue with bots, spiders and similar
 * If natural duplicates exist across ETL runs, these will not be de-duplicated currently. This is something we hope to explore soon
 
 <h2 id="sendgrid-fix">2. SendGrid wenhook bug fix</h2>
 
-In the last release, Snowplow R75 Long-Legged Buzzard, we introduced support for ingesting SendGrid events into Snowplow. Since the release an important bug was identified ([#xx] [issue-xx]), which has now been fixed in R76.
+In the last release, Snowplow R75 Long-Legged Buzzard, we introduced support for ingesting SendGrid events into Snowplow. Since the release an important bug was identified ([#2328] [issue-2328]), which has now been fixed in R76.
 
-Many thanks to community member [Bernardo S] [xxx] for bringing this issue to our attention!
+Many thanks to community member [Bernardo Srulzon] [bernardosrulzon] for bringing this issue to our attention!
 
 <h2 id="upgrading">3. Upgrading</h2>
 
@@ -87,8 +87,9 @@ This event de-duplication code in Hadoop Shred represents our first piece of dat
 
 In the meantime, upcoming Snowplow releases include:
 
-* [Release 77 XXX][r76-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
-* [Release 78 XXX][r77-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 77 Great Auk][r77-milestone], which will refresh our EmrEtlRunner app, including updating Snowplow to using the EMR 4.x AMI series
+* [Release 78 Great Hornbill][r78-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 79 Black Swan][r79-milestone], which will allow enriching an event by requesting data from a third-party API
 
 Note that these releases are always subject to change between now and the actual release date.
 
@@ -98,14 +99,15 @@ As always, if you do run into any issues or don't understand any of the new feat
 
 For more details on this release, please check out the [R76 Release Notes][snowplow-release] on GitHub.
 
-[release-image]: /assets/img/blog/2016/01/long-legged_buzzard.jpg
+[release-image]: /assets/img/blog/2016/01/changeable_hawk-eagle.jpg
 
 [dupes-post]: /blog/2015/08/19/dealing-with-duplicate-event-ids/
 [event-fingerprint-enrichment]: https://github.com/snowplow/snowplow/wiki/Event-fingerprint-enrichment
 [r72-deduplication-post]: /blog/2015/10/15/snowplow-r72-great-spotted-kiwi-released/#deduplication
-[r75-sendgrid-post]: xxx
+[r75-sendgrid-post]: /blog/2016/01/02/snowplow-r75-long-legged-buzzard-released
 
-[issue-xx]: xx
+[bernardosrulzon]: https://github.com/bernardosrulzon
+[issue-2328]: https://github.com/snowplow/snowplow/issues/2328
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
@@ -113,5 +115,6 @@ For more details on this release, please check out the [R76 Release Notes][snowp
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r76-changeable-hawk-eagle
 
-[r77-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2077%20%5BKIN%5D%20Bird%20TBC
-[r78-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2078%20%5BKIN%5D%20Bird%20TBC
+[r77-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2077%20%5BCLI%5D%20Great%20Auk
+[r78-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2078%20%5BKIN%5D%20Great%20Hornbill
+[r79-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2079%20%5BHAD%5D%20Black%20Swan

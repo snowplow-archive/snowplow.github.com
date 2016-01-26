@@ -25,7 +25,7 @@ Here are the sections after the fold:
 
 <h3 id="deduplication-101">1.1 Event duplicates 101</h3>
 
-Duplicate events are an unfortunate fact of life when it comes to data pipelines - for a helpful primer on this issue, see last year's blog post [Dealing with duplicate event IDs] [dupes-post]. Fortunately Snowplow makes it easy to spot duplicates, thanks to:
+Duplicate events are an unfortunate fact of life when it comes to data pipelines - for a helpful primer on this issue, see last year's blog post [Dealing with duplicate event IDs] [dupes-post]. Fortunately Snowplow makes it easy to identify duplicates, thanks to:
 
 1. Our major trackers (including JavaScript, iOS and Android) all generate a UUID for the event ID *at event creation time*, so any duplication that occurs downstream (e.g. due to spiders or anti-virus software) is easy to spot
 2. In Snowpow 71 Stork-Billed Kingfisher we introduced a new [Event fingerprint enrichment] [event-fingerprint-enrichment], to help identify whether two events are semantically identical (i.e. contain all the same properties)
@@ -34,7 +34,7 @@ Once you have identified duplicates, it can be helpful to remove them - this is 
 
 <h3 id="deduplication-sql">1.2 Limitations of event de-duplication in SQL</h3>
 
-In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not an ideal place to de-dupe events, for two reasons:
+In [Snowplow 72 Great Spotted Kiwi] [r72-deduplication-post] we released SQL queries to de-dupe Snoplow events inside Redshift. While this was a great start, Redshift is not the ideal place to de-dupe events, for two reasons:
 
 1. The events have already been shredded into master `atomic.events` and child JSON tables, potentially resulting in a lot of company-specific tables to de-dupe
 2. De-duplication is resource-intensive and can add hours to a data modeling process
@@ -43,7 +43,7 @@ For both reasons, it makes sense to bring event de-duplication upstream in the p
 
 <h3 id="deduplication-shred">1.3 Event de-duplication in Hadoop Shred</h3>
 
-As of this release, Hadoop Shred will only de-duplicate "natural duplicates" - i.e. events which share the same event ID and the same event fingerprint, meaning that they are semantically identical to each other.
+As of this release, Hadoop Shred de-duplicates "natural duplicates" - i.e. events which share the same event ID and the same event fingerprint, meaning that they are semantically identical to each other.
 
 For a given ETL run of events being processed, Hadoop Shred will now keep only *one* out of each group of natural duplicates; all others will be discarded.
 
@@ -55,7 +55,7 @@ Some notes on this:
 * We do not yet tackle "synthetic dupes" - this is where two events have the same event ID but different event fingerprints. We are working on this, but in the meantime you can continue to use the SQL de-duplication for this if you have a major issue with bots, spiders and similar
 * If natural duplicates exist across ETL runs, these will not be de-duplicated currently. This is something we hope to explore soon
 
-<h2 id="sendgrid-fix">2. SendGrid wenhook bug fix</h2>
+<h2 id="sendgrid-fix">2. SendGrid webhook bug fix</h2>
 
 In the last release, Snowplow R75 Long-Legged Buzzard, we introduced support for ingesting SendGrid events into Snowplow. Since the release an important bug was identified ([#2328] [issue-2328]), which has now been fixed in R76.
 

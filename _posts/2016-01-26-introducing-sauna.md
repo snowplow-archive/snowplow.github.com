@@ -53,6 +53,7 @@ Then, you can trigger one of observers (by creating new file with data in correc
 </div>
 
 Plans for 0.0.2 and further:
+
 1. More processors and APIs (SalesForce, Urban Airship, ...) 
 2. Since Sauna is based on akka, make it distributed over several machines, so each analyst could have own Sauna instance, and devops could configure all nodes from single place. 
 3. Integration with other Snowplow services. 

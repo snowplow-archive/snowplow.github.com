@@ -10,7 +10,7 @@ Hot off the heels of last month's [Snowplow Meetup Sydney][meetup-sydney] and ne
 
 ![new-york-in-snow][ny-image]
 
-The [New York Meetup][meetup-ny] will take place on March 30th at the [TripAdvisor][tripadvisor] offices. We've got [Animoto's] [animoto] Criz Posadas to talking about Snowplow at Animoto, and Ben Hoyt of [Oyster.com][oyster] will talk about how they came to Snowplow, how they set it up (configuration and schema setup) and how Snowplow is used today for reporting and analytics.. More details on both those talks to follow as we confirm them.
+The [New York Meetup][meetup-ny] will take place on March 30th at the [TripAdvisor][tripadvisor] offices. We've got [Animoto's] [animoto] Criz Posadas to talking about Snowplow at Animoto, and Ben Hoyt of [Oyster.com][oyster] will talk about how they came to Snowplow, how they set it up (configuration and schema setup) and how Snowplow is used today for reporting and analytics. More details on both those talks to follow as we confirm them.
 
 <!--more-->
 

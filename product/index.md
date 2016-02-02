@@ -69,7 +69,7 @@ Our pipeline does not just collect and warehouse data. It:
   * Identity stitching algorithms to figure out which events belong to a particular user, and aggregate over that user's data to create an update to date record for her in user-level table
   * Sessionize events - grouping events together into logic flows that correspond to specific user actions
 
-<h2><a name="your-own-datawarehouse">3. Load the the data into your own data warehouse to power sophisticated analysis</a></h2>
+<h2><a name="your-own-datawarehouse">3. Load the data into your own data warehouse to power sophisticated analysis</a></h2>
 
 <img src="/assets/img/product/event-analytics-3-warehouse-and-report.png" title="Snowplow datawarehouse and analysis" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
 

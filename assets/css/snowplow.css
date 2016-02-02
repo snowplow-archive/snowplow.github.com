@@ -2,7 +2,8 @@
 /* basic structure */
 
 html, body {
-	background-color: #3F435F; /* same color as header and footer */
+	background-color: white;
+	/*background-color: #3F435F;*/ /* same color as header and footer */
 	height: 100%; /* required to make footer look nice */
 	padding: 0;
 	margin: 0

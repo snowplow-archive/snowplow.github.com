@@ -4,6 +4,8 @@ group: about
 subgroup: partners
 title: The Snowplow partner ecosystem
 description: The team building Snowplow
+redirect_from:
+  - /about/partners.html
 ---
 
 # Our partners

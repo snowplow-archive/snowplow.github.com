@@ -6,6 +6,7 @@ title: Jobs at Snowplow - join the Snowplow team!
 description: Join the Snowplow team
 redirect_from:
   - /jobs/
+  - /about/jobs.html
 ---
 
 # Join the Snowplow team!

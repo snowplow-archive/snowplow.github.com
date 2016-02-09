@@ -10,15 +10,15 @@ At Snowplow, we pride ourselves on building robust data pipelines. Recently that
 
 In all three cases, because of the way the Snowplow pipeline is architected, data loss as a result of these issues was minimized. More than that, we believe that for the majority of users there was no data loss at all. In this post, we'll look at each of those three catastophes, and explore the pipeline engineering decisions that prevented data being lost.
 
-1. [Coping with an Amazon S3 outage](#s3-outage)  
-2. [Coping with an EC2 outage](#ec2-outage)  
-3. [Coping with a collector outage](#collector-outage)
+1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#s3-outage)  
+2. [Coping with an EC2 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#ec2-outage)  
+3. [Coping with a collector outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#collector-outage)
 
 <!--more-->
 
 <h2 id="s3-outage">1. Coping with an S3 outage</h2>
 
-On [insert date here] AWS in us-east-1 experienced an S3 outage. For a number of hours it was not possible either to read or write to S3.
+On August 2015 AWS in us-east-1 experienced an S3 outage. For a number of hours it was not possible either to read or write to S3.
 
 The Snowplow Batch Pipeline uses Amazon S3 as a processing queue. Both the Clojure and Cloudfront collectors output raw logs to Amazon S3, containing event data collected from Snowplow trackers and third party webhooks. The enrichment process picks up those raw logs, processes them in EMR before writing the output back to S3, where the processed data is then copyied it into Redshift. S3 is then integral to the running of our batch pipeline: an S3 outage should be *very bad news*.
 
@@ -28,7 +28,7 @@ So the outage caused a delay in the logs being written to S3, but the logs were 
 
 <h2 id="ec2-outage">2. Coping with an EC2 outage</h2> 
 
-On [insert date here], there was an AWS DynamoDB outage in us-east-1. As a result of the outage (or the process of addressing it), Amazon rate-limited a number of other AWS service APIs, including EC2. This meant that for a few hours it was not possible to issue requests to the AWS EC2 API, making provisioning an EC2 instance impossible, for example.
+On September 2015, there was an AWS DynamoDB outage in us-east-1. As a result of the outage (or the process of addressing it), Amazon rate-limited a number of other AWS service APIs, including EC2. This meant that for a few hours it was not possible to issue requests to the AWS EC2 API, making provisioning an EC2 instance impossible, for example.
 
 Again, this should be a *big problem* for Snowplow users. Both our Clojure and Scala RT collectors use EC2 to receive, log and respond to HTTP and HTTPS requests from Snowplow trackers and webhooks. Further, enrichment is performed by EC2 instances for both the batch and real-time pipelines. So any issues provisioning EC2 instances should be *very bad news*.
 

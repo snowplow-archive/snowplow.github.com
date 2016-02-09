@@ -8,6 +8,7 @@ weight: 9
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/basic-recipes.html
   - /analytics/event-dictionaries-and-data-models/perform-basic-analysis-on-snowplow-data.html
+  - /documentation/basic-recipes.html
 ---
 
 <div class="html">

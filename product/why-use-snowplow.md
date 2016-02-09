@@ -6,6 +6,8 @@ title: Why use Snowplow?
 shortened-link: Why use Snowplow?
 description: Snowplow enables you to answer the high value questions that drive your bottom line - questions that require very bespoke, company-specific analysis and rich customer-level and event-level data
 weight: 12
+redirect_from:
+  - /product/why-uses-snowplow.html
 ---
 
 # Why use Snowplow?

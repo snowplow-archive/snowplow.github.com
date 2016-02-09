@@ -59,7 +59,7 @@ This release brings following improvements:
 * Property of type `number` having `multipleOf` equal `1` will become `INT`.
 * Property of type `number` having `multipleOf` equal `0.01` will become `DECIMAL` with 2 digits after floating point.
 
-<h2><a name="upgrading">8. Upgrading</a></h2>
+<h2><a name="upgrading">5. Upgrading</a></h2>
 
 <h3>Schema Guru CLI</h3>
 
@@ -80,7 +80,7 @@ $ ./schema-guru-0.5.0 {schema|ddl} {input} {options}
 
 No changes has been made in both Schema Guru web UI and Spark Job, so you still can freely use 0.4.0 versions.
 
-<h2><a name="help">9. Getting help</a></h2>
+<h2><a name="help">6. Getting help</a></h2>
 
 For more details on this release, please check out the [Schema Guru 0.5.0] [050-release] on GitHub.
 
@@ -88,7 +88,7 @@ More details about how core of Schema Guru works can be found on the [For Develo
 
 In the meantime, if you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-<h2><a name="roadmap">10. Plans for next release</a></h2>
+<h2><a name="roadmap">7. Plans for next release</a></h2>
 
 We have plenty of features planned for Schema Guru! The roadmap includes:
 

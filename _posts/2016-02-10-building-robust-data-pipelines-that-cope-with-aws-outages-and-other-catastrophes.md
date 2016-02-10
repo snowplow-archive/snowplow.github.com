@@ -12,9 +12,9 @@ At Snowplow, we pride ourselves on building robust data pipelines. Recently that
 
 In all three cases, because of the way the Snowplow pipeline is architected, data loss as a result of these issues was minimized. More than that, we believe that for the majority of users there was no data loss at all. In this post, we'll look at each of those three catastrophes, and explore the pipeline engineering decisions that prevented data being lost.
 
-1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#s3-outage)  
-2. [Coping with an EC2 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#ec2-outage)  
-3. [Coping with a collector outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#collector-outage)
+1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-catastrophes/#s3-outage)  
+2. [Coping with an EC2 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-catastrophes/#ec2-outage)  
+3. [Coping with a collector outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-catastrophes/#collector-outage)
 
 <!--more-->
 

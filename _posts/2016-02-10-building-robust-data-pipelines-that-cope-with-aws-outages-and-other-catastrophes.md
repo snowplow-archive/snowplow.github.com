@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building robust data pipelines that cope with AWS outages and other major catastophes
+title: Building robust data pipelines that cope with AWS outages and other major catastrophes
 tags: [technical architecture, aws]
 author: Yali
 category: Inside the plow
@@ -8,11 +8,11 @@ category: Inside the plow
 
 At Snowplow, we pride ourselves on building robust data pipelines. Recently that robustness has been severly tested, by two different outages in the AWS us-east-1 region (one S3 outage, and one DynamoDB outage that caused issues with very many other AWS APIs inculding EC2), and by an SSL certificate issue with one of our client's collectors that meant that for five consecutive days no events were successfully recorded from their most important platform: iOS. 
 
-In all three cases, because of the way the Snowplow pipeline is architected, data loss as a result of these issues was minimized. More than that, we believe that for the majority of users there was no data loss at all. In this post, we'll look at each of those three catastophes, and explore the pipeline engineering decisions that prevented data being lost.
+In all three cases, because of the way the Snowplow pipeline is architected, data loss as a result of these issues was minimized. More than that, we believe that for the majority of users there was no data loss at all. In this post, we'll look at each of those three catastrophes, and explore the pipeline engineering decisions that prevented data being lost.
 
-1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#s3-outage)  
-2. [Coping with an EC2 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#ec2-outage)  
-3. [Coping with a collector outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastophes/#collector-outage)
+1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#s3-outage)  
+2. [Coping with an EC2 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#ec2-outage)  
+3. [Coping with a collector outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#collector-outage)
 
 <!--more-->
 

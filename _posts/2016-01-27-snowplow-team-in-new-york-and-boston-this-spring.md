@@ -18,7 +18,7 @@ The [Boston Meetup] [meetup-boston] will take place the following week on April 
 
 Enormous thank you to the kind folks at [Carbonite] [carbonite] and [TripAdvisor] [tripadvisor] for hosting us, and talking at the events alongside the teams at [Animoto] [animoto] and [CustomMade] [custommade].
 
-If you're interested in attending, then sign up for the New York Meetup [here] [meetup-ny], and the Boston Meetup [here][meetup-boston]. (Free Snowplow T-shirts to anyone who attends both.) Both Christophe and I will be visiting from London - if you'd like to meet in person in either city, then [get in touch] [contact]! And finally, if you're interested in speaking, or would like to hear either Christophe or I present at either of the events, then [let us know] [contact].
+If you're interested in attending, then sign up for the New York Meetup [here] [meetup-ny], and the Boston Meetup [here][meetup-boston]. (Free Snowplow T-shirts to anyone who attends both.) Both Christophe and I will be visiting from London - if you'd like to meet in person in either city, then [get in touch] [contact]! 
 
 [meetup-sydney]: /blog/2016/01/12/bauer-and-digdeep-presentations-at-snowplow-meetup-sydney/
 [meetup-budapest]: http://www.meetup.com/Snowplow-Analytics-Budapest/events/226861638/

@@ -8,6 +8,8 @@ category: Inside the plow
 
 At Snowplow, we pride ourselves on building robust data pipelines. Recently that robustness has been severly tested, by two different outages in the AWS us-east-1 region (one S3 outage, and one DynamoDB outage that caused issues with very many other AWS APIs inculding EC2), and by an SSL certificate issue with one of our client's collectors that meant that for five consecutive days no events were successfully recorded from their most important platform: iOS. 
 
+![tacoma-bridge-catastophe][catastophe]
+
 In all three cases, because of the way the Snowplow pipeline is architected, data loss as a result of these issues was minimized. More than that, we believe that for the majority of users there was no data loss at all. In this post, we'll look at each of those three catastrophes, and explore the pipeline engineering decisions that prevented data being lost.
 
 1. [Coping with an Amazon S3 outage](/blog/2016/02/10/building-robust-data-pipelines-that-cope-with-aws-outages-and-other-major-catastrophes/#s3-outage)  
@@ -64,7 +66,7 @@ The same caching approach is taken by *all* our trackers include our [JavaScript
 Then [get in touch] [contact] with the Snowplow team.
 
 
-
+[catastophe]: /assets/img/blog/2016/02/catastophe.gif
 [diagram1]: /assets/img/blog/2016/02/collector-outage.png
 [obj-c-tracker]: https://github.com/snowplow/snowplow-bojective-c-tracker
 [js-tracker]: https://github.com/snowplow/snowplow-javascript-tracker

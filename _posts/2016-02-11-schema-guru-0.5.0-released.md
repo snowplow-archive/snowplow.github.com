@@ -7,12 +7,12 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce releases of [Schema Guru][repo] version 0.5.0 and [Schema DDL][ddl-repo] version 0.3.0 with Schema processing enhancements and several bug fixes.
+We are pleased to announce the releases of [Schema Guru][repo] 0.5.0 and [Schema DDL][ddl-repo] 0.3.0, with JSON Schema and Redshift DDL processing enhancements and several bug fixes.
 
 This release post will cover the following topics:
 
 1. [Removed timestamp from DDL file](/blog/2016/02/11/schema-guru-0.5.0-released/#timestamp)
-2. [Added Java interop](/blog/2016/02/11/schema-guru-0.5.0-released/#java)
+2. [Added Java interoperability](/blog/2016/02/11/schema-guru-0.5.0-released/#java)
 3. [Fixed DDL file version bug](/blog/2016/02/11/schema-guru-0.5.0-released/#version)
 4. [Improvements in Schema-to-DDL transformation](/blog/2016/02/11/schema-guru-0.5.0-released/#schema-to-ddl)
 5. [Upgrading](/blog/2016/02/11/schema-guru-0.5.0-released/#upgrading)
@@ -27,7 +27,7 @@ Usually Schema Guru users store their DDL files along with their JSON Schemas in
 
 To avoid this you can now use `--no-header` option, whereby Schema Guru will generates DDL files without any header information, just plain DDL.
 
-<h2 id="java">2. Added Java interop</h2>
+<h2 id="java">2. Added Java interoperability</h2>
 
 Java users have been keen to use Schema Guru from their code - from this release, all the schema-to-DDL processing and schema flattening features of the Schema DDL library are available from Java.
 
@@ -35,16 +35,16 @@ Java users have been keen to use Schema Guru from their code - from this release
 
 Schema DDL had a long-standing bug where it versioned all Redshift DDLs with hardcoded `_1` version postfix.
 
-To work well with [SchemaVer][schemaver], Redshift DDL should be versioned after the `MODEL` JSON Schema version. For example, schemas with SchemaVers 1-0-0, 1-2-0, 1-2-3 should all result in table with version postfix `_1`, and events having any of these three versions can be loaded into `_1` table.
+To work well with [SchemaVer][schemaver], our Redshift DDL should be versioned after the `MODEL` element of JSON Schema version. For example, schemas with SchemaVers 1-0-0, 1-2-0 or 1-2-3 should all result in table with a version postfix `_1`, and events having any of these three versions can be loaded into this `_1` table.
 
 Many thanks to community member [Cameron Bytheway][camshaft] for his fix here! 
 
 <h2 id="schema-to-ddl">4. Improvements in Schema-to-DDL transformation</h2>
 
 With each new release Schema Guru is steadily growing smarter at transforming JSON Schemas into DDL files, 
-given various clues about how to map JSON Schema properties into column definitions.
+detecting various clues about how to map JSON Schema properties into column definitions.
 
-This release brings following improvements:
+This release brings the following improvements:
 
 * Property of type `string` with equal `minLength` and `maxLength` will become `CHAR` even if it can also become `null`
 * Property of type `number` having `multipleOf` equal `1` will become `INT`

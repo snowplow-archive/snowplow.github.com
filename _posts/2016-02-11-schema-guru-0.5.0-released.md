@@ -11,7 +11,7 @@ We are pleased to announce the releases of [Schema Guru][repo] 0.5.0 and [Schema
 
 This release post will cover the following topics:
 
-1. [Removed timestamp from DDL file](/blog/2016/02/11/schema-guru-0.5.0-released/#timestamp)
+1. [More git-friendly DDL files](/blog/2016/02/11/schema-guru-0.5.0-released/#git-friendly)
 2. [Added Java interoperability](/blog/2016/02/11/schema-guru-0.5.0-released/#java)
 3. [Fixed DDL file version bug](/blog/2016/02/11/schema-guru-0.5.0-released/#version)
 4. [Improvements in Schema-to-DDL transformation](/blog/2016/02/11/schema-guru-0.5.0-released/#schema-to-ddl)
@@ -21,7 +21,7 @@ This release post will cover the following topics:
 
 <!--more-->
 
-<h2 id="timestamp">1. Removing timestamp from DDL file</h2>
+<h2 id="git-friendly">1. More git-friendly DDL files</h2>
 
 Usually Schema Guru users store their DDL files along with their JSON Schemas in a single git repository; if the user adds or modifies their schemas and then regenerates the DDL files, all of the DDL files will then contain fresh timestamps, leading to confusing `git diff`s.
 

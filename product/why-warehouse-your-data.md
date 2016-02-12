@@ -67,5 +67,5 @@ Then [read on][best-datawarehouse] to find out why Snowplow is [the best way to 
 [python]: https://www.python.org/
 [excel]: https://products.office.com/en-us/excel
 [google-docs]: https://docs.google.com/spreadsheets/u/0/
-[best-datawarehouse]: the-best-event-data-warehouse.html
+[best-datawarehouse]: /product/the-best-event-data-warehouse/
 [get-started]: /get-started/index.html

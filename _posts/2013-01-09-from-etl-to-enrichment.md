@@ -21,9 +21,9 @@ We will cover:
 5. [Moving to Cascading / Scalding] [scalding]: what we plan to do
 6. [Benefits of this approach] [benefits]: both in the short and long term
 
-To get the conversation started, a conceptual map of the new ETL process is shown below. You will probably want to click on it to see a blown-up PDF version, as it is rather large:
+To get the conversation started, a conceptual map of the new ETL process is shown below:
 
-<p><a href="/assets/pdf/snowplow-scalding-etl-specification.pdf"><img src="/assets/img/blog/2013/01/scalding-etl-spec.gif"></a></p>
+<p><img src="/assets/img/blog/2013/01/scalding-etl-spec.gif"></p>
 
 <!--more-->
 

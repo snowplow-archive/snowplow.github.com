@@ -14,10 +14,10 @@ permalink: /product/
 <strong>Navigation:</strong>
 
 <ul>
-<li><a href="why-warehouse-your-data.html">Why warehouse your web, mobile and other event data?</a></li>
-<li><a href="the-best-event-data-warehouse.html">What makes Snowplow the best web and mobile datawarehousing platform?</a></li>
-<li><a href="why-use-snowplow.html">Why use Snowplow?</a></li>
-<li><a href="who-uses-snowplow.html">Who uses Snowplow?</a></li>
+<li><a href="why-warehouse-your-data/">Why warehouse your web, mobile and other event data?</a></li>
+<li><a href="the-best-event-data-warehouse/">What makes Snowplow the best web and mobile datawarehousing platform?</a></li>
+<li><a href="why-use-snowplow/">Why use Snowplow?</a></li>
+<li><a href="who-uses-snowplow/">Who uses Snowplow?</a></li>
 </ul>
 
 <strong>Snowplow enables you to:</strong>
@@ -110,10 +110,10 @@ Just think about what that makes possible.
 </div>
 
 
-[why-dwh]: why-warehouse-your-data.html
-[why-snowplow]: the-best-event-data-warehouse.html
-[who]: who-uses-snowplow.html
-[get-started]: /get-started/index.html
+[why-dwh]: why-warehouse-your-data/
+[why-snowplow]: the-best-event-data-warehouse/
+[who]: who-uses-snowplow/
+[get-started]: /get-started/
 [amazon-logo]: /assets/img/APN_Standard_Technology_Partner.png
 [trackers]: https://github.com/snowplow?utf8=%E2%9C%93&query=tracker
 [webhooks]: /blog/2014/11/10/snowplow-0.9.11-released-with-webhook-support/

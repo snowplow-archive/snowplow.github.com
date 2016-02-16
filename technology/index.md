@@ -8,11 +8,11 @@ permalink: /technology/
 
 ---
 
-Snowplow consists of five loosely-coupled subsystems.
+Snowplow consists of 6 loosely-coupled subsystems.
 
 ![architecture][architecture]
 
-### 1. Trackers
+### 1. Trackers and webhooks
 
 * Trackers integrate with your application(s) and/or website(s).
 * Trackers generate event data: when an event occurs, they put together a packet of data and send it to a Snowplow collector.
@@ -45,7 +45,17 @@ The [Snowplow Tracker Protocol] [tracker-protocol] provides a standard way for *
 
 Snowplow data is stored in each storage option above as close to the [Snowplow Canonical Event Model] [event-model] as possible. The data model is described [here] [event-model].
 
-### 5. Analytics
+### 5. Data Modeling
+
+Once your data is stored in S3 and Redshift, the basic setup is complete. You now have access to the event stream: a long list of packets of data, where each packet represents a single event. While it is possible to do analysis directly on this event stream, it is common to:
+
+* Join event-level data with other data sets (e.g. customer data)
+* Aggregate event-level data into smaller data sets (e.g. sessions)
+* Apply business logic (e.g. user segmentation)
+
+We call this process data modeling.
+
+### 6. Analytics
 
 Once your Snowplow data is available in storage, you can plug it into multiple different tools to crunch that data. Examples include:
 

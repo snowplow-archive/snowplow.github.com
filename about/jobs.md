@@ -35,7 +35,7 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
 
-[business-development-associate]: /about/jobs/business-development-associate.html
-[customer-success-associate]: /about/jobs/customer-success-associate.html
-[infrastructure-engineer]: /about/jobs/infrastructure-engineer.html
-[support-engineer]: /about/jobs/support-engineer.html
+[business-development-associate]: /about/jobs/business-development-associate/
+[customer-success-associate]: /about/jobs/customer-success-associate/
+[infrastructure-engineer]: /about/jobs/infrastructure-engineer/
+[support-engineer]: /about/jobs/support-engineer/

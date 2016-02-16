@@ -72,7 +72,7 @@ Snowplow doesn't just help you drive more insight from your data. By publishing 
 ## 3. Ready for Snowplow?
 
 <div class="html">
-	<a href="/index/get-started.html">
+	<a href="/get-started/">
 		<button class="btn btn-large btn-primary" type="button">Get started</button>
 	</a>
 </div>

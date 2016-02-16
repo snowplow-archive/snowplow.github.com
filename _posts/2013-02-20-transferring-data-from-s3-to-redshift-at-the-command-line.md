@@ -3,7 +3,7 @@ layout: post
 title: Bulk loading data from Amazon S3 into Redshift at the command line
 tags: [Redshift, ETL]
 author: Yali
-category: Inside the plow
+category: Inside the Plow
 ---
 
 On Friday Amazon launched [Redshift] [redshift], a fully managed, petabyte-scale data warehouse service. We've been busy since building out Snowplow support for Redshift, so that Snowplow users can use Redshift to store their granular, customer-level and event-level data for OLAP analysis.

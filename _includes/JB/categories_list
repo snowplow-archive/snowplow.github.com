@@ -22,13 +22,13 @@ Usage:
 {% else %}
   {% if categories_list.first[0] == null %}
     {% for category in categories_list %}
-      {% if category == "Inside the plow" %}<li><a href="/blog/inside-the-plow">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
-      {% else %}<li><a href="/blog/{{ category | downcase }}/">{{ category | downcase }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% if category == "Inside the plow" or category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
+      {% else %}<li><a href="/blog/{{ category | downcase }}/">{{ category }}</a> (<span>{{ site.categories[category].size }})</span></li>
       {% endif %}
     {% endfor %}
   {% else %}
     {% for category in categories_list %}
-      {% if category[0] == "inside the plow" %}<li><a href="/blog/inside-the-plow">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
+      {% if category[0] == "Inside the plow" or category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
       {% else %}<li><a href="/blog/{{ category[0] | downcase }}/">{{ category[0] | join: "/" }}</a> (<span>{{ category[1].size }})</span></li>
       {% endif %}
     {% endfor %}

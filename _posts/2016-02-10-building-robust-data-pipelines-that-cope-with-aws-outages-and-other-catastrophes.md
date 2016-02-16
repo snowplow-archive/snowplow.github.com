@@ -3,10 +3,10 @@ layout: post
 title: Building robust data pipelines that cope with AWS outages and other major catastrophes
 tags: [technical architecture, aws]
 author: Yali
-category: Inside the plow
+category: Inside the Plow
 ---
 
-At Snowplow, we pride ourselves on building robust data pipelines. Recently that robustness has been severly tested, by two different outages in the AWS us-east-1 region (one S3 outage, and one DynamoDB outage that caused issues with very many other AWS APIs inculding EC2), and by an SSL certificate issue with one of our client's collectors that meant that for five consecutive days no events were successfully recorded from their most important platform: iOS. 
+At Snowplow, we pride ourselves on building robust data pipelines. Recently that robustness has been severly tested, by two different outages in the AWS us-east-1 region (one S3 outage, and one DynamoDB outage that caused issues with very many other AWS APIs inculding EC2), and by an SSL certificate issue with one of our client's collectors that meant that for five consecutive days no events were successfully recorded from their most important platform: iOS.
 
 ![tacoma-bridge-catastophe][catastophe]
 
@@ -28,7 +28,7 @@ It was not. What we found was that during the outage, the collectors would attem
 
 So the outage caused a delay in the logs being written to S3, but the logs were written rather than dropped. Great - but what about enrichment? The enrichment process would fail, because it was not possible to read the raw logs from S3 in order to copy the data into an EMR cluster. Similarly, it was not possible to write out the output of the EMR job to S3. So during the outage, no enrichment could occur. However, once the outage was over, it was straightforward to rerun the enrichment process from the point it 'broke' and resume the pipeline as normal. Again, no data was lost, because the data was stored safely on S3.
 
-<h2 id="ec2-outage">2. Coping with an EC2 outage</h2> 
+<h2 id="ec2-outage">2. Coping with an EC2 outage</h2>
 
 On September 2015, there was an AWS DynamoDB outage in us-east-1. As a result of the outage (or the process of addressing it), Amazon rate-limited a number of other AWS service APIs, including EC2. This meant that for a few hours it was not possible to issue requests to the AWS EC2 API, making provisioning an EC2 instance impossible, for example.
 
@@ -57,7 +57,7 @@ It is also worth noting that both the Objective-C and Android trackers record tw
 * The timestamp that the event occured on (according to the clock on the local device)
 * The timestamp that the event was sent through to the collector
 
-That means the the client was still able to accurately know when the events recorded during the outage occurred, even though some of them were only received into their Snowplow pipeline days late. 
+That means the the client was still able to accurately know when the events recorded during the outage occurred, even though some of them were only received into their Snowplow pipeline days late.
 
 The same caching approach is taken by *all* our trackers include our [JavaScript tracker] [js-tracker] and [Android tracker] [android-tracker]. This is incredibly important because it means that the data pipeline is robust to collector failures. (Although these may still cause data loss from webhooks, where we not control any local caching behavior.) It is important not just in event of an outage (which is thankfully a rare event) - in the case of a serious traffic spike (which is a much more frequent occurance), it can take time to provision additional EC2 instances in the collector via autoscaling. Local caching means that scaling does not have to be instanteous to avoid data loss.
 

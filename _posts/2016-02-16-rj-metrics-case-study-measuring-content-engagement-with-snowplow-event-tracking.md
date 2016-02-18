@@ -115,4 +115,4 @@ If you’re interested in this type of analysis, Snowplow will move your data di
 
 [sql]: https://github.com/drewbanin/rjm-growth/blob/master/benchmark-engagement.sql
 [mode-analytics]: https://modeanalytics.com/
-[rjmetrics-pipeline]: https://rjmetrics.com/product/meet-pipeline
+[rjmetrics-pipeline]: https://rjmetrics.com/product/meet-pipeline?utm_source=snowplow&utm_medium=guest-post&utm_campaign=guest-post+snowplow

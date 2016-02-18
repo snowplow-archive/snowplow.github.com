@@ -39,7 +39,7 @@ Yes, we do track conversion rate on this form, and that’s a really important m
 
 ## How we used Snowplow
 
-Once we had our Snowplow analysis set up and piping data into Amazon Redshift, we were able to use Mode to query the data directly, and visualize those query results.
+Once we had our Snowplow analysis set up and piping data into Amazon Redshift, we were able to use [Mode][mode-analytics] to query the data directly, and visualize those query results.
 
 {% highlight psql %}
 WITH events AS (

@@ -7,7 +7,7 @@ author: Yali
 category: User stories
 ---
 
-*This is a guest post written by Drew Banin from [RJMetrics] [rjmetrics], on how the RJMetrics team uses Snowplow interanlly to measure and optimize their content marketing. Big thanks to Drew for sharing this with us and the wider Snowplow community! If you have a story to share, [get in touch][contact]*.
+*This is a guest post written by Drew Banin from [RJMetrics] [rjmetrics], on how the RJMetrics team uses Snowplow internally to measure and optimize their content marketing. Big thanks to Drew for sharing this with us and the wider Snowplow community! If you have a story to share, [get in touch][contact]*.
 
 One of the major headaches of content marketing is the shortcomings of traditional success measurement. While many marketers quietly obsess over traffic and social shares, in reality those metrics only measure a percentage of your efforts. In other words, you got people to click, but did they like the content? Did they *engage*?
 
@@ -97,7 +97,7 @@ Slicing data can be extremely beneficial, or it can just be analysis for analysi
 
 Here are list of things I would like to dig into further (when time permits):
 
-1. **Splitting the data by source** (organic, Twitter, etc.)**: If one particular source is outperforming the others and is sending extremely engaged users to this page, we can concentrate on promoting the benchmark heavily through that channel.
+1. **Splitting the data by source** (organic, Twitter, etc.): If one particular source is outperforming the others and is sending extremely engaged users to this page, we can concentrate on promoting the benchmark heavily through that channel.
 2. **Disqualify those users returning to the page, concentrating only on unique views**: This chart has its faults. The fact that there are some data points who’ve signed up but are still marked as “Did Not Enter Email” makes it hard to make any legitimate statements about data.
 3. **Add content indicators (horizontal lines) for different sections of the report**: This would allow us to see which paragraphs were particularly compelling (low dropoff) and which ones needed some more work (high dropoff).
 4. **Segment by persona**: By integrating our event data with the persona data we collect in Pardot, we could see how a specific piece of content is performing with our various audiences.
@@ -107,7 +107,7 @@ If you’re interested in this type of analysis, Snowplow will move your data di
 
 [rjmetrics]: https://rjmetrics.com/
 [contact]: /contact/
-[state-of-data-science]: https://rjmetrics.com/resources/reports/the-state-of-data-science/
+[state-of-data-science]: https://rjmetrics.com/product/meet-pipeline?utm_source=snowplow&utm_medium=guest-post&utm_campaign=guest-post+snowplow
 [img1]: /assets/img/blog/2016/02/rjmetrics-state-of-data-science-pageviews.png
 [img2]: /assets/img/blog/2016/02/enter-your-work-email-to-keep-reading.png
 [img3]: /assets/img/blog/2016/02/rjmetrics-viz-1.png

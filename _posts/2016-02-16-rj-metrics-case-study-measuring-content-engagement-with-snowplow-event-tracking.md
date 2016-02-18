@@ -41,8 +41,6 @@ Yes, we do track conversion rate on this form, and that’s a really important m
 
 Once we had our Snowplow analysis set up and piping data into Amazon Redshift, we were able to use Mode to query the data directly, and visualize those query results.
 
-That analysis software cocktail (plus some SQL, see below) produced this chart, which separates users who did and did not enter their email, and how far they got on the page (the higher they are on the chart, the more they scrolled down).
-
 {% highlight psql %}
 WITH events AS (
 	SELECT * from atomic.events WHERE page_url ILIKE '%/resources/reports/the-state-of-data-science%'
@@ -70,6 +68,8 @@ SELECT users.domain_userid, max_y_pos.max_y, time_on_site.time_on_site,
 	LEFT OUTER JOIN time_on_site ON time_on_site.domain_userid = users.domain_userid
 	LEFT OUTER JOIN signups ON signups.domain_userid = users.domain_userid
 {% endhighlight %}
+
+That analysis software cocktail (plus some SQL, see above) produced this chart (see below), which separates users who did and did not enter their email, and how far they got on the page (the higher they are on the chart, the more they scrolled down).
 
 ![Time Reading Data Science Benchmark Report vs. Scroll Height][img3]
 
@@ -102,7 +102,7 @@ Here are list of things I would like to dig into further (when time permits):
 3. **Add content indicators (horizontal lines) for different sections of the report**: This would allow us to see which paragraphs were particularly compelling (low dropoff) and which ones needed some more work (high dropoff).
 4. **Segment by persona**: By integrating our event data with the persona data we collect in Pardot, we could see how a specific piece of content is performing with our various audiences.
 
-If you’re interested in this type of analysis, Snowplow will move your data directly to Amazon Redshift where you can analyze it using a tool like [Mode][mode-analytics]. If you want to explore web data alongside other data sources, like Salesforce, MySQL, and Quickbooks, check out RJMetrics Pipeline -- It’s the easiest way to integrate all of your data sources into a single data warehouse. 
+If you’re interested in this type of analysis, Snowplow will move your data directly to Amazon Redshift where you can analyze it using a tool like [Mode][mode-analytics]. If you want to explore web data alongside other data sources, like Salesforce, MySQL, and Quickbooks, check out [RJMetrics Pipeline][rjmetrics-pipeline] -- It’s the easiest way to integrate all of your data sources into a single data warehouse. 
 
 
 [rjmetrics]: https://rjmetrics.com/
@@ -115,3 +115,4 @@ If you’re interested in this type of analysis, Snowplow will move your data di
 
 [sql]: https://github.com/drewbanin/rjm-growth/blob/master/benchmark-engagement.sql
 [mode-analytics]: https://modeanalytics.com/
+[rjmetrics-pipeline]: https://rjmetrics.com/product/meet-pipeline

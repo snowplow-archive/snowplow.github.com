@@ -7,7 +7,7 @@ author: Yali
 category: User stories
 ---
 
-*This is a guest post written by Drew Banin from [RJMetrics] [rjmetrics], on how the RJMetrics team uses Snowplow interanlly to measure and optimize their content marketing. Big thanks to Drew for sharing this with us and the wider Snowplow community! If you have a story to share, [get in touch][contact]*
+*This is a guest post written by Drew Banin from [RJMetrics] [rjmetrics], on how the RJMetrics team uses Snowplow interanlly to measure and optimize their content marketing. Big thanks to Drew for sharing this with us and the wider Snowplow community! If you have a story to share, [get in touch][contact]*.
 
 One of the major headaches of content marketing is the shortcomings of traditional success measurement. While many marketers quietly obsess over traffic and social shares, in reality those metrics only measure a percentage of your efforts. In other words, you got people to click, but did they like the content? Did they *engage*?
 

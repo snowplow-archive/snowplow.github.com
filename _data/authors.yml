@@ -108,3 +108,11 @@
   spiel:   |
       <a href="/blog/authors/ed/">Ed</a> is a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/ninjabear">GitHub</a>.
 
+- name: Oleks
+  full_name: Oleksandr Olgashko
+  github: dveim
+  url: /blog/authors/oleks/
+  avatar: https://avatars1.githubusercontent.com/u/3515147?v=3&s=200
+  spiel:   |
+      <a href="/blog/authors/ed/">Oleks</a> is a data engineering intern at Snowplow</a>. You can find him on <a href="https://github.com/dveim">GitHub</a> and <a href="http://uk.linkedin.com/in/olgashko">LinkedIn</a>.
+

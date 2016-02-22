@@ -81,7 +81,7 @@ guest$ inv build_project
 
 <h3>Step 2: Add AWS credentials to the vagrant box</h3>
 
-You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output formaat to "json":
+You're going to need IAM-based credentials for AWS. Get your keys and type in "aws configure" in the Vagrant box (the guest). In the below, I'm also setting the region to "us-east-1" and output format to "json":
 
 {% highlight bash %}
 $ aws configure

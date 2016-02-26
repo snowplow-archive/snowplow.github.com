@@ -13,8 +13,9 @@ Snowplow release 77 is now available to the general public! This release focuses
 2. [Moving towards running Storage Loader on Hadoop](/blog/2016/xx/xx/snowplow-r77-great-auk-released#ec2)
 3. [Retrying the job in the face of bootstrap failures](/blog/2016/xx/xx/snowplow-r77-great-auk-released#bootstrap)
 4. [Monitoring improvements](/blog/2016/xx/xx/snowplow-r77-great-auk-released#tags)
-5. [Upgrading](/blog/2016/xx/xx/snowplow-r77-great-auk-released#upgrading)
-6. [Getting help](/blog/2016/xx/xx/snowplow-r77-great-auk-released#help)
+5. [Removal of snowplow-emr-etl-runner.sh and snowplow-storage-loader.sh](/blog/2016/xx/xx/snowplow-r77-great-auk-released#removal)
+6. [Upgrading](/blog/2016/xx/xx/snowplow-r77-great-auk-released#upgrading)
+7. [Getting help](/blog/2016/xx/xx/snowplow-r77-great-auk-released#help)
 
 ![great-auk][great-auk]
 
@@ -66,7 +67,11 @@ EmrEtlRunner's internal Snowplow monitoring can be configured with name-value ta
 
 We have also upgraded both apps to the latest version (0.5.2) of the [Snowplow Ruby Tracker](https://github.com/snowplow/snowplow-ruby-tracker).
 
-<h2 id="upgrading">5. Upgrading</h2>
+<h2 id="removal">5. Removal of snowplow-emr-etl-runner.sh and snowplow-storage-loader.sh</h2>
+
+These scripts were originally used to run the EmrEtlRunner and the Storage Loader using RVM. Now that those apps are available on Bintray as JRuby jars, they are no longer necessary.
+
+<h2 id="upgrading">6. Upgrading</h2>
 
 The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
 
@@ -74,7 +79,7 @@ You should upgrade the "ami_version" and "hadoop_shred" fields of your configura
 
 Note also that the snowplow-runner-and-loader.sh script has been updated to use the JRuby binaries rather than the raw Ruby project.
 
-<h2 id="help">6. Getting help</h2>
+<h2 id="help">7. Getting help</h2>
 
 For more details on this release, please check out the [release notes][release] on GitHub.
 

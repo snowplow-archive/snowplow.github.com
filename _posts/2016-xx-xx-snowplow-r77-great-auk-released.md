@@ -9,14 +9,14 @@ category: Releases
 
 Snowplow release 77 is now available to the general public! This release focuses on the command line applications used to orchestrate Snowplow.
 
-1. [Elastic MapReduce AMI 4.x series compatibility](/blog/2016/xx/xx/snowplow-r77-bird-released#ami)
-2. [Moving towards running Storage Loader on Hadoop](/blog/2016/xx/xx/snowplow-r77-bird-released#ec2)
-3. [Retrying the job in the face of bootstrap failures](/blog/2016/xx/xx/snowplow-r77-bird-released#bootstrap)
-4. [Monitoring improvements](/blog/2016/xx/xx/snowplow-r77-bird-released#tags)
-5. [Upgrading](/blog/2016/xx/xx/snowplow-r77-bird-released#upgrading)
-6. [Getting help](/blog/2016/xx/xx/snowplow-r77-bird-released#help)
+1. [Elastic MapReduce AMI 4.x series compatibility](/blog/2016/xx/xx/snowplow-r77-great-auk-released#ami)
+2. [Moving towards running Storage Loader on Hadoop](/blog/2016/xx/xx/snowplow-r77-great-auk-released#ec2)
+3. [Retrying the job in the face of bootstrap failures](/blog/2016/xx/xx/snowplow-r77-great-auk-released#bootstrap)
+4. [Monitoring improvements](/blog/2016/xx/xx/snowplow-r77-great-auk-released#tags)
+5. [Upgrading](/blog/2016/xx/xx/snowplow-r77-great-auk-released#upgrading)
+6. [Getting help](/blog/2016/xx/xx/snowplow-r77-great-auk-released#help)
 
-![bird][bird]
+![great-auk][great-auk]
 
 <!--more-->
 
@@ -82,6 +82,6 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [elasticity]: https://github.com/rslifka/elasticity
 [app-dl]: http://dl.bintray.com/snowplow/snowplow-generic
-[release]: https://github.com/snowplow/snowplow/releases/tag/r77-bird
+[release]: https://github.com/snowplow/snowplow/releases/tag/r77-great-auk
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

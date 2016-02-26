@@ -80,6 +80,7 @@ For more details on this release, please check out the [release notes][release] 
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[great-auk]: /assets/img/blog/2016/02/great-auk.jpg
 [elasticity]: https://github.com/rslifka/elasticity
 [app-dl]: http://dl.bintray.com/snowplow/snowplow-generic
 [release]: https://github.com/snowplow/snowplow/releases/tag/r77-great-auk

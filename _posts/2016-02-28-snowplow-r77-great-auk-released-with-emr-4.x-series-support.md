@@ -140,5 +140,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [2211]: https://github.com/snowplow/snowplow/issues/2211
 [smugryan]: https://github.com/smugryan
 
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
 [r78-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2078%20%5BKIN%5D%20Great%20Hornbill
 [r79-milestone]: https://github.com/snowplow/snowplow/milestones/Release%2079%20%5BHAD%5D%20Black%20Swan

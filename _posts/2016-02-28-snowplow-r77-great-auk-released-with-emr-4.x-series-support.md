@@ -32,13 +32,15 @@ Achieving this involved four changes:
 * A new bootstrap action to put the correct resources on the classpath
 * Minor changes to Scala Hadoop Shred to prevent a `NullPointerException` thrown by the `java.net.URL` class post-upgrade
 * Upgrading to the latest version of the [Elasticity][elasticity] library
-* Switching from using `javax.script` to `org.mozilla.javascript` for the JavaScript Scripting Enrichment, to prevent compatibility issues
+* Switching from using `javax.script` to `org.mozilla.javascript` for the JavaScript Script Enrichment, to prevent compatibility issues
 
 To get up to date with the latest AMI version, change the "ami_version" field of your configuration YAML to "4.3.0". Make sure you also change the "hadoop_shred" field to at least "0.8.0" to get a compatible version of Scala Hadoop Shred.
 
 <h2 id="ec2">2. Moving towards running StorageLoader on Hadoop</h2>
 
-At the moment, processing raw data using Snowplow involves two commands: you need to run both EmrEtlRunner, to process the data on Elastic MapReduce, and StorageLoader, to load the processed data into Redshift or Postgres. In the future, StorageLoader will be invisible to the end user - it will become simply a custom jar step in the jobflow on EMR. In this release we have moved towards this goal in two ways.
+At the moment, processing raw data using Snowplow involves two commands: you need to run both EmrEtlRunner, to process the data on Elastic MapReduce, and StorageLoader, to load the processed data into Redshift or Postgres.
+
+In the future, StorageLoader will be invisible to the end user - it will become simply a custom jar step in the jobflow on EMR. In this release we have moved towards this goal in two ways.
 
 <h3 id="creds">Getting credentials from EC2</h3>
 
@@ -83,8 +85,8 @@ Running EmrEtlRunner and StorageLoader as Ruby (rather than JRuby apps) is no lo
 Snowplow R77 Great Auk also includes some important bug fixes and improvements:
 
 * We fixed a nasty error in the Currency Conversion Enrichment, whereby an exception would be thrown (failing the overall event) if you attempted to convert from and to the same currency, such as attempting to convert €9.99 to euros ([#2437] [2437])
-* Historically, StorageLoader has performed `ANALYZE` statements immediately after the `COPY` statements, and before any `VACUUM` statements. It is more correct to perform `ANALYZE` after `VACUUM`, so we have reversed the order. Many thanks to [Ryan Doherty] [smugryan] for flagging this! ([#1361] [1361])
-* EmrEtlRunner now has an optional `aws:emr:additional_info` field, which you can use to access beta EMR features ([#2211] [2211])
+* Historically, StorageLoader has performed `ANALYZE` statements immediately after the `COPY` statements (in fact in the same transaction), and before any `VACUUM` statements. It is more correct to perform `ANALYZE` after `VACUUM`, so we have reversed the order. Many thanks to [Ryan Doherty] [smugryan] for flagging this! ([#1361] [1361])
+* EmrEtlRunner now supports an optional `aws:emr:additional_info` field in `config.yml`, which you can use to access beta EMR features ([#2211] [2211])
 
 <h2 id="upgrading">7. Upgrading</h2>
 

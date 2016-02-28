@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow 77 Great Auk
-title: Snowplow 77 Great Auk released with EMR 4.x series support
+title: "Snowplow 77 Great Auk released with EMR 4.x series support"
 tags: [snowplow, hadoop, shred, emr, emretlrunner, storageloader]
 author: Fred
 category: Releases

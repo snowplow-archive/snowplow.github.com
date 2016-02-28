@@ -103,7 +103,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [great-auk]: /assets/img/blog/2016/02/great-auk.jpg
 [elasticity]: https://github.com/rslifka/elasticity
-[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic
+[app-dl]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip
 [release]: https://github.com/snowplow/snowplow/releases/tag/r77-great-auk
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

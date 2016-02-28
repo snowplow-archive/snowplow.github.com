@@ -58,7 +58,7 @@ StorageLoader will then look up the credentials using the EC2 instance metadata.
 
 It is now possible to pass a Base64-encoded configuration string as a command line argument instead of the path to the configuration file. For example:
 
-{% bash %}
+{% highlight bash %}
 ./snowplow-storage-loader --base64-config-string $(base64 -w0 path/to/config.yml)
 {% endhighlight %}
 

@@ -84,7 +84,7 @@ Running EmrEtlRunner and StorageLoader as Ruby (rather than JRuby apps) is no lo
 
 Snowplow R77 Great Auk also includes some important bug fixes and improvements:
 
-* We fixed a nasty error in the Currency Conversion Enrichment, whereby an exception would be thrown (failing the overall event) if you attempted to convert from and to the same currency, such as attempting to convert €9.99 to euros ([#2437] [2437])
+* We fixed a serious error in the Currency Conversion Enrichment, whereby an exception would be thrown (failing the overall event) if you attempted to convert from and to the same currency, such as attempting to convert €9.99 to euros ([#2437] [2437])
 * Historically, StorageLoader has performed `ANALYZE` statements immediately after the `COPY` statements (in fact in the same transaction), and before any `VACUUM` statements. It is more correct to perform `ANALYZE` after `VACUUM`, so we have reversed the order. Many thanks to [Ryan Doherty] [smugryan] for flagging this! ([#1361] [1361])
 * EmrEtlRunner now supports an optional `aws:emr:additional_info` field in `config.yml`, which you can use to access beta EMR features ([#2211] [2211])
 

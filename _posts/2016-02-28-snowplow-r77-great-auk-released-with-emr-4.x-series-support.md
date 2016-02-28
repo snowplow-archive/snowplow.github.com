@@ -102,10 +102,10 @@ emr:
 You will need to update the jar versions in the same section:
 
 {% highlight yaml %}
-  versions:
-    hadoop_enrich: 1.6.0        # WAS 1.5.1
-    hadoop_shred: 0.8.0         # WAS 0.7.0
-    hadoop_elasticsearch: 0.1.0 # UNCHANGED
+versions:
+  hadoop_enrich: 1.6.0        # WAS 1.5.1
+  hadoop_shred: 0.8.0         # WAS 0.7.0
+  hadoop_elasticsearch: 0.1.0 # UNCHANGED
 {% endhighlight %}
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].

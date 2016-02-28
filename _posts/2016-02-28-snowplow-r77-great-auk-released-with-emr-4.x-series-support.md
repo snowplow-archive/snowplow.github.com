@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-Snowplow release 77 Great Auk is now available! This release focuses on the command-line applications used to orchestrate Snowplow.
+Snowplow release 77 Great Auk is now available! This release focuses on the command-line applications used to orchestrate Snowplow, bringing Snowplow up-to-date with the new 4.x series of Elastic MapReduce releases.
 
 1. [Elastic MapReduce AMI 4.x series compatibility](/blog/2016/02/28/snowplow-r77-great-auk-released-with-emr-4.x-series-support#ami)
 2. [Moving towards running Storage Loader on Hadoop](/blog/2016/02/28/snowplow-r77-great-auk-released-with-emr-4.x-series-support#ec2)

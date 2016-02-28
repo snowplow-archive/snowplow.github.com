@@ -75,9 +75,25 @@ These scripts were originally used to run the EmrEtlRunner and the Storage Loade
 
 The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here][app-dl].
 
-You should upgrade the "ami_version" and "hadoop_shred" fields of your configuration YAML as described above.
+The recommended AMI version to run Snowplow is now 4.3.0 - update your configuration YAML as follows:
 
-Note also that the snowplow-runner-and-loader.sh script has been updated to use the JRuby binaries rather than the raw Ruby project.
+{% highlight yaml %}
+emr:
+  ami_version: 4.3.0 # WAS 3.7.0
+{% endhighlight %}
+
+You will need to update the jar versions in the same section:
+
+{% highlight yaml %}
+  versions:
+    hadoop_enrich: 1.6.0 # WAS 1.5.1
+    hadoop_shred: 0.8.0 # WAS 0.7.0
+    hadoop_elasticsearch: 0.1.0 # UNCHANGED
+{% endhighlight %}
+
+For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
+
+Note also that the `snowplow-runner-and-loader.sh` script has been updated to use the JRuby binaries rather than the raw Ruby project.
 
 <h2 id="help">7. Getting help</h2>
 

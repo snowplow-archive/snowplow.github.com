@@ -130,6 +130,7 @@ For more details on this release, please check out the [r78 Great Hornbill][r78-
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[great-auk]: /assets/img/blog/2016/03/great-hornbill.jpg
 [trackerprotocol]: https://www.google.co.uk/search?q=tracker+protocol&oq=tracker+protocol&aqs=chrome..69i57j69i60.1841j0j7&client=ubuntu&sourceid=chrome&es_sm=93&ie=UTF-8
 [kafka]: http://kafka.apache.org/
 [partitionkey]: http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html#partition-key

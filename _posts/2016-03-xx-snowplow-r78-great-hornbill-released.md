@@ -27,6 +27,18 @@ When a user clicks the link, the collector will redirect them to `www.example.co
 
 Scala Kinesis Enrich isn't actually limited to using Kinesis: it can also read from stdin and write to stdout. We plan to go further and add support for using [Apache Kafka][kafka] in place of Kinesis. Since Scala Kinesis Enrich will actually support multiple different types of stream, we have renamed it to *Stream Enrich*.
 
+<h2 id="rename">Access to the latest Common Enrich version</h2>
+
+Both Stream Enrich (for the real-time pipeline) and Scala Hadoop Enrich (for the batch pipeline) use our shared Common Enrich library for the core event enrichment logic. In this release, we have upgraded Stream Enrich from version 0.15.0 of Common Enrich to version 0.22.0. This makes a large number of features available to Stream Enrich, including:
+
+* The true_tstamp field
+* Validation of unstructured events and custom contexts
+* The cookie extractor enrichment
+* The weather enrichment
+* SendGrid webhooks
+
+For a complete list of changes to Common Enrich, check out the [CHANGELOG][changelog]
+
 <h2 id="partition">Randomized partition keys</h2>
 
 The Scala Stream Collector and Stream Enrich have historically used the IP address of incoming events as the Kinesis [partition key][partitionkey]. This meant that any two events originating from the same IP address would end up in the same shard and would probably be processed in the same order.
@@ -165,3 +177,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [kcl]:https://github.com/awslabs/amazon-kinesis-client
 [kclMonitoring]:http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-kcl.html
+[changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG

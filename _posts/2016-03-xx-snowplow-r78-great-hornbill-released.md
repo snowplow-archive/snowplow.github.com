@@ -121,6 +121,16 @@ Stream Enrich and Kinesis Elasticsearch Sink use the [Kinesis Client Library][kc
 
 We have also configured the Kinesis Client Library to upload [monitoring information][kclMonitoring] about Stream Enrich to CloudWatch - this feature was previously disabled.
 
+<h2 id="other">Other improvements</h2>
+
+We have also:
+
+* Specified the [UTF-8][utf8] character encoding for all string serialization and deserialization operations
+* Combined the separate thread pools which the Scala Stream Collector used to write to the good stream and the bad stream into a single thread pool
+* Reduced the complexity of the algorithm used by Kinesis Elasticsearch Sink to convert enriched event TSVs to JSON
+* Fixed an error causing Kinesis Elasticsearch Sink's internal monitoring to use a timestamp for the `failureCount` field of storage_write_failed events
+* Made the regular expression for schemas used by Kinesis Elasticsearch Sink more permissive, allowing vendors with hyphens
+
 <h2 id="upgrading">Upgrading</h2>
 
 The Kinesis apps for r78 are now all available in a single zip file here:
@@ -178,3 +188,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [kcl]:https://github.com/awslabs/amazon-kinesis-client
 [kclMonitoring]:http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-kcl.html
 [changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG
+[utf8]: https://en.wikipedia.org/wiki/UTF-8

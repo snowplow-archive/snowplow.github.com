@@ -112,6 +112,19 @@ Upgrading will require these configuration changes to each of the applications' 
 
 Add a `collector.cookie.name` field to the HOCON and set its value to `"sp"`.
 
+Also note that the configuration file no longer supports loading AWS credentials from the classpath using [ClasspathPropertiesFileCredentialsProvider][cpf]. If your configuration looks like this:
+
+{% highlight json %}
+{
+	"aws": {
+		"access-key": "cpf",
+		"secret-key": "cpf"
+	}
+}
+{% endhighlight %}
+
+then you should change "cpf" to "default" to use the [DefaultAWSCredentialsProviderChain][default]. You will need to ensure that your credentials are available in one of the places the AWS Java SDK looks. For more information about this, see the [Javadoc][default].
+
 <h3>Kinesis Elasticsearch Sink</h3>
 
 Replace the `sink.kinesis.out` string with an object two fields:
@@ -135,6 +148,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [kafka]: http://kafka.apache.org/
 [partitionkey]: http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html#partition-key
 [kazjote]: https://github.com/kazjote
+[cpf]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/ClasspathPropertiesFileCredentialsProvider.html
+[default]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [r67-release]: https://github.com/snowplow/snowplow/releases/tag/r67-bohemian-waxwing
 [wiki]: https://github.com/snowplow/snowplow/wiki
 [issues]: https://github.com/snowplow/snowplow/issues

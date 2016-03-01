@@ -100,6 +100,15 @@ The Scala Stream Collector, Stream Enrich, and Kinesis Elasticsearch Sink have h
 }
 {% endhighlight %}
 
+<h2 id="kclUpgrade">Kinesis Client Library upgrade</h2>
+
+Stream Enrich and Kinesis Elasticsearch Sink use the [Kinesis Client Library][kcl] to consume data from Kinesis. We have upgraded to the latest version (1.6.1) of the library, which has important improvements:
+
+* It doesn't silently swallow exceptions
+* It uploads the useful "MillisBehindLatest" metric to CloudWatch. This is helpful when determining whether an application consuming a stream is falling behind.
+
+We have also configured the Kinesis Client Library to upload [monitoring information][kclMonitoring] about Stream Enrich to CloudWatch - this feature was previously disabled.
+
 <h2 id="upgrading">Upgrading</h2>
 
 The Kinesis apps for r78 are now all available in a single zip file here:
@@ -154,3 +163,5 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [wiki]: https://github.com/snowplow/snowplow/wiki
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[kcl]:https://github.com/awslabs/amazon-kinesis-client
+[kclMonitoring]:http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-kcl.html

@@ -99,7 +99,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 
 It has always been possible for Snowplow users to track enhanced ecommerce-like events, including product views (impressions), add to baskets and remove from baskets events.
 
-A number of our users come to Snowplow from Google Analytics, having already implemented Enhanced Ecommerce. With this release, they can now mirror their GA enhanced ecommerce integrations in Snowplow directly, cutting down implementation time.
+A number of our users come to Snowplow from Google Analytics, having already implemented [Enhanced Ecommerce] [enhanced-ecommerce]. With this release, they can now mirror their GA enhanced ecommerce integrations in Snowplow directly, cutting down implementation time.
 
 There are two ways to setup enhanced ecommerce tracking in Snowplow:
 
@@ -198,6 +198,7 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [optimizely-data-object]: https://help.optimizely.com/hc/en-us/articles/205670207-The-console-data-object-and-Optimizely-log#data_object
 [optimizely-augur-logos]: /assets/img/blog/2016/03/optimizely-and-augur-logos.png
 [augur]: https://www.augur.io/#landingPage
+[enhanced-ecommerce]: https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce
 [enhanced-ecommerce-via-gtm]: https://github.com/snowplow/snowplow/wiki/Integrating-Javascript-tags-with-enhanced-ecommerce
 [release-260]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.6.0
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker

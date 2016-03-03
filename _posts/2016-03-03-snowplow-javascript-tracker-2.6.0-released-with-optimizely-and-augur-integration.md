@@ -64,10 +64,9 @@ The integration works by auto-populating the different contexts listed above (Ex
 
 Some notes on using these contexts:
 
-* All but the `optimizelyVisitor` context  return an array of contexts to be sent with the event.  This can cause the size of the event payload to sky-rocket. As a result, we recommend setting the tracker to `POST` events to Snowplow rather than use `GET`, as there are limitations the size of the request that can be sent using `GET`. Documentation on setting the tracker to use `POST` can be found [here](https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#2215-post-support).
+* All but the `optimizelyVisitor` context return an array of contexts to be sent with the event. This can cause the size of the event payload to sky-rocket. As a result, we recommend setting the tracker to `POST` events to Snowplow rather than use `GET`, as there are limitations the size of the request that can be sent using `GET`. Documentation on setting the tracker to use `POST` can be found [here](https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#2215-post-support).
 * All of the contexts are dynamically rebuilt with each event sent so as to represent any changes that might have occurred with either source.
 * The activated contexts will be sent with every event.
-
 
 <h2 id="augur-integration">2. Augur.io integration</h2>
 
@@ -96,7 +95,7 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 });
 {% endhighlight %}
 
-<h2 id="enhanced-ecommerce">3. EnhancedEcommerce tracking</h2>
+<h2 id="enhanced-ecommerce">3. Enhanced Ecommerce tracking</h2>
 
 It has always been possible for Snowplow users to track enhanced ecommerce-like events, including product views (impressions), add to baskets and remove from baskets events.
 
@@ -183,8 +182,6 @@ Other updates include:
 The upgraded minified tracker is available here:
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/2.6.0/sp.js
-
-
 
 <h2 id="docs">8. Documentation and help</h2>
 

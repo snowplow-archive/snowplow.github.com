@@ -11,14 +11,14 @@ We are excited to announce the release of version 2.6.0 of the [Snowplow JavaScr
 
 ![Optimizely and Augur logos][optimizely-augur-logos]
 
-1. [Optimizely integration](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#optimizely-integration)  
-2. [Augur.io integration](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#augur-integration)
-3. [Enhanced Ecommerce tracking](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#enhanced-ecommerce)
-4. [Better automatic domain management (for cookies) and other new functionality](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#new-functionality)
-5. [Improved handling of time](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#improved-handling-of-time)
-6. [Updates and Bug fixes](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#updates-bugs)
-7. [Upgrading](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#upgrading)
-8. [Documentation and help](/blog/2016/03/01/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#docs)
+1. [Optimizely integration](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#optimizely-integration)  
+2. [Augur.io integration](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#augur-integration)
+3. [Enhanced Ecommerce tracking](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#enhanced-ecommerce)
+4. [Better automatic domain management (for cookies) and other new functionality](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#new-functionality)
+5. [Improved handling of time](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#improved-handling-of-time)
+6. [Updates and Bug fixes](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#updates-bugs)
+7. [Upgrading](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#upgrading)
+8. [Documentation and help](/blog/2016/03/03/snowplow-javascript-tracker-2.6.0-released-with-optimizely-and-augur-integration/#docs)
 
 <!--more-->
 
@@ -111,10 +111,10 @@ There are two ways to setup enhanced ecommerce tracking in Snowplow:
 <table>
   <tr>Tracker Function<th></th><th>Corresponding Redshift table definition</th></tr>
   <tr><td><code>trackEnhancedEcommerceAction</code></td>               <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/action_1.sql"><code>com.google.analytics.enhanced-ecommerce/action_1.sql</code></a></td></tr>
-  <tr><td><code>trackEnhancedEcommerceActionFieldObject</code></td>    <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/action_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/action_field_object_1.sql</code></a></td></tr>
-  <tr><td><code>trackEnhancedEcommerceImpressionFieldObject</code></td><td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/impression_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/impression_field_object_1.sql</code></a></td></tr>
-  <tr><td><code>trackEnhancedEcommerceProductFieldObject</code></td>   <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/product_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/product_field_object_1.sql</code></a></td></tr>
-  <tr><td><code>trackEnhancedEcommercePromoFieldObject</code></td>     <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/promo_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/promo_field_object_1.sql</code></a></td></tr>
+  <tr><td><code>addEnhancedEcommerceActionContext</code></td>    <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/action_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/action_field_object_1.sql</code></a></td></tr>
+  <tr><td><code>addEnhancedEcommerceImpressionContext</code></td><td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/impression_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/impression_field_object_1.sql</code></a></td></tr>
+  <tr><td><code>addEnhancedEcommerceProductContext</code></td>   <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/product_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/product_field_object_1.sql</code></a></td></tr>
+  <tr><td><code>addEnhancedEcommercePromoContext</code></td>     <td><a href="https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.google.analytics.enhanced-ecommerce/promo_field_object_1.sql"><code>com.google.analytics.enhanced-ecommerce/promo_field_object_1.sql</code></a></td></tr>
 </table>
 
 <h2 id="new-functionality">4. Better automatic domain management (for cookies) and other new functionality</h2>

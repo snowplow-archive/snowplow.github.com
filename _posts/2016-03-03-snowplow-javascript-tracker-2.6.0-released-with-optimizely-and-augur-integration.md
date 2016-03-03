@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Snowplow JavaScript Tracker 2.6.0 released
+title: Snowplow JavaScript Tracker 2.6.0 released with Optimizely and Augur integration
 title-short: Snowplow JavaScript Tracker 2.6.0
 tags: [snowplow, javascript, tracker, browser, analytics]
 author: Josh

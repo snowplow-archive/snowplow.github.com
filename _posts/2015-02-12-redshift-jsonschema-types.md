@@ -191,7 +191,17 @@ This JSON schema uses the regex for Redshift's default `YYYY-MM-DD` format.
 
 <h2><a name="timestamp">TIMESTAMP</a></h2>
 
-This JSON schema uses the regex for Redshift's default `YYYY-MM-DD HH:MM:SS` format.
+This is the recommended way to define a timestsamp field in JSON schema:
+
+```
+{
+	"type": "string",
+	"format": "date-time"
+}
+
+```
+
+You can instead use the following regex if you wish:
 
 ```
 {

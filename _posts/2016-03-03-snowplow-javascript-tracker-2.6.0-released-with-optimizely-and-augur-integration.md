@@ -7,7 +7,9 @@ author: Josh
 category: Releases
 ---
 
-We are excited to announce the release of version 2.6.0 of the [Snowplow JavaScript Tracker][release-260]! This release brings turnkey [Optimizely][optimizely] and [Augur.io][augur] integration, so you can automatically grab A/B testing data (from Optimizely) and device and user recognition data (from Augur) with the events you track with the Javascript tracker. In addition, we have rolled out support for enhanced ecommerce tracking, improved domain management and better handling of time! Read on to find out more...
+We are excited to announce the release of version 2.6.0 of the [Snowplow JavaScript Tracker][release-260]! This release brings turnkey [Optimizely][optimizely] and [Augur.io][augur] integration, so you can automatically grab A/B testing data (from Optimizely) and device and user recognition data (from Augur) with the events you track with the JavaScript Tracker.
+
+In addition, we have rolled out support for Enhanced Ecommerce tracking, improved domain management and better handling of time! Read on to find out more...
 
 ![Optimizely and Augur logos][optimizely-augur-logos]
 
@@ -32,7 +34,7 @@ The Optimizely integration delivers your Optimizely testing data with each event
 
 It is very common for Snowplow users to track A/B testing data in Snowplow. This means you can assess the effectiveness of different experiments directly by analyzing your Snowplow data. This is enormously valuable, as it means you can not only measure the impact of individaul experiments, but slice results by any of the myriad dimensions that Snowplow makes available to you. (Including any that you build yourself on the event-level data, e.g. behavioural segments.) In addition, you can build a picture, for individual users, of the different experiments that they have been exposed to over their lifetimes, enabling you to model the impact of individual and collective testing on user behaviour over a long time horizon.
 
-The integration makes it simple for Optimizely users to grab their Optimizely data in Snowplow: previously users had to write custom Javascript to grab the relevant fields from the [Optimizely `data object`][optimizely-data-object] and push it into Snowplow, either using their own events (*experiment 'a' run*) or context (*event 'b' occurred whilst experiment 'a' was running*). Now Optimizely users can simply specify which parts of the data object they would like recorded in Snowplow when the Javascript is initialized, and the tracker will take care of the rest, grabbing the relevant data from Optimizely and sending it as custom context with every event that is recorded into Snowplow. It is as simple as follows:
+The integration makes it simple for Optimizely users to grab their Optimizely data in Snowplow: previously users had to write custom JavaScript to grab the relevant fields from the [Optimizely `data object`][optimizely-data-object] and push it into Snowplow, either using their own events (*experiment 'a' run*) or context (*event 'b' occurred whilst experiment 'a' was running*). Now Optimizely users can simply specify which parts of the data object they would like recorded in Snowplow when the JavaScript is initialized, and the tracker will take care of the rest, grabbing the relevant data from Optimizely and sending it as custom context with every event that is recorded into Snowplow. It is as simple as follows:
 
 {% highlight javascript %}
 window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
@@ -64,7 +66,7 @@ The integration works by auto-populating the different contexts listed above (Ex
 
 Some notes on using these contexts:
 
-* All but the `optimizelyVisitor` context return an array of contexts to be sent with the event. This can cause the size of the event payload to sky-rocket. As a result, we recommend setting the tracker to `POST` events to Snowplow rather than use `GET`, as there are limitations the size of the request that can be sent using `GET`. Documentation on setting the tracker to use `POST` can be found [here](https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#2215-post-support).
+* All but the `optimizelyVisitor` context return an array of contexts to be sent with the event. This can cause the size of the event payload to sky-rocket. As a result, we recommend setting the tracker to `POST` events to Snowplow rather than use `GET`, as there are limitations the size of the request that can be sent using `GET`. Documentation on setting the tracker to use `POST` can be found [here] [js-tracker-post].
 * All of the contexts are dynamically rebuilt with each event sent so as to represent any changes that might have occurred with either source.
 * The activated contexts will be sent with every event.
 
@@ -82,7 +84,7 @@ The Augur.io integration means that Augur device recognition data is automatical
 
 The full SQL table definition can be found [here](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/io.augur.snowplow/identity_lite_1.sql).
 
-Like the Optimizely integration, the Augur integration is enabled when you initialize the Javascript:
+Like the Optimizely integration, the Augur integration is enabled when you initialize the JavaScript:
 
 {% highlight javascript %}
 window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
@@ -200,6 +202,7 @@ Finally, if you run into any issues or have any questions, please [raise an issu
 [augur]: https://www.augur.io/#landingPage
 [enhanced-ecommerce]: https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce
 [enhanced-ecommerce-via-gtm]: https://github.com/snowplow/snowplow/wiki/Integrating-Javascript-tags-with-enhanced-ecommerce
+[js-tracker-post]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#2215-post-support
 [release-260]: https://github.com/snowplow/snowplow-javascript-tracker/releases/tag/2.6.0
 [tech-docs]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-setup

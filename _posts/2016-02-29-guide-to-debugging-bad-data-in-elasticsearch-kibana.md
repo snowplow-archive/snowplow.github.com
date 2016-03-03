@@ -13,11 +13,11 @@ One of the features that makes Snowplow unique is that we actually report on the
 
 [Recently][r73-release] we started loading bad data into Elasticsearch. In this guide, we will walk through how to use Elasticsearch through Kibana to:
 
-1. Monitor the number of bad rows
-2. Spot problems that emerge
-3. Quickly diagnose the route causes of the issues, so that they can be addressed upstream
+* Monitor the number of bad rows
+* Spot problems that emerge
+* Quickly diagnose the route causes of the issues, so that they can be addressed upstream
 
-## The Kibana discover UI
+## The Kibana discover UI: a great interface for diagnosing bad data
 
 The Kibana discover interface provides a great UI for debugging your bad rows.
 
@@ -93,7 +93,7 @@ That was a request to our `trial-collector.snplow.com/admin`. The next request w
 }
 {% endhighlight %} 
 
-We can filter these out by entering the following filter in the Kibana search box at the top of the screen:
+As these bad rows do not represent data that we want but failed to process, we can safely ignore them. To do that, we simply filter these out by entering the following query in the Kibana search box at the top of the screen:
 
 {% highlight bash %}
 -errors.message:"does not match (/)vendor/version(/) pattern nor is a legacy /i(ce.png) request"
@@ -181,7 +181,7 @@ The above error message is caused by a failure to validate data against the asso
 
 Now we've identified a tracker error, we want to understand how prevalent this is. We can do that by simply updating our Kibana query to return rows with this type of error message i.e.
 
-{% highlight base %}
+{% highlight bash %}
 errors.message:"object instance has properties which are not allowed by the schema: [\"buildIsReleased\",\"buildVarient\"]"
 {% endhighlight %}
 
@@ -197,7 +197,7 @@ Now we've dealt with the first source of bad rows, let's identify the second. Th
 
 {% highlight bash %}
 -errors.message:"object instance has properties which are not allowed by the schema: [\"buildIsReleased\",\"buildVarient\"]"
-{% highlight bash %}
+{% endhighlight %}
 
 and in addition filter out the bad rows that we did not need to worry about:
 

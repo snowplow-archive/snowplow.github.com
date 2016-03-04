@@ -124,7 +124,7 @@ Information on setting up the Scala Repo Server is available on the [wiki][confi
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[penny-black-img]: /assets/img/blog/2016/01/penny-black.jpg
+[penny-black-img]: /assets/img/blog/2016/02/penny-black.jpg
 [penny-black]: https://en.wikipedia.org/wiki/Penny_Black
 
 [swagger]: http://swagger.io/

@@ -28,14 +28,16 @@ This is release 3; the codenames for Iglu will be famous postage stamps, startin
 
 Scala Repo Server is a more powerful alternative to our static schema repository, and its API is a superset of that repository's API. At the moment it offers the following additional features:
 
-* Authentication. In the static repo, anybody can view all schemas. Scala Repo Server supports both public documents and private documents which require a key to access. Multiple users with separate keys can use the same Scala Repo Server instance. Support for authenticated Iglu repos will be coming to Snowplow soon
-* Schema validation: attempts to upload an invalid schema will fail immediately. This is in contrast with the static schema repository, which can hold invalid schemas, leading to errors at schema retrieval time
+* **Authentication:** in the static repo, anybody can view all schemas. Scala Repo Server supports both public documents and private documents which require a key to access. Multiple users with separate keys can use the same Scala Repo Server instance. Support for authenticated Iglu repos will be coming to Snowplow soon
+* **Schema validation:** in this server, attempts to upload an invalid schema will be rejected. This is in contrast with the static schema repository, which can hold invalid schemas, leading to errors at schema retrieval time
 
-**Please be aware that the Scala Repo Server remains in "beta" - we continue to recommend using S3-based static schema repositories for Iglu in conjunction with Snowplow for all production use cases; there are no plans to move Iglu Central over to the Scala Repo Server at this time.**
+**Please be aware that the Scala Repo Server remains in "beta" - we continue to recommend using S3-based static schema repositories for Iglu in conjunction for all production use cases, including with Snowplow; there are no plans to move Iglu Central over to the Scala Repo Server at this time.**
 
 <h2 id="beanstalk">2. Elastic Beanstalk deployment</h2>
 
-Scala Repo Server can now run on AWS Elastic Beanstalk! Elastic Beanstalk will automatically configure and manage the EC2 instances needed to run the app. Instructions are available on the [Setting up Iglu Server on AWS][beanstalksetup] wiki page.
+Scala Repo Server can now run on AWS Elastic Beanstalk!
+
+Elastic Beanstalk will automatically configure and manage the EC2 instances needed to run the app. Instructions are available on the [Setting up Iglu Server on AWS][beanstalksetup] wiki page.
 
 <h2 id="usage">3. Using the Scala Repo Server</h2>
 
@@ -51,7 +53,7 @@ $ curl -X POST "${iglu_repo_uri}/api/auth/keygen?vendor_prefix=com.example_compa
 }
 {% endhighlight %}
 
-Now let's grab a handy schema and `POST` it to Iglu:
+Now let's grab a schema that we have available and `POST` it to Iglu:
 
 {% highlight bash %}
 $ wget https://raw.githubusercontent.com/snowplow/example-event-dictionary/master/schemas/com.example_company/example_event/jsonschema/1-0-0
@@ -63,7 +65,7 @@ $ curl -X POST -d @1-0-0 "${iglu_repo_uri}/api/schemas/com.example_company/examp
 }
 {% endhighlight %}
 
-Please note:
+It's important to note:
 
 * All API operations should be addressed to the `/api` path
 * The `isPublic=true` flag ensures that our schema is publically visible - particularly important as Snowplow does not support authenticated repositories yet
@@ -103,7 +105,7 @@ sbt test
 
 <h2 id="future">5. The future</h2>
 
-We are making it increasingly easy to introduce new schemas with Snowplow. Originally it was necessary to manually write three files:
+We are making it increasingly easy to work with schemas in Snowplow and Iglu. Originally it was necessary to manually write three files:
 
 * The JSON Schema, defining what the event should look like. This is uploaded to an Iglu repo
 * The JSON Paths file, used to load JSONs conforming to the schema into Redshift. This is uploaded to S3 and used by Snowplow's StorageLoader component
@@ -114,9 +116,9 @@ Then we started to simplify this process with [Schema Guru][schemaguru]:
 * `schema-guru schema` can generate a JSON schema from a corpus of JSONs
 * `schema-guru ddl` can automatically generate the JSON Paths file and Redshift DDL for a given schema
 
-Future releases will make the process still easier. Scala Repo Server will be able to automatically generate the JSON Paths and Redshift DDL files when a schema is uploaded; these files will be served by Scala Repo Server, so it will no longer be necessary to host them in GitHub and/or S3 separately.
+Future Iglu releases will make the process still easier. Scala Repo Server will be able to automatically generate the JSON Paths and Redshift DDL files when a schema is uploaded; these files will be served by Scala Repo Server, so it will no longer be necessary to host them in GitHub and/or S3 separately.
 
-**A word of warning: the Iglu Server API is still evolving, so future releases are unlikely to be backward compatible with this one. Please continue to use a static repo for all production use cases (e.g. with Snowplow).**
+**A word of warning: the Iglu Server API is still evolving, so future releases are unlikely to be backward compatible with this one. Please continue to use a static repo for all production use cases, such as with Snowplow.**
 
 <h2 id="help">6. Getting help</h2>
 

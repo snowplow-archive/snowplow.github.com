@@ -93,7 +93,7 @@ The above example uses a [custom structured event][custom-structured-event] to r
 
 Constructing pixel tags to pass data using unstructured events can be fiddly: that is because you have to compose a self-describing JSON, URL-encode it and then add it to a querystring.
 
-A simple approach can be to use an [Iglu webhook][iglu-webhook]. This enables you to send data points for your own unstructured event as a set of name values pairs on a querystring directly (rather than composing a self-describing JSON). If we take our standard ad impression schema, for example:
+A simple approach can be to use an [Iglu webhook][iglu-webhook]. This enables you to send data points for your own unstructured event as a set of name values pairs on a querystring directly (rather than composing a self-describing JSON). If we take our standard [ad impression schema][ad-impression-schema], for example:
 
 {% highlight json %}
 {
@@ -190,3 +190,4 @@ Then [get in touch][contact] with the Snowplow team!
 [uri-redirect]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/uri_redirect/jsonschema/1-0-0
 [technical-documentation-click-tracking]: https://github.com/snowplow/snowplow/wiki/pixel-tracker?_sp=44dbe9a530cc476d.1457357770840#5-click-tracking
 [contact]: /contact/
+[ad-impression-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0

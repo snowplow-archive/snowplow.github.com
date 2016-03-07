@@ -11,10 +11,10 @@ It is possible to track both ad impression events and ad click events into Snowp
 
 In this guide, we describe how to implement Snowplow tracking for ad impression and ad click events.
 
-1. [Tracking ad impressions](#tracking-ad-impressions)  
-  * [Using the Javascript tracker](#js-tracker)  
-  * [Using the pixel tracker](#pixel-tracker)
-2. [Tracking ad clicks](#tracking-ad-clicks)  
+1. [Tracking ad impressions](/blog/2016/03/07/ad-impression-and-click-tracking-with-snowplow/#tracking-ad-impressions)  
+  * [Using the Javascript tracker](/blog/2016/03/07/ad-impression-and-click-tracking-with-snowplow/#js-tracker)  
+  * [Using the pixel tracker](/blog/2016/03/07/ad-impression-and-click-tracking-with-snowplow/#pixel-tracker)
+2. [Tracking ad clicks](/blog/2016/03/07/ad-impression-and-click-tracking-with-snowplow/#tracking-ad-clicks)  
  
 
 <!--more-->

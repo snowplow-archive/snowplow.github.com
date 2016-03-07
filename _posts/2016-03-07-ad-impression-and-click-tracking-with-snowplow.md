@@ -63,7 +63,7 @@ In general, different ad servers make different data points available in the ad 
 3. A set of data points describing the ad servered (ad ID, campaign ID, the target URL, advertiser ID etc.)
 4. A set of data points describing where the ad is served (publisher ID, banner ID)
 
-It is therefore common to consult your ad server documentation and write your own ad impression schema that accommodates those data points that your ad server makes available to you. We would be thrilled to have users contribute schemas for the major different ad server to our public [Iglu Central][iglu-central] schema registry.
+It is therefore common to consult your ad server documentation and write your own ad impression schema that accommodates those data points that your ad server makes available to you. We would be thrilled to have users contribute schemas for the major different ad servers to our public [Iglu Central][iglu-central] schema registry.
 
 Using the Javascript tracker is generally the easiest way to go live with ad impression tracking. However, some companies want to avoid loading a 25KB Javascript file with every ad load. For that reason some users opt insteead to track ad impressions using a pixel tracker.
 

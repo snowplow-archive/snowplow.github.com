@@ -97,6 +97,8 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', {
 });
 {% endhighlight %}
 
+Note that you need to set up your own Augur account and to be loading the Augur Javascript separately for this integration to work. Please see the [Augur website][augur] for details.
+
 <h2 id="enhanced-ecommerce">3. Enhanced Ecommerce tracking</h2>
 
 It has always been possible for Snowplow users to track enhanced ecommerce-like events, including product views (impressions), add to baskets and remove from baskets events.

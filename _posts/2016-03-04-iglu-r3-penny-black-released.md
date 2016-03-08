@@ -7,7 +7,7 @@ author: Fred
 category: Releases
 ---
 
-We are excited to announce the immediate availability of a new version of Iglu, incorporating a release of the Swagger-powered Scala Repo Server. Iglu has existed as a project at Snowplow for over two years now: after a period of relative quiet, we have an ambitious release schedule for Iglu planned for 2016, starting with this release.
+We are excited to announce the immediate availability of a new version of [Iglu] [iglu], incorporating a release of the Swagger-powered Scala Repo Server. Iglu has existed as a project at Snowplow for over two years now: after a period of relative quiet, we have an ambitious release schedule for Iglu planned for 2016, starting with this release.
 
 To reflect the growing importance of Iglu, and the number of moving parts within the platform, we will be following the Snowplow naming system for Iglu, with a release number plus a codename. The individual components of Iglu (such as Iglu clients and servers) will continue to use semantic versioning.
 
@@ -26,7 +26,7 @@ This is release 3; the codenames for Iglu will be famous postage stamps, startin
 
 <h2 id="overview">1. Overview</h2>
 
-Scala Repo Server is a more powerful alternative to our static schema repository, and its API is a superset of that repository's API. At the moment it offers the following additional features:
+[Scala Repo Server] [iglu-scala] is a more powerful alternative to our static schema repository, and its API is a superset of that repository's API. At the moment it offers the following additional features:
 
 * **Authentication:** in the static repo, anybody can view all schemas. Scala Repo Server supports both public documents and private documents which require a key to access. Multiple users with separate keys can use the same Scala Repo Server instance. Support for authenticated Iglu repos will be coming to Snowplow soon
 * **Schema validation:** in this server, attempts to upload an invalid schema will be rejected. This is in contrast with the static schema repository, which can hold invalid schemas, leading to errors at schema retrieval time
@@ -130,6 +130,9 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [penny-black]: https://en.wikipedia.org/wiki/Penny_Black
 
 [swagger]: http://swagger.io/
+
+[iglu]: https://github.com/snowplow/iglu
+[iglu]: https://github.com/snowplow/iglu/tree/master/2-repositories/scala-repo-server
 
 [beanstalk]: https://aws.amazon.com/documentation/elastic-beanstalk/
 [beanstalksetup]: https://github.com/snowplow/iglu/wiki/Setting-up-Iglu-Server-on-AWS

@@ -5,7 +5,7 @@
 </div>
 <div class="header">Recent releases</div>
 <div class="text">
-  <ul>{% for post in site.categories.releases limit:10 %}<li><a href="{{ post.url }}">{% if post.title-short %}{{ post.title-short }}{% else %}{{ post.title }}{% endif %}</a></li>{% endfor %}</ul>
+  <ul>{% for post in site.categories.Releases limit:10 %}<li><a href="{{ post.url }}">{% if post.title-short %}{{ post.title-short }}{% else %}{{ post.title }}{% endif %}</a></li>{% endfor %}</ul>
 </div>
 <div class="header">Categories</div>
 <div class="text">

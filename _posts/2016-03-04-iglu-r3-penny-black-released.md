@@ -132,7 +132,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [swagger]: http://swagger.io/
 
 [iglu]: https://github.com/snowplow/iglu
-[iglu]: https://github.com/snowplow/iglu/tree/master/2-repositories/scala-repo-server
+[iglu-scala]: https://github.com/snowplow/iglu/tree/master/2-repositories/scala-repo-server
 
 [beanstalk]: https://aws.amazon.com/documentation/elastic-beanstalk/
 [beanstalksetup]: https://github.com/snowplow/iglu/wiki/Setting-up-Iglu-Server-on-AWS

@@ -9,6 +9,18 @@ category: Releases
 
 Snowplow r78 Great Hornbill is now available on GitHub! This release makes several improvements to the Snowplow real-time pipeline.
 
+1. [Click redirect mode](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#redirect)
+2. [Renaming Scala Kinesis Enrich to Stream Enrich](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#rename)
+3. [Access to the latest Common Enrich version](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#commonEnrich)
+4. [Randomized partition keys](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#partition)
+5. [Configurable cookie name](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#cookie)
+6. [Kinesis Elasticsearch Sink: increased flexibility](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#elasticsearchMixedIo)
+7. [New format for bad rows](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#badRows)
+8. [Kinesis Client Library upgrade](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#kclUpgrade)
+9. [Other improvements](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#other)
+10. [Upgrading](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#upgrading)
+11. [Getting help](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#help)
+
 ![great-hornbill][great-hornbill]
 
 <!--more-->
@@ -27,7 +39,7 @@ When a user clicks the link, the collector will redirect them to `www.example.co
 
 Scala Kinesis Enrich isn't actually limited to using Kinesis: it can also read from stdin and write to stdout. We plan to go further and add support for using [Apache Kafka][kafka] in place of Kinesis. Since Scala Kinesis Enrich will actually support multiple different types of stream, we have renamed it to *Stream Enrich*.
 
-<h2 id="rename">Access to the latest Common Enrich version</h2>
+<h2 id="commonEnrich">Access to the latest Common Enrich version</h2>
 
 Both Stream Enrich (for the real-time pipeline) and Scala Hadoop Enrich (for the batch pipeline) use our shared Common Enrich library for the core event enrichment logic. In this release, we have upgraded Stream Enrich from version 0.15.0 of Common Enrich to version 0.22.0. This makes a large number of features available to Stream Enrich, including:
 
@@ -168,6 +180,10 @@ Replace the `sink.kinesis.out` string with an object two fields:
 }
 {% endhighlight %}
 
+Additionally, move the `stream-type` setting from the `sink.kinesis.in` section to the `sink` section.
+
+You can see an example of the correct configuration file layout [here][eshoconexample].
+
 <h2 id="help">8. Getting help</h2>
 
 For more details on this release, please check out the [r78 Great Hornbill][r78-release] on GitHub.
@@ -189,3 +205,4 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [kclMonitoring]:http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-kcl.html
 [changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG
 [utf8]: https://en.wikipedia.org/wiki/UTF-8
+[eshoconexample]: https://github.com/snowplow/snowplow/blob/2eff5a8ad67f1da0506d2d1dd8d142ac41e2e0ed/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample

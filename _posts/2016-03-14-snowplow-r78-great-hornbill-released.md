@@ -7,25 +7,37 @@ author: Fred
 category: Releases
 ---
 
-Snowplow r78 Great Hornbill is now available on GitHub! This release makes several improvements to the Snowplow real-time pipeline.
+Snowplow release 78 Great Hornbill is now available on GitHub! This release brings our Kinesis pipeline functionally up-to-date with our Hadoop pipeline, and makes several improvements to the Kinesis pipeline.
 
-1. [Click redirect mode](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#redirect)
-2. [Renaming Scala Kinesis Enrich to Stream Enrich](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#rename)
-3. [Access to the latest Common Enrich version](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#commonEnrich)
-4. [Randomized partition keys](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#partition)
-5. [Configurable cookie name](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#cookie)
-6. [Kinesis Elasticsearch Sink: increased flexibility](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#elasticsearchMixedIo)
-7. [New format for bad rows](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#badRows)
-8. [Kinesis Client Library upgrade](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#kclUpgrade)
-9. [Other improvements](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#other)
-10. [Upgrading](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#upgrading)
-11. [Getting help](/blog/2016/xx/xx/snowplow-r78-great-hornbill-released#help)
+1. [Access to the latest Common Enrich version](/blog/2016/03/14/snowplow-r78-great-hornbill-released#commonEnrich)
+2. [Click redirect mode](/blog/2016/03/14/snowplow-r78-great-hornbill-released#redirect)
+3. [Configurable cookie name](/blog/2016/03/14/snowplow-r78-great-hornbill-released#cookie)
+4. [Randomized partition keys](/blog/2016/03/14/snowplow-r78-great-hornbill-released#partition)
+5. [Kinesis Elasticsearch Sink: increased flexibility](/blog/2016/03/14/snowplow-r78-great-hornbill-released#elasticsearchMixedIo)
+6. [New format for bad rows](/blog/2016/03/14/snowplow-r78-great-hornbill-released#badRows)
+7. [Kinesis Client Library upgrade](/blog/2016/03/14/snowplow-r78-great-hornbill-released#kclUpgrade)
+8. [Renaming Scala Kinesis Enrich to Stream Enrich](/blog/2016/03/14/snowplow-r78-great-hornbill-released#rename)
+9. [Other improvements](/blog/2016/03/14/snowplow-r78-great-hornbill-released#other)
+10. [Upgrading](/blog/2016/03/14/snowplow-r78-great-hornbill-released#upgrading)
+11. [Getting help](/blog/2016/03/14/snowplow-r78-great-hornbill-released#help)
 
 ![great-hornbill][great-hornbill]
 
 <!--more-->
 
-<h2 id="redirect">Click redirect mode</h2>
+<h2 id="commonEnrich">1. Access to the latest Common Enrich version</h2>
+
+Both Stream Enrich (the new name for Kinesis Enrich) and Scala Hadoop Enrich (for the batch pipeline) use our shared Common Enrich library for the core event enrichment logic. In this release, we have upgraded Stream Enrich from version 0.15.0 of Common Enrich to version 0.22.0.
+
+This is a huge leap forward for the Kinesis pipeline, making available a large number of powerful new features from the last 10 batch pipeline releases, including:
+
+* Validation of unstructured events and custom contexts
+* The Cookie Extractor Enrichment
+* The Weather Enrichment
+* SendGrid webhooks
+* The `true_tstamp` field
+
+<h2 id="redirect">2. Click redirect mode</h2>
 
 Like the Clojure Collector, the Scala Stream Collector now has a click redirect mode. This is a JavaScript-free way to track a user pinging a particular URL. An example: suppose your website contains a link to `www.example.com`. To track clicks on this link, change it to point to your collector, and give put the original link target in the querystring (having first URL-encoded it.) The new URL looks like this:
 
@@ -35,43 +47,31 @@ When a user clicks the link, the collector will redirect them to `www.example.co
 
 `http://mycollector.net/r/tp2?u=http%3A%2F%2Fwww.example.com&br_lang=en-US`
 
-<h2 id="rename">Renaming Scala Kinesis Enrich to Stream Enrich</h2>
+<h2 id="cookie">3. Configurable cookie name</h2>
 
-Scala Kinesis Enrich isn't actually limited to using Kinesis: it can also read from stdin and write to stdout. We plan to go further and add support for using [Apache Kafka][kafka] in place of Kinesis. Since Scala Kinesis Enrich will actually support multiple different types of stream, we have renamed it to *Stream Enrich*.
+Thanks to the work of [Kacper Bielecki] [kazjote], you can now configure the name of the cookie set by the Scala Stream Collector. You should add the field `name = mycookiename` to the `collector.cookie` section of the configuration.
 
-<h2 id="commonEnrich">Access to the latest Common Enrich version</h2>
+For compatibility with cookies set by previous versions of the collector, set the name to "sp". Thanks @kazjote!
 
-Both Stream Enrich (for the real-time pipeline) and Scala Hadoop Enrich (for the batch pipeline) use our shared Common Enrich library for the core event enrichment logic. In this release, we have upgraded Stream Enrich from version 0.15.0 of Common Enrich to version 0.22.0. This makes a large number of features available to Stream Enrich, including:
-
-* The true_tstamp field
-* Validation of unstructured events and custom contexts
-* The cookie extractor enrichment
-* The weather enrichment
-* SendGrid webhooks
-
-For a complete list of changes to Common Enrich, check out the [CHANGELOG][changelog]
-
-<h2 id="partition">Randomized partition keys</h2>
+<h2 id="partition">4. Randomized partition keys</h2>
 
 The Scala Stream Collector and Stream Enrich have historically used the IP address of incoming events as the Kinesis [partition key][partitionkey]. This meant that any two events originating from the same IP address would end up in the same shard and would probably be processed in the same order.
 
-For some applications the link between user and shard and the approximate preservation of order would be important, but the Snowplow real-time pipeline never uses it. It also has a disadvantage: if the collector is flooded by requests from a single IP address, the events will all end up in the same shard. This would slow down consumers processing the stream no matter how many shards the stream has.
+For some applications the link between user and shard and the approximate preservation of order would be important, but the Snowplow real-time pipeline never uses it itself. It also has a disadvantage: if the collector is flooded by requests from a single IP address, the events will all end up in the same shard. This would slow down consumers processing the stream no matter how many shards the stream has.
 
-For these reasons we have started generating the partition keys for events randomly. It is possible to retain the old behaviour: just add a boolean field `useIpAddressAsPartitionKey` set to `true` to the `collector.sink.kinesis` section of your Scala Stream Collector configuration, and add the same field to the `enriched.streams.out` section of your Stream Enrich configuration.
+For these reasons we have started generating the partition keys for events randomly. It is possible to retain the old behavior: just add a boolean field `useIpAddressAsPartitionKey` set to `true` to the `collector.sink.kinesis` section of your Scala Stream Collector configuration, and add the same field to the `enriched.streams.out` section of your Stream Enrich configuration.
 
-<h2 id="cookie">Configurable cookie name</h2>
+<h2 id="elasticsearchMixedIo">5. Kinesis Elasticsearch Sink: increased flexibility</h2>
 
-Thanks to the work of Kacper Bielecki ([@kazjote][kazjote] on GitHub), you can now configure the name of the cookie set by the Scala Stream Collector. You should add the field `name = mycookiename` to the `collector.cookie` section of the configuration. For compatibility with cookies set by previous versions of the collector, set the name to "sp". Thanks @kazjote!
+The Kinesis Elasticsearch Sink formerly supported three modes:
 
-<h2 id="elasticsearchMixedIo">Kinesis Elasticsearch Sink: increased flexibility</h2>
-
-The Kinesis Elasticsearch Sink used to support three modes:
-
-* Read from stdin, write good events to stdout and bad events to stderr
-* Read from Kinesis, write good events to stdout and bad events to stderr
+* Read from `stdin`, write good events to `stdout` and bad events to `stderr`
+* Read from Kinesis, write good events to `stdout` and bad events to `stderr`
 * Read from Kinesis, write good events to Elasticsearch and bad events to Kinesis
 
-We have made this much more permissive: it is now possible to read from stdin or Kinesis, write good events to stdout or Elasticsearch, and write bad events to Kinesis or stderr in any combination. (You can also silently drop bad events.) To preserve existing behaviour, you will have to change the "sink" setting in your configuration file from this:
+We have made this much more flexible: it is now possible to read from `stdin` or Kinesis, write good events to `stdout` or Elasticsearch, and write bad events to Kinesis or `stderr`, in any combination. You can also silently drop bad events if you prefer.
+
+To preserve existing behavior, you will have to change the "sink" setting in your configuration file from this:
 
 {% highlight json %}
 {
@@ -107,9 +107,11 @@ to this:
 }
 {% endhighlight %}
 
-<h2 id="badRows">New format for bad rows</h2>
+<h2 id="badRows">6. New format for bad rows</h2>
 
-The Scala Stream Collector, Stream Enrich, and Kinesis Elasticsearch Sink have had the format of their bad rows updated: the "errors" field is no longer an array of strings, but an array of objects where each object contains both the error message and the level of the error. An example of a bad row in the new format, generated by feeding Stream Enrich with a malformed Thrift object:
+We have updated the format of the bad rows in Scala Stream Collector, Stream Enrich, and Kinesis Elasticsearch Sink: the "errors" field is no longer an array of strings, but instead an array of objects where each object contains both the error message and the level of the error.
+
+An example of a bad row in the new format, generated by feeding Stream Enrich with a malformed Thrift object:
 
 {% highlight json %}
 {
@@ -124,7 +126,9 @@ The Scala Stream Collector, Stream Enrich, and Kinesis Elasticsearch Sink have h
 }
 {% endhighlight %}
 
-<h2 id="kclUpgrade">Kinesis Client Library upgrade</h2>
+**If you are loading Snowplow bad rows into for example Elasticsearch, please make sure to update all components.**
+
+<h2 id="kclUpgrade">7. Kinesis Client Library upgrade</h2>
 
 Stream Enrich and Kinesis Elasticsearch Sink use the [Kinesis Client Library][kcl] to consume data from Kinesis. We have upgraded to the latest version (1.6.1) of the library, which has important improvements:
 
@@ -133,17 +137,21 @@ Stream Enrich and Kinesis Elasticsearch Sink use the [Kinesis Client Library][kc
 
 We have also configured the Kinesis Client Library to upload [monitoring information][kclMonitoring] about Stream Enrich to CloudWatch - this feature was previously disabled.
 
-<h2 id="other">Other improvements</h2>
+<h2 id="rename">8. Renaming Scala Kinesis Enrich to Stream Enrich</h2>
+
+Scala Kinesis Enrich isn't actually limited to using Kinesis: it can also read from `stdin` and write to `stdout`. In the future we plan on integrating [Apache Kafka][kafka] into this component. Since Scala Kinesis Enrich will actually support multiple different types of stream, we have renamed it to *Stream Enrich*.
+
+<h2 id="other">9. Other improvements</h2>
 
 We have also:
 
 * Specified the [UTF-8][utf8] character encoding for all string serialization and deserialization operations
-* Combined the separate thread pools which the Scala Stream Collector used to write to the good stream and the bad stream into a single thread pool
+* Combined the two thread pools which the Scala Stream Collector used to write to the good stream and the bad stream into a single thread pool
 * Reduced the complexity of the algorithm used by Kinesis Elasticsearch Sink to convert enriched event TSVs to JSON
-* Fixed an error causing Kinesis Elasticsearch Sink's internal monitoring to use a timestamp for the `failureCount` field of storage_write_failed events
+* Fixed an error causing Kinesis Elasticsearch Sink's internal monitoring to use a timestamp for the `failureCount` field of `storage_write_failed` events
 * Made the regular expression for schemas used by Kinesis Elasticsearch Sink more permissive, allowing vendors with hyphens
 
-<h2 id="upgrading">Upgrading</h2>
+<h2 id="upgrading">10. Upgrading</h2>
 
 The Kinesis apps for r78 are now all available in a single zip file here:
 
@@ -170,7 +178,7 @@ then you should change "cpf" to "default" to use the [DefaultAWSCredentialsProvi
 
 <h3>Kinesis Elasticsearch Sink</h3>
 
-Replace the `sink.kinesis.out` string with an object two fields:
+Replace the `sink.kinesis.out` string with an object with two fields:
 
 {% highlight json %}
 {
@@ -182,11 +190,13 @@ Replace the `sink.kinesis.out` string with an object two fields:
 
 Additionally, move the `stream-type` setting from the `sink.kinesis.in` section to the `sink` section.
 
+If you are loading Snowplow bad rows into for example Elasticsearch, please make sure to update all components.
+
 You can see an example of the correct configuration file layout [here][eshoconexample].
 
-<h2 id="help">8. Getting help</h2>
+<h2 id="help">11. Getting help</h2>
 
-For more details on this release, please check out the [r78 Great Hornbill][r78-release] on GitHub.
+For more details on this release, please check out the [R78 Great Hornbill][r78-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

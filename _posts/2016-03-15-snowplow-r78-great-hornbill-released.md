@@ -200,7 +200,7 @@ For more details on this release, please check out the [release notes][snowplow-
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
-[great-auk]: /assets/img/blog/2016/03/great-hornbill.jpg
+[great-hornbill]: /assets/img/blog/2016/03/great-hornbill.jpg
 [trackerprotocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
 [kafka]: http://kafka.apache.org/
 [partitionkey]: http://docs.aws.amazon.com/kinesis/latest/dev/key-concepts.html#partition-key

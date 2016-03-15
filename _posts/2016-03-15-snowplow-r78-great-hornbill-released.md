@@ -187,6 +187,7 @@ Replace the `sink.kinesis.out` string with an object with two fields:
 	"sink": {
 		"good": "elasticsearch",  # or "stdout"
 		"bad": "kinesis"          # or "stderr" or "none"
+	}
 }
 {% endhighlight %}
 

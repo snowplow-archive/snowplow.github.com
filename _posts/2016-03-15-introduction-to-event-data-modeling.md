@@ -13,19 +13,19 @@ Data modeling is an essential step in the Snowplow data pipeline. We find that t
 
 ![lego building][lego-building]
 
-1. [So what is event data modeling](#what)
-  * [Business logic](#business-logic)
-  * [Aggregation](#aggregation)
-  * [Simple to query](#simplicity)
-2. [Why in most cases, simply aggregating over event data is not enough](#why)
-3. [Different higher-order units of analysis](#higher-order-units)
-  * [Macro events](#macro-events)
-  * [Workflows / units of work](#workflows)
-  * [Sessions](#sessions)
-  * [Users](#users)
+1. [So what is event data modeling](/blog/2016/03/15/introduction-to-event-data-modeling/#what)
+  * [Business logic](/blog/2016/03/15/introduction-to-event-data-modeling/#business-logic)
+  * [Aggregation](/blog/2016/03/15/introduction-to-event-data-modeling/#aggregation)
+  * [Simple to query](/blog/2016/03/15/introduction-to-event-data-modeling/#simplicity)
+2. [Why in most cases, simply aggregating over event data is not enough](/blog/2016/03/15/introduction-to-event-data-modeling/#why)
+3. [Different higher-order units of analysis](/blog/2016/03/15/introduction-to-event-data-modeling/#higher-order-units)
+  * [Macro events](/blog/2016/03/15/introduction-to-event-data-modeling/#macro-events)
+  * [Workflows / units of work](/blog/2016/03/15/introduction-to-event-data-modeling/#workflows)
+  * [Sessions](/blog/2016/03/15/introduction-to-event-data-modeling/#sessions)
+  * [Users](/blog/2016/03/15/introduction-to-event-data-modeling/#users)
   * [Tying particular classes of events in a user journey together to understand the impact of earlier events on later events](#classes)
-4. [Characteristics of modeled data](#characteristics-of-modeled-data)
-5. [Working with modeled data](#working-with-modeled-data)
+4. [Characteristics of modeled data](/blog/2016/03/15/introduction-to-event-data-modeling/#characteristics-of-modeled-data)
+5. [Working with modeled data](/blog/2016/03/15/introduction-to-event-data-modeling/#working-with-modeled-data)
 
 
 <h2 id="what">1. So what is event data modeling?</h2>
@@ -40,7 +40,7 @@ Let's pick out the different elements packed into the above definition:
 
 <!--more-->
 
-<h3 id-"business-logic">a. Business logic</h3>
+<h3 id="business-logic">a. Business logic</h3>
 
 Event streams are typically *unopiniated* data sets. When we record a page view event, for example, we aim to record it as faithfully as possible: 
 

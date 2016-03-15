@@ -196,7 +196,7 @@ You can see an example of the correct configuration file layout [here][eshoconex
 
 <h2 id="help">11. Getting help</h2>
 
-For more details on this release, please check out the [R78 Great Hornbill][snowplow-release] on GitHub.
+For more details on this release, please check out the [release notes][snowplow-release] on GitHub.
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 

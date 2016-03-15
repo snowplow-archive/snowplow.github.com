@@ -145,11 +145,11 @@ Scala Kinesis Enrich isn't actually limited to using Kinesis: it can also read f
 
 We have also:
 
-* Specified the UTF-8 character encoding for all string serialization and deserialization operations
-* Combined the two thread pools which the Scala Stream Collector used to write to the good stream and the bad stream into a single thread pool
-* Reduced the complexity of the algorithm used by Kinesis Elasticsearch Sink to convert enriched event TSVs to JSON
-* Fixed an error causing Kinesis Elasticsearch Sink's internal monitoring to use a timestamp for the `failureCount` field of `storage_write_failed` events
-* Made the regular expression for schemas used by Kinesis Elasticsearch Sink more permissive, allowing vendors with hyphens
+* Specified the UTF-8 character encoding for all string serialization and deserialization operations ([#1963][1963])
+* Combined the two thread pools which the Scala Stream Collector used to write to the good stream and the bad stream into a single thread pool ([#2369][2369])
+* Reduced the complexity of the algorithm used by Kinesis Elasticsearch Sink to convert enriched event TSVs to JSON ([#1847][1847])
+* Fixed an error causing Kinesis Elasticsearch Sink's internal monitoring to use a timestamp for the `failureCount` field of `storage_write_failed` events ([#1951][1951])
+* Made the regular expression for schemas used by Kinesis Elasticsearch Sink more permissive, allowing vendors with hyphens ([#1998][1998])
 
 <h2 id="upgrading">10. Upgrading</h2>
 
@@ -215,3 +215,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [kclMonitoring]:http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-kcl.html
 [changelog]: https://github.com/snowplow/snowplow/blob/master/CHANGELOG
 [eshoconexample]: https://github.com/snowplow/snowplow/blob/2eff5a8ad67f1da0506d2d1dd8d142ac41e2e0ed/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample
+[1963]: https://github.com/snowplow/snowplow/issues/1963
+[2369]: https://github.com/snowplow/snowplow/issues/2369
+[1847]: https://github.com/snowplow/snowplow/issues/1847
+[1951]: https://github.com/snowplow/snowplow/issues/1951
+[1998]: https://github.com/snowplow/snowplow/issues/1998

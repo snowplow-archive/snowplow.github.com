@@ -9,17 +9,17 @@ category: Releases
 
 We are pleased to announce the immediate availability of [Snowplow 78 Great Hornbill] [snowplow-release]! This release brings our Kinesis pipeline functionally up-to-date with our Hadoop pipeline, and makes various further improvements to the Kinesis pipeline.
 
-1. [Access to the latest Common Enrich version](/blog/2016/03/14/snowplow-r78-great-hornbill-released#commonEnrich)
-2. [Click redirect mode](/blog/2016/03/14/snowplow-r78-great-hornbill-released#redirect)
-3. [Configurable cookie name](/blog/2016/03/14/snowplow-r78-great-hornbill-released#cookie)
-4. [Randomized partition keys](/blog/2016/03/14/snowplow-r78-great-hornbill-released#partition)
-5. [Kinesis Elasticsearch Sink: increased flexibility](/blog/2016/03/14/snowplow-r78-great-hornbill-released#elasticsearchMixedIo)
-6. [New format for bad rows](/blog/2016/03/14/snowplow-r78-great-hornbill-released#badRows)
-7. [Kinesis Client Library upgrade](/blog/2016/03/14/snowplow-r78-great-hornbill-released#kclUpgrade)
-8. [Renaming Scala Kinesis Enrich to Stream Enrich](/blog/2016/03/14/snowplow-r78-great-hornbill-released#rename)
-9. [Other improvements](/blog/2016/03/14/snowplow-r78-great-hornbill-released#other)
-10. [Upgrading](/blog/2016/03/14/snowplow-r78-great-hornbill-released#upgrading)
-11. [Getting help](/blog/2016/03/14/snowplow-r78-great-hornbill-released#help)
+1. [Access to the latest Common Enrich version](/blog/2016/03/15/snowplow-r78-great-hornbill-released#commonEnrich)
+2. [Click redirect mode](/blog/2016/03/15/snowplow-r78-great-hornbill-released#redirect)
+3. [Configurable cookie name](/blog/2016/03/15/snowplow-r78-great-hornbill-released#cookie)
+4. [Randomized partition keys](/blog/2016/03/15/snowplow-r78-great-hornbill-released#partition)
+5. [Kinesis Elasticsearch Sink: increased flexibility](/blog/2016/03/15/snowplow-r78-great-hornbill-released#elasticsearchMixedIo)
+6. [New format for bad rows](/blog/2016/03/15/snowplow-r78-great-hornbill-released#badRows)
+7. [Kinesis Client Library upgrade](/blog/2016/03/15/snowplow-r78-great-hornbill-released#kclUpgrade)
+8. [Renaming Scala Kinesis Enrich to Stream Enrich](/blog/2016/03/15/snowplow-r78-great-hornbill-released#rename)
+9. [Other improvements](/blog/2016/03/15/snowplow-r78-great-hornbill-released#other)
+10. [Upgrading](/blog/2016/03/15/snowplow-r78-great-hornbill-released#upgrading)
+11. [Getting help](/blog/2016/03/15/snowplow-r78-great-hornbill-released#help)
 
 ![great-hornbill][great-hornbill]
 

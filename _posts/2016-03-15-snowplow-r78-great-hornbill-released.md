@@ -86,6 +86,7 @@ to this:
 	"sink": {
 		"good": "elasticsearch",
 		"bad": "kinesis"
+	}
 }
 {% endhighlight %}
 
@@ -104,6 +105,7 @@ to this:
 	"sink": {
 		"good": "stdout",
 		"bad": "stderr"
+	}
 }
 {% endhighlight %}
 

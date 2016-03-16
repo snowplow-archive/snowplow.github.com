@@ -13,12 +13,12 @@ To reflect the growing importance of Iglu, and the number of moving parts within
 
 This is release 3; the codenames for Iglu will be famous postage stamps, starting today with the [Penny Black][penny-black]. Read on for more information on Release 3 Penny Black.
 
-1. [Overview](/blog/2016/03/04/iglu-server-r3-penny-black-released#overview)
-2. [Elastic Beanstalk deployment](/blog/2016/03/04/iglu-server-r3-penny-black-released#beanstalk)
-3. [Using the Scala Repo Server](/blog/2016/03/04/iglu-server-r3-penny-black-released#usage)
-3. [Vagrant quickstart](/blog/2016/03/04/iglu-server-r3-penny-black-released#vagrant)
-4. [The future](/blog/2016/03/04/iglu-server-r3-penny-black-released#future)
-5. [Getting help](/blog/2016/03/04/iglu-server-r3-penny-black-released#help)
+1. [Overview](/blog/2016/03/04/iglu-r3-penny-black-released#overview)
+2. [Elastic Beanstalk deployment](/blog/2016/03/04/iglu-r3-penny-black-released#beanstalk)
+3. [Using the Scala Repo Server](/blog/2016/03/04/iglu-r3-penny-black-released#usage)
+3. [Vagrant quickstart](/blog/2016/03/04/iglu-r3-penny-black-released#vagrant)
+4. [The future](/blog/2016/03/04/iglu-r3-penny-black-released#future)
+5. [Getting help](/blog/2016/03/04/iglu-r3-penny-black-released#help)
 
 ![penny-black][penny-black-img]
 

@@ -13,10 +13,9 @@ Data modeling is an essential step in the Snowplow data pipeline. We find that t
 
 ![lego building][lego-building]
 
-1. [So what is event data modeling](/blog/2016/03/15/introduction-to-event-data-modeling/#what)
-  * [Business logic](/blog/2016/03/15/introduction-to-event-data-modeling/#business-logic)
-  * [Aggregation](/blog/2016/03/15/introduction-to-event-data-modeling/#aggregation)
-  * [Simple to query](/blog/2016/03/15/introduction-to-event-data-modeling/#simplicity)
+Read on to learn
+
+1. [So what is event data modeling?](/blog/2016/03/15/introduction-to-event-data-modeling/#what)
 2. [Why in most cases, simply aggregating over event data is not enough](/blog/2016/03/15/introduction-to-event-data-modeling/#why)
 3. [Different higher-order units of analysis](/blog/2016/03/15/introduction-to-event-data-modeling/#higher-order-units)
   * [Macro events](/blog/2016/03/15/introduction-to-event-data-modeling/#macro-events)

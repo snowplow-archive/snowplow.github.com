@@ -42,7 +42,7 @@ Many thanks Oleks for taking Sauna from a concept through to a working system!
 
 ## Summer internships at Snowplow
 
-Interested in working on an open-source internship at Snowplow? Applications for our summer internship program should open on 1st April - please check back with our blog then.
+Interested in working on an open-source internship at Snowplow? Applications for our summer internship program will open on 1st April - please check back with our blog then.
 
 [winter-2015]: /blog/2015/01/25/introducing-our-2014-2015-winterns/
 [summer-2015]: /blog/2015/07/10/introducing-our-2015-summer-interns

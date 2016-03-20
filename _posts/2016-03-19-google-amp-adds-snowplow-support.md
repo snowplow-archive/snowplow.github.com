@@ -17,8 +17,8 @@ Read on after the fold for:
 
 1. [Overview](/blog/2016/03/19/google-amp-adds-snowplow-support#overview)
 2. [Event tracking with AMP](/blog/2016/03/19/google-amp-adds-snowplow-support#events)
-  2.1 [Page views](/blog/2016/03/19/google-amp-adds-snowplow-support#page-views)
-  2.2 [Structured events](/blog/2016/03/19/google-amp-adds-snowplow-support#structured-events)
+  1. [Page views](/blog/2016/03/19/google-amp-adds-snowplow-support#page-views)
+  2. [Structured events](/blog/2016/03/19/google-amp-adds-snowplow-support#structured-events)
 3. [Getting help](/blog/2016/03/19/google-amp-adds-snowplow-support#help)
 
 <!--more-->

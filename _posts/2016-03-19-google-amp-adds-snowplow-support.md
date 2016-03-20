@@ -11,6 +11,8 @@ We are pleased to announce that Google's [Accelerated Mobile Pages Project] [amp
 
 As of [this week] [snowplow-pr], Snowplow is natively integrated in the project, so pages optimized with AMP HTML can be tracked in Snowplow by adding the appropriate `amp-analytics` tag to your pages.
 
+![amp-logo] [amp-logo]
+
 Read on after the fold for:
 
 1. [Overview](/blog/2016/03/19/google-amp-adds-snowplow-support#overview)
@@ -18,8 +20,6 @@ Read on after the fold for:
   2.1 [Page views](/blog/2016/03/19/google-amp-adds-snowplow-support#page-views)
   2.2 [Structured events](/blog/2016/03/19/google-amp-adds-snowplow-support#structured-events)
 3. [Getting help](/blog/2016/03/19/google-amp-adds-snowplow-support#help)
-
-![penny-black][penny-black-img]
 
 <!--more-->
 
@@ -97,9 +97,11 @@ The available `vars` for structured events are: `structEventCategory`, `structEv
 
 Further information on using Snowplow with AMP can be found on the Snowplow [wiki][google-amp-tracker].
 
-If you create any issues or PRs into the [AMP HTML] [[amp-html-repo] GitHub repository regarding Snowplow support, please be aware that we will not be aware of these unless you mention Snowplow team members on the issue.
+If you create any issues or PRs into the [AMP HTML] [amp-html-repo] GitHub repository regarding Snowplow support, please be aware that we will not be aware of these unless you mention Snowplow team members on the issue.
 
 If you have any questions or run into any problems, please get in touch with us through [the usual channels][talk-to-us].
+
+[amp-logo]: /assets/img/blog/2016/03/accelerated-mobile-pages.png
 
 [amp]: https://www.ampproject.org/
 [amp-what]: https://www.ampproject.org/docs/get_started/about-amp.html

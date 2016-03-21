@@ -53,7 +53,7 @@ You can track a Snowplow page view in AMP like so:
   "triggers": {
     "trackPageview": {  // Trigger names can be any string. trackPageview is not a required name
       "on": "visible",
-      "request": "pageview"
+      "request": "pageView"
     }
   }
 }

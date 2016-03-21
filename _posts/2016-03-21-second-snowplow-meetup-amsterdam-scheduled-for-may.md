@@ -14,7 +14,7 @@ Following on from the [first Snowplow Meetup Amsterdam][last-meetup] last year, 
 The event will be held at the [Impact Hub][impact-hub] from 6pm. We'll have pizza, beers, and a two to three speakers. I'll give one talk, giving:
 
 * An overview of Snowplow
-* Examples of what some of the intersting things are users are doing with their data
+* Examples of some of the interesting things our users are doing with their data
 * A peak at some of the features we're planning on rolling out this year
 
 The second (and potentially third) talk are still being finalized. If you'd like to talk about how you use Snowplow at your company then [get in touch][contact]. For ideas on topics, check out the write up of the [last meetup][last-meetup]. 

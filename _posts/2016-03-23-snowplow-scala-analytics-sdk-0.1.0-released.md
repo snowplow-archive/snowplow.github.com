@@ -87,7 +87,7 @@ Note the double percent (`%%`) between the group and artifactId. This will ensur
 
 <h3 id="apache-spark-example">3.2 Using from Apache Spark</h3>
 
-The Scala Analytics SDK is a great fit for performing Snowplow **[event data modeling] [event-data-modeling]** in Apache Spark and Spark Streaming.
+The Scala Analytics SDK is a great fit for performing Snowplow [event data modeling] [event-data-modeling] in Apache Spark and Spark Streaming.
 
 Here's the code we use internally for our own data modeling jobs:
 
@@ -104,7 +104,7 @@ val dataframe = ctx.read.json(events)
 
 <h3 id="aws-lambda-example">3.3 Using from AWS Lambda</h3>
 
-The Scala Analytics SDK is a great fit for performing **analytics-on-write** on Snowplow event streams using AWS Lambda.
+The Scala Analytics SDK is a great fit for performing analytics-on-write on Snowplow event streams using AWS Lambda.
 
 Here's some sample code for transforming enriched events into JSON inside a Scala Lambda:
 
@@ -126,7 +126,7 @@ We are hugely excited about developing our analytics SDK initiative in three dir
 
 1. Adding more SDKs for other languages popular for data analytics and engineering, including Python, Node.js (for AWS Lambda) and Java
 2. Adding additional event transformers to the Scala Analytics SDK - please let us know any suggestions!
-3. We are planning on "dogfooding" the Scala Analytics SDK by starting to use it in standard Snowplow components, such as our Kinesis Elasticsearch Sink ([#xxx] [issue-xxx])
+3. We are planning on "dogfooding" the Scala Analytics SDK by starting to use it in standard Snowplow components, such as our Kinesis Elasticsearch Sink ([#2553] [issue-2553])
 
 If you would like to help out, please get in touch! In particular, we'd love to get contributions to the official Python or Node.js Analytics SDKs.
 
@@ -150,5 +150,6 @@ In the meantime, if you have any questions or run into any problems, please [rai
 [samza]: http://samza.apache.org/
 [avro]: https://avro.apache.org/
 
+[issue-2553]: https://github.com/snowplow/snowplow/issues/2553
 [issues]: https://github.com/snowplow/snowplow/iglu
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

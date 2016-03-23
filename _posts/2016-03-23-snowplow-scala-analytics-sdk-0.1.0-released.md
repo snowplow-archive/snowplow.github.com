@@ -9,12 +9,13 @@ category: Releases
 
 We are pleased to announce the release of our first analytics SDK for Snowplow, created for data engineers and data scientists working with Snowplow in Scala.
 
-The [Snowplow Analytics SDK for Scala] [sdk-repo] lets you work with [Snowplow enriched events] [enriched-events] in your Scala event processing and data modeling jobs. You can use this SDK with [Apache Spark] [spark], [AWS Lambda] [lambda], [Apache Flink] [flink], [Scalding] [scalding], [Apache Samza] [samza] and other Scala-compatible data processing frameworks.
+The [Snowplow Analytics SDK for Scala] [sdk-repo] lets you work with [Snowplow enriched events] [enriched-events] in your Scala event processing, data modeling and machine-learning jobs. You can use this SDK with [Apache Spark] [spark], [AWS Lambda] [lambda], [Apache Flink] [flink], [Scalding] [scalding], [Apache Samza] [samza] and other Scala-compatible data processing frameworks.
 
 Some good use cases for the SDK include:
 
 1. Performing [event data modeling] [event-data-modeling] in Apache Spark as part our Hadoop batch pipeline
-2. Performing analytics-on-write in AWS Lambda as part of our Kinesis real-time pipeline:
+2. Developing machine learning models on your event data using Apache Spark (e.g. using [Databricks][databricks] or [Zeppelin on EMR][zeppelin-on-emr])
+3. Performing analytics-on-write in AWS Lambda as part of our Kinesis real-time pipeline:
 
 ![sdk-usage-img] [sdk-usage-img]
 
@@ -30,11 +31,13 @@ Read on below the jump for:
 
 <h2 id="overview">1. Overview</h2>
 
+The Scala Analytics SDK makes it significantly easier to build applications that consume Snowplow enriched data directly from Kinesis or S3. 
+
 The Snowplow enriched event is a relatively complex TSV string containing self-describing JSONs. Rather than work with this structure directly, Snowplow analytics SDKs ship with *event transformers*, which translate the Snowplow enriched event format into something more convenient for engineers and analysts.
 
 As the Snowplow enriched event format evolves towards a cleaner [Apache Avro] [avro]-based structure, we will be updating this Analytics SDK to maintain compatibility across different enriched event versions.
 
-Working with the Snowplow Scala Analytics SDK therefore has some major advantages over working with Snowplow enriched events directly:
+Working with the Snowplow Scala Analytics SDK therefore has two major advantages over working with Snowplow enriched events directly:
 
 1. The SDK reduces your development time by providing analyst- and developer-friendly transformations of the Snowplow enriched event format
 1. The SDK futureproofs your code against new releases of Snowplow which update our enriched event format
@@ -48,7 +51,8 @@ The JSON Event Transformer takes a Snowplow enriched event and converts it into 
 The JSON Event Transformer converts a Snowplow enriched event into a single JSON like so:
 
 {% highlight json %}
-{ "app_id":"demo","platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z",
+{ "app_id":"demo",
+  "platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z",
   "collector_tstamp":"2015-12-01T04:00:54.000Z","dvce_tstamp":"2015-12-01T03:57:08.986Z",
   "event":"page_view","event_id":"f4b8dd3c-85ef-4c42-9207-11ef61b2a46e","txn_id":null,
   "name_tracker":"co","v_tracker":"js-2.5.0","v_collector":"clj-1.0.0-tom-0.2.0",...
@@ -122,11 +126,12 @@ def recordHandler(event: KinesisEvent) {
 
 <h2 id="roadmap">4. Roadmap</h2>
 
-We are hugely excited about developing our analytics SDK initiative in three directions:
+We are hugely excited about developing our analytics SDK initiative in four directions:
 
 1. Adding more SDKs for other languages popular for data analytics and engineering, including Python, Node.js (for AWS Lambda) and Java
 2. Adding additional event transformers to the Scala Analytics SDK - please let us know any suggestions!
 3. We are planning on "dogfooding" the Scala Analytics SDK by starting to use it in standard Snowplow components, such as our Kinesis Elasticsearch Sink ([#2553] [issue-2553])
+4. Adding additional functions that are useful for processing event data (and sequences of event data) in particular
 
 If you would like to help out, please get in touch! In particular, we'd love to get contributions to the official Python or Node.js Analytics SDKs.
 
@@ -153,3 +158,5 @@ In the meantime, if you have any questions or run into any problems, please [rai
 [issue-2553]: https://github.com/snowplow/snowplow/issues/2553
 [issues]: https://github.com/snowplow/snowplow/iglu
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[zeppelin-on-emr]: https://blogs.aws.amazon.com/bigdata/post/Tx6J5RM20WPG5V/Building-a-Recommendation-Engine-with-Spark-ML-on-Amazon-EMR-using-Zeppelin
+[databricks]: https://databricks.com/

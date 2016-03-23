@@ -104,7 +104,7 @@ val dataframe = ctx.read.json(events)
 
 <h3 id="aws-lambda-example">3.3 Using from AWS Lambda</h3>
 
-The Scala Analytics SDK is a great fit for performing analytics-on-write on Snowplow event streams using AWS Lambda.
+The Scala Analytics SDK is a great fit for performing analytics-on-write, monitoring or alerting on Snowplow event streams using AWS Lambda.
 
 Here's some sample code for transforming enriched events into JSON inside a Scala Lambda:
 

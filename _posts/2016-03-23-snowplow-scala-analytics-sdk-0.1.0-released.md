@@ -37,7 +37,7 @@ As the Snowplow enriched event format evolves towards a cleaner [Apache Avro] [a
 Working with the Snowplow Scala Analytics SDK therefore has some major advantages over working with Snowplow enriched events directly:
 
 1. The SDK reduces your development time by providing analyst- and developer-friendly transformations of the Snowplow enriched event format
-1. The SDK futureproofs your code against new releases of Snowplow and particularly updates to our enriched event format
+1. The SDK futureproofs your code against new releases of Snowplow which update our enriched event format
 
 Currently the Analytics SDK for Scala ships with one event transformer: the JSON Event Transformer. Let's check this out next.
 

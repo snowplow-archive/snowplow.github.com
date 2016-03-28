@@ -52,7 +52,7 @@ The event stream that Snowplow delivers is an *unopinionated* data sets. When we
 6. On what device? 
 7. On what operating system?
 
-All of the above data points would be recorded with the event. None of the above data points are contenious: there is nothing that would happen in the future that would change the values that we'd assign those dimensions. For clarity, we call this data 'atomic' data. It is event-level and it is unopinionated.
+All of the above data points would be recorded with the event. None of the above data points are contentious: there is nothing that would happen in the future that would change the values that we'd assign those dimensions. For clarity, we call this data 'atomic' data. It is event-level and it is unopinionated.
 
 When we do event data modeling, we use business logic to add meaning to the atomic data. We might look at the data and decide that the page view recorded above was the first page in a new session, or the first step in a purchase funnel. We might infer from the cookie ID recorded to who the actual user is. We might look at the data point in the context of other data points recorded with the same cookie ID, and infer an intention on the part of the user (e.g. that she was searching for a particular product) or infer something more general about the user (e.g. that she has an interest in French literature).
 

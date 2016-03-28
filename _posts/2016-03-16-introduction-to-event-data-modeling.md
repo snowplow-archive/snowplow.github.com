@@ -42,7 +42,7 @@ Let's pick out the different elements packed into the above definition:
 
 <h3 id="business-logic">a. Business logic</h3>
 
-The event stream that Snowplow delivers is an *unopiniated* data sets. When we record a page view event, for example, we aim to record it as faithfully as possible: 
+The event stream that Snowplow delivers is an *unopinionated* data sets. When we record a page view event, for example, we aim to record it as faithfully as possible: 
 
 1. What was the URL that was viewed? 
 2. What was the title? 
@@ -52,7 +52,7 @@ The event stream that Snowplow delivers is an *unopiniated* data sets. When we r
 6. On what device? 
 7. On what operating system?
 
-All of the above data points would be recorded with the event. None of the above data points are contenious: there is nothing that would happen in the future that would change the values that we'd assign those dimensions. For clarity, we call this data 'atomic' data. It is event-level and it is unopiniated.
+All of the above data points would be recorded with the event. None of the above data points are contenious: there is nothing that would happen in the future that would change the values that we'd assign those dimensions. For clarity, we call this data 'atomic' data. It is event-level and it is unopinionated.
 
 When we do event data modeling, we use business logic to add meaning to the atomic data. We might look at the data and decide that the page view recorded above was the first page in a new session, or the first step in a purchase funnel. We might infer from the cookie ID recorded to who the actual user is. We might look at the data point in the context of other data points recorded with the same cookie ID, and infer an intention on the part of the user (e.g. that she was searching for a particular product) or infer something more general about the user (e.g. that she has an interest in French literature).
 
@@ -62,7 +62,7 @@ We therefore have two different data sets, both of which represent "what has hap
 
 <table class="table-responsive table-bordered table">
 	<tr><th>Atomic data</th><th>Modeled data</th></tr>
-	<tr><td>Unopiniated</td><td>Opiniated</td></tr>
+	<tr><td>Unopinionated</td><td>Opinionated</td></tr>
 	<tr><td>Immutable</td><td>Mutable</td></tr>
 </table>
 
@@ -75,7 +75,7 @@ Note that this is not always the case: *sometimes* we may want our modeled data 
 
 <h3 id="simplicity">c. Simple to query</h3>
 
-The point of data modeling is to produce a data set that is easy for different data consumers to work with. Typically, this data will be socialized across the business using a business intelligence tool. That puts particular requirements on the structure of the modeled data: namely that it is in a format suitable for slicing and dicing different dimensions and measures against one another. It is essential that the event data modeling process outputs data that is suitable for ingesting in a business intelligence tool. In general, atomic data is not suitable for ingesting directly in a business intelligence tool. (This is only possible where those tools support doing the data modeling internally.)
+The point of data modeling is to produce a data set that is easy for different data consumers to work with. Typically, this data will be socialized across the business using a business intelligence tool. That puts particular requirements on the structure of the modeled data: namely that it is in a format suitable for slicing and dicing different dimensions and measures against one another. In general, atomic data is not suitable for ingesting directly in a business intelligence tool. (This is only possible where those tools support doing the data modeling internally.)
 
 <h2 id="why">2. Why in most cases, simply aggregating over event data is not enough</h2>
 
@@ -228,7 +228,7 @@ Now that we've seen some examples of higher order entities that are outputed as 
 
 <h2 id="working-with-modeled-data">5. Working with modeled data </h2>
 
-Hopefully it should be clear from the above that modeled data is much easier to work with than immutable / atomic data. The hard work of unpicking the sequence of events and applying business logic and using that to perform complex aggregations over the event-level data has already been done, delivering a data set that is easy to work with.. To use the modeled data for analysis, only simple types of aggregation over our higher level entities (macro events, workflows, sessions and users) is required.
+Hopefully it should be clear from the above that modeled data is much easier to work with than immutable / atomic data. The hard work of unpicking the sequence of events and applying business logic and using that to perform complex aggregations over the event-level data has already been done, delivering a data set that is easy to work with. To use the modeled data for analysis, only simple types of aggregation over our higher level entities (macro events, workflows, sessions and users) is required.
 
 It is worth noting that for most analyses we are not working with just one modeled data set: we typically join two or more together. It is, for example, very common to join our user table with any of the other tables, to slice some metric that we're examining by user type.
 

@@ -59,9 +59,9 @@ header .nav-collapse li a {
 	padding: 12px 15px
 }
 
-header .nav-collapse li        a.with-border {font-weight: 400}
-header .nav-collapse li        a.with-border {border-color: white; border-width: 1px}
-header .nav-collapse li.active a.with-border {border-color: white; border-width: 1px}
+header .nav-collapse li        a.with-border {font-weight: 400; background-color: #5CB85C}
+header .nav-collapse li        a.with-border {border-color: #5CB85C; border-width: 1px}
+header .nav-collapse li.active a.with-border {border-color: #5CB85C; border-width: 1px}
 
 header .nav-collapse li a.without-border {border-color: transparent}
 

@@ -31,7 +31,7 @@ permalink: /services/
 						<li>We setup the Snowplow event data pipeline on <em>your</em> AWS account: in minutes</li>
 						<li>We run the pipeline for you: ensuring your data gets delivered where it's supposed to, when it's supposed to</li>
 						<li>We upgrade your pipeline for you on an ongoing basis</li>
-						<li>We support you integrating our trackers, setting up webhooks, schema'ing your data and developing your data models</li>
+						<li>We support you integrating our trackers, setting up third party integrations, schema'ing your data and developing your data models</li>
 					</ul>
 				</p>
 				<p>All for $1,250 per month for the batch pipeline, $5,000 per month for the real-time pipeline (minimum term 12 months).</p>

@@ -24,7 +24,7 @@ permalink: /services/
 
 <div class="html">
 	<a href="/get-started/index.html">
-		<button class="cta-button-green" type="button">Get started</button>
+		<button class="cta-button green" type="button">Get started</button>
 	</a>
 </div>
 

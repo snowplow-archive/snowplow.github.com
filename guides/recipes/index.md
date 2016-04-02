@@ -1,11 +1,12 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 title: Analytics with Snowplow
-permalink: /documentation/recipes/
+permalink: /guides/recipes/
 redirect_from:
   - /analytics/recipes/
+  - /documentation/recipes/
 ---
 
 ## Analytics with Snowplow data

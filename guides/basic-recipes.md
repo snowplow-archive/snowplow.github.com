@@ -5,10 +5,12 @@ subgroup: temp
 title: Basic recipes
 shortened-link: Basic recipes
 weight: 9
+permalink: /guides/basic-recipes/
 redirect_from:
   - /analytics/event-dictionaries-and-data-models/basic-recipes.html
   - /analytics/event-dictionaries-and-data-models/perform-basic-analysis-on-snowplow-data.html
   - /documentation/basic-recipes.html
+  - /documentation/basic-recipes/
 ---
 
 <div class="html">

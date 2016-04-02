@@ -1,16 +1,17 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: catalog analytics
 subbreadcrumb: measuring catalog traffic
 title: Measure how much traffic different items on your catalog drive to your website
 shortened-link: How well do different pages attract traffic to your website?
 weight: 5
-permalink: /documentation/recipes/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
+permalink: /guides/recipes/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
 redirect_from:
   - /analytics/recipes/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
   - /analytics/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
+  - /documentation/recipes/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
 ---
 
 <div class="html">

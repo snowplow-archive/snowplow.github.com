@@ -1,16 +1,17 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: catalog analytics
 subbreadcrumb: product page performance
 title: Measuring and comparing product page performance
 shortened-link: Product page performance
 weight: 2
-permalink: /documentation/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
+permalink: /guides/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
 redirect_from:
   - /analytics/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
   - /analytics/catalog-analytics/measuring-and-comparing-product-page-performance.html
+  - /documentation/recipes/catalog-analytics/measuring-and-comparing-product-page-performance.html
 ---
 
 <div class="html">

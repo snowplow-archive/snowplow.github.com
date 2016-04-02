@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: customer analytics
 subbreadcrumb: joining snowplow data
 title: Joining Snowplow data to other customer data sets
-permalink: /documentation/recipes/customer-analytics/joining-customer-data.html
+permalink: /guides/recipes/customer-analytics/joining-customer-data.html
 redirect_from:
   - /analytics/recipes/customer-analytics/joining-customer-data.html
   - /analytics/customer-analytics/joining-customer-data.html
+  - /documentation/recipes/customer-analytics/joining-customer-data.html
 ---
 
 # Joining Snowplow engagement data with other sources of customer data into customer datamarts

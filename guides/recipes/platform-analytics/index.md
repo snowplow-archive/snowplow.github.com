@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: platform analytics
 title: An overview of platform analytics with Snowplow
-permalink: /documentation/recipes/platform-analytics/
+permalink: /guides/recipes/platform-analytics/
 redirect_from:
   - /analytics/recipes/platform-analytics/
   - /analytics/platform-analytics/overview.html
   - /analytics/platform-analytics/sankey-diagrams-with-d3-js.html
+  - /documentation/recipes/platform-analytics/
 ---
 
 <h1>Platform analytics</h1>

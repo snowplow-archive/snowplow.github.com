@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: customer analytics
 subbreadcrumb: identifying users
 title: Identifying users
-permalink: /documentation/recipes/customer-analytics/identifying-users.html
+permalink: /guides/recipes/customer-analytics/identifying-users.html
 redirect_from:
   - /analytics/recipes/customer-analytics/identifying-users.html
   - /analytics/customer-analytics/identifying-users.html
+  - /documentation/recipes/customer-analytics/identifying-users.html
 ---
 
 # Identifying users and customers using Snowplow

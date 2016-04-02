@@ -1,9 +1,11 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 title: Performance timing
-permalink: /documentation/recipes/platform-analytics/performance-timing/
+permalink: /guides/recipes/platform-analytics/performance-timing/
+redirect_from:
+  - /documentation/recipes/platform-analytics/performance-timing/
 ---
 
 The [Snowplow Javascript tracker](https://github.com/snowplow/snowplow-javascript-tracker) can track page performance. If this [option](https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#performanceTiming) is enabled, the JavaScript Tracker will create a context JSON from the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `chromeFirstPaint`) if it exists. This data can be used to calculate page performance metrics. For more information, see the [W3 documentation](https://dvcs.w3.org/hg/webperf/raw-file/tip/specs/NavigationTiming/Overview.html).

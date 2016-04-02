@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: platform analytics
 subbreadcrumb: funnel analysis
 title: Funnel analysis
 weight: 2
-permalink: /documentation/recipes/platform-analytics/funnel-analysis.html
+permalink: /guides/recipes/platform-analytics/funnel-analysis.html
 redirect_from:
   - /analytics/recipes/platform-analytics/funnel-analysis.html
   - /analytics/platform-analytics/funnel-analysis.html
+  - /documentation/recipes/platform-analytics/funnel-analysis.html
 ---
 
 <a name="top"><h1>Funnel analysis</h1></a>

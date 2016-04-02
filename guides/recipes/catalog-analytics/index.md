@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: catalog analytics
 title: An overview of catalog analytics with Snowplow
 shortened-link: Catalog analytics
 weight: 1
-permalink: /documentation/recipes/catalog-analytics/
+permalink: /guides/recipes/catalog-analytics/
 redirect_from:
   - /analytics/recipes/catalog-analytics/
   - /analytics/catalog-analytics/overview.html
+  - /documentation/recipes/catalog-analytics/
 ---
 
 # Catalog Analytics

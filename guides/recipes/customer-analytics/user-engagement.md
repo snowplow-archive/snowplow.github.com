@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: customer analytics
 subbreadcrumb: user engagement
 title: Measuring user engagement with Snowplow
-permalink: /documentation/recipes/customer-analytics/user-engagement.html
+permalink: /guides/recipes/customer-analytics/user-engagement.html
 redirect_from:
   - /analytics/recipes/customer-analytics/user-engagement.html
   - /analytics/customer-analytics/user-engagement.html
+  - /documentation/recipes/customer-analytics/user-engagement.html
 ---
 
 # Measuring user engagement with Snowplow

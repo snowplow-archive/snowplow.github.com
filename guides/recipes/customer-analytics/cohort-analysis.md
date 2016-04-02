@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: customer analytics
 subbreadcrumb: cohort Analysis
 title: Cohort Analysis
-permalink: /documentation/recipes/customer-analytics/cohort-analysis.html
+permalink: /guides/recipes/customer-analytics/cohort-analysis.html
 redirect_from:
   - /analytics/recipes/customer-analytics/cohort-analysis.html
   - /analytics/customer-analytics/cohort-analysis.html
+  - /documentation/recipes/customer-analytics/cohort-analysis.html
 ---
 
 # Performing cohort analyses with Snowplow

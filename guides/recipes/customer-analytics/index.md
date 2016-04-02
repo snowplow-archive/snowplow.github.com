@@ -1,13 +1,14 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: analytics
 breadcrumb: customer analytics
 title: An overview of customer analytics with Snowplow
-permalink: /documentation/recipes/customer-analytics/
+permalink: /guides/recipes/customer-analytics/
 redirect_from:
   - /analytics/recipes/customer-analytics/
   - /analytics/customer-analytics/overview.html
+  - /documentation/recipes/customer-analytics/
 ---
 
 # Customer analytics

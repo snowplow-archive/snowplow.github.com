@@ -6,6 +6,7 @@ title: Why warehouse your event data?
 shortened-link: Why warehouse your event data?
 description: Warehousing your event level data (including web and mobile data sets) let's you use that data to answer the high value questions that matter to your business
 weight: 2
+permalink: /product/why-warehouse-your-data/
 redirect_from:
   - /product/why-warehouse-your-data.html
 ---

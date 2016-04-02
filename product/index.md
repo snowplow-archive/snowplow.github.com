@@ -9,91 +9,89 @@ permalink: /product/
 
 ---
 
-<h1>Snowplow is an event analytics platform</h1>
+<h1>The Event Data Pipeline</h1>
 
-<strong>Navigation:</strong>
+<p>There are two versions of the Snowplow event data pipeline:</p>
+<p>
+	<ol>
+		<li><strong>Batch pipeline</strong>. Load your event-level data into your data warehouse to perform advanced analytics.</li>
+		<li><strong>Real-time pipeline</strong>. Load your event-level data into your data warehouse, <em>and*</em> make that same data available to data-driven applications and dashboards in real-time.</li>
+	</ol>
+</p>
+<p>Both pipelines follow the same high-level architecture:</p>
+<p>
+	<img src="img/snowplow-pipeline-schematic.png" />
+</p>
 
-<ul>
-<li><a href="why-warehouse-your-data/">Why warehouse your web, mobile and other event data?</a></li>
-<li><a href="the-best-event-data-warehouse/">What makes Snowplow the best web and mobile datawarehousing platform?</a></li>
-<li><a href="why-use-snowplow/">Why use Snowplow?</a></li>
-<li><a href="who-uses-snowplow/">Who uses Snowplow?</a></li>
-</ul>
+<h2>The best event data pipeline</h2>
 
-<strong>Snowplow enables you to:</strong>
+<h3>Track events from <em>anywhere</em></h3>
 
-<div class="html">
-	<ul>
-		<li><strong><a href="#record-events">Record events from anywhere</a></strong>, so that you have a record of <em>what happened, when, and to whom</em></li>
-		<li><strong><a href="#process-that-data">Process that data</a></strong> including validating, enriching and modeling it</li>
-		<li>Load that data into <strong><a href="#your-own-datawarehouse">your own datawarehouse</a></strong> to power <strong>sophisticated analytics</strong></li>
-		<li>Makes that data available to <a href="#real-time">real-time data processing applications</a> via <a href="http://aws.amazon.com/kinesis/">Amazon Kinesis</a></li>
-	</ul>
-</div>
+<p>Track events from your own applications using our extensive library of trackers...</p>
+
+<p><img src="img/tracker-logos.png"></p>
+
+<p>...track events from third party applictions via our webhook integrations.</p>
+
+<p><img src="img/third-party-integrations.png"></p>
 
 
-<img src="/assets/img/product/event-analytics-platform.png" style="margin-top:20px;margin-bottom:20px;"/>
+<h3>Enrich your data</h3>
 
-<h2><a name="record-events">1. Record events from <em>anywhere</em></a></h2>
+<p>Extend your event-level data with additional data points from external data sources, including:</p>
 
-<img src="/assets/img/product/event-analytics-1-record-events.png" title="Snowplow record events" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
+<p><ul>
+	<li>GeoIP lookups</li>
+	<li>Referer parsing</li>
+	<li>Useragent parsing</li>
+	<li>Weather data</li>
+	<li>Currency conversions</li>
+	<li>Campaign / marketing data</li>
+</ul></p>
 
-Snowplow enables you to record rich, granular, event level data from your
+<h3>Load your data where you need it</h3>
 
- * website,
- * mobile applications,
- * desktop applications,
- * server-side systems and
- * third party applications.
+<p>Where your data lives has a big impact on what you can do with it. Snowplow supports loading your data into the following data stores out-of-the-box:</p>
 
-This data provides a record of everything that has occurred in your business, providing a solid foundation for
+<p><img src="img/storage-targets.png"/></p>
 
-1. building insight and
-2. using that for taking intelligent action.
+<h3>Process as many events as you want</h3>
 
-Our [large library of open source trackers] [trackers] enable you to track and generate data from your own systems.
+<p>Snowplow is linearly scalable. Process billions of events per day on your own pipeline.</p>
 
-In addition, we support ingesting data from a growing number of third party providers via [webhooks] [webhooks].
+<h3>Access your data <em>fast</em></h3>
 
-<h2><a name="process-that-data">2. Structure, enrich and model that data</a></h2>
+<p>Your event data available to you in seconds.</p>
 
-<img src="/assets/img/product/event-analytics-2-data-pipeline.png" title="Snowplow datapipeline - validate - enrich - and model" class="center-block"  style="margin-top:20px;margin-bottom:20px;" />
+<h3><em>Trust</em> your data</h3>
 
-Our pipeline does not just collect and warehouse data. It:
+<p><ul>
+  <li>Fully auditable pipeline</li>
+  <li>Snowplow is the <em>only</em> event data pipeline that reports volumes of data that <em>fail</em> to successfully process, so you can identify, diagnose and resolve data collection issues fast.</li>
+</ul></p>
 
-1. **Validates your data** to ensure that it conforms the associated schemas. Unlike our competitors, we do not ignore malformed data - we provide it back to our users so they can address the issue at source and reprocess the data if necessary
-2. **Enriches your data**. Our enrichment performs dimension widening on captured data using third party data sets: for example:
-  * parsing and categorising referer URLs,
-  * inferring device, browser and operating system information from useragents,
-  * locating users based on their IP addresses, by country and business,
-  * identifying the campaign that drove a user to your website or application, for example
-3. **Models your data**. Snowplow provides a framework not just for collecting event-level data, but processing it including:
-  * Identity stitching algorithms to figure out which events belong to a particular user, and aggregate over that user's data to create an update to date record for her in user-level table
-  * Sessionize events - grouping events together into logic flows that correspond to specific user actions
+<h3>Own your data</h3>
 
-<h2><a name="your-own-datawarehouse">3. Load the data into your own data warehouse to power sophisticated analysis</a></h2>
+<p>Your <em>own</em> data on your <em>own</em> data pipeline on your <em>own</em> AWS account.</p>
 
-<img src="/assets/img/product/event-analytics-3-warehouse-and-report.png" title="Snowplow datawarehouse and analysis" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
+<h3>Stay current</h3>
 
-We deliver your event-level data to you in **your own datawarehouse**. That gives the ability to:
+<p>The Snowplow event data pipeline is architected so that it can evolve with you and your business, as:</p>
 
-1. Join your event-level data with other data sets, including customer data sets (e.g. CRM), marketing and campaign data (e.g. Adwords), product and merchandising data and financial data
-2. Perform sophisticated analytics including
-  * Customer / marketing analytics
-	* Catalog / merchandising analytics
-	* Product analytics
-3. Develop predictive models
+<p><ul>
+  <li>The events you track change (because your business is always changing)</li>
+  <li>The questions you ask of your data become more sophisticated</li>
+</ul></p>
 
-<h2><a name="real-time">4. Make that data available to real-time data processing applications via Amazon Kinesis</a></h2>
+<h3>Open source</h3>
 
-<img src="/assets/img/product/event-analytics-4-data-driven-applications.png" title="Snowplow data driven applications with Amazon Kinesis" class="center-block" style="margin-top:20px;margin-bottom:20px;" />
+<p><ul>
+	<li>Free</li>
+	<li>1000s of users</li>
+	<li>Active developer community</li>
+</ul></p>
 
-Snowplow is your company's digital nervous system. We can deliver your event-level data to an Amazon Kinesis stream, so that you can build data-driven applications that consume that data and take intelligent decisions based on our data in real-time.
-
-Your data scientists can build models based on the complete historical data set in the Snowplow datawarehouse, and then put those models live on the data coming in production.
-
-Just think about what that makes possible.
-
+<p>Check us out on <a href="https://github.com/snowplow/snowplow">Github</a>.</p>
 
 ## Find out more
 

@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 breadcrumb: entities
 rank: 3
 title: Entities
 description: Understanding entities.
-permalink: /documentation/concepts/contexts/
+permalink: /guides/concepts/contexts/
 redirect_from:
   - /analytics/concepts/contexts/
   - /analytics/event-dictionaries-and-data-models/contexts.html
+  - /documentation/concepts/contexts/
 ---
 
 When an event occurs, it generally involves a number of entities, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry](../event-dictionaries-and-schemas) might have the following entities associated with it:

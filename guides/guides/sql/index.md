@@ -1,14 +1,15 @@
 ---
 layout: page
 header: title
-group: documentation
+group: guides
 subgroup: tools
 breadcrumb: sql
 title: Introduction to SQL
-permalink: /documentation/tools/sql/
+permalink: /guides/tools/sql/
 redirect_from:
   - /analytics/tools/sql/
   - /analytics/tools-and-techniques/beginners-guide-to-using-sql-to-query-snowplow-data.html
+  - /documentation/tools/sql/
 ---
 
 The purpose of this guide is to get the user unfamiliar with SQL up and running  and querying Snowplow data in Redshift or PostgreSQL as quickly as possible, learning by example.

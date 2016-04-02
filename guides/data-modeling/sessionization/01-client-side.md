@@ -1,13 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: data modeling
 breadcrumb: sessionization
 subbreadcrumb: client-side sessionization
 rank: 1
 title:
 description: Understanding client-side sessionization in Snowplow.
-permalink: /documentation/data-modeling/sessionization/client-side-sessionization/
+permalink: /guides/data-modeling/sessionization/client-side-sessionization/
+redirect_from:
+  - /documentation/data-modeling/sessionization/client-side-sessionization/
 ---
 
 <nav>

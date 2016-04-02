@@ -1,14 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 rank: 0
 title: Foundational concepts
 description: Foundational concepts.
-permalink: /documentation/concepts/
+permalink: /guides/concepts/
 redirect_from:
   - /analytics/concepts/
   - /analytics/event-dictionaries-and-data-models/foundational-concepts.html
+  - /documentation/concepts/
 ---
 
 # Who is this section for?

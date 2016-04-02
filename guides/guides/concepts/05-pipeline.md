@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 breadcrumb: pipeline
 rank: 5
 title: Stages in the Snowplow data pipeline
 description: Understanding the Snowplow data pipeline.
-permalink: /documentation/concepts/snowplow-data-pipeline/
+permalink: /guides/concepts/snowplow-data-pipeline/
 redirect_from:
   - /analytics/concepts/snowplow-data-pipeline/
   - /analytics/event-dictionaries-and-data-models/collection-enrichment-modeling-analysis.html
+  - /documentation/concepts/snowplow-data-pipeline/
 ---
 
 ![data-pipeline](/assets/img/architecture/snowplow-architecture.png)

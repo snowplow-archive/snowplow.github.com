@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 breadcrumb: events
 rank: 1
 title: Events
 description: Understanding events.
-permalink: /documentation/concepts/events/
+permalink: /guides/concepts/events/
 redirect_from:
   - /analytics/concepts/events/
   - /analytics/event-dictionaries-and-data-models/events.html
+  - /documentation/concepts/events/
 ---
 
 # What is an event?

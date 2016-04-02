@@ -1,6 +1,6 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 breadcrumb: iglu
 rank: 4
@@ -10,6 +10,7 @@ permalink: /documentation/concepts/iglu/
 redirect_from:
   - /analytics/concepts/iglu/
   - /analytics/event-dictionaries-and-data-models/iglu.html
+  - /guides/concepts/iglu/
 ---
 
 In the previous section, we described how both [events](../events) and [contexts](../contexts) have schemas which define what data is recorded about the event, or context, at data capture time.

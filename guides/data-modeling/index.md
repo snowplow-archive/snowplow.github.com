@@ -1,13 +1,14 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: data modeling
 title: Data Modeling
 description: Introduction to data modeling.
-permalink: /documentation/data-modeling/
+permalink: /guides/data-modeling/
 redirect_from:
   - /analytics/data-modeling/
   - /analytics/event-dictionaries-and-data-models/data-modeling.html
+  - /documentation/data-modeling/
 ---
 
 ## What is data modeling?

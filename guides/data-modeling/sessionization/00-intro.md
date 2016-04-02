@@ -1,12 +1,14 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: data modeling
 breadcrumb: sessionization
 rank: 0
 title: Sessionization
 description: Sessionization.
-permalink: /documentation/data-modeling/sessionization/
+permalink: /guides/data-modeling/sessionization/
+redirect_from:
+  - /documentation/data-modeling/sessionization/
 ---
 
 <!--* [client-side sessionization](client-side-sessionization)-->

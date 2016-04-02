@@ -1,13 +1,15 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: data modeling
 breadcrumb: sessionization
 subbreadcrumb: basic server-side sessionization in sql
 rank: 2
 title: Basic sessionization in SQL
 description: Basic sessionization in SQL
-permalink: /documentation/data-modeling/sessionization/basic-sessionization-in-sql/
+permalink: /guides/data-modeling/sessionization/basic-sessionization-in-sql/
+redirect_from:
+  - /documentation/data-modeling/sessionization/basic-sessionization-in-sql/
 ---
 
 ## When to use server-side sessionization?

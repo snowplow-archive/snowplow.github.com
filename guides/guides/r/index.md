@@ -1,14 +1,15 @@
 ---
 layout: page
 header: title
-group: documentation
+group: guides
 subgroup: tools
 breadcrumb: r
 title: Get started analyzing Snowplow data with R
-permalink: /documentation/tools/r/
+permalink: /guides/tools/r/
 redirect_from:
   - /analytics/tools/r/
   - /analytics/tools-and-techniques/get-started-analysing-snowplow-data-with-r.html
+  - /documentation/tools/r/
 ---
 
 <div class="html">

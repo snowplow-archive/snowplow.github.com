@@ -1,15 +1,16 @@
 ---
 layout: page
-group: documentation
+group: guides
 subgroup: concepts
 breadcrumb: sending data into snowplow
 rank: 6
 title: Sending data into Snowplow
 description: Understanding how to send data into Snowplow.
-permalink: /documentation/concepts/sending-data-into-snowplow/
+permalink: /guides/concepts/sending-data-into-snowplow/
 redirect_from:
   - /analytics/concepts/sending-data-into-snowplow/
   - /analytics/event-dictionaries-and-data-models/sending-data-into-snowplow.html
+  - /documentation/concepts/sending-data-into-snowplow/
 ---
 
 ![front-part-of-data-pipeline](/assets/img/architecture/snowplow-architecture-1-trackers-and-webhooks.png)

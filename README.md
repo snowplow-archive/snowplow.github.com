@@ -74,9 +74,12 @@ subgroup: analytics # second level in navigation (delete otherwise)
 breadcrumb: customer analytics # third level in navigation (delete otherwise)
 subbreadcrumb: attribution # fourth level in navigation (delete otherwise)
 title: The Snowplow Analytics cookbook # Title as sent to the browser
+permalink: /product/the-best-event-data-warehouse/
 description: The Snowplow Analytics Cookbook contains a wealth of recipes for using Snowplow data to answer your business questions. # Description as passed to Google
 ---
 ```
+
+It is required to include a 'permalink' on **all** non-blog pages. Each permalink **must** have a trailing slash or the Jekyll build will fail.
 
 <a name="5-embedding-images" />
 #### 4. Embedding images

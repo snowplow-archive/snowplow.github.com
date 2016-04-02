@@ -203,6 +203,10 @@ p {line-height: 1.45}
 	margin: 0;
 }
 
+.box-text ul.nomarkup {text-transform: none; font-size: 18px}
+.box-text ul.nomarkup li {list-style-type: inherit; margin-left: 30px}
+.box-text ul.nomarkup li:after {display: none}
+
 .box-text li {
 	list-style-type: none;
 	padding: 0;

@@ -118,7 +118,7 @@ header .plan {
 }
 
 header .plan.batch,
-header .plan.real-time {margin-left: 2%}
+header .plan.real-time {margin-left: 12%}
 
 header .plan {
 	background-color: rgba(250,250,250,0.1);

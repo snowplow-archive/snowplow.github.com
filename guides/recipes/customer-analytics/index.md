@@ -46,7 +46,7 @@ The granular data provided by Snowplow creates new opportunities to use machine 
 
 Start off by [learning how to use Snowplow to reliably identify users][user-id].
 
-[user-id]: /analytics/customer-analytics/identifying-users.html
+[user-id]: http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31
 [joining-customer-data]: /analytics/customer-analytics/joining-customer-data.html
 [clv]: /analytics/customer-analytics/customer-lifetime-value.html
 [cohort-analysis]: /analytics/customer-analytics/cohort-analysis.html

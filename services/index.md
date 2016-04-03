@@ -13,7 +13,7 @@ permalink: /services/
     <nav>
       <ol class="cd-breadcrumb">
         <li><a href="/">home</a></li>
-        <li><a href="{{ page.url }}">support</a></li>
+        <li><a href="{{ page.url }}">services</a></li>
       </ol>
     </nav>
   </div>

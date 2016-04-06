@@ -4,7 +4,7 @@ title: "How RJ Metrics measure content engagement with Snowplow: a case study"
 title-short: How RJMetrics measure content engagement with Snowplow
 tags: [case study, mode analytics, content marketing, measuring engagement]
 author: Yali
-category: User stories
+category: User Stories
 ---
 
 *This is a guest post written by Drew Banin from [RJMetrics] [rjmetrics], on how the RJMetrics team uses Snowplow internally to measure and optimize their content marketing. Big thanks to Drew for sharing this with us and the wider Snowplow community! If you have a story to share, [get in touch][contact]*.
@@ -23,7 +23,7 @@ To give you a little context, this wasn’t our first benchmark, but it was one 
 
 <!--more-->
 
-There were a few problems with PDFs: 
+There were a few problems with PDFs:
 
 1. They don’t rank in search
 2. They aren’t easily shareable
@@ -81,11 +81,11 @@ When analyzing this data, there are a few things we needed to keep in mind:
 
 ## What we determined from this data?
 
-So, with this context, what can we tell from this graph? First and foremost, **a lot of people are making it to the end of the page**. We were excited to see this. The State of Data Science is a massive 4000-word report. In the world of “bite-sized content” we were pleased to see that readers were sticking with it to the end. 
+So, with this context, what can we tell from this graph? First and foremost, **a lot of people are making it to the end of the page**. We were excited to see this. The State of Data Science is a massive 4000-word report. In the world of “bite-sized content” we were pleased to see that readers were sticking with it to the end.
 
 As with most web analytics, the takeaways here are mostly guideposts. Here are two things that jumped out to me.
 
-* **Form conversion**. Conversion from landing on this page to entering email address isn’t superb (just over 16%). We think this has something to do with how people perceive the value of the content. A PDF still communicates “valuable research!” whereas a web page says something like “this is a blog post!” And requesting an email address on a blog post feels unfair. We might have some work to do there. 
+* **Form conversion**. Conversion from landing on this page to entering email address isn’t superb (just over 16%). We think this has something to do with how people perceive the value of the content. A PDF still communicates “valuable research!” whereas a web page says something like “this is a blog post!” And requesting an email address on a blog post feels unfair. We might have some work to do there.
 
 * **Modal placement**. If we move the modal farther down the page, my hypothesis is that we would get more people to give us their email address. They’ll get deeper into the content and realize that this is an-depth report and feel less annoyed when we ask for an email address. This change would be focused on moving the users in green to above that orange line:
 
@@ -102,7 +102,7 @@ Here are list of things I would like to dig into further (when time permits):
 3. **Add content indicators (horizontal lines) for different sections of the report**: This would allow us to see which paragraphs were particularly compelling (low dropoff) and which ones needed some more work (high dropoff).
 4. **Segment by persona**: By integrating our event data with the persona data we collect in Pardot, we could see how a specific piece of content is performing with our various audiences.
 
-If you’re interested in this type of analysis, Snowplow will move your data directly to Amazon Redshift where you can analyze it using a tool like [Mode][mode-analytics]. If you want to explore web data alongside other data sources, like Salesforce, MySQL, and Quickbooks, check out [RJMetrics Pipeline][rjmetrics-pipeline] -- It’s the easiest way to integrate all of your data sources into a single data warehouse. 
+If you’re interested in this type of analysis, Snowplow will move your data directly to Amazon Redshift where you can analyze it using a tool like [Mode][mode-analytics]. If you want to explore web data alongside other data sources, like Salesforce, MySQL, and Quickbooks, check out [RJMetrics Pipeline][rjmetrics-pipeline] -- It’s the easiest way to integrate all of your data sources into a single data warehouse.
 
 
 [rjmetrics]: https://rjmetrics.com/

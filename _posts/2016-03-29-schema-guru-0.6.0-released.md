@@ -1,109 +1,88 @@
 ---
 layout: post
-title: Schema Guru 0.6.0 released
+title: Schema Guru 0.6.0 released with SQL migrations support
 title-short: Schema Guru 0.6.0
 tags: [json, json schema, schema, ddl, redshift, schemaver]
 author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Schema Guru][repo] 0.6.0 with long-awaited SQL-migrations support.
+We are pleased to announce the release of [Schema Guru][repo] 0.6.0, with long-awaited initial support for SQL migrations. This release is an important step in allowing Iglu users to easily and safely upgrade Redshift table definitions as they evolve their underlying JSON Schemas.
 
 This release post will cover the following topics:
 
 1. [Introducing migrations](/blog/2016/03/XX/schema-guru-0.6.0-released/#migrations)
 2. [Redshift migrations in Schema Guru](/blog/2016/03/XX/schema-guru-0.6.0-released/#implementation)
-3. [New force flag](/blog/2016/03/XX/schema-guru-0.6.0-released/#force)
-4. [CLI update](/blog/2016/03/XX/schema-guru-0.6.0-released/#cli)
+3. [New --force flag](/blog/2016/03/XX/schema-guru-0.6.0-released/#force)
+4. [Minor CLI changes](/blog/2016/03/XX/schema-guru-0.6.0-released/#cli)
 5. [Upgrading](/blog/2016/03/XX/schema-guru-0.6.0-released/#upgrading)
 6. [Getting help](/blog/2016/03/XX/schema-guru-0.6.0-released/#help)
 7. [Plans for future releases](/blog/2016/03/XX/schema-guru-0.6.0-released/#roadmap)
 
-
 <!--more-->
 
-<h2><a name="migrations">1. Introducing migrations</a></h2>
+<h2 id="migrations">1. Introducing migrations</h2>
 
-Data models tend to evolve along with business processes of a company.
-This is inevitable process which is sometimes incredibly hard to handle properly.
-At Snowplow we have a [SchemaVer][schemaver] format to address issues related to data model evolution.
-Essentially, SchemaVer splits all data structure changes into three groups, telling engineers and analysts whether data versioned as subsequent can fit into storage versioned as initial and vice versa.
-Most common type of Schema change is what we call an ADDITION, when we can guarantee all prior data can be consumed and also no data consumer will be broken because of incompatible data.
+In data-sophisticated companies, data models or schemas can evolve rapidly. To help to support that rapid evolution, at Snowplow we introduced the [SchemaVer][schemaver] versioning system to allow schemas to evolve in a safe way.
 
-Usually ADDITIONs expressed as addition (surprisingly) of non-required property in JSON Schema.
-Redshift, being a columnar storage can easily add a column at the end of a table (unlike modifying one in the middle).
-Suddenly, this Redshift's property fits very well with our needs, since it allows us to express JSON Schema ADDITION as simple `ADD COLUMN` statements to get a correct migration script.
-Taking these properties of Schema and Redshift we introduce an ability to generate migration scripts along with table definitions.
+The most common form of schema evolution is an `ADDITION`, where we for example bump the SchemaVer from 1-0-0 to 1-0-1. An `ADDITION` is where we can guarantee that:
 
-<h2><a name="implementation">2. Redshift migrations in Schema Guru</a></h2>
+1. All existing data is still compatible with the updated schema
+2. All existing data consumers are still compatible with the new data
 
-Previously with `schema-guru ddl` command you could get a table definition for MODELs of your Schema and corresponding JSONPaths.
-It was simple one-to-one transformation not taking in account any information about previous Schemas.
-When users met a need to add several new properties to Schema they had to compare Schemas, write SQL migrations and keeping an eye on column order which is very important in columnar data storages.
-It was not just tiresome process, but also very error-prone.
+Many `ADDITION`s consist simply of the addition of one or more new optional properties to the schema. This is easy to handle in a columnar database like Amazon Redshift: we can simply apply `ADD COLUMN` statements to add the new properties to the end of the existing table.
 
-Now having an initial `1-0-0` JSON Schema you can expand it to whatever you need `1-0-*` and Schema Guru will not just add columns in correct order, but also create all necessary migration scripts, so you could migrate from any preceding Schema to any succeeding.
-For example, running `schema-guru ddl` on following JSON Schemas:
+Previously, Iglu users had to handle schema updates manually, by comparing the schemas, writing SQL migrations by hand and keeping an eye on the all-important column order. Schema Guru was little help here, because running the `schema-guru ddl` command on a schema version 1-0-4 (say) would generate a "clean slate" Redshift table which ignored the previous column orders.
 
-<pre>
+We have seen first-hand that this was a very error-prone process. Taking these capabilities of JSON Schema and Redshift together, this release can now generate SQL migration scripts for existing Redshift tables, along with full SQL table definitions.
+
+<h2 id="implementation">2. Redshift migrations in Schema Guru</h2>
+
+With this release, Schema Guru's `ddl` command will generate a Redshift SQL migration file between **all** `ADDITION` versions, as well as a SQL file to create the highest `ADDITION` version from scratch.
+
+For example, running `schema-guru ddl` on the following JSON Schemas:
+
+{% highlight bash %}
 com.acme/event/1-0-0
 com.acme/event/1-0-1
 com.acme/event/1-0-2
-com.acme/event/1-1-0
-com.acme/event/1-1-1
-</pre>
+{% endhighlight %}
 
-Will result in following output:
+Will result in the following output:
 
-<pre>
-sql/com.acme/event/1-0-0/1-0-1.sql  - migration from 1-0-0 to 1-0-1
-sql/com.acme/event/1-0-0/1-0-2.sql  - migration from 1-0-0 to 1-0-2
-sql/com.acme/event/1-0-1/1-0-2.sql  - migration from 1-0-1 to 1-0-2
-sql/com.acme/event/1-1-0/1-1-1.sql  - migration from 1-1-0 to 1-1-1
-sql/com.acme/event_1                - actual table definition for 1-1-1
-</pre>
+{% highlight bash %}
+sql/com.acme/event/1-0-0/1-0-1.sql  -- migration from 1-0-0 to 1-0-1
+sql/com.acme/event/1-0-0/1-0-2.sql  -- migration from 1-0-0 to 1-0-2
+sql/com.acme/event/1-0-1/1-0-2.sql  -- migration from 1-0-1 to 1-0-2
+sql/com.acme/event_1.sql            -- actual table definition for 1-0-2
+{% endhighlight %}
 
-From above we can see that Schema Guru generated a list of migration scripts across all ADDITIONs.
-Also, please notice that we have no migration from `1-0-2` to `1-1-0`.
-Middle number here stands for REVISION, which can include more complex table alteration rather than simple `ADD COLUMN`.
-This feature is also coming soon.
-Another important thing is that resulting table definition is generated for each MODEL, picking a greatest REVISION or ADDITION.
-It means you will always have absolutely different tables for all MODELS.
+From this we can see that Schema Guru generated a list of migration scripts across all `ADDITION`s.
 
-SchemaVer was created as a general way to express data structure modifications.
-It is not coupled with Redshift nor with Snowplow (nor even JSON Schema).
-As a small consequence some Schema changes cannot be expressed in SQL.
-For example if we added a new property to an object inside array.
-Since any JSON array is represented as plain `VARCHAR(5000)` in DDL, it just doesn't make any sense to add anything to table definition.
-In this case Schema Guru will just update a [comment][redshift-comments] on table with deployed Schema and won't introduce any alterations.
+Here is an example migration script taken from Iglu Central:
 
+{% highlight sql %}
+xxx
+{% endhighlight %}
 
-<h2><a name="force">3. New force flag</a></h2>
+**Warning:** this new migration capability is experimental and incomplete: to date it only supports the addition of new optional columns. We have an open ticket, #xx, to track other possible migration scenarios - please add your suggestions/priorities to that ticket. **In the meantime, please exercise caution with this feature and always visually inspect any migration script before applying it to a Redshift database.**
 
-Schema Guru is steadily growing smarter at generating table definitions.
-However, users still have many cases, where it is just not possible to generate DDL automatically.
-It is either too sophisticated for a computer program or giving not enough input data.
-In these rare cases users tend to edit their DDL files manually.
+<h2 id="force">3. New --force flag</h2>
 
-While this is totally fine, some users have an issue when Schema Guru silently overrode their edits.
-We strongly advice everyone to store JSON Schemas and DDL files in Version Control System like Git so it can be restored any time.
-But safety cannot be superfluous and now Schema Guru will not silently override DDL files if they already present on disk.
-Instead if file already exists and its content differs from what Schema Guru just generated, user will see a warning.
-By "content" we assume only the actual SQL code, not comments or formatting nuances.
-Files where only comments or formatting were modified also won't be overriden, user will also see a warning about not-modified content.
-So now all generation timestamps in header will be left as is.
+Schema Guru is steadily getting smarter at generating table definitions - however, users will still encounter rare cases where it is just not possible to generate the correct DDL automatically. In these cases users tend to edit their DDL files manually.
 
-To change this behavior user may use a `--force` flag to updated all files, not matter if they were edited or not.
+Once a user has manually edited schemas, he or she is at risk of accidentally overwriting those schemas by re-running Schema Guru. As of this release, Schema Guru will not silently overwrite DDL files if a given file is already present on disk and holds different contents to Schema Guru's new output; indeed Schema Guru only checks the actual SQL code - not comments or formatting.
 
-<h2><a name="cli">4. CLI update</a></h2>
+Instead of silently overwriting the file, Schema Guru will report a warning for that file. To override this behavior a user may use the new `--force` flag to update all files regardless of manual changes.
+
+<h2 id="cli">4. Minor CLI changes</h2>
 
 In this release we also introduced two minor CLI changes:
 
-1. In Spark Job, `--enum-sets` is not an option anymore, but a flag which can be used to tell Schema Guru to check all known predefined enum sets. It is an analogue for a CLI `schema-guru schema --enum-sets all`. This doesn't affect a CLI app.
+1. In the Spark Job, `--enum-sets` is no longer an option, but instead a flag which can be used to tell Schema Guru to check all known predefined enum sets. It is equivalent to `schema-guru schema --enum-sets all` in the CLI. This doesn't affect a CLI app
+2. Schema Guru no longer expects the `input` argument to be in the last position for the `ddl` and `schema` commands. The following command is now valid: `schema-guru ddl --output /event-dictionary /json-schemas --raw-mode`, whereas in previous versions users have to move `/json-schemas` to the end of line
 
-2. Schema Guru now doesn't require an `input` argument to be the last in command for both `ddl` and `schema`. Now following command is absolutely valid: `schema-guru ddl --output /event-dictionary /json-schemas --raw-mode`, whereas in previous versions users have to move `/json-schemas` to the end of line.
-
-<h2><a name="upgrading">5. Upgrading</a></h2>
+<h2 id="upgrading">5. Upgrading</h2>
 
 <h3>Schema Guru CLI</h3>
 
@@ -120,11 +99,11 @@ Assuming you have a recent JVM installed, running should be as simple as:
 $ ./schema-guru-0.6.0 {schema|ddl} {input} {options}
 {% endhighlight %}
 
-<h3>Schema Guru web UI and Spark Job</h3>
+<h3>Schema Guru's Web UI and Spark Job</h3>
 
-Web UI and Spark Job has no new features in this release, but as stated in [CLI update section][cli], if you were deriving enum sets with Spark Job, you now must specify `--enum-sets` without parameters. Also, you can safely use 0.4.0 versions of both Spark Job and Web UI without a fear to miss new features or bugfixes.
+Schema Guru's Web UI and Spark Job have no new features in this release, but as stated in [CLI update section][cli], if you were deriving enum sets with the Spark Job, you now must specify `--enum-sets` without parameters. Also, you can safely use 0.4.0 versions of both Spark Job and Web UI without a fear to miss new features or bugfixes.
 
-<h2><a name="help">6. Getting help</a></h2>
+<h2 id="help">6. Getting help</a></h2>
 
 For more details on this release, please check out the [Schema Guru 0.6.0] [060-release] on GitHub.
 
@@ -132,15 +111,16 @@ More details on the technical architecture of Schema Guru can be found on the [F
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-<h2><a name="roadmap">7. Plans for future releases</a></h2>
+<h2 id="roadmap">7. Plans for future releases</a></h2>
 
-With new features introduced in this release for `ddl` command, Schema Guru becomes more and more like all-in-one static Iglu generator, making it very different from what it supposed to be initially (app deriving JSON Schemas from a bunch of instances).
+With the new features introduced in this release for the `ddl` command, this side of Schema Guru has evolved into a de facto Iglu static schema registry generator (a little like [Jekyll] [jekyll] but for Iglu). This use case is very separate from Schema Guru's original purpose, the `schema` command, which aims to derive JSON Schemas from a collection of instances.
 
-It also require us to include in Schema Guru diverse dependencies and features making it harder to follow "Do One Thing and Do It Well" philosophy. This is why we decided to move all features related to DDL into separate project inside [iglu][iglu-repo] repository and switch Schema Guru to its initial purpose, removing `ddl` command and leaving only `schema` command features.
+The current design also bundles many different dependencies and features into Schema Guru, making it harder to follow "Do One Thing and Do It Well" philosophy.
+
+Given the above, we are now planning to move all features related to the `ddl` command into a separate project inside [iglu][iglu-repo] repository. Schema Guru will revert to its initial purpose - we have no plans to change the `schema` command capabilities.
 
 [cli]: /blog/2016/03/XX/schema-guru-0.6.0-released/#cli
 [schemaver]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
-[redshift-comments]: http://snowplowanalytics.com/blog/2015/11/17/schema-guru-0.4.0-with-apache-spark-support-released/#comment
 [iglu-repo]: http://github.com/snowplow/iglu
 
 [for-developers]: https://github.com/snowplow/schema-guru/wiki/For-developers
@@ -148,3 +128,5 @@ It also require us to include in Schema Guru diverse dependencies and features m
 [issues]: https://github.com/snowplow/schema-guru/issues
 [060-release]: https://github.com/snowplow/schema-guru/releases/tag/0.6.0
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[jekyll]: https://jekyllrb.com/

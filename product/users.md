@@ -1,11 +1,9 @@
 ---
 layout: page
 group: product
-subgroup: who uses snowplow?
-title: Who uses Snowplow?
-shortened-link: Who uses Snowplow?
+subgroup: users
+title: Users
 description: Snowplow is used by some of the most data-sophisticated companies in the world
-weight: 3
 permalink: /product/users/
 redirect_from:
   - /product/who-uses-snowplow.html
@@ -29,9 +27,6 @@ redirect_from:
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://www.streetlife.com/"><img src="/assets/img/user-logos/fixed/streetlife.png"></a></p>
-	</div>
-	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="https://www.wahanda.com/"><img src="/assets/img/user-logos/fixed/wahanda.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.oyster.com/"><img src="/assets/img/user-logos/fixed/oyster.png"></a></p>
@@ -204,7 +199,6 @@ redirect_from:
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://secretsaucepartners.com/"><img src="/assets/img/user-logos/fixed/secretsaucepartners-logo.png"></a></p>
 	</div>
-
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://www.sigfig.com/site/#/home"><img src="/assets/img/user-logos/fixed/sigfig-logo.png" /></a></p>
 	</div>
@@ -223,11 +217,9 @@ redirect_from:
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.studentbeans.com/"><img src="/assets/img/user-logos/fixed/studentbeans-logo.png"></a></p>
 	</div>
-
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://www.swingbyswing.com/"><img src="/assets/img/user-logos/fixed/swingbyswinggolf-logo.png" /></a></p>
 	</div>
-
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://www.therealreal.com/"><img src="/assets/img/user-logos/fixed/therealreal-logo.png"></a></p>
 	</div>
@@ -249,7 +241,6 @@ redirect_from:
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.sodastream.fr/"><img src="/assets/img/user-logos/fixed/sodastream.png"></a></p>
 	</div>
-
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.outfittery.de//"><img src="/assets/img/user-logos/fixed/outfittery.png"></a></p>
 	</div>
@@ -257,13 +248,67 @@ redirect_from:
 		<p><a href="https://www.dubicars.com//"><img src="/assets/img/user-logos/fixed/dubicars.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="https://www.liveoutthere.com/"><img src="/assets/img/user-logos/fixed/liveoutthere.png"></a></p>
+		<p><a href="https://www.liveoutthere.com"><img src="/assets/img/user-logos/fixed/liveoutthere.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="http://www.yieldify.com/"><img src="/assets/img/user-logos/fixed/yieldify.png"></a></p>
+		<p><a href="http://www.yieldify.com"><img src="/assets/img/user-logos/fixed/yieldify.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://mintmetrics.io"><img src="/assets/img/user-logos/fixed/mintmetrics.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.justwatch.com"><img src="/assets/img/user-logos/fixed/justwatch.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.stylight.com"><img src="/assets/img/user-logos/fixed/stylight.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.sdu.nl"><img src="/assets/img/user-logos/fixed/sdu.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://liveintent.com"><img src="/assets/img/user-logos/fixed/liveintent.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.americanbible.org"><img src="/assets/img/user-logos/fixed/abs.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://number26.eu"><img src="/assets/img/user-logos/fixed/number26.jpg"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.getninjas.com.br"><img src="/assets/img/user-logos/fixed/get-ninjas.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://viewbix.com"><img src="/assets/img/user-logos/fixed/viewbix.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://animoto.com"><img src="/assets/img/user-logos/fixed/animoto.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://canary.is"><img src="/assets/img/user-logos/fixed/canary.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.jetsetter.com"><img src="/assets/img/user-logos/fixed/jetsetter.jpg"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.gousto.co.uk"><img src="/assets/img/user-logos/fixed/gousto.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://judson.biz"><img src="/assets/img/user-logos/fixed/judson.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.treatwell.com"><img src="/assets/img/user-logos/fixed/treatwell.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.picnic.nl"><img src="/assets/img/user-logos/fixed/picnic.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://crew.co"><img src="/assets/img/user-logos/fixed/crew.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="https://www.headspace.com"><img src="/assets/img/user-logos/fixed/headspace.png"></a></p>
+	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+		<p><a href="http://www.peak.net"><img src="/assets/img/user-logos/fixed/peak.png"></a></p>
 	</div>
 </div>
 

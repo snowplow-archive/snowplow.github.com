@@ -6,12 +6,13 @@ title: Who uses Snowplow?
 shortened-link: Who uses Snowplow?
 description: Snowplow is used by some of the most data-sophisticated companies in the world
 weight: 3
-permalink: /product/who-uses-snowplow/
+permalink: /product/users/
 redirect_from:
   - /product/who-uses-snowplow.html
+  - /product/who-uses-snowplow/
 ---
 
-<h1>Used by some of the most data-sophisticated companies in the world</h1>
+<h1 style="text-align:center">The most data-sophisticated companies use Snowplow</h1>
 
 <div class="row">
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">

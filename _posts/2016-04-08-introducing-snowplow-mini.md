@@ -19,12 +19,11 @@ Today we're delighted to announce [Snowplow Mini][snowplow-mini] to meet the abo
 ![austen-powers-dr-evil-mini-me][img1]
 
 
-1. [Overview](/blog/2016/04/01/snowplow-mini-0.2.0-released#overview)
-2. [Under the hood](/blog/2016/04/01/snowplow-mini-0.2.0-released#topology)
-3. [Event development](/blog/2016/04/01/snowplow-mini-0.2.0-released#event-development)
-4. [Software stack](/blog/2016/04/01/snowplow-mini-0.2.0-released#software-stack)
-5. [Roadmap](/blog/2016/04/01/snowplow-mini-0.2.0-released#roadmap)
-6. [Getting help](/blog/2016/04/01/snowplow-mini-0.2.0-released#help)
+1. [Overview](/blog/2016/04/08/snowplow-mini-0.2.0-released#overview)
+2. [Under the hood](/blog/2016/04/08/snowplow-mini-0.2.0-released#topology)
+3. [Software stack](/blog/2016/04/08/snowplow-mini-0.2.0-released#software-stack)
+4. [Roadmap](/blog/2016/04/01/snowplow-mini-0.2.0-released#roadmap)
+5. [Getting help](/blog/2016/04/01/snowplow-mini-0.2.0-released#help)
 
 <!--more-->
 

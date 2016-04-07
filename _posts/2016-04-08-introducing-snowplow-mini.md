@@ -7,16 +7,16 @@ author: Josh
 category: Releases
 ---
 
-We've built Snowplow for robustness, scalability and flexibility. We have not built Snowplow for ease of use or ease of setup. The batch pipeline has not been built for speed: you might have to wait several hours from sending an event to being able to view and analyze that event data in Redshift.
+We've built Snowplow for robustness, scalability and flexibility. We have not built Snowplow for ease of use or ease of setup. The batch pipeline has not been built for speed: you might have to wait several hours from sending an event before you can view and analyze that event data in Redshift.
+
+![austen-powers-dr-evil-mini-me][img1]
 
 There are occasions when you might want to work with Snowplow in an easier, faster way. Two common examples are:
 
-1. New users who want to understand what Snowplow does and how it works. For these users, is it really necessary to setup a distributed, auto-scaling collector cluster, Hadoop job and Redshift cluster? And that's only for the batch pipeline.
-2. Existing users who are exteding their tracking will likely want instant feedback to test that it is working as expected. Many of these users are running our batch pipeline: is there a way they can get faster (instant?) feedback on whether their tracker updates are working properly?
+1. New users who want to understand what Snowplow does and how it works. For these users, is it really necessary to setup a distributed, auto-scaling collector cluster, Hadoop job and Redshift cluster? For users who want to experiment with the real-time pipeline, it is necessary to setup three different Kinesis Client library applications, three different Kinesis streams, just to get started?
+2. Existing users who are extending their tracking and want to test it prior to pushing updates to production. Many of these users are running our batch pipeline: is there a way they can get faster (instant?) feedback on whether their tracker updates are working properly?
 
-Today we're delighted to announce [Snowplow Mini][snowplow-mini] to meet the above two use cases: the complete Snowplow Real-Time Pipeline, on a single AMI / EC2 instance.
-
-![austen-powers-dr-evil-mini-me][img1]
+Today we're delighted to announce [Snowplow Mini][snowplow-mini] to meet the above two use cases: the complete Snowplow Real-Time Pipeline, on a single AMI / EC2 instance. Download, and setup, in minutes...
 
 
 1. [Overview](/blog/2016/04/08/snowplow-mini-0.2.0-released#overview)
@@ -29,14 +29,12 @@ Today we're delighted to announce [Snowplow Mini][snowplow-mini] to meet the abo
 
 <h2 id="overview">1. Overview</h2>
 
-Snowplow Mini is the complete Snowplow Real Time pipeline on a single instance, available for easy install as a pre-built AMI. (Full setup instructions can be found [here](quickstart-guide).) 
-
-Snowplow Mini is great for the two above use cases: you can set it up in minutes, and quickly start tracking events and exploring the data. 
+Snowplow Mini is the complete Snowplow Real Time pipeline on a single instance, available for easy install as a pre-built AMI. Set it up in minutes by following the [quickstart guide][quickstart-guide].
 
 Once deployed, you fetch the public IP for your Snowplow Mini instance from the EC2 console. You can then:
 
 1.1 [Log into Snowplow Mini](#login)  
-1.2 [Send in events from any tracker](#send-events)  
+1.2 [Record events](#send-events)  
 1.3 [Explore your data in Elasticsearch and Kibana](#explore)  
 1.4 [Debug bad data in Elasticsearch and Kibana](#debug)  
 
@@ -46,17 +44,17 @@ Once Snowplow Mini is up and running, you should be able to fetch the IP address
 
 ![Get the IP address for your Snowplow Mini instance from the EC2 console][get-ip-address]
 
-Once we have it we can open up Snowplow Mini by navigating to that IP address in the browser:
+Navigate to that IP address in the browser. There you'll find Snowplow Mini:
 
 ![Snowplow Mini homescreen][snowplow-mini-homescreen]
 
-<h3 id="send-events">1.2 Send in events</h3>
+<h3 id="send-events">1.2 Record events</h3>
 
-Let's send some events in! We can do this directly from the Snowplow Mini, by selecting the **Example Events** tab and clicking the different buttons. Each button click will be recorded as an event:
+Send in some events in! You can do this directly from the Snowplow Mini UI, by selecting the **Example Events** tab and clicking the different buttons. Each button click will be recorded as an event:
 
 ![Send sample events][send-sample-events]
 
-We can, more usefully, send events using any one of our Snowplow trackers. Simply configure the tracker to use the Snowplow Mini collector endpoint on `<<<your-snowplow-mini-public-ip>>:8080`
+You can, more usefully, send events using any one of our Snowplow trackers. Simply configure the tracker to use the Snowplow Mini collector endpoint on `<<your-snowplow-mini-public-ip>>:8080`
 
 <h3 id="explore">1.3 Explore your data in Elasticsearch and Kibana</h3>
 
@@ -80,36 +78,42 @@ Now let's look at our data. Hit the "Discover" menu item:
 
 ![Viewing good event data in Kibana][good-event-data-in-kibana]
 
-We can build graphs in the **Visualize** section and assemble them together in the **Dashboards** section!
+We can build graphs in the **Visualize** section and assemble them together in the **Dashboards** section. You can also use other tools for visualizing the data in Elasticsearch: Elasticsearch can be queried directly on `http://<<your-snowplow-mini-public-ip>>:9200`.
 
 <h3 id="debug">1.4 Debug bad data in Elasticsearch and Kibana</h3>
 
 One of the primary uses of Snowplow Mini is to enable Snowplow users to debug updates to their tracker instrumentation in real-time, significantly reducing updates to tracker deployments.
 
-To do this, it is necessary to add your own schemas to the Iglu schema registry hosted on Snowplow Mini. There is a simple script you can run to push your own schemas to Iglu server, running on Snowplow mini: instructions can be found [here][setup-iglu].
+If you have defined your own event and entity (context) schemas, you will need to push these schemas to the Iglu repository that is bundled with Snowplow Mini. There is a simple script you can run to copy those schemas from your lcoal machine to Snowplow Mini: instructions can be found [here][setup-iglu].
 
-Once you've done that, send some data to Snowplow Mini. Each event you send will either land in the `good` index or `bad` index. To switch from one to the other in Kibana, select the cog icon in the top right of the screen and then select the index you want to view from the dropdown:
+Once you've done that, you can start sending data into Snowplow Mini to see if it is processed successfully. Each event you send should either land in the `good` index or `bad` index. To switch from one to the other in Kibana, select the cog icon in the top right of the screen and then select the index you want to view from the dropdown:
 
 ![kibana switch from viewing good to bad data][kibana-switch-index]
 
-In the below example you can see one bad event has landed. It is straigthforward to identify the issue processing the event (it has a valid type `nonsense`):
+In the below example you can see one bad event has landed. It is straigthforward to drill in and identify the issue processing the event (it has a valid type `nonsense`):
 
 ![kibana example bad data][kibana-view-bad-data]
 
+More information on debugging you data in Elasticsearch / Kibana can be found [here][debugging-bad-data-in-elasticsearch-kibana].
 
-<h2 id="topology">2. Snowplow Real-Time topology: Minified</h2>
 
-The real-time flow goes as follows:
+<h2 id="topology">2. Under the hood</h2>
+
+The pipeline running on Snowplow Mini is essentially the Snowplow Real Time pipeline:
 
 1. The collector receives events and writes them to a raw events stream or a bad stream (if the event is oversized)
 2. Stream Enrich consumes each event from the raw stream and attempts to validate and enrich it.  Events that are successfully processed are written to an enriched stream and bad events are written to a bad stream.
 3. Elasticsearch Sinks are then configured to consume events from both the enriched and bad event streams and to then load them into distinct Elasticsearch indexes for viewing and analysis.
 
-This diagram illustrates how the same flow has been replicated inside Snowplow Mini:
+The key difference is that on Snowplow Mini:
+
+* Every Kinesis application is run on the same box
+* Elasticsearch, Kibana and Iglu server are also running on the box
+* Rather than use Kinesis as the event queue, named unix pipes are employed
+
+This diagram illustrates the mini data pipeline:
 
 ![snowplow-mini-topology] [snowplow-mini-topology]
-
-In Snowplow Mini the Kinesis Streams have  been replaced by named unix pipes. Each application (the collector, enrichment and the Elasticsearch sinks) is run on the same Snowplow Mini box.  
 
 <h2 id="software-stack">3. Software stack</h2>
 
@@ -122,15 +126,15 @@ The current Snowplow Mini stack consists of the following applications:
 * Elasticsearch 1.4 : Stores your enriched and bad events
 * Kibana 4.0.1 : Front-end for managing your enriched events
 
-As so many services are running on the box we recommend a t2.medium or higher for a smooth experience during testing and use.  This is dependant on a number of factors such as the amount of users and the amount of events being sent into the instance.
+As so many services are running on the box we recommend a `t2.medium` or higher for a smooth experience during testing and use.  This is dependant on a number of factors such as the amount of users and the amount of events being sent into the instance.
 
 <h2 id="roadmap">4. Roadmap</h2>
 
 We have big plans for Snowplow Mini:
 
-* Support for event storage to Redshift and PostgreSQL ([#9][9]). This will make Snowplow Mini much more useful for analysts who want to do more with the data processed than is possible in Elasticsearch. (E.g. perform data modeling.)
-* Serve realtime statistics in the Snowplow Mini UI ([#45][45])
-* Make it easier to fire more example events directly from the Snowplow Mini UI ([#44][44])
+* **Support for event storage to PostgreSQL** ([#9][9]). This will make Snowplow Mini much more useful for analysts who want to do more with the data processed than is possible in Elasticsearch. (E.g. perform data modeling.)
+* **Serve realtime statistics in the Snowplow Mini UI** ([#45][45])
+* Make it easier to **fire more example events** directly from the Snowplow Mini UI ([#44][44])
 
 We also want to make it easy to setup and run Snowplow Mini outside of EC2 by:
 
@@ -168,4 +172,5 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [good-event-data-in-kibana]: /assets/img/blog/2016/04/good-event-data-in-kibana.png
 [setup-iglu]: https://github.com/snowplow/snowplow-mini/wiki/Quickstart-guide#iglu-server-usage
 [kibana-switch-index]: /assets/img/blog/2016/04/kibana-switch-index.png
-[kibana-view-bad-data]: /assets/img/blog/2016/04/kibana-view-bad-data/png
+[kibana-view-bad-data]: /assets/img/blog/2016/04/kibana-view-bad-data.png
+[debugging-bad-data-in-elasticsearch-kibana]: http://discourse.snowplowanalytics.com/t/debugging-bad-data-in-elasticsearch-and-kibana/28

@@ -85,7 +85,9 @@ BEGIN TRANSACTION;
 END TRANSACTION; 
 {% endhighlight %}
 
-**Warning:** this new migration capability is experimental and incomplete: to date it only supports the addition of new optional columns. We have an open ticket, #xx, to track other possible migration scenarios - please add your suggestions/priorities to that ticket. **In the meantime, please exercise caution with this feature and always visually inspect any migration script before applying it to a Redshift database.**
+**Warning: this new migration capability is experimental: please exercise caution with this feature and always visually inspect any migration script before applying it to a Redshift database.**
+
+This migration capability is also incomplete: to date it only supports the addition of new optional columns. We have an open ticket, [#140] [issue-140], to track other possible migration scenarios - please add your suggestions/priorities to that ticket. **In the meantime, 
 
 <h2 id="force">3. New --force flag</h2>
 

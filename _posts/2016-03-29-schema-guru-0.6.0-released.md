@@ -7,17 +7,17 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Schema Guru][repo] 0.6.0, with long-awaited initial support for SQL migrations. This release is an important step in allowing Iglu users to easily and safely upgrade Redshift table definitions as they evolve their underlying JSON Schemas.
+We are pleased to announce the release of [Schema Guru][repo] 0.6.0, with long-awaited initial support for database migrations in SQL. This release is an important step in allowing Iglu users to easily and safely upgrade Redshift table definitions as they evolve their underlying JSON Schemas.
 
 This release post will cover the following topics:
 
-1. [Introducing migrations](/blog/2016/03/XX/schema-guru-0.6.0-released/#migrations)
-2. [Redshift migrations in Schema Guru](/blog/2016/03/XX/schema-guru-0.6.0-released/#implementation)
-3. [New --force flag](/blog/2016/03/XX/schema-guru-0.6.0-released/#force)
-4. [Minor CLI changes](/blog/2016/03/XX/schema-guru-0.6.0-released/#cli)
-5. [Upgrading](/blog/2016/03/XX/schema-guru-0.6.0-released/#upgrading)
-6. [Getting help](/blog/2016/03/XX/schema-guru-0.6.0-released/#help)
-7. [Plans for future releases](/blog/2016/03/XX/schema-guru-0.6.0-released/#roadmap)
+1. [Introducing migrations](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#migrations)
+2. [Redshift migrations in Schema Guru](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#implementation)
+3. [New --force flag](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#force)
+4. [Minor CLI changes](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#cli)
+5. [Upgrading](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#upgrading)
+6. [Getting help](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#help)
+7. [Plans for future releases](/blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#roadmap)
 
 <!--more-->
 
@@ -59,10 +59,30 @@ sql/com.acme/event_1.sql            -- actual table definition for 1-0-2
 
 From this we can see that Schema Guru generated a list of migration scripts across all `ADDITION`s.
 
-Here is an example migration script taken from Iglu Central:
+Here is an example migration script, which updates `com.amazon.aws.cloudfront/wd_access_log/jsonschema` from [version 1-0-0] [wd-access-log-1-0-0] directly to [version 1-0-2] [wd-access-log-1-0-0]:
 
 {% highlight sql %}
-xxx
+-- WARNING: only apply this file to your database if the following SQL returns the expected:
+--
+-- SELECT pg_catalog.obj_description(c.oid) FROM pg_catalog.pg_class c WHERE c.relname = 'com_amazon_aws_cloudfront_wd_access_log_1';
+--  obj_description
+-- -----------------
+--  iglu:com.amazon.aws.cloudfront/wd_access_log/jsonschema/1-0-0
+-- (1 row)
+
+BEGIN TRANSACTION;
+
+  ALTER TABLE com_amazon_aws_cloudfront_wd_access_log_1
+    ADD COLUMN "cs_cookie"          VARCHAR(4096)    ENCODE LZO,
+    ADD COLUMN "x_edge_request_id"  VARCHAR(2000)    ENCODE LZO,
+    ADD COLUMN "x_edge_result_type" VARCHAR(32)      ENCODE LZO,
+    ADD COLUMN "cs_bytes"           DOUBLE PRECISION ENCODE RAW,
+    ADD COLUMN "cs_protocol"        VARCHAR(5)       ENCODE LZO,
+    ADD COLUMN "x_host_header"      VARCHAR(2000)    ENCODE LZO;
+
+  COMMENT ON TABLE "com_amazon_aws_cloudfront_wd_access_log_1" IS 'iglu:com.amazon.aws.cloudfront/wd_access_log/jsonschema/1-0-2';
+
+END TRANSACTION; 
 {% endhighlight %}
 
 **Warning:** this new migration capability is experimental and incomplete: to date it only supports the addition of new optional columns. We have an open ticket, #xx, to track other possible migration scenarios - please add your suggestions/priorities to that ticket. **In the meantime, please exercise caution with this feature and always visually inspect any migration script before applying it to a Redshift database.**
@@ -119,7 +139,7 @@ The current design also bundles many different dependencies and features into Sc
 
 Given the above, we are now planning to move all features related to the `ddl` command into a separate project inside [iglu][iglu-repo] repository. Schema Guru will revert to its initial purpose - we have no plans to change the `schema` command capabilities.
 
-[cli]: /blog/2016/03/XX/schema-guru-0.6.0-released/#cli
+[cli]: /blog/2016/04/07/schema-guru-0.6.0-released-with-sql-migrations-support/#cli
 [schemaver]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [iglu-repo]: http://github.com/snowplow/iglu
 
@@ -128,5 +148,9 @@ Given the above, we are now planning to move all features related to the `ddl` c
 [issues]: https://github.com/snowplow/schema-guru/issues
 [060-release]: https://github.com/snowplow/schema-guru/releases/tag/0.6.0
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+
+[wd-access-log-1-0-0]: http://www.iglucentral.com/schemas/com.amazon.aws.cloudfront/wd_access_log/jsonschema/1-0-0
+[wd-access-log-1-0-2]: http://www.iglucentral.com/schemas/com.amazon.aws.cloudfront/wd_access_log/jsonschema/1-0-2
+[issue-140]: https://github.com/snowplow/schema-guru/issues/140
 
 [jekyll]: https://jekyllrb.com/

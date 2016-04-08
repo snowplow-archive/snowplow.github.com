@@ -133,7 +133,7 @@ We have big plans for Snowplow Mini:
 * **Support for event storage to PostgreSQL** ([#9][9]). This will make Snowplow Mini much more useful for analysts who want to do more with the data processed than is possible in Elasticsearch, such as to perform data modeling
 * **Serve realtime statistics in the Snowplow Mini UI** ([#45][45])
 * Make it easier to **fire more example events** directly from the Snowplow Mini UI ([#44][44])
-* Switch from using Unix named pipes to NSQ to make the internal pipeline more robust (#[24][24])
+* **Switch from using Unix named pipes to NSQ** to make the internal pipeline more robust (#[24][24])
 
 We also want to make it easy to setup and run Snowplow Mini outside of EC2 by:
 

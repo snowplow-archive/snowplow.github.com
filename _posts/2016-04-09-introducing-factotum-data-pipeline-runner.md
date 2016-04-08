@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introducing Factotum data pipeline runner"
-title-short: Introducing Factotum
+title-short: Factotum 0.1.0
 tags: [snowplow, rust, orchestration, dag, data engineering, jobs, tasks, factotum, pipeline]
 author: Ed
 category: Releases

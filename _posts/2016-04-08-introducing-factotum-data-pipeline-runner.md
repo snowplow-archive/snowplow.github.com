@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Snowplow Factotum 0.1.0 released
-title-short: Snowplow Factotum 0.1.0
+title: "Introducing Factotum data pipeline runner"
+title-short: Introducing Factotum
 tags: [snowplow, rust, orchestration, dag, data engineering, jobs, tasks, factotum, pipeline]
 author: Ed
 category: Releases
@@ -13,13 +13,13 @@ Pipeline orchestration is a common problem faced by data teams, and one which Sn
 
 As we started to outgrow our existing Make-based solution, we reviewed many job orchestration tools. While each one is great at what it does, they have come up short in key areas that are important to us and our customers. So we created our own, [Factotum] [factotum] - read on to find out more: 
 
-1. [Why Factotum?](/blog/2016/04/08/snowplow-factotum-0.1.0-released#why)
-2. [The Zen of Factotum](/blog/2016/04/08/snowplow-factotum-0.1.0-released#zen)
-3. [Factotum 0.1.0](/blog/2016/04/08/snowplow-factotum-0.1.0-released#factotum)
-4. [Getting and running Factotum](/blog/2016/04/08/snowplow-factotum-0.1.0-released#install)
-5. [Writing jobs for Factotum](/blog/2016/04/08/snowplow-factotum-0.1.0-released#authoring)
-6. [Roadmap](/blog/2016/04/08/snowplow-factotum-0.1.0-released#roadmap)
-7. [Contributing](/blog/2016/04/08/snowplow-factotum-0.1.0-released#contributing)
+1. [Why Factotum?](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#why)
+2. [The Zen of Factotum](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#zen)
+3. [Factotum 0.1.0](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#factotum)
+4. [Getting and running Factotum](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#install)
+5. [Writing jobs for Factotum](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#authoring)
+6. [Roadmap](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#roadmap)
+7. [Contributing](/blog/2016/04/08/introducing-factotum-data-pipeline-runner#contributing)
 
 <!--more-->
 

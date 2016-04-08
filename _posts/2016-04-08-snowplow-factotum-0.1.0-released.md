@@ -51,7 +51,7 @@ When you have a DSL or a Turing-complete job, the temptation to add in "job duct
 
 Build tools often have features for dealing with complicated task trees built-in, just like data pipelines. This can make them powerful and flexible solutions for dealing with task orchestration as well as building software.
 
-However build tooling is not really being developed for data pipelines, and they have some limitations:
+However build tools did not evolve specifically to serve data pipelines, and they have some limitations:
 
 <h4>Inflexible outcomes</h4>
 
@@ -102,7 +102,7 @@ unzip factotum_0.1.0_linux_x86_64.zip
 wget https://raw.githubusercontent.com/snowplow/factotum/master/samples/echo.factotum
 {% endhighlight %}
 
-This series of commands will download the 0.1.0 release, unzip it in your current working directory and download a sample job for you to run. You can then run Factotum in the following way: 
+This series of commands will download the 0.1.0 release, unzip it in your current working directory and download a sample job for you to run. You can then run Factotum in the following way:
 
 {% highlight bash %}
 factotum ./echo.factotum
@@ -110,7 +110,7 @@ factotum ./echo.factotum
 
 <h2 id="authoring">5. Writing jobs for Factotum</h2>
 
-Factfiles are self-describing JSON which declare a series of tasks and their dependencies. For example: 
+Factfiles are self-describing JSON which declare a series of tasks and their dependencies. For example:
 
 {% highlight json %}
 {
@@ -168,7 +168,7 @@ Check out [the samples][job-samples] for more sample factfiles or the [wiki][fac
 
 <h2 id="roadmap">6. Roadmap for Factotum</h2>
 
-We're taking an iterative approach here - today Factotum won't give you an entire stack for monitoring, scheduling and running data pipelines, but we plan on growing it into a set of tools that will.
+We're taking an iterative approach with Factotum - today Factotum won't give you an entire stack for monitoring, scheduling and running data pipelines, but we plan on growing it into a set of tools that will.
 
 Factotum will continue to be our "job executor", but a more complete ecosystem will be developed around it - ideas include an optional scheduler, audit logging, user authentication and more.
 
@@ -179,6 +179,7 @@ Our plan is to base all development on the principles we've laid out here - sepe
 Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust please check out the [repository][factotum-repo]. 
 If you have any questions or need help getting started, come join us in our [Discourse forum][factotum-discourse].
 
+[factotum-discourse]: http://discourse.snowplowanalytics.com/
 [job-samples]: https://github.com/snowplow/factotum/tree/master/samples
 [factotum-wiki]: https://github.com/snowplow/factotum/wiki
 [snowplow-job-make]: http://snowplowanalytics.com/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make/

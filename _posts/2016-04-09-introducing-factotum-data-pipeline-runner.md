@@ -11,7 +11,7 @@ We are pleased to announce the release of [Factotum] [factotum-repo], a new open
 
 Pipeline orchestration is a common problem faced by data teams, and one which Snowplow has [discussed in the past][snowplow-job-make]. As part of the Snowplow Managed Service we operate numerous data pipelines for customers, with many pipelines including with customer-specific [event data modeling] [event-data-modeling].
 
-As we started to outgrow our existing Make-based solution, we reviewed many job orchestration tools. While each one is great at what it does, they have come up short in key areas that are important to us and our customers. So we created our own, [Factotum] [factotum] - read on to find out more: 
+As we started to outgrow our existing Make-based solution, we reviewed many job orchestration tools. While each one is great at what it does, they have come up short in key areas that are important to us and our customers. So we created our own, Factotum - read on to find out more:
 
 1. [Why Factotum?](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#why)
 2. [The Zen of Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#zen)

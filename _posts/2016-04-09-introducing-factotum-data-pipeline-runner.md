@@ -16,7 +16,7 @@ As we started to outgrow our existing Make-based solution, we reviewed many job 
 1. [Why Factotum?](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#why)
 2. [The Zen of Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#zen)
 3. [Factotum 0.1.0](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#factotum)
-4. [Getting and running Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#install)
+4. [Downloading and running Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#install)
 5. [Writing jobs for Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#authoring)
 6. [Roadmap](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#roadmap)
 7. [Contributing](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#contributing)
@@ -92,7 +92,7 @@ Factotum is our first project [written in Rust][rust-lang], and so while 0.1.0 o
 
 Crucially, Factotum has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on. It executes DAGs and gives you a nice report on what it did.
 
-<h2 id="install">4. Getting and running Factotum</h2>
+<h2 id="install">4. Downloading and running Factotum</h2>
 
 Currently Factotum is only available for 64 bit Linux. Get it like so:
 

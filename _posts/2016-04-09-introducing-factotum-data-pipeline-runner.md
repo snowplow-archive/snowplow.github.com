@@ -29,11 +29,11 @@ Let's take a look at some of the existing data pipeline orchestration options av
 
 <h3>1.1 Specialised tools (AWS Data Pipeline, Luigi, Chronos, Airflow, Azkaban)</h3>
 
-These are all great tools, and you could successfully run your data pipeline jobs using any one of them. However, there are some issues with these tools that lead us to think they're not a great fit for us.
+These are all great tools, and you could successfully run your data pipeline jobs using any one of them. However, there are some issues with these tools that lead us to think they're not a great fit for us:
 
 <h4>Single sponsorship</h4>
 
-Many awesome people at places like Amazon, LinkedIn and AirBnB have developed jobflow tooling in-house, and have gratiously released them as open source software. Unfortunately these tools tend to be shared rather late in their gestation, and are closely tied to the originating companies' own needs. As a result, simple tasks have become very complicated.
+Many awesome people at places like Amazon, LinkedIn and Airbnb have developed jobflow tooling in-house, and have graciously released them as open source software. Unfortunately these tools tend to be shared rather late in their gestation, and are closely tied to the originating companies' own needs. As a result, simple tasks have become very complicated.
 
 <h4>Mixing jobs and schedules</h4>
 
@@ -86,9 +86,9 @@ After reviewing the existing solutions, we came up with a series of must-have re
 
 Armed with the "Zen of Factotum", we have written a tool that executes DAGs. 
 
-These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is [available from Iglu Central] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG. 
+These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is available from Iglu Central as [com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG. 
 
-Factotum is our first project [written in Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time virtually every system will be capable of running it.
+Factotum is our first project written in [Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time virtually every system will be capable of running it.
 
 Crucially, Factotum has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on. It executes DAGs and gives you a nice report on what it did.
 
@@ -170,14 +170,16 @@ Check out [the samples][job-samples] for more sample factfiles or the [wiki][fac
 
 We're taking an iterative approach with Factotum - today Factotum won't give you an entire stack for monitoring, scheduling and running data pipelines, but we plan on growing it into a set of tools that will.
 
-Factotum will continue to be our "job executor", but a more complete ecosystem will be developed around it - ideas include an optional scheduler, audit logging, user authentication and more.
+Factotum will continue to be our "job executor", but a more complete ecosystem will be developed around it - ideas include an optional scheduler, audit logging, user authentication and more. If you have specific features you'd like to suggest, please [add a ticket] [factotum-issues] to the GitHub repo.
 
-Our plan is to base all development on the principles we've laid out here - seperation of concerns, plug-and-play compartmentalization and keeping jobs separate from schedules. 
+Our plan is to base all development on the principles we've laid out here - seperation of concerns, plug-and-play compartmentalization and keeping jobs separate from schedules.
 
 <h2 id="contributing">7. Contributing</h2>
 
 Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust please check out the [repository][factotum-repo]. 
 If you have any questions or need help getting started, come join us in our [Discourse forum][factotum-discourse].
+
+[event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
 
 [factotum-discourse]: http://discourse.snowplowanalytics.com/
 [job-samples]: https://github.com/snowplow/factotum/tree/master/samples
@@ -186,6 +188,7 @@ If you have any questions or need help getting started, come join us in our [Dis
 [factotum-repo]: https://github.com/snowplow/factotum
 [rust-lang]: https://www.rust-lang.org/
 
+[factotum-issues]: https://github.com/snowplow/factotum/issues/new
 [factfile-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0
 
 [factotum-discourse]: http://discourse.snowplowanalytics.com/c/for-engineers/factotum

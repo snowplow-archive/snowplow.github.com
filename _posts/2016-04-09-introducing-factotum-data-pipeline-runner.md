@@ -88,7 +88,7 @@ Armed with the "Zen of Factotum", we have written a tool that executes DAGs.
 
 These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is available from Iglu Central as [com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG. 
 
-Factotum is our first project written in [Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time virtually every system will be capable of running it.
+Factotum is our first project written in [Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time Factotum should be runnable on alomst every platform.
 
 Crucially, Factotum has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on. It executes DAGs and gives you a nice report on what it did.
 

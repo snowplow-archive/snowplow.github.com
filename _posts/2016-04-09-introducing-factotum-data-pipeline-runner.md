@@ -43,7 +43,7 @@ To paraphrase The Wire, "you come at the king [cron], you best not miss". These 
 
 <h4>Complex DSLs and Turing-complete jobs</h4>
 
-Most of these tools express tools use specialised configurations, DSLs and similar that need to be owned by an engineer. This creates harder to reason about your job, to edit it and to validate it. It also creates lock-in: if you write a series of orchestration jobs in Airflow in Python - how would you switch to Azkaban? What describes how your tasks are run?
+Most of these tools use specialised configurations, DSLs and similar that require an engineer to own and operate. This creates harder to reason about your job, to edit it and to validate it. It also creates lock-in: if you write a series of orchestration jobs in Airflow in Python - how would you switch to Azkaban? What describes how your tasks are run?
 
 When you have a DSL or a Turing-complete job, the temptation to add in "job duct tape" is incredibly high. It's easy for the separation of church and state (orchestration of data flow versus data flow itself) to become blurred too.
 

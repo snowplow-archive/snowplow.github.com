@@ -162,7 +162,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [wiki]: https://github.com/snowplow/snowplow-mini/wiki/Quickstart-guide
 [issues]: https://github.com/snowplow/snowplow-mini/issues
 
-[img1]: /assets/img/blog/2016/04/austin-powers-dr-evil-and-mini-me.jpg
+[img1]: /assets/img/blog/2016/04/austin-powers-dr-evil-and-mini-me.png
 [get-ip-address]: /assets/img/blog/2016/04/snowplow-mini-fetch-ip-address.png
 [snowplow-mini-homescreen]: /assets/img/blog/2016/04/snowplow-mini-homescreen.png
 [send-sample-events]: /assets/img/blog/2016/04/send-sample-events.png

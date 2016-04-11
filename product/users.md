@@ -65,9 +65,6 @@ redirect_from:
 		<p><a href="http://www.opower.com/"><img src="/assets/img/user-logos/fixed/opower.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-		<p><a href="https://www.artsy.net/"><img src="/assets/img/user-logos/fixed/artsy.png"></a></p>
-	</div>
-	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="https://www.yourmemoir.com/"><img src="/assets/img/user-logos/fixed/yourmemoir.png"></a></p>
 	</div>
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">

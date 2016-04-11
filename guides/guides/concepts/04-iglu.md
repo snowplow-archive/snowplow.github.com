@@ -17,7 +17,7 @@ In the previous section, we described how both [events](../events) and [contexts
 
 In this section, we describe the role played by Iglu, our machine-readable schema repository, in enabling Snowplow to correctly process and warehouse that data.
 
-## Schemaing data in Snowplow
+## Schema-ing data in Snowplow
 
 Snowplow gives you a lot of flexibility to define the events you want to capture, and the data schemas for each of those events. In order to use that functionality, Snowplow requires that you put together schemas for your events and contexts, ahead of data collection time. It then uses those schemas to process the data, in particular:
 
@@ -28,7 +28,7 @@ Iglu is a key technology for making this possible.
 
 ## An overview of how Iglu is used
 
-Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different events and contexts that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the event or context, which points to the location of the schema for the event or context in Iglu. To give a concrete example, the following is a call from the Javascript tracker to send a video play event into Snowplow:
+Snowplow uses Iglu, a schema repository, to store all the schemas associated with the different events and contexts that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the event or context, which points to the location of the schema for the event or context in Iglu. To give a concrete example, the following is a call from the Javascript tracker to send a video play event into Snowplow:
 
 {% highlight javascript %}
 window.snowplow_name_here('trackUnstructEvent', {
@@ -90,7 +90,7 @@ The schemas stored in Iglu are the same documented in the event dictionary. You 
 
 Iglu plays a very important role in Snowplow. Not only does it enable different Snowplow users to define their own different data schemas. It also provides a flexible framework to enable them to evolve those schemas over time. All schemas in Iglu are versioned. If an update is made to a schema where previous events or contexts are still compatible with that schema (for example, one or more additional optional fields are added), Snowplow continues to load the new data, coming in with a reference to the new version of the schema, into the same table as the old data from the schema is still stored. (It just extends the table to accommodate the additional fields.) If, on the other hand, a breaking change is made to the schema, Snowplow will load data that conforms to the new schema into a new table in Amazon Redshift. The old data is still available in the old table. (And indeed, any data sent in with the old version of the schema will continue to be loaded into this table.)
 
-This means that an analyst needs to check for the existence of multiple versions of a schema, and ensure that queries are properly executed across both versions of the table. This requires a bit of extra work - but itmeans that a company can continue to evolve its data model over time, without rendering old data inaccessible, or creating big obstacles for analysts wishing to query the data across points in history where the schema changed.
+This means that an analyst needs to check for the existence of multiple versions of a schema, and ensure that queries are properly executed across both versions of the table. This requires a bit of extra work - but it means that a company can continue to evolve its data model over time, without rendering old data inaccessible, or creating big obstacles for analysts wishing to query the data across points in history where the schema changed.
 
 ## Setting up Snowplow for the first time
 

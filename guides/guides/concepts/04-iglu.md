@@ -84,7 +84,7 @@ INSERT INTO atomic.com_onlinevideoplayer_video_play_1
 VALUES ('IxuThNgl3YA', 'pause', 63);
 {% endhighlight %}
 
-The schemas stored in Iglu are the same documented in the event dictionary. You can think of Iglu as a machine-readable schema repository, and the event dictionary as the human readable schema repository. When Snowplow wants to process or store event data, it will refer to the relevant schemas as stored in Iglu to help it to do so. When a data analyst wants to perform an analysis on the data, however, he / she is more likelyt to consult the event dictionary, where the schema will be available alongside screenshots and descriptions, better enabling her to understand what the data represents.
+The schemas stored in Iglu are the same documented in the event dictionary. You can think of Iglu as a machine-readable schema repository, and the event dictionary as the human readable schema repository. When Snowplow wants to process or store event data, it will refer to the relevant schemas as stored in Iglu to help it to do so. When a data analyst wants to perform an analysis on the data, however, he / she is more likely to consult the event dictionary, where the schema will be available alongside screenshots and descriptions, better enabling her to understand what the data represents.
 
 ## Handling schema evolution
 

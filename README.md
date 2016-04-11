@@ -12,11 +12,9 @@ All content is copyright © 2012-2016 Snowplow Analytics Ltd and not to be reuse
 <a name="1" />
 ## 1. Making changes
 
-Clone the repo and make changes locally.
+Start with cloning the repo. Work from a branch, not master, unless the change is so small that it doesn't matter.
 
-Make sure to **compile and preview the site** before pushing updates to production. In order to compile the website locally, you will need be running VirtualBox and Vagrant.
-
-Navigate to the repo, then build then vagrant up:
+Make sure to **compile and preview the site** before pushing updates to production. You will need [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/) to compile the website. Navigate to the repo, then build then vagrant up:
 
 	$ vagrant up
 

@@ -59,7 +59,7 @@ A software build has a boolean outcome - pass or fail, but that might not be the
 
 <h4>Composability</h4>
 
-Composing a jobflow DAG from smaller jobflow DAGs is an important part of making complex jobflows manageable. Unfortunately build tools don't make this easy. 
+Composing a jobflow DAG from smaller jobflow DAGs is an important part of making complex jobflows manageable. Unfortunately build tools don't make this easy.
 
 <h2 id="zen">2. The zen of Factotum</h2>
 
@@ -80,13 +80,13 @@ After reviewing the existing solutions, we came up with a series of must-have re
 
    * A job is not a schedule, in fact a job has very little to do with its schedule
    * It follows from this that job specification should be completely decoupled from its scheduler
-   * Factotum should not mandate a specific scheduler - 
+   * Factotum should not mandate a specific scheduler -
 
 <h2 id="factotum">3. Factotum 0.1.0</h2>
 
-Armed with the "Zen of Factotum", we have written a tool that executes DAGs. 
+Armed with the "Zen of Factotum", we have written a tool that executes DAGs.
 
-These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is available from Iglu Central as [com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG. 
+These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is available from Iglu Central as [com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG.
 
 Factotum is our first project written in [Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time Factotum should be runnable on alomst every platform.
 
@@ -164,7 +164,7 @@ This example defines three tasks that run shell commands - *echo alpha*, *echo b
 
 Given the above, the tasks will be executed in the following sequence: *echo alpha*, *echo beta* and finally, *echo omega*. Tasks can have multiple dependencies in Factotum, and tasks that are parallelizable will be run concurrently.
 
-Check out [the samples][job-samples] for more sample factfiles or the [wiki][factotum-wiki] for a more complete description of the factfile format. 
+Check out [the samples][job-samples] for more sample factfiles or the [wiki][factotum-wiki] for a more complete description of the factfile format.
 
 <h2 id="roadmap">6. Roadmap for Factotum</h2>
 
@@ -176,7 +176,7 @@ Our plan is to base all development on the principles we've laid out here - sepe
 
 <h2 id="contributing">7. Contributing</h2>
 
-Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust please check out the [repository][factotum-repo]. 
+Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust please check out the [repository][factotum-repo].
 If you have any questions or need help getting started, come join us in our [Discourse forum][factotum-discourse].
 
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/

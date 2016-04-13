@@ -6,6 +6,8 @@ author: Christophe
 category: Data Modeling
 ---
 
+**An updated version of this blogpost was posted to [Discourse](http://discourse.snowplowanalytics.com/t/running-sql-queries-on-dataframes-in-spark-sql-updated/119).**
+
 We have been thinking about [Apache Spark][apache-spark] for some time now at Snowplow. This blogpost is the first in a series that will explore data modeling in Spark using Snowplow data. It's similar to [Justine's write-up][justine] and covers the basics: loading events into a Spark DataFrame on a local machine and running simple SQL queries against the data.
 
 <img src="/assets/img/blog/2015/05/spark_logo.png" style="height:120px">

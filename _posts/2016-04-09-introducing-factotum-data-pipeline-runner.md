@@ -176,7 +176,7 @@ Our plan is to base all development on the principles we've laid out here - sepe
 
 <h2 id="contributing">7. Contributing</h2>
 
-Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust please check out the [repository][factotum-repo].
+Factotum is completely open source - and has been from the start! If you'd like to get involved, or just try your hand at Rust, please check out the [repository][factotum-repo].
 If you have any questions or need help getting started, come join us in our [Discourse forum][factotum-discourse].
 
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/

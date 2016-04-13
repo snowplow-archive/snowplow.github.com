@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Introducing Snowplow Mini
-title-short: Introducing Snowplow Mini
+title-short: Snowplow Mini 0.2.0
 tags: [snowplow, real-time, kinesis, developer tools]
 author: Josh
 category: Releases

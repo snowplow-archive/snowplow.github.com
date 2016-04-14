@@ -1,0 +1,41 @@
+---
+layout: post
+title: The second Snowplow Meetup Berlin scheduled for May
+title-short: Second Snowplow Meetup Berlin scheduled for May
+tags: [meetups, Berlin]
+author: Idan
+category: Meetups
+---
+
+It gives us great pleasure to announce another Snowplow meetup in Berlin co-organised with [LeROI][LeROI] set for the 24th May.
+
+![Berlin picture][Berlin-pic]
+
+This is our second visit to Berlin following a [successful meetup][last-meetup] we had back in August.
+
+The event will take place at [Betahaus][Betahaus] (in the cafe) and will kick off at 6:30pm. The talks will start at 7:00pm.
+
+We plan on giving an uber quick intro to Snowplow and [LeROI] and then give the stage to three Snowplow users for 20 minutes each:
+
+1. Christoph Bünte, Engineering Team Lead at [liveIntent] will give a talk on how they use Snowplow to track intent signals from websites and within emails to generate dynamic, personalised ads.
+
+The second and third talks are still being finalised. If you’d like to talk about how you use Snowplow at your company then [get in touch][contact].
+
+If you’d like to attend, then please [sign up here][meetup]. If you would like to meet either Alex or myself whilst we are in Berlin, feel free to [contact] us.
+
+Finally, big thanks to our partners at [LeROI][LeROI] for their assistance in organising the event. Looking forward meeting you all!
+
+
+
+About the companies presenting:
+
+LiveIntent is a Berlin-based marketplace for advertisements in email newsletters, who have been using the Snowplow Kinesis-based Real-Time pipeline since May 2015. The team are also prolific open source contributors to Snowplow, including authoring two new enrichments (the Cookie and HTTP Headers Enrichments) and improvements to our trackers, Scala Stream Collector and Kinesis S3 apps.
+
+
+[last-meetup]: /blog/2015/08/19/first-snowplow-meetup-berlin-is-a-wrap/
+[meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/events/230285922/
+[Berlin-pic]: /assets/img/blog/2016/04/berlin.jpg
+[Betahaus]: https://www.google.co.uk/maps/place/betahaus/@52.5025407,13.4121985,15z/data=!4m2!3m1!1s0x0:0x1687d2a7997ddff1
+[contact]: /contact/
+[LeROI]: http://www.leroi-marketing.de/
+[LiveIntent]: https://liveintent.com/

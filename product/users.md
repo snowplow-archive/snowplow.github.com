@@ -316,6 +316,9 @@ redirect_from:
   <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
     <p><a href="http://www.vitafy.de"><img src="/assets/img/user-logos/fixed/vitafy.png"></a></p>
   </div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+    <p><a href="http://www.dotandbo.com"><img src="/assets/img/user-logos/fixed/dotandbo.jpeg"></a></p>
+  </div>
 </div>
 
 <div class="row">

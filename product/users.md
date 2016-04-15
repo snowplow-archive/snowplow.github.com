@@ -307,6 +307,15 @@ redirect_from:
   <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.peak.net"><img src="/assets/img/user-logos/fixed/peak.png"></a></p>
 	</div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+    <p><a href="http://www.methodmill.com"><img src="/assets/img/user-logos/fixed/methodmill.jpg"></a></p>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+    <p><a href="https://managedbyq.com"><img src="/assets/img/user-logos/fixed/q.jpg"></a></p>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+    <p><a href="http://www.vitafy.de"><img src="/assets/img/user-logos/fixed/vitafy.png"></a></p>
+  </div>
 </div>
 
 <div class="row">

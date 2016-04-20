@@ -23,18 +23,31 @@ redirect_from:
 
 <div class="wrapper">
   <div class="container narrow">
-    <h1 style="text-align:center">The event data pipeline</h1>
+    <h1 style="text-align:center">The event data pipeline.</h1>
     <p>There are two versions of the Snowplow event data pipeline:</p>
 
     <div class="box">
       <div class="box-header">2 pipelines</div>
       <div class="box-text half">
         <p><strong>Batch pipeline</strong></p>
-        <p>Load your event-level data into your data warehouse to perform advanced analytics.</p>
+        <p>Your event data in your own data warehouse</p>
+        <p>
+          <ol>
+            <li>Run <em>any</em> query on your event data</li>
+            <li>Join web, mobile and marketing data sets with other data sources</li>
+            <li>View all customers interactions across all channels in a single place</li>
+          </ol>
+        </p>
       </div>
       <div class="box-text half">
         <p><strong>Real-time pipeline</strong></p>
-        <p>Load your event-level data into your data warehouse, and make that same data available to data-driven applications and dashboards in real-time.</p>
+        <p>Your event data available to process in real-time, across <em>any</em> application.</p>
+        <p>
+          <ol>
+            <li>Monitor the performance of your business in real-time (real-time dashboards)</li>
+            <li>Respond to your users in real-time (e.g. personalization, marketing automation)</li>
+          </ol>
+        </p>
       </div>
     </div>
     <p>Both pipelines have the same high-level architecture:</p>
@@ -42,101 +55,85 @@ redirect_from:
   </div>
 </div>
 
-<div class="wrapper shaded">
-  <div class="container narrow">
-    <h3>Enrich your data</h3>
-    <p>Extend your event-level data with additional data points from external data sources, including:</p>
-    <p><ul>
-    	<li>GeoIP lookups</li>
-    	<li>Referer parsing</li>
-    	<li>Useragent parsing</li>
-    	<li>Weather data</li>
-    	<li>Currency conversions</li>
-    	<li>Campaign / marketing data</li>
-    </ul></p>
-  </div>
-</div>
-
 <div class="wrapper">
   <div class="container narrow">
-    <h3>Track events from <em>anywhere</em></h3>
-    <p>Track events from your own applications using our extensive library of trackers...</p>
+    <h3>Track events across your entire business.</h3>
+    <p>Track events from your website, mobile apps, server-side applications, desktop applications, call center, warehouse, delivery network, set-top box, smart car, smart home and more, using our extensive library of trackers.</p>
     <p><img src="img/tracker-logos.png"></p>
-    <p>...track events from third party applictions via our webhook integrations.</p>
+    <p>Track events from your third party SaaS providers using our third party integrations.</p>
     <p><img src="img/third-party-integrations.png"></p>
   </div>
 </div>
 
 <div class="wrapper shaded">
   <div class="container narrow">
-    <h3>Process as many events as you want</h3>
-    <p>Snowplow is linearly scalable. Process billions of events per day on your own pipeline.</p>
+    <h3>Enrich your data.</h3>
+    <p>Enrich your event data with the data that you need to answer your most important questions, including:</p>
+    <p><ul>
+      <li>GeoIP and business IP data</li>
+      <li>Weather data</li>
+      <li>Device, operating system and browser data (inferred from useragent strings)</li>
+      <li>Campaign, marketing and attribution data</li>
+      <li>Currency conversion rates</li>
+      <li>External data via JDBC or RESTful API</li>
+    </ul></p>
   </div>
 </div>
 
 <div class="wrapper">
   <div class="container narrow">
-    <h3>Load your data where you need it</h3>
-    <p>Where your data lives has a big impact on what you can do with it. Snowplow supports loading your data into the following data stores out-of-the-box:</p>
+    <h3>Your data where you need it.</h3>
+    <p>Where your data lives has a big impact on what you can do with it. Snowplow supports loading your data directly into the following data stores out-of-the-box:</p>
     <p><img src="img/storage-targets.png"/></p>
   </div>
 </div>
 
 <div class="wrapper shaded">
   <div class="container narrow">
-    <h3>Access your data <em>fast</em></h3>
-    <p>Your event data available to you in seconds.</p>
+    <h3>Trust your data.</h3>
+    <p>The Snowplow pipeline is transparent and auditable. View the data that is input into and output from each each stage in the pipeline. No data is dropped as part of the processing: data that fails validation is kept (with an error log) so you can proactively identify data quality issues and fix them fast.</p>
   </div>
 </div>
 
 <div class="wrapper">
   <div class="container narrow">
-    <h3>Trust your data</h3>
-    <p><ul>
-      <li>Fully auditable pipeline</li>
-      <li>Snowplow is the <em>only</em> event data pipeline that reports volumes of data that <em>fail</em> to successfully process, so you can identify, diagnose and resolve data collection issues fast.</li>
-    </ul></p>
+    <h3>Act on your data. Now.</h3>
+    <p>Our real-pipeline delivers your event data to you in seconds.</p>
   </div>
 </div>
 
 <div class="wrapper shaded">
   <div class="container narrow">
-    <h3>Own your data</h3>
-    <p>Your <em>own</em> data on your <em>own</em> data pipeline on your <em>own</em> AWS account.</p>
+    <h3>Own your data.</h3>
+    <p>It's your event data: not ours. Your data is collected, stored and processed on your own AWS account. No copies of your data are made on our systems.</p>
   </div>
 </div>
 
 <div class="wrapper">
   <div class="container narrow">
-    <h3>Stay current</h3>
-    <p>The Snowplow event data pipeline is architected so that it can evolve with you and your business, as:</p>
-    <p><ul>
-      <li>The events you track change (because your business is always changing)</li>
-      <li>The questions you ask of your data become more sophisticated</li>
-    </ul></p>
+    <h3>Scale.</h3>
+    <p>Snowplow has been designed from the ground up to be linearly scalable. Our largest users process billions of events every day, without breaking a sweat.</p>
   </div>
 </div>
 
 <div class="wrapper shaded">
   <div class="container narrow">
-    <h3>Open source</h3>
-    <p><ul>
-    	<li>Free</li>
-    	<li>1000s of users</li>
-    	<li>Active developer community</li>
-    </ul></p>
-    <p>Check us out on <a href="https://github.com/snowplow/snowplow">Github</a>.</p>
+    <h3>Stay relevant.</h3>
+    <p>The Snowplow data pipeline is built to evolve with your business. Change the events that you track, the way that your describe those events using data, and the way that you model and query that data as your business evolves.</p>
   </div>
 </div>
 
 <div class="wrapper">
   <div class="container narrow">
-    <h3>Find out more</h3>
-      <ul>
-        <li><a href="/product/why-warehouse-your-data/">Why warehouse your digital event data?</a></li>
-        <li><a href="/product/the-best-event-data-warehouse/">What makes Snowplow the best datawarehousing solution for web, mobile and digital event data?</a></li>
-        <li><a href="/product/users/">Which companies use Snowplow, and how they use it?</a></li>
-      </ul>
+    <h3>100% open source.</h3>
+    <p>The Snowplow technology stack has evolved according to the needs and experience of the 1000s of users that trust our technology to deliver collect, process and deliver their event data. All of our code is available on Github under the Apache 2 license.</p>
+  </div>
+</div>
+
+<div class="wrapper shaded">
+  <div class="container narrow">
+    <h3>Join the most <a href="/product/users/">data-sophisticated companies</a> in the world.</h3>
+    <p style="text-align:center"><a href="/product/users/"><img src="img/example-users.png" title="example snowplow users"></a></p>
   </div>
 </div>
 

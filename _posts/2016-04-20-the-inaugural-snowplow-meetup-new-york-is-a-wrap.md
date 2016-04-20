@@ -35,9 +35,10 @@ It was great to see so many Snowplow users at the event and we look forward to o
 
 Huge thank you to Ben Hoyt, Devin Pohl, Dani Waxman and Christophe Bogaert for some very insightful talks, to everyone who came along. Special thanks to [Eytan Seidman][eytan-linked] for kindly hosting the event at the TripAdvisor office and making sure that everyone had plenty to eat and drink.
 
-Don't forget - we have Snowplow Meetups planned in May for [Berlin][berlin-meetup] and [Amsterdam][amsterdam-meetup], and hope to be announcing meetups in [London][london-meetup] and Tel-Aviv for June, and Copenhagen, Budapest and San Francisco later this year. [Get in touch][contact] if you'd like to help make a Snowplow Meetup happen where you live.
+Don't forget - we have Snowplow Meetups planned in May for [Berlin][berlin-meetup] and [Amsterdam][amsterdam-meetup], and hope to be announcing meetups in [London][london-meetup] and Tel-Aviv for June, and Copenhagen, Budapest and [San Francisco][sf-meetup] later this year. [Get in touch][contact] if you'd like to help make a Snowplow Meetup happen where you live.
 
 [new-york-meetup]: http://www.meetup.com/Snowplow-Analytics-New-York/
+[sf-meetup]: http://www.meetup.com/Snowplow-Analytics-San-Francisco/
 [berlin-meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/
 [amsterdam-meetup]: http://www.meetup.com/Snowplow-Analytics-Amsterdam/
 [london-meetup]: http://www.meetup.com/Snowplow-Analytics-London/

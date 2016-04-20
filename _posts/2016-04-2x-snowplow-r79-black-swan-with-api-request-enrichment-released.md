@@ -220,13 +220,24 @@ If you're planning to use Iglu repository with authentication you need to deploy
         }
       },
       {
-        "name": "Private Acme repository",
+        "name": "Private Acme repository for com.acme",
         "priority": 1,
         "vendorPrefixes": [ "com.acme" ],
         "connection": {
           "http": {
             "uri": "http://iglu.acme.com/api",
-            "apikey": "YOUR-API-KEY"
+            "apikey": "APIKEY-FOR-ACME"
+          }
+        }
+      },
+      {
+        "name": "Private Acme repository for com.ajax",
+        "priority": 1,
+        "vendorPrefixes": [ "com.ajax" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglu.acme.com/api",
+            "apikey": "APIKEY-FOR-AJAX"
           }
         }
       }
@@ -234,6 +245,8 @@ If you're planning to use Iglu repository with authentication you need to deploy
   }
 }
 {% endhighlight }
+
+Unfortunately, due to [limitation][issue-124] imposed on Iglu by current authentication system, you'll need to add several entries in `repository` array if you're privately hosting Schemas with different vendors even on a single physical repository.
 
 <h2 id="help">6. Getting help</h2>
 
@@ -257,6 +270,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
 [enrichment-configs]: https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments
+[issue-124]: https://github.com/snowplow/iglu/issues/124
 [issue-2325]: https://github.com/snowplow/snowplow/issues/2325
 [issue-2326]: https://github.com/snowplow/snowplow/issues/2326
 [issue-2327]: https://github.com/snowplow/snowplow/issues/2327

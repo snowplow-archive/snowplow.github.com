@@ -7,9 +7,9 @@ author: Yali
 category: Meetups
 ---
 
-Two weeks ago Snowplow users in Boston convened on the Carbonite offices for the first [Snowplow Meetup Boston][boston-meetup].
+Two weeks ago, hot on the heals of the [Snowplow Meetup New York][ny-meetup], Snowplow users in Boston convened on the Carbonite offices for the first [Snowplow Meetup Boston][boston-meetup].
 
-![rob johnson at carbonite starting his talk][img1]
+![Rob Johnson from carbonite starting his talk][img1]
 
 We had two early Snowplow adopters talk about what they were doing with Snowplow. First, [Rob Johnson][rob-linkedin] discussed how Carbonite has become progressively more sophisticated in their use of data analytics, and the role Snowplow has played in supporting that evolution.
 
@@ -23,15 +23,17 @@ We had two early Snowplow adopters talk about what they were doing with Snowplow
 
 [Christophe Bogaert][christophe] followed up with an overview of event data modeling and a sneak peak at some of the tooling we're working on at Snowplow to make doing event data modeling easier.
 
-Huge thank you to Rob and Ty for two thought-provoking talks, to everyone who came along. Special thanks to Rob and the Carbonite team for kindly hosting the event at the Carbonite office and making sure that everyone had plenty to eat and drink.
+Huge thank you to Rob, Ty and Christophe for three thought-provoking talks. Thanks too to everyone who came along. Special thanks to Rob and the Carbonite team for kindly hosting the event at their offices and making sure that everyone had plenty to eat and drink.
 
-Don't forget - we have Snowplow Meetups planned in May for [Berlin][berlin-meetup] and [Amsterdam][amsterdam-meetup], and hope to be announcing meetups in [London][london-meetup] and Tel-Aviv for June, and Copenhagen, Budapest and San Francisco later this year. [Get in touch][contact] if you'd like to help make a Snowplow Meetup happen where you live.
+Don't forget: we have Snowplow Meetups planned in May for [Berlin][berlin-meetup] and [Amsterdam][amsterdam-meetup], and hope to be announcing meetups in [London][london-meetup] and Tel-Aviv for June, and Copenhagen, Budapest and [San Francisco][sf-meetup] later this year. [Get in touch][contact] if you'd like to help make a Snowplow Meetup happen where you live.
 
 And... We plan to be back in Boston soon - if you'd like to come along to the next meetup there then [join the meetup group][boston-meetup].
 
 
-[img1]: assets/img/blog/2016/04/rob-johnson-carbonite-talk.png
+[img1]: /assets/img/blog/2016/04/rob-johnson-carbonite-talk.png
 [boston-meetup]: http://www.meetup.com/Snowplow-Analytics-Boston/
+[ny-meetup]: http://www.meetup.com/Snowplow-Analytics-New-York/
+[sf-meetup]: 
 [rob-linkedin]: https://www.linkedin.com/in/robert-johnson-bbb3381
 [ty-linked]: https://www.linkedin.com/in/tylerdwilson
 [carbonite]: https://www.carbonite.com/
@@ -40,3 +42,4 @@ And... We plan to be back in Boston soon - if you'd like to come along to the ne
 [berlin-meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/
 [amsterdam-meetup]: http://www.meetup.com/Snowplow-Analytics-Amsterdam/
 [london-meetup]: http://www.meetup.com/Snowplow-Analytics-London/
+[contact]: /contact/

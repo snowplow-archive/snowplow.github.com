@@ -5,8 +5,6 @@ subgroup: analytics
 breadcrumb: catalog analytics
 subbreadcrumb: content page performance
 title: Measuring content page performance
-shortened-link: Content page performance
-weight: 3
 permalink: /guides/recipes/catalog-analytics/measuring-and-comparing-content-page-performance.html
 redirect_from:
   - /analytics/recipes/catalog-analytics/measuring-and-comparing-content-page-performance.html

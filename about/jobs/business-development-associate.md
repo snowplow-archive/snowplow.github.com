@@ -5,7 +5,6 @@ subgroup: jobs
 breadcrumb: Business Development Associate
 title: Business Development Associate job spec
 description: What we're looking for our Business Development Associate
-weight: 3
 ---
 
 <h1>Business Development Associate <small>London, UK or NYC, USA</small></h1>

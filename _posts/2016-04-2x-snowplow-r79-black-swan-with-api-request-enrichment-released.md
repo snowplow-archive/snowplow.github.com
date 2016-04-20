@@ -201,7 +201,7 @@ versions:
   hadoop_elasticsearch: 0.1.0 # UNCHANGED
 </pre>
 
-If you're planning to use Iglu repository with authentication you need to deploy [Iglu repository] [iglu-scala] with support of it and update your Iglu [resolver configuration][new-resolver-conf] with private `apiKey` and new `1-0-1` SchemaVer:
+If you're planning to use Iglu repository with authentication you need to deploy [Iglu repository] [iglu-scala] with support of it and update your Iglu [resolver configuration][new-resolver-conf] with private `apikey` and new `1-0-1` SchemaVer:
 
 {% highlight json %}
 {
@@ -226,7 +226,7 @@ If you're planning to use Iglu repository with authentication you need to deploy
         "connection": {
           "http": {
             "uri": "http://iglu.acme.com/api",
-            "apiKey": "YOUR-API-KEY"
+            "apikey": "YOUR-API-KEY"
           }
         }
       }

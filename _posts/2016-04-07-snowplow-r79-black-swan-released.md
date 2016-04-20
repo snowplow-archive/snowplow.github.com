@@ -201,6 +201,39 @@ versions:
   hadoop_elasticsearch: 0.1.0 # UNCHANGED
 </pre>
 
+If you're planning to use Iglu repository with authentication you need to deploy [Iglu repository] [iglu-scala] with support of it and update your Iglu [resolver configuration][new-resolver-conf] with private `apiKey` and new `1-0-1` SchemaVer:
+
+{% highlight json %}
+{
+  "schema": "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1",
+  "data": {
+    "cacheSize": 500,
+    "repositories": [
+      {
+        "name": "Iglu Central",
+        "priority": 0,
+        "vendorPrefixes": [ "com.snowplowanalytics" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglucentral.com"
+          }
+        }
+      },
+      {
+        "name": "Private Acme repository",
+        "priority": 1,
+        "vendorPrefixes": [ "com.acme" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglu.acme.com/api",
+            "apiKey": "YOUR-API-KEY"
+          }
+        }
+      }
+    ]
+  }
+}
+{% endhighlight }
 
 <h2 id="help">6. Getting help</h2>
 
@@ -220,6 +253,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [iglu-setup]: https://github.com/snowplow/iglu/wiki/Setting-up-an-Iglu-repository
 [iglu-auth]: https://github.com/snowplow/iglu/wiki/API-authentication
 [iglu-scala]:  https://github.com/snowplow/iglu/wiki/Scala-repo
+[new-resolver-conf]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
 [enrichment-configs]: https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments

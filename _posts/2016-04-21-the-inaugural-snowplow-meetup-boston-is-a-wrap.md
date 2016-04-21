@@ -33,7 +33,7 @@ And... We plan to be back in Boston soon - if you'd like to come along to the ne
 [img1]: /assets/img/blog/2016/04/rob-johnson-carbonite-talk.png
 [boston-meetup]: http://www.meetup.com/Snowplow-Analytics-Boston/
 [ny-meetup]: http://www.meetup.com/Snowplow-Analytics-New-York/
-[sf-meetup]: 
+[sf-meetup]: http://www.meetup.com/Snowplow-Analytics-San-Francisco/
 [rob-linkedin]: https://www.linkedin.com/in/robert-johnson-bbb3381
 [ty-linked]: https://www.linkedin.com/in/tylerdwilson
 [carbonite]: https://www.carbonite.com/

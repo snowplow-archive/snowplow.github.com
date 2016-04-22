@@ -27,7 +27,7 @@ In this release, we have modified the apps so that they exit with status code 1 
 
 <h2 id="maxrecords">Configuring MaxRecords</h2>
 
-You can now configure the number of records you want the Kinesis Client Library to retrieve with each call to GetRecords. The default is 10000. This is also the maximum If you see `"Unable to execute HTTP request: Connection reset"` in your error logs you should try reducing maxRecords to make each request smaller and more likely to succeed.
+You can now configure the number of records you want the [Kinesis Client Library][kcl] to retrieve with each call to GetRecords. The default is 10000. This is also the maximum. If you see `"Unable to execute HTTP request: Connection reset"` in your error logs you should try reducing maxRecords to make each request smaller and more likely to succeed.
 
 You can set maxRecords to any positive integer up to 10000 in the configuration file for Stream Enrich (by setting `enrich.streams.in.raw.maxRecords = n`) and Kinesis Elasticsearch Sink (by setting `sink.kinesis.in.maxRecords = n`).
 
@@ -64,5 +64,6 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [changelog]: https://github.com/snowplow/snowplow/tree/master/CHANGELOG
 [akka]: http://akka.io/
 [spray]: http://spray.io/
+[kcl]: https://github.com/awslabs/amazon-kinesis-client
 [issues]: https://github.com/snowplow/snowplow/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

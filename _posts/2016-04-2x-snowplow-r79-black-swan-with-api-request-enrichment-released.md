@@ -7,30 +7,31 @@ author: Anton
 category: Releases
 ---
 
-
-We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]! This release brings brand new API Request Enrichment as well as new HTTP Header Extractor Enrichment and several more improvements on enrichments side.
+We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This release introduces our new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several more improvements on enrichments side.
 
 ![black-swan][black-swan]
 
-1. [API Request Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#requestEnrichment)
-2. [HTTP Header Extractor Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#headerEnrichment)
-3. [Iglu client update](/blog/2016/04/xx/snowplow-r79-black-swan-released#igluClient)
+1. [API Request Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#api-request-enrichment)
+2. [HTTP Header Extractor Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#http-header-extractor-enrichment)
+3. [Iglu client update](/blog/2016/04/xx/snowplow-r79-black-swan-released#iglu-client)
 4. [Other improvements](/blog/2016/04/xx/snowplow-r79-black-swan-released#other)
 5. [Upgrading](/blog/2016/04/xx/snowplow-r79-black-swan-released#upgrading)
 6. [Getting help](/blog/2016/04/xx/snowplow-r79-black-swan-released#help)
 
 <!--more-->
 
-<h2 id="requestEnrichment">1. API Request Enrichment</h2>
+<h2 id="api-request-enrichment">1. API Request Enrichment</h2>
 
 <h3> 1.1 Introducing API Request Enrichment</h3>
 
-API Request Enrichment lets you attach your custom contexts received from stand-alone (dedicated or third-party) REST-service, using URL built from particular event's data.
+The API Request Enrichment lets you enrich your events with data provided by HTTP-based APIs, whether internal to your business or operated by a third-party. (dedicated or third-party) REST-service, using URL built from particular event's data. This is our second, after [JavaScript Enrichment][js-enrichment] step towards entirely customizable enrichment process.
+
+
 Input data to generate URL can be any of event's primitive properties (whose mapping directly to atomic.events table), custom context sent by tracker, unstructured event properties or even custom contexts derived by other enrichments.
 
 Using this enrichment companies with very domain-specific data models can attach contexts derived from truly unique sources.
 This data sources can include company's CRM data, rare domain-specific data providers or inner REST-service.
-This is our second, after [JavaScript Enrichment][js-enrichment] step towards entirely customizable enrichment process.
+
 And comparing to JavaScript Enrichment it is much safer and easier to use.
 
 <h3> 1.2 Using API Request Enrichment</h3>
@@ -247,6 +248,15 @@ If you're planning to use Iglu repository with authentication you need to deploy
 {% endhighlight }
 
 Unfortunately, due to [limitation][issue-124] imposed on Iglu by current authentication system, you'll need to add several entries in `repository` array if you're privately hosting Schemas with different vendors even on a single physical repository.
+
+<h2 id="roadmap">8. Roadmap</h2>
+
+Upcoming Snowplow releases include:
+
+* [Release 78 Great Hornbill][r78-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
+* [Release 79 Black Swan][r79-milestone], which will allow enriching an event by requesting data from a third-party API
+
+Note that these releases are always subject to change between now and the actual release date.
 
 <h2 id="help">6. Getting help</h2>
 

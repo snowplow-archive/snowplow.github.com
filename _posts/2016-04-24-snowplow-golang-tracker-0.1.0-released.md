@@ -7,7 +7,9 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of the [Snowplow Golang Tracker] [golang-repo]. The Tracker is designed to work asynchronously within your Golang code to provide great performance in your applications and servers, even under heavy load, while also storing all of your events persistently in the event of network failure. It will also be used as a building block for a number of projects, including a new daemon to support robust asynchronous sending for the [PHP Tracker] [issue-54].
+We are pleased to announce the release of the [Snowplow Golang Tracker] [golang-repo]. The Tracker is designed to work asynchronously within your Golang code to provide great performance in your applications and servers, even under heavy load, while also storing all of your events persistently in the event of network failure.
+
+It will also be used as a building block for a number of projects, including a new daemon to support robust asynchronous sending for the [PHP Tracker] [issue-54].
 
 In the rest of this post we will cover:
 
@@ -25,7 +27,7 @@ In the rest of this post we will cover:
 The release version of this Tracker is available directly from the GitHub repo and you can download it by running the following:
 
 {% highlight bash %}
-$host go get gopkg.in/snowplow/snowplow-golang-tracker.v1/tracker
+$ go get gopkg.in/snowplow/snowplow-golang-tracker.v1/tracker
 {% endhighlight %}
 
 We are using [gopkg.in](http://labix.org/gopkg.in) as a way of providing easy versioning within the Golang environment.
@@ -97,7 +99,7 @@ The Tracker also contains full support for secure event sending by both `GET` an
 
 We have big plans for the Snowplow Golang Tracker at Snowplow, including:
 
-* Building a daemon to be used with the PHP Tracker for robust async sending ([#54] [issue-54])
+* Building a daemon to be used with the PHP Tracker for robust async sending ([issue #54] [issue-54])
 * Powering the [Snowplow Tracking CLI] [tracking-cli], to let Snowplow users send events from the command-line on Linux, Windows and OS-X
 * Building an equivalent to Logstash for tailing logfiles into Snowplow as well-structured Snowplow events (working title the [Snowplow Logfile Source] [logfile-source])
 

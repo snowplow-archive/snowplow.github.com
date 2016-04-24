@@ -5,7 +5,6 @@ subgroup: jobs
 breadcrumb: Infrastructure Engineer
 title: Infrastructure engineer job spec
 description: What we're looking for our infrastructure engineers
-weight: 1
 ---
 
 <h1>Infrastructure Engineer <small>London, UK</small></h1>

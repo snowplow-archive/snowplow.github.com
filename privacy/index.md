@@ -5,7 +5,6 @@ subgroup: privacy
 category: privacy
 title: Privacy policy
 description: Snowplow privacy policy
-weight: 1
 ---
 
 # Privacy policy

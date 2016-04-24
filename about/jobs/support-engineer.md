@@ -5,7 +5,6 @@ subgroup: jobs
 breadcrumb: Support Engineer
 title: Support engineer job spec
 description: What we're looking for our support engineers
-weight: 1
 ---
 
 <h1>Support Engineer <small>London, UK or Remote</small></h1>
@@ -18,7 +17,7 @@ Responsibilities for our first support engineer will include:
 
 * Handling customer tickets in Zendesk, resolving if possible or escalating further to our Analytics, Data Engineering or Infrastructure Engineering teams
 * Handling Snowplow job failures in PagerDuty, communicating the failure to our customer and either resolving if possible, or working with the customer and/or Snowplow teams to resolve
-* Working with customers on regular support tasks including: upgrading their Snowplow implementations; sharing security best practices; enabling new Snowplow features for their account 
+* Working with customers on regular support tasks including: upgrading their Snowplow implementations; sharing security best practices; enabling new Snowplow features for their account
 * Creating playbooks, documentation and software to reduce your support workload even as we add more customers to our Managed Service
 * Collaborating with Snowplow teams on bug fixes and new features for both our open source projects and our proprietary orchestration and monitoring technology, to make the Managed Service easier to scale
 

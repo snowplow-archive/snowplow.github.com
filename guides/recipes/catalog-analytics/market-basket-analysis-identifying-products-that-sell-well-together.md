@@ -5,8 +5,6 @@ subgroup: analytics
 breadcrumb: catalog analytics
 subbreadcrumb: market basket analysis
 title: Market basket analysis - identifying products and content that go well together
-shortened-link: Market basket analysis
-weight: 4
 permalink: /guides/recipes/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html
 redirect_from:
   - /analytics/recipes/catalog-analytics/market-basket-analysis-identifying-products-that-sell-well-together.html

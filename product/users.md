@@ -412,17 +412,3 @@ redirect_from:
 		</blockquote>
 	</div>
 </div>
-
-
-## Ready for Snowplow?
-
-<div class="html">
-	<a href="/get-started/index.html">
-		<button class="btn btn-large btn-primary center-block" type="button">Get started</button>
-	</a>
-</div>
-
-
-
-[users]: /about/users.html
-[users-how]: /about/users.html#how

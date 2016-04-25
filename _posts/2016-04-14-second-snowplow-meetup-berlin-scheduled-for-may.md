@@ -17,7 +17,7 @@ The event will take place at [Betahaus][Betahaus] (in the cafe) and will kick of
 
 We plan on giving an uber quick intro to Snowplow and [LeROI] and then give the stage to three Snowplow users for 20 minutes each:
 
-1. Christoph Bünte, Engineering Team Lead at [liveIntent] will give a talk on how they use Snowplow to track intent signals from websites and within emails to generate dynamic, personalised ads.
+1. Christoph Bünte, Engineering Team Lead at [LiveIntent] will give a talk on how they use Snowplow to track intent signals from websites and within emails to generate dynamic, personalised ads.
 
 2. Gino will speak about [NUMBER26] [Number26] analytics journey and how they transitioned to using Snowplow's batch-pipeline (from January) and real-time pipeline (from March) this year.
 

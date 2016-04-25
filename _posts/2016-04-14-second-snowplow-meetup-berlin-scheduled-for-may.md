@@ -19,26 +19,20 @@ We plan on giving an uber quick intro to Snowplow and [LeROI] and then give the 
 
 1. Christoph Bünte, Engineering Team Lead at [liveIntent] will give a talk on how they use Snowplow to track intent signals from websites and within emails to generate dynamic, personalised ads.
 
-The second and third talks are still being finalised. If you’d like to talk about how you use Snowplow at your company then [get in touch][contact]. If you’d like to attend, then please [sign up here][meetup]. If you would like to meet either Alex or myself whilst we are in Berlin, feel free to [contact] us.
+2. Gino will speak about [NUMBER26] [Number26] analytics journey and how they transitioned to using Snowplow's batch-pipeline (from January) and real-time pipeline (from March) this year.
+
+The third talk is still being finalised. If you’d like to talk about how you use Snowplow at your company then [get in touch][contact]. If you’d like to attend, then please [sign up here][meetup]. If you would like to meet either Alex or myself whilst we are in Berlin, feel free to [contact] us.
 
 Finally, big thanks to our partners at [LeROI][LeROI] for their assistance in organising the event. Looking forward meeting you all!
 
+## About the companies presenting
 
+## LiveIntent
 
-About the companies presenting:
-------------------------------
 LiveIntent is a Berlin-based marketplace for advertisements in email newsletters, who have been using the Snowplow Kinesis-based Real-Time pipeline since May 2015. The team are also prolific open source contributors to Snowplow, including authoring two new enrichments (the Cookie and HTTP Headers Enrichments) and improvements to our trackers, Scala Stream Collector and Kinesis S3 apps.
 
+## NUMBER26
 
-
-## **New speaker confirmed: Gino from Number26**
-
-We just confirmed Gino Cordt, Head of Data at Number26, as our second speaker.
-
-Gino will speak about [NUMBER26] [Number26] analytics journey and how they transitioned to using Snowplow's batch-pipeline (from January) and real-time pipeline (from March) this year. 
-
-About:
-------
 NUMBER26 is a young company based in Berlin that aims to revolutionise the traditional banking industry and how people spend, save and send money. NUMBER26 is Europe's most modern way of banking. With NUMBER26 the current account is reinvented.
 
 

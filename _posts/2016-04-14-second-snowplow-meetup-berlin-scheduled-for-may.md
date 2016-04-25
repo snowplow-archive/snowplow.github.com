@@ -30,6 +30,19 @@ About the companies presenting:
 LiveIntent is a Berlin-based marketplace for advertisements in email newsletters, who have been using the Snowplow Kinesis-based Real-Time pipeline since May 2015. The team are also prolific open source contributors to Snowplow, including authoring two new enrichments (the Cookie and HTTP Headers Enrichments) and improvements to our trackers, Scala Stream Collector and Kinesis S3 apps.
 
 
+
+# Header 1 title
+## **New speaker confirmed: Gino from Number26**
+
+We just confirmed Gino Cordt, Head of Data at Number26, as our second speaker.
+
+Gino will speak about [NUMBER26] [Number26] analytics journey and how they transitioned to using Snowplow's batch-pipeline (from January) and real-time pipeline (from March) this year. 
+
+About:
+------
+NUMBER26 is a young company based in Berlin that aims to revolutionise the traditional banking industry and how people spend, save and send money. NUMBER26 is Europe's most modern way of banking. With NUMBER26 the current account is reinvented.
+
+
 [last-meetup]: /blog/2015/08/19/first-snowplow-meetup-berlin-is-a-wrap/
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/events/230285922/
 [Berlin-pic]: /assets/img/blog/2016/04/berlin.jpg
@@ -37,3 +50,4 @@ LiveIntent is a Berlin-based marketplace for advertisements in email newsletters
 [contact]: /contact/
 [LeROI]: http://www.leroi-marketing.de/
 [LiveIntent]: https://liveintent.com/
+[Number26]: https://number26.eu/

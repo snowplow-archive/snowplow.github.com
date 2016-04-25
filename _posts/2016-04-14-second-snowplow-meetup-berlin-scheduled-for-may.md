@@ -27,11 +27,11 @@ Finally, big thanks to our partners at [LeROI][LeROI] for their assistance in or
 
 ## About the companies presenting
 
-## LiveIntent
+### LiveIntent
 
 LiveIntent is a Berlin-based marketplace for advertisements in email newsletters, who have been using the Snowplow Kinesis-based Real-Time pipeline since May 2015. The team are also prolific open source contributors to Snowplow, including authoring two new enrichments (the Cookie and HTTP Headers Enrichments) and improvements to our trackers, Scala Stream Collector and Kinesis S3 apps.
 
-## NUMBER26
+### NUMBER26
 
 NUMBER26 is a young company based in Berlin that aims to revolutionise the traditional banking industry and how people spend, save and send money. NUMBER26 is Europe's most modern way of banking. With NUMBER26 the current account is reinvented.
 

@@ -31,7 +31,6 @@ LiveIntent is a Berlin-based marketplace for advertisements in email newsletters
 
 
 
-# Header 1 title
 ## **New speaker confirmed: Gino from Number26**
 
 We just confirmed Gino Cordt, Head of Data at Number26, as our second speaker.

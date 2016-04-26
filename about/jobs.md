@@ -27,7 +27,7 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 ## Vacancies
 
 1. [Infrastructure engineer][infrastructure-engineer] - London, UK [1 position]
-1. [Support engineer][support-engineer] - London, UK or Remote [1 position]
+1. [Support engineer][support-engineer] - Remote, UTC+2/3 [1 position]
 3. [Customer success associate][customer-success-associate] - London, UK or NYC, USA [1 position]
 4. [Business development associate][business-development-associate] - London, UK or NYC, USA [1 position]
 

@@ -4,24 +4,26 @@ group: about
 subgroup: jobs
 breadcrumb: Support Engineer
 title: Support engineer job spec
-description: What we're looking for our support engineers
+description: What we're looking for in our support engineers
 ---
 
-<h1>Support Engineer <small>London, UK or Remote</small></h1>
+<h1>Support Engineer <small>Remote, UTC+2/3</small></h1>
 
-Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 50 customers, many of them processing billions of events per month. The support we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
+Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 70 customers, many of them processing billions of events per month. The support we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
 
-We are looking for our first full-time support engineer for the Snowplow Managed Service. There's room for coding in this position, but you don't have to be a coder to succeed in it: instead we are looking for candidates with analytical minds, high levels of customer empathy and an enthusiasm for troubleshooting problems and improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Customer Success, Analytics or Data/Infrastructure Engineering.
+We are looking for our second full-time support engineer for the Snowplow Managed Service. There's room for coding in this position, but you don't have to be a coder to succeed in it: instead we are looking for candidates with analytical minds, high levels of customer empathy and an enthusiasm for troubleshooting problems and improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Customer Success, Analytics or Data/Infrastructure Engineering.
 
-Responsibilities for our first support engineer will include:
+Responsibilities for our second support engineer will include:
 
 * Handling customer tickets in Zendesk, resolving if possible or escalating further to our Analytics, Data Engineering or Infrastructure Engineering teams
 * Handling Snowplow job failures in PagerDuty, communicating the failure to our customer and either resolving if possible, or working with the customer and/or Snowplow teams to resolve
+* Providing help to the open-source Snowplow community in our Discourse forums
 * Working with customers on regular support tasks including: upgrading their Snowplow implementations; sharing security best practices; enabling new Snowplow features for their account
 * Creating playbooks, documentation and software to reduce your support workload even as we add more customers to our Managed Service
 * Collaborating with Snowplow teams on bug fixes and new features for both our open source projects and our proprietary orchestration and monitoring technology, to make the Managed Service easier to scale
+* Providing a daily hand-off of open and ongoing support incidents to our second support shift
 
-Excellent customer support is at the core of Snowplow’s commercial offering, so in this role you will be working closely with Snowplow co-founders Alex Dean and Yali Sassoon. You will join the support rotation, and take on an agreed number of evening and weekend support hours (compensated by time off in lieu). While the ongoing Managed Service support commitment is the first priority, our support engineers will regularly take full days to work on projects that are strategic for the Support team or wider company.
+Excellent customer support is at the core of Snowplow’s commercial offering, so in this role you will be working closely with Snowplow co-founders Alex Dean and Yali Sassoon. You will join the support rotation, and take on an agreed number of evening and weekend support hours (compensated). While the ongoing Managed Service support commitment is the first priority, our support engineers will regularly take full days to work on projects that are strategic for the Support team or wider company.
 
 We’d love to get to know you if:
 

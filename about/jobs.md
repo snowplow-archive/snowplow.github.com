@@ -7,6 +7,7 @@ description: Join the Snowplow team
 redirect_from:
   - /jobs/
   - /about/jobs.html
+permalink: /about/jobs/
 ---
 
 # Join the Snowplow team!
@@ -26,16 +27,14 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 ## Vacancies
 
-1. [Infrastructure engineer][infrastructure-engineer] - London, UK [1 position]
-1. [Support engineer][support-engineer] - Remote, UTC+2/3 [1 position]
-3. [Customer success associate][customer-success-associate] - London, UK or NYC, USA [1 position]
-4. [Business development associate][business-development-associate] - London, UK or NYC, USA [1 position]
+1. [Junior data analyst][Junior data analyst] - London, UK [1 position]
+2. [Support engineer][support-engineer] - Remote, UTC+2/3 [1 position]
+
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
 
-[business-development-associate]: /about/jobs/business-development-associate/
-[customer-success-associate]: /about/jobs/customer-success-associate/
+[Junior data analyst]: /about/jobs/junior-data-analyst/
 [infrastructure-engineer]: /about/jobs/infrastructure-engineer/
 [support-engineer]: /about/jobs/support-engineer/

@@ -40,7 +40,7 @@ That's it! You're now ready to start using the Tracker.
 
 To setup the Go Tracker you first need to import the package into your code:
 
-{% highlight golang %}
+{% highlight go %}
 import "gopkg.in/snowplow/snowplow-golang-tracker.v1/tracker"
 
 // You can also import the package with a shorter name...
@@ -50,14 +50,14 @@ import sp "gopkg.in/snowplow/snowplow-golang-tracker.v1/tracker"
 
 You can then instantiate and start a new tracker like so:
 
-{% highlight golang %}
+{% highlight go %}
 emitter := sp.InitEmitter(sp.RequireCollectorUri("com.acme"))
 tracker := sp.InitTracker(sp.RequireEmitter(emitter))
 {% endhighlight %}
 
 You are now ready to Track events, so let's send a screen view event:
 
-{% highlight golang %}
+{% highlight go %}
 tracker.TrackScreenView(sp.ScreenViewEvent{ 
   Id: sp.NewString("Screen ID"),
 })

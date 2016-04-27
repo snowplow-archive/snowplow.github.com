@@ -5,6 +5,7 @@ subgroup: jobs
 breadcrumb: Support Engineer
 title: Support engineer job spec
 description: What we're looking for in our support engineers
+permalink: /about/jobs/support-engineer/
 ---
 
 <h1>Support Engineer <small>Remote, UTC+2/3</small></h1>

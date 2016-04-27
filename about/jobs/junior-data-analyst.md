@@ -5,6 +5,7 @@ subgroup: jobs
 breadcrumb: Junior Data Analyst
 title: Junior data analyst job spec
 description: What we're looking for our junior data analyst
+permalink: /about/jobs/junior-data-analyst/
 ---
 
 <h1>Junior Data Analyst <small>London, UK</small></h1>

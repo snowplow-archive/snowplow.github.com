@@ -78,9 +78,9 @@ In order to enable API Request Enrichment you can use configuration similar to f
       }
     },
     "outputs": [ {
+      "schema": "iglu:com.acme/user/jsonschema/1-0-0",
       "json": {
         "jsonPath": "$.record",
-        "schema": "iglu:com.acme/user/jsonschema/1-0-0"
       }
     } ],
     "cache": {

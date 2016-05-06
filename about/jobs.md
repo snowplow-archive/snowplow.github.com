@@ -2,12 +2,12 @@
 layout: page
 group: about
 subgroup: jobs
-title: Jobs at Snowplow - join the Snowplow team!
-description: Join the Snowplow team
+title: Jobs at Snowplow
+description: Jobs at Snowplow
+permalink: /about/jobs/
 redirect_from:
   - /jobs/
   - /about/jobs.html
-permalink: /about/jobs/
 ---
 
 # Join the Snowplow team!

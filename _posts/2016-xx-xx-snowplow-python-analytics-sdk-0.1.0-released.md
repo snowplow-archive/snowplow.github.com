@@ -1,0 +1,68 @@
+---
+layout: post
+title: Snowplow Python Analytics SDK 0.1.0 released
+title-short: Snowplow Python Analytics SDK 0.1.0
+tags: [python, snowplow, enriched events, spark, aws lambda]
+author: Fred
+category: Releases
+---
+
+Following in the footsteps of the Snowplow Scala Analytics SDK, we are happy to announce the release of the Snowplow Python Analytics SDK! This library makes your Snowplow enriched events easier to work with in Python-compatible data processing frameworks like [Apache Spark] [spark] and [AWS Lambda] [lambda].
+
+1. [Overview](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#overview)
+2. [Installation](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#installation)
+3. [Usage](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#usage)
+4. [Getting help](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#help)
+
+<!--more-->
+
+
+<h2 id="overview">1. Overview</h2>
+
+Snowplow's ETL process outputs enriched events in a TSV. The Snowplow Python Analytics SDK can be used to transform this TSV into a JSON. The algorithm used to do this is the same as the one used in the [Kinesis Elasticsearch Sink][kes] and the [Snowplow Scala Analytics SDK][ssas], with one exception: when a field of the input TSV is empty, we leave that field out of the output JSON entirely rather than using a field with the value `null`. Here is an example output JSON:
+
+{% highlight json %}
+{ "app_id":"demo",
+  "platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z",
+  "collector_tstamp":"2015-12-01T04:00:54.000Z","dvce_tstamp":"2015-12-01T03:57:08.986Z",
+  "event":"page_view","event_id":"f4b8dd3c-85ef-4c42-9207-11ef61b2a46e",
+  "name_tracker":"co","v_tracker":"js-2.5.0","v_collector":"clj-1.0.0-tom-0.2.0",...
+{% endhighlight %}
+
+For more examples and detail on the algorithm used, check out the [documentation][kes].
+
+<h2 id="installation">2. Installation</h2>
+
+The SDK is available on PyPI:
+
+{% highlight python %}
+pip install snowplow_analytics_sdk
+{% endhighlight %}
+
+<h2 id="usage">3. Usage</h2>
+
+Use the SDK like this:
+
+{% highlight python %}
+import snowplow_analytics_sdk.event_transformer
+import snowplow_analytics_sdk.snowplow_event_transformation_exception
+
+try:
+    print(snowplow_analytics_sdk.event_transformer.transform(my_enriched_event_tsv))
+except snowplow_analytics_sdk.snowplow_event_transformation_exception.SnowplowEventTransformationException as e:
+    for error_message in e.error_messages:
+        print(error_message)
+{% endhighlight %}
+
+If there are any problems in the input TSV (such as unparseable JSON fields or numeric fields), the `transform` method will throw a `SnowplowEventTransformationException`. This exception contains a list of error messages - one for every problematic field in the input.
+
+<h2 id="help">4. Getting help</h2>
+
+If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
+
+[spark]: http://spark.apache.org/
+[lambda]: https://aws.amazon.com/lambda/
+[kes]: https://github.com/snowplow/snowplow/wiki/Kinesis-Elasticsearch-Sink
+[ssas]: https://github.com/snowplow/snowplow-python-analytics-sdk
+[issues]: https://github.com/snowplow/snowplow/iglu
+[talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

@@ -19,7 +19,7 @@ We have three incredible speakers, doing great things with their Snowplow data:
 
 3. Andrew Shakespeare - Business Intelligence Manage @ [Finery London]
 
-More details to follow, [sign up] today! And yes, we'll have some Pizza and Beer!
+More details to follow, [sign up] today! And yes, we'll have pizza and beer! Read on to learn more about the companies that will speaking.
 
 <!--more-->
 

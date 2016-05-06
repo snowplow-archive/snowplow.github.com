@@ -1,16 +1,15 @@
 <div class="wrapper custom">
 <div class="container narrow">
   <div class="bigbox">
-    <h1>Request a free trial.</h1>
-    <h2>Managed Service – Real-time Pipeline</h2>
+    <h1>Start a trial. It’s free.</h1>
+    <h2>Try Snowplow free for 30 days and see what becomes possible.</h2>
   </div>
 </div>
 
 <div class="container narrower">
-  <form id="requestRealTimeTrial" class="request-trial">
+  <form id="requestTrial" class="request-trial">
 
     <div class="request-trial-trick">
-      <input type="text" class="request-trial-input" id="inputLeadSource" value="Trial Form Real Time">
       <input type="text" class="request-trial-input" id="inputWebsite" maxlength="255">
     </div>
 
@@ -38,21 +37,18 @@
       </div>
     </div>
 
-    <div class="request-trial-group" id="groupEventsPerMonth">
-      <div id="controlsEventsPerMonth">
-        <select class="request-trial-input" id="inputEventsPerMonth">
-          <option value="" disabled selected>Estimated Events per Month</option>
-          <option value="&lt; 1M">&lt; 1M</option>
-          <option value="1M - 10M">1M – 10M</option>
-          <option value="10M - 100M">10M – 100M</option>
-          <option value="100M - 1B">100M – 1B</option>
-          <option value="&gt; 1B">&gt; 1B</option>
+    <div class="request-trial-group" id="groupLeadSource">
+      <div id="controlsLeadSource">
+        <select class="request-trial-input" id="inputLeadSource">
+          <option value="" disabled selected>Product</option>
+          <option value="Trial Form Batch">Batch pipeline ($1,250/mo on the Managed Service)</option>
+          <option value="Trial Form Real Time">Real-time pipeline ($5,000/mo on the Managed Service)</option>
         </select>
       </div>
     </div>
 
     <div style="text-align:center">
-      <button type="submit" id="submitRequestRealTimeTrial" class="cta-button green">Request a free trial</button>
+      <button type="submit" id="submitRequestTrial" class="cta-button green">Start a free trial</button>
     </div>
 
   </form>

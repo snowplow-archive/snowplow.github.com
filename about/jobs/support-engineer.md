@@ -10,7 +10,7 @@ permalink: /about/jobs/support-engineer/
 
 <h1>Support Engineer <small>Remote, UTC+2/3</small></h1>
 
-Our [Managed Service](http://snowplowanalytics.com/get-started/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 70 customers, many of them processing billions of events per month. The support we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
+Our [Managed Service](http://snowplowanalytics.com/trial/) offering has grown significantly over the last year, and we now orchestrate and monitor the Snowplow event pipeline for over 70 customers, many of them processing billions of events per month. The support we provide to our customers is a core part of the Managed Service offering, and we strive to provide the best technical support of any analytics vendor.
 
 We are looking for our second full-time support engineer for the Snowplow Managed Service. There's room for coding in this position, but you don't have to be a coder to succeed in it: instead we are looking for candidates with analytical minds, high levels of customer empathy and an enthusiasm for troubleshooting problems and improving processes and systems. Depending on where your passions lie, there is a path from Support Engineering at Snowplow into Customer Success, Analytics or Data/Infrastructure Engineering.
 

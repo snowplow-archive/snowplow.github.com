@@ -66,10 +66,18 @@ $(function() {
 			return false;
 		}
 
+		if (leadSource == "") {
+			$('#groupLeadSource').addClass("error"); // add class 'error' to #groupLeadSource
+			$('#controlsLeadSource').append('<div class="help-inline">Please choose a product.</div>'); // add this div after the #controlsLeadSoure element
+			return false;
+		}
+
 		dataLayer.push({ // submit form to datalayer
 			'event': 'submit_trial_form',
 			'submission': submission
 		});
+
+		if (leadSource != "") {
 
 		// add various inputs
 
@@ -117,9 +125,9 @@ $(function() {
 	    form.action = "https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 			form.submit();
 
-		}
-
 		// do not reload page
+
+		}
 
 		return false;
 

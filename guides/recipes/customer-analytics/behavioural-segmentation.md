@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
-subbreadcrumb: behavioral segmentation
 title: Behavioral segmentation
 permalink: /guides/recipes/customer-analytics/behavioral-segmentation.html
 redirect_from:

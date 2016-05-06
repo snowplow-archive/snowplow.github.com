@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: event dictionaries
 rank: 2
 title: Event dictionaries and schemas
 description: Understanding event dictionaries and schemas.

@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: pipeline
 rank: 5
 title: Stages in the Snowplow data pipeline
 description: Understanding the Snowplow data pipeline.

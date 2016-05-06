@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: catalog analytics
-subbreadcrumb: measuring catalog traffic
 title: Measure how much traffic different items on your catalog drive to your website
 permalink: /guides/recipes/catalog-analytics/measuring-how-much-traffic-different-items-in-your-catalog-drive-to-your-website.html
 redirect_from:

@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: iglu
 rank: 4
 title: Iglu
 description: Understanding Iglu, a machine-readable schema repository.

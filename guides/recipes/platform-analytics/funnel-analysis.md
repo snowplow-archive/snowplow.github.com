@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: platform analytics
-subbreadcrumb: funnel analysis
 title: Funnel analysis
 permalink: /guides/recipes/platform-analytics/funnel-analysis.html
 redirect_from:

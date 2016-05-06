@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: sending data into snowplow
 rank: 6
 title: Sending data into Snowplow
 description: Understanding how to send data into Snowplow.

@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
 title: An overview of customer analytics with Snowplow
 permalink: /guides/recipes/customer-analytics/
 redirect_from:

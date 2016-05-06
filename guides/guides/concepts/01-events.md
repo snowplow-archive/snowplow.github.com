@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: events
 rank: 1
 title: Events
 description: Understanding events.

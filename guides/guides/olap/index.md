@@ -3,7 +3,6 @@ layout: page
 header: title
 group: guides
 subgroup: tools
-breadcrumb: olap
 title: Convert Snowplow data into a format suitable for OLAP
 permalink: /guides/tools/olap/
 redirect_from:

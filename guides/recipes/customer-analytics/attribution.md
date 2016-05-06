@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
-subbreadcrumb: attribution
 title: Attribution
 permalink: /guides/recipes/customer-analytics/attribution.html
 redirect_from:

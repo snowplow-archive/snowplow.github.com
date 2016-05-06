@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: platform analytics
 title: An overview of platform analytics with Snowplow
 permalink: /guides/recipes/platform-analytics/
 redirect_from:

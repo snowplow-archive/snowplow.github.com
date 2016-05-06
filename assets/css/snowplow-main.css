@@ -7,28 +7,6 @@ main {
 	padding: 0;
 }
 
-/* main: breadcrumb */
-
-.breadcrumb {font-weight: 400; font-size: 15px; color: white}
-
-.breadcrumb a,
-.breadcrumb a:hover,
-.breadcrumb a:focus {text-decoration: none; color: white}
-
-.breadcrumb {
-	text-transform: uppercase;
-	background-color: rgba(63,67,95,0.95);
-  padding: 12px 0;
-  margin: 0;
-}
-
-ol.cd-breadcrumb				{padding: 0; margin: 0}
-ol.cd-breadcrumb:after	{display: table; clear: both}
-
-ol.cd-breadcrumb li				{display: inline-block; margin: 0; float: left}
-ol.cd-breadcrumb li::after	{display: inline-block; margin: 0 15px; content: '❯'}
-ol.cd-breadcrumb li:last-of-type::after {display: none}
-
 /* main: wrappers */
 
 main .wrapper {background-color: white; padding: 45px 0}
@@ -162,10 +140,6 @@ code {
 }
 
 p {line-height: 1.45}
-
-.breadcrumb {
-    border-radius: 0;
-}
 
 /* the big box */
 

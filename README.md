@@ -67,8 +67,6 @@ Second, add a [YAML Front Matter](https://github.com/mojombo/jekyll/wiki/YAML-Fr
 layout: page # set to page (unless the page requires a custom design)
 group: documentation # first level in navigation
 subgroup: analytics # second level in navigation (delete otherwise)
-breadcrumb: customer analytics # third level in navigation (delete otherwise)
-subbreadcrumb: attribution # fourth level in navigation (delete otherwise)
 title: The Snowplow Analytics cookbook # Title as sent to the browser
 permalink: /product/the-best-event-data-warehouse/
 description: The Snowplow Analytics Cookbook contains a wealth of recipes for using Snowplow data to answer your business questions. # Description as passed to Google

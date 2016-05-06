@@ -3,7 +3,6 @@ layout: page
 header: title
 group: guides
 subgroup: tools
-breadcrumb: r
 title: Get started analyzing Snowplow data with R
 permalink: /guides/tools/r/
 redirect_from:

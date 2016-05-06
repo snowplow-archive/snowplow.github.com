@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
-subbreadcrumb: user engagement
 title: Measuring user engagement with Snowplow
 permalink: /guides/recipes/customer-analytics/user-engagement.html
 redirect_from:

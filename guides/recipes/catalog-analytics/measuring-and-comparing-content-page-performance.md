@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: catalog analytics
-subbreadcrumb: content page performance
 title: Measuring content page performance
 permalink: /guides/recipes/catalog-analytics/measuring-and-comparing-content-page-performance.html
 redirect_from:

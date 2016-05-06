@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: concepts
-breadcrumb: entities
 rank: 3
 title: Entities
 description: Understanding entities.

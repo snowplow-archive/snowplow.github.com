@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
-subbreadcrumb: customer Lifetime Value
 title: Customer Lifetime Value
 permalink: /guides/recipes/customer-analytics/customer-lifetime-value.html
 redirect_from:

@@ -2,8 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: customer analytics
-subbreadcrumb: cohort Analysis
 title: Cohort Analysis
 permalink: /guides/recipes/customer-analytics/cohort-analysis.html
 redirect_from:

@@ -2,7 +2,6 @@
 layout: page
 group: guides
 subgroup: analytics
-breadcrumb: catalog analytics
 title: An overview of catalog analytics with Snowplow
 permalink: /guides/recipes/catalog-analytics/
 redirect_from:

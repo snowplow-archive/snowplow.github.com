@@ -3,7 +3,6 @@ layout: page
 header: title
 group: guides
 subgroup: tools
-breadcrumb: sql
 title: Introduction to SQL
 permalink: /guides/tools/sql/
 redirect_from:

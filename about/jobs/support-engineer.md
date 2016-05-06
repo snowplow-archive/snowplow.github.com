@@ -2,7 +2,7 @@
 layout: page
 group: about
 subgroup: jobs
-title: Support engineer job spec
+title: Support engineer
 description: What we're looking for in our support engineers
 permalink: /about/jobs/support-engineer/
 ---

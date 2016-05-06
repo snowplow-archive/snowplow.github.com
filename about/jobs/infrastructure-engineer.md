@@ -2,7 +2,7 @@
 layout: page
 group: about
 subgroup: jobs
-title: Infrastructure engineer job spec
+title: Infrastructure engineer
 description: What we're looking for our infrastructure engineers
 ---
 

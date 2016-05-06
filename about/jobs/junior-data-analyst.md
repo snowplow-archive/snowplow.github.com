@@ -2,7 +2,7 @@
 layout: page
 group: about
 subgroup: jobs
-title: Junior data analyst job spec
+title: Junior data analyst
 description: What we're looking for our junior data analyst
 permalink: /about/jobs/junior-data-analyst/
 ---

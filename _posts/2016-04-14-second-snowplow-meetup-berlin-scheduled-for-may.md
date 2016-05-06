@@ -21,7 +21,9 @@ We plan on giving an uber quick intro to Snowplow and [LeROI] and then give the 
 
 2. Gino will speak about [NUMBER26] [Number26] analytics journey and how they transitioned to using Snowplow's batch-pipeline (from January) and real-time pipeline (from March) this year.
 
-The third talk is still being finalised. If you’d like to talk about how you use Snowplow at your company then [get in touch][contact]. If you’d like to attend, then please [sign up here][meetup]. If you would like to meet either Alex or myself whilst we are in Berlin, feel free to [contact] us.
+3. Matthias Warnke, Business Analyst at [Raisin], will speak about how Raisin tracks individual user journeys in great detail for its complete set of customers across a wide set of marketing channels and domains.
+
+If you’d like to attend, then please [sign up here][meetup]. If you would like to meet either Alex or myself whilst we are in Berlin, feel free to [contact] us.
 
 Finally, big thanks to our partners at [LeROI][LeROI] for their assistance in organising the event. Looking forward meeting you all!
 
@@ -35,6 +37,9 @@ LiveIntent is a Berlin-based marketplace for advertisements in email newsletters
 
 NUMBER26 is a young company based in Berlin that aims to revolutionise the traditional banking industry and how people spend, save and send money. NUMBER26 is Europe's most modern way of banking. With NUMBER26 the current account is reinvented.
 
+### Raisin
+
+Raisin's goal is to offer savers high interest rates! As the leading platform for investments throughout Europe, Raisin provides access to exclusive offers from all over Europe.
 
 [last-meetup]: /blog/2015/08/19/first-snowplow-meetup-berlin-is-a-wrap/
 [meetup]: http://www.meetup.com/Snowplow-Analytics-Berlin/events/230285922/
@@ -44,3 +49,4 @@ NUMBER26 is a young company based in Berlin that aims to revolutionise the tradi
 [LeROI]: http://www.leroi-marketing.de/
 [LiveIntent]: https://liveintent.com/
 [Number26]: https://number26.eu/
+[Raisin]: https://www.raisin.com/

@@ -65,5 +65,5 @@ Then [get started][getstarted] with Snowplow, or [get in touch][getintouch] to f
 [tableau]: http://www.tableausoftware.com/
 [powerpivot]: http://www.microsoft.com/en-us/bi/powerpivot.aspx
 [mahout]: http://mahout.apache.org/
-[getstarted]: /get-started/index.html
+[getstarted]: /trial/
 [getintouch]: /about/index.html

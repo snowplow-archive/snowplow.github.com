@@ -16,17 +16,32 @@ Following in the footsteps of the Snowplow Scala Analytics SDK, we are happy to 
 
 <!--more-->
 
-
 <h2 id="overview">1. Overview</h2>
 
-Snowplow's ETL process outputs enriched events in a TSV. The Snowplow Python Analytics SDK can be used to transform this TSV into a JSON. The algorithm used to do this is the same as the one used in the [Kinesis Elasticsearch Sink][kes] and the [Snowplow Scala Analytics SDK][ssas], with one exception: when a field of the input TSV is empty, we leave that field out of the output JSON entirely rather than using a field with the value `null`. Here is an example output JSON:
+Snowplow's ETL process outputs enriched events in a TSV. This TSV currently has 131 fields, which can make it difficult to work with directly. The Snowplow Python Analytics SDK currently supports one transformation: turning this TSV into a more tractable JSON.
+
+The transformation algorithm used to do this is the same as the one used in the [Kinesis Elasticsearch Sink][kes] and the [Snowplow Scala Analytics SDK][ssas], with one exception: when a field of the input TSV is empty, we leave that field out of the output JSON entirely rather than using a field with the value `null`. Here is an example output JSON:
 
 {% highlight json %}
-{ "app_id":"demo",
-  "platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z",
+{
+  "app_id":"demo", "platform":"web","etl_tstamp":"2015-12-01T08:32:35.048Z",
   "collector_tstamp":"2015-12-01T04:00:54.000Z","dvce_tstamp":"2015-12-01T03:57:08.986Z",
   "event":"page_view","event_id":"f4b8dd3c-85ef-4c42-9207-11ef61b2a46e",
-  "name_tracker":"co","v_tracker":"js-2.5.0","v_collector":"clj-1.0.0-tom-0.2.0",...
+  "name_tracker":"co","v_tracker":"js-2.5.0","v_collector":"clj-1.0.0-tom-0.2.0",
+  ...
+}
+{% endhighlight %}
+
+There are special rules for how custom contexts and unstructured events are added to the JSON. For example, if an enriched event contained a `com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1` unstructured event, then the final JSON would contain:
+
+{% highlight json %}
+{
+  ...
+  "unstruct_event_com_snowplowanalytics_snowplow_link_click_1": {
+    "targetUrl":"http://www.example.com",
+    "elementClasses":["foreground"],
+    "elementId":"exampleLink"
+  },...
 {% endhighlight %}
 
 For more examples and detail on the algorithm used, check out the [documentation][kes].

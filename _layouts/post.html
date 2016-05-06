@@ -4,28 +4,11 @@ theme:
 layout: default
 ---
 <main>
-
-  <div class="breadcrumb">
-    <div class="container">
-      <nav>
-        <ol class="cd-breadcrumb">
-          <li><a href="/">home</a></li>
-          <li><a href="/blog">Blog</a></li>
-          {% if page.category == "Inside the Plow" %}<li><a href="/blog/inside-the-plow">{{ page.category }}</a></li>
-          {% elsif page.category == "Data Modeling" %}<li><a href="/blog/data-modeling">{{ page.category }}</a></li>
-          {% else %}<li><a href="/blog/{{ page.category | downcase }}">{{ page.category }}</a></li>
-          {% endif %}
-          <li><a href="{{ page.url }}">{% if page.title-short %}{{ page.title-short }}{% else %}{{ page.title }}{% endif %}</a></li>
-        </ol>
-      </nav>
-    </div>
-  </div>
-
   <div class="wrapper">
     <div class="container">
       <div class="column wide">
         <div class="post">
-          <div class="datebox">{{ page.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == page.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
+          <div class="datebox">{{ page.date | date_to_long_string }}&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="/blog/{{ page.category | downcase }}">{{ page.category }}</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;{% for author in site.data.authors %}{% if author.name == page.author %}<a href="{{ author.url }}">{{ author.full_name }}</a>{% endif %}{% endfor %}</div>
           <h1>{{ page.title }}</h1>
           <div class="content">{{ content }}</div>
         </div>
@@ -44,5 +27,4 @@ layout: default
       <div class="column narrow">{% include blog/sidebar.html %}</div>
     </div>
   </div>
-
 </main>

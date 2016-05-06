@@ -9,9 +9,31 @@ redirect_from:
   - /product/who-uses-snowplow.html
   - /product/who-uses-snowplow/
 ---
+<h1 style="text-align:center">Learn from the best</h1>
 
-<h1 style="text-align:center">The most data-sophisticated companies use Snowplow</h1>
+<div class="row" style="margin-bottom:30px;">
+	<div class="users-mugshot">
+		<img src="/assets/img/users/thomas-at-peak.png" class="img-circle" />
+	</div>
+	<div class="users-oneliner">
+        <p><q>Snowplow is really powerful when you start to hit that growth curve and going upwards: when you see the signs of accelerating growth and you need to start collecting as much event data as possible.</q></p>
+        <p><small><cite>— Thomas in’t Veld, Lead Data Scientist at <a href="http://www.peak.net/">Peak.net</a>.</cite></small></p>
+        <p>Find out how the team at Peak <a href="/product/case-studies/peak/">use Snowplow data to drive product development and neuroscience</a>.</p>
+    </div>
+</div>
+<div class="row">
+	<div class="users-mugshot">
+		<img src="/assets/img/users/bernardo-at-get-ninjas.jpeg" class="img-circle" />
+	</div>
+	<div class="users-oneliner">
+        <p><q>Snowplow gives us the power and flexibility to collect/analyze data and make smarter product decisions in ways that would be impossible with other tools.</q></p>
+        <p><small><cite>— Bernardo Srulzon, Business Intelligence at <a href="https://www.getninjas.com.br/">GetNinjas</a>.</cite></small></p>
+        <p>Learn how the team at GetNinjas <a href="/product/case-studies/getninjas/">use Snowplow data to perform A/B testing, conversion funnel and form tracking</a>, and slice those tests and analyses across multiple segments and micro-segments.</p>
+    </div>
+</div>
 
+
+<h2 style="text-align:center">The most data-sophisticated companies use Snowplow</h2>
 <div class="row">
 	<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
 		<p><a href="http://www.bibliocommons.com/"><img src="/assets/img/user-logos/fixed/bibliocommons.png"></a></p>
@@ -351,6 +373,8 @@ redirect_from:
 
 	</div>
 </div>
+
+		
 
 <div class="row">
 	<div class="col-xs-3">

@@ -16,6 +16,22 @@ body {
 	font-size: 18px
 }
 
+.logos img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	height: 100px;
+	width: 100px;
+}
+
+.logos2x img {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	height: 200px;
+	width: 200px;
+}
+
 /* various responsive containers */
 
 .container {padding: 0 15px; margin: 0 auto}

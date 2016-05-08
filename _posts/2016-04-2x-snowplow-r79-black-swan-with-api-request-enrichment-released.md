@@ -7,7 +7,7 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This release introduces our new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several more improvements on enrichments side.
+We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This release introduces our new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several other improvements on the enrichments side.
 
 ![black-swan][black-swan]
 
@@ -22,110 +22,23 @@ We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-rel
 
 <h2 id="api-request-enrichment">1. API Request Enrichment</h2>
 
-<h3> 1.1 Introducing API Request Enrichment</h3>
+The [API Request Enrichment] [api-request-enrichment] lets us perform _dimension widening_ on an incoming Snowplow event using any internal or external HTTP-based API. Alongside our [JavaScript Enrichment][js-enrichment], this enrichment is a step on the way to a fully customizable enrichment process for Snowplow.
 
-The API Request Enrichment lets you enrich your events with data provided by HTTP-based APIs, whether internal to your business or operated by a third-party. (dedicated or third-party) REST-service, using URL built from particular event's data. This is our second, after [JavaScript Enrichment][js-enrichment] step towards entirely customizable enrichment process.
+The API Request Enrichment lets you effectively join arbitrary entities to your events during the enrichment process, as opposed to attaching the data in your tracker or in your event data warehouse. This is very powerful, not least for the real-time use case where performing a relational database join post-enrichment is impractical.
 
+This is our most configurable enrichment yet: the API lookup can be driven by data extracted from any field found in the Snowplow enriched event, or indeed any JSON property found within the `unstruct_event`, `contexts` or `derived_contexts` fields. It lets you extract multiple entities from the API's JSON response as self-describing JSONs for adding back into the `derived_contexts` field.
 
-Input data to generate URL can be any of event's primitive properties (whose mapping directly to atomic.events table), custom context sent by tracker, unstructured event properties or even custom contexts derived by other enrichments.
+For a detailed walk-through of the API Request Enrichment, check out our new tutorial, [Integrating Clearbit business data into Snowplow using the API Request Enrichment] [clearbit-tutorial].
 
-Using this enrichment companies with very domain-specific data models can attach contexts derived from truly unique sources.
-This data sources can include company's CRM data, rare domain-specific data providers or inner REST-service.
+You can also find out more on the [API Request Enrichment] [api-request-enrichment] page on the Snowplow wiki.
 
-And comparing to JavaScript Enrichment it is much safer and easier to use.
+<h2 id="headerenrichment">2. HTTP Header Extractor Enrichment</h2>
 
-<h3> 1.2 Using API Request Enrichment</h3>
+In R72 Great Spotted Kiwi we released the [Cookie Extractor Enrichment] [cookie-extractor-enrichment], allowing users to capture first-party cookies set by other services on your domain such as ad servers or CMSes. This data was extracted from the HTTP headers stored in the Thrift raw event payload by the Scala Stream Collector.
 
-In order to enable API Request Enrichment you can use configuration similar to following:
+Depending on your tracking implementation, these HTTP headers can contain other relevant data for analytics - and with this release, community member [Khalid Jazaerly] [khalid] has kindly contributed new more powerful [HTTP Header Extractor Enrichment] [hhe-enrichment].
 
-{% highlight json %}
-{% raw %}
-{
-  "enabled": true,
-  "parameters": {
-    "inputs": [
-      {
-        "key": "user",
-        "pojo": {
-          "field": "user_id"
-        }
-      },
-      {
-        "key": "user",
-        "json": {
-          "field": "contexts",
-          "schemaCriterion": "iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-*-*",
-          "jsonPath": "$.userId"
-        }
-      },
-      {
-        "key": "client",
-        "pojo": {
-          "field": "app_id"
-        }
-      }
-    ],
-    "api": {
-      "http": {
-        "method": "GET",
-        "uri": "http://api.acme.com/users/{{client}}/{{user}}?format=json",
-        "timeout": 5000,
-        "authentication": {
-          "httpBasic": {
-            "username": "xxx",
-            "password": "yyy"
-          }
-        }
-      }
-    },
-    "outputs": [ {
-      "schema": "iglu:com.acme/user/jsonschema/1-0-0",
-      "json": {
-        "jsonPath": "$.record",
-      }
-    } ],
-    "cache": {
-      "size": 3000,
-      "ttl": 60
-    }
-  }
-}
-{% endraw %}
-{% endhighlight %}
-
-Above configuration should be a self-explanatory example of what you can do with new API Request Enrichment.
-Dedicated [API Request Enrichment page][api-enrichment] on our wiki provides more detailed and always up-to-date information on how to use it.
-
-Few important things to notice:
-
-* we're using [JSONPath][jsonpath] format to query JSON, don't confuse it with similar formats
-* if you want to include whole response as context - use `$`
-* if provided JSONPath will be invalid - all events attempted to being enriched will be sent to `enriched/bad`
-* if any of key wasn't found - HTTP request won't be sent and new context won't be derived, but event will be processed as usual
-* if server returned any non-successful response - event will be sent to `enriched/bad` bucket
-* if server response returned JSON which invalidated by schema provided in output - event will be sent to `shredded/bad`
-
-Don't forget that enrichment process usually executing on big and powerful computing cluster which may send enormous amount of HTTP requests to your (or data provider's) server, so we advice you to make sure you have appropriately configured cache and powerful enough HTTP server as it can drastically slowdown whole ETL process.
-
-Bear in mind also that it is up to you to write and [host][iglu-setup] Self-describing JSON Schemas as well as Redshift DDL files for contexts provided by your API.
-You may find [Schema Guru][schema-guru] useful for this purposes.
-
-<h3> 1.3 Improving Snowplow Enrichments </h3>
-
-Most of our enrichments are used as tools for data dimension widening, becoming a middle JOIN for your atomic data.
-Also, you can see HTTP Request Enrichment and JavaScript Enrichment as pioneering custom enrichments, which are not tied to particular data provider or structure of data.
-Our current effort is concentrated on next SQL Query Enrichments which should become a third in kind of custom enrichments.
-
-Unfortunately, having these custom enrichments you currently still cannot use more than one of each kind.
-We now designing a way in which you could specify an order of enrichment execution steps as [directed acyclic graph][DAG] which should both give our users unlimited power of data gathering as well as opportunity to make the enrichment process parallel.
-
-<h2 id="headerEnrichment">2. HTTP Header Extractor Enrichment</h2>
-
-In R72 we presented Cookie Extractor Enrichments, allowing our users to capture first-party cookies from installed on their domain services.
-However, it is also possible to extract even more data hidden in request headers.
-
-For this release our community member [Khalid Jazaerly][khalid] has kindly contributed new more powerful HTTP Header Extractor Enrichment.
-In order to enable it, you can use configuration closely resembling one from Cooke Extractor Enrichment:
+In order to enable it, use a configuration similar to the one for the Cookie Extractor Enrichment:
 
 {% highlight json %}
 {
@@ -141,14 +54,12 @@ In order to enable it, you can use configuration closely resembling one from Coo
 }
 {% endhighlight %}
 
-
-Above configuration will extract all headers from HTTP requests, including cookies and auxiliary headers.
-However, in practice you would probably extract more specific headers.
+This configuration will extract all headers from HTTP requests, including cookies; in practice you would probably extract more specific headers.
 Each extracted header will end up a single derived context following the JSON Schema [org.ietf/http_header/jsonschema/1-0-0][header-schema].
 
 Please note that this enrichment only works with events recorded by the Scala Stream Collector - the CloudFront and Clojure Collectors do not capture HTTP headers.
 
-You can find out more about [HTTP Header Extractor Enrichment][hhe-enrichment] on its dedicated page on Snowplow wiki.
+You can find out more on the [HTTP Header Extractor Enrichment][hhe-enrichment] page on the Snowplow wiki.
 
 <h2 id="igluClient">3. Iglu client update</h2>
 
@@ -251,6 +162,13 @@ Unfortunately, due to [limitation][issue-124] imposed on Iglu by current authent
 
 <h2 id="roadmap">8. Roadmap</h2>
 
+Most of our enrichments are used as tools for data dimension widening, becoming a middle JOIN for your atomic data.
+Also, you can see HTTP Request Enrichment and JavaScript Enrichment as pioneering custom enrichments, which are not tied to particular data provider or structure of data.
+Our current effort is concentrated on next SQL Query Enrichments which should become a third in kind of custom enrichments.
+
+Unfortunately, having these custom enrichments you currently still cannot use more than one of each kind.
+We now designing a way in which you could specify an order of enrichment execution steps as [directed acyclic graph][DAG] which should both give our users unlimited power of data gathering as well as opportunity to make the enrichment process parallel.
+
 Upcoming Snowplow releases include:
 
 * [Release 78 Great Hornbill][r78-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
@@ -266,13 +184,19 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [black-swan]: /assets/img/blog/2016/04/black-swan.jpg
 
+[clearbit-tutorial]: xxx
+
 [js-enrichment]: https://github.com/snowplow/snowplow/wiki/JavaScript-script-enrichment
-[header-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.ietf/http_header/jsonschema/1-0-0
+[cookie-extractor-enrichment]: https://github.com/snowplow/snowplow/wiki/Cookie-extractor-enrichment
+[api-request-enrichment]: https://github.com/snowplow/snowplow/wiki/API-Request-enrichment
 [hhe-enrichment]: https://github.com/snowplow/snowplow/wiki/HTTP-header-extractor-enrichment
+
+[header-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.ietf/http_header/jsonschema/1-0-0
+
 [jsonpath]: http://goessner.net/articles/JsonPath/
 [khalid]: https://github.com/khalidjaz
 [schema-guru]: https://github.com/snowplow/schema-guru
-[api-enrichment]: https://github.com/snowplow/snowplow/wiki/API-Request-enrichment
+
 [iglu-setup]: https://github.com/snowplow/iglu/wiki/Setting-up-an-Iglu-repository
 [iglu-auth]: https://github.com/snowplow/iglu/wiki/API-authentication
 [iglu-scala]:  https://github.com/snowplow/iglu/wiki/Scala-repo

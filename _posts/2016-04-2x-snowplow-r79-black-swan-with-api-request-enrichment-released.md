@@ -184,7 +184,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [black-swan]: /assets/img/blog/2016/04/black-swan.jpg
 
-[clearbit-tutorial]: xxx
+[clearbit-tutorial]: http://discourse.snowplowanalytics.com/t/integrating-clearbit-data-into-snowplow-using-the-api-request-enrichment/210
 
 [js-enrichment]: https://github.com/snowplow/snowplow/wiki/JavaScript-script-enrichment
 [cookie-extractor-enrichment]: https://github.com/snowplow/snowplow/wiki/Cookie-extractor-enrichment

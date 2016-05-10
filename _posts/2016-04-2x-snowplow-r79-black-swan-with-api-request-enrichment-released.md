@@ -16,7 +16,8 @@ We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-rel
 3. [Iglu client update](/blog/2016/05/1x/snowplow-r79-black-swan-released#iglu-client)
 4. [Other improvements](/blog/2016/05/1x/snowplow-r79-black-swan-released#other)
 5. [Upgrading](/blog/2016/05/1x/snowplow-r79-black-swan-released#upgrading)
-6. [Getting help](/blog/2016/05/1x/snowplow-r79-black-swan-released#help)
+6. [Roadmap](/blog/2016/05/1x/snowplow-r79-black-swan-released#roadmap)
+7. [Getting help](/blog/2016/05/1x/snowplow-r79-black-swan-released#help)
 
 <!--more-->
 
@@ -62,9 +63,9 @@ You can find out more on the [HTTP Header Extractor Enrichment][hhe-enrichment] 
 
 <h2 id="iglu-client">3. Iglu client update</h2>
 
-This release also updates the Iglu client used by our Hadoop Enrich and Hadoop Shred components to [version 0.4.0] [iglu-scala-client-040].This version lets you fetch your schemas from Iglu registries with authentication support, allowing you to keep your proprietary schemas private.
+This release also updates the Iglu client used by our Hadoop Enrich and Hadoop Shred components to [version 0.4.0] [iglu-scala-client-040]. This version lets you fetch your schemas from Iglu registries with [authentication support] [iglu-auth], allowing you to keep your proprietary schemas private.
 
-To use registry authentication, you need to be using the Iglu schema registry server released as part of [Iglu R3 Penny Black] [iglu-r3]. Then in the Iglu resolver configuration JSON you use with Snowplow, you will need to add `apikey` to the HTTP repository `connection` object, like so:
+To use registry authentication, you need to be using the Iglu schema registry server released as part of [Iglu R3 Penny Black] [iglu-r3]; the [setup guide] [iglu-setup] is on the Iglu wiki. Then in the Iglu resolver configuration JSON you use with Snowplow, you will need to add `apikey` to the HTTP repository `connection` object, like so:
 
 {% highlight json %}
 {
@@ -124,7 +125,7 @@ For a complete example, see our [sample `config.yml` template][emretlrunner-conf
 
 <h3>iglu_resolver.json</h3>
 
-If you are planning to use an Iglu registry with authentication, update your  to use a private `apikey` and the new `1-0-1` version of the [Iglu resolver configuration schema][new-resolver-conf]. Here is an example:
+If you want to use an Iglu registry with authentication, add a private `apikey` to the registry's configuration entry and set the schema version to [1-0-1][resolver-conf-101]. Here is an example:
 
 {% highlight json %}
 {
@@ -171,27 +172,20 @@ If you are planning to use an Iglu registry with authentication, update your  to
 
 Unfortunately, due to a [current limitation] [i-issue-124] in Iglu's authentication system, you'll need to add one entry into the `repository` array for each set of schemas with a distinct `vendorPrefix` within a single registry. We plan on fixing this in an Iglu release soon.
 
-<h2 id="roadmap">8. Roadmap</h2>
+<h2 id="roadmap">6. Roadmap</h2>
 
-This enrichment is the first in a series of new flexible dimension widening enrichments for Snowplow; we are hard at work already on a new [SQL Query Enrichment] [#issue-xxx], which again we will release with an in-depth tutorial. 
+This enrichment is the first in a series of new flexible dimension widening enrichments for Snowplow; we are hard at work on a [SQL Query Enrichment] [#issue-2321], which we will again release with an in-depth tutorial. 
 
-As we work on more generic enrichments like the JavaScript Scripting Enrichment and the API Request Enrichment, it becomes a 
+As we release more generic enrichments like the JavaScript Scripting Enrichment and the API Request Enrichment, the fact that you can only use one of each enrichment type becomes a more painful limitation. We are now designing a way of specifying an order of enrichment execution steps as [directed acyclic graph] [dag] - which should have performance benefits as well as be much more powerful. Stay tuned on this.
 
-Most of our enrichments are used as tools for data dimension widening, becoming a middle JOIN for your atomic data.
-Also, you can see HTTP Request Enrichment and JavaScript Enrichment as pioneering custom enrichments, which are not tied to particular data provider or structure of data.
-Our current effort is concentrated on next SQL Query Enrichments which should become a third in kind of custom enrichments.
+In the meantime, upcoming Snowplow releases include:
 
-Unfortunately, having these custom enrichments you currently still cannot use more than one of each kind.
-We now designing a way in which you could specify an order of enrichment execution steps as [directed acyclic graph][DAG] which should both give our users unlimited power of data gathering as well as opportunity to make the enrichment process parallel.
-
-Upcoming Snowplow releases include:
-
-* [Release 78 Great Hornbill][r78-milestone], which will bring the Kinesis pipeline up-to-date with the most recent Scala Common Enrich releases. This will also include click redirect support in the Scala Stream Collector
-* [Release 79 Black Swan][r79-milestone], which will allow enriching an event by requesting data from a third-party API
+* [Release 80 Southern Cassowary][r80-milestone], which will bring various performance improvements and bug fixes to the Kinesis pipeline
+* [Release 81 Bird TBC][r81-milestone], which will allow arbitrary Spark jobs to be added to the EMR jobflow to perform data modeling prior to Redshift
 
 Note that these releases are always subject to change between now and the actual release date.
 
-<h2 id="help">6. Getting help</h2>
+<h2 id="help">7. Getting help</h2>
 
 For more details on this release, please check out the [release notes][snowplow-release] on GitHub.
 
@@ -215,12 +209,12 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [iglu-setup]: https://github.com/snowplow/iglu/wiki/Setting-up-an-Iglu-repository
 [iglu-auth]: https://github.com/snowplow/iglu/wiki/API-authentication
 [iglu-scala]:  https://github.com/snowplow/iglu/wiki/Scala-repo
-[new-resolver-conf]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1
-[DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+[resolver-conf-101]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1
 [iglu-scala-client-040]: https://github.com/snowplow/iglu-scala-client/releases/tag/0.4.0
 [iglu-r3]: blog/2016/03/04/iglu-r3-penny-black-released/
 
 [enrichment-configs]: https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments
+[issue-2321]: https://github.com/snowplow/snowplow/issues/2321
 [issue-2325]: https://github.com/snowplow/snowplow/issues/2325
 [issue-2326]: https://github.com/snowplow/snowplow/issues/2326
 [issue-2327]: https://github.com/snowplow/snowplow/issues/2327
@@ -228,6 +222,10 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [i-issue-124]: https://github.com/snowplow/iglu/issues/124
 [isc-issue-38]: https://github.com/snowplow/iglu-scala-client/issues/38
 [isc-issue-47]: https://github.com/snowplow/iglu-scala-client/issues/47
+
+[r80-milestone]: https://github.com/snowplow/snowplow/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Release+80+[KIN]+Southern+Cassowary%22
+[r81-milestone]: https://github.com/snowplow/snowplow/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Release+81+[HAD]+Bird+TBC%22
+[dag]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 

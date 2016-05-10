@@ -45,7 +45,7 @@ There are two primary limitations of funnel analyses, which are worth elaboratin
 1. [It is not always straightforward to identify which users should be included in the funnel analysis] (#who-to-include)
 2. [Funnel analysis is not effective for measuring platform performance where different workflows can be distinguished so easily] (#difficult-to-distinguish-workflow)
 
-<a name="who-to-include"><h3>Who to include in a funnel analysis?</h3></a>
+<h3>Who to include in a funnel analysis?</h3>
 
 A funnel analysis measures the 'effectiveness' of your platform by enabling you to measure the fraction of users who drop out at each stage of the funnel: any drop off is taken to be a fault of the platform that needs to be rectified. A perfect platform, then, is one where all users who embark on a workflow finish it.
 

@@ -11,12 +11,12 @@ We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-rel
 
 ![black-swan][black-swan]
 
-1. [API Request Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#api-request-enrichment)
-2. [HTTP Header Extractor Enrichment](/blog/2016/04/xx/snowplow-r79-black-swan-released#http-header-extractor-enrichment)
-3. [Iglu client update](/blog/2016/04/xx/snowplow-r79-black-swan-released#iglu-client)
-4. [Other improvements](/blog/2016/04/xx/snowplow-r79-black-swan-released#other)
-5. [Upgrading](/blog/2016/04/xx/snowplow-r79-black-swan-released#upgrading)
-6. [Getting help](/blog/2016/04/xx/snowplow-r79-black-swan-released#help)
+1. [API Request Enrichment](/blog/2016/05/1x/snowplow-r79-black-swan-released#api-request-enrichment)
+2. [HTTP Header Extractor Enrichment](/blog/2016/05/1x/snowplow-r79-black-swan-released#http-header-extractor-enrichment)
+3. [Iglu client update](/blog/2016/05/1x/snowplow-r79-black-swan-released#iglu-client)
+4. [Other improvements](/blog/2016/05/1x/snowplow-r79-black-swan-released#other)
+5. [Upgrading](/blog/2016/05/1x/snowplow-r79-black-swan-released#upgrading)
+6. [Getting help](/blog/2016/05/1x/snowplow-r79-black-swan-released#help)
 
 <!--more-->
 
@@ -32,13 +32,13 @@ For a detailed walk-through of the API Request Enrichment, check out our new tut
 
 You can also find out more on the [API Request Enrichment] [api-request-enrichment] page on the Snowplow wiki.
 
-<h2 id="headerenrichment">2. HTTP Header Extractor Enrichment</h2>
+<h2 id="http-header-extractor-enrichment)">2. HTTP Header Extractor Enrichment</h2>
 
 In R72 Great Spotted Kiwi we released the [Cookie Extractor Enrichment] [cookie-extractor-enrichment], allowing users to capture first-party cookies set by other services on your domain such as ad servers or CMSes. This data was extracted from the HTTP headers stored in the Thrift raw event payload by the Scala Stream Collector.
 
-Depending on your tracking implementation, these HTTP headers can contain other relevant data for analytics - and with this release, community member [Khalid Jazaerly] [khalid] has kindly contributed new more powerful [HTTP Header Extractor Enrichment] [hhe-enrichment].
+Depending on your tracking implementation, these HTTP headers can contain other relevant data for analytics - and with this release, community member [Khalid Jazaerly] [khalid] has contributed a new powerful [HTTP Header Extractor Enrichment] [hhe-enrichment] to extract these.
 
-In order to enable it, use a configuration similar to the one for the Cookie Extractor Enrichment:
+The configuration is similar to the one for the Cookie Extractor Enrichment:
 
 {% highlight json %}
 {
@@ -54,66 +54,77 @@ In order to enable it, use a configuration similar to the one for the Cookie Ext
 }
 {% endhighlight %}
 
-This configuration will extract all headers from HTTP requests, including cookies; in practice you would probably extract more specific headers.
-Each extracted header will end up a single derived context following the JSON Schema [org.ietf/http_header/jsonschema/1-0-0][header-schema].
+This configuration will extract all headers from HTTP requests, including cookies; in practice you would probably extract more specific headers. Each extracted header will be stored as a single derived context with the JSON Schema [org.ietf/http_header/jsonschema/1-0-0][header-schema].
 
 Please note that this enrichment only works with events recorded by the Scala Stream Collector - the CloudFront and Clojure Collectors do not capture HTTP headers.
 
 You can find out more on the [HTTP Header Extractor Enrichment][hhe-enrichment] page on the Snowplow wiki.
 
-<h2 id="igluClient">3. Iglu client update</h2>
+<h2 id="iglu-client">3. Iglu client update</h2>
 
-In this release we also updated an internal Iglu client to version 0.4.0.
-Most important feature of this update is ability to fetch your Schemas from Iglu repositories with authentication support. This can be useful if you want to leave structure of your data confidential.
-In order to use API key authentication you need to setup [Iglu Scala repo][iglu-scala] and add `apikey` to HTTP repository `connection` object in your resolver configuration, so it looks like following:
+This release also updates the Iglu client used by our Hadoop Enrich and Hadoop Shred components to [version 0.4.0] [iglu-scala-client-040].This version lets you fetch your schemas from Iglu registries with authentication support, allowing you to keep your proprietary schemas private.
+
+To use registry authentication, you need to be using the Iglu schema registry server released as part of [Iglu R3 Penny Black] [iglu-r3]. Then in the Iglu resolver configuration JSON you use with Snowplow, you will need to add `apikey` to the HTTP repository `connection` object, like so:
 
 {% highlight json %}
 {
-	"name": "Iglu Central",
-	"priority": 0,
-	"vendorPrefixes": [ "com.snowplowanalytics" ],
-	"connection": {
-		"http": {
-			"uri": "http://iglucentral.com",
-			"apikey": "YOUR_API_KEY_HERE"
-		}
-	}
-}
+  "schema": "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1",
+  "data": {
+    "cacheSize": 500,
+    "repositories": [
+      {
+        "name": "Iglu Central",
+        ...
+      },
+      {
+        "name": "Snowplow Schema Registry",
+        "priority": 0,
+        "vendorPrefixes": [
+          "com.snowplowanalytics.snowplow-website"
+        ],
+        "connection": {
+          "http": {
+            "uri": "OUR REGISTRY URI",
+            "apikey": "OUR REGISTRY API KEY"
+          }
+        }
+      }
+      ...
 {% endhighlight %}
 
-Don't forget also to change SchemaVer from `1-0-0` to `1-0-1`.
+Note also the change of the schema from `1-0-0` to `1-0-1`.
 
-Also this update brings two important bug fixes.
-Iglu client now will retry Schema request after first two non-404 errors.
-Previously Iglu client aggressively cached failed HTTP requests and our users could miss events in `enriched` bucket if they were unlucky enough and their HTTP response timed out unexpectedly.
-Also Iglu client now validates fetched Schema before try to validate events against it, which means if JSON Schema appear to be invalid, user will receive meaningful error message about it.
+This update also contains two important bug fixes:
+
+1. Previously the client aggressively cached failed schema lookups, which could cause a whole set of events to fail if the first lookup of a schema failed unexpectedly. Now, the client will retry the lookup 3 times before caching a schema as missing ([issue #38] [isc-issue-38])
+2. The client now validates retrieved schemas before validating events against it. This means that the user will get a meaningful error message if the JSON Schema is invalid ([issue #47] [isc-issue-47])
 
 <h2 id="other">4. Other improvements</h2>
 
 We have also:
 
-* Turned off some enrichments in [examples directory][enrichment-configs] which are not supposed to work without additional configuration to not confuse newcomers ([#2326][issue-2326])  ([#2327][issue-2327])
-* Improved error messages for Weather Enrichment ([#2325][issue-2325])
-* user-agent-utils bumped to newest version, allowing to correctly detect fresh web browsers ([#2516][issue-2516])
+* Disabled the [sample enrichment configurations][enrichment-configs] which need user-specific information, to avoid confusion ([#2326][issue-2326]), ([#2327][issue-2327])
+* Improved the error messages for the Weather Enrichment ([#2325][issue-2325])
+* Bumped our User Agent Utils Enrichment to use the latest version of the library, to better detect recent web browsers ([#2516][issue-2516])
 
 <h2 id="upgrading">5. Upgrading</h2>
 
-The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray:
-
-```
-http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r79_black_swan.zip
-```
+<h3>config.yml</h3>
 
 In the config.yml, update your hadoop_enrich and hadoop_shred job versions like so:
 
-<pre>
+{% highlight yaml %}
 versions:
   hadoop_enrich: 1.7.0        # WAS 1.6.0
   hadoop_shred: 0.9.0         # WAS 0.8.0
   hadoop_elasticsearch: 0.1.0 # UNCHANGED
-</pre>
+{% endhighlight }
 
-If you're planning to use Iglu repository with authentication you need to deploy [Iglu repository] [iglu-scala] with support of it and update your Iglu [resolver configuration][new-resolver-conf] with private `apikey` and new `1-0-1` SchemaVer:
+For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
+
+<h3>iglu_resolver.json</h3>
+
+If you are planning to use an Iglu registry with authentication, update your  to use a private `apikey` and the new `1-0-1` version of the [Iglu resolver configuration schema][new-resolver-conf]. Here is an example:
 
 {% highlight json %}
 {
@@ -158,9 +169,13 @@ If you're planning to use Iglu repository with authentication you need to deploy
 }
 {% endhighlight }
 
-Unfortunately, due to [limitation][issue-124] imposed on Iglu by current authentication system, you'll need to add several entries in `repository` array if you're privately hosting Schemas with different vendors even on a single physical repository.
+Unfortunately, due to a [current limitation] [i-issue-124] in Iglu's authentication system, you'll need to add one entry into the `repository` array for each set of schemas with a distinct `vendorPrefix` within a single registry. We plan on fixing this in an Iglu release soon.
 
 <h2 id="roadmap">8. Roadmap</h2>
+
+This enrichment is the first in a series of new flexible dimension widening enrichments for Snowplow; we are hard at work already on a new [SQL Query Enrichment] [#issue-xxx], which again we will release with an in-depth tutorial. 
+
+As we work on more generic enrichments like the JavaScript Scripting Enrichment and the API Request Enrichment, it becomes a 
 
 Most of our enrichments are used as tools for data dimension widening, becoming a middle JOIN for your atomic data.
 Also, you can see HTTP Request Enrichment and JavaScript Enrichment as pioneering custom enrichments, which are not tied to particular data provider or structure of data.
@@ -202,13 +217,19 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [iglu-scala]:  https://github.com/snowplow/iglu/wiki/Scala-repo
 [new-resolver-conf]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1
 [DAG]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
+[iglu-scala-client-040]: https://github.com/snowplow/iglu-scala-client/releases/tag/0.4.0
+[iglu-r3]: blog/2016/03/04/iglu-r3-penny-black-released/
 
 [enrichment-configs]: https://github.com/snowplow/snowplow/tree/master/3-enrich/config/enrichments
-[issue-124]: https://github.com/snowplow/iglu/issues/124
 [issue-2325]: https://github.com/snowplow/snowplow/issues/2325
 [issue-2326]: https://github.com/snowplow/snowplow/issues/2326
 [issue-2327]: https://github.com/snowplow/snowplow/issues/2327
 [issue-2516]: https://github.com/snowplow/snowplow/issues/2516
+[i-issue-124]: https://github.com/snowplow/iglu/issues/124
+[isc-issue-38]: https://github.com/snowplow/iglu-scala-client/issues/38
+[isc-issue-47]: https://github.com/snowplow/iglu-scala-client/issues/47
+
+[emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
 
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r79-black-swan
 [wiki]: https://github.com/snowplow/snowplow/wiki

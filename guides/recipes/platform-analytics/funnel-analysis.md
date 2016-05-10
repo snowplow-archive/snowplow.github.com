@@ -36,7 +36,7 @@ Funnel analysis is very commonly employed on online shops, for example, to under
 
 Back to [top](#top).
 
-<a name="strengths-and-limitations"><h2>2. Strengths and limitations of funnel analyses</h2></a>
+<h2>2. Strengths and limitations of funnel analyses</h2>
 
 The primary strength of a funnel analysis is that it is incredibly actionable: a funnel analysis will tell you very specifically where on a user journey the platform is not working so well (because users are dropping out of the workflow at a specific step in the workflow). It then becomes possible to test different iterations of your platform and compare the drop-off between versions, measure any uplift and quantify the associated benefit.
 
@@ -55,7 +55,7 @@ If you have a lot of users accidentally starting a workflow, it is likely that y
 
 In an ideal world, you should **only include users / visitors in a funnel analysis who have clearly (through their online behavior) expressed a desire for the outcome of the workflow**. If you run an online shop, for example, you should include all visitors who've come to your site to buy products, but exclude users who are visiting e.g. to look up your contact details, or want to arrange a refund, for example.
 
-<h3><a name="difficult-to-distinguish-workflow">Can we distinguish different workflows in our platform clearly?</a></h3>
+<h3>Can we distinguish different workflows in our platform clearly?</h3>
 
 On some platforms it is very easy to define one or more workflows. On a lead-generation microsite, for example, there is generally *nothing* for a user to do *except* for filling in a webform and submitting their details.
 
@@ -67,7 +67,7 @@ The less clearly we can distinguish users with different intentions and differen
 
 Back to [top](#top).
 
-<h2><a name="any-funnel">3. With Snowplow, you can analyse <strong>any funnel</strong></a></h2>
+<h2>3. With Snowplow, you can analyse <strong>any funnel</strong></h2>
 
 In web analytics, funnel analyses have been made especially popular by Google Analytics.
 
@@ -79,7 +79,7 @@ In the rest of this recipe, we run through the process of performing a funnel an
 
 Back to [top](#top).
 
-<h2><a name="example">4. Performing funnel analysis in Snowplow: a worked example</a></h2>
+<h2>4. Performing funnel analysis in Snowplow: a worked example</h2>
 
 For our worked example, we're going to perform a funnel analysis for an online retailer: [www.psychicbazaar.com] (http://www.psychicbazaar.com/index.php). We're going to look at the purchase funnel, and the following specific steps on it:
 

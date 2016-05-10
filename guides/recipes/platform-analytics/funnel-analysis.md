@@ -10,14 +10,7 @@ redirect_from:
   - /documentation/recipes/platform-analytics/funnel-analysis.html
 ---
 
-<a name="top"><h1>Funnel analysis</h1></a>
-
-1. [An overview of funnel analysis](#overview)
-2. [Strengths and limitations of funnel analyses](#strengths-and-limitations)
-3. [With Snowplow, you can analyse **any funnel**](#any-funnel)
-4. [Performing funnel analysis in Snowplow: a worked example](#example)
-5. [Visaulizing funnel analysis with Tableau](#tableau)
-6. [Visualizing funnel analysis with R](#r)
+<h1>Funnel analysis</h1>
 
 <h2><a name="overview">1. An overview of funnel analysis</a></h2>
 
@@ -351,14 +344,6 @@ We can now plot the results using a stacked bar graph. Click on the stacked bar 
 Note: in the above graph we've editted the y-axis so instead of extending from 0-100%, it extends from 0-10%, to make it easier to read.
 
 The above graph is clear to read. It tells a worrying story: conversion rates on Psychic Bazaar have dropped since a peak in January 2013.
-
-Back to [top](#top).
-
-<a name="r"><h2>6. Visualizing funnel analysis with R</h2></a>
-
-*This part of the tutorial will be written shortly*.
-
-Back to [top](#top).
 
 
 [struct-event]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events

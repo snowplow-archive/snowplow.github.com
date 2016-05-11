@@ -14,6 +14,7 @@ It gives us great pleasure to announce our first Snowplow meetup in Tel-Aviv.
 The event will take place in central Tel-Aviv (Location to be finalised) and will kick off at 6:00pm. The talks will start at 6:30pm. 
 
 We plan on having three talks, 20 minutes each. We look forward to talks from:
+
 1. Yali Sassoon, cofounder at Snowplow, will give an overview of Snowplow, before discussing some of the analytics trends we see in the Snowplow userbase, namely:
 
    * Building single customer views

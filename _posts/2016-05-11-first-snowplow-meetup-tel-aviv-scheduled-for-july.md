@@ -32,13 +32,13 @@ We plan on having three talks, 20 minutes each. We look forward to talks from:
 If you'd like to attend, then please [sign up here][meetup]. If you'd like to meet with Yali and myself whilst we're in Tel-Aviv, do [get in touch][contact]. 
 
 
-##About the companies presenting: 
+## About the companies presenting: 
 
-###Viewbix 
+### Viewbix 
 
 Viewbix makes ordinary videos instantly interactive with the integration of apps and sharing capabilities that engage viewers and present them with immediate calls-to-action for significantly increased reach and ROI. Viewbix players support YouTube, Vimeo Pro, Facebook and other third party videos and can be embedded and shared across the web, mobile devices and social networks. 
 
-###The Culture Trip 
+### The Culture Trip 
 
 The Culture Trip showcases the best art, culture, food and travel for every country in the world. We are passionate about bringing you compelling content, curated by a global community of writers, videographers and photographers. 
 

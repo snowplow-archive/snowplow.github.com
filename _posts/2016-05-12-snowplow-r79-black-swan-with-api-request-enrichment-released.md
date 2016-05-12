@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow 79 Black Swan
-title: "Snowplow 79 Black Swan released"
+title: "Snowplow 79 Black Swan with API Request Enrichment released"
 tags: [snowplow, enrichment, iglu, api, rest]
 author: Anton
 category: Releases

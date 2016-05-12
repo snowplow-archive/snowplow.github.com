@@ -10,11 +10,11 @@ category: Releases
 We are pleased to announce the release of [Snowplow AWS Lambda source][lambda-source-repo] - a new event source for Snowplow that allows you to
 monitor S3 bucket operations using our AWS Lambda function.  
 
-1. [S3 bucket event source support](/blog/2016/05/12/introducing-snowplow-aws-lambda-source#s3-bucket-source)
-2. [Source architecture](/blog/2016/05/12/introducing-snowplow-aws-lambda-source#architecture)
-3. [Installation](/blog/2016/05/12/introducing-snowplow-aws-lambda-source#install)
-4. [Roadmap](/blog/2016/05/12/introducing-snowplow-aws-lambda-source#roadmap)
-5. [Contributing](/blog/2016/05/12/introducing-snowplow-aws-lambda-source#contributing)
+1. [S3 bucket event source support](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#s3-bucket-source)
+2. [Source architecture](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#architecture)
+3. [Installation](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#install)
+4. [Roadmap](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#roadmap)
+5. [Contributing](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#contributing)
 
 <!--more-->
 

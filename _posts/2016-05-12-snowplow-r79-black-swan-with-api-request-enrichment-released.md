@@ -33,7 +33,7 @@ For a detailed walk-through of the API Request Enrichment, check out our new tut
 
 You can also find out more on the [API Request Enrichment] [api-request-enrichment] page on the Snowplow wiki.
 
-<h2 id="http-header-extractor-enrichment)">2. HTTP Header Extractor Enrichment</h2>
+<h2 id="http-header-extractor-enrichment">2. HTTP Header Extractor Enrichment</h2>
 
 In R72 Great Spotted Kiwi we released the [Cookie Extractor Enrichment] [cookie-extractor-enrichment], allowing users to capture first-party cookies set by other services on your domain such as ad servers or CMSes. This data was extracted from the HTTP headers stored in the Thrift raw event payload by the Scala Stream Collector.
 

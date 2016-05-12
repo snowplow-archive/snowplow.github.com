@@ -126,7 +126,7 @@ versions:
   hadoop_enrich: 1.7.0        # WAS 1.6.0
   hadoop_shred: 0.9.0         # WAS 0.8.0
   hadoop_elasticsearch: 0.1.0 # UNCHANGED
-{% endhighlight }
+{% endhighlight %}
 
 For a complete example, see our [sample `config.yml` template][emretlrunner-config-yml].
 
@@ -175,7 +175,7 @@ If you want to use an Iglu registry with authentication, add a private `apikey` 
     ]
   }
 }
-{% endhighlight }
+{% endhighlight %}
 
 Unfortunately, due to a [current limitation] [i-issue-124] in Iglu's authentication system, you'll need to add one entry into the `repository` array for each set of schemas with a distinct `vendorPrefix` within a single registry. We plan on fixing this in an Iglu release soon.
 

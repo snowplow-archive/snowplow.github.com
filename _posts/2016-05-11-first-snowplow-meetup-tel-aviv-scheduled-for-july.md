@@ -25,12 +25,11 @@ We plan on having three talks, 20 minutes each. We look forward to talks from:
 
 2. Dani Waxman, from [Viewbix], will talk about the journey Viewbix went on prior to and after implementing Snowplow, and how Snowplow is employed to enable their users to drive ROI on spend using the Viewbix platform
 
-3. Nir Sivan, from [The culture trip], will talk about their analytics stack, how you implemented Snowplow and some of the insights they found working with the platform.
+3. Nir Sivan, from [The Culture Trip], will talk about their analytics stack, how you implemented Snowplow and some of the insights they found working with the platform.
+
+If you'd like to attend, then please [sign up here][meetup]. If you'd like to meet with Yali and myself whilst we're in Tel-Aviv, do [get in touch][contact]. Read on for more information about that companies that will present.
 
 <!--more-->
-
-If you'd like to attend, then please [sign up here][meetup]. If you'd like to meet with Yali and myself whilst we're in Tel-Aviv, do [get in touch][contact]. 
-
 
 ## About the companies presenting: 
 

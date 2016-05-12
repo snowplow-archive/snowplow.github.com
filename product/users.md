@@ -91,7 +91,7 @@ redirect_from:
   <a href="http://www.thredup.com"><img src="//logo.clearbit.com/thredup.com?size=200"></a>
   <a href="http://www.viadeo.com"><img src="//logo.clearbit.com/viadeo.com?size=200"></a>
   <a href="http://www.feex.com"><img src="//logo.clearbit.com/feex.com?size=200"></a>
-  <a href="http://www.digdeepdigital.com.au"><img src="//logo.clearbit.com/digdeepdigital.com.au?size=200"></a>
+  <!--<a href="http://www.digdeepdigital.com.au"><img src="//logo.clearbit.com/digdeepdigital.com.au?size=200"></a>-->
   <a href="https://www.graze.com"><img src="//logo.clearbit.com/graze.com?size=200"></a>
   <a href="http://www.lingualeo.com"><img src="//logo.clearbit.com/lingualeo.com?size=200"></a>
   <a href="http://www.conversionlogic.com"><img src="//logo.clearbit.com/conversionlogic.com?size=200"></a>

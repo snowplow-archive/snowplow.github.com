@@ -37,7 +37,7 @@ Under the hood, the AWS Lambda source is written in Java 8 and emits each receiv
 
 The Snowplow AWS Lambda source is available on XXX.
 
-Deploying and configuring an AWS Lambda function is still relatively involved - you'll find a [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide introduces an interactive script, `install.sh`, to take you through the process.
+Deploying and configuring an AWS Lambda function is still relatively involved - you'll find a [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide introduces an interactive script, `install.bash`, to take you through the process.
 
 <h2 id="roadmap">4. Roadmap for Snowplow AWS Lambda source</h2>
 

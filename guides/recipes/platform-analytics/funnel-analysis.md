@@ -10,14 +10,7 @@ redirect_from:
   - /documentation/recipes/platform-analytics/funnel-analysis.html
 ---
 
-<a name="top"><h1>Funnel analysis</h1></a>
-
-1. [An overview of funnel analysis](#overview)
-2. [Strengths and limitations of funnel analyses](#strengths-and-limitations)
-3. [With Snowplow, you can analyse **any funnel**](#any-funnel)
-4. [Performing funnel analysis in Snowplow: a worked example](#example)
-5. [Visaulizing funnel analysis with Tableau](#tableau)
-6. [Visualizing funnel analysis with R](#r)
+<h1>Funnel analysis</h1>
 
 <h2><a name="overview">1. An overview of funnel analysis</a></h2>
 
@@ -43,7 +36,7 @@ Funnel analysis is very commonly employed on online shops, for example, to under
 
 Back to [top](#top).
 
-<a name="strengths-and-limitations"><h2>2. Strengths and limitations of funnel analyses</h2></a>
+<h2>2. Strengths and limitations of funnel analyses</h2>
 
 The primary strength of a funnel analysis is that it is incredibly actionable: a funnel analysis will tell you very specifically where on a user journey the platform is not working so well (because users are dropping out of the workflow at a specific step in the workflow). It then becomes possible to test different iterations of your platform and compare the drop-off between versions, measure any uplift and quantify the associated benefit.
 
@@ -52,7 +45,7 @@ There are two primary limitations of funnel analyses, which are worth elaboratin
 1. [It is not always straightforward to identify which users should be included in the funnel analysis] (#who-to-include)
 2. [Funnel analysis is not effective for measuring platform performance where different workflows can be distinguished so easily] (#difficult-to-distinguish-workflow)
 
-<a name="who-to-include"><h3>Who to include in a funnel analysis?</h3></a>
+<h3>Who to include in a funnel analysis?</h3>
 
 A funnel analysis measures the 'effectiveness' of your platform by enabling you to measure the fraction of users who drop out at each stage of the funnel: any drop off is taken to be a fault of the platform that needs to be rectified. A perfect platform, then, is one where all users who embark on a workflow finish it.
 
@@ -62,7 +55,7 @@ If you have a lot of users accidentally starting a workflow, it is likely that y
 
 In an ideal world, you should **only include users / visitors in a funnel analysis who have clearly (through their online behavior) expressed a desire for the outcome of the workflow**. If you run an online shop, for example, you should include all visitors who've come to your site to buy products, but exclude users who are visiting e.g. to look up your contact details, or want to arrange a refund, for example.
 
-<h3><a name="difficult-to-distinguish-workflow">Can we distinguish different workflows in our platform clearly?</a></h3>
+<h3>Can we distinguish different workflows in our platform clearly?</h3>
 
 On some platforms it is very easy to define one or more workflows. On a lead-generation microsite, for example, there is generally *nothing* for a user to do *except* for filling in a webform and submitting their details.
 
@@ -74,7 +67,7 @@ The less clearly we can distinguish users with different intentions and differen
 
 Back to [top](#top).
 
-<h2><a name="any-funnel">3. With Snowplow, you can analyse <strong>any funnel</strong></a></h2>
+<h2>3. With Snowplow, you can analyse <strong>any funnel</strong></h2>
 
 In web analytics, funnel analyses have been made especially popular by Google Analytics.
 
@@ -86,7 +79,7 @@ In the rest of this recipe, we run through the process of performing a funnel an
 
 Back to [top](#top).
 
-<h2><a name="example">4. Performing funnel analysis in Snowplow: a worked example</a></h2>
+<h2>4. Performing funnel analysis in Snowplow: a worked example</h2>
 
 For our worked example, we're going to perform a funnel analysis for an online retailer: [www.psychicbazaar.com] (http://www.psychicbazaar.com/index.php). We're going to look at the purchase funnel, and the following specific steps on it:
 
@@ -351,14 +344,6 @@ We can now plot the results using a stacked bar graph. Click on the stacked bar 
 Note: in the above graph we've editted the y-axis so instead of extending from 0-100%, it extends from 0-10%, to make it easier to read.
 
 The above graph is clear to read. It tells a worrying story: conversion rates on Psychic Bazaar have dropped since a peak in January 2013.
-
-Back to [top](#top).
-
-<a name="r"><h2>6. Visualizing funnel analysis with R</h2></a>
-
-*This part of the tutorial will be written shortly*.
-
-Back to [top](#top).
 
 
 [struct-event]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events

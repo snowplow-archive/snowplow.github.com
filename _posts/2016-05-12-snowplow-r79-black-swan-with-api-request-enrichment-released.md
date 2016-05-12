@@ -7,23 +7,23 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This release introduces our new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several other improvements on the enrichments side.
+We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This appropriately-named release introduces our powerful new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several other improvements on the enrichments side.
 
 ![black-swan][black-swan]
 
-1. [API Request Enrichment](/blog/2016/05/1x/snowplow-r79-black-swan-released#api-request-enrichment)
-2. [HTTP Header Extractor Enrichment](/blog/2016/05/1x/snowplow-r79-black-swan-released#http-header-extractor-enrichment)
-3. [Iglu client update](/blog/2016/05/1x/snowplow-r79-black-swan-released#iglu-client)
-4. [Other improvements](/blog/2016/05/1x/snowplow-r79-black-swan-released#other)
-5. [Upgrading](/blog/2016/05/1x/snowplow-r79-black-swan-released#upgrading)
-6. [Roadmap](/blog/2016/05/1x/snowplow-r79-black-swan-released#roadmap)
-7. [Getting help](/blog/2016/05/1x/snowplow-r79-black-swan-released#help)
+1. [API Request Enrichment](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#api-request-enrichment)
+2. [HTTP Header Extractor Enrichment](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#http-header-extractor-enrichment)
+3. [Iglu client update](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#iglu-client)
+4. [Other improvements](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#other)
+5. [Upgrading](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#upgrading)
+6. [Roadmap](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#roadmap)
+7. [Getting help](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#help)
 
 <!--more-->
 
 <h2 id="api-request-enrichment">1. API Request Enrichment</h2>
 
-The [API Request Enrichment] [api-request-enrichment] lets us perform _dimension widening_ on an incoming Snowplow event using any internal or external HTTP-based API. Alongside our [JavaScript Enrichment][js-enrichment], this enrichment is a step on the way to a fully customizable enrichment process for Snowplow.
+The [API Request Enrichment] [api-request-enrichment] lets us perform _dimension widening_ on an incoming Snowplow event using any internal or external HTTP-based API. We are super-excited about this capability - a first for any event analytics platform. Alongside our [JavaScript Enrichment][js-enrichment], this enrichment is a step on the way to a fully customizable enrichment process for Snowplow.
 
 The API Request Enrichment lets you effectively join arbitrary entities to your events during the enrichment process, as opposed to attaching the data in your tracker or in your event data warehouse. This is very powerful, not least for the real-time use case where performing a relational database join post-enrichment is impractical.
 
@@ -112,7 +112,14 @@ We have also:
 
 <h3>config.yml</h3>
 
-In the config.yml, update your hadoop_enrich and hadoop_shred job versions like so:
+The recommended AMI version to run Snowplow is now **4.5.0** - update your configuration YAML as follows:
+
+{% highlight yaml %}
+emr:
+  ami_version: 4.5.0 # WAS 4.3.0
+{% endhighlight %}
+
+Next, update your `hadoop_enrich` and `hadoop_shred` job versions like so:
 
 {% highlight yaml %}
 versions:

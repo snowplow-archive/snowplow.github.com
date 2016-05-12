@@ -43,15 +43,15 @@ The configuration is similar to the one for the Cookie Extractor Enrichment:
 
 {% highlight json %}
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow.enrichments/http_header_extractor_config/jsonschema/1-0-0",
-	"data": {
-		"vendor": "com.snowplowanalytics.snowplow.enrichments",
-		"name": "http_header_extractor_config",
-		"enabled": true,
-		"parameters": {
-			"headersPattern": ".*"
-		}
-	}
+  "schema": "iglu:com.snowplowanalytics.snowplow.enrichments/http_header_extractor_config/jsonschema/1-0-0",
+  "data": {
+    "vendor": "com.snowplowanalytics.snowplow.enrichments",
+    "name": "http_header_extractor_config",
+    "enabled": true,
+    "parameters": {
+      "headersPattern": ".*"
+    }
+  }
 }
 {% endhighlight %}
 

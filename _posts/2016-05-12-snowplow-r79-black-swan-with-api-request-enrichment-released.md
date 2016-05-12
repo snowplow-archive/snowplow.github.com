@@ -9,8 +9,6 @@ category: Releases
 
 We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This appropriately-named release introduces our powerful new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several other improvements on the enrichments side.
 
-![black-swan][black-swan]
-
 1. [API Request Enrichment](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#api-request-enrichment)
 2. [HTTP Header Extractor Enrichment](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#http-header-extractor-enrichment)
 3. [Iglu client update](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#iglu-client)
@@ -18,6 +16,8 @@ We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-rel
 5. [Upgrading](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#upgrading)
 6. [Roadmap](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#roadmap)
 7. [Getting help](/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released#help)
+
+![black-swan][black-swan]
 
 <!--more-->
 

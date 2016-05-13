@@ -35,9 +35,15 @@ Under the hood, the AWS Lambda source is written in Java 8 and emits each receiv
 
 <h2 id="install">3. Installation</h2>
 
-The Snowplow AWS Lambda source is available on XXX.
+The Snowplow AWS Lambda source is available on Bintray, XXX.
 
-Deploying and configuring an AWS Lambda function is still relatively involved - you'll find a [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide introduces an interactive script, `install.bash`, to take you through the process.
+Deploying and configuring an AWS Lambda function is still relatively involved - you'll find a [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide XXXX.
+
+Here is an example configuration file:
+
+{% highlight yaml %}
+XXX
+{% endhighlight %}
 
 <h2 id="roadmap">4. Roadmap for Snowplow AWS Lambda source</h2>
 
@@ -58,4 +64,3 @@ Lambda function - please check out the [repository][lambda-source-repo].
 [s3-notification-event-schema]: http://iglucentral.com/schemas/com.amazon.aws.lambda/s3_notification_event/jsonschema/1-0-0
 
 [snowplow-java-tracker]: https://github.com/snowplow/snowplow-java-tracker
-

@@ -12,11 +12,13 @@ redirect_from:
   - /guides/concepts/iglu/
 ---
 
+# Understanding Iglu
+
 In the previous section, we described how both [events](../events) and [contexts](../contexts) have schemas which define what data is recorded about the event, or context, at data capture time.
 
 In this section, we describe the role played by Iglu, our machine-readable schema repository, in enabling Snowplow to correctly process and warehouse that data.
 
-## Schema-ing data in Snowplow
+## Schema'ing data in Snowplow
 
 Snowplow gives you a lot of flexibility to define the events you want to capture, and the data schemas for each of those events. In order to use that functionality, Snowplow requires that you put together schemas for your events and contexts, ahead of data collection time. It then uses those schemas to process the data, in particular:
 

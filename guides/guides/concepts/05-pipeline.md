@@ -12,6 +12,8 @@ redirect_from:
   - /documentation/concepts/snowplow-data-pipeline/
 ---
 
+# Stages in the Snowplow data pipeline
+
 ![data-pipeline](/assets/img/architecture/snowplow-architecture.png)
 
 The Snowplow pipeline is built to enable a very clean separation of the following steps in the data processing flow:

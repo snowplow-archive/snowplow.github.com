@@ -12,6 +12,8 @@ redirect_from:
   - /documentation/concepts/sending-data-into-snowplow/
 ---
 
+# Sending data into Snowplow
+
 ![front-part-of-data-pipeline](/assets/img/architecture/snowplow-architecture-1-trackers-and-webhooks.png)
 
 Data is sent into Snowplow by trackers and webhooks.

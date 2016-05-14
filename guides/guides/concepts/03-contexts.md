@@ -12,6 +12,8 @@ redirect_from:
   - /documentation/concepts/contexts/
 ---
 
+# Understanding contexts (entities)
+
 When an event occurs, it generally involves a number of entities, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry](../event-dictionaries-and-schemas) might have the following entities associated with it:
 
 1. A user entity, who performed the search

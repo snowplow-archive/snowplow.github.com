@@ -34,7 +34,7 @@ val timestamp = Tracker.TrueTimestamp(1459778542000L)
 tracker.trackStructEvent(category, action, timestamp=Some(timestamp))
 {% endhighlight %}
 
-Using above code, tracker will send the event with the `ttm` parameter attached, per the [Snowlpow Tracker Protocol] [tracker-protocol]. If you do not tag timestamp as a `TrueTimestamp` and instead provide a simple timestamp of type `Long`, the tracker will send it as the `dtm` parameter as before. Under the hood this implementation uses a Scala-specific feature - implicit conversions.
+Using above code, tracker will send the event with the `ttm` parameter attached, per the [Snowplow Tracker Protocol] [tracker-protocol]. If you do not tag timestamp as a `TrueTimestamp` and instead provide a simple timestamp of type `Long`, the tracker will send it as the `dtm` parameter as before. Under the hood this implementation uses a Scala-specific feature - implicit conversions.
 
 A warning: you should only use `TrueTimestamp` when you are absolutely sure that this is the definitive timestamp for the event, uncorrupted by a defective device clock or malicious user.
 

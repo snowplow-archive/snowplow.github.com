@@ -184,7 +184,7 @@ Then [get in touch][contact] with the Snowplow team!
 [github-ad-impression-tracking-with-js-example]: https://github.com/snowplow/snowplow-javascript-tracker/blob/master/examples/ads/async.html
 [iglu-central]: https://github.com/snowplow/iglu-central
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
-[custom-structured-events]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#event
+[custom-structured-event]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#event
 [custom-unstructured-event]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#310-custom-unstructured-event-tracking
 [iglu-webhook]: https://github.com/snowplow/snowplow/wiki/Iglu-webhook-adapter
 [uri-redirect]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/uri_redirect/jsonschema/1-0-0

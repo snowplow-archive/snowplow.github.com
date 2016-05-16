@@ -9,10 +9,10 @@ category: Releases
 
 Following in the footsteps of the Snowplow Scala Analytics SDK, we are happy to announce the release of the Snowplow Python Analytics SDK! This library makes your Snowplow enriched events easier to work with in Python-compatible data processing frameworks like [Apache Spark] [spark] and [AWS Lambda] [lambda].
 
-1. [Overview](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#overview)
-2. [Installation](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#installation)
-3. [Usage](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#usage)
-4. [Getting help](/blog/2016/xx/xx/snowplow-python-analytics-sdk-0.1.0-released#help)
+1. [Overview](/blog/2016/05/16/snowplow-python-analytics-sdk-0.1.0-released#overview)
+2. [Installation](/blog/2016/05/16/snowplow-python-analytics-sdk-0.1.0-released#installation)
+3. [Usage](/blog/2016/05/16/snowplow-python-analytics-sdk-0.1.0-released#usage)
+4. [Getting help](/blog/2016/05/16/snowplow-python-analytics-sdk-0.1.0-released#help)
 
 <!--more-->
 

@@ -41,6 +41,20 @@ Most useful feature of Scala Iglu Core is type classes for injecting and extract
 One more Scala-specific feature is container classes `SelfDescribingSchema` and `SelfDescribingData`.
 It basically just represents pair of `SchemaKey` along with data (or Schema) it describes.
 These can be used to store, serialize and pass around data between various Scala libraries in more type-safe and concise way.
+Overall, you don't have to know any details about Scala Iglu Core type classes and how to implement them since we're also providing complete implementations for several popular JSON libraries such as [Json4s][json4s] and [Circe][circe], you can just include them as dependencies to your projects and have all features Iglu Core provides:
+
+{% highlight %}
+
+import com.snowplowanalytics.iglu.core.json4s._
+
+implicit val stringifyData = StringifyData
+
+val schemaKey = SchemaKey("com.acme", "event", "jsonschema", SchemaKey(1,0,0))
+val data: JValue = ???
+
+SelfDescribingData(schemaKey).asString
+
+{% endhighlight %}
 
 More detailed information can be found on wiki pages dedicated to [Iglu Core][iglu-core] and [Scala Iglu Core][scala-iglu-core].
 
@@ -73,6 +87,8 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [snowplow]: https://github.com/snowplow/snowplow
 [schema-guru]: https://github.com/snowplow/schema-guru
 [iglu-scala-client]: https://github.com/snowplow/iglu-scala-client
+[json4s]: http://json4s.org/
+[circe]: https://github.com/travisbrown/circe
 
 [self-describing-schemas]: https://github.com/snowplow/iglu/wiki/Self-describing-JSON-Schemas
 [schemaver]: https://github.com/snowplow/iglu/wiki/SchemaVer

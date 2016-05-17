@@ -7,7 +7,17 @@ author: Fred
 category: Releases
 ---
 
-Following in the footsteps of the Snowplow Scala Analytics SDK, we are happy to announce the release of the Snowplow Python Analytics SDK! This library makes your Snowplow enriched events easier to work with in Python-compatible data processing frameworks like [Apache Spark] [spark] and [AWS Lambda] [lambda].
+Following in the footsteps of the [Snowplow Scala Analytics SDK] [scala-sdk-post], we are happy to announce the release of the [Snowplow Python Analytics SDK] [sdk-repo]! This library makes your Snowplow enriched events easier to work with in Python-compatible data processing frameworks such as [Apache Spark] [spark] and [AWS Lambda] [lambda].
+
+Some good use cases for the SDK include:
+
+1. Performing [event data modeling] [event-data-modeling] in [PySpark] [pyspark] as part our Hadoop batch pipeline
+2. Developing machine learning models on your event data using PySpark (e.g. using [Databricks][databricks] or [Zeppelin on EMR][zeppelin-on-emr])
+3. Performing analytics-on-write in AWS Lambda as part of our Kinesis real-time pipeline:
+
+![sdk-usage-img] [sdk-usage-img]
+
+Read on below the jump for:
 
 1. [Overview](/blog/2016/05/17/snowplow-python-analytics-sdk-0.1.0-released#overview)
 2. [Installation](/blog/2016/05/17/snowplow-python-analytics-sdk-0.1.0-released#installation)
@@ -75,9 +85,21 @@ If there are any problems in the input TSV (such as unparseable JSON fields or n
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+And if there's another Snowplow Analytics SDK you'd like us to prioritize creating, please let us know on the [forums] [discourse]!
+
+[sdk-repo]: https://github.com/snowplow/snowplow-python-analytics-sdk
+[sdk-usage-img]: /assets/img/blog/2016/03/scala-analytics-sdk-usage.png
+
+[event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
+
 [spark]: http://spark.apache.org/
+[pyspark]: https://spark.apache.org/docs/0.9.0/python-programming-guide.html
 [lambda]: https://aws.amazon.com/lambda/
+
 [kes]: https://github.com/snowplow/snowplow/wiki/Kinesis-Elasticsearch-Sink
 [ssas]: https://github.com/snowplow/snowplow-python-analytics-sdk
+[scala-sdk-post]: /blog/2016/03/23-snowplow-scala-analytics-sdk-0.1.0-released
+
 [issues]: https://github.com/snowplow/snowplow/iglu
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
+[discourse]: http://discourse.snowplowanalytics.com/

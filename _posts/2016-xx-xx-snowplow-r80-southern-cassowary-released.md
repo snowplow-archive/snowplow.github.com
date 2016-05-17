@@ -37,6 +37,10 @@ Stream Enrich's logging for failed records is now less verbose: instead of loggi
 
 Additionally, both the Scala Stream Collector and Stream Enrich now log reports of stream nonexistence at the `error` level rather than the `info` level.
 
+<h2 id="other">Continuous Deployment</h2>
+
+The Kinesis apps are now continuously deployed using [Travis CI][travis]. This speeds up our development cycle by making it easier to publish new versions.
+
 <h2 id="other">Other improvements</h2>
 
 * For each app, the example configuration files have been moved out of the `src` directory and into a new `example` directory. This prevents them from being needlessly added to the jar.
@@ -57,6 +61,7 @@ For more details on this release, please check out the [release notes][snowplow-
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
 
+[travis]: https://travis-ci.com/
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r80-southern-cassowary
 [southern-cassowary]: /assets/img/blog/2016/05/southern-cassowary.jpg
 [firefox-bug]: https://bugzilla.mozilla.org/show_bug.cgi?id=884693

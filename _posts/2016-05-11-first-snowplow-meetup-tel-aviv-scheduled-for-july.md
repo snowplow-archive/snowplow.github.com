@@ -11,7 +11,7 @@ It gives us great pleasure to announce our first Snowplow meetup in Tel-Aviv.
 
 ![Tel-Aviv picture][Tel-Aviv-pic]
 
-The event will take place in central Tel-Aviv (Location to be finalised) and will kick off at 6:00pm. The talks will start at 6:30pm. 
+The event will take place on the 11th July in central Tel-Aviv (Location to be finalised) and will kick off at 6:00pm. The talks will start at 6:30pm. 
 
 We plan on having three talks, 20 minutes each. We look forward to talks from:
 

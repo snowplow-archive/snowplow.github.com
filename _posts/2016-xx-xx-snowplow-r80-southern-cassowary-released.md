@@ -9,7 +9,14 @@ category: Releases
 
 [Snowplow 80 Southern Cassowary][snowplow-release] is now available! This is a lightweight real-time pipeline release. Read on for more information...
 
-<!--TODO: table of contents-->
+1. [Access to the latest Common Enrich version](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#commonEnrich)
+2. [Exiting on error](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#terminate)
+3. [Configuring MaxRecords](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#maxrecords)
+4. [Changes to logging](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#logging)
+5. [Continuous deployment](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#cicd)
+5. [Other improvements](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#other)
+6. [Upgrading](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#upgrading)
+7. [Getting help](/blog/2016/xx/xx/snowplow-r80-southern-cassowary-released#help)
 
 ![southern-cassowary][southern-cassowary]
 
@@ -37,7 +44,7 @@ Stream Enrich's logging for failed records is now less verbose: instead of loggi
 
 Additionally, both the Scala Stream Collector and Stream Enrich now log reports of stream nonexistence at the `error` level rather than the `info` level.
 
-<h2 id="other">Continuous Deployment</h2>
+<h2 id="cicd">Continuous Deployment</h2>
 
 The Kinesis apps are now continuously deployed using [Travis CI][travis]. This speeds up our development cycle by making it easier to publish new versions.
 

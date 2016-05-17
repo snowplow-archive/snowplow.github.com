@@ -28,7 +28,7 @@ It was built around few core ideas like [Self-describing Schemas][self-describin
 While we were working on these applications, we implemented data structures and related functions common for all of them.
 But these common entities were scattered around in different codebases. This scattering result in unwanted code duplication and inconsistent behavior. To fix it we decided to extract these very basic data structures and functions into separate library - Scala Iglu Core.
 
-Beside of consistent behavior and deduplication of code, we pursued one more important goal - provide reference-implementation of Iglu concepts for other languages. This is important because Iglu was designed to be not dependent on any particular programming language or platform which means nothing stops users from implementing their own registries, clients or other apps using Iglu technologies.
+Beside of consistent behavior and deduplication of code, we pursued one more important goal - provide a reference-implementation of Iglu concepts for other languages. This is important because Iglu was designed to be not dependent on any particular programming language or platform which means nothing stops users from implementing their own registries, clients or other apps using Iglu technologies.
 
 Mentioned above core entities include following data structures:
 
@@ -36,7 +36,13 @@ Mentioned above core entities include following data structures:
 * `SchemaVer` - part of SchemaKey with information about Schema version. Triplet of `MODEL`, `REVISION`, `ADDITION`.
 * `SchemaCriterion` - default way to filter Self-describing entities. Represents SchemaKey divided into six parts, where last three (MODEL, REVISION, ADDITION) can be unfilled
 
-Everything else in Scala Iglu Core is specific for Scala implementation. More detailed information can be found on wiki pages dedicated to [Iglu Core][iglu-core] and [Scala Iglu Core][scala-iglu-core].
+Everything else in Scala Iglu Core is specific for Scala implementation.
+Most useful feature of Scala Iglu Core is type classes for injecting and extracting `SchemaKey` for various data types, such as representations of JSON in different Scala libraries.
+One more Scala-specific feature is container classes `SelfDescribingSchema` and `SelfDescribingData`.
+It basically just represents pair of `SchemaKey` along with data (or Schema) it describes.
+These can be used to store, serialize and pass around data between various Scala libraries in more type-safe and concise way.
+
+More detailed information can be found on wiki pages dedicated to [Iglu Core][iglu-core] and [Scala Iglu Core][scala-iglu-core].
 
 <h2 id="syncer">2. Registry Syncer updates</h2>
 

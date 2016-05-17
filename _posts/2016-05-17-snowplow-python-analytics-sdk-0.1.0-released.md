@@ -81,6 +81,8 @@ except snowplow_analytics_sdk.snowplow_event_transformation_exception.SnowplowEv
 
 If there are any problems in the input TSV (such as unparseable JSON fields or numeric fields), the `transform` method will throw a `SnowplowEventTransformationException`. This exception contains a list of error messages - one for every problematic field in the input.
 
+For more information, check out the [Python Analytics SDK wiki page] [sdk-docs].
+
 <h2 id="help">4. Getting help</h2>
 
 If you have any questions or run into any problems, please [raise an issue][issues] or get in touch with us through [the usual channels][talk-to-us].
@@ -89,6 +91,7 @@ And if there's another Snowplow Analytics SDK you'd like us to prioritize creati
 
 [sdk-repo]: https://github.com/snowplow/snowplow-python-analytics-sdk
 [sdk-usage-img]: /assets/img/blog/2016/03/scala-analytics-sdk-usage.png
+[sdk-docs]: https://github.com/snowplow/snowplow/wiki/Python-Analytics-SDK
 
 [event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
 

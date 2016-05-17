@@ -54,7 +54,7 @@ There are special rules for how custom contexts and unstructured events are adde
   },...
 {% endhighlight %}
 
-For more examples and detail on the algorithm used, check out the [documentation][kes].
+For more examples and detail on the algorithm used, check out the [Kinesis Elasticsearch Sink wiki page][kes].
 
 <h2 id="installation">2. Installation</h2>
 

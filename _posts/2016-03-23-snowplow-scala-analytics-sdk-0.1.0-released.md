@@ -71,7 +71,7 @@ For example, if an enriched event contained a `com.snowplowanalytics.snowplow/li
   },...
 {% endhighlight %}
 
-For more information, check out the [Python Analytics SDK wiki page][wiki].
+For more information, check out the [Scala Analytics SDK wiki page][wiki].
 
 <h2 id="using-the-sdk">3. Using the SDK</h2>
 
@@ -162,4 +162,4 @@ In the meantime, if you have any questions or run into any problems, please [rai
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [zeppelin-on-emr]: https://blogs.aws.amazon.com/bigdata/post/Tx6J5RM20WPG5V/Building-a-Recommendation-Engine-with-Spark-ML-on-Amazon-EMR-using-Zeppelin
 [databricks]: https://databricks.com/
-[wiki]: https://github.com/snowplow/snowplow/wiki/Python-Analytics-SDK
+[wiki]: https://github.com/snowplow/snowplow/wiki/Scala-Analytics-SDK

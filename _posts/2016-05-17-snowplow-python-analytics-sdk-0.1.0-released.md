@@ -12,7 +12,7 @@ Following in the footsteps of the [Snowplow Scala Analytics SDK] [scala-sdk-post
 Some good use cases for the SDK include:
 
 1. Performing [event data modeling] [event-data-modeling] in [PySpark] [pyspark] as part our Hadoop batch pipeline
-2. Developing machine learning models on your event data using PySpark (e.g. using [Databricks][databricks] or [Zeppelin on EMR][zeppelin-on-emr])
+2. Developing machine learning models on your event data using PySpark (e.g. using [Databricks][databricks])
 3. Performing analytics-on-write in AWS Lambda as part of our Kinesis real-time pipeline:
 
 ![sdk-usage-img] [sdk-usage-img]
@@ -95,6 +95,7 @@ And if there's another Snowplow Analytics SDK you'd like us to prioritize creati
 [spark]: http://spark.apache.org/
 [pyspark]: https://spark.apache.org/docs/0.9.0/python-programming-guide.html
 [lambda]: https://aws.amazon.com/lambda/
+[databricks]: https://databricks.com/
 
 [kes]: https://github.com/snowplow/snowplow/wiki/Kinesis-Elasticsearch-Sink
 [ssas]: https://github.com/snowplow/snowplow-python-analytics-sdk

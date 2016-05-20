@@ -17,12 +17,12 @@ At launch, Avalanche is wholly focused on load-testing of the Snowplow collector
 
 In the rest of this post we will cover:
 
-1. [How to setup the environment](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#how-to-setup)
-2. [How to access results](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#how-to-access-results)
-3. [Clojure Collectors and what we have learned](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#learning)
-4. [Roadmap](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#roadmap)
-5. [Documentation](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#docs)
-6. [Getting help](/blog/2016/05/16/introducing-avalanche-for-load-testing-snowplow/#help)
+1. [How to setup the environment](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#how-to-setup)
+2. [How to access results](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#how-to-access-results)
+3. [The Clojure Collector and what we have learned](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#learning)
+4. [Roadmap](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#roadmap)
+5. [Documentation](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#docs)
+6. [Getting help](/blog/2016/05/20/introducing-avalanche-for-load-testing-snowplow/#help)
 
 <!--more-->
 

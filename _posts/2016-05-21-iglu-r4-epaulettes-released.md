@@ -9,9 +9,9 @@ category: Releases
 
 ![epaulettes-img] [epaulettes-img]
 
-We are pleased to announce the 4th release of the [Iglu Schema Registry System][iglu-repo] with initial release of Iglu Core.
+We are pleased to announce the fourth release of the [Iglu Schema Registry System][iglu-repo], with an initial release of the Iglu Core library, implemented in Scala.
 
-Read on for more information on Release 4 [Epaulettes][epaulettes].
+Read on for more information on Release 4 Epaulettes, named after the [famous stamp] [epaulettes]:
 
 1. [Scala Iglu Core](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#core)
 2. [Registry Syncer updates](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#syncer)
@@ -22,8 +22,7 @@ Read on for more information on Release 4 [Epaulettes][epaulettes].
 
 <h2 id="iglu-core">1. Scala Iglu Core</h2>
 
-On its very early stages, development of Iglu could be described as a very sporadical process.
-It was built around few core ideas like [Self-describing Schemas][self-describing-schemas], [SchemaVer][schemaver] and several applications and libraries working with Self-describing Schemas such as [Schema Guru][schema-guru], [Iglu Scala Client][iglu-scala-client] and [Snowplow platform][snowplow].
+Initial development of Iglu at Snowplow was a somewhat sporadic and piecemeal process. The design was built around a few core ideas like [self-describing schemas] [self-describing-schemas], [SchemaVer] [schemaver] and several associated applications and libraries, including [Schema Guru][schema-guru], [Iglu Scala Client][iglu-scala-client] and of course the [Snowplow platform][snowplow] itself.
 
 While we were working on these applications, we implemented data structures and related functions common for all of them.
 But these common entities were scattered around in different codebases. This scattering result in unwanted code duplication and inconsistent behavior. To fix it we decided to extract these very basic data structures and functions into separate library - Scala Iglu Core.

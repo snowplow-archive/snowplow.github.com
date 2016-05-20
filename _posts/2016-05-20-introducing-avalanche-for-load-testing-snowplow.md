@@ -11,7 +11,7 @@ We are pleased to announce the very first release of [Avalanche] [avalanche-repo
 
 As the Snowplow platform matures and is adopted more and more widely, understanding how Snowplow performs under various event scales and distributions becomes increasingly important.
 
-Our new open-source Avalanche project is our attempt to create a standardized framework for testing Snowplow batch and real-time pipelines under various loads. It will hopefully also expand ours and the communities knowledge on what configurations work best and to discover (and then remove!) limitations that we might come across.
+Our new open-source Avalanche project is our attempt to create a standardized framework for testing Snowplow batch and real-time pipelines under various loads. It will hopefully also expand ours and the community's knowledge on what configurations work best and to discover (and then remove!) limitations that we might come across.
 
 At launch, Avalanche is wholly focused on load-testing of the Snowplow collector components. Over time we hope to extend this to: load-testing other Snowplow components (and indeed the end-to-end pipeline); automated auditing of test runs; extending Avalanche to test other event platforms.
 

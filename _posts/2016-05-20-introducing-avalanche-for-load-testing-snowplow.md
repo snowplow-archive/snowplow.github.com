@@ -136,7 +136,7 @@ We hope that you find Avalanche useful - of course, this is only its first relea
 
 [ec2-setup]: https://github.com/snowplow/avalanche#to-run-a-simulation-from-an-ec2-instance
 
-[img1]: /assets/img/blog/2016/05/avalanche-requests.png
+[img1]: /assets/img/blog/2016/05/avalanche-request.png
 [img2]: /assets/img/blog/2016/05/avalanche-latency-1.png
 [img3]: /assets/img/blog/2016/05/avalanche-cpu.png
 [2]: https://github.com/snowplow/avalanche/issues/2

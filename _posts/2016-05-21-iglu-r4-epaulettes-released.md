@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Iglu Schema Registry System 4 Epaulettes released
+title: Iglu Schema Registry 4 Epaulettes released
 title-short: Iglu 4 Epaulettes
 tags: [iglu, json, json schema, registry]
 author: Anton
@@ -15,34 +15,42 @@ Read on for more information on Release 4 Epaulettes, named after the [famous st
 
 1. [Scala Iglu Core](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#core)
 2. [Registry Syncer updates](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#syncer)
-3. [Future](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#future)
+3. [Iglu roadmap](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#roadmap)
 4. [Getting help](/blog/2016/04/24/snowplow-golang-tracker-0.1.0-released/#help)
 
 <!--more-->
 
 <h2 id="iglu-core">1. Scala Iglu Core</h2>
 
-Initial development of Iglu at Snowplow was a somewhat sporadic and piecemeal process. The design was built around a few core ideas like [self-describing schemas] [self-describing-schemas], [SchemaVer] [schemaver] and several associated applications and libraries, including [Schema Guru][schema-guru], [Iglu Scala Client][iglu-scala-client] and of course the [Snowplow platform][snowplow] itself.
+<h3 id="iglu-core-why">Why we created Iglu Core</h3>
 
-While we were working on these applications, we implemented data structures and related functions common for all of them.
-But these common entities were scattered around in different codebases. This scattering result in unwanted code duplication and inconsistent behavior. To fix it we decided to extract these very basic data structures and functions into separate library - Scala Iglu Core.
+Our initial development of Iglu two years ago was a somewhat piecemeal process. The design was centred on a few core ideas such as [self-describing schemas] [self-describing-schemas], [SchemaVer] [schemaver] and several associated applications and libraries, including [Schema Guru][schema-guru], [Iglu Scala Client] [iglu-scala-client] and of course the [Snowplow platform][snowplow] itself.
 
-Beside of consistent behavior and deduplication of code, we pursued one more important goal - provide a reference-implementation of Iglu concepts for other languages. This is important because Iglu was designed to be not dependent on any particular programming language or platform which means nothing stops users from implementing their own registries, clients or other apps using Iglu technologies.
+Working on these applications, we found ourselves implementing the same Iglu-related data structures and functions multiple times. To clean up this rather piecemeal approach, we decided to extract this common functionality into a single library - Iglu Core.
 
-Mentioned above core entities include following data structures:
+The goal of Iglu Core is to provide a reference implementation of the Iglu concepts, which can then be re-implemented for other languages. This is important because Iglu is designed to be platform and language independent - it should be as usable from Scala as it is from Arduino or C++ or JavaScript.
 
-* `SchemaKey` - contains information about Schema for Self-describing entity. Where "entity" can be: JSON data, JSON Schema itself or data/schema for any datatype that can be self-describing.
-* `SchemaVer` - part of SchemaKey with information about Schema version. Triplet of `MODEL`, `REVISION`, `ADDITION`.
-* `SchemaCriterion` - default way to filter Self-describing entities. Represents SchemaKey divided into six parts, where last three (MODEL, REVISION, ADDITION) can be unfilled
+<h3 id="iglu-core-core">Core concepts</h3>
+
+The key elements introduced in our Iglu Core library are:
+
+* `SchemaKey`, which contains information about the schema for a self-describing entity. A self-describing entity can be JSON data, a JSON Schema or any other rich schema or type system that can be made self-describing
+* `SchemaVer`, part of the `SchemaKey` holding semantic information about the schema's version. This is a triplet of `MODEL`, `REVISION` and `ADDITION`
+* `SchemaCriterion`, a default way to filter self-describing entities. It holds a `SchemaKey` where some or all of the version components (`MODEL`, `REVISION`, `ADDITION`) can be unfilled
+
+<h3 id="iglu-core-scala">Scala-specific features</h3>
 
 Everything else in Scala Iglu Core is specific for Scala implementation.
 Most useful feature of Scala Iglu Core is type classes for injecting and extracting `SchemaKey` for various data types, such as representations of JSON in different Scala libraries.
 One more Scala-specific feature is container classes `SelfDescribingSchema` and `SelfDescribingData`.
 It basically just represents pair of `SchemaKey` along with data (or Schema) it describes.
 These can be used to store, serialize and pass around data between various Scala libraries in more type-safe and concise way.
+
+<h3 id="iglu-core-usage">Using Iglu Core</h3>
+
 Overall, you don't have to know any details about Scala Iglu Core type classes and how to implement them since we're also providing complete implementations for several popular JSON libraries such as [Json4s][json4s] and [Circe][circe], you can just include them as dependencies to your projects and have all features Iglu Core provides:
 
-{% highlight %}
+{% highlight scala %}
 
 import com.snowplowanalytics.iglu.core.json4s._
 
@@ -71,10 +79,16 @@ This release introduce following minor improvements to Registry Syncer:
 * PUT is using instead of POST allowing to seamlessly override existing Schemas
 * UI improvements
 
-<h2 id="future">3. The future</h2>
+<h2 id="roadmap">3. Iglu roadmap</h2>
 
-Our current primary goal can be described as "Iglu CLI" and can be seen as a Static Iglu Generator with features previously available as a separate `schema-guru ddl` command. This feature starting to make Iglu not just a way to store JSON Schemas, but full-feautered Schema registry technology supporting variety of data-description formats. And what is more important - it will significantly alleviate manual labor for users of Snowplow platform as they now will be not required to generate and upload JSONPath files as well as their Redshift DDLs. All data-description will be on Iglu's behalf.
+We have a lot planned for Iglu - both in terms of all-new functionality and ongoing clean-up and consolidation of our existing Iglu technology.
 
+The next release will introduce an Iglu command-line tool, "Iglu CLI", to help users with various Iglu-related tasks. To start with, we will port over to Iglu CLI:
+
+* Schema Guru's current `schema-guru ddl` command, which will evolve into a static registry generator comamnd in Iglu CLI
+* Our Registry Syncer, which will be ported from Bash into Scala and added as an Iglu CLI sub-command
+
+Beyond Iglu CLI we have plenty more planned for Iglu, including adding first class support within Iglu for database table definitions (such as Redshift), mappings between different data formats (e.g. JSON Schema to Redshift), and schema migrations. Stay tuned!
 
 <h2 id="help">4. Getting help</h2>
 

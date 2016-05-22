@@ -93,13 +93,15 @@ This release introduce following some minor improvements to Registry Syncer:
 
 In order to bootstrap your RESTful registry server with schemas you will need to:
 
-1. [Setup][setup-scala-repo] the registry server
+1. [Setup][scala-registry-setup] the registry server
 2. [Create][super-api-key] a super API key
 3. Run the Registry Syncer like so:
 
-    ${iglu_dir}/0-common/registry-syncer/sync.bash http://iglu.acme.com:8080 SUPER-API-KEY ${schemas_dir}
+{% highlight bash %}
+${iglu_dir}/0-common/registry-syncer/sync.bash http://iglu.acme.com:8080 ${super_api_key} ${schemas_dir}
+{% endhighlight %}
 
-where `${iglu_dir}` holds a checked-out copy of the [Iglu repository] [iglu-repo] and `${schemas_dir}` holds a directory of schemas.
+where `${iglu_dir}` holds a checked-out copy of the [Iglu repository] [iglu-repo], `${super_api_key}` is the API key you created earlier and `${schemas_dir}` holds a directory of schemas.
 
 <h2 id="roadmap">3. Iglu roadmap</h2>
 

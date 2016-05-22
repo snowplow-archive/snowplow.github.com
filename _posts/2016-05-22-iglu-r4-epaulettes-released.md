@@ -52,9 +52,9 @@ Use these containers to store, serialize and exchange data inside your Scala cod
 
 Iglu Core has been designed around Snowplow and Iglu's own requirements, but we expect the library will be useful to external implementors as well.
 
-Typically you won't have to learn the details of the Scala Iglu Core's type classes, since we are also providing complete implementations for popular Scala JSON libraries including [Json4s][json4s] and [Circe][circe].
+Typically you won't have to learn the details of the Scala Iglu Core's type classes, since we are also providing complete implementations for popular Scala JSON libraries, starting with [xxx] [xxx] and [yyy] [yyy].
 
-Instead you can just include the appropriate implementation as a dependency in your project (the artifacts are available in Maven Central):
+Just include the appropriate implementation as a dependency in your project (the artifacts are available in Maven Central):
 
 {% highlight scala %}
 

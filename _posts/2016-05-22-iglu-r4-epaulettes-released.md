@@ -9,7 +9,7 @@ category: Releases
 
 We are pleased to announce the fourth release of the [Iglu Schema Registry System][iglu-repo], with an initial release of the Iglu Core library, implemented in Scala.
 
-Read on for more information on Release 4 Epaulettes, named after the [famous stamp] [epaulettes]:
+Read on for more information on Release 4 Epaulettes, named after the [famous Belgian postage stamps] [epaulettes]:
 
 1. [Scala Iglu Core](/blog/2016/05/22/iglu-r4-epaulettes-released/#core)
 2. [Registry Syncer updates](/blog/2016/05/22/iglu-r4-epaulettes-released/#syncer)
@@ -50,19 +50,21 @@ Use these containers to store, serialize and exchange data inside your Scala cod
 
 <h3 id="iglu-core-usage">Using Iglu Core</h3>
 
-Iglu Core has been designed around Snowplow and Iglu's own requirements, but we expect the library will be useful to external implementors as well.
+Iglu Core has been designed around Snowplow and Iglu's own requirements, but we expect the library will be useful to external implementers as well.
 
-Typically you won't have to learn the details of the Scala Iglu Core's type classes, since we are also providing complete implementations for popular Scala JSON libraries, starting with [xxx] [xxx] and [yyy] [yyy].
+Typically you won't have to learn the details of the Scala Iglu Core's type classes, since we are also providing complete implementations for popular Scala JSON libraries, starting with [iglu-core-json4s] [iglu-core-json4s] and [iglu-core-circe] [iglu-core-circe].
 
 Just include the appropriate implementation as a dependency in your project (the artifacts are available in Maven Central):
 
 {% highlight scala %}
+val igluCirce = "com.snowplowanalytics" %% "iglu-core-json4s"  % "0.1.0"
 
-...
+// Or:
 
+val igluJson4s = "com.snowplowanalytics" %% "iglu-core-circe"  % "0.1.0"
 {% endhighlight %}
 
-Here is an example using the XXX:
+Here is an example using iglu-core-json4s:
 
 {% highlight scala %}
 import com.snowplowanalytics.iglu.core.json4s._
@@ -72,24 +74,32 @@ implicit val stringifyData = StringifyData
 val schemaKey = SchemaKey("com.acme", "event", "jsonschema", SchemaKey(1,0,0))
 val data: JValue = ???
 
-SelfDescribingData(schemaKey).asString
+SelfDescribingData(schemaKey, data).asString
 {% endhighlight %}
 
 More detailed information can be found on wiki pages dedicated to [Iglu Core][iglu-core] and [Scala Iglu Core][scala-iglu-core].
 
 <h2 id="syncer">2. Registry Syncer updates</h2>
 
-Until recently, Iglu Static Repo was default way for hosting Schemas. Now situation is changing as Scala repo server started to mature.
-To help our users migrate from Static Repo to more feature-full Scala Repo, we're developing Registry Syncer, simple shell-script allowing you to fulfill Scala repo from local directory in a few commands.
+Until recently, a [static Iglu registry] [static-registry-setup] was the default way to host schemas; that is now changing as the [Scala-based RESTful registry server] [scala-registry-setup] starts to mature.
 
-In order to bootstrap your Scala Repo Server with Schemas from Static Repo you'll need to [setup][setup-scala-repo] Scala Repo, [create][super-api-key] super API key and run Registry Syncer like following: `./sync.bash http://iglu.acme.com:8080 UUID-SUPER-API-KEY ~/iglu-central/schemas/`.
+To help our users work with the registry server, Iglu includes a tool called [Registry Syncer] [registry-syncer], a simple Bash script allowing you to populate a registry server over HTTP in a few commands.
 
-This release introduce following minor improvements to Registry Syncer:
+This release introduce following some minor improvements to Registry Syncer:
 
-* name changed from Repo Syncer as first step of renaming all Repositories into Registries
-* synchronization now stops on first failure (like unknown super API key)
-* PUT is using instead of POST allowing to seamlessly override existing Schemas
-* UI improvements
+* We changed the name from Repo Syncer (as we are now referring to "schema registries" not "schema repositories")
+* The synchronization process now stops on the first failure
+* We use `PUT` instead of `POST`, so existing schemas can be automatically overridden
+
+In order to bootstrap your RESTful registry server with schemas you will need to:
+
+1. [Setup][setup-scala-repo] the registry server
+2. [Create][super-api-key] a super API key
+3. Run the Registry Syncer like so:
+
+    ${iglu_dir}/0-common/registry-syncer/sync.bash http://iglu.acme.com:8080 SUPER-API-KEY ${schemas_dir}
+
+where `${iglu_dir}` holds a checked-out copy of the [Iglu repository] [iglu-repo] and `${schemas_dir}` holds a directory of schemas.
 
 <h2 id="roadmap">3. Iglu roadmap</h2>
 
@@ -119,8 +129,14 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [schemaver]: https://github.com/snowplow/iglu/wiki/SchemaVer
 [iglu-core]: https://github.com/snowplow/iglu/wiki/Iglu-core
 [scala-iglu-core]: https://github.com/snowplow/iglu/wiki/Scala-iglu-core
-[setup-scala-repo]: https://github.com/snowplow/iglu/wiki/Scala-repo-server-setup
+[iglu-core-json4s]: http://search.maven.org/#search|ga|1|iglu-core-json4s
+[iglu-core-circe]: http://search.maven.org/#search|ga|1|iglu-core-circe
+
+[static-registry-setup]: https://github.com/snowplow/iglu/wiki/Static-repo-setup
+[scala-registry-setup]: https://github.com/snowplow/iglu/wiki/Scala-repo-server-setup
 [super-api-key]: https://github.com/snowplow/iglu/wiki/Create-the-super-API-key
+
+[registry-syncer]: https://github.com/snowplow/iglu/master/0-common/registry-syncer
 
 [iglu-repo]: https://github.com/snowplow/iglu
 [issues]: https://github.com/snowplow/snowplow/iglu

@@ -7,8 +7,6 @@ author: Anton
 category: Releases
 ---
 
-![epaulettes-img] [epaulettes-img]
-
 We are pleased to announce the fourth release of the [Iglu Schema Registry System][iglu-repo], with an initial release of the Iglu Core library, implemented in Scala.
 
 Read on for more information on Release 4 Epaulettes, named after the [famous stamp] [epaulettes]:
@@ -17,6 +15,8 @@ Read on for more information on Release 4 Epaulettes, named after the [famous st
 2. [Registry Syncer updates](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#syncer)
 3. [Iglu roadmap](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#roadmap)
 4. [Getting help](/blog/2016/04/24/snowplow-golang-tracker-0.1.0-released/#help)
+
+![epaulettes-img] [epaulettes-img]
 
 <!--more-->
 
@@ -40,6 +40,8 @@ The key elements introduced in our Iglu Core library are:
 
 <h3 id="iglu-core-scala">Scala-specific features</h3>
 
+Alongside the key elements set out above, the Scala implementation of Iglu Core has some neat Scala-specific features.
+
 Everything else in Scala Iglu Core is specific for Scala implementation.
 Most useful feature of Scala Iglu Core is type classes for injecting and extracting `SchemaKey` for various data types, such as representations of JSON in different Scala libraries.
 One more Scala-specific feature is container classes `SelfDescribingSchema` and `SelfDescribingData`.
@@ -51,7 +53,6 @@ These can be used to store, serialize and pass around data between various Scala
 Overall, you don't have to know any details about Scala Iglu Core type classes and how to implement them since we're also providing complete implementations for several popular JSON libraries such as [Json4s][json4s] and [Circe][circe], you can just include them as dependencies to your projects and have all features Iglu Core provides:
 
 {% highlight scala %}
-
 import com.snowplowanalytics.iglu.core.json4s._
 
 implicit val stringifyData = StringifyData
@@ -60,7 +61,6 @@ val schemaKey = SchemaKey("com.acme", "event", "jsonschema", SchemaKey(1,0,0))
 val data: JValue = ???
 
 SelfDescribingData(schemaKey).asString
-
 {% endhighlight %}
 
 More detailed information can be found on wiki pages dedicated to [Iglu Core][iglu-core] and [Scala Iglu Core][scala-iglu-core].
@@ -81,7 +81,7 @@ This release introduce following minor improvements to Registry Syncer:
 
 <h2 id="roadmap">3. Iglu roadmap</h2>
 
-We have a lot planned for Iglu - both in terms of all-new functionality and ongoing clean-up and consolidation of our existing Iglu technology.
+We have a lot planned for Iglu - both in terms of new functionality and ongoing clean-up and consolidation of our existing Iglu technology.
 
 The next release will introduce an Iglu command-line tool, "Iglu CLI", to help users with various Iglu-related tasks. To start with, we will port over to Iglu CLI:
 

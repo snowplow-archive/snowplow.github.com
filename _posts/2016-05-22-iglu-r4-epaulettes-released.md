@@ -11,10 +11,10 @@ We are pleased to announce the fourth release of the [Iglu Schema Registry Syste
 
 Read on for more information on Release 4 Epaulettes, named after the [famous stamp] [epaulettes]:
 
-1. [Scala Iglu Core](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#core)
-2. [Registry Syncer updates](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#syncer)
-3. [Iglu roadmap](/blog/2016/05/05/iglu-schema-registry-system-4-epaulettes-released/#roadmap)
-4. [Getting help](/blog/2016/04/24/snowplow-golang-tracker-0.1.0-released/#help)
+1. [Scala Iglu Core](/blog/2016/05/22/iglu-r4-epaulettes-released/#core)
+2. [Registry Syncer updates](/blog/2016/05/22/iglu-r4-epaulettes-released/#syncer)
+3. [Iglu roadmap](/blog/2016/05/22/iglu-r4-epaulettes-released/#roadmap)
+4. [Getting help](/blog/2016/05/22/iglu-r4-epaulettes-released/#help)
 
 ![epaulettes-img] [epaulettes-img]
 
@@ -42,15 +42,27 @@ The key elements introduced in our Iglu Core library are:
 
 Alongside the key elements set out above, the Scala implementation of Iglu Core has some neat Scala-specific features.
 
-Everything else in Scala Iglu Core is specific for Scala implementation.
-Most useful feature of Scala Iglu Core is type classes for injecting and extracting `SchemaKey` for various data types, such as representations of JSON in different Scala libraries.
-One more Scala-specific feature is container classes `SelfDescribingSchema` and `SelfDescribingData`.
-It basically just represents pair of `SchemaKey` along with data (or Schema) it describes.
-These can be used to store, serialize and pass around data between various Scala libraries in more type-safe and concise way.
+Scala Iglu Core contains type classes for injecting and extracting the `SchemaKey` for various data types, including representations of JSON in different Scala libraries including [Json4s][json4s] and [Circe][circe].
+
+The library also offers container classes called `SelfDescribingSchema` and `SelfDescribingData`, to represent the `SchemaKey` along with the data that key describes.
+
+Use these containers to store, serialize and exchange data inside your Scala code in a more type-safe and concise way.
 
 <h3 id="iglu-core-usage">Using Iglu Core</h3>
 
-Overall, you don't have to know any details about Scala Iglu Core type classes and how to implement them since we're also providing complete implementations for several popular JSON libraries such as [Json4s][json4s] and [Circe][circe], you can just include them as dependencies to your projects and have all features Iglu Core provides:
+Iglu Core has been designed around Snowplow and Iglu's own requirements, but we expect the library will be useful to external implementors as well.
+
+Typically you won't have to learn the details of the Scala Iglu Core's type classes, since we are also providing complete implementations for popular Scala JSON libraries including [Json4s][json4s] and [Circe][circe].
+
+Instead you can just include the appropriate implementation as a dependency in your project (the artifacts are available in Maven Central):
+
+{% highlight scala %}
+
+...
+
+{% endhighlight %}
+
+Here is an example using the XXX:
 
 {% highlight scala %}
 import com.snowplowanalytics.iglu.core.json4s._

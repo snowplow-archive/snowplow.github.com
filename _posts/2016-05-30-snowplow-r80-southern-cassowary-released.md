@@ -107,5 +107,5 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [akka]: http://akka.io/
 [spray]: http://spray.io/
 [kcl]: https://github.com/awslabs/amazon-kinesis-client
-[issues]: https://github.com/snowplow/snowplow/issues
+[issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

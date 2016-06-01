@@ -15,11 +15,13 @@ TOC
 
 <!--more-->
 
-<h2 id="background">Background</h2>
+<h2 id="her">Event Recovery</h2>
+
+<h3 id="background">Background</h3>
 
 In 2014 we released Scala Hadoop Bad Rows. This was a simple project which allowed you to extract the original raw events from Snowplow bad row JSONs and write them to S3, ready to be processed again. Hadoop Event Recovery builds on this by adding one key feature: you can now write your own custom JavaScript to execute on each bad row. This allows you to choose which bad rows to keep and which to ignore, and also allows you to mutate the rows you keep, fixing whatever caused them to fail validation in the first place.
 
-<h2 id="background">Usage</h2>
+<h3 id="usage">Usage</h3>
 
 Snowplow bad rows look like this:
 

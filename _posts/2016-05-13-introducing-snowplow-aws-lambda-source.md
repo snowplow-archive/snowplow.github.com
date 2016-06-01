@@ -12,7 +12,7 @@ monitor S3 bucket operations using our AWS Lambda function.
 
 1. [S3 bucket event source support](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#s3-bucket-source)
 2. [Source architecture](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#architecture)
-3. [Installation](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#install)
+3. [Deployment](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#deploy)
 4. [Roadmap](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#roadmap)
 5. [Contributing](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#contributing)
 
@@ -33,17 +33,44 @@ This source is implemented as an [AWS Lambda] [lambda], for two reasons:
 
 Under the hood, the AWS Lambda source is written in Java 8 and emits each received S3 bucket event to Snowplow as a Snowplow event, using the [Snowplow Java Tracker] [snowplow-java-tracker].
 
-<h2 id="install">3. Installation</h2>
+<h2 id="deploy">3. Deployment</h2>
 
-The Snowplow AWS Lambda source is available on Bintray, XXX.
+The Snowplow AWS Lambda source download bundle (including deployment scripts) is available on Bintray [here](https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow_aws_lambda_source_0.1.0_bundle.zip).
 
-Deploying and configuring an AWS Lambda function is still relatively involved - you'll find a [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide XXXX.
+For a complete guide see the [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide explains in more detail how to deploy an AWS Lambda (using provided tooling)
+that will emit Snowplow events for S3 Put and S3 Delete events.
 
-Here is an example configuration file:
+Before you get started you'll need to ensure you have [Python (2.7)](https://www.python.org/downloads/) and the [AWS-CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) installed and configured (not shown). Then you can run the following steps to 
+ensure you have pyyaml (a dependency for reading the configuration file) and download/extract the deployment bundle:
+
+{% highlight bash %}
+sudo pip install pyyaml
+wget https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow_aws_lambda_source_0.1.0_bundle.zip
+unzip snowplow_aws_lambda_source_0.1.0_bundle.zip -d snowplow_aws_lambda_source_0.1.0_bundle
+cd snowplow_aws_lambda_source_0.1.0_bundle
+{% end highlight %}
+
+Then edit the configuration file `config.ymal`, like so: 
 
 {% highlight yaml %}
-XXX
+snowplow:
+    collector: http://collector.acme.com
+s3:
+    buckets:
+        - raw
+        - enriched
 {% endhighlight %}
+
+assuming your Snowplow collector endpoint is `http://collector.acme.com` and the buckets you wish to monitor are `raw` and `enriched`. Then run the following to deploy the AWS Lambda to your account:
+
+{% highlight bash %}
+python deploy.py
+{% end highlight %}
+
+Providing everything completed successfully, adding or removing items in the buckets you have specified will now send a [s3 notification event](https://github.com/snowplow/iglu-central/blob/master/schemas/com.amazon.aws.lambda/s3_notification_event/jsonschema/1-0-0)
+to your selected collector!
+
+If you're using our batch pipeline with Amazon Redshift  - you'll also need to deploy the following Redshift table definition to your cluster, [s3_notification_event_1.sql](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.lambda/s3_notification_event_1.sql). 
 
 <h2 id="roadmap">4. Roadmap for Snowplow AWS Lambda source</h2>
 

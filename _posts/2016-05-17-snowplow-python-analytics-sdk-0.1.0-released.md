@@ -102,8 +102,7 @@ And if there's another Snowplow Analytics SDK you'd like us to prioritize creati
 
 [kes]: https://github.com/snowplow/snowplow/wiki/Kinesis-Elasticsearch-Sink
 [ssas]: https://github.com/snowplow/snowplow-scala-analytics-sdk
-[scala-sdk-post]: /blog/2016/03/23-snowplow-scala-analytics-sdk-0.1.0-released
-
+[scala-sdk-post]: http://snowplowanalytics.com/blog/2016/03/23/snowplow-scala-analytics-sdk-0.1.0-released/
 [issues]: https://github.com/snowplow/snowplow/iglu
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us
 [discourse]: http://discourse.snowplowanalytics.com/

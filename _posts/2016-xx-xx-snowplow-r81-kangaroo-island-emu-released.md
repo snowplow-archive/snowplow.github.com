@@ -9,13 +9,17 @@ category: Releases
 
 We are happy to announce the release of Snowplow 81 Kangaroo Island Emu! At the heart of this release is the Hadoop Event Recovery project, which allows you to fix up Snowplow bad rows and make them ready for reprocessing.
 
-TOC
+1. [Event Recovery](/blog/2016/xx/xx/snowplow-r81-kangaroo-island-emu-released#her)
+2. [Stream Enrich race condition](/blog/2016/xx/xx/snowplow-r81-kangaroo-island-emu-released#race)
+3. [New schemas](/blog/2016/xx/xx/snowplow-r81-kangaroo-island-emu-released#schemas)
+4. [Upgrading](/blog/2016/xx/xx/snowplow-r81-kangaroo-island-emu-released#upgrading)
+5. [Getting help](/blog/2016/xx/xx/snowplow-r81-kangaroo-island-emu-released#help)
 
 ![kangaroo-island-emu][kangaroo-island-emu]
 
 <!--more-->
 
-<h2 id="her">Event Recovery</h2>
+<h2 id="her">1. Event Recovery</h2>
 
 <h3 id="background">Background</h3>
 
@@ -135,11 +139,11 @@ There are a couple of things to note about this command. First, the placeholders
 
 Once the above job has run, the recovered raw events will be available in S3, ready to become the input for Scala Hadoop Enrich.
 
-<h2 id="race">Stream Enrich race condition</h2>
+<h2 id="race">2. Stream Enrich race condition</h2>
 
 Our Scala Common Enrich library uses the [Apache Commons Base64 class][base64]. Version 0.5 of this library wasn't thread-safe. This didn't matter when running the batch pipeline, since each worker node only uses one thread to process events. But in Stream Enrich it caused a race condition where multiple threads could simultaneously access the same Base64 object, sometimes resulting in erroneous base64 decoding. In this release we have upgraded to use version 1.10 of the library, which makes the class thread-safe.
 
-<h2 id="schemas">New schemas</h2>
+<h2 id="schemas">3. New schemas</h2>
 
 We have added JSON path files and Redshift DDLs for the following schemas:
 
@@ -147,7 +151,7 @@ We have added JSON path files and Redshift DDLs for the following schemas:
 * [com.clearbit.enrichment/person/jsonschema/1-0-0](https://github.com/snowplow/iglu-central/blob/master/schemas/com.clearbit.enrichment/person/jsonschema/1-0-0)
 * [com.clearbit.enrichment/company/jsonschema/1-0-0](https://github.com/snowplow/iglu-central/blob/master/schemas/com.clearbit.enrichment/company/jsonschema/1-0-0)
 
-<h2 id="upgrading">Upgrading</h2>
+<h2 id="upgrading">4. Upgrading</h2>
 
 The Kinesis apps for R81 Kangaroo Island Emu are all available in a single zip file here:
 
@@ -155,7 +159,7 @@ The Kinesis apps for R81 Kangaroo Island Emu are all available in a single zip f
 
 Only the Stream Enrich app has actually changed. The change is not breaking, so you don't have to make any changes to your configuration file.
 
-<h2 id="help">Getting help</h2>
+<h2 id="help">5. Getting help</h2>
 
 For more details on this release, please check out the [release notes][snowplow-release] on GitHub.
 

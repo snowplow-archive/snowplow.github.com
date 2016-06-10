@@ -135,5 +135,10 @@ There are a couple of things to note about this command. First, the placeholders
 
 Once the above job has run, the recovered raw events will be available in S3, ready to become the input for Scala Hadoop Enrich.
 
+<h2 id="race">Stream Enrich race condition</h2>
+
+Our Scala Common Enrich library uses the [Apache Commons Base64 class][base64]. Version 0.5 of this library wasn't thread-safe. This didn't matter when running the batch pipeline, since each worker node only uses one thread to process events. But in Stream Enrich it caused a race condition where multiple threads could simultaneously access the same Base64 object, sometimes resulting in erroneous base64 decoding. In this release we have upgraded to use version 1.10 of the library, which makes the class thread-safe.
+
 [kangaroo-island-emu]: /assets/img/blog/2016/06/kangaroo-island-emu.jpg
 [docs]: https://github.com/snowplow/snowplow/wiki/Hadoop-Event-Recovery
+[base64]: https://commons.apache.org/proper/commons-codec/apidocs/org/apache/commons/codec/binary/Base64.html

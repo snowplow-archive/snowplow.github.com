@@ -48,9 +48,9 @@ Technically we want to see a high level of proficiency in performing data analys
 
 ## When you will start
 
-We are looking for a candidate to start with an internship over the summer. If that goes we have the possibility of offering a full time position.
+We are looking for a candidate to start with an internship over the summer. If that goes well we have the possibility of offering a full time position.
 
-We are flexile on start times.
+We are flexible on start times.
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 

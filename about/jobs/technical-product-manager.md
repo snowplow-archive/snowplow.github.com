@@ -30,7 +30,7 @@ Product Management is a new team at Snowplow - and this first role is a great op
 We would love to get to know you if:
 
 * **You are deeply technical.** You may not code regularly, but you have a deep familiarity across the software stack, you understand and respect open source, and you are comfortable working side-by-side with software engineers
-* **You have a strong product sensibility.** This is not a project management role - we are looking for empathetic candidates who understand how to craft raw open-source software projects into compelling user-facing products
+* **You have a strong product sensibility.** This is not a project management role - we are looking for creative candidates who understand how to craft raw open-source software projects into compelling user-facing products
 * **You are highly experienced at software delivery.** You are confident managing a release roadmap, you can hold software engineers to account, and you understand the importance of small batches and minimizing work-in-process
 * **You communicate with clarity and enthusiasm.** Snowplow users are highly technology- and data-literate, and expect professional and detailed communication from the team
 

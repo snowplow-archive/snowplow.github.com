@@ -22,7 +22,7 @@ Responsibilities for our first technical product manager will include:
 * Working closely with Product Engineering and Infrastructure Engineering to deliver new releases
 * Writing detailed technical specifications for new features and products
 * Testing and iterating ideas with the Snowplow community via our new RFC process
-* Providing thorough QA and feedback on new release candidates
+* Providing thorough QA and feedback to Engineering on new release candidates
 * Communicating new releases to the community via blog posts, detailed tutorials and in person at conferences and meet-ups 
 
 Product Management is a new team at Snowplow - and this first role is a great opportunity to work closely with a fast-growing startup’s founding team on the design and evolution of an enterprise-grade open-source software stack.

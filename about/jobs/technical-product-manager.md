@@ -17,7 +17,7 @@ This role is more technical than many product management positions. Snowplow is 
 
 Responsibilities for our first technical product manager will include:
 
-* Collaborating with Snowplow’s co-founders to formalise the product roadmap and sequencing across all Snowplow projects
+* Collaborating with Snowplow’s co-founders to formalise the product roadmap and release sequencing across all Snowplow projects
 * Becoming the product owner for specific Snowplow projects, including potentially: new data sources for Snowplow; Snowplow Mini; our new product Sauna; our Managed Service customer dashboard
 * Working closely with Product Engineering and Infrastructure Engineering to deliver new releases
 * Writing detailed technical specifications for new features and products

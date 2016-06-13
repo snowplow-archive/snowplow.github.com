@@ -113,6 +113,7 @@ redirect_from:
   <a href="https://www.bankfacil.com.br"><img src="//logo.clearbit.com/bankfacil.com.br?size=200"></a>
   <a href="http://www.itg.com"><img src="//logo.clearbit.com/itg.com?size=200"></a>
   <a href="http://www.adiq.io"><img src="//logo.clearbit.com/adiq.io?size=200"></a>
+  <a href="http://www.truedash.com"><img src="//logo.clearbit.com/truedash.com?size=200"></a>
 </div>
 
 <div class="row">

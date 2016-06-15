@@ -55,13 +55,15 @@ Then edit the configuration file `config.ymal`, like so:
 {% highlight yaml %}
 snowplow:
     collector: http://collector.acme.com
+    app_id: com.acme.rawenrichedmonitor
 s3:
     buckets:
         - raw
         - enriched
 {% endhighlight %}
 
-assuming your Snowplow collector endpoint is `http://collector.acme.com` and the buckets you wish to monitor are `raw` and `enriched`. Then run the following to deploy the AWS Lambda to your account:
+assuming your Snowplow collector endpoint is `http://collector.acme.com` and the buckets you wish to monitor are `raw` and `enriched`.  The `app_id` field is attached to each event
+this specific AWS Lambda fires - allowing you to differentiate between multiple AWS Lambda sources. Running the following will deploy the AWS Lambda to your account:
 
 {% highlight bash %}
 python deploy.py

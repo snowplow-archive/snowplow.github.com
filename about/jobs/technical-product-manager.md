@@ -40,4 +40,4 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 [Back to jobs page] [jobs]
 
-[jobs]: /about/jobs.html
+[jobs]: /about/jobs/

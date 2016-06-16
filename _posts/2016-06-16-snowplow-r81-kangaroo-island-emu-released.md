@@ -33,6 +33,10 @@ You can also check out the [wiki documentation] [hre-docs] for Hadoop Event Reco
 
 Our Scala Common Enrich library uses the [Apache Commons Base64 class][base64]. Version 0.5 of this library wasn't thread-safe. This didn't matter when running the batch pipeline, since each worker node only uses one thread to process events. But in Stream Enrich it caused a race condition where multiple threads could simultaneously access the same Base64 object, sometimes resulting in erroneous Base64 decoding.
 
+This issue was particularly affecting high-volume users running Stream Enrich on servers with 4+ vCPUs.
+
+If this issue is affecting you, you'll see potentially many bad rows where the error message reports corrupt-looking JSON, but if you Base64-decode the bad row's original line, the JSON contained within it is valid. 
+
 In this release we have therefore upgraded our Stream Enrich component to use version 1.10 of the affected library, which makes the class thread-safe. Although non-critical, this update will come to the Hadoop pipeline in a future release.
 
 <h2 id="schemas">3. New schemas</h2>

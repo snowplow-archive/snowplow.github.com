@@ -22,7 +22,7 @@
   url:    /blog/authors/fred/
   avatar: https://lh4.googleusercontent.com/-Z8qgHmThClU/Uvizf8RmekI/AAAAAAAAABU/pdautnUcv7Q/s329-no/gravatar.png
   spiel:  |
-        <a href="/blog/authors/fred/">Fred</a> is a data engineer at Snowplow. You can find him on <a href="https://plus.google.com/u/0/113917031846021461080/posts">Google+</a> and <a href="http://uk.linkedin.com/pub/fred-blundun/8a/16a/722">LinkedIn</a>.
+        <a href="/blog/authors/fred/">Fred</a> was a data engineer at Snowplow. You can find him on <a href="https://plus.google.com/u/0/113917031846021461080/posts">Google+</a> and <a href="http://uk.linkedin.com/pub/fred-blundun/8a/16a/722">LinkedIn</a>.
 
 - name: Jonathan
   full_name: Jonathan Almeida
@@ -30,7 +30,7 @@
   url:    /blog/authors/jonathan/
   avatar: https://en.gravatar.com/userimage/25956470/c890dad6419acf6e7a9f99b6edd3cb15.jpg?size=120
   spiel:  |
-        <a href="/blog/authors/jonathan/">Jonathan</a> was a data engineer at Snowplow. You can find him on <a href="http://google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.
+        <a href="/blog/authors/jonathan/">Jonathan</a> was a data engineering intern at Snowplow. You can find him on <a href="http://google.com/+JonathanAlmeida" rel="author">Google+</a>, <a href="https://twitter.com/jonalmeida_">Twitter</a> and <a href="http://ca.linkedin.com/in/jonalmeida">LinkedIn</a>.
 
 - name: Ben
   full_name: Benjamin Fradet
@@ -38,7 +38,7 @@
   url: /blog/authors/ben/
   avatar: http://www.gravatar.com/avatar/1db05766b6148f890cdbe1a339764d81.png?size=120
   spiel: |
-      <a href="/blog/authors/ben/">Ben</a> was an intern at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
+      <a href="/blog/authors/ben/">Ben</a> was a data engineering intern at Snowplow. You can find him on <a href="https://github.com/BenFradet">GitHub</a>, <a href="https://twitter.com/BenjaminFradet">Twitter</a> and <a href="http://fr.linkedin.com/in/benfradet">LinkedIn</a>.
 
 - name: Nick
   full_name: Nick Dingwall

@@ -69,7 +69,7 @@ If you have any questions or run into any problems, please [raise an issue][issu
 [bad-rows-post]: /blog/2014/04/30/snowplow-0.9.2-released-for-new-cloudfront-log-format/#other
 
 [hre-docs]: https://github.com/snowplow/snowplow/wiki/Hadoop-Event-Recovery
-[hre-project]: https://github.com/snowplow/snowplow/master/3-enrich/hadoop-event-recovery
+[hre-project]: https://github.com/snowplow/snowplow/tree/master/3-enrich/hadoop-event-recovery
 [hre-tutorial]: http://discourse.snowplowanalytics.com/t/using-hadoop-event-recovery-to-recover-events-with-a-missing-schema/351
 
 [base64]: https://commons.apache.org/proper/commons-codec/apidocs/org/apache/commons/codec/binary/Base64.html

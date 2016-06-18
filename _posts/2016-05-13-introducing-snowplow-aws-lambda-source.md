@@ -7,8 +7,7 @@ author: Ed
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow AWS Lambda source][lambda-source-repo] - a new event source for Snowplow that allows you to
-monitor S3 bucket operations using our AWS Lambda function.  
+We are pleased to announce the release of [Snowplow AWS Lambda source][lambda-source-repo] - a new event source for Snowplow that allows you to monitor S3 bucket operations using our AWS Lambda function.
 
 1. [S3 bucket event source support](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#s3-bucket-source)
 2. [Source architecture](/blog/2016/05/13/introducing-snowplow-aws-lambda-source#architecture)
@@ -37,8 +36,7 @@ Under the hood, the AWS Lambda source is written in Java 8 and emits each receiv
 
 The Snowplow AWS Lambda source download bundle (including deployment scripts) is available on Bintray [here](https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow_aws_lambda_source_0.1.0_bundle.zip).
 
-For a complete guide see the [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide explains in more detail how to deploy an AWS Lambda (using provided tooling)
-that will emit Snowplow events for S3 Put and S3 Delete events.
+For a complete guide see the [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide explains in more detail how to deploy an AWS Lambda (using provided tooling) that will emit Snowplow events for S3 Put and S3 Delete events.
 
 Before you get started you'll need to ensure you have [Python (2.7)](https://www.python.org/downloads/) and the [AWS-CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) installed and configured (not shown). Then you can run the following steps to 
 ensure you have pyyaml (a dependency for reading the configuration file) and download/extract the deployment bundle:
@@ -80,8 +78,7 @@ Currently we only support tracking S3 bucket events, but we plan to include supp
 
 <h2 id="contributing">5. Contributing</h2>
 
-The Snowplow AWS Lambda source is open source software! If you'd like us to support a new AWS event type, or just to explore an example of a Java AWS
-Lambda function - please check out the [repository][lambda-source-repo].
+The Snowplow AWS Lambda source is open source software! If you'd like us to support a new AWS event type, or just to explore an example of a Java AWS Lambda function - please check out the [repository][lambda-source-repo].
 
 [lambda]: http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
 [lambda-event-sources]: http://docs.aws.amazon.com/lambda/latest/dg/intro-core-components.html#intro-core-components-event-sources

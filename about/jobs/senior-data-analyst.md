@@ -7,7 +7,7 @@ description: What we're looking for our senior data analyst
 permalink: /about/jobs/senior-data-analyst/
 ---
 
-<h1>Senior Data Analyst <small>London, UK or remote</small></h1>
+<h1>Senior Data Analyst <small>London, UK, or remote</small></h1>
 
 Digital analytics is evolving fast:
 
@@ -64,7 +64,7 @@ This is an opportunity for an individual to
 * Our client base is global
 * We're flexible on start times, remuneration and remote working
 
-***Interested?** Send your CV to recruitment@snowplowanalytics.com.
+**Interested?** Send your CV to recruitment@snowplowanalytics.com.
 
 <strong>We do not welcome calls from recruitment consultants.</strong>
 

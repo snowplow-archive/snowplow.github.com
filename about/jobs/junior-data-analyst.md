@@ -7,7 +7,7 @@ description: What we're looking for our junior data analyst
 permalink: /about/jobs/junior-data-analyst/
 ---
 
-<h1>Junior Data Analyst <small>London, UK</small></h1>
+<h1>Junior Data Analyst <small>London, UK or remote</small></h1>
 
 At Snowplow, we are focused on re-inventing the way that companies do digital analytics.
 

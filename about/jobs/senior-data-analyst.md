@@ -39,7 +39,7 @@ We're looking for a senior data analyst to join our team and lead that charge.
 We're looking for a candidate who:
 
 * Has plenty of experience both in digital analytics and analytics in general
-* Is familiar with both traditional digital analytics tooling (Adobe and GA) but also worked with other tools 
+* Is familiar with both traditional digital analytics tooling (Adobe and GA) and other tools
 * Is an expert at identifying business questions and choosing and executing analytical processes to answer those questions
 * Understands the limitations inherent in packaged analytics products like GA and Adobe
 * Enjoys challenging the status quo
@@ -71,11 +71,6 @@ This is an opportunity for an individual to
 [Back to jobs page] [jobs]
 
 [jobs]: /about/jobs/
-
-
-
-
-
 
 
 [snowplow-discourse]: http://discourse.snowplowanalytics.com/

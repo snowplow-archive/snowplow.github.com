@@ -27,9 +27,10 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 ## Vacancies
 
-1. [Junior data analyst][Junior data analyst] - London, UK [1 position]
-2. [Support engineer][support-engineer] - Remote, UTC+2/3 [1 position]
-3. [Technical product manager][technical-product-manager] - London, UK [1 position]
+1. [Senior data analyst][Senior data analyst] - London, UK or remote [1 position]
+2. [Junior data analyst][Junior data analyst] - London, UK or remote [1 position]
+3. [Support engineer][support-engineer] - Remote, UTC+2/3 [1 position]
+4. [Technical product manager][technical-product-manager] - London, UK [1 position]
 
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
@@ -37,6 +38,7 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 <strong>We do not welcome calls from recruitment consultants.</strong>
 
 [Junior data analyst]: /about/jobs/junior-data-analyst/
+[Senior data analyst]: /about/jobs/senior-data-analyst/
 [infrastructure-engineer]: /about/jobs/infrastructure-engineer/
 [support-engineer]: /about/jobs/support-engineer/
 [technical-product-manager]: /about/jobs/technical-product-manager/

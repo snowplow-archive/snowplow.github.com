@@ -32,7 +32,7 @@ We want to do more to move the digital analytics industry forwards. That means:
 * Working with the broader community of analytics practioners, through speaking at conferences, [our own forum][snowplow-discourse] and other public forums to explore, develop and demonstrate new analytics approaches
 * Work with our engineers to make our platform better based on how our wider community is using it
 
-We're looking for a senior data analyst to join our team and lead that charge.
+We're looking for a senior data analyst to join our team, get out there and shake up the way people think and do digital analytics.
 
 ## What we're looking for
 
@@ -42,6 +42,7 @@ We're looking for a candidate who:
 * Is familiar with both traditional digital analytics tooling (Adobe and GA) and other tools
 * Is an expert at identifying business questions and choosing and executing analytical processes to answer those questions
 * Understands the limitations inherent in packaged analytics products like GA and Adobe
+* Has experience using other tools and analytics approaches that go beyond descriptive statistics
 * Enjoys challenging the status quo
 * Is excited to try new approaches, tools and technologies, and has taken new approaches, tools and technologies, to good effect
 * Has a proven track record using data to affect real change in business 

@@ -2,12 +2,12 @@
 layout: page
 group: about
 subgroup: jobs
-title: Senior data analyst
-description: What we're looking for our senior data analyst
+title: Senior data analyst / scientist
+description: What we're looking for our senior data analyst / scientist
 permalink: /about/jobs/senior-data-analyst/
 ---
 
-<h1>Senior Data Analyst <small>London, UK, or remote</small></h1>
+<h1>Senior Data Analyst / Scientist<small>London, UK, or remote</small></h1>
 
 Digital analytics is evolving fast:
 
@@ -32,7 +32,7 @@ We want to do more to move the digital analytics industry forwards. That means:
 * Working with the broader community of analytics practioners, through speaking at conferences, [our own forum][snowplow-discourse] and other public forums to explore, develop and demonstrate new analytics approaches
 * Work with our engineers to make our platform better based on how our wider community is using it
 
-We're looking for a senior data analyst to join our team, get out there and shake up the way people think and do digital analytics.
+We're looking for a senior data analyst / scientist to join our team, get out there and shake up the way people think and do digital analytics.
 
 ## What we're looking for
 

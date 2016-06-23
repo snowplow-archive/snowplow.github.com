@@ -7,8 +7,7 @@ author: Ed
 category: Releases
 ---
 
-We are pleased to announce the release of the [Snowplow C++ Tracker] [cpp-repo]. The Tracker is designed to work asynchronously and dependency-free within your C++ code to provide great performance in your applications and servers,
-even under heavy load, while also storing all of your events persistently allowing recovery from temporary network outages.
+We are pleased to announce the release of the [Snowplow C++ Tracker] [cpp-repo]. The Tracker is designed to work asynchronously and dependency-free within your C++ code to provide great performance in your applications and servers, even under heavy load, while also storing all of your events persistently allowing recovery from temporary network outages.
 
 In the rest of this post we will cover:
 
@@ -26,7 +25,7 @@ In the rest of this post we will cover:
 This tracker is source-only and requires no external dependencies. You can get the source code bundle here:
 
 {% highlight bash %}
-$ wget XXX
+$ wget https://github.com/snowplow/snowplow-cpp-tracker/archive/master.zip
 {% endhighlight %}
 
 Please check out the [C++ Tracker setup guide] [cpp-setup] on our wiki for more information on setup.
@@ -38,7 +37,9 @@ That's it! You're now ready to start using the Tracker.
 To setup the C++ Tracker you first need include the source files in your project:
 
 * If you're using Visual Studio 2015, you'll need to add everything in `include/` and `src/` into your project
-* If you're using OSX/gcc, you'll need to include `include/` and `src/` into your build - and compile/link `sqlite3.c` and `sqlite3.h` (C bindings) separately  
+* If you're using OSX/gcc, you'll need to:
+  - Add the `include/` and `src/` directories into your build
+  - Compile/link `include/sqlite3.c` and `include/sqlite3.h` (C bindings) separately
 
 You can then instantiate and start a new tracker like so:
 

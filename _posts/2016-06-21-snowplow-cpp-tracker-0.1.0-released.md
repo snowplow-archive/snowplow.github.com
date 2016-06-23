@@ -75,7 +75,7 @@ The general flow of the Tracker as an event goes through:
 
 * A `Tracker::instance()->track_*` method is invoked
 * The event is stored in the local database
-* A long running worker thread processes these events (only started using `Tracker.start`)
+* A long running worker thread processes these events (started on `Tracker::init()`)
 * This process will then pull a range of events from the database and begin sending them to your configured collector URI
 * More events arriving during sending will just be written to the database, and will then be picked up by the background sending process
 * Each request is sent using a `std::future`

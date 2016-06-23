@@ -7,16 +7,16 @@ author: Ed
 category: Releases
 ---
 
-We are pleased to announce the release of the [Snowplow C++ Tracker] [cpp-repo]. The Tracker is designed to work asynchronously and dependency-free within your C++ code to provide great performance in your applications and servers, even under heavy load, while also storing all of your events persistently allowing recovery from temporary network outages.
+We are pleased to announce the release of the [Snowplow C++ Tracker] [cpp-repo]. The Tracker is designed to work asynchronously and dependency-free within your C++ code to provide great performance in your applications, games and servers, even under heavy load, while also storing all of your events persistently allowing recovery from temporary network outages.
 
 In the rest of this post we will cover:
 
-1. [How to install the tracker](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#how-to-install)
-2. [How to use the tracker](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#how-to-use)
-3. [Core features](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#features)
-4. [Roadmap](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#roadmap)
-5. [Documentation](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#docs)
-6. [Getting help](/blog/2016/06/21/snowplow-cpp-tracker-0.1.0-released/#help)
+1. [How to install the tracker](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#how-to-install)
+2. [How to use the tracker](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#how-to-use)
+3. [Core features](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#features)
+4. [Roadmap](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#roadmap)
+5. [Documentation](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#docs)
+6. [Getting help](/blog/2016/06/23/snowplow-cpp-tracker-0.1.0-released/#help)
 
 <!--more-->
 
@@ -37,7 +37,7 @@ That's it! You're now ready to start using the Tracker.
 To setup the C++ Tracker you first need include the source files in your project:
 
 * If you're using Visual Studio 2015, you'll need to add everything in `include/` and `src/` into your project
-* If you're using OSX/gcc, you'll need to:
+* If you're using macOS or `gcc`, you'll need to:
   - Add the `include/` and `src/` directories into your build
   - Compile/link `include/sqlite3.c` and `include/sqlite3.h` (C bindings) separately
 
@@ -86,12 +86,12 @@ The Tracker also contains full support for secure event sending by both `GET` an
 
 <h2 id="roadmap">4. Roadmap</h2>
 
-Currently the Snowplow C++ tracker only supports OSX and Windows, but we're looking to support Linux in the future!
+Currently the Snowplow C++ Tracker only supports macOS and Windows, but we're looking to support Linux in the future!
 
 <h2 id="docs">5. Documentation</h2>
 
 * [C++ Tracker setup guide] [cpp-setup] for setting up the tracker
-* [C++ Tracker usage manual] [cpp-manual] for instrumenting a Go app with the tracker
+* [C++ Tracker usage manual] [cpp-manual] for instrumenting a C++ app with the tracker
 
 <h2 id="help">6. Getting help</h2>
 

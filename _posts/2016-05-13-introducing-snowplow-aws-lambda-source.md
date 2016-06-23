@@ -38,40 +38,6 @@ The Snowplow AWS Lambda source download bundle (including deployment scripts) is
 
 For a complete guide see the [setup guide] [lambda-source-docs] on the Snowplow wiki. This guide explains in more detail how to deploy an AWS Lambda (using provided tooling) that will emit Snowplow events for S3 Put and S3 Delete events.
 
-Before you get started you'll need to ensure you have [Python (2.7)](https://www.python.org/downloads/) and the [AWS-CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) installed and configured (not shown). Then you can run the following steps to 
-ensure you have pyyaml (a dependency for reading the configuration file) and download/extract the deployment bundle:
-
-{% highlight bash %}
-sudo pip install pyyaml
-wget https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow_aws_lambda_source_0.1.0_bundle.zip
-unzip snowplow_aws_lambda_source_0.1.0_bundle.zip -d snowplow_aws_lambda_source_0.1.0_bundle
-cd snowplow_aws_lambda_source_0.1.0_bundle
-{% end highlight %}
-
-Then edit the configuration file `config.ymal`, like so: 
-
-{% highlight yaml %}
-snowplow:
-    collector: http://collector.acme.com
-    app_id: com.acme.rawenrichedmonitor
-s3:
-    buckets:
-        - raw
-        - enriched
-{% endhighlight %}
-
-assuming your Snowplow collector endpoint is `http://collector.acme.com` and the buckets you wish to monitor are `raw` and `enriched`.  The `app_id` field is attached to each event
-this specific AWS Lambda fires - allowing you to differentiate between multiple AWS Lambda sources. Running the following will deploy the AWS Lambda to your account:
-
-{% highlight bash %}
-python deploy.py
-{% end highlight %}
-
-Providing everything completed successfully, adding or removing items in the buckets you have specified will now send a [s3 notification event](https://github.com/snowplow/iglu-central/blob/master/schemas/com.amazon.aws.lambda/s3_notification_event/jsonschema/1-0-0)
-to your selected collector!
-
-If you're using our batch pipeline with Amazon Redshift  - you'll also need to deploy the following Redshift table definition to your cluster, [s3_notification_event_1.sql](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.lambda/s3_notification_event_1.sql). 
-
 <h2 id="roadmap">4. Roadmap for Snowplow AWS Lambda source</h2>
 
 Currently we only support tracking S3 bucket events, but we plan to include support for the [many event sources AWS Lambda permits][lambda-event-sources] over time. If there's a specific event source you are interested in, please [create a ticket] [lambda-source-new-issue]!

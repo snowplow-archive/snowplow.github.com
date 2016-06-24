@@ -16,14 +16,14 @@ Digital analytics is evolving fast:
 3. Companies are using a wider, more sophisticated toolset to build insight  their data, including statistical modeling and machine learning
 4. Digital data is being used increasingly not just for building insight and analytics, but for driving real-time decision making systems
 
-As Snowplow, we find ourselves at the forefront of those develop. By enabling our users to:
+As Snowplow, we find ourselves at the forefront of those developments. By enabling our users to:
 
 1. Decouple their data collection from their data analysis
 2. Track and own event-level data at scale, across channels and platforms
 3. Easily plugin *any* analytics tool and data processing toolset
 4. Process digital data in *real-time*
 
-we're making it easier for companies to be data-sophisticated. 
+we are making it easier for companies to be data-sophisticated. 
 
 We want to do more to move the digital analytics industry forwards. That means:
 
@@ -32,7 +32,7 @@ We want to do more to move the digital analytics industry forwards. That means:
 * Working with the broader community of analytics practioners, through speaking at conferences, [our own forum][snowplow-discourse] and other public forums to explore, develop and demonstrate new analytics approaches
 * Work with our engineers to make our platform better based on how our wider community is using it
 
-We're looking for a senior data analyst / scientist to join our team, get out there and shake up the way people think and do digital analytics.
+We're looking for a senior Data Analyst or Data Scientist to join our team, get out there and shake up the way people think and do digital analytics.
 
 ## What we're looking for
 
@@ -51,13 +51,12 @@ We're looking for a candidate who:
 
 ## The opportunity for you
 
-This is an opportunity for an individual to 
+This is an opportunity for you to:
 
-1. Drive change across the digital analytics industry
+1. Drive change and innovation across the digital analytics industry
 2. Work with some of the most analytically sophisticated companies in the world
-3. Build a global profile 
-4. Foster innovation in digital analytics
-5. Be part of a rapidly growing startup
+3. Build a global profile
+4. Be part of a rapidly growing startup
 
 ## Practicalities
 

@@ -7,7 +7,7 @@ description: What we're looking for in our first product manager
 permalink: /about/jobs/technical-product-manager/
 ---
 
-<h1>Technical Product Manager <small>London, UK</small></h1>
+<h1>Technical Product Manager <small>London, UK or Berlin, Germany</small></h1>
 
 Over the past four years Snowplow has grown into the industry-leading open-source event data pipeline, consisting of a dizzying array of user-facing products and SDKs, software libraries, general-purpose infrastructure tools, plus the proprietary products supporting our [Managed Service](http://snowplowanalytics.com/trial/).
 

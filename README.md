@@ -100,7 +100,7 @@ From dark to light (see it [live](http://paletton.com/#uid=53E161kpnocgvvWkYrusa
 
 - #4B1064 rgb(75, 16, 100)
 - #631F81 rgb(99, 31, 129)
-- #773793 rgb(119, 55, 147)
+- **#773793 rgb(119, 55, 147)**
 - #8F53A9 rgb(143, 83, 169)
 - #B481CA rgb(180, 129, 202)
 
@@ -108,7 +108,7 @@ From dark to light (see it [live](http://paletton.com/#uid=53E161kpnocgvvWkYrusa
 
 - #4A8710 rgb(74, 135, 16)
 - #67AE24 rgb(103, 174, 36)
-- #83C644 rgb(131, 198, 68)
+- **#83C644 rgb(131, 198, 68)**
 - #A6E46A rgb(166, 228, 106)
 - #C0EF94 rgb(192, 239, 148)
 

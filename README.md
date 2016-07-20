@@ -82,26 +82,34 @@ Images are committed to the appropriate `assets/img` folder (depending on which 
 
 ## Design
 
-### Colors
+### Colours
 
 ![colours][colours]
 
-Snowplow has two color schemes.
+From dark to light (see it [live](http://paletton.com/#uid=53E161kpnocgvvWkYrusajwy2dZkl3rFccH9h3vPpjogsdiWkl3rFccH9h3vPpjogsdiW)).
 
-The main one. From dark to light:
+### Blue
 
-- #1F294D
-- #4C5371
-- #797F94
-- #A5A9B9
-- #D2D4DB
+- #062249 rgb(6, 34, 73)
+- #143666 rgb(20, 54, 102)
+- **#234A7F rgb(35, 74, 127)**
+- #3A5E90 rgb(58, 94, 144)
+- #597AA7 rgb(89, 122, 167)
 
-And a purple one. From dark to light:
+### Purple
 
-- #2D479A
-- #586BAE
-- #8290C2
-- #ADB5D6
-- #D5DAEB
+- #4B1064 rgb(75, 16, 100)
+- #631F81 rgb(99, 31, 129)
+- #773793 rgb(119, 55, 147)
+- #8F53A9 rgb(143, 83, 169)
+- #B481CA rgb(180, 129, 202)
+
+### Green
+
+- #4A8710 rgb(74, 135, 16)
+- #67AE24 rgb(103, 174, 36)
+- #83C644 rgb(131, 198, 68)
+- #A6E46A rgb(166, 228, 106)
+- #C0EF94 rgb(192, 239, 148)
 
 [colours]: /assets/img/readme/colours.png

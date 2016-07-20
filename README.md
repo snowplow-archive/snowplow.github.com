@@ -84,6 +84,8 @@ Images are committed to the appropriate `assets/img` folder (depending on which 
 
 ### Colors
 
+![colours][colours]
+
 Snowplow has two color schemes.
 
 The main one. From dark to light:
@@ -101,3 +103,5 @@ And a purple one. From dark to light:
 - #8290C2
 - #ADB5D6
 - #D5DAEB
+
+[colours]: /assets/img/readme/colours.png

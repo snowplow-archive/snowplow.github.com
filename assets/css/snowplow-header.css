@@ -113,9 +113,33 @@ header .topbanner .shape {
 	top: 0;
 }
 
-header .topbanner .shape.a {-webkit-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%)}
-header .topbanner .shape.b {-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%)}
-header .topbanner .shape.c {-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%)}
+
+
+/* define the shapes  */
+
+header .topbanner .shape.a {
+	-webkit-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%);
+	-moz-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%);
+	-ms-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%);
+	-o-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%);
+	clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%);
+}
+
+header .topbanner .shape.b {
+	-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+}
+
+header .topbanner .shape.c {
+	-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-moz-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-ms-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-o-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+}
 
 header .topbanner .content {position: relative; z-index: 1}
 

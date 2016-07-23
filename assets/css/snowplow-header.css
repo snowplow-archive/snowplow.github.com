@@ -97,7 +97,7 @@ header .nav-collapse li.active a.button {
 /* topbanner */
 
 header .topbanner {
-	padding: 120px 0 80px 0;
+	padding: 90px 0 56px 0;
 	background-image: -webkit-linear-gradient(125deg, #773793, #143666);
 	position: relative;
 	color: white;
@@ -119,8 +119,13 @@ header .topbanner .shape.c {-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%,
 
 header .topbanner .content {position: relative; z-index: 1}
 
-header .topbanner .content h1, h2 {
-	margin: 0 0 30px 0;
+header .topbanner .content h1 {
+	margin: 0 0 34px 0; /* series 90-54-34-31 */
+	font-weight: 300;
+}
+
+header .topbanner .content h2 {
+	margin: 0 0 21px 0; /* series 90-54-34-31 */
 	font-weight: 300;
 }
 

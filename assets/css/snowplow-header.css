@@ -1,19 +1,113 @@
 
 /* topnav */
 
-header .topnav {height: 71px}
+header ul {margin: 0}
+
+header .brand, header .logo, header .name {float: left}
+header nav {float: right}
+header .hack {clear: both}
+
+header .topnav {
+	padding: 25px 15px;
+	font-weight: 300;
+	font-size: 15px;
+	color: #343434;
+}
+
+header .topnav a, header .topnav a:hover, header .topnav a:focus {
+	text-decoration: none;
+	color: #343434;
+}
+
+header .logo img {height: 51px}
+
+header .name {
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	margin-left: 15px;
+	font-weight: 300;
+	font-size: 36px;
+	display: none;
+}
+
+@media (max-width: 991px) {header .name {display: none}}
+
+@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
+
+header .collapse    {display: none}
+header .collapse.in {display: block}
+
+.nav-collapse    {overflow-x: visible; -webkit-overflow-scrolling: touch}
+.nav-collapse.in {overflow-y: auto}
+
+@media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
+
+header .nav-collapse {text-align: right} /* mobile menu */
+
+header .nav-collapse li {
+	display : inline-block;
+	font-weight: 400;
+}
+
+header .nav-collapse li a {
+	text-transform: uppercase;
+	border-radius: 30px;
+	padding: 12px 15px
+}
+
+header .nav-collapse li a.button,
+header .nav-collapse li.active a.button {
+	background-color: #83C644;
+	border: 1px solid #83C644;
+	font-weight: 400;
+	color: white;
+}
+
+
+/*
+@media (max-width: 767px) {
+
+	header .toggle {text-align: right} /* hack */
+
+	/*header .toggle-menu {
+		text-transform: uppercase;
+		background-color: transparent;
+		border: 1px solid white;
+		border-radius: 30px;
+		padding: 12px 15px
+	}
+
+	/*header .toggle-menu:hover, */
+	/*header .toggle-menu:focus {
+		background-color: rgba(121,127,148,0.3);
+		border: 1px solid transparent
+	}
+
+	header .nav-collapse li {
+		list-style: none;
+		position: relative;
+		padding: 12px 15px;
+		margin-right: 0;
+		margin-top: 5px;
+  	display: block;
+	}
+
+}
 
 /* topbanner */
 
-header .topbanner {margin: 0; padding: 120px 0 80px 0;}
-
-header .topbanner {background-image: -webkit-linear-gradient(125deg, #773793, #143666)}
-header .topbanner {position: relative; color: white}
+header .topbanner {
+	padding: 120px 0 80px 0;
+	background-image: -webkit-linear-gradient(125deg, #773793, #143666);
+	position: relative;
+	color: white;
+	clear: both;
+}
 
 header .topbanner .shape {
 	background-color: white;
-	position: absolute;
 	opacity: 0.025;
+	position: absolute;
 	height: 100%;
 	width: 100%;
 	top: 0;
@@ -39,123 +133,6 @@ header .topbanner .content h2 {
 }
 
 /*
-
-header .brand, header .logo, header .name {float: left}
-header .menu nav {float: right}
-
-header .wrapper				 {margin: 30px 0 12px 0}
-header .wrapper.custom {margin: 45px 0 30px 0}
-
-
-header .wrapper h1 {margin: 0}
-
-header .bigbox {margin: 0}
-
-header .bigbox h1 {
-	margin-bottom: 60px;
-	font-weight: 300;
-	font-size: 65px
-}
-
-header .bigbox h2 {
-	margin-bottom: 30px;
-	font-weight: 300;
-	font-size: 30px
-}
-
-header .bigbox p {
-	margin: 0 auto 30px auto;
-	font-size: 25px;
-	width: 90%
-}
-
-
-
-header {font-weight: 300; font-size: 15px; color: white}
-header a, header a:hover, header a:focus {text-decoration: none; color: white}
-
-
-
-header .logo img {height: 51px}
-
-header .name {
-	text-transform: uppercase;
-	letter-spacing: -1px;
-	margin-left: 15px;
-	font-weight: 300;
-	font-size: 36px;
-}
-
-@media (max-width: 991px) {header .name {display: none}}
-
-
-
-@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens
-
-header .collapse    {display: none}
-header .collapse.in {display: block}
-
-.nav-collapse    {overflow-x: visible; -webkit-overflow-scrolling: touch}
-.nav-collapse.in {overflow-y: auto}
-
-@media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
-
-
-
-header .nav-collapse {text-align: right} /* mobile menu
-
-header .nav-collapse ul {margin: 15px 0}
-
-header .nav-collapse li {
-	display : inline-block;
-	margin-left: 2px;
-	font-weight: 400;
-}
-
-header .nav-collapse li a {
-	text-transform: uppercase;
-	border-radius: 30px;
-	border: 2px solid;
-	padding: 12px 15px
-}
-
-header .nav-collapse li        a.with-border {font-weight: 400; background-color: #5CB85C}
-header .nav-collapse li        a.with-border {border-color: #5CB85C; border-width: 1px}
-header .nav-collapse li.active a.with-border {border-color: #5CB85C; border-width: 1px}
-
-header .nav-collapse li a.without-border {border-color: transparent}
-
-
-
-@media (max-width: 767px) {
-
-	header .toggle {text-align: right} /* hack */
-
-	header .toggle-menu {
-		text-transform: uppercase;
-		background-color: transparent;
-		border: 1px solid white;
-		border-radius: 30px;
-		padding: 12px 15px
-	}
-
-	/*header .toggle-menu:hover,
-	header .toggle-menu:focus {
-		background-color: rgba(121,127,148,0.3);
-		border: 1px solid transparent
-	}
-
-	header .nav-collapse li {
-		list-style: none;
-		position: relative;
-		padding: 12px 15px;
-		margin-right: 0;
-		margin-top: 5px;
-  	display: block;
-	}
-
-}
-
 
 
 

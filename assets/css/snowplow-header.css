@@ -1,7 +1,40 @@
 
-/* header: basic structure */
+/* header */
 
-header {padding: 20px 0}
+header .topnav {margin: 0; padding: 0;}
+header .topbanner {margin: 0; padding: 120px 0 90px 0;}
+
+/* navigation */
+
+header .topnav {height: 71px}
+
+/* banner */
+
+header .topbanner {background-image: -webkit-linear-gradient(125deg, #773793, #143666)}
+header .topbanner {position: relative}
+
+header .topbanner .shape {
+	background-color: white;
+	position: absolute;
+	opacity: 0.025;
+	height: 100%;
+	width: 100%;
+	top: 0;
+}
+
+header .topbanner .shape.a {-webkit-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 100%)}
+header .topbanner .shape.b {-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%)}
+header .topbanner .shape.c {-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%)}
+
+header .topbanner .content {
+	position: relative;
+	z-index: 1;
+}
+
+
+
+
+/*
 
 header .brand, header .logo, header .name {float: left}
 header .menu nav {float: right}
@@ -9,12 +42,35 @@ header .menu nav {float: right}
 header .wrapper				 {margin: 30px 0 12px 0}
 header .wrapper.custom {margin: 45px 0 30px 0}
 
-/* header: text */
+
+header .wrapper h1 {margin: 0}
+
+header .bigbox {margin: 0}
+
+header .bigbox h1 {
+	margin-bottom: 60px;
+	font-weight: 300;
+	font-size: 65px
+}
+
+header .bigbox h2 {
+	margin-bottom: 30px;
+	font-weight: 300;
+	font-size: 30px
+}
+
+header .bigbox p {
+	margin: 0 auto 30px auto;
+	font-size: 25px;
+	width: 90%
+}
+
+
 
 header {font-weight: 300; font-size: 15px; color: white}
 header a, header a:hover, header a:focus {text-decoration: none; color: white}
 
-/* header: brand */
+
 
 header .logo img {height: 51px}
 
@@ -28,9 +84,9 @@ header .name {
 
 @media (max-width: 991px) {header .name {display: none}}
 
-/* header: mobile menu (collapsable) */
 
-@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
+
+@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens
 
 header .collapse    {display: none}
 header .collapse.in {display: block}
@@ -40,9 +96,9 @@ header .collapse.in {display: block}
 
 @media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
 
-/* header: menu */
 
-header .nav-collapse {text-align: right} /* mobile menu */
+
+header .nav-collapse {text-align: right} /* mobile menu
 
 header .nav-collapse ul {margin: 15px 0}
 
@@ -65,7 +121,7 @@ header .nav-collapse li.active a.with-border {border-color: #5CB85C; border-widt
 
 header .nav-collapse li a.without-border {border-color: transparent}
 
-/* header: mobile menu */
+
 
 @media (max-width: 767px) {
 
@@ -79,7 +135,7 @@ header .nav-collapse li a.without-border {border-color: transparent}
 		padding: 12px 15px
 	}
 
-	/*header .toggle-menu:hover,*/
+	/*header .toggle-menu:hover,
 	header .toggle-menu:focus {
 		background-color: rgba(121,127,148,0.3);
 		border: 1px solid transparent
@@ -96,9 +152,6 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 }
 
-/* header: title */
-
-header .wrapper h1 {margin: 0}
 
 
 
@@ -106,7 +159,7 @@ header .wrapper h1 {margin: 0}
 
 
 
-/* pricing plans */
+/* pricing plans
 
 header .plans {margin: 0 auto}
 
@@ -139,7 +192,7 @@ header .plan-detail.white {color: white}
 
 header .plan-cta {margin-top: 10px}
 
-@media (max-width: 991px) { /* responsive pricing plans */
+@media (max-width: 991px) { /* responsive pricing plans
 
 	header .plan.batch,
 	header .plan.real-time {margin: 15px auto 0 auto}
@@ -155,7 +208,7 @@ header .plan-cta {margin-top: 10px}
 
 }
 
-/* signup forms */
+/* signup forms
 
 .request-trial {margin: 0 auto; width: 90%}
 
@@ -188,24 +241,4 @@ select.request-trial-input {
 	font-size: 18px
 }
 
-/* TODO: bigbox */
-
-header .bigbox {text-align: center; margin: 0}
-
-header .bigbox h1 {
-	margin-bottom: 60px;
-	font-weight: 300;
-	font-size: 65px
-}
-
-header .bigbox h2 {
-	margin-bottom: 30px;
-	font-weight: 300;
-	font-size: 30px
-}
-
-header .bigbox p {
-	margin: 0 auto 30px auto;
-	font-size: 25px;
-	width: 90%
-}
+*/

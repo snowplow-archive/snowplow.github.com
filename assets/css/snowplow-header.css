@@ -11,7 +11,7 @@ header .topnav {height: 71px}
 /* banner */
 
 header .topbanner {background-image: -webkit-linear-gradient(125deg, #773793, #143666)}
-header .topbanner {position: relative}
+header .topbanner {position: relative; color: white}
 
 header .topbanner .shape {
 	background-color: white;
@@ -26,13 +26,20 @@ header .topbanner .shape.a {-webkit-clip-path: polygon(0 0, 15% 0, 5% 100%, 0 10
 header .topbanner .shape.b {-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%)}
 header .topbanner .shape.c {-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%)}
 
-header .topbanner .content {
-	position: relative;
-	z-index: 1;
+header .topbanner .content {position: relative; z-index: 1}
+
+header .topbanner .content h1, h2 {
+	margin: 0 0 30px 0;
+	font-weight: 300;
 }
 
+header .topbanner .content h1 {font-size: 65px}
 
-
+header .topbanner .content h2 {
+	letter-spacing: 0px;
+	line-height: 1.45;
+	font-size: 25px;
+}
 
 /*
 

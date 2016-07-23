@@ -149,6 +149,8 @@ q:after {content: close-quote}
 
 /* call to action */
 
+span.or {font-size: 15px; padding: 0 12px}
+
 .cta {
 	font-size: 15px;
   font-weight: 400;

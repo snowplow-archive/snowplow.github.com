@@ -22,12 +22,12 @@ header .topnav a, header .topnav a:hover, header .topnav a:focus {
 header .logo img {height: 51px}
 
 header .name {
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	letter-spacing: -1px;
-	margin-left: 15px;
 	font-weight: 300;
 	font-size: 36px;
-	display: none;
+	margin: -15px 0;
+
 }
 
 @media (max-width: 991px) {header .name {display: none}}

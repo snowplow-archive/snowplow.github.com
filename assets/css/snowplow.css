@@ -149,18 +149,33 @@ q:after {content: close-quote}
 
 /* call to action */
 
-.cta-button {
+.cta {
 	font-size: 15px;
   font-weight: 400;
   padding: 12px 15px;
-  border: 1px solid transparent; /* overwrite defaults */
+  border: 1px solid transparent;
   border-radius: 30px;
   text-transform: uppercase;
 	display: inline-block;
 	user-select: none;
+	color: white;
 }
 
-.cta-button.green {color: white; background-color: #5CB85C}
-.cta-button.blue {color: white; background-color: #4C5371}
+.cta.lightgreen {
+	background-color: #83C644;
+	border-color: #83C644;
+}
+
+.cta.darkgreen {
+	background-color: #67AE24;
+	border-color: #67AE24;
+}
+
+.cta.white {
+	background-color: initial;
+	border-color: white;
+}
+
+.cta.blue {color: white; background-color: #4C5371}
 
 button:focus {outline:0} /* remove the outline */

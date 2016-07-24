@@ -77,22 +77,22 @@ header .nav-collapse li.active a.button {
 
 	header .toggle-menu {
 		text-transform: uppercase;
-		background-color: transparent;
-		border: 1px solid white;
+		border: 1px solid #343434;
+		color: #343434;
+		background-color: white;
+		padding: 12px 15px;
 		border-radius: 30px;
-		padding: 12px 15px
+		font-weight: 400;
 	}
 
 	header .toggle-menu:hover, */
 	header .toggle-menu:focus {
-		background-color: rgba(121,127,148,0.3);
 		border: 1px solid transparent
 	}
 
 	header .nav-collapse li {
 		list-style: none;
 		position: relative;
-		padding: 12px 15px;
 		margin-right: 0;
 		margin-top: 5px;
   	display: block;

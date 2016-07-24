@@ -1,38 +1,43 @@
 
-/* header: basic structure */
+/* topnav */
 
-header {padding: 20px 0}
+header ul {margin: 0} /* reset - important to get menu to look right */
 
 header .brand, header .logo, header .name {float: left}
-header .menu nav {float: right}
+header nav {float: right}
+header .hack {clear: both}
 
-header .wrapper				 {margin: 30px 0 12px 0}
-header .wrapper.custom {margin: 45px 0 30px 0}
-
-/* header: text */
-
-header {font-weight: 300; font-size: 15px; color: white}
-header a, header a:hover, header a:focus {text-decoration: none; color: white}
-
-/* header: brand */
-
-header .logo img {height: 51px}
-
-header .name {
-	text-transform: uppercase;
-	letter-spacing: -1px;
-	margin-left: 15px;
+header .topnav {
+	padding: 9px 15px;
 	font-weight: 300;
-	font-size: 36px;
+	font-size: 15px;
+	color: #343434;
 }
 
-@media (max-width: 991px) {header .name {display: none}}
+header .topnav a,
+header .topnav a:hover,
+header .topnav a:focus {
+	text-decoration: none;
+	color: #343434;
+}
 
-/* header: mobile menu (collapsable) */
+header .logo img {height: 47px}
 
-@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
+/*header .name {
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	font-weight: 300;
+	font-size: 36px;
+	margin: -15px 0;
+}*/
 
-header .collapse    {display: none}
+/*@media (max-width: 991px) {header .name {display: none}}*/
+
+@media (min-width: 768px) {
+	header .toggle {display: none} /* hide the menu toggle on larger screens */
+}
+
+header .collapse {display: none}
 header .collapse.in {display: block}
 
 .nav-collapse    {overflow-x: visible; -webkit-overflow-scrolling: touch}
@@ -40,32 +45,31 @@ header .collapse.in {display: block}
 
 @media (min-width: 768px) {.nav-collapse.collapse {display: block !important}}
 
-/* header: menu */
-
 header .nav-collapse {text-align: right} /* mobile menu */
-
-header .nav-collapse ul {margin: 15px 0}
 
 header .nav-collapse li {
 	display : inline-block;
-	margin-left: 2px;
 	font-weight: 400;
 }
 
+@media (min-width: 992px) {header .nav-collapse li {margin-left: 4px}}
+@media (min-width: 1200px) {header .nav-collapse li {margin-left: 8px}}
+
 header .nav-collapse li a {
 	text-transform: uppercase;
-	border-radius: 30px;
-	border: 2px solid;
-	padding: 12px 15px
+	border: 1px solid transparent;
+	padding: 12px 15px;
+	display: block; /* get correct behaviour with padding */
 }
 
-header .nav-collapse li        a.with-border {font-weight: 400; background-color: #5CB85C}
-header .nav-collapse li        a.with-border {border-color: #5CB85C; border-width: 1px}
-header .nav-collapse li.active a.with-border {border-color: #5CB85C; border-width: 1px}
-
-header .nav-collapse li a.without-border {border-color: transparent}
-
-/* header: mobile menu */
+header .nav-collapse li a.button,
+header .nav-collapse li.active a.button {
+	background-color: #83C644;
+	border: 1px solid #83C644;
+	border-radius: 30px;
+	font-weight: 400;
+	color: white;
+}
 
 @media (max-width: 767px) {
 
@@ -73,22 +77,22 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 	header .toggle-menu {
 		text-transform: uppercase;
-		background-color: transparent;
-		border: 1px solid white;
+		border: 1px solid #343434;
+		color: #343434;
+		background-color: white;
+		padding: 12px 15px;
 		border-radius: 30px;
-		padding: 12px 15px
+		font-weight: 400;
 	}
 
-	/*header .toggle-menu:hover,*/
+	header .toggle-menu:hover, */
 	header .toggle-menu:focus {
-		background-color: rgba(121,127,148,0.3);
 		border: 1px solid transparent
 	}
 
 	header .nav-collapse li {
 		list-style: none;
 		position: relative;
-		padding: 12px 15px;
 		margin-right: 0;
 		margin-top: 5px;
   	display: block;
@@ -96,68 +100,124 @@ header .nav-collapse li a.without-border {border-color: transparent}
 
 }
 
-/* header: title */
+header .topnav.default {background: linear-gradient(125deg, #143666, #773793)}
+header .topnav.default,
+header .topnav.default a,
+header .topnav.default a:hover,
+header .topnav.default a:focus {color: white}
 
-header .wrapper h1 {margin: 0}
+/* topbanner */
 
-
-
-
-
-
-
-/* pricing plans */
-
-header .plans {margin: 0 auto}
-
-header .plan {
-	width: 32%;
-	padding: 30px 15px;
-	border-radius: 5px;
-	float: left
+header .topbanner {
+	background-color: #143666;
+	background-image: -webkit-linear-gradient(125deg, #773793, #143666);
+	background-image: -moz-linear-gradient(125deg, #773793, #143666);
+	background-image: -ms-linear-gradient(125deg, #773793, #143666);
+	background-image: -o-linear-gradient(125deg, #773793, #143666);
+	background-image: linear-gradient(125deg, #143666, #773793);
+	position: relative;
+	color: white;
+	clear: both;
 }
 
-header .plan.batch,
-header .plan.real-time {margin-left: 12%}
-
-header .plan {
-	background-color: rgba(250,250,250,0.1);
-	text-transform: uppercase;
-	text-align: center
+header .topbanner .shape {
+	background-color: white;
+	opacity: 0.025;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
 }
 
-header .plan-name {font-weight: 400; font-size: 25px}
+/* draw the shapes  */
 
-header .plan-price {padding: 10px 0}
-header .plan-price {font-weight: 300; font-size: 60px}
-header .plan-price .per-month {font-size: 20px}
-header .plan-price sup {font-size: 30px}
+header .topbanner .shape.a {
+	-webkit-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+	-moz-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+	-ms-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+	-o-clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+	clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
+}
 
-header .plan-details {font-weight: 400; font-size: 15px; min-height: 150px}
-header .plan-detail {margin-top: 5px; color: #A5A9B9}
-header .plan-detail.white {color: white}
-
-header .plan-cta {margin-top: 10px}
-
-@media (max-width: 991px) { /* responsive pricing plans */
-
-	header .plan.batch,
-	header .plan.real-time {margin: 15px auto 0 auto}
-
-	header .plan {
-		width: 100%;
-		max-width: 500px;
-		margin: 0 auto;
-		float: none
+@media (max-width: 991px) {
+	header .topbanner .shape.b {
+		-webkit-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-moz-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-ms-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-o-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
 	}
+}
 
-	header .plan-details {min-height: 20px}
+@media (min-width: 992px) {
+	header .topbanner .shape.b {
+		-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	}
+}
 
+header .topbanner .shape.c {
+	-webkit-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-moz-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-ms-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	-o-clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+	clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
+}
+
+/* series 90-56-34-21-13 */
+
+span.or {font-size: 15px}
+span.iphone5 {margin-left: -3px} /* restore comma */
+
+@media (max-width: 350px) {span.iphone5 {display: none}}
+
+@media (max-width: 767px) {
+	header .topbanner {padding: 34px 0 21px 0}
+	header .topbanner .content h1 {margin: 0 0 13px 0; font-size: 45px}
+	header .topbanner .content h2 {margin: 0 0 13px 0; font-size: 20px}
+	span.or {padding: 0 8px}
+}
+
+@media (min-width: 768px) {
+	header .topbanner {padding: 56px 0 34px 0}
+	header .topbanner .content h1 {margin: 0 0 21px 0; font-size: 55px}
+	header .topbanner .content h2 {margin: 0 0 13px 0; font-size: 22px}
+	span.or {padding: 0 12px}
+}
+
+@media (min-width: 992px) {
+	header .topbanner {padding: 90px 0 56px 0}
+	header .topbanner .content h1 {margin: 0 0 34px 0; font-size: 65px}
+	header .topbanner .content h2 {margin: 0 0 21px 0; font-size: 25px}
+	span.or {padding: 0 12px}
+}
+
+/* hide the shapes on small screens */
+
+@media (max-width: 1449px) {header .topbanner .shape.a {display: none}}
+@media (max-width: 767px) {header .topbanner .shape.b {display: none}}
+@media (max-width: 400px) {header .topbanner .shape.c {display: none}}
+
+header .topbanner .content {position: relative; z-index: 1}
+
+header .topbanner .content h1,
+header .topbanner .content h2 {
+	font-weight: 300;
+}
+
+header .topbanner .content h2 {
+	letter-spacing: 0px;
+	line-height: 1.45;
 }
 
 /* signup forms */
 
-.request-trial {margin: 0 auto; width: 90%}
+.request-trial {width: 600px}
+
+@media (max-width: 767px) {.request-trial {width: 100%}}
 
 .request-trial-trick {display: none}
 
@@ -165,7 +225,7 @@ header .plan-cta {margin-top: 10px}
 
 .request-trial-input {
 	width: 100%;
-  padding: 15px 12px;
+  padding: 9px 15px;
 	background-color: rgba(121,127,148,0.3);
   border: 0px solid transparent;
 	border-radius: 5px;
@@ -186,26 +246,4 @@ select.request-trial-input {
 .help-inline {
 	margin: 15px 0 0 15px;
 	font-size: 18px
-}
-
-/* TODO: bigbox */
-
-header .bigbox {text-align: center; margin: 0}
-
-header .bigbox h1 {
-	margin-bottom: 60px;
-	font-weight: 300;
-	font-size: 65px
-}
-
-header .bigbox h2 {
-	margin-bottom: 30px;
-	font-weight: 300;
-	font-size: 30px
-}
-
-header .bigbox p {
-	margin: 0 auto 30px auto;
-	font-size: 25px;
-	width: 90%
 }

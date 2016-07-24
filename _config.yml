@@ -13,7 +13,7 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 # so be sure to set them if your theme uses them.
 #
 title : Snowplow
-tagline: The open source event data collection and warehousing platform
+tagline: The best event data pipeline.
 author :
   name : Snowplow Analytics
   email : contact@snowplowanalytics.com

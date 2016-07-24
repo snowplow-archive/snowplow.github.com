@@ -57,7 +57,7 @@ header .nav-collapse li {
 
 header .nav-collapse li a {
 	text-transform: uppercase;
-	border: 1px solid white;
+	border: 1px solid transparent;
 	padding: 12px 15px;
 	display: block; /* get correct behaviour with padding */
 }
@@ -99,6 +99,12 @@ header .nav-collapse li.active a.button {
 	}
 
 }
+
+header .topnav.default {background: linear-gradient(125deg, #143666, #773793)}
+header .topnav.default,
+header .topnav.default a,
+header .topnav.default a:hover,
+header .topnav.default a:focus {color: white}
 
 /* topbanner */
 

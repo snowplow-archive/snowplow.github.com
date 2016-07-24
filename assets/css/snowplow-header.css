@@ -63,13 +63,11 @@ header .nav-collapse li.active a.button {
 	color: white;
 }
 
-
-/*
 @media (max-width: 767px) {
 
 	header .toggle {text-align: right} /* hack */
 
-	/*header .toggle-menu {
+	header .toggle-menu {
 		text-transform: uppercase;
 		background-color: transparent;
 		border: 1px solid white;
@@ -77,8 +75,8 @@ header .nav-collapse li.active a.button {
 		padding: 12px 15px
 	}
 
-	/*header .toggle-menu:hover, */
-	/*header .toggle-menu:focus {
+	header .toggle-menu:hover, */
+	header .toggle-menu:focus {
 		background-color: rgba(121,127,148,0.3);
 		border: 1px solid transparent
 	}
@@ -122,12 +120,24 @@ header .topbanner .shape.a {
 	clip-path: polygon(0 0, 10% 0, 5% 100%, 0 100%);
 }
 
-header .topbanner .shape.b {
-	-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-	-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-	-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-	-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
-	clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+@media (max-width: 991px) {
+	header .topbanner .shape.b {
+		-webkit-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-moz-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-ms-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		-o-clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+		clip-path: polygon(0 0, 50% 0, 100% 100%, 0% 100%);
+	}
+}
+
+@media (min-width: 992px) {
+	header .topbanner .shape.b {
+		-webkit-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-moz-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-ms-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		-o-clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+		clip-path: polygon(0 0, 30% 0, 100% 100%, 0% 100%);
+	}
 }
 
 header .topbanner .shape.c {

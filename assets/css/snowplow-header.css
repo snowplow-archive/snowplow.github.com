@@ -1,40 +1,43 @@
 
 /* topnav */
 
-header ul {margin: 0}
+header ul {margin: 0} /* reset - important to get menu to look right */
 
 header .brand, header .logo, header .name {float: left}
 header nav {float: right}
 header .hack {clear: both}
 
 header .topnav {
-	padding: 25px 15px;
+	padding: 9px 15px;
 	font-weight: 300;
 	font-size: 15px;
 	color: #343434;
 }
 
-header .topnav a, header .topnav a:hover, header .topnav a:focus {
+header .topnav a,
+header .topnav a:hover,
+header .topnav a:focus {
 	text-decoration: none;
 	color: #343434;
 }
 
-header .logo img {height: 51px}
+/*header .logo img {height: 51px}*/
 
-header .name {
-	/*text-transform: uppercase;*/
+/*header .name {
+	text-transform: uppercase;
 	letter-spacing: -1px;
 	font-weight: 300;
 	font-size: 36px;
 	margin: -15px 0;
+}*/
 
+/*@media (max-width: 991px) {header .name {display: none}}*/
+
+@media (min-width: 768px) {
+	header .toggle {display: none} /* hide the menu toggle on larger screens */
 }
 
-@media (max-width: 991px) {header .name {display: none}}
-
-@media (min-width: 768px) {header .toggle {display: none}} /* hide toggle on larger screens */
-
-header .collapse    {display: none}
+header .collapse {display: none}
 header .collapse.in {display: block}
 
 .nav-collapse    {overflow-x: visible; -webkit-overflow-scrolling: touch}
@@ -49,16 +52,21 @@ header .nav-collapse li {
 	font-weight: 400;
 }
 
+@media (min-width: 992px) {header .nav-collapse li {margin-left: 4px}}
+@media (min-width: 1200px) {header .nav-collapse li {margin-left: 8px}}
+
 header .nav-collapse li a {
 	text-transform: uppercase;
-	border-radius: 30px;
-	padding: 12px 15px
+	border: 1px solid white;
+	padding: 12px 15px;
+	display: block; /* get correct behaviour with padding */
 }
 
 header .nav-collapse li a.button,
 header .nav-collapse li.active a.button {
 	background-color: #83C644;
 	border: 1px solid #83C644;
+	border-radius: 30px;
 	font-weight: 400;
 	color: white;
 }

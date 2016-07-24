@@ -213,66 +213,11 @@ header .topbanner .content h2 {
 	line-height: 1.45;
 }
 
-/*
+/* signup forms */
 
+.request-trial {width: 600px}
 
-
-
-
-
-
-/* pricing plans
-
-header .plans {margin: 0 auto}
-
-header .plan {
-	width: 32%;
-	padding: 30px 15px;
-	border-radius: 5px;
-	float: left
-}
-
-header .plan.batch,
-header .plan.real-time {margin-left: 12%}
-
-header .plan {
-	background-color: rgba(250,250,250,0.1);
-	text-transform: uppercase;
-	text-align: center
-}
-
-header .plan-name {font-weight: 400; font-size: 25px}
-
-header .plan-price {padding: 10px 0}
-header .plan-price {font-weight: 300; font-size: 60px}
-header .plan-price .per-month {font-size: 20px}
-header .plan-price sup {font-size: 30px}
-
-header .plan-details {font-weight: 400; font-size: 15px; min-height: 150px}
-header .plan-detail {margin-top: 5px; color: #A5A9B9}
-header .plan-detail.white {color: white}
-
-header .plan-cta {margin-top: 10px}
-
-@media (max-width: 991px) { /* responsive pricing plans
-
-	header .plan.batch,
-	header .plan.real-time {margin: 15px auto 0 auto}
-
-	header .plan {
-		width: 100%;
-		max-width: 500px;
-		margin: 0 auto;
-		float: none
-	}
-
-	header .plan-details {min-height: 20px}
-
-}
-
-/* signup forms
-
-.request-trial {margin: 0 auto; width: 90%}
+@media (max-width: 767px) {.request-trial {width: 100%}}
 
 .request-trial-trick {display: none}
 
@@ -280,7 +225,7 @@ header .plan-cta {margin-top: 10px}
 
 .request-trial-input {
 	width: 100%;
-  padding: 15px 12px;
+  padding: 9px 15px;
 	background-color: rgba(121,127,148,0.3);
   border: 0px solid transparent;
 	border-radius: 5px;
@@ -302,5 +247,3 @@ select.request-trial-input {
 	margin: 15px 0 0 15px;
 	font-size: 18px
 }
-
-*/

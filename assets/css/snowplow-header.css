@@ -103,7 +103,12 @@ header .nav-collapse li.active a.button {
 /* topbanner */
 
 header .topbanner {
+	background-color: #143666;
 	background-image: -webkit-linear-gradient(125deg, #773793, #143666);
+	background-image: -moz-linear-gradient(125deg, #773793, #143666);
+	background-image: -ms-linear-gradient(125deg, #773793, #143666);
+	background-image: -o-linear-gradient(125deg, #773793, #143666);
+	background-image: linear-gradient(125deg, #143666, #773793);
 	position: relative;
 	color: white;
 	clear: both;

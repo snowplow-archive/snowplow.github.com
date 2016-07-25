@@ -11,6 +11,7 @@ html, body {
 body {
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	font-family: "myriad-pro", "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 400;
 	font-size: 18px

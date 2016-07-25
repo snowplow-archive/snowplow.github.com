@@ -1,4 +1,41 @@
 
+/* toplogos - needs to be refactored soon */
+
+.toplogos {
+    background-color: #F5F5F5;
+    text-transform: uppercase;
+    color: #DDD;
+    font-size: 15px;
+    padding: 21px 0 13px 0;
+    text-align: center;
+}
+
+.trust {margin-bottom: 9px}
+
+.logotestb {
+	display: inline-block;
+	text-align: center;
+	width: 225px;
+	padding: 0 15px;
+}
+
+.logotestb img {height: 75px}
+
+@media (max-width: 1199px) {.logotestb.a {display: none}}
+@media (max-width: 991px) {
+	.trust { display: none}
+	.logotestb {width: 160px}
+	.toplogos {padding: 13px 0 8px 0}
+	.logotestb img {height: 50px}
+}
+
+@media (max-width: 767px) {
+	.logotestb {width: 130px}
+	.logotestb img {height: 38px}
+}
+
+@media (max-width: 560px) {.toplogos{display: none}}
+
 /* topnav */
 
 header ul {margin: 0} /* reset - important to get menu to look right */
@@ -167,7 +204,7 @@ header .topbanner .shape.c {
 	clip-path: polygon(95% 0, 100% 0, 100% 100%, 75% 100%);
 }
 
-/* series 90-56-34-21-13 */
+/* series 90-56-34-21-13-8 */
 
 span.or {font-size: 15px}
 span.iphone5 {margin-left: -3px} /* restore comma */

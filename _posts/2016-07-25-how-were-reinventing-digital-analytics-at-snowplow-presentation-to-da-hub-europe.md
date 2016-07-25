@@ -1,7 +1,7 @@
 ---
 layout: post
-title: How we're reinventing digital analytics at Snowplow: presentation to the DA Hub Europe
-title-short: How we're reinventing digital analytics at Snowplow
+title: "How we're reinventing digital analytics at Snowplow: presentation to the DA Hub Europe"
+title-short: "How we're reinventing digital analytics at Snowplow"
 tags: [digital analytics, web analytics, event analytics]
 author: Yali
 category: Meetups

@@ -175,7 +175,7 @@ span.or {font-size: 15px; padding: 0 12px}
 }
 
 .cta.white {
-	background-color: initial;
+	background-color: transparent;
 	border-color: white;
 }
 

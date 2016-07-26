@@ -17,7 +17,7 @@
 .logotestb {
 	display: inline-block;
 	text-align: center;
-	width: 225px;
+	width: 228px;
 	padding: 0 15px;
 }
 
@@ -26,7 +26,7 @@
 @media (max-width: 1199px) {.logotestb.a {display: none}}
 @media (max-width: 991px) {
 	.trust { display: none}
-	.logotestb {width: 160px}
+	.logotestb {width: 180px}
 	.toplogos {padding: 13px 0 8px 0}
 	.logotestb img {height: 50px}
 }

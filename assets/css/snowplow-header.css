@@ -38,6 +38,8 @@
 
 /* topnav */
 
+.ctawrapper {font-size: 0} /* needs refactoring */
+
 header ul {margin: 0} /* reset - important to get menu to look right */
 
 header .brand, header .logo, header .name {float: left}

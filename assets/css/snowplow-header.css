@@ -47,7 +47,7 @@ header .hack {clear: both}
 header .topnav {
 	padding: 9px 15px;
 	font-weight: 300;
-	font-size: 15px;
+	font-size: 0; /* because inline-block is used later on */
 	color: #343434;
 }
 
@@ -86,6 +86,7 @@ header .nav-collapse {text-align: right} /* mobile menu */
 
 header .nav-collapse li {
 	display : inline-block;
+  font-size: 15px;
 	font-weight: 400;
 }
 

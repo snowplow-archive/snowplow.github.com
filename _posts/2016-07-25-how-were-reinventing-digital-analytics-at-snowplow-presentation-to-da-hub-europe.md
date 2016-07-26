@@ -49,10 +49,10 @@ That's because these solutions are:
 
 1. Each of our users has their own event data pipeline
 2. Each of our users can define his / her own event types. If you're a massive multi-player game, those event types are going to be totally different than if you're an online grocery retailer
-3. Track events across *all* the different channels that matter to you. Not just web and mobile, but email, push notification, call center, support forums
-4. Answer *any* questions. Because your event-level data is available in your *own* datawarehouse, you can join that data with any other data set, and run any query on it. Free yourself from the shackles of your analytics UI.
+3. Track events across *all* the different channels that matter to you. Not just web and mobile, but email, push notification, call center, support forums, your smart home, your smart car...
+4. Answer *any* question. Because your event-level data is available in your *own* datawarehouse, you can join that data with any other data set, and run any query on it. Free yourself from the shackles of your analytics UI.
 5. Evolve your analytics with your business. As your business evolves, what you track will change, and the questions you will ask of your data will change. Snowplow is built from the ground up to evolve with your business, so you can change both the way you track and process data, and never have to throw away old data.
-6. Act on your data in real-time. Snowplow data is delivered in real-time, so you can use the same data that drives insight to drive your data-driven applications and real-time dashboards.
+6. Act on your data in real-time. Use the same data that drives insight to drive your data-driven applications and real-time dashboards.
 
 ## That's not all
 

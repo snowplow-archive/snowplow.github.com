@@ -12,6 +12,8 @@
 
 .trust {margin-bottom: 9px}
 
+.logostesta {font-size: 0} /* to deal with inline-block */
+
 .logotestb {
 	display: inline-block;
 	text-align: center;
@@ -123,6 +125,7 @@ header .nav-collapse li.active a.button {
 		padding: 12px 15px;
 		border-radius: 30px;
 		font-weight: 400;
+    font-size: 15px;
 	}
 
 	header .toggle-menu:hover, */

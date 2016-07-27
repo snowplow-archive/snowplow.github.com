@@ -80,7 +80,7 @@ Examples of aggregated tables include:
 
 The above are all illustrative examples of aggregate tables. In practice, what tables are produced, and the different fields available in each, varies widely between companies in different sectors, and surprisingly even varies within the same vertical. That is because part of putting together these aggregate tables involves implementing business-specific logic, including:
 
-1. How to identify that users across multiple different channels are the same user i.e. [identity stitching](/analytics/customer-analytics/identifying-users.html)
+1. How to identify that users across multiple different channels are the same user i.e. [identity stitching](http://discourse.snowplowanalytics.com/t/identifying-users-identity-stitching/31)
 2. Sessionization
 3. Joining Snowplow data with 3rd party data sets
 

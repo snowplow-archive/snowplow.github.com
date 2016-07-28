@@ -19,7 +19,7 @@ footer input {
 	border: none;
 }
 
-input:focus {outline:none}
+footer input:focus {outline:none}
 
 footer input::-webkit-input-placeholder {color: #AAA} /* set placeholder text colour */
 footer input::-moz-placeholder {color: #AAA}
@@ -27,14 +27,14 @@ footer input:-moz-placeholder {color: #AAA} /* works in FF 18 */
 footer input:-ms-input-placeholder {color: #AAA}
 
 footer input.email {
-  background-color: #484848;
+  background: #484848;
 	padding: 8px 13px;
 	width: 300px;
 	color: #AAA;
 }
 
 footer input.button {
-	background-color: #67AE24;
+	background: #67AE24;
 	border-top-right-radius: 30px;
 	border-bottom-right-radius: 30px;
 	text-transform: uppercase;
@@ -53,20 +53,20 @@ footer li {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	color: #AAA;
 }
 
 footer h2 {
 	text-transform: uppercase;
   letter-spacing: 0;
   font-weight: 400;
-	font-size: 20px;
-	color: white;
-	margin: 0 0 13px 0;
+	font-size: 16px;
+	margin: 0 0 8px 0;
 }
 
 footer a, footer a:hover, footer a:focus {
 	text-decoration: none;
-	color: #CCC;
+	color: #AAA;
 }
 
 /* footer: */
@@ -76,11 +76,12 @@ footer .bottom.links {margin-bottom: 34px}
 
 footer .list {
 	float: left;
-	margin-right: 90px;
+	width: 180px;
 }
 
 address {margin: 0} /* overwrite defaults */
 
+/*  */
 
 footer .bottom.notice {
 	text-transform: uppercase;

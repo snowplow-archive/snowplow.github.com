@@ -19,7 +19,7 @@ footer .banner {background: #83C644}
 /* bottom details */
 
 footer .details {
-	position: relative;
+	position: relative; /* required to make the shapes work */
 	background: #303030;
 	font-weight: 400;
 	font-size: 16px;
@@ -37,19 +37,19 @@ footer .shape {
 }
 
 footer .shape.a {
-	-webkit-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
-	-moz-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
-	-ms-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
-	-o-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
-	clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+	-webkit-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+	-moz-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+	-ms-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+	-o-clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
+	clip-path: polygon(98% 0, 100% 0, 100% 100%, 85% 100%);
 }
 
 footer .shape.b {
-	-webkit-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
-	-moz-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
-	-ms-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
-	-o-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
-	clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
+	-webkit-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+	-moz-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+	-ms-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+	-o-clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
+	clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
 }
 
 /* bottom details: subscribe to our mailinglist */
@@ -58,11 +58,11 @@ footer .mailchimp {margin-bottom: 34px}
 
 footer .subscribe {
 	margin-top: 8px;
-	font-size: 0; /* trick to remove blank space */
+	font-size: 0; /* trick to remove blank spaces */
 }
 
 footer input {
-	font-size: 16px; /* set font-size again (trick to remove blank space) */
+	font-size: 16px; /* set font-size again (trick to remove blank spaces) */
 	border: none;
 }
 

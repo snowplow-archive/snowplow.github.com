@@ -136,4 +136,4 @@ footer .notice {
 	color: #AAA;
 }
 
-@media (max-width: 400px) {footer .notice {font-size: 9px}}
+@media (max-width: 400px) {footer span.smallphones{display: none}}

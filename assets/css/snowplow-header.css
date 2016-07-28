@@ -203,9 +203,9 @@ header .topbanner .shape.c {
 /* series 90-56-34-21-13-8 */
 
 span.or {font-size: 15px}
-span.iphone5 {margin-left: -3px} /* restore comma */
+header span.smallphones {margin-left: -3px} /* restore comma */
 
-@media (max-width: 350px) {span.iphone5 {display: none}}
+@media (max-width: 350px) {header span.smallphones {display: none}}
 
 @media (max-width: 767px) {
 	header .topbanner {padding: 34px 0 21px 0}

@@ -7,7 +7,11 @@ footer {
 	color: white;
 }
 
+footer a, footer a:hover, footer a:focus {text-decoration: none; color: #AAA}
+
 /* subscribe to our mailinglist */
+
+footer .bottom.mail {margin-bottom: 34px}
 
 footer .subscribe {
 	margin-top: 8px;
@@ -19,9 +23,9 @@ footer input {
 	border: none;
 }
 
-footer input:focus {outline:none}
+footer input:focus {outline:none} /* drop the blue outline */
 
-footer input::-webkit-input-placeholder {color: #AAA} /* set placeholder text colour */
+footer input::-webkit-input-placeholder {color: #AAA} /* set the placeholder text colour */
 footer input::-moz-placeholder {color: #AAA}
 footer input:-moz-placeholder {color: #AAA} /* works in FF 18 */
 footer input:-ms-input-placeholder {color: #AAA}
@@ -42,52 +46,37 @@ footer input.button {
 	color: white;
 }
 
-/* footer: basics */
+/* links */
 
-footer ul {
-	padding: 0;
-	margin: 0;
-}
+footer .bottom.links {margin-bottom: 34px}
 
-footer li {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	color: #AAA;
-}
+footer .list {float: left; width: 180px}
 
 footer h2 {
+	margin: 0 0 8px 0;
 	text-transform: uppercase;
   letter-spacing: 0;
   font-weight: 400;
 	font-size: 16px;
-	margin: 0 0 8px 0;
 }
 
-footer a, footer a:hover, footer a:focus {
-	text-decoration: none;
+footer ul, footer li {padding: 0; margin: 0}
+
+footer li {
+	list-style: none;
 	color: #AAA;
 }
 
-/* footer: */
+address {margin: 0} /* undo bootstrap */
 
-footer .bottom.mail {margin-bottom: 34px}
-footer .bottom.links {margin-bottom: 34px}
-
-footer .list {
-	float: left;
-	width: 180px;
-}
-
-address {margin: 0} /* overwrite defaults */
-
-/*  */
+/* do not steal */
 
 footer .bottom.notice {
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: 400;
 	font-size: 12px;
+	color: #AAA;
 }
 
 

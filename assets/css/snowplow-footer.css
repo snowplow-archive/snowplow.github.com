@@ -52,6 +52,8 @@ footer .shape.b {
 	clip-path: polygon(99% 0, 100% 0, 100% 100%, 90% 100%);
 }
 
+@media (max-width: 991px) {footer .shape {display: none}}
+
 /* bottom details: subscribe to our mailinglist */
 
 footer .mailchimp {margin-bottom: 34px}
@@ -112,6 +114,18 @@ footer li {
 
 address {margin: 0} /* undo bootstrap */
 
+/* bottom details: social */
+
+footer .social {
+	margin-bottom: 21px;
+	text-align: center;
+}
+
+footer .social img {
+	margin: 0 4px;
+	height: 40px;
+}
+
 /* bottom details: do not steal */
 
 footer .notice {
@@ -122,17 +136,4 @@ footer .notice {
 	color: #AAA;
 }
 
-
-
-@media (max-width: 991px) {
-	footer {font-size: 15px}
-	footer h2 {font-size: 15px}
-	footer {padding: 34px 0 13px 0}
-	footer .list {margin-right: 34px}
-	footer input.email {font-size: 15px}
-	footer input.button {font-size: 15px}
-}
-
-@media (max-width: 767px) {
-	footer .bottom.mail {display: none}
-}
+@media (max-width: 400px) {footer .notice {font-size: 9px}}

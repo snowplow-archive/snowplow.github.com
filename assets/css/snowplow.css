@@ -182,3 +182,6 @@ span.or {font-size: 15px; padding: 0 12px}
 .cta.blue {color: white; background-color: #4C5371}
 
 button:focus {outline:0} /* remove the outline */
+
+@media (max-width: 400px) {span.hide400px {display: none}}
+@media (max-width: 550px) {span.hide550px {display: none}}

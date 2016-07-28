@@ -91,6 +91,9 @@ footer input.button {
 	color: white;
 }
 
+@media (max-width: 450px) {footer input.email {width: 250px}}
+@media (max-width: 400px) {footer input.email {width: 180px}}
+
 /* bottom details: navigation */
 
 footer .navigation {margin-bottom: 34px}
@@ -135,5 +138,3 @@ footer .notice {
 	font-size: 12px;
 	color: #AAA;
 }
-
-@media (max-width: 400px) {footer span.smallphones{display: none}}

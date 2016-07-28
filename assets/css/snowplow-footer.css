@@ -1,40 +1,15 @@
 
+/* series 90-56-34-21-13-8 */
+
 footer {
-	padding: 30px 0 15px 0;
+	padding: 56px 0 21px 0;
+	background: #303030;
 	font-weight: 300;
-	font-size: 15px;
-	color: #333;
-	background-color: white;
+	font-size: 18px;
+	color: #CCC;
 }
 
-address { margin: 0; } /* overwrite defaults */
-
-footer .about,
-footer .contact {
-	float:left;
-	padding-right: 30px;
-	margin-top: 8px; /* to look better with the hr */
-}
-
-footer .notice {
-	text-transform: uppercase;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 10px;
-	width: 100%;
-	float: left;
-}
-
-footer .notice > a { color: #333; text-decoration: none; }
-
-footer h6 {
-	font-size: 15px;
-	padding: 0;
-	margin: 0;
-	margin-bottom: 15px;
-	text-transform: uppercase;
-	font-weight: 700;
-}
+/* footer: basics */
 
 footer ul {
 	padding: 0;
@@ -47,14 +22,79 @@ footer li {
 	margin: 0;
 }
 
-footer a,
-footer a:hover,
-footer a:active {
-	color: #333
+footer h2 {
+	text-transform: uppercase;
+  letter-spacing: 0;
+  font-weight: 400;
+	font-size: 20px;
+	color: white;
+	margin: 0 0 13px 0;
+}
+
+footer a, footer a:hover, footer a:focus {
+	text-decoration: none;
+	color: #CCC;
+}
+
+/* footer: */
+
+footer .bottom.social {margin-bottom: 34px; color: white}
+footer .bottom.links {margin-bottom: 34px}
+
+footer .list {
+	float: left;
+	margin-right: 90px;
+}
+
+address {margin: 0} /* overwrite defaults */
+
+
+footer .bottom.notice {
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 400;
+	font-size: 12px;
+}
+
+footer .mailchimp {font-size: 0; margin-top: 8px}
+
+footer input.email {
+	-webkit-appearance:none;
+  background: #484848;
+  border: none;
+  padding: 8px 13px;
+  margin: 0;
+	color: white;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	width: 400px;
+	font-size: 18px;
+}
+
+footer input.button {
+	background: #67AE24;
+	margin: 0;
+	padding: 8px 13px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 8px;
+	color: white;
+	font-size: 18px;
+	border: none;
+}
+
+input:focus {
+    outline:none;
+}
+
+@media (max-width: 991px) {
+	footer {font-size: 15px}
+	footer h2 {font-size: 15px}
+	footer {padding: 34px 0 13px 0}
+	footer .list {margin-right: 34px}
+	footer input.email {font-size: 15px}
+	footer input.button {font-size: 15px}
 }
 
 @media (max-width: 767px) {
-	footer .contact, footer .contact .phone {
-		margin-top: 15px;
-	}
+	footer .bottom.social {display: none}
 }

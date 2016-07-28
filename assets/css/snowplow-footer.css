@@ -14,17 +14,42 @@ footer .bottom {padding: 54px 0 21px 0}
 
 /* bottom banner */
 
-footer .banner {
-	background: #83C644;
-	height: 150px;
-}
+footer .banner {background: #83C644}
 
 /* bottom details */
 
 footer .details {
+	position: relative;
 	background: #303030;
 	font-weight: 400;
 	font-size: 16px;
+}
+
+/* bottom details: shapes */
+
+footer .shape {
+	position: absolute;
+	background-color: white;
+	opacity: 0.025;
+	height: 100%;
+	width: 100%;
+	top: 0;
+}
+
+footer .shape.a {
+	-webkit-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+	-moz-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+	-ms-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+	-o-clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+	clip-path: polygon(96% 0, 100% 0, 100% 100%, 85% 100%);
+}
+
+footer .shape.b {
+	-webkit-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
+	-moz-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
+	-ms-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
+	-o-clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
+	clip-path: polygon(98% 0, 100% 0, 100% 100%, 90% 100%);
 }
 
 /* bottom details: subscribe to our mailinglist */

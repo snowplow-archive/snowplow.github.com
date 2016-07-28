@@ -27,6 +27,14 @@ footer .details {
 
 /* bottom details: shapes */
 
+footer .mailchimp
+footer .navigation
+footer .social
+footer .notice {
+	position: relative;
+	z-index: 1;
+}
+
 footer .shape {
 	position: absolute;
 	background-color: white;

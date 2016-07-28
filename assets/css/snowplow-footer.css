@@ -1,12 +1,45 @@
 
-/* series 90-56-34-21-13-8 */
-
 footer {
-	padding: 56px 0 21px 0;
+	padding: 56px 0 21px 0; /* 90 56 34 21 13 8 */
 	background: #303030;
-	font-weight: 300;
-	font-size: 18px;
-	color: #CCC;
+	font-weight: 400;
+	font-size: 16px;
+	color: white;
+}
+
+/* subscribe to our mailinglist */
+
+footer .subscribe {
+	margin-top: 8px;
+	font-size: 0; /* trick to remove blank space */
+}
+
+footer input {
+	font-size: 16px; /* set font-size again (trick to remove blank space) */
+	border: none;
+}
+
+input:focus {outline:none}
+
+footer input::-webkit-input-placeholder {color: #AAA} /* set placeholder text colour */
+footer input::-moz-placeholder {color: #AAA}
+footer input:-moz-placeholder {color: #AAA} /* works in FF 18 */
+footer input:-ms-input-placeholder {color: #AAA}
+
+footer input.email {
+  background-color: #484848;
+	padding: 8px 13px;
+	width: 300px;
+	color: #AAA;
+}
+
+footer input.button {
+	background-color: #67AE24;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+	text-transform: uppercase;
+	padding: 8px 13px 8px 8px;
+	color: white;
 }
 
 /* footer: basics */
@@ -38,7 +71,7 @@ footer a, footer a:hover, footer a:focus {
 
 /* footer: */
 
-footer .bottom.social {margin-bottom: 34px; color: white}
+footer .bottom.mail {margin-bottom: 34px}
 footer .bottom.links {margin-bottom: 34px}
 
 footer .list {
@@ -56,35 +89,7 @@ footer .bottom.notice {
 	font-size: 12px;
 }
 
-footer .mailchimp {font-size: 0; margin-top: 8px}
 
-footer input.email {
-	-webkit-appearance:none;
-  background: #484848;
-  border: none;
-  padding: 8px 13px;
-  margin: 0;
-	color: white;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	width: 400px;
-	font-size: 18px;
-}
-
-footer input.button {
-	background: #67AE24;
-	margin: 0;
-	padding: 8px 13px;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	color: white;
-	font-size: 18px;
-	border: none;
-}
-
-input:focus {
-    outline:none;
-}
 
 @media (max-width: 991px) {
 	footer {font-size: 15px}
@@ -96,5 +101,5 @@ input:focus {
 }
 
 @media (max-width: 767px) {
-	footer .bottom.social {display: none}
+	footer .bottom.mail {display: none}
 }

@@ -1,17 +1,35 @@
 
-footer {
-	padding: 56px 0 21px 0; /* 90 56 34 21 13 8 */
+footer {color: white}
+
+/* shared properties */
+
+footer a,
+footer a:hover,
+footer a:focus {
+	text-decoration: none;
+	color: #AAA;
+}
+
+footer .bottom {padding: 54px 0 21px 0}
+
+/* bottom banner */
+
+footer .banner {
+	background: #83C644;
+	height: 150px;
+}
+
+/* bottom details */
+
+footer .details {
 	background: #303030;
 	font-weight: 400;
 	font-size: 16px;
-	color: white;
 }
 
-footer a, footer a:hover, footer a:focus {text-decoration: none; color: #AAA}
+/* bottom details: subscribe to our mailinglist */
 
-/* subscribe to our mailinglist */
-
-footer .bottom.mail {margin-bottom: 34px}
+footer .mailchimp {margin-bottom: 34px}
 
 footer .subscribe {
 	margin-top: 8px;
@@ -46,9 +64,9 @@ footer input.button {
 	color: white;
 }
 
-/* links */
+/* bottom details: navigation */
 
-footer .bottom.links {margin-bottom: 34px}
+footer .navigation {margin-bottom: 34px}
 
 footer .list {float: left; width: 180px}
 
@@ -69,9 +87,9 @@ footer li {
 
 address {margin: 0} /* undo bootstrap */
 
-/* do not steal */
+/* bottom details: do not steal */
 
-footer .bottom.notice {
+footer .notice {
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: 400;

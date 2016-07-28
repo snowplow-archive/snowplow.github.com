@@ -1,63 +1,57 @@
 <footer>
-  <div class="bottom mail">
+  <div class="bottom banner">
     <div class="container">
-      Sign up to our mailinglist to be notified of new releases and related news.
-      {% include mailchimp/mailchimp.html %}
+      ...
     </div>
   </div>
-  <div class="bottom links">
-    <div class="container">
-      <div class="list">
-        <h2>Product</h2>
-        <ul>
-          <li><a href="/product" id="bottom-product-snowplow">Snowplow</a></li>
-          <li><a href="/services" id="bottom-product-services">Services</a></li>
-          <li><a href="/partners" id="bottom-product-partners">Partners</a></li>
-          <li><a href="/product/users" id="bottom-product-users">Users</a></li>
-        </ul>
-      </div>
-      <div class="list">
-        <h2>Resources</h2>
-        <ul>
-          <li><a href="http://discourse.snowplowanalytics.com" id="bottom-resources-discourse">Discourse</a></li>
-          <li><a href="/support" id="bottom-resources-support">Support</a></li>
-        </ul>
-      </div>
-      <div class="list">
-        <h2>Company</h2>
-        <ul>
-          <li><a href="/about" id="bottom-company-about">About</a></li>
-          <li><a href="/about/team" id="bottom-company-team">Team</a></li>
-          <li><a href="/about/jobs" id="bottom-company-jobs">Jobs</a></li>
-          <li><a href="/blog" id="bottom-company-blog">Blog</a></li>
-        </ul>
-      </div>
-      <div class="list">
-        <h2>Contact us</h2>
-        <ul>
-          <li><a href="mailto:contact@snowplowanalytics.com" id="bottom-contact-email">contact@snowplowanalytics.com</a></li>
-          <li style="margin-top: 4px">The Roma Building,<br>32-38 Scrutton Street<br>EC2A 4RQ London, UK</li>
-        </ul>
+  <div class="bottom details">
+    <div class="mailchimp">
+      <div class="container">
+        Sign up to our mailinglist to be notified of new releases and related news.
+        {% include mailchimp/mailchimp.html %}
       </div>
     </div>
-  </div>
-  <div class="bottom notice">
-    <div class="container">
-      <span>Copyright &copy; 2012-{{ site.time | date: '%Y' }} Snowplow Analytics, Ltd.</span>
-      <span><a href="/privacy">Privacy policy</a>.</span>
+    <div class="navigation">
+      <div class="container">
+        <div class="list">
+          <h2>Product</h2>
+          <ul>
+            <li><a href="/product" id="bottom-product-snowplow">Snowplow</a></li>
+            <li><a href="/services" id="bottom-product-services">Services</a></li>
+            <li><a href="/partners" id="bottom-product-partners">Partners</a></li>
+            <li><a href="/product/users" id="bottom-product-users">Users</a></li>
+          </ul>
+        </div>
+        <div class="list">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="http://discourse.snowplowanalytics.com" id="bottom-resources-discourse">Discourse</a></li>
+            <li><a href="/support" id="bottom-resources-support">Support</a></li>
+          </ul>
+        </div>
+        <div class="list">
+          <h2>Company</h2>
+          <ul>
+            <li><a href="/about" id="bottom-company-about">About</a></li>
+            <li><a href="/about/team" id="bottom-company-team">Team</a></li>
+            <li><a href="/about/jobs" id="bottom-company-jobs">Jobs</a></li>
+            <li><a href="/blog" id="bottom-company-blog">Blog</a></li>
+          </ul>
+        </div>
+        <div class="list">
+          <h2>Contact us</h2>
+          <ul>
+            <li><a href="mailto:contact@snowplowanalytics.com" id="bottom-contact-email">contact@snowplowanalytics.com</a></li>
+            <li style="margin-top: 4px">The Roma Building,<br>32-38 Scrutton Street<br>EC2A 4RQ London, UK</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="notice">
+      <div class="container">
+        <span>Copyright &copy; 2012-{{ site.time | date: '%Y' }} Snowplow Analytics, Ltd.</span>
+        <span><a href="/privacy">Privacy policy</a>.</span>
+      </div>
     </div>
   </div>
 </footer>
-
-    <!--<div class="about">
-      <h6>Company</h6>
-      <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/events/">Events</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/about/team/">Team</a></li>
-        <li><a href="/partners/">Partners</a></li>
-        <li><a href="/about/jobs/">Jobs</a></li>
-      </ul>
-    </div>
-    <div class="contact">

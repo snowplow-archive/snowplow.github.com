@@ -64,16 +64,6 @@ header .topnav a:focus {
 
 header .logo img {height: 47px}
 
-/*header .name {
-	text-transform: uppercase;
-	letter-spacing: -1px;
-	font-weight: 300;
-	font-size: 36px;
-	margin: -15px 0;
-}*/
-
-/*@media (max-width: 991px) {header .name {display: none}}*/
-
 @media (min-width: 768px) {
 	header .toggle {display: none} /* hide the menu toggle on larger screens */
 }

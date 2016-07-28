@@ -98,7 +98,15 @@ footer input.button {
 
 footer .navigation {margin-bottom: 34px}
 
-footer .list {float: left; width: 180px}
+footer .list {float: left; margin-right: 60px}
+
+@media (max-width: 750px) {footer .list {margin-right: 40px}}
+@media (max-width: 650px) {footer .list {margin-right: 30px}}
+@media (max-width: 600px) {footer .list.a {display: none}}
+@media (max-width: 400px) {
+	footer .list {float: none}
+	footer .list.c {margin-top: 34px}
+}
 
 footer h2 {
 	margin: 0 0 8px 0;

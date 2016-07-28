@@ -65,6 +65,7 @@ footer .subscribe {
 
 footer input {
 	font-size: 16px; /* set font-size again (trick to remove blank spaces) */
+	border-radius: 0; /* required on mobile safari */
 	border: none;
 }
 

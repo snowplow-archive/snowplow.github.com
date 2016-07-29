@@ -35,7 +35,7 @@ For this release, [Igluctl][igluctl-wiki] include three commands:
 
 Since its [0.3.0 release][schema-guru-030], [Schema Guru][schema-guru] was including `ddl` subcommand, allowing to transform JSON Schemas to DDL files.
 Trying to gather all tools related to Iglu in one place we decided to factor out this functionality from Schema Guru and embed it into Igluctl.
-In this release there's no new features or changed behavior and interface of command also remains pretty much the same as it was for Schema Guru, except obviously `schema-guru ddl` has been replaced with `igluctl static generate`.
+In this release there's no new features and interface of command also remains same as it was for Schema Guru, except obviously `schema-guru ddl` has been replaced with `igluctl static generate`.
 
 Another ported command is `static push` which previously was a dedicated bash script inside Iglu project on Github.
 It allows you to upload set of JSON Schemas from static registry to [Scala Registry][scala-registry].
@@ -103,7 +103,7 @@ $ unzip -j igluctl_0.1.0.zip
 {% endhighlight %}
 
 Migration should be fairly easy. You just need to replace `./schema-guru ddl` with `./igluctl static generate`.
-All options and behavior remains same.
+All options remains same and the only thing changed in behavior is the exit status `1` on any amount of encountered errors.
 
 <h2 id="roadmap">5. Iglu roadmap</h2>
 

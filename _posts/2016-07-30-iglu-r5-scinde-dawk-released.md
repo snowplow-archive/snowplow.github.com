@@ -35,28 +35,16 @@ Since its [0.3.0 release][schema-guru-030], Schema Guru was including a `ddl` su
 Trying to gather all tools related to Iglu in one place we decided to factor out this functionality from Schema Guru and embed it into Igluctl.
 In this release there's no new features or changed behavior and interface of command also remains pretty much the same as it was for Schema Guru, except obviously `schema-guru ddl` has been replaced with `igluctl static generate`.
 
-Here's a quick remainder:
-
-To produce DDL (Redshift is the default and only possible choice), JSONPath files and table migrations simply call a command with a path to JSON Schemas.
-
-{% highlight bash %}
-$ ./igluctl static generate --with-json-paths /path/to/schemas
-{% endhighlight %}
-
-Path can be a single JSON Schema, full registry or just a directory with few JSON Schemas.
-By default, Igluctl will output DDLs to current directory.
-
-Another ported command is `static push` which was dedicated bash script inside Iglu project on Github.
+Another ported command is `static push` which previously was a dedicated bash script inside Iglu project on Github.
 It allows you to upload set of JSON Schemas from static registry to Scala Registry.
 So far we do not recommend to use Scala Registry as replacement of Static Registry, but still if you have reasons to switch to it - you can use `static push` to simplify migration process.
-
 `static push` accepts three required positional arguments: `input`,`host` and `apikey`.
 First two are pretty self-descriptive, `input` is just a directory containing JSON Schemas and `host` is domain name or IP address of Scala Registry.
 Third one, `apikey` is master API key which you must create manually and which need be used to create temporary read and write keys (they will be automatically deleted after command completed).
 You can find out more API key, Scala Registry and how to set it up on its dedicated [wiki page][scala-registry-setup].
 
-Third and most exciting command is `lint`, allowing you to perform syntax and sanity check (will be described below) of your JSON Schemas.
-Unlike others, it bears brand new functionality which was previously unavailable not only inside Snowplow ecosystem, but also in any other tools we're aware of.
+Third and most exciting command is `lint`, allowing you to perform syntax and consistency check (will be described below) of your JSON Schemas.
+Unlike mentioned above commands, `lint` bears brand new functionality which was previously unavailable not only inside Snowplow ecosystem, but also in any other tools we're aware of.
 
 Its interface pretty simple - it accepts one required argument `input`, which is path to local registry or single JSON Schema and one option `--skip-warnings` which forces Igluctl to omit warnings about unknwon properties (we advice you to not use it, though), so most common use would look like following:
 
@@ -79,26 +67,25 @@ Performing this kinds of check will help you to maintain quality of your JSON Sc
 
 <h2 id="schema-ddl">2. Schema DDL</h2>
 
-Schema DDL was used in Snowplow for about year, serving primitive abstract syntax tree for Redshift DDL.
+Schema DDL was used in Snowplow for about year, serving part of abstract syntax tree for Redshift DDL.
 But as Iglu becomes mature project, we're starting to see its purpose and scope of work more clearly, which leads to little reshapings of our libraries.
-First part of of this reshapings was `igluctl static`, which now includes commands previously implemented stand-alone.
-Second part of reshaping is move of Schema DDL into Iglu project, as it really nicely coupled with our schemaing approach.
+First part of of this reshapings was `igluctl static`, which now gathers commands previously implemented as stand-alone.
+Second part of reshaping is move of Schema DDL into Iglu project, as it was nicely coupled with our schemaing approach and other Iglu subsystems.
+
+It also includes major change in stucture of project.
+Redshift AST, previously avaiable at `com.snowplowanalytics.schemaddl.generators.redshift.Ddl` now has been moved to `com.snowplowanalytics.iglu.schemaddl.redshift` package (notice `iglu` part).
+`generators` pacakge is still available, but now contains only functions related to DDL and migrations generation.
+
+Now `redshift` package also includes AST for `ALTER TABLE` statement.
+
+Schema DDL now also comes with abstract syntax tree for JSON Schema, our second AST, which allows you to parse arbitray JSON into typesafe AST.
+This AST drives Schema linting and DDL derivation and in future will be used more widely for various Iglu-related tasks.
 
 Schema DDL now is also available on JCenter and can be included into SBT project like following:
 
 {% highlight scala %}
 "com.snowplowanalytics" % "schema-ddl" %% "0.4.0"
 {% endhighlight %}
-
-It also includes two major changes in stucture of projects.
-Redshift AST `com.snowplowanalytics.schemaddl.generators.redshift.Ddl` now has been moved to `com.snowplowanalytics.iglu.schemaddl.redshift`.
-`generators` pacakge is still available, but contains only functions related to DDL and migrations generation.
-
-Now `redshift` package also includes AST for `ALTER TABLE` statement.
-
-Schema DDL now also comes with abstract syntax tree for JSON Schema, which allows you to parse arbitray JSON into typesafe AST.
-This AST drives Schema linting and DDL derivation and in future will be used more widely for various Iglu-related tasks.
-
 
 <h2 id="roadmap">3. Iglu roadmap</h2>
 
@@ -122,19 +109,10 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [snowplow]: https://github.com/snowplow/snowplow
 [schema-guru]: https://github.com/snowplow/schema-guru
-
 [self-describing-schemas]: https://github.com/snowplow/iglu/wiki/Self-describing-JSON-Schemas
-[schemaver]: https://github.com/snowplow/iglu/wiki/SchemaVer
-[iglu-core]: https://github.com/snowplow/iglu/wiki/Iglu-core
-[scala-iglu-core]: https://github.com/snowplow/iglu/wiki/Scala-iglu-core
-[iglu-core-json4s]: http://search.maven.org/#search|ga|1|iglu-core-json4s
-[iglu-core-circe]: http://search.maven.org/#search|ga|1|iglu-core-circe
 
 [static-registry-setup]: https://github.com/snowplow/iglu/wiki/Static-repo-setup
 [scala-registry-setup]: https://github.com/snowplow/iglu/wiki/Scala-repo-server-setup
-[super-api-key]: https://github.com/snowplow/iglu/wiki/Create-the-super-API-key
-
-[registry-syncer]: https://github.com/snowplow/iglu/master/0-common/registry-syncer
 
 [iglu-repo]: https://github.com/snowplow/iglu
 [issues]: https://github.com/snowplow/snowplow/iglu

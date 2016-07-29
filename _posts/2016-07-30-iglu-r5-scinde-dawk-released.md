@@ -92,14 +92,15 @@ Schema DDL artifact now is also available on JCenter and can be included into SB
 
 <h2 id="migration">4. Migration guide</h2>
 
-As we now implemented DDL generation as part of Igluctl, we're deprecating `schema-guru ddl` command.
-It means we strongly encourage you to switch to Igluctl.
+As we now implemented DDL generation as part of Igluctl, we're deprecating `schema-guru ddl` command (everything related to JSON Schema derivation remains).
+It means we strongly encourage you to switch to Igluctl as soon as possible for DDL generation.
 
 You can download Igluctl from Bintray using following link:
 
-```
-http://dl.bintray.com/snowplow/snowplow-generic/igluctl_0.1.0.zip
-```
+{% highlight bash %}
+$ wget http://dl.bintray.com/snowplow/snowplow-generic/igluctl_0.1.0.zip
+$ unzip -j igluctl_0.1.0.zip
+{% endhighlight %}
 
 Migration should be fairly easy. You just need to replace `./schema-guru ddl` with `./igluctl static generate`.
 All options and behavior remains same.

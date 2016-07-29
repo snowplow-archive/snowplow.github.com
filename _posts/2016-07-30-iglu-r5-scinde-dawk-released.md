@@ -87,7 +87,7 @@ JSON Schema's AST can be used to parse arbitray JSON into typesafe AST and drive
 Schema DDL artifact now is also available on JCenter and can be included into SBT project like following:
 
 {% highlight scala %}
-"com.snowplowanalytics" % "schema-ddl" %% "0.4.0"
+"com.snowplowanalytics" %% "schema-ddl" % "0.4.0"
 {% endhighlight %}
 
 <h2 id="migration">4. Migration guide</h2>

@@ -103,7 +103,10 @@ $ unzip -j igluctl_0.1.0.zip
 {% endhighlight %}
 
 Migration should be fairly easy. You just need to replace `./schema-guru ddl` with `./igluctl static generate`.
-All options remains same and the only thing changed in behavior is the exit status `1` on any amount of encountered errors.
+All options remains same and we changed only two minor aspects of behavior:
+
+* Now command exits with status 1 if any error has been encountered at least in one JSON Schema.
+* Now default Redshift [encoding][redshift-encoding] for BOOLEAN column is `RUNLENGTH` instead of `RAW`
 
 <h2 id="roadmap">5. Iglu roadmap</h2>
 
@@ -125,11 +128,13 @@ If you have any questions or run into any problems, please [raise an issue][issu
 
 [igluctl-wiki]: https://github.com/snowplow/iglu/wiki/Igluctl
 [schema-guru-030]: http://snowplowanalytics.com/blog/2015/07/29/schema-guru-0.3.0-released-for-generating-redshift-tables-from-json-schemas/
-[ast]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
 [schema-guru]: https://github.com/snowplow/schema-guru
 [self-describing-schemas]: https://github.com/snowplow/iglu/wiki/Self-describing-JSON-Schemas
 [scala-registry]: https://github.com/snowplow/iglu/tree/master/2-repositories/scala-repo-server
 [scala-registry-setup]: https://github.com/snowplow/iglu/wiki/Scala-repo-server-setup
+
+[ast]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+[redshift-encoding]: http://docs.aws.amazon.com/redshift/latest/dg/t_Compressing_data_on_disk.html
 
 [iglu-repo]: https://github.com/snowplow/iglu
 [issues]: https://github.com/snowplow/snowplow/iglu

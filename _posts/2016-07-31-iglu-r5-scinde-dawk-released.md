@@ -11,11 +11,11 @@ We are pleased to announce the fifth release of the [Iglu Schema Registry System
 
 Read on for more information on Release 5 Scinde Dawk, named after the [first postage stamp in Asia] [scinde-dawk]:
 
-1. [`igluctl`](/blog/2016/07/31/iglu-r4-scinde-dawk-released/#igluctl)
-2. [Schema DDL](/blog/2016/07/31/iglu-r4-scinde-dawk-released/#schema-ddl)
-3. [Migration guide](/blog/2016/07/31/iglu-r4-scinde-dawk-released/#migration)
-4. [Iglu roadmap](/blog/2016/07/31/iglu-r4-scinde-dawk-released/#roadmap)
-5. [Getting help](/blog/2016/07/31/iglu-r4-scinde-dawk-released/#help)
+1. [`igluctl`](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#igluctl)
+2. [Schema DDL](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#schema-ddl)
+3. [Migration guide](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#migration)
+4. [Iglu roadmap](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#roadmap)
+5. [Getting help](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#help)
 
 ![scinde-dawk-img] [scinde-dawk-img]
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Iglu Schema Registry 5 Scinde Dawk
+title: Iglu Schema Registry 5 Scinde Dawk released
 title-short: Iglu 5 Scinde Dawk
 tags: [iglu, json, json schema, registry]
 author: Anton

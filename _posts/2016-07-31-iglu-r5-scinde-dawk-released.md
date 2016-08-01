@@ -11,7 +11,7 @@ We are pleased to announce the fifth release of the [Iglu Schema Registry System
 
 Read on for more information on Release 5 Scinde Dawk, named after the [first postage stamp in Asia] [scinde-dawk]:
 
-1. [Igluctl](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#igluctl)
+1. [igluctl](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#igluctl)
 2. [Schema DDL](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#schema-ddl)
 3. [Migration guide](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#migration)
 4. [Iglu roadmap](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#roadmap)
@@ -21,7 +21,7 @@ Read on for more information on Release 5 Scinde Dawk, named after the [first po
 
 <!--more-->
 
-<h2 id="igluctl">1. Igluctl</h2>
+<h2 id="igluctl">1. igluctl</h2>
 
 The main feature of this release is our new `igluctl` command-line application, which collects various separate Iglu-related tools into a single easy-to-use CLI app.
 
@@ -58,7 +58,7 @@ The third and most exciting subcommand of `igluctl` is `lint`, which allows you 
 A typical use of the `lint` command would look like following:
 
 {% highlight bash %}
-$ `igluctl` lint /path/to/static/registry
+$ igluctl lint /path/to/static/registry
 {% endhighlight %}
 
 We strongly advise you to use `igluctl lint` to increase quality of your JSON Schemas! This command can surface difficult to detect mistakes in the schema'ing process across the following categories:
@@ -96,7 +96,7 @@ You can download `igluctl` from Bintray using the following link:
 
 {% highlight bash %}
 $ wget http://dl.bintray.com/snowplow/snowplow-generic/igluctl_0.1.0.zip
-$ unzip -j `igluctl`_0.1.0.zip
+$ unzip -j igluctl_0.1.0.zip
 {% endhighlight %}
 
 Migration should be fairly easy: you just need to replace `./schema-guru ddl` with `./igluctl static generate`. All options remain the same with only two minor  behavioral changes:

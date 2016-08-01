@@ -11,7 +11,7 @@ We are pleased to announce the fifth release of the [Iglu Schema Registry System
 
 Read on for more information on Release 5 Scinde Dawk, named after the [first postage stamp in Asia] [scinde-dawk]:
 
-1. [`igluctl`](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#igluctl)
+1. [Igluctl](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#igluctl)
 2. [Schema DDL](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#schema-ddl)
 3. [Migration guide](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#migration)
 4. [Iglu roadmap](/blog/2016/07/31/iglu-r5-scinde-dawk-released/#roadmap)
@@ -21,7 +21,7 @@ Read on for more information on Release 5 Scinde Dawk, named after the [first po
 
 <!--more-->
 
-<h2 id="igluctl">1. `igluctl`</h2>
+<h2 id="igluctl">1. Igluctl</h2>
 
 The main feature of this release is our new `igluctl` command-line application, which collects various separate Iglu-related tools into a single easy-to-use CLI app.
 
@@ -31,13 +31,13 @@ At launch, [`igluctl`] [igluctl-wiki] includes three commands:
 * `static push` - which originated as Iglu's Registry Syncer bash script
 * `lint` - a brand new command, which performs syntax and consistency checking for JSON Schemas
 
-<h3 id="igluctl-static-generate">1.1 `static generate`</h3>
+<h3 id="igluctl-static-generate">1.1 static generate</h3>
 
 From its [0.3.0 release] [schema-guru-030], [Schema Guru] [schema-guru] has included a `ddl` subcommand, which reads JSON Schemas and creates corresponding Redshift table definitions plus JSON Paths files to load these tables.
 
 To centralize all tools related to Iglu in one place, we decided to factor out this functionality from Schema Guru and embed it into `igluctl`. In this release there are no new features and the command's interface remains the same as it was for Schema Guru, except `schema-guru ddl` has been replaced with `igluctl static generate`.
 
-<h3 id="igluctl-static-push">1.2 `static push`</h3>
+<h3 id="igluctl-static-push">1.2 static push</h3>
 
 Another ported command is `static push`, which was previously a dedicated bash script inside Iglu project on GitHub. It allows you to upload set of JSON Schemas from a local static registry to Iglu's [Scala schema registry] [scala-registry].
 
@@ -49,7 +49,7 @@ Another ported command is `static push`, which was previously a dedicated bash s
 
 You can find out more Iglu's Scala schema registry and how to set it up on its dedicated [wiki page] [scala-registry-setup].
 
-<h3 id="igluctl-lint">1.3 `lint`</h3>
+<h3 id="igluctl-lint">1.3 lint</h3>
 
 The third and most exciting subcommand of `igluctl` is `lint`, which allows you to perform syntax and consistency checking of your JSON Schemas. `lint` is an all-new command, and we're not aware of anything similar outside of the Snowplow ecosystem.
 

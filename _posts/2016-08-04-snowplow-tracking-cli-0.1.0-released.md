@@ -24,8 +24,8 @@ In the rest of this post we will cover:
 
 You can download the binary for Linux and Windows directly from Bintray:
 
-* [Linux 64bit Binary][linux-binary]
-* [Windows 32bit Binary][windows-binary]
+* [Linux 64bit binary][linux-binary]
+* [Windows 32bit binary][windows-binary]
 
 Unzip the file and the app is called `snowplowtrk`.
 

@@ -36,13 +36,13 @@ The binary for macOS is scheduled for version 0.2.0 - (see [issue #2][issue-2]).
 The command line interface is as follows:
 
 ```bash
-snowplowtrk --collector={{COLLECTOR_DOMAIN}} --appid={{APP_ID}} --method=[POST|GET] --sdjson={{SELF_DESC_JSON}}
+snowplowtrk --collector=[[COLLECTOR_DOMAIN]] --appid=[[APP_ID]] --method=[[POST|GET]] --sdjson=[[SELF_DESC_JSON]]
 ```
     
 or:
 
 ```bash
-snowplowtrk --collector={{COLLECTOR_DOMAIN}} --appid={{APP_ID}} --method=[POST|GET] --schema={{SCHEMA_URI}} --json={{JSON}}
+snowplowtrk --collector=[[COLLECTOR_DOMAIN]] --appid=[[APP_ID]] --method=[[POST|GET]] --schema=[[SCHEMA_URI]] --json=[[JSON]]
 ```
 
 Where:

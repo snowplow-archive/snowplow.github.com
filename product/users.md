@@ -116,6 +116,7 @@ redirect_from:
   <a href="http://www.truedash.com"><img src="//logo.clearbit.com/truedash.com?size=200"></a>
   <a href="http://www.keywee.co"><img src="//logo.clearbit.com/keywee.co?size=200"></a>
   <a href="https://www.endource.com/"><img src="//logo.clearbit.com/endource.com?size=200"></a>
+  <a href="https://www.myphotobook.de/"><img src="//logo.clearbit.com/myphotobook.de?size=200"></a>
 </div>
 
 <div class="row">

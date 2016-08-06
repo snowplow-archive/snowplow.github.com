@@ -30,13 +30,13 @@ Current and planned projects in product engineering include:
 
 Infrastructure engineering is focused on helping Snowplow Analytics Ltd to grow to managing 100, then 1,000, then 10,000 AWS accounts as part of the Snowplow [Managed Service](http://snowplowanalytics.com/trial/).
 
-To deliver the Snowplow Managed Service we have built a proprietary deployment, orchestration and monitoring stack; we are also developing open source infrastructure tooling, such as DAG runners, Hadoop jobflow runners and similar.
+To deliver the Snowplow Managed Service we have built a proprietary deployment, orchestration and monitoring stack, using pragmatic technologies including Ansible, CloudFormation, bash, Golang, cron and PagerDuty. We are also developing open source infrastructure tooling, such as DAG runners, Hadoop jobflow runners and similar.
 
-Today, our in-house Managed Service stack uses pragmatic technologies including Ansible, CloudFormation, bash, Golang, cron and PagerDuty. We are constantly iterating on and evolving this stack - current and planned projects include:
+We are constantly iterating on and evolving our infrastructure stack - current and planned projects include:
 
-* Porting our real-time pipeline orchestration engine to Kubernetes
+* Porting our real-time pipeline orchestration engine to Kubernetes, then open sourcing it
 * Replacing our in-house secrets manager with HashiCorp Vault
-* Adding a UI to Factotum, our DAG runner
+* Adding a UI to Factotum, our open source DAG runner
 * Implementing Mesos and evaluating options for running scheduled job DAGs on Mesos (replacing our in-house distributed cron system)
 * Building a framework for automatic upgrades of customers' Snowplow pipelines
 * Evaluating Nix as a replacement for much of our Ansible automation

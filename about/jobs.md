@@ -38,6 +38,6 @@ Interested? Send your CV to recruitment@snowplowanalytics.com.
 
 [Junior data analyst]: /about/jobs/junior-data-analyst/
 [Senior data analyst]: /about/jobs/senior-data-analyst/
-[infrastructure-engineer]: /about/jobs/infrastructure-engineer/
+[data-engineer]: /about/jobs/data-engineer/
 [support-engineer]: /about/jobs/support-engineer/
 [technical-product-manager]: /about/jobs/technical-product-manager/

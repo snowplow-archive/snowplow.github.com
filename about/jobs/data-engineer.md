@@ -13,7 +13,7 @@ A data engineer at Snowplow Analytics Ltd works across our product and infrastru
 
 ## Product engineering
 
-Over the past four years Snowplow has grown into the industry-leading open-source event data pipeline, consisting of a dizzying array of user-facing products, SDKs and software libraries.
+Over the past four years Snowplow has grown into the industry-leading open-source event data pipeline ([main repository](https://github.com/snowplow/snowplow)), consisting of a dizzying array of user-facing products, SDKs and software libraries.
 
 All of these 30+ projects are products in some sense, but Snowplow is not a packaged SaaS product – instead, our various user constituencies (data analysts, developers, devops) interact with the platform via SQL, software SDKs and public APIs; being open source, the Snowplow codebase is itself an important user-facing aspect of the product.
 
@@ -23,7 +23,7 @@ Current and planned projects in product engineering include:
 * New SaaS integrations for [Sauna](https://github.com/snowplow/sauna), our decisioning and response platform
 * Adding new event sources to Snowplow, including SaaS webhooks and database change-data-capture
 * Porting Snowplow to new platforms such as Apache Kafka and Google Cloud Platform
-* Adding schema inference to Snowplow
+* Adding schema inference support to Snowplow and [Iglu](https://github.com/snowplow/iglu), our schema registry system
 * Building tooling and user interfaces for event data modeling SQL and Apache Spark
 
 ## Infrastructure engineering

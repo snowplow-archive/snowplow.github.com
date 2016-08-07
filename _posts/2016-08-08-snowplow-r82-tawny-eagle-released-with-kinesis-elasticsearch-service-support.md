@@ -42,7 +42,7 @@ Simply change `warn` to any of:
 
 <h2 id="distribution">2. Distribution changes</h2>
 
-As a step towards supporting [Docker formally][snowplow-docker] for our real-time applications we are now distributing the Kinesis applications as 3 distinct bintray packages:
+As a step towards supporting [Docker formally][snowplow-docker] for our real-time applications we are now distributing the Kinesis applications as 3 distinct Bintray packages:
 
 * [Snowplow Scala Stream Collector][bt-snowplow-scala-stream-collector]
 * [Snowplow Stream Enrich][bt-snowplow-stream-stream]
@@ -52,13 +52,13 @@ We continue to make a "meta-distribution" of all three apps available in the [Sn
 
 <h2 id="upgrading">3. Upgrading</h2>
 
-The Kinesis apps for R82 Tawny Eagle are available in the following zips:
+The Kinesis apps for R82 Tawny Eagle are available in the following zipfiles:
 
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_collector_0.7.0.zip
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_stream_enrich_0.8.1.zip
     http://dl.bintray.com/snowplow/snowplow-generic/snowplow_elasticsearch_sink_0.7.0.zip
 
-Or you can download all of the apps togethre in this zip:
+Or you can download all of the apps together in this zipfile:
 
     https://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r82_tawny_eagle.zip
 

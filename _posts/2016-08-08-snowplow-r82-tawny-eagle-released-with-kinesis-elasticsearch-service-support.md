@@ -1,7 +1,7 @@
 ---
 layout: post
 title-short: Snowplow 82 Tawny Eagle
-title: "Snowplow 82 Tawny Eagle released"
+title: "Snowplow 82 Tawny Eagle released with Kinesis Elasticsearch Service support"
 tags: [snowplow, kinesis, real-time]
 author: Josh
 category: Releases

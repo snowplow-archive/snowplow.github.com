@@ -24,7 +24,7 @@ Current and planned projects in product engineering include:
 * Adding new event sources to Snowplow, including SaaS webhooks and database change-data-capture
 * Porting Snowplow to new platforms such as Apache Kafka and Google Cloud Platform
 * Adding schema inference support to Snowplow and [Iglu](https://github.com/snowplow/iglu), our schema registry system
-* Building tooling and user interfaces for event data modeling SQL and Apache Spark
+* Building tooling and user interfaces for event data modeling in SQL and Apache Spark
 
 ## Infrastructure engineering
 

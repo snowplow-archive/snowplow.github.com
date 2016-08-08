@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are happy to announce the release of [Snowplow 82 Tawny Eagle] [snowplow-release]! This release updates the Elasticsearch Sink with support for sending events via HTTP.
+We are happy to announce the release of [Snowplow 82 Tawny Eagle] [snowplow-release]! This release updates the Kinesis Elasticsearch Sink with support for sending events via HTTP, allowing us to now support [Amazon Elasticsearch Service] [amazon-es-service].
 
 1. [Kinesis Elasticsearch Sink](/blog/2016/08/08/snowplow-r82-tawny-eagle-released-with-kinesis-elasticsearch-service-support#kes)
 2. [Distribution changes](/blog/2016/08/08/snowplow-r82-tawny-eagle-released-with-kinesis-elasticsearch-service-support#distribution)
@@ -20,7 +20,7 @@ We are happy to announce the release of [Snowplow 82 Tawny Eagle] [snowplow-rele
 
 <h2 id="kes">1. Kinesis Elasticsearch Sink</h2>
 
-This release adds support to the Kinesis pipeline for loading of an Elasticsearch cluster over HTTP. This allows Snowplow to now load [Amazon Elasticsearch Service] [amazon-es-service], which only supports interaction over this API.
+This release adds support to the Kinesis pipeline for loading of an Elasticsearch cluster over HTTP. This allows Snowplow to now load [Amazon Elasticsearch Service] [amazon-es-service], which only supports interaction over this API. (The Snowplow batch pipeline already supports loading of Elasticsearch Service for bad rows.)
 
 Under the covers we are using the excellent [Jest] [jest] library as our HTTP client until such time as Elasticsearch has an offical Java client for HTTP; this should be included in Elasticsearch 5.0.0 [per this ticket] [java-client-for-es].
 

@@ -45,7 +45,7 @@ Simply change `warn` to any of:
 As a step towards supporting [Docker formally][snowplow-docker] for our real-time applications we are now distributing the Kinesis applications as 3 distinct Bintray packages:
 
 * [Snowplow Scala Stream Collector][bt-snowplow-scala-stream-collector]
-* [Snowplow Stream Enrich][bt-snowplow-stream-stream]
+* [Snowplow Stream Enrich][bt-snowplow-stream-enrich]
 * [Snowplow Kinesis Elasticsearch Sink][bt-snowplow-kinesis-elasticsearch-sink]
 
 We continue to make a "meta-distribution" of all three apps available in the [Snowplow] [bt-snowplow] package in Bintray.

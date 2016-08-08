@@ -118,6 +118,11 @@ redirect_from:
   <a href="https://www.endource.com/"><img src="//logo.clearbit.com/endource.com?size=200"></a>
   <a href="https://www.myphotobook.de/"><img src="//logo.clearbit.com/myphotobook.de?size=200"></a>
   <a href="https://www.aceable.com/"><img src="//logo.clearbit.com/aceable.com?size=200"></a>
+  <a href="http://www.shaadi.com/"><img src="//logo.clearbit.com/shaadi.com?size=200"></a>
+  <a href="https://www.datadoghq.com/"><img src="//logo.clearbit.com/datadoghq.com?size=200"></a>
+  <a href="https://www.raisin.com/"><img src="//logo.clearbit.com/raisin.com?size=200"></a>
+  <a href="http://theculturetrip.com/"><img src="//logo.clearbit.com/theculturetrip.com?size=200"></a>
+  <a href="https://www.memrise.com/"><img src="//logo.clearbit.com/memrise.com?size=200"></a>
 </div>
 
 <div class="row">

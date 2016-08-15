@@ -46,8 +46,8 @@ Subject subject = ...;
 Emitter emitter = ...;
 
 Tracker.init(new Tracker.TrackerBuilder(emitter, TRACKER_NAMESPACE, TRACKER_APP_ID, context)
-    .subject(subject)
-    .build()
+  .subject(subject)
+  .build()
 );
 {% endhighlight %}
 
@@ -80,8 +80,8 @@ To use this feature add the following builder option to your Tracker setup:
 
 {% highlight java %}
 Tracker.init(new Tracker.TrackerBuilder(...)
-    .applicationCrash(true)
-    .build()
+  .applicationCrash(true)
+  .build()
 );
 {% endhighlight %}
 
@@ -97,8 +97,8 @@ To use this feature add the following builder option to your Tracker setup:
 
 {% highlight java %}
 Tracker.init(new Tracker.TrackerBuilder(...)
-    .lifecycleEvents(true)
-    .build()
+  .lifecycleEvents(true)
+  .build()
 );
 
 // Set the lifecycle handler
@@ -122,7 +122,7 @@ For more information on this please see [#192](https://github.com/snowplow/snowp
 We have also:
 
 * Updated the `client_session` context to include the `firstEventId` ([#160][160])
-* Updated the `mobile_context` context to include both `networkType` and `networkTechnology ([#180][180]), thanks [@bernardosrulzon](https://github.com/bernardosrulzon)!
+* Updated the `mobile_context` context to include both `networkType` and `networkTechnology` ([#180][180]), thanks [@bernardosrulzon](https://github.com/bernardosrulzon)!
 * Updated the `geolocation_context` context to include `timestamp` ([#203][203])
 * Added support for attaching the `trueTimestamp` to events ([#196][196])
 

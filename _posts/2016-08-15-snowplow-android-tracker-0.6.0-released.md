@@ -12,10 +12,10 @@ We are pleased to announce the release of the [Snowplow Android Tracker][repo] v
 This release post will cover the following topics:
 
 1. [Removing RxJava](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#removing-rxjava)
-2. [Singleton](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#singleton)
-3. [Exception tracking](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#exceptions)
-4. [LifeCycle events](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#lifecycles)
-5. [Sessionization](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#sessions)
+2. [Singleton setup](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#singleton)
+3. [Uncaught exception tracking](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#exceptions)
+4. [Lifecycle event tracking](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#lifecycles)
+5. [Client session updates](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#sessions)
 6. [Other changes](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#other-changes)
 7. [Demo app](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#demo-application)
 8. [Documentation](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#docs)
@@ -35,9 +35,9 @@ To add the Tracker to your application:
 compile 'com.snowplowanalytics:snowplow-android-tracker:0.6.0@aar'
 {% endhighlight %}
 
-<h2><a name="singleton">2. Singleton</a></h2>
+<h2><a name="singleton">2. Singleton setup</a></h2>
 
-As the Tracker can only be safely used as a Singleton due to its reliance on a SQLite database for event storage we have now forced the implementation of the Tracker as such.
+As the Tracker can only be safely used as a singleton, due to its reliance on a SQLite database for event persistence, we have now forced the implementation of the Tracker as such.
 
 To create the Tracker:
 
@@ -63,7 +63,7 @@ It can also be shutdown and reset from anywhere via:
 Tracker.close();
 {% endhighlight %}
 
-<h2><a name="exceptions">3. Exception tracking</a></h2>
+<h2><a name="exceptions">3. Uncaught exception tracking</a></h2>
 
 For too long the Javascript Tracker has been the only one with any semblance of automated event tracking.  This release adds the first itteration of hopefully many rounds of automated event tracking in the Android ecosystem.
 
@@ -85,7 +85,7 @@ Tracker.init(new Tracker.TrackerBuilder(...)
 );
 {% endhighlight %}
 
-<h2><a name="lifecyles">4. LifeCycle events</a></h2>
+<h2><a name="lifecyles">4. Lifecycle event tracking</a></h2>
 
 Further to the Exception tracking we have also added the ability to automatically track foreground and background events.  The action of your user sending your application in and out of focus.
 
@@ -109,7 +109,7 @@ This feature also ties in neatly with client sessionization in that, if implemen
 
 In the future we hope to add many more automated events around the Android LifeCycle to help paint the picture of user interaction in your application.
 
-<h2><a name="sessions">5. Sessionization</a></h2>
+<h2><a name="sessions">5. Client session updates</a></h2>
 
 Further to improving our understanding of client sessions in the Android Tracker we have also amended what constitutes a new session.  Historically if an application was in the background the session would continue to expire and itterate.  Allowing for very large blocks between session index counts.
 

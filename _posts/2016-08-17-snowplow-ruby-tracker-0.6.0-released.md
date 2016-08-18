@@ -64,10 +64,13 @@ These links may be useful:
 * The [wiki page][wiki]
 * The [GitHub repository][repo]
 
+The [release notes] [release-060] are also available on GitHub.
+
 If you have an idea for a new feature or want help getting things set up, please [get in touch][talk-to-us]. [Raise an issue][issues] in the GitHub repository if you find any bugs.
 
 [snowplow-time]: http://snowplowanalytics.com/blog/2015/09/15/improving-snowplows-understanding-of-time/
 [repo]: https://github.com/snowplow/snowplow-ruby-tracker
+[release-060]: https://github.com/snowplow/snowplow-ruby-tracker/releases/tag/0.6.0
 [wiki]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 [issues]: https://github.com/snowplow/snowplow-ruby-tracker/issues
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

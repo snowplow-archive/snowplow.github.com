@@ -7,7 +7,7 @@ author: Josh
 category: Releases
 ---
 
-We are pleased to announce the release of the [Snowplow Android Tracker][repo] version 0.6.0. The Tracker has undergone a great deal of refactoring to end up with a re-unified library.  We have also added the first round of automated event tracking in the form of uncaught exceptions and lifecycle events.
+We are pleased to announce the release of the [Snowplow Android Tracker][repo] version 0.6.0. The Tracker has undergone a great deal of refactoring to end up with a re-unified library.  We have also added the first round of automated event tracking in the form of uncaught exceptions and lifecycle events!
 
 This release post will cover the following topics:
 
@@ -27,9 +27,11 @@ This release post will cover the following topics:
 
 The Android Tracker has seen a rollercoaster of changes and refactors as we try to find the best technology fit for the SDK.  This saw the split of the library into an RxJava and a Classic Java approach - the former as a percieved best practice for concurrency and the later as a lightweight alternative to RxJava (due to the somewhat prohibitive DEX count).
 
-This release brings yet another refactor in that we are now retiring RxJava in favour of the Classic Java approach.  There is no material difference in performance between the two implementations and it allows us to remove a dependancy from the library.  Further we feel that RxJava is a paradigm more suited to much more complex concurrency problems than what we use in the tracker - where we require a background event consumer & sender.
+This release brings yet another refactor in that we are now retiring RxJava in favour of the Classic Java approach.  From testing there is no material difference in performance between the two implementations and it allows us to remove a dependancy from the library.  Further we feel that RxJava is a paradigm more suited to much more complex concurrency patterns than what we use in the tracker - where we simply require a background event consumer & sender.
 
-To add the Tracker to your application:
+That being said there is definetly a place for RxJava in Android, we just cannot justify the complexity of maintaining essentially two trackers for no material gain.
+
+To add the Tracker to your application now:
 
 {% highlight %}
 compile 'com.snowplowanalytics:snowplow-android-tracker:0.6.0@aar'
@@ -74,7 +76,7 @@ To this end we have added the ability to automatically track any uncaught fatal 
 
 This event also records the Threads name and ID for debugging purposes.  With this information plus the contextual information we can already send we are hoping to allow you to build very rich error reports which let you figure out what is going wrong in your app with a minimum of fuss.
 
-__Note__: For this feature to work properly it is imperative that the Tracker is setup very early from the Main/UI Thread of your application activity.  This will allow the custom exception handler to automatically propogate to all other threads that get created.
+__Note__: For this feature to work properly it is imperative that the Tracker is setup very early from the Main/UI Thread of your application activity.  This will allow the custom exception handler to automatically propogate to all other threads that are created.
 
 To use this feature add the following builder option to your Tracker setup:
 
@@ -84,6 +86,35 @@ Tracker.init(new Tracker.TrackerBuilder(...)
   .build()
 );
 {% endhighlight %}
+
+Once this feature is activated you will get something resembling the below output:
+
+{% highlight json %}
+{
+  "schema": "iglu:com.snowplowanalytics.snowplow\\/unstruct_event\\/jsonschema\\/1-0-0",
+  "data": {
+    "schema": "iglu:com.snowplowanalytics.snowplow\\/application_error\\/jsonschema\\/1-0-0",
+    "data": {
+      "exceptionName": "java.lang.IllegalStateException",
+      "programmingLanguage": "JAVA",
+      "threadId": 1,
+      "threadName": "main",
+      "isFatal": true,
+      "stackTrace": "java.lang.IllegalStateException: IllegalState detected!\\n\\tat com.snowplowanalytics.snowplowtrackerdemo.Demo$2.onClick(Demo.java:129)\\n\\tat android.view.View.performClick(View.java:5198)\\n\\tat android.view.View$PerformClick.run(View.java:21147)\\n\\tat android.os.Handler.handleCallback(Handler.java:739)\\n\\tat android.os.Handler.dispatchMessage(Handler.java:95)\\n\\tat android.os.Looper.loop(Looper.java:148)\\n\\tat android.app.ActivityThread.main(ActivityThread.java:5417)\\n\\tat java.lang.reflect.Method.invoke(Native Method)\\n\\tat com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)\\n\\tat com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)\\n",
+      "lineNumber": 129,
+      "className": "com.snowplowanalytics.snowplowtrackerdemo.Demo$2",
+      "message": "IllegalState detected!"
+    }
+  }
+}
+{% endhighlight %}
+
+This will allow you to build views around:
+
+- What uncaught exceptions are present in your application
+- If these exceptions are only present on certain devices by merging this with the `mobile_context`
+
+Just to name a few possibilities!
 
 <h2><a name="lifecyles">4. Lifecycle event tracking</a></h2>
 

@@ -11,15 +11,17 @@ We are pleased to announce the release of the [Snowplow Android Tracker][repo] v
 
 This release post will cover the following topics:
 
-1. [Removing RxJava](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#removing-rxjava)
-2. [Singleton setup](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#singleton)
-3. [Uncaught exception tracking](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#exceptions)
-4. [Lifecycle event tracking](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#lifecycles)
-5. [Client session updates](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#sessions)
-6. [Other changes](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#other-changes)
-7. [Demo app](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#demo-application)
-8. [Documentation](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#docs)
-9. [Getting help](/blog/2016/08/15/snowplow-android-tracker-0.6.0-released/#help)
+1. [Removing RxJava](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#removing-rxjava)
+2. [Singleton setup](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#singleton)
+3. [Uncaught exception tracking](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#exceptions)
+4. [Lifecycle event tracking](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#lifecycles)
+5. [Client session updates](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#sessions)
+6. [True Timestamp](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#true-timestamp)
+7. [API changes](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#api-changes)
+8. [Other changes](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#other-changes)
+9. [Demo app](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#demo-application)
+10. [Documentation](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#docs)
+11. [Getting help](/blog/2016/08/24/snowplow-android-tracker-0.6.0-released/#help)
 
 <!--more-->
 
@@ -39,7 +41,7 @@ compile 'com.snowplowanalytics:snowplow-android-tracker:0.6.0@aar'
 
 <h2><a name="singleton">2. Singleton setup</a></h2>
 
-As the Tracker can only be safely used as a singleton, due to its reliance on a SQLite database for event persistence, we have now forced the implementation of the Tracker as such.
+As the Tracker can only be safely used as a singleton due to its reliance on a SQLite database for event persistence, we have now forced the implementation of the Tracker as such.
 
 To create the Tracker:
 
@@ -116,6 +118,11 @@ This will allow you to build views around:
 
 Just to name a few possibilities!
 
+__Important__:  Before switching this feature on for batch processing you must deploy the appropriate Redshift DDL and JsonPath.  These can be found at the following links:
+
+- [Redshift DDL](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_error_1.sql)
+- [JsonPath](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/jsonpaths/com.snowplowanalytics.snowplow/application_error_1.json)
+
 <h2><a name="lifecyles">4. Lifecycle event tracking</a></h2>
 
 Further to the Exception tracking we have also added the ability to automatically track foreground and background events.  The action of your user sending your application in and out of focus.
@@ -136,9 +143,46 @@ Tracker.init(new Tracker.TrackerBuilder(...)
 Tracker.instance().setLifecycleHandler({{ APPLICATION_ACTIVITY }})
 {% endhighlight %}
 
-This feature also ties in neatly with client sessionization in that, if implemented, it will automatically notify the sessionization object about foreground and backgroud states - rather than manually having to set this change yourself.
+This handler also ties in nicely with client sessionization in that, if implemented, the handler will automatically notify the sessionization object about foreground and backgroud states - rather than you having to manually set this change yourself.
 
-In the future we hope to add many more automated events around the Android LifeCycle to help paint the picture of user interaction in your application.
+The payload from these events resembles the following:
+
+{% highlight json %}
+{
+  "schema": "iglu:com.snowplowanalytics.snowplow\\/unstruct_event\\/jsonschema\\/1-0-0",
+  "data": {
+    "schema": "iglu:com.snowplowanalytics.snowplow\\/application_background\\/jsonschema\\/1-0-0",
+    "data": {
+      "backgroundIndex": 6
+    }
+  }
+}
+{% endhighlight %}
+
+{% highlight json %}
+{
+  "schema": "iglu:com.snowplowanalytics.snowplow\\/unstruct_event\\/jsonschema\\/1-0-0",
+  "data": {
+    "schema": "iglu:com.snowplowanalytics.snowplow\\/application_foreground\\/jsonschema\\/1-0-0",
+    "data": {
+      "foregroundIndex": 5
+    }
+  }
+}
+{% endhighlight %}
+
+Everytime your application goes to the background or to the foreground a unique index is incremented to keep track of how many times the user goes back and forth from your applications focus.
+
+In the future we hope to add many more automated events around the Android LifeCycle to help paint the picture of user interaction in your application!
+
+__Important__:  Before switching this feature on for batch processing you must deploy the appropriate Redshift DDLs and JsonPaths.  These can be found at the following links:
+
+- `application_background`: 
+  - [Redshift DDL](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_background_1.sql)
+  - [JsonPath](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/jsonpaths/com.snowplowanalytics.snowplow/application_background_1.json)
+- `application_foreground`: 
+  - [Redshift DDL](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_foreground_1.sql)
+  - [JsonPath](https://raw.githubusercontent.com/snowplow/snowplow/feature/application-schemas/4-storage/redshift-storage/jsonpaths/com.snowplowanalytics.snowplow/application_foreground_1.json)
 
 <h2><a name="sessions">5. Client session updates</a></h2>
 
@@ -148,7 +192,38 @@ Once the application is sent to the background it will now stop itterating immed
 
 For more information on this please see [#192](https://github.com/snowplow/snowplow-android-tracker/issues/192).
 
-<h2><a name="other-changes">6. Other changes</a></h2>
+<h2><a name="true-timestamp">6. True Timestamp</a></h2>
+
+True timestamps in Snowplow are a way to indicate that you really trust the time given as accurate; this is particularly useful if you are using a tracker to “replay” events with definitive timestamps into Snowplow. You can find out more about how time is handled in Snowplow [in our blog post here](http://snowplowanalytics.com/blog/2015/09/15/improving-snowplows-understanding-of-time/).
+
+All the tracking methods in the Android Tracker now support sending this timestamp by using a "trueTimestamp" builder option. This is not a breaking API change.
+
+To use the new option:
+
+{% highlight java %}
+Tracker.instance().track(PageView.builder()
+  .pageUrl("pageUrl")
+  .pageTitle("pageTitle")
+  .referrer("pageReferrer")
+  .trueTimestamp(1471419787572)
+  .build());
+{% endhighlight %}
+
+<h2><a name="api-changes">7. API changes</a></h2>
+
+The Subject class no longer controls the creation of the `mobile_context` and `geolocation_context`.  These are now setup by:
+
+{% highlight java %}
+Tracker.init(new Tracker.TrackerBuilder(...)
+  .geoLocationContext(true)
+  .mobileContext(true)
+  .build()
+);
+{% endhighlight %}
+
+__Note__: If you are building your application for API 24+ you will need to manually request the geolocation manifest permissions for the Tracker.  For sample code please see the [technical documentation](https://github.com/snowplow/snowplow/wiki/Android-Tracker#322-geolocation_context).
+
+<h2><a name="other-changes">8. Other changes</a></h2>
 
 We have also:
 
@@ -157,13 +232,13 @@ We have also:
 * Updated the `geolocation_context` context to include `timestamp` ([#203][203])
 * Added support for attaching the `trueTimestamp` to events ([#196][196])
 
-<h2><a name="demo-application">7. Demo app</a></h2>
+<h2><a name="demo-application">9. Demo app</a></h2>
 
 As part of removing RxJava from the Tracker the demo application has also been greatly simplified.  It also now showcases the new Lifecycle Handler events that have been added to the Tracker.
 
 To get the latest version please download from [here][apk-download]. To install the app you will need to allow installation from sources [other than the Google Play Store][other-sources].
 
-<h2><a name="docs">8. Documentation</a></h2>
+<h2><a name="docs">10. Documentation</a></h2>
 
 You can find the updated [Android Tracker documentation] [android-manual] on our wiki.
 
@@ -175,7 +250,7 @@ As part of this release we have updated our tutorials to help Android developers
 
 You can find the full release notes on GitHub as [Snowplow Android Tracker v0.6.0 release] [android-tracker-release].
 
-<h2><a name="help">9. Getting help</a></h2>
+<h2><a name="help">11. Getting help</a></h2>
 
 The Android Tracker is still a young project and we will be working hard with the community to improve it over the coming weeks and months; in the meantime, do please share any user feedback, feature requests or possible bugs.
 

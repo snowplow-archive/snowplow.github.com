@@ -211,7 +211,7 @@ Tracker.instance().track(PageView.builder()
 
 <h2><a name="api-changes">7. API changes</a></h2>
 
-The Subject class no longer controls the creation of the `mobile_context` and `geolocation_context`.  These are now setup by:
+1. The Subject class no longer controls the creation of the `mobile_context` and `geolocation_context`.  These are now setup by:
 
 {% highlight java %}
 Tracker.init(new Tracker.TrackerBuilder(...)
@@ -222,6 +222,9 @@ Tracker.init(new Tracker.TrackerBuilder(...)
 {% endhighlight %}
 
 __Note__: If you are building your application for API 24+ you will need to manually request the geolocation manifest permissions for the Tracker.  For sample code please see the [technical documentation](https://github.com/snowplow/snowplow/wiki/Android-Tracker#322-geolocation_context).
+
+2. `Unstructured` events are now called `SelfDescribing` events.  This is a breaking naming change and will need to be updated within your application.
+3. `TimingWithCategory` events are now called `Timing` events.  This is a breaking naming change and will need to be updated within your application.
 
 <h2><a name="other-changes">8. Other changes</a></h2>
 

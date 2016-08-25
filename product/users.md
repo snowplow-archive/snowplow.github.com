@@ -93,7 +93,6 @@ redirect_from:
   <a href="http://www.feex.com"><img src="//logo.clearbit.com/feex.com?size=200"></a>
   <!--<a href="http://www.digdeepdigital.com.au"><img src="//logo.clearbit.com/digdeepdigital.com.au?size=200"></a>-->
   <a href="https://www.graze.com"><img src="//logo.clearbit.com/graze.com?size=200"></a>
-  <a href="http://www.lingualeo.com"><img src="//logo.clearbit.com/lingualeo.com?size=200"></a>
   <a href="http://www.conversionlogic.com"><img src="//logo.clearbit.com/conversionlogic.com?size=200"></a>
   <a href="http://www.sodastream.com"><img src="//logo.clearbit.com/sodastream.fr?size=200"></a>
   <a href="http://www.outfittery.de"><img src="//logo.clearbit.com/outfittery.de?size=200"></a>
@@ -124,9 +123,9 @@ redirect_from:
   <a href="http://theculturetrip.com/"><img src="//logo.clearbit.com/theculturetrip.com?size=200"></a>
   <a href="https://www.memrise.com/"><img src="//logo.clearbit.com/memrise.com?size=200"></a>
   <a href="https://www.brigade.com/"><img src="//logo.clearbit.com/brigade.com?size=200"></a>
-  <a href="https://www.iscs.com/"><img src="//logo.clearbit.com/iscs.com?size=200"></a>
+  <a href="http://www.iscs.com/"><img src="//logo.clearbit.com/iscs.com?size=200"></a>
   <a href="https://www.newscorpaustralia.com/"><img src="//logo.clearbit.com/newscorpaustralia.com?size=200"></a>
-  <a href="https://rootsrated.com/"<img src="//logo.clearbit.com/rootsrated.com?size=200"></a>
+  <a href="https://rootsrated.com/"><img src="//logo.clearbit.com/rootsrated.com?size=200"></a>
 </div>
 
 <div class="row">

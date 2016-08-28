@@ -126,8 +126,8 @@ redirect_from:
   <a href="https://www.brigade.com/"><img src="//logo.clearbit.com/brigade.com?size=200"></a>
   <a href="https://www.iscs.com/"><img src="//logo.clearbit.com/iscs.com?size=200"></a>
   <a href="https://www.newscorpaustralia.com/"><img src="//logo.clearbit.com/newscorpaustralia.com?size=200"></a>
-  <a href="https://rootsrated.com/"<img src="//logo.clearbit.com/rootsrated.com?size=200"></a>
-  <a href="https://eero.com//"<img src="//logo.clearbit.com/eero.com?size=200"></a>
+  <a href="https://rootsrated.com/"><img src="//logo.clearbit.com/rootsrated.com?size=200"></a>
+  <a href="https://eero.com/"><img src="//logo.clearbit.com/eero.com?size=200"></a>
   <a href="https://www.dubizzle.com//"<img src="//logo.clearbit.com/dubizzle.com?size=200"></a>
 </div>
 

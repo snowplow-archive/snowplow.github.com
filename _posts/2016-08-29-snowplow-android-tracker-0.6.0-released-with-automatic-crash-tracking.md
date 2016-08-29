@@ -142,7 +142,7 @@ This release brings another refactor: we are now permanently retiring RxJava in 
 
 To add the Tracker to your application now just refer to:
 
-{% highlight %}
+{% highlight java %}
 compile 'com.snowplowanalytics:snowplow-android-tracker:0.6.0@aar'
 {% endhighlight %}
 

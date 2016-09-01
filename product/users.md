@@ -130,6 +130,10 @@ redirect_from:
   <a href="https://eero.com/"><img src="//logo.clearbit.com/eero.com?size=200"></a>
   <a href="https://www.dubizzle.com/"><img src="//logo.clearbit.com/dubizzle.com?size=200"></a>
   <a href="http://www.answermedia.com/"><img src="//logo.clearbit.com/answermedia.com?size=200"></a>
+  <a href="https://www.datadoghq.com/"><img src="//logo.clearbit.com/datadoghq.com?size=200"></a>
+  <a href="http://oneflare.com.au/"><img src="//logo.clearbit.com/oneflare.com.au?size=200"></a>
+  <a href="http://www.designcrowd.com/"><img src="//logo.clearbit.com/designcrowd.com?size=200"></a>
+  <a href="http://www.mamamia.com.au/"><img src="//logo.clearbit.com/mamamia.com.au?size=200"></a>
 </div>
 
 <div class="row">

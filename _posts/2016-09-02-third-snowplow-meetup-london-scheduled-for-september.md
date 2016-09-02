@@ -13,6 +13,8 @@ On the 21st September we'll be hosting our third London meetup taking place at [
 
 In this meetup you'll have a chance to hear real people, doing real stuff with real time. We'll also talk about our latest developments and our vision in the real time space. 
 
+<!--more-->
+
 To do that, we have three great speakers:
 
 1. Dani Sola from [Simply Business] will talk about the near real time pipeline they developed based on Snowplow and Spark Streaming. He'll show us how it's being used to power their call centre and remarketing initiatives. 
@@ -27,7 +29,7 @@ Putting a real-time event pipeline into production has many challenges: we need 
 Did I mention already pizza and beer!? 
 Read on to learn more about the companies that will speaking.
 
-<!--more-->
+
 
 ## About the companies presenting:
 

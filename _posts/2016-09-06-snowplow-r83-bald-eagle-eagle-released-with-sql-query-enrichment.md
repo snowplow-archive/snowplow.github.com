@@ -35,9 +35,9 @@ You can also find out more on the [SQL Query Enrichment] [sql-query-enrichment] 
 
 <h2 id="eu-central-1">2. Support for eu-central-1 (Frankfurt)</h2>
 
-We are delighted to be adding support for the [EU Frankfurt] [region-eu-central-1] (eu-central-1) AWS region in this release; this has been one of the most requested features by the Snowplow community for some time now.
+We are delighted to be finally adding support for the [EU Frankfurt] [region-eu-central-1] (eu-central-1) AWS region in this release; this has been one of the most requested features by the Snowplow community for some time now.
 
-To implement this we made various changes to our EmrEtlRunner and StorageLoader applications, plus to our central hosting of code artifacts for Elastic MapReduce and Redshift loading.
+To implement this we made various changes to our EmrEtlRunner and StorageLoader applications, as well as to our central hosting of code artifacts for Elastic MapReduce and Redshift loading.
 
 AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
 
@@ -53,7 +53,7 @@ This release also contains further improvements to EmrEtlRunner and StorageLoade
 
 * In EmrEtlRunner, we now pass the GZIP compression argument to S3DistCp as "gz" not "gzip" ([#2679] [issue-2679]). This makes it easier to query enriched events from Apache Spark, which does not recognize `.gzip` as a file extension for GZIP compressed files
 * Also in EmrEtlRunner, we fixed a bug where files were being double compressed as the output of the Hadoop Shred step if the Hadoop Enrich step was skipped ([#2586] [issue-2586])
-* In StorageLoader, we opted to use the Northern Virginia endpoint instead of the global endpoint for us-east-1 ([#2748] [issue-2748]). This may have some soft benefits in terms of improved eventual consistency behavior (still under observation)
+* In StorageLoader, we opted to use the Northern Virginia endpoint instead of the global endpoint for us-east-1 ([#2748] [issue-2748]). This may have some benefits in terms of improved eventual consistency behavior (still under observation)
 
 <h2 id="upgrading">5. Upgrading</h2>
 

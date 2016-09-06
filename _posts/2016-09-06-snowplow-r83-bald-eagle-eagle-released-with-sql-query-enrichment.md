@@ -88,6 +88,7 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [bald-eagle]: /assets/img/blog/2016/09/bald-eagle.png
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r83-bald-eagle
 
+[js-enrichment]: https://github.com/snowplow/snowplow/wiki/JavaScript-script-enrichment
 [api-request-enrichment]: https://github.com/snowplow/snowplow/wiki/API-Request-enrichment
 
 [sql-query-enrichment]: https://github.com/snowplow/snowplow/wiki/SQL-Query-enrichment

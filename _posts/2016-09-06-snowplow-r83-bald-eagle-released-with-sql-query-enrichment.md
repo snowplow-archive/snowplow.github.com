@@ -47,7 +47,9 @@ Our [Iglu webhook adapter] [iglu-webhook-adapter] is one of our most powerful we
 
 Previously this adapter only supported `GET` requests; as of this release the adapter also supports `POST` requests. You can send in your data in the `POST` request body, either formatted as a JSON or as a form body; the `schema` parameter should be part of the request body. 
 
-For information on this, please check out the [setup guide] [iglu-webhook-adapter-setup] for the Iglu webhook adapter.
+Many thanks to community member [Mike Robins] [miike] at Snowplow partner [Snowflake Analytics] [snowflake] for contributing this feature!
+
+For information on the new `POST`-based capability, please check out the [setup guide] [iglu-webhook-adapter-setup] for the Iglu webhook adapter.
 
 <h2 id="other">4. Other improvements</h2>
 
@@ -102,6 +104,9 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 
 [iglu-webhook-adapter]: https://github.com/snowplow/snowplow/wiki/Iglu-webhook-adapter
 [iglu-webhook-adapter-setup]: https://github.com/snowplow/snowplow/wiki/Iglu-webhook-setup
+
+[miike]: https://github.com/miike
+[snowflake]: http://www.snowflake-analytics.com/
 
 [issue-2679]: https://github.com/snowplow/snowplow/issues/2679
 [issue-2586]: https://github.com/snowplow/snowplow/issues/2586

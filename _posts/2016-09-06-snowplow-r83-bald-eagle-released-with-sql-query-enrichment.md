@@ -47,6 +47,8 @@ Our [Iglu webhook adapter] [iglu-webhook-adapter] is one of our most powerful we
 
 Previously this adapter only supported `GET` requests; as of this release the adapter also supports `POST` requests. You can send in your data in the `POST` request body, either formatted as a JSON or as a form body; the `schema` parameter should be part of the request body. 
 
+For information on this, please check out the [setup guide] [iglu-webhook-adapter-setup] for the Iglu webhook adapter.
+
 <h2 id="other">4. Other improvements</h2>
 
 This release also contains further improvements to EmrEtlRunner and StorageLoader:

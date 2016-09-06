@@ -7,7 +7,7 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 83 Bald Eagle] [snowplow-release]. This release introduces our powerful new SQL Query Enrichment, long-awaited support for the EU Frankfurt AWS region, plus `POST` support for our Iglu webhook adapter.
+We are pleased to announce the release of [Snowplow 83 Bald Eagle] [snowplow-release]. This release introduces our powerful new SQL Query Enrichment, long-awaited support for the EU Frankfurt AWS region, plus POST support for our Iglu webhook adapter.
 
 1. [SQL Query Enrichment](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#sql-query-enrichment)
 2. [Support for eu-central-1 (Frankfurt)](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#eu-central-1)

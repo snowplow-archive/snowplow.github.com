@@ -7,11 +7,11 @@ author: Anton
 category: Releases
 ---
 
-We are pleased to announce the release of [Snowplow 79 Black Swan] [snowplow-release]. This appropriately-named release introduces our powerful new API Request Enrichment, plus a new HTTP Header Extractor Enrichment and several other improvements on the enrichments side.
+We are pleased to announce the release of [Snowplow 83 Bald Eagle] [snowplow-release]. This release introduces our powerful new SQL Query Enrichment, long-awaited support for the EU Frankfurt AWS region, plus `POST` support for our Iglu webhook adapter.
 
 1. [SQL Query Enrichment](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#sql-query-enrichment)
 2. [Support for eu-central-1 (Frankfurt)](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#eu-central-1)
-3. [POST support for the Iglu webhook adapter](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#xxx)
+3. [POST support for the Iglu webhook adapter](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#iglu-post)
 4. [Other improvements](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#other)
 5. [Upgrading](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#upgrading)
 6. [Roadmap](/blog/2016/09/06/snowplow-r83-bald-eagle-with-sql-query-enrichment-released#roadmap)
@@ -35,20 +35,25 @@ You can also find out more on the [SQL Query Enrichment] [sql-query-enrichment] 
 
 <h2 id="eu-central-1">2. Support for eu-central-1 (Frankfurt)</h2>
 
+We are delighted to be adding support for the [EU Frankfurt] [region-eu-central-1] (eu-central-1) AWS region in this release; this has been one of the most requested features by the Snowplow community for some time now.
 
+To implement this we made various changes to our EmrEtlRunner and StorageLoader applications, plus to our central hosting of code artifacts for Elastic MapReduce and Redshift loading.
 
-<h2 id="distribution">3. POST support for the Iglu webhook adapter</h2>
+AWS has a healthy [roadmap of new data center regions] [region-roadmap] opening over the coming months; we are committed to Snowplow supporting these new regions as they become available.
 
-Scala Common Enrich: add POST support to IgluAdapter (#1184)
+<h2 id="iglu-post">3. POST support for the Iglu webhook adapter</h2>
 
+Our [Iglu webhook adapter] [iglu-webhook-adapter] is one of our most powerful webhooks. It lets you track events sent into Snowplow via a `GET` request, where the name-value pairs on the request are composed into a self-describing JSON, with an Iglu-compatible `schema` parameter being used to describe the JSON.
+
+Previously this adapter only supported `GET` requests; as of this release the adapter also supports `POST` requests. You can send in your data in the `POST` request body, either formatted as a JSON or as a form body; the `schema` parameter should be part of the request body. 
 
 <h2 id="other">4. Other improvements</h2>
 
-This release also contains further improvements to EmrEtlRunner:
+This release also contains further improvements to EmrEtlRunner and StorageLoader:
 
-* EmrEtlRunner: pass GZIP compression argument to S3DistCp as "gz" not "gzip" (#2679)
-* EmrEtlRunner: fix bug with double compression in shred step if enrich skipped (#2586)
-* StorageLoader: use Northern Virginia endpoint not global endpoint for us-east-1 (#2748)
+* In EmrEtlRunner, we now pass the GZIP compression argument to S3DistCp as "gz" not "gzip" ([#2679] [issue-2679]). This makes it easier to query enriched events from Apache Spark, which does not recognize `.gzip` as a file extension for GZIP compressed files
+* Also in EmrEtlRunner, we fixed a bug where files were being double compressed as the output of the Hadoop Shred step if the Hadoop Enrich step was skipped ([#2586] [issue-2586])
+* In StorageLoader, we opted to use the Northern Virginia endpoint instead of the global endpoint for us-east-1 ([#2748] [issue-2748]). This may have some soft benefits in terms of improved eventual consistency behavior (still under observation)
 
 <h2 id="upgrading">5. Upgrading</h2>
 
@@ -80,13 +85,8 @@ For more details on this release, please check out the [release notes] [snowplow
 
 If you have any questions or run into any problems, please [raise an issue] [issues] or get in touch with us through [the usual channels] [talk-to-us].
 
-[tawny-eagle]: /assets/img/blog/2016/09/bald-eagle.jpg
+[bald-eagle]: /assets/img/blog/2016/09/bald-eagle.png
 [snowplow-release]: https://github.com/snowplow/snowplow/releases/r83-bald-eagle
-
-[r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
-[r8x-rt]: https://github.com/snowplow/snowplow/milestone/117
-[r8x-spark]: https://github.com/snowplow/snowplow/milestone/127
-[r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132
 
 [api-request-enrichment]: https://github.com/snowplow/snowplow/wiki/API-Request-enrichment
 
@@ -94,7 +94,22 @@ If you have any questions or run into any problems, please [raise an issue] [iss
 [mysql-tutorial]: http://discourse.snowplowanalytics.com/t/how-to-enrich-events-with-mysql-data-using-the-sql-query-enrichment-tutorial/385
 [jdbc]: https://en.wikipedia.org/wiki/Java_Database_Connectivity
 
+[region-eu-central-1]: https://aws.amazon.com/blogs/aws/aws-region-germany/
+[region-roadmap]: https://aws.amazon.com/about-aws/global-infrastructure/
+
+[iglu-webhook-adapter]: https://github.com/snowplow/snowplow/wiki/Iglu-webhook-adapter
+[iglu-webhook-adapter-setup]: https://github.com/snowplow/snowplow/wiki/Iglu-webhook-setup
+
+[issue-2679]: https://github.com/snowplow/snowplow/issues/2679
+[issue-2586]: https://github.com/snowplow/snowplow/issues/2586
+[issue-2748]: https://github.com/snowplow/snowplow/issues/2748
+
 [emretlrunner-config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
+
+[r8x-webhooks]: https://github.com/snowplow/snowplow/milestone/129
+[r8x-rt]: https://github.com/snowplow/snowplow/milestone/117
+[r8x-spark]: https://github.com/snowplow/snowplow/milestone/127
+[r8x-dedupe]: https://github.com/snowplow/snowplow/milestone/132
 
 [issues]: https://github.com/snowplow/snowplow/issues/new
 [talk-to-us]: https://github.com/snowplow/snowplow/wiki/Talk-to-us

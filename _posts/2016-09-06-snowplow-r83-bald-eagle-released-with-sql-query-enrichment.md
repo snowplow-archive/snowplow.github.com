@@ -29,7 +29,7 @@ The SQL Query Enrichment lets you effectively join arbitrary entities to your ev
 
 The query is plain SQL: it can span multiple tables, alias returned columns and apply arbitrary `WHERE` clauses driven by data extracted from any field found in the Snowplow enriched event, or indeed any JSON property found within the `unstruct_event`, `contexts` or `derived_contexts` fields. The enrichment will retrieve one or more rows from your targeted database as one or more self-describing JSONs, ready for adding back into the `derived_contexts` field.
 
-For a detailed walk-through of the API Request Enrichment, check out our new tutorial, [How to enrich events with MySQL data using the SQL Query Enrichment] [mysql-tutorial].
+For a detailed walk-through of the SQL Query Enrichment, check out our new tutorial, [How to enrich events with MySQL data using the SQL Query Enrichment] [mysql-tutorial].
 
 You can also find out more on the [SQL Query Enrichment] [sql-query-enrichment] page on the Snowplow wiki.
 

@@ -79,7 +79,7 @@ Just to name a few possibilities!
 
 __Important__: before enabling this feature you should deploy the appropriate Redshift table. The Redshift DDL for this can be found at the following link:
 
-[application_error_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/release/r83-bald-eagle/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_error_1.sql)
+[application_error_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_error_1.sql)
 
 <h2><a name="lifecyles">2. Lifecycle event tracking</a></h2>
 
@@ -131,8 +131,8 @@ In the future we hope to add many more automated events around the Android app l
 
 __Important__: Before enabling this feature you should deploy the appropriate Redshift tables. The Redshift DDL for these can be found at the following links:
 
-- [application_background_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/release/r83-bald-eagle/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_background_1.sql)
-- [application_foreground_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/release/r83-bald-eagle/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_foreground_1.sql)
+- [application_background_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_background_1.sql)
+- [application_foreground_1.sql](https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/redshift-storage/sql/com.snowplowanalytics.snowplow/application_foreground_1.sql)
 
 <h2><a name="removing-rxjava">3. Removing RxJava</a></h2>
 

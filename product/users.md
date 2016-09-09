@@ -134,7 +134,9 @@ redirect_from:
   <a href="http://oneflare.com.au/"><img src="//logo.clearbit.com/oneflare.com.au?size=200"></a>
   <a href="http://www.designcrowd.com/"><img src="//logo.clearbit.com/designcrowd.com?size=200"></a>
   <a href="http://www.mamamia.com.au/"><img src="//logo.clearbit.com/mamamia.com.au?size=200"></a>
-  <a href="https://perengo.com/"><img src="//logo.clearbit.com/perengo.com?size=200"</a>
+  <a href="https://perengo.com/"><img src="//logo.clearbit.com/perengo.com?size=200"></a>
+  <a href="http://www.dice.com/"><img src="//logo.clearbit.com/dice.com?size=200"></a>
+  <a href="http://www.efinancialcareers.com/"><img src="//logo.clearbit.com/efinancialcareers.com?size=200"></a>
 </div>
 
 <div class="row">

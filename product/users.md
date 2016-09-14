@@ -137,6 +137,7 @@ redirect_from:
   <a href="https://perengo.com/"><img src="//logo.clearbit.com/perengo.com?size=200"></a>
   <a href="http://www.dice.com/"><img src="//logo.clearbit.com/dice.com?size=200"></a>
   <a href="http://www.efinancialcareers.com/"><img src="//logo.clearbit.com/efinancialcareers.com?size=200"></a>
+  <a href="http://shop.nordstrom.com/"><img src="//logo.nordstrom.com?size=200"></a>
 </div>
 
 <div class="row">

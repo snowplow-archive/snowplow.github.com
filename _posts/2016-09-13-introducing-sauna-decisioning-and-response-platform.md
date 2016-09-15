@@ -26,6 +26,61 @@ Read on below the fold to find out more:
 
 <!--more-->
 
+<h2 id="test"></h2>
+
+*We're working on a new product called Sauna. Like Snowplow, Sauna is a data pipeline that is complimentary to, but fundamentally different, to Snowplow.
+
+Snowplow is about enabling you, as a business, to track and capture events across all your different channels, in granular detail, in a data warehouse, so you can build intelligence on that data. The data that flows through this pipeline is very granular: each data item is an 'event' that on its own is not that valuable, but at scale gives you a complete picture of everything that's going on with your customers.
+
+Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on his / her behaviour into a particular segment. You might then push that information (user A belongs to segment S) to Salesforce so your sales guys know about it, into your email system so you can send that user a targeted email etc.
+
+The point of Sauna is to do this second piece: make it easier for you to act on your insight by pushing the output of computation performed on the Snowplow data to different third parties.
+
+So based on your email it sounds like you might be interested in Sauna integrations with Gainsight and Zuora.
+
+On the MySQL side that could be a Snowplow integration to grab changes to a MySQL database out of MySQL and into Snowplow. You might also want the Sauna integration pushing into MySQL the other way if e.g. you've got a customers table in MySQL and you want it updated with the latest behavioral segmentation built on your event level data.
+
+We haven't released an initial version of Sauna and we have lots of third party integrations that we're planning for both Salesforce and Sauna. If there's a specific one that you want in a hurry you can sponsor it and we'll put it at the front of the queue: we're delivering a Mailgun integration at the moment for one customer.*
+
+If your application integrated with some external API, and you want to feed that API from different data sources, then Sauna might me useful for you.
+
+Use case example: parse stream of Optimizely's targeting lists from AWS S3 bucket, filter invalid stuff, upload it to your Optimizely account and log all actions.
+
+<div class="html">
+<h2 id="main_concepts">Main concepts</h2>
+</div>
+
+In the example above:
+
+1. There is an AWS S3 *observers*, that awaits for new files, triggers *processors* and cleans up S3 bucket. 
+2. There is an Optimizely TargetingLists *processor*, that checks if file is valid, upload it to Optimizely *API*. 
+3. There is an Optimizely *API*, that handles all actions with Optimizely.
+
+
+At the moment (0.0.1 version) there are two observers (local and S3) and three processors, two for Optimizely and one for Sendgrid.
+
+<div class="html">
+<h2 id="how_to_use">How to use it</h2>
+</div>
+
+You should clone Sauna, insert your credentials in configuration file and run it:
+
+    git clone https://github.com/snowplow/sauna.git
+    vim my_credentials.conf
+    sbt 'run my_application.conf'
+
+Then, you can trigger one of observers (by creating new file with data in correct format), and appropriate processor will start to work.
+
+<div class="html">
+<h2 id="future_plans">Future plans</h2>
+</div>
+
+Plans for 0.0.2 and further:
+
+1. More processors and APIs (SalesForce, Urban Airship, ...) 
+2. Since Sauna is based on akka, make it distributed over several machines, so each analyst could have own Sauna instance, and devops could configure all nodes from single place. 
+3. Integration with other Snowplow services. 
+
 <h2 id="intro">1. A brief dip in the Sauna</h2>
 
 Sauna is an all-new open-source product designed to make it easy for business analysts to integrate third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid] into their workflow.

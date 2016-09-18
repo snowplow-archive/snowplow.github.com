@@ -9,9 +9,11 @@ category: Releases
 
 It's not every day that we get to announce an all-new *category* of software product here at Snowplow: we are hugely excited to be releasing version 0.1.0 of [Sauna] [sauna-repo], our new open-source decisioning and response platform.
 
-When we started building Snowplow four-and-a-half years ago, our focus was on delivering a scaleable open-source event data pipeline. Our view was that you shouldn't need to have the scale or deep pockets of a Google or Facebook to warehouse your clickstream data; we understood that establishing an event data warehouse was the essential first step to assembling sophisticated analytical processes and driving insight for your business.
+Our [Snowplow] [snowplow-repo] platform is about enabling you, as a business, to track and capture events across all your different channels, in granular detail, in a data warehouse, so you can build intelligence on that data. The data that flows through this pipeline is very granular: each data item is an 'event' that on its own is not that valuable, but at scale gives you a complete picture of everything that's going on with your customers.
 
-Fast forward to today and it's clear that much has changed: the importance of owning your own event stream data is a given, and the battlefield has moved on to figuring out how best we turn our insights into *actions*. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it? Enter Sauna!
+Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
+
+The point of Sauna is to do this second piece: to make it easier for you to act on your insight by pushing the output of computation performed on your event streams to different third parties.
 
 Read on below the fold to find out more:
 
@@ -26,28 +28,32 @@ Read on below the fold to find out more:
 
 <!--more-->
 
-<h2 id="test"></h2>
+<h2 id="intro">1. A brief dip in the Sauna</h2>
 
-*We're working on a new product called Sauna. Like Snowplow, Sauna is a data pipeline that is complimentary to, but fundamentally different, to Snowplow.
+When we started building Snowplow almost five years ago, our focus was on delivering a scalable open-source event data pipeline. Our view was that you shouldn't need to have the scale or deep pockets of a Google or Facebook to warehouse your clickstream data; we understood that establishing an event data warehouse was the essential first step to assembling sophisticated analytical processes and driving insight for your business.
 
-Snowplow is about enabling you, as a business, to track and capture events across all your different channels, in granular detail, in a data warehouse, so you can build intelligence on that data. The data that flows through this pipeline is very granular: each data item is an 'event' that on its own is not that valuable, but at scale gives you a complete picture of everything that's going on with your customers.
+Fast forward to today and it's clear that much has changed: the importance of owning your own event stream data is a given, and the frontier has moved on to figuring out how best we turn our insights into *actions*. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it, ideally in near-real-time?
 
-Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on his / her behaviour into a particular segment. You might then push that information (user A belongs to segment S) to Salesforce so your sales guys know about it, into your email system so you can send that user a targeted email etc.
+Sauna is an all-new open-source product designed to make it easy for business analysts to turn *insights* they derive from their event streams into *actions* performed via third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid].
 
-The point of Sauna is to do this second piece: make it easier for you to act on your insight by pushing the output of computation performed on the Snowplow data to different third parties.
+If Snowplow is all about consolidating event streams from many sources into a event warehouse in Redshift, then Sauna is its complement: once you have the output of your analysis in Redshift, you can use Sauna to automatically pipe that data into Optimizely or SendGrid; a variety of integrations with other systems will be added to Sauna in due course.
 
-So based on your email it sounds like you might be interested in Sauna integrations with Gainsight and Zuora.
+Although Sauna is complementary to Snowplow (and built by the same team), you don't have to be a Snowplow user to use Sauna; you don't even have to be running your company on [AWS] [aws]. Sauna is for anybody who wants to make *decisions* based on their event stream data and then to *act* on those decisions, particularly via another software system.
 
-On the MySQL side that could be a Snowplow integration to grab changes to a MySQL database out of MySQL and into Snowplow. You might also want the Sauna integration pushing into MySQL the other way if e.g. you've got a customers table in MySQL and you want it updated with the latest behavioral segmentation built on your event level data.
+<h2 id="what-and-why">2. What is a decisioning and response platform, and why do I need one?</h2>
 
-We haven't released an initial version of Sauna and we have lots of third party integrations that we're planning for both Salesforce and Sauna. If there's a specific one that you want in a hurry you can sponsor it and we'll put it at the front of the queue: we're delivering a Mailgun integration at the moment for one customer.*
+Popular enterprise middleware frameworks like [Apache Camel] [camel] and [MuleSoft] [mulesoft] have existed for many years. These technologies have typically been targeted at back-end developers, providing relatively low-level building blocks and frameworks for integrating various software systems together.
 
-If your application integrated with some external API, and you want to feed that API from different data sources, then Sauna might me useful for you.
+More recently, user-programmable rules engines have emerged, most famously [IFTTT] [ifttt], which is hosted, and [Huginn] [huginn], which is an open-source Ruby project.
 
-Use case example: parse stream of Optimizely's targeting lists from AWS S3 bucket, filter invalid stuff, upload it to your Optimizely account and log all actions.
+How does Sauna compare to all this? Firstly, Sauna is a platform, not a framework: it is targeted at business analysts and other non-engineers who want to be able to respond to the insights they are generating without involving their Tech team in costly bespoke integration work.
+
+Secondly, unlike IFTTT and Huginn, Sauna has been built to inter-operate with a company's [unified events log] [unified-log]: like Snowplow, Sauna is designed from the ground-up to be horizontally scalable and handle massive data volumes.
+
+And lastly, at launch Sauna is wholly focused on enabling specific actions in external SaaS systems; it does not include its own rules engine. While this could change in the future, for now we like the separation of concerns: you can perform your decisioning in any language or platform that you like (from SQL to JavaScript to Spark), and Sauna will take charge of actually carrying out your decision.
 
 <div class="html">
-<h2 id="main_concepts">Main concepts</h2>
+<h2 id="main_concepts">Architecture of Sauna</h2>
 </div>
 
 In the example above:
@@ -59,217 +65,35 @@ In the example above:
 
 At the moment (0.0.1 version) there are two observers (local and S3) and three processors, two for Optimizely and one for Sendgrid.
 
-<div class="html">
-<h2 id="how_to_use">How to use it</h2>
-</div>
-
-You should clone Sauna, insert your credentials in configuration file and run it:
-
-    git clone https://github.com/snowplow/sauna.git
-    vim my_credentials.conf
-    sbt 'run my_application.conf'
-
-Then, you can trigger one of observers (by creating new file with data in correct format), and appropriate processor will start to work.
-
-<div class="html">
-<h2 id="future_plans">Future plans</h2>
-</div>
-
-Plans for 0.0.2 and further:
-
-1. More processors and APIs (SalesForce, Urban Airship, ...) 
-2. Since Sauna is based on akka, make it distributed over several machines, so each analyst could have own Sauna instance, and devops could configure all nodes from single place. 
-3. Integration with other Snowplow services. 
-
-<h2 id="intro">1. A brief dip in the Sauna</h2>
-
-Sauna is an all-new open-source product designed to make it easy for business analysts to integrate third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid] into their workflow.
-
-If Snowplow is all about consolidating event streams from many sources into a event warehouse in Redshift, then Sauna is its complement: once you have the output of your analysis in Redshift, you can use Sauna to automatically pipe that data into Optimizely or SendGrid; a variety of integrations with other systems will be added to Sauna in due course.
-
-Although Sauna is complementary to Snowplow (and made by the same team!), you don't have to be a Snowplow user to use Sauna; you don't even have to be running your company on [AWS] [aws]. Sauna is for anybody who wants to make *decisions* based on their event stream data and then to *act* on those decisions, particularly via another software system.
-
-<h2 id="what-and-why">2. What is a decisioning and response platform, and why do I need one?</h2>
-
-Popular enterprise middleware frameworks like [Apache Camel] [camel] and [MuleSoft] [mulesoft] have existed for many years. These technologies have typically been targeted at developers, providing relatively low-level building blocks for integrating various software systems together.
-
-By contrast Sauna is a business platform, not a developer framework: it is targeted at business analysts and other non-engineers who want to be able to respond to the insights they are generating without involving their Tech Team in costly bespoke integration work. We call Sauna a decisioning and response platform to distinguish it from these integration frameworks.
-
-Unsurprisingly given its origins at Snowplow Analytics, Sauna has been built from the ground to fit into a company's [unified log] [unified-log], XXX.
-
-
-<h2 id="why">1. Why Factotum?</h2>
-
-Let's take a look at some of the existing data pipeline orchestration options available today:
-
-<h3>1.1 Specialised tools (AWS Data Pipeline, Luigi, Chronos, Airflow, Azkaban)</h3>
-
-These are all great tools, and you could successfully run your data pipeline jobs using any one of them. However, there are some issues with these tools that lead us to think they're not a great fit for us:
-
-<h4>Single sponsorship</h4>
-
-Many awesome people at places like Amazon, LinkedIn and Airbnb have developed jobflow tooling in-house, and have graciously released them as open source software. Unfortunately these tools tend to be shared rather late in their gestation, and are closely tied to the originating companies' own needs. As a result, simple tasks have become very complicated.
-
-<h4>Mixing jobs and schedules</h4>
-
-At Snowplow we believe that executing a job and scheduling it are two separate things. There's no reason that changing the scheduling of a job should change its output - or the scheduling of other jobs. One of our frustrations with some of these tools is that they link the running of a job to the scheduling of a job.
-
-To paraphrase The Wire, "you come at the king [cron], you best not miss". These tools typically replace cron with proprietary schedulers which are [hard to reason about] [airflow-schedule-issues] or [even unreliable] [jepsen-chronos].
-
-<h4>Complex DSLs and Turing-complete jobs</h4>
-
-Most of these tools use specialised configurations, DSLs and similar that require an engineer to own and operate. This creates harder to reason about your job, to edit it and to validate it. It also creates lock-in: if you write a series of orchestration jobs in Airflow in Python - how would you switch to Azkaban? What describes how your tasks are run?
-
-When you have a DSL or a Turing-complete job, the temptation to add in "job duct tape" is incredibly high. It's easy for the separation of church and state (orchestration of data flow versus data flow itself) to become blurred too.
-
-<h3>Build tools</h3>
-
-Build tools often have features for dealing with complicated task trees built-in, just like data pipelines. This can make them powerful and flexible solutions for dealing with task orchestration as well as building software.
-
-However build tools did not evolve specifically to serve data pipelines, and they have some limitations:
-
-<h4>Inflexible outcomes</h4>
-
-A software build has a boolean outcome - pass or fail, but that might not be the case for your jobs. A good example of this is if your job is designed to move some data around - if there's no data, should the job fail? It's not a failure, but it's also not really a success. Build tools are not great at handling this kind of "noop" scenario.
-
-<h4>Composability</h4>
-
-Composing a jobflow DAG from smaller jobflow DAGs is an important part of making complex jobflows manageable. Unfortunately build tools don't make this easy.
-
-<h2 id="zen">2. The zen of Factotum</h2>
-
-After reviewing the existing solutions, we came up with a series of must-have requirements for a job execution tool, which we are calling the "Zen of Factotum":
-
-<h3>1. A Turing-complete job is not a job, it's a program</h3>
-
-   * Jobs are a graph (DAG), not a linear path
-   * We don't want Bash or Python or Ruby "duct tape" scripts in the runner - the logic for task execution is the responsibility of the execution tool not the task itself
-   * The tasks should be expressed simply, in a human readable format.
-       * This format shouldn't be static, and should grow with the tool
-
-<h3>2. A job must be composable from other jobs</h3>
-
-   * Factotum jobs can embed other Factotum jobs, allowing some degree of polymorphism while still adhering to the first rule
-
-<h3>3. A job exists independently of any job schedule</h3>
-
-   * A job is not a schedule, in fact a job has very little to do with its schedule
-   * It follows from this that job specification should be completely decoupled from its scheduler
-   * Factotum should not mandate a specific scheduler -
-
-<h2 id="factotum">3. Factotum 0.1.0</h2>
-
-Armed with the "Zen of Factotum", we have written a tool that executes DAGs.
-
-These DAGs are expressed in self-describing JSON, so they can be versioned and remain human-composable. The JSON Schema for these Factotum "factfiles" is available from Iglu Central as [com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0] [factfile-schema], so any JSON Schema validator can validate/lint a Factotum DAG.
-
-Factotum is our first project written in [Rust][rust-lang], and so while 0.1.0 only officially supports Linux/x86_64, in time Factotum should be runnable on alomst every platform.
-
-Crucially, Factotum has **no install dependencies** and doesn't require a cluster, root access, a database, port 80 and so on. It executes DAGs and gives you a nice report on what it did.
-
-<h2 id="install">4. Downloading and running Factotum</h2>
-
-Currently Factotum is only available for 64 bit Linux. Get it like so:
-
-{% highlight bash %}
-wget https://bintray.com/artifact/download/snowplow/snowplow-generic/factotum_0.1.0_linux_x86_64.zip
-unzip factotum_0.1.0_linux_x86_64.zip
-wget https://raw.githubusercontent.com/snowplow/factotum/master/samples/echo.factotum
-{% endhighlight %}
-
-This series of commands will download the 0.1.0 release, unzip it in your current working directory and download a sample job for you to run. You can then run Factotum in the following way:
-
-{% highlight bash %}
-factotum ./echo.factotum
-{% endhighlight %}
-
-<h2 id="authoring">5. Writing jobs for Factotum</h2>
-
-Factfiles are self-describing JSON which declare a series of tasks and their dependencies. For example:
-
-{% highlight json %}
-{
-    "schema": "iglu:com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0",
-    "data": {
-        "name": "Factotum demo",
-        "tasks": [
-            {
-                "name": "echo alpha",
-                "executor": "shell",
-                "command": "echo",
-                "arguments": [ "alpha" ],
-                "dependsOn": [],
-                "onResult": {
-                    "terminateJobWithSuccess": [],
-                    "continueJob": [ 0 ]
-                }
-            },
-            {
-                "name": "echo beta",
-                "executor": "shell",
-                "command": "echo",
-                "arguments": [ "beta" ],
-                "dependsOn": [ "echo alpha" ],
-                "onResult": {
-                    "terminateJobWithSuccess": [],
-                    "continueJob": [ 0 ]
-                }
-            },
-            {
-                "name": "echo omega",
-                "executor": "shell",
-                "command": "echo",
-                "arguments": [ "and omega!" ],
-                "dependsOn": [ "echo beta" ],
-                "onResult": {
-                    "terminateJobWithSuccess": [],
-                    "continueJob": [ 0 ]
-                }
-            }
-        ]
-    }
-}
-{% endhighlight %}
-
-This example defines three tasks that run shell commands - *echo alpha*, *echo beta* and *echo omega*:
-
-* *echo alpha* has no dependencies - it will run immediately
-* *echo beta* depends on the completion of the *echo alpha* task, and so will wait for *echo alpha* to complete
-* *echo omega* depends on the *echo beta* task, and so will wait for *echo beta* to be complete before executing
-
-Given the above, the tasks will be executed in the following sequence: *echo alpha*, *echo beta* and finally, *echo omega*. Tasks can have multiple dependencies in Factotum, and tasks that are parallelizable will be run concurrently.
-
-Check out [the samples][job-samples] for more sample factfiles or the [wiki][factotum-wiki] for a more complete description of the factfile format.
 
 <h2 id="roadmap">6. Roadmap for Sauna</h2>
 
 We're taking a very explorative, iterative approach with Sauna - the first release is deliberately narrow, being focused on just two marketing platforms and only supporting relatively "batchy" source data.
 
-However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj XX
+However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for Urban Airship, which we hope to release soon (here is a [sneak peak] [ua-responder-guide] of the users guide).
 
-today Factotum won't give you an entire stack for monitoring, scheduling and running data pipelines, but we plan on growing it into a set of tools that will.
+Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to action entire Kinesis or Kafka streams of these commands. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 
-Factotum will continue to be our "job executor", but a more complete ecosystem will be developed around it - ideas include an optional scheduler, audit logging, user authentication and more. If you have specific features you'd like to suggest, please [add a ticket] [factotum-issues] to the GitHub repo.
-
-Our plan is to base all development on the principles we've laid out here - seperation of concerns, plug-and-play compartmentalization and keeping jobs separate from schedules.
+Lastly, while Sauna currently runs on a single server, it has been built on top of Akka, and we will be working to add Akka Cluster support for a distributed multi-node setup ([issue #56] [issue-56]). 
 
 <h2 id="contributing">7. Contributing</h2>
 
 Sauna is completely open source - and has been from the start! If you'd like to get involved, perhaps adding a new observer, responder or logger, please do check out the [repository][sauna-repo].
 
-[event-data-modeling]: http://snowplowanalytics.com/blog/2016/03/16/introduction-to-event-data-modeling/
+If you are looking for an additional integration to be added to Sauna please [get in touch] [sponsorship-contact] to discuss sponsorship options.
 
-[factotum-discourse]: http://discourse.snowplowanalytics.com/
-[job-samples]: https://github.com/snowplow/factotum/tree/master/samples
-[factotum-wiki]: https://github.com/snowplow/factotum/wiki
-[snowplow-job-make]: http://snowplowanalytics.com/blog/2015/10/13/orchestrating-batch-processing-pipelines-with-cron-and-make/
-[factotum-repo]: https://github.com/snowplow/factotum
-[rust-lang]: https://www.rust-lang.org/
+And finally, it's super exciting developing a new software category - decisioning and response - through the Sauna project. If you have general thoughts or ideas on what the future of Sauna should look like, do please open a new thread on our [forums] [snowplow-discourse].
 
-[factotum-issues]: https://github.com/snowplow/factotum/issues/new
-[factfile-schema]: http://iglucentral.com/schemas/com.snowplowanalytics.factotum/factfile/jsonschema/1-0-0
+[sauna-repo]: https://github.com/snowplow/sauna
+[snowplow-repo]: https://github.com/snowplow/snowplow
 
-[factotum-discourse]: http://discourse.snowplowanalytics.com/c/for-engineers/factotum
+[ua-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
 
-[airflow-schedule-issues]: https://github.com/airbnb/airflow/issues?utf8=%E2%9C%93&q=is%3Aissue+schedule
-[jepsen-chronos]: https://aphyr.com/posts/326-jepsen-chronos
+[issue-54]: https://github.com/snowplow/sauna/issues/54
+[issue-56]: https://github.com/snowplow/sauna/issues/56
+
+[ifttt]: https://ifttt.com/
+[huginn]: https://github.com/cantino/huginn
+
+[sponsorship-contact]: mailto:contact@snowplowanalytics.com
+[snowplow-discourse]: http://discourse.snowplowanalytics.com/

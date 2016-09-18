@@ -58,9 +58,9 @@ And lastly, at launch Sauna is wholly focused on performing specific actions in 
 
 Sauna is a single executable, written in Scala using the [Akka actor framework] [akka]. Sauna is composed of three distinct types of code module:
 
-* **Observers** xxx
-* **Responders** xxx
-* **Loggers** xxx 
+* **Observers** sit waiting for specific events to occur, and when they occur, it is the observer's job to trigger the appropriate responder. Without observers, Sauna would have nothing to do
+* **Responders** carry out specific actions in third-party systems such as SendGrid and Optimizely when asked to by observers. Sauna ships with pre-defined responses
+* **Loggers** provide feedback to the end user on the status of a response. Logging is important because Sauna is an asynchronous technology - end users trigger responder actions indirectly, via observers, and the work of a responder happens "out of band", with no direct feedback to the end user
 
 [!architecture-img] [architecture-img]
 

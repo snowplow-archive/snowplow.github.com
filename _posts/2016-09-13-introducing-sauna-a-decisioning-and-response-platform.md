@@ -19,14 +19,14 @@ The point of Sauna then is to do this second piece: to make it easier for you to
 
 Read on below the fold to find out more:
 
-1. [A brief dip in the Sauna]()
-2. [What is a decisioning and response framework, and why do I need one?](/blog/2016/09/18/zzz#what-and-why)
-3. [The Zen of Factotum](/blog/2016/09/18/zzz#zen)
-3. [Factotum 0.1.0](/blog/2016/09/18/zzz#factotum)
-4. [Downloading and running Factotum](/blog/2016/09/18/zzz#install)
-5. [Writing jobs for Factotum](/blog/2016/09/18/zzz#authoring)
-6. [Roadmap](/blog/2016/09/18/zzz#roadmap)
-7. [Contributing](/blog/2016/09/18/zzz#contributing)
+1. [A brief dip in the Sauna](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#intro)
+2. [What is a decisioning and response framework?](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#what-and-why)
+3. [The Sauna architecture](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#architecture)
+4. [Using Sauna with SendGrid](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#sendgrid)
+5. [Using Sauna with Optimizely](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#optimizely)
+6. [Setting up Sauna](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#setup)
+7. [Roadmap](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#roadmap)
+8. [Contributing](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#contributing)
 
 <!--more-->
 
@@ -42,7 +42,7 @@ If Snowplow is all about consolidating event streams from many sources into a ev
 
 Although Sauna is complementary to Snowplow (and built by the same team), you don't have to be a Snowplow user to use Sauna; you don't even have to be running your company on AWS. Sauna is for anybody who wants to make *decisions* based on their event stream data and then to *act* on those decisions, particularly via another software system.
 
-<h2 id="what-and-why">2. What is a decisioning and response platform, and why do I need one?</h2>
+<h2 id="what-and-why">2. What is a decisioning and response platform?</h2>
 
 Popular enterprise middleware frameworks like [Apache Camel] [camel] and [MuleSoft] [mulesoft] have existed for many years. These technologies have typically been targeted at back-end developers, providing relatively low-level building blocks and frameworks for integrating various software systems together.
 
@@ -54,9 +54,28 @@ Secondly, unlike IFTTT and Huginn, Sauna has been built to inter-operate with a 
 
 And lastly, at launch Sauna is wholly focused on performing specific actions in external SaaS systems; it does not include its own rules engine. While this could change in the future, for now we like the separation of concerns: you can make your decision inside of any language or platform that you like (from SQL to JavaScript to Spark), and Sauna will then be responsible for actually carrying out your decision.
 
-<div class="html">
-<h2 id="main_concepts">Architecture of Sauna</h2>
-</div>
+<h2 id="architecture">3. The Sauna architecture</h2>
+
+Sauna is a single executable, written in Scala using the [Akka actor framework] [akka]. Sauna is composed of three distinct types of code module:
+
+* **Observers** xxx
+* **Responders** xxx
+* **Loggers** xxx 
+
+[!architecture-img] [architecture-img]
+
+<h2 id="sendgrid">4. Using Sauna with SendGrid</h2>
+
+
+<h2 id="optimizely">5. Using Sauna with Optimizely</h2>
+
+
+
+<h2 id="setup">6. Setting up Sauna</h2>
+
+
+
+
 
 In the example above:
 
@@ -67,18 +86,17 @@ In the example above:
 
 At the moment (0.0.1 version) there are two observers (local and S3) and three processors, two for Optimizely and one for Sendgrid.
 
-
-<h2 id="roadmap">6. Roadmap for Sauna</h2>
+<h2 id="roadmap">7. Roadmap</h2>
 
 We're taking a very explorative, iterative approach with Sauna - the first release is deliberately narrow, being focused on just two marketing platforms and only supporting relatively "batchy" source data.
 
 However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peak] [ua-responder-guide] of the users guide).
 
-Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to action entire Kinesis or Kafka streams of these commands. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
+Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to read those commands from [Amazon Kinesis] [kinesis] or [Apache Kafka] [kafka] streams. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 
 Lastly, while Sauna currently runs on a single server, it has been built on top of Akka, and we will be working to add Akka Cluster support for a distributed multi-node setup ([issue #56] [issue-56]). 
 
-<h2 id="contributing">7. Contributing</h2>
+<h2 id="contributing">8. Contributing</h2>
 
 Sauna is completely open source - and has been from the start! If you'd like to get involved, perhaps adding a new observer, responder or logger, please do check out the [repository][sauna-repo].
 
@@ -90,12 +108,18 @@ And finally, we are super-excited to be developing a new software category - dec
 [snowplow-repo]: https://github.com/snowplow/snowplow
 
 [response-img]: xxx
+[architecture-img]: xxx
+
+[akka]: xxx
+[kinesis]: xxx
+[kafka]: xxx
 
 [sendgrid]: xxx
 [urban-airship]: xxx
 [optimizely]: yyy
 
 [ua-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
+[setup-guide]: xxx
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56

@@ -13,18 +13,20 @@ Our [Snowplow] [snowplow-repo] platform is about enabling you, as a business, to
 
 Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
 
-The point of Sauna is to do this second piece: to make it easier for you to act on your insight by pushing the output of computation performed on your event streams to different third parties.
+[!response-img] [response-img]
+
+The point of Sauna then is to do this second piece: to make it easier for you to act on your insight by pushing the output of computation performed on your event streams to different third parties.
 
 Read on below the fold to find out more:
 
 1. [A brief dip in the Sauna]()
-2. [What is a decisioning and response framework, and why do I need one?](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#what-and-why)
-3. [The Zen of Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#zen)
-3. [Factotum 0.1.0](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#factotum)
-4. [Downloading and running Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#install)
-5. [Writing jobs for Factotum](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#authoring)
-6. [Roadmap](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#roadmap)
-7. [Contributing](/blog/2016/04/09/introducing-factotum-data-pipeline-runner#contributing)
+2. [What is a decisioning and response framework, and why do I need one?](/blog/2016/09/18/zzz#what-and-why)
+3. [The Zen of Factotum](/blog/2016/09/18/zzz#zen)
+3. [Factotum 0.1.0](/blog/2016/09/18/zzz#factotum)
+4. [Downloading and running Factotum](/blog/2016/09/18/zzz#install)
+5. [Writing jobs for Factotum](/blog/2016/09/18/zzz#authoring)
+6. [Roadmap](/blog/2016/09/18/zzz#roadmap)
+7. [Contributing](/blog/2016/09/18/zzz#contributing)
 
 <!--more-->
 
@@ -38,7 +40,7 @@ Sauna is an all-new open-source product designed to make it easy for business an
 
 If Snowplow is all about consolidating event streams from many sources into a event warehouse in Redshift, then Sauna is its complement: once you have the output of your analysis in Redshift, you can use Sauna to automatically pipe that data into Optimizely or SendGrid; a variety of integrations with other systems will be added to Sauna in due course.
 
-Although Sauna is complementary to Snowplow (and built by the same team), you don't have to be a Snowplow user to use Sauna; you don't even have to be running your company on [AWS] [aws]. Sauna is for anybody who wants to make *decisions* based on their event stream data and then to *act* on those decisions, particularly via another software system.
+Although Sauna is complementary to Snowplow (and built by the same team), you don't have to be a Snowplow user to use Sauna; you don't even have to be running your company on AWS. Sauna is for anybody who wants to make *decisions* based on their event stream data and then to *act* on those decisions, particularly via another software system.
 
 <h2 id="what-and-why">2. What is a decisioning and response platform, and why do I need one?</h2>
 
@@ -50,7 +52,7 @@ How does Sauna compare to all this? Firstly, Sauna is a platform, not a framewor
 
 Secondly, unlike IFTTT and Huginn, Sauna has been built to inter-operate with a company's [unified events log] [unified-log]: like Snowplow, Sauna is designed from the ground-up to be horizontally scalable and handle massive data volumes.
 
-And lastly, at launch Sauna is wholly focused on enabling specific actions in external SaaS systems; it does not include its own rules engine. While this could change in the future, for now we like the separation of concerns: you can perform your decisioning in any language or platform that you like (from SQL to JavaScript to Spark), and Sauna will take charge of actually carrying out your decision.
+And lastly, at launch Sauna is wholly focused on performing specific actions in external SaaS systems; it does not include its own rules engine. While this could change in the future, for now we like the separation of concerns: you can make your decision inside of any language or platform that you like (from SQL to JavaScript to Spark), and Sauna will then be responsible for actually carrying out your decision.
 
 <div class="html">
 <h2 id="main_concepts">Architecture of Sauna</h2>
@@ -70,7 +72,7 @@ At the moment (0.0.1 version) there are two observers (local and S3) and three p
 
 We're taking a very explorative, iterative approach with Sauna - the first release is deliberately narrow, being focused on just two marketing platforms and only supporting relatively "batchy" source data.
 
-However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for Urban Airship, which we hope to release soon (here is a [sneak peak] [ua-responder-guide] of the users guide).
+However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peak] [ua-responder-guide] of the users guide).
 
 Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to action entire Kinesis or Kafka streams of these commands. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 
@@ -82,16 +84,26 @@ Sauna is completely open source - and has been from the start! If you'd like to 
 
 If you are looking for an additional integration to be added to Sauna please [get in touch] [sponsorship-contact] to discuss sponsorship options.
 
-And finally, it's super exciting developing a new software category - decisioning and response - through the Sauna project. If you have general thoughts or ideas on what the future of Sauna should look like, do please open a new thread on our [forums] [snowplow-discourse].
+And finally, we are super-excited to be developing a new software category - decisioning and response - through the Sauna project. If you have general thoughts or ideas on what the future of Sauna should look like, do please open a new thread on our [forums] [snowplow-discourse].
 
 [sauna-repo]: https://github.com/snowplow/sauna
 [snowplow-repo]: https://github.com/snowplow/snowplow
+
+[response-img]: xxx
+
+[sendgrid]: xxx
+[urban-airship]: xxx
+[optimizely]: yyy
 
 [ua-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56
 
+[unified-log]: xxx
+
+[camel]: xxx
+[mulesoft]: xxx
 [ifttt]: https://ifttt.com/
 [huginn]: https://github.com/cantino/huginn
 

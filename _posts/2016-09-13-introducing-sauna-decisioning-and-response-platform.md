@@ -32,9 +32,9 @@ Read on below the fold to find out more:
 
 <h2 id="intro">1. A brief dip in the Sauna</h2>
 
-When we started building Snowplow almost five years ago, our focus was on delivering a scalable open-source event data pipeline. Our view was that you shouldn't need to have the scale or deep pockets of a Google or Facebook to warehouse your clickstream data; we understood that establishing an event data warehouse was the essential first step to assembling sophisticated analytical processes and driving insight for your business.
+When we started building Snowplow almost five years ago, our focus was on delivering a scalable open-source event data pipeline. Our view was that you shouldn't need to have the scale or deep pockets of a Google or Facebook to warehouse your clickstream data; we understood that establishing an event data warehouse was the essential first step to driving insight for your business.
 
-Fast forward to today and it's clear that much has changed: the importance of owning your own event stream data is a given, and the frontier has moved on to figuring out how best we turn our insights into *actions*. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it, ideally in near-real-time?
+Fast forward to today and it's clear that much has changed: the importance of owning your own event stream data is a given, and the frontier has moved on to turning our insights into *actions*. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it, ideally in near-real-time?
 
 Sauna is an all-new open-source product designed to make it easy for business analysts to turn *insights* they derive from their event streams into *actions* performed via third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid].
 

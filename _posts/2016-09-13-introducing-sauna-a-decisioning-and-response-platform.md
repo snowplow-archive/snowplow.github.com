@@ -66,6 +66,14 @@ This technical architecture shows how these module types fit together within Sau
 
 [!architecture-img] [architecture-img]
 
+This first release of Sauna is shipping with the following modules:
+
+* **Observers:** 
+* **Responders:**
+* **Loggers:** 
+
+We'll go through each of the two responders in the next two sections.
+
 <h2 id="sendgrid">4. Using Sauna with SendGrid</h2>
 
 
@@ -79,22 +87,11 @@ This technical architecture shows how these module types fit together within Sau
 
 
 
-
-
-In the example above:
-
-1. There is an AWS S3 *observers*, that awaits for new files, triggers *processors* and cleans up S3 bucket. 
-2. There is an Optimizely TargetingLists *processor*, that checks if file is valid, upload it to Optimizely *API*. 
-3. There is an Optimizely *API*, that handles all actions with Optimizely.
-
-
-At the moment (0.0.1 version) there are two observers (local and S3) and three processors, two for Optimizely and one for Sendgrid.
-
 <h2 id="roadmap">7. Roadmap</h2>
 
 We're taking a very explorative, iterative approach with Sauna - the first release is deliberately narrow, being focused on just two marketing platforms and only supporting relatively "batchy" source data.
 
-However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peak] [ua-responder-guide] of the users guide).
+However we have ambitious plans for Sauna's future. In the short-term, summer intern Manoj Rajandrakumar has been working on an additional responders for [Urban Airship] [urban-airship], which we hope to release soon (here is a [sneak peak] [urban-airship-responder-guide] of the users guide).
 
 Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to read those commands from [Amazon Kinesis] [kinesis] or [Apache Kafka] [kafka] streams. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 
@@ -118,20 +115,23 @@ And finally, we are super-excited to be developing a new software category - dec
 [kinesis]: https://aws.amazon.com/kinesis/streams/
 [kafka]: http://kafka.apache.org/
 
-[sendgrid]: xxx
-[urban-airship]: xxx
-[optimizely]: yyy
+[sendgrid]: https://sendgrid.com/
+[urban-airship]: https://www.urbanairship.com/
+[optimizely]: https://www.optimizely.com/
 
-[ua-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
-[setup-guide]: xxx
+[sendgrid-setup-guide]: xxx
+[optimizely-setup-guide]: xxx
+[urban-airship-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
+
+[sauna-setup]: yyy
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56
 
-[unified-log]: xxx
+[unified-log]: https://www.manning.com/books/unified-log-processing
 
-[camel]: xxx
-[mulesoft]: xxx
+[camel]: http://camel.apache.org/
+[mulesoft]: https://www.mulesoft.com/
 [ifttt]: https://ifttt.com/
 [huginn]: https://github.com/cantino/huginn
 

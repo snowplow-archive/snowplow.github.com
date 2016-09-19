@@ -23,7 +23,13 @@ Christophe led a very interesting discussion on event data modeling, attended by
 
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/nHOsjAILfp0z8w" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/yalisassoon/2016-09-measurecamp-event-data-modeling" title="2016 09 measurecamp - event data modeling" target="_blank">Event data modeling: measurecamp 2016</a> </strong> </div>
 
-Alex gave a talk on using data to build data-driven products. I hope to publish Alex's slides below shortly.
+Alex gave a talk on using data to build data-driven products. In his own words:
+
+> The challenge for analysts has moved on from deriving insights, to turning our insights into actions. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it, ideally in near-real-time? In this session at MeasureCamp London I introduced the rationale for building “measure-driven products”, before diving into a live coding demo using Snowplow, Google Tag Manager and Pusher and some simple JavaScript to power per-customer in-session messaging on a website. 
+
+You can view his presentation below:
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/eM7VnSyVuqxwym" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/alexanderdean/building-measurepowered-products" title="Building Measure-Powered Products" target="_blank">Building Measure-Powered Products</a> </strong> </div>
 
 A number of our team will be at the first [Measurecamp Berlin][measurecamp-berlin] in October. Let us know if you'd like to grab coffee whilst we're in Berlin.
 

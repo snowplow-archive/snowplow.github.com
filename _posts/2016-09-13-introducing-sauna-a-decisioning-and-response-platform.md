@@ -13,7 +13,7 @@ Our [Snowplow] [snowplow-repo] platform is about enabling you, as a business, to
 
 Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
 
-[!response-img] [response-img]
+[!sauna-img] [sauna-img]
 
 The point of Sauna then is to do this second piece: to make it easier for you to act on your insight by pushing the output of computation performed on your event streams to different third parties.
 
@@ -56,15 +56,19 @@ And lastly, at launch Sauna is wholly focused on performing specific actions in 
 
 <h2 id="architecture">3. The Sauna architecture</h2>
 
-Sauna is a single executable, written in Scala using the [Akka actor framework] [akka]. Sauna is composed of three distinct types of code module:
+Sauna is a single executable, written in Scala using the [Akka actor framework] [akka]. Sauna is composed of three distinct types of module:
 
 * **Observers** sit waiting for specific events to occur, and when they occur, it is the observer's job to trigger the appropriate responder. Without observers, Sauna would have nothing to do
 * **Responders** carry out specific actions in third-party systems such as SendGrid and Optimizely when asked to by observers. Sauna ships with pre-defined responses
 * **Loggers** provide feedback to the end user on the status of a response. Logging is important because Sauna is an asynchronous technology - end users trigger responder actions indirectly, via observers, and the work of a responder happens "out of band", with no direct feedback to the end user
 
+This technical architecture shows how these module types fit together within Sauna:
+
 [!architecture-img] [architecture-img]
 
 <h2 id="sendgrid">4. Using Sauna with SendGrid</h2>
+
+
 
 
 <h2 id="optimizely">5. Using Sauna with Optimizely</h2>
@@ -107,12 +111,12 @@ And finally, we are super-excited to be developing a new software category - dec
 [sauna-repo]: https://github.com/snowplow/sauna
 [snowplow-repo]: https://github.com/snowplow/snowplow
 
-[response-img]: xxx
+[sauna-img]: /assets/img/blog/2016/09/data-intelligence-action.jpg
 [architecture-img]: xxx
 
-[akka]: xxx
-[kinesis]: xxx
-[kafka]: xxx
+[akka]: http://akka.io/
+[kinesis]: https://aws.amazon.com/kinesis/streams/
+[kafka]: http://kafka.apache.org/
 
 [sendgrid]: xxx
 [urban-airship]: xxx

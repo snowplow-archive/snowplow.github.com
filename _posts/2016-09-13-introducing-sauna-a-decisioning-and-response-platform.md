@@ -68,24 +68,35 @@ This technical architecture shows how these module types fit together within Sau
 
 This first release of Sauna is shipping with the following modules:
 
-* **Observers:** 
-* **Responders:**
-* **Loggers:** 
+* **Observers:** a [Local Filesystem Observer] [local-filesystem-observer-setup] which checks for new files arriving in the local filesystem of the machine running Sauna, and an [Amazon S3 Observer] [amazon-s3-observer-setup] which checks for new files arriving in a bucket in S3
+* **Responders:** a [SendGrid Responder] [sendgrid-responder-guide] and an [Optimizely Responder] [optimizely-responder-guide]
+* **Loggers:** a [HipChat Logger] [hipchat-logger-setup], a [DynamoDB Logger] [dynamodb-logger-setup] and a simple [Stdout Logger] [stdout-logger-setup]
 
-We'll go through each of the two responders in the next two sections.
+We'll go through each of the two responders - the core of Sauna - in the next two sections.
 
 <h2 id="sendgrid">4. Using Sauna with SendGrid</h2>
 
+XXX
 
+For more information on the SendGrid Responder, please check out:
 
+* [The SendGrid Responder setup guide] [sendgrid-responder-setup], for analysts
+* [The SendGrid Responder usage guide] [sendgrid-responder-guide], for devops
 
 <h2 id="optimizely">5. Using Sauna with Optimizely</h2>
 
+XXX
 
+For more information on the Optimizely Responder, please check out:
+
+* [The Optimizely Responder setup guide] [optimizely-responder-setup], for analysts
+* [The Optimizely Responder usage guide] [optimizely-responder-guide], for devops
 
 <h2 id="setup">6. Setting up Sauna</h2>
 
+Ready to get started with Sauna? You can deploy it onto a single server - version 0.1.0 doesn't yet support clustering - and put it through its paces.
 
+You'll find all the necessary documentation on the [Setting up Sauna] [sauna-setup] homepage for devops and systems admins on the Sauna wiki.
 
 <h2 id="roadmap">7. Roadmap</h2>
 
@@ -109,7 +120,7 @@ And finally, we are super-excited to be developing a new software category - dec
 [snowplow-repo]: https://github.com/snowplow/snowplow
 
 [sauna-img]: /assets/img/blog/2016/09/data-intelligence-action.jpg
-[architecture-img]: xxx
+[architecture-img]: /assets/img/blog/2016/09/sauna-architecture.png
 
 [akka]: http://akka.io/
 [kinesis]: https://aws.amazon.com/kinesis/streams/
@@ -119,11 +130,20 @@ And finally, we are super-excited to be developing a new software category - dec
 [urban-airship]: https://www.urbanairship.com/
 [optimizely]: https://www.optimizely.com/
 
-[sendgrid-setup-guide]: xxx
-[optimizely-setup-guide]: xxx
-[urban-airship-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
+[sendgrid-responder-setup]: https://github.com/snowplow/sauna/wiki/SendGrid-Responder-setup-guide
+[optimizely-responder-setup]: https://github.com/snowplow/sauna/wiki/Optimizely-Responder-setup-guide
 
-[sauna-setup]: yyy
+[sauna-setup]: https://github.com/snowplow/sauna/wiki/Setting%20up%20Sauna
+[local-filesystem-observer-setup]: https://github.com/snowplow/sauna/wiki/Local-Filesystem-Observer-setup-guide
+[amazon-s3-observer-setup]: https://github.com/snowplow/sauna/wiki/Amazon-S3-Observer-setup-guide
+
+[hipchat-logger-setup]: https://github.com/snowplow/sauna/wiki/HipChat-Logger-setup-guide
+[dynamodb-logger-setup]: https://github.com/snowplow/sauna/wiki/DynamoDB-Logger-setup-guide
+[stdout-logger-setup]: https://github.com/snowplow/sauna/wiki/Stdout-Logger-setup-guide
+
+[sendgrid-responder-guide]: https://github.com/snowplow/sauna/wiki/SendGrid-Responder-user-guide
+[optimizely-responder-guide]: https://github.com/snowplow/sauna/wiki/Optimizely-Responder-user-guide
+[urban-airship-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56

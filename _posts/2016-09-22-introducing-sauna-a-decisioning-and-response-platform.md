@@ -17,7 +17,7 @@ Once you build intelligence on that granular data, you'll want to act on it. In 
 
 [!sauna-img] [sauna-img]
 
-The point of Sauna then is to do this second piece: to make it easier for you to act on your insight by pushing the output of computation performed on your event streams to different third parties.
+The point of Sauna then is to do this third piece: to make it easier for you to act on your insight by pushing the output of computation/intelligence performed on your event streams (in step 2) to different channels.
 
 Read on below the fold to find out more:
 
@@ -38,7 +38,18 @@ When we started building Snowplow almost five years ago, our focus was on delive
 
 Fast forward to today and it's clear that much has changed: the importance of owning your own event stream data is a given, and the frontier has moved on to turning our insights into *actions*. It's no longer enough just to understand which of your customers have a high propensity to churn - what can you *do* about it, ideally in near-real-time?
 
-Sauna is an all-new open-source product designed to make it easy for business analysts to turn *insights* they derive from their event streams into *actions* performed via third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid].
+Sauna is an all-new open-source product designed to make it easy for business analysts to turn *insights* they derive from their event streams into *actions* often performed via third-party marketing systems like [Optimizely] [optimizely] and [SendGrid] [sendgrid]. If Snowplow makes it easier for data analysts to build intelligence on their data, Sauna is here to make it easy for them to action that intelligence, by feeding it back into the different channels that are used to manage customer engagement. Whilst Snowplow provides you with a complete view of your user's journeys, Sauna enables you to intervene in those journeys, hopefully to improve them.
+
+There are many different channels that an individual company might use to engage with its users, including (but not limited to):
+
+* Email
+* Push notification
+* In-app
+* In-store
+* Display ads
+* Social networks
+
+Often companies use third party providers to manage their communications via each of the above channels. Whilst there are many excellent providers of e.g. email marketing, there are no general purpose frameworks for individual companies to push intelligence and decisions built on their event-level data into the myriad channels (and third party providers) a company works with. Sauna has been built to solve that problem.
 
 If Snowplow is all about consolidating event streams from many sources into a event warehouse in Redshift, then Sauna is its complement: once you have the output of your analysis in Redshift, you can use Sauna to automatically pipe that data into Optimizely or SendGrid; a variety of integrations with other systems will be added to Sauna in due course.
 
@@ -66,7 +77,7 @@ Sauna is a single executable, written in Scala using the [Akka actor framework] 
 
 This technical architecture shows how these module types fit together within Sauna:
 
-[!architecture-img] [architecture-img]
+![architecture-img] [architecture-img]
 
 This first release of Sauna is shipping with the following modules:
 

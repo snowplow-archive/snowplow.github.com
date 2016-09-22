@@ -2,7 +2,7 @@
 layout: post
 title: "Introducing Sauna, a decisioning and response platform"
 title-short: Sauna 0.1.0
-tags: [sauna, response, reaction, action, decisions, decisioning, commands, snowplow]
+tags: [sauna, response, marketing, operations, reaction, action, decisions, decisioning, commands, snowplow]
 author: Alex
 category: Releases
 ---
@@ -19,14 +19,14 @@ The point of Sauna then is to do this second piece: to make it easier for you to
 
 Read on below the fold to find out more:
 
-1. [A brief dip in the Sauna](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#intro)
-2. [What is a decisioning and response framework?](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#what-and-why)
-3. [The Sauna architecture](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#architecture)
-4. [Using Sauna with SendGrid](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#sendgrid)
-5. [Using Sauna with Optimizely](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#optimizely)
-6. [Setting up Sauna](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#setup)
-7. [Roadmap](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#roadmap)
-8. [Contributing](/blog/2016/09/18/introducing-sauna-a-decisioning-and-response-platform#contributing)
+1. [A brief dip in the Sauna](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#intro)
+2. [What is a decisioning and response framework?](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#what-and-why)
+3. [The Sauna architecture](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#architecture)
+4. [Using Sauna with SendGrid](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#sendgrid)
+5. [Using Sauna with Optimizely](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#optimizely)
+6. [Setting up Sauna](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#setup)
+7. [Roadmap](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#roadmap)
+8. [Contributing](/blog/2016/09/22/introducing-sauna-a-decisioning-and-response-platform#contributing)
 
 <!--more-->
 
@@ -76,7 +76,13 @@ We'll go through each of the two responders - the core of Sauna - in the next tw
 
 <h2 id="sendgrid">4. Using Sauna with SendGrid</h2>
 
-XXX
+Our first responder allows you to use Sauna with [SendGrid] [sendgrid], the marketing and transactional email service provider (ESP).
+
+This Sauna responder has a single *responder action*, which lets you export user-level data from your event warehouse and upload this data to SendGrid for use in email marketing. The SendGrid Responder will wait for files of email recipients to arrive in its configured *file landing area*, and then upload these email recipients into the SendGrid [Contacts Database] [sendgrid-contacts] (part of the SendGrid [Marketing Campaigns] [sendgrid-marketing-campaigns] suite).
+
+The responder works with both of our observers, local filesystem and Amazon S3. Coupling this responder with Redshift's [UNLOAD statement] [unload] and our [SQL Runner] [sql-runner], you can schedule nightly updates to your email marketing lists based on your Snowplow data in Redshift.
+
+Under the hood the SendGrid Responder uses SendGrid's [Contacts API] [sendgrid-contacts-api]. This responder saves you from a costly manual integration of your data pipeline into SendGrid using this API.
 
 For more information on the SendGrid Responder, please check out:
 
@@ -85,7 +91,16 @@ For more information on the SendGrid Responder, please check out:
 
 <h2 id="optimizely">5. Using Sauna with Optimizely</h2>
 
-XXX
+Our second responder in this release adds support for [Optimizely] [optimizely], the A/B testing service.
+
+This responder supports two responder actions:
+
+1. Uploading one or more [targeting lists] [optimizely-targeting-list] to Optimizely for A/B testing
+2. Uploading a [Dynamic Customer Profiles (DCP)] [optimizely-dcp] datasource to Optimizely 
+
+As with our SendGrid Responder, the Optimizely Responder works with both of our observers, local filesystem and Amazon S3. Coupling this responder with Redshift's [UNLOAD statement] [unload] and our [SQL Runner] [sql-runner], you can schedule nightly updates to your A/B testing targeting lists or DCP profiles, all based on your Snowplow data in Redshift.
+
+Under the hood, Sauna makes use of Optimizely's [Targeting List] [optimizely-targeting-lists-api] and [Bulk Upload] [dcp-bulk-upload] APIs. This responder saves you from having to manually integrate either or both of these APIs into your data pipeline.
 
 For more information on the Optimizely Responder, please check out:
 
@@ -127,8 +142,17 @@ And finally, we are super-excited to be developing a new software category - dec
 [kafka]: http://kafka.apache.org/
 
 [sendgrid]: https://sendgrid.com/
+[sendgrid-contacts-api]: https://sendgrid.com/docs/API_Reference/Web_API_v3/Marketing_Campaigns/contactdb.html
+[sendgrid-marketing-campaigns]: https://sendgrid.com/docs/User_Guide/Marketing_Campaigns/index.html
+[sendgrid-contacts]: https://sendgrid.com/docs/User_Guide/Marketing_Campaigns/contacts.html
+
 [urban-airship]: https://www.urbanairship.com/
+
 [optimizely]: https://www.optimizely.com/
+[optimizely-targeting-list]: https://help.optimizely.com/hc/en-us/articles/206197347-Uploaded-Audience-Targeting-Create-audiences-based-on-lists-of-data
+[optimizely-dcp]: https://developers.optimizely.com/customer-profiles/
+[optimizely-targeting-lists-api]: http://developers.optimizely.com/reference/index.html#create-list
+[dcp-bulk-upload]: https://developers.optimizely.com/customer-profiles/#bulk
 
 [sendgrid-responder-setup]: https://github.com/snowplow/sauna/wiki/SendGrid-Responder-setup-guide
 [optimizely-responder-setup]: https://github.com/snowplow/sauna/wiki/Optimizely-Responder-setup-guide
@@ -144,6 +168,9 @@ And finally, we are super-excited to be developing a new software category - dec
 [sendgrid-responder-guide]: https://github.com/snowplow/sauna/wiki/SendGrid-Responder-user-guide
 [optimizely-responder-guide]: https://github.com/snowplow/sauna/wiki/Optimizely-Responder-user-guide
 [urban-airship-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
+
+[unload]: http://docs.aws.amazon.com/redshift/latest/dg/r_UNLOAD.html
+[sql-runner]: https://github.com/snowplow/sql-runner 
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56

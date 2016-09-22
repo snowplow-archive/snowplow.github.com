@@ -15,7 +15,7 @@ Because you have your own event-level data in your own data warehouse, you can t
 
 Once you build intelligence on that granular data, you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to platforms and channels that you engage with your users through. To take a simple example: you might categorize a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
 
-[!sauna-img] [sauna-img]
+![sauna-img] [sauna-img]
 
 The point of Sauna then is to do this third piece: to make it easier for you to act on your insight by pushing the output of computation/intelligence performed on your event streams (in step 2) to different channels.
 

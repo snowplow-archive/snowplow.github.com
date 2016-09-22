@@ -9,9 +9,11 @@ category: Releases
 
 It's not every day that we get to announce an all-new *category* of software product here at Snowplow: we are hugely excited to be releasing version 0.1.0 of [Sauna] [sauna-repo], our new open-source decisioning and response platform.
 
-Our [Snowplow] [snowplow-repo] platform is about enabling you, as a business, to track and capture events across all your different channels, in granular detail, in a data warehouse, so you can build intelligence on that data. The data that flows through this pipeline is very granular: each data item is an 'event' that on its own is not that valuable, but at scale gives you a complete picture of everything that's going on with your customers.
+Our [Snowplow] [snowplow-repo] platform is about enabling you, as a business, to track and capture events across all your different channels, in granular detail, in a data warehouse, so you can build intelligence on that data. The data that flows through this pipeline is very granular: each data item is an 'event' that on its own is not that valuable, but at scale gives you a complete picture of everything that's going on with each and every one of your users.
 
-Once you build intelligence on that granular data, our expectation is that you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to other platforms. To take a simply example: you might categorise a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
+Because you have your own event-level data in your own data warehouse, you can then plug in any analytics tool to build insight and intelligence on that data. There is an enormous amount that can be done with this data, and there are an enormous number of different programs, platforms and libraries that can be used to build intelligence on your event-level data.
+
+Once you build intelligence on that granular data, you'll want to act on it. In a lot of cases that means pushing the output of that intelligence to platforms and channels that you engage with your users through. To take a simple example: you might categorize a user based on her behavior into a particular user segment. You might then push that information "user A belongs to segment S" into Salesforce so your Sales team know about it, and into your email system so that your Marketing team can send that user a targeted email.
 
 [!sauna-img] [sauna-img]
 
@@ -96,7 +98,7 @@ Our second responder in this release adds support for [Optimizely] [optimizely],
 This responder supports two responder actions:
 
 1. Uploading one or more [targeting lists] [optimizely-targeting-list] to Optimizely for A/B testing
-2. Uploading a [Dynamic Customer Profiles (DCP)] [optimizely-dcp] datasource to Optimizely 
+2. Uploading a [Dynamic Customer Profiles (DCP)] [optimizely-dcp] datasource to Optimizely
 
 As with our SendGrid Responder, the Optimizely Responder works with both of our observers, local filesystem and Amazon S3. Coupling this responder with Redshift's [UNLOAD statement] [unload] and our [SQL Runner] [sql-runner], you can schedule nightly updates to your A/B testing targeting lists or DCP profiles, all based on your Snowplow data in Redshift.
 
@@ -121,7 +123,7 @@ However we have ambitious plans for Sauna's future. In the short-term, summer in
 
 Looking to the future, we are also very interested in extending Sauna to be able to respond to decisions in near-real-time. Our current thinking is to use JSON Schema (or Avro) to define specific commands (e.g. "send email", "raise PagerDuty incident"), and for Sauna to then be able to read those commands from [Amazon Kinesis] [kinesis] or [Apache Kafka] [kafka] streams. This would involve adding new observers for Kinesis and Kafka, as well as defining the new command schemas, which is discussed in [Command schema: design (issue #54)] [issue-54].
 
-Lastly, while Sauna currently runs on a single server, it has been built on top of Akka, and we will be working to add Akka Cluster support for a distributed multi-node setup ([issue #56] [issue-56]). 
+Lastly, while Sauna currently runs on a single server, it has been built on top of Akka, and we will be working to add Akka Cluster support for a distributed multi-node setup ([issue #56] [issue-56]).
 
 <h2 id="contributing">8. Contributing</h2>
 
@@ -134,7 +136,7 @@ And finally, we are super-excited to be developing a new software category - dec
 [sauna-repo]: https://github.com/snowplow/sauna
 [snowplow-repo]: https://github.com/snowplow/snowplow
 
-[sauna-img]: /assets/img/blog/2016/09/data-intelligence-action.jpg
+[sauna-img]: /assets/img/blog/2016/09/data-intelligence-action.png
 [architecture-img]: /assets/img/blog/2016/09/sauna-architecture.png
 
 [akka]: http://akka.io/
@@ -170,7 +172,7 @@ And finally, we are super-excited to be developing a new software category - dec
 [urban-airship-responder-guide]: https://github.com/snowplow/sauna/wiki/Urban-Airship-Responder-user-guide
 
 [unload]: http://docs.aws.amazon.com/redshift/latest/dg/r_UNLOAD.html
-[sql-runner]: https://github.com/snowplow/sql-runner 
+[sql-runner]: https://github.com/snowplow/sql-runner
 
 [issue-54]: https://github.com/snowplow/sauna/issues/54
 [issue-56]: https://github.com/snowplow/sauna/issues/56

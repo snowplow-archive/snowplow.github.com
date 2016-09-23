@@ -13,11 +13,11 @@ We are delighted to release version 0.8.0 of the [Snowplow Python tracker][pytho
 
 This release includes:
 
-1. [Python 3.4 and 3.5 support](#python-3.4-3.5-support)
-2. [First class support for 10 new event types](#new-event-types)
-3. [Support for true timestamps and device sent timestamps](#timestamps)
-4. [Updated API for sending self-describing events](#self-describing-events)
-5. [And more...](#more)
+1. [Python 3.4 and 3.5 support](/blog/2016/09/26/snowplow-python-tracker-0.8.0-released/#python-3.4-3.5-support)
+2. [First class support for 10 new event types](/blog/2016/09/26/snowplow-python-tracker-0.8.0-released/#new-event-types)
+3. [Support for true timestamps and device sent timestamps](/blog/2016/09/26/snowplow-python-tracker-0.8.0-released/#timestamps)
+4. [Updated API for sending self-describing events](/blog/2016/09/26/snowplow-python-tracker-0.8.0-released/#self-describing-events)
+5. [And more...](/blog/2016/09/26/snowplow-python-tracker-0.8.0-released/#more)
 
 Huge thanks to Snowplow user [Adam Griffiths][adam-griffiths] for contributing the Python 3.4 and 3.5 support, *and* the 10 new event types!
 

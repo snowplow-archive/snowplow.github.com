@@ -7,7 +7,7 @@ description: What we're looking for our junior data analyst / scientist
 permalink: /about/jobs/junior-data-analyst/
 ---
 
-<h1>Junior Data Analyst / Scientist<small>London, UK</small></h1>
+<h1>Junior Data Analyst / Scientist<small>&nbsp;London, UK</small></h1>
 
 At Snowplow, we are focused on re-inventing the way that companies do digital analytics.
 

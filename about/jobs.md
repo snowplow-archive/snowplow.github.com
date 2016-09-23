@@ -29,8 +29,7 @@ We do our best to make working at Snowplow a pleasure for the right candidates:
 
 1. [Data engineer][data-engineer] - Remote or London, UK or Berlin, Germany [1 position]
 2. [Technical product manager][technical-product-manager] - London, UK or Berlin, Germany [1 position]
-3. [Senior data analyst][Senior data analyst] - London, UK or remote [1 position]
-4. [Junior data analyst][Junior data analyst] - London, UK or remote [1 position]
+3. [Junior data analyst][Junior data analyst] - London, UK [2 position]
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 

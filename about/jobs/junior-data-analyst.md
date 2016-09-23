@@ -7,7 +7,7 @@ description: What we're looking for our junior data analyst / scientist
 permalink: /about/jobs/junior-data-analyst/
 ---
 
-<h1>Junior Data Analyst / Scientist<small>London, UK, or remote</small></h1>
+<h1>Junior Data Analyst / Scientist<small>London, UK</small></h1>
 
 At Snowplow, we are focused on re-inventing the way that companies do digital analytics.
 
@@ -47,9 +47,7 @@ Technically we want you to have a high level of proficiency in performing data a
 
 ## When you will start
 
-We are looking for a candidate to start with an internship over the summer. If that goes well we have the possibility of offering a full time position.
-
-We are flexible on start times.
+We are looking for candidates to start immediately, but are flexible and happy to work around candidate requirements / desires.
 
 Interested? Send your CV to recruitment@snowplowanalytics.com.
 

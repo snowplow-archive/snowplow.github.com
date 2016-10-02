@@ -80,7 +80,7 @@ TOTAL: 1 invalid Schemas were encountered
 TOTAL: 1 errors were encountered
 {% endhighlight %}
 
-If we now update the schema to include the `minimum` and `maximum` properties:
+If we now update the schema to include the `minimum` and `maximumg` properties:
 
 {% highlight json %}
 {
@@ -179,7 +179,7 @@ The same issue of a JSON Schema field definition under-determining the associate
 }
 {% endhighlight %}
 
-It is clear that the column type for the `example_string_field` should be `VARCHAR`. There is nothing to indicate how long the field should be. As a result, when schema under-determines the associated Redshift DDL, and linting the schema with the increased severity level will fail:
+It is clear that the column type for the `example_string_field` should be `VARCHAR`. However, there is nothing to indicate how long the field should be. As a result, when schema under-determines the associated Redshift DDL, and linting the schema with the increased severity level will fail:
 
 {% highlight bash %}
 $ /path/to/igluctl lint schemas/com.example_company/example_event/jsonschema/1-0-1 --severityLevel 2
@@ -220,7 +220,7 @@ If we update the field definition to include a `maxLength` property:
 }
 {% endhighlight %}
 
-The schema does not validate against the higher `severityLevel` and Igluctl generates the associated Redshift table DDL with the correct field length:
+The schema does validate against the higher `severityLevel`:
 
 {% highlight bash %}
 $ /path/to/igluctl lint schemas/com.example_company/example_event/jsonschema/1-0-1 --severityLevel 2
@@ -249,6 +249,33 @@ BEGIN TRANSACTION;
 
 END TRANSACTION;
 {% endhighlight %}
+
+And Igluctl generates the associated Redshift table DDL with the correct field length:
+
+{% highlight bash %}
+$ /path/to/igluctl static generate schemas/com.example_company/example_event
+File [/Users/yalisassoon/Development/qa/igluctl/test-severity-levels/./sql/com.example_company/example_event_1.sql] already exists and probably was modified manually. You can use --force to override
+File [/Users/yalisassoon/Development/qa/igluctl/test-severity-levels/./sql/com.example_company/example_event/1-0-0/1-0-1.sql] was written successfully!
+$ cat sql/com.example_company/example_event/1-0-0/1-0-1.sql
+-- WARNING: only apply this file to your database if the following SQL returns the expected:
+--
+-- SELECT pg_catalog.obj_description(c.oid) FROM pg_catalog.pg_class c WHERE c.relname = 'com_example_company_example_event_1';
+--  obj_description
+-- -----------------
+--  iglu:com.example_company/example_event/jsonschema/1-0-0
+--  (1 row)
+
+BEGIN TRANSACTION;
+
+  ALTER TABLE atomic.com_example_company_example_event_1
+    ADD COLUMN "example_string_field" VARCHAR(100) ENCODE LZO;
+
+  COMMENT ON TABLE atomic.com_example_company_example_event_1 IS 'iglu:com.example_company/example_event/jsonschema/1-0-1';
+
+END TRANSACTION;
+{% endhighlight %}
+
+
 
 <h2 id="publish-to-s3">2. Publish schemas and jsonpath files to S3</h2>
 

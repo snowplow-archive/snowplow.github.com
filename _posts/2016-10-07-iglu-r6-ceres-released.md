@@ -181,14 +181,14 @@ The same issue of a JSON Schema field definition under-determining the associate
 
 It is clear that the column type for the `example_string_field` should be `VARCHAR`. There is nothing to indicate how long the field should be. As a result, when schema under-determines the associated Redshift DDL, and linting the schema with the increased severity level will fail:
 
-{% higlight bash %}
+{% highlight bash %}
 $ /path/to/igluctl lint schemas/com.example_company/example_event/jsonschema/1-0-1 --severityLevel 2
 FAILURE: Schema [/path/to/schema/registry/schemas/com.example_company/example_event/jsonschema/1-0-1] contains following errors:
 1. String Schema doesn't contain maxLength nor enum properties nor appropriate format
 TOTAL: 0 Schemas were successfully validated
 TOTAL: 1 invalid Schemas were encountered
 TOTAL: 1 errors were encountered
-{% endhighlght %}
+{% endhighlight %}
 
 If we update the field definition to include a `maxLength` property:
 

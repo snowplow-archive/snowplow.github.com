@@ -250,7 +250,7 @@ BEGIN TRANSACTION;
 END TRANSACTION;
 {% endhighlight %}
 
-<h2 id="/blog/2016/10/07/iglu-r6-ceres-released/">2. Publish schemas and jsonpath files to S3</h2>
+<h2 id="publish-to-s3">2. Publish schemas and jsonpath files to S3</h2>
 
 Previously Igluctl enabled users to publish schemas stored locally to a remote Iglu static server repo using the `igluctl static push` command.
 

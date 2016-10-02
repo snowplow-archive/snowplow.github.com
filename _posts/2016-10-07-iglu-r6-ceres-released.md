@@ -80,7 +80,7 @@ TOTAL: 1 invalid Schemas were encountered
 TOTAL: 1 errors were encountered
 {% endhighlight %}
 
-If we now update the schema to include the `min` and `max` properties:
+If we now update the schema to include the `minimum` and `maximum` properties:
 
 {% highlight json %}
 {

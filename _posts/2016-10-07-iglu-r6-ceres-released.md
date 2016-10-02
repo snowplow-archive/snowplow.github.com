@@ -222,7 +222,7 @@ If we update the field definition to include a `maxLength` property:
 
 The schema does not validate against the higher `severityLevel` and Igluctl generates the associated Redshift table DDL with the correct field length:
 
-{% highglight bash %}
+{% highlight bash %}
 $ /path/to/igluctl lint schemas/com.example_company/example_event/jsonschema/1-0-1 --severityLevel 2
 SUCCESS: Schema [/path/to/schema/registry/schemas/com.example_company/example_event/jsonschema/1-0-1] is successfully validated
 TOTAL: 1 Schemas were successfully validated
